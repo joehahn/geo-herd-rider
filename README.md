@@ -9,13 +9,13 @@
 
 Every event throws off a tree of downstream implications, and that in-between window lives in the **middle band** of the tree: deep enough that the herd hasn't priced it, shallow enough that the causality still holds. Hop-1 calls are grazed by the smart money in minutes; hop-4+ chains are seductive storytelling that rarely pays. We never try to predict *how big* a move will be — only its direction and the chain that gets there; sizing is left to a mechanical optimizer downstream.
 
-**What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude (a rule earned the hard way). A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) and clears its pre-registered bar; **next** it adds prediction-market probabilities and smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
+**What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude. A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) and clears its pre-registered bar; **next** it adds prediction-market probabilities and smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
 
 ## The implication ladder
 
 Every triggering event spawns a tree of downstream implications, and the tree has a shape that tells you where the money is:
 
-- **Hop 1 — direct and obvious.** "Iran war de-escalates → oil falls." The herd is here in minutes; futures reprice on the headline. Already grazed, no edge — this is exactly the leaf that *lost* in geo-wave-rider.
+- **Hop 1 — direct and obvious.** "Iran war de-escalates → oil falls." The smart money is here in minutes; futures reprice on the headline. Already grazed, no edge.
 - **Hop 2–3 — the middle band.** Cheaper energy → input-cost relief for airlines and freight and chemicals; Gulf stability → infrastructure capex; disinflation → room for the Fed to cut → rate-sensitive names. The herd takes days to weeks to arrive, and the causality still holds.
 - **Hop 4+ — deep and speculative.** "Freed-up dollars → hiring boom → AI boom → robotics boom." The herd is nowhere near it, but now the logic is a story with a dozen ways to be wrong. This is the trap: an AI will generate gorgeous deep ladders all day, and most of them never pay.
 
