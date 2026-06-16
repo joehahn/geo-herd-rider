@@ -246,6 +246,20 @@ def map_one(client, event: pd.Series, use_web_search: bool) -> dict:
     }
 
 
+def _load_dotenv() -> None:
+    """Load KEY=VALUE lines from a repo-root .env into os.environ (no dependency,
+    won't override anything already set). Lets a cloner just edit .env and run."""
+    env_path = REPO_ROOT / ".env"
+    if not env_path.exists():
+        return
+    for line in env_path.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, _, value = line.partition("=")
+        os.environ.setdefault(key.strip(), value.strip().strip("'\""))
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Blind mapping agent (Phase 1, layer 2).")
     ap.add_argument("--limit", type=int, default=None, help="map only the first N events")
@@ -255,8 +269,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--out", type=Path, default=OUT_CSV)
     args = ap.parse_args(argv)
 
+    _load_dotenv()
     if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ERROR: ANTHROPIC_API_KEY is not set. The mapping agent needs it.", file=sys.stderr)
+        print("ERROR: ANTHROPIC_API_KEY is not set (export it or put it in .env). "
+              "The mapping agent needs it.", file=sys.stderr)
         return 2
 
     import anthropic  # imported here so --help works without the package

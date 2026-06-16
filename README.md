@@ -49,7 +49,34 @@ cd geo-herd-rider
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+
+# The LLM curator calls the Anthropic API — bring your own key.
+cp .env.example .env        # then edit .env, or just export the var:
+export ANTHROPIC_API_KEY=sk-ant-...
 ```
+
+## Run it
+
+The pipeline is three scoreboard-gated stages, raw events → curated portfolio:
+
+```bash
+# 1. Curate: the LLM maps each trigger to a causal ladder (tickers, direction,
+#    chain_depth, audience_breadth), look-ahead-safe. Writes data/events_mapped.csv.
+#    Costs Anthropic tokens; uses claude-opus-4-8 + web search by default.
+python src/map_event.py                     # or --limit 3 for a cheap smoke test
+
+# 2. Score: mechanical scoreboard — per-event excess vs SPY, net of costs.
+python src/score.py                         # writes data/events_scored.csv
+
+# 3. Curate + backtest: middle-band selection → mean-variance optimizer →
+#    per-event-horizon backtest vs SPY buy-and-hold, with the Step-1 gate.
+python src/curator.py --backtest
+```
+
+A worked 26-event dataset is already committed (`events.csv` + `data/*.csv`), so you can
+run step 3 immediately to reproduce the result without spending any tokens. Re-run step 1
+only to regenerate the curation from scratch (note: a retrospective run by a model trained
+past these events is hindsight-contaminated — see [`SPEC.md`](SPEC.md)).
 
 ## Notes
 
