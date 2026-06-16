@@ -1,4 +1,4 @@
-# herd-wave-rider dependencies.
+# geo-herd-rider dependencies.
 #   anthropic         curator: Claude + web search (causal-chain reasoning)
 #   yfinance, pandas  scoreboard + optimizer: prices, returns
 #   numpy, scipy      optimizer: mean-variance solve

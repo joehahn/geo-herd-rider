@@ -1,4 +1,4 @@
-# herd-wave-rider — spec (the implication-ladder portfolio)
+# geo-herd-rider — spec (the implication-ladder portfolio)
 
 **Author:** Joe Hahn (jmh.datasciences@gmail.com)
 **Status:** scoped, foundation scaffolded (Step 0). Seed brief — read this first.
@@ -11,7 +11,7 @@ scoreboard prototyped in [`geo-wave-rider`](https://github.com/joehahn/geo-wave-
 
 ## The thesis in one paragraph
 
-`portfolio-wave-rider` rides slow thematic waves on a quarterly cadence. herd-wave-rider
+`portfolio-wave-rider` rides slow thematic waves on a quarterly cadence. geo-herd-rider
 keeps that exact spine but swaps the *thesis* and widens the *signal layer*. The new
 thesis is the **investor-herd diffusion model**: the mass of investors moves slowly
 toward greener fields, slowed by poor signals, conflicting directions, and friction. The
@@ -28,7 +28,7 @@ after costs (median −0.73% vs SPY, 42% hit, a clean NO-GO). That null is the
 *justification* for this design, not a contradiction of it, and it pointed at *where* the
 only flicker of signal lived: **deep causal chains off quieter sources** (chain-depth-3:
 +9.42% median, 71% hit), not the megaphone calls everyone reads instantly (those lost).
-herd-wave-rider is the disciplined response: be selective toward deep chains, fuse
+geo-herd-rider is the disciplined response: be selective toward deep chains, fuse
 multiple sources so no single weak signal carries the book, and keep the scoreboard as
 the filter that decides what to trust. Full prior result in `prior-work/`.
 

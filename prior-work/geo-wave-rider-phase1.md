@@ -1,13 +1,13 @@
-[&larr; herd-wave-rider README](../README.md)
+[&larr; geo-herd-rider README](../README.md)
 
 # Prior work — geo-wave-rider Phase 1 (the falsification that motivates this project)
 
 This is the verbatim findings writeup from the predecessor experiment
 [`geo-wave-rider`](https://github.com/joehahn/geo-wave-rider), preserved here because it
-is the empirical justification for herd-wave-rider's whole design: it proved the naive
+is the empirical justification for geo-herd-rider's whole design: it proved the naive
 "ride the loud telegraph" strategy has no edge after costs, and showed the only flicker
 of signal lives in deep causal chains off quieter sources — which is exactly the band
-herd-wave-rider targets. Reproduce it in that repo.
+geo-herd-rider targets. Reproduce it in that repo.
 
 ---
 

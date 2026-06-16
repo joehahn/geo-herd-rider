@@ -1,11 +1,11 @@
-# herd-wave-rider
+# geo-herd-rider
 
 **Author:** Joe Hahn  
 **Email:** jmh.datasciences@gmail.com  
 **Date:** 2026-Jun-16 <br>
 **branch:** main
 
-This Claude Code project is the third in a family. [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider) showed that pairing an LLM watchlist curator with a plain mean-variance optimizer beats the optimizer alone, as long as the LLM only decides *which* tickers to hold and never how much. [`geo-wave-rider`](https://github.com/joehahn/geo-wave-rider) then tested a faster, event-driven idea — can you ride a politician's market-moving post? — and returned a clean *no* for the naive version, while pointing at the one place an edge might survive. herd-wave-rider takes that spine and that lesson and builds the smarter thing they imply: an AI that reads a widening stream of signals, reasons out the **laddered chain of implications** behind a geopolitical or macro event, and curates a portfolio aimed at **where the smarter part of the investing herd is heading — arriving a little sooner than the rest of it.**
+This Claude Code project is the third in a family. [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider) showed that pairing an LLM watchlist curator with a plain mean-variance optimizer beats the optimizer alone, as long as the LLM only decides *which* tickers to hold and never how much. [`geo-wave-rider`](https://github.com/joehahn/geo-wave-rider) then tested a faster, event-driven idea — can you ride a politician's market-moving post? — and returned a clean *no* for the naive version, while pointing at the one place an edge might survive. geo-herd-rider takes that spine and that lesson and builds the smarter thing they imply: an AI that reads a widening stream of signals, reasons out the **laddered chain of implications** behind a geopolitical or macro event, and curates a portfolio aimed at **where the smarter part of the investing herd is heading — arriving a little sooner than the rest of it.**
 
 **The model, in one line.** The mass of investors is a slow herd: it streams toward greener fields, but it is slowed by poor signals, conflicting directions, and friction. The edge is never in predicting how big a move will be — it is in being early to where the herd is already going. So this project does not forecast magnitude (the LLM is forbidden from it, a rule earned the hard way in the sibling project); it traces causal chains and gets to the end of them before the crowd.
 
@@ -32,7 +32,7 @@ The machine, end to end: *trigger → probability → AI causal ladder → smart
 
 ## Why it's built this way
 
-The naive version was already falsified next door. geo-wave-rider scored 26 telegraphs and the blanket "ride the post" strategy missed its pre-registered bar on both counts (median −0.73% vs SPY, 42% hit rate) — a clean no-go. But the same run showed the only structure worth chasing was exactly where this model predicts: the deep, multi-hop chains off quieter sources beat the loud, obvious calls, which were the losers. So herd-wave-rider is the disciplined response — be selective toward deep chains, fuse several sources so no single weak signal carries the book, and keep geo-wave-rider's scoring harness as the **scoreboard** that decides whether each new source or curator change actually adds lift before it's allowed to stay. The full prior result is preserved in [`prior-work/geo-wave-rider-phase1.md`](prior-work/geo-wave-rider-phase1.md).
+The naive version was already falsified next door. geo-wave-rider scored 26 telegraphs and the blanket "ride the post" strategy missed its pre-registered bar on both counts (median −0.73% vs SPY, 42% hit rate) — a clean no-go. But the same run showed the only structure worth chasing was exactly where this model predicts: the deep, multi-hop chains off quieter sources beat the loud, obvious calls, which were the losers. So geo-herd-rider is the disciplined response — be selective toward deep chains, fuse several sources so no single weak signal carries the book, and keep geo-wave-rider's scoring harness as the **scoreboard** that decides whether each new source or curator change actually adds lift before it's allowed to stay. The full prior result is preserved in [`prior-work/geo-wave-rider-phase1.md`](prior-work/geo-wave-rider-phase1.md).
 
 ## Status
 
@@ -42,7 +42,7 @@ The naive version was already falsified next door. geo-wave-rider scored 26 tele
 
 ```bash
 git clone <this repo>
-cd herd-wave-rider
+cd geo-herd-rider
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt

@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Operating rules for Claude Code in the `herd-wave-rider` repo. Read this and
+Operating rules for Claude Code in the `geo-herd-rider` repo. Read this and
 [`SPEC.md`](SPEC.md) before doing anything here.
 
 ## What this project is
