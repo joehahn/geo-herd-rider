@@ -37,10 +37,6 @@ The sources are not interchangeable inputs; each answers a different question in
 
 The machine, end to end: *trigger → probability → AI causal ladder → smart-money confirmation → mechanical sizing → a scoreboard that keeps the whole thing honest.*
 
-## Why it's built this way
-
-The naive version was already falsified next door. geo-wave-rider scored 26 telegraphs and the blanket "ride the post" strategy missed its pre-registered bar on both counts (median −0.73% vs SPY, 42% hit rate) — a clean no-go. But the same run showed the only structure worth chasing was exactly where this model predicts: the deep, multi-hop chains off quieter sources beat the loud, obvious calls, which were the losers. So geo-herd-rider is the disciplined response — be selective toward deep chains, fuse several sources so no single weak signal carries the book, and keep geo-wave-rider's scoring harness as the **scoreboard** that decides whether each new source or curator change actually adds lift before it's allowed to stay. The full prior result is preserved in [`prior-work/geo-wave-rider-phase1.md`](prior-work/geo-wave-rider-phase1.md).
-
 ## Status
 
 **Step 1 (one source, end to end) done and passing; Step 2 (prediction markets) is next.** The mean-variance optimizer is reused verbatim from `portfolio-wave-rider` (`src/optimizer.py`); the signal mapper and scoring harness recycled from `geo-wave-rider` (`src/map_event.py`, `src/score.py`) are now evolved into the middle-band curator and a per-event-horizon scoreboard backtest (`src/curator.py --backtest`). On the seed 26-event set the curated book clears its pre-registered bar — annualized excess over SPY buy-and-hold > 0. The design is pre-registered in [`SPEC.md`](SPEC.md) and the build proceeds in scoreboard-gated baby steps laid out there. Note the backtest is retrospective and hindsight-contaminated, so the clean test is a forward paper trade in a later step.
@@ -57,7 +53,7 @@ pip install -r requirements.txt
 
 ## Notes
 
-Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`SPEC.md`](SPEC.md) for the pre-registered design and the baby-step plan, and [`prior-work/`](prior-work/) for the geo-wave-rider null that motivates it.
+Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`SPEC.md`](SPEC.md) for the pre-registered design and the baby-step plan, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
 
 ## Disclaimer
 
