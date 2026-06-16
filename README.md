@@ -55,10 +55,7 @@ cp .env.example .env        # then edit .env, or just export the var:
 export ANTHROPIC_API_KEY=sk-ant-...
 ```
 
-`.env` is gitignored, so your key is never committed — keep it there (or in your shell),
-never in tracked files. The key bills your own account and authenticates as you, so treat
-it like a password: use a dedicated, revocable key scoped to this project. Only the curator
-(`src/map_event.py`) needs it; the scoreboard, optimizer, and backtest run without one.
+`.env` is gitignored, so your key is never committed.
 
 ## Run it
 
