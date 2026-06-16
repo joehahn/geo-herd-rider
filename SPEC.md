@@ -23,8 +23,10 @@ leading indicators to infer *where the smart money is already heading* and posit
 early enough to capture some of the move before the herd prices it away. We never forecast
 how big a move will be — only its direction and the chain that gets there. The curator's
 core skill is **causal-chain reasoning**: take a geopolitical or macro event and trace its
-laddered downstream implications to the instruments at the end of the chain — the
-carriers→Hormuz→tanker-rates→dry-bulk logic, generalized.
+laddered downstream implications to the instruments at the end of the chain — aircraft
+carriers to the western Med → a Strait-of-Hormuz bottleneck → tanker rates (the cost to
+charter oil tankers) spike → dry-bulk rates (the cost to ship dry commodities like grain,
+coal, and iron ore) follow a hop later, generalized.
 
 ## Why this design, and not the naive one
 
