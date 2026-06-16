@@ -14,13 +14,17 @@ scoreboard prototyped in [`geo-wave-rider`](https://github.com/joehahn/geo-wave-
 
 `portfolio-wave-rider` rides slow thematic waves on a quarterly cadence. geo-herd-rider
 keeps that exact spine but swaps the *thesis* and widens the *signal layer*. The new
-thesis is the **investor-herd diffusion model**: the mass of investors moves slowly
-toward greener fields, slowed by poor signals, conflicting directions, and friction. The
-edge is not predicting how big a move will be — it is **being early to where the smarter
-part of the herd is already heading, and arriving a little sooner than the rest of the
-herd.** The curator's new core skill is **causal-chain reasoning**: take a geopolitical
-or macro event and trace its laddered downstream implications to the instruments at the
-end of the chain — the carriers→Hormuz→tanker-rates→dry-bulk logic, generalized.
+thesis is a **three-tier market**: **smart money** (insiders and genuine experts) has a
+real edge and moves first; the **slow herd** arrives late and flattens the move once it
+piles in; and we are neither — no inside information, no deep-investor edge, only **data**
+(posts, news, reports, prediction markets) and **AI to read it**. The play is to use those
+leading indicators to infer *where the smart money is already heading* and position
+**between the smart money and the herd** — late enough that the direction is readable,
+early enough to capture some of the move before the herd prices it away. We never forecast
+how big a move will be — only its direction and the chain that gets there. The curator's
+core skill is **causal-chain reasoning**: take a geopolitical or macro event and trace its
+laddered downstream implications to the instruments at the end of the chain — the
+carriers→Hormuz→tanker-rates→dry-bulk logic, generalized.
 
 ## Why this design, and not the naive one
 
@@ -38,8 +42,8 @@ the filter that decides what to trust. Full prior result in `prior-work/`.
 Every triggering event spawns a **tree of laddered implications** with a characteristic
 shape that defines where the edge is:
 
-- **Hop 1 (direct / obvious).** "Iran war de-escalates → crude falls." The herd is here in
-  *minutes*; futures reprice on the headline. **Already grazed — no edge.**
+- **Hop 1 (direct / obvious).** "Iran war de-escalates → crude falls." The smart money is
+  here in *minutes*; futures reprice on the headline. **Already grazed — no edge.**
 - **Hop 2–3 (the middle band).** Cheaper energy → input-cost relief for energy *consumers*
   (airlines, freight, chemicals); Gulf stability → infrastructure capex; disinflation →
   Fed room to cut → rate-sensitives. The herd arrives over **days to weeks**, and the
