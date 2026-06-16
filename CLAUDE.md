@@ -43,10 +43,12 @@ part of the investing herd is heading, a little sooner than the rest. Full desig
 
 ## Scope discipline (baby steps)
 
-Build one rung at a time, each gated by the scoreboard. **Next increment is Step 1: reframe
-the curator + wire the scoreboard for the single trigger source only.** Do NOT add
-Polymarket / Fed / congressional feeds or build a forward logger until Step 1 pays.
-Confirm scope before jumping ahead.
+Build one rung at a time, each gated by the scoreboard. **Step 1 is done and PASSED**
+(curator middle-band selection + per-event-horizon backtest vs SPY buy-and-hold, single
+trigger source; `src/curator.py --backtest`). **Next increment is Step 2: add Polymarket**
+(probability/eligibility), kept only if it beats the Step-1 config. Do NOT add Fed /
+congressional feeds or build a forward logger until Polymarket pays. Confirm scope before
+jumping ahead.
 
 ## Conventions
 

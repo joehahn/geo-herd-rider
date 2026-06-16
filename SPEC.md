@@ -1,7 +1,8 @@
 # geo-herd-rider — spec (the implication-ladder portfolio)
 
 **Author:** Joe Hahn (jmh.datasciences@gmail.com)
-**Status:** scoped, foundation scaffolded (Step 0). Seed brief — read this first.
+**Status:** Step 1 done (curator + scoreboard backtest, single trigger source, PASS).
+Next up: Step 2 (Polymarket). Seed brief — read this first.
 **Lineage:** a fresh repo that crosses the proven production spine of
 [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)
 (LLM-curated watchlist → mean-variance optimizer → dashboard/backtest, where the LLM
@@ -108,27 +109,35 @@ mechanical sizing → scoreboard.*
 
 - **Step 0 — this SPEC + foundation.** *(done)* Optimizer reused, signal+scoreboard
   recycled, prior-work captured, repo scaffolded.
-- **Step 1 — one source, end to end.** Reframe `map_event.py` from a paper-trade mapper
-  into a **watchlist curator** (adds, with ladder + chain-depth tags) feeding the
-  optimizer; wire the scoreboard as the backtest. Measure the single trigger source vs
-  buy-and-hold.
+- **Step 1 — one source, end to end.** *(done — PASS)* `src/curator.py` curates the
+  middle band (chain_depth ≥ 2, non-megaphone) into a long watchlist, weights it with the
+  reused optimizer, and the scoreboard backtest measures it vs SPY buy-and-hold at
+  per-event-horizon cadence (`--backtest`). Retrospective result on the seed 26-event set:
+  middle band +43% annualized excess vs SPY (PASS, bar = >0); per-event selection median
+  +7.7% vs full-set −0.7%. Caveat: hindsight-contaminated and a strong-bull sample (the
+  drop cohort is also positive) — the clean test is a forward paper trade (a later step).
 - **Step 2 — add Polymarket** (event discovery + probability/eligibility). Keep iff lift.
 - **Step 3 — add Fed comms + congressional trades** (confirmation). Each gated by lift.
 - **Step 4 — multi-source fusion** into one watchlist, with per-source attribution.
 
-## Scope for the next increment (Step 1)
+## Scope for the next increment (Step 2)
 
-Reframe the curator + wire the scoreboard backtest for the **single trigger source only**.
-Do **not** add Polymarket / Fed / congressional feeds yet, and do not build the forward
-logger. Prove one source end-to-end against the scoreboard first.
+Step 1 paid (curated book PASSES the fixed bar). Next: **add Polymarket** for event
+discovery + probability/eligibility, gated by the same lift bar — kept only if it improves
+the backtest over the Step-1 trigger-only config. Still **no** Fed / congressional feeds
+and no forward logger until Polymarket pays. First decision to resolve: deferred #2 (data
+access — which Polymarket endpoint, at what cost). Confirm scope before building.
 
 ## Deferred decisions (revisit when the need arises)
 
-1. **The lift bar** — what margin must a source clear to stay (annualized excess vs
-   buy-and-hold? curator hit-rate? both)?
+1. **The lift bar** — *FIXED at Step 1 (do not re-tune):* a config passes iff its curated
+   book's **annualized excess over SPY buy-and-hold, net of costs, is > 0** (`curator.py`
+   `GATE_ANNUAL_EXCESS`). A later forward eval may add a hit-rate prong.
 2. **Data access** — Polymarket API, congressional-trade source (QuiverQuant / Capitol
-   Trades), Fed-comms ingestion: which are in reach, and at what cost?
-3. **Cadence** — rebalance/evaluation frequency for an event-driven book.
+   Trades), Fed-comms ingestion: which are in reach, and at what cost? *(open — Step 2.)*
+3. **Cadence** — *FIXED at Step 1:* **per-event horizon** (enter at the trigger, hold the
+   event's `horizon_days`, exit; the daily book holds equal capital across active trades,
+   cash when idle). Revisit if multi-source fusion needs a common grid.
 
 ## Risks (named, not hidden)
 
