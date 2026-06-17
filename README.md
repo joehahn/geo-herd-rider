@@ -111,7 +111,7 @@ past these events is hindsight-contaminated — see [`SPEC.md`](SPEC.md)).
 
 ## Notes
 
-Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`SPEC.md`](SPEC.md) for the pre-registered design and the baby-step plan, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
+Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`SPEC.md`](SPEC.md) for the pre-registered design and the baby-step plan, [`TODO.md`](TODO.md) for backlog ideas not yet scoped, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
 
 ## Disclaimer
 
