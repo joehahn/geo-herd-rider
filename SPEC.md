@@ -2,8 +2,8 @@
 
 **Author:** Joe Hahn (jmh.datasciences@gmail.com)
 **Status:** Step 1 done (curator + scoreboard backtest, single trigger source, PASS).
-Step 2 in progress (Polymarket odds module built; probability signal reshaped to a forward
-eval — see deferred #2). Seed brief — read this first.
+Step 2 built end-to-end (Polymarket odds + curator `polymarket_query` + forward logger);
+its lift is pending forward data — see deferred #2. Seed brief — read this first.
 **Lineage:** a fresh repo that crosses the proven production spine of
 [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)
 (LLM-curated watchlist → mean-variance optimizer → dashboard/backtest, where the LLM
@@ -123,12 +123,13 @@ mechanical sizing → scoreboard.*
   middle band +43% annualized excess vs SPY (PASS, bar = >0); per-event selection median
   +7.7% vs full-set −0.7%. Caveat: hindsight-contaminated and a strong-bull sample (the
   drop cohort is also positive) — the clean test is a forward paper trade (a later step).
-- **Step 2 — add Polymarket** (event discovery + probability/eligibility). *(in progress)*
-  `src/polymarket.py` reads market odds (live + best-effort historical), free and keyless,
-  look-ahead-safe by construction. Data-access finding (deferred #2): resolved-market
-  history is unavailable on the free endpoint and coverage skews political/macro, so the
-  retrospective lift test is deferred — the probability signal is evaluated via **forward
-  live logging**, not a seed-data backtest. Keep iff lift (measured forward).
+- **Step 2 — add Polymarket** (event discovery + probability/eligibility). *(built; lift
+  pending forward data)* `src/polymarket.py` reads market odds (live + best-effort
+  historical), the curator emits `polymarket_query`, and `src/forward.py` logs/settles/
+  reports forward decisions. Data-access finding (deferred #2): resolved-market history is
+  unavailable on the free endpoint and coverage skews political/macro, so the retrospective
+  lift test is deferred — the probability signal is evaluated via **forward live logging**,
+  not a seed-data backtest. Keep iff lift (measured forward).
 - **Step 3 — add Fed comms + congressional trades** (confirmation). Each gated by lift.
 - **Step 4 — multi-source fusion** into one watchlist, with per-source attribution.
 
@@ -143,10 +144,17 @@ be evaluated **forward**. Sub-steps:
    the resolvable question (or null); it no longer guesses the odds at all (the old
    `prediction_market_odds` LLM field is gone — non-negotiable #1 tightened). The odds are
    mechanical (`polymarket.py`); `score.py` calibrates on the fetched `polymarket_odds`.
-2. *(next)* Build the **forward logger** that records, per fresh trigger, the live odds at
-   decision time — the clean eval surface. Only then can the probability signal's lift be
-   measured.
-Still **no** Fed / congressional feeds until the probability signal demonstrably pays.
+2. *(done)* The **forward logger** (`src/forward.py`) records, per fresh trigger, the
+   curated ladder + LIVE odds at `decision_ts` (`--add`), settles each after its horizon
+   (`--settle`, entering at the first close after the decision), and reports the clean
+   forward scoreboard (`--report`: excess vs SPY, by cohort, Polymarket calibration).
+   Look-ahead is impossible by construction — the decision is written before the outcome
+   exists.
+
+**Step 2 is built end-to-end; its lift is not yet *measured*** — that needs forward trades
+to accrue (run `--add` as real, post-training triggers arrive; `--settle`/`--report`
+periodically). Do **not** start Step 3 (Fed / congressional feeds) until the forward
+scoreboard shows the probability signal actually pays.
 
 ## Deferred decisions (revisit when the need arises)
 

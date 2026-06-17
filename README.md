@@ -86,6 +86,16 @@ It's evaluated forward, not retrospectively: the free history endpoint returns n
 already-resolved markets, and coverage skews political/macro — see `src/polymarket.py` and
 [`SPEC.md`](SPEC.md) (deferred decision #2).
 
+The **forward logger** is the look-ahead-clean eval surface — log each decision (curated
+ladder + live odds) as a fresh trigger arrives, settle it after the horizon:
+
+```bash
+# add fresh triggers to data/forward_events.csv, then:
+python src/forward.py --add        # map + fetch live odds + log (needs API key)
+python src/forward.py --settle     # score positions whose horizon has elapsed
+python src/forward.py --report     # forward scoreboard: excess vs SPY, by cohort, calibration
+```
+
 A worked 26-event dataset is already committed (`events.csv` + `data/*.csv`), so you can
 run step 3 immediately to reproduce the result without spending any tokens. Re-run step 1
 only to regenerate the curation from scratch (note: a retrospective run by a model trained

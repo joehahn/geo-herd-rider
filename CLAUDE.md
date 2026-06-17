@@ -48,11 +48,13 @@ Build one rung at a time, each gated by the scoreboard. **Step 1 is done and PAS
 trigger source; `src/curator.py --backtest`). **Step 2 is in progress**: the Polymarket
 probability signal (`src/polymarket.py`, free/keyless, look-ahead-safe). Data-access reality
 (SPEC deferred #2) reshaped it — resolved-market history is unavailable and coverage skews
-political/macro, so Polymarket is evaluated **forward**, not retrospectively. Step-2 sub-steps:
-(1) **done** — the curator (`map_event.py`) emits `polymarket_query` and no longer guesses
-odds; `score.py` calibrates on the mechanical `polymarket_odds`. (2) **next** — build the
-forward logger that records live odds at decision time. Do NOT add Fed / congressional feeds
-until the probability signal pays. Confirm scope before jumping ahead.
+political/macro, so Polymarket is evaluated **forward**, not retrospectively. Step 2 is now
+**built end-to-end**: the curator (`map_event.py`) emits `polymarket_query` (no LLM odds
+guess), `polymarket.py` fetches odds, `score.py` calibrates, and `forward.py` logs/settles/
+reports look-ahead-clean forward decisions. **Its lift is not yet measured** — that needs
+forward trades to accrue (run `forward.py --add` as fresh triggers arrive, then
+`--settle`/`--report`). Do NOT start Step 3 (Fed / congressional feeds) until the forward
+scoreboard shows the probability signal pays. Confirm scope before jumping ahead.
 
 ## Conventions
 
