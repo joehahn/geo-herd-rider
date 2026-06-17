@@ -56,6 +56,14 @@ OUT_CSV = REPO_ROOT / "data" / "events_mapped.csv"
 
 MODEL = "claude-opus-4-8"
 
+# Adaptive thinking + the effort knob work on Opus 4.x / Sonnet 4.6 / Fable, but ERROR on
+# Haiku 4.5 and older. Gate them so a cheap curator (Haiku) can be used for playtests.
+_ADVANCED_PARAM_MODELS = ("opus-4", "sonnet-4-6", "fable", "mythos")
+
+
+def _supports_advanced(model: str) -> bool:
+    return any(k in model for k in _ADVANCED_PARAM_MODELS)
+
 # The mapping columns the agent appends to each event row.
 MAPPING_COLUMNS = [
     "mapped_tickers",          # ;-separated US-listed tickers/ETFs
@@ -196,7 +204,7 @@ def _extract_json(text: str) -> dict:
     raise ValueError("no JSON object found in model output")
 
 
-def map_one(client, event: pd.Series, use_web_search: bool) -> dict:
+def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) -> dict:
     """Run the agent on a single event; return a dict of MAPPING_COLUMNS."""
     telegraph_date = str(event["telegraph_ts"])[:10]
     user_msg = USER_TEMPLATE.format(
@@ -214,20 +222,17 @@ def map_one(client, event: pd.Series, use_web_search: bool) -> dict:
     )
 
     messages = [{"role": "user", "content": user_msg}]
+    create_kwargs = {"model": model, "max_tokens": 8000, "system": SYSTEM_PROMPT,
+                     "tools": tools, "messages": messages}
+    if _supports_advanced(model):  # Haiku 4.5 rejects effort + adaptive thinking
+        create_kwargs["thinking"] = {"type": "adaptive"}
+        create_kwargs["output_config"] = {"effort": "high"}
     final_text = ""
     # Server-side web search runs an internal loop; it can return pause_turn when
     # it hits the per-request tool-iteration cap. Re-send to resume (no extra
     # user message — the API detects the trailing server_tool_use and continues).
     for _ in range(6):
-        resp = client.messages.create(
-            model=MODEL,
-            max_tokens=8000,
-            thinking={"type": "adaptive"},
-            output_config={"effort": "high"},
-            system=SYSTEM_PROMPT,
-            tools=tools,
-            messages=messages,
-        )
+        resp = client.messages.create(**create_kwargs)
         final_text = "".join(b.text for b in resp.content if b.type == "text")
         if resp.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": resp.content})
@@ -273,6 +278,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--force", action="store_true", help="remap events already in output")
     ap.add_argument("--events", type=Path, default=EVENTS_CSV)
     ap.add_argument("--out", type=Path, default=OUT_CSV)
+    ap.add_argument("--model", default=MODEL,
+                    help="curator model (default claude-opus-4-8; e.g. claude-haiku-4-5 for cheap playtests)")
     args = ap.parse_args(argv)
 
     _load_dotenv()
@@ -302,7 +309,7 @@ def main(argv: list[str] | None = None) -> int:
             continue
         print(f"  {eid}: mapping ...", flush=True)
         try:
-            mapping = map_one(client, event, use_web_search=not args.no_web_search)
+            mapping = map_one(client, event, use_web_search=not args.no_web_search, model=args.model)
         except Exception as e:  # one bad event shouldn't sink the batch
             print(f"  {eid}: FAILED ({e})", file=sys.stderr)
             continue

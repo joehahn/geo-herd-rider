@@ -39,7 +39,13 @@ The machine, end to end: *trigger → probability → AI causal ladder → smart
 
 ## Status
 
-**Step 1 done and passing; Step 2 built end-to-end (lift pending forward data).** The mean-variance optimizer is reused verbatim from `portfolio-wave-rider` (`src/optimizer.py`); the signal mapper and scoring harness recycled from `geo-wave-rider` (`src/map_event.py`, `src/score.py`) are evolved into the middle-band curator and a per-event-horizon backtest (`src/curator.py --backtest`). On the seed 26-event set the curated book clears its pre-registered bar (annualized excess over SPY buy-and-hold > 0) — but that backtest is retrospective and hindsight-contaminated. Step 2 adds the Polymarket probability signal (`src/polymarket.py`), a curator-emitted `polymarket_query`, and the forward paper-trade logger (`src/forward.py`) that SPEC calls the only clean test; its lift will be measured on forward trades as they accrue. Step 3 (Fed / congressional confirmation) waits until the forward scoreboard shows the probability signal pays. Full plan in [`SPEC.md`](SPEC.md).
+Built in scoreboard-gated baby steps (full plan in [`SPEC.md`](SPEC.md)):
+
+- **Step 1 _(done, passing)_** — the middle-band curator + a per-event-horizon backtest vs SPY buy-and-hold (`src/curator.py --backtest`). Optimizer reused verbatim from `portfolio-wave-rider`, mapper and scorer from `geo-wave-rider`.
+- **Step 2 _(built; lift pending)_** — a Polymarket probability signal (`src/polymarket.py`, with `--discover` to surface hot events), a curator-named `polymarket_query`, and a forward paper-trade logger (`src/forward.py`). Catch: Polymarket has no usable history for resolved markets and the curator LLM was trained past the events, so retrospective numbers are hindsight-contaminated. The only clean test is forward, so that's where the lift gets measured.
+- **Step 3 _(waiting)_** — Fed + congressional-trade confirmation, gated until the scoreboard says Step 2 pays.
+
+First playtest — the 2026 Trump–Iran war (`data/windows/iran.csv`), Haiku curator, under $1: +12.8% median excess vs SPY, 70% hit on the matured trades. Encouraging, but mostly the obvious "war → long oil" megaphone call the thesis says is already grazed — the middle-band filter kept 1 of 15. The real test is the quiet windows, still to come.
 
 ## Setup
 

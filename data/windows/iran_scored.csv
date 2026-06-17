@@ -1,0 +1,16 @@
+event_id,direction,mapped_tickers,horizon_days,chain_depth,audience_breadth,entry_date,exit_date,strategy_return,spx_return,excess_return_raw,excess_return,hit,haircut,thin_etf,path_shape,front_loading,polymarket_odds,status
+IRN001,long,USO;XLE;MHO;IYM,60.0,2.0,megaphone,2026-01-26,2026-03-27,0.2077,-0.0822,0.2898,0.2883,True,0.0015,False,drift,-0.012,,ok
+IRN002,long,USO;XLE;ZIM;LUV,60.0,3.0,megaphone,2026-02-13,2026-04-14,0.1752,0.0214,0.1537,0.1522,True,0.0015,False,drift,0.475,,ok
+IRN003,long,USO;XLE;ITA;IYM;UUP,21.0,2.0,megaphone,2026-02-17,2026-03-10,0.0878,-0.0083,0.0961,0.0946,True,0.0015,False,drift,0.139,,ok
+IRN004,long,TAN;FRO;USO;XLE,40.0,3.0,broad,2026-02-20,2026-04-01,0.1482,-0.047,0.1952,0.1937,True,0.0015,False,drift,0.08,,ok
+IRN005,long,USO;XLE;CVX;MPC,30.0,2.0,megaphone,2026-03-02,2026-04-01,0.16,-0.0428,0.2028,0.2013,True,0.0015,False,drift,0.082,,ok
+IRN006,long,USO;XLE,30.0,2.0,megaphone,2026-03-02,2026-04-01,0.2319,-0.0428,0.2747,0.2732,True,0.0015,False,drift,0.078,,ok
+IRN007,long,USO;XLE;IYM,14.0,2.0,megaphone,2026-03-23,2026-04-06,0.1109,0.0054,0.1055,0.104,True,0.0015,False,drift,0.268,,ok
+IRN008,long,USO;XLE;TAN,14.0,2.0,megaphone,2026-04-08,2026-04-22,0.0135,0.0521,-0.0385,-0.04,False,0.0015,False,fizzle,0.21,,ok
+IRN009,long,USO;XLE;ZIM;SBLK,45.0,2.0,megaphone,2026-04-13,2026-05-28,0.0065,0.0998,-0.0933,-0.0948,False,0.0015,False,fizzle,0.312,,ok
+IRN010,long,XLE;CVX;COP,45.0,2.0,megaphone,2026-04-22,2026-06-08,0.0112,0.0394,-0.0282,-0.0297,False,0.0015,False,fizzle,-0.482,,ok
+IRN011,,,,,,,,,,,,,,,,,,window beyond available data
+IRN012,,,,,,,,,,,,,,,,,,window beyond available data
+IRN013,,,,,,,,,,,,,,,,,,window beyond available data
+IRN014,,,,,,,,,,,,,,,,,,window beyond available data
+IRN015,,,,,,,,,,,,,,,,,,window beyond available data
