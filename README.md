@@ -86,11 +86,19 @@ It's evaluated forward, not retrospectively: the free history endpoint returns n
 already-resolved markets, and coverage skews political/macro — see `src/polymarket.py` and
 [`SPEC.md`](SPEC.md) (deferred decision #2).
 
+Polymarket also works as an **event-discovery** feed — it prices *events*, not sectors, so a
+market that's both watched and moving is a live upstream event the curator can ladder down to
+a vertical and instruments:
+
+```bash
+python src/polymarket.py --discover   # hot/moving markets -> candidate triggers (no tokens)
+```
+
 The **forward logger** is the look-ahead-clean eval surface — log each decision (curated
 ladder + live odds) as a fresh trigger arrives, settle it after the horizon:
 
 ```bash
-# add fresh triggers to data/forward_events.csv, then:
+# add fresh triggers to data/forward_events.csv (hand-picked, or from --discover), then:
 python src/forward.py --add        # map + fetch live odds + log (needs API key)
 python src/forward.py --settle     # score positions whose horizon has elapsed
 python src/forward.py --report     # forward scoreboard: excess vs SPY, by cohort, calibration

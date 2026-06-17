@@ -50,8 +50,10 @@ probability signal (`src/polymarket.py`, free/keyless, look-ahead-safe). Data-ac
 (SPEC deferred #2) reshaped it — resolved-market history is unavailable and coverage skews
 political/macro, so Polymarket is evaluated **forward**, not retrospectively. Step 2 is now
 **built end-to-end**: the curator (`map_event.py`) emits `polymarket_query` (no LLM odds
-guess), `polymarket.py` fetches odds, `score.py` calibrates, and `forward.py` logs/settles/
-reports look-ahead-clean forward decisions. **Its lift is not yet measured** — that needs
+guess), `polymarket.py` fetches odds and `--discover`s hot/moving markets as candidate
+triggers (event discovery — Polymarket prices events, the curator ladders to vertical +
+instruments), `score.py` calibrates, and `forward.py` logs/settles/reports look-ahead-clean
+forward decisions. **Its lift is not yet measured** — that needs
 forward trades to accrue (run `forward.py --add` as fresh triggers arrive, then
 `--settle`/`--report`). Do NOT start Step 3 (Fed / congressional feeds) until the forward
 scoreboard shows the probability signal pays. Confirm scope before jumping ahead.

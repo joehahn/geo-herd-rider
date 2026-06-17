@@ -5,3 +5,4 @@ __pycache__/
 .DS_Store
 .env
 data/prices_cache/
+data/polymarket_candidates.csv

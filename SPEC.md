@@ -125,7 +125,9 @@ mechanical sizing → scoreboard.*
   drop cohort is also positive) — the clean test is a forward paper trade (a later step).
 - **Step 2 — add Polymarket** (event discovery + probability/eligibility). *(built; lift
   pending forward data)* `src/polymarket.py` reads market odds (live + best-effort
-  historical), the curator emits `polymarket_query`, and `src/forward.py` logs/settles/
+  historical) **and** `--discover` surfaces hot/moving markets as candidate triggers (the
+  event-discovery half — Polymarket prices *events*, the curator ladders each to a vertical
+  and instruments); the curator emits `polymarket_query`, and `src/forward.py` logs/settles/
   reports forward decisions. Data-access finding (deferred #2): resolved-market history is
   unavailable on the free endpoint and coverage skews political/macro, so the retrospective
   lift test is deferred — the probability signal is evaluated via **forward live logging**,
