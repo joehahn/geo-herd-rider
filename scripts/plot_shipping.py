@@ -40,7 +40,7 @@ def main():
         ax.axvline(x, color="0.5", ls="--", lw=0.8)
         ax.text(x, top, " " + lbl, rotation=90, va="top", ha="left", fontsize=7.5, color="0.4")
     ax.axhline(100, color="0.88", lw=0.8, zorder=0)
-    ax.set_title("BWET vs SPY — the 2026 Iran-war herd pivot (~5x while SPY sat flat)", fontsize=11)
+    ax.set_title("BWET vs SPY — the 2026 Iran-war herd pivot (~8x from the Dec protests)", fontsize=11)
     ax.set_ylabel("indexed to 100 (carriers → W. Med, Feb 2026)")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
     ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
