@@ -19,7 +19,7 @@ import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-START, END = "2026-01-01", "2026-06-17"
+START, END = "2025-06-17", "2026-06-17"   # ~1 year: ~8mo of low pre-war baseline + the pivot
 ANCHOR = "2026-02-20"   # carriers transit the western Med — index to 100 here
 EVENTS = {"2026-02-20": "carriers → W. Med", "2026-02-28": "strike",
           "2026-06-15": "peace deal"}
@@ -43,7 +43,8 @@ def main():
     ax.set_title("BWET vs SPY — the 2026 Iran-war herd pivot (~5x while SPY sat flat)", fontsize=11)
     ax.set_ylabel("indexed to 100 (carriers → W. Med, Feb 2026)")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
-    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
+    ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter("%b %y"))
     ax.margins(x=0.01)
     fig.tight_layout()
 

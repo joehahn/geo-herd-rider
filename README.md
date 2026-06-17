@@ -27,7 +27,7 @@ The ticker that motivated this project is **BWET** — a dry-bulk freight ETF, t
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
-Indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). Reproduce: `python scripts/plot_shipping.py`.
+A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). BWET drifted at a fraction of its eventual level all year, then ran with the war. Reproduce: `python scripts/plot_shipping.py`.
 
 ## Four signals, four jobs
 
