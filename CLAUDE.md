@@ -45,10 +45,13 @@ part of the investing herd is heading, a little sooner than the rest. Full desig
 
 Build one rung at a time, each gated by the scoreboard. **Step 1 is done and PASSED**
 (curator middle-band selection + per-event-horizon backtest vs SPY buy-and-hold, single
-trigger source; `src/curator.py --backtest`). **Next increment is Step 2: add Polymarket**
-(probability/eligibility), kept only if it beats the Step-1 config. Do NOT add Fed /
-congressional feeds or build a forward logger until Polymarket pays. Confirm scope before
-jumping ahead.
+trigger source; `src/curator.py --backtest`). **Step 2 is in progress**: the Polymarket
+probability signal (`src/polymarket.py`, free/keyless, look-ahead-safe). Data-access reality
+(SPEC deferred #2) reshaped it — resolved-market history is unavailable and coverage skews
+political/macro, so Polymarket is evaluated **forward**, not retrospectively. Remaining Step-2
+sub-steps: (1) wire a `polymarket_query` into the curator, (2) build the forward logger that
+records live odds at decision time. Do NOT add Fed / congressional feeds until the
+probability signal pays. Confirm scope before jumping ahead.
 
 ## Conventions
 

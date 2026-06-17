@@ -75,6 +75,17 @@ python src/score.py                         # writes data/events_scored.csv
 python src/curator.py --backtest
 ```
 
+Step 2 (in progress) adds a Polymarket probability signal — free, keyless, look-ahead-safe:
+
+```bash
+python src/polymarket.py "Fed rate cut 2026"          # live YES odds for a market
+python src/polymarket.py "..." --as-of 2025-01-15     # odds at/before a past date
+```
+
+It's evaluated forward, not retrospectively: the free history endpoint returns nothing for
+already-resolved markets, and coverage skews political/macro — see `src/polymarket.py` and
+[`SPEC.md`](SPEC.md) (deferred decision #2).
+
 A worked 26-event dataset is already committed (`events.csv` + `data/*.csv`), so you can
 run step 3 immediately to reproduce the result without spending any tokens. Re-run step 1
 only to regenerate the curation from scratch (note: a retrospective run by a model trained

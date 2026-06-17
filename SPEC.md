@@ -2,7 +2,8 @@
 
 **Author:** Joe Hahn (jmh.datasciences@gmail.com)
 **Status:** Step 1 done (curator + scoreboard backtest, single trigger source, PASS).
-Next up: Step 2 (Polymarket). Seed brief — read this first.
+Step 2 in progress (Polymarket odds module built; probability signal reshaped to a forward
+eval — see deferred #2). Seed brief — read this first.
 **Lineage:** a fresh repo that crosses the proven production spine of
 [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)
 (LLM-curated watchlist → mean-variance optimizer → dashboard/backtest, where the LLM
@@ -122,25 +123,40 @@ mechanical sizing → scoreboard.*
   middle band +43% annualized excess vs SPY (PASS, bar = >0); per-event selection median
   +7.7% vs full-set −0.7%. Caveat: hindsight-contaminated and a strong-bull sample (the
   drop cohort is also positive) — the clean test is a forward paper trade (a later step).
-- **Step 2 — add Polymarket** (event discovery + probability/eligibility). Keep iff lift.
+- **Step 2 — add Polymarket** (event discovery + probability/eligibility). *(in progress)*
+  `src/polymarket.py` reads market odds (live + best-effort historical), free and keyless,
+  look-ahead-safe by construction. Data-access finding (deferred #2): resolved-market
+  history is unavailable on the free endpoint and coverage skews political/macro, so the
+  retrospective lift test is deferred — the probability signal is evaluated via **forward
+  live logging**, not a seed-data backtest. Keep iff lift (measured forward).
 - **Step 3 — add Fed comms + congressional trades** (confirmation). Each gated by lift.
 - **Step 4 — multi-source fusion** into one watchlist, with per-source attribution.
 
-## Scope for the next increment (Step 2)
+## Scope for the next increment (Step 2, continued)
 
-Step 1 paid (curated book PASSES the fixed bar). Next: **add Polymarket** for event
-discovery + probability/eligibility, gated by the same lift bar — kept only if it improves
-the backtest over the Step-1 trigger-only config. Still **no** Fed / congressional feeds
-and no forward logger until Polymarket pays. First decision to resolve: deferred #2 (data
-access — which Polymarket endpoint, at what cost). Confirm scope before building.
+The probability signal's plumbing is built (`src/polymarket.py`: live + best-effort
+historical odds, free/keyless, look-ahead-safe). The data-access finding (deferred #2)
+forced a reshape: resolved-market history is unavailable and coverage skews political/
+macro, so Polymarket **cannot** be lift-tested retrospectively on the seed events — it must
+be evaluated **forward**. The two remaining sub-steps, in order:
+1. Wire a `polymarket_query` into the curator (the LLM phrases the resolvable question;
+   the odds stay mechanical — non-negotiable #1 preserved).
+2. Build the **forward logger** that records, per fresh trigger, the live odds at decision
+   time — the clean eval surface. Only then can the probability signal's lift be measured.
+Still **no** Fed / congressional feeds until the probability signal demonstrably pays.
 
 ## Deferred decisions (revisit when the need arises)
 
 1. **The lift bar** — *FIXED at Step 1 (do not re-tune):* a config passes iff its curated
    book's **annualized excess over SPY buy-and-hold, net of costs, is > 0** (`curator.py`
    `GATE_ANNUAL_EXCESS`). A later forward eval may add a hit-rate prong.
-2. **Data access** — Polymarket API, congressional-trade source (QuiverQuant / Capitol
-   Trades), Fed-comms ingestion: which are in reach, and at what cost? *(open — Step 2.)*
+2. **Data access** — *Polymarket RESOLVED at Step 2:* Gamma (discovery) + CLOB
+   (`/prices-history`) are free and keyless, and the contract is look-ahead-safe. But the
+   free history endpoint returns coarse/empty data for **already-resolved** markets, and
+   coverage skews political/macro (near-zero for single-company/equity). So a retrospective
+   Polymarket lift test isn't viable on the seed events — the clean use is **live, forward
+   logging** (`src/polymarket.py`). Congressional-trade source (QuiverQuant / Capitol
+   Trades) and Fed-comms ingestion remain open (Steps 3+).
 3. **Cadence** — *FIXED at Step 1:* **per-event horizon** (enter at the trigger, hold the
    event's `horizon_days`, exit; the daily book holds equal capital across active trades,
    cash when idle). Revisit if multi-source fusion needs a common grid.
