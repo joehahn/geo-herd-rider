@@ -21,10 +21,15 @@ Every triggering event spawns a tree of downstream implications, and the tree ha
 
 **The whole bet is the middle band** — deep enough that the herd hasn't arrived, shallow enough that the causality is still real. The curator's job is not to *find* implications (that's infinite and easy) but to generate the full tree and locate the band that is both unpriced and correct.
 
-The canonical example, generalized from the move that motivated this family: **aircraft carriers steam to the western Mediterranean → the market reads a rising risk that the Strait of Hormuz is choked → tanker rates spike → dry-bulk rates follow.**
+The canonical example, from the move that motivated this family (the 2026 Trump–Iran war): **aircraft carriers steam to the western Mediterranean _(Feb 2026)_ → the market reads a rising risk that the Strait of Hormuz is choked _(Mar 2026)_ → tanker rates spike _(Mar 2026)_ → dry-bulk rates follow _(spring 2026)_.**
 
 - **Tanker rates** are the price to charter an oil tanker (the *wet-bulk* freight market, tracked by indices like the Baltic Dirty Tanker Index). A Hormuz threat — the chokepoint for roughly a fifth of seaborne oil — forces tankers onto longer reroutes, drives up war-risk insurance, and tightens available capacity, so the rate to move a barrel by sea jumps. This leg is obvious and gets grazed fast.
 - **Dry-bulk rates** are the price to ship *dry* commodities — iron ore, coal, grain — in the holds of bulk carriers (the *dry-bulk* freight market, tracked by the Baltic Dry Index). They rise a hop later: the same rerouting, higher bunker-fuel costs, and insurance pressure spill out of oil shipping into freight broadly, and vessels diverted or delayed tighten dry-bulk capacity too. This quieter knock-on is the middle band — the herd hasn't priced it yet, but the causal link still holds.
+
+| ![Wet bulk — tanker equities](assets/wet_tankers.png) | ![Dry bulk — bulk carriers](assets/dry_bulk.png) |
+|:--:|:--:|
+
+The 2026 Iran war, both panels indexed to 100 at New Year (SPY in grey). Tankers spike within weeks of the Hormuz threat; dry-bulk follows a hop later and more slowly — the band the herd reaches last. Reproduce: `python scripts/plot_shipping.py`.
 
 ## Four signals, four jobs
 
