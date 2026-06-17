@@ -1,9 +1,10 @@
-"""plot_shipping.py — illustrate the wet-leads / dry-follows freight ladder.
+"""plot_shipping.py — the motivating chart: BWET vs SPY across the 2026 Iran war.
 
-Two panels for the README's canonical example (carriers -> Hormuz -> tanker rates ->
-dry-bulk), drawn from real prices over the 2026 Trump-Iran war: tanker equities (wet bulk)
-spike fast on the Hormuz threat; dry-bulk carriers follow a hop later and more slowly.
-Indexed to 100 at the window start, SPY as the market baseline. Saves two PNGs under assets/.
+BWET (a dry-bulk freight ETF) is the far end of the carriers -> Hormuz -> dry-bulk chain,
+and the ticker that motivated this project: it ran ~5x from the Feb-2026 carrier deployment
+to its May peak while SPY sat flat — a four-month herd pivot telegraphed by Trump's tweets,
+with a May rollover as the smart money rotated out ahead of the peace deal. One line tells
+the whole thesis. Indexed to 100 at the carrier deployment. Saves assets/bwet_vs_spy.png.
 
     python scripts/plot_shipping.py
 """
@@ -18,46 +19,39 @@ import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-START, END = "2025-07-01", "2026-06-17"   # ~6mo of pre-event baseline before the Jan-2026 buildup
-WET = ["FRO", "STNG"]   # tanker equities (Frontline, Scorpio Tankers)
-DRY = ["SBLK", "GNK"]   # dry-bulk carriers (Star Bulk, Genco)
-EVENTS = {"2026-02-28": "Feb 28 strike", "2026-06-15": "Jun 15 Hormuz reopens"}
+START, END = "2026-01-01", "2026-06-17"
+ANCHOR = "2026-02-20"   # carriers transit the western Med — index to 100 here
+EVENTS = {"2026-02-20": "carriers → W. Med", "2026-02-28": "strike",
+          "2026-06-15": "peace deal"}
 
 
-def panel(ax, tickers, prices, title):
-    idx = prices / prices.iloc[0] * 100.0
-    ax.plot(idx.index, idx["SPY"], color="0.7", lw=1.4, label="SPY")
-    for t in tickers:
-        ax.plot(idx.index, idx[t], lw=1.9, label=t)
+def main():
+    p = yf.download(["BWET", "SPY"], start=START, end=END, auto_adjust=True,
+                    progress=False)["Close"].dropna()
+    base = p.loc[p.index >= pd.Timestamp(ANCHOR)].iloc[0]
+    idx = p / base * 100.0
+
+    fig, ax = plt.subplots(figsize=(7.2, 4.3))
+    ax.plot(idx.index, idx["SPY"], color="0.7", lw=1.6, label="SPY")
+    ax.plot(idx.index, idx["BWET"], color="#c0392b", lw=2.1, label="BWET (dry-bulk freight)")
     top = ax.get_ylim()[1]
     for d, lbl in EVENTS.items():
         x = pd.Timestamp(d)
         ax.axvline(x, color="0.5", ls="--", lw=0.8)
-        ax.text(x, top, " " + lbl, rotation=90, va="top", ha="left", fontsize=7, color="0.45")
+        ax.text(x, top, " " + lbl, rotation=90, va="top", ha="left", fontsize=7.5, color="0.4")
     ax.axhline(100, color="0.88", lw=0.8, zorder=0)
-    ax.set_title(title, fontsize=11)
-    ax.set_ylabel(f"indexed to 100 ({idx.index[0].date()})")
+    ax.set_title("BWET vs SPY — the 2026 Iran-war herd pivot (~5x while SPY sat flat)", fontsize=11)
+    ax.set_ylabel("indexed to 100 (carriers → W. Med, Feb 2026)")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
     ax.margins(x=0.01)
+    fig.tight_layout()
 
-
-def main():
-    tickers = sorted(set(WET + DRY + ["SPY"]))
-    prices = yf.download(tickers, start=START, end=END, auto_adjust=True,
-                         progress=False)["Close"].dropna()
     ASSETS.mkdir(exist_ok=True)
-    for names, fname, title in [
-        (WET, "wet_tankers", "Wet bulk — tanker equities (rates spike fast)"),
-        (DRY, "dry_bulk", "Dry bulk — bulk carriers (the slower hop)"),
-    ]:
-        fig, ax = plt.subplots(figsize=(5.6, 4.0))
-        panel(ax, names, prices, title)
-        fig.tight_layout()
-        out = ASSETS / f"{fname}.png"
-        fig.savefig(out, dpi=130)
-        plt.close(fig)
-        print("wrote", out)
+    out = ASSETS / "bwet_vs_spy.png"
+    fig.savefig(out, dpi=130)
+    plt.close(fig)
+    print("wrote", out)
 
 
 if __name__ == "__main__":

@@ -23,13 +23,11 @@ Every triggering event spawns a tree of downstream implications, and the tree ha
 
 The canonical example, from the move that motivated this family (the 2026 Trump–Iran war): **aircraft carriers steam to the western Mediterranean _(Feb 2026)_ → the market reads a rising risk that the Strait of Hormuz is choked _(Mar 2026)_ → tanker rates spike _(Mar 2026)_ → dry-bulk rates follow _(spring 2026)_.**
 
-- **Tanker rates** are the price to charter an oil tanker (the *wet-bulk* freight market, tracked by indices like the Baltic Dirty Tanker Index). A Hormuz threat — the chokepoint for roughly a fifth of seaborne oil — forces tankers onto longer reroutes, drives up war-risk insurance, and tightens available capacity, so the rate to move a barrel by sea jumps. This leg is obvious and gets grazed fast.
-- **Dry-bulk rates** are the price to ship *dry* commodities — iron ore, coal, grain — in the holds of bulk carriers (the *dry-bulk* freight market, tracked by the Baltic Dry Index). They rise a hop later: the same rerouting, higher bunker-fuel costs, and insurance pressure spill out of oil shipping into freight broadly, and vessels diverted or delayed tighten dry-bulk capacity too. This quieter knock-on is the middle band — the herd hasn't priced it yet, but the causal link still holds.
+The ticker that motivated this project is **BWET** — a dry-bulk freight ETF, the far end of that chain. In the 2026 Trump–Iran war it ran **~5x** from the late-February carrier move to its May peak while SPY sat flat: a four-month herd pivot, telegraphed start to finish by Trump's tweets. The edge isn't knowing BWET will 5x — it's reading the trigger early enough to be *on* it during the pivot rather than after (even the back half was ~2x). The May plateau is the three-tier model in one line: as the tweets turned toward peace, smart money rotated out to greener pastures while the slow herd kept backfilling. The curator's job is to find the *next* BWET — prune the tree off a fresh trigger down to the deep instrument the herd will slow-walk toward.
 
-| ![Wet bulk — tanker equities](assets/wet_tankers.png) | ![Dry bulk — bulk carriers](assets/dry_bulk.png) |
-|:--:|:--:|
+![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
-Both panels indexed to 100 in mid-2025 (SPY in grey). Shipping was already rallying through 2025 — so this is no flat baseline — but note the Feb-2026 acceleration off the Hormuz threat: tankers (wet) jump first, dry-bulk follows a hop later. The war sharpened an existing uptrend more than it started one. Reproduce: `python scripts/plot_shipping.py`.
+Indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). Reproduce: `python scripts/plot_shipping.py`.
 
 ## Four signals, four jobs
 
