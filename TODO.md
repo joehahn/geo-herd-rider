@@ -37,3 +37,39 @@ quiet periods would be a red flag worth acting on.
   per window, compared against each window's SPY.
 - **Pre-register the contrast** before running (which windows, what "edge" threshold) so the
   loud-vs-quiet comparison can't be tuned to the data — same discipline as the Step-1 bar.
+
+## Curator model bake-off: which LLM is good enough?
+
+Hold the events + scoring **fixed** and vary **only the curator model** — Opus 4.8, Sonnet 4.6,
+and open-weight models via OpenRouter — then measure whether the cheaper curators produce
+ladders that *score* comparably (excess vs SPY on the same window). The curator's causal-ladder
+reasoning is the variable under test, so this is **not** a reason to downgrade the eval model;
+it's a separate experiment about the model itself.
+
+**Why it's worth it:** forward operation runs many triggers over time, so "cheapest model that's
+good enough" is a real cost question (the absolute savings on any one backtest are small — the
+*answer* is the prize). It's also sharp goal-2 content: "benchmarked frontier vs. open-weight
+LLMs on multi-hop causal-ladder curation."
+
+**Recycle from [`diplomacy-A2A`](https://github.com/joehahn/diplomacy-A2A):**
+- the `LLMClient` interface pattern (`diplomacy_a2a/llm/` — provider-agnostic, `AnthropicClient`
+  the only impl today) → the seam `map_event.py` lacks; add an OpenRouter impl alongside.
+- the model-capability comparison methodology (`results/model-capability/findings.md`,
+  counterbalanced across models — already included an open-weight model, MiMo).
+
+**Mechanics & prereqs:**
+- OpenRouter is OpenAI-compatible → open-weight path = `openai` SDK + OpenRouter `base_url` +
+  `OPENROUTER_API_KEY` in `.env` (gitignored, like the Anthropic key). Deliberately steps
+  outside the Claude-only setup.
+- **Scaffold first:** refactor `map_event.py` behind an `LLMClient`-style interface (Anthropic +
+  OpenRouter impls), so the curator is one flag. Defer until there's a window to test on.
+
+**Controls & caveats:**
+- **Web-search confound.** `map_event.py` uses Anthropic server-side `web_search` for
+  pre-catalyst context; open-weight models via OpenRouter don't have it. Opus-with-search vs.
+  open-weight-without-search isn't apples-to-apples — run the bake-off with **web search OFF for
+  all models** to isolate pure reasoning (or wire a shared search tool for all).
+- Open-weight doesn't fix hindsight contamination — these models also have training cutoffs that
+  may postdate the events.
+- Open-weight JSON reliability varies; `map_event._extract_json` is already tolerant, but expect
+  more parse retries.
