@@ -21,8 +21,8 @@ ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 START, END = "2025-06-17", "2026-06-17"   # ~1 year: ~8mo of low pre-war baseline + the pivot
 ANCHOR = "2026-02-20"   # carriers transit the western Med — index to 100 here
-EVENTS = {"2026-02-20": "carriers → W. Med", "2026-02-28": "strike",
-          "2026-06-15": "peace deal"}
+EVENTS = {"2025-12-28": "Iran protests", "2026-02-20": "carriers → W. Med",
+          "2026-02-28": "strike", "2026-06-15": "peace deal"}
 
 
 def main():
