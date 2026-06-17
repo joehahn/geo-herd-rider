@@ -73,3 +73,27 @@ LLMs on multi-hop causal-ladder curation."
   may postdate the events.
 - Open-weight JSON reliability varies; `map_event._extract_json` is already tolerant, but expect
   more parse retries.
+
+## Seedless backtest v1 — does it find the event on its own?
+
+Drop the hand-seeded per-window `events.csv`. Instead feed the solution a stream of historical
+inputs and let it **discover its own triggers**, then run the pipeline forward over the stream.
+
+- **Inputs (start at Haiku's ~mid-2025 training cutoff → present):** historical news, ticker
+  data (yfinance), and **Trump-only tweets** (for now — narrowest, highest-reach trigger source).
+  Post-cutoff framing is deliberate (discipline #5): the curator is largely blind to these
+  outcomes, so the run is far less contaminated than a pre-cutoff one.
+- **What we're testing (the deep dive, not the return):**
+  1. **Detection** — does the solution flag the expected geopolitical event (the 2026 Iran
+     run-up: carriers to the Med, the "help is on the way" Trump tweet) as a *potential* event,
+     and convert potential → actual right before/during the strike? Or does it latch onto
+     something else? Either is informative.
+  2. **Logic** — dive into and **visualize the LLM's decision trees / ladders** to spot-check
+     the reasoning (is the carriers→Hormuz→tanker→dry-bulk chain the kind of thing it builds, or
+     is it storytelling?). The decision tree is the artifact to inspect, separate from the P&L.
+- **Caveats:** still partly contaminated (search returns articles written with hindsight even
+  under `before:<date>`); Trump-tweet + news data access is the new data-access question to scope
+  (cost, archive, date-filtering). Return is an upper bound (discipline #5).
+- **Relation to the forward engine:** this is the retrospective rehearsal of the autonomous
+  seedless loop (discover → potential→actual via Polymarket odds → ladder → book), minus the
+  dashboard. The clean version is still forward.

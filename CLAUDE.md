@@ -40,6 +40,11 @@ part of the investing herd is heading, a little sooner than the rest. Full desig
    hindsight-contaminated, so a forward paper-traded eval is the only clean test.
 5. **Don't tune the pre-registered lift bar to the data** once it's fixed (SPEC, deferred
    decision #1). Same discipline that made geo-wave-rider credible.
+6. **Backtesting is the development loop, not the verdict.** We iterate on historical data
+   on purpose (forward is too slow), but every historical return is an **upper bound** —
+   report it as such, prefer windows that postdate the curator model's training cutoff
+   (less contaminated), and trust a backtest-driven win only once it survives the forward
+   eval. Never tune the curator toward leaked signal. Full statement in SPEC discipline #5.
 
 ## Scope discipline (baby steps)
 

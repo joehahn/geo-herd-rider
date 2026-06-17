@@ -111,6 +111,15 @@ mechanical sizing → scoreboard.*
 4. **Look-ahead hygiene everywhere**, plus the honest caveat that retrospective backtests
    are hindsight-contaminated — so a **forward, paper-traded evaluation matters even more
    here**, and is the only clean test.
+5. **Backtesting is the development loop, not the verdict.** We deliberately iterate on
+   historical data (forward-only is too slow to develop against), but every historical
+   return is an **upper bound** — hindsight inflates it (LLM training leak + search
+   hindsight). Three rules so this helps rather than misleads: (a) treat the number as a
+   relative comparator and plumbing/sanity check, never ground truth; (b) **prefer windows
+   that postdate the curator model's training cutoff** (e.g. 2026 events under Haiku's
+   mid-2025 cutoff), which are far less contaminated; (c) a backtest-driven improvement is
+   trusted only once it survives the forward eval — never tune the pre-registered bar or
+   the curator toward leaked signal.
 
 ## Baby-step ladder (each rung gated by the scoreboard)
 
