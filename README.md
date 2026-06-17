@@ -29,7 +29,7 @@ The canonical example, from the move that motivated this family (the 2026 Trump�
 | ![Wet bulk — tanker equities](assets/wet_tankers.png) | ![Dry bulk — bulk carriers](assets/dry_bulk.png) |
 |:--:|:--:|
 
-The 2026 Iran war, both panels indexed to 100 at New Year (SPY in grey). Tankers spike within weeks of the Hormuz threat; dry-bulk follows a hop later and more slowly — the band the herd reaches last. Reproduce: `python scripts/plot_shipping.py`.
+Both panels indexed to 100 in mid-2025 (SPY in grey). Shipping was already rallying through 2025 — so this is no flat baseline — but note the Feb-2026 acceleration off the Hormuz threat: tankers (wet) jump first, dry-bulk follows a hop later. The war sharpened an existing uptrend more than it started one. Reproduce: `python scripts/plot_shipping.py`.
 
 ## Four signals, four jobs
 

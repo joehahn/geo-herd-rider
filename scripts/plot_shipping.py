@@ -18,7 +18,7 @@ import yfinance as yf
 
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
-START, END = "2026-01-01", "2026-06-17"
+START, END = "2025-07-01", "2026-06-17"   # ~6mo of pre-event baseline before the Jan-2026 buildup
 WET = ["FRO", "STNG"]   # tanker equities (Frontline, Scorpio Tankers)
 DRY = ["SBLK", "GNK"]   # dry-bulk carriers (Star Bulk, Genco)
 EVENTS = {"2026-02-28": "Feb 28 strike", "2026-06-15": "Jun 15 Hormuz reopens"}
@@ -36,7 +36,7 @@ def panel(ax, tickers, prices, title):
         ax.text(x, top, " " + lbl, rotation=90, va="top", ha="left", fontsize=7, color="0.45")
     ax.axhline(100, color="0.88", lw=0.8, zorder=0)
     ax.set_title(title, fontsize=11)
-    ax.set_ylabel("indexed to 100 (2026-01-02)")
+    ax.set_ylabel(f"indexed to 100 ({idx.index[0].date()})")
     ax.legend(frameon=False, fontsize=9, loc="upper left")
     ax.xaxis.set_major_formatter(mdates.DateFormatter("%b"))
     ax.margins(x=0.01)
