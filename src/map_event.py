@@ -64,7 +64,7 @@ MAPPING_COLUMNS = [
     "horizon_days",            # integer calendar days to hold
     "chain_depth",             # 1-4: causal hops from telegraph to instrument
     "audience_breadth",        # megaphone | broad | niche | quiet
-    "prediction_market_odds",  # 0..1 or empty
+    "polymarket_query",        # search phrase naming the resolvable question (or empty)
     "confidence",              # low | medium | high
     "rationale",               # short free text (pre-catalyst reasoning only)
 ]
@@ -112,11 +112,16 @@ RESPONSE_SCHEMA = {
                 "low-reach source few investors parse quickly."
             ),
         },
-        "prediction_market_odds": {
-            "type": ["number", "null"],
-            "minimum": 0,
-            "maximum": 1,
-            "description": "Pre-catalyst implied probability the telegraphed action happens, if a market existed; else null.",
+        "polymarket_query": {
+            "type": ["string", "null"],
+            "description": (
+                "A short search phrase naming the resolvable PUBLIC question whose outcome "
+                "would confirm this trigger's premise, phrased like a prediction market "
+                "(e.g. 'Trump reciprocal tariffs by April 2025', 'Fed cuts rates in Q1 2025'). "
+                "This is the QUESTION, never the probability — the odds are fetched "
+                "mechanically from Polymarket downstream. Null when the trigger has no clean "
+                "market-resolvable upstream event (true for most single-company/equity triggers)."
+            ),
         },
         "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
         "rationale": {
@@ -126,7 +131,7 @@ RESPONSE_SCHEMA = {
     },
     "required": [
         "mapped_tickers", "direction", "mechanism", "horizon_days",
-        "chain_depth", "audience_breadth", "prediction_market_odds",
+        "chain_depth", "audience_breadth", "polymarket_query",
         "confidence", "rationale",
     ],
 }
@@ -143,9 +148,10 @@ ABSOLUTE RULES
    (append "before:YYYY-MM-DD" using the telegraph date) and DISCARD anything dated \
    after it. You do not know what happened after the telegraph. Do not let any later \
    knowledge influence the basket, direction, or horizon.
-2. NEVER FORECAST MAGNITUDE. You pick the basket, the direction, and the horizon. You \
-   never estimate how big the move will be, expected return, or position size. All \
-   sizing is mechanical and happens downstream.
+2. NEVER FORECAST MAGNITUDE OR PROBABILITY. You pick the basket, the direction, the \
+   horizon, and (if one exists) the resolvable question. You never estimate how big the \
+   move will be, expected return, position size, or the probability the event resolves — \
+   sizing is mechanical downstream, and the probability comes from the market, not you.
 3. PICK THE MOST DIRECT TRADEABLE INSTRUMENTS. Prefer liquid US-listed ETFs or stocks \
    whose price most cleanly expresses the mechanism. A basket may be 1-5 tickers, \
    equal-weighted.
@@ -232,7 +238,7 @@ def map_one(client, event: pd.Series, use_web_search: bool) -> dict:
 
     data = _extract_json(final_text)
 
-    odds = data.get("prediction_market_odds")
+    query = data.get("polymarket_query")
     return {
         "mapped_tickers": ";".join(t.strip().upper() for t in data["mapped_tickers"]),
         "direction": data["direction"],
@@ -240,7 +246,7 @@ def map_one(client, event: pd.Series, use_web_search: bool) -> dict:
         "horizon_days": int(data["horizon_days"]),
         "chain_depth": int(data["chain_depth"]),
         "audience_breadth": data["audience_breadth"],
-        "prediction_market_odds": "" if odds is None else float(odds),
+        "polymarket_query": "" if not query else str(query).strip(),
         "confidence": data["confidence"],
         "rationale": data["rationale"],
     }

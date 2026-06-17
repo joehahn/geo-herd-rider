@@ -204,7 +204,8 @@ def score_event(event: pd.Series, panel: pd.DataFrame) -> dict | None:
     excess_net = excess_raw - haircut
 
     path_shape, front_loading = classify_path(excess_path)
-    odds = event.get("prediction_market_odds", "")
+    # Odds come mechanically from Polymarket (src/polymarket.py --enrich), not the LLM.
+    odds = event.get("polymarket_odds", "")
 
     return {
         "event_id": event["event_id"],
@@ -213,7 +214,6 @@ def score_event(event: pd.Series, panel: pd.DataFrame) -> dict | None:
         "horizon_days": int(event["horizon_days"]),
         "chain_depth": int(event["chain_depth"]),
         "audience_breadth": event["audience_breadth"],
-        "prediction_market_odds": odds,
         "entry_date": str(days[ei].date()),
         "exit_date": str(days[xi].date()),
         "strategy_return": round(strategy_return, 4),
@@ -225,6 +225,7 @@ def score_event(event: pd.Series, panel: pd.DataFrame) -> dict | None:
         "thin_etf": thin,
         "path_shape": path_shape,
         "front_loading": round(front_loading, 3) if np.isfinite(front_loading) else "",
+        "polymarket_odds": odds,
         "status": "ok",
     }
 
@@ -284,13 +285,15 @@ def report(scored: pd.DataFrame, panel: pd.DataFrame) -> None:
             print(f"   {aud:<10} n={len(grp):<3} median {_fmt_pct(grp['excess_return'].median())}"
                   f"  hit {grp['hit'].mean() * 100:.0f}%")
 
-    # Prediction-market calibration on the subset where odds were supplied.
-    cal = ok[pd.to_numeric(ok["prediction_market_odds"], errors="coerce").notna()]
+    # Polymarket calibration on the subset where mechanical odds were supplied
+    # (src/polymarket.py --enrich); empty unless the mapped events were enriched.
+    odds_col = pd.to_numeric(ok.get("polymarket_odds", pd.Series(dtype=float)), errors="coerce")
+    cal = ok[odds_col.notna()]
     if len(cal):
         cal = cal.copy()
-        cal["odds"] = pd.to_numeric(cal["prediction_market_odds"])
+        cal["odds"] = pd.to_numeric(cal["polymarket_odds"])
         agree = cal[cal["odds"] >= 0.5]  # market judged the action likely
-        print(f"\nPrediction-market calibration (n={len(cal)} with odds):")
+        print(f"\nPolymarket calibration (n={len(cal)} with odds):")
         print(f"   odds>=50% (market agrees action happens): n={len(agree)} "
               f"hit {agree['hit'].mean() * 100:.0f}%" if len(agree) else "   (no >=50% odds)")
 

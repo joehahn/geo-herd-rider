@@ -138,11 +138,14 @@ The probability signal's plumbing is built (`src/polymarket.py`: live + best-eff
 historical odds, free/keyless, look-ahead-safe). The data-access finding (deferred #2)
 forced a reshape: resolved-market history is unavailable and coverage skews political/
 macro, so Polymarket **cannot** be lift-tested retrospectively on the seed events — it must
-be evaluated **forward**. The two remaining sub-steps, in order:
-1. Wire a `polymarket_query` into the curator (the LLM phrases the resolvable question;
-   the odds stay mechanical — non-negotiable #1 preserved).
-2. Build the **forward logger** that records, per fresh trigger, the live odds at decision
-   time — the clean eval surface. Only then can the probability signal's lift be measured.
+be evaluated **forward**. Sub-steps:
+1. *(done)* The curator (`map_event.py`) now emits `polymarket_query` — the LLM phrases
+   the resolvable question (or null); it no longer guesses the odds at all (the old
+   `prediction_market_odds` LLM field is gone — non-negotiable #1 tightened). The odds are
+   mechanical (`polymarket.py`); `score.py` calibrates on the fetched `polymarket_odds`.
+2. *(next)* Build the **forward logger** that records, per fresh trigger, the live odds at
+   decision time — the clean eval surface. Only then can the probability signal's lift be
+   measured.
 Still **no** Fed / congressional feeds until the probability signal demonstrably pays.
 
 ## Deferred decisions (revisit when the need arises)
