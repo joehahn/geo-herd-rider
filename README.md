@@ -9,7 +9,7 @@
 
 Every event throws off a tree of downstream implications, and that in-between window lives in the **middle band** of the tree: deep enough that the herd hasn't priced it, shallow enough that the causality still holds. Hop-1 calls are grazed by the smart money in minutes; hop-4+ chains are seductive storytelling that rarely pays. We never try to predict *how big* a move will be — only its direction and the chain that gets there; sizing is left to a mechanical optimizer downstream.
 
-**What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude. A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) and clears its pre-registered bar; **next** it adds prediction-market probabilities and smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
+**What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude. A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) — clearing its pre-registered backtest bar — plus a Polymarket probability signal and a look-ahead-clean forward logger; **next** it adds smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
 
 ## The implication ladder
 
@@ -39,7 +39,7 @@ The machine, end to end: *trigger → probability → AI causal ladder → smart
 
 ## Status
 
-**Step 1 (one source, end to end) done and passing; Step 2 (prediction markets) is next.** The mean-variance optimizer is reused verbatim from `portfolio-wave-rider` (`src/optimizer.py`); the signal mapper and scoring harness recycled from `geo-wave-rider` (`src/map_event.py`, `src/score.py`) are now evolved into the middle-band curator and a per-event-horizon scoreboard backtest (`src/curator.py --backtest`). On the seed 26-event set the curated book clears its pre-registered bar — annualized excess over SPY buy-and-hold > 0. The design is pre-registered in [`SPEC.md`](SPEC.md) and the build proceeds in scoreboard-gated baby steps laid out there. Note the backtest is retrospective and hindsight-contaminated, so the clean test is a forward paper trade in a later step.
+**Step 1 done and passing; Step 2 built end-to-end (lift pending forward data).** The mean-variance optimizer is reused verbatim from `portfolio-wave-rider` (`src/optimizer.py`); the signal mapper and scoring harness recycled from `geo-wave-rider` (`src/map_event.py`, `src/score.py`) are evolved into the middle-band curator and a per-event-horizon backtest (`src/curator.py --backtest`). On the seed 26-event set the curated book clears its pre-registered bar (annualized excess over SPY buy-and-hold > 0) — but that backtest is retrospective and hindsight-contaminated. Step 2 adds the Polymarket probability signal (`src/polymarket.py`), a curator-emitted `polymarket_query`, and the forward paper-trade logger (`src/forward.py`) that SPEC calls the only clean test; its lift will be measured on forward trades as they accrue. Step 3 (Fed / congressional confirmation) waits until the forward scoreboard shows the probability signal pays. Full plan in [`SPEC.md`](SPEC.md).
 
 ## Setup
 
@@ -75,7 +75,7 @@ python src/score.py                         # writes data/events_scored.csv
 python src/curator.py --backtest
 ```
 
-Step 2 (in progress) adds a Polymarket probability signal — free, keyless, look-ahead-safe:
+Step 2 adds a Polymarket probability signal — free, keyless, look-ahead-safe:
 
 ```bash
 python src/polymarket.py "Fed rate cut 2026"          # live YES odds for a market
