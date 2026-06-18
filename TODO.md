@@ -74,6 +74,32 @@ LLMs on multi-hop causal-ladder curation."
 - Open-weight JSON reliability varies; `map_event._extract_json` is already tolerant, but expect
   more parse retries.
 
+## Manage the telegraphers & influencers (a curated trigger-source roster)
+
+Build and maintain a roster of the social-media figures whose posts are worth ingesting as
+triggers — the "where the herd is heading, a little sooner" sources for Step 3's
+politician/business-leader feed. Trump is the prototype; the point is to manage the *set*.
+
+- **Tier by signal type** (the two are not the same bet):
+  1. **Genuine telegraphing of intent** — a real causal ladder the curator can ladder down
+     (post → policy/business change → vertical → instruments). Highest value, the middle-band
+     bet. Candidates: **Trump** (tariff/trade threats, Fed criticism, named-company attacks —
+     the *category* of post routes the vertical), **Elon Musk** (Tesla/SpaceX/xAI direction,
+     crypto), **Bill Ackman** (activist positions, macro theses), policy officials (Commerce/
+     Treasury on trade, HHS → pharma).
+  2. **Pure sentiment / reflexivity** — meme-stock & crypto-principal posts (Ryan Cohen, Keith
+     Gill, Cathie Wood, CZ, Vitalik). The "signal" *is* the crowd reaction; no deeper chain, so
+     it's hop-1-obvious and decays fast. Likely **exclude** or down-weight — front-running a
+     stampede isn't the thesis.
+- **What "manage" means:** a maintained list (handle, platform, tier, post-category→vertable
+  routing notes), an add/drop process gated by the scoreboard (a source is kept only if it adds
+  lift — non-negotiable #3), and de-duplication against Polymarket discovery (an influencer post
+  and a moving market may be the same event).
+- **Prereqs / open questions:** post-archive data access + date-filtering for look-ahead hygiene
+  (same unsolved question as the seedless backtest's Trump-tweet feed); rate/cost of high-volume
+  posters (Musk); and confirming this stays gated behind the Polymarket-signal forward result
+  before it becomes Step 3 work (CLAUDE.md scope discipline).
+
 ## Seedless backtest v1 — does it find the event on its own?
 
 Drop the hand-seeded per-window `events.csv`. Instead feed the solution a stream of historical
