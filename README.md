@@ -29,6 +29,8 @@ The ticker that motivated this project is **BWET** — a dry-bulk freight ETF, t
 
 A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). BWET drifted at a fraction of its eventual level all year, then ran with the war. Reproduce: `python scripts/plot_shipping.py`.
 
+**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, and a [decision-tree timeline](https://joehahn.github.io/geo-herd-rider/tree.html). Retrospective upper bound (one loud window); rebuild with `python scripts/build_dashboard.py`.
+
 ## Four signals, four jobs
 
 The sources are not interchangeable inputs; each answers a different question in the ladder:
