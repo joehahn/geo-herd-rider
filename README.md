@@ -11,6 +11,32 @@ Every opportunity-generating event throws off a tree of downstream implications 
 
 **What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude. A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) — clearing its pre-registered backtest bar — plus a Polymarket probability signal and a look-ahead-clean forward logger; **next** it adds smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
 
+## How it works, at a glance
+
+The whole machine is one short assembly line. We **watch the signals** that move ahead of the crowd; an **AI ladders out** the knock-on effects of each event; we **keep only the middle band** — the implications that are non-obvious but still solid (the actual bet); we sanity-check the **odds** that the event even happens; and a **plain optimizer**, never the AI, decides position sizes. The result is a book positioned *between* the smart money and the slow herd. A **scoreboard** sits over the whole thing and keeps only the moves that actually beat the market — so the system earns its complexity one proven step at a time.
+
+```mermaid
+flowchart TD
+    S["📣 Signals<br/>politician & CEO posts,<br/>prediction-market moves"]
+    L["🧠 AI builds the ladder<br/>traces the event's chain<br/>of knock-on effects"]
+    M["🎯 Keep the middle band<br/>past the obvious call,<br/>short of far-fetched stories"]
+    P["🎲 Check the odds<br/>is the triggering event<br/>actually likely to happen?"]
+    W["⚖️ Size it mechanically<br/>a plain optimizer sets the<br/>weights — no AI magnitude guesses"]
+    B["💼 Portfolio<br/>positioned between the<br/>smart money and the herd"]
+    SB["📊 Scoreboard<br/>did it beat the market?<br/>keep only what does"]
+
+    S --> L --> M --> P --> W --> B
+    B -. results .-> SB
+    SB -. keep only what works .-> M
+
+    classDef bet fill:#fae3e0,stroke:#c0392b;
+    classDef gate fill:#e8f0fe,stroke:#1a56c4;
+    class M bet
+    class SB gate
+```
+
+The two highlighted boxes are what makes this different from a normal screener: the **middle band** (red) is *where* the edge lives, and the **scoreboard** (blue) is the referee that keeps the whole thing honest.
+
 ## The implication ladder
 
 Every triggering event spawns a tree of downstream implications, and the tree has a shape that tells you where the money is:
