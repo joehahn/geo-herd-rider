@@ -20,10 +20,15 @@
  .chip{display:inline-block;font-size:12px;font-family:ui-monospace,Menlo,monospace;
    padding:2px 8px;border-radius:6px;background:#2c3e50;color:#fff;margin:2px 5px 2px 0}
  .legend{font-size:13px;color:var(--mut);margin:0 0 18px}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
+ .nav a.active{color:var(--ink);font-weight:600}
 </style></head>
 <body><div class="wrap">
+ <nav class="nav"><a href="index.html">Dashboard</a>
+   <a href="tree.html" class="active">Decision tree</a>
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1>Decision-tree timeline</h1>
- <p class="sub"><a href="index.html">← back to the portfolio dashboard</a></p>
  <p class="legend">Each trigger and the causal ladder the curator pruned from it. A
    <b style="color:#c0392b">red</b> left-edge = kept by the middle-band filter (the bet);
    grey = dropped (megaphone / too shallow). <code>depth</code> = hops from the trigger.</p>
