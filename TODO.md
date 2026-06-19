@@ -123,3 +123,28 @@ inputs and let it **discover its own triggers**, then run the pipeline forward o
 - **Relation to the forward engine:** this is the retrospective rehearsal of the autonomous
   seedless loop (discover → potential→actual via Polymarket odds → ladder → book), minus the
   dashboard. The clean version is still forward.
+
+## Structural-graph curator features (convergence + centrality) — NOT EV search
+
+The implication "tree" is really a DAG: independent chains converge on the same instrument.
+Worth exploiting **as topology, never as magnitude**. The trap to avoid: ranking branches by
+*expected profit* requires payoff estimates on nodes + probabilities on edges — if the LLM
+supplies those numbers it is the falsified wave-tilt mistake reborn (non-negotiable #1), and a
+profit-maximizing graph search structurally rewards depth/connectivity, i.e. exactly the hop-4+
+storytelling the thesis warns against. So the idea is **structural features**, not graph search:
+
+- **Convergence count** — how many *independent* ladders reach a node. A count, not a return
+  forecast, so it's discipline-safe; a ticker corroborated by N separate triggers is higher
+  conviction. Today `map_event.py` flattens each event to one ladder + scalar `chain_depth`, so
+  convergence is invisible to the curator.
+- **Centrality / chokepoints** — high-betweenness nodes (oil, SPY) are seen by herd *and* smart
+  money → already priced → avoid. The middle-band heuristic restated graph-theoretically.
+- **Probabilities stay external** — edge "will the upstream resolve?" odds come from Polymarket
+  (Step 2's whole point), never the LLM. Features get **scoreboard-gated** like everything else.
+
+**Feasibility probe already run (2026-06-19):** convergence exists but is sparse — across the 26
+events in `data/events_mapped.csv`, 8 tickers are named by >1 event (QQQ×3; XLE/F/GM/COIN/TSLA/
+ORCL/ITA×2) vs 25 singletons. So the structure is real but thin. The full test — does
+convergence predict excess return? — is **underpowered today** (only 5 trades in
+`backtest_trades.csv`); defer it until more trades accrue. **Gated behind Step 2's forward lift**
+(scope discipline) — don't build the per-event graph until convergence is shown to pay.
