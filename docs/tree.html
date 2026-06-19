@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — decision-tree timeline</title>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:24px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px} a{color:#2980b9}
+ .ev{background:#fff;border:1px solid var(--line);border-left:5px solid #9aa0a6;border-radius:10px;
+   padding:13px 16px;margin:0 0 14px;position:relative}
+ .ev.keep{border-left-color:#c0392b}
+ .ev .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+ .date{font-weight:600} .src{color:var(--mut);font-size:13px}
+ .badges{margin:7px 0} .b{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;
+   margin-right:6px;background:#eef1f3;color:#445}
+ .b.depth{background:#e8f0fe;color:#1a56c4} .b.keep{background:#fae3e0;color:#c0392b;font-weight:600}
+ .b.drop{background:#eef1f3;color:#888} .b.short{background:#fdebd0;color:#9c5700}
+ .text{font-size:13.5px;color:#333;margin:6px 0} .mech{font-size:13.5px;margin:8px 0 6px}
+ .mech b{color:var(--mut);font-weight:600}
+ .chip{display:inline-block;font-size:12px;font-family:ui-monospace,Menlo,monospace;
+   padding:2px 8px;border-radius:6px;background:#2c3e50;color:#fff;margin:2px 5px 2px 0}
+ .legend{font-size:13px;color:var(--mut);margin:0 0 18px}
+</style></head>
+<body><div class="wrap">
+ <h1>Decision-tree timeline</h1>
+ <p class="sub"><a href="index.html">← back to the portfolio dashboard</a></p>
+ <p class="legend">Each trigger and the causal ladder the curator pruned from it. A
+   <b style="color:#c0392b">red</b> left-edge = kept by the middle-band filter (the bet);
+   grey = dropped (megaphone / too shallow). <code>depth</code> = hops from the trigger.</p>
+ <div id="tl"></div>
+</div>
+<script>
+fetch("data.json").then(r=>r.json()).then(D=>{
+  document.getElementById("tl").innerHTML = D.events.map(e=>`
+    <div class="ev ${e.keep?'keep':''}">
+      <div class="top"><span class="date">${e.date} · ${e.id}</span><span class="src">${e.source}</span></div>
+      <div class="text">“${e.text}”</div>
+      <div class="badges">
+        <span class="b depth">depth ${e.depth} (${e.depth===1?'hop-1 obvious':e.depth>=4?'deep/speculative':'middle band'})</span>
+        <span class="b">${e.audience}</span>
+        ${e.direction==='short'?'<span class="b short">SHORT</span>':''}
+        <span class="b">${e.horizon}d horizon</span>
+        ${e.keep?'<span class="b keep">KEPT — the bet</span>':'<span class="b drop">dropped</span>'}
+      </div>
+      <div class="mech"><b>ladder:</b> ${e.mechanism}</div>
+      <div>${e.tickers.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
+    </div>`).join("");
+});
+</script></body></html>
