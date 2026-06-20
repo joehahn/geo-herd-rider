@@ -157,19 +157,17 @@ def color_map(tickers: list[str]) -> dict:
     return {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(sorted(tickers))}
 
 
-def _book_cost(events: pd.DataFrame) -> float:
-    """What producing THIS on-screen book costs at the production config (Opus scout + web
-    ladder) — as opposed to the cumulative all-experiments ledger total. Per displayed event,
-    take the priciest Opus ladder row (the web-enabled run); add the Opus scout spend."""
+def _ladder_cost(events: pd.DataFrame) -> float:
+    """Cost to LADDER this on-screen book at the production config (Opus + web): per displayed
+    event, the priciest Opus ladder row (the web-enabled run). This is the cleanly-attributable
+    dominant cost to execute the backtest; trigger selection (scout) adds a one-time ~$2-3."""
     if not costs.LEDGER.exists():
         return 0.0
     led = pd.read_csv(costs.LEDGER)
     ids = set(events["event_id"].astype(str))
     lad = led[(led["stage"] == "ladder") & led["model"].str.contains("opus")
               & led["label"].astype(str).isin(ids)]
-    ladder = lad.groupby("label")["cost_usd"].max().sum() if len(lad) else 0.0
-    scout = led[(led["stage"] == "scout") & led["model"].str.contains("opus")]["cost_usd"].sum()
-    return round(float(ladder + scout), 2)
+    return round(float(lad.groupby("label")["cost_usd"].max().sum()) if len(lad) else 0.0, 2)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -206,7 +204,7 @@ def main(argv: list[str] | None = None) -> int:
                   for k, b in books.items()},
         "metrics": {k: metrics(b["value"], spy_value, args.capital) for k, b in books.items()},
         "colors": color_map([t for b in books.values() for t in b["alloc"]]),
-        "costs": {**costs.summary(), "book_usd": _book_cost(events)},
+        "costs": {"ladder_usd": _ladder_cost(events)},
         "events": [{
             "id": e["event_id"], "date": e["telegraph_ts"][:10], "source": e["source"],
             "text": e["telegraph_text"], "mechanism": e["mechanism"],
@@ -258,6 +256,10 @@ INDEX_HTML = r"""<!doctype html>
  .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
  .nav a.active{color:var(--ink);font-weight:600}
  #chart,#alloc{width:100%;height:420px}
+ .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+ .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+ .atab th{color:var(--mut);font-weight:600}
+ .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="index.html" class="active">Dashboard</a>
@@ -267,7 +269,7 @@ INDEX_HTML = r"""<!doctype html>
  <p class="sub" id="sub"></p>
  <div class="cards" id="cards"></div>
 
- <h2>Portfolio value</h2>
+ <h2>Plot 1 — Portfolio value</h2>
  <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
    the LLM, never hand-picked. Three books from the same $50K: the <b>curated</b> middle-band
    book (the solution's bet), the <b>all-signals</b> book (every laddered trigger), and
@@ -275,7 +277,7 @@ INDEX_HTML = r"""<!doctype html>
    forward eval.</i></p>
  <div id="chart"></div>
 
- <h2>Allocation over time</h2>
+ <h2>Plot 2 — Allocation over time</h2>
  <div class="toggle" id="btoggle">
    <button data-b="curated" class="on">Curated book</button>
    <button data-b="all">All-signals book</button>
@@ -284,6 +286,9 @@ INDEX_HTML = r"""<!doctype html>
    equity splits equally across active events; back to cash when none are live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
+ <p class="sub" style="margin:14px 0 0"><b>Holdings by date</b> — each row is a date the book's
+   basket changed, with the nonzero ticker weights then (the trade the solution recommended):</p>
+ <table class="atab" id="alloctable"></table>
 
  <h2>What it cost</h2>
  <p class="sub">Headline = producing <i>this</i> book once at the production config (Opus scout +
@@ -342,6 +347,22 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     document.getElementById("allocnote").innerHTML=
       `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). `+
       `Peak weights — ${top}.`;
+
+    // holdings-by-date table: one row whenever the nonzero basket changes
+    let prev=null; const rowsT=[];
+    for(let i=0;i<D.dates.length;i++){
+      const held=[];
+      for(const t in b.alloc){const w=b.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
+      const sig=held.join(" · ");
+      if(sig!==prev){
+        if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
+        else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
+        prev=sig;
+      }
+    }
+    document.getElementById("alloctable").innerHTML=
+      `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
+      `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
   }
   drawAlloc("curated");
   document.querySelectorAll("#btoggle button").forEach(btn=>btn.onclick=()=>{
@@ -349,16 +370,13 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     btn.classList.add("on"); drawAlloc(btn.dataset.b);
   });
 
-  const c=D.costs||{by_stage:{},by_model:{}};
+  const c=D.costs||{};
   const usd=x=>"$"+(x||0).toFixed(2);
-  const rows=Object.entries(c.by_stage||{}).map(([k,v])=>`<tr><td>${k}</td><td style="text-align:right">${usd(v)}</td></tr>`).join("")
-    + Object.entries(c.by_model||{}).map(([k,v])=>`<tr><td style="color:#888">${k}</td><td style="text-align:right;color:#888">${usd(v)}</td></tr>`).join("");
   document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:400px"><div class="k">this backtest · Opus scout + web ladder</div>`
-    + `<div class="v">${usd(c.book_usd)}</div>`
-    + `<div class="sub" style="margin:6px 0 2px;font-size:12px">cumulative dev/experiment spend `
-    + `(all ${c.n_calls||0} calls, every model tried): <b>${usd(c.total_usd)}</b></div>`
-    + `<table style="width:100%;font-size:13px;margin-top:8px;border-collapse:collapse">${rows}</table></div>`;
+    `<div class="card" style="max-width:400px"><div class="k">cost to execute this backtest</div>`
+    + `<div class="v">${usd(c.ladder_usd)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">Opus + web ladder of the window's `
+    + `triggers. Trigger selection (scout) adds a one-time ~$2–3 per window.</div></div>`;
 });
 </script></body></html>
 """
