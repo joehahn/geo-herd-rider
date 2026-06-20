@@ -242,13 +242,24 @@ def map_one(client: "llm.LLMClient", event: pd.Series, use_web_search: bool) -> 
         "mapped_tickers": ";".join(t.strip().upper() for t in data["mapped_tickers"]),
         "direction": data["direction"],
         "mechanism": data["mechanism"],
-        "horizon_days": int(data["horizon_days"]),
-        "chain_depth": int(data["chain_depth"]),
+        # Clamp the integer fields to their documented ranges — strict structured-output mode
+        # (OpenRouter) can't carry the min/max bounds, so a weaker model may emit out-of-range
+        # values (DeepSeek once returned chain_depth=194). Keep them in-spec downstream.
+        "horizon_days": _clamp(data["horizon_days"], 1, 365),
+        "chain_depth": _clamp(data["chain_depth"], 1, 4),
         "audience_breadth": data["audience_breadth"],
         "polymarket_query": "" if not query else str(query).strip(),
         "confidence": data["confidence"],
         "rationale": data["rationale"],
     }
+
+
+def _clamp(value, lo: int, hi: int) -> int:
+    """Coerce to int and clamp to [lo, hi] (defends against out-of-range model output)."""
+    try:
+        return max(lo, min(hi, int(value)))
+    except (TypeError, ValueError):
+        return lo
 
 
 def _load_dotenv() -> None:
