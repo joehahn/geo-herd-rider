@@ -142,12 +142,18 @@ def select(posts: pd.DataFrame, model: str = MODEL, workers: int = WORKERS) -> p
 
 
 def to_triggers(picks: pd.DataFrame) -> pd.DataFrame:
-    """Map the kept posts into map_event.py's input schema."""
+    """Map the kept posts into map_event.py's input schema.
+
+    telegraph_ts keeps the FULL post timestamp (UTC ISO), not a truncated date — the backtest's
+    entry_index uses the post's time-of-day to decide same-day-close vs next-day entry. Dropping
+    the time made every post parse as midnight (hour 0 < 16:00 ET), so all triggers were treated
+    as same-day-actable and bought at the trigger-day close — a look-ahead leak. Keep the time."""
     out = pd.DataFrame({
         "event_id": [f"TRT{i + 1:03d}" for i in range(len(picks))],
-        "telegraph_ts": picks["created_at"].dt.strftime("%Y-%m-%d"),
+        "telegraph_ts": picks["created_at"].dt.strftime("%Y-%m-%dT%H:%M:%S%z"),
         "source": picks["source"],
         "telegraph_text": picks["text"],
+        "post_id": picks["post_id"],  # provenance + lets a trigger be rejoined to the raw post
     })
     return out
 
