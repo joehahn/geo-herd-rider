@@ -41,8 +41,9 @@
  <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
    the LLM, never hand-picked. Three books from the same $50K: the <b>curated</b> middle-band
    book (the solution's bet), the <b>all-signals</b> book (every laddered trigger), and
-   <b>SPY</b> buy-and-hold. <i>Retrospective upper bound — one loud window; clean test is the
-   forward eval.</i></p>
+   <b>SPY</b> buy-and-hold, and <b>BWET</b> (the motivating dry-bulk "hidden gem", dashed) scaled
+   to equal the curated book at the carrier→western-Med transit — does the solution ride the same
+   move? <i>Retrospective upper bound — one loud window; clean test is the forward eval.</i></p>
  <div id="chart"></div>
 
  <h2>Plot 2 — Allocation over time</h2>
@@ -88,15 +89,29 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
   // value chart with end-of-line $ + % labels
-  const endlab=(arr,col)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,showarrow:false,
-    text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
-  Plotly.newPlot("chart",[
+  const endlab=(arr,col,ys=0)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
+  const vtraces=[
     {x:D.dates,y:D.books.curated.value,name:"Curated (middle band)",line:{color:"#c0392b",width:2.4}},
     {x:D.dates,y:D.books.all.value,name:"All signals",line:{color:"#2980b9",width:1.8}},
     {x:D.dates,y:D.spy_value,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
-  ],{margin:{l:60,r:140,t:10,b:36},legend:{orientation:"h",y:1.12},
-     annotations:[endlab(D.books.curated.value,"#c0392b"),endlab(D.books.all.value,"#2980b9"),
-                  endlab(D.spy_value,"#9aa0a6")],
+  ];
+  const vann=[endlab(D.books.curated.value,"#c0392b",13),endlab(D.books.all.value,"#2980b9",0),
+              endlab(D.spy_value,"#9aa0a6",-13)];
+  const vshapes=[];
+  if(D.bwet_scaled){
+    vtraces.push({x:D.dates,y:D.bwet_scaled,name:"BWET (scaled)",
+      line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
+    const bl=D.bwet_scaled.filter(v=>v!=null); const lastB=bl.length?bl[bl.length-1]:null;
+    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:lastB,xanchor:"left",xshift:6,
+      showarrow:false,text:"BWET "+fmt(lastB),font:{color:"#e67e22",size:11}});
+    vshapes.push({type:"line",x0:D.bwet_anchor,x1:D.bwet_anchor,yref:"paper",y0:0,y1:1,
+      line:{color:"#e6b089",width:1,dash:"dot"}});
+    vann.push({x:D.bwet_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:"carriers → W. Med",font:{color:"#cf8030",size:10}});
+  }
+  Plotly.newPlot("chart",vtraces,
+    {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
      yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
   function drawAlloc(book){

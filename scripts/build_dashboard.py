@@ -49,6 +49,8 @@ OUT_DIR = ROOT / "docs"  # GitHub Pages serves this folder (Settings -> Pages ->
 TRIGGERS_CSV = ROOT / "data" / "windows" / "trump_triggers_iranwin.csv"
 MAPPED_CSV = ROOT / "data" / "windows" / "iran_auto_opus_mapped.csv"
 LOOKBACK = curator.BACKTEST_LOOKBACK_DAYS  # 547d trailing optimizer fit
+BWET_TICKER = "BWET"               # the motivating hidden gem (dry-bulk freight ETF)
+BWET_ANCHOR = "2026-02-20"         # carriers transit the western Med (IRN004 / plot_shipping anchor)
 
 # A stable, distinct color per ticker (cash is grey). Falls back to a palette cycle.
 PALETTE = ["#c0392b", "#2980b9", "#27ae60", "#8e44ad", "#e67e22", "#16a085",
@@ -180,7 +182,7 @@ def main(argv: list[str] | None = None) -> int:
     events = load_events()
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
 
-    tickers = {score.BENCHMARK}
+    tickers = {score.BENCHMARK, BWET_TICKER}  # BWET for the hidden-gem overlay on Plot 1
     for cell in events["mapped_tickers"]:
         tickers.update(t.strip().upper() for t in str(cell).split(";") if t.strip())
     panel_start = (pd.Timestamp(args.start) - pd.Timedelta(days=LOOKBACK + 14)).strftime("%Y-%m-%d")
@@ -195,12 +197,26 @@ def main(argv: list[str] | None = None) -> int:
     books = {"all": simulate(trades, panel, args.start, args.capital),
              "curated": simulate(curated, panel, args.start, args.capital)}
 
-    spy = panel[score.BENCHMARK].reindex(pd.to_datetime(books["all"]["dates"])).ffill()
+    dates_idx = pd.to_datetime(books["all"]["dates"])
+    spy = panel[score.BENCHMARK].reindex(dates_idx).ffill()
     spy_value = [round(args.capital * v, 2) for v in (spy / spy.iloc[0]).tolist()]
+
+    # BWET overlay: the motivating "hidden gem" (dry-bulk freight), scaled so its line equals the
+    # CURATED book's value at the carrier->W.Med transit (BWET_ANCHOR) — does the solution ride
+    # the same move? (Anchor = the repo's documented carrier-arrival date; change as needed.)
+    bwet_scaled = None
+    if BWET_TICKER in panel.columns:
+        bwet = panel[BWET_TICKER].reindex(dates_idx).ffill()
+        ai = next((i for i, d in enumerate(dates_idx) if d >= pd.Timestamp(BWET_ANCHOR)), None)
+        cur = books["curated"]["value"]
+        if ai is not None and pd.notna(bwet.iloc[ai]) and bwet.iloc[ai] > 0:
+            scale = cur[ai] / float(bwet.iloc[ai])
+            bwet_scaled = [None if pd.isna(v) else round(float(v) * scale, 2) for v in bwet.tolist()]
 
     payload = {
         "start": args.start, "capital": args.capital,
         "dates": books["all"]["dates"], "spy_value": spy_value,
+        "bwet_scaled": bwet_scaled, "bwet_anchor": BWET_ANCHOR,
         "books": {k: {"value": b["value"], "alloc": b["alloc"], "cash": b["cash"]}
                   for k, b in books.items()},
         "metrics": {k: metrics(b["value"], spy_value, args.capital) for k, b in books.items()},
@@ -274,8 +290,9 @@ INDEX_HTML = r"""<!doctype html>
  <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
    the LLM, never hand-picked. Three books from the same $50K: the <b>curated</b> middle-band
    book (the solution's bet), the <b>all-signals</b> book (every laddered trigger), and
-   <b>SPY</b> buy-and-hold. <i>Retrospective upper bound — one loud window; clean test is the
-   forward eval.</i></p>
+   <b>SPY</b> buy-and-hold, and <b>BWET</b> (the motivating dry-bulk "hidden gem", dashed) scaled
+   to equal the curated book at the carrier→western-Med transit — does the solution ride the same
+   move? <i>Retrospective upper bound — one loud window; clean test is the forward eval.</i></p>
  <div id="chart"></div>
 
  <h2>Plot 2 — Allocation over time</h2>
@@ -321,15 +338,29 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
   // value chart with end-of-line $ + % labels
-  const endlab=(arr,col)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,showarrow:false,
-    text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
-  Plotly.newPlot("chart",[
+  const endlab=(arr,col,ys=0)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
+  const vtraces=[
     {x:D.dates,y:D.books.curated.value,name:"Curated (middle band)",line:{color:"#c0392b",width:2.4}},
     {x:D.dates,y:D.books.all.value,name:"All signals",line:{color:"#2980b9",width:1.8}},
     {x:D.dates,y:D.spy_value,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
-  ],{margin:{l:60,r:140,t:10,b:36},legend:{orientation:"h",y:1.12},
-     annotations:[endlab(D.books.curated.value,"#c0392b"),endlab(D.books.all.value,"#2980b9"),
-                  endlab(D.spy_value,"#9aa0a6")],
+  ];
+  const vann=[endlab(D.books.curated.value,"#c0392b",13),endlab(D.books.all.value,"#2980b9",0),
+              endlab(D.spy_value,"#9aa0a6",-13)];
+  const vshapes=[];
+  if(D.bwet_scaled){
+    vtraces.push({x:D.dates,y:D.bwet_scaled,name:"BWET (scaled)",
+      line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
+    const bl=D.bwet_scaled.filter(v=>v!=null); const lastB=bl.length?bl[bl.length-1]:null;
+    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:lastB,xanchor:"left",xshift:6,
+      showarrow:false,text:"BWET "+fmt(lastB),font:{color:"#e67e22",size:11}});
+    vshapes.push({type:"line",x0:D.bwet_anchor,x1:D.bwet_anchor,yref:"paper",y0:0,y1:1,
+      line:{color:"#e6b089",width:1,dash:"dot"}});
+    vann.push({x:D.bwet_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:"carriers → W. Med",font:{color:"#cf8030",size:10}});
+  }
+  Plotly.newPlot("chart",vtraces,
+    {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
      yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
   function drawAlloc(book){
