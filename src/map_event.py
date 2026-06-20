@@ -138,6 +138,27 @@ RESPONSE_SCHEMA = {
     ],
 }
 
+# Strict-subset version for provider structured-outputs (OpenRouter/OpenAI): drops the numeric
+# bounds / minItems / null-unions that strict mode rejects, so DeepSeek et al. are forced to
+# emit valid, parseable JSON (the fix for the ~27% JSON-format failures in the first bake-off).
+STRICT_SCHEMA = {
+    "type": "object",
+    "additionalProperties": False,
+    "properties": {
+        "mapped_tickers": {"type": "array", "items": {"type": "string"}},
+        "direction": {"type": "string", "enum": ["long", "short"]},
+        "mechanism": {"type": "string"},
+        "horizon_days": {"type": "integer"},
+        "chain_depth": {"type": "integer"},
+        "audience_breadth": {"type": "string", "enum": ["megaphone", "broad", "niche", "quiet"]},
+        "polymarket_query": {"type": "string"},  # "" when none (strict can't do null-union)
+        "confidence": {"type": "string", "enum": ["low", "medium", "high"]},
+        "rationale": {"type": "string"},
+    },
+    "required": ["mapped_tickers", "direction", "mechanism", "horizon_days", "chain_depth",
+                 "audience_breadth", "polymarket_query", "confidence", "rationale"],
+}
+
 SYSTEM_PROMPT = """\
 You are the blind mapping layer of a falsification experiment. You receive a single \
 "telegraph" — a public statement by a high-reach figure (Trump, Musk, RFK Jr., etc.) \
@@ -210,7 +231,8 @@ def map_one(client: "llm.LLMClient", event: pd.Series, use_web_search: bool) -> 
         telegraph_date=telegraph_date,
     )
     final_text = client.complete(SYSTEM_PROMPT, user_msg, use_web_search=use_web_search,
-                                 label=str(event["event_id"]), stage="ladder")
+                                 label=str(event["event_id"]), stage="ladder",
+                                 json_schema=STRICT_SCHEMA)
     data = _extract_json(final_text)
 
     query = data.get("polymarket_query")

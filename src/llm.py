@@ -38,7 +38,7 @@ class LLMClient(ABC):
 
     @abstractmethod
     def complete(self, system: str, user: str, *, use_web_search: bool,
-                 label: str, stage: str = "ladder") -> str: ...
+                 label: str, stage: str = "ladder", json_schema: dict | None = None) -> str: ...
 
 
 class AnthropicClient(LLMClient):
@@ -50,7 +50,10 @@ class AnthropicClient(LLMClient):
         super().__init__(model)
         self._c = anthropic.Anthropic()
 
-    def complete(self, system, user, *, use_web_search, label, stage="ladder") -> str:
+    def complete(self, system, user, *, use_web_search, label, stage="ladder",
+                 json_schema=None) -> str:
+        # json_schema is ignored here: the Anthropic path parses free-form fenced JSON from the
+        # final message, which composes cleanly with the web_search tool (it already maps 70/70).
         m = self.model
         if use_web_search:
             ws = "web_search_20260209" if _supports_advanced(m) else "web_search_20250305"
@@ -98,12 +101,17 @@ class OpenRouterClient(LLMClient):
         super().__init__(model)
         self._c = OpenAI(base_url=self.BASE_URL, api_key=key)
 
-    def complete(self, system, user, *, use_web_search, label, stage="ladder") -> str:
+    def complete(self, system, user, *, use_web_search, label, stage="ladder",
+                 json_schema=None) -> str:
         model_id = self.model + (":online" if use_web_search else "")
-        r = self._c.chat.completions.create(
-            model=model_id, max_tokens=8000,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
-        )
+        kw = {"model": model_id, "max_tokens": 8000,
+              "messages": [{"role": "system", "content": system},
+                           {"role": "user", "content": user}]}
+        if json_schema is not None:  # structured outputs: guarantees parseable JSON (fixes the
+            kw["response_format"] = {"type": "json_schema",            # ~27% JSON-format failures)
+                                     "json_schema": {"name": "mapping", "strict": True,
+                                                     "schema": json_schema}}
+        r = self._c.chat.completions.create(**kw)
         text = r.choices[0].message.content or ""
         u = r.usage
         # Record only the token cost (accurate). OpenRouter's :online web plugin is billed
