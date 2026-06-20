@@ -17,6 +17,9 @@ financial_model:
                                   #   N: 0.20 -> ~<=5, 0.34 -> ~<=3, 0.05 -> ~<=20. 0 disables.
   lookback_period_days: 45        # LIVE. Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
+  news_lookback_days: 7           # NOT YET WIRED. Trailing window of aggregate news/tweets the news
+                                  #   curator reads each run (the planned aggregate-news redesign).
+  rebalance_days: 7              # NOT YET WIRED. Re-synthesize the portfolio every N days (weekly).
   risk_free_rate: 0.04            # reporting only (Sharpe); not in the weight optimization.
 ---
 
