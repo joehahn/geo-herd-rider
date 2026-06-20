@@ -188,8 +188,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"ERROR: {args.events} not found. Add pending triggers there "
                   f"(event_id, telegraph_ts, source, telegraph_text).", file=sys.stderr)
             return 2
-        import anthropic
-        log = log_pending(pd.read_csv(args.events), log, anthropic.Anthropic())
+        import llm
+        log = log_pending(pd.read_csv(args.events), log, llm.make_client("anthropic"))
         LOG_CSV.parent.mkdir(parents=True, exist_ok=True)
         log.to_csv(LOG_CSV, index=False)
         print(f"Log now holds {len(log)} decisions -> {LOG_CSV}")

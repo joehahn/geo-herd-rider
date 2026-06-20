@@ -50,21 +50,13 @@ from pathlib import Path
 
 import pandas as pd
 
-import costs
+import llm
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EVENTS_CSV = REPO_ROOT / "events.csv"
 OUT_CSV = REPO_ROOT / "data" / "events_mapped.csv"
 
-MODEL = "claude-opus-4-8"
-
-# Adaptive thinking + the effort knob work on Opus 4.x / Sonnet 4.6 / Fable, but ERROR on
-# Haiku 4.5 and older. Gate them so a cheap curator (Haiku) can be used for playtests.
-_ADVANCED_PARAM_MODELS = ("opus-4", "sonnet-4-6", "fable", "mythos")
-
-
-def _supports_advanced(model: str) -> bool:
-    return any(k in model for k in _ADVANCED_PARAM_MODELS)
+MODEL = "claude-opus-4-8"  # default curator model (Anthropic); see --provider/--model
 
 # The mapping columns the agent appends to each event row.
 MAPPING_COLUMNS = [
@@ -206,8 +198,9 @@ def _extract_json(text: str) -> dict:
     raise ValueError("no JSON object found in model output")
 
 
-def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) -> dict:
-    """Run the agent on a single event; return a dict of MAPPING_COLUMNS."""
+def map_one(client: "llm.LLMClient", event: pd.Series, use_web_search: bool) -> dict:
+    """Run the agent on a single event; return a dict of MAPPING_COLUMNS. The LLM call (and
+    its cost accounting) is delegated to the provider-agnostic client (Anthropic or OpenRouter)."""
     telegraph_date = str(event["telegraph_ts"])[:10]
     user_msg = USER_TEMPLATE.format(
         event_id=event["event_id"],
@@ -216,40 +209,8 @@ def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) 
         telegraph_text=event["telegraph_text"],
         telegraph_date=telegraph_date,
     )
-
-    # Dynamic-filtering web search (_20260209) needs programmatic tool calling, which only
-    # the advanced models support; cheaper models (Haiku) use the basic variant.
-    if use_web_search:
-        ws = "web_search_20260209" if _supports_advanced(model) else "web_search_20250305"
-        tools = [{"type": ws, "name": "web_search"}]
-    else:
-        tools = []
-
-    messages = [{"role": "user", "content": user_msg}]
-    create_kwargs = {"model": model, "max_tokens": 8000, "system": SYSTEM_PROMPT,
-                     "tools": tools, "messages": messages}
-    if _supports_advanced(model):  # Haiku 4.5 rejects effort + adaptive thinking
-        create_kwargs["thinking"] = {"type": "adaptive"}
-        create_kwargs["output_config"] = {"effort": "high"}
-    final_text = ""
-    tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
-    # Server-side web search runs an internal loop; it can return pause_turn when
-    # it hits the per-request tool-iteration cap. Re-send to resume (no extra
-    # user message — the API detects the trailing server_tool_use and continues).
-    for _ in range(6):
-        resp = client.messages.create(**create_kwargs)
-        u = costs.extract(resp.usage)
-        for k in tally:
-            tally[k] += u.get(k, 0)
-        final_text = "".join(b.text for b in resp.content if b.type == "text")
-        if resp.stop_reason == "pause_turn":
-            messages.append({"role": "assistant", "content": resp.content})
-            continue
-        if resp.stop_reason == "refusal":
-            raise RuntimeError(f"model refused mapping for {event['event_id']}")
-        break
-
-    costs.record("ladder", model, str(event["event_id"]), tally)
+    final_text = client.complete(SYSTEM_PROMPT, user_msg, use_web_search=use_web_search,
+                                 label=str(event["event_id"]), stage="ladder")
     data = _extract_json(final_text)
 
     query = data.get("polymarket_query")
@@ -287,19 +248,26 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--force", action="store_true", help="remap events already in output")
     ap.add_argument("--events", type=Path, default=EVENTS_CSV)
     ap.add_argument("--out", type=Path, default=OUT_CSV)
+    ap.add_argument("--provider", default="anthropic", choices=["anthropic", "openrouter"],
+                    help="LLM provider (openrouter = cheap-model bake-off; needs OPENROUTER_API_KEY)")
     ap.add_argument("--model", default=MODEL,
-                    help="curator model (default claude-opus-4-8; e.g. claude-haiku-4-5 for cheap playtests)")
+                    help="curator model (default claude-opus-4-8; e.g. claude-haiku-4-5, or "
+                         "deepseek/deepseek-chat-v3.2 with --provider openrouter)")
     ap.add_argument("--workers", type=int, default=1,
                     help="ladder events concurrently (default 1; web search makes each call slow)")
     args = ap.parse_args(argv)
 
     _load_dotenv()
-    if not os.environ.get("ANTHROPIC_API_KEY"):
-        print("ERROR: ANTHROPIC_API_KEY is not set (export it or put it in .env). "
-              "The mapping agent needs it.", file=sys.stderr)
+    need_key = "OPENROUTER_API_KEY" if args.provider == "openrouter" else "ANTHROPIC_API_KEY"
+    if not os.environ.get(need_key):
+        print(f"ERROR: {need_key} is not set (export it or put it in .env).", file=sys.stderr)
         return 2
 
-    import anthropic  # imported here so --help works without the package
+    try:
+        client = llm.make_client(args.provider, args.model)
+    except Exception as e:
+        print(f"ERROR: {e}", file=sys.stderr)
+        return 2
 
     events = pd.read_csv(args.events)
     if args.limit:
@@ -310,7 +278,6 @@ def main(argv: list[str] | None = None) -> int:
         prev = pd.read_csv(args.out)
         done = {r["event_id"]: r.to_dict() for _, r in prev.iterrows()}
 
-    client = anthropic.Anthropic()
     rows = [done[e["event_id"]] for _, e in events.iterrows()
             if e["event_id"] in done and not args.force]
     pending = [e for _, e in events.iterrows()
@@ -321,7 +288,7 @@ def main(argv: list[str] | None = None) -> int:
     def _map(event):
         eid = event["event_id"]
         try:
-            mapping = map_one(client, event, use_web_search=not args.no_web_search, model=args.model)
+            mapping = map_one(client, event, use_web_search=not args.no_web_search)
         except Exception as e:  # one bad event shouldn't sink the batch
             print(f"  {eid}: FAILED ({e})", file=sys.stderr)
             return None

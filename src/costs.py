@@ -20,12 +20,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 LEDGER = REPO_ROOT / "data" / "llm_costs.csv"
 _LOCK = threading.Lock()
 
-# $ per token (input, output). Substring-matched so aliases/snapshots resolve.
+# $ per token (input, output). Substring-matched so aliases/snapshots resolve. OpenRouter
+# open-weight rates are approximate (they vary by sub-provider; ~2026-06).
 PRICES = {
     "fable-5":    (10e-6, 50e-6),
     "opus":       (5e-6, 25e-6),
     "sonnet":     (3e-6, 15e-6),
     "haiku":      (1e-6, 5e-6),
+    "deepseek":   (0.23e-6, 0.34e-6),   # OpenRouter, DeepSeek V3.2
+    "qwen":       (0.32e-6, 1.28e-6),   # OpenRouter
+    "llama":      (0.40e-6, 0.80e-6),   # OpenRouter, ~Llama 3.3 70B
 }
 CACHE_READ_FACTOR = 0.1          # cache reads bill ~0.1x input
 WEB_SEARCH_PER_CALL = 10.0 / 1000.0   # ~$10 / 1000 searches

@@ -4,7 +4,9 @@
 #   numpy, scipy      optimizer: mean-variance solve
 #   pyyaml            investor_profile.md front-matter parsing
 #   requests          polymarket: Gamma/CLOB REST (probability signal)
+#   openai            curator: OpenRouter (OpenAI-compatible) for the cheap-model bake-off
 anthropic>=0.40
+openai>=1.50
 yfinance>=0.2.40
 pandas>=2.0
 numpy>=1.26
