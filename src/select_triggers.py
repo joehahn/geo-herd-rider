@@ -36,7 +36,8 @@ import trump_feed  # noqa: E402
 import costs  # noqa: E402
 from map_event import _load_dotenv  # noqa: E402  (reuse the zero-dep .env loader)
 
-MODEL = "claude-haiku-4-5"   # cheap, high-volume screen; override with --model
+MODEL = "claude-opus-4-8"    # selection quality is the bottleneck — Haiku self-contradicts on
+                             # this screen; Opus is the proven default. Override with --model.
 BATCH = 40                    # posts per LLM call
 WORKERS = 8                   # concurrent batches
 MAX_TEXT = 400                # truncate each post to bound tokens
