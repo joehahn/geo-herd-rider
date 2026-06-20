@@ -13,5 +13,3 @@ data/triggers_cache/
 # trump_feed: large regenerable candidate-post dumps (the selected triggers ARE committed)
 data/windows/trump_posts_*.csv
 
-# personal investor settings (use investor_profile.example.md as the template)
-investor_profile.md

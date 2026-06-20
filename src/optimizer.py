@@ -28,12 +28,15 @@ from scipy.optimize import minimize
 TRADING_DAYS = 252
 
 _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
-    "risk_aversion": 1.0,
-    "risk_free_rate": 0.04,
-    "lookback_period": "3y",
-    "rebalance_period": "monthly",
-    "max_watchlist_size": 12,
-    "concentration_cap": 0.25,  # per-position max weight (top-level profile key)
+    "risk_aversion": 1.0,              # LIVE: optimizer lambda (mean-variance)
+    "concentration_cap": 0.25,         # LIVE: per-position max weight (top-level profile key)
+    "max_tickers_per_event": 16,       # LIVE: cap on tickers kept per event's basket (the
+                                       #   "limit the options" knob; truncates to the first N)
+    "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
+    # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
+    "lookback_period": "3y",           # (backtest uses BACKTEST_LOOKBACK_DAYS)
+    "rebalance_period": "monthly",     # (this engine is per-event-horizon, not periodic)
+    "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }
 
 

@@ -135,6 +135,7 @@ def _event_trade(event: pd.Series, panel: pd.DataFrame, fm: dict, lookback_days:
     """One curated long event as a trade: optimizer-weighted basket return over its
     per-event horizon, paired with SPY over the identical window, net of the haircut."""
     tickers = [t.strip().upper() for t in str(event["mapped_tickers"]).split(";") if t.strip()]
+    tickers = tickers[:int(fm.get("max_tickers_per_event", 16))]  # "limit the options" knob
     spy = panel[score.BENCHMARK].dropna()
     days = spy.index
     ei = score.entry_index(days, event["telegraph_ts"])

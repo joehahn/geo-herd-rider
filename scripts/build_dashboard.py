@@ -76,6 +76,7 @@ def build_trades(events: pd.DataFrame, panel: pd.DataFrame, fm: dict) -> list[di
     trades = []
     for _, ev in events.iterrows():
         tickers = [t.strip().upper() for t in str(ev["mapped_tickers"]).split(";") if t.strip()]
+        tickers = tickers[:int(fm.get("max_tickers_per_event", 16))]  # "limit the options" knob
         ei = score.entry_index(days, ev["telegraph_ts"])
         if ei is None:
             continue
