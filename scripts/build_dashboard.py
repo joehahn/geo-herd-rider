@@ -285,6 +285,10 @@ INDEX_HTML = r"""<!doctype html>
  <h1>Through the herd, on $50K</h1>
  <p class="sub" id="sub"></p>
  <div class="cards" id="cards"></div>
+ <p class="sub"><b>Curated</b> = the <b>middle-band book</b> — only the triggers the curator keeps
+   (causal depth 2–3: deep enough the herd hasn't priced them, not the obvious hop-1 call). This
+   is the solution's actual bet. <b>All signals</b> = every laddered trigger, kept or dropped —
+   shown for context.</p>
 
  <h2>Plot 1 — Portfolio value</h2>
  <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
@@ -304,7 +308,8 @@ INDEX_HTML = r"""<!doctype html>
    equity splits equally across active events; back to cash when none are live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
- <p class="sub" style="margin:14px 0 0"><b>Holdings by date</b> — each row is a date the book's
+ <h2>Plot 3 — Holdings by date</h2>
+ <p class="sub" style="margin:0 0 0"><b></b>Each row is a date the book's
    basket changed, with the nonzero ticker weights then (the trade the solution recommended):</p>
  <table class="atab" id="alloctable"></table>
 
@@ -361,7 +366,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     yaxis:{tickprefix:"$",separatethousands:true,range:[42000,75000],fixedrange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,range:[42000,90000],fixedrange:false},
      hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
   function drawAlloc(book){
@@ -370,8 +375,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
     traces.push({x:D.dates,y:b.cash.map(v=>v*100),name:"cash",stackgroup:"a",
       line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
-    Plotly.newPlot("alloc",traces,{margin:{l:48,r:16,t:10,b:36},
-      yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.14},
+    Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
+      yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.26},
       hovermode:"x unified"},{displayModeBar:false,responsive:true});
     const dep=b.cash.filter(v=>v<0.999).length, n=b.cash.length;
     const peak={}; for(const t in b.alloc){peak[t]=Math.max(...b.alloc[t])*100;}
