@@ -111,18 +111,24 @@ def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date
                        fm: dict, lookback_days: int) -> dict[str, float] | None:
     """Mean-variance weights for one event's basket, fit on a trailing lookback that
     ENDS at entry (look-ahead-safe — no price on/after entry informs the weights).
-    Drops tickers lacking full history over the window; returns None if none survive."""
+    Drops tickers lacking full history over the window; returns None only if none survive.
+
+    Falls back to equal weight when the optimizer is infeasible — notably when the
+    concentration_cap is too low for the basket size (k tickers can't sum to 1 if
+    cap*k < 1, e.g. cap 0.25 with a 2-3 name basket). Without this, a low cap silently
+    DROPS small-basket events from the book, biasing membership by basket size."""
     lb_start = entry_date - pd.Timedelta(days=lookback_days)
     fit = panel.loc[(panel.index >= lb_start) & (panel.index < entry_date), event_tickers]
     usable = [t for t in event_tickers if t in fit.columns and fit[t].notna().all()]
     if not usable:
         return None
+    equal = {t: 1.0 / len(usable) for t in usable}
     if len(usable) == 1:
-        return {usable[0]: 1.0}  # optimizer is a no-op on a single asset
+        return equal  # optimizer is a no-op on a single asset
     returns = compute_returns(fit[usable].dropna())
     opt = optimize_portfolio(returns, objective="mean_variance",
                              risk_aversion=fm["risk_aversion"], max_weight=fm["concentration_cap"])
-    return opt["weights"] if opt.get("success") else None
+    return opt["weights"] if opt.get("success") else equal
 
 
 def _event_trade(event: pd.Series, panel: pd.DataFrame, fm: dict, lookback_days: int) -> dict | None:
