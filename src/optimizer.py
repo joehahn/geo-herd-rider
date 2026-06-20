@@ -34,6 +34,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   "limit the options" knob; truncates to the first N)
     "t_update_days": 1,                # LIVE: business days from event detection to execution
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
+    "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
+                                       #   renormalize (pile in). ~1/N caps funded names near N.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "lookback_period": "3y",           # (backtest uses BACKTEST_LOOKBACK_DAYS)

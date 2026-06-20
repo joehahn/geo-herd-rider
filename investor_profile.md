@@ -12,6 +12,9 @@ financial_model:
   t_update_days: 1                # LIVE. Business days from event detection (post-close ~4:30pm
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
+  min_trade_size: 0.20            # LIVE. Drop basket positions below this fraction and renormalize
+                                  #   (pile into the few larger names). ~1/N caps funded names near
+                                  #   N: 0.20 -> ~<=5, 0.34 -> ~<=3, 0.05 -> ~<=20. 0 disables.
   risk_free_rate: 0.04            # reporting only (Sharpe); not in the weight optimization.
 ---
 

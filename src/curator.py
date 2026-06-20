@@ -128,7 +128,22 @@ def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date
     returns = compute_returns(fit[usable].dropna())
     opt = optimize_portfolio(returns, objective="mean_variance",
                              risk_aversion=fm["risk_aversion"], max_weight=fm["concentration_cap"])
-    return opt["weights"] if opt.get("success") else equal
+    return _apply_min_trade(opt["weights"] if opt.get("success") else equal, fm)
+
+
+def _apply_min_trade(weights: dict[str, float], fm: dict) -> dict[str, float]:
+    """Drop positions below min_trade_size (a fraction of the basket) and renormalize the rest —
+    forcing capital to PILE INTO the few larger names instead of dribbling across many. Setting
+    it to ~1/N caps the funded names near N (0.20 -> ~<=5, 0.34 -> ~<=3). 0 disables."""
+    mts = float(fm.get("min_trade_size", 0.0))
+    if mts <= 0:
+        return weights
+    kept = {t: w for t, w in weights.items() if w >= mts}
+    if not kept:  # everything below the floor -> keep just the single largest position
+        top = max(weights, key=weights.get)
+        kept = {top: weights[top]}
+    s = sum(kept.values())
+    return {t: w / s for t, w in kept.items()}
 
 
 def _event_trade(event: pd.Series, panel: pd.DataFrame, fm: dict, lookback_days: int) -> dict | None:
