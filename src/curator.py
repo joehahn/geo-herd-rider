@@ -50,6 +50,7 @@ SCORED_CSV = REPO_ROOT / "data" / "events_scored.csv"
 # The middle band: the thesis's bet. Deep enough the herd hasn't arrived, not a megaphone.
 MIN_CHAIN_DEPTH = 2
 EXCLUDE_AUDIENCE = {"megaphone"}
+MIN_BAND = 3  # below this the audience filter is treated as degenerate (see middle_band_mask)
 
 # Pre-registered Step-1 gate (fixed BEFORE running — SPEC deferred decisions #1 + #3,
 # do not tune to the data): per-event-horizon cadence, and the curated book passes iff
@@ -59,8 +60,18 @@ BACKTEST_LOOKBACK_DAYS = 547  # ~18mo trailing window for the per-event optimize
 
 
 def middle_band_mask(df: pd.DataFrame) -> pd.Series:
-    """Boolean mask selecting the middle band of the implication tree."""
-    return (df["chain_depth"] >= MIN_CHAIN_DEPTH) & (~df["audience_breadth"].isin(EXCLUDE_AUDIENCE))
+    """Boolean mask selecting the middle band of the implication tree.
+
+    Depth (hops from the trigger) is the primary, load-bearing dimension. The audience
+    exclusion (drop 'megaphone' calls) is a secondary screen that discriminates only on
+    MULTI-source feeds; on a single-source megaphone feed — every trigger a Trump post — it
+    is constant and collapses the band to ~nothing (Iran-window A/B: 1 of 175 survived). So
+    apply it only while it leaves a usable book; otherwise fall back to depth-only. This
+    preserves the validated multi-source Step-1 (the GW set keeps the audience screen) while
+    rescuing single-source feeds. Validated on one window — the clean test is the forward eval."""
+    depth_ok = df["chain_depth"] >= MIN_CHAIN_DEPTH
+    band = depth_ok & ~df["audience_breadth"].isin(EXCLUDE_AUDIENCE)
+    return band if band.sum() >= MIN_BAND else depth_ok
 
 
 def curate(mapped: pd.DataFrame) -> pd.DataFrame:
