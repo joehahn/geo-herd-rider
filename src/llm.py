@@ -106,13 +106,15 @@ class OpenRouterClient(LLMClient):
         )
         text = r.choices[0].message.content or ""
         u = r.usage
+        # Record only the token cost (accurate). OpenRouter's :online web plugin is billed
+        # separately (~$4/1k results) and isn't in `usage`; it's small relative to tokens, so
+        # we don't fabricate it here — note it when reporting. (Watch input_tokens: if it stays
+        # tiny, :online injected little web context and the ladder is reasoning from priors.)
         costs.record(stage, self.model, label, {
             "input_tokens": getattr(u, "prompt_tokens", 0) or 0,
             "output_tokens": getattr(u, "completion_tokens", 0) or 0,
             "cache_read_tokens": 0,
-            # :online returns up to ~5 results/call; priced approximately at the Anthropic
-            # web rate (OpenRouter's is ~$4/1k vs our $10/1k) — a deliberate slight overestimate.
-            "web_searches": 5 if use_web_search else 0,
+            "web_searches": 0,
         })
         return text
 
