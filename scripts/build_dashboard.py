@@ -441,39 +441,75 @@ TREE_HTML = r"""<!doctype html>
  .b.drop{background:#eef1f3;color:#888} .b.short{background:#fdebd0;color:#9c5700}
  .text{font-size:13.5px;color:#333;margin:6px 0} .mech{font-size:13.5px;margin:8px 0 6px}
  .mech b{color:var(--mut);font-weight:600}
- .chip{display:inline-block;font-size:12px;font-family:ui-monospace,Menlo,monospace;
-   padding:2px 8px;border-radius:6px;background:#2c3e50;color:#fff;margin:2px 5px 2px 0}
- .legend{font-size:13px;color:var(--mut);margin:0 0 18px}
  .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
  .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
  .nav a.active{color:var(--ink);font-weight:600}
+ .how{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:13px}
+ .how ol{margin:6px 0 0;padding-left:20px} .how li{margin:3px 0}
+ .ctl{margin:0 0 16px;font-size:13px;color:var(--mut)} .ctl input{font:inherit;padding:3px 6px}
+ .ctl button{font:inherit;padding:3px 10px;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:6px}
+ .chain{display:flex;flex-wrap:wrap;align-items:center;margin:4px 0 2px}
+ .node{border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;max-width:240px;background:#f4f6f8}
+ .node.trig{background:#fff;border-color:#c9ccd0} .node.hop{background:#eef2f7}
+ .node.tick{background:#2c3e50;color:#fff;font-family:ui-monospace,Menlo,monospace;font-weight:600;font-size:12.5px}
+ .ev.keep .node.trig{border-color:#c0392b;background:#fdeeec}
+ .ev.drop{opacity:.55} .arrow{color:#9aa0a6;padding:0 7px;font-size:15px}
+ .hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline;margin-bottom:2px}
+ .b{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin-left:6px;background:#eef1f3;color:#445}
+ .b.keep{background:#fae3e0;color:#c0392b;font-weight:600} .b.drop{background:#eef1f3;color:#888}
+ .b.short{background:#fdebd0;color:#9c5700}
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="index.html">Dashboard</a>
    <a href="tree.html" class="active">Decision tree</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
- <h1>Decision-tree timeline</h1>
- <p class="legend">Each trigger and the causal ladder the curator pruned from it. A
-   <b style="color:#c0392b">red</b> left-edge = kept by the middle-band filter (the bet);
-   grey = dropped (megaphone / too shallow). <code>depth</code> = hops from the trigger.</p>
+ <h1>Decision tree — how triggers become tickers</h1>
+ <div class="how"><b>How the solution prunes the implication network down to tickers:</b>
+   <ol>
+     <li><b>📣 Trigger → chain.</b> Each high-reach post is laddered into a causal chain — the
+       hops shown left-to-right (parsed from the curator's <code>mechanism</code>).</li>
+     <li><b>Middle-band filter.</b> Keep chains of <b>depth 2–3</b> (deep enough the herd hasn't
+       priced them, past the obvious hop-1, short of hop-4+ storytelling). <b style="color:#c0392b">Red</b>
+       trigger = KEPT (the bet); <span style="opacity:.55">faded</span> = pruned.</li>
+     <li><b>🎯 Vehicle selection.</b> At the chain's end, pick the <i>purest</i> instrument — the
+       rate/commodity ETN over a diluted operator equity (this is what surfaces BWET).</li>
+     <li><b>Mechanical sizing</b> downstream (optimizer; the LLM never sets weights).</li>
+   </ol>
+   <span style="color:var(--mut)">Caveat: only the chain the curator committed to is recorded —
+   the alternative branches it weighed and rejected are not stored, so this shows the chosen path,
+   not every pruned branch.</span></div>
+ <div class="ctl">Focus window:
+   <input id="from" type="date" value="2026-02-15"> to <input id="to" type="date" value="2026-03-06">
+   <button id="all">show all</button>
+   <span id="count"></span></div>
  <div id="tl"></div>
 </div>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
-  document.getElementById("tl").innerHTML = D.events.map(e=>`
-    <div class="ev ${e.keep?'keep':''}">
-      <div class="top"><span class="date">${e.date} · ${e.id}</span><span class="src">${e.source}</span></div>
-      <div class="text">“${e.text}”</div>
-      <div class="badges">
-        <span class="b depth">depth ${e.depth} (${e.depth===1?'hop-1 obvious':e.depth>=4?'deep/speculative':'middle band'})</span>
-        <span class="b">${e.audience}</span>
-        ${e.direction==='short'?'<span class="b short">SHORT</span>':''}
-        <span class="b">${e.horizon}d horizon</span>
-        ${e.keep?'<span class="b keep">KEPT — the bet</span>':'<span class="b drop">dropped</span>'}
-      </div>
-      <div class="mech"><b>ladder:</b> ${e.mechanism}</div>
-      <div>${e.tickers.map(t=>`<span class="chip">${t}</span>`).join("")}</div>
-    </div>`).join("");
+  const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const hops=m=>esc(m).split(/\s*(?:-&gt;|→)\s*/).map(s=>s.trim()).filter(Boolean);
+  function render(from,to){
+    const evs=D.events.filter(e=>(!from||e.date>=from)&&(!to||e.date<=to));
+    document.getElementById("count").textContent=` — ${evs.length} triggers`;
+    document.getElementById("tl").innerHTML = evs.map(e=>{
+      const parts=hops(e.mechanism);
+      const nodes=[`<div class="node trig">📣 <b>${e.date}</b><br>${esc(e.text).slice(0,90)}…</div>`]
+        .concat(parts.map(h=>`<div class="node hop">${h.slice(0,130)}</div>`))
+        .concat([`<div class="node tick">🎯 ${e.tickers.map(esc).join(' · ')}</div>`]);
+      return `<div class="ev ${e.keep?'keep':'drop'}" style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 12px">
+        <div class="hd"><span><b>${e.id}</b> · depth ${e.depth}
+          <span class="b ${e.keep?'keep':'drop'}">${e.keep?'KEPT — the bet':'pruned'}</span>
+          ${e.direction==='short'?'<span class="b short">SHORT</span>':''}
+          <span class="b">${e.audience}</span></span>
+          <span class="src" style="color:var(--mut);font-size:12px">${esc(e.source)}</span></div>
+        <div class="chain">${nodes.join('<span class="arrow">→</span>')}</div></div>`;
+    }).join("") || '<p class="sub">No triggers in that window.</p>';
+  }
+  const f=document.getElementById("from"), t=document.getElementById("to");
+  const go=()=>render(f.value,t.value);
+  f.onchange=go; t.onchange=go;
+  document.getElementById("all").onclick=()=>{f.value="";t.value="";go();};
+  go();
 });
 </script></body></html>
 """
