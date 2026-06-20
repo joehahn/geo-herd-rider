@@ -37,8 +37,9 @@ class LLMClient(ABC):
         self.model = model
 
     @abstractmethod
-    def complete(self, system: str, user: str, *, use_web_search: bool,
-                 label: str, stage: str = "ladder", json_schema: dict | None = None) -> str: ...
+    def complete(self, system: str, user: str, *, use_web_search: bool, label: str,
+                 stage: str = "ladder", json_schema: dict | None = None,
+                 search_query: str | None = None, before_date: str | None = None) -> str: ...
 
 
 class AnthropicClient(LLMClient):
@@ -51,9 +52,9 @@ class AnthropicClient(LLMClient):
         self._c = anthropic.Anthropic()
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
-                 json_schema=None) -> str:
-        # json_schema is ignored here: the Anthropic path parses free-form fenced JSON from the
-        # final message, which composes cleanly with the web_search tool (it already maps 70/70).
+                 json_schema=None, search_query=None, before_date=None) -> str:
+        # json_schema/search_query/before_date are ignored here: the Anthropic path parses
+        # free-form fenced JSON and uses its own server-side, before:<date> web search.
         m = self.model
         if use_web_search:
             ws = "web_search_20260209" if _supports_advanced(m) else "web_search_20250305"
@@ -102,9 +103,15 @@ class OpenRouterClient(LLMClient):
         self._c = OpenAI(base_url=self.BASE_URL, api_key=key)
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
-                 json_schema=None) -> str:
-        model_id = self.model + (":online" if use_web_search else "")
-        kw = {"model": model_id, "max_tokens": 8000,
+                 json_schema=None, search_query=None, before_date=None) -> str:
+        # Real, look-ahead-safe web search via Tavily (end_date filter), injected as context —
+        # OpenRouter's :online has no date control, so we don't use it.
+        if use_web_search and search_query:
+            import search as websearch
+            ctx = websearch.context(search_query, before_date)
+            if ctx:
+                user = ctx + "\n\n" + user
+        kw = {"model": self.model, "max_tokens": 8000,
               "messages": [{"role": "system", "content": system},
                            {"role": "user", "content": user}]}
         if json_schema is not None:  # structured outputs: guarantees parseable JSON (fixes the

@@ -232,7 +232,9 @@ def map_one(client: "llm.LLMClient", event: pd.Series, use_web_search: bool) -> 
     )
     final_text = client.complete(SYSTEM_PROMPT, user_msg, use_web_search=use_web_search,
                                  label=str(event["event_id"]), stage="ladder",
-                                 json_schema=STRICT_SCHEMA)
+                                 json_schema=STRICT_SCHEMA,
+                                 search_query=str(event["telegraph_text"]),
+                                 before_date=telegraph_date)
     data = _extract_json(final_text)
 
     query = data.get("polymarket_query")
