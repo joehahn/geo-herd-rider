@@ -55,13 +55,13 @@ The ticker that motivated this project is **BWET** — a dry-bulk freight ETF, t
 
 A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). BWET drifted at a fraction of its eventual level all year, then ran with the war. Reproduce: `python scripts/plot_shipping.py`.
 
-**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, and a [decision-tree timeline](https://joehahn.github.io/geo-herd-rider/tree.html). Retrospective upper bound (one loud window); rebuild with `python scripts/build_dashboard.py`.
+**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, a [decision-tree timeline](https://joehahn.github.io/geo-herd-rider/tree.html), and a per-stage LLM-cost panel. The triggers are **gathered from Trump's Truth Social archive and selected by the LLM — never hand-picked**. Retrospective upper bound (one loud window); rebuild with `python scripts/build_dashboard.py`.
 
 ## Four signals, four jobs
 
 The sources are not interchangeable inputs; each answers a different question in the ladder:
 
-- **Trigger** — *what starts a ladder.* Posts by high-reach figures: politicians (Trump) and business leaders (Musk, Dimon).
+- **Trigger** — *what starts a ladder.* Posts by high-reach figures, **gathered from a real archive, not hand-collected**: `trump_feed.py` pulls Trump's complete, timestamped Truth Social history (point-in-time-sliceable, so no look-ahead leak), and `select_triggers.py` has the LLM scout the whole stream and keep only concrete market-moving events. The human never picks. (Musk, Dimon, and a news arm come later.)
 - **Probability** — *will the upstream event actually resolve?* Polymarket and other prediction-market odds, so a ladder is timed and sized against a real probability rather than a maybe.
 - **Confirmation** — *is the smart edge of the herd already turning?* Fed communications, big-bank principals, and congressional-trading disclosures. The aim is to ride just behind the smart money and ahead of everyone else, not to beat the smart money.
 - **Sizing** — mechanical. A standard mean-variance optimizer weights whatever watchlist results. The LLM never touches the numbers.
@@ -76,7 +76,15 @@ Built in scoreboard-gated baby steps (full plan in [`SPEC.md`](SPEC.md)):
 - **Step 2 _(built; lift pending)_** — a Polymarket probability signal (`src/polymarket.py`, with `--discover` to surface hot events), a curator-named `polymarket_query`, and a forward paper-trade logger (`src/forward.py`). Catch: Polymarket has no usable history for resolved markets and the curator LLM was trained past the events, so retrospective numbers are hindsight-contaminated. The only clean test is forward, so that's where the lift gets measured.
 - **Step 3 _(waiting)_** — Fed + congressional-trade confirmation, gated until the scoreboard says Step 2 pays.
 
-First playtest — the 2026 Trump–Iran war (`data/windows/iran.csv`), Haiku curator, under $1: +12.8% median excess vs SPY, 70% hit on the matured trades. Encouraging, but mostly the obvious "war → long oil" megaphone call the thesis says is already grazed — the middle-band filter kept 1 of 15. The real test is the quiet windows, still to come.
+**Bias-free playtest — the 2026 Trump–Iran war.** The first playtest fed the curator a *hand-built* list of 15 events — a human who already knew the war's arc chose which mattered, baking selection + hindsight bias in before the curator ran. So the trigger layer was rebuilt to gather Trump's posts from the archive and let the LLM select (above). Re-running the same Jan–Jun 2026 window as an **A/B** (LLM-gathered feed vs the hand-built baseline's +61% annualized excess) is revealing:
+
+| Scout | Ladder | full-set excess vs SPY |
+|---|---|---|
+| Haiku | Haiku | **−25%** |
+| Opus | Haiku | −5% |
+| **Opus** | **Opus** | **+41%** (middle band +85%) |
+
+Each model upgrade closed about half the gap, in the order the A/B predicted: fixing the **scout** (selection) came first, then the **ladder** (causal-chain quality) — both real bottlenecks, both needing a capable model. Off the raw feed, with no human topic-picking, the book laddered Trump's own posts to the oil/tanker chain (FRO) *and* an independent Venezuela-oil chain (CVX). That winning run cost **$18.22** ($2.31 scout + $15.91 ladder); the whole investigation, failed cheap-model runs included, was $35.57 — all in `data/llm_costs.csv`. Caveats stand: small N, one loud window, both models trained past the events (hindsight-inflated). The baseline's +61% is itself partly that contamination — a human picking Iran events with hindsight — so the de-biased book sitting near/above SPY may be the more honest read. The clean verdicts are the **forward eval** and the **quiet-window** regime-contrast, still to come.
 
 ## Setup
 
