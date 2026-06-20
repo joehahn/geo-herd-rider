@@ -70,21 +70,42 @@ The machine, end to end: *trigger → probability → AI causal ladder → smart
 
 ## Status
 
-Built in scoreboard-gated baby steps (full plan in [`SPEC.md`](SPEC.md)):
+An end-to-end, cost-metered pipeline, validated so far on one window (the 2026 Trump–Iran war).
 
-- **Step 1 _(done, passing)_** — the middle-band curator + a per-event-horizon backtest vs SPY buy-and-hold (`src/curator.py --backtest`). Optimizer reused verbatim from `portfolio-wave-rider`, mapper and scorer from `geo-wave-rider`.
-- **Step 2 _(built; lift pending)_** — a Polymarket probability signal (`src/polymarket.py`, with `--discover` to surface hot events), a curator-named `polymarket_query`, and a forward paper-trade logger (`src/forward.py`). Catch: Polymarket has no usable history for resolved markets and the curator LLM was trained past the events, so retrospective numbers are hindsight-contaminated. The only clean test is forward, so that's where the lift gets measured.
-- **Step 3 _(waiting)_** — Fed + congressional-trade confirmation, gated until the scoreboard says Step 2 pays.
+**Pipeline.** `trump_feed.py` pulls Trump's complete, timestamped Truth Social archive →
+`select_triggers.py` (LLM scout) keeps only the concrete, market-moving posts → `map_event.py`
+ladders each surviving trigger to a basket, direction, and causal `chain_depth` →
+`curator.py` keeps the **middle band** and hands the long watchlist to the reused mean-variance
+optimizer → `curator.py --backtest` / `score.py` grade it against SPY, and `forward.py` logs
+look-ahead-clean forward decisions. Every LLM call is priced into `data/llm_costs.csv`; the book
+renders at the [live dashboard](https://joehahn.github.io/geo-herd-rider/).
 
-**Bias-free playtest — the 2026 Trump–Iran war.** The first playtest fed the curator a *hand-built* list of 15 events — a human who already knew the war's arc chose which mattered, baking selection + hindsight bias in before the curator ran. So the trigger layer was rebuilt to gather Trump's posts from the archive and let the LLM select (above). Re-running the same Jan–Jun 2026 window as an **A/B** (LLM-gathered feed vs the hand-built baseline's +61% annualized excess) is revealing:
+**Config.** The LLM layer is provider-agnostic (`llm.py`). Default is **Claude Opus for both
+the scout and the ladder, with Anthropic's server-side web search**. Entry is **T+1** (models the
+real execution lag). The middle band is **depth-based** (a megaphone-audience screen also applies
+on multi-source feeds). A drop-in **cheap stack** — DeepSeek via OpenRouter + Tavily search
+(`--provider openrouter`, ~500× cheaper per ladder) — matches Opus in same-regime tests but
+underperforms with reconstructed *historical* search, so it is reserved for **forward** use.
 
-| Scout | Ladder | full-set excess vs SPY |
-|---|---|---|
-| Haiku | Haiku | **−25%** |
-| Opus | Haiku | −5% |
-| **Opus** | **Opus** | **+41%** (middle band +85%) |
+**Current result (2026 Iran war, LLM-gathered triggers, T+1, Opus + web).** The curated
+middle-band book beats SPY: dashboard **$50K → ~$57.5K (+15%) vs SPY +10%** over the window
+(per-event annualized excess ≈ +70%). A quiet-2023 control behaves correctly — the scout keeps
+~0% of posts (nothing to trade when nothing is happening). Every retrospective number here is a
+**hindsight-contaminated upper bound**.
 
-Each model upgrade closed about half the gap, in the order the A/B predicted: fixing the **scout** (selection) came first, then the **ladder** (causal-chain quality) — both real bottlenecks, both needing a capable model. Off the raw feed, with no human topic-picking, the book laddered Trump's own posts to the oil/tanker chain (FRO) *and* an independent Venezuela-oil chain (CVX). That winning run cost **$18.22** ($2.31 scout + $15.91 ladder); the whole investigation, failed cheap-model runs included, was $35.57 — all in `data/llm_costs.csv`. Caveats stand: small N, one loud window, both models trained past the events (hindsight-inflated). The baseline's +61% is itself partly that contamination — a human picking Iran events with hindsight — so the de-biased book sitting near/above SPY may be the more honest read. The clean verdicts are the **forward eval** and the **quiet-window** regime-contrast, still to come.
+**Scoreboard-gated steps (full plan in [`SPEC.md`](SPEC.md)):**
+
+- **Step 1 _(done, passing)_** — middle-band curator + per-event-horizon backtest vs SPY
+  buy-and-hold. Optimizer reused from `portfolio-wave-rider`, mapper/scorer from `geo-wave-rider`.
+- **Step 2 _(built; lift pending)_** — Polymarket probability signal (`src/polymarket.py`,
+  `--discover`), a curator-named `polymarket_query`, and the forward paper-trade logger
+  (`src/forward.py`). Polymarket has no usable resolved-market history, so its lift is measured
+  forward.
+- **Step 3 _(waiting)_** — Fed + congressional-trade confirmation, gated until the scoreboard
+  says Step 2 pays.
+
+The clean verdicts — a **forward paper-trade eval** and a **multi-window loud-vs-quiet regime
+contrast** — are still to come.
 
 ## Setup
 
