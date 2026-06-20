@@ -55,6 +55,12 @@ PRICE_CACHE = REPO_ROOT / "data" / "prices_cache" / "panel.csv"
 
 BENCHMARK = "SPY"
 
+# Execution lag: enter this many trading days AFTER the first actable close, modeling the
+# real-world gap between the recommendation and the human placing the trade. Validated on the
+# loud window: the middle band is robust to +1 (+76% -> +70% excess) but the edge cliffs by +3.
+# Conservative default = 1 (T+1). Set 0 only to model instant fills.
+ENTRY_LAG_DAYS = 1
+
 # Pre-registered decision rule (fixed BEFORE running — do not tune to the data).
 GATE_MEDIAN_EXCESS = 0.03   # median per-event excess return must exceed +3%
 GATE_HIT_RATE = 0.55        # hit rate must exceed 55%
@@ -104,24 +110,31 @@ def fetch_panel(tickers: list[str], start: str, end: str, use_cache: bool = True
 # --------------------------------------------------------------------------- #
 # Trade window resolution                                                       #
 # --------------------------------------------------------------------------- #
-def entry_index(trading_days: pd.DatetimeIndex, telegraph_ts: str) -> int | None:
-    """Position in `trading_days` of the first close ACTABLE on the telegraph.
+def entry_index(trading_days: pd.DatetimeIndex, telegraph_ts: str,
+                lag_days: int = None) -> int | None:
+    """Position in `trading_days` of the entry close, modeling execution lag.
 
-    Posted before 16:00 ET on a trading day -> that day's close. Otherwise (after
-    close, or a non-trading day) -> the next trading day's close.
+    First the ACTABLE close: posted before 16:00 ET on a trading day -> that day's close;
+    otherwise (after close, or a non-trading day) -> the next trading day's close. Then enter
+    `lag_days` trading days later (default ENTRY_LAG_DAYS = 1, the human execution gap). Returns
+    None if the lagged entry runs off the end of the data.
     """
+    lag = ENTRY_LAG_DAYS if lag_days is None else lag_days
     ts = pd.Timestamp(telegraph_ts)
     ts_et = ts.tz_convert(ET) if ts.tzinfo is not None else ts.tz_localize(ET)
     day = ts_et.normalize().tz_localize(None)
     same_day_actable = ts_et.hour < MARKET_CLOSE_HOUR
 
+    base = None
     for i, d in enumerate(trading_days):
         if d < day:
             continue
-        if d == day:
-            return i if same_day_actable else (i + 1 if i + 1 < len(trading_days) else None)
-        return i  # first trading day strictly after `day`
-    return None
+        base = i if (d == day and same_day_actable) else (i if d > day else i + 1)
+        break
+    if base is None:
+        return None
+    idx = base + lag
+    return idx if idx < len(trading_days) else None
 
 
 def exit_index(trading_days: pd.DatetimeIndex, entry_i: int, horizon_days: int) -> int | None:
