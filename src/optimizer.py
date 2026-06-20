@@ -36,9 +36,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
                                        #   renormalize (pile in). ~1/N caps funded names near N.
+    "lookback_period_days": 547,       # LIVE: trailing window (calendar days, ending at entry)
+                                       #   for the optimizer's mu/Sigma fit. Short = noisier weights.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
-    "lookback_period": "3y",           # (backtest uses BACKTEST_LOOKBACK_DAYS)
     "rebalance_period": "monthly",     # (this engine is per-event-horizon, not periodic)
     "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }

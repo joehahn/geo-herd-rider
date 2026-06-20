@@ -15,6 +15,8 @@ financial_model:
   min_trade_size: 0.20            # LIVE. Drop basket positions below this fraction and renormalize
                                   #   (pile into the few larger names). ~1/N caps funded names near
                                   #   N: 0.20 -> ~<=5, 0.34 -> ~<=3, 0.05 -> ~<=20. 0 disables.
+  lookback_period_days: 45        # LIVE. Trailing window (calendar days, ending at entry) for the
+                                  #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
   risk_free_rate: 0.04            # reporting only (Sharpe); not in the weight optimization.
 ---
 
@@ -24,6 +26,5 @@ geo-herd-rider sizes mechanically — the LLM never touches the numbers. These s
 the mean-variance optimizer that weights each curated event's basket.
 
 **Not yet wired** (loaded but ignored in this architecture, kept out of the block above to avoid
-implying they work): `max_watchlist_size` (no single rolling watchlist here),
-`lookback_period` (the backtest uses a fixed 547-day window), `rebalance_period` (per-event-
-horizon, not periodic). See README / `optimizer._FINANCIAL_MODEL_DEFAULTS`.
+implying they work): `max_watchlist_size` (no single rolling watchlist here), `rebalance_period`
+(per-event-horizon, not periodic). See README / `optimizer._FINANCIAL_MODEL_DEFAULTS`.

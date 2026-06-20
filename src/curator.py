@@ -210,9 +210,11 @@ def _daily_curve(trades: list[dict], panel: pd.DataFrame) -> tuple[float, float,
     return ann_strat, ann_spy, n
 
 
-def backtest_report(mapped: pd.DataFrame, fm: dict, lookback_days: int = BACKTEST_LOOKBACK_DAYS) -> None:
+def backtest_report(mapped: pd.DataFrame, fm: dict, lookback_days: int = None) -> None:
     """Per-event-horizon portfolio backtest of each cohort vs SPY buy-and-hold, with the
     pre-registered Step-1 verdict for the curated middle band."""
+    if lookback_days is None:
+        lookback_days = int(fm.get("lookback_period_days", BACKTEST_LOOKBACK_DAYS))
     longs = mapped[mapped["direction"].str.lower() == "long"].copy()
     mask = middle_band_mask(longs)
     cohorts = {"full set": longs, "middle band (kept)": longs[mask], "complement (drop)": longs[~mask]}

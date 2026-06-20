@@ -90,7 +90,8 @@ def build_trades(events: pd.DataFrame, panel: pd.DataFrame, fm: dict) -> list[di
 
         weights = None
         if is_long:
-            weights = curator._optimized_weights(tickers, panel, entry_d, fm, LOOKBACK)
+            weights = curator._optimized_weights(tickers, panel, entry_d, fm,
+                                                 int(fm.get("lookback_period_days", LOOKBACK)))
         if not weights:  # short, or optimizer abstained -> equal-weight what has prices at entry
             usable = [t for t in tickers if t in panel.columns
                       and panel.loc[:entry_d, t].notna().any()]
@@ -185,7 +186,8 @@ def main(argv: list[str] | None = None) -> int:
     tickers = {score.BENCHMARK, BWET_TICKER}  # BWET for the hidden-gem overlay on Plot 1
     for cell in events["mapped_tickers"]:
         tickers.update(t.strip().upper() for t in str(cell).split(";") if t.strip())
-    panel_start = (pd.Timestamp(args.start) - pd.Timedelta(days=LOOKBACK + 14)).strftime("%Y-%m-%d")
+    panel_start = (pd.Timestamp(args.start)
+                   - pd.Timedelta(days=int(fm.get("lookback_period_days", LOOKBACK)) + 14)).strftime("%Y-%m-%d")
     panel_end = (pd.Timestamp.today() + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
     print(f"Fetching {len(tickers)} tickers, {panel_start} .. {panel_end} ...")
     panel = score.fetch_panel(sorted(tickers), panel_start, panel_end, use_cache=False)
