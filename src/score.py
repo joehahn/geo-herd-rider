@@ -55,11 +55,11 @@ PRICE_CACHE = REPO_ROOT / "data" / "prices_cache" / "panel.csv"
 
 BENCHMARK = "SPY"
 
-# Execution lag: enter this many trading days AFTER the first actable close, modeling the
-# real-world gap between the recommendation and the human placing the trade. Validated on the
-# loud window: the middle band is robust to +1 (+76% -> +70% excess) but the edge cliffs by +3.
-# Conservative default = 1 (T+1). Set 0 only to model instant fills.
-ENTRY_LAG_DAYS = 1
+# t_update_days: business days from the (post-close, ~4:30pm cron) detection of an event to when
+# the human actually executes — enter that many trading days after the first actable close, at
+# that day's CLOSE. 1 = next session, 2/3 = wait 2/3 business days. (A fractional 0.5 = next-
+# morning OPEN fill is NOT modeled here — that needs intraday data; integer days only.)
+T_UPDATE_DAYS = 1
 
 # Pre-registered decision rule (fixed BEFORE running — do not tune to the data).
 GATE_MEDIAN_EXCESS = 0.03   # median per-event excess return must exceed +3%
@@ -111,15 +111,16 @@ def fetch_panel(tickers: list[str], start: str, end: str, use_cache: bool = True
 # Trade window resolution                                                       #
 # --------------------------------------------------------------------------- #
 def entry_index(trading_days: pd.DatetimeIndex, telegraph_ts: str,
-                lag_days: int = None) -> int | None:
-    """Position in `trading_days` of the entry close, modeling execution lag.
+                t_update_days: int = None) -> int | None:
+    """Position in `trading_days` of the entry close, modeling the update lag.
 
     First the ACTABLE close: posted before 16:00 ET on a trading day -> that day's close;
     otherwise (after close, or a non-trading day) -> the next trading day's close. Then enter
-    `lag_days` trading days later (default ENTRY_LAG_DAYS = 1, the human execution gap). Returns
-    None if the lagged entry runs off the end of the data.
+    `t_update_days` trading days later, at that day's close (default T_UPDATE_DAYS = 1, the gap
+    between the post-close cron and the human placing the trade). Returns None if it runs off
+    the end of the data.
     """
-    lag = ENTRY_LAG_DAYS if lag_days is None else lag_days
+    lag = T_UPDATE_DAYS if t_update_days is None else int(t_update_days)
     ts = pd.Timestamp(telegraph_ts)
     ts_et = ts.tz_convert(ET) if ts.tzinfo is not None else ts.tz_localize(ET)
     day = ts_et.normalize().tz_localize(None)

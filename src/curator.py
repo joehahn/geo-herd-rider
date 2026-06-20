@@ -138,7 +138,7 @@ def _event_trade(event: pd.Series, panel: pd.DataFrame, fm: dict, lookback_days:
     tickers = tickers[:int(fm.get("max_tickers_per_event", 16))]  # "limit the options" knob
     spy = panel[score.BENCHMARK].dropna()
     days = spy.index
-    ei = score.entry_index(days, event["telegraph_ts"])
+    ei = score.entry_index(days, event["telegraph_ts"], fm.get("t_update_days"))
     if ei is None:
         return None
     xi = score.exit_index(days, ei, event["horizon_days"])

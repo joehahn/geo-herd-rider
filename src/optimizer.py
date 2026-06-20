@@ -32,6 +32,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "concentration_cap": 0.25,         # LIVE: per-position max weight (top-level profile key)
     "max_tickers_per_event": 16,       # LIVE: cap on tickers kept per event's basket (the
                                        #   "limit the options" knob; truncates to the first N)
+    "t_update_days": 1,                # LIVE: business days from event detection to execution
+                                       #   (enter at that day's close). 1=next session, 2/3=wait.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "lookback_period": "3y",           # (backtest uses BACKTEST_LOOKBACK_DAYS)

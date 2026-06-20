@@ -79,7 +79,7 @@ def build_trades(events: pd.DataFrame, panel: pd.DataFrame, fm: dict) -> list[di
     for _, ev in events.iterrows():
         tickers = [t.strip().upper() for t in str(ev["mapped_tickers"]).split(";") if t.strip()]
         tickers = tickers[:int(fm.get("max_tickers_per_event", 16))]  # "limit the options" knob
-        ei = score.entry_index(days, ev["telegraph_ts"])
+        ei = score.entry_index(days, ev["telegraph_ts"], fm.get("t_update_days"))
         if ei is None:
             continue
         entry_d = days[ei]
@@ -352,8 +352,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     vtraces.push({x:D.dates,y:D.bwet_scaled,name:"BWET (scaled)",
       line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
     const bl=D.bwet_scaled.filter(v=>v!=null); const lastB=bl.length?bl[bl.length-1]:null;
-    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:lastB,xanchor:"left",xshift:6,
-      showarrow:false,text:"BWET "+fmt(lastB),font:{color:"#e67e22",size:11}});
+    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:0.97,yref:"paper",xanchor:"right",
+      showarrow:false,text:"BWET ↑ "+fmt(lastB)+" (off-chart)",font:{color:"#e67e22",size:11}});
     vshapes.push({type:"line",x0:D.bwet_anchor,x1:D.bwet_anchor,yref:"paper",y0:0,y1:1,
       line:{color:"#e6b089",width:1,dash:"dot"}});
     vann.push({x:D.bwet_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
@@ -361,7 +361,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},{displayModeBar:false,responsive:true});
+     yaxis:{tickprefix:"$",separatethousands:true,range:[42000,75000],fixedrange:false},
+     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
   function drawAlloc(book){
     const b=D.books[book], traces=[];

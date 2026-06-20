@@ -2,13 +2,16 @@
 # Active optimizer settings (committed, reproducible). The curator/backtest/dashboard read
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these.
-concentration_cap: 0.50           # LIVE. Per-position max weight inside each event's basket.
+concentration_cap: 0.3334         # LIVE. Per-position max weight inside each event's basket.
                                   #   high -> pile into the optimizer's pick; low -> equal-ish.
 financial_model:
   risk_aversion: 1.0              # LIVE. lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
   max_tickers_per_event: 16       # LIVE. Cap on tickers kept per event (the "limit the options"
                                   #   knob). Truncates each basket to the first N. Tune later:
                                   #   2 (1-2 names), 7 (3-7), 16 (8-16). Current baskets are ~3-5.
+  t_update_days: 1                # LIVE. Business days from event detection (post-close ~4:30pm
+                                  #   cron) to execution, entering at that day's close. 1=next
+                                  #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
   risk_free_rate: 0.04            # reporting only (Sharpe); not in the weight optimization.
 ---
 
