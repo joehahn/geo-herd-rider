@@ -6,3 +6,9 @@ __pycache__/
 .env
 data/prices_cache/
 data/polymarket_candidates.csv
+
+# trump_feed: raw post-archive pulls (large, refetchable)
+data/triggers_cache/
+
+# trump_feed: large regenerable candidate-post dumps (the selected triggers ARE committed)
+data/windows/trump_posts_*.csv

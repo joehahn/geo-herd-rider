@@ -50,6 +50,8 @@ from pathlib import Path
 
 import pandas as pd
 
+import costs
+
 REPO_ROOT = Path(__file__).resolve().parent.parent
 EVENTS_CSV = REPO_ROOT / "events.csv"
 OUT_CSV = REPO_ROOT / "data" / "events_mapped.csv"
@@ -215,11 +217,13 @@ def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) 
         telegraph_date=telegraph_date,
     )
 
-    tools = (
-        [{"type": "web_search_20260209", "name": "web_search"}]
-        if use_web_search
-        else []
-    )
+    # Dynamic-filtering web search (_20260209) needs programmatic tool calling, which only
+    # the advanced models support; cheaper models (Haiku) use the basic variant.
+    if use_web_search:
+        ws = "web_search_20260209" if _supports_advanced(model) else "web_search_20250305"
+        tools = [{"type": ws, "name": "web_search"}]
+    else:
+        tools = []
 
     messages = [{"role": "user", "content": user_msg}]
     create_kwargs = {"model": model, "max_tokens": 8000, "system": SYSTEM_PROMPT,
@@ -228,11 +232,15 @@ def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) 
         create_kwargs["thinking"] = {"type": "adaptive"}
         create_kwargs["output_config"] = {"effort": "high"}
     final_text = ""
+    tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
     # Server-side web search runs an internal loop; it can return pause_turn when
     # it hits the per-request tool-iteration cap. Re-send to resume (no extra
     # user message — the API detects the trailing server_tool_use and continues).
     for _ in range(6):
         resp = client.messages.create(**create_kwargs)
+        u = costs.extract(resp.usage)
+        for k in tally:
+            tally[k] += u.get(k, 0)
         final_text = "".join(b.text for b in resp.content if b.type == "text")
         if resp.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": resp.content})
@@ -241,6 +249,7 @@ def map_one(client, event: pd.Series, use_web_search: bool, model: str = MODEL) 
             raise RuntimeError(f"model refused mapping for {event['event_id']}")
         break
 
+    costs.record("ladder", model, str(event["event_id"]), tally)
     data = _extract_json(final_text)
 
     query = data.get("polymarket_query")
@@ -280,6 +289,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--out", type=Path, default=OUT_CSV)
     ap.add_argument("--model", default=MODEL,
                     help="curator model (default claude-opus-4-8; e.g. claude-haiku-4-5 for cheap playtests)")
+    ap.add_argument("--workers", type=int, default=1,
+                    help="ladder events concurrently (default 1; web search makes each call slow)")
     args = ap.parse_args(argv)
 
     _load_dotenv()
@@ -300,25 +311,31 @@ def main(argv: list[str] | None = None) -> int:
         done = {r["event_id"]: r.to_dict() for _, r in prev.iterrows()}
 
     client = anthropic.Anthropic()
-    rows = []
-    for _, event in events.iterrows():
+    rows = [done[e["event_id"]] for _, e in events.iterrows()
+            if e["event_id"] in done and not args.force]
+    pending = [e for _, e in events.iterrows()
+               if e["event_id"] not in done or args.force]
+    if len(rows):
+        print(f"  {len(rows)} cached, {len(pending)} to map")
+
+    def _map(event):
         eid = event["event_id"]
-        if eid in done and not args.force:
-            print(f"  {eid}: cached, skipping")
-            rows.append(done[eid])
-            continue
-        print(f"  {eid}: mapping ...", flush=True)
         try:
             mapping = map_one(client, event, use_web_search=not args.no_web_search, model=args.model)
         except Exception as e:  # one bad event shouldn't sink the batch
             print(f"  {eid}: FAILED ({e})", file=sys.stderr)
-            continue
-        rows.append({**event.to_dict(), **mapping})
-        print(
-            f"  {eid}: {mapping['direction']} {mapping['mapped_tickers']} "
-            f"({mapping['horizon_days']}d, chain={mapping['chain_depth']}, "
-            f"aud={mapping['audience_breadth']})"
-        )
+            return None
+        print(f"  {eid}: {mapping['direction']} {mapping['mapped_tickers']} "
+              f"({mapping['horizon_days']}d, chain={mapping['chain_depth']}, "
+              f"aud={mapping['audience_breadth']})", flush=True)
+        return {**event.to_dict(), **mapping}
+
+    if args.workers > 1:
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(max_workers=args.workers) as ex:
+            rows += [r for r in ex.map(_map, pending) if r is not None]
+    else:
+        rows += [r for r in (_map(e) for e in pending) if r is not None]
 
     out = pd.DataFrame(rows)
     args.out.parent.mkdir(parents=True, exist_ok=True)
