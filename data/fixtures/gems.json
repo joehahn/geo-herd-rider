@@ -1,0 +1,37 @@
+{
+  "_note": "Locked multi-event test set for the firehose harness. Post-COVID, fixed window 2022-09-01 -> present (a few months before ChatGPT 2022-11-30, capturing NVDA's Oct-2022 base). All US-listed (incl. ADRs/ETFs) so they're firehose-named and Fidelity-tradeable. peak_multiple from yfinance close over 2022-09..2025-12 (NVDA/SMCI/etc.) — approximate, re-pinned at build time. This set measures the DISTRIBUTION (recall/precision/aggregate), not the BWET point; it's a hindsight set (survivors), and the curator model is trained past all of it, so results are an UPPER BOUND / dev harness, never the verdict.",
+  "window": {"start": "2022-09-01", "end": "2026-06-18"},
+  "gems": [
+    {"id": "nvda", "ticker": "NVDA", "name": "NVIDIA", "catalyst": "ChatGPT -> AI datacenter GPU capex",
+     "trigger_date": "2022-11-30", "size_tier": "tail", "shape": "slow secular ramp", "peak_multiple": 17.1,
+     "vehicle_note": "mega-cap, not 'hidden' — the canonical AI trade; included by request"},
+    {"id": "smci", "ticker": "SMCI", "name": "Super Micro", "catalyst": "AI server demand, then accounting blowup",
+     "trigger_date": "2023-01-15", "size_tier": "tail", "shape": "parabola + crash (EXIT test)", "peak_multiple": 14.5,
+     "vehicle_note": "ran ~14x then -75% on accounting/auditor exit — tests the thesis-decay exit"},
+    {"id": "app", "ticker": "APP", "name": "AppLovin", "catalyst": "AXON AI ad engine re-rate",
+     "trigger_date": "2024-02-14", "size_tier": "tail", "shape": "mid-cap hidden-gem re-rate", "peak_multiple": 20.0,
+     "vehicle_note": "genuinely under-the-radar mid-cap (more 'gem' than NVDA)"},
+    {"id": "mstr", "ticker": "MSTR", "name": "MicroStrategy", "catalyst": "BTC proxy + spot-ETF approval + halving",
+     "trigger_date": "2024-01-10", "size_tier": "tail", "shape": "leveraged crypto beta", "peak_multiple": 13.5,
+     "vehicle_note": "levered BTC proxy; distinct (crypto) driver"},
+    {"id": "ura", "ticker": "URA", "name": "Global X Uranium ETF", "catalyst": "uranium supply deficit / nuclear renaissance",
+     "trigger_date": "2023-09-01", "size_tier": "medium", "shape": "slow commodity theme", "peak_multiple": 3.2,
+     "vehicle_note": "theme ETF; CCJ/individual miners ran more"},
+    {"id": "ypf", "ticker": "YPF", "name": "YPF (Argentina ADR)", "catalyst": "Milei election -> Argentine reform",
+     "trigger_date": "2023-11-19", "size_tier": "tail", "shape": "policy/political event", "peak_multiple": 4.4,
+     "vehicle_note": "US-listed ADR; bank ADRs (GGAL/BMA/BBAR) ran ~6x — purest vehicle beat ARGT ETF (~2x)"},
+    {"id": "rnmby", "ticker": "RNMBY", "name": "Rheinmetall (US OTC ADR)", "catalyst": "Ukraine war -> EU rearmament",
+     "trigger_date": "2022-09-01", "size_tier": "large", "shape": "geopolitical/defense", "peak_multiple": 8.1,
+     "vehicle_note": "OTC ADR — thin liquidity / wide spreads; native RHM.DE not used (FX friction)"},
+    {"id": "bwet", "ticker": "BWET", "name": "Breakwave Tanker Shipping ETF", "catalyst": "Iran war -> Hormuz tanker-rate spike",
+     "trigger_date": "2026-02-20", "size_tier": "tail", "shape": "commodity/war spike", "peak_multiple": 8.0,
+     "vehicle_note": "the original gem; niche freight-futures ETN, purest vehicle vs tanker operators"}
+  ],
+  "optional": [
+    {"ticker": "VST", "name": "Vistra", "why_held_out": "AI-power-demand 2024 (~5.7x) — trimmed to keep AI to three; add for a utility/power shape"},
+    {"ticker": "CVNA", "name": "Carvana", "why_held_out": "~70x distressed turnaround/squeeze — likely NOT firehose-detectable thematically; stress case only"}
+  ],
+  "dropped": [
+    {"ticker": "NIB", "name": "iPath Cocoa ETN", "why": "delisted/suspended 2024 — no clean tradeable yfinance history (222 days, broken)"}
+  ]
+}

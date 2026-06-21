@@ -78,9 +78,13 @@ The firehose pipeline is built end-to-end and the **mechanics are proven**; the 
 
 **Mechanics result (2026 Iran war, fixture / perfect-retrieval).** Given the real early articles, the firehose enters BWET on its first under-the-radar write-up and rides it while the Iran/Hormuz thesis is live: dashboard **$50K → ~$157K (≈ +210%) vs SPY ≈ +9%**, BWET held ~16 weeks. This assumes perfect retrieval (it isn't achievable retrospectively), so it is an **upper bound on the mechanics, not forward lift**.
 
-**The look-ahead reality.** No available search tool gives true point-in-time retrieval — both Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). Combined with a curator model trained past the events, this makes a clean *retrospective* test impossible. **The firehose is provable only forward**, where "search now for a just-happened gem" is look-ahead-correct by construction.
+**The look-ahead reality.** No available search tool gives true point-in-time retrieval — both Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). **GDELT** (`src/gdelt.py`) *does* honor date bounds — but it under-indexes the niche trade press, so it picks a gem up only once mainstream outlets pile in (late). Combined with a curator model trained past the events, this makes a clean *retrospective* test impossible. **The firehose is provable only forward**, where "search now for a just-happened gem" is look-ahead-correct by construction.
 
-**Next.** Accrue forward trades (`forward.py --scan` weekly, `--report`); then layer in more firehose sources (Fed, Musk, Dimon, congressional trades) one forward-scoreboard-gated step at a time. The earlier decision-tree architecture (causal-ladder curator + central-development synthesis) has been **retired** in favor of the firehose.
+**The backtest harness (fast dev loop, not the verdict).** Forward is too slow to hunt bugs against, so `firehose.py --gdelt --seed <file>` runs a *realistic* historical firehose: real date-honored GDELT headlines each week, with the early niche pieces GDELT misses **seeded at their true publish dates**. Now the curator must *find* the gem in genuine noise — which immediately surfaced (and drove fixes for) a choppy trigger-happy exit, low precision on operator/noise tickers, and a hallucinated ticker. Robustness now in place: a **sticky hold** (`_stateful_watch`, exit only on confirmed thesis death or prolonged silence — no single-week churn), **selectivity + vehicle-selection** in the scan prompt (the purest vehicle: BWET not the tanker operators, a bank ADR not the broad ETF), and **ticker validation**. Still a hindsight upper bound (seeds + model foreknowledge); the verdict stays forward.
+
+**Distribution, not the BWET point.** Event runs are heavy-tailed — BWET is a tail outlier; below it sit progressively more numerous, smaller analogs. So the real objective is *harvesting the distribution*, not timing one jackpot. A locked multi-event test set (`data/fixtures/gems.json`, window 2022-09 → present, US-listed incl. ADRs/ETFs: NVDA 17×, APP 20×, SMCI 14.5×+crash, MSTR 13.5×, RNMBY 8.1×, BWET ~8×, YPF 4.4× via the Milei election, URA 3.2×) lets us measure **recall** (how many gems it catches), **precision** (false positives from the noise), and **aggregate/tail capture** — the actual test of the thesis.
+
+**Next.** Build the multi-event harness on the locked set; in parallel accrue forward trades (`forward.py --scan` weekly, `--report`). The earlier decision-tree architecture (causal-ladder curator + central-development synthesis) has been **retired** in favor of the firehose.
 
 ## Setup
 
@@ -109,6 +113,16 @@ python src/firehose.py --fixture data/fixtures/firehose_bwet.json --start 2026-0
 
 # Rebuild the $50K dashboard from the saved scan log (no LLM cost):
 python scripts/build_dashboard.py
+```
+
+**Realistic backtest harness (real GDELT firehose + seeded early gems — the fast dev loop):**
+
+```bash
+# Real date-honored GDELT headlines per week + the early niche pieces GDELT misses, seeded at
+# their true dates. The curator must FIND the gem in the noise. GDELT pool is cached after the
+# first (throttled) fetch. Still a hindsight upper bound — the verdict is the forward eval.
+python src/firehose.py --gdelt --seed data/fixtures/firehose_bwet.json \
+    --start 2026-02-06 --end 2026-06-18 --lookback-days 14
 ```
 
 **Forward eval (the clean verdict — run weekly from today):**

@@ -41,26 +41,40 @@ from util import load_dotenv as _load_dotenv, news_domains, weekly_anchors as _w
 MODEL = "claude-opus-4-8"
 WORKERS = 8
 
+# Generic market/theme queries for the GDELT firehose — deliberately NOT "BWET"/"Breakwave"
+# (that would hand-point at the answer). The analyst watches the right beats; the curator must
+# still discover the ticker. Tune freely.
+GDELT_QUERIES = [
+    "ETF", "Hormuz", '"tanker rates"', '"freight rates"',
+    '"best performing"', '"oil price"', '"energy stocks"', '"stock surge"',
+]  # GDELT needs single words or QUOTED phrases — bare multi-word queries return nothing.
+GDELT_WEEK_CAP = 80          # max GDELT headlines fed to the LLM per week (seeds always kept)
+
 SCAN_SYSTEM = """You are a markets desk reading the week's news firehose to find HIDDEN GEMS the
 financial press is already calling out — tickers a journalist explicitly names as a thesis-driven
-mover, ideally while it is still EARLY / under-the-radar (room to run), not yet consensus.
+mover, ideally while still EARLY / under-the-radar (room to run).
 
 You read: (1) this week's Donald Trump Truth Social posts (given), and (2) the news you SEARCH.
 SEARCH the week's market coverage for stories that NAME a specific US-listed ticker or fund as a
 standout trade on a live thesis (geopolitics, energy/shipping, tariffs, Fed, a sector catalyst).
 Append 'before:<cron date>' to every query and DISCARD anything dated after it (no look-ahead).
 
-KEEP a ticker only if the PRESS explicitly names it as a thesis-driven mover (do not infer your
-own picks). For each, classify the stage of how far the move/coverage has progressed:
-  early    — just being noticed; "under the radar", "no one's talking about it", first write-ups
-  building — gaining coverage, thesis intact, more room
-  consensus— widely covered now; most of the move likely done
-  crested  — thesis decaying/ending (the catalyst is reversing/resolving) -> EXIT signal
+BE SELECTIVE — keep only the FEW clearest standout movers (typically 0-3, sometimes none); skip
+names merely mentioned in passing. KEEP a ticker only if the PRESS explicitly names it (don't
+infer your own). VEHICLE SELECTION: when several tickers express the same thesis, name the SINGLE
+PUREST vehicle — a rate/commodity ETN/pure-play over diluted operators (BWET, not FRO/STNG); a
+clean single ADR over a broad country ETF. Scope = US-listed INCLUDING ADRs and country/theme
+ETFs (a foreign event is named via its US-listed ADR/ETF, e.g. YPF/ARGT, never a foreign ticker).
 
-You forecast NOTHING — no magnitude, target, weight, or probability. Only: which tickers is the
-press naming, on what thesis, at what stage.
+For each kept ticker decide:
+  thesis        — the driving catalyst, <=12 words.
+  thesis_live   — TRUE while the catalyst is ACTIVE/UNRESOLVED; stays TRUE through mainstream hype
+                  ("up 600%, everyone piling in" is CROWDING, not thesis death). FALSE only when
+                  the CATALYST resolves (ceasefire, chokepoint reopens, shock ends). HOLD/EXIT switch.
+  crowding      — INFO only: early | building | consensus | crested.
 
-Output ONLY JSON: {"picks":[{"ticker":"BWET","thesis":"<=12 words","stage":"early|building|
+You forecast NOTHING — no magnitude, target, weight, or probability. Output ONLY JSON:
+{"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":true,"crowding":"early|building|
 consensus|crested","evidence_urls":["news URLs"]}]}. Empty is fine: {"picks":[]}."""
 
 
@@ -117,22 +131,35 @@ def scan(client, model: str, anchor: pd.Timestamp, posts: pd.DataFrame,
 
 FIXTURE_SYSTEM = """You are a markets desk reading the financial press to find HIDDEN GEMS — a
 ticker a journalist explicitly NAMES as a thesis-driven mover. Below is the press coverage
-available as of this week (and nothing later). For each US-listed ticker the press names, decide:
+available as of this week (and nothing later).
 
+BE SELECTIVE. Most headlines are noise. Keep only the FEW clearest standout movers — typically
+0-3 names per week, sometimes none. Skip anything merely mentioned in passing, part of a long
+list, or routine coverage. A week with no real gem should return {"picks":[]}.
+
+VEHICLE SELECTION. When several tickers express the SAME thesis, name the SINGLE PUREST vehicle,
+not the crowd:
+  - a rate/commodity ETN or pure-play over diluted operator equities (BWET, not FRO/DHT/STNG);
+  - the cleanest single ADR over a broad country ETF when the press points there (a bank ADR
+    over the diversified ETF for an Argentina move);
+  - the most-levered direct beneficiary over a tangential one.
+Scope = US-listed instruments, INCLUDING ADRs and country/theme ETFs (a foreign event is named
+via its US-listed ADR/ETF, e.g. YPF / ARGT, never a foreign-exchange ticker).
+
+For each kept ticker decide:
   thesis        — the driving catalyst, <=12 words (e.g. "Iran war spikes tanker freight rates").
-  thesis_live   — TRUE while that catalyst is still ACTIVE / UNRESOLVED as of this week (war
-                  ongoing, chokepoint disrupted); FALSE only once the press says it is
-                  RESOLVING or RESOLVED (ceasefire signed, Hormuz reopened, rates rolling over).
-                  This is the HOLD/EXIT switch — hold while live, drop when it goes false.
-  crowding      — how crowded the TRADE is, INFO only (does not drive hold/exit):
+  thesis_live   — TRUE while that catalyst is still ACTIVE / UNRESOLVED as of this week. It stays
+                  TRUE through mainstream hype: "up 600%, everyone piling in" is CROWDING, NOT
+                  thesis death. Flip to FALSE only when the CATALYST ITSELF resolves — ceasefire
+                  signed, chokepoint reopened, the supply shock ends, rates actually rolling over.
+                  This is the HOLD/EXIT switch.
+  crowding      — how crowded the TRADE is, INFO only (does NOT drive hold/exit):
                   early (under-the-radar/little-known/small AUM) | building | consensus
                   (mainstream, "everyone piling in") | crested (rolling over).
 
-Do NOT equate a big % gain with "late": a fund can be up huge and still be early/under-owned. Judge
-thesis_live on the CATALYST's status, not the size of the move. You forecast NOTHING — no
-magnitude, target, weight, or probability. Output ONLY JSON: {"picks":[{"ticker":"BWET","thesis":
-"<=12 words","thesis_live":true,"crowding":"early|building|consensus|crested","evidence_urls":
-["..."]}]}."""
+Do NOT equate a big % gain with "late". You forecast NOTHING — no magnitude, target, weight, or
+probability. Output ONLY JSON: {"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":
+true,"crowding":"early|building|consensus|crested","evidence_urls":["..."]}]}."""
 
 
 def _fixture_articles(path: str) -> list[dict]:
@@ -164,7 +191,15 @@ def scan_fixture(client, model: str, anchor: pd.Timestamp, articles: list[dict])
     return [p for p in picks if p["ticker"]]
 
 
-def run_scans(start, end, lookback_days, model, workers, fixture=None) -> dict[pd.Timestamp, list[dict]]:
+def _window(articles, anchor, lookback_days):
+    """Articles published in (anchor - lookback, anchor], i.e. this week's trailing firehose."""
+    lo = (anchor - pd.Timedelta(days=lookback_days)).date().isoformat()
+    cut = anchor.date().isoformat()
+    return [a for a in articles if a.get("published_date") and lo < a["published_date"] <= cut]
+
+
+def run_scans(start, end, lookback_days, model, workers, fixture=None, gdelt=False,
+              seed=None) -> dict[pd.Timestamp, list[dict]]:
     import anthropic
     client = anthropic.Anthropic()
     anchors = _weekly_anchors(start, end)
@@ -174,6 +209,35 @@ def run_scans(start, end, lookback_days, model, workers, fixture=None) -> dict[p
               f"({model}); retrieval assumed perfect, mechanics only.", file=sys.stderr)
         with ThreadPoolExecutor(max_workers=workers) as ex:
             pairs = list(zip(anchors, ex.map(lambda a: scan_fixture(client, model, a, articles), anchors)))
+        return dict(sorted(pairs))
+    if gdelt:
+        import gdelt as gd
+        import hashlib
+        seeds = _fixture_articles(seed) if seed else []
+        win_start = anchors[0] - pd.Timedelta(days=lookback_days + 2)
+        # cache the (slow, throttled) pool keyed by queries+window, so logic/prompt iterations are fast
+        key = hashlib.md5(f"{GDELT_QUERIES}{win_start.date()}{anchors[-1].date()}".encode()).hexdigest()[:10]
+        cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
+        if cache_f.exists():
+            gpool = json.loads(cache_f.read_text())
+            print(f"Firehose: GDELT scan of {len(anchors)} weeks; reusing cached pool "
+                  f"({len(gpool)} articles) + {len(seeds)} seeds.", file=sys.stderr)
+        else:
+            print(f"Firehose: GDELT scan of {len(anchors)} weeks ({len(GDELT_QUERIES)} queries, "
+                  f"+{len(seeds)} seeds); fetching pool (throttled ~6s/query-chunk) ...", file=sys.stderr)
+            gpool = gd.pool(GDELT_QUERIES, win_start, anchors[-1])
+            cache_f.parent.mkdir(parents=True, exist_ok=True)
+            cache_f.write_text(json.dumps(gpool))
+            print(f"  GDELT pool: {len(gpool)} deduped articles (cached -> {cache_f.name}).", file=sys.stderr)
+
+        def one(a):
+            seen = _window(seeds, a, lookback_days)
+            gwin = sorted(_window(gpool, a, lookback_days), key=lambda x: x["published_date"],
+                          reverse=True)[:GDELT_WEEK_CAP]
+            return scan_fixture(client, model, a, seen + gwin)  # seeds first, never truncated
+
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            pairs = list(zip(anchors, ex.map(one, anchors)))
         return dict(sorted(pairs))
     posts = trump_feed.candidate_posts(start, end)
     domains = news_domains()
@@ -191,9 +255,42 @@ def run_scans(start, end, lookback_days, model, workers, fixture=None) -> dict[p
     return dict(sorted(out.items()))
 
 
-def _held(p: dict) -> bool:
-    """Hold rule = the user's thesis-decay exit: in the book while the catalyst is live."""
+def _live(p: dict) -> bool:
     return bool(p.get("thesis_live", True))
+
+
+EXIT_PATIENCE = 2   # consecutive EXPLICIT thesis-dead reads before exiting (hysteresis vs churn)
+MAX_STALE = 4       # weeks a held name may go UNMENTIONED before we drop it (no thesis confirmation)
+
+
+def _stateful_watch(scans: dict) -> dict:
+    """Turn the stateless per-week scans into a STICKY position book (fixes choppy holds).
+
+    A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
+    one-off noise. It EXITS only on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
+    consecutive *reads*) or prolonged silence (unmentioned >=MAX_STALE weeks). Single-week
+    flip-flops — the trigger-happy exit the GDELT run exposed — no longer churn the position."""
+    anchors = list(scans)
+    holding, dead, stale, out = {}, {}, {}, {}
+    for a in anchors:
+        live = {p["ticker"] for p in scans[a] if _live(p)}
+        flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
+        named = {p["ticker"] for p in scans[a]}
+        for t in live:                       # (re)enter / refresh
+            holding[t] = True; dead[t] = 0; stale[t] = 0
+        for t in list(holding):
+            if t in live:
+                continue
+            if t in flagged_dead:
+                dead[t] += 1; stale[t] = 0
+                if dead[t] >= EXIT_PATIENCE:
+                    del holding[t]
+            else:                            # unmentioned this week — tolerate, but not forever
+                stale[t] += 1
+                if stale[t] >= MAX_STALE:
+                    del holding[t]
+        out[a] = sorted(holding)
+    return out
 
 
 OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->W.Med transit
@@ -204,12 +301,20 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     returns a daily value/allocation series (weekly weights held across days) for the dashboard."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     anchors = list(scans)
-    watch = {a: sorted({p["ticker"] for p in scans[a] if _held(p)}) for a in anchors}
+    watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
     tickers = {score.BENCHMARK, OVERLAY} | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     panel = score.fetch_panel(sorted(tickers), start, end, use_cache=False)
     days = panel[score.BENCHMARK].dropna().index
+
+    # ticker validation: drop names with no price data (hallucinated/delisted, e.g. the GDELT BBRD)
+    valid = {t for t in tickers if t in panel.columns and panel[t].notna().any()}
+    dropped = sorted(t for w in watch.values() for t in w if t not in valid)
+    if dropped:
+        print(f"  dropped {len(set(dropped))} unpriced/invalid tickers: {sorted(set(dropped))}",
+              file=sys.stderr)
+    watch = {a: [t for t in w if t in valid] for a, w in watch.items()}
 
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
@@ -290,6 +395,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--scan-only", action="store_true", help="print the weekly scans, skip backtest")
     ap.add_argument("--fixture", default=None,
                     help="path to a fixed article set (perfect-retrieval mechanics test, no live search)")
+    ap.add_argument("--gdelt", action="store_true",
+                    help="realistic backtest firehose: real date-honored GDELT headlines per week")
+    ap.add_argument("--seed", default=None,
+                    help="article set to inject into the GDELT firehose (the early niche pieces GDELT misses)")
+    ap.add_argument("--lookback-days", type=int, default=None,
+                    help="trailing news window per weekly scan (default: news_lookback_days from profile)")
     ap.add_argument("--out", default=str(REPO_ROOT / "data" / "windows" / "firehose_scans.json"))
     args = ap.parse_args(argv)
 
@@ -298,9 +409,10 @@ def main(argv: list[str] | None = None) -> int:
         print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
         return 2
     fm = load_financial_model(str(REPO_ROOT / "investor_profile.md"))
-    lookback = int(fm.get("news_lookback_days", 7))
+    lookback = args.lookback_days if args.lookback_days is not None else int(fm.get("news_lookback_days", 7))
 
-    scans = run_scans(args.start, args.end, lookback, args.model, args.workers, fixture=args.fixture)
+    scans = run_scans(args.start, args.end, lookback, args.model, args.workers,
+                      fixture=args.fixture, gdelt=args.gdelt, seed=args.seed)
     serial = {str(a.date()): scans[a] for a in scans}
     for v in serial.values():
         for p in v:

@@ -13,3 +13,7 @@ data/triggers_cache/
 # trump_feed: large regenerable candidate-post dumps (the selected triggers ARE committed)
 data/windows/trump_posts_*.csv
 
+# firehose: cached GDELT pools (large, refetchable) + GDELT backtest scan artifacts
+data/windows/gdelt_pool_*.json
+data/windows/firehose_gdelt_scans.json
+
