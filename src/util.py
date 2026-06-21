@@ -32,10 +32,15 @@ def load_dotenv() -> None:
         os.environ.setdefault(key.strip(), value.strip().strip("'\""))
 
 
-def weekly_anchors(start: str, end: str) -> list[pd.Timestamp]:
-    """Friday 16:30 ET decision points spanning the window (the weekly cron)."""
-    fridays = pd.date_range(start, end, freq="W-FRI", tz="America/New_York")
-    return [f.normalize() + pd.Timedelta(hours=CRON_HOUR, minutes=CRON_MIN) for f in fridays]
+def scan_anchors(start: str, end: str, period_days: int = 7) -> list[pd.Timestamp]:
+    """Rebalance/scan decision points spanning the window, at 16:30 ET (after-close cron).
+
+    `period_days` is the single cadence knob (`rebalance_days`): the gap between scans AND the
+    natural trailing news window each scan reads (see firehose). The weekly default (7) anchors
+    on Fridays (the canonical after-close weekly cron); any other cadence steps every N days."""
+    freq = "W-FRI" if period_days == 7 else f"{period_days}D"
+    pts = pd.date_range(start, end, freq=freq, tz="America/New_York")
+    return [p.normalize() + pd.Timedelta(hours=CRON_HOUR, minutes=CRON_MIN) for p in pts]
 
 
 def news_domains() -> list[str]:

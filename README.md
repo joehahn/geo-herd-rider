@@ -66,6 +66,8 @@ One source, three jobs — plus mechanical sizing:
 - **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is *crowding*, not thesis death — only the catalyst resolving is.
 - **Sizing** — mechanical. A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers.
 
+Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how often the firehose re-scans/re-optimizes *and* the trailing news window each scan reads — they're the same thing ("the news since the last scan"). A position persists across scans via a sticky hold (it exits on confirmed thesis death or prolonged silence), so coverage gaps don't churn it.
+
 Scope is **US-listed instruments, including ADRs and country/theme ETFs** — so a foreign event (a war, an election) is captured via its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade.
 
 ## Harvesting the distribution, not one gem
@@ -126,7 +128,7 @@ python scripts/build_dashboard.py          # rebuild the $50K dashboard (no LLM 
 # their true dates. The curator must FIND the gem in the noise. GDELT pool is cached after the
 # first (throttled) fetch. Still a hindsight upper bound — the verdict is the forward eval.
 python src/firehose.py --gdelt --seed data/fixtures/firehose_bwet.json \
-    --start 2026-02-06 --end 2026-06-18 --lookback-days 14
+    --start 2026-02-06 --end 2026-06-18
 ```
 
 **Forward eval (the clean verdict — run weekly from today):**

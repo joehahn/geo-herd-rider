@@ -17,9 +17,11 @@ financial_model:
                                   #   N: 0.20 -> ~<=5, 0.34 -> ~<=3, 0.05 -> ~<=20. 0 disables.
   lookback_period_days: 45        # LIVE. Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
-  news_lookback_days: 7           # NOT YET WIRED. Trailing window of aggregate news/tweets the news
-                                  #   curator reads each run (the planned aggregate-news redesign).
-  rebalance_days: 7              # NOT YET WIRED. Re-synthesize the portfolio every N days (weekly).
+  rebalance_days: 7               # LIVE. The single cadence knob: the firehose scans/rebalances every
+                                  #   N days AND reads that same trailing news window. 7 = weekly. One
+                                  #   parameter controls both (read "the news since the last scan").
+  # news_lookback_days: 14        # OPTIONAL override of the news window ONLY (advanced; rare
+                                  #   sparse-coverage smoothing). Omitted => news window = rebalance_days.
   risk_free_rate: 0.04            # reporting only (Sharpe); not in the weight optimization.
 ---
 
@@ -28,6 +30,10 @@ financial_model:
 geo-herd-rider sizes mechanically — the LLM never touches the numbers. These settings feed only
 the mean-variance optimizer that weights each curated event's basket.
 
-**Not yet wired** (loaded but ignored in this architecture, kept out of the block above to avoid
-implying they work): `max_watchlist_size` (no single rolling watchlist here), `rebalance_period`
-(per-event-horizon, not periodic). See README / `optimizer._FINANCIAL_MODEL_DEFAULTS`.
+`rebalance_days` is the **one cadence knob** — it sets both how often the firehose re-scans/
+re-optimizes and the trailing news window each scan reads (they're the same thing: the news that
+arrived since the last scan). `news_lookback_days` exists only as an optional override of the news
+window for sparse-coverage smoothing; normally leave it unset.
+
+**Not yet wired** (loaded but ignored, kept out of the block above): `max_watchlist_size` (no
+single rolling watchlist here). See README / `optimizer._FINANCIAL_MODEL_DEFAULTS`.

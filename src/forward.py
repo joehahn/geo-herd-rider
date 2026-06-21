@@ -34,7 +34,7 @@ import firehose
 import score
 import trump_feed
 from optimizer import load_financial_model
-from util import load_dotenv, weekly_anchors, news_domains
+from util import load_dotenv, scan_anchors, news_domains
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
@@ -48,11 +48,11 @@ def _now() -> pd.Timestamp:
     return pd.Timestamp.now(tz="UTC")
 
 
-def _current_anchor() -> pd.Timestamp:
-    """Most recent weekly cron anchor (Friday 16:30 ET) on/before now."""
+def _current_anchor(rebalance_days: int = 7) -> pd.Timestamp:
+    """Most recent cron anchor (16:30 ET) on/before now, at the rebalance cadence."""
     now = _now()
-    anchors = weekly_anchors((now - pd.Timedelta(days=21)).strftime("%Y-%m-%d"),
-                             (now + pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+    anchors = scan_anchors((now - pd.Timedelta(days=3 * rebalance_days)).strftime("%Y-%m-%d"),
+                           (now + pd.Timedelta(days=1)).strftime("%Y-%m-%d"), rebalance_days)
     past = [a for a in anchors if a.tz_convert("UTC") <= now]
     return past[-1] if past else anchors[-1]
 
@@ -61,14 +61,15 @@ def _read() -> pd.DataFrame:
     return pd.read_csv(SCANS_CSV) if SCANS_CSV.exists() else pd.DataFrame(columns=COLS)
 
 
-def scan_and_log(model: str, lookback_days: int) -> pd.DataFrame:
-    """Live firehose scan for the current week; append its picks (deduped by week)."""
+def scan_and_log(model: str, rebalance_days: int, lookback_days: int | None = None) -> pd.DataFrame:
+    """Live firehose scan for the current period; append its picks (deduped by period)."""
     import anthropic
+    lookback_days = rebalance_days if lookback_days is None else lookback_days
     log = _read()
-    anchor = _current_anchor()
+    anchor = _current_anchor(rebalance_days)
     wk_key = anchor.date().isoformat()
     if len(log) and (log["week"].astype(str) == wk_key).any():
-        print(f"  week {wk_key}: already scanned, skipping (dedup).")
+        print(f"  period {wk_key}: already scanned, skipping (dedup).")
         return log
     lo = anchor - pd.Timedelta(days=lookback_days)
     posts = trump_feed.candidate_posts(lo.strftime("%Y-%m-%d"), anchor.strftime("%Y-%m-%d"))
@@ -152,7 +153,7 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set (export it or put it in .env).", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        scan_and_log(args.model, int(fm.get("news_lookback_days", 7)))
+        scan_and_log(args.model, int(fm.get("rebalance_days", 7)), fm.get("news_lookback_days"))
 
     if args.report:
         report()

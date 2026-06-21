@@ -36,7 +36,7 @@ import costs  # noqa: E402
 import score  # noqa: E402
 import curator  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
-from util import load_dotenv as _load_dotenv, news_domains, weekly_anchors as _weekly_anchors, MAX_TEXT  # noqa: E402
+from util import load_dotenv as _load_dotenv, news_domains, scan_anchors, MAX_TEXT  # noqa: E402
 
 MODEL = "claude-opus-4-8"
 WORKERS = 8
@@ -198,11 +198,15 @@ def _window(articles, anchor, lookback_days):
     return [a for a in articles if a.get("published_date") and lo < a["published_date"] <= cut]
 
 
-def run_scans(start, end, lookback_days, model, workers, fixture=None, gdelt=False,
-              seed=None) -> dict[pd.Timestamp, list[dict]]:
+def run_scans(start, end, rebalance_days, model, workers, fixture=None, gdelt=False,
+              seed=None, lookback_days=None) -> dict[pd.Timestamp, list[dict]]:
+    # one cadence knob: scans step every rebalance_days, and the news window each scan reads
+    # defaults to that same interval ("the news since the last scan"). lookback_days overrides
+    # it only for the rare sparse-coverage smoothing case.
+    lookback_days = rebalance_days if lookback_days is None else lookback_days
     import anthropic
     client = anthropic.Anthropic()
-    anchors = _weekly_anchors(start, end)
+    anchors = scan_anchors(start, end, rebalance_days)
     if fixture:
         articles = _fixture_articles(fixture)
         print(f"Firehose: FIXTURE scan of {len(anchors)} weeks vs {len(articles)} articles "
@@ -214,7 +218,7 @@ def run_scans(start, end, lookback_days, model, workers, fixture=None, gdelt=Fal
         import gdelt as gd
         import hashlib
         seeds = _fixture_articles(seed) if seed else []
-        win_start = anchors[0] - pd.Timedelta(days=lookback_days + 2)
+        win_start = anchors[0] - pd.Timedelta(days=35)  # generous, cadence-independent (per-week _window slices it)
         # cache the (slow, throttled) pool keyed by queries+window, so logic/prompt iterations are fast
         key = hashlib.md5(f"{GDELT_QUERIES}{win_start.date()}{anchors[-1].date()}".encode()).hexdigest()[:10]
         cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
@@ -399,8 +403,10 @@ def main(argv: list[str] | None = None) -> int:
                     help="realistic backtest firehose: real date-honored GDELT headlines per week")
     ap.add_argument("--seed", default=None,
                     help="article set to inject into the GDELT firehose (the early niche pieces GDELT misses)")
+    ap.add_argument("--rebalance-days", type=int, default=None,
+                    help="scan/rebalance cadence in days; also the news window (default: rebalance_days from profile)")
     ap.add_argument("--lookback-days", type=int, default=None,
-                    help="trailing news window per weekly scan (default: news_lookback_days from profile)")
+                    help="override the news window only (advanced; defaults to the rebalance cadence)")
     ap.add_argument("--out", default=str(REPO_ROOT / "data" / "windows" / "firehose_scans.json"))
     args = ap.parse_args(argv)
 
@@ -409,10 +415,11 @@ def main(argv: list[str] | None = None) -> int:
         print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
         return 2
     fm = load_financial_model(str(REPO_ROOT / "investor_profile.md"))
-    lookback = args.lookback_days if args.lookback_days is not None else int(fm.get("news_lookback_days", 7))
+    rebalance = args.rebalance_days if args.rebalance_days is not None else int(fm.get("rebalance_days", 7))
+    lookback = args.lookback_days if args.lookback_days is not None else fm.get("news_lookback_days")
 
-    scans = run_scans(args.start, args.end, lookback, args.model, args.workers,
-                      fixture=args.fixture, gdelt=args.gdelt, seed=args.seed)
+    scans = run_scans(args.start, args.end, rebalance, args.model, args.workers,
+                      fixture=args.fixture, gdelt=args.gdelt, seed=args.seed, lookback_days=lookback)
     serial = {str(a.date()): scans[a] for a in scans}
     for v in serial.values():
         for p in v:

@@ -39,9 +39,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "lookback_period_days": 547,       # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
-    # NOT YET WIRED — reserved for the planned aggregate-news weekly-synthesis redesign:
-    "news_lookback_days": 7,           # trailing window of aggregate news/tweets the curator reads
-    "rebalance_days": 7,               # how often the portfolio is re-synthesized (weekly)
+    "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
+                                       #   every N days AND reads that same trailing news window. 7=weekly.
+    "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
+                                       #   sparse-coverage smoothing). None => news window = rebalance_days.
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }
