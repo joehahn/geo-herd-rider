@@ -2,23 +2,23 @@
 
 **Author:** Joe Hahn  
 **Email:** jmh.datasciences@gmail.com  
-**Date:** 2026-Jun-20 <br>
+**Date:** 2026-Jun-21 <br>
 **branch:** main
 
 **Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**; late enough such that the direction is discernable and early enough to capture some of the move before the herd arrives and prices it away. And just as we ride in ahead of the herd, we ride out as it shows up: once the herd has piled in and flattened the opportunity that position has done its work, so we pivot off to the next event whose opportunity is still un-grazed.
 
-**The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, and it does so repeatedly and progressively earlier as a move builds. A niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. The edge is simply to be **reading**: catch the early "under-the-radar" naming, ride while the driving thesis is live, and exit before the crest when it decays. The "between smart money and herd" window is exactly the gem the press has *named* (smart money already in) but still frames as *under the radar* (the herd hasn't piled in). We never predict *how big* a move will be — only which ticker, and whether its thesis still holds; a mechanical optimizer sizes it.
+**The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, and it does so repeatedly and progressively earlier as a move builds. A niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. The edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis, ride while that thesis holds, and exit when it decays. We *also* tag how crowded each gem's coverage is — still *under the radar* vs *everyone's piling in* — a read on where it sits between the smart money (already in the named gem) and the slow herd (not yet). That crowding tag is currently a **diagnostic, not an entry gate** (see Status). We never predict *how big* a move will be — only which ticker, and whether its thesis still holds; a mechanical optimizer sizes it.
 
 **What this repo does.** Each week an LLM reads the news firehose (plus high-reach posts), extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and curates a watchlist; a plain mean-variance optimizer then weights it. A position is **held while its driving catalyst is live** and **dropped when the thesis decays** (ceasefire signed, chokepoint reopens). Look-ahead hygiene runs throughout, and because no search tool offers true point-in-time retrieval, **the only clean verdict is forward** (a live paper trade) — historical backtests are treated strictly as upper bounds.
 
 ## How it works, at a glance
 
-The machine is one short assembly line. We **read the firehose** for the gems the press is already calling out; we **keep the ones still framed as early** (named, but under-the-radar — the actual bet); a position **rides while its thesis is live and exits when it decays**; and a **plain optimizer**, never the AI, sets the sizes. The result is a book positioned *between* the smart money and the slow herd, and a **forward scoreboard** — the only contamination-free test — keeps only what beats the market.
+The machine is one short assembly line. We **read the firehose** for the gems the press is already calling out; we **keep the named gems on a live thesis** (tagging how early/crowded each is); a position **rides while its thesis is live and exits when it decays**; and a **plain optimizer**, never the AI, sets the sizes. The result is a book positioned *between* the smart money and the slow herd, and a **forward scoreboard** — the only contamination-free test — keeps only what beats the market.
 
 ```mermaid
 flowchart TD
     S["📰 Firehose<br/>news + high-reach posts:<br/>which gems is the press naming?"]
-    G["🎯 Keep the early gems<br/>press-named, but still<br/>'under the radar' (the bet)"]
+    G["🎯 Keep the named gems<br/>press-named, live thesis<br/>(crowding tagged, not gated)"]
     X["🟢/⚪ Live / exit switch<br/>hold while the thesis is live,<br/>drop when it decays"]
     W["⚖️ Size it mechanically<br/>a plain optimizer sets the<br/>weights — no AI magnitude guesses"]
     B["💼 Portfolio<br/>positioned between the<br/>smart money and the herd"]
@@ -34,7 +34,7 @@ flowchart TD
     class SB gate
 ```
 
-The two highlighted boxes are what makes this different from a momentum screener: the **early gem** (red) is *where* the edge lives — the press has named it but the herd hasn't arrived — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
+The two highlighted boxes are what makes this different from a momentum screener: the **named gem on a live thesis** (red) is *where* the edge lives — the press has named it and the catalyst is still running — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
 
 ## The firehose: why reading beats reasoning
 
@@ -47,7 +47,7 @@ We don't screen all tickers to discover gems, and we don't derive them from a ca
 | Apr 9 | Business Times | *"a 1,300% rally … an Iran war gauge"* | ~1.5× |
 | Apr 25 | CNBC | *"up over 600% … better than oil or energy stocks"* | mainstream |
 
-The **framing is the entry signal**: *"under the radar / no one's talking about it"* is the press telling you the trade is still early (room to run); *"everyone's piling in"* is the press telling you it's late. So we keep the gems the press names *while still framed early*, and we **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over.
+We **tag the framing**: *"under the radar / no one's talking about it"* says the trade is still early (room to run); *"everyone's piling in"* says it's late. We enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over. Whether to *also* require a gem still be framed "early" at entry is a knob we **test, not assume** (see Status).
 
 The ticker that motivates this project is **BWET**. In the 2026 Trump–Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
@@ -62,7 +62,7 @@ A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in gre
 One source, three jobs — plus mechanical sizing:
 
 - **Read** — *what's worth owning.* The news firehose (and high-reach posts via `trump_feed.py`, point-in-time-sliceable) — the tickers the press explicitly **names** as thesis-driven movers. The human never picks.
-- **Enter** — *is it still early?* Keep a named gem while the press frames it as early / under-the-radar (smart money in, herd not yet). The framing is the entry filter.
+- **Enter** — *the press names it on a live thesis.* We also tag how crowded the coverage is (early → consensus) as a read on smart-money-vs-herd positioning — a **diagnostic today, not an entry gate**; whether early-gating earns its keep is tested in the harness.
 - **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is *crowding*, not thesis death — only the catalyst resolving is.
 - **Sizing** — mechanical. A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers.
 
@@ -89,7 +89,9 @@ The firehose pipeline is built end-to-end; the **forward eval** is the pending c
 
 **The look-ahead reality.** No search tool gives true point-in-time retrieval — Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). **GDELT** (`src/gdelt.py`) *does* honor dates, but under-indexes niche trade press, so it picks a gem up only once mainstream piles in (late). Combined with a curator model trained past the events, this makes a clean *retrospective* test impossible. **The firehose is provable only forward**, where "search now for a just-happened gem" is look-ahead-correct.
 
-**Next.** Build the multi-event harness on the locked gem set (recall / precision / tail-capture); in parallel accrue forward trades (`forward.py --scan` weekly); then add firehose sources (Fed, Musk, Dimon, congressional trades) one forward-scoreboard-gated step at a time.
+**An open knob, tracked not assumed.** Today entry fires on *press-named + live thesis*; the `crowding` tag (early → crested) is recorded but **does not gate entry or exit**. Whether *requiring a gem still be framed "early" at entry* actually improves returns — vs. missing gems we only discover already-mainstream — is a variable the multi-event harness will test, not something we bake in on faith.
+
+**Next.** Build the multi-event harness on the locked gem set (recall / precision / tail-capture, and the early-entry-gating knob above); in parallel accrue forward trades (`forward.py --scan` weekly); then add firehose sources (Fed, Musk, Dimon, congressional trades) one forward-scoreboard-gated step at a time.
 
 ## Setup
 
