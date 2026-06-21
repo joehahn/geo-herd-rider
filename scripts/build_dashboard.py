@@ -1,30 +1,20 @@
-"""build_dashboard.py — the portfolio dashboard: $50K through this solution's trades.
+"""build_dashboard.py — the portfolio dashboard: $50K through the firehose.
 
-Backtests the curator end-to-end over a calendar window (default 2025-11-01 -> present)
-as a single, faithfully-traded book: start in cash, deploy when a trigger fires, hold for
-the event's horizon, rotate back to cash. Renders an interactive HTML dashboard comparable
-to portfolio-wave-rider's — a portfolio-value timeseries vs SPY, plus an allocation-over-
-time stacked area (cash -> SBLK/FRO/... -> cash) — and a linked child page (tree.html) that
-lays the curator's decision ladders out on a timeline.
+Renders the firehose book — a weekly-rebalanced portfolio of the gems the financial press
+named (entered while the driving thesis is live, dropped when it decays) — against SPY, with
+the motivating BWET "hidden gem" overlaid. Reads the weekly scan log produced by
+`firehose.py --fixture` (so a dashboard rebuild costs no LLM tokens) and reuses
+firehose.backtest for the numbers; a linked child page (firehose.html) lays the weekly
+press-named gems out on a timeline.
 
-Two books are shown side by side, because the contrast IS the thesis:
-  - CURATED (middle band)  — what the solution actually recommends: chain_depth >= 2 and
-    NOT a megaphone call. Deliberately sparse (the filter is brutal).
-  - ALL SIGNALS            — every mapped trigger, including the loud/obvious oil calls the
-    thesis says are already grazed. Shown for contrast/context.
+HONESTY (repo discipline #4/#6): the on-screen book is the FIXTURE backtest — it assumes
+PERFECT point-in-time retrieval of the early articles, which no available search tool delivers
+(both Anthropic `before:` and Tavily `end_date` leak future dates; the early under-the-radar
+pieces don't rank into a date-bounded pull). So this proves the MECHANICS, not forward lift.
+Every number here is an UPPER BOUND. The clean test is the forward eval (src/forward.py).
 
-Capital policy (locked with the user): FULLY-INVESTED book — split equity equally across
-every currently-active event, equal capital per event; 100% cash when none active. Idle
-capital earns 0% (no bond yield assumed). Within a long event, mean-variance weights on a
-look-ahead-safe trailing lookback (reused verbatim from curator.py); shorts equal-weighted
-(the production optimizer is long-only — flagged, not silently dropped).
-
-HONESTY (repo discipline #4/#6): this is a RETROSPECTIVE backtest over a single loud-regime
-window (the 2026 Iran war), and the curator LLM may have seen hindsight via web search, so
-every number here is an UPPER BOUND. The clean test is the forward eval (src/forward.py).
-
-    python scripts/build_dashboard.py            # window 2025-11-01 -> today
-    python scripts/build_dashboard.py --start 2025-11-01 --capital 50000
+    python scripts/build_dashboard.py            # reads data/windows/firehose_scans.json
+    python scripts/build_dashboard.py --capital 50000
 """
 from __future__ import annotations
 
@@ -38,242 +28,116 @@ import pandas as pd
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
-import score  # noqa: E402
-import curator  # noqa: E402
+import firehose  # noqa: E402
 import costs  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
 
 OUT_DIR = ROOT / "docs"  # GitHub Pages serves this folder (Settings -> Pages -> main /docs)
-# The de-biased book: triggers gathered from Trump's Truth Social archive, scouted + laddered
-# by the Anthropic key (Opus), NOT hand-picked. See src/trump_feed.py + src/select_triggers.py.
-TRIGGERS_CSV = ROOT / "data" / "windows" / "trump_triggers_iranwin.csv"
-MAPPED_CSV = ROOT / "data" / "windows" / "iran_auto_opus_mapped.csv"
-LOOKBACK = curator.BACKTEST_LOOKBACK_DAYS  # 547d trailing optimizer fit
-BWET_TICKER = "BWET"               # the motivating hidden gem (dry-bulk freight ETF)
-BWET_ANCHOR = "2026-02-20"         # carriers transit the western Med (IRN004 / plot_shipping anchor)
+SCANS_JSON = ROOT / "data" / "windows" / "firehose_scans.json"
 
-# A stable, distinct color per ticker (cash is grey). Falls back to a palette cycle.
 PALETTE = ["#c0392b", "#2980b9", "#27ae60", "#8e44ad", "#e67e22", "#16a085",
-           "#d35400", "#2c3e50", "#c0a000", "#7f8c8d", "#1abc9c", "#9b59b6",
-           "#e74c3c", "#3498db", "#f39c12", "#34495e"]
+           "#d35400", "#2c3e50", "#c0a000", "#7f8c8d", "#1abc9c", "#9b59b6"]
 
 
-def load_events() -> pd.DataFrame:
-    """Triggers joined to their curator mappings, with the middle-band keep flag."""
-    trig = pd.read_csv(TRIGGERS_CSV)
-    mapped = pd.read_csv(MAPPED_CSV)
-    df = trig.merge(mapped.drop(columns=[c for c in ("source", "telegraph_text", "telegraph_ts")
-                                         if c in mapped.columns]), on="event_id")
-    df["keep"] = curator.middle_band_mask(df)
-    return df.sort_values("telegraph_ts").reset_index(drop=True)
+def load_scans() -> dict:
+    """Rebuild firehose's {anchor_ts: [picks]} from the saved weekly scan log."""
+    if not SCANS_JSON.exists():
+        sys.exit(f"ERROR: {SCANS_JSON} not found. Run first:\n"
+                 f"  python src/firehose.py --fixture data/fixtures/firehose_bwet.json")
+    raw = json.loads(SCANS_JSON.read_text())
+    out = {}
+    for wk, picks in raw.items():
+        out[pd.Timestamp(str(wk) + " 16:30", tz="America/New_York")] = picks
+    return dict(sorted(out.items()))
 
 
-def build_trades(events: pd.DataFrame, panel: pd.DataFrame, fm: dict) -> list[dict]:
-    """One trade per event: entry/exit sessions, signed direction, per-leg weights.
-    Long legs use the look-ahead-safe mean-variance fit; shorts equal-weight (long-only
-    optimizer can't size them). Trades whose window runs past available prices are kept
-    but flagged truncated so the dashboard can show the open position honestly."""
-    spy = panel[score.BENCHMARK].dropna()
-    days = spy.index
-    trades = []
-    for _, ev in events.iterrows():
-        tickers = [t.strip().upper() for t in str(ev["mapped_tickers"]).split(";") if t.strip()]
-        tickers = tickers[:int(fm.get("max_tickers_per_event", 16))]  # "limit the options" knob
-        ei = score.entry_index(days, ev["telegraph_ts"], fm.get("t_update_days"))
-        if ei is None:
-            continue
-        entry_d = days[ei]
-        xi = score.exit_index(days, ei, ev["horizon_days"])
-        truncated = xi is None
-        exit_d = days[xi] if xi is not None else days[-1]
-        is_long = str(ev["direction"]).lower() == "long"
-
-        weights = None
-        if is_long:
-            weights = curator._optimized_weights(tickers, panel, entry_d, fm,
-                                                 int(fm.get("lookback_period_days", LOOKBACK)))
-        if not weights:  # short, or optimizer abstained -> equal-weight what has prices at entry
-            usable = [t for t in tickers if t in panel.columns
-                      and panel.loc[:entry_d, t].notna().any()]
-            if not usable:
-                continue
-            weights = {t: 1.0 / len(usable) for t in usable}
-
-        thin = any(t in score.THIN_TICKERS for t in weights)
-        trades.append({
-            "event_id": ev["event_id"], "entry": entry_d, "exit": exit_d,
-            "sign": 1.0 if is_long else -1.0, "weights": weights, "keep": bool(ev["keep"]),
-            "haircut": score.HAIRCUT_THIN if thin else score.HAIRCUT_DEFAULT,
-            "truncated": truncated, "direction": "long" if is_long else "short",
-        })
-    return trades
-
-
-def simulate(trades: list[dict], panel: pd.DataFrame, start: str, capital: float) -> dict:
-    """Fully-invested book: each session, equal capital across active events; cash if none.
-    Returns the daily value series and the per-ticker allocation matrix (capital committed,
-    sign-agnostic; cash fills the remainder)."""
-    days = panel.index[panel.index >= pd.Timestamp(start)]
-    daily_ret = panel.pct_change()
-
-    legs = pd.DataFrame(index=days)            # signed daily return per active event
-    alloc = pd.DataFrame(0.0, index=days, columns=sorted(
-        {t for tr in trades for t in tr["weights"]}))
-    active_count = pd.Series(0.0, index=days)
-
-    for tr in trades:
-        held = list(tr["weights"])
-        w = pd.Series(tr["weights"])
-        win = days[(days >= tr["entry"]) & (days <= tr["exit"])]
-        if len(win) == 0:
-            continue
-        leg = (daily_ret.loc[win[0]:win[-1], held] * w).sum(axis=1) * tr["sign"]
-        leg.iloc[0] = -tr["haircut"]           # round-trip cost charged on entry day
-        legs[tr["event_id"]] = leg.reindex(days)
-        active_count.loc[win] += 1.0
-        for t in held:                         # capital committed (magnitude), per event share
-            alloc.loc[win, t] += w[t]
-
-    strat_daily = legs.mean(axis=1).fillna(0.0)  # equal capital across active legs; cash if idle
-    value = capital * (1.0 + strat_daily).cumprod()
-
-    # Normalize allocation by number of active events (equal capital per event), cash = remainder.
-    share = active_count.replace(0.0, pd.NA)
-    alloc = alloc.div(share, axis=0).fillna(0.0)
-    cash = (1.0 - alloc.sum(axis=1)).clip(lower=0.0)
-    alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]  # drop never-held tickers
-
-    return {"dates": [d.strftime("%Y-%m-%d") for d in days],
-            "value": [round(v, 2) for v in value],
-            "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns},
-            "cash": [round(x, 4) for x in cash]}
-
-
-def metrics(value: list[float], spy_value: list[float], capital: float) -> dict:
+def metrics(value: list[float], spy: list[float], capital: float) -> dict:
     v = pd.Series(value)
-    peak = v.cummax()
-    mdd = float(((v - peak) / peak).min())
+    mdd = float(((v - v.cummax()) / v.cummax()).min())
     return {"final": round(value[-1], 0), "total_ret": round(value[-1] / capital - 1, 4),
-            "spy_ret": round(spy_value[-1] / capital - 1, 4), "max_dd": round(mdd, 4)}
+            "spy_ret": round(spy[-1] / capital - 1, 4), "max_dd": round(mdd, 4)}
 
 
-def color_map(tickers: list[str]) -> dict:
-    return {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(sorted(tickers))}
-
-
-def _ladder_cost(events: pd.DataFrame) -> float:
-    """Cost to LADDER this on-screen book at the production config (Opus + web): per displayed
-    event, the priciest Opus ladder row (the web-enabled run). This is the cleanly-attributable
-    dominant cost to execute the backtest; trigger selection (scout) adds a one-time ~$2-3."""
+def book_cost() -> float:
+    """Cost to produce THIS book once: the firehose scan pass (most recent cost per week)."""
     if not costs.LEDGER.exists():
         return 0.0
     led = pd.read_csv(costs.LEDGER)
-    ids = set(events["event_id"].astype(str))
-    lad = led[(led["stage"] == "ladder") & led["model"].str.contains("opus")
-              & led["label"].astype(str).isin(ids)]
-    return round(float(lad.groupby("label")["cost_usd"].max().sum()) if len(lad) else 0.0, 2)
+    fh = led[(led["stage"] == "firehose") & led["label"].astype(str).str.startswith("fixture-")]
+    return round(float(fh.groupby("label")["cost_usd"].last().sum()) if len(fh) else 0.0, 2)
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--start", default="2025-11-01", help="backtest window start (default 2025-11-01)")
-    ap.add_argument("--capital", type=float, default=50_000.0, help="starting capital (default 50000)")
+    ap.add_argument("--capital", type=float, default=50_000.0)
     args = ap.parse_args(argv)
 
-    events = load_events()
+    scans = load_scans()
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
+    print(f"Backtesting firehose book over {len(scans)} weekly scans ...")
+    bt = firehose.backtest(scans, fm, args.capital, daily=True)
+    d = bt["daily"]
+    if d is None:
+        sys.exit("No daily series — need >=1 week with prices.")
 
-    tickers = {score.BENCHMARK, BWET_TICKER}  # BWET for the hidden-gem overlay on Plot 1
-    for cell in events["mapped_tickers"]:
-        tickers.update(t.strip().upper() for t in str(cell).split(";") if t.strip())
-    panel_start = (pd.Timestamp(args.start)
-                   - pd.Timedelta(days=int(fm.get("lookback_period_days", LOOKBACK)) + 14)).strftime("%Y-%m-%d")
-    panel_end = (pd.Timestamp.today() + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
-    print(f"Fetching {len(tickers)} tickers, {panel_start} .. {panel_end} ...")
-    panel = score.fetch_panel(sorted(tickers), panel_start, panel_end, use_cache=False)
+    # weekly press-named gems for the firehose-log page (flatten the scans)
+    gems = []
+    for a, picks in scans.items():
+        for p in picks:
+            if not str(p.get("ticker", "")).strip():
+                continue
+            gems.append({"week": a.date().isoformat(), "ticker": p["ticker"],
+                         "thesis": p.get("thesis", ""), "thesis_live": bool(p.get("thesis_live", True)),
+                         "crowding": p.get("crowding", ""),
+                         "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
 
-    trades = build_trades(events, panel, fm)
-    curated = [t for t in trades if t["keep"]]
-    print(f"Trades: {len(trades)} all-signals, {len(curated)} curated (middle band).")
-
-    books = {"all": simulate(trades, panel, args.start, args.capital),
-             "curated": simulate(curated, panel, args.start, args.capital)}
-
-    dates_idx = pd.to_datetime(books["all"]["dates"])
-    spy = panel[score.BENCHMARK].reindex(dates_idx).ffill()
-    spy_value = [round(args.capital * v, 2) for v in (spy / spy.iloc[0]).tolist()]
-
-    # BWET overlay: the motivating "hidden gem" (dry-bulk freight), scaled so its line equals the
-    # CURATED book's value at the carrier->W.Med transit (BWET_ANCHOR) — does the solution ride
-    # the same move? (Anchor = the repo's documented carrier-arrival date; change as needed.)
-    bwet_scaled = None
-    if BWET_TICKER in panel.columns:
-        bwet = panel[BWET_TICKER].reindex(dates_idx).ffill()
-        ai = next((i for i, d in enumerate(dates_idx) if d >= pd.Timestamp(BWET_ANCHOR)), None)
-        cur = books["curated"]["value"]
-        if ai is not None and pd.notna(bwet.iloc[ai]) and bwet.iloc[ai] > 0:
-            scale = cur[ai] / float(bwet.iloc[ai])
-            bwet_scaled = [None if pd.isna(v) else round(float(v) * scale, 2) for v in bwet.tolist()]
-
+    tickers = sorted(d["alloc"].keys())
     payload = {
-        "start": args.start, "capital": args.capital,
-        "dates": books["all"]["dates"], "spy_value": spy_value,
-        "bwet_scaled": bwet_scaled, "bwet_anchor": BWET_ANCHOR,
-        "books": {k: {"value": b["value"], "alloc": b["alloc"], "cash": b["cash"]}
-                  for k, b in books.items()},
-        "metrics": {k: metrics(b["value"], spy_value, args.capital) for k, b in books.items()},
-        "colors": color_map([t for b in books.values() for t in b["alloc"]]),
-        "costs": {"ladder_usd": _ladder_cost(events)},
-        "events": [{
-            "id": e["event_id"], "date": e["telegraph_ts"][:10], "source": e["source"],
-            "text": e["telegraph_text"], "mechanism": e["mechanism"],
-            "tickers": [t.strip().upper() for t in str(e["mapped_tickers"]).split(";") if t.strip()],
-            "direction": e["direction"], "depth": int(float(e["chain_depth"])),
-            "audience": e["audience_breadth"], "horizon": int(float(e["horizon_days"])),
-            "keep": bool(e["keep"]),
-        } for _, e in events.iterrows()],
+        "capital": args.capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
+        "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
+        "overlay_anchor": d["overlay_anchor"],
+        "alloc": d["alloc"], "cash": d["cash"],
+        "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
+        "metrics": metrics(d["value"], d["spy"], args.capital),
+        "cost_usd": book_cost(), "weeks": bt["weeks"], "gems": gems,
     }
 
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "data.json").write_text(json.dumps(payload, indent=2))
     (OUT_DIR / "index.html").write_text(INDEX_HTML)
-    (OUT_DIR / "tree.html").write_text(TREE_HTML)
+    (OUT_DIR / "firehose.html").write_text(FIREHOSE_HTML)
+    # legacy decision-tree page retired; leave a redirect so old links don't 404
+    (OUT_DIR / "tree.html").write_text(REDIRECT_HTML)
+
     m = payload["metrics"]
-    print(f"\nCurated  ${args.capital:,.0f} -> ${m['curated']['final']:,.0f} "
-          f"({m['curated']['total_ret']:+.1%}), maxDD {m['curated']['max_dd']:.1%}")
-    print(f"AllSig   ${args.capital:,.0f} -> ${m['all']['final']:,.0f} "
-          f"({m['all']['total_ret']:+.1%}), maxDD {m['all']['max_dd']:.1%}")
-    print(f"SPY      ${args.capital:,.0f} -> ${spy_value[-1]:,.0f} ({m['all']['spy_ret']:+.1%})")
-    print(f"\nWrote {OUT_DIR/'index.html'} + tree.html + data.json")
+    print(f"\nFirehose ${args.capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
+          f"maxDD {m['max_dd']:.1%}")
+    print(f"SPY      ${args.capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
+    print(f"Cost to produce this book: ${payload['cost_usd']:.2f}")
+    print(f"\nWrote {OUT_DIR/'index.html'} + firehose.html + data.json")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
     return 0
 
 
 INDEX_HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>geo-herd-rider — $50K portfolio backtest</title>
+<title>geo-herd-rider — $50K firehose backtest</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
- body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
-   margin:0;background:var(--bg)}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
  h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
  .sub{color:var(--mut);margin:0 0 18px}
- .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;
-   font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
  .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
  .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
  .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
  .card .v{font-size:22px;font-weight:600;margin-top:3px}
  .pos{color:#1e7d34} .neg{color:#c0392b}
- .toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:6px 0}
- .toggle button{border:0;background:#fff;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--mut)}
- .toggle button.on{background:#2c3e50;color:#fff}
  a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
  .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
- .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
- .nav a.active{color:var(--ink);font-weight:600}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
  #chart,#alloc{width:100%;height:420px}
  .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
  .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -282,236 +146,184 @@ INDEX_HTML = r"""<!doctype html>
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="index.html" class="active">Dashboard</a>
-   <a href="tree.html">Decision tree</a>
+   <a href="firehose.html">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1>Through the herd, on $50K</h1>
  <p class="sub" id="sub"></p>
+ <div class="warn"><b>Mechanics upper bound, not forward lift.</b> This is the <b>fixture</b>
+   backtest: it assumes perfect point-in-time retrieval of the early articles, which no search
+   tool actually delivers. It proves the pipeline rides a press-named gem; it does <i>not</i>
+   prove the firehose finds them in time. The clean verdict is the forward eval
+   (<code>src/forward.py</code>).</div>
  <div class="cards" id="cards"></div>
- <p class="sub"><b>Curated</b> = the <b>middle-band book</b> — only the triggers the curator keeps
-   (causal depth 2–3: deep enough the herd hasn't priced them, not the obvious hop-1 call). This
-   is the solution's actual bet. <b>All signals</b> = every laddered trigger, kept or dropped —
-   shown for context.</p>
+ <p class="sub">The <b>firehose book</b>: each week, the gems the financial press names as
+   thesis-driven movers go on the watchlist; a position is held while its driving thesis is
+   <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
+   never sets a weight. Below, the same $50K through the firehose vs <b>SPY</b>, with
+   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the book at the carrier→W-Med
+   transit — does the book ride the same move?</p>
 
  <h2>Plot 1 — Portfolio value</h2>
- <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
-   the LLM, never hand-picked. Three books from the same $50K: the <b>curated</b> middle-band
-   book (the solution's bet), the <b>all-signals</b> book (every laddered trigger), and
-   <b>SPY</b> buy-and-hold, and <b>BWET</b> (the motivating dry-bulk "hidden gem", dashed) scaled
-   to equal the curated book at the carrier→western-Med transit — does the solution ride the same
-   move? <i>Retrospective upper bound — one loud window; clean test is the forward eval.</i></p>
  <div id="chart"></div>
 
  <h2>Plot 2 — Allocation over time</h2>
- <div class="toggle" id="btoggle">
-   <button data-b="curated" class="on">Curated book</button>
-   <button data-b="all">All-signals book</button>
- </div>
- <p class="sub">Capital committed per ticker (cash fills the rest). Fully-invested policy:
-   equity splits equally across active events; back to cash when none are live.</p>
+ <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
+   watchlist is non-empty; to cash when the press names nothing live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
+
  <h2>Plot 3 — Holdings by date</h2>
- <p class="sub" style="margin:0 0 0"><b></b>Each row is a date the book's
-   basket changed, with the nonzero ticker weights then (the trade the solution recommended):</p>
+ <p class="sub" style="margin:0 0 0">Each row is a date the book's basket changed, with the
+   nonzero ticker weights then (the trade the solution recommended):</p>
  <table class="atab" id="alloctable"></table>
 
  <h2>What it cost</h2>
- <p class="sub">Headline = producing <i>this</i> book once at the production config (Opus scout +
-   web ladder). The cumulative figure is all development &amp; experiment runs to date (every
-   model tried, including throwaways) — not the cost of one backtest.</p>
  <div id="costs"></div>
 
  <p class="foot">geo-herd-rider, generated by <code>scripts/build_dashboard.py</code> ·
-   triggers gathered from Trump's Truth Social archive, scouted + laddered by the LLM (no
-   hand-picking) · sizing = mean-variance (long legs), equal-weight (shorts) · idle = cash @ 0%.</p>
+   gems sourced from the news firehose (no hand-picking) · sizing = mean-variance · idle = cash @ 0%
+   · fixture (perfect-retrieval) book — upper bound; clean test is the forward eval.</p>
 </div>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
   const fmt=x=>"$"+Math.round(x).toLocaleString();
   const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
-  const last=D.dates.length-1;
+  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
   document.getElementById("sub").textContent =
-    `Backtest ${D.start} → present · $${D.capital.toLocaleString()} start · faithfully traded`;
+    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
-  // numeric headline cards
-  const m=D.metrics.curated, ma=D.metrics.all, cls=x=>x>=0?"pos":"neg";
   document.getElementById("cards").innerHTML=[
-    ["Curated book", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
-    ["All signals", fmt(ma.final), pct(ma.total_ret), cls(ma.total_ret)],
-    ["SPY buy & hold", fmt(D.spy_value[last]), pct(ma.spy_ret), cls(ma.spy_ret)],
-    ["Curated vs SPY", pct(m.total_ret-ma.spy_ret), "excess", cls(m.total_ret-ma.spy_ret)],
-    ["Curated max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+    ["Firehose book", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["SPY buy & hold", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
+    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
-  // value chart with end-of-line $ + % labels
-  const endlab=(arr,col,ys=0)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
   const vtraces=[
-    {x:D.dates,y:D.books.curated.value,name:"Curated (middle band)",line:{color:"#c0392b",width:2.4}},
-    {x:D.dates,y:D.books.all.value,name:"All signals",line:{color:"#2980b9",width:1.8}},
-    {x:D.dates,y:D.spy_value,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
+    {x:D.dates,y:D.value,name:"Firehose book",line:{color:"#c0392b",width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
   ];
-  const vann=[endlab(D.books.curated.value,"#c0392b",13),endlab(D.books.all.value,"#2980b9",0),
-              endlab(D.spy_value,"#9aa0a6",-13)];
-  const vshapes=[];
-  if(D.bwet_scaled){
-    vtraces.push({x:D.dates,y:D.bwet_scaled,name:"BWET (scaled)",
+  const vann=[endlab(D.value,"#c0392b",10),endlab(D.spy,"#9aa0a6",-10)], vshapes=[];
+  if(D.overlay){
+    vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
       line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
-    const bl=D.bwet_scaled.filter(v=>v!=null); const lastB=bl.length?bl[bl.length-1]:null;
-    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:0.97,yref:"paper",xanchor:"right",
-      showarrow:false,text:"BWET ↑ "+fmt(lastB)+" (off-chart)",font:{color:"#e67e22",size:11}});
-    vshapes.push({type:"line",x0:D.bwet_anchor,x1:D.bwet_anchor,yref:"paper",y0:0,y1:1,
+    vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
       line:{color:"#e6b089",width:1,dash:"dot"}});
-    vann.push({x:D.bwet_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+    vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
       text:"carriers → W. Med",font:{color:"#cf8030",size:10}});
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     yaxis:{tickprefix:"$",separatethousands:true,range:[42000,90000],fixedrange:false},
-     hovermode:"x unified"},{displayModeBar:false,responsive:true});
+     yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
 
-  function drawAlloc(book){
-    const b=D.books[book], traces=[];
-    for(const t in b.alloc) traces.push({x:D.dates,y:b.alloc[t].map(v=>v*100),name:t,
-      stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
-    traces.push({x:D.dates,y:b.cash.map(v=>v*100),name:"cash",stackgroup:"a",
-      line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
-    Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
-      yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.26},
-      hovermode:"x unified"},{displayModeBar:false,responsive:true});
-    const dep=b.cash.filter(v=>v<0.999).length, n=b.cash.length;
-    const peak={}; for(const t in b.alloc){peak[t]=Math.max(...b.alloc[t])*100;}
-    const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4)
-      .map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
-    document.getElementById("allocnote").innerHTML=
-      `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). `+
-      `Peak weights — ${top}.`;
+  const traces=[];
+  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
+    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
+  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
+  Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
+    yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
+  const peak={}; for(const t in D.alloc) peak[t]=Math.max(...D.alloc[t])*100;
+  const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
+  document.getElementById("allocnote").innerHTML=
+    `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
 
-    // holdings-by-date table: one row whenever the nonzero basket changes
-    let prev=null; const rowsT=[];
-    for(let i=0;i<D.dates.length;i++){
-      const held=[];
-      for(const t in b.alloc){const w=b.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
-      const sig=held.join(" · ");
-      if(sig!==prev){
-        if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
-        else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
-        prev=sig;
-      }
+  let prev=null; const rowsT=[];
+  for(let i=0;i<D.dates.length;i++){
+    const held=[];
+    for(const t in D.alloc){const w=D.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
+    const sig=held.join(" · ");
+    if(sig!==prev){
+      if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
+      else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
+      prev=sig;
     }
-    document.getElementById("alloctable").innerHTML=
-      `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
-      `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
   }
-  drawAlloc("curated");
-  document.querySelectorAll("#btoggle button").forEach(btn=>btn.onclick=()=>{
-    document.querySelectorAll("#btoggle button").forEach(b=>b.classList.remove("on"));
-    btn.classList.add("on"); drawAlloc(btn.dataset.b);
-  });
+  document.getElementById("alloctable").innerHTML=
+    `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
+    `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
 
-  const c=D.costs||{};
-  const usd=x=>"$"+(x||0).toFixed(2);
   document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:400px"><div class="k">cost to execute this backtest</div>`
-    + `<div class="v">${usd(c.ladder_usd)}</div>`
-    + `<div class="sub" style="margin:6px 0 0;font-size:12px">Opus + web ladder of the window's `
-    + `triggers. Trigger selection (scout) adds a one-time ~$2–3 per window.</div></div>`;
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this book</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">One firehose scan pass (${D.weeks} weekly `
+    + `Opus reads of the press coverage). No causal ladder, no web-search bill in fixture mode.</div></div>`;
 });
 </script></body></html>
 """
 
 
-TREE_HTML = r"""<!doctype html>
+FIREHOSE_HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>geo-herd-rider — decision-tree timeline</title>
+<title>geo-herd-rider — firehose log</title>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
  body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
  .wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
  h1{font-size:24px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px} a{color:#2980b9}
- .ev{background:#fff;border:1px solid var(--line);border-left:5px solid #9aa0a6;border-radius:10px;
-   padding:13px 16px;margin:0 0 14px;position:relative}
- .ev.keep{border-left-color:#c0392b}
- .ev .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
- .date{font-weight:600} .src{color:var(--mut);font-size:13px}
- .badges{margin:7px 0} .b{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;
-   margin-right:6px;background:#eef1f3;color:#445}
- .b.depth{background:#e8f0fe;color:#1a56c4} .b.keep{background:#fae3e0;color:#c0392b;font-weight:600}
- .b.drop{background:#eef1f3;color:#888} .b.short{background:#fdebd0;color:#9c5700}
- .text{font-size:13.5px;color:#333;margin:6px 0} .mech{font-size:13.5px;margin:8px 0 6px}
- .mech b{color:var(--mut);font-weight:600}
  .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
- .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
- .nav a.active{color:var(--ink);font-weight:600}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
  .how{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:13px}
  .how ol{margin:6px 0 0;padding-left:20px} .how li{margin:3px 0}
- .ctl{margin:0 0 16px;font-size:13px;color:var(--mut)} .ctl input{font:inherit;padding:3px 6px}
- .ctl button{font:inherit;padding:3px 10px;cursor:pointer;border:1px solid var(--line);background:#fff;border-radius:6px}
- .chain{display:flex;flex-wrap:wrap;align-items:center;margin:4px 0 2px}
- .node{border:1px solid var(--line);border-radius:8px;padding:6px 9px;font-size:12px;max-width:240px;background:#f4f6f8}
- .node.trig{background:#fff;border-color:#c9ccd0} .node.hop{background:#eef2f7}
- .node.tick{background:#2c3e50;color:#fff;font-family:ui-monospace,Menlo,monospace;font-weight:600;font-size:12.5px}
- .ev.keep .node.trig{border-color:#c0392b;background:#fdeeec}
- .ev.drop{opacity:.55} .arrow{color:#9aa0a6;padding:0 7px;font-size:15px}
- .hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline;margin-bottom:2px}
- .b{display:inline-block;font-size:11px;padding:1px 7px;border-radius:20px;margin-left:6px;background:#eef1f3;color:#445}
- .b.keep{background:#fae3e0;color:#c0392b;font-weight:600} .b.drop{background:#eef1f3;color:#888}
- .b.short{background:#fdebd0;color:#9c5700}
+ .row{background:#fff;border:1px solid var(--line);border-left:5px solid #c0392b;border-radius:10px;padding:11px 15px;margin:0 0 11px}
+ .row.exit{border-left-color:#9aa0a6;opacity:.7}
+ .hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+ .date{font-weight:600} .tk{font-family:ui-monospace,Menlo,monospace;font-weight:600;background:#2c3e50;color:#fff;border-radius:6px;padding:1px 7px;font-size:13px}
+ .b{display:inline-block;font-size:11px;padding:1px 8px;border-radius:20px;margin-left:6px;background:#eef1f3;color:#445}
+ .b.live{background:#e3f3e6;color:#1e7d34;font-weight:600} .b.exit{background:#eef1f3;color:#888;font-weight:600}
+ .b.early{background:#e8f0fe;color:#1a56c4} .b.consensus{background:#fdebd0;color:#9c5700}
+ .th{font-size:13.5px;color:#333;margin:6px 0 4px} .u{font-size:12px} .u a{color:#2980b9;margin-right:10px}
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="index.html">Dashboard</a>
-   <a href="tree.html" class="active">Decision tree</a>
+   <a href="firehose.html" class="active">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
- <h1>Decision tree — how triggers become tickers</h1>
- <div class="how"><b>How the solution prunes the implication network down to tickers:</b>
+ <h1>Firehose log — the press-named gems, week by week</h1>
+ <div class="how"><b>How the simplified solution works:</b>
    <ol>
-     <li><b>📣 Trigger → chain.</b> Each high-reach post is laddered into a causal chain — the
-       hops shown left-to-right (parsed from the curator's <code>mechanism</code>).</li>
-     <li><b>Middle-band filter.</b> Keep chains of <b>depth 2–3</b> (deep enough the herd hasn't
-       priced them, past the obvious hop-1, short of hop-4+ storytelling). <b style="color:#c0392b">Red</b>
-       trigger = KEPT (the bet); <span style="opacity:.55">faded</span> = pruned.</li>
-     <li><b>🎯 Vehicle selection.</b> At the chain's end, pick the <i>purest</i> instrument — the
-       rate/commodity ETN over a diluted operator equity (this is what surfaces BWET).</li>
-     <li><b>Mechanical sizing</b> downstream (optimizer; the LLM never sets weights).</li>
+     <li><b>📰 Read the firehose.</b> Each week, scan the news for tickers the press explicitly
+       NAMES as thesis-driven movers — the journalists do the gem-discovery (CNBC/ETF.com named
+       BWET weeks before it tripled).</li>
+     <li><b>🟢 Enter / hold while LIVE.</b> A name stays on the watchlist while its driving thesis
+       is live (war on, chokepoint shut). <b>Crowding</b> (early→consensus) is shown for context
+       only — it does not drive the trade.</li>
+     <li><b>⚪ Exit on decay.</b> Drop it when the thesis resolves (ceasefire, Hormuz reopens).</li>
+     <li><b>Mechanical sizing</b> downstream (mean-variance optimizer; the LLM never sets weights).</li>
    </ol>
-   <span style="color:var(--mut)">Caveat: only the chain the curator committed to is recorded —
-   the alternative branches it weighed and rejected are not stored, so this shows the chosen path,
-   not every pruned branch.</span></div>
- <div class="ctl">Focus window:
-   <input id="from" type="date" value="2026-02-15"> to <input id="to" type="date" value="2026-03-06">
-   <button id="all">show all</button>
-   <span id="count"></span></div>
- <div id="tl"></div>
+   <span style="color:var(--mut)">No causal decision-tree — just the firehose, an entry/exit
+   switch, and the optimizer. This is the fixture log (assumes perfect retrieval); the live
+   forward log is built by <code>src/forward.py</code>.</span></div>
+ <div id="log"></div>
 </div>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
   const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
-  const hops=m=>esc(m).split(/\s*(?:-&gt;|→)\s*/).map(s=>s.trim()).filter(Boolean);
-  function render(from,to){
-    const evs=D.events.filter(e=>(!from||e.date>=from)&&(!to||e.date<=to));
-    document.getElementById("count").textContent=` — ${evs.length} triggers`;
-    document.getElementById("tl").innerHTML = evs.map(e=>{
-      const parts=hops(e.mechanism);
-      const nodes=[`<div class="node trig">📣 <b>${e.date}</b><br>${esc(e.text).slice(0,90)}…</div>`]
-        .concat(parts.map(h=>`<div class="node hop">${h.slice(0,130)}</div>`))
-        .concat([`<div class="node tick">🎯 ${e.tickers.map(esc).join(' · ')}</div>`]);
-      return `<div class="ev ${e.keep?'keep':'drop'}" style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:0 0 12px">
-        <div class="hd"><span><b>${e.id}</b> · depth ${e.depth}
-          <span class="b ${e.keep?'keep':'drop'}">${e.keep?'KEPT — the bet':'pruned'}</span>
-          ${e.direction==='short'?'<span class="b short">SHORT</span>':''}
-          <span class="b">${e.audience}</span></span>
-          <span class="src" style="color:var(--mut);font-size:12px">${esc(e.source)}</span></div>
-        <div class="chain">${nodes.join('<span class="arrow">→</span>')}</div></div>`;
-    }).join("") || '<p class="sub">No triggers in that window.</p>';
-  }
-  const f=document.getElementById("from"), t=document.getElementById("to");
-  const go=()=>render(f.value,t.value);
-  f.onchange=go; t.onchange=go;
-  document.getElementById("all").onclick=()=>{f.value="";t.value="";go();};
-  go();
+  const byWeek={};
+  (D.gems||[]).forEach(g=>{(byWeek[g.week]=byWeek[g.week]||[]).push(g);});
+  const weeks=Object.keys(byWeek).sort();
+  document.getElementById("log").innerHTML = weeks.map(wk=>byWeek[wk].map(g=>{
+    const urls=(g.urls||[]).map(u=>`<a href="${esc(u)}" target="_blank">source ↗</a>`).join("");
+    const cw=g.crowding?`<span class="b ${esc(g.crowding)}">${esc(g.crowding)}</span>`:"";
+    return `<div class="row ${g.thesis_live?'':'exit'}">
+      <div class="hd"><span class="date">${esc(g.week)} &nbsp;<span class="tk">${esc(g.ticker)}</span>
+        <span class="b ${g.thesis_live?'live':'exit'}">${g.thesis_live?'HELD — thesis live':'EXIT — thesis decayed'}</span>
+        ${cw}</span></div>
+      <div class="th">${esc(g.thesis)}</div><div class="u">${urls}</div></div>`;
+  }).join("")).join("") || '<p class="sub">No gems logged yet.</p>';
 });
 </script></body></html>
+"""
+
+
+REDIRECT_HTML = r"""<!doctype html><meta charset="utf-8">
+<meta http-equiv="refresh" content="0; url=firehose.html">
+<p>The decision-tree page was retired. Redirecting to the <a href="firehose.html">firehose log</a>…</p>
 """
 
 

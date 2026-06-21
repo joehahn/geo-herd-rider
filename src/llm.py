@@ -1,9 +1,9 @@
-"""llm.py — provider-agnostic LLM seam for the curator (Anthropic + OpenRouter).
+"""llm.py — provider-agnostic LLM seam (Anthropic + OpenRouter). PARKED.
 
-The curator's laddering (map_event) and forward logging call an LLM that must reason over a
-prompt, optionally web-search under look-ahead discipline, and return text. This hides the
-provider so the SAME pipeline runs on Anthropic (Opus/Haiku) or any OpenRouter model
-(DeepSeek, Qwen, Llama, ...) — the seam for the cheap-model bake-off (TODO + the diplomacy-A2A
+Built for the retired causal-ladder curator; not wired into the firehose (which calls the
+Anthropic SDK directly). Kept as the provider-agnostic seam should the firehose scan want a
+cheap-model path. It hides the provider so the SAME call runs on Anthropic (Opus/Haiku) or any
+OpenRouter model (DeepSeek, Qwen, Llama, ...) — the seam for the cheap-model bake-off (TODO + the diplomacy-A2A
 LLMClient pattern this mirrors). The 10x-cheaper path: ladder on a cheap-but-capable OpenRouter
 model instead of Opus, synchronously (no Batch latency), validated by the scoreboard.
 

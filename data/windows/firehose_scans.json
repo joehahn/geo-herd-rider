@@ -1,0 +1,223 @@
+{
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Rising tanker freight rates lift oil shipping futures",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-02-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight rates climbing lift oil freight futures",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "BWET",
+      "thesis": "US-Israel-Iran war spikes tanker freight rates",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-03-13": [
+    {
+      "ticker": "BWET",
+      "thesis": "US-Israel-Iran war spikes crude tanker freight rates",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    },
+    {
+      "ticker": "BDRY",
+      "thesis": "Dry bulk freight futures sister fund to BWET",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz fears",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    },
+    {
+      "ticker": "BDRY",
+      "thesis": "Dry bulk freight futures, sister fund to tanker play",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz fears",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz fears",
+      "thesis_live": true,
+      "crowding": "early",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz fears",
+      "thesis_live": true,
+      "crowding": "building",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes Strait of Hormuz tanker freight rates",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes Strait of Hormuz tanker freight rates",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
+      ]
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz fears",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes Strait of Hormuz tanker freight rates",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes Strait of Hormuz tanker freight rates",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran war spikes tanker freight rates via Hormuz",
+      "thesis_live": true,
+      "crowding": "consensus",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+      ]
+    }
+  ]
+}

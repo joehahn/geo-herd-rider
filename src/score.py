@@ -1,10 +1,11 @@
-"""score.py — Layer 3 of the geo-wave-rider Phase 1 pipeline.
+"""score.py — mechanical price/timing utilities + a legacy per-event scorer.
 
-The MECHANICAL scorer. No judgment: it fills prices via yfinance, computes each
-paper trade's return versus SPY over the mapped horizon, applies a costs/slippage
-haircut, and reports the result against the pre-registered decision rule.
+Now used mainly as the shared price layer for the firehose (`fetch_panel`, `entry_index`,
+`BENCHMARK`, `T_UPDATE_DAYS`). The MECHANICAL scorer below — fill prices via yfinance, compute a
+paper trade's return vs SPY over a horizon, apply a costs/slippage haircut — is retained but the
+standalone CLI is **legacy** (its `events_mapped.csv` input came from the retired map_event.py).
 
-    Input : data/events_mapped.csv   (from map_event.py)
+    Input : data/events_mapped.csv   (LEGACY — produced by the now-deleted map_event.py)
     Output: data/events_scored.csv   (per-event excess, hit, path shape)
             + a printed report (medians, hit rate, basket-vs-SPY, chain-depth
               and audience-breadth breakdowns, prediction-market calibration)

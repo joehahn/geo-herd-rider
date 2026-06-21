@@ -9,7 +9,7 @@ human. (Musk, Dimon, et al. come later; Trump suffices for now.)
 
 Division of labor (CLAUDE.md): this file is DETERMINISTIC PLUMBING only — fetch, normalize,
 slice. It makes no judgment about which posts matter; that's the curator's job (the Anthropic
-key). Selection and laddering happen downstream in map_event.py.
+key). Selection happens downstream in firehose.py (the weekly scan reads these posts).
 
 Source: an auto-updating public archive of @realDonaldTrump's Truth Social posts (the
 `stiles/trump-truth-social-archive` project, mirrored by CNN). Every record carries an exact
@@ -147,7 +147,7 @@ def main(argv: list[str] | None = None) -> int:
     df.to_csv(out, index=False)
     span = f"{df['created_at'].min().date()} .. {df['created_at'].max().date()}"
     print(f"{len(df)} candidate posts ({span}) -> {out}")
-    print("Next: the curator (map_event.py) reads these and selects the worthy triggers.")
+    print("Next: the firehose scan (firehose.py) reads these alongside the news.")
     return 0
 
 

@@ -1,10 +1,14 @@
-"""curator.py — Step 1: the watchlist curator (single trigger source).
+"""curator.py — the decision-tree watchlist curator. MOSTLY LEGACY.
 
-Evolves map_event.py from a per-event paper-trade mapper into a watchlist curator.
-The curator's job is SELECTION: of all the implication ladders the triggers throw off,
-keep the **middle band** — the signals deep enough that the herd hasn't priced them
-(chain_depth >= 2) and not the loud, obvious megaphone calls everyone reads instantly —
-then hand the resulting long watchlist to the mean-variance optimizer.
+The firehose architecture reuses ONE thing from this module: `_optimized_weights` (the
+look-ahead-safe mean-variance sizing helper, called by firehose.py and the dashboard). The
+middle-band SELECTION + per-event BACKTEST below belong to the retired causal-tree design and
+no longer run in the live path (the trigger mapper map_event.py they relied on is deleted) —
+kept for reference / the scoreboard write-up.
+
+Original purpose: of all the implication ladders the triggers threw off, keep the **middle
+band** — deep enough the herd hasn't priced them (chain_depth >= 2), not loud megaphone calls —
+then hand the long watchlist to the mean-variance optimizer.
 
 Two views, both runnable now from the committed data (no new API calls):
 

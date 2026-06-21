@@ -1,0 +1,47 @@
+{
+  "_note": "FIXTURE — real press articles that named BWET, with their true publish dates. Used by firehose.py --fixture to test the pipeline's MECHANICS assuming perfect point-in-time retrieval (each weekly scan sees only articles published on/before its anchor). This is NOT a retrieval test: clean point-in-time retrieval of these niche early pieces is not achievable with available search tools (see search.py caveat) — that question is answered only forward. Articles 1-2 and 6 have URLs confirmed via search; 3-5 are user-supplied (title/date confirmed, URL best-effort).",
+  "articles": [
+    {
+      "published_date": "2026-02-16",
+      "source": "MarketBeat",
+      "title": "One of the Top-Performing ETFs of 2026 So Far May Surprise You",
+      "snippet": "Investors seeking exposure to the oil freight futures market may be drawn to the Breakwave Tanker Shipping ETF (BWET), which has nearly doubled in just the first several weeks of the year as tanker rates climb.",
+      "url": "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+    },
+    {
+      "published_date": "2026-03-04",
+      "source": "etf.com",
+      "title": "This Little-Known Fund Is the Best-Performing ETF of 2026",
+      "snippet": "The Breakwave Tanker Shipping ETF (BWET) has surged about 243% year to date, fueled by a spike in tanker freight rates after the outbreak of war between the U.S., Israel and Iran. Despite the surge, BWET has largely flown under the radar: it launched in 2023 but held only about $3 million in assets at the start of the year. It holds tanker freight futures tied to the cost of shipping crude oil by sea. Sister fund BDRY (Breakwave Dry Bulk Shipping ETF) tracks dry bulk freight futures.",
+      "url": "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
+    },
+    {
+      "published_date": "2026-03-20",
+      "source": "ETF.com",
+      "title": "This Skyrocketing ETF Is Still Flying Under the Radar",
+      "snippet": "BWET keeps climbing on Strait of Hormuz tanker-rate fears as the Iran war drags on, yet the fund remains tiny and under-owned relative to its run.",
+      "url": ""
+    },
+    {
+      "published_date": "2026-04-09",
+      "source": "The Business Times",
+      "title": "A 1,300% rally turns a tiny shipping ETF into an Iran war gauge",
+      "snippet": "BWET, a once-obscure tanker-freight ETF, is up roughly 1,300% and is now widely watched as a real-time barometer of the Iran war's effect on oil shipping through the Strait of Hormuz.",
+      "url": ""
+    },
+    {
+      "published_date": "2026-04-19",
+      "source": "24/7 Wall St.",
+      "title": "This ETF Turned $100K Into $785K Year-To-Date. No One's Talking About It",
+      "snippet": "BWET has turned $100,000 into about $785,000 year-to-date on the tanker-rate spike, an extraordinary move that mainstream coverage is only beginning to catch.",
+      "url": ""
+    },
+    {
+      "published_date": "2026-04-25",
+      "source": "CNBC",
+      "title": "This little-known ETF is up over 600% amid U.S.-Iran war, a better trade than oil or energy stocks",
+      "snippet": "BWET (Breakwave Tanker Shipping ETF) is up over 600% amid the U.S.-Iran war and has been a far better trade than crude oil or energy equities, drawing mainstream attention as investors pile in.",
+      "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
+    }
+  ]
+}

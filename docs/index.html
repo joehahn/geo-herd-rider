@@ -1,28 +1,22 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>geo-herd-rider — $50K portfolio backtest</title>
+<title>geo-herd-rider — $50K firehose backtest</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
- body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);
-   margin:0;background:var(--bg)}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
  h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
  .sub{color:var(--mut);margin:0 0 18px}
- .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;
-   font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
  .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
  .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
  .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
  .card .v{font-size:22px;font-weight:600;margin-top:3px}
  .pos{color:#1e7d34} .neg{color:#c0392b}
- .toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin:6px 0}
- .toggle button{border:0;background:#fff;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--mut)}
- .toggle button.on{background:#2c3e50;color:#fff}
  a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
  .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
- .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
- .nav a.active{color:var(--ink);font-weight:600}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
  #chart,#alloc{width:100%;height:420px}
  .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
  .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -31,140 +25,113 @@
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="index.html" class="active">Dashboard</a>
-   <a href="tree.html">Decision tree</a>
+   <a href="firehose.html">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1>Through the herd, on $50K</h1>
  <p class="sub" id="sub"></p>
+ <div class="warn"><b>Mechanics upper bound, not forward lift.</b> This is the <b>fixture</b>
+   backtest: it assumes perfect point-in-time retrieval of the early articles, which no search
+   tool actually delivers. It proves the pipeline rides a press-named gem; it does <i>not</i>
+   prove the firehose finds them in time. The clean verdict is the forward eval
+   (<code>src/forward.py</code>).</div>
  <div class="cards" id="cards"></div>
- <p class="sub"><b>Curated</b> = the <b>middle-band book</b> — only the triggers the curator keeps
-   (causal depth 2–3: deep enough the herd hasn't priced them, not the obvious hop-1 call). This
-   is the solution's actual bet. <b>All signals</b> = every laddered trigger, kept or dropped —
-   shown for context.</p>
+ <p class="sub">The <b>firehose book</b>: each week, the gems the financial press names as
+   thesis-driven movers go on the watchlist; a position is held while its driving thesis is
+   <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
+   never sets a weight. Below, the same $50K through the firehose vs <b>SPY</b>, with
+   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the book at the carrier→W-Med
+   transit — does the book ride the same move?</p>
 
  <h2>Plot 1 — Portfolio value</h2>
- <p class="sub">Triggers gathered from Trump's Truth Social posts — selected and laddered by
-   the LLM, never hand-picked. Three books from the same $50K: the <b>curated</b> middle-band
-   book (the solution's bet), the <b>all-signals</b> book (every laddered trigger), and
-   <b>SPY</b> buy-and-hold, and <b>BWET</b> (the motivating dry-bulk "hidden gem", dashed) scaled
-   to equal the curated book at the carrier→western-Med transit — does the solution ride the same
-   move? <i>Retrospective upper bound — one loud window; clean test is the forward eval.</i></p>
  <div id="chart"></div>
 
  <h2>Plot 2 — Allocation over time</h2>
- <div class="toggle" id="btoggle">
-   <button data-b="curated" class="on">Curated book</button>
-   <button data-b="all">All-signals book</button>
- </div>
- <p class="sub">Capital committed per ticker (cash fills the rest). Fully-invested policy:
-   equity splits equally across active events; back to cash when none are live.</p>
+ <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
+   watchlist is non-empty; to cash when the press names nothing live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
+
  <h2>Plot 3 — Holdings by date</h2>
- <p class="sub" style="margin:0 0 0"><b></b>Each row is a date the book's
-   basket changed, with the nonzero ticker weights then (the trade the solution recommended):</p>
+ <p class="sub" style="margin:0 0 0">Each row is a date the book's basket changed, with the
+   nonzero ticker weights then (the trade the solution recommended):</p>
  <table class="atab" id="alloctable"></table>
 
  <h2>What it cost</h2>
- <p class="sub">Headline = producing <i>this</i> book once at the production config (Opus scout +
-   web ladder). The cumulative figure is all development &amp; experiment runs to date (every
-   model tried, including throwaways) — not the cost of one backtest.</p>
  <div id="costs"></div>
 
  <p class="foot">geo-herd-rider, generated by <code>scripts/build_dashboard.py</code> ·
-   triggers gathered from Trump's Truth Social archive, scouted + laddered by the LLM (no
-   hand-picking) · sizing = mean-variance (long legs), equal-weight (shorts) · idle = cash @ 0%.</p>
+   gems sourced from the news firehose (no hand-picking) · sizing = mean-variance · idle = cash @ 0%
+   · fixture (perfect-retrieval) book — upper bound; clean test is the forward eval.</p>
 </div>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
   const fmt=x=>"$"+Math.round(x).toLocaleString();
   const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
-  const last=D.dates.length-1;
+  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
   document.getElementById("sub").textContent =
-    `Backtest ${D.start} → present · $${D.capital.toLocaleString()} start · faithfully traded`;
+    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
-  // numeric headline cards
-  const m=D.metrics.curated, ma=D.metrics.all, cls=x=>x>=0?"pos":"neg";
   document.getElementById("cards").innerHTML=[
-    ["Curated book", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
-    ["All signals", fmt(ma.final), pct(ma.total_ret), cls(ma.total_ret)],
-    ["SPY buy & hold", fmt(D.spy_value[last]), pct(ma.spy_ret), cls(ma.spy_ret)],
-    ["Curated vs SPY", pct(m.total_ret-ma.spy_ret), "excess", cls(m.total_ret-ma.spy_ret)],
-    ["Curated max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+    ["Firehose book", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["SPY buy & hold", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
+    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
-  // value chart with end-of-line $ + % labels
-  const endlab=(arr,col,ys=0)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
   const vtraces=[
-    {x:D.dates,y:D.books.curated.value,name:"Curated (middle band)",line:{color:"#c0392b",width:2.4}},
-    {x:D.dates,y:D.books.all.value,name:"All signals",line:{color:"#2980b9",width:1.8}},
-    {x:D.dates,y:D.spy_value,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
+    {x:D.dates,y:D.value,name:"Firehose book",line:{color:"#c0392b",width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
   ];
-  const vann=[endlab(D.books.curated.value,"#c0392b",13),endlab(D.books.all.value,"#2980b9",0),
-              endlab(D.spy_value,"#9aa0a6",-13)];
-  const vshapes=[];
-  if(D.bwet_scaled){
-    vtraces.push({x:D.dates,y:D.bwet_scaled,name:"BWET (scaled)",
+  const vann=[endlab(D.value,"#c0392b",10),endlab(D.spy,"#9aa0a6",-10)], vshapes=[];
+  if(D.overlay){
+    vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
       line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
-    const bl=D.bwet_scaled.filter(v=>v!=null); const lastB=bl.length?bl[bl.length-1]:null;
-    if(lastB!=null) vann.push({x:D.dates[D.dates.length-1],y:0.97,yref:"paper",xanchor:"right",
-      showarrow:false,text:"BWET ↑ "+fmt(lastB)+" (off-chart)",font:{color:"#e67e22",size:11}});
-    vshapes.push({type:"line",x0:D.bwet_anchor,x1:D.bwet_anchor,yref:"paper",y0:0,y1:1,
+    vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
       line:{color:"#e6b089",width:1,dash:"dot"}});
-    vann.push({x:D.bwet_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+    vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
       text:"carriers → W. Med",font:{color:"#cf8030",size:10}});
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     yaxis:{tickprefix:"$",separatethousands:true,range:[42000,90000],fixedrange:false},
-     hovermode:"x unified"},{displayModeBar:false,responsive:true});
+     yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
 
-  function drawAlloc(book){
-    const b=D.books[book], traces=[];
-    for(const t in b.alloc) traces.push({x:D.dates,y:b.alloc[t].map(v=>v*100),name:t,
-      stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
-    traces.push({x:D.dates,y:b.cash.map(v=>v*100),name:"cash",stackgroup:"a",
-      line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
-    Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
-      yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.26},
-      hovermode:"x unified"},{displayModeBar:false,responsive:true});
-    const dep=b.cash.filter(v=>v<0.999).length, n=b.cash.length;
-    const peak={}; for(const t in b.alloc){peak[t]=Math.max(...b.alloc[t])*100;}
-    const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4)
-      .map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
-    document.getElementById("allocnote").innerHTML=
-      `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). `+
-      `Peak weights — ${top}.`;
+  const traces=[];
+  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
+    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
+  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
+  Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
+    yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
+  const peak={}; for(const t in D.alloc) peak[t]=Math.max(...D.alloc[t])*100;
+  const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
+  document.getElementById("allocnote").innerHTML=
+    `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
 
-    // holdings-by-date table: one row whenever the nonzero basket changes
-    let prev=null; const rowsT=[];
-    for(let i=0;i<D.dates.length;i++){
-      const held=[];
-      for(const t in b.alloc){const w=b.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
-      const sig=held.join(" · ");
-      if(sig!==prev){
-        if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
-        else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
-        prev=sig;
-      }
+  let prev=null; const rowsT=[];
+  for(let i=0;i<D.dates.length;i++){
+    const held=[];
+    for(const t in D.alloc){const w=D.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
+    const sig=held.join(" · ");
+    if(sig!==prev){
+      if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
+      else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
+      prev=sig;
     }
-    document.getElementById("alloctable").innerHTML=
-      `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
-      `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
   }
-  drawAlloc("curated");
-  document.querySelectorAll("#btoggle button").forEach(btn=>btn.onclick=()=>{
-    document.querySelectorAll("#btoggle button").forEach(b=>b.classList.remove("on"));
-    btn.classList.add("on"); drawAlloc(btn.dataset.b);
-  });
+  document.getElementById("alloctable").innerHTML=
+    `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
+    `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
 
-  const c=D.costs||{};
-  const usd=x=>"$"+(x||0).toFixed(2);
   document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:400px"><div class="k">cost to execute this backtest</div>`
-    + `<div class="v">${usd(c.ladder_usd)}</div>`
-    + `<div class="sub" style="margin:6px 0 0;font-size:12px">Opus + web ladder of the window's `
-    + `triggers. Trigger selection (scout) adds a one-time ~$2–3 per window.</div></div>`;
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this book</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">One firehose scan pass (${D.weeks} weekly `
+    + `Opus reads of the press coverage). No causal ladder, no web-search bill in fixture mode.</div></div>`;
 });
 </script></body></html>

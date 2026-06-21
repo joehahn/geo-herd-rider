@@ -2,110 +2,85 @@
 
 **Author:** Joe Hahn  
 **Email:** jmh.datasciences@gmail.com  
-**Date:** 2026-Jun-16 <br>
+**Date:** 2026-Jun-20 <br>
 **branch:** main
 
-**Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**; late enough such that the direction is discernable  and early enough to capture some of the move before the herd arrives and prices it away. And just as we ride in ahead of the herd, we ride out as it shows up: once the herd has piled in and flattened the opportunity that position has done its work, so we pivot off to the next event whose middle band is still un-grazed.
+**Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**; late enough such that the direction is discernable  and early enough to capture some of the move before the herd arrives and prices it away. And just as we ride in ahead of the herd, we ride out as it shows up: once the herd has piled in and flattened the opportunity that position has done its work, so we pivot off to the next event whose opportunity is still un-grazed.
 
-Every opportunity-generating event throws off a tree of downstream implications — really a graph, since independent chains converge on the same instrument, and that overlap is itself a corroboration signal — and that in-between window lives in the **middle band** of the tree: deep enough that the herd hasn't priced it, shallow enough that the causality still holds. Hop-1 calls are grazed by the smart money in minutes; hop-4+ chains are seductive storytelling that rarely pays. We never try to predict *how big* a move will be — only its direction and the chain that gets there; sizing is left to a mechanical optimizer downstream.
+**Where the edge actually was.** The original plan was grander: have an AI ladder out the whole *tree* of downstream implications behind each event and bet the non-obvious "middle band." Building it taught us something simpler and sharper — **we don't need to reconstruct the causal chain, because the financial press already publishes the answer, by ticker.** The move that motivated this project, **BWET**, was named in print as a standout trade *weeks before it tripled* (MarketBeat, Feb 16 2026; etf.com, Mar 4: *"the best-performing ETF of 2026 … has largely flown under the radar"*). We were never going to out-reason that — we just had to be **reading**. So geo-herd-rider now leans on the **firehose**: monitor the news for the few articles that call out a hidden gem *by name*, ride it while its driving thesis is live, and exit before the crest when the thesis decays. The "between smart money and herd" window is exactly the gem the press has *named* (smart money already in) but still frames as *under the radar* (the herd hasn't piled in yet). We never predict *how big* a move will be — only which ticker, and whether its thesis still holds; sizing is left to a mechanical optimizer downstream.
 
-**What this repo does.** An LLM reads a stream of signals, reasons out the laddered chain of implications behind a geopolitical or macro event, and curates a watchlist; a plain mean-variance optimizer then weights it. The LLM picks composition, direction, and the ladder — but never magnitude. A scoreboard backtest decides whether each source or curator change actually adds lift before it stays. **Today** it runs end-to-end on a single trigger source (politician/business-leader posts) — clearing its pre-registered backtest bar — plus a Polymarket probability signal and a look-ahead-clean forward logger; **next** it adds smart-money confirmation (Fed comms, congressional trades), one scoreboard-gated step at a time.
+**What this repo does.** Each week it reads the news firehose (plus high-reach posts), has an LLM extract the tickers the press explicitly names as thesis-driven movers, and curates a watchlist; a plain mean-variance optimizer then weights it. A position is **held while its driving catalyst is live** and **dropped when the thesis decays** (ceasefire signed, chokepoint reopens). The LLM picks the names and the live/exit switch — never magnitude. Look-ahead hygiene runs throughout, and because no search tool offers true point-in-time retrieval, **the only clean verdict is forward** (a live paper trade), with historical backtests treated strictly as upper bounds.
 
 ## How it works, at a glance
 
-The whole machine is one short assembly line. We **watch the signals** that move ahead of the crowd; an **AI ladders out** the knock-on effects of each event; we **keep only the middle band** — the implications that are non-obvious but still solid (the actual bet); we sanity-check the **odds** that the event even happens; and a **plain optimizer**, never the AI, decides position sizes. The result is a book positioned *between* the smart money and the slow herd. A **scoreboard** sits over the whole thing and keeps only the moves that actually beat the market — so the system earns its complexity one proven step at a time.
+The machine is one short assembly line. We **read the firehose** for the gems the press is already calling out; we **keep the ones still framed as early** (named, but under-the-radar — the actual bet); a position **rides while its thesis is live and exits when it decays**; and a **plain optimizer**, never the AI, sets the sizes. The result is a book positioned *between* the smart money and the slow herd. A **forward scoreboard** sits over the whole thing — the only contamination-free test — and keeps only what actually beats the market.
 
 ```mermaid
 flowchart TD
-    S["📣 Signals<br/>politician & CEO posts,<br/>prediction-market moves"]
-    L["🧠 AI builds the ladder<br/>traces the event's chain<br/>of knock-on effects"]
-    M["🎯 Keep the middle band<br/>past the obvious call,<br/>short of far-fetched stories"]
-    P["🎲 Check the odds<br/>is the triggering event<br/>actually likely to happen?"]
+    S["📰 Firehose<br/>news + high-reach posts:<br/>which gems is the press naming?"]
+    G["🎯 Keep the early gems<br/>press-named, but still<br/>'under the radar' (the bet)"]
+    X["🟢/⚪ Live / exit switch<br/>hold while the thesis is live,<br/>drop when it decays"]
     W["⚖️ Size it mechanically<br/>a plain optimizer sets the<br/>weights — no AI magnitude guesses"]
     B["💼 Portfolio<br/>positioned between the<br/>smart money and the herd"]
-    SB["📊 Scoreboard<br/>did it beat the market?<br/>keep only what does"]
+    SB["📊 Forward scoreboard<br/>did it beat the market?<br/>keep only what does"]
 
-    S --> L --> M --> P --> W --> B
+    S --> G --> X --> W --> B
     B -. results .-> SB
-    SB -. keep only what works .-> M
+    SB -. keep only what works .-> G
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     classDef gate fill:#e8f0fe,stroke:#1a56c4;
-    class M bet
+    class G bet
     class SB gate
 ```
 
-The two highlighted boxes are what makes this different from a normal screener: the **middle band** (red) is *where* the edge lives, and the **scoreboard** (blue) is the referee that keeps the whole thing honest.
+The two highlighted boxes are what makes this different from a momentum screener: the **early gem** (red) is *where* the edge lives — the press has named it but the herd hasn't arrived — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
 
-## The implication ladder
+## The firehose: why reading beats reasoning
 
-Every triggering event spawns a tree of downstream implications, and the tree has a shape that tells you where the money is:
+We are not screening all tickers to discover gems, and we no longer try to *derive* them from a causal tree. The financial press does the gem-discovery and prints the ticker — repeatedly, and progressively earlier as a move builds. BWET, in the 2026 Trump–Iran war:
 
-- **Hop 1 — direct and obvious.** "Iran war de-escalates → oil falls." The smart money is here in minutes; futures reprice on the headline. Already grazed, no edge.
-- **Hop 2–3 — the middle band.** Cheaper energy → input-cost relief for airlines and freight and chemicals; Gulf stability → infrastructure capex; disinflation → room for the Fed to cut → rate-sensitive names. The herd takes days to weeks to arrive, and the causality still holds.
-- **Hop 4+ — deep and speculative.** "Freed-up dollars → hiring boom → AI boom → robotics boom." The herd is nowhere near it, but now the logic is a story with a dozen ways to be wrong. This is the trap: an AI will generate gorgeous deep ladders all day, and most of them never pay.
+| Date | Outlet | Framing | from this date → peak |
+|---|---|---|---|
+| **Mar 4** | etf.com | *"best-performing ETF of 2026 … flown under the radar"* | **~3.2×** |
+| Mar 20 | ETF.com | *"skyrocketing … still flying under the radar"* | ~2.3× |
+| Apr 9 | Business Times | *"a 1,300% rally … an Iran war gauge"* | ~1.5× |
+| Apr 25 | CNBC | *"up over 600% … better than oil or energy stocks"* | mainstream |
 
-**The whole bet is the middle band** — deep enough that the herd hasn't arrived, shallow enough that the causality is still real. The curator's job is not to *find* implications (that's infinite and easy) but to generate the full tree and locate the band that is both unpriced and correct.
+The **framing is the entry signal**: *"under the radar / no one's talking about it"* is the press telling you the trade is still early (room to run); *"everyone's piling in"* is the press telling you it's late. So we keep the gems the press names *while still framed early*, and we **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over.
 
-The canonical example, from the move that motivated this family (the 2026 Trump–Iran war): **aircraft carriers steam to the western Mediterranean _(Feb 2026)_ → the market reads a rising risk that the Strait of Hormuz is choked _(Mar 2026)_ → tanker rates spike _(Mar 2026)_ → dry-bulk rates follow _(spring 2026)_.**
+The canonical chain that put BWET in the press: **aircraft carriers steam to the western Mediterranean _(Feb 2026)_ → the market reads a rising risk that the Strait of Hormuz is choked → tanker rates spike → a tiny tanker-freight ETF becomes the cleanest expression of the whole war.** We don't have to ladder that chain ourselves — a journalist already did, and named the fund.
 
-The ticker that motivated this project is **BWET** — a dry-bulk freight ETF, the far end of that chain. In the 2026 Trump–Iran war it ran **~8x** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat (and ~5x of that came after the February carrier move alone). A months-long herd pivot, telegraphed start to finish by Trump's tweets. The edge isn't knowing BWET will run 8x — it's reading the trigger early enough to be *on* it during the pivot rather than after (even the back half was ~2x). The May plateau is the three-tier model in one line: as the tweets turned toward peace, smart money rotated out to greener pastures while the slow herd kept backfilling. The curator's job is to find the *next* BWET — prune the tree off a fresh trigger down to the deep instrument the herd will slow-walk toward.
+The ticker that motivated this project is **BWET**. In the 2026 Trump–Iran war it ran **~8x** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat (and ~5x of that came after the February carrier move alone). The edge isn't knowing BWET will run 8x — it's *reading the article that names it* early enough to ride the back half (still ~3x from the first "under the radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
 A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). BWET drifted at a fraction of its eventual level all year, then ran with the war. Reproduce: `python scripts/plot_shipping.py`.
 
-**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, a [decision-tree timeline](https://joehahn.github.io/geo-herd-rider/tree.html), and a per-stage LLM-cost panel. The triggers are **gathered from Trump's Truth Social archive and selected by the LLM — never hand-picked**. Retrospective upper bound (one loud window); rebuild with `python scripts/build_dashboard.py`.
+**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, a [firehose log](https://joehahn.github.io/geo-herd-rider/firehose.html) of the week-by-week press-named gems, and an LLM-cost panel. The on-screen book is the **fixture** backtest: it assumes perfect point-in-time retrieval of the early articles (which no search tool actually delivers), so it proves the *mechanics* — not that the firehose finds the gems in time. A **hindsight-contaminated upper bound**; rebuild with `python scripts/build_dashboard.py`.
 
-## Four signals, four jobs
+## The signal, and its jobs
 
-The sources are not interchangeable inputs; each answers a different question in the ladder:
+One source, three jobs — plus mechanical sizing:
 
-- **Trigger** — *what starts a ladder.* Posts by high-reach figures, **gathered from a real archive, not hand-collected**: `trump_feed.py` pulls Trump's complete, timestamped Truth Social history (point-in-time-sliceable, so no look-ahead leak), and `select_triggers.py` has the LLM scout the whole stream and keep only concrete market-moving events. The human never picks. (Musk, Dimon, and a news arm come later.)
-- **Probability** — *will the upstream event actually resolve?* Polymarket and other prediction-market odds, so a ladder is timed and sized against a real probability rather than a maybe.
-- **Confirmation** — *is the smart edge of the herd already turning?* Fed communications, big-bank principals, and congressional-trading disclosures. The aim is to ride just behind the smart money and ahead of everyone else, not to beat the smart money.
-- **Sizing** — mechanical. A standard mean-variance optimizer weights whatever watchlist results. The LLM never touches the numbers.
+- **Read** — *what's worth owning.* The news firehose (and high-reach posts via `trump_feed.py`, point-in-time-sliceable) — the tickers the press explicitly **names** as thesis-driven movers. The human never picks.
+- **Enter** — *is it still early?* Keep a named gem while the press frames it as early / under-the-radar (smart money in, herd not yet). The framing is the entry filter.
+- **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving (ceasefire, chokepoint reopens, rates rolling over).
+- **Sizing** — mechanical. A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers.
 
-The machine, end to end: *trigger → probability → AI causal ladder → smart-money confirmation → mechanical sizing → a scoreboard that keeps the whole thing honest.*
+The machine, end to end: *firehose → name the early gem → live/exit switch → mechanical sizing → a forward scoreboard that keeps the whole thing honest.*
 
 ## Status
 
-An end-to-end, cost-metered pipeline, validated so far on one window (the 2026 Trump–Iran war).
+The firehose pipeline is built end-to-end and the **mechanics are proven**; the **forward eval** is the pending clean verdict.
 
-**Pipeline.** `trump_feed.py` pulls Trump's complete, timestamped Truth Social archive →
-`select_triggers.py` (LLM scout) keeps only the concrete, market-moving posts → `map_event.py`
-ladders each surviving trigger to a basket, direction, and causal `chain_depth` →
-`curator.py` keeps the **middle band** and hands the long watchlist to the reused mean-variance
-optimizer → `curator.py --backtest` / `score.py` grade it against SPY, and `forward.py` logs
-look-ahead-clean forward decisions. Every LLM call is priced into `data/llm_costs.csv`; the book
-renders at the [live dashboard](https://joehahn.github.io/geo-herd-rider/).
+**Pipeline.** `firehose.py` reads the firehose each week (news search + `trump_feed.py` posts), extracts the press-named gems with a thesis + live/exit switch + crowding tag, and hands the live watchlist to the reused mean-variance optimizer (`curator._optimized_weights` + `investor_profile.md`). `firehose.py --fixture` runs the look-ahead-clean *mechanics* test against a fixed article set; `forward.py --scan/--report` runs the live, contamination-free forward eval. Every LLM call is priced into `data/llm_costs.csv`; the book renders at the [live dashboard](https://joehahn.github.io/geo-herd-rider/).
 
-**Config.** The LLM layer is provider-agnostic (`llm.py`). Default is **Claude Opus for both
-the scout and the ladder, with Anthropic's server-side web search**. Entry is **T+1** (models the
-real execution lag). The middle band is **depth-based** (a megaphone-audience screen also applies
-on multi-source feeds). A drop-in **cheap stack** — DeepSeek via OpenRouter + Tavily search
-(`--provider openrouter`, ~500× cheaper per ladder) — matches Opus in same-regime tests but
-underperforms with reconstructed *historical* search, so it is reserved for **forward** use.
+**Mechanics result (2026 Iran war, fixture / perfect-retrieval).** Given the real early articles, the firehose enters BWET on its first under-the-radar write-up and rides it while the Iran/Hormuz thesis is live: dashboard **$50K → ~$157K (≈ +210%) vs SPY ≈ +9%**, BWET held ~16 weeks. This assumes perfect retrieval (it isn't achievable retrospectively), so it is an **upper bound on the mechanics, not forward lift**.
 
-**Current result (2026 Iran war, LLM-gathered triggers, T+1, Opus + web).** The curated
-middle-band book beats SPY: dashboard **$50K → ~$57.5K (+15%) vs SPY +10%** over the window
-(per-event annualized excess ≈ +70%). A quiet-2023 control behaves correctly — the scout keeps
-~0% of posts (nothing to trade when nothing is happening). Every retrospective number here is a
-**hindsight-contaminated upper bound**.
+**The look-ahead reality.** No available search tool gives true point-in-time retrieval — both Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). Combined with a curator model trained past the events, this makes a clean *retrospective* test impossible. **The firehose is provable only forward**, where "search now for a just-happened gem" is look-ahead-correct by construction.
 
-**Scoreboard-gated steps (full plan in [`SPEC.md`](SPEC.md)):**
-
-- **Step 1 _(done, passing)_** — middle-band curator + per-event-horizon backtest vs SPY
-  buy-and-hold. Optimizer reused from `portfolio-wave-rider`, mapper/scorer from `geo-wave-rider`.
-- **Step 2 _(built; lift pending)_** — Polymarket probability signal (`src/polymarket.py`,
-  `--discover`), a curator-named `polymarket_query`, and the forward paper-trade logger
-  (`src/forward.py`). Polymarket has no usable resolved-market history, so its lift is measured
-  forward.
-- **Step 3 _(waiting)_** — Fed + congressional-trade confirmation, gated until the scoreboard
-  says Step 2 pays.
-
-The clean verdicts — a **forward paper-trade eval** and a **multi-window loud-vs-quiet regime
-contrast** — are still to come.
+**Next.** Accrue forward trades (`forward.py --scan` weekly, `--report`); then layer in more firehose sources (Fed, Musk, Dimon, congressional trades) one forward-scoreboard-gated step at a time. The earlier decision-tree architecture (causal-ladder curator + central-development synthesis) has been **retired** in favor of the firehose.
 
 ## Setup
 
@@ -119,61 +94,32 @@ pip install -r requirements.txt
 # The LLM curator calls the Anthropic API — bring your own key.
 cp .env.example .env        # then edit .env, or just export the var:
 export ANTHROPIC_API_KEY=sk-ant-...
+# optional: OPENROUTER_API_KEY (cheap models), TAVILY_API_KEY (look-ahead-safe news search)
 ```
 
 `.env` is gitignored, so your key is never committed.
 
 ## Run it
 
-The pipeline is three scoreboard-gated stages, raw events → curated portfolio:
+**Mechanics test (fixture — look-ahead-clean, assumes perfect retrieval):**
 
 ```bash
-# 1. Curate: the LLM maps each trigger to a causal ladder (tickers, direction,
-#    chain_depth, audience_breadth), look-ahead-safe. Writes data/events_mapped.csv.
-#    Costs Anthropic tokens; uses claude-opus-4-8 + web search by default.
-python src/map_event.py                     # or --limit 3 for a cheap smoke test
+# Each weekly scan sees only fixture articles published by then; rides BWET while its thesis is live.
+python src/firehose.py --fixture data/fixtures/firehose_bwet.json --start 2026-02-06 --end 2026-06-18
 
-# 2. Score: mechanical scoreboard — per-event excess vs SPY, net of costs.
-python src/score.py                         # writes data/events_scored.csv
-
-# 3. Curate + backtest: middle-band selection → mean-variance optimizer →
-#    per-event-horizon backtest vs SPY buy-and-hold, with the Step-1 gate.
-python src/curator.py --backtest
+# Rebuild the $50K dashboard from the saved scan log (no LLM cost):
+python scripts/build_dashboard.py
 ```
 
-Step 2 adds a Polymarket probability signal — free, keyless, look-ahead-safe:
+**Forward eval (the clean verdict — run weekly from today):**
 
 ```bash
-python src/polymarket.py "Fed rate cut 2026"          # live YES odds for a market
-python src/polymarket.py "..." --as-of 2025-01-15     # odds at/before a past date
+python src/forward.py --scan      # live firehose scan for this week, appended to the forward log
+python src/forward.py --report    # mark the accumulated book to market vs SPY
 ```
 
-It's evaluated forward, not retrospectively: the free history endpoint returns nothing for
-already-resolved markets, and coverage skews political/macro — see `src/polymarket.py` and
-[`SPEC.md`](SPEC.md) (deferred decision #2).
-
-Polymarket also works as an **event-discovery** feed — it prices *events*, not sectors, so a
-market that's both watched and moving is a live upstream event the curator can ladder down to
-a vertical and instruments:
-
-```bash
-python src/polymarket.py --discover   # hot/moving markets -> candidate triggers (no tokens)
-```
-
-The **forward logger** is the look-ahead-clean eval surface — log each decision (curated
-ladder + live odds) as a fresh trigger arrives, settle it after the horizon:
-
-```bash
-# add fresh triggers to data/forward_events.csv (hand-picked, or from --discover), then:
-python src/forward.py --add        # map + fetch live odds + log (needs API key)
-python src/forward.py --settle     # score positions whose horizon has elapsed
-python src/forward.py --report     # forward scoreboard: excess vs SPY, by cohort, calibration
-```
-
-A worked 26-event dataset is already committed (`events.csv` + `data/*.csv`), so you can
-run step 3 immediately to reproduce the result without spending any tokens. Re-run step 1
-only to regenerate the curation from scratch (note: a retrospective run by a model trained
-past these events is hindsight-contaminated — see [`SPEC.md`](SPEC.md)).
+`--scan` searches the live news now (look-ahead-correct by construction) and logs each week's
+press-named gems with `decision_ts=now`; lift accrues over weeks as positions mature.
 
 ## Notes
 

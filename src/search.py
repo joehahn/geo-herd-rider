@@ -14,6 +14,7 @@ look-ahead-correct — which is the project's clean test anyway.
 from __future__ import annotations
 
 import os
+from email.utils import parsedate_to_datetime
 
 import requests
 
@@ -21,23 +22,47 @@ URL = "https://api.tavily.com/search"
 TIMEOUT = 20
 
 
+def _published_before(result: dict, before_date: str) -> bool:
+    """True if the result's published_date is on/before before_date (YYYY-MM-DD).
+
+    Tavily's server-side end_date is NOT reliably honored (it returns post-cutoff articles),
+    so we re-enforce the look-ahead bound CLIENT-SIDE off each result's published_date. A
+    result with no parseable date is DROPPED — fail closed, never leak an undateable article."""
+    raw = result.get("published_date") or ""
+    try:
+        dt = parsedate_to_datetime(raw)            # RFC-2822, e.g. "Sat, 25 Apr 2026 11:30:01 GMT"
+        return dt.date().isoformat() <= str(before_date)[:10]
+    except Exception:  # noqa: BLE001
+        try:
+            return str(raw)[:10] <= str(before_date)[:10]   # ISO fallback
+        except Exception:  # noqa: BLE001
+            return False
+
+
 def search(query: str, before_date: str | None = None, max_results: int = 5) -> list[dict]:
-    """News results for `query`, restricted to those published before `before_date`
-    (YYYY-MM-DD) via Tavily's server-side end_date filter. Returns [] if no key/no hits."""
+    """News results for `query`, restricted to those published on/before `before_date`
+    (YYYY-MM-DD). Tavily's server-side end_date leaks future articles, so we over-fetch and
+    enforce the bound client-side off published_date. Returns [] if no key/no hits."""
     key = os.environ.get("TAVILY_API_KEY")
     if not key:
         return []
-    body = {"query": query[:400], "topic": "news", "max_results": max_results,
+    # over-fetch when filtering: the early "under-the-radar" pieces rank below the later
+    # blockbuster coverage, so we need a deep pull to recover any that pre-date the cutoff.
+    pull = max(max_results * 4, 20) if before_date else max_results
+    body = {"query": query[:400], "topic": "news", "max_results": pull,
             "search_depth": "basic"}
     if before_date:
-        body["end_date"] = str(before_date)[:10]
+        body["end_date"] = str(before_date)[:10]   # belt-and-suspenders; not trusted alone
     try:
         r = requests.post(URL, json=body, headers={"Authorization": f"Bearer {key}"},
                           timeout=TIMEOUT)
         r.raise_for_status()
-        return r.json().get("results", [])
+        res = r.json().get("results", [])
     except Exception:  # noqa: BLE001 — a search miss shouldn't sink the ladder; fall back to priors
         return []
+    if before_date:
+        res = [x for x in res if _published_before(x, before_date)]
+    return res[:max_results]
 
 
 def context(query: str, before_date: str | None = None, max_results: int = 5) -> str:
