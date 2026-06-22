@@ -441,8 +441,14 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                + sorted(firehose._window(gpool, a, rebalance_days),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP])
         cands = scout(client, a, win)
-        match = match_to_events(client, a, cands, events)
-        for c in cands:
+        # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
+        # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
+        # tickers go to the (fallible) LLM matcher for cross-ticker grouping.
+        held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
+                         for v in ev["vehicles"]}
+        new_cands = [c for c in cands if c["ticker"] not in held_to_event]
+        match = match_to_events(client, a, new_cands, events) if new_cands else {}
+        for c in new_cands:
             tk, eid = c["ticker"], match.get(c["ticker"], "new")
             if eid in events and events[eid]["status"] == "live":
                 events[eid]["vehicles"].add(tk)
