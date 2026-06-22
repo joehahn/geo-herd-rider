@@ -85,3 +85,38 @@ for each weekly anchor:
 - **Look-ahead.** Targeted search is clean only forward; backtest uses date-bounded/seeded retrieval
   and remains an upper bound. The forward eval is the verdict.
 - **Discovery first.** Can't target-search an undiscovered event → scout (aggregate) precedes fan-out.
+
+---
+
+# Planned: event-first refactor
+
+**Why.** Today the agent is **ticker-keyed**: the scout proposes tickers, each ticker gets its own
+journal, and an "event" exists only as the thesis string inside a ticker's note. That mismodels
+reality — a single durable **event** (a war, an election, a supply shock) can last months/years and
+throw off **different gems over time** (Iran war → BWET early, perhaps a different shipping vehicle
+later). Ticker-keying splits one event into disconnected journals and can't express "the best
+vehicle for this event changed." Making the **event** first-class fixes that and operationalizes the
+vehicle-selection insight as a thing that evolves.
+
+**Target model.**
+- An `Event` owns: `id`, `catalyst`/thesis (the durable thing), `status` (live/exited), a rolling
+  journal (the memory), and a **set of vehicles (gems)** with a *current* pick — which can change.
+- **Scout** discovers *events* (catalyst + initial gem[s]), not bare tickers.
+- **Event matching/dedup (the crux).** When the scout names a ticker/catalyst, an LLM-judged step
+  decides: does this belong to an existing live event (same catalyst → add/update its vehicles) or
+  is it new? Without this you get duplicate events. This is the hard, new piece (event/entity
+  resolution).
+- **Per-event agent** tracks the event over time and may **add or swap the current best vehicle**
+  (vehicle-selection as a time-series), with reasons logged in the journal.
+- **Watchlist** = the *current* vehicle(s) of each live event → optimizer sizes (unchanged).
+
+**Preserved guardrails.** No-magnitude (Pydantic, unchanged); rolling one-week memory (anti-
+anchoring); targeted retrieval per event (monitoring, not discovery); discovery stays aggregate.
+
+**Effort / risk.** Moderate refactor of `agent.py` (journals keyed by event; vehicles as an evolving
+attribute; the new matching step). The matching step is the main risk (false merges/splits). 
+
+**Sequencing.** Do this AFTER validating the current ticker-keyed agent on the 13-gem A/B — don't
+rebuild the engine before we know the simpler version's distribution behavior. If the 13-gem run
+shows the same event surfacing under multiple vehicles (the symptom this fixes), that's the trigger
+to build it.

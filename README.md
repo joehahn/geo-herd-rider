@@ -13,28 +13,28 @@
 
 ## How it works, at a glance
 
-The machine is one short assembly line. We **read the firehose** for the gems the press is already calling out; we **keep the named gems on a live thesis** (tagging how early/crowded each is); a position **rides while its thesis is live and exits when it decays**; and a **plain optimizer**, never the AI, sets the sizes. The result is a book positioned *between* the smart money and the slow herd, and a **forward scoreboard** — the only contamination-free test — keeps only what beats the market.
+The machine is one short assembly line. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock — and the **gem(s)** each event throws off (the tickers journalists name for it). We then **track each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold while the event's thesis is **live** and exit when it **resolves**; a **plain optimizer**, never the AI, sets the sizes. The result is a book positioned *between* the smart money and the slow herd, and a **forward scoreboard** keeps only what beats the market.
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>news + high-reach posts:<br/>which gems is the press naming?"]
-    G["🎯 Keep the named gems<br/>press-named, live thesis<br/>(crowding tagged, not gated)"]
-    X["🟢/⚪ Live / exit switch<br/>hold while the thesis is live,<br/>drop when it decays"]
-    W["⚖️ Size it mechanically<br/>a plain optimizer sets the<br/>weights — no AI magnitude guesses"]
+    S["📰 Firehose<br/>news + high-reach posts:<br/>what events is the press flagging?"]
+    E["🎯 Event → its gem(s)<br/>a live catalyst + the tickers<br/>the press names for it (the bet)"]
+    X["🟢/⚪ Track the event over time<br/>hold while its thesis is live<br/>(its best gem can evolve); exit on resolution"]
+    W["⚖️ Size it mechanically<br/>a plain optimizer sets the<br/>weights — AI never sizes"]
     B["💼 Portfolio<br/>positioned between the<br/>smart money and the herd"]
     SB["📊 Forward scoreboard<br/>did it beat the market?<br/>keep only what does"]
 
-    S --> G --> X --> W --> B
+    S --> E --> X --> W --> B
     B -. results .-> SB
-    SB -. keep only what works .-> G
+    SB -. keep only what works .-> E
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     classDef gate fill:#e8f0fe,stroke:#1a56c4;
-    class G bet
+    class E bet
     class SB gate
 ```
 
-The two highlighted boxes are what makes this different from a momentum screener: the **named gem on a live thesis** (red) is *where* the edge lives — the press has named it and the catalyst is still running — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
+The two highlighted boxes are what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
 
 ## The firehose: why reading beats reasoning
 
@@ -81,6 +81,8 @@ The curator runs in one of two modes, both feeding the same optimizer:
   3. writes a new note: a short assessment, a maturity tag (early→crested, *info only*), the **`thesis_live` / exit** call, and hot-linked sources.
 
   The live events become the watchlist; the optimizer sizes. The journal (`data/windows/agent_journals.json`) is the human-readable audit trail. Discovery is aggregate (you can't target-search an event you haven't found); only *monitoring* a held event uses its own targeted search — so it doesn't bias what we discover.
+
+  *Implementation note:* today each journal is keyed by **ticker**, so the event-first model above (one durable event that owns an **evolving** set of gems) is only partially realized — a changed vehicle currently becomes a new journal. Making the event first-class is a planned refactor (see [`agent_design.md`](agent_design.md)).
 
 **Guardrail, machine-enforced.** The agent's output is validated by a Pydantic schema with **no field for a price target, magnitude, or position size** — so even if the model emits one, it's *dropped* before it can reach the optimizer. The LLM picks composition and the *when-to-exit* call; sizing stays mechanical. (It may *attribute* a figure to the press — "press cites ~600% YTD" — but never forecasts its own.)
 
