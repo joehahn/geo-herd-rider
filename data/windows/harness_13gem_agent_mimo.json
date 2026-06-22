@@ -1,0 +1,131 @@
+{
+  "window": [
+    "2022-09-01",
+    "2026-06-18"
+  ],
+  "cadence_days": 7,
+  "variant": "scout->per-event-agent + seed overlay",
+  "recall": {
+    "pct": 0.846,
+    "early_pct": 0.846,
+    "caught": [
+      "BWET",
+      "GDX",
+      "HIMS",
+      "MSTR",
+      "NVDA",
+      "PLTR",
+      "RNMBY",
+      "SMCI",
+      "SMR",
+      "URA",
+      "YPF"
+    ],
+    "caught_early": [
+      "BWET",
+      "GDX",
+      "HIMS",
+      "MSTR",
+      "NVDA",
+      "PLTR",
+      "RNMBY",
+      "SMCI",
+      "SMR",
+      "URA",
+      "YPF"
+    ],
+    "missed": [
+      "CVNA",
+      "MP"
+    ]
+  },
+  "precision": {
+    "pct": 0.367,
+    "distinct_held": 30,
+    "gems_held": 11,
+    "noise_held": [
+      "AAL",
+      "ALHC",
+      "BWXT",
+      "CCJ",
+      "CEG",
+      "FLIN",
+      "FSLR",
+      "LCID",
+      "LMT",
+      "LYSCF",
+      "NIO",
+      "OKLO",
+      "OXY",
+      "RDW",
+      "RKLB",
+      "SATS",
+      "SE",
+      "TCEHY",
+      "TXT"
+    ],
+    "controls_held": []
+  },
+  "tail": {
+    "book_ret": 13.4361,
+    "spy_ret": 0.9848,
+    "weeks": 198
+  },
+  "captures": {
+    "BWET": {
+      "captured_x": 2.71,
+      "available_x": 8.0,
+      "weeks_held": 7
+    },
+    "GDX": {
+      "captured_x": 1.17,
+      "available_x": 3.5,
+      "weeks_held": 8
+    },
+    "HIMS": {
+      "captured_x": 1.52,
+      "available_x": 10.7,
+      "weeks_held": 13
+    },
+    "MSTR": {
+      "captured_x": 4.81,
+      "available_x": 13.5,
+      "weeks_held": 25
+    },
+    "NVDA": {
+      "captured_x": 2.45,
+      "available_x": 17.1,
+      "weeks_held": 41
+    },
+    "PLTR": {
+      "captured_x": 1.72,
+      "available_x": 32.3,
+      "weeks_held": 6
+    },
+    "RNMBY": {
+      "captured_x": 1.95,
+      "available_x": 8.1,
+      "weeks_held": 29
+    },
+    "SMCI": {
+      "captured_x": 8.35,
+      "available_x": 14.5,
+      "weeks_held": 26
+    },
+    "SMR": {
+      "captured_x": 1.79,
+      "available_x": 16.2,
+      "weeks_held": 10
+    },
+    "URA": {
+      "captured_x": 0.95,
+      "available_x": 3.2,
+      "weeks_held": 7
+    },
+    "YPF": {
+      "captured_x": 1.18,
+      "available_x": 4.4,
+      "weeks_held": 19
+    }
+  }
+}
