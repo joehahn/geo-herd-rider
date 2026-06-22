@@ -1,0 +1,105 @@
+{
+  "window": [
+    "2022-09-01",
+    "2026-06-18"
+  ],
+  "cadence_days": 7,
+  "variant": "single-scan baseline",
+  "recall": {
+    "pct": 0.385,
+    "early_pct": 0.0,
+    "caught": [
+      "MSTR",
+      "NVDA",
+      "PLTR",
+      "SMCI",
+      "URA"
+    ],
+    "caught_early": [],
+    "missed": [
+      "BWET",
+      "CVNA",
+      "GDX",
+      "HIMS",
+      "MP",
+      "RNMBY",
+      "SMR",
+      "YPF"
+    ]
+  },
+  "precision": {
+    "pct": 0.125,
+    "distinct_held": 40,
+    "gems_held": 5,
+    "noise_held": [
+      "AAUKF",
+      "AI",
+      "ALHC",
+      "ARGT",
+      "AVAV",
+      "BIDU",
+      "BLBD",
+      "BNO",
+      "CCJ",
+      "CDRE",
+      "CEG",
+      "DXCM",
+      "FSLR",
+      "FXI",
+      "GGAL",
+      "HRL",
+      "INDA",
+      "INTC",
+      "LCID",
+      "LLY",
+      "NIO",
+      "NTRA",
+      "OKLO",
+      "OXY",
+      "PSKY",
+      "RCAT",
+      "RDW",
+      "RKLB",
+      "SATS",
+      "SE",
+      "SOC",
+      "TRMD",
+      "TXT",
+      "VST",
+      "ZIM"
+    ],
+    "controls_held": []
+  },
+  "tail": {
+    "book_ret": 0.4229,
+    "spy_ret": 0.9848,
+    "weeks": 198
+  },
+  "captures": {
+    "MSTR": {
+      "captured_x": 0.94,
+      "available_x": 13.5,
+      "weeks_held": 4
+    },
+    "NVDA": {
+      "captured_x": 1.64,
+      "available_x": 17.1,
+      "weeks_held": 8
+    },
+    "PLTR": {
+      "captured_x": 1.15,
+      "available_x": 32.3,
+      "weeks_held": 4
+    },
+    "SMCI": {
+      "captured_x": 0.89,
+      "available_x": 14.5,
+      "weeks_held": 4
+    },
+    "URA": {
+      "captured_x": 0.98,
+      "available_x": 3.2,
+      "weeks_held": 4
+    }
+  }
+}

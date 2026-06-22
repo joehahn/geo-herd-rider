@@ -199,7 +199,8 @@ def _window(articles, anchor, lookback_days):
 
 
 def run_scans(start, end, rebalance_days, model, workers, fixture=None, gdelt=False,
-              seed=None, lookback_days=None) -> dict[pd.Timestamp, list[dict]]:
+              seed=None, lookback_days=None, queries=None, pool_chunk_days=30,
+              pool_per=60) -> dict[pd.Timestamp, list[dict]]:
     # one cadence knob: scans step every rebalance_days, and the news window each scan reads
     # defaults to that same interval ("the news since the last scan"). lookback_days overrides
     # it only for the rare sparse-coverage smoothing case.
@@ -218,21 +219,17 @@ def run_scans(start, end, rebalance_days, model, workers, fixture=None, gdelt=Fa
         import gdelt as gd
         import hashlib
         seeds = _fixture_articles(seed) if seed else []
+        qs = queries or GDELT_QUERIES
         win_start = anchors[0] - pd.Timedelta(days=35)  # generous, cadence-independent (per-week _window slices it)
         # cache the (slow, throttled) pool keyed by queries+window, so logic/prompt iterations are fast
-        key = hashlib.md5(f"{GDELT_QUERIES}{win_start.date()}{anchors[-1].date()}".encode()).hexdigest()[:10]
+        key = hashlib.md5(f"{qs}{win_start.date()}{anchors[-1].date()}{pool_chunk_days}{pool_per}".encode()).hexdigest()[:10]
         cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
-        if cache_f.exists():
-            gpool = json.loads(cache_f.read_text())
-            print(f"Firehose: GDELT scan of {len(anchors)} weeks; reusing cached pool "
-                  f"({len(gpool)} articles) + {len(seeds)} seeds.", file=sys.stderr)
-        else:
-            print(f"Firehose: GDELT scan of {len(anchors)} weeks ({len(GDELT_QUERIES)} queries, "
-                  f"+{len(seeds)} seeds); fetching pool (throttled ~6s/query-chunk) ...", file=sys.stderr)
-            gpool = gd.pool(GDELT_QUERIES, win_start, anchors[-1])
-            cache_f.parent.mkdir(parents=True, exist_ok=True)
-            cache_f.write_text(json.dumps(gpool))
-            print(f"  GDELT pool: {len(gpool)} deduped articles (cached -> {cache_f.name}).", file=sys.stderr)
+        cache_f.parent.mkdir(parents=True, exist_ok=True)
+        print(f"Firehose: GDELT scan of {len(anchors)} weeks ({len(qs)} queries, +{len(seeds)} "
+              f"seeds); pool fetch/resume (checkpointed, ~10s/query-chunk) ...", file=sys.stderr)
+        gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
+                        cache_path=str(cache_f))   # resumable: survives sleep/kill, resumes next run
+        print(f"  GDELT pool: {len(gpool)} deduped articles ({cache_f.name}).", file=sys.stderr)
 
         def one(a):
             seen = _window(seeds, a, lookback_days)
