@@ -2,7 +2,7 @@
 
 **Author:** Joe Hahn  
 **Email:** jmh.datasciences@gmail.com  
-**Date:** 2026-Jun-21 <br>
+**Date:** 2026-Jun-22 <br>
 **branch:** main
 
 **Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**; late enough such that the direction is discernable and early enough to capture some of the move before the herd arrives and prices it away. And just as we ride in ahead of the herd, we ride out as it shows up: once the herd has piled in and flattened the opportunity that position has done its work, so we pivot off to the next event whose opportunity is still un-grazed.
@@ -70,6 +70,24 @@ Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how
 
 Scope is **US-listed instruments, including ADRs and country/theme ETFs** — so a foreign event (a war, an election) is captured via its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade.
 
+## Inside the curator: scout → per-event agents
+
+The curator runs in one of two modes, both feeding the same optimizer:
+
+- **Single scan** (the baseline) — one LLM call per week reads the whole firehose and emits the watchlist. Simple and cheap, but it tends to *tunnel on the loudest gem* and grab thematic noise.
+- **Scout → per-event agents** (the current engine) — a **scout** reads the firehose to *discover* candidate events; then every held event gets **its own agent** that, each week:
+  1. pulls news **targeted to that event** (its own catalyst — including resolution signals like a ceasefire);
+  2. reads **only its prior week's note** — a rolling, one-entry-deep memory that's *superseded* each week, so old (and possibly wrong) conclusions don't pile up and anchor future thinking;
+  3. writes a new note: a short assessment, a maturity tag (early→crested, *info only*), the **`thesis_live` / exit** call, and hot-linked sources.
+
+  The live events become the watchlist; the optimizer sizes. The journal (`data/windows/agent_journals.json`) is the human-readable audit trail. Discovery is aggregate (you can't target-search an event you haven't found); only *monitoring* a held event uses its own targeted search — so it doesn't bias what we discover.
+
+**Guardrail, machine-enforced.** The agent's output is validated by a Pydantic schema with **no field for a price target, magnitude, or position size** — so even if the model emits one, it's *dropped* before it can reach the optimizer. The LLM picks composition and the *when-to-exit* call; sizing stays mechanical. (It may *attribute* a figure to the press — "press cites ~600% YTD" — but never forecasts its own.)
+
+## Models — one seam, pick by need
+
+Every LLM call routes through a provider-agnostic seam (`src/llm.py`), so the same pipeline runs on Anthropic (Opus/Sonnet/Haiku) or any OpenRouter model (DeepSeek, MiMo, …) via `--provider`/`--model`, with structured-output JSON schemas keeping cheap models' output clean. A BWET bake-off found **Sonnet, MiMo, and Opus statistically tied** (all rode BWET the full ~4×/16 weeks, ~+200%), while DeepSeek *under-held* the winner (exited early). So **development runs on MiMo v2.5-pro** (~1/14 of Opus's cost, matched it on BWET) and **Opus is reserved for the final / prod numbers**. Every call's cost is priced into `data/llm_costs.csv`.
+
 ## Harvesting the distribution, not one gem
 
 Event-driven runs are heavy-tailed: BWET is a tail outlier, and below it sit progressively more numerous, smaller analogs. So the objective is to **harvest the distribution** — reliably ride the many medium-tier events — not to time one jackpot. The system is therefore measured against a locked multi-event test set (`data/fixtures/gems.json`, window 2022-09 → present, US-listed incl. ADRs/ETFs), balanced across **verticals** (AI, nuclear, crypto, healthcare, defense, shipping, EM-energy, materials, consumer, precious-metals) and **geopolitical types** (war ×2, election, trade-war):
@@ -82,7 +100,12 @@ This measures **recall** (how many gems the firehose catches) and the **exit eng
 
 The firehose pipeline is built end-to-end; the **forward eval** is the pending clean verdict.
 
-**Pipeline.** `firehose.py` reads the firehose each week (news + `trump_feed.py` posts), extracts press-named gems with a thesis + live/exit switch + crowding tag, and hands the live watchlist to the reused mean-variance optimizer (`investor_profile.md` knobs). Every LLM call is priced into `data/llm_costs.csv`; the book renders at the [live dashboard](https://joehahn.github.io/geo-herd-rider/).
+**Pipeline.** `firehose.py` runs the single-scan curator; `agent.py` runs the scout→per-event-agent curator (the current engine). Both hand the live watchlist to the reused mean-variance optimizer (`investor_profile.md` knobs); `scripts/run_harness.py` scores either against the gem set; the dashboard renders the book. Every LLM call is priced into `data/llm_costs.csv`.
+
+**Results so far.**
+- *Single-scan baseline (13 gems, realistic GDELT retrieval):* early-recall **0%**, book **+42% vs SPY +98%** — it catches the right *themes* but late and via the wrong *vehicle* (GGAL not YPF, CCJ not URA), drowned in noise. The honest floor.
+- *Retrieval decomposition (seed the early articles):* early-recall jumps **0% → 92%**, book **→ +318%** — proving **retrieval, not reasoning, is the wall** (given the early naming, the engine picks the right ticker and rides it).
+- *Per-event agent vs single-scan (BWET window):* the agent **rode BWET the full 16 weeks (4.13×)** with cleaner precision and a *resolution-aware* exit, book **+189–224%** (Opus/Sonnet/MiMo) vs the single-scan's **+87%**. Validated on BWET only so far — the 13-gem A/B is the pending distribution test.
 
 **Three eval surfaces.**
 - `firehose.py --fixture` — a look-ahead-clean **mechanics** test against a fixed article set (perfect-retrieval assumption): given the early articles, the engine enters BWET on its first under-the-radar write-up and rides it while the Iran/Hormuz thesis is live (dashboard ~+220% vs SPY ~+9%). An upper bound on the mechanics, not lift.
@@ -93,7 +116,7 @@ The firehose pipeline is built end-to-end; the **forward eval** is the pending c
 
 **An open knob, tracked not assumed.** Today entry fires on *press-named + live thesis*; the `crowding` tag (early → crested) is recorded but **does not gate entry or exit**. Whether *requiring a gem still be framed "early" at entry* actually improves returns — vs. missing gems we only discover already-mainstream — is a variable the multi-event harness will test, not something we bake in on faith.
 
-**Next.** Build the multi-event harness on the locked gem set (recall / precision / tail-capture, and the early-entry-gating knob above); in parallel accrue forward trades (`forward.py --scan` weekly); then add firehose sources (Fed, Musk, Dimon, congressional trades) one forward-scoreboard-gated step at a time.
+**Next.** Confirm the per-event agent is behaving as intended (inspect MiMo's BWET journal), then run the **full 13-gem A/B on MiMo** — the distribution verdict (does the BWET advantage generalize: catch the medium tier, hold precision, avoid the PTON trap, beat the single-scan floor?). After that: anti-anchoring refinements if perseveration shows, a final Opus re-run for trustworthy numbers, forward accrual (`forward.py --scan` weekly), and only then more firehose sources (Fed, Musk, congressional trades) — each forward-scoreboard-gated.
 
 ## Setup
 
@@ -121,14 +144,17 @@ python src/firehose.py --fixture data/fixtures/firehose_bwet.json --start 2026-0
 python scripts/build_dashboard.py          # rebuild the $50K dashboard (no LLM cost)
 ```
 
-**Realistic backtest harness (real GDELT firehose + seeded early gems — the fast dev loop):**
+**Scored multi-event harness (the dev loop — recall / precision / tail vs the gem set):**
 
 ```bash
-# Real date-honored GDELT headlines per week + the early niche pieces GDELT misses, seeded at
-# their true dates. The curator must FIND the gem in the noise. GDELT pool is cached after the
-# first (throttled) fetch. Still a hindsight upper bound — the verdict is the forward eval.
-python src/firehose.py --gdelt --seed data/fixtures/firehose_bwet.json \
-    --start 2026-02-06 --end 2026-06-18
+# Single-scan baseline (Opus) over the gems.json window:
+python scripts/run_harness.py
+
+# Scout->per-event-agent variant, on the cheap dev model (MiMo via OpenRouter):
+python scripts/run_harness.py --agent --provider openrouter --model xiaomi/mimo-v2.5-pro
+
+# Add --seed data/fixtures/gems_seeds.json for the retrieval-perfect overlay (decomposition).
+# GDELT pools cache after the first (throttled) fetch. All hindsight upper bounds — forward is the verdict.
 ```
 
 **Forward eval (the clean verdict — run weekly from today):**
