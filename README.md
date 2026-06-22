@@ -107,7 +107,9 @@ The firehose pipeline is built end-to-end; the **forward eval** is the pending c
 **Results so far.**
 - *Single-scan baseline (13 gems, realistic GDELT retrieval):* early-recall **0%**, book **+42% vs SPY +98%** — it catches the right *themes* but late and via the wrong *vehicle* (GGAL not YPF, CCJ not URA), drowned in noise. The honest floor.
 - *Retrieval decomposition (seed the early articles):* early-recall jumps **0% → 92%**, book **→ +318%** — proving **retrieval, not reasoning, is the wall** (given the early naming, the engine picks the right ticker and rides it).
-- *Per-event agent vs single-scan (BWET window):* the agent **rode BWET the full 16 weeks (4.13×)** with cleaner precision and a *resolution-aware* exit, book **+189–224%** (Opus/Sonnet/MiMo) vs the single-scan's **+87%**. Validated on BWET only so far — the 13-gem A/B is the pending distribution test.
+- *Per-event (ticker-keyed) agent vs single-scan:* on the BWET window it rode BWET the full 16 weeks (4.13×) with a *resolution-aware* exit — **+189–224%** (Opus/Sonnet/MiMo) vs the single-scan's **+87%**. Across the **13 gems** it generalized — early-recall **85%**, precision **37%** (vs 27%), book **+1344% vs SPY +98%** (a stacked upper bound) — but **fragmented single events across many tickers** (RNMBY/RHMTY are the same company; nuclear split across SMR/OKLO/CCJ/CEG). That motivated the event-first engine.
+- *Event-first engine (built, BWET-validated):* makes the **event** first-class (LLM matcher + a deterministic same-ticker guard + evolving vehicles). BWET-era spot-check: the guard collapses BWET to **one** event (was three), and the matcher correctly groups distinct vehicles of one catalyst (LHX + RKLB → a single defense event). Not yet A/B'd on the 13 gems.
+- *Model bake-off (BWET):* Sonnet, MiMo, and Opus are a dead heat (all rode BWET full, ~+200%); DeepSeek under-holds. Dev on **MiMo** (~1/14 Opus's cost), Opus for final/prod.
 
 **Three eval surfaces.**
 - `firehose.py --fixture` — a look-ahead-clean **mechanics** test against a fixed article set (perfect-retrieval assumption): given the early articles, the engine enters BWET on its first under-the-radar write-up and rides it while the Iran/Hormuz thesis is live (dashboard ~+220% vs SPY ~+9%). An upper bound on the mechanics, not lift.
@@ -118,7 +120,7 @@ The firehose pipeline is built end-to-end; the **forward eval** is the pending c
 
 **An open knob, tracked not assumed.** Today entry fires on *press-named + live thesis*; the `crowding` tag (early → crested) is recorded but **does not gate entry or exit**. Whether *requiring a gem still be framed "early" at entry* actually improves returns — vs. missing gems we only discover already-mainstream — is a variable the multi-event harness will test, not something we bake in on faith.
 
-**Next.** Confirm the per-event agent is behaving as intended (inspect MiMo's BWET journal), then run the **full 13-gem A/B on MiMo** — the distribution verdict (does the BWET advantage generalize: catch the medium tier, hold precision, avoid the PTON trap, beat the single-scan floor?). After that: anti-anchoring refinements if perseveration shows, a final Opus re-run for trustworthy numbers, forward accrual (`forward.py --scan` weekly), and only then more firehose sources (Fed, Musk, congressional trades) — each forward-scoreboard-gated.
+**Next.** Run the **event-first 13-gem A/B** (vs the ticker-keyed +1344% / 37%-precision baseline) — does making events first-class collapse the multi-vehicle fragmentation, lift precision, and hold the book? Then: anti-anchoring refinements if perseveration shows, a final Opus re-run for trustworthy numbers, forward accrual (`forward.py --scan` weekly), and only then more firehose sources (Fed, Musk, congressional trades) — each forward-scoreboard-gated.
 
 ## Setup
 
