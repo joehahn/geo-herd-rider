@@ -2271,3 +2271,12 @@ ts,stage,model,label,input_tokens,output_tokens,cache_read_tokens,web_searches,c
 2026-06-22T20:41:02+00:00,agent,xiaomi/mimo-v2.5-pro,agent-ALHC-2026-06-12,539,845,0,0,0.00097
 2026-06-22T20:41:16+00:00,agent,xiaomi/mimo-v2.5-pro,agent-RKLB-2026-06-12,740,1718,0,0,0.00181
 2026-06-22T20:41:20+00:00,agent,xiaomi/mimo-v2.5-pro,agent-RDW-2026-06-12,1924,1995,0,0,0.00256
+2026-06-22T20:51:37+00:00,agent,xiaomi/mimo-v2.5-pro,scout-2024-03-08,330,1280,0,0,0.00126
+2026-06-22T20:52:04+00:00,agent,xiaomi/mimo-v2.5-pro,event-ev1-2024-03-08,410,1637,0,0,0.0016
+2026-06-22T20:52:09+00:00,agent,xiaomi/mimo-v2.5-pro,scout-2024-03-15,1066,366,0,0,0.00078
+2026-06-22T20:52:19+00:00,agent,xiaomi/mimo-v2.5-pro,event-ev1-2024-03-15,504,967,0,0,0.00106
+2026-06-22T20:52:23+00:00,agent,xiaomi/mimo-v2.5-pro,scout-2024-03-22,8196,362,0,0,0.00384
+2026-06-22T20:52:31+00:00,agent,xiaomi/mimo-v2.5-pro,event-ev1-2024-03-22,469,906,0,0,0.00099
+2026-06-22T20:53:28+00:00,agent,xiaomi/mimo-v2.5-pro,scout-2022-09-02,689,1482,0,0,0.00159
+2026-06-22T20:53:58+00:00,agent,xiaomi/mimo-v2.5-pro,event-ev1-2022-09-02,429,1223,0,0,0.00125
+2026-06-22T20:54:09+00:00,agent,xiaomi/mimo-v2.5-pro,scout-2022-09-09,2307,867,0,0,0.00175

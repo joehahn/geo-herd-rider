@@ -117,6 +117,7 @@ class JournalEntry(BaseModel):
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
     sources: list[str] = []
+    vehicles: list[str] = []     # event-first only: the current best vehicle(s) for this event
 
 
 def _extract(text: str) -> dict:
@@ -303,4 +304,175 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
         os.replace(tmp, resume_f)
     (REPO_ROOT / "data" / "windows" / "agent_journals.json").write_text(
         json.dumps(list(journals.values()), indent=2, default=str))
+    return out
+
+
+# ============================================================================================
+# Event-first variant: an EVENT (one catalyst) is the durable unit and owns an EVOLVING set of
+# vehicles; a matching step groups this week's candidates into existing events (so RNMBY/RHMTY/
+# LMT collapse into one defense event), and the per-event agent picks the current best vehicle(s).
+# ============================================================================================
+
+EVENT_MATCH_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["matches"],
+    "properties": {"matches": {"type": "array", "items": {
+        "type": "object", "additionalProperties": False, "required": ["ticker", "event"],
+        "properties": {"ticker": {"type": "string"}, "event": {"type": "string"}}}}}}
+
+MATCH_SYSTEM = """You group market candidates into EVENTS. An event is ONE underlying catalyst (a
+war, an election, a supply shock, a tech wave); MANY tickers can express the same event — e.g.
+Rheinmetall's two ADRs RNMBY/RHMTY are one company; SMR/OKLO/CCJ/CEG are all the nuclear-for-AI
+event; URA and CCJ are both the uranium event. Given the OPEN events (id + catalyst) and this
+week's CANDIDATES (ticker + thesis), assign each candidate to the open event it belongs to (by id)
+or "new" if it is a genuinely different catalyst. Output ONLY JSON:
+{"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
+
+EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
+    "required": ["thesis_live", "maturity", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "properties": {"thesis_live": {"type": "boolean"}, "maturity": {"type": "string"},
+        "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
+        "news_claims": {"type": "string"},
+        "vehicles": {"type": "array", "items": {"type": "string"}},
+        "sources": {"type": "array", "items": {"type": "string"}}}}
+
+EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event's
+catalyst, its KNOWN vehicles (tickers seen expressing it), your prior weekly note, and this week's
+news. Write the new note.
+
+Decide thesis_live / maturity / exit_advice / assessment / news_claims as a single-event tracker
+would (thesis_live = is the CATALYST still active; flip false only on resolution; be skeptical of
+one-off noise; mainstream hype is crowding, not resolution). PLUS pick **vehicles**: the 1-2
+PUREST tickers to HOLD for this event now, chosen from its known vehicles — prefer the cleanest
+pure-play / rate-or-commodity ETN / single ADR over diluted, redundant, or tangential names (do
+NOT hold five vehicles for one event). You may drop a vehicle that's no longer the best.
+
+You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
+composition, the exit, and which vehicle. Output ONLY JSON: {"thesis_live":true,"maturity":
+"early|building|consensus|crested","exit_advice":"...","assessment":"...","news_claims":"",
+"vehicles":["TICKER"],"sources":["url"]}."""
+
+
+def match_to_events(client, anchor, candidates, events):
+    """Map this week's candidates to existing open events (by id) or 'new'. One batched call."""
+    if not candidates:
+        return {}
+    live = {eid: ev for eid, ev in events.items() if ev["status"] == "live"}
+    if not live:
+        return {c["ticker"]: "new" for c in candidates}
+    open_list = "\n".join(f"- {eid}: {ev['catalyst']}" for eid, ev in live.items())
+    cand_list = "\n".join(f"- {c['ticker']}: {c['thesis']}" for c in candidates)
+    user = f"OPEN EVENTS:\n{open_list}\n\nCANDIDATES:\n{cand_list}\n\nAssign each candidate. Output JSON."
+    txt = client.complete(MATCH_SYSTEM, user, use_web_search=False, stage="agent",
+                          label=f"match-{anchor.date()}", json_schema=EVENT_MATCH_SCHEMA)
+    out = {}
+    for m in _extract(txt).get("matches", []):
+        tk = str(m.get("ticker", "")).strip().upper()
+        if tk:
+            out[tk] = str(m.get("event", "new")).strip()
+    return out
+
+
+def _filter_event(arts, event):
+    """Broad-pool articles relevant to an event: mention any of its vehicles or catalyst keywords."""
+    veh = {v.lower() for v in event["vehicles"]}
+    kws = [w for w in event["catalyst"].lower().replace(",", " ").split() if len(w) > 4]
+    hits = []
+    for a in arts:
+        hay = (a.get("title", "") + " " + a.get("snippet", "")).lower()
+        if any(v in hay for v in veh) or any(k in hay for k in kws):
+            hits.append(a)
+    return hits[:20]
+
+
+def event_agent_v2(client, anchor, event, prior, news):
+    pj = json.dumps(prior, default=str) if prior else "(none — first week of this event)"
+    nb = _block(news) if news else "(no fresh coverage for this event this week)"
+    user = (f"Event catalyst: {event['catalyst']}\nKnown vehicles: {', '.join(sorted(event['vehicles']))}\n"
+            f"Week ending {anchor.date()}.\nYour prior note: {pj}\n\nThis week's news:\n{nb}\n\n"
+            "Write the new note and pick the current vehicle(s) (JSON).")
+    txt = client.complete(EVENT_AGENT_SYSTEM, user, use_web_search=False, stage="agent",
+                          label=f"event-{event['id']}-{anchor.date()}", json_schema=EVENT_AGENT_SCHEMA)
+    try:
+        e = JournalEntry(**_extract(txt))
+    except Exception:  # noqa: BLE001
+        e = JournalEntry()
+    veh = [v.strip().upper() for v in e.vehicles if v.strip()]
+    veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
+    return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live, "maturity": e.maturity,
+            "exit_advice": e.exit_advice, "assessment": e.assessment, "news_claims": e.news_claims,
+            "sources": [u for u in e.sources if u][:6], "vehicles": veh}
+
+
+def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
+                          pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False) -> dict:
+    """Event-first engine: scout -> match candidates into events -> per-event agent picks current
+    vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
+    {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume."""
+    import hashlib
+    import os
+    client = llm.make_client(provider, model)
+    print(f"Event-agent: provider={provider} model={model}", file=sys.stderr)
+    anchors = scan_anchors(start, end, rebalance_days)
+    qs = queries or firehose.GDELT_QUERIES
+    win_start = anchors[0] - pd.Timedelta(days=35)
+    key = hashlib.md5(f"{qs}{win_start.date()}{anchors[-1].date()}{pool_chunk_days}{pool_per}".encode()).hexdigest()[:10]
+    cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
+    cache_f.parent.mkdir(parents=True, exist_ok=True)
+    gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per, cache_path=str(cache_f))
+    seeds = firehose._fixture_articles(seed) if seed else []
+    print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
+
+    events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
+    out: dict[pd.Timestamp, list[dict]] = {}
+    nid = [0]
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{qs}".encode()).hexdigest()[:10]
+    resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
+    done: set[str] = set()
+    if resume_f.exists():
+        st = json.loads(resume_f.read_text())
+        events = {k: {**v, "vehicles": set(v["vehicles"])} for k, v in st["events"].items()}
+        done = set(st["done"]); nid = [st["nid"]]
+        out = {pd.Timestamp(k): v for k, v in st["out"].items()}
+        print(f"  resuming: {len(done)}/{len(anchors)} weeks done", file=sys.stderr)
+
+    for a in anchors:
+        if a.isoformat() in done:
+            continue
+        win = (firehose._window(seeds, a, rebalance_days)
+               + sorted(firehose._window(gpool, a, rebalance_days),
+                        key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP])
+        cands = scout(client, a, win)
+        match = match_to_events(client, a, cands, events)
+        for c in cands:
+            tk, eid = c["ticker"], match.get(c["ticker"], "new")
+            if eid in events and events[eid]["status"] == "live":
+                events[eid]["vehicles"].add(tk)
+            else:
+                nid[0] += 1
+                events[f"ev{nid[0]}"] = {"id": f"ev{nid[0]}", "catalyst": c["thesis"],
+                                         "status": "live", "vehicles": {tk}, "entries": []}
+        live_events = [ev for ev in events.values() if ev["status"] == "live"]
+
+        def work(ev):
+            prior = ev["entries"][-1] if ev["entries"] else None
+            return ev, event_agent_v2(client, a, ev, prior, _filter_event(win, ev))
+
+        picks = []
+        with ThreadPoolExecutor(max_workers=workers) as ex:
+            for ev, entry in (ex.map(work, live_events) if live_events else []):
+                ev["entries"].append(entry)
+                ev["status"] = "live" if entry["thesis_live"] else "exited"
+                for tk in entry["vehicles"]:
+                    picks.append({"ticker": tk, "thesis": ev["catalyst"],
+                                  "thesis_live": entry["thesis_live"], "crowding": entry["maturity"],
+                                  "evidence_urls": entry["sources"]})
+        out[a] = picks
+        done.add(a.isoformat())
+        tmp = f"{resume_f}.tmp"
+        with open(tmp, "w") as fh:
+            json.dump({"events": {k: {**v, "vehicles": sorted(v["vehicles"])} for k, v in events.items()},
+                       "done": sorted(done), "nid": nid[0],
+                       "out": {k.isoformat(): v for k, v in out.items()}}, fh, default=str)
+        os.replace(tmp, resume_f)
+    (REPO_ROOT / "data" / "windows" / "agent_events.json").write_text(
+        json.dumps([{**v, "vehicles": sorted(v["vehicles"])} for v in events.values()], indent=2, default=str))
     return out

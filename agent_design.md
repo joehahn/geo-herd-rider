@@ -88,9 +88,16 @@ for each weekly anchor:
 
 ---
 
-# Planned: event-first refactor
+# Event-first refactor — BUILT (`agent.run_event_agent_scans`, `--event-first`)
 
-**Why.** Today the agent is **ticker-keyed**: the scout proposes tickers, each ticker gets its own
+**Status (built):** scout → **LLM matcher** (groups this week's candidates into existing events or
+"new") → per-event agent that owns an **evolving vehicle set** and picks the current best vehicle(s)
+via a `vehicles` field (Pydantic-guarded, no-magnitude). Per-week resume checkpoint; ticker-keyed
+`--agent` retained as the A/B baseline. Trigger that justified it: the 13-gem ticker-keyed run
+fragmented single events across tickers (RNMBY/RHMTY = same company; nuclear across SMR/OKLO/CCJ/CEG).
+The 13-gem event-first vs ticker-keyed A/B is the measurement (running).
+
+**Why.** The agent was **ticker-keyed**: the scout proposes tickers, each ticker gets its own
 journal, and an "event" exists only as the thesis string inside a ticker's note. That mismodels
 reality — a single durable **event** (a war, an election, a supply shock) can last months/years and
 throw off **different gems over time** (Iran war → BWET early, perhaps a different shipping vehicle

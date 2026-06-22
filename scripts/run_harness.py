@@ -89,6 +89,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="run the scout->per-event-agent variant instead of the single scan (the A/B)")
     ap.add_argument("--no-targeted", action="store_true",
                     help="fast variant: agents read the broad cached pool only (skip per-event GDELT fetches)")
+    ap.add_argument("--event-first", action="store_true",
+                    help="event-first engine: events own an evolving vehicle set (vs ticker-keyed --agent)")
     args = ap.parse_args(argv)
 
     load_dotenv()
@@ -105,7 +107,12 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Harness: firehose over {args.start}..{args.end}, {len(gems)} gems, "
           f"{len(HARNESS_QUERIES)} broad queries, {rebalance}d cadence (single-scan baseline).",
           file=sys.stderr)
-    if args.agent:
+    if args.event_first:
+        scans = agent.run_event_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
+                                            queries=HARNESS_QUERIES, seed=args.seed,
+                                            pool_chunk_days=args.chunk_days, pool_per=args.per,
+                                            provider=args.provider, targeted=not args.no_targeted)
+    elif args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,
                                       pool_chunk_days=args.chunk_days, pool_per=args.per,
@@ -159,10 +166,10 @@ def main(argv: list[str] | None = None) -> int:
                  "spy_ret": round(bt["spy_final"] / 50000 - 1, 4), "weeks": bt["weeks"]},
         "captures": captures,
     }
-    tag = "agent" if args.agent else ("seeded" if args.seed else None)
+    tag = "event" if args.event_first else ("agent" if args.agent else ("seeded" if args.seed else None))
     out_path = REPORT.with_name(f"harness_report_{tag}.json") if tag else REPORT
-    rep["variant"] = (("scout->per-event-agent" if args.agent else "single-scan")
-                      + (" + seed overlay" if args.seed else ""))
+    rep["variant"] = (("event-first" if args.event_first else "scout->per-event-agent" if args.agent
+                       else "single-scan") + (" + seed overlay" if args.seed else ""))
     out_path.write_text(json.dumps(rep, indent=2, default=str))
 
     print("\n" + "=" * 64)
