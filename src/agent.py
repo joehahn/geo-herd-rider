@@ -26,6 +26,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import pandas as pd
+from pydantic import BaseModel, ConfigDict, field_validator
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
@@ -34,16 +35,21 @@ import gdelt as gd  # noqa: E402
 import firehose  # noqa: E402
 from util import scan_anchors  # noqa: E402
 
-CANDIDATE_CAP = 6        # max candidate events the scout proposes per week (bound the fan-out)
+CANDIDATE_CAP = 3        # max candidate events the scout proposes per week (bound the fan-out)
 WINDOW_CAP = 80          # max firehose headlines shown to the scout per week
 
 SCOUT_SYSTEM = """You are a markets desk scanning a week of financial-news headlines to DISCOVER
 candidate hidden-gem events — a specific US-listed ticker (incl. ADRs / theme ETFs) the press is
-naming as a thesis-driven mover, ideally still early/under-the-radar. Be selective: propose only
-the few clearest (0-3), skip names merely mentioned in passing. Prefer the PUREST vehicle for a
-theme (a rate/commodity ETN or clean pure-play over diluted operators; a single ADR over a broad
-ETF). You forecast NOTHING. Output ONLY JSON: {"candidates":[{"ticker":"BWET","thesis":"<=12
-words: the catalyst","why_now":"<=12 words"}]}. Empty is fine."""
+naming as a thesis-driven mover, ideally still early/under-the-radar.
+
+BE RUTHLESSLY SELECTIVE. Propose a ticker ONLY if the press frames it as a STANDOUT, SUSTAINED
+thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a routine daily gainer,
+or a name buried in a list. Most weeks warrant 0-1 candidates; rarely more than 2. When in doubt,
+propose nothing. Prefer the PUREST vehicle for a theme (a rate/commodity ETN or clean pure-play
+over diluted operators; a single ADR over a broad ETF).
+
+You forecast NOTHING. Output ONLY JSON: {"candidates":[{"ticker":"BWET","thesis":"<=12 words: the
+catalyst","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
 prior weekly note (your memory), and THIS week's news for this event. Write the new weekly note.
@@ -54,6 +60,10 @@ Decide:
                  the policy passes/fails). This is the HOLD/EXIT switch. Use common sense about WHEN
                  the event is over — that is your job. Mainstream hype ("up 600%, everyone in") is
                  CROWDING, not resolution; do NOT exit on crowding alone.
+                 BUT BE SKEPTICAL ON ENTRY: if this event has NO clear, ongoing catalyst — it was a
+                 one-off mention, a routine gainer, or there's no real sustained thesis here — set
+                 thesis_live=FALSE NOW. Do not keep noise alive; only a genuine, still-active
+                 catalyst earns thesis_live=true.
   maturity     — early | building | consensus | crested  (INFO only).
   exit_advice  — <=20 words: the concrete condition that would end the thesis.
   assessment   — <=40 words: what changed this week and your read, continuous with your prior note.
@@ -63,6 +73,33 @@ Decide:
 
 Output ONLY JSON: {"thesis_live":true,"maturity":"early|building|consensus|crested","exit_advice":
 "...","assessment":"...","news_claims":"","sources":["url","url"]}."""
+
+
+class ScoutCandidate(BaseModel):
+    """A discovered candidate event. extra='ignore' drops anything the LLM adds beyond these."""
+    model_config = ConfigDict(extra="ignore")
+    ticker: str
+    thesis: str = ""
+    why_now: str = ""
+
+    @field_validator("ticker")
+    @classmethod
+    def _up(cls, v: str) -> str:
+        return str(v).strip().upper()
+
+
+class JournalEntry(BaseModel):
+    """A weekly per-event note. GUARDRAIL (non-negotiable #1): there is NO field for a price
+    target / magnitude / position size, and extra='ignore' means any such key the LLM emits is
+    SILENTLY DROPPED here — it can never reach the optimizer. The LLM only sets composition,
+    the thesis_live/exit call, and prose. news_claims is attribution of what the PRESS says."""
+    model_config = ConfigDict(extra="ignore")
+    thesis_live: bool = True
+    maturity: str = "?"          # early|building|consensus|crested — INFO only
+    exit_advice: str = ""
+    assessment: str = ""
+    news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
+    sources: list[str] = []
 
 
 def _extract(text: str) -> dict:
@@ -95,15 +132,17 @@ def scout(client, model: str, anchor: pd.Timestamp, arts: list[dict]) -> list[di
     cands = _extract("".join(b.text for b in r.content if b.type == "text")).get("candidates", [])
     out = []
     for c in cands[:CANDIDATE_CAP]:
-        tk = str(c.get("ticker", "")).strip().upper()
-        if tk:
-            out.append({"ticker": tk, "thesis": c.get("thesis", ""), "why_now": c.get("why_now", "")})
+        try:
+            m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
+        except Exception:  # noqa: BLE001
+            continue
+        if m.ticker:
+            out.append(m.model_dump())
     return out
 
 
-def _targeted(arts: list[dict], event: dict) -> list[dict]:
-    """Backtest 'targeted retrieval': this event's coverage = articles naming its ticker or
-    sharing thesis keywords. (Forward, this is a live web_search for the event's terms.)"""
+def _filter_pool(arts: list[dict], event: dict) -> list[dict]:
+    """Filter an article set to this event's coverage (ticker or thesis keywords)."""
     tk = event["ticker"].lower()
     kws = [w for w in event.get("thesis", "").lower().replace(",", " ").split() if len(w) > 4]
     hits = []
@@ -111,7 +150,37 @@ def _targeted(arts: list[dict], event: dict) -> list[dict]:
         hay = (a.get("title", "") + " " + a.get("snippet", "")).lower()
         if tk in hay or any(k in hay for k in kws):
             hits.append(a)
-    return hits[:20]
+    return hits
+
+
+_event_pools: dict[str, list] = {}   # ticker -> its own GDELT pool (memoized per run)
+
+
+def _event_terms(event: dict) -> list[str]:
+    """Monitoring queries for a HELD event: its ticker + a key thesis phrase. This is legitimate
+    (tracking a position we already hold), NOT discovery — so it does not bias what we discover."""
+    tk = event["ticker"]
+    words = [w for w in event.get("thesis", "").replace(",", " ").split() if len(w) > 4][:3]
+    qs = [tk]
+    if words:
+        qs.append('"' + " ".join(words) + '"')
+    return qs
+
+
+def targeted_pool(event: dict, win_start, win_end, chunk_days, per) -> list[dict]:
+    """Per-event targeted retrieval: GDELT search on the EVENT'S OWN terms (incl. its resolution
+    coverage, e.g. a ceasefire), cached on disk + memoized. Build these SEQUENTIALLY (the GDELT
+    throttle isn't thread-safe), then the fan-out reads them instantly."""
+    import hashlib
+    tk = event["ticker"]
+    if tk in _event_pools:
+        return _event_pools[tk]
+    qs = _event_terms(event)
+    key = hashlib.md5(f"evt{tk}{qs}{pd.Timestamp(win_start).date()}{pd.Timestamp(win_end).date()}".encode()).hexdigest()[:10]
+    cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_event_{key}.json"
+    pool = gd.pool(qs, win_start, win_end, chunk_days=chunk_days, per=per, cache_path=str(cache_f))
+    _event_pools[tk] = pool
+    return pool
 
 
 def event_agent(client, model: str, anchor: pd.Timestamp, event: dict, prior: dict | None,
@@ -124,11 +193,13 @@ def event_agent(client, model: str, anchor: pd.Timestamp, event: dict, prior: di
                                messages=[{"role": "user", "content": user}])
     costs.record("agent", model, f"agent-{event['ticker']}-{anchor.date()}", costs.extract(r.usage))
     d = _extract("".join(b.text for b in r.content if b.type == "text"))
-    return {"date": anchor.date().isoformat(),
-            "thesis_live": bool(d.get("thesis_live", True)),
-            "maturity": d.get("maturity", "?"), "exit_advice": d.get("exit_advice", ""),
-            "assessment": d.get("assessment", ""), "news_claims": d.get("news_claims", ""),
-            "sources": [u for u in (d.get("sources") or []) if u][:6]}
+    try:
+        e = JournalEntry(**d)                # any magnitude/target key in d is dropped here
+    except Exception:  # noqa: BLE001
+        e = JournalEntry()                   # malformed -> safe default (thesis_live stays true)
+    return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
+            "maturity": e.maturity, "exit_advice": e.exit_advice, "assessment": e.assessment,
+            "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6]}
 
 
 def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
@@ -163,10 +234,23 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
         seen = {e["ticker"] for e in open_ev}
         events = open_ev + [c for c in cands if c["ticker"] not in seen]
 
+        # targeted retrieval: build each event's own GDELT pool SEQUENTIALLY (throttle-safe), then
+        # the per-event agents (parallel) read them instantly. Monitoring a held event != discovery.
+        for ev in events:
+            targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per)
+
         def work(ev):
             j = journals.get(ev["ticker"])
             prior = j["entries"][-1] if j and j["entries"] else None
-            return ev, event_agent(client, model, a, ev, prior, _targeted(win, ev))
+            tnews = firehose._window(targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per),
+                                     a, rebalance_days)              # the event's own coverage (+ resolution)
+            bnews = _filter_pool(win, ev)                            # broad pool + seeds, filtered to event
+            seen_urls, news = set(), []
+            for art in tnews + bnews:                               # targeted first; dedup by url
+                u = art.get("url", "")
+                if u not in seen_urls:
+                    seen_urls.add(u); news.append(art)
+            return ev, event_agent(client, model, a, ev, prior, news[:20])
 
         picks = []
         with ThreadPoolExecutor(max_workers=workers) as ex:

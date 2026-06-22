@@ -14,3 +14,4 @@ scipy>=1.13
 pyyaml>=6.0
 requests>=2.31
 matplotlib>=3.8     # scripts/plot_shipping.py (README figures)
+pydantic>=2.0

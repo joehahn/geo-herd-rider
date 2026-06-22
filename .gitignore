@@ -21,3 +21,4 @@ data/windows/firehose_gdelt_scans.json
 # agent harness working artifacts (regenerable; real results committed deliberately)
 data/windows/agent_journals.json
 data/windows/harness_report_agent.json
+data/windows/gdelt_event_*.json
