@@ -1,0 +1,151 @@
+{
+  "window": [
+    "2022-09-01",
+    "2026-06-18"
+  ],
+  "cadence_days": 7,
+  "variant": "seed-decomposition (retrieval-perfect overlay)",
+  "recall": {
+    "pct": 0.923,
+    "early_pct": 0.923,
+    "caught": [
+      "BWET",
+      "GDX",
+      "HIMS",
+      "MP",
+      "MSTR",
+      "NVDA",
+      "PLTR",
+      "RNMBY",
+      "SMCI",
+      "SMR",
+      "URA",
+      "YPF"
+    ],
+    "caught_early": [
+      "BWET",
+      "GDX",
+      "HIMS",
+      "MP",
+      "MSTR",
+      "NVDA",
+      "PLTR",
+      "RNMBY",
+      "SMCI",
+      "SMR",
+      "URA",
+      "YPF"
+    ],
+    "missed": [
+      "CVNA"
+    ]
+  },
+  "precision": {
+    "pct": 0.267,
+    "distinct_held": 45,
+    "gems_held": 12,
+    "noise_held": [
+      "AAL",
+      "AAPL",
+      "AI",
+      "ALHC",
+      "ARGT",
+      "AVAV",
+      "BIDU",
+      "BLBD",
+      "CCJ",
+      "CDRE",
+      "CEG",
+      "DXCM",
+      "FSLR",
+      "FXI",
+      "HRL",
+      "INTC",
+      "LCID",
+      "LLY",
+      "NIO",
+      "NTRA",
+      "OKLO",
+      "OXY",
+      "PSKY",
+      "RDW",
+      "RKLB",
+      "RTX",
+      "SATS",
+      "SE",
+      "SOC",
+      "TRMD",
+      "TXT",
+      "VST",
+      "ZIM"
+    ],
+    "controls_held": []
+  },
+  "tail": {
+    "book_ret": 3.1815,
+    "spy_ret": 0.9848,
+    "weeks": 198
+  },
+  "captures": {
+    "BWET": {
+      "captured_x": 1.22,
+      "available_x": 8.0,
+      "weeks_held": 4
+    },
+    "GDX": {
+      "captured_x": 1.0,
+      "available_x": 3.5,
+      "weeks_held": 1
+    },
+    "HIMS": {
+      "captured_x": 1.03,
+      "available_x": 10.7,
+      "weeks_held": 4
+    },
+    "MP": {
+      "captured_x": 0.83,
+      "available_x": 6.5,
+      "weeks_held": 4
+    },
+    "MSTR": {
+      "captured_x": 7.57,
+      "available_x": 13.5,
+      "weeks_held": 8
+    },
+    "NVDA": {
+      "captured_x": 7.65,
+      "available_x": 17.1,
+      "weeks_held": 8
+    },
+    "PLTR": {
+      "captured_x": 8.2,
+      "available_x": 32.3,
+      "weeks_held": 8
+    },
+    "RNMBY": {
+      "captured_x": 1.04,
+      "available_x": 8.1,
+      "weeks_held": 4
+    },
+    "SMCI": {
+      "captured_x": 11.98,
+      "available_x": 14.5,
+      "weeks_held": 8
+    },
+    "SMR": {
+      "captured_x": 1.28,
+      "available_x": 16.2,
+      "weeks_held": 4
+    },
+    "URA": {
+      "captured_x": 1.18,
+      "available_x": 3.2,
+      "weeks_held": 8
+    },
+    "YPF": {
+      "captured_x": 1.01,
+      "available_x": 4.4,
+      "weeks_held": 4
+    }
+  }
+}

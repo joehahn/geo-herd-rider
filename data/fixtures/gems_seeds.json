@@ -1,0 +1,29 @@
+{
+  "_note": "RETRIEVAL-PERFECT OVERLAY for the seed-decomposition harness run. One early-coverage article per gem, dated near its trigger, naming the ticker + catalyst in under-the-radar framing — i.e. the early piece GDELT structurally misses. Injected alongside the real GDELT pool so we can ask: does handing the firehose the early naming fix the 0% early-recall (=> retrieval was the wall), or does it still pick the wrong vehicle / skip (=> reasoning/vehicle-selection is the wall)? These are CONSTRUCTED from known catalysts (faithful, not individually web-verified — except BWET's, which are the real articles); they are a diagnostic device, not evidence. Dates sit within the early-recall window (~<=12wk after trigger).",
+  "articles": [
+    {"published_date": "2023-01-10", "source": "MarketBeat", "title": "The under-the-radar pick-and-shovel winner of the ChatGPT boom",
+     "snippet": "Nvidia (NVDA) is emerging as the clearest beneficiary of the ChatGPT/AI wave as datacenter GPU demand surges; still under-owned versus the opportunity.", "url": ""},
+    {"published_date": "2023-04-20", "source": "etf.com", "title": "A little-followed software name re-rates on AI",
+     "snippet": "Palantir (PLTR) unveiled its AIP platform; the under-followed software stock is re-rating as it proves real AI demand. Flying under the radar versus the chip names.", "url": ""},
+    {"published_date": "2023-02-01", "source": "24/7 Wall St.", "title": "This little-known server maker is an AI sleeper",
+     "snippet": "Super Micro (SMCI), an obscure server builder, is quietly surging on AI datacenter demand — barely covered despite the move.", "url": ""},
+    {"published_date": "2024-05-15", "source": "ETF.com", "title": "A tiny nuclear stock rides the AI power crunch",
+     "snippet": "NuScale Power (SMR), a small modular reactor play, is jumping on AI datacenter power demand and reactor approval news — still a micro-cap under the radar.", "url": ""},
+    {"published_date": "2024-01-16", "source": "MarketBeat", "title": "The leveraged bitcoin proxy as spot ETFs launch",
+     "snippet": "MicroStrategy (MSTR) is becoming the de-facto leveraged bitcoin proxy as spot BTC ETFs launch and the halving nears.", "url": ""},
+    {"published_date": "2023-12-08", "source": "24/7 Wall St.", "title": "An under-the-radar telehealth name moves into weight-loss",
+     "snippet": "Hims & Hers (HIMS), a little-known telehealth provider, is launching GLP-1 weight-loss offerings; shares pop on a thesis few are watching yet.", "url": ""},
+    {"published_date": "2022-09-12", "source": "Reuters", "title": "European arms makers rally as Ukraine war drives rearmament",
+     "snippet": "Rheinmetall (US ADR: RNMBY) is rallying as Europe rearms over the Ukraine war; US investors can access the defense leader via its ADR.", "url": ""},
+    {"published_date": "2026-02-16", "source": "MarketBeat", "title": "One of the Top-Performing ETFs of 2026 So Far May Surprise You",
+     "snippet": "Investors seeking oil-freight futures exposure may be drawn to the Breakwave Tanker Shipping ETF (BWET), which has nearly doubled in the first weeks of the year as tanker rates climb.", "url": "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"},
+    {"published_date": "2025-04-12", "source": "etf.com", "title": "The only US rare-earth miner soars as China curbs exports",
+     "snippet": "MP Materials (MP) is surging as China restricts rare-earth exports; MP is the lone scaled US producer, a direct reshoring/tariff beneficiary still under-owned.", "url": ""},
+    {"published_date": "2023-11-22", "source": "Bloomberg", "title": "Argentine assets surge on Milei's reform-mandate win",
+     "snippet": "Argentine ADRs led by YPF jump after Javier Milei's election win promises sweeping reform; the state oil ADR (YPF) is the cleanest US-listed expression.", "url": ""},
+    {"published_date": "2024-03-08", "source": "MarketWatch", "title": "Gold miners break out as bullion hits records",
+     "snippet": "The gold-miners ETF (GDX) is breaking out as bullion sets records on central-bank buying and rate-cut hopes — miners lag the metal and have room.", "url": ""},
+    {"published_date": "2023-09-10", "source": "OilPrice", "title": "Uranium quietly spikes on a deepening supply deficit",
+     "snippet": "The Global X Uranium ETF (URA) is climbing as spot uranium spikes on a structural supply deficit and a nuclear-renaissance restart cycle.", "url": ""}
+  ]
+}
