@@ -17,3 +17,7 @@ data/windows/trump_posts_*.csv
 data/windows/gdelt_pool_*.json
 data/windows/firehose_gdelt_scans.json
 
+
+# agent harness working artifacts (regenerable; real results committed deliberately)
+data/windows/agent_journals.json
+data/windows/harness_report_agent.json

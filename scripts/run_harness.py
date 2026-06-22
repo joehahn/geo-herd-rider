@@ -32,6 +32,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 import firehose  # noqa: E402
+import agent  # noqa: E402
 import score  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
 from util import load_dotenv  # noqa: E402
@@ -82,6 +83,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--per", type=int, default=150, help="GDELT records per query-chunk")
     ap.add_argument("--seed", default=None,
                     help="retrieval-perfect overlay: early-article seeds per gem (decomposition run)")
+    ap.add_argument("--agent", action="store_true",
+                    help="run the scout->per-event-agent variant instead of the single scan (the A/B)")
     args = ap.parse_args(argv)
 
     load_dotenv()
@@ -98,11 +101,16 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Harness: firehose over {args.start}..{args.end}, {len(gems)} gems, "
           f"{len(HARNESS_QUERIES)} broad queries, {rebalance}d cadence (single-scan baseline).",
           file=sys.stderr)
-    scans = firehose.run_scans(args.start, args.end, rebalance, args.model, args.workers,
-                               gdelt=True, queries=HARNESS_QUERIES, seed=args.seed,
-                               pool_chunk_days=args.chunk_days, pool_per=args.per)
+    if args.agent:
+        scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
+                                      queries=HARNESS_QUERIES, seed=args.seed,
+                                      pool_chunk_days=args.chunk_days, pool_per=args.per)
+    else:
+        scans = firehose.run_scans(args.start, args.end, rebalance, args.model, args.workers,
+                                   gdelt=True, queries=HARNESS_QUERIES, seed=args.seed,
+                                   pool_chunk_days=args.chunk_days, pool_per=args.per)
     if args.seed:
-        print(f"  (seed-decomposition run: retrieval-perfect overlay {Path(args.seed).name})", file=sys.stderr)
+        print(f"  (retrieval-perfect overlay {Path(args.seed).name})", file=sys.stderr)
     bt = firehose.backtest(scans, fm, daily=False)
 
     held = _held_weeks(bt)
@@ -146,8 +154,10 @@ def main(argv: list[str] | None = None) -> int:
                  "spy_ret": round(bt["spy_final"] / 50000 - 1, 4), "weeks": bt["weeks"]},
         "captures": captures,
     }
-    out_path = REPORT.with_name("harness_report_seeded.json") if args.seed else REPORT
-    rep["variant"] = "seed-decomposition (retrieval-perfect overlay)" if args.seed else "single-scan baseline"
+    tag = "agent" if args.agent else ("seeded" if args.seed else None)
+    out_path = REPORT.with_name(f"harness_report_{tag}.json") if tag else REPORT
+    rep["variant"] = (("scout->per-event-agent" if args.agent else "single-scan")
+                      + (" + seed overlay" if args.seed else ""))
     out_path.write_text(json.dumps(rep, indent=2, default=str))
 
     print("\n" + "=" * 64)
