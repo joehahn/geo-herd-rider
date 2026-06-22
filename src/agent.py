@@ -218,7 +218,7 @@ def event_agent(client, anchor: pd.Timestamp, event: dict, prior: dict | None,
 
 
 def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
-                    pool_chunk_days=90, pool_per=150, provider="anthropic") -> dict:
+                    pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=True) -> dict:
     """Scout -> per-event fan-out across the window. Returns {anchor: [picks]} like the single
     scan, so backtest()/scoring are unchanged. Weeks run SEQUENTIALLY (journals are stateful);
     the fan-out within a week runs in parallel. provider/model are provider-agnostic (llm.py),
@@ -240,7 +240,20 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
 
     journals: dict[str, dict] = {}   # ticker -> {ticker, thesis, status, entries:[]}
     out: dict[pd.Timestamp, list[dict]] = {}
+    # per-week checkpoint so a long agent run survives sleep/kill and RESUMES (the loop is otherwise
+    # in-memory; journals were dumped only at the end). Keyed by the run's params.
+    import os
+    rsig = hashlib.md5(f"{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{qs}".encode()).hexdigest()[:10]
+    resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
+    done: set[str] = set()
+    if resume_f.exists():
+        st = json.loads(resume_f.read_text())
+        journals, done = st["journals"], set(st["done"])
+        out = {pd.Timestamp(k): v for k, v in st["out"].items()}
+        print(f"  resuming agent run: {len(done)}/{len(anchors)} weeks already done", file=sys.stderr)
     for a in anchors:
+        if a.isoformat() in done:        # already computed in a prior (interrupted) run
+            continue
         win = (firehose._window(seeds, a, rebalance_days)
                + sorted(firehose._window(gpool, a, rebalance_days),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP])
@@ -252,14 +265,16 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
 
         # targeted retrieval: build each event's own GDELT pool SEQUENTIALLY (throttle-safe), then
         # the per-event agents (parallel) read them instantly. Monitoring a held event != discovery.
-        for ev in events:
-            targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per)
+        # Skipped in the fast variant (targeted=False) — agents read the broad pool filtered to them.
+        if targeted:
+            for ev in events:
+                targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per)
 
         def work(ev):
             j = journals.get(ev["ticker"])
             prior = j["entries"][-1] if j and j["entries"] else None
-            tnews = firehose._window(targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per),
-                                     a, rebalance_days)              # the event's own coverage (+ resolution)
+            tnews = (firehose._window(targeted_pool(ev, win_start, anchors[-1], pool_chunk_days, pool_per),
+                                      a, rebalance_days) if targeted else [])  # event's own coverage
             bnews = _filter_pool(win, ev)                            # broad pool + seeds, filtered to event
             seen_urls, news = set(), []
             for art in tnews + bnews:                               # targeted first; dedup by url
@@ -280,6 +295,12 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
                               "thesis_live": entry["thesis_live"], "crowding": entry["maturity"],
                               "evidence_urls": entry["sources"]})
         out[a] = picks
+        done.add(a.isoformat())
+        tmp = f"{resume_f}.tmp"                       # atomic checkpoint after each week
+        with open(tmp, "w") as fh:
+            json.dump({"journals": journals, "done": sorted(done),
+                       "out": {k.isoformat(): v for k, v in out.items()}}, fh, default=str)
+        os.replace(tmp, resume_f)
     (REPO_ROOT / "data" / "windows" / "agent_journals.json").write_text(
         json.dumps(list(journals.values()), indent=2, default=str))
     return out

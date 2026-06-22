@@ -22,3 +22,4 @@ data/windows/firehose_gdelt_scans.json
 data/windows/agent_journals.json
 data/windows/harness_report_agent.json
 data/windows/gdelt_event_*.json
+data/windows/agent_resume_*.json

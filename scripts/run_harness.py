@@ -87,6 +87,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="retrieval-perfect overlay: early-article seeds per gem (decomposition run)")
     ap.add_argument("--agent", action="store_true",
                     help="run the scout->per-event-agent variant instead of the single scan (the A/B)")
+    ap.add_argument("--no-targeted", action="store_true",
+                    help="fast variant: agents read the broad cached pool only (skip per-event GDELT fetches)")
     args = ap.parse_args(argv)
 
     load_dotenv()
@@ -107,7 +109,7 @@ def main(argv: list[str] | None = None) -> int:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,
                                       pool_chunk_days=args.chunk_days, pool_per=args.per,
-                                      provider=args.provider)
+                                      provider=args.provider, targeted=not args.no_targeted)
     else:
         scans = firehose.run_scans(args.start, args.end, rebalance, args.model, args.workers,
                                    gdelt=True, queries=HARNESS_QUERIES, seed=args.seed,
