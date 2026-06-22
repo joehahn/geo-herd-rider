@@ -78,6 +78,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--start", default=spec["window"]["start"])
     ap.add_argument("--end", default=spec["window"]["end"])
     ap.add_argument("--model", default="claude-opus-4-8")
+    ap.add_argument("--provider", default="anthropic", choices=["anthropic", "openrouter"],
+                    help="LLM provider for the agent variant (openrouter => DeepSeek etc. for cheap dev)")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--chunk-days", type=int, default=90, help="GDELT pool fetch chunk (coarser = fewer throttled calls)")
     ap.add_argument("--per", type=int, default=150, help="GDELT records per query-chunk")
@@ -104,7 +106,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,
-                                      pool_chunk_days=args.chunk_days, pool_per=args.per)
+                                      pool_chunk_days=args.chunk_days, pool_per=args.per,
+                                      provider=args.provider)
     else:
         scans = firehose.run_scans(args.start, args.end, rebalance, args.model, args.workers,
                                    gdelt=True, queries=HARNESS_QUERIES, seed=args.seed,

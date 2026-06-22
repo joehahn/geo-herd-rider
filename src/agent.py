@@ -33,7 +33,24 @@ sys.path.insert(0, str(REPO_ROOT / "src"))
 import costs  # noqa: E402
 import gdelt as gd  # noqa: E402
 import firehose  # noqa: E402
+import llm  # noqa: E402
 from util import scan_anchors  # noqa: E402
+
+# Strict JSON schemas for the structured-output path (OpenRouter/DeepSeek — guarantees parseable
+# JSON; the Anthropic path ignores these and parses free-form). additionalProperties=false keeps
+# the model from inventing fields — incl. a price target (the no-magnitude guardrail, at the wire).
+SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["candidates"],
+               "properties": {"candidates": {"type": "array", "items": {
+                   "type": "object", "additionalProperties": False,
+                   "required": ["ticker", "thesis", "why_now"],
+                   "properties": {"ticker": {"type": "string"}, "thesis": {"type": "string"},
+                                  "why_now": {"type": "string"}}}}}}
+AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
+               "required": ["thesis_live", "maturity", "exit_advice", "assessment", "news_claims", "sources"],
+               "properties": {"thesis_live": {"type": "boolean"}, "maturity": {"type": "string"},
+                              "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
+                              "news_claims": {"type": "string"},
+                              "sources": {"type": "array", "items": {"type": "string"}}}}
 
 CANDIDATE_CAP = 3        # max candidate events the scout proposes per week (bound the fan-out)
 WINDOW_CAP = 80          # max firehose headlines shown to the scout per week
@@ -121,15 +138,14 @@ def _block(arts: list[dict]) -> str:
                      f" — {a.get('snippet','')[:200]} ({a.get('url','') or 'no url'})" for a in arts)
 
 
-def scout(client, model: str, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
+def scout(client, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
     if not arts:
         return []
     user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(arts)}\n\n"
             "Which tickers is the press naming as thesis-driven movers? Output the JSON.")
-    r = client.messages.create(model=model, max_tokens=1200, system=SCOUT_SYSTEM,
-                               messages=[{"role": "user", "content": user}])
-    costs.record("agent", model, f"scout-{anchor.date()}", costs.extract(r.usage))
-    cands = _extract("".join(b.text for b in r.content if b.type == "text")).get("candidates", [])
+    txt = client.complete(SCOUT_SYSTEM, user, use_web_search=False, stage="agent",
+                          label=f"scout-{anchor.date()}", json_schema=SCOUT_SCHEMA)
+    cands = _extract(txt).get("candidates", [])
     out = []
     for c in cands[:CANDIDATE_CAP]:
         try:
@@ -183,16 +199,15 @@ def targeted_pool(event: dict, win_start, win_end, chunk_days, per) -> list[dict
     return pool
 
 
-def event_agent(client, model: str, anchor: pd.Timestamp, event: dict, prior: dict | None,
+def event_agent(client, anchor: pd.Timestamp, event: dict, prior: dict | None,
                 news: list[dict]) -> dict:
     pj = json.dumps(prior, default=str) if prior else "(none — this is the first week)"
     nb = _block(news) if news else "(no fresh coverage for this event this week)"
     user = (f"Event: {event['ticker']} — {event.get('thesis','')}\nWeek ending {anchor.date()}.\n"
             f"Your prior note: {pj}\n\nThis week's news for this event:\n{nb}\n\nWrite the new note (JSON).")
-    r = client.messages.create(model=model, max_tokens=900, system=AGENT_SYSTEM,
-                               messages=[{"role": "user", "content": user}])
-    costs.record("agent", model, f"agent-{event['ticker']}-{anchor.date()}", costs.extract(r.usage))
-    d = _extract("".join(b.text for b in r.content if b.type == "text"))
+    txt = client.complete(AGENT_SYSTEM, user, use_web_search=False, stage="agent",
+                          label=f"agent-{event['ticker']}-{anchor.date()}", json_schema=AGENT_SCHEMA)
+    d = _extract(txt)
     try:
         e = JournalEntry(**d)                # any magnitude/target key in d is dropped here
     except Exception:  # noqa: BLE001
@@ -203,13 +218,14 @@ def event_agent(client, model: str, anchor: pd.Timestamp, event: dict, prior: di
 
 
 def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
-                    pool_chunk_days=90, pool_per=150) -> dict:
+                    pool_chunk_days=90, pool_per=150, provider="anthropic") -> dict:
     """Scout -> per-event fan-out across the window. Returns {anchor: [picks]} like the single
     scan, so backtest()/scoring are unchanged. Weeks run SEQUENTIALLY (journals are stateful);
-    the fan-out within a week runs in parallel."""
-    import anthropic
+    the fan-out within a week runs in parallel. provider/model are provider-agnostic (llm.py),
+    so the SAME loop runs on Opus or on a cheap OpenRouter model (DeepSeek) for dev/testing."""
     import hashlib
-    client = anthropic.Anthropic()
+    client = llm.make_client(provider, model)
+    print(f"Agent: provider={provider} model={model}", file=sys.stderr)
     anchors = scan_anchors(start, end, rebalance_days)
     qs = queries or firehose.GDELT_QUERIES
     win_start = anchors[0] - pd.Timedelta(days=35)
@@ -228,7 +244,7 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
         win = (firehose._window(seeds, a, rebalance_days)
                + sorted(firehose._window(gpool, a, rebalance_days),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP])
-        cands = scout(client, model, a, win)
+        cands = scout(client, a, win)
         open_ev = [{"ticker": t, "thesis": j["thesis"]} for t, j in journals.items()
                    if j["status"] == "live"]
         seen = {e["ticker"] for e in open_ev}
@@ -250,7 +266,7 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
                 u = art.get("url", "")
                 if u not in seen_urls:
                     seen_urls.add(u); news.append(art)
-            return ev, event_agent(client, model, a, ev, prior, news[:20])
+            return ev, event_agent(client, a, ev, prior, news[:20])
 
         picks = []
         with ThreadPoolExecutor(max_workers=workers) as ex:

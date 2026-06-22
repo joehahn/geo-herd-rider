@@ -28,6 +28,7 @@ PRICES = {
     "sonnet":     (3e-6, 15e-6),
     "haiku":      (1e-6, 5e-6),
     "deepseek":   (0.23e-6, 0.34e-6),   # OpenRouter, DeepSeek V3.2
+    "mimo":       (0.43e-6, 0.87e-6),   # OpenRouter, Xiaomi MiMo v2.5-pro
     "qwen":       (0.32e-6, 1.28e-6),   # OpenRouter
     "llama":      (0.40e-6, 0.80e-6),   # OpenRouter, ~Llama 3.3 70B
 }
