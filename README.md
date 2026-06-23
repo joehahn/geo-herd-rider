@@ -170,7 +170,7 @@ python src/forward.py --report    # mark the accumulated book to market vs SPY
 
 ## Notes
 
-Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`SPEC.md`](SPEC.md) for the pre-registered design, [`TODO.md`](TODO.md) for backlog, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
+Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`agent_design.md`](agent_design.md) for the per-event-agent design, [`TODO.md`](TODO.md) for backlog, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
 
 ## Disclaimer
 

@@ -1,7 +1,7 @@
 # CLAUDE.md
 
-Operating rules for Claude Code in the `geo-herd-rider` repo. Read this and
-[`SPEC.md`](SPEC.md) before doing anything here.
+Operating rules for Claude Code in the `geo-herd-rider` repo. Read this and the
+[`README`](README.md) before doing anything here.
 
 ## What this project is
 
@@ -13,7 +13,7 @@ dropped when the thesis decays. The thesis: get to where the smarter part of the
 heading — *as published, by ticker* — a little sooner than the slow herd. The earlier
 causal-decision-tree design (have the LLM ladder the implication chain and bet the "middle band")
 was **retired** once we found the press names the gem directly (see README, "Where the edge
-actually was"). Full design in `SPEC.md`; the empirical justification in `prior-work/`.
+actually was"). Full design in the [`README`](README.md) + [`agent_design.md`](agent_design.md); the empirical justification in `prior-work/`.
 
 ## Lineage — reuse, don't reinvent
 
@@ -46,13 +46,13 @@ actually was"). Full design in `SPEC.md`; the empirical justification in `prior-
    future-dated articles (`search.py` re-enforces the bound client-side off `published_date`).
    So a clean *retrospective* firehose test is impossible; the **forward paper trade is the only
    clean test**, and fixture/historical numbers are upper bounds, never the verdict.
-5. **Don't tune the pre-registered lift bar to the data** once it's fixed (SPEC, deferred
-   decision #1). Same discipline that made geo-wave-rider credible.
+5. **Don't tune the pre-registered lift bar to the data** once it's fixed. Same discipline
+   that made geo-wave-rider credible.
 6. **Backtesting is the development loop, not the verdict.** We iterate on historical data
    on purpose (forward is too slow), but every historical return is an **upper bound** —
    report it as such, prefer windows that postdate the curator model's training cutoff
    (less contaminated), and trust a backtest-driven win only once it survives the forward
-   eval. Never tune the curator toward leaked signal. Full statement in SPEC discipline #5.
+   eval. Never tune the curator toward leaked signal.
 
 ## Scope discipline (baby steps)
 

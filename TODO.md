@@ -1,7 +1,14 @@
-# TODO — backlog (not yet scoped into the SPEC baby-step ladder)
+# TODO — backlog (not yet scoped into a scoreboard-gated step)
 
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
-[`SPEC.md`](SPEC.md) for the committed plan and [`CLAUDE.md`](CLAUDE.md) for the rules.
+[`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
+
+## Standing risks (carried from the retired SPEC)
+
+Deep ladders are seductive storytelling; public events get priced fast; survivorship bias is
+everywhere; the herd is faster than it looks; and a retrospective backtest cannot prove a forward
+edge (every historical number here is an upper bound — the forward eval is the only clean test).
+The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
 ## Regime-contrast study: loud geopolitics vs. quiet stretches
 
