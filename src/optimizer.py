@@ -49,9 +49,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
 
 
 def load_financial_model(profile_path: str = "investor_profile.md") -> dict[str, Any]:
-    """Read `financial_model` (+ top-level `concentration_cap`) from the profile's
-    YAML front matter; missing fields fall back to defaults. The optimizer is always
-    mean-variance — `risk_aversion` (lambda) is the only investor-facing knob."""
+    """Read the optimizer knobs from the profile's YAML front matter; missing fields fall back
+    to defaults. Knobs are flat top-level keys (one per line). The optimizer is always
+    mean-variance — `risk_aversion` (lambda) is the only investor-facing knob.
+
+    A legacy nested `financial_model:` block is still honored (top-level keys win) so old
+    profiles keep loading."""
     import re
     import yaml
 
@@ -63,11 +66,11 @@ def load_financial_model(profile_path: str = "investor_profile.md") -> dict[str,
     if not m:
         return dict(_FINANCIAL_MODEL_DEFAULTS)
     data = yaml.safe_load(m.group(1)) or {}
-    fm = data.get("financial_model") or {}
     out = dict(_FINANCIAL_MODEL_DEFAULTS)
-    out.update(fm)
-    if "concentration_cap" in data:
-        out["concentration_cap"] = data["concentration_cap"]
+    legacy = data.get("financial_model")
+    if isinstance(legacy, dict):
+        out.update(legacy)
+    out.update({k: v for k, v in data.items() if k in _FINANCIAL_MODEL_DEFAULTS})
     return out
 
 
