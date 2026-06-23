@@ -17,7 +17,7 @@
 
 ## How it works, at a glance
 
-The machine is one short assembly line. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock, as well as the **gem(s)** that each event throws off (namely the tickers journalists name for it). A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio.
+The machine is one short assembly line **run on a loop, once a week**. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock, as well as the **gem(s)** that each event throws off (namely the tickers journalists name for it). A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio.
 
 ```mermaid
 flowchart TD
@@ -41,10 +41,13 @@ flowchart TD
     SS --> E
     AG --> E
     E --> W --> B
+    B == "next week — re-scan the news since last scan (every rebalance_days)" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
 ```
+
+The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, the gem that best expresses a held event can change, and the optimizer re-sizes. Held-event state (each agent's prior-week note, the sticky hold) carries forward across passes, so an event is tracked continuously until its agent calls the exit.
 
 The highlighted box is what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it.
 
