@@ -148,3 +148,12 @@ ORCL/ITA×2) vs 25 singletons. So the structure is real but thin. The full test 
 convergence predict excess return? — is **underpowered today** (only 5 trades in
 `backtest_trades.csv`); defer it until more trades accrue. **Gated behind Step 2's forward lift**
 (scope discipline) — don't build the per-event graph until convergence is shown to pay.
+
+## SPY as the idle/fallback holding (deferred 2026-06-22)
+
+Make **SPY** (or a small SPY sleeve) the default holding when no gem is live, instead of the
+current **cash @ 0%** — capture market beta while idle rather than sitting flat. A *risk*
+improvement, and complementary to (not a replacement for) the forward scoreboard, which stays the
+validation gate. Note: with SPY as both the idle holding *and* the benchmark, the book only
+outperforms via the gems' **excess over SPY** — exactly the quantity we want to isolate, so the
+scoreboard becomes even more essential. Decided to defer; no code change for now.
