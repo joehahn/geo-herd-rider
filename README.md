@@ -17,7 +17,7 @@
 
 ## How it works, at a glance
 
-The machine is one short assembly line. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock, as well as the **gem(s)** that each event throws off (namely the tickers journalists name for it). A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio. Finally a **backtest scoreboard** replays the run against a locked set of historical gems and keeps only what beats the market.
+The machine is one short assembly line. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock, as well as the **gem(s)** that each event throws off (namely the tickers journalists name for it). A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio.
 
 ```mermaid
 flowchart TD
@@ -35,23 +35,18 @@ flowchart TD
     E["🎯 Watchlist<br/>live events & the gem(s) the<br/>press names for each (the bet)"]
     W["⚖️ Optimizer<br/>mechanical mean-variance sizing<br/>— AI never sizes (schema guardrail)"]
     B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
-    SB["📊 Backtest scoreboard<br/>replay vs the locked gem set:<br/>recall · precision · tail · exit"]
 
     S --> SS
     S --> SC
     SS --> E
     AG --> E
     E --> W --> B
-    B -. results .-> SB
-    SB -. keep only what beats the market .-> CUR
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
-    classDef gate fill:#e8f0fe,stroke:#1a56c4;
     class E bet
-    class SB gate
 ```
 
-The two highlighted boxes are what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it — and the **backtest scoreboard** (blue) is the referee that keeps the whole thing honest.
+The highlighted box is what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it.
 
 **Every box has a home below** (and every component discussed below is a box above):
 
@@ -62,7 +57,6 @@ The two highlighted boxes are what makes this different from a momentum screener
 | 🎯 **Watchlist / the bet** | [The signal, and its jobs](#the-signal-and-its-jobs) |
 | ⚖️ **Optimizer** (+ schema guardrail) | [The signal, and its jobs → Sizing](#the-signal-and-its-jobs) |
 | 💼 **Portfolio** | [Live dashboard](#live-dashboard) |
-| 📊 **Backtest scoreboard** | [Harvesting the distribution](#harvesting-the-distribution-not-one-gem) · [Status](#status) |
 
 ## The news firehose: why reading beats reasoning
 
@@ -124,7 +118,7 @@ Event-driven runs are heavy-tailed: BWET is a tail outlier, and below it sit pro
 
 > CVNA ~100× · PLTR 32× · NVDA 17× · SMR 16× · SMCI 14×↘ · MSTR 13× · HIMS 11× · RNMBY 8× · BWET ~8× · MP 6.5× · YPF 4.4× · GDX 3.5× · URA 3.2× — plus PTON (a slow-fizzle *negative control* for the exit engine).
 
-This measures **recall** (how many gems the firehose catches) and the **exit engine** (does it cut a decaying thesis); **precision** (false positives — does it also grab hyped names that fizzle?) is measured separately by the realistic GDELT-noise run. These are the four numbers the 📊 **backtest scoreboard** reports.
+This measures **recall** (how many gems the firehose catches) and the **exit engine** (does it cut a decaying thesis); **precision** (false positives — does it also grab hyped names that fizzle?) is measured separately by the realistic GDELT-noise run.
 
 ## Status
 
