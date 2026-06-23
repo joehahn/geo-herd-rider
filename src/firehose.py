@@ -69,12 +69,12 @@ ETFs (a foreign event is named via its US-listed ADR/ETF, e.g. YPF/ARGT, never a
 For each kept ticker decide:
   thesis        — the driving catalyst, <=12 words.
   thesis_live   — TRUE while the catalyst is ACTIVE/UNRESOLVED; stays TRUE through mainstream hype
-                  ("up 600%, everyone piling in" is CROWDING, not thesis death). FALSE only when
+                  ("up 600%, everyone piling in" is high MATURITY, not thesis death). FALSE only when
                   the CATALYST resolves (ceasefire, chokepoint reopens, shock ends). HOLD/EXIT switch.
-  crowding      — INFO only: early | building | consensus | crested.
+  maturity      — INFO only: early | building | consensus | crested.
 
 You forecast NOTHING — no magnitude, target, weight, or probability. Output ONLY JSON:
-{"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":true,"crowding":"early|building|
+{"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":true,"maturity":"early|building|
 consensus|crested","evidence_urls":["news URLs"]}]}. Empty is fine: {"picks":[]}."""
 
 
@@ -149,17 +149,17 @@ via its US-listed ADR/ETF, e.g. YPF / ARGT, never a foreign-exchange ticker).
 For each kept ticker decide:
   thesis        — the driving catalyst, <=12 words (e.g. "Iran war spikes tanker freight rates").
   thesis_live   — TRUE while that catalyst is still ACTIVE / UNRESOLVED as of this week. It stays
-                  TRUE through mainstream hype: "up 600%, everyone piling in" is CROWDING, NOT
+                  TRUE through mainstream hype: "up 600%, everyone piling in" is high MATURITY, NOT
                   thesis death. Flip to FALSE only when the CATALYST ITSELF resolves — ceasefire
                   signed, chokepoint reopened, the supply shock ends, rates actually rolling over.
                   This is the HOLD/EXIT switch.
-  crowding      — how crowded the TRADE is, INFO only (does NOT drive hold/exit):
+  maturity      — how far the event/coverage has matured, INFO only (does NOT drive hold/exit):
                   early (under-the-radar/little-known/small AUM) | building | consensus
                   (mainstream, "everyone piling in") | crested (rolling over).
 
 Do NOT equate a big % gain with "late". You forecast NOTHING — no magnitude, target, weight, or
 probability. Output ONLY JSON: {"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":
-true,"crowding":"early|building|consensus|crested","evidence_urls":["..."]}]}."""
+true,"maturity":"early|building|consensus|crested","evidence_urls":["..."]}]}."""
 
 
 def _fixture_articles(path: str) -> list[dict]:
@@ -427,7 +427,7 @@ def main(argv: list[str] | None = None) -> int:
     print("\n=== weekly firehose picks (press-named gems) ===")
     for a in scans:
         live = [f"{p['ticker']}[{'LIVE' if p.get('thesis_live', True) else 'EXIT'},"
-                f"{p.get('crowding','?')}]" for p in scans[a]]
+                f"{p.get('maturity', p.get('crowding','?'))}]" for p in scans[a]]
         print(f"  {a.date()}: {', '.join(live) if live else '—'}")
     if args.scan_only:
         return 0

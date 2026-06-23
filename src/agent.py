@@ -76,7 +76,7 @@ Decide:
                  (ceasefire signed and shipping resumes, chokepoint reopens, the supply shock ends,
                  the policy passes/fails). This is the HOLD/EXIT switch. Use common sense about WHEN
                  the event is over — that is your job. Mainstream hype ("up 600%, everyone in") is
-                 CROWDING, not resolution; do NOT exit on crowding alone.
+                 high MATURITY, not resolution; do NOT exit on maturity alone.
                  BUT BE SKEPTICAL ON ENTRY: if this event has NO clear, ongoing catalyst — it was a
                  one-off mention, a routine gainer, or there's no real sustained thesis here — set
                  thesis_live=FALSE NOW. Do not keep noise alive; only a genuine, still-active
@@ -293,7 +293,7 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
                 j["entries"].append(entry)
                 j["status"] = "live" if entry["thesis_live"] else "exited"
                 picks.append({"ticker": ev["ticker"], "thesis": ev["thesis"],
-                              "thesis_live": entry["thesis_live"], "crowding": entry["maturity"],
+                              "thesis_live": entry["thesis_live"], "maturity": entry["maturity"],
                               "evidence_urls": entry["sources"]})
         out[a] = picks
         done.add(a.isoformat())
@@ -340,7 +340,7 @@ news. Write the new note.
 
 Decide thesis_live / maturity / exit_advice / assessment / news_claims as a single-event tracker
 would (thesis_live = is the CATALYST still active; flip false only on resolution; be skeptical of
-one-off noise; mainstream hype is crowding, not resolution). PLUS pick **vehicles**: the 1-2
+one-off noise; mainstream hype is high maturity, not resolution). PLUS pick **vehicles**: the 1-2
 PUREST tickers to HOLD for this event now, chosen from its known vehicles — prefer the cleanest
 pure-play / rate-or-commodity ETN / single ADR over diluted, redundant, or tangential names (do
 NOT hold five vehicles for one event). You may drop a vehicle that's no longer the best.
@@ -469,7 +469,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
-                                  "thesis_live": entry["thesis_live"], "crowding": entry["maturity"],
+                                  "thesis_live": entry["thesis_live"], "maturity": entry["maturity"],
                                   "evidence_urls": entry["sources"]})
         out[a] = picks
         done.add(a.isoformat())

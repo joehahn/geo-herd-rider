@@ -95,7 +95,7 @@ def main(argv: list[str] | None = None) -> int:
                 continue
             gems.append({"week": a.date().isoformat(), "ticker": p["ticker"],
                          "thesis": p.get("thesis", ""), "thesis_live": bool(p.get("thesis_live", True)),
-                         "crowding": p.get("crowding", ""),
+                         "maturity": p.get("maturity", p.get("crowding", "")),
                          "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
 
     tickers = sorted(d["alloc"].keys())
@@ -374,7 +374,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const weeks=Object.keys(byWeek).sort();
   document.getElementById("log").innerHTML = weeks.map(wk=>byWeek[wk].map(g=>{
     const urls=(g.urls||[]).map(u=>`<a href="${esc(u)}" target="_blank">source ↗</a>`).join("");
-    const cw=g.crowding?`<span class="b ${esc(g.crowding)}">${esc(g.crowding)}</span>`:"";
+    const cw=g.maturity?`<span class="b ${esc(g.maturity)}">${esc(g.maturity)}</span>`:"";
     return `<div class="row ${g.thesis_live?'':'exit'}">
       <div class="hd"><span class="date">${esc(g.week)} &nbsp;<span class="tk">${esc(g.ticker)}</span>
         <span class="b ${g.thesis_live?'live':'exit'}">${g.thesis_live?'HELD — thesis live':'EXIT — thesis decayed'}</span>
