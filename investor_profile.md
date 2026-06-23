@@ -2,8 +2,9 @@
 # Active optimizer settings (committed, reproducible). The curator/backtest/dashboard read
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these.
-concentration_cap: 0.3334         # LIVE. Per-position max weight inside each event's basket.
-                                  #   high -> pile into the optimizer's pick; low -> equal-ish.
+concentration_cap: 1.0            # LIVE. Per-position max weight in the week's basket.
+                                  #   1.0 -> let mean-variance tilt freely (min_trade_size still
+                                  #   prunes sub-floor dribbles); low -> forced equal-ish split.
 financial_model:
   risk_aversion: 1.0              # LIVE. lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
   max_tickers_per_event: 16       # LIVE. Cap on tickers kept per event (the "limit the options"

@@ -35,8 +35,9 @@ from optimizer import load_financial_model  # noqa: E402
 OUT_DIR = ROOT / "docs"  # GitHub Pages serves this folder (Settings -> Pages -> main /docs)
 SCANS_JSON = ROOT / "data" / "windows" / "firehose_scans.json"
 
-PALETTE = ["#c0392b", "#2980b9", "#27ae60", "#8e44ad", "#e67e22", "#16a085",
-           "#d35400", "#2c3e50", "#c0a000", "#7f8c8d", "#1abc9c", "#9b59b6"]
+# tab10 / seaborn categorical palette — matches the PWR dashboard's plot-5 color schema.
+PALETTE = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#eab308",
+           "#17becf", "#e377c2", "#7f7f7f", "#0d9488", "#8c564b", "#bcbd22"]
 
 
 def load_scans() -> dict:
