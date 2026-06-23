@@ -58,13 +58,18 @@ def metrics(value: list[float], spy: list[float], capital: float) -> dict:
             "spy_ret": round(spy[-1] / capital - 1, 4), "max_dd": round(mdd, 4)}
 
 
-def book_cost() -> float:
-    """Cost to produce THIS book once: the firehose scan pass (most recent cost per week)."""
-    if not costs.LEDGER.exists():
+def book_cost(dates: list[str]) -> float:
+    """Cost to produce THIS book: LLM rows (firehose/agent stages) whose label is dated within the
+    book's window, last cost per label. Works for either engine (fixture firehose or the agent)."""
+    if not costs.LEDGER.exists() or not dates:
         return 0.0
+    import re
     led = pd.read_csv(costs.LEDGER)
-    fh = led[(led["stage"] == "firehose") & led["label"].astype(str).str.startswith("fixture-")]
-    return round(float(fh.groupby("label")["cost_usd"].last().sum()) if len(fh) else 0.0, 2)
+    led = led[led["stage"].isin(["firehose", "agent"])].copy()
+    led["d"] = led["label"].astype(str).map(
+        lambda s: (m.group(0) if (m := re.search(r"\d{4}-\d{2}-\d{2}", s)) else None))
+    led = led[led["d"].notna() & (led["d"] >= dates[0]) & (led["d"] <= dates[-1])]
+    return round(float(led.groupby("label")["cost_usd"].last().sum()) if len(led) else 0.0, 2)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -99,7 +104,7 @@ def main(argv: list[str] | None = None) -> int:
         "alloc": d["alloc"], "cash": d["cash"],
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], args.capital),
-        "cost_usd": book_cost(), "weeks": bt["weeks"], "gems": gems,
+        "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
     }
 
     OUT_DIR.mkdir(exist_ok=True)

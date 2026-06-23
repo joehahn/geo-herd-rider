@@ -23,10 +23,15 @@ agent loop checkpoint to `data/windows/` (gitignored) and resume on re-run.
 
 ## `build_dashboard.py` — the $50K dashboard
 Renders the GitHub-Pages dashboard ([`../docs/`](../docs/): portfolio vs SPY, allocation, firehose
-log, cost) from the saved fixture scan log. **No LLM cost.** Rebuild after a `firehose.py --fixture`
-run.
+log, cost) from the saved scan log (`data/windows/firehose_scans.json`). **No LLM cost.** The
+committed dashboard is the **event-first agent** book over the BWET window (GDELT firehose + BWET
+seed) — regenerate that scan log with `run_harness.py --event-first … --dump-scans`, then rebuild:
 
 ```bash
+# regenerate the agent scan log (the on-screen book):
+python scripts/run_harness.py --event-first --provider openrouter --model xiaomi/mimo-v2.5-pro \
+  --seed data/fixtures/firehose_bwet.json --no-targeted \
+  --start 2026-02-06 --end 2026-06-18 --dump-scans data/windows/firehose_scans.json
 python scripts/build_dashboard.py        # reads data/windows/firehose_scans.json -> docs/
 python -m http.server -d docs            # then open localhost:8000
 ```
@@ -41,5 +46,5 @@ python scripts/plot_shipping.py
 
 ## See also (CLI entry points in `src/`)
 - `python src/firehose.py --fixture data/fixtures/firehose_bwet.json …` — look-ahead-clean mechanics
-  test; writes `data/windows/firehose_scans.json` for the dashboard.
+  test (BWET-only, perfect-retrieval assumption).
 - `python src/forward.py --scan` / `--report` — the live, contamination-free forward eval (the verdict).

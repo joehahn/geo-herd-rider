@@ -91,6 +91,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="fast variant: agents read the broad cached pool only (skip per-event GDELT fetches)")
     ap.add_argument("--event-first", action="store_true",
                     help="event-first engine: events own an evolving vehicle set (vs ticker-keyed --agent)")
+    ap.add_argument("--dump-scans", default=None,
+                    help="write {date: picks} to this path (e.g. data/windows/firehose_scans.json for the dashboard)")
     args = ap.parse_args(argv)
 
     load_dotenv()
@@ -123,6 +125,10 @@ def main(argv: list[str] | None = None) -> int:
                                    pool_chunk_days=args.chunk_days, pool_per=args.per)
     if args.seed:
         print(f"  (retrieval-perfect overlay {Path(args.seed).name})", file=sys.stderr)
+    if args.dump_scans:  # persist {date: picks} so build_dashboard can render THIS engine's book
+        Path(args.dump_scans).write_text(json.dumps(
+            {a.date().isoformat(): scans[a] for a in scans}, indent=2, default=str))
+        print(f"  dumped scans -> {args.dump_scans}", file=sys.stderr)
     bt = firehose.backtest(scans, fm, daily=False)
 
     held = _held_weeks(bt)
