@@ -53,9 +53,9 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
-A year of context, indexed to 100 at the Feb-2026 carrier deployment (SPY in grey). BWET drifted at a fraction of its eventual level all year, then ran with the war. Reproduce: `python scripts/plot_shipping.py`.
+## Live dashboard
 
-**Live dashboard:** [a $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, a [firehose log](https://joehahn.github.io/geo-herd-rider/firehose.html) of the week-by-week press-named gems, and an LLM-cost panel. The on-screen book is a **fixture** backtest that assumes perfect point-in-time retrieval of the early articles (which no search tool actually delivers), so it proves the *mechanics* — not that the firehose finds the gems in time. A **hindsight upper bound**; rebuild with `python scripts/build_dashboard.py`.
+[A $50K book traded through the solution](https://joehahn.github.io/geo-herd-rider/) — portfolio value vs SPY, allocation over time, a [firehose log](https://joehahn.github.io/geo-herd-rider/firehose.html) of the week-by-week press-named gems, and an LLM-cost panel. The on-screen book is a **fixture** backtest that assumes perfect point-in-time retrieval of the early articles (which no search tool actually delivers), so it proves the *mechanics* — not that the firehose finds the gems in time. A **hindsight upper bound**; rebuild with `python scripts/build_dashboard.py`.
 
 ## The signal, and its jobs
 
