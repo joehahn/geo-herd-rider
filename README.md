@@ -36,9 +36,9 @@ flowchart TD
 
 The two highlighted boxes are what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it — and the **forward scoreboard** (blue) is the referee that keeps the whole thing honest.
 
-## The firehose: why reading beats reasoning
+## The news firehose: why reading beats reasoning
 
-We don't screen all tickers to discover gems, and we don't derive them from a causal tree. The financial press does the gem-discovery and prints the ticker — repeatedly, and progressively earlier as a move builds. BWET, in the 2026 Trump–Iran war:
+We don't screen all tickers to discover gems, the financial press already does the gem-discovery and names the ticker, repeatedly, and progressively earlier as a move builds. BWET, in the 2026 Trump–Iran war:
 
 | Date | Outlet | Framing | from this date → peak |
 |---|---|---|---|
