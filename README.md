@@ -49,7 +49,7 @@ flowchart TD
 
 The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, the gem that best expresses a held event can change, and the optimizer re-sizes. Held-event state (each agent's prior-week note, the sticky hold) carries forward across passes, so an event is tracked continuously until its agent calls the exit.
 
-The highlighted box is what makes this different from a momentum screener: the **event and its gem(s)** (red) are *where* the edge lives — the press has flagged a live catalyst and named the tickers that express it.
+The highlighted box is *where* the edge lives: the **event and its gem(s)** (red) — the press has flagged a live catalyst and named the tickers that express it.
 
 **Every box has a home below** (and every component discussed below is a box above):
 
