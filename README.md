@@ -28,7 +28,7 @@ flowchart TD
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>discover the week's<br/>candidate events"]
       MA["🧩 Matcher<br/>group named tickers<br/>into events in flight"]
-      AG["🟢/⚪ Per-event agent<br/>track weekly: thesis live?<br/>hold / exit; the gem can evolve"]
+      AG["🟢/⚪ Per-event agent<br/>weekly note: thesis live? (hold/exit)<br/>+ tag maturity (info-only); gem can evolve"]
       SC --> MA --> AG
     end
 
@@ -72,7 +72,16 @@ We don't screen all tickers to discover gems, the financial press already does t
 | Apr 9 | Business Times | *"a 1,300% rally … an Iran war gauge"* | ~1.5× |
 | Apr 25 | CNBC | *"up over 600% … better than oil or energy stocks"* | mainstream |
 
-From that framing we tag the **event's maturity**: *"under the radar / no one's talking about it"* reads as **early** (room to run); *"everyone's piling in"* reads as late (**consensus / crested**). This tag is **info only** — it doesn't drive the trade. The trade is driven separately: we enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
+From that framing the curator assigns each held event one **maturity tag** — a read on how far its move/coverage has progressed, i.e. where the gem sits between the smart money (in early) and the slow herd (piling in late). It is a **fixed four-value vocabulary**, and it is **diagnostic only: recorded and shown, but it never gates entry, exit, or sizing** (the hold/exit decision is `thesis_live`, below):
+
+| Tag | Reads as | Typical press framing | Smart-money ↔ herd |
+|---|---|---|---|
+| `early` | under the radar, room to run | *"little-known", "flown under the radar"*, small AUM | smart money in, herd absent |
+| `building` | gaining attention | *"skyrocketing", "starting to get noticed"* | herd beginning to arrive |
+| `consensus` | mainstream, crowded | *"everyone piling in"*, broad coverage | herd piled in |
+| `crested` | peaked / rolling over | *"up 600%"*, momentum fading | herd late; the move is maturing out |
+
+The **trade itself is driven separately**: we enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
 
 The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
@@ -103,7 +112,7 @@ The curator runs in one of two modes, both feeding the same optimizer — the tw
 - **Scout → per-event agents** (the current engine) — a **scout** reads the firehose to *discover* candidate events; then every held event gets **its own agent** that, each week:
   1. pulls news **targeted to that event** (its own catalyst — including resolution signals like a ceasefire);
   2. reads **only its prior week's note** — a rolling, one-entry-deep memory that's *superseded* each week, so old (and possibly wrong) conclusions don't pile up and anchor future thinking;
-  3. writes a new note: a short assessment, a maturity tag (early→crested, *info only*), the **`thesis_live` / exit** call, and hot-linked sources.
+  3. writes a new note: a short assessment, the **`thesis_live` / exit** call (the *only* thing that drives the hold/exit), a **maturity tag** (early→crested — *diagnostic only; it never drives entry, exit, or sizing*), and hot-linked sources.
 
   The live events become the watchlist; the optimizer sizes. The journal (`data/windows/agent_journals.json`) is the human-readable audit trail. Discovery is aggregate (you can't target-search an event you haven't found); only *monitoring* a held event uses its own targeted search — so it doesn't bias what we discover.
 
