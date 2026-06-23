@@ -38,7 +38,7 @@ The two highlighted boxes are what makes this different from a momentum screener
 
 ## The news firehose: why reading beats reasoning
 
-We don't screen all tickers to discover gems, the financial press already does the gem-discovery and names the ticker, repeatedly, and progressively earlier as a move builds. BWET, in the 2026 U.S.–Iran war:
+We don't screen all tickers to discover gems, the financial press already does the gem-discovery and names the ticker, repeatedly, and progressively earlier as a move builds. BWET, in the 2026 Iran war:
 
 | Date | Outlet | Framing | from this date → peak |
 |---|---|---|---|
@@ -49,7 +49,7 @@ We don't screen all tickers to discover gems, the financial press already does t
 
 We **tag the framing**: *"under the radar / no one's talking about it"* says the trade is still early (room to run); *"everyone's piling in"* says it's late. We enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over. Whether to *also* require a gem still be framed "early" at entry is a knob we **test, not assume** (see Status).
 
-The ticker that motivates this project is **BWET**. In the 2026 U.S.–Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
+The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
