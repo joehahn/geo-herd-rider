@@ -32,8 +32,8 @@ flowchart TD
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>live events & the gem(s) the<br/>press names for each (the bet)"]
-    W["⚖️ Optimizer<br/>mechanical mean-variance sizing<br/>— AI never sizes (schema guardrail)"]
+    E["🎯 Watchlist<br/>live events & the gems the press names (the bet)"]
+    W["⚖️ Optimizer<br/>mechanical mean-variance sizing — AI never sizes (schema guardrail)"]
     B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
 
     S --> SS
