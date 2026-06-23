@@ -35,7 +35,8 @@ from optimizer import load_financial_model  # noqa: E402
 OUT_DIR = ROOT / "docs"  # GitHub Pages serves this folder (Settings -> Pages -> main /docs)
 SCANS_JSON = ROOT / "data" / "windows" / "firehose_scans.json"
 
-# tab10 / seaborn categorical palette — matches the PWR dashboard's plot-5 color schema.
+# PWR (tab10) categorical palette — matches the portfolio-wave-rider dashboard color schema.
+# Every plot draws ticker series and headline lines from this list (no seaborn/Flat-UI muted tones).
 PALETTE = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#eab308",
            "#17becf", "#e377c2", "#7f7f7f", "#0d9488", "#8c564b", "#bcbd22"]
 
@@ -98,6 +99,15 @@ def main(argv: list[str] | None = None) -> int:
                          "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
 
     tickers = sorted(d["alloc"].keys())
+
+    # Plot 5 — the sticky live watchlist per week (what the curator kept thesis-live), with the
+    # subset the optimizer actually funded that week (watchlisted-but-pruned shows as not-funded).
+    watch = firehose._stateful_watch(scans)
+    funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s]
+                      for lg in bt["log"]}
+    watchlist = [{"week": a.date().isoformat(), "names": watch[a],
+                  "funded": funded_by_week.get(a.date().isoformat(), [])} for a in scans]
+
     payload = {
         "capital": args.capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
@@ -106,6 +116,7 @@ def main(argv: list[str] | None = None) -> int:
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], args.capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
+        "watchlist": watchlist,
     }
 
     OUT_DIR.mkdir(exist_ok=True)
@@ -190,10 +201,11 @@ INDEX_HTML = r"""<!doctype html>
    stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
  <div id="dollars"></div>
 
- <h2>Plot 5 — Holdings by date</h2>
- <p class="sub" style="margin:0 0 0">Each row is a date the book's basket changed, with the
-   nonzero ticker weights then (the trade the solution recommended):</p>
- <table class="atab" id="alloctable"></table>
+ <h2>Plot 5 — Watchlist by date</h2>
+ <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
+   the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
+   optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
+ <table class="atab" id="watchtable"></table>
 
  <h2>What it cost</h2>
  <div id="costs"></div>
@@ -218,20 +230,23 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
+  // PWR (tab10) palette: book = red, SPY = gray, the gem overlay = its own allocation color.
+  const BOOK="#d62728", SPYC="#7f7f7f";
+  const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
   const vtraces=[
-    {x:D.dates,y:D.value,name:"Firehose book",line:{color:"#c0392b",width:2.4}},
-    {x:D.dates,y:D.spy,name:"SPY",line:{color:"#9aa0a6",width:1.6,dash:"dot"}},
+    {x:D.dates,y:D.value,name:"Firehose book",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
   ];
-  const vann=[endlab(D.value,"#c0392b",10),endlab(D.spy,"#9aa0a6",-10)], vshapes=[];
+  const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
   if(D.overlay){
     vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
-      line:{color:"#e67e22",width:1.8,dash:"dash"},connectgaps:true});
+      line:{color:OVC,width:1.8,dash:"dash"},connectgaps:true});
     vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
-      line:{color:"#e6b089",width:1,dash:"dot"}});
+      line:{color:OVC,width:1,dash:"dot"}});
     vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
-      text:"carriers → W. Med",font:{color:"#cf8030",size:10}});
+      text:"carriers → W. Med",font:{color:OVC,size:10}});
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
@@ -281,20 +296,23 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     yaxis:{tickprefix:"$",separatethousands:true},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
-  let prev=null; const rowsT=[];
-  for(let i=0;i<D.dates.length;i++){
-    const held=[];
-    for(const t in D.alloc){const w=D.alloc[t][i]; if(w>0.0001) held.push(t+" "+(w*100).toFixed(0)+"%");}
-    const sig=held.join(" · ");
-    if(sig!==prev){
-      if(sig) rowsT.push(`<tr><td>${D.dates[i]}</td><td>${sig}</td></tr>`);
-      else if(prev!==null) rowsT.push(`<tr><td>${D.dates[i]}</td><td style="color:#aaa">— to cash —</td></tr>`);
-      prev=sig;
-    }
+  // Plot 5 — watchlist by date: rows where the live watchlist or its funding changed.
+  let pw=null; const wrows=[];
+  for(const w of (D.watchlist||[])){
+    const fset=new Set(w.funded||[]);
+    const sig=w.names.join(",")+"|"+(w.funded||[]).join(",");
+    if(sig===pw) continue;
+    pw=sig;
+    if(!w.names.length){ wrows.push(`<tr><td>${w.week}</td><td style="color:#aaa">— empty (cash) —</td></tr>`); continue; }
+    const cells=w.names.map(t=>{
+      const c=(D.colors&&D.colors[t])||"#444";
+      return fset.has(t) ? `<b style="color:${c}">${t}</b>` : `<span style="color:#aaa">${t}</span>`;
+    }).join(" · ");
+    wrows.push(`<tr><td>${w.week}</td><td>${cells}</td></tr>`);
   }
-  document.getElementById("alloctable").innerHTML=
-    `<thead><tr><th>Date</th><th>Held basket (nonzero weights)</th></tr></thead>`+
-    `<tbody>${rowsT.join("")||'<tr><td colspan=2 style="color:#aaa">never deployed</td></tr>'}</tbody>`;
+  document.getElementById("watchtable").innerHTML=
+    `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
+    `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
 
   document.getElementById("costs").innerHTML =
     `<div class="card" style="max-width:430px"><div class="k">cost to produce this book</div>`
