@@ -10,6 +10,29 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
+## Maturity tag as an entry/exit gate (does framing add lift?)
+
+We removed the per-event **maturity tag** (`early | building | consensus | crested`) from the
+pipeline — it was emitted by the curator but read by nothing (purely diagnostic), so it was dead
+weight that invited "does it drive the trade?" confusion. Park the *idea* here: it may be worth
+re-introducing **only if** it earns its keep as an actual gate.
+
+The hypothesis: a gem still framed *under-the-radar / early* sits nearer the smart money than the
+herd, so **gating entry on `early`** (and/or **exiting on `crested`**) could lift returns — or it
+could cost us gems we only ever discover already-mainstream. Today entry fires on *press-named +
+live thesis* and exit on *catalyst resolution* (`thesis_live`); the tag would be a new, separate
+signal layered on top.
+
+- **How to test:** re-add the tag as a curator output (one extra field, no extra LLM call), then
+  A/B on the multi-gem harness — baseline (no gate) vs. `early`-gated entry vs. `crested`-triggered
+  exit — on recall / precision / tail. Keep it **diagnostic until the scoreboard shows lift**.
+- **Pre-register the bar** (which gate, what excess-vs-prior-config threshold) before running, so it
+  can't be tuned to the data (CLAUDE.md #5). If no lift, leave it deleted.
+- **Where it'd live in forward** (the reason to persist it, not just regenerate it per backtest): in
+  forward operation you can't replay history, so the tag would need to be logged at decision time —
+  another reason to defer until the early-gating question is actually on deck.
+- Was previously documented as the README "open knob"; moved here when the tag was stripped.
+
 ## Regime-contrast study: loud geopolitics vs. quiet stretches
 
 Run the solution across **matched multi-month windows** and check whether it behaves the way

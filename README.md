@@ -11,7 +11,7 @@
 
 **Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**; late enough such that the direction is discernable and early enough to capture some of the move before the herd arrives and prices it away. And just as we ride in ahead of the herd, we ride out as it shows up: once the herd has piled in and flattened the opportunity that position has done its work, so we pivot off to the next event whose opportunity is still un-grazed.
 
-**The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, and it does so repeatedly and progressively earlier as a move builds. A niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. The edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis, ride while that thesis holds, and exit when it decays. We *also* tag the **event's maturity** — how far its coverage has progressed, from *under the radar* to *everyone's piling in* — a read on where the gem sits between the smart money (already in the named gem) and the slow herd (not yet). That maturity tag is **info only — it does not gate entry or exit** (the hold/exit call is a separate thesis judgment; see Status). AI is never used to predict *how big* a move will be — only which ticker, and whether its thesis still holds, while a non-AI mechanical optimizer sizes it.
+**The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, and it does so repeatedly and progressively earlier as a move builds. A niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. The edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis, ride while that thesis holds, and exit when it decays. AI is never used to predict *how big* a move will be — only which ticker, and whether its thesis still holds, while a non-AI mechanical optimizer sizes it.
 
 **What this repo does.** Each week (of historical news) an LLM reads the news firehose as well as some high-reach posts, extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and curates a watchlist. A plain mean-variance optimizer then weights that watchlist. A position is **held while its driving catalyst is live** and **dropped when the thesis decays** (ceasefire signed, chokepoint reopens). The whole run is then scored against a locked set of historical "gems."
 
@@ -28,7 +28,7 @@ flowchart TD
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>discover the week's<br/>candidate events"]
       MA["🧩 Matcher<br/>group named tickers<br/>into events in flight"]
-      AG["🟢/⚪ Per-event agent<br/>weekly note: thesis live? (hold/exit)<br/>+ tag maturity (info-only); gem can evolve"]
+      AG["🟢/⚪ Per-event agent<br/>weekly note: thesis live? (hold/exit);<br/>the gem can evolve"]
       SC --> MA --> AG
     end
 
@@ -72,16 +72,7 @@ We don't screen all tickers to discover gems, the financial press already does t
 | Apr 9 | Business Times | *"a 1,300% rally … an Iran war gauge"* | ~1.5× |
 | Apr 25 | CNBC | *"up over 600% … better than oil or energy stocks"* | mainstream |
 
-From that framing the curator assigns each held event one **maturity tag** — a read on how far its move/coverage has progressed, i.e. where the gem sits between the smart money (in early) and the slow herd (piling in late). It is a **fixed four-value vocabulary**, and it is **diagnostic only: recorded and shown, but it never gates entry, exit, or sizing** (the hold/exit decision is `thesis_live`, below):
-
-| Tag | Reads as | Typical press framing | Smart-money ↔ herd |
-|---|---|---|---|
-| `early` | under the radar, room to run | *"little-known", "flown under the radar"*, small AUM | smart money in, herd absent |
-| `building` | gaining attention | *"skyrocketing", "starting to get noticed"* | herd beginning to arrive |
-| `consensus` | mainstream, crowded | *"everyone piling in"*, broad coverage | herd piled in |
-| `crested` | peaked / rolling over | *"up 600%"*, momentum fading | herd late; the move is maturing out |
-
-The **trade itself is driven separately**: we enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
+The progression in that last column — *"under the radar" → "everyone piling in"* — traces a gem moving from the smart money to the slow herd; reading it early is the whole point. We enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
 
 The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
@@ -96,8 +87,8 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 One source, three jobs — plus mechanical sizing:
 
 - **Read** — *what's worth owning.* The news firehose (and high-reach posts via `trump_feed.py`, point-in-time-sliceable) — the tickers the press explicitly **names** as thesis-driven movers. The human never picks.
-- **Enter** — *the press names it on a live thesis.* We also tag the **event's maturity** (early → crested) as a read on smart-money-vs-herd positioning — **info only today, not an entry gate**; whether maturity-gating earns its keep is tested in the harness.
-- **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is **high maturity, not thesis death** — only the catalyst resolving ends the hold.
+- **Enter** — *the press names it on a live thesis.* The human never sets the trade; the curator just reports which tickers the press is naming as live movers.
+- **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is **not thesis death** — only the catalyst resolving ends the hold.
 - **Sizing** — mechanical (the ⚖️ **Optimizer** box). A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers, and a schema guardrail (below) drops any magnitude it tries to emit.
 
 Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how often the firehose re-scans/re-optimizes *and* the trailing news window each scan reads — they're the same thing ("the news since the last scan"). A position persists across scans via a sticky hold (it exits on confirmed thesis death or prolonged silence), so coverage gaps don't churn it.
@@ -112,7 +103,7 @@ The curator runs in one of two modes, both feeding the same optimizer — the tw
 - **Scout → per-event agents** (the current engine) — a **scout** reads the firehose to *discover* candidate events; then every held event gets **its own agent** that, each week:
   1. pulls news **targeted to that event** (its own catalyst — including resolution signals like a ceasefire);
   2. reads **only its prior week's note** — a rolling, one-entry-deep memory that's *superseded* each week, so old (and possibly wrong) conclusions don't pile up and anchor future thinking;
-  3. writes a new note: a short assessment, the **`thesis_live` / exit** call (the *only* thing that drives the hold/exit), a **maturity tag** (early→crested — *diagnostic only; it never drives entry, exit, or sizing*), and hot-linked sources.
+  3. writes a new note: a short assessment, the **`thesis_live` / exit** call (the *only* thing that drives the hold/exit), and hot-linked sources.
 
   The live events become the watchlist; the optimizer sizes. The journal (`data/windows/agent_journals.json`) is the human-readable audit trail. Discovery is aggregate (you can't target-search an event you haven't found); only *monitoring* a held event uses its own targeted search — so it doesn't bias what we discover.
 
@@ -150,8 +141,6 @@ The firehose pipeline is built end-to-end and runs over historical news; below i
 - `firehose.py --gdelt --seed <file>` — a **realistic** backtest: real date-honored GDELT headlines per week (`src/gdelt.py`) + the early niche pieces GDELT misses, seeded at their true dates. The curator must *find* the gem in genuine noise — the fast dev loop for hunting weaknesses (it drove a sticky-hold, selectivity/vehicle-selection, and ticker-validation hardening). **This is the surface the [live dashboard](#live-dashboard) renders** (event-first agent, +393% vs SPY +7%). Still a hindsight upper bound.
 
 **Why every number here is an upper bound.** No search tool gives true point-in-time retrieval — Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). **GDELT** (`src/gdelt.py`) *does* honor dates, but under-indexes niche trade press, so it picks a gem up only once mainstream piles in (late). On top of that, the curator model was trained past these events. So every backtest figure above is a **ceiling**, reported as such — never read it as realized lift.
-
-**An open knob, tracked not assumed.** Today entry fires on *press-named + live thesis*; the `maturity` tag (early → crested) is recorded but **does not gate entry or exit**. Whether *requiring a gem still be tagged "early" at entry* actually improves returns — vs. missing gems we only discover already-mainstream — is a variable the multi-event harness will test, not something we bake in on faith.
 
 **Backtest roadmap (this README's scope).** We harden the engine on a widening historical slice, one rung at a time:
 1. **BWET alone** — lock the mechanics on the single motivating gem (enter early, ride, exit on resolution).

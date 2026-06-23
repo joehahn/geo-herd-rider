@@ -4,7 +4,7 @@ The variant the harness A/Bs against the single-scan baseline. Each weekly ancho
   1. SCOUT (one aggregate call) reads the week's firehose and proposes candidate events.
   2. FAN-OUT: for every open event + new candidate, a per-event agent reads its prior journal
      entry (memory) + this week's news targeted to that event, then writes a new entry — an
-     assessment, maturity tag, the thesis_live/exit call, and hotlinked sources.
+     assessment, the thesis_live/exit call, and hotlinked sources.
   3. The live events' tickers become the week's picks (same shape the backtest/optimizer expects).
 
 Journals are the agent's memory and carry the thesis forward (continuity -> steadier exits). In
@@ -46,8 +46,8 @@ SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["c
                    "properties": {"ticker": {"type": "string"}, "thesis": {"type": "string"},
                                   "why_now": {"type": "string"}}}}}}
 AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-               "required": ["thesis_live", "maturity", "exit_advice", "assessment", "news_claims", "sources"],
-               "properties": {"thesis_live": {"type": "boolean"}, "maturity": {"type": "string"},
+               "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "sources"],
+               "properties": {"thesis_live": {"type": "boolean"},
                               "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
                               "news_claims": {"type": "string"},
                               "sources": {"type": "array", "items": {"type": "string"}}}}
@@ -76,19 +76,18 @@ Decide:
                  (ceasefire signed and shipping resumes, chokepoint reopens, the supply shock ends,
                  the policy passes/fails). This is the HOLD/EXIT switch. Use common sense about WHEN
                  the event is over — that is your job. Mainstream hype ("up 600%, everyone in") is
-                 high MATURITY, not resolution; do NOT exit on maturity alone.
+                 NOT resolution; do NOT exit just because a trade has gotten crowded.
                  BUT BE SKEPTICAL ON ENTRY: if this event has NO clear, ongoing catalyst — it was a
                  one-off mention, a routine gainer, or there's no real sustained thesis here — set
                  thesis_live=FALSE NOW. Do not keep noise alive; only a genuine, still-active
                  catalyst earns thesis_live=true.
-  maturity     — early | building | consensus | crested  (INFO only).
   exit_advice  — <=20 words: the concrete condition that would end the thesis.
   assessment   — <=40 words: what changed this week and your read, continuous with your prior note.
   news_claims  — OPTIONAL <=12 words: attribute any size/return figure to the PRESS ("press cites
                  ~600% YTD"). NEVER your own price target or magnitude forecast — you do not predict
                  how high it goes.
 
-Output ONLY JSON: {"thesis_live":true,"maturity":"early|building|consensus|crested","exit_advice":
+Output ONLY JSON: {"thesis_live":true,"exit_advice":
 "...","assessment":"...","news_claims":"","sources":["url","url"]}."""
 
 
@@ -112,7 +111,6 @@ class JournalEntry(BaseModel):
     the thesis_live/exit call, and prose. news_claims is attribution of what the PRESS says."""
     model_config = ConfigDict(extra="ignore")
     thesis_live: bool = True
-    maturity: str = "?"          # early|building|consensus|crested — INFO only
     exit_advice: str = ""
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
@@ -214,7 +212,7 @@ def event_agent(client, anchor: pd.Timestamp, event: dict, prior: dict | None,
     except Exception:  # noqa: BLE001
         e = JournalEntry()                   # malformed -> safe default (thesis_live stays true)
     return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
-            "maturity": e.maturity, "exit_advice": e.exit_advice, "assessment": e.assessment,
+            "exit_advice": e.exit_advice, "assessment": e.assessment,
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6]}
 
 
@@ -293,7 +291,7 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
                 j["entries"].append(entry)
                 j["status"] = "live" if entry["thesis_live"] else "exited"
                 picks.append({"ticker": ev["ticker"], "thesis": ev["thesis"],
-                              "thesis_live": entry["thesis_live"], "maturity": entry["maturity"],
+                              "thesis_live": entry["thesis_live"],
                               "evidence_urls": entry["sources"]})
         out[a] = picks
         done.add(a.isoformat())
@@ -327,8 +325,8 @@ or "new" if it is a genuinely different catalyst. Output ONLY JSON:
 {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["thesis_live", "maturity", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
-    "properties": {"thesis_live": {"type": "boolean"}, "maturity": {"type": "string"},
+    "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "properties": {"thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
@@ -338,16 +336,16 @@ EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are g
 catalyst, its KNOWN vehicles (tickers seen expressing it), your prior weekly note, and this week's
 news. Write the new note.
 
-Decide thesis_live / maturity / exit_advice / assessment / news_claims as a single-event tracker
+Decide thesis_live / exit_advice / assessment / news_claims as a single-event tracker
 would (thesis_live = is the CATALYST still active; flip false only on resolution; be skeptical of
-one-off noise; mainstream hype is high maturity, not resolution). PLUS pick **vehicles**: the 1-2
+one-off noise; mainstream hype is NOT resolution). PLUS pick **vehicles**: the 1-2
 PUREST tickers to HOLD for this event now, chosen from its known vehicles — prefer the cleanest
 pure-play / rate-or-commodity ETN / single ADR over diluted, redundant, or tangential names (do
 NOT hold five vehicles for one event). You may drop a vehicle that's no longer the best.
 
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
-composition, the exit, and which vehicle. Output ONLY JSON: {"thesis_live":true,"maturity":
-"early|building|consensus|crested","exit_advice":"...","assessment":"...","news_claims":"",
+composition, the exit, and which vehicle. Output ONLY JSON: {"thesis_live":true,
+"exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
 
@@ -397,7 +395,7 @@ def event_agent_v2(client, anchor, event, prior, news):
         e = JournalEntry()
     veh = [v.strip().upper() for v in e.vehicles if v.strip()]
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
-    return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live, "maturity": e.maturity,
+    return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
             "exit_advice": e.exit_advice, "assessment": e.assessment, "news_claims": e.news_claims,
             "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
@@ -469,7 +467,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
-                                  "thesis_live": entry["thesis_live"], "maturity": entry["maturity"],
+                                  "thesis_live": entry["thesis_live"],
                                   "evidence_urls": entry["sources"]})
         out[a] = picks
         done.add(a.isoformat())

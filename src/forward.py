@@ -19,7 +19,7 @@ Modes:
             prices, and report the firehose book vs SPY, the gems caught, and live holdings.
 
 State : data/forward/firehose_scans.csv  (append-only: decision_ts, week, ticker, thesis,
-        thesis_live, maturity, evidence_urls)
+        thesis_live, evidence_urls)
 """
 from __future__ import annotations
 
@@ -41,7 +41,7 @@ SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
 PROFILE = REPO_ROOT / "investor_profile.md"
 MODEL = "claude-opus-4-8"
 
-COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "maturity", "evidence_urls"]
+COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
 
 
 def _now() -> pd.Timestamp:
@@ -78,10 +78,9 @@ def scan_and_log(model: str, rebalance_days: int, lookback_days: int | None = No
     if not picks:
         print(f"  week {wk_key}: no gems named by the press this week.")
         # still record an empty marker row so the week is logged (and not re-scanned)
-        picks = [{"ticker": "", "thesis": "", "thesis_live": "", "maturity": ""}]
+        picks = [{"ticker": "", "thesis": "", "thesis_live": ""}]
     rows = [{"decision_ts": _now().isoformat(), "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
-             "maturity": p.get("maturity", p.get("crowding", "")),
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
     SCANS_CSV.parent.mkdir(parents=True, exist_ok=True)
@@ -104,8 +103,7 @@ def _scans_dict(log: pd.DataFrame) -> dict:
             tl = r.get("thesis_live")
             picks.append({"ticker": str(r["ticker"]).strip().upper(),
                           "thesis": r.get("thesis", ""),
-                          "thesis_live": str(tl) in ("True", "true", "1", "1.0", "True "),
-                          "maturity": r.get("maturity", r.get("crowding", ""))})
+                          "thesis_live": str(tl) in ("True", "true", "1", "1.0", "True ")})
         out[anchor] = picks
     return dict(sorted(out.items()))
 

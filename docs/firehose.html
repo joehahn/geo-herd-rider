@@ -16,7 +16,6 @@
  .date{font-weight:600} .tk{font-family:ui-monospace,Menlo,monospace;font-weight:600;background:#2c3e50;color:#fff;border-radius:6px;padding:1px 7px;font-size:13px}
  .b{display:inline-block;font-size:11px;padding:1px 8px;border-radius:20px;margin-left:6px;background:#eef1f3;color:#445}
  .b.live{background:#e3f3e6;color:#1e7d34;font-weight:600} .b.exit{background:#eef1f3;color:#888;font-weight:600}
- .b.early{background:#e8f0fe;color:#1a56c4} .b.consensus{background:#fdebd0;color:#9c5700}
  .th{font-size:13.5px;color:#333;margin:6px 0 4px} .u{font-size:12px} .u a{color:#2980b9;margin-right:10px}
 </style></head>
 <body><div class="wrap">
@@ -30,8 +29,7 @@
        NAMES as thesis-driven movers — the journalists do the gem-discovery (CNBC/ETF.com named
        BWET weeks before it tripled).</li>
      <li><b>🟢 Enter / hold while LIVE.</b> A name stays on the watchlist while its driving thesis
-       is live (war on, chokepoint shut). <b>Crowding</b> (early→consensus) is shown for context
-       only — it does not drive the trade.</li>
+       is live (war on, chokepoint shut).</li>
      <li><b>⚪ Exit on decay.</b> Drop it when the thesis resolves (ceasefire, Hormuz reopens).</li>
      <li><b>Mechanical sizing</b> downstream (mean-variance optimizer; the LLM never sets weights).</li>
    </ol>
@@ -48,11 +46,10 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const weeks=Object.keys(byWeek).sort();
   document.getElementById("log").innerHTML = weeks.map(wk=>byWeek[wk].map(g=>{
     const urls=(g.urls||[]).map(u=>`<a href="${esc(u)}" target="_blank">source ↗</a>`).join("");
-    const cw=g.maturity?`<span class="b ${esc(g.maturity)}">${esc(g.maturity)}</span>`:"";
     return `<div class="row ${g.thesis_live?'':'exit'}">
       <div class="hd"><span class="date">${esc(g.week)} &nbsp;<span class="tk">${esc(g.ticker)}</span>
         <span class="b ${g.thesis_live?'live':'exit'}">${g.thesis_live?'HELD — thesis live':'EXIT — thesis decayed'}</span>
-        ${cw}</span></div>
+        </span></div>
       <div class="th">${esc(g.thesis)}</div><div class="u">${urls}</div></div>`;
   }).join("")).join("") || '<p class="sub">No gems logged yet.</p>';
 });

@@ -20,7 +20,6 @@ baseline — kept only if the scoreboard says it pays.
   "entries": [
     {"date": "2026-02-20",
      "assessment": "First press naming BWET as a tanker-rate play; war just opened, rates spiking. Early, under-owned.",
-     "maturity": "early",               // early | building | consensus | crested  (INFO)
      "thesis_live": true,               // the hold/exit switch (catalyst active?)
      "exit_advice": "Hold while Hormuz disruption persists; exit on ceasefire / rates rolling over.",
      "news_claims": "press cites ~240% YTD",   // ATTRIBUTION ONLY — never our own forecast, never feeds sizing
@@ -41,7 +40,7 @@ for each weekly anchor:
   parallel for ev in events:
       news   = targeted_retrieve(ev.query_terms, before=anchor)   # THIS event's coverage, date-bounded
       prior  = read_journal(ev)                                   # memory
-      entry  = event_agent(ev, prior, news)                       # writes assessment+maturity+thesis_live+exit+sources
+      entry  = event_agent(ev, prior, news)                       # writes assessment+thesis_live+exit+sources
       append_journal(ev, entry)
 
   # 3. CONSOLIDATE — sticky hold, now journal-driven

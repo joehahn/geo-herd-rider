@@ -69,13 +69,12 @@ ETFs (a foreign event is named via its US-listed ADR/ETF, e.g. YPF/ARGT, never a
 For each kept ticker decide:
   thesis        — the driving catalyst, <=12 words.
   thesis_live   — TRUE while the catalyst is ACTIVE/UNRESOLVED; stays TRUE through mainstream hype
-                  ("up 600%, everyone piling in" is high MATURITY, not thesis death). FALSE only when
-                  the CATALYST resolves (ceasefire, chokepoint reopens, shock ends). HOLD/EXIT switch.
-  maturity      — INFO only: early | building | consensus | crested.
+                  ("up 600%, everyone piling in" is NOT thesis death). FALSE only when the CATALYST
+                  resolves (ceasefire, chokepoint reopens, shock ends). HOLD/EXIT switch.
 
 You forecast NOTHING — no magnitude, target, weight, or probability. Output ONLY JSON:
-{"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":true,"maturity":"early|building|
-consensus|crested","evidence_urls":["news URLs"]}]}. Empty is fine: {"picks":[]}."""
+{"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":true,
+"evidence_urls":["news URLs"]}]}. Empty is fine: {"picks":[]}."""
 
 
 def _extract_json(text: str) -> dict:
@@ -149,17 +148,14 @@ via its US-listed ADR/ETF, e.g. YPF / ARGT, never a foreign-exchange ticker).
 For each kept ticker decide:
   thesis        — the driving catalyst, <=12 words (e.g. "Iran war spikes tanker freight rates").
   thesis_live   — TRUE while that catalyst is still ACTIVE / UNRESOLVED as of this week. It stays
-                  TRUE through mainstream hype: "up 600%, everyone piling in" is high MATURITY, NOT
-                  thesis death. Flip to FALSE only when the CATALYST ITSELF resolves — ceasefire
-                  signed, chokepoint reopened, the supply shock ends, rates actually rolling over.
+                  TRUE through mainstream hype: "up 600%, everyone piling in" is NOT thesis death.
+                  Flip to FALSE only when the CATALYST ITSELF resolves — ceasefire signed, chokepoint
+                  reopened, the supply shock ends, rates actually rolling over.
                   This is the HOLD/EXIT switch.
-  maturity      — how far the event/coverage has matured, INFO only (does NOT drive hold/exit):
-                  early (under-the-radar/little-known/small AUM) | building | consensus
-                  (mainstream, "everyone piling in") | crested (rolling over).
 
 Do NOT equate a big % gain with "late". You forecast NOTHING — no magnitude, target, weight, or
 probability. Output ONLY JSON: {"picks":[{"ticker":"BWET","thesis":"<=12 words","thesis_live":
-true,"maturity":"early|building|consensus|crested","evidence_urls":["..."]}]}."""
+true,"evidence_urls":["..."]}]}."""
 
 
 def _fixture_articles(path: str) -> list[dict]:
@@ -426,8 +422,8 @@ def main(argv: list[str] | None = None) -> int:
 
     print("\n=== weekly firehose picks (press-named gems) ===")
     for a in scans:
-        live = [f"{p['ticker']}[{'LIVE' if p.get('thesis_live', True) else 'EXIT'},"
-                f"{p.get('maturity', p.get('crowding','?'))}]" for p in scans[a]]
+        live = [f"{p['ticker']}[{'LIVE' if p.get('thesis_live', True) else 'EXIT'}]"
+                for p in scans[a]]
         print(f"  {a.date()}: {', '.join(live) if live else '—'}")
     if args.scan_only:
         return 0
