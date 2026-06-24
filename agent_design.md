@@ -231,6 +231,59 @@ through config. They are behavior-affecting (guarded by the golden regression ch
   same-ticker-guard hits, and invalid-ticker drops — currently computed in-run and lost. Cheap to
   emit, impossible to reconstruct later; needed to audit *what the agents did*, not just what survived.
 
+## Retrieval: GDELT and seeds **[CURRENT]**
+
+How the backtest "reads the firehose" — the date-honest news source plus a patch for its blind spot.
+Both are **backtest** mechanisms; live/forward retrieval is a separate concern (out of scope here).
+
+### GDELT (`src/gdelt.py`) — the look-ahead-clean firehose
+The **GDELT 2.0 DOC API** is the one retrieval source whose date bounds are **enforced server-side**:
+a query as-of a past week returns only articles GDELT had indexed *by then* (real point-in-time
+retrieval). This is what makes a retrospective backtest defensible — most tools leak the future
+(Anthropic `before:` and Tavily `end_date` both return post-cutoff articles; see `src/search.py`).
+
+- **Query.** `search(query, start, end, max_results=60)` → one `GET` to
+  `https://api.gdeltproject.org/api/v2/doc/doc` with `mode=ArtList`, `format=json`,
+  `startdatetime`/`enddatetime` (`YYYYMMDD000000`, the enforced look-ahead bound), `sort=datedesc`.
+  No API key; rate-limited (`MIN_INTERVAL=15s` — GDELT throttles harder than its stated 1 req/5s).
+  Quirk: GDELT needs **single words or quoted phrases** — bare multi-word queries return nothing.
+- **Queries are theme-level, NEVER the ticker** (`firehose.GDELT_QUERIES`: `"ETF"`, `"Hormuz"`,
+  `'"tanker rates"'`, `'"freight rates"'`, …). The analyst watches the right beats; the curator must
+  still *discover* the name. Pointing GDELT at "BWET" would hand it the answer.
+- **Pool.** `pool(queries, start, end, chunk_days=30, per=60, cache_path=…)` runs every query across
+  **date chunks** (so `datedesc`+`maxrecords` doesn't over-weight the latest weeks — forces even
+  time coverage), dedupes by URL, and **checkpoints after every (query, chunk)** so a long throttled
+  fetch survives sleep/kill and **resumes** (atomic tmp+replace). Cached pools are gitignored
+  (`gdelt_pool_*.json` broad; `gdelt_event_*.json` per-event).
+- **Returns headline-level only — no body:** `{published_date, source (domain), title, snippet
+  (=title), url}`; records missing a date or URL are dropped.
+- **Two roles.** Single-scan `--gdelt` builds ONE broad pool for discovery (each week feeds ≤
+  `GDELT_WEEK_CAP=80` headlines to the curator). The event-first agent's `targeted_pool` builds a
+  PER-EVENT pool from that event's own terms (incl. resolution coverage, e.g. a ceasefire) to
+  *monitor* it — discovery stays broad, only monitoring is targeted, so targeting can't bias what's
+  discovered.
+- **Caveat that drives seeding:** GDELT **under-indexes niche trade press**, so it MISSES the early
+  under-the-radar pieces (the etf.com "flown under the radar" BWET write-up) and only picks a gem up
+  once mainstream piles in — i.e. *late*.
+
+### Seeds — patching the early-coverage blind spot
+A **seed** is a hand-collected real article GDELT misses, recorded with its **true publish date** and
+injected into the firehose so the curator can see it the week it actually appeared.
+
+- **Format** — a JSON file with an `articles: [{published_date, source, title, snippet, url}]` list
+  (`data/fixtures/firehose_bwet.json`, `data/fixtures/gems_seeds.json`); `--seed <file>`.
+- **Date-honest injection** — each weekly scan slices seeds to its trailing window via `_window`
+  (`lo < published_date <= anchor`), exactly like GDELT articles, so a seed is never visible before
+  its true date. Seeds are placed **first and never truncated** by `GDELT_WEEK_CAP` (the cap only
+  drops surplus GDELT headlines), so a niche early piece can't be crowded out by mainstream noise.
+- **`--fixture` vs `--gdelt --seed`** — `--fixture` runs *only* the seed set (assumes perfect
+  retrieval → a clean **mechanics** test, no GDELT noise). `--gdelt --seed` is the **realistic** run:
+  GDELT noise the curator must hunt in, plus the early pieces seeded back at true dates.
+- **Honest status (the reason this is a backtest-only shortcut):** clean point-in-time retrieval of
+  these niche early pieces is **not achievable with available search tools**, so seeding *grants* the
+  early naming rather than proving we could retrieve it. Every seeded number is therefore an **upper
+  bound** — it shows what the mechanics do *given* the early article, not that we'd have found it.
+
 ## Scale ballpark (~5-year weekly backtest)
 ~260 weekly scans · **~50–80 distinct events** (≤~150 worst case) · **~65–100 distinct gems/vehicles**
 · **~1,000–1,500 journal entries** · ~3–8 concurrent live events · **~1–2 MB** on disk. Small data —
