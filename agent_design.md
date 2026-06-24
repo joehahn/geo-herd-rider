@@ -188,8 +188,15 @@ The journal is the agent's **one-week-deep memory** (it reads only the prior ent
   can be revised without touching the rest. Derive flat `events` / `entries` / `decisions` tables
   (CSV/parquet) for re-reads & visualization — regenerated, never hand-edited.
 - **[PROPOSED] What's committed.** The full journal is a regenerated build artifact → don't commit it
-  by default (churn). Commit the small scan-log + harness report, plus a **frozen "golden" journal
-  snapshot per evaluated run** so the evaluated state is pinned and re-readable.
+  by default (churn). Commit the small scan-log + harness report, plus a **frozen "golden" snapshot
+  per evaluated run** so the evaluated state is pinned and re-readable.
+- **[CURRENT] Golden regression snapshot.** `data/golden/bwet/` freezes the scan log + price panel +
+  `fm` knobs + expected backtest output; `scripts/check_golden.py` replays it to prove a CODE change
+  didn't move the book (deterministic — isolates code from LLM noise and yfinance price drift).
+  `scripts/build_golden.py` regenerates it for an intentional, vetted baseline change. NOTE: with a
+  tight `min_trade_size` the optimizer is knife-edge — float-precision differences (e.g. in-memory vs
+  CSV-loaded prices) can flip which single name a week funds; the golden derives `expected` from the
+  same CSV the check reads, so it's internally consistent.
 - **[PROPOSED] `decisions` provenance log.** Persist per-week scout candidates, matcher assignments,
   same-ticker-guard hits, and invalid-ticker drops — currently computed in-run and lost. Cheap to
   emit, impossible to reconstruct later; needed to audit *what the agents did*, not just what survived.

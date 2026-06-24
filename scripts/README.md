@@ -36,6 +36,20 @@ python scripts/build_dashboard.py        # reads data/windows/firehose_scans.jso
 python -m http.server -d docs            # then open localhost:8000
 ```
 
+## `build_golden.py` / `check_golden.py` — deterministic regression check
+Freeze a BWET-era snapshot (committed scan log + price panel + `fm` knobs + expected backtest output)
+to `data/golden/bwet/`, then replay it to confirm a **code** change didn't move the book. Every input
+is frozen, so any diff is your code — not LLM non-determinism, not yfinance price drift. Fast, free,
+offline. **Routine gate for sizing / sticky-hold / entry-timing / backtest-loop edits.**
+
+```bash
+python scripts/check_golden.py        # exit 0 = stable, 1 = drift (prints a per-week diff)
+python scripts/build_golden.py        # (re)freeze the baseline — only for an intentional, vetted change
+python scripts/build_golden.py --refresh-panel   # also re-pull prices (rare)
+```
+Does NOT cover LLM-layer changes (scout/matcher/agent prompts) — smoke-test those with
+`firehose.py --fixture`; the multi-gem harness is the verdict.
+
 ## `plot_shipping.py` — the motivating figure
 The BWET-vs-SPY chart (indexed to 100 at the Feb-2026 carrier deployment) → `assets/bwet_vs_spy.png`
 (embedded in the README). Pulls prices via yfinance.

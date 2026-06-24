@@ -1,0 +1,115 @@
+{
+  "weeks": 19,
+  "final": 198560.97,
+  "spy_final": 54535.01,
+  "log": [
+    {
+      "week": "2026-02-06",
+      "watchlist": "",
+      "weights": "",
+      "week_return": 0
+    },
+    {
+      "week": "2026-02-13",
+      "watchlist": "",
+      "weights": "",
+      "week_return": 0
+    },
+    {
+      "week": "2026-02-20",
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.419
+    },
+    {
+      "week": "2026-02-27",
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": -0.1576
+    },
+    {
+      "week": "2026-03-06",
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.2145
+    },
+    {
+      "week": "2026-03-13",
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.2388
+    },
+    {
+      "week": "2026-03-20",
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.3181
+    },
+    {
+      "week": "2026-03-27",
+      "watchlist": "BWET;LHX",
+      "weights": "BWET:0.50;LHX:0.50",
+      "week_return": 0.0858
+    },
+    {
+      "week": "2026-04-03",
+      "watchlist": "BWET;FROG;LHX",
+      "weights": "BWET:1.00",
+      "week_return": 0.1505
+    },
+    {
+      "week": "2026-04-10",
+      "watchlist": "BWET;FROG;LHX",
+      "weights": "FROG:1.00",
+      "week_return": 0.0073
+    },
+    {
+      "week": "2026-04-17",
+      "watchlist": "BWET;FROG;LHX",
+      "weights": "BWET:1.00",
+      "week_return": 0.0104
+    },
+    {
+      "week": "2026-04-24",
+      "watchlist": "BWET;FROG;LHX",
+      "weights": "BWET:1.00",
+      "week_return": 0.229
+    },
+    {
+      "week": "2026-05-01",
+      "watchlist": "BWET;FROG;LHX",
+      "weights": "BWET:0.50;FROG:0.50",
+      "week_return": 0.1642
+    },
+    {
+      "week": "2026-05-08",
+      "watchlist": "BWET;LHX;RKLB",
+      "weights": "BWET:1.00",
+      "week_return": 0.0509
+    },
+    {
+      "week": "2026-05-15",
+      "watchlist": "BWET;LHX;RKLB",
+      "weights": "RKLB:1.00",
+      "week_return": 0.0918
+    },
+    {
+      "week": "2026-05-22",
+      "watchlist": "BWET;LHX;RKLB",
+      "weights": "RKLB:1.00",
+      "week_return": -0.1453
+    },
+    {
+      "week": "2026-05-29",
+      "watchlist": "ASTC;BWET;LHX;RKLB",
+      "weights": "RKLB:1.00",
+      "week_return": -0.0714
+    },
+    {
+      "week": "2026-06-05",
+      "watchlist": "ASTC;BWET;LHX",
+      "weights": "BWET:1.00",
+      "week_return": 0.0113
+    }
+  ]
+}

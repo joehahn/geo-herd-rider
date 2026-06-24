@@ -293,16 +293,22 @@ def _stateful_watch(scans: dict) -> dict:
 OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->W.Med transit
 
 
-def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False) -> dict:
+def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
+             panel: pd.DataFrame | None = None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
-    returns a daily value/allocation series (weekly weights held across days) for the dashboard."""
+    returns a daily value/allocation series (weekly weights held across days) for the dashboard.
+
+    `panel` lets a caller inject a FROZEN adjusted-close panel (DatetimeIndex, tz-naive) instead of
+    fetching live — used by the golden-snapshot regression replay so results are deterministic
+    (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
     tickers = {score.BENCHMARK, OVERLAY} | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
-    panel = score.fetch_panel(sorted(tickers), start, end, use_cache=False)
+    if panel is None:
+        panel = score.fetch_panel(sorted(tickers), start, end, use_cache=False)
     days = panel[score.BENCHMARK].dropna().index
 
     # ticker validation: drop names with no price data (hallucinated/delisted, e.g. the GDELT BBRD)
