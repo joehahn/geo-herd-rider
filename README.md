@@ -78,15 +78,16 @@ The progression in that last column — *"under the radar" → "everyone piling 
 
 - **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search** — *not* a bulk download of every article published that week. Instead the curator answers a single question — *which tickers is the press naming as thesis-driven movers this week?* — by running its own web searches for exactly that, reading the headline + snippet of each result, and returning the tickers the press flags. From that single question Claude spawns its own follow-up searches (no fixed list; it adapts to whatever's live that week), capping every search to news dated today or earlier.
 
-- **Backtest — replaying history to score the solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. So the backtest needs sources that are honest about the past. **Why GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
+- **Backtest — replaying history to score this solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. **Which is why this solution uses GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
   ```
   GDELT:  query="best performing stock"  startdatetime=20260206000000 enddatetime=20260213000000 sort=datedesc
   GDELT:  query="defense stocks"          startdatetime=20260206000000 enddatetime=20260213000000 sort=datedesc
   ```
-  GDELT's catch is that it returns **headlines only**, and a headline names the *theme*, rarely the *ticker* (the "(BWET)" lives in the lede). Two fixes recover that naming without re-importing the future: **seeds** (the niche early pieces GDELT misses, injected at their true dates — still the default) and **Wayback** enrichment, which fetches each GDELT hit's *as-of-date* archived lede — URL-keyed archival, so none of web search's three leaks (opt-in `--enrich`, under validation):
+  GDELT's catch is that it returns **headlines only**, and a headline names the *theme*, rarely the *ticker* (the "(BWET)" lives in the lede). Two fixes recover that naming without re-importing the future. First, **Wayback** enrichment fetches each GDELT hit's *as-of-date* archived lede — URL-keyed archival, so none of web search's three leaks (opt-in `--enrich`, under validation):
   ```
   Wayback CDX:  latest snapshot of <url> with to=20260213  ->  fetch lede ("...Breakwave Tanker Shipping ETF (BWET)...")
   ```
+  Second, **seeds** inject the niche early pieces GDELT misses at their true dates (still the default).
 
 The backtest's GDELT queries are deliberately **gem-agnostic** — superlatives plus the standard beats the live prompt already names — *not* terms reverse-engineered from the gems we know won. Full retrieval decision matrix is in [`agent_design.md`](agent_design.md#retrieval-gdelt-and-seeds-current).
 
