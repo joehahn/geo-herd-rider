@@ -74,7 +74,26 @@ We don't screen all tickers to discover gems, the financial press already does t
 
 The progression in that last column — *"under the radar" → "everyone piling in"* — traces a gem moving from the smart money to the slow herd; reading it early is the whole point. We enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
 
-**Where the news comes from — each tool used only where it's look-ahead-clean.** When **backtesting**, the weekly news-grab is **GDELT**: its date bounds are server-enforced *and* it returns articles by date, not by relevance — so a past-week scan sees only what was published by then, and an article isn't boosted just because it *later* became famous (the silent hindsight that a normal web search would import). GDELT's catch is that it returns **headlines only** and misses the niche early under-the-radar pieces — so for now those are **seeded** back at their true dates (which also supplies the ticker the headline omits). When the solution is run **forward in time** (week to week, for real), the look-ahead problem disappears — "search now for a just-happened gem" is clean by construction — so the firehose there is **Anthropic web search** instead. To keep the two comparable, the backtest's GDELT queries are **gem-agnostic** — superlatives ("best performing stock") plus the standard market beats the forward search prompt already names — *not* terms reverse-engineered from the gems we know won. Full retrieval decision matrix — incl. the **Wayback** as-of-date snippet enrichment that recovers the ticker the headline omits (built as an opt-in `--enrich` path, currently being validated on the BWET era; seeding is still the default) — is in [`agent_design.md`](agent_design.md#retrieval-gdelt-and-seeds-current).
+**Where the news comes from — each tool is used only where it's look-ahead-clean.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
+
+- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly (so it sees the ticker, not just the theme). This is clean *by construction* — "search now for a just-happened gem" cannot see a future that hasn't happened yet, so no special machinery is needed. The model writes its own gem-agnostic queries from the scan prompt, date-bounded to now:
+  ```
+  web_search:  "best performing stock this week"   before:2026-06-24
+  web_search:  "biggest stock gainers"             before:2026-06-24
+  web_search:  "under-the-radar stock surging"     before:2026-06-24
+  ```
+
+- **Backtest — replaying history to score the solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. So the backtest needs sources that are honest about the past. **Why GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
+  ```
+  GDELT:  query="best performing stock"  startdatetime=20260206000000 enddatetime=20260213000000 sort=datedesc
+  GDELT:  query="defense stocks"          startdatetime=20260206000000 enddatetime=20260213000000 sort=datedesc
+  ```
+  GDELT's catch is that it returns **headlines only**, and a headline names the *theme*, rarely the *ticker* (the "(BWET)" lives in the lede). Two fixes recover that naming without re-importing the future: **seeds** (the niche early pieces GDELT misses, injected at their true dates — still the default) and **Wayback** enrichment, which fetches each GDELT hit's *as-of-date* archived lede — URL-keyed archival, so none of web search's three leaks (opt-in `--enrich`, under validation):
+  ```
+  Wayback CDX:  latest snapshot of <url> with to=20260213  ->  fetch lede ("...Breakwave Tanker Shipping ETF (BWET)...")
+  ```
+
+The backtest's GDELT queries are deliberately **gem-agnostic** — superlatives plus the standard beats the live prompt already names — *not* terms reverse-engineered from the gems we know won. Full retrieval decision matrix is in [`agent_design.md`](agent_design.md#retrieval-gdelt-and-seeds-current).
 
 The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran **~8×** from its spark — Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf — to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8× — it's *reading the article that names it* early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
