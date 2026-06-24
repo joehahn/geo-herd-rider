@@ -74,13 +74,13 @@ We don't screen all tickers to discover gems, the financial press already does t
 
 The progression in that last column — *"under the radar" → "everyone piling in"* — traces a gem moving from the smart money to the slow herd; reading it early is the whole point. We enter the gems the press names on a *live* thesis and **exit on thesis decay** — the question "when do we drop BWET?" answers itself: when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, *not* when the coverage merely gets crowded.
 
-**Where the news comes from — each tool is used only where it's look-ahead-clean.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
+**Where the news comes from.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
 
-- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly (so it sees the ticker, not just the theme). This is clean *by construction* — "search now for a just-happened gem" cannot see a future that hasn't happened yet, so no special machinery is needed. The model writes its own gem-agnostic queries from the scan prompt, date-bounded to now:
+- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly (so it sees the ticker, not just the theme). This is clean *by construction* — "search now for a just-happened gem" cannot see a future that hasn't happened yet, so no special machinery is needed. The model writes *its own* queries each week from the scan prompt (no fixed list) — gem-agnostic and date-bounded to now; e.g.:
   ```
   web_search:  "best performing stock this week"   before:2026-06-24
   web_search:  "biggest stock gainers"             before:2026-06-24
-  web_search:  "under-the-radar stock surging"     before:2026-06-24
+  web_search:  "defense stocks Iran war"           before:2026-06-24   # + whatever's live that week
   ```
 
 - **Backtest — replaying history to score the solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. So the backtest needs sources that are honest about the past. **Why GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
