@@ -8,15 +8,15 @@ fixture backtest (firehose.py --fixture) only proves the MECHANICS assuming perf
 
 So the firehose is provable only FORWARD: scan the live news firehose NOW for gems the press is
 naming today (searching now for a just-happened event is look-ahead-correct by construction), log
-the watchlist stamped with decision_ts=now, and mark the accumulated weekly book to market as
+the watchlist stamped with decision_ts=now, and mark the accumulated weekly portfolio to market as
 prices arrive. Nothing about the outcome exists when a row is written.
 
 Modes:
   --scan    Run the live firehose scan for the current week and APPEND its picks (decision_ts=now)
             to the forward scan log. Needs ANTHROPIC_API_KEY (tokens + web search). Re-running the
             same week is a no-op (dedup by week). Run this weekly as fresh coverage arrives.
-  --report  Rebuild the weekly book from the accumulated scans, mark it to market with current
-            prices, and report the firehose book vs SPY, the gems caught, and live holdings.
+  --report  Rebuild the weekly portfolio from the accumulated scans, mark it to market with current
+            prices, and report the firehose portfolio vs SPY, the gems caught, and live holdings.
 
 State : data/forward/firehose_scans.csv  (append-only: decision_ts, week, ticker, thesis,
         thesis_live, evidence_urls)
@@ -127,7 +127,7 @@ def report() -> None:
     scans = _scans_dict(log)
     bt = firehose.backtest(scans, fm)
     print(f"weeks scanned: {len(weeks)}  ({weeks[0]} .. {weeks[-1]})")
-    print(f"  firehose book : $50,000 -> ${bt['final']:,.0f} ({bt['final']/50000-1:+.1%})")
+    print(f"  firehose portfolio : $50,000 -> ${bt['final']:,.0f} ({bt['final']/50000-1:+.1%})")
     print(f"  SPY           : $50,000 -> ${bt['spy_final']:,.0f} ({bt['spy_final']/50000-1:+.1%})")
     held = {t for r in bt["log"] for t in r["watchlist"].split(";") if t}
     print(f"  gems caught   : {', '.join(sorted(held)) or '—'}")
@@ -139,7 +139,7 @@ def report() -> None:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Forward paper-trade of the firehose (the clean test).")
     ap.add_argument("--scan", action="store_true", help="live firehose scan for this week, append to log")
-    ap.add_argument("--report", action="store_true", help="mark the accumulated book to market vs SPY")
+    ap.add_argument("--report", action="store_true", help="mark the accumulated portfolio to market vs SPY")
     ap.add_argument("--model", default=MODEL)
     args = ap.parse_args(argv)
     if not (args.scan or args.report):

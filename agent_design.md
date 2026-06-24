@@ -181,7 +181,7 @@ The journal is the agent's **one-week-deep memory** (it reads only the prior ent
 ## Sticky hold (hysteresis) **[CURRENT]**
 
 `firehose._stateful_watch(scans)` turns the **stateless** weekly scans into a **sticky position
-book** — and it's what the backtest sizes each week (`watch = _stateful_watch(scans)` at the top of
+portfolio** — and it's what the backtest sizes each week (`watch = _stateful_watch(scans)` at the top of
 `backtest()`), not the raw per-week `thesis_live`.
 
 **The problem.** Each weekly scan is an independent read: a name can be `thesis_live=true` one week,
@@ -222,7 +222,7 @@ through config. They are behavior-affecting (guarded by the golden regression ch
   per evaluated run** so the evaluated state is pinned and re-readable.
 - **[CURRENT] Golden regression snapshot.** `data/golden/bwet/` freezes the scan log + price panel +
   `fm` knobs + expected backtest output; `scripts/check_golden.py` replays it to prove a CODE change
-  didn't move the book (deterministic — isolates code from LLM noise and yfinance price drift).
+  didn't move the portfolio (deterministic — isolates code from LLM noise and yfinance price drift).
   `scripts/build_golden.py` regenerates it for an intentional, vetted baseline change. NOTE: with a
   tight `min_trade_size` the optimizer is knife-edge — float-precision differences (e.g. in-memory vs
   CSV-loaded prices) can flip which single name a week funds; the golden derives `expected` from the

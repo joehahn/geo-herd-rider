@@ -62,7 +62,7 @@ rebalanced backtest. The **mechanics are proven** via `--fixture` (a fixed set o
 BWET articles, look-ahead-clean per week): it enters BWET on the first under-the-radar write-up,
 rides while the thesis is live, ~$50K → ~$157K (≈+210%) vs SPY ≈+9% — but this **assumes perfect
 retrieval** and is therefore an upper bound, not lift. The dashboard (`scripts/build_dashboard.py`)
-renders this fixture book + a firehose log page.
+renders this fixture portfolio + a firehose log page.
 
 **The next rung is the forward eval** (`forward.py --scan` weekly, `--report`) — the only clean
 test, since retrospective retrieval can't be de-contaminated (non-negotiable #4). Do NOT add new

@@ -1,13 +1,13 @@
 """build_dashboard.py — the portfolio dashboard: $50K through the firehose.
 
-Renders the firehose book — a weekly-rebalanced portfolio of the gems the financial press
+Renders the firehose portfolio — a weekly-rebalanced portfolio of the gems the financial press
 named (entered while the driving thesis is live, dropped when it decays) — against SPY, with
 the motivating BWET "hidden gem" overlaid. Reads the weekly scan log produced by
 `firehose.py --fixture` (so a dashboard rebuild costs no LLM tokens) and reuses
 firehose.backtest for the numbers; a linked child page (firehose.html) lays the weekly
 press-named gems out on a timeline.
 
-HONESTY (repo discipline #4/#6): the on-screen book is the FIXTURE backtest — it assumes
+HONESTY (repo discipline #4/#6): the on-screen portfolio is the FIXTURE backtest — it assumes
 PERFECT point-in-time retrieval of the early articles, which no available search tool delivers
 (both Anthropic `before:` and Tavily `end_date` leak future dates; the early under-the-radar
 pieces don't rank into a date-bounded pull). So this proves the MECHANICS, not forward lift.
@@ -61,8 +61,8 @@ def metrics(value: list[float], spy: list[float], capital: float) -> dict:
 
 
 def book_cost(dates: list[str]) -> float:
-    """Cost to produce THIS book: LLM rows (firehose/agent stages) whose label is dated within the
-    book's window, last cost per label. Works for either engine (fixture firehose or the agent)."""
+    """Cost to produce THIS portfolio: LLM rows (firehose/agent stages) whose label is dated within the
+    portfolio's window, last cost per label. Works for either engine (fixture firehose or the agent)."""
     if not costs.LEDGER.exists() or not dates:
         return 0.0
     import re
@@ -81,7 +81,7 @@ def main(argv: list[str] | None = None) -> int:
 
     scans = load_scans()
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
-    print(f"Backtesting firehose book over {len(scans)} weekly scans ...")
+    print(f"Backtesting firehose portfolio over {len(scans)} weekly scans ...")
     bt = firehose.backtest(scans, fm, args.capital, daily=True)
     d = bt["daily"]
     if d is None:
@@ -129,7 +129,7 @@ def main(argv: list[str] | None = None) -> int:
     print(f"\nFirehose ${args.capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
           f"maxDD {m['max_dd']:.1%}")
     print(f"SPY      ${args.capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
-    print(f"Cost to produce this book: ${payload['cost_usd']:.2f}")
+    print(f"Cost to produce this portfolio: ${payload['cost_usd']:.2f}")
     print(f"\nWrote {OUT_DIR/'index.html'} + firehose.html + data.json")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
     return 0
@@ -174,12 +174,12 @@ INDEX_HTML = r"""<!doctype html>
    firehose finds gems in time. The clean verdict is the forward eval
    (<code>src/forward.py</code>).</div>
  <div class="cards" id="cards"></div>
- <p class="sub">The <b>firehose book</b>: each week, the gems the financial press names as
+ <p class="sub">The <b>firehose portfolio</b>: each week, the gems the financial press names as
    thesis-driven movers go on the watchlist; a position is held while its driving thesis is
    <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
    never sets a weight. Below, the same $50K through the firehose vs <b>SPY</b>, with
-   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the book at the carrier→W-Med
-   transit — does the book ride the same move?</p>
+   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the portfolio at the carrier→W-Med
+   transit — does the portfolio ride the same move?</p>
 
  <h2>Plot 1 — Portfolio value</h2>
  <div id="chart"></div>
@@ -196,7 +196,7 @@ INDEX_HTML = r"""<!doctype html>
  <div id="gantt"></div>
 
  <h2>Plot 4 — Dollars held per ticker</h2>
- <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the book total, so the
+ <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
    stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
  <div id="dollars"></div>
 
@@ -222,20 +222,20 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
   document.getElementById("cards").innerHTML=[
-    ["Firehose book", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["Firehose portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
     ["SPY buy & hold", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
     ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
     ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
-  // PWR (tab10) palette: book = red, SPY = gray, the gem overlay = its own allocation color.
+  // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
   const BOOK="#d62728", SPYC="#7f7f7f";
   const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
   const vtraces=[
-    {x:D.dates,y:D.value,name:"Firehose book",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.value,name:"Firehose portfolio",line:{color:BOOK,width:2.4}},
     {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
   ];
   const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
@@ -285,7 +285,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     xaxis:{type:"date"},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
-  // Plot 4 — dollars held per ticker over time (stacked area; top edge = book value).
+  // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
   const dtraces=[];
   for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
     stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
@@ -314,7 +314,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
 
   document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:430px"><div class="k">cost to produce this book</div>`
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
     + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
     + `<div class="sub" style="margin:6px 0 0;font-size:12px">The event-first agent's scout + journal `
     + `calls across ${D.weeks} weekly scans (dev model). No causal ladder, no magnitude forecasts.</div></div>`;

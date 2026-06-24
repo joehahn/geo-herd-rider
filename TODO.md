@@ -45,7 +45,7 @@ the thesis predicts — finds signal when the world is loud, and a clean **null*
 - **~3 multi-month "quiet" stretches** with no dominant geopolitical driver, as controls.
 - Restricted to **the period Polymarket data exists** (roughly 2024+ for rich coverage).
 
-**Success looks like:** the curated middle-band book beats SPY in the loud windows (a "hidden
+**Success looks like:** the curated middle-band portfolio beats SPY in the loud windows (a "hidden
 gem"), and shows **no edge** in the quiet windows (confirms the null — the system shouldn't
 manufacture signal from noise). Either outcome is informative; a manufactured-signal result in
 quiet periods would be a red flag worth acting on.
@@ -151,7 +151,7 @@ inputs and let it **discover its own triggers**, then run the pipeline forward o
   under `before:<date>`); Trump-tweet + news data access is the new data-access question to scope
   (cost, archive, date-filtering). Return is an upper bound (discipline #5).
 - **Relation to the forward engine:** this is the retrospective rehearsal of the autonomous
-  seedless loop (discover → potential→actual via Polymarket odds → ladder → book), minus the
+  seedless loop (discover → potential→actual via Polymarket odds → ladder → portfolio), minus the
   dashboard. The clean version is still forward.
 
 ## Structural-graph curator features (convergence + centrality) — NOT EV search
@@ -184,6 +184,6 @@ convergence predict excess return? — is **underpowered today** (only 5 trades 
 Make **SPY** (or a small SPY sleeve) the default holding when no gem is live, instead of the
 current **cash @ 0%** — capture market beta while idle rather than sitting flat. A *risk*
 improvement, and complementary to (not a replacement for) the forward scoreboard, which stays the
-validation gate. Note: with SPY as both the idle holding *and* the benchmark, the book only
+validation gate. Note: with SPY as both the idle holding *and* the benchmark, the portfolio only
 outperforms via the gems' **excess over SPY** — exactly the quantity we want to isolate, so the
 scoreboard becomes even more essential. Decided to defer; no code change for now.

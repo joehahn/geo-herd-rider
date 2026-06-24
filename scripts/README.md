@@ -24,11 +24,11 @@ agent loop checkpoint to `data/windows/` (gitignored) and resume on re-run.
 ## `build_dashboard.py` — the $50K dashboard
 Renders the GitHub-Pages dashboard ([`../docs/`](../docs/): portfolio vs SPY, allocation, firehose
 log, cost) from the saved scan log (`data/windows/firehose_scans.json`). **No LLM cost.** The
-committed dashboard is the **event-first agent** book over the BWET window (GDELT firehose + BWET
+committed dashboard is the **event-first agent** portfolio over the BWET window (GDELT firehose + BWET
 seed) — regenerate that scan log with `run_harness.py --event-first … --dump-scans`, then rebuild:
 
 ```bash
-# regenerate the agent scan log (the on-screen book):
+# regenerate the agent scan log (the on-screen portfolio):
 python scripts/run_harness.py --event-first --provider openrouter --model xiaomi/mimo-v2.5-pro \
   --seed data/fixtures/firehose_bwet.json --no-targeted \
   --start 2026-02-06 --end 2026-06-18 --dump-scans data/windows/firehose_scans.json
@@ -38,7 +38,7 @@ python -m http.server -d docs            # then open localhost:8000
 
 ## `build_golden.py` / `check_golden.py` — deterministic regression check
 Freeze a BWET-era snapshot (committed scan log + price panel + `fm` knobs + expected backtest output)
-to `data/golden/bwet/`, then replay it to confirm a **code** change didn't move the book. Every input
+to `data/golden/bwet/`, then replay it to confirm a **code** change didn't move the portfolio. Every input
 is frozen, so any diff is your code — not LLM non-determinism, not yfinance price drift. Fast, free,
 offline. **Routine gate for sizing / sticky-hold / entry-timing / backtest-loop edits.**
 

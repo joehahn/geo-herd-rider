@@ -261,7 +261,7 @@ MAX_STALE = 4       # weeks a held name may go UNMENTIONED before we drop it (no
 
 
 def _stateful_watch(scans: dict) -> dict:
-    """Turn the stateless per-week scans into a STICKY position book (fixes choppy holds).
+    """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
     one-off noise. It EXITS only on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
@@ -435,7 +435,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     bt = backtest(scans, fm, args.capital)
-    print(f"\n=== weekly-rebalanced firehose book vs SPY ({bt['weeks']} weeks) ===")
+    print(f"\n=== weekly-rebalanced firehose portfolio vs SPY ({bt['weeks']} weeks) ===")
     print(f"  firehose: ${args.capital:,.0f} -> ${bt['final']:,.0f} "
           f"({bt['final']/args.capital-1:+.1%})")
     print(f"  SPY:      ${args.capital:,.0f} -> ${bt['spy_final']:,.0f} "
