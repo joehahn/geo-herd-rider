@@ -76,7 +76,10 @@ The progression in that last column — *"under the radar" → "everyone piling 
 
 **Where the news comes from.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
 
-- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search** — *not* a bulk download of every article published that week. Instead the curator answers a single question — *which tickers is the press naming as thesis-driven movers this week?* — by running its own web searches for exactly that, reading the headline + snippet of each result, and returning the tickers the press flags. The AI chooses what to search (no fixed list; it adapts to whatever's live that week) and caps every search to news dated today or earlier.
+- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search** — *not* a bulk download of every article published that week. Instead the curator answers a single question — *which tickers is the press naming as thesis-driven movers this week?* — by running its own web searches for exactly that, reading the headline + snippet of each result, and returning the tickers the press flags. The AI chooses what to search (no fixed list; it adapts to whatever's live that week) and caps every search to news dated today or earlier. A representative search string it might compose — one of *several* it writes itself each week, not the only query:
+  ```
+  web_search:  "biggest stock gainers"   before:2026-06-24
+  ```
 
 - **Backtest — replaying history to score the solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. So the backtest needs sources that are honest about the past. **Why GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
   ```
