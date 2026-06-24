@@ -76,12 +76,7 @@ The progression in that last column — *"under the radar" → "everyone piling 
 
 **Where the news comes from.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
 
-- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly. The AI decides for itself what to search each week — there is no fixed list of queries; it hunts whatever the press is flagging as a standout trade, restricting every search to news dated today or earlier. For example:
-  ```
-  web_search:  "best performing stock this week"   before:2026-06-24
-  web_search:  "biggest stock gainers"             before:2026-06-24
-  web_search:  "defense stocks Iran war"           before:2026-06-24   # + whatever's live that week
-  ```
+- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly. The AI decides for itself what to search each week — there is no fixed list of queries; it hunts whatever the press is flagging as a standout trade, restricting every search to news dated today or earlier.
 
 - **Backtest — replaying history to score the solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. So the backtest needs sources that are honest about the past. **Why GDELT + Wayback:** **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (so a gem's early article isn't boosted because it later mooned). We query it with the same gem-agnostic beats (theme superlatives, never the ticker):
   ```
@@ -117,6 +112,8 @@ Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how
 Scope is **US-listed instruments, including ADRs and country/theme ETFs** — so a foreign event (a war, an election) is captured via its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade.
 
 ## Inside the curator: scout → per-event agents
+
+**Each week the engine discovers, then fans out.** Discovery poses a single question to the firehose — *which tickers is the press naming as thesis-driven movers this week?* — and surfaces a few candidate events (a scout call reads the whole week's coverage; you can't target-search an event you haven't found yet, so discovery must be broad). The engine then **fans out one agent per live event** — the new candidates plus every event already being held — each running in parallel: it pulls *its own* event's news, updates its one-week memory, and makes the hold-or-exit call. The live events' current tickers become the watchlist the optimizer sizes. Next week, repeat.
 
 The curator runs in one of two modes, both feeding the same optimizer — the two leftmost paths in the diagram:
 
