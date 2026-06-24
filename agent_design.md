@@ -264,7 +264,18 @@ retrieval). This is what makes a retrospective backtest defensible — most tool
   discovered.
 - **Caveat that drives seeding:** GDELT **under-indexes niche trade press**, so it MISSES the early
   under-the-radar pieces (the etf.com "flown under the radar" BWET write-up) and only picks a gem up
-  once mainstream piles in — i.e. *late*.
+  once mainstream piles in — i.e. *late*. **Why it misses them:**
+  - **Source coverage skews mainstream.** GDELT crawls a fixed, large-but-finite list of monitored
+    outlets weighted toward high-volume, widely-syndicated mainstream news; small specialist
+    publications (etf.com, maritime/freight trade desks, niche finance blogs) are sparsely monitored
+    or absent — so the early piece often isn't in the index at all.
+  - **Low-volume articles rank/surface poorly.** An "under-the-radar" piece is by definition one
+    outlet with few republications; even when GDELT has it, the per-query `maxrecords` cap plus
+    relevance/volume ordering let the flood of mainstream coverage for a theme crowd it out of the
+    returned set.
+  - **Indexing lag.** GDELT picks a story up once it propagates across its monitored sources, which
+    biases what's retrievable toward the moment a story goes mainstream — exactly *after* the early
+    naming we want.
 
 ### Seeds — patching the early-coverage blind spot
 A **seed** is a hand-collected real article GDELT misses, recorded with its **true publish date** and
