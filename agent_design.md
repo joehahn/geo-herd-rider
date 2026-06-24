@@ -317,6 +317,48 @@ injected into the firehose so the curator can see it the week it actually appear
   early naming rather than proving we could retrieve it. Every seeded number is therefore an **upper
   bound** — it shows what the mechanics do *given* the early article, not that we'd have found it.
 
+### Decision matrix — which retrieval tool, by time direction
+The settled architecture: **each direction uses the tool that is look-ahead-clean *for that
+direction*.** A historical web search is *not* a peer of GDELT — it silently re-imports the future.
+
+| | Discovery (which articles existed) | Content (headline + snippet) |
+|---|---|---|
+| **Backtest** | **GDELT** (date-honest, chronological) | seeds today; **[PROPOSED] Wayback** enrich (all-gems rung) |
+| **Forward** | **Anthropic web_search** (clean by construction) | web_search (returns excerpts) |
+
+**Why GDELT for backtest discovery — three independent axes, all clean:**
+1. **Date bounds** are server-enforced (`enddatetime`) — a past-week scan can't see later articles.
+2. **Content is as-of** at the index level (it returns what was indexed by then), not today's edited page.
+3. **Ranking is chronological** (`sort=datedesc`), NOT relevance/authority — so an article isn't
+   boosted because it *later* became famous. Consumer search (Google/Bing/Anthropic web_search) ranks
+   by accumulated links/clicks that pile up *after* the news date, which floats a gem's early article
+   to the top of a historical query — pure hindsight. GDELT has no such lever.
+
+**Why historical web_search is disqualified for backtest** (doable, but deceptive): it fails all
+three — `before:`/`end_date` **leak** post-cutoff articles (and forward there's no future to leak, so
+the same tool is *clean* forward); it returns **today's edited** page; and it is **relevance-ranked**,
+boosting what hindsight made important. The leak is categorical (6 months of hindsight to grab in
+backtest vs. nothing forward); ranking + edits are large-for-gems matters of degree.
+
+**The headline→snippet asymmetry (why Wayback is [PROPOSED]).** GDELT returns **headlines only**, and
+empirically the headline names the *theme/event* but rarely the *ticker* (0 of 18 seed headlines name
+the ticker — the "(BWET)" lives in the lede). So a GDELT-discovered gem often gives the curator the
+right vertical but not the vehicle — the documented realistic-GDELT failure ("right theme, wrong
+vehicle: GGAL not YPF, CCJ not URA"). Today **seeds mask this**, because seed records carry a curated
+snippet that *does* name the ticker — which is an extra reason seeded numbers are upper bounds.
+**Wayback enrichment** is the look-ahead-clean fix: GDELT *discovers* the URL; Wayback fetches that
+URL's **as-of-date** snapshot (CDX, snapshot ≤ anchor) and extracts the lede/meta-description — adding
+the ticker-naming snippet without any of web_search's three leaks (it's URL-keyed archival, so no
+ranking, no edits, no date-leak). It is **enrichment, not discovery** (can't ask Wayback "tanker news
+in March") — so the stack stays **GDELT discover + Wayback enrich + seeds for GDELT's discovery
+misses** (the niche pieces GDELT never indexes; Wayback can't enrich a URL we don't have).
+
+**Status / scope.** Wayback enrichment is **[PROPOSED], scoped to the all-gems rung** — that's where
+wrong-vehicle matters and hand-seeding the naming for 13+ gems stops being honest. For BWET / BWET+2,
+seeds already supply the naming, so those rungs stay on **GDELT + seeds**. Bound the build when it
+lands: enrich only the per-week curator slice (≤80/wk), meta-description only, cache the enriched pool
+(coverage gaps degrade gracefully to headline-only).
+
 ## Scale ballpark (~5-year weekly backtest)
 ~260 weekly scans · **~50–80 distinct events** (≤~150 worst case) · **~65–100 distinct gems/vehicles**
 · **~1,000–1,500 journal entries** · ~3–8 concurrent live events · **~1–2 MB** on disk. Small data —
