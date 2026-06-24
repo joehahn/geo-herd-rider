@@ -323,7 +323,7 @@ direction*.** A historical web search is *not* a peer of GDELT — it silently r
 
 | | Discovery (which articles existed) | Content (headline + snippet) |
 |---|---|---|
-| **Backtest** | **GDELT** (date-honest, chronological) | seeds today; **[PROPOSED] Wayback** enrich (all-gems rung) |
+| **Backtest** | **GDELT** (date-honest, chronological) | seeds (default) + **Wayback** enrich (built, opt-in `--enrich`, under validation) |
 | **Forward** | **Anthropic web_search** (clean by construction) | web_search (returns excerpts) |
 
 **Why GDELT for backtest discovery — three independent axes, all clean:**
@@ -340,7 +340,7 @@ the same tool is *clean* forward); it returns **today's edited** page; and it is
 boosting what hindsight made important. The leak is categorical (6 months of hindsight to grab in
 backtest vs. nothing forward); ranking + edits are large-for-gems matters of degree.
 
-**The headline→snippet asymmetry (why Wayback is [PROPOSED]).** GDELT returns **headlines only**, and
+**The headline→snippet asymmetry (why Wayback exists).** GDELT returns **headlines only**, and
 empirically the headline names the *theme/event* but rarely the *ticker* (0 of 18 seed headlines name
 the ticker — the "(BWET)" lives in the lede). So a GDELT-discovered gem often gives the curator the
 right vertical but not the vehicle — the documented realistic-GDELT failure ("right theme, wrong
@@ -353,11 +353,13 @@ ranking, no edits, no date-leak). It is **enrichment, not discovery** (can't ask
 in March") — so the stack stays **GDELT discover + Wayback enrich + seeds for GDELT's discovery
 misses** (the niche pieces GDELT never indexes; Wayback can't enrich a URL we don't have).
 
-**Status / scope.** Wayback enrichment is **[PROPOSED], scoped to the all-gems rung** — that's where
-wrong-vehicle matters and hand-seeding the naming for 13+ gems stops being honest. For BWET / BWET+2,
-seeds already supply the naming, so those rungs stay on **GDELT + seeds**. Bound the build when it
-lands: enrich only the per-week curator slice (≤80/wk), meta-description only, cache the enriched pool
-(coverage gaps degrade gracefully to headline-only).
+**Status / scope.** Wayback enrichment is **built** (`src/wayback.py`, opt-in `--enrich` on
+`run_harness --event-first`) and **currently being validated on the BWET era** — *not yet the
+default*; seeding still supplies the naming, and whether `--enrich` lifts realistic vehicle recall is
+the open question. It earns its keep most at the **all-gems rung** (where wrong-vehicle matters and
+hand-seeding the naming for 13+ gems stops being honest). Implementation already bounds the work:
+enriches only the per-week curator slice (≤80/wk), meta-description only, URL-keyed disk cache
+(`wayback_*.json`), and coverage gaps degrade gracefully to headline-only.
 
 ## Scale ballpark (~5-year weekly backtest)
 ~260 weekly scans · **~50–80 distinct events** (≤~150 worst case) · **~65–100 distinct gems/vehicles**

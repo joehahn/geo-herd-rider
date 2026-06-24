@@ -104,6 +104,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="fast variant: agents read the broad cached pool only (skip per-event GDELT fetches)")
     ap.add_argument("--event-first", action="store_true",
                     help="event-first engine: events own an evolving vehicle set (vs ticker-keyed --agent)")
+    ap.add_argument("--enrich", action="store_true",
+                    help="Wayback as-of-date snippet enrichment of GDELT headlines (event-first only)")
     ap.add_argument("--dump-scans", default=None,
                     help="write {date: picks} to this path (e.g. data/windows/firehose_scans.json for the dashboard)")
     args = ap.parse_args(argv)
@@ -126,7 +128,8 @@ def main(argv: list[str] | None = None) -> int:
         scans = agent.run_event_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                             queries=HARNESS_QUERIES, seed=args.seed,
                                             pool_chunk_days=args.chunk_days, pool_per=args.per,
-                                            provider=args.provider, targeted=not args.no_targeted)
+                                            provider=args.provider, targeted=not args.no_targeted,
+                                            enrich=args.enrich)
     elif args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,

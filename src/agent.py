@@ -401,12 +401,18 @@ def event_agent_v2(client, anchor, event, prior, news):
 
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
-                          pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False) -> dict:
+                          pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
+                          enrich=False) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
-    {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume."""
+    {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
+
+    enrich=True: fill each week's GDELT headlines with their as-of-date Wayback lede (so the
+    curator sees the ticker the headline omits), look-ahead-clean (snapshot <= anchor)."""
     import hashlib
     import os
+    if enrich:
+        import wayback
     client = llm.make_client(provider, model)
     print(f"Event-agent: provider={provider} model={model}", file=sys.stderr)
     anchors = scan_anchors(start, end, rebalance_days)
@@ -422,7 +428,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
-    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{qs}".encode()).hexdigest()[:10]
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{qs}".encode()).hexdigest()[:10]
+    enrich_cache = str(REPO_ROOT / "data" / "windows" / f"wayback_{key}.json")
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
     if resume_f.exists():
@@ -435,9 +442,11 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     for a in anchors:
         if a.isoformat() in done:
             continue
-        win = (firehose._window(seeds, a, rebalance_days)
-               + sorted(firehose._window(gpool, a, rebalance_days),
-                        key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP])
+        gslice = sorted(firehose._window(gpool, a, rebalance_days),
+                        key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP]
+        if enrich:
+            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache)
+        win = firehose._window(seeds, a, rebalance_days) + gslice
         cands = scout(client, a, win)
         # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
         # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
