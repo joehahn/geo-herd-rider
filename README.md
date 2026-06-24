@@ -76,7 +76,7 @@ The progression in that last column — *"under the radar" → "everyone piling 
 
 **Where the news comes from.** The firehose has two modes, and they must use *different* news sources, because reading *historical* news is a fundamentally different problem from reading *this week's*:
 
-- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly (so it sees the ticker, not just the theme). This is clean *by construction* — "search now for a just-happened gem" cannot see a future that hasn't happened yet, so no special machinery is needed. The model writes *its own* queries each week from the scan prompt (no fixed list) — gem-agnostic and date-bounded to now; e.g.:
+- **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search**: the curator searches the week's coverage itself and reads headline + snippet directly. The AI decides for itself what to search each week — there is no fixed list of queries; it hunts whatever the press is flagging as a standout trade, restricting every search to news dated today or earlier. For example:
   ```
   web_search:  "best performing stock this week"   before:2026-06-24
   web_search:  "biggest stock gainers"             before:2026-06-24
