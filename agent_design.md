@@ -247,9 +247,31 @@ retrieval). This is what makes a retrospective backtest defensible — most tool
   `startdatetime`/`enddatetime` (`YYYYMMDD000000`, the enforced look-ahead bound), `sort=datedesc`.
   No API key; rate-limited (`MIN_INTERVAL=15s` — GDELT throttles harder than its stated 1 req/5s).
   Quirk: GDELT needs **single words or quoted phrases** — bare multi-word queries return nothing.
-- **Queries are theme-level, NEVER the ticker** (`firehose.GDELT_QUERIES`: `"ETF"`, `"Hormuz"`,
-  `'"tanker rates"'`, `'"freight rates"'`, …). The analyst watches the right beats; the curator must
-  still *discover* the name. Pointing GDELT at "BWET" would hand it the answer.
+- **Queries are theme-level, NEVER the ticker.** Pointing GDELT at "BWET" would hand it the answer;
+  the curator must still *discover* the name from theme noise.
+- **The query set is gem-agnostic, derived from `SCAN_SYSTEM` — not from the gems.** This is the
+  crux that keeps backtest retrieval honest. Forward, the curator (`firehose.scan`) generates its
+  own web-search queries from `SCAN_SYSTEM`, which names its intent gem-agnostically: *"a standout
+  trade on a live thesis (geopolitics, energy/shipping, tariffs, Fed, a sector catalyst)."* So the
+  backtest GDELT query set (`run_harness.HARNESS_QUERIES`) **mirrors that prompt**, not the winners:
+  - **discovery superlatives** (cross-vertical): `'"best performing stock"'`, `'"biggest gainers"'`,
+    `'"best performing etf"'`;
+  - **the macro beats the prompt names**: `geopolitics`, `shipping`, `tariffs`, `'"interest rates"'`;
+  - **an EVEN top-level sector sweep** (the standard market partition: technology / energy /
+    financial / healthcare / industrial / materials / consumer / crypto) — chosen so every gem is
+    reachable via its **sector**, never its **sub-niche**.
+  Why this matters: deriving terms *per gem* (e.g. `uranium`, `"rare earth"`, `"weight loss drug"`,
+  `Milei` — the old list) reverse-engineers the query from the winners, which inflates recall **by
+  construction** and predicts nothing forward. Pre-registering such a list does NOT fix it —
+  freezing the answer key in advance is still using the answer key. Querying at the **standard
+  sector level** (materials, not "rare earth") is the de-contamination: it's the partition a desk
+  watches regardless of outcome, so overlap with a gem's sector is editorial coverage, not hindsight.
+- **The list is FROZEN, not LLM-generated per week (backtest only).** Forward, letting the model
+  pick weekly queries is correct and clean. In backtest the curator is trained past these events, so
+  asking it "what would you search the week of 2026-02-06" leaks (it'd search tanker rates *because*
+  it knows BWET ran). So backtest uses the fixed `HARNESS_QUERIES` stand-in. (`firehose.GDELT_QUERIES`
+  is a separate, event-scoped default — Iran beats like `Hormuz`/`"tanker rates"` — for a single-event
+  run; legitimate there because the event, not the ticker, picks the beat.)
 - **Pool.** `pool(queries, start, end, chunk_days=30, per=60, cache_path=…)` runs every query across
   **date chunks** (so `datedesc`+`maxrecords` doesn't over-weight the latest weeks — forces even
   time coverage), dedupes by URL, and **checkpoints after every (query, chunk)** so a long throttled

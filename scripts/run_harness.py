@@ -40,12 +40,25 @@ from util import load_dotenv  # noqa: E402
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
 REPORT = ROOT / "data" / "windows" / "harness_report.json"
 
-# Broad market-beat queries — themes/sectors, NOT gem tickers (no hand-pointing). GDELT needs
-# single words or QUOTED phrases. Kept ~a dozen to bound the throttled multi-year fetch.
+# GDELT firehose queries — GEM-AGNOSTIC, derived from SCAN_SYSTEM's own search intent so backtest
+# retrieval mirrors what the forward Anthropic web_search would pull (no hindsight beat-picking).
+# SCAN_SYSTEM tells the model to hunt "a standout trade on a live thesis (geopolitics, energy/
+# shipping, tariffs, Fed, a sector catalyst)" — so the list is: superlative discovery framing +
+# the macro beats the prompt names + an EVEN top-level sector sweep (the standard market partition,
+# NOT gem sub-niches like "uranium"/"rare earth"/"weight loss drug" — those were reverse-engineered
+# from known winners and are dropped). The list is FROZEN, not LLM-generated per week: the curator
+# is trained past these events, so letting it pick weekly queries would leak the answer. GDELT needs
+# single words or QUOTED phrases. See agent_design.md "Retrieval: GDELT and seeds".
 HARNESS_QUERIES = [
-    '"best performing stock"', '"biggest gainers"', '"AI stocks"', "bitcoin", "uranium",
-    '"rare earth"', '"gold price"', '"weight loss drug"', "Milei", '"defense stocks"',
-]  # ~10 broad beats (themes, not tickers) — bounded to keep the throttled multi-year fetch sane
+    # discovery superlatives (cross-vertical — the purest "press names a standout")
+    '"best performing stock"', '"biggest gainers"', '"best performing etf"',
+    # macro beats SCAN_SYSTEM names (geopolitics / energy-shipping / tariffs / Fed)
+    "geopolitics", "shipping", "tariffs", '"interest rates"',
+    # even top-level sector sweep (standard market partition; covers every gem via its SECTOR,
+    # not its sub-niche, so no sector is privileged by hindsight)
+    '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
+    '"industrial stocks"', '"materials stocks"', '"consumer stocks"', "cryptocurrency",
+]
 
 
 def _held_weeks(bt: dict) -> dict[str, list[str]]:
