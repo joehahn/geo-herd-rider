@@ -178,6 +178,36 @@ The journal is the agent's **one-week-deep memory** (it reads only the prior ent
 - **Dies** — `status` → `exited` when `thesis_live=false` for `EXIT_PATIENCE` consecutive reads, or
   unmentioned for `MAX_STALE` weeks (`firehose._stateful_watch`).
 
+## Sticky hold (hysteresis) **[CURRENT]**
+
+`firehose._stateful_watch(scans)` turns the **stateless** weekly scans into a **sticky position
+book** — and it's what the backtest sizes each week (`watch = _stateful_watch(scans)` at the top of
+`backtest()`), not the raw per-week `thesis_live`.
+
+**The problem.** Each weekly scan is an independent read: a name can be `thesis_live=true` one week,
+go unmentioned the next (the press just didn't cover it that week), then return. Holding strictly on
+"is it in *this* week's scan" would churn positions on coverage gaps and one-off noise — paying
+costs and, worse, dropping a still-valid thesis on silence. The GDELT-noise run exposed exactly this
+trigger-happy exit.
+
+**The mechanism — easy to enter, deliberately hard to exit.** Walking anchors in order, it carries
+per-ticker state — `holding`, a `dead` counter, a `stale` counter — and each week:
+- **Enter / refresh** — any ticker read `thesis_live=true` → held, both counters reset to 0. Entry
+  is immediate (one live read); any live mention re-arms a held name's patience.
+- **Explicitly flagged dead** (held, this week `thesis_live=false`) → `dead += 1`; exit only at
+  **`EXIT_PATIENCE` = 2** consecutive dead reads. One "thesis is over" week does **not** exit.
+- **Unmentioned** (held, absent from this week's scan) → `stale += 1`; exit at **`MAX_STALE` = 4**
+  silent weeks. Silence ≠ death, but indefinite silence eventually exits.
+
+**Why asymmetric.** 1 read to enter vs. 2 consecutive explicit-dead reads (active resolution) or 4
+silent weeks (passive timeout) to exit — that asymmetry *is* the stickiness. The counters track
+*consecutive* conditions: a dead-flag resets `stale`, a live-flag resets both.
+
+**Knob status.** `EXIT_PATIENCE` and `MAX_STALE` are **hardcoded module constants in `firehose.py`**,
+not in `investor_profile.md` — so unlike `concentration_cap` / `min_trade_size` they aren't swept
+through config. They are behavior-affecting (guarded by the golden regression check) and are
+**candidates to promote into `investor_profile.md`** if exit-stickiness tuning is wanted.
+
 ## Storage & format
 - **JSON, not a database** **[CURRENT]** — at ~5-year scale this is small data (see below); JSON is
   human-readable, git-diffable, and native to the LLM output.
