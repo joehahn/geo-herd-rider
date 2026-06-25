@@ -1324,8 +1324,8 @@
   "retrieval": {
     "gdelt": {
       "items": 976,
-      "non_english": 0,
-      "non_english_pct": 0.0,
+      "non_english": 69,
+      "non_english_pct": 7.1,
       "requests": null,
       "http_429": null,
       "http_5xx": null,
@@ -1340,7 +1340,10 @@
       "confirmed_no_snapshot": 5,
       "transient_deferred": 267,
       "join_rate_pct": 39.6,
-      "usable_lede_pct": 99.4,
+      "lede_len_median": 150,
+      "lede_pct_ge50": 97.8,
+      "lede_pct_ge80": 91.0,
+      "lede_pct_ge100": 80.9,
       "requests": null,
       "http_429": null,
       "http_5xx": null,

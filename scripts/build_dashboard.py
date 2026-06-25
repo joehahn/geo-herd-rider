@@ -342,20 +342,27 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     document.getElementById("retr").innerHTML=`<div class="sub">No retrieval stats recorded for this `
       +`book (run the harness with the instrumented code to populate).</div>`;
   } else {
-    let h="";
+    let h="", live=false;
     if(w) h+=card("Wayback join rate", (w.join_rate_pct??0)+"%",
-      `${w.lede}/${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
-    if(w) h+=card("Miss split", `${w.confirmed_no_snapshot} / ${w.transient_deferred}`,
-      "confirmed-no-snapshot / transient-deferred (retryable)", w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
-    if(w) h+=card("Lede quality", (w.usable_lede_pct??0)+"%", "of ledes ≥40 chars (usable)");
+      `${w.lede} of ${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
+    if(w) h+=card("Wayback misses", `${w.confirmed_no_snapshot} + ${w.transient_deferred}`,
+      `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
+      w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
+    if(w) h+=card("Lede length", (w.lede_len_median??0)+" chars",
+      `median · ≥50: ${w.lede_pct_ge50??0}% · ≥80: ${w.lede_pct_ge80??0}% · ≥100: ${w.lede_pct_ge100??0}%`);
     if(g) h+=card("GDELT pool", num(g.items), `${g.non_english_pct??0}% non-English`);
-    if(w) h+=card("Wayback errors", `${w.http_429||0}·429  ${w.http_5xx||0}·5xx  ${w.timeout||0}·t/o`,
-      `${num(w.requests)} reqs · ${w.items_per_min!=null?w.items_per_min+"/min":"—"}`,
-      (w.http_429||w.http_5xx)?"neg":"");
-    if(g) h+=card("GDELT errors", `${g.http_429||0}·429  ${g.http_5xx||0}·5xx  ${g.timeout||0}·t/o`,
-      g.from_cache?"served from cache":`${num(g.requests)} reqs · ${g.items_per_min!=null?g.items_per_min+"/min":"—"}`,
-      (g.http_429||g.http_5xx)?"neg":"");
-    document.getElementById("retr").innerHTML=h;
+    // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
+    if(w && w.requests!=null){ live=true;
+      h+=card("Wayback errors", `${w.http_429||0}·429  ${w.http_5xx||0}·5xx  ${w.timeout||0}·t/o`,
+        `${w.requests} reqs · ${w.items_per_min!=null?w.items_per_min+"/min":"—"}`,
+        (w.http_429||w.http_5xx)?"neg":""); }
+    if(g && g.requests!=null){ live=true;
+      h+=card("GDELT errors", `${g.http_429||0}·429  ${g.http_5xx||0}·5xx  ${g.timeout||0}·t/o`,
+        g.from_cache?"served from cache":`${g.requests} reqs · ${g.items_per_min!=null?g.items_per_min+"/min":"—"}`,
+        (g.http_429||g.http_5xx)?"neg":""); }
+    document.getElementById("retr").innerHTML=h
+      + (live?"":`<p class="sub" style="margin:8px 0 0;font-size:12px">Per-request timing &amp; error `
+        +`counts populate on the next live instrumented run (these were back-filled post-hoc).</p>`);
   }
 });
 </script></body></html>

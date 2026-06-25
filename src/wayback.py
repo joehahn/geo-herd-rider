@@ -202,17 +202,22 @@ def _write_stats(stats_path: str | None, cache: dict) -> None:
     if not stats_path:
         return
     import retstats
-    lede_n = sum(1 for v in cache.values() if isinstance(v, str) and v)
+    import statistics
+    lens = sorted(len(v) for v in cache.values() if isinstance(v, str) and v)
+    lede_n = len(lens)
     no_snap = sum(1 for v in cache.values() if v is False)
     deferred = sum(1 for v in cache.values() if v is None)
     looked = lede_n + no_snap + deferred
-    usable = sum(1 for v in cache.values() if isinstance(v, str) and len(v) >= _MIN_LEDE)
+    pct = lambda n: round(100 * n / lede_n, 1) if lede_n else 0.0   # noqa: E731
     reqs, wall = _STAT["requests"], _STAT["wall_s"]
     retstats.merge(stats_path, "wayback", {
         "looked_up": looked, "lede": lede_n, "confirmed_no_snapshot": no_snap,
         "transient_deferred": deferred,
         "join_rate_pct": round(100 * lede_n / looked, 1) if looked else 0.0,
-        "usable_lede_pct": round(100 * usable / lede_n, 1) if lede_n else 0.0,
+        "lede_len_median": int(statistics.median(lens)) if lens else 0,
+        "lede_pct_ge50": pct(sum(1 for L in lens if L >= 50)),
+        "lede_pct_ge80": pct(sum(1 for L in lens if L >= 80)),
+        "lede_pct_ge100": pct(sum(1 for L in lens if L >= 100)),
         "requests": reqs, "http_429": _STAT["http_429"], "http_5xx": _STAT["http_5xx"],
         "timeout": _STAT["timeout"], "elapsed_s": round(wall, 1),
         "items_per_min": round(60 * reqs / wall, 1) if wall > 0 else None,
