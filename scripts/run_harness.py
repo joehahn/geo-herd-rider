@@ -52,8 +52,9 @@ REPORT = ROOT / "data" / "windows" / "harness_report.json"
 HARNESS_QUERIES = [
     # discovery superlatives (cross-vertical — the purest "press names a standout")
     '"best performing stock"', '"biggest gainers"', '"best performing etf"',
-    # macro beats SCAN_SYSTEM names (geopolitics / energy-shipping / tariffs / Fed)
-    "geopolitics", "shipping", "tariffs", '"interest rates"',
+    # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed); "war"
+    # retrieves kinetic-conflict coverage that the literal term "geopolitics" misses on GDELT.
+    "geopolitics", "war", "shipping", "tariffs", '"interest rates"',
     # even top-level sector sweep — the COMPLETE 11-GICS partition (+crypto), so every gem is
     # reachable via its SECTOR not its sub-niche, and no sector is privileged by hindsight.
     # (utilities/real-estate/telecom complete the partition; utilities is also nuclear's home,

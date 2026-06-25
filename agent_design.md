@@ -137,6 +137,18 @@ built).
   (a ticker); "gem" is the evaluation/ground-truth word, "vehicle" is the in-flight word. An event
   owns an evolving *set* of vehicles.
 
+## Vehicle admissibility (what can be a vehicle)
+A ticker qualifies as a vehicle iff: (a) the **press names it**; (b) it's **retail-tradable and
+yfinance-priceable**; and (c) the **mechanical mean-variance optimizer can size it as a held position
+WITHOUT the LLM making a magnitude / leverage / expiry call**. That admits **US-listed stocks, ADRs,
+ETFs, ETNs** (BWET is an ETN), and equity wrappers like REITs/CEFs and bond/commodity ETFs (they're
+just ETFs/equities). It **excludes options and futures** — both require a strike/expiry/leverage
+decision, i.e. *magnitude*, which violates the load-bearing no-magnitude guardrail (non-negotiable #1)
+and can't be priced/sized cleanly; commodity/rate exposure is taken via ETFs/ETNs instead. Leveraged/
+inverse ETFs are *technically* admissible but discouraged (path-dependent decay corrupts multi-week
+holds + the μ/Σ fit). Spot crypto and prediction markets (Polymarket) are out of scope (former leaves
+US-listed; latter is an event-probability signal, not a mean-variance-sizable position).
+
 ## Identity — three layers (the crux for cross-run comparison)
 - **`evN`** **[CURRENT]** — a within-run counter (`ev1`, `ev2`, …). **Ephemeral**: it restarts each
   run, so it is NOT a stable key. Use it only as a handle inside one run.
@@ -256,7 +268,8 @@ retrieval). This is what makes a retrospective backtest defensible — most tool
   backtest GDELT query set (`run_harness.HARNESS_QUERIES`) **mirrors that prompt**, not the winners:
   - **discovery superlatives** (cross-vertical): `'"best performing stock"'`, `'"biggest gainers"'`,
     `'"best performing etf"'`;
-  - **the macro beats the prompt names**: `geopolitics`, `shipping`, `tariffs`, `'"interest rates"'`;
+  - **the macro beats the prompt names**: `geopolitics`, `war`, `shipping`, `tariffs`, `'"interest rates"'`
+    (`war` retrieves kinetic-conflict coverage the literal term `geopolitics` misses on GDELT);
   - **an EVEN top-level sector sweep** — the COMPLETE 11-GICS partition + crypto: technology /
     energy / financial / healthcare / industrial / materials / consumer / utilities / real-estate /
     telecom (Communication Services) / crypto — chosen so every gem is reachable via its **sector**,

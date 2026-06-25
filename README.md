@@ -79,10 +79,10 @@ The progression in that last column — *"under the radar" → "everyone piling 
 - **Live use — running the solution going forward, week to week.** The firehose is **Anthropic web search** — *not* a bulk download of every article published that week. Instead the curator answers a single question — *which tickers is the press naming as thesis-driven movers this week?* — by running its own web searches for exactly that, reading the headline + snippet of each result, and returning the tickers the press flags. From that single question Claude spawns its own follow-up searches (no fixed list; it adapts to whatever's live that week), capping every search to news dated today or earlier.
 
 - **Backtest — replaying history to score this solution.** Here a normal web search is *poison*: searching old news *today* silently re-imports the future — its date filters leak post-cutoff articles, its results are ranked by what *later* became famous, and it returns today's edited page. The goal is to assemble a **representative** news pool that is neither **poisoned** (no look-ahead) nor **incomplete** (it must include the early, under-the-radar phase — that's where the edge lives). **Which is why this solution uses GDELT + Wayback + seeds:**
-  - **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (a gem's early article isn't boosted because it later mooned). We query it with a **fixed list of 22 beats** — superlatives, macro beats, the **complete 11-GICS sector partition**, and a small **emerging-tech theme** layer, **never a ticker symbol**:
+  - **GDELT** is the only date-honest discovery index — server-enforced date bounds, and results ordered *by date, not relevance* (a gem's early article isn't boosted because it later mooned). We query it with a **fixed list of 23 beats** — superlatives, macro beats, the **complete 11-GICS sector partition**, and a small **emerging-tech theme** layer, **never a ticker symbol**:
     ```
     superlatives:  "best performing stock"  "biggest gainers"  "best performing etf"
-    macro beats:   geopolitics  shipping  tariffs  "interest rates"
+    macro beats:   geopolitics  war  shipping  tariffs  "interest rates"
     sectors:       "technology stocks"  "energy stocks"  "financial stocks"  "healthcare stocks"
                    "industrial stocks"  "materials stocks"  "consumer stocks"  cryptocurrency
                    "utility stocks"  "real estate stocks"  "telecom stocks"
@@ -116,7 +116,7 @@ One source, three jobs — plus mechanical sizing:
 
 Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how often the firehose re-scans/re-optimizes *and* the trailing news window each scan reads — they're the same thing ("the news since the last scan"). A position persists across scans via a [sticky hold](agent_design.md#sticky-hold-hysteresis-current) (it exits on confirmed thesis death or prolonged silence), so coverage gaps don't churn it.
 
-Scope is **US-listed instruments, including ADRs and country/theme ETFs** — so a foreign event (a war, an election) is captured via its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade.
+Scope is **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN) — so a foreign event (a war, an election) is captured via its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. **Options and futures are excluded on principle**: they'd require a strike / expiry / leverage call (i.e. *magnitude*), which the mechanical optimizer can't size and the no-magnitude guardrail forbids — commodity and rate exposure comes via ETFs/ETNs instead. (Admissibility rule in [`agent_design.md`](agent_design.md).)
 
 ## Inside the curator: scout → per-event agents
 
