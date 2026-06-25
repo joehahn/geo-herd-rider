@@ -34,10 +34,15 @@ def _fmt(d) -> str:
     return str(d)[:10].replace("-", "") + "000000"
 
 
-def search(query: str, start_date, end_date, max_results: int = 60, retries: int = 1) -> list[dict]:
+def search(query: str, start_date, end_date, max_results: int = 60, retries: int = 1,
+           english_only: bool = True) -> list[dict]:
     """Date-bounded GDELT news search; `enddatetime` is the enforced look-ahead bound.
-    Returns normalized {published_date, source, title, snippet, url} (title-level only)."""
-    params = {"query": query, "mode": "ArtList", "format": "json", "maxrecords": max_results,
+    Returns normalized {published_date, source, title, snippet, url, language} (title-level only).
+
+    english_only appends GDELT's `sourcelang:english` operator so foreign-language outlets are
+    dropped at fetch time (they're noise for a US-listed-equities curator and archive poorly)."""
+    q = f"{query} sourcelang:english" if english_only else query
+    params = {"query": q, "mode": "ArtList", "format": "json", "maxrecords": max_results,
               "startdatetime": _fmt(start_date), "enddatetime": _fmt(end_date), "sort": "datedesc"}
     arts = []
     for _ in range(retries + 1):
@@ -59,12 +64,12 @@ def search(query: str, start_date, end_date, max_results: int = 60, retries: int
             continue
         out.append({"published_date": pub, "source": a.get("domain", ""),
                     "title": a.get("title", ""), "snippet": a.get("title", ""),
-                    "url": a.get("url", "")})
+                    "url": a.get("url", ""), "language": a.get("language", "")})
     return out
 
 
 def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
-         cache_path=None) -> list[dict]:
+         cache_path=None, english_only: bool = True) -> list[dict]:
     """Deduped article pool across queries, fetched in date chunks for even time coverage
     (datedesc + a record cap would otherwise over-weight the latest weeks).
 
@@ -93,7 +98,7 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
             kk = f"{qi}:{ci}"
             if kk in done:
                 continue
-            for a in search(q, edges[ci], edges[ci + 1], per):
+            for a in search(q, edges[ci], edges[ci + 1], per, english_only=english_only):
                 seen.setdefault(a["url"], a)
             done.add(kk)
             if cache_path:
