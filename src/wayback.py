@@ -95,23 +95,37 @@ def snapshot(url: str, cutoff: str) -> str | None:
     return rows[-1][1]          # [header, ...rows]; row[1] = timestamp
 
 
+_MIN_LEDE = 40           # reject sub-fragment extractions (e.g. a meta value truncated at an apostrophe)
+_MAX_LEDE = 600          # a lede is a sentence or two; longer = we grabbed a blob, so cap/skip
+
+
 def _extract_lede(h: str) -> str | None:
-    """og:description -> meta description -> first substantive <p>. Returns clean text or None."""
+    """First good lede: og:description -> meta description -> twitter:description -> first real <p>.
+    Returns clean text in [_MIN_LEDE, _MAX_LEDE] chars, or None.
+
+    Robustness fixes over the naive original: the `content` attribute's quote is captured with a
+    BACKREFERENCE so an apostrophe inside a double-quoted value ("...isn't...") no longer truncates
+    the match; HTML entities are unescaped; sub-fragment results (<40 chars) are rejected; and the
+    <p> fallback skips whole-page blobs (a malformed/nested <p> can swallow the entire document)."""
     def meta(key: str, attr: str) -> str | None:
-        pats = [rf'<meta[^>]+{attr}=["\']{re.escape(key)}["\'][^>]*content=["\'](.*?)["\']',
-                rf'<meta[^>]+content=["\'](.*?)["\'][^>]*{attr}=["\']{re.escape(key)}["\']']
+        # content=(["\'])...\1  -> the closing quote must match the opening one
+        pats = [rf'<meta[^>]+{attr}=["\']{re.escape(key)}["\'][^>]*content=(["\'])(.*?)\1',
+                rf'<meta[^>]+content=(["\'])(.*?)\1[^>]*{attr}=["\']{re.escape(key)}["\']']
         for p in pats:
             m = re.search(p, h, re.I | re.S)
-            if m and m.group(1).strip():
-                return html.unescape(m.group(1)).strip()
+            if m and m.group(2).strip():
+                return html.unescape(m.group(2)).strip()
         return None
-    d = meta("og:description", "property") or meta("description", "name")
-    if d:
-        return d
+
+    for key, attr in (("og:description", "property"), ("description", "name"),
+                      ("twitter:description", "name")):
+        v = meta(key, attr)
+        if v and len(v) >= _MIN_LEDE:
+            return v[:_MAX_LEDE]
     for m in re.finditer(r"<p[^>]*>(.*?)</p>", h, re.I | re.S):
         txt = html.unescape(re.sub(r"<[^>]+>", "", m.group(1))).strip()
-        if len(txt) > 60:
-            return txt
+        if 60 <= len(txt) <= 2000:                   # skip tiny fragments AND whole-page blobs
+            return txt[:_MAX_LEDE]
     return None
 
 
