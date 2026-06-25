@@ -402,7 +402,7 @@ def event_agent_v2(client, anchor, event, prior, news):
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False) -> dict:
+                          enrich=False, enrich_fetch=True) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
@@ -428,7 +428,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
-    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{qs}".encode()).hexdigest()[:10]
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{qs}".encode()).hexdigest()[:10]
     enrich_cache = str(REPO_ROOT / "data" / "windows" / f"wayback_{key}.json")
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
@@ -450,7 +450,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         gslice = sorted(firehose._window(gpool, a, rebalance_days),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP]
         if enrich:
-            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache)
+            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache, fetch=enrich_fetch)
         seed_slice = firehose._window(seeds, a, rebalance_days)
         win = seed_slice + gslice
         provenance[a.isoformat()] = [

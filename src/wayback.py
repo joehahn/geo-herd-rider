@@ -130,7 +130,7 @@ def lede(url: str, cutoff: str) -> str | None:
 
 
 def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
-           max_chars: int = 280) -> list[dict]:
+           max_chars: int = 280, fetch: bool = True) -> list[dict]:
     """Fill each article's `snippet` with its as-of-date (<= cutoff) Wayback lede, in place-ish
     (returns the list). Only enriches GDELT records (snippet missing or == title); seeds already
     carry a real snippet and are left alone.
@@ -148,7 +148,7 @@ def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
         if not url or (a.get("snippet") and a.get("snippet") != title):
             continue                                   # no url, or already has a real snippet (seed)
         cached = cache.get(url)
-        if url not in cache or cached is None:          # unattempted, or legacy-null -> (re)attempt
+        if fetch and (url not in cache or cached is None):   # unattempted/legacy-null -> (re)attempt
             try:
                 res = lede(url, cutoff)                 # str (hit) | None (confirmed miss)
             except WaybackTransient:
@@ -166,8 +166,9 @@ def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
             n_hit += 1
         else:
             n_miss += 1                                # confirmed 'not archived' (False)
-    print(f"  wayback enrich: {n_hit} enriched, {n_miss} confirmed-unarchived, {n_defer} deferred"
-          f" (transient, will retry), {n_new} newly fetched, cutoff<={cutoff}", file=sys.stderr)
+    mode = "" if fetch else " [cache-only, no archive.org calls]"
+    print(f"  wayback enrich{mode}: {n_hit} enriched, {n_miss} not-in-cache/unarchived, {n_defer}"
+          f" deferred, {n_new} newly fetched, cutoff<={cutoff}", file=sys.stderr)
     return articles
 
 

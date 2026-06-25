@@ -118,6 +118,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="event-first engine: events own an evolving vehicle set (vs ticker-keyed --agent)")
     ap.add_argument("--enrich", action="store_true",
                     help="Wayback as-of-date snippet enrichment of GDELT headlines (event-first only)")
+    ap.add_argument("--enrich-cache-only", action="store_true",
+                    help="with --enrich: apply only already-cached Wayback ledes, make no archive.org "
+                         "calls (fast; use when archive.org is degraded)")
     ap.add_argument("--dump-scans", default=None,
                     help="write {date: picks} to this path (e.g. data/windows/firehose_scans.json for the dashboard)")
     args = ap.parse_args(argv)
@@ -141,7 +144,7 @@ def main(argv: list[str] | None = None) -> int:
                                             queries=HARNESS_QUERIES, seed=args.seed,
                                             pool_chunk_days=args.chunk_days, pool_per=args.per,
                                             provider=args.provider, targeted=not args.no_targeted,
-                                            enrich=args.enrich)
+                                            enrich=args.enrich, enrich_fetch=not args.enrich_cache_only)
     elif args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,
