@@ -421,7 +421,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     key = hashlib.md5(f"{qs}{win_start.date()}{anchors[-1].date()}{pool_chunk_days}{pool_per}".encode()).hexdigest()[:10]
     cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
     cache_f.parent.mkdir(parents=True, exist_ok=True)
-    gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per, cache_path=str(cache_f))
+    stats_path = str(REPO_ROOT / "data" / "windows" / "retrieval_stats.json")
+    gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
+                    cache_path=str(cache_f), stats_path=stats_path)
     seeds = firehose._fixture_articles(seed) if seed else []
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
@@ -450,7 +452,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         gslice = sorted(firehose._window(gpool, a, rebalance_days),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP]
         if enrich:
-            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache, fetch=enrich_fetch)
+            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache,
+                           fetch=enrich_fetch, stats_path=stats_path)
         seed_slice = firehose._window(seeds, a, rebalance_days)
         win = seed_slice + gslice
         provenance[a.isoformat()] = [

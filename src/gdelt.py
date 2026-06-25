@@ -21,6 +21,13 @@ MIN_INTERVAL = 15.0         # GDELT throttles harder than its stated 1 req/5s; 1
                             # SUCCEED on the first try, which is far faster overall than a retry
                             # storm (10s still triggered ~2-3 retries/chunk -> ~43s/chunk).
 _last = [0.0]
+# retrieval-health counters (process-cumulative; pool() snapshots them per run)
+_STAT = {"requests": 0, "http_429": 0, "http_5xx": 0, "timeout": 0, "other_err": 0}
+
+
+def _reset_stat() -> None:
+    for k in _STAT:
+        _STAT[k] = 0
 
 
 def _throttle() -> None:
@@ -47,14 +54,21 @@ def search(query: str, start_date, end_date, max_results: int = 60, retries: int
     arts = []
     for _ in range(retries + 1):
         _throttle()
+        _STAT["requests"] += 1
         try:
             r = requests.get(BASE, params=params, timeout=30,
                              headers={"User-Agent": "geo-herd-rider/1.0"})
+            if r.status_code == 429:
+                _STAT["http_429"] += 1
+            elif r.status_code >= 500:
+                _STAT["http_5xx"] += 1
             if r.headers.get("content-type", "").startswith("application/json"):
                 arts = r.json().get("articles", []) or []
                 break
+        except requests.exceptions.Timeout:
+            _STAT["timeout"] += 1
         except Exception:  # noqa: BLE001 — a miss shouldn't sink the backtest
-            arts = []
+            _STAT["other_err"] += 1
         time.sleep(MIN_INTERVAL)   # rate-limit text / transient error -> back off and retry
     out = []
     for a in arts:
@@ -69,7 +83,7 @@ def search(query: str, start_date, end_date, max_results: int = 60, retries: int
 
 
 def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
-         cache_path=None, english_only: bool = True) -> list[dict]:
+         cache_path=None, english_only: bool = True, stats_path: str | None = None) -> list[dict]:
     """Deduped article pool across queries, fetched in date chunks for even time coverage
     (datedesc + a record cap would otherwise over-weight the latest weeks).
 
@@ -83,14 +97,19 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
     if not edges or edges[-1] < end:
         edges.append(end)
 
+    _reset_stat()
+    t0 = time.monotonic()
+    from_cache = False
     seen: dict[str, dict] = {}
     done: set[str] = set()
     if cache_path and os.path.exists(cache_path):
         data = json.loads(open(cache_path).read())
         if isinstance(data, list):           # legacy complete pool (old format) — reuse as-is
+            _write_stats(stats_path, list(data), 0.0, from_cache=True)
             return data
         seen = {a["url"]: a for a in data.get("articles", [])}
         done = set(data.get("done", []))
+        from_cache = bool(done)
 
     total = len(queries) * (len(edges) - 1)
     for qi, q in enumerate(queries):
@@ -98,6 +117,7 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
             kk = f"{qi}:{ci}"
             if kk in done:
                 continue
+            from_cache = False
             for a in search(q, edges[ci], edges[ci + 1], per, english_only=english_only):
                 seen.setdefault(a["url"], a)
             done.add(kk)
@@ -107,4 +127,24 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
                     json.dump({"articles": list(seen.values()), "done": sorted(done),
                                "progress": f"{len(done)}/{total}"}, fh)
                 os.replace(tmp, cache_path)
-    return list(seen.values())
+    arts = list(seen.values())
+    _write_stats(stats_path, arts, time.monotonic() - t0, from_cache=from_cache)
+    return arts
+
+
+def _write_stats(stats_path: str | None, arts: list[dict], elapsed: float, from_cache: bool) -> None:
+    if not stats_path:
+        return
+    import retstats
+    n = len(arts)
+    non_en = sum(1 for a in arts if a.get("language") and a.get("language") != "English")
+    reqs = _STAT["requests"]
+    retstats.merge(stats_path, "gdelt", {
+        "items": n, "non_english": non_en,
+        "non_english_pct": round(100 * non_en / n, 1) if n else 0.0,
+        "requests": reqs, "http_429": _STAT["http_429"], "http_5xx": _STAT["http_5xx"],
+        "timeout": _STAT["timeout"], "other_err": _STAT["other_err"],
+        "elapsed_s": round(elapsed, 1),
+        "items_per_min": round(60 * n / elapsed, 1) if elapsed > 0 else None,
+        "from_cache": from_cache,
+    })

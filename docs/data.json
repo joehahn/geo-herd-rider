@@ -1320,5 +1320,33 @@
       ],
       "funded": []
     }
-  ]
+  ],
+  "retrieval": {
+    "gdelt": {
+      "items": 976,
+      "non_english": 0,
+      "non_english_pct": 0.0,
+      "requests": null,
+      "http_429": null,
+      "http_5xx": null,
+      "timeout": null,
+      "elapsed_s": null,
+      "items_per_min": null,
+      "from_cache": true
+    },
+    "wayback": {
+      "looked_up": 450,
+      "lede": 178,
+      "confirmed_no_snapshot": 5,
+      "transient_deferred": 267,
+      "join_rate_pct": 39.6,
+      "usable_lede_pct": 99.4,
+      "requests": null,
+      "http_429": null,
+      "http_5xx": null,
+      "timeout": null,
+      "elapsed_s": null,
+      "items_per_min": null
+    }
+  }
 }

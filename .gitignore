@@ -34,3 +34,6 @@ docs_preview/
 
 # agent provenance log (per-week curator inputs; regenerable)
 data/windows/agent_provenance_*.json
+
+# retrieval-health run stats (values baked into docs/data.json)
+data/windows/retrieval_stats.json

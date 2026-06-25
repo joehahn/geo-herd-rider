@@ -37,6 +37,8 @@ _RETRY_CODES = {429, 500, 502, 503, 504}   # transient HTTP statuses worth retry
 # Identify the client with contact info — archive.org asks automated clients to do so.
 _UA = "geo-herd-rider/1.0 (+https://github.com/joehahn/geo-herd-rider; jmh.datasciences@gmail.com)"
 _last = [0.0]
+# retrieval-health counters (process-cumulative across a run)
+_STAT = {"requests": 0, "http_429": 0, "http_5xx": 0, "timeout": 0, "wall_s": 0.0}
 
 
 class WaybackTransient(Exception):
@@ -59,18 +61,25 @@ def _get(url: str, timeout: int = 30, tries: int = 4) -> bytes:
     for _ in range(tries):
         _throttle()
         wait = delay
+        t0 = time.monotonic()
+        _STAT["requests"] += 1
         try:
             req = urllib.request.Request(url, headers={"User-Agent": _UA})
             raw = urllib.request.urlopen(req, timeout=timeout).read()
+            _STAT["wall_s"] += time.monotonic() - t0
             return gzip.decompress(raw) if raw[:2] == b"\x1f\x8b" else raw
         except urllib.error.HTTPError as e:
+            _STAT["wall_s"] += time.monotonic() - t0
             if e.code not in _RETRY_CODES:
                 raise                                   # 404 etc — let caller decide (confirmed miss)
             last = e
+            _STAT["http_429" if e.code == 429 else "http_5xx"] += 1
             ra = e.headers.get("Retry-After") if e.headers else None   # honor server's backoff hint
             if ra and ra.isdigit():
                 wait = int(ra)
         except (urllib.error.URLError, socket.timeout, TimeoutError, ConnectionError) as e:
+            _STAT["wall_s"] += time.monotonic() - t0
+            _STAT["timeout"] += 1
             last = e
         time.sleep(min(wait, 120))                      # cap any single wait
         delay *= 2
@@ -144,7 +153,7 @@ def lede(url: str, cutoff: str) -> str | None:
 
 
 def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
-           max_chars: int = 280, fetch: bool = True) -> list[dict]:
+           max_chars: int = 280, fetch: bool = True, stats_path: str | None = None) -> list[dict]:
     """Fill each article's `snippet` with its as-of-date (<= cutoff) Wayback lede, in place-ish
     (returns the list). Only enriches GDELT records (snippet missing or == title); seeds already
     carry a real snippet and are left alone.
@@ -183,7 +192,31 @@ def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
     mode = "" if fetch else " [cache-only, no archive.org calls]"
     print(f"  wayback enrich{mode}: {n_hit} enriched, {n_miss} not-in-cache/unarchived, {n_defer}"
           f" deferred, {n_new} newly fetched, cutoff<={cutoff}", file=sys.stderr)
+    _write_stats(stats_path, cache)
     return articles
+
+
+def _write_stats(stats_path: str | None, cache: dict) -> None:
+    """Write the cumulative wayback section: the 3-way miss split + lede quality (from the cache),
+    and the process-cumulative request/error/timing counters (from _STAT)."""
+    if not stats_path:
+        return
+    import retstats
+    lede_n = sum(1 for v in cache.values() if isinstance(v, str) and v)
+    no_snap = sum(1 for v in cache.values() if v is False)
+    deferred = sum(1 for v in cache.values() if v is None)
+    looked = lede_n + no_snap + deferred
+    usable = sum(1 for v in cache.values() if isinstance(v, str) and len(v) >= _MIN_LEDE)
+    reqs, wall = _STAT["requests"], _STAT["wall_s"]
+    retstats.merge(stats_path, "wayback", {
+        "looked_up": looked, "lede": lede_n, "confirmed_no_snapshot": no_snap,
+        "transient_deferred": deferred,
+        "join_rate_pct": round(100 * lede_n / looked, 1) if looked else 0.0,
+        "usable_lede_pct": round(100 * usable / lede_n, 1) if lede_n else 0.0,
+        "requests": reqs, "http_429": _STAT["http_429"], "http_5xx": _STAT["http_5xx"],
+        "timeout": _STAT["timeout"], "elapsed_s": round(wall, 1),
+        "items_per_min": round(60 * reqs / wall, 1) if wall > 0 else None,
+    })
 
 
 def main(argv: list[str] | None = None) -> int:
