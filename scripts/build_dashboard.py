@@ -343,14 +343,14 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       +`book (run the harness with the instrumented code to populate).</div>`;
   } else {
     let h="", live=false;
+    if(g) h+=card("GDELT pool", num(g.items), `${g.non_english_pct??0}% non-English`);
     if(w) h+=card("Wayback join rate", (w.join_rate_pct??0)+"%",
       `${w.lede} of ${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
     if(w) h+=card("Wayback misses", `${w.confirmed_no_snapshot} + ${w.transient_deferred}`,
       `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
       w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
-    if(w) h+=card("Lede length", (w.lede_len_median??0)+" chars",
-      `median · ≥50: ${w.lede_pct_ge50??0}% · ≥80: ${w.lede_pct_ge80??0}% · ≥100: ${w.lede_pct_ge100??0}%`);
-    if(g) h+=card("GDELT pool", num(g.items), `${g.non_english_pct??0}% non-English`);
+    if(w) h+=card("Lede length (median)", (w.lede_len_median??0)+" chars",
+      `≥100: ${w.lede_pct_ge100??0}%`);
     // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
     if(w && w.requests!=null){ live=true;
       h+=card("Wayback errors", `${w.http_429||0}·429  ${w.http_5xx||0}·5xx  ${w.timeout||0}·t/o`,
