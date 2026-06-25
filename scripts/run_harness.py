@@ -61,6 +61,13 @@ HARNESS_QUERIES = [
     '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
     '"industrial stocks"', '"materials stocks"', '"consumer stocks"', "cryptocurrency",
     '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
+    # emerging-tech THEMES — a PRE-REGISTERED forward thesis (from portfolio-wave-rider), where
+    # hidden gems emerge but GICS is too coarse to surface them. This layer is thesis-driven (NOT
+    # the gem-agnostic partition above), so recall on themed gems (e.g. SMR/URA via "nuclear") is
+    # partly thesis-aided — accepted because the list is fixed BEFORE the eval (CLAUDE.md #5) and
+    # comes from an INDEPENDENT thesis, not reverse-engineered from our winners. Still excluded:
+    # ticker-exact sub-niches ("uranium"/"rare earth"/"weight loss drug"/"Milei").
+    '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
 ]
 
 
