@@ -257,9 +257,11 @@ retrieval). This is what makes a retrospective backtest defensible — most tool
   - **discovery superlatives** (cross-vertical): `'"best performing stock"'`, `'"biggest gainers"'`,
     `'"best performing etf"'`;
   - **the macro beats the prompt names**: `geopolitics`, `shipping`, `tariffs`, `'"interest rates"'`;
-  - **an EVEN top-level sector sweep** (the standard market partition: technology / energy /
-    financial / healthcare / industrial / materials / consumer / crypto) — chosen so every gem is
-    reachable via its **sector**, never its **sub-niche**.
+  - **an EVEN top-level sector sweep** — the COMPLETE 11-GICS partition + crypto: technology /
+    energy / financial / healthcare / industrial / materials / consumer / utilities / real-estate /
+    telecom (Communication Services) / crypto — chosen so every gem is reachable via its **sector**,
+    never its **sub-niche**. (Completing the partition with utilities/real-estate/telecom also covers
+    the nuclear gems SMR/URA via `utility stocks`/`energy stocks`, with no gem-specific nuclear beat.)
   Why this matters: deriving terms *per gem* (e.g. `uranium`, `"rare earth"`, `"weight loss drug"`,
   `Milei` — the old list) reverse-engineers the query from the winners, which inflates recall **by
   construction** and predicts nothing forward. Pre-registering such a list does NOT fix it —

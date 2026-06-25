@@ -54,10 +54,13 @@ HARNESS_QUERIES = [
     '"best performing stock"', '"biggest gainers"', '"best performing etf"',
     # macro beats SCAN_SYSTEM names (geopolitics / energy-shipping / tariffs / Fed)
     "geopolitics", "shipping", "tariffs", '"interest rates"',
-    # even top-level sector sweep (standard market partition; covers every gem via its SECTOR,
-    # not its sub-niche, so no sector is privileged by hindsight)
+    # even top-level sector sweep — the COMPLETE 11-GICS partition (+crypto), so every gem is
+    # reachable via its SECTOR not its sub-niche, and no sector is privileged by hindsight.
+    # (utilities/real-estate/telecom complete the partition; utilities is also nuclear's home,
+    # which incidentally covers the SMR/URA gap without a gem-specific "nuclear"/"uranium" beat.)
     '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
     '"industrial stocks"', '"materials stocks"', '"consumer stocks"', "cryptocurrency",
+    '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
 ]
 
 
