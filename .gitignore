@@ -31,3 +31,6 @@ data/windows/wayback_*.json
 
 # dashboard previews (experimental books; not the committed docs/)
 docs_preview/
+
+# agent provenance log (per-week curator inputs; regenerable)
+data/windows/agent_provenance_*.json

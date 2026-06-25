@@ -439,6 +439,11 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         out = {pd.Timestamp(k): v for k, v in st["out"].items()}
         print(f"  resuming: {len(done)}/{len(anchors)} weeks done", file=sys.stderr)
 
+    # provenance log: the exact per-week article set (headline + final snippet) the curator read,
+    # so we can later audit what it saw — e.g. did a Wayback lede name the ticker it then picked.
+    prov_f = REPO_ROOT / "data" / "windows" / f"agent_provenance_{rsig}.json"
+    provenance: dict = json.loads(prov_f.read_text()) if prov_f.exists() else {}
+
     for a in anchors:
         if a.isoformat() in done:
             continue
@@ -446,7 +451,14 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                         key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP]
         if enrich:
             wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache)
-        win = firehose._window(seeds, a, rebalance_days) + gslice
+        seed_slice = firehose._window(seeds, a, rebalance_days)
+        win = seed_slice + gslice
+        provenance[a.isoformat()] = [
+            {"src": src,
+             "wayback_hit": src == "gdelt" and bool(x.get("snippet") and x.get("snippet") != x.get("title")),
+             "published_date": x.get("published_date", ""), "source": x.get("source", ""),
+             "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
+            for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]
         cands = scout(client, a, win)
         # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
         # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
@@ -486,6 +498,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                        "done": sorted(done), "nid": nid[0],
                        "out": {k.isoformat(): v for k, v in out.items()}}, fh, default=str)
         os.replace(tmp, resume_f)
+        prov_tmp = f"{prov_f}.tmp"
+        Path(prov_tmp).write_text(json.dumps(provenance, default=str))
+        os.replace(prov_tmp, prov_f)
     (REPO_ROOT / "data" / "windows" / "agent_events.json").write_text(
         json.dumps([{**v, "vehicles": sorted(v["vehicles"])} for v in events.values()], indent=2, default=str))
     return out
