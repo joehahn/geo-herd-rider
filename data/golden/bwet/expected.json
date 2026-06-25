@@ -1,6 +1,6 @@
 {
   "weeks": 19,
-  "final": 198560.97,
+  "final": 192606.6,
   "spy_final": 54535.01,
   "log": [
     {
@@ -47,67 +47,67 @@
     },
     {
       "week": "2026-03-27",
-      "watchlist": "BWET;LHX",
-      "weights": "BWET:0.50;LHX:0.50",
-      "week_return": 0.0858
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.1302
     },
     {
       "week": "2026-04-03",
-      "watchlist": "BWET;FROG;LHX",
+      "watchlist": "BWET",
       "weights": "BWET:1.00",
       "week_return": 0.1505
     },
     {
       "week": "2026-04-10",
-      "watchlist": "BWET;FROG;LHX",
-      "weights": "FROG:1.00",
-      "week_return": 0.0073
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": -0.1279
     },
     {
       "week": "2026-04-17",
-      "watchlist": "BWET;FROG;LHX",
+      "watchlist": "BWET",
       "weights": "BWET:1.00",
       "week_return": 0.0104
     },
     {
       "week": "2026-04-24",
-      "watchlist": "BWET;FROG;LHX",
+      "watchlist": "BWET",
       "weights": "BWET:1.00",
       "week_return": 0.229
     },
     {
       "week": "2026-05-01",
-      "watchlist": "BWET;FROG;LHX",
-      "weights": "BWET:0.50;FROG:0.50",
-      "week_return": 0.1642
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.0159
     },
     {
       "week": "2026-05-08",
-      "watchlist": "BWET;LHX;RKLB",
+      "watchlist": "BWET",
       "weights": "BWET:1.00",
       "week_return": 0.0509
     },
     {
       "week": "2026-05-15",
-      "watchlist": "BWET;LHX;RKLB",
-      "weights": "RKLB:1.00",
-      "week_return": 0.0918
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": -0.1286
     },
     {
       "week": "2026-05-22",
-      "watchlist": "BWET;LHX;RKLB",
-      "weights": "RKLB:1.00",
-      "week_return": -0.1453
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.0351
     },
     {
       "week": "2026-05-29",
-      "watchlist": "ASTC;BWET;LHX;RKLB",
-      "weights": "RKLB:1.00",
-      "week_return": -0.0714
+      "watchlist": "BWET",
+      "weights": "BWET:1.00",
+      "week_return": 0.1851
     },
     {
       "week": "2026-06-05",
-      "watchlist": "ASTC;BWET;LHX",
+      "watchlist": "BWET",
       "weights": "BWET:1.00",
       "week_return": 0.0113
     }

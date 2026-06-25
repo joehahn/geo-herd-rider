@@ -92,7 +92,9 @@
     "2026-06-17",
     "2026-06-18",
     "2026-06-22",
-    "2026-06-23"
+    "2026-06-23",
+    "2026-06-24",
+    "2026-06-25"
   ],
   "value": [
     50000.0,
@@ -129,64 +131,66 @@
     108527.13,
     115368.22,
     118527.13,
-    107896.49,
-    119025.69,
-    127404.62,
-    132067.25,
-    129795.08,
-    139165.41,
-    159586.73,
-    152986.19,
-    149333.82,
-    146461.39,
-    141541.92,
-    144018.16,
-    145668.98,
-    150423.37,
-    152206.26,
-    154550.44,
-    145173.74,
-    149399.86,
-    152470.4,
-    168202.68,
-    167539.01,
-    177711.67,
-    189505.44,
-    187390.4,
-    230569.32,
-    201908.5,
-    188776.49,
-    182096.26,
-    190364.96,
-    190705.62,
-    201395.91,
-    215022.38,
-    202401.67,
-    212767.53,
-    206522.05,
-    217828.78,
-    203504.76,
-    220229.62,
-    232298.78,
-    243702.83,
-    240134.0,
-    232753.0,
-    198540.84,
-    215870.07,
-    225070.42,
-    251420.42,
-    240321.34,
-    235294.36,
-    227533.04,
-    227201.41,
-    228694.29,
-    239316.89,
-    237964.09,
-    234157.04,
-    250809.86,
-    253754.94,
-    260686.62,
-    246392.25
+    95445.74,
+    112713.18,
+    127916.67,
+    136298.46,
+    133953.5,
+    143624.04,
+    164699.62,
+    157887.6,
+    154118.22,
+    142529.07,
+    114234.5,
+    121395.35,
+    144021.33,
+    134399.23,
+    132044.58,
+    124079.46,
+    136637.6,
+    135436.05,
+    135794.58,
+    149806.21,
+    149215.13,
+    158275.19,
+    168779.07,
+    166895.35,
+    205351.75,
+    179825.59,
+    168129.84,
+    162180.23,
+    169544.58,
+    168982.56,
+    173488.37,
+    173469.0,
+    174641.47,
+    178168.61,
+    184728.69,
+    182198.66,
+    181642.45,
+    168391.48,
+    155251.94,
+    145358.53,
+    160668.61,
+    153934.11,
+    160697.68,
+    174723.84,
+    182170.55,
+    203498.06,
+    194514.54,
+    190445.74,
+    184163.77,
+    183895.35,
+    185103.68,
+    193701.55,
+    192606.6,
+    189525.2,
+    203003.88,
+    205387.61,
+    210998.07,
+    199428.3,
+    162354.66,
+    152117.25
   ],
   "spy": [
     50000.0,
@@ -202,11 +206,11 @@
     50074.41,
     49796.28,
     49557.16,
-    49585.34,
+    49585.33,
     49148.27,
     49495.03,
     49219.07,
-    48573.95,
+    48573.94,
     48999.45,
     48920.71,
     48859.31,
@@ -215,7 +219,7 @@
     48331.94,
     48459.08,
     47782.9,
-    47665.15,
+    47665.14,
     46981.83,
     47475.14,
     47315.77,
@@ -280,7 +284,9 @@
     53674.48,
     54232.53,
     54061.86,
-    53276.78
+    53276.78,
+    53252.08,
+    53498.29
   ],
   "overlay": [
     40195.27,
@@ -374,7 +380,9 @@
     215313.46,
     217841.73,
     223792.39,
-    211521.06
+    211521.06,
+    172199.38,
+    161341.21
   ],
   "overlay_ticker": "BWET",
   "overlay_anchor": "2026-02-20",
@@ -414,25 +422,6 @@
       1.0,
       1.0,
       1.0,
-      0.5,
-      0.5,
-      0.5,
-      0.5,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
       1.0,
       1.0,
       1.0,
@@ -443,20 +432,41 @@
       1.0,
       1.0,
       1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
       1.0,
       1.0,
       1.0,
@@ -472,288 +482,6 @@
       1.0,
       1.0,
       1.0
-    ],
-    "FROG": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
-    ],
-    "LHX": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.5,
-      0.5,
-      0.5,
-      0.5,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
-    ],
-    "RKLB": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
     ]
   },
   "cash": [
@@ -848,27 +576,26 @@
     0.0,
     0.0,
     0.0,
+    0.0,
+    0.0,
     0.0
   ],
   "colors": {
-    "BWET": "#1f77b4",
-    "FROG": "#ff7f0e",
-    "LHX": "#2ca02c",
-    "RKLB": "#d62728"
+    "BWET": "#1f77b4"
   },
   "metrics": {
-    "final": 246392.0,
-    "total_ret": 3.9278,
-    "spy_ret": 0.0655,
-    "max_dd": -0.215
+    "final": 152117.0,
+    "total_ret": 2.0423,
+    "spy_ret": 0.07,
+    "max_dd": -0.3064
   },
-  "cost_usd": 2.87,
+  "cost_usd": 2.86,
   "weeks": 19,
   "gems": [
     {
       "week": "2026-02-20",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
@@ -877,14 +604,14 @@
     {
       "week": "2026-02-27",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-06",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
         "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
@@ -893,285 +620,179 @@
     {
       "week": "2026-03-13",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html",
-        "https://finance.yahoo.com/news/p-futures-waver-middle-east-103346865.html"
-      ]
-    },
-    {
-      "week": "2026-03-20",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-17-geopolitical-firestorm-us-iran-conflict-triggers-70-vix-surge-and-energy-market-upheaval"
-      ]
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-surge-over-2-pc-as-drop-in-oil-prices-rally-in-asian-peers-cheer-investors-1946166",
-        "https://www.marketscreener.com/news/futures-point-higher-as-traders-pin-hopes-on-diplomacy-ce7e5ed2d08bf62c"
-      ]
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": [
-        "https://www.globalsecurity.org/wmd/library/news/ukraine/2026/03/ukraine-260326-sputnik01.htm",
-        "https://www.insidermonkey.com/blog/l3harris-technologies-inc-lhx-a-strong-buy-per-wall-street-1723840/",
-        "https://finance.yahoo.com/markets/stocks/articles/hegseth-says-takes-money-kill-152458045.html"
-      ]
-    },
-    {
-      "week": "2026-04-03",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/abivax-sa-abvx-surged-58-134508828.html",
-        "https://www.insidermonkey.com/blog/heres-why-newamsterdam-pharma-company-n-v-nams-surged-23-in-q4-1730951/",
-        "https://finance.yahoo.com/markets/stocks/articles/jfrog-frog-shares-surged-32-131203592.html",
-        "https://finance.yahoo.com/sectors/energy/articles/venture-global-vg-upgraded-lng-131229728.html"
-      ]
-    },
-    {
-      "week": "2026-04-03",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": []
     },
     {
-      "week": "2026-04-03",
-      "ticker": "FROG",
-      "thesis": "NPM supply-chain attack drives surging security demand",
+      "week": "2026-03-20",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/jfrog-frog-shares-surged-32-131203592.html"
+        "ETF.com"
+      ]
+    },
+    {
+      "week": "2026-03-27",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis_live": true,
+      "urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates"
+      ]
+    },
+    {
+      "week": "2026-04-03",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.ibtimes.com.au/ftse-100-surges-08-today-oil-eases-markets-rebound-1864979",
+        "https://www.irishtimes.com/business/2026/03/30/food-giants-were-finally-starting-to-cut-prices-then-the-war-began/"
       ]
     },
     {
       "week": "2026-04-10",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
         "The Business Times, 2026-04-09"
       ]
     },
     {
-      "week": "2026-04-10",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-10",
-      "ticker": "FROG",
-      "thesis": "NPM supply-chain attack drives surging security demand",
-      "thesis_live": false,
-      "urls": []
-    },
-    {
       "week": "2026-04-17",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-17",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-24",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": []
-    },
-    {
-      "week": "2026-04-24",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/1-etf-buy-1-5-171811154.html"
-      ]
     },
     {
       "week": "2026-05-01",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
         "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
       ]
     },
     {
-      "week": "2026-05-01",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": [
-        "https://www.fool.com/investing/2026/05/01/the-us-has-9-damaged-military-bases-to-rebuild/",
-        "https://www.cnbc.com/2026/04/28/defense-stocks-have-floundered-since-the-iran-war-began-heres-why.html",
-        "https://gfmag.com/capital-raising-corporate-finance/defense-stocks-reload-with-ipo-momentum/"
-      ]
-    },
-    {
       "week": "2026-05-08",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
-        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
+        "https://www.benzinga.com/markets/equities/26/05/52355378/michael-burry-compares-todays-more-extreme-nasdaq-surge-to-dot-com-bubble-sndk-is-beating-that-1",
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
       ]
     },
     {
       "week": "2026-05-08",
-      "ticker": "RKLB",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "urls": [
-        "https://www.investorideas.com/news/2026/defense/05081-rklb-q1-backlog-anduril-hypersonic.asp",
-        "https://www.benzinga.com/news/politics/26/05/52270443/congressman-buys-defense-stocks-as-middle-east-tensions-continues-here-are-the-companies",
-        "https://finance.yahoo.com/markets/stocks/articles/general-dynamics-corporation-gd-one-143648189.html"
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932",
+        "https://www.businessinsider.com/south-korea-stock-market-samsung-1-trillion-club-ai-boom-2026-5"
       ]
     },
     {
       "week": "2026-05-15",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663",
+        "https://finance.yahoo.com/news/stock-index-futures-gain-tech-103152508.html",
+        "https://news.webindia123.com/news/Articles/Business/20260514/4450133.html"
+      ]
     },
     {
       "week": "2026-05-15",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "urls": [
-        "https://www.fool.com/investing/2026/05/15/3-defense-stocks-to-buy-in-may/?source=iedfolrf0000001",
-        "https://www.tickerreport.com/banking-finance/13435449/defense-stocks-to-research-may-8th.html"
+        "https://www.marketscreener.com/news/ai-rally-powers-on-trump-xi-summit-takes-centre-stage-ce7f5bddd989f620",
+        "https://www.channelnewsasia.com/business/south-korea-kospi-record-high-ai-samsung-sk-hynix-6112751",
+        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/south-korean-shares-hit-all-time-high-ai-led-chipmaker-rally"
       ]
     },
     {
       "week": "2026-05-22",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
+        "https://www.prokerala.com/news/articles/a1763492.html",
+        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge--geopolitical-tensions--20260516101715"
+      ]
     },
     {
       "week": "2026-05-22",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/pentagons-ai-pivot-supercharges-defense-162000207.html",
-        "https://finance.yahoo.com/markets/stocks/articles/rebalance-aerospace-defense-etf-june-163500185.html",
-        "https://www.cnbc.com/2026/05/20/war-military-nato-europe-defense-spending-budget-germany-alliancebernstein.html"
-      ]
-    },
-    {
-      "week": "2026-05-29",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-29",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/elbit-systems-ltd-eslt-among-061948116.html",
-        "https://finance.yahoo.com/markets/stocks/articles/ducommun-incorporated-dco-among-best-061943503.html",
-        "https://www.insidermonkey.com/blog/ducommun-incorporated-dco-among-the-best-performing-defense-stocks-so-far-in-2026-1769646/",
-        "https://www.insidermonkey.com/blog/elbit-systems-ltd-eslt-among-the-best-performing-defense-stocks-so-far-in-2026-1769638/",
-        "https://www.insidermonkey.com/blog/redwire-corporation-rdw-among-the-best-performing-defense-stocks-so-far-in-2026-1769656/",
-        "https://www.fool.com/investing/2026/05/26/2-defense-stocks-worth-buying-as-global-tensions-c/?source=iedfolrf0000001"
+        "https://www.thehindubusinessline.com/markets/stock-markets/markets-open-flat-after-monday-surge-crude-jumps-on-fresh-us-strikes-in-iran/article71023613.ece"
       ]
     },
     {
       "week": "2026-05-29",
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
-      "thesis_live": true,
-      "urls": [
-        "https://www.investorideas.com/news/2026/defense/05271-astrotech-astc-nasdaq-top-gainer-lunar-resource.asp"
-      ]
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "urls": []
     },
     {
-      "week": "2026-06-05",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": [
-        "https://www.cnbc.com/2026/06/04/defense-stocks-buy-sell-analyst-weapons-ukraine.html"
-      ]
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.zerohedge.com/markets/futures-rally-amid-fresh-iran-peace-hopes-all-eyes-spacex",
-        "https://finance.yahoo.com/markets/stocks/articles/private-equity-eyes-3-fintech-142012862.html"
-      ]
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
+      "week": "2026-05-29",
+      "ticker": "CLOV",
+      "thesis": "Clover Health wins Star Ratings lawsuit, reclassifying Medicare Advantage revenue outlook",
       "thesis_live": false,
+      "urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis_live": false,
+      "urls": [
+        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
+        "https://www.benzinga.com/markets/equities/26/06/53022226/stock-market-today-dow-futures-gain-sp-500-slips-as-trump-floats-meeting-irans-supreme-leader-lululemon-keel-in-focus"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-12",
-      "ticker": "SPCX",
-      "thesis": "SpaceX IPO debut driving market rally with strong demand.",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "urls": [
-        "https://www.businessinsider.com/business-insider-editors-discuss-spacexs-historic-public-debut-2026-6",
-        "https://finance.yahoo.com/markets/stocks/articles/tomorrow-spacex-ipo-going-insane-141643376.html",
-        "https://www.wptf.com/2026/06/12/us-stocks-rise-after-oil-prices-ease-and-spacex-soars-in-its-debut-on-wall-street/"
+        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm"
       ]
     }
   ],
@@ -1234,20 +855,16 @@
     {
       "week": "2026-03-27",
       "names": [
-        "BWET",
-        "LHX"
+        "BWET"
       ],
       "funded": [
-        "BWET",
-        "LHX"
+        "BWET"
       ]
     },
     {
       "week": "2026-04-03",
       "names": [
-        "BWET",
-        "FROG",
-        "LHX"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1256,31 +873,25 @@
     {
       "week": "2026-04-10",
       "names": [
-        "BWET",
-        "FROG",
-        "LHX"
+        "BWET"
       ],
       "funded": [
-        "FROG"
+        "BWET"
       ]
     },
     {
       "week": "2026-04-17",
       "names": [
-        "BWET",
-        "FROG",
-        "LHX"
+        "BWET"
       ],
       "funded": [
-        "FROG"
+        "BWET"
       ]
     },
     {
       "week": "2026-04-24",
       "names": [
-        "BWET",
-        "FROG",
-        "LHX"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1289,9 +900,7 @@
     {
       "week": "2026-05-01",
       "names": [
-        "BWET",
-        "FROG",
-        "LHX"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1301,42 +910,37 @@
       "week": "2026-05-08",
       "names": [
         "BWET",
-        "LHX",
-        "RKLB"
+        "HHGR"
       ],
       "funded": [
-        "RKLB"
+        "BWET"
       ]
     },
     {
       "week": "2026-05-15",
       "names": [
         "BWET",
-        "LHX",
-        "RKLB"
+        "HHGR"
       ],
       "funded": [
-        "RKLB"
+        "BWET"
       ]
     },
     {
       "week": "2026-05-22",
       "names": [
         "BWET",
-        "LHX",
-        "RKLB"
+        "HHGR"
       ],
       "funded": [
-        "RKLB"
+        "BWET"
       ]
     },
     {
       "week": "2026-05-29",
       "names": [
-        "ASTC",
         "BWET",
-        "LHX",
-        "RKLB"
+        "HHGR"
       ],
       "funded": [
         "BWET"
@@ -1345,9 +949,8 @@
     {
       "week": "2026-06-05",
       "names": [
-        "ASTC",
         "BWET",
-        "LHX"
+        "HHGR"
       ],
       "funded": [
         "BWET"
@@ -1356,10 +959,8 @@
     {
       "week": "2026-06-12",
       "names": [
-        "ASTC",
         "BWET",
-        "LHX",
-        "SPCX"
+        "HHGR"
       ],
       "funded": []
     }

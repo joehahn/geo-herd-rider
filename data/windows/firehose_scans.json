@@ -4,7 +4,7 @@
   "2026-02-20": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
@@ -14,7 +14,7 @@
   "2026-02-27": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": []
     }
@@ -22,7 +22,7 @@
   "2026-03-06": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
@@ -32,104 +32,56 @@
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html",
-        "https://finance.yahoo.com/news/p-futures-waver-middle-east-103346865.html"
-      ]
+      "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-17-geopolitical-firestorm-us-iran-conflict-triggers-70-vix-surge-and-energy-market-upheaval"
+        "ETF.com"
       ]
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-surge-over-2-pc-as-drop-in-oil-prices-rally-in-asian-peers-cheer-investors-1946166",
-        "https://www.marketscreener.com/news/futures-point-higher-as-traders-pin-hopes-on-diplomacy-ce7e5ed2d08bf62c"
-      ]
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.globalsecurity.org/wmd/library/news/ukraine/2026/03/ukraine-260326-sputnik01.htm",
-        "https://www.insidermonkey.com/blog/l3harris-technologies-inc-lhx-a-strong-buy-per-wall-street-1723840/",
-        "https://finance.yahoo.com/markets/stocks/articles/hegseth-says-takes-money-kill-152458045.html"
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates"
       ]
     }
   ],
   "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/abivax-sa-abvx-surged-58-134508828.html",
-        "https://www.insidermonkey.com/blog/heres-why-newamsterdam-pharma-company-n-v-nams-surged-23-in-q4-1730951/",
-        "https://finance.yahoo.com/markets/stocks/articles/jfrog-frog-shares-surged-32-131203592.html",
-        "https://finance.yahoo.com/sectors/energy/articles/venture-global-vg-upgraded-lng-131229728.html"
-      ]
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "FROG",
-      "thesis": "NPM supply-chain attack drives surging security demand",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/jfrog-frog-shares-surged-32-131203592.html"
+        "https://www.ibtimes.com.au/ftse-100-surges-08-today-oil-eases-markets-rebound-1864979",
+        "https://www.irishtimes.com/business/2026/03/30/food-giants-were-finally-starting-to-cut-prices-then-the-war-began/"
       ]
     }
   ],
   "2026-04-10": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
         "The Business Times, 2026-04-09"
       ]
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "FROG",
-      "thesis": "NPM supply-chain attack drives surging security demand",
-      "thesis_live": false,
-      "evidence_urls": []
     }
   ],
   "2026-04-17": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": []
     }
@@ -137,175 +89,129 @@
   "2026-04-24": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/1-etf-buy-1-5-171811154.html"
-      ]
     }
   ],
   "2026-05-01": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
-      ]
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/01/the-us-has-9-damaged-military-bases-to-rebuild/",
-        "https://www.cnbc.com/2026/04/28/defense-stocks-have-floundered-since-the-iran-war-began-heres-why.html",
-        "https://gfmag.com/capital-raising-corporate-finance/defense-stocks-reload-with-ipo-momentum/"
       ]
     }
   ],
   "2026-05-08": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
+        "https://www.benzinga.com/markets/equities/26/05/52355378/michael-burry-compares-todays-more-extreme-nasdaq-surge-to-dot-com-bubble-sndk-is-beating-that-1",
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
       ]
     },
     {
-      "ticker": "RKLB",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.investorideas.com/news/2026/defense/05081-rklb-q1-backlog-anduril-hypersonic.asp",
-        "https://www.benzinga.com/news/politics/26/05/52270443/congressman-buys-defense-stocks-as-middle-east-tensions-continues-here-are-the-companies",
-        "https://finance.yahoo.com/markets/stocks/articles/general-dynamics-corporation-gd-one-143648189.html"
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932",
+        "https://www.businessinsider.com/south-korea-stock-market-samsung-1-trillion-club-ai-boom-2026-5"
       ]
     }
   ],
   "2026-05-15": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/15/3-defense-stocks-to-buy-in-may/?source=iedfolrf0000001",
-        "https://www.tickerreport.com/banking-finance/13435449/defense-stocks-to-research-may-8th.html"
+        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663",
+        "https://finance.yahoo.com/news/stock-index-futures-gain-tech-103152508.html",
+        "https://news.webindia123.com/news/Articles/Business/20260514/4450133.html"
+      ]
+    },
+    {
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ai-rally-powers-on-trump-xi-summit-takes-centre-stage-ce7f5bddd989f620",
+        "https://www.channelnewsasia.com/business/south-korea-kospi-record-high-ai-samsung-sk-hynix-6112751",
+        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/south-korean-shares-hit-all-time-high-ai-led-chipmaker-rally"
       ]
     }
   ],
   "2026-05-22": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
       "thesis_live": true,
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/pentagons-ai-pivot-supercharges-defense-162000207.html",
-        "https://finance.yahoo.com/markets/stocks/articles/rebalance-aerospace-defense-etf-june-163500185.html",
-        "https://www.cnbc.com/2026/05/20/war-military-nato-europe-defense-spending-budget-germany-alliancebernstein.html"
+        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
+        "https://www.prokerala.com/news/articles/a1763492.html",
+        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge--geopolitical-tensions--20260516101715"
       ]
+    },
+    {
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "thesis_live": true,
+      "evidence_urls": []
     }
   ],
   "2026-05-29": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.thehindubusinessline.com/markets/stock-markets/markets-open-flat-after-monday-surge-crude-jumps-on-fresh-us-strikes-in-iran/article71023613.ece"
+      ]
+    },
+    {
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
+      "ticker": "CLOV",
+      "thesis": "Clover Health wins Star Ratings lawsuit, reclassifying Medicare Advantage revenue outlook",
+      "thesis_live": false,
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/elbit-systems-ltd-eslt-among-061948116.html",
-        "https://finance.yahoo.com/markets/stocks/articles/ducommun-incorporated-dco-among-best-061943503.html",
-        "https://www.insidermonkey.com/blog/ducommun-incorporated-dco-among-the-best-performing-defense-stocks-so-far-in-2026-1769646/",
-        "https://www.insidermonkey.com/blog/elbit-systems-ltd-eslt-among-the-best-performing-defense-stocks-so-far-in-2026-1769638/",
-        "https://www.insidermonkey.com/blog/redwire-corporation-rdw-among-the-best-performing-defense-stocks-so-far-in-2026-1769656/",
-        "https://www.fool.com/investing/2026/05/26/2-defense-stocks-worth-buying-as-global-tensions-c/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.investorideas.com/news/2026/defense/05271-astrotech-astc-nasdaq-top-gainer-lunar-resource.asp"
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
     }
   ],
   "2026-06-05": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
+      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis_live": false,
       "evidence_urls": [
-        "https://www.cnbc.com/2026/06/04/defense-stocks-buy-sell-analyst-weapons-ukraine.html"
+        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
+        "https://www.benzinga.com/markets/equities/26/06/53022226/stock-market-today-dow-futures-gain-sp-500-slips-as-trump-floats-meeting-irans-supreme-leader-lululemon-keel-in-focus"
       ]
     },
     {
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-06-12": [
     {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge on tanker rates",
+      "ticker": "HHGR",
+      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/futures-rally-amid-fresh-iran-peace-hopes-all-eyes-spacex",
-        "https://finance.yahoo.com/markets/stocks/articles/private-equity-eyes-3-fintech-142012862.html"
-      ]
-    },
-    {
-      "ticker": "LHX",
-      "thesis": "Top-rated defense play amid $200B Pentagon spending push",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "ASTC",
-      "thesis": "Lunar resource development catalyst drives stock gains.",
-      "thesis_live": false,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SPCX",
-      "thesis": "SpaceX IPO debut driving market rally with strong demand.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.businessinsider.com/business-insider-editors-discuss-spacexs-historic-public-debut-2026-6",
-        "https://finance.yahoo.com/markets/stocks/articles/tomorrow-spacex-ipo-going-insane-141643376.html",
-        "https://www.wptf.com/2026/06/12/us-stocks-rise-after-oil-prices-ease-and-spacex-soars-in-its-debut-on-wall-street/"
+        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm"
       ]
     }
   ]
