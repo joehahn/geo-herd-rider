@@ -55,20 +55,21 @@ HARNESS_QUERIES = [
     # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed); "war"
     # retrieves kinetic-conflict coverage that the literal term "geopolitics" misses on GDELT.
     "geopolitics", "war", "shipping", "tariffs", '"interest rates"',
-    # even top-level sector sweep — the COMPLETE 11-GICS partition (+crypto), so every gem is
-    # reachable via its SECTOR not its sub-niche, and no sector is privileged by hindsight.
-    # (utilities/real-estate/telecom complete the partition; utilities is also nuclear's home,
-    # which incidentally covers the SMR/URA gap without a gem-specific "nuclear"/"uranium" beat.)
+    # even top-level sector sweep — the standard GICS sectors (10 beats covering all 11; Consumer
+    # Staples + Discretionary merged into one "consumer"), so every gem is reachable via its SECTOR
+    # not its sub-niche, and no sector is privileged by hindsight. Gem-agnostic by construction
+    # (a complete partition privileges nothing; utilities is also nuclear's GICS home).
     '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
-    '"industrial stocks"', '"materials stocks"', '"consumer stocks"', "cryptocurrency",
+    '"industrial stocks"', '"materials stocks"', '"consumer stocks"',
     '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
-    # emerging-tech THEMES — a PRE-REGISTERED forward thesis (from portfolio-wave-rider), where
-    # hidden gems emerge but GICS is too coarse to surface them. This layer is thesis-driven (NOT
-    # the gem-agnostic partition above), so recall on themed gems (e.g. SMR/URA via "nuclear") is
-    # partly thesis-aided — accepted because the list is fixed BEFORE the eval (CLAUDE.md #5) and
-    # comes from an INDEPENDENT thesis, not reverse-engineered from our winners. Still excluded:
-    # ticker-exact sub-niches ("uranium"/"rare earth"/"weight loss drug"/"Milei").
-    '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
+    # THESIS-DRIVEN theme layer — a PRE-REGISTERED forward thesis (from portfolio-wave-rider): non-
+    # GICS asset classes (crypto) and emerging-tech areas where gems emerge but the GICS sweep is too
+    # coarse (or doesn't reach, like crypto). NOT the gem-agnostic partition above, so recall on themed
+    # gems (MSTR via "cryptocurrency", SMR/URA via "nuclear stocks") is partly thesis-aided — accepted
+    # because the list is fixed BEFORE the eval (CLAUDE.md #5) and is an INDEPENDENT thesis, not
+    # reverse-engineered from our winners. Still excluded: ticker-exact sub-niches ("uranium"/"rare
+    # earth"/"weight loss drug"/"Milei").
+    "cryptocurrency", '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
 ]
 
 

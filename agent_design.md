@@ -270,18 +270,20 @@ retrieval). This is what makes a retrospective backtest defensible — most tool
     `'"best performing etf"'`;
   - **the macro beats the prompt names**: `geopolitics`, `war`, `shipping`, `tariffs`, `'"interest rates"'`
     (`war` retrieves kinetic-conflict coverage the literal term `geopolitics` misses on GDELT);
-  - **an EVEN top-level sector sweep** — the COMPLETE 11-GICS partition + crypto: technology /
-    energy / financial / healthcare / industrial / materials / consumer / utilities / real-estate /
-    telecom (Communication Services) / crypto — chosen so every gem is reachable via its **sector**,
-    never its **sub-niche**. Gem-agnostic *by construction* (a complete partition privileges nothing).
-  - **a small emerging-tech THEME layer** — `space` / `robotics` / `quantum` / `nuclear` stocks. This
-    one is a *pre-registered forward thesis* (from portfolio-wave-rider), **not** part of the
-    gem-agnostic partition: GICS is too coarse to surface a niche space/robotics/quantum/SMR gem (a
-    space play is buried in Industrials). Provenance keeps it honest — it's an **independent forward
-    thesis fixed before the eval** (CLAUDE.md #5), not reverse-engineered from our winners — but it
-    *is* thesis-driven, so recall on themed gems (SMR/URA via `nuclear stocks`) is **partly
-    thesis-aided**, reported as such. The line we hold: broad standing themes are allowed; **ticker-
-    exact sub-niches are not** — `uranium` (→URA), `"rare earth"` (→MP), `"weight loss drug"` (→HIMS),
+  - **an EVEN top-level sector sweep** — the standard GICS sectors (10 beats covering all 11; Consumer
+    Staples + Discretionary merged into one `consumer`): technology / energy / financial / healthcare /
+    industrial / materials / consumer / utilities / real-estate / telecom (Communication Services) —
+    chosen so every gem is reachable via its **sector**, never its **sub-niche**. Gem-agnostic *by
+    construction* (a complete partition privileges nothing; utilities is also nuclear's GICS home).
+  - **a small THESIS-DRIVEN theme layer** — `cryptocurrency` / `space` / `robotics` / `quantum` /
+    `nuclear` stocks: non-GICS asset classes and emerging-tech areas where gems emerge but the GICS
+    sweep is too coarse, or doesn't reach at all (crypto). This is a *pre-registered forward thesis*
+    (from portfolio-wave-rider), **not** part of the gem-agnostic partition. Provenance keeps it
+    honest — it's an **independent forward thesis fixed before the eval** (CLAUDE.md #5), not
+    reverse-engineered from our winners — but it *is* thesis-driven, so recall on themed gems (MSTR
+    via `cryptocurrency`, SMR/URA via `nuclear stocks`) is **partly thesis-aided**, reported as such.
+    The line we hold: broad standing themes/asset-classes are allowed; **ticker-exact sub-niches are
+    not** — `uranium` (→URA), `"rare earth"` (→MP), `"weight loss drug"` (→HIMS),
     `Milei` (→YPF) stay excluded (those reverse-engineer the query from the specific winner).
   Why this matters: deriving terms *per gem* (e.g. `uranium`, `"rare earth"`, `"weight loss drug"`,
   `Milei` — the old list) reverse-engineers the query from the winners, which inflates recall **by
