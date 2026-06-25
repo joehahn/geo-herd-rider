@@ -1,217 +1,336 @@
 {
-  "2026-02-06": [],
-  "2026-02-13": [],
-  "2026-02-20": [
+  "2026-02-06T16:30:00-05:00": [],
+  "2026-02-13T16:30:00-05:00": [],
+  "2026-02-20T16:30:00-05:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
       ]
     }
   ],
-  "2026-02-27": [
+  "2026-02-27T16:30:00-05:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
-  "2026-03-06": [
+  "2026-03-06T16:30:00-05:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
       ]
     }
   ],
-  "2026-03-13": [
+  "2026-03-13T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
-  "2026-03-20": [
+  "2026-03-20T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "ETF.com"
-      ]
-    }
-  ],
-  "2026-03-27": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates"
-      ]
-    }
-  ],
-  "2026-04-03": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.ibtimes.com.au/ftse-100-surges-08-today-oil-eases-markets-rebound-1864979",
-        "https://www.irishtimes.com/business/2026/03/30/food-giants-were-finally-starting-to-cut-prices-then-the-war-began/"
-      ]
-    }
-  ],
-  "2026-04-10": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "The Business Times, 2026-04-09"
-      ]
-    }
-  ],
-  "2026-04-17": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
-  "2026-04-24": [
+  "2026-03-27T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates",
+        "https://virginiabusiness.com/us-stocks-lowest-close-middle-east-tensions/",
+        "https://newstalk1230.iheart.com/content/2026-03-23-dow-closes-600-points-ahead-as-trump-says-negotiations-underway-with-iran/"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/27/one-third-of-the-worlds-fertilizer-passes-through/",
+        "https://www.fool.com/investing/2026/03/25/7-ways-the-strait-of-hormuz-closure-affects-stocks/",
+        "https://finance.yahoo.com/markets/stocks/articles/strait-hormuz-blockade-affecting-more-161814288.html"
+      ]
+    }
+  ],
+  "2026-04-03T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.morningstar.com/markets/weekly-market-update-stocks-gain-339-technology-rises-energy-falls",
+        "https://www.braidwoodtimes.com.au/story/9212835/shares-dip-oil-soars-after-trump-ramps-up-iran-threats/"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.investordaily.com.au/where-does-morningstar-see-value-right-now/"
+      ]
+    }
+  ],
+  "2026-04-10T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
-  "2026-05-01": [
+  "2026-04-17T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.morningstar.com/economy/weekly-market-update-stocks-gain-462-hit-new-all-time-high-tech-rises-energy-falls"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-24T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.businesstimes.com.sg/companies-markets/etfs-traded-sgx-hit-record-over-s19-billion-aum-117-q1-turnover-surge"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-01T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
       ]
-    }
-  ],
-  "2026-05-08": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/26/05/52355378/michael-burry-compares-todays-more-extreme-nasdaq-surge-to-dot-com-bubble-sndk-is-beating-that-1",
-        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
-      ]
     },
     {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
-      "thesis_live": true,
-      "evidence_urls": [
-        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932",
-        "https://www.businessinsider.com/south-korea-stock-market-samsung-1-trillion-club-ai-boom-2026-5"
-      ]
-    }
-  ],
-  "2026-05-15": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663",
-        "https://finance.yahoo.com/news/stock-index-futures-gain-tech-103152508.html",
-        "https://news.webindia123.com/news/Articles/Business/20260514/4450133.html"
-      ]
-    },
-    {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/ai-rally-powers-on-trump-xi-summit-takes-centre-stage-ce7f5bddd989f620",
-        "https://www.channelnewsasia.com/business/south-korea-kospi-record-high-ai-samsung-sk-hynix-6112751",
-        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/south-korean-shares-hit-all-time-high-ai-led-chipmaker-rally"
-      ]
-    }
-  ],
-  "2026-05-22": [
-    {
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
-        "https://www.prokerala.com/news/articles/a1763492.html",
-        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge--geopolitical-tensions--20260516101715"
-      ]
-    },
-    {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
-  "2026-05-29": [
+  "2026-05-08T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HHSEY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
+      ]
+    }
+  ],
+  "2026-05-15T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://business.scoop.co.nz/2026/05/13/oil-inflation-and-rising-yields-hit-markets-nz-investors-brace-for-a-softer-open/"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/05/15/these-stocks-are-the-most-stretched-from-historical-trading-patterns.html",
+        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663"
+      ]
+    }
+  ],
+  "2026-05-22T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
+        "https://www.prokerala.com/news/articles/a1763492.html",
+        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge-and-geopolitical-tensions--20260516101715",
+        "https://www.moneycontrol.com/news/business/markets/sensex-today-stock-market-live-sensex-nifty-set-for-weak-start-amid-iran-war-concerns-gift-nifty-falls-139-points-liveblog-13924551.html"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/memory-stocks-tumble-seagate-ceo-191437146.html"
+      ]
+    }
+  ],
+  "2026-05-29T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.thehindubusinessline.com/markets/stock-markets/markets-open-flat-after-monday-surge-crude-jumps-on-fresh-us-strikes-in-iran/article71023613.ece"
       ]
     },
     {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/stocks/micron-leads-tech-as-nasdaq-hits-high-stock-market-today",
+        "https://www.benzinga.com/markets/equities/26/05/52863960/nasdaq-hits-record-high-investor-sentiment-improves-fear-index-remains-in-greed-zone"
+      ]
+    },
+    {
       "ticker": "CLOV",
-      "thesis": "Clover Health wins Star Ratings lawsuit, reclassifying Medicare Advantage revenue outlook",
-      "thesis_live": false,
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
+      "thesis_live": true,
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
     }
   ],
-  "2026-06-05": [
+  "2026-06-05T16:30:00-04:00": [
     {
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": false,
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
       "evidence_urls": [
-        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
-        "https://www.benzinga.com/markets/equities/26/06/53022226/stock-market-today-dow-futures-gain-sp-500-slips-as-trump-floats-meeting-irans-supreme-leader-lululemon-keel-in-focus"
+        "https://www.freemalaysiatoday.com/category/business/2026/06/05/global-markets-inch-higher-in-choppy-trading",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-australia-shares-log-worst-week-in-nearly-a-month-with-us-iran-talks-stuck-in-limbo/articleshow/131524855.cms"
       ]
     },
     {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2026-06-12": [
-    {
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm"
+        "https://finance.yahoo.com/markets/stocks/articles/stop-chasing-ai-where-invest-192957598.html"
+      ]
+    },
+    {
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.morningstar.com/stocks/weekly-market-update-stocks-remain-flat-energy-rises-consumer-cyclicals-fall",
+        "https://www.euronews.com/business/2026/06/05/beyond-nvidia-europes-best-performing-ai-stocks-of-2026"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624"
+      ]
+    }
+  ],
+  "2026-06-12T16:30:00-04:00": [
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/world/well-celebrate-our-anniversary-sailors-last-promise-to-wife-before-us-strike-on-tanker-killed-three-indians/articleshow/131684713.cms",
+        "https://www.zerohedge.com/markets/crude-benchmarks-hit-mehr-mou-reporting-equities-bid-spcx-debut-newsquawk-us-market-open",
+        "https://openthemagazine.com/world/buy-then-blame-how-india-stabilised-oil-marketsand-still-got-hit-with-tariffs"
+      ]
+    },
+    {
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://indianexpress.com/article/world/trump-blames-iran-for-attack-on-indian-ships-10736918/"
+      ]
+    },
+    {
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm",
+        "https://www.morningstar.com/markets/weekly-market-update-stocks-edge-higher-basic-materials-rise-communication-services-fall"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NOK",
+      "thesis": "JPMorgan raises Nokia target on growth thesis.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.stock-world.de/nokia-aktie-jpmorgan-hebt-ziel-auf-21-dollar/"
       ]
     }
   ]

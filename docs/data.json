@@ -131,66 +131,66 @@
     108527.13,
     115368.22,
     118527.13,
-    95445.74,
-    112713.18,
-    127916.67,
-    136298.46,
-    133953.5,
-    143624.04,
-    164699.62,
-    157887.6,
-    154118.22,
-    142529.07,
-    114234.5,
-    121395.35,
-    144021.33,
-    134399.23,
-    132044.58,
-    124079.46,
-    136637.6,
-    135436.05,
-    135794.58,
-    149806.21,
-    149215.13,
-    158275.19,
-    168779.07,
-    166895.35,
-    205351.75,
-    179825.59,
-    168129.84,
-    162180.23,
-    169544.58,
-    168982.56,
-    173488.37,
-    173469.0,
-    174641.47,
-    178168.61,
-    184728.69,
-    182198.66,
-    181642.45,
-    168391.48,
-    155251.94,
-    145358.53,
-    160668.61,
-    153934.11,
-    160697.68,
-    174723.84,
-    182170.55,
-    203498.06,
-    194514.54,
-    190445.74,
-    184163.77,
-    183895.35,
-    185103.68,
-    193701.55,
-    192606.6,
-    189525.2,
-    203003.88,
-    205387.61,
-    210998.07,
-    199428.3,
-    162354.66,
-    152117.25
+    107162.1,
+    116841.25,
+    125051.11,
+    129565.85,
+    126955.11,
+    131192.77,
+    141087.31,
+    137096.03,
+    133475.7,
+    128727.6,
+    115560.71,
+    120573.18,
+    132116.79,
+    127294.03,
+    125764.02,
+    122222.05,
+    128893.38,
+    127418.19,
+    127131.38,
+    133745.18,
+    132942.49,
+    138598.35,
+    142039.43,
+    140653.59,
+    157103.56,
+    148521.47,
+    145046.8,
+    140388.59,
+    141794.83,
+    142252.01,
+    143064.87,
+    142035.3,
+    142215.2,
+    144642.81,
+    149968.49,
+    147914.53,
+    147462.99,
+    136705.44,
+    126038.36,
+    127900.81,
+    128813.02,
+    128508.96,
+    127824.79,
+    138981.72,
+    144905.1,
+    161869.78,
+    154723.96,
+    151487.48,
+    156138.31,
+    166943.29,
+    167662.46,
+    168647.9,
+    169597.43,
+    174181.15,
+    169244.85,
+    176296.71,
+    181233.01,
+    178412.27,
+    183701.17,
+    183701.17
   ],
   "spy": [
     50000.0,
@@ -286,7 +286,7 @@
     54061.86,
     53276.78,
     53252.08,
-    53498.29
+    53329.07
   ],
   "overlay": [
     40195.27,
@@ -382,7 +382,7 @@
     223792.39,
     211521.06,
     172199.38,
-    161341.21
+    154162.38
   ],
   "overlay_ticker": "BWET",
   "overlay_anchor": "2026-02-20",
@@ -422,59 +422,155 @@
       1.0,
       1.0,
       1.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
       1.0,
       1.0,
       1.0,
       1.0,
       1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       1.0,
       1.0,
       1.0,
       1.0,
       1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "CLOV": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
       1.0,
       1.0,
       1.0,
@@ -482,6 +578,102 @@
       1.0,
       1.0,
       1.0
+    ],
+    "GIS": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
     ]
   },
   "cash": [
@@ -581,21 +773,23 @@
     0.0
   ],
   "colors": {
-    "BWET": "#1f77b4"
+    "BWET": "#1f77b4",
+    "CLOV": "#ff7f0e",
+    "GIS": "#2ca02c"
   },
   "metrics": {
-    "final": 152117.0,
-    "total_ret": 2.0423,
-    "spy_ret": 0.07,
-    "max_dd": -0.3064
+    "final": 183701.0,
+    "total_ret": 2.674,
+    "spy_ret": 0.0666,
+    "max_dd": -0.215
   },
-  "cost_usd": 2.86,
+  "cost_usd": 2.87,
   "weeks": 19,
   "gems": [
     {
       "week": "2026-02-20",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
@@ -604,14 +798,14 @@
     {
       "week": "2026-02-27",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-06",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
         "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"
@@ -620,134 +814,201 @@
     {
       "week": "2026-03-13",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-20",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
-      "urls": [
-        "ETF.com"
-      ]
+      "urls": []
     },
     {
       "week": "2026-03-27",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates"
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-26-energy-shock-global-oil-prices-surge-as-middle-east-conflict-escalates",
+        "https://virginiabusiness.com/us-stocks-lowest-close-middle-east-tensions/",
+        "https://newstalk1230.iheart.com/content/2026-03-23-dow-closes-600-points-ahead-as-trump-says-negotiations-underway-with-iran/"
+      ]
+    },
+    {
+      "week": "2026-03-27",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.fool.com/investing/2026/03/27/one-third-of-the-worlds-fertilizer-passes-through/",
+        "https://www.fool.com/investing/2026/03/25/7-ways-the-strait-of-hormuz-closure-affects-stocks/",
+        "https://finance.yahoo.com/markets/stocks/articles/strait-hormuz-blockade-affecting-more-161814288.html"
       ]
     },
     {
       "week": "2026-04-03",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
-        "https://www.ibtimes.com.au/ftse-100-surges-08-today-oil-eases-markets-rebound-1864979",
-        "https://www.irishtimes.com/business/2026/03/30/food-giants-were-finally-starting-to-cut-prices-then-the-war-began/"
+        "https://www.morningstar.com/markets/weekly-market-update-stocks-gain-339-technology-rises-energy-falls",
+        "https://www.braidwoodtimes.com.au/story/9212835/shares-dip-oil-soars-after-trump-ramps-up-iran-threats/"
+      ]
+    },
+    {
+      "week": "2026-04-03",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.investordaily.com.au/where-does-morningstar-see-value-right-now/"
       ]
     },
     {
       "week": "2026-04-10",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
-      "urls": [
-        "The Business Times, 2026-04-09"
-      ]
+      "urls": []
+    },
+    {
+      "week": "2026-04-10",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": []
     },
     {
       "week": "2026-04-17",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": [
+        "https://www.morningstar.com/economy/weekly-market-update-stocks-gain-462-hit-new-all-time-high-tech-rises-energy-falls"
+      ]
+    },
+    {
+      "week": "2026-04-17",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-24",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": [
+        "https://www.businesstimes.com.sg/companies-markets/etfs-traded-sgx-hit-record-over-s19-billion-aum-117-q1-turnover-surge"
+      ]
+    },
+    {
+      "week": "2026-04-24",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-01",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
         "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
       ]
     },
     {
-      "week": "2026-05-08",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "urls": [
-        "https://www.benzinga.com/markets/equities/26/05/52355378/michael-burry-compares-todays-more-extreme-nasdaq-surge-to-dot-com-bubble-sndk-is-beating-that-1",
-        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
-      ]
-    },
-    {
-      "week": "2026-05-08",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
-      "thesis_live": true,
-      "urls": [
-        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932",
-        "https://www.businessinsider.com/south-korea-stock-market-samsung-1-trillion-club-ai-boom-2026-5"
-      ]
-    },
-    {
-      "week": "2026-05-15",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "urls": [
-        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663",
-        "https://finance.yahoo.com/news/stock-index-futures-gain-tech-103152508.html",
-        "https://news.webindia123.com/news/Articles/Business/20260514/4450133.html"
-      ]
-    },
-    {
-      "week": "2026-05-15",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
-      "thesis_live": true,
-      "urls": [
-        "https://www.marketscreener.com/news/ai-rally-powers-on-trump-xi-summit-takes-centre-stage-ce7f5bddd989f620",
-        "https://www.channelnewsasia.com/business/south-korea-kospi-record-high-ai-samsung-sk-hynix-6112751",
-        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/south-korean-shares-hit-all-time-high-ai-led-chipmaker-rally"
-      ]
-    },
-    {
-      "week": "2026-05-22",
-      "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": true,
-      "urls": [
-        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
-        "https://www.prokerala.com/news/articles/a1763492.html",
-        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge--geopolitical-tensions--20260516101715"
-      ]
-    },
-    {
-      "week": "2026-05-22",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "week": "2026-05-01",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "urls": []
     },
     {
+      "week": "2026-05-08",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-08",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-08",
+      "ticker": "HHSEY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "http://www.econotimes.com/Hua-Hong-Semiconductor-Stock-Surges-to-Multi-Year-High-Amid-AI-Boom-1740932"
+      ]
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": [
+        "https://business.scoop.co.nz/2026/05/13/oil-inflation-and-rising-yields-hit-markets-nz-investors-brace-for-a-softer-open/"
+      ]
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/15/these-stocks-are-the-most-stretched-from-historical-trading-patterns.html",
+        "http://www.econotimes.com/SK-Hynix-Nears-1-Trillion-Market-Value-Amid-South-Koreas-AI-Driven-Stock-Market-Surge-1741663"
+      ]
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": [
+        "https://nagalandpost.com/sensex-nifty-slide-2-pc-on-crude-surge-and-geopolitical-tensions/",
+        "https://www.prokerala.com/news/articles/a1763492.html",
+        "https://ianslive.in/sensex-nifty-slide-over-2-pc-amid-crude-surge-and-geopolitical-tensions--20260516101715",
+        "https://www.moneycontrol.com/news/business/markets/sensex-today-stock-market-live-sensex-nifty-set-for-weak-start-amid-iran-war-concerns-gift-nifty-falls-139-points-liveblog-13924551.html"
+      ]
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/memory-stocks-tumble-seagate-ceo-191437146.html"
+      ]
+    },
+    {
       "week": "2026-05-29",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
       "thesis_live": true,
       "urls": [
         "https://www.thehindubusinessline.com/markets/stock-markets/markets-open-flat-after-monday-surge-crude-jumps-on-fresh-us-strikes-in-iran/article71023613.ece"
@@ -755,16 +1016,26 @@
     },
     {
       "week": "2026-05-29",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-29",
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.kiplinger.com/investing/stocks/micron-leads-tech-as-nasdaq-hits-high-stock-market-today",
+        "https://www.benzinga.com/markets/equities/26/05/52863960/nasdaq-hits-record-high-investor-sentiment-improves-fear-index-remains-in-greed-zone"
+      ]
+    },
+    {
+      "week": "2026-05-29",
       "ticker": "CLOV",
-      "thesis": "Clover Health wins Star Ratings lawsuit, reclassifying Medicare Advantage revenue outlook",
-      "thesis_live": false,
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
+      "thesis_live": true,
       "urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
@@ -772,27 +1043,85 @@
     {
       "week": "2026-06-05",
       "ticker": "BWET",
-      "thesis": "Oil freight futures surge boosts tanker shipping ETF performance.",
-      "thesis_live": false,
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
       "urls": [
-        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
-        "https://www.benzinga.com/markets/equities/26/06/53022226/stock-market-today-dow-futures-gain-sp-500-slips-as-trump-floats-meeting-irans-supreme-leader-lululemon-keel-in-focus"
+        "https://www.freemalaysiatoday.com/category/business/2026/06/05/global-markets-inch-higher-in-choppy-trading",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-australia-shares-log-worst-week-in-nearly-a-month-with-us-iran-talks-stuck-in-limbo/articleshow/131524855.cms"
       ]
     },
     {
       "week": "2026-06-05",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stop-chasing-ai-where-invest-192957598.html"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.morningstar.com/stocks/weekly-market-update-stocks-remain-flat-energy-rises-consumer-cyclicals-fall",
+        "https://www.euronews.com/business/2026/06/05/beyond-nvidia-europes-best-performing-ai-stocks-of-2026"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "BWET",
+      "thesis": "Oil freight futures market drives tanker ETF surge",
+      "thesis_live": true,
+      "urls": [
+        "https://timesofindia.indiatimes.com/world/well-celebrate-our-anniversary-sailors-last-promise-to-wife-before-us-strike-on-tanker-killed-three-indians/articleshow/131684713.cms",
+        "https://www.zerohedge.com/markets/crude-benchmarks-hit-mehr-mou-reporting-equities-bid-spcx-debut-newsquawk-us-market-open",
+        "https://openthemagazine.com/world/buy-then-blame-how-india-stabilised-oil-marketsand-still-got-hit-with-tariffs"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "GIS",
+      "thesis": "Strait of Hormuz closure disrupts fertilizer supply, pressures General Mills costs",
+      "thesis_live": true,
+      "urls": [
+        "https://indianexpress.com/article/world/trump-blames-iran-for-attack-on-indian-ships-10736918/"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "SKHSY",
+      "thesis": "AI boom drives semiconductor stock to multi-year highs.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm",
+        "https://www.morningstar.com/markets/weekly-market-update-stocks-edge-higher-basic-materials-rise-communication-services-fall"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on star ratings, boosting Medicare Advantage revenue.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-12",
-      "ticker": "HHGR",
-      "thesis": "Hua Hong Semiconductor surges on AI boom amid tech rally",
+      "ticker": "NOK",
+      "thesis": "JPMorgan raises Nokia target on growth thesis.",
       "thesis_live": true,
       "urls": [
-        "https://www.techtimes.com/articles/318271/20260612/tech-stocks-rally-trump-halts-iran-strikes-chipmakers-drive-nasdaqs-best-day-since-march.htm"
+        "https://www.stock-world.de/nokia-aktie-jpmorgan-hebt-ziel-auf-21-dollar/"
       ]
     }
   ],
@@ -855,72 +1184,88 @@
     {
       "week": "2026-03-27",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-04-03",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-04-10",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-04-17",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-04-24",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-05-01",
       "names": [
-        "BWET"
+        "BWET",
+        "GIS"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-05-08",
       "names": [
         "BWET",
-        "HHGR"
+        "GIS",
+        "HHSEY"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "GIS"
       ]
     },
     {
       "week": "2026-05-15",
       "names": [
         "BWET",
-        "HHGR"
+        "GIS",
+        "HHSEY",
+        "SKHSY"
       ],
       "funded": [
         "BWET"
@@ -930,17 +1275,22 @@
       "week": "2026-05-22",
       "names": [
         "BWET",
-        "HHGR"
+        "GIS",
+        "HHSEY",
+        "SKHSY"
       ],
       "funded": [
-        "BWET"
+        "GIS"
       ]
     },
     {
       "week": "2026-05-29",
       "names": [
         "BWET",
-        "HHGR"
+        "CLOV",
+        "GIS",
+        "HHSEY",
+        "SKHSY"
       ],
       "funded": [
         "BWET"
@@ -950,17 +1300,23 @@
       "week": "2026-06-05",
       "names": [
         "BWET",
-        "HHGR"
+        "CLOV",
+        "GIS",
+        "SKHSY"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "CLOV"
       ]
     },
     {
       "week": "2026-06-12",
       "names": [
         "BWET",
-        "HHGR"
+        "CLOV",
+        "GIS",
+        "NOK",
+        "SKHSY"
       ],
       "funded": []
     }
