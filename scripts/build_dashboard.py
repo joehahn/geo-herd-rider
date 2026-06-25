@@ -41,12 +41,12 @@ PALETTE = ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#eab308",
            "#17becf", "#e377c2", "#7f7f7f", "#0d9488", "#8c564b", "#bcbd22"]
 
 
-def load_scans() -> dict:
+def load_scans(path: Path = SCANS_JSON) -> dict:
     """Rebuild firehose's {anchor_ts: [picks]} from the saved weekly scan log."""
-    if not SCANS_JSON.exists():
-        sys.exit(f"ERROR: {SCANS_JSON} not found. Run first:\n"
+    if not path.exists():
+        sys.exit(f"ERROR: {path} not found. Run first:\n"
                  f"  python src/firehose.py --fixture data/fixtures/firehose_bwet.json")
-    raw = json.loads(SCANS_JSON.read_text())
+    raw = json.loads(path.read_text())
     out = {}
     for wk, picks in raw.items():
         out[pd.Timestamp(str(wk) + " 16:30", tz="America/New_York")] = picks
@@ -77,9 +77,14 @@ def book_cost(dates: list[str]) -> float:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--capital", type=float, default=50_000.0)
+    ap.add_argument("--scans", default=str(SCANS_JSON),
+                    help="scan log to render (default: the committed firehose_scans.json)")
+    ap.add_argument("--out", default=str(OUT_DIR),
+                    help="output dir (default: docs/; use e.g. docs_preview/ for a non-committed preview)")
     args = ap.parse_args(argv)
+    out_dir = Path(args.out)
 
-    scans = load_scans()
+    scans = load_scans(Path(args.scans))
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
     print(f"Backtesting firehose portfolio over {len(scans)} weekly scans ...")
     bt = firehose.backtest(scans, fm, args.capital, daily=True)
@@ -118,19 +123,19 @@ def main(argv: list[str] | None = None) -> int:
         "watchlist": watchlist,
     }
 
-    OUT_DIR.mkdir(exist_ok=True)
-    (OUT_DIR / "data.json").write_text(json.dumps(payload, indent=2))
-    (OUT_DIR / "index.html").write_text(INDEX_HTML)
-    (OUT_DIR / "firehose.html").write_text(FIREHOSE_HTML)
+    out_dir.mkdir(exist_ok=True)
+    (out_dir / "data.json").write_text(json.dumps(payload, indent=2))
+    (out_dir / "index.html").write_text(INDEX_HTML)
+    (out_dir / "firehose.html").write_text(FIREHOSE_HTML)
     # legacy decision-tree page retired; leave a redirect so old links don't 404
-    (OUT_DIR / "tree.html").write_text(REDIRECT_HTML)
+    (out_dir / "tree.html").write_text(REDIRECT_HTML)
 
     m = payload["metrics"]
     print(f"\nFirehose ${args.capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
           f"maxDD {m['max_dd']:.1%}")
     print(f"SPY      ${args.capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
     print(f"Cost to produce this portfolio: ${payload['cost_usd']:.2f}")
-    print(f"\nWrote {OUT_DIR/'index.html'} + firehose.html + data.json")
+    print(f"\nWrote {out_dir/'index.html'} + firehose.html + data.json")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
     return 0
 

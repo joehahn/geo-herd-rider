@@ -28,3 +28,6 @@ data/windows/harness_report_event.json
 
 # wayback: cached as-of-date ledes (large, refetchable)
 data/windows/wayback_*.json
+
+# dashboard previews (experimental books; not the committed docs/)
+docs_preview/
