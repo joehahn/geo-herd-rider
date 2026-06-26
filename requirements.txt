@@ -15,3 +15,5 @@ pyyaml>=6.0
 requests>=2.31
 matplotlib>=3.8     # scripts/plot_shipping.py (README figures)
 pydantic>=2.0
+
+warcio                  # only for the parked CC-NEWS spike (src/ccnews.py); not used by the firehose

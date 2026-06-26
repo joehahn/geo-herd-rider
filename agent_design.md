@@ -386,6 +386,18 @@ hand-seeding the naming for 13+ gems stops being honest). Implementation already
 enriches only the per-week curator slice (≤80/wk), meta-description only, URL-keyed disk cache
 (`wayback_*.json`), and coverage gaps degrade gracefully to headline-only.
 
+**Alternatives evaluated (so we don't re-litigate them):**
+- **CC-NEWS (Common Crawl news WARCs) — REJECTED as a Wayback replacement.** Spiked it
+  (`src/ccnews.py`, parked; full write-up `prior-work/ccnews_spike_report.md`). It *is* more
+  date-honest than Wayback (immutable WARCs stamped by crawl time), but date-honesty was never the
+  gap — **coverage is, and CC-NEWS is worse**: 18.8% exact-URL vs Wayback ~80% on a real GDELT
+  slice, and the miss is *structural* — it ≈0%-covers the US/English finance press that names
+  US-listed gems (Yahoo Finance, Fool, Insider Monkey, Benzinga), only covering international/wire
+  outlets. Plus there's **no URL index** → each lookup is a multi-GB WARC scan. Keep Wayback.
+- **GDELT GKG via BigQuery** — the standing candidate for the **all-gems rung** (entity/org
+  extraction at index time, date-honest, no archive dependency); needs an org-name→ticker mapping.
+  Not built; the path to pursue when per-URL Wayback fetching stops scaling.
+
 ## Scale ballpark (~5-year weekly backtest)
 ~260 weekly scans · **~50–80 distinct events** (≤~150 worst case) · **~65–100 distinct gems/vehicles**
 · **~1,000–1,500 journal entries** · ~3–8 concurrent live events · **~1–2 MB** on disk. Small data —

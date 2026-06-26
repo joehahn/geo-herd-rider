@@ -37,3 +37,6 @@ data/windows/agent_provenance_*.json
 
 # retrieval-health run stats (values baked into docs/data.json)
 data/windows/retrieval_stats.json
+
+# CC-NEWS spike data (regenerable; src/ccnews.py is parked)
+data/windows/ccnews_*.json
