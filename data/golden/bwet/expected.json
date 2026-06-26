@@ -1,6 +1,6 @@
 {
   "weeks": 19,
-  "final": 126432.19,
+  "final": 176280.58,
   "spy_final": 54353.23,
   "log": [
     {
@@ -48,44 +48,44 @@
     {
       "week": "2026-03-27",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": 0.1961
+      "weights": "BWET:1.00",
+      "week_return": 0.4035
     },
     {
       "week": "2026-04-03",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": 0.0114
+      "weights": "BWET:1.00",
+      "week_return": 0.064
     },
     {
       "week": "2026-04-10",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": -0.0317
+      "weights": "BWET:1.00",
+      "week_return": -0.0736
     },
     {
       "week": "2026-04-17",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": 0.063
+      "weights": "BWET:1.00",
+      "week_return": 0.1345
     },
     {
       "week": "2026-04-24",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": 0.1825
+      "weights": "BWET:1.00",
+      "week_return": 0.3708
     },
     {
       "week": "2026-05-01",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": -0.0946
+      "weights": "BWET:1.00",
+      "week_return": -0.1771
     },
     {
       "week": "2026-05-08",
       "watchlist": "BWET;GIS",
-      "weights": "BWET:0.50;GIS:0.50",
-      "week_return": 0.0413
+      "weights": "BWET:1.00",
+      "week_return": 0.0932
     },
     {
       "week": "2026-05-15",

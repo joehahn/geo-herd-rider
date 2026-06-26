@@ -3,7 +3,7 @@
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these. All knobs are
 # flat top-level keys (one per line) so a diff renders each change vertically.
-concentration_cap: 0.5            # LIVE. Per-position max weight in the week's basket.
+concentration_cap: 0.7            # LIVE. Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
 risk_aversion: 1.0                # LIVE. lambda in mean-variance utility (μᵀw − λ·wᵀΣw).

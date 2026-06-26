@@ -1,6 +1,6 @@
 {
   "risk_aversion": 1.0,
-  "concentration_cap": 0.5,
+  "concentration_cap": 0.7,
   "max_tickers_per_event": 16,
   "t_update_days": 1,
   "min_trade_size": 0.5,
