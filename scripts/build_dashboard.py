@@ -115,6 +115,19 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s] for lg in bt["log"]}
     watchlist = [{"week": a.date().isoformat(), "names": watch[a],
                   "funded": funded_by_week.get(a.date().isoformat(), [])} for a in scans]
+
+    # daily watchlist membership per ticker (for the Gantt's "proposed vs funded" layers): each daily
+    # date inherits the watchlist of the most recent anchor on/before it.
+    import bisect
+    anchors = list(scans)
+    adates = [a.date() for a in anchors]
+    all_wt = sorted({t for names in watch.values() for t in names})
+    watch_daily = {t: [0] * len(d["dates"]) for t in all_wt}
+    for i, ds in enumerate(d["dates"]):
+        j = bisect.bisect_right(adates, pd.Timestamp(ds).date()) - 1
+        if j >= 0:
+            for t in watch[anchors[j]]:
+                watch_daily[t][i] = 1
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
@@ -123,7 +136,8 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
-        "watchlist": watchlist, "retrieval": retstats.load(str(cfg["stats"])), "params": fm,
+        "watchlist": watchlist, "watch_daily": watch_daily,
+        "retrieval": retstats.load(str(cfg["stats"])), "params": fm,
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -244,9 +258,11 @@ INDEX_HTML = r"""<!doctype html>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
 
- <h2>Plot 3 — Holdings timeline</h2>
- <p class="sub">One row per ticker; each bar spans the dates that name was held (color matches the
-   allocation plot). First-held at the top — the same data as Plot 2, as a Gantt.</p>
+ <h2>Plot 3 — Holdings timeline (proposed vs funded)</h2>
+ <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
+   dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
+   (the optimizer actually bought it). Gray-only rows are names the press flagged but the sizing floor
+   pruned — what Plot 2/4 (funded only) don't show.</p>
  <div id="gantt"></div>
 
  <h2>Plot 4 — Dollars held per ticker</h2>
@@ -342,21 +358,29 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   document.getElementById("allocnote").innerHTML=
     `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
 
-  // Plot 3 — holdings Gantt: one row per ticker, bars = contiguous held spans.
-  const firstIdx=t=>D.alloc[t].findIndex(w=>w>0.0001);
-  const ord=Object.keys(D.alloc).filter(t=>firstIdx(t)>=0).sort((a,b)=>firstIdx(a)-firstIdx(b));
-  const spans=t=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
-    const on=D.alloc[t][i]>0.0001;
-    if(on&&st===null)st=i;
+  // Plot 3 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
+  const WD=D.watch_daily||{};
+  // contiguous spans where series[i] passes thresh
+  const spansOf=(arr,th)=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
+    const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
     if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
+  const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
+  const allt=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]));
+  const ord=allt.filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
+                .sort((a,b)=>propFirst(a)-propFirst(b));
   const gtraces=[];
-  ord.forEach((t,yi)=>spans(t).forEach((sp,k)=>gtraces.push({
-    x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],mode:"lines+markers",
-    line:{color:D.colors[t]||"#888",width:13},marker:{color:D.colors[t]||"#888",size:5},
-    name:t,legendgroup:t,showlegend:false,
-    hovertemplate:`<b>${t}</b><br>%{x|%Y-%m-%d}<extra></extra>`})));
-  Plotly.newPlot("gantt",gtraces,{margin:{l:70,r:140,t:18,b:36},
-    height:Math.max(180,38*ord.length+80),
+  ord.forEach((t,yi)=>{
+    const col=D.colors[t]||"#888";
+    spansOf(WD[t],0).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:"#ccd2d8",width:5},marker:{color:"#ccd2d8",size:4},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · proposed<br>%{x|%Y-%m-%d}<extra></extra>`}));
+    spansOf(D.alloc[t],0.0001).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:col,width:13},marker:{color:col,size:9},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · funded<br>%{x|%Y-%m-%d}<extra></extra>`}));
+  });
+  Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
+    height:Math.max(180,34*ord.length+80),
     yaxis:{tickmode:"array",tickvals:ord.map((_,i)=>i),ticktext:ord,autorange:"reversed"},
     xaxis:{type:"date"},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
