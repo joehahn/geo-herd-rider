@@ -299,39 +299,6 @@
     "OKLO": 8735.23,
     "RDW": -22434.06
   },
-  "beats": {
-    "superlatives": [
-      "best performing stock",
-      "biggest gainers",
-      "best performing etf"
-    ],
-    "macro": [
-      "geopolitics",
-      "war",
-      "shipping",
-      "tariffs",
-      "interest rates"
-    ],
-    "sectors": [
-      "technology stocks",
-      "energy stocks",
-      "financial stocks",
-      "healthcare stocks",
-      "industrial stocks",
-      "materials stocks",
-      "consumer stocks",
-      "utility stocks",
-      "real estate stocks",
-      "telecom stocks"
-    ],
-    "themes": [
-      "cryptocurrency",
-      "space stocks",
-      "robotics stocks",
-      "quantum stocks",
-      "nuclear stocks"
-    ]
-  },
   "overlay": [
     40195.27,
     39866.39,

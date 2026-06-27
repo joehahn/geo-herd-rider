@@ -81,12 +81,6 @@
  <h2>What it cost</h2>
  <div id="costs"></div>
 
- <h2>GDELT search terms</h2>
- <p class="sub" style="margin:0 0 8px">The fixed, gem-agnostic beats queried against GDELT every week —
-   superlatives, macro drivers, the GICS sector sweep, and emerging-tech themes. <b>Never the ticker</b>
-   (the curator must discover the gem from theme noise). English-only (<code>sourcelang:english</code>).</p>
- <div id="beats"></div>
-
  <h2>Retrieval health (GDELT + Wayback)</h2>
  <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
    The Wayback miss-split distinguishes a real archive gap (confirmed) from a rate-limit/transient
@@ -194,15 +188,6 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
-
-  // GDELT search terms — chips grouped by beat type
-  const B=D.beats||{};
-  const grp=(label,arr)=>(!arr||!arr.length)?"":`<div style="margin:0 0 9px"><div style="color:#888;`
-    +`font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin:0 0 2px">${label}</div>`
-    +arr.map(t=>`<span style="display:inline-block;background:#f0f3f7;border:1px solid #dde;`
-      +`border-radius:12px;padding:2px 10px;margin:0 5px 0 0;font-size:13px">${t}</span>`).join("")+`</div>`;
-  document.getElementById("beats").innerHTML=
-    grp("superlatives",B.superlatives)+grp("macro",B.macro)+grp("sectors",B.sectors)+grp("themes",B.themes);
 
   // Plot 6 — watchlist by date: rows where the live watchlist or its funding changed.
   let pw=null; const wrows=[];
