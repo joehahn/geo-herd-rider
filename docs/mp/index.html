@@ -60,8 +60,7 @@
  <h2>Plot 3 — Holdings timeline (proposed vs funded)</h2>
  <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
    dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
-   (the optimizer actually bought it). Gray-only rows are names the press flagged but the sizing floor
-   pruned — what Plot 2/4 (funded only) don't show.</p>
+   (the optimizer actually bought it).</p>
  <div id="gantt"></div>
 
  <h2>Plot 4 — Dollars held per ticker</h2>
@@ -165,11 +164,11 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
     if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
   const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
-  const allt=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]));
-  const ord=allt.filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
+  const gord=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
+                .filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
                 .sort((a,b)=>propFirst(a)-propFirst(b));
   const gtraces=[];
-  ord.forEach((t,yi)=>{
+  gord.forEach((t,yi)=>{
     const col=D.colors[t]||"#888";
     spansOf(WD[t],0).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
       mode:"lines+markers",line:{color:"#ccd2d8",width:5},marker:{color:"#ccd2d8",size:4},
@@ -179,12 +178,15 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · funded<br>%{x|%Y-%m-%d}<extra></extra>`}));
   });
   Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
-    height:Math.max(180,34*ord.length+80),
-    yaxis:{tickmode:"array",tickvals:ord.map((_,i)=>i),ticktext:ord,autorange:"reversed"},
+    height:Math.max(180,34*gord.length+80),
+    yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed"},
     xaxis:{type:"date"},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
   // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
+  const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
+              .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
   const dtraces=[];
   for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
     stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
