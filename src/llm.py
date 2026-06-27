@@ -100,7 +100,10 @@ class OpenRouterClient(LLMClient):
         if not key:
             raise RuntimeError("OPENROUTER_API_KEY not set — add it to .env (see .env.example).")
         super().__init__(model)
-        self._c = OpenAI(base_url=self.BASE_URL, api_key=key)
+        # Explicit per-request timeout + retries: without these the client uses the SDK default
+        # (600s), so a flaky/hung OpenRouter response blocks the whole scan at 0% CPU for minutes.
+        # 90s/attempt + 4 retries (exp backoff on timeout/5xx/429) keeps a long scan progressing.
+        self._c = OpenAI(base_url=self.BASE_URL, api_key=key, timeout=90.0, max_retries=4)
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
                  json_schema=None, search_query=None, before_date=None) -> str:
