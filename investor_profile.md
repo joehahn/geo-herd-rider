@@ -3,25 +3,25 @@
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these. All knobs are
 # flat top-level keys (one per line) so a diff renders each change vertically.
-initial_investment_usd: 50000     # LIVE (display/scale). Day-0 dollars to allocate. The optimizer
+initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.5            # LIVE. Per-position max weight in the week's basket.
+concentration_cap: 0.5            # Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
-risk_aversion: 1.0                # LIVE. lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
-max_tickers_per_event: 16         # LIVE. Cap on tickers kept per event (the "limit the options"
+risk_aversion: 1.0                # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
+max_tickers_per_event: 16         # Cap on tickers kept per event (the "limit the options"
                                   #   knob). Truncates each basket to the first N. Tune later:
                                   #   2 (1-2 names), 7 (3-7), 16 (8-16). Current baskets are ~3-5.
-t_update_days: 1                  # LIVE. Business days from event detection (post-close ~4:30pm
+t_update_days: 1                  # Business days from event detection (post-close ~4:30pm
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
-min_trade_size: 0.5               # LIVE. Drop basket positions below this fraction and renormalize
+min_trade_size: 0.5               # Drop basket positions below this fraction and renormalize
                                   #   (pile into the few larger names). ~1/N caps funded names near
                                   #   N: 0.20 -> ~<=5, 0.34 -> ~<=3, 0.5 -> ~<=2, 0.05 -> ~<=20. 0 disables.
-lookback_period_days: 45          # LIVE. Trailing window (calendar days, ending at entry) for the
+lookback_period_days: 45          # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
-rebalance_days: 7                 # LIVE. The single cadence knob: the firehose scans/rebalances every
+rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every
                                   #   N days AND reads that same trailing news window. 7 = weekly. One
                                   #   parameter controls both (read "the news since the last scan").
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
