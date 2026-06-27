@@ -379,8 +379,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
       w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
     // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
-    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join(" · ")+" (all retried)":"no errors";};
-    const rate=o=>`${(o.requests||0).toLocaleString()} req · ${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
+    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join("<br>")+" (all retried)":"no errors";};
+    const rate=o=>`${(o.requests||0).toLocaleString()} req<br>${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
     if(g && g.requests!=null)
       h+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
     if(w && w.requests!=null)
