@@ -6,7 +6,7 @@
 initial_investment_usd: 50000     # LIVE (display/scale). Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.7            # LIVE. Per-position max weight in the week's basket.
+concentration_cap: 0.5            # LIVE. Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
 risk_aversion: 1.0                # LIVE. lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
