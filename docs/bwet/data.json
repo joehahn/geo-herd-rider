@@ -1,4 +1,7 @@
 {
+  "gem": "BWET",
+  "overlay_label": "BWET trigger",
+  "caught": true,
   "capital": 50000.0,
   "dates": [
     "2026-02-10",
@@ -1941,14 +1944,13 @@
       "items": 1780,
       "non_english": 0,
       "non_english_pct": 0.0,
-      "requests": 83,
-      "http_429": 69,
-      "http_5xx": 0,
-      "timeout": 0,
-      "other_err": 0,
-      "elapsed_s": 1826.9,
-      "items_per_min": 58.5,
-      "from_cache": false
+      "requests": null,
+      "http_429": null,
+      "http_5xx": null,
+      "timeout": null,
+      "elapsed_s": null,
+      "items_per_min": null,
+      "from_cache": true
     },
     "wayback": {
       "looked_up": 957,
@@ -1960,12 +1962,12 @@
       "lede_pct_ge50": 99.7,
       "lede_pct_ge80": 94.0,
       "lede_pct_ge100": 81.0,
-      "requests": 2017,
-      "http_429": 0,
-      "http_5xx": 45,
-      "timeout": 396,
-      "elapsed_s": 27971.4,
-      "items_per_min": 4.3
+      "requests": null,
+      "http_429": null,
+      "http_5xx": null,
+      "timeout": null,
+      "elapsed_s": null,
+      "items_per_min": null
     }
   },
   "params": {

@@ -40,3 +40,4 @@ data/windows/retrieval_stats.json
 
 # CC-NEWS spike data (regenerable; src/ccnews.py is parked)
 data/windows/ccnews_*.json
+data/windows/retrieval_stats_*.json

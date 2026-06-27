@@ -1,245 +1,27 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Scan of the BWET gem — geo-herd-rider</title>
-<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<title>geo-herd-rider — gem scans</title>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
  body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
  .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
- h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
- .sub{color:var(--mut);margin:0 0 18px}
- .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
- .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
- .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
- .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
- .card .v{font-size:22px;font-weight:600;margin-top:3px}
+ h1{font-size:25px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 22px} a{color:#2980b9}
+ .grid{display:flex;gap:14px;flex-wrap:wrap}
+ .gcard{flex:1;min-width:210px;max-width:300px;background:#fff;border:1px solid var(--line);border-radius:12px;
+   padding:16px 18px;text-decoration:none;color:var(--ink);transition:box-shadow .15s}
+ .gcard:hover{box-shadow:0 3px 14px rgba(0,0,0,.08)}
+ .gt{font-size:20px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+ .gv{font-size:28px;font-weight:700;margin:2px 0}
+ .gs{color:var(--mut);font-size:13px;margin:2px 0}
  .pos{color:#1e7d34} .neg{color:#c0392b}
- a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
- .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
- .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
- #chart,#alloc,#dollars{width:100%;height:420px}
- #gantt{width:100%}
- .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
- .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
- .atab th{color:var(--mut);font-weight:600}
- .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ .foot{color:var(--mut);font-size:12px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
 </style></head>
 <body><div class="wrap">
- <nav class="nav"><a href="index.html" class="active">Dashboard</a>
-   <a href="firehose.html">Firehose log</a>
-   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
- <h1>Scan of the BWET gem</h1>
- <p class="sub" id="sub"></p>
- <div class="warn"><b>Hindsight upper bound, not forward lift.</b> This is the
-   <b>event-first agent</b> finding BWET in a realistic, noisy GDELT news firehose — with BWET's
-   early under-the-radar article <b>seeded</b> (real search misses those niche pieces). It still
-   leans on that seed and on a model trained past the events, so it does <i>not</i> prove the
-   firehose finds gems in time. The clean verdict is the forward eval
-   (<code>src/forward.py</code>).</div>
- <div class="cards" id="cards"></div>
- <p class="sub">The <b>firehose portfolio</b>: each week, the gems the financial press names as
-   thesis-driven movers go on the watchlist; a position is held while its driving thesis is
-   <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
-   never sets a weight. Below, the same $50K through the firehose vs <b>SPY</b>, with
-   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the portfolio at the carrier→W-Med
-   transit — does the portfolio ride the same move?</p>
-
- <h2>Scan parameters</h2>
- <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
-
- <h2>Plot 1 — Portfolio value</h2>
- <div id="chart"></div>
-
- <h2>Plot 2 — Allocation over time</h2>
- <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
-   watchlist is non-empty; to cash when the press names nothing live.</p>
- <div id="alloc"></div>
- <p class="sub" id="allocnote" style="margin-top:4px"></p>
-
- <h2>Plot 3 — Holdings timeline</h2>
- <p class="sub">One row per ticker; each bar spans the dates that name was held (color matches the
-   allocation plot). First-held at the top — the same data as Plot 2, as a Gantt.</p>
- <div id="gantt"></div>
-
- <h2>Plot 4 — Dollars held per ticker</h2>
- <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
-   stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
- <div id="dollars"></div>
-
- <h2>Plot 5 — Cumulative $ gain per holding</h2>
- <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
-   (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
-   portfolio's total gain.</p>
- <div id="gain"></div>
-
- <h2>Plot 6 — Watchlist by date</h2>
- <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
-   the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
-   optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
- <table class="atab" id="watchtable"></table>
-
- <h2>What it cost</h2>
- <div id="costs"></div>
-
- <h2>Retrieval health (GDELT + Wayback)</h2>
- <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
-   The Wayback miss-split distinguishes a real archive gap (confirmed) from a rate-limit/transient
-   failure (deferred — recoverable on re-run).</p>
- <div id="retr"></div>
-</div>
-<script>
-fetch("data.json").then(r=>r.json()).then(D=>{
-  const fmt=x=>"$"+Math.round(x).toLocaleString();
-  const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
-  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
-  document.getElementById("sub").textContent =
-    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
-
-  document.getElementById("cards").innerHTML=[
-    ["Firehose portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
-    ["SPY buy & hold", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
-    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
-    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
-  ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
-     <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
-
-  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
-  const P=D.params||{};
-  const order=["initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
-    "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
-  const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
-  const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
-    +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
-  document.getElementById("params").innerHTML=
-    prow("window", `${D.dates[0]} → ${D.dates[D.dates.length-1]}`) + prow("weekly_scans", D.weeks)
-    + pk.map(k=>prow(k, P[k])).join("");
-
-  // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
-  const BOOK="#d62728", SPYC="#7f7f7f";
-  const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
-  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
-    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
-  const vtraces=[
-    {x:D.dates,y:D.value,name:"Firehose portfolio",line:{color:BOOK,width:2.4}},
-    {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
-  ];
-  const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
-  if(D.overlay){
-    vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
-      line:{color:OVC,width:1.8,dash:"dash"},connectgaps:true});
-    vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
-      line:{color:OVC,width:1,dash:"dot"}});
-    vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
-      text:"carriers → W. Med",font:{color:OVC,size:10}});
-  }
-  Plotly.newPlot("chart",vtraces,
-    {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     yaxis:{tickprefix:"$",separatethousands:true},hovermode:"x unified"},
-    {displayModeBar:false,responsive:true});
-
-  const traces=[];
-  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
-    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
-  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
-    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
-  Plotly.newPlot("alloc",traces,{margin:{l:60,r:140,t:40,b:36},
-    yaxis:{ticksuffix:"%",range:[0,100]},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
-    {displayModeBar:false,responsive:true});
-  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
-  const peak={}; for(const t in D.alloc) peak[t]=Math.max(...D.alloc[t])*100;
-  const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
-  document.getElementById("allocnote").innerHTML=
-    `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
-
-  // Plot 3 — holdings Gantt: one row per ticker, bars = contiguous held spans.
-  const firstIdx=t=>D.alloc[t].findIndex(w=>w>0.0001);
-  const ord=Object.keys(D.alloc).filter(t=>firstIdx(t)>=0).sort((a,b)=>firstIdx(a)-firstIdx(b));
-  const spans=t=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
-    const on=D.alloc[t][i]>0.0001;
-    if(on&&st===null)st=i;
-    if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
-  const gtraces=[];
-  ord.forEach((t,yi)=>spans(t).forEach((sp,k)=>gtraces.push({
-    x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],mode:"lines+markers",
-    line:{color:D.colors[t]||"#888",width:13},marker:{color:D.colors[t]||"#888",size:5},
-    name:t,legendgroup:t,showlegend:false,
-    hovertemplate:`<b>${t}</b><br>%{x|%Y-%m-%d}<extra></extra>`})));
-  Plotly.newPlot("gantt",gtraces,{margin:{l:70,r:140,t:18,b:36},
-    height:Math.max(180,38*ord.length+80),
-    yaxis:{tickmode:"array",tickvals:ord.map((_,i)=>i),ticktext:ord,autorange:"reversed"},
-    xaxis:{type:"date"},hovermode:"closest"},
-    {displayModeBar:false,responsive:true});
-
-  // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
-  const dtraces=[];
-  for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
-    stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
-  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",stackgroup:"d",
-    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
-  Plotly.newPlot("dollars",dtraces,{margin:{l:70,r:140,t:40,b:36},
-    yaxis:{tickprefix:"$",separatethousands:true},legend:{orientation:"h",y:1.22},
-    hovermode:"x unified"},{displayModeBar:false,responsive:true});
-
-  // Plot 5 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
-  const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
-  Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
-    marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
-    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
-    {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
-     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
-    {displayModeBar:false,responsive:true});
-
-  // Plot 6 — watchlist by date: rows where the live watchlist or its funding changed.
-  let pw=null; const wrows=[];
-  for(const w of (D.watchlist||[])){
-    const fset=new Set(w.funded||[]);
-    const sig=w.names.join(",")+"|"+(w.funded||[]).join(",");
-    if(sig===pw) continue;
-    pw=sig;
-    if(!w.names.length){ wrows.push(`<tr><td>${w.week}</td><td style="color:#aaa">— empty (cash) —</td></tr>`); continue; }
-    const cells=w.names.map(t=>{
-      const c=(D.colors&&D.colors[t])||"#444";
-      return fset.has(t) ? `<b style="color:${c}">${t}</b>` : `<span style="color:#aaa">${t}</span>`;
-    }).join(" · ");
-    wrows.push(`<tr><td>${w.week}</td><td>${cells}</td></tr>`);
-  }
-  document.getElementById("watchtable").innerHTML=
-    `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
-    `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
-
-  document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
-    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
-    + `<div class="sub" style="margin:6px 0 0;font-size:12px">The event-first agent's scout + journal `
-    + `calls across ${D.weeks} weekly scans (dev model). No causal ladder, no magnitude forecasts.</div></div>`;
-
-  // Retrieval health panel
-  const R=D.retrieval||{}, g=R.gdelt, w=R.wayback;
-  const card=(k,v,sub,cls)=>`<div class="card"><div class="k">${k}</div><div class="v ${cls||''}">${v}</div>`
-    + `<div class="sub" style="margin:3px 0 0;font-size:12px">${sub||''}</div></div>`;
-  const num=x=>(x==null?'—':x);
-  if(!g && !w){
-    document.getElementById("retr").innerHTML=`<div class="sub">No retrieval stats recorded for this `
-      +`book (run the harness with the instrumented code to populate).</div>`;
-  } else {
-    let h="";
-    if(g) h+=card("GDELT pool", num(g.items), "deduped GDELT items");
-    if(g) h+=card("non-English", `${g.non_english_pct??0}%`, "of GDELT pool");
-    if(w) h+=card("GDELT-Wayback join rate", (w.join_rate_pct??0)+"%",
-      `${w.lede} of ${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
-    if(w) h+=card("Wayback misses", `${w.confirmed_no_snapshot} + ${w.transient_deferred}`,
-      `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
-      w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
-    // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
-    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join("<br>")+" (all retried)":"no errors";};
-    const rate=o=>`${(o.requests||0).toLocaleString()} req<br>${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
-    let hf="";   // fetch cards go on their own row below (GDELT left of Wayback)
-    if(g && g.requests!=null)
-      hf+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
-    if(w && w.requests!=null)
-      hf+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
-    document.getElementById("retr").innerHTML=
-      `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
-  }
-});
-</script></body></html>
+ <h1>geo-herd-rider — gem scans</h1>
+ <p class="sub">Each card is one hidden-gem event scanned through the LLM news-firehose + a mean-variance
+   optimizer. Return is the book vs SPY over the gem's window; <b>caught</b> = the firehose named the
+   gem itself. Every number is a hindsight <b>upper bound</b> — the clean test is the forward eval.
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></p>
+ <div class="grid"><a class="gcard" href="bwet/index.html"><div class="gt">BWET</div><div class="gv pos">+75%</div><div class="gs">vs SPY +6% · maxDD -48%</div><div class="gs"><span class="pos">✓ caught</span> · Wayback join 62.6%</div><div class="gs">2026-02-10 → 2026-06-26</div></a><a class="gcard" href="mp/index.html"><div class="gt">MP</div><div class="gv pos">+111%</div><div class="gs">vs SPY +13% · maxDD -24%</div><div class="gs"><span class="pos">✓ caught</span> · Wayback join 95.4%</div><div class="gs">2025-03-25 → 2025-09-04</div></a></div>
+ <p class="foot">geo-herd-rider · generated by <code>scripts/build_dashboard.py --all</code></p>
+</div></body></html>

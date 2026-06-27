@@ -294,7 +294,8 @@ OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->
 
 
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
-             panel: pd.DataFrame | None = None) -> dict:
+             panel: pd.DataFrame | None = None,
+             overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
@@ -304,7 +305,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
-    tickers = {score.BENCHMARK, OVERLAY} | {t for w in watch.values() for t in w}
+    tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
@@ -347,11 +348,11 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     "weights": held, "week_return": round(ret, 4)})
     out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors)}
     if daily:
-        out["daily"] = _daily_series(panel, days, reb, week_w, capital)
+        out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor)
     return out
 
 
-def _daily_series(panel, days, reb, week_w, capital) -> dict | None:
+def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_anchor=OVERLAY_ANCHOR) -> dict | None:
     """Daily value/alloc: hold each week's weights from its rebalance day until the next."""
     starts = [r for r in reb if r is not None]
     if not starts:
@@ -380,17 +381,17 @@ def _daily_series(panel, days, reb, week_w, capital) -> dict | None:
             alloc.loc[d, t] = cur[t]
     spy = panel[score.BENCHMARK].reindex(d_idx).ffill()
     spy_val = [round(capital * v, 2) for v in (spy / spy.iloc[0]).tolist()]
-    overlay = None
-    if OVERLAY in panel.columns:
-        ov = panel[OVERLAY].reindex(d_idx).ffill()
-        ai = next((i for i, d in enumerate(d_idx) if d >= pd.Timestamp(OVERLAY_ANCHOR)), None)
+    overlay_vals = None
+    if overlay in panel.columns:
+        ov = panel[overlay].reindex(d_idx).ffill()
+        ai = next((i for i, d in enumerate(d_idx) if d >= pd.Timestamp(overlay_anchor)), None)
         if ai is not None and pd.notna(ov.iloc[ai]) and ov.iloc[ai] > 0:
             scale = values[ai] / float(ov.iloc[ai])
-            overlay = [None if pd.isna(v) else round(float(v) * scale, 2) for v in ov.tolist()]
+            overlay_vals = [None if pd.isna(v) else round(float(v) * scale, 2) for v in ov.tolist()]
     alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]
     cash = [max(0.0, round(1 - float(alloc.loc[d].sum()), 4)) for d in d_idx]
     return {"dates": [d.strftime("%Y-%m-%d") for d in d_idx], "value": values, "spy": spy_val,
-            "overlay": overlay, "overlay_ticker": OVERLAY, "overlay_anchor": OVERLAY_ANCHOR,
+            "overlay": overlay_vals, "overlay_ticker": overlay, "overlay_anchor": overlay_anchor,
             "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns}, "cash": cash,
         "gain": {t: round(v, 2) for t, v in gain.items()}}
 

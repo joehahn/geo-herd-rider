@@ -74,81 +74,120 @@ def book_cost(dates: list[str]) -> float:
     return round(float(led.groupby("label")["cost_usd"].last().sum()) if len(led) else 0.0, 2)
 
 
-def main(argv: list[str] | None = None) -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--capital", type=float, default=None,
-                    help="override; default = initial_investment_usd from investor_profile.md")
-    ap.add_argument("--scans", default=str(SCANS_JSON),
-                    help="scan log to render (default: the committed firehose_scans.json)")
-    ap.add_argument("--out", default=str(OUT_DIR),
-                    help="output dir (default: docs/; use e.g. docs_preview/ for a non-committed preview)")
-    args = ap.parse_args(argv)
-    out_dir = Path(args.out)
+GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
 
-    scans = load_scans(Path(args.scans))
+
+def gem_config(ticker: str) -> dict:
+    """Resolve a gem's name/trigger (from gems.json) + its scan/stats files + output subdir.
+    BWET keeps the canonical files; other gems use the firehose_scans_<gem>.json convention."""
+    g = next(x for x in json.loads(GEMS_JSON.read_text())["gems"] if x["ticker"] == ticker)
+    low = ticker.lower()
+    scans = "firehose_scans.json" if ticker == "BWET" else f"firehose_scans_{low}.json"
+    stats = f"retrieval_stats_{low}.json"
+    return {"ticker": ticker, "name": g["name"], "trigger": g["trigger_date"],
+            "scans": ROOT / "data" / "windows" / scans,
+            "stats": ROOT / "data" / "windows" / stats, "out": OUT_DIR / low}
+
+
+def build_gem(ticker: str, capital_override: float | None = None) -> dict:
+    """Build one gem's dashboard into docs/<gem>/ (data.json + index.html + firehose.html).
+    The gem's own price is the overlay, anchored at its trigger date. Returns the payload."""
+    import retstats
+    cfg = gem_config(ticker)
+    scans = load_scans(cfg["scans"])
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
-    capital = args.capital if args.capital is not None else float(fm.get("initial_investment_usd", 50_000))
-    print(f"Backtesting firehose portfolio over {len(scans)} weekly scans ...")
-    bt = firehose.backtest(scans, fm, capital, daily=True)
+    capital = capital_override if capital_override is not None else float(fm.get("initial_investment_usd", 50_000))
+    bt = firehose.backtest(scans, fm, capital, daily=True, overlay=ticker, overlay_anchor=cfg["trigger"])
     d = bt["daily"]
     if d is None:
-        sys.exit("No daily series — need >=1 week with prices.")
-
-    # weekly press-named gems for the firehose-log page (flatten the scans)
+        sys.exit(f"{ticker}: no daily series — need >=1 week with prices.")
     gems = []
     for a, picks in scans.items():
         for p in picks:
-            if not str(p.get("ticker", "")).strip():
-                continue
-            gems.append({"week": a.date().isoformat(), "ticker": p["ticker"],
-                         "thesis": p.get("thesis", ""), "thesis_live": bool(p.get("thesis_live", True)),
-                         "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
-
+            if str(p.get("ticker", "")).strip():
+                gems.append({"week": a.date().isoformat(), "ticker": p["ticker"],
+                             "thesis": p.get("thesis", ""), "thesis_live": bool(p.get("thesis_live", True)),
+                             "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
+    caught = ticker in {str(p.get("ticker", "")).strip().upper() for picks in scans.values()
+                        for p in picks if str(p.get("ticker", "")).strip()}
     tickers = sorted(d["alloc"].keys())
-
-    # Plot 5 — the sticky live watchlist per week (what the curator kept thesis-live), with the
-    # subset the optimizer actually funded that week (watchlisted-but-pruned shows as not-funded).
     watch = firehose._stateful_watch(scans)
-    funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s]
-                      for lg in bt["log"]}
+    funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s] for lg in bt["log"]}
     watchlist = [{"week": a.date().isoformat(), "names": watch[a],
                   "funded": funded_by_week.get(a.date().isoformat(), [])} for a in scans]
-
-    import retstats  # retrieval-health metrics from the run that built this book (if recorded)
-    retrieval = retstats.load(str(ROOT / "data" / "windows" / "retrieval_stats.json"))
-
     payload = {
+        "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
-        "gain": d.get("gain", {}),
-        "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
-        "overlay_anchor": d["overlay_anchor"],
-        "alloc": d["alloc"], "cash": d["cash"],
+        "gain": d.get("gain", {}), "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
+        "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
-        "watchlist": watchlist, "retrieval": retrieval, "params": fm,
+        "watchlist": watchlist, "retrieval": retstats.load(str(cfg["stats"])), "params": fm,
     }
-
-    out_dir.mkdir(exist_ok=True)
-    (out_dir / "data.json").write_text(json.dumps(payload, indent=2))
-    (out_dir / "index.html").write_text(INDEX_HTML)
-    (out_dir / "firehose.html").write_text(FIREHOSE_HTML)
-    # legacy decision-tree page retired; leave a redirect so old links don't 404
-    (out_dir / "tree.html").write_text(REDIRECT_HTML)
-
+    out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
+    (out / "data.json").write_text(json.dumps(payload, indent=2))
+    (out / "index.html").write_text(INDEX_HTML)
+    (out / "firehose.html").write_text(FIREHOSE_HTML)
     m = payload["metrics"]
-    print(f"\nFirehose ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
-          f"maxDD {m['max_dd']:.1%}")
-    print(f"SPY      ${capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
-    print(f"Cost to produce this portfolio: ${payload['cost_usd']:.2f}")
-    print(f"\nWrote {out_dir/'index.html'} + firehose.html + data.json")
+    print(f"  {ticker}: ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
+          f"maxDD {m['max_dd']:.1%}  caught={caught}  -> {out}/")
+    return payload
+
+
+def build_landing() -> None:
+    """Landing page at docs/index.html: one card per built gem (scans docs/<gem>/data.json)."""
+    rows = []
+    for sub in sorted(OUT_DIR.glob("*/data.json")):
+        d = json.loads(sub.read_text()); m = d["metrics"]
+        rows.append({"gem": d.get("gem", sub.parent.name.upper()), "url": f"{sub.parent.name}/index.html",
+                     "ret": m["total_ret"], "spy": m["spy_ret"], "maxdd": m["max_dd"], "caught": d.get("caught"),
+                     "window": f'{d["dates"][0]} → {d["dates"][-1]}',
+                     "join": (d.get("retrieval") or {}).get("wayback", {}).get("join_rate_pct")})
+    rows.sort(key=lambda r: r["window"], reverse=True)
+
+    def card(r):
+        cls = "pos" if r["ret"] >= 0 else "neg"
+        cc = "pos" if r["caught"] else "neg"
+        caught = "✓ caught" if r["caught"] else "✗ missed"
+        jn = f"{r['join']}%" if r["join"] is not None else "—"
+        return (f'<a class="gcard" href="{r["url"]}"><div class="gt">{r["gem"]}</div>'
+                f'<div class="gv {cls}">{r["ret"]*100:+.0f}%</div>'
+                f'<div class="gs">vs SPY {r["spy"]*100:+.0f}% · maxDD {r["maxdd"]*100:.0f}%</div>'
+                f'<div class="gs"><span class="{cc}">{caught}</span> · Wayback join {jn}</div>'
+                f'<div class="gs">{r["window"]}</div></a>')
+    cards = "".join(card(r) for r in rows) or '<p class="sub">No gem dashboards built yet.</p>'
+    OUT_DIR.mkdir(exist_ok=True)
+    (OUT_DIR / "index.html").write_text(LANDING_HTML.replace("{{CARDS}}", cards))
+    print(f"  landing: {len(rows)} gem(s) -> {OUT_DIR}/index.html")
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--gem", help="build one gem's dashboard (e.g. BWET, MP, SMR) -> docs/<gem>/")
+    ap.add_argument("--all", action="store_true", help="build every gem with a scan log + the landing")
+    ap.add_argument("--capital", type=float, default=None,
+                    help="override; default = initial_investment_usd from investor_profile.md")
+    args = ap.parse_args(argv)
+    if args.all:
+        built = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
+                 if gem_config(g["ticker"])["scans"].exists()]
+        for t in built:
+            build_gem(t, args.capital)
+        build_landing()
+        print(f"\nBuilt {len(built)} gem dashboard(s): {', '.join(built)} + landing")
+    elif args.gem:
+        build_gem(args.gem, args.capital)
+        build_landing()
+    else:
+        ap.error("choose --gem <TICKER> or --all")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
     return 0
 
 
 INDEX_HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Scan of the BWET gem — geo-herd-rider</title>
+<title>geo-herd-rider — gem scan</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
@@ -173,13 +212,14 @@ INDEX_HTML = r"""<!doctype html>
  .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
 </style></head>
 <body><div class="wrap">
- <nav class="nav"><a href="index.html" class="active">Dashboard</a>
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="index.html" class="active">Dashboard</a>
    <a href="firehose.html">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
- <h1>Scan of the BWET gem</h1>
+ <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
  <div class="warn"><b>Hindsight upper bound, not forward lift.</b> This is the
-   <b>event-first agent</b> finding BWET in a realistic, noisy GDELT news firehose — with BWET's
+   <b>event-first agent</b> finding the gem in a realistic, noisy GDELT news firehose — with its
    early under-the-radar article <b>seeded</b> (real search misses those niche pieces). It still
    leans on that seed and on a model trained past the events, so it does <i>not</i> prove the
    firehose finds gems in time. The clean verdict is the forward eval
@@ -188,9 +228,9 @@ INDEX_HTML = r"""<!doctype html>
  <p class="sub">The <b>firehose portfolio</b>: each week, the gems the financial press names as
    thesis-driven movers go on the watchlist; a position is held while its driving thesis is
    <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
-   never sets a weight. Below, the same $50K through the firehose vs <b>SPY</b>, with
-   <b>BWET</b> (the motivating hidden gem, dashed) scaled to the portfolio at the carrier→W-Med
-   transit — does the portfolio ride the same move?</p>
+   never sets a weight. Below, the portfolio vs <b>SPY</b>, with
+   <b id="gemname">the gem</b> (dashed) scaled to the portfolio at its trigger — does the portfolio
+   ride the same move?</p>
 
  <h2>Scan parameters</h2>
  <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
@@ -240,6 +280,9 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const fmt=x=>"$"+Math.round(x).toLocaleString();
   const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
   const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
+  document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
+  document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
+  const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
   document.getElementById("sub").textContent =
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
@@ -278,7 +321,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
       line:{color:OVC,width:1,dash:"dot"}});
     vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
-      text:"carriers → W. Med",font:{color:OVC,size:10}});
+      text:D.overlay_label||(D.overlay_ticker+" trigger"),font:{color:OVC,size:10}});
   }
   Plotly.newPlot("chart",vtraces,
     {margin:{l:60,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
@@ -415,7 +458,8 @@ FIREHOSE_HTML = r"""<!doctype html>
  .th{font-size:13.5px;color:#333;margin:6px 0 4px} .u{font-size:12px} .u a{color:#2980b9;margin-right:10px}
 </style></head>
 <body><div class="wrap">
- <nav class="nav"><a href="index.html">Dashboard</a>
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="index.html">Dashboard</a>
    <a href="firehose.html" class="active">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1>Firehose log — the press-named gems, week by week</h1>
@@ -456,6 +500,36 @@ fetch("data.json").then(r=>r.json()).then(D=>{
 REDIRECT_HTML = r"""<!doctype html><meta charset="utf-8">
 <meta http-equiv="refresh" content="0; url=firehose.html">
 <p>The decision-tree page was retired. Redirecting to the <a href="firehose.html">firehose log</a>…</p>
+"""
+
+
+LANDING_HTML = r"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — gem scans</title>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:25px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 22px} a{color:#2980b9}
+ .grid{display:flex;gap:14px;flex-wrap:wrap}
+ .gcard{flex:1;min-width:210px;max-width:300px;background:#fff;border:1px solid var(--line);border-radius:12px;
+   padding:16px 18px;text-decoration:none;color:var(--ink);transition:box-shadow .15s}
+ .gcard:hover{box-shadow:0 3px 14px rgba(0,0,0,.08)}
+ .gt{font-size:20px;font-weight:700;font-family:ui-monospace,Menlo,monospace}
+ .gv{font-size:28px;font-weight:700;margin:2px 0}
+ .gs{color:var(--mut);font-size:13px;margin:2px 0}
+ .pos{color:#1e7d34} .neg{color:#c0392b}
+ .foot{color:var(--mut);font-size:12px;margin-top:34px;border-top:1px solid var(--line);padding-top:12px}
+</style></head>
+<body><div class="wrap">
+ <h1>geo-herd-rider — gem scans</h1>
+ <p class="sub">Each card is one hidden-gem event scanned through the LLM news-firehose + a mean-variance
+   optimizer. Return is the book vs SPY over the gem's window; <b>caught</b> = the firehose named the
+   gem itself. Every number is a hindsight <b>upper bound</b> — the clean test is the forward eval.
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></p>
+ <div class="grid">{{CARDS}}</div>
+ <p class="foot">geo-herd-rider · generated by <code>scripts/build_dashboard.py --all</code></p>
+</div></body></html>
 """
 
 
