@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — firehose log</title>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:24px;margin:0 0 4px} .sub{color:var(--mut);margin:0 0 20px} a{color:#2980b9}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
+ .how{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin:0 0 18px;font-size:13px}
+ .how ol{margin:6px 0 0;padding-left:20px} .how li{margin:3px 0}
+ .row{background:#fff;border:1px solid var(--line);border-left:5px solid #c0392b;border-radius:10px;padding:11px 15px;margin:0 0 11px}
+ .row.exit{border-left-color:#9aa0a6;opacity:.7}
+ .hd{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+ .date{font-weight:600} .tk{font-family:ui-monospace,Menlo,monospace;font-weight:600;background:#2c3e50;color:#fff;border-radius:6px;padding:1px 7px;font-size:13px}
+ .b{display:inline-block;font-size:11px;padding:1px 8px;border-radius:20px;margin-left:6px;background:#eef1f3;color:#445}
+ .b.live{background:#e3f3e6;color:#1e7d34;font-weight:600} .b.exit{background:#eef1f3;color:#888;font-weight:600}
+ .th{font-size:13.5px;color:#333;margin:6px 0 4px} .u{font-size:12px} .u a{color:#2980b9;margin-right:10px}
+</style></head>
+<body><div class="wrap">
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="index.html">Dashboard</a>
+   <a href="firehose.html" class="active">Firehose log</a>
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
+ <h1>Firehose log — the press-named gems, week by week</h1>
+ <div class="how"><b>How the simplified solution works:</b>
+   <ol>
+     <li><b>📰 Read the firehose.</b> Each week, scan the news for tickers the press explicitly
+       NAMES as thesis-driven movers — the journalists do the gem-discovery (CNBC/ETF.com named
+       BWET weeks before it tripled).</li>
+     <li><b>🟢 Enter / hold while LIVE.</b> A name stays on the watchlist while its driving thesis
+       is live (war on, chokepoint shut).</li>
+     <li><b>⚪ Exit on decay.</b> Drop it when the thesis resolves (ceasefire, Hormuz reopens).</li>
+     <li><b>Mechanical sizing</b> downstream (mean-variance optimizer; the LLM never sets weights).</li>
+   </ol>
+   <span style="color:var(--mut)">No causal decision-tree — just the firehose, an entry/exit
+   switch, and the optimizer. This is the event-first agent over a realistic GDELT firehose (BWET
+   seeded); the live forward log is built by <code>src/forward.py</code>.</span></div>
+ <div id="log"></div>
+</div>
+<script>
+fetch("data.json").then(r=>r.json()).then(D=>{
+  const esc=s=>String(s==null?'':s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  const byWeek={};
+  (D.gems||[]).forEach(g=>{(byWeek[g.week]=byWeek[g.week]||[]).push(g);});
+  const weeks=Object.keys(byWeek).sort();
+  document.getElementById("log").innerHTML = weeks.map(wk=>byWeek[wk].map(g=>{
+    const urls=(g.urls||[]).map(u=>`<a href="${esc(u)}" target="_blank">source ↗</a>`).join("");
+    return `<div class="row ${g.thesis_live?'':'exit'}">
+      <div class="hd"><span class="date">${esc(g.week)} &nbsp;<span class="tk">${esc(g.ticker)}</span>
+        <span class="b ${g.thesis_live?'live':'exit'}">${g.thesis_live?'HELD — thesis live':'EXIT — thesis decayed'}</span>
+        </span></div>
+      <div class="th">${esc(g.thesis)}</div><div class="u">${urls}</div></div>`;
+  }).join("")).join("") || '<p class="sub">No gems logged yet.</p>';
+});
+</script></body></html>
