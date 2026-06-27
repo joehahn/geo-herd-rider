@@ -85,7 +85,7 @@
  <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
    The Wayback miss-split distinguishes a real archive gap (confirmed) from a rate-limit/transient
    failure (deferred — recoverable on re-run).</p>
- <div class="cards" id="retr"></div>
+ <div id="retr"></div>
 </div>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
@@ -233,11 +233,13 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
     const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join("<br>")+" (all retried)":"no errors";};
     const rate=o=>`${(o.requests||0).toLocaleString()} req<br>${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
+    let hf="";   // fetch cards go on their own row below (GDELT left of Wayback)
     if(g && g.requests!=null)
-      h+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
+      hf+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
     if(w && w.requests!=null)
-      h+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
-    document.getElementById("retr").innerHTML=h;
+      hf+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
+    document.getElementById("retr").innerHTML=
+      `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
   }
 });
 </script></body></html>
