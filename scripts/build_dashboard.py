@@ -176,10 +176,64 @@ def build_landing() -> None:
     print(f"  landing: {len(rows)} gem(s) -> {OUT_DIR}/index.html")
 
 
+# Parameter sweeps. Each entry re-scores every gem's book across `values` of `key` (an fm knob)
+# and the sweeps dashboard plots SUM-across-gems of final curated value vs the parameter. Extensible:
+# add risk_aversion / min_trade_size here later (left commented so they're not run yet).
+SWEEPS = [
+    {"key": "concentration_cap", "label": "concentration_cap", "values": [0.25, 0.33, 0.5, 0.67, 0.75, 1.0]},
+    # {"key": "risk_aversion",    "label": "risk_aversion",    "values": [0.5, 1.0, 2.0, 4.0]},
+    # {"key": "min_trade_size",   "label": "min_trade_size",   "values": [0.0, 0.1, 0.2, 0.34, 0.5]},
+]
+
+
+def build_sweeps() -> None:
+    """Sweep dashboard at docs/sweeps/: for each parameter, re-score every gem's book across its
+    values (ONE fixed price panel per gem, so the cap comparison is clean) and write the SUM across
+    gems of Final Curated Portfolio value + Sum Final SPY (flat benchmark). Extensible via SWEEPS."""
+    import score
+    fm0 = load_financial_model(str(ROOT / "investor_profile.md"))
+    capital = float(fm0.get("initial_investment_usd", 50_000))
+    gem_tickers = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
+                   if gem_config(g["ticker"])["scans"].exists()]
+    if not gem_tickers:
+        print("  sweeps: no gem scan logs yet — skipped"); return
+    # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare)
+    gem_data = {}
+    for t in gem_tickers:
+        cfg = gem_config(t)
+        scans = load_scans(cfg["scans"])
+        ana = list(scans)
+        tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
+                                      if str(p.get("ticker", "")).strip()}
+        start = (ana[0] - pd.Timedelta(days=70)).strftime("%Y-%m-%d")
+        end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
+        gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
+    out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}}
+    for sw in SWEEPS:
+        key, vals = sw["key"], sw["values"]
+        sum_cur, sum_spy, per_gem = [], [], {t: [] for t in gem_tickers}
+        for val in vals:
+            tc = ts = 0.0
+            for t in gem_tickers:
+                scans, panel, anchor = gem_data[t]
+                bt = firehose.backtest(scans, {**fm0, key: val}, capital, panel=panel,
+                                       overlay=t, overlay_anchor=anchor)
+                tc += bt["final"]; ts += bt["spy_final"]; per_gem[t].append(round(bt["final"]))
+            sum_cur.append(round(tc)); sum_spy.append(round(ts))
+        out["params"][key] = {"label": sw["label"], "values": vals,
+                              "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem}
+        print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
+    sd = OUT_DIR / "sweeps"; sd.mkdir(parents=True, exist_ok=True)
+    (sd / "data.json").write_text(json.dumps(out, indent=2))
+    (sd / "index.html").write_text(SWEEPS_HTML)
+    print(f"  sweeps -> {sd}/index.html ({len(gem_tickers)} gems: {', '.join(gem_tickers)})")
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--gem", help="build one gem's dashboard (e.g. BWET, MP, SMR) -> docs/<gem>/")
-    ap.add_argument("--all", action="store_true", help="build every gem with a scan log + the landing")
+    ap.add_argument("--all", action="store_true", help="build every gem + landing + sweeps")
+    ap.add_argument("--sweeps", action="store_true", help="build only the parameter-sweep dashboard")
     ap.add_argument("--capital", type=float, default=None,
                     help="override; default = initial_investment_usd from investor_profile.md")
     args = ap.parse_args(argv)
@@ -189,12 +243,15 @@ def main(argv: list[str] | None = None) -> int:
         for t in built:
             build_gem(t, args.capital)
         build_landing()
-        print(f"\nBuilt {len(built)} gem dashboard(s): {', '.join(built)} + landing")
+        build_sweeps()
+        print(f"\nBuilt {len(built)} gem dashboard(s): {', '.join(built)} + landing + sweeps")
+    elif args.sweeps:
+        build_sweeps()
     elif args.gem:
         build_gem(args.gem, args.capital)
         build_landing()
     else:
-        ap.error("choose --gem <TICKER> or --all")
+        ap.error("choose --gem <TICKER>, --all, or --sweeps")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
     return 0
 
@@ -229,6 +286,7 @@ INDEX_HTML = r"""<!doctype html>
  <nav class="nav"><a href="../index.html">↑ All gems</a>
    <a href="index.html" class="active">Dashboard</a>
    <a href="firehose.html">Firehose log</a>
+   <a href="../sweeps/index.html">Sweeps</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
@@ -552,10 +610,62 @@ LANDING_HTML = r"""<!doctype html>
  <p class="sub">Each card is one hidden-gem event scanned through the LLM news-firehose + a mean-variance
    optimizer. Return is the book vs SPY over the gem's window; <b>caught</b> = the firehose named the
    gem itself. Every number is a hindsight <b>upper bound</b> — the clean test is the forward eval.
+   &nbsp;<a href="sweeps/index.html"><b>Parameter sweeps →</b></a> &middot;
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></p>
  <div class="grid">{{CARDS}}</div>
  <p class="foot">geo-herd-rider · generated by <code>scripts/build_dashboard.py --all</code></p>
 </div></body></html>
+"""
+
+
+SWEEPS_HTML = r"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — parameter sweeps</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:30px 0 4px} .sub{color:var(--mut);margin:0 0 16px}
+ a{color:#2980b9}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)}
+ .chart{width:100%;height:420px}
+ .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
+</style></head>
+<body><div class="wrap">
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
+ <h1>Parameter sweeps</h1>
+ <p class="sub" id="sub"></p>
+ <div id="charts"></div>
+ <p class="foot">geo-herd-rider · generated by <code>scripts/build_dashboard.py --all</code></p>
+</div>
+<script>
+fetch("data.json").then(r=>r.json()).then(D=>{
+  const gems=D.gems||[], n=gems.length;
+  document.getElementById("sub").textContent =
+    `Sum across ${n} gem book(s) (${gems.join(", ")}) · $${(D.capital_per_gem*n).toLocaleString()} total start. `
+    +`Each book re-scored at every value on one fixed price panel per gem (a clean, deterministic comparison).`;
+  const host=document.getElementById("charts"), P=D.params||{};
+  const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
+  Object.keys(P).forEach(k=>{
+    const p=P[k];
+    const h2=document.createElement("h2"); h2.textContent=`Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);
+    const div=document.createElement("div"); div.className="chart"; div.id="c_"+k; host.appendChild(div);
+    const traces=[
+      {x:p.values,y:p.sum_curated,name:"Sum Final Curated",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
+      {x:p.values,y:p.sum_spy,name:"Sum Final SPY",mode:"lines+markers",line:{color:"#7f7f7f",width:1.6,dash:"dot"},marker:{size:6}},
+    ];
+    gems.forEach((g,gi)=>{ if(p.per_gem&&p.per_gem[g]) traces.push(
+      {x:p.values,y:p.per_gem[g],name:g,mode:"lines",line:{color:pal[gi%pal.length],width:1,dash:"dash"},opacity:.55}); });
+    Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
+      xaxis:{title:p.label,tickvals:p.values},yaxis:{tickprefix:"$",separatethousands:true},
+      legend:{orientation:"h",y:1.16},hovermode:"x unified"},{displayModeBar:false,responsive:true});
+  });
+  if(!Object.keys(P).length) host.innerHTML='<p class="sub">No sweeps recorded yet.</p>';
+});
+</script></body></html>
 """
 
 
