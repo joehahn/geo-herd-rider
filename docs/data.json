@@ -1660,5 +1660,17 @@
       "elapsed_s": 27971.4,
       "items_per_min": 4.3
     }
+  },
+  "params": {
+    "risk_aversion": 1.0,
+    "concentration_cap": 0.7,
+    "max_tickers_per_event": 16,
+    "t_update_days": 1,
+    "min_trade_size": 0.5,
+    "lookback_period_days": 45,
+    "risk_free_rate": 0.04,
+    "rebalance_days": 7,
+    "news_lookback_days": null,
+    "max_watchlist_size": 12
   }
 }

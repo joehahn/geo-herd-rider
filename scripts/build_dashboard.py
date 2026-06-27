@@ -123,7 +123,7 @@ def main(argv: list[str] | None = None) -> int:
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], args.capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
-        "watchlist": watchlist, "retrieval": retrieval,
+        "watchlist": watchlist, "retrieval": retrieval, "params": fm,
     }
 
     out_dir.mkdir(exist_ok=True)
@@ -189,6 +189,9 @@ INDEX_HTML = r"""<!doctype html>
    <b>BWET</b> (the motivating hidden gem, dashed) scaled to the portfolio at the carrier→W-Med
    transit — does the portfolio ride the same move?</p>
 
+ <h2>Scan parameters</h2>
+ <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
+
  <h2>Plot 1 — Portfolio value</h2>
  <div id="chart"></div>
 
@@ -238,6 +241,17 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
+
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
+  const P=D.params||{};
+  const order=["concentration_cap","min_trade_size","risk_aversion","max_tickers_per_event",
+    "lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
+  const pk=order.filter(k=>k in P).concat(Object.keys(P).filter(k=>!order.includes(k)));
+  const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
+    +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  document.getElementById("params").innerHTML=
+    prow("window", `${D.dates[0]} → ${D.dates[D.dates.length-1]}`) + prow("weekly_scans", D.weeks)
+    + pk.map(k=>prow(k, P[k])).join("");
 
   // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
   const BOOK="#d62728", SPYC="#7f7f7f";
