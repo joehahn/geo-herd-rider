@@ -124,11 +124,12 @@ def report() -> None:
         print("Run `forward.py --scan` weekly as coverage arrives.")
         return
     fm = load_financial_model(str(PROFILE))
+    cap = float(fm.get("initial_investment_usd", 50_000))
     scans = _scans_dict(log)
-    bt = firehose.backtest(scans, fm)
+    bt = firehose.backtest(scans, fm, cap)
     print(f"weeks scanned: {len(weeks)}  ({weeks[0]} .. {weeks[-1]})")
-    print(f"  firehose portfolio : $50,000 -> ${bt['final']:,.0f} ({bt['final']/50000-1:+.1%})")
-    print(f"  SPY           : $50,000 -> ${bt['spy_final']:,.0f} ({bt['spy_final']/50000-1:+.1%})")
+    print(f"  firehose portfolio : ${cap:,.0f} -> ${bt['final']:,.0f} ({bt['final']/cap-1:+.1%})")
+    print(f"  SPY           : ${cap:,.0f} -> ${bt['spy_final']:,.0f} ({bt['spy_final']/cap-1:+.1%})")
     held = {t for r in bt["log"] for t in r["watchlist"].split(";") if t}
     print(f"  gems caught   : {', '.join(sorted(held)) or '—'}")
     a = list(scans)[-1]

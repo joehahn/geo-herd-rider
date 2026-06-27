@@ -28,6 +28,8 @@ from scipy.optimize import minimize
 TRADING_DAYS = 252
 
 _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
+    "initial_investment_usd": 50_000,  # LIVE (display/scale): day-0 dollars. The optimizer works in
+                                       #   fractions, so this only sets dollar labels, not picks/weights.
     "risk_aversion": 1.0,              # LIVE: optimizer lambda (mean-variance)
     "concentration_cap": 0.25,         # LIVE: per-position max weight (top-level profile key)
     "max_tickers_per_event": 16,       # LIVE: cap on tickers kept per event's basket (the

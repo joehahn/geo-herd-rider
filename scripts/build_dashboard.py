@@ -76,7 +76,8 @@ def book_cost(dates: list[str]) -> float:
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--capital", type=float, default=50_000.0)
+    ap.add_argument("--capital", type=float, default=None,
+                    help="override; default = initial_investment_usd from investor_profile.md")
     ap.add_argument("--scans", default=str(SCANS_JSON),
                     help="scan log to render (default: the committed firehose_scans.json)")
     ap.add_argument("--out", default=str(OUT_DIR),
@@ -86,8 +87,9 @@ def main(argv: list[str] | None = None) -> int:
 
     scans = load_scans(Path(args.scans))
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
+    capital = args.capital if args.capital is not None else float(fm.get("initial_investment_usd", 50_000))
     print(f"Backtesting firehose portfolio over {len(scans)} weekly scans ...")
-    bt = firehose.backtest(scans, fm, args.capital, daily=True)
+    bt = firehose.backtest(scans, fm, capital, daily=True)
     d = bt["daily"]
     if d is None:
         sys.exit("No daily series — need >=1 week with prices.")
@@ -116,12 +118,12 @@ def main(argv: list[str] | None = None) -> int:
     retrieval = retstats.load(str(ROOT / "data" / "windows" / "retrieval_stats.json"))
 
     payload = {
-        "capital": args.capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
+        "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"],
         "alloc": d["alloc"], "cash": d["cash"],
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
-        "metrics": metrics(d["value"], d["spy"], args.capital),
+        "metrics": metrics(d["value"], d["spy"], capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "retrieval": retrieval, "params": fm,
     }
@@ -134,9 +136,9 @@ def main(argv: list[str] | None = None) -> int:
     (out_dir / "tree.html").write_text(REDIRECT_HTML)
 
     m = payload["metrics"]
-    print(f"\nFirehose ${args.capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
+    print(f"\nFirehose ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
           f"maxDD {m['max_dd']:.1%}")
-    print(f"SPY      ${args.capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
+    print(f"SPY      ${capital:,.0f} -> ${payload['spy'][-1]:,.0f} ({m['spy_ret']:+.1%})")
     print(f"Cost to produce this portfolio: ${payload['cost_usd']:.2f}")
     print(f"\nWrote {out_dir/'index.html'} + firehose.html + data.json")
     print("Open: python -m http.server -d docs  (then visit localhost:8000)")
@@ -244,8 +246,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
 
   // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
   const P=D.params||{};
-  const order=["concentration_cap","min_trade_size","risk_aversion","max_tickers_per_event",
-    "lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
+  const order=["initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
+    "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
   const pk=order.filter(k=>k in P).concat(Object.keys(P).filter(k=>!order.includes(k)));
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
     +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;

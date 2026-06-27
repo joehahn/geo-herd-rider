@@ -394,7 +394,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--end", default="2026-06-18")
     ap.add_argument("--model", default=MODEL)
     ap.add_argument("--workers", type=int, default=WORKERS)
-    ap.add_argument("--capital", type=float, default=50_000.0)
+    ap.add_argument("--capital", type=float, default=None,
+                    help="override; default = initial_investment_usd from investor_profile.md")
     ap.add_argument("--scan-only", action="store_true", help="print the weekly scans, skip backtest")
     ap.add_argument("--fixture", default=None,
                     help="path to a fixed article set (perfect-retrieval mechanics test, no live search)")
@@ -434,12 +435,13 @@ def main(argv: list[str] | None = None) -> int:
     if args.scan_only:
         return 0
 
-    bt = backtest(scans, fm, args.capital)
+    cap = args.capital if args.capital is not None else float(fm.get("initial_investment_usd", 50_000))
+    bt = backtest(scans, fm, cap)
     print(f"\n=== weekly-rebalanced firehose portfolio vs SPY ({bt['weeks']} weeks) ===")
-    print(f"  firehose: ${args.capital:,.0f} -> ${bt['final']:,.0f} "
-          f"({bt['final']/args.capital-1:+.1%})")
-    print(f"  SPY:      ${args.capital:,.0f} -> ${bt['spy_final']:,.0f} "
-          f"({bt['spy_final']/args.capital-1:+.1%})")
+    print(f"  firehose: ${cap:,.0f} -> ${bt['final']:,.0f} "
+          f"({bt['final']/cap-1:+.1%})")
+    print(f"  SPY:      ${cap:,.0f} -> ${bt['spy_final']:,.0f} "
+          f"({bt['spy_final']/cap-1:+.1%})")
     # when did BWET enter / exit?
     bwet = [r["week"] for r in bt["log"] if "BWET" in r["watchlist"]]
     if bwet:

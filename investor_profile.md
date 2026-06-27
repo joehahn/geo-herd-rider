@@ -3,6 +3,9 @@
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these. All knobs are
 # flat top-level keys (one per line) so a diff renders each change vertically.
+initial_investment_usd: 50000     # LIVE (display/scale). Day-0 dollars to allocate. The optimizer
+                                  #   works in FRACTIONS, so this is scale-only: it sets the dollar
+                                  #   labels (dashboard, reports), never the picks/weights/returns %.
 concentration_cap: 0.7            # LIVE. Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
