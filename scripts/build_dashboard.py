@@ -153,7 +153,10 @@ def build_landing() -> None:
     """Landing page at docs/index.html: one card per built gem (scans docs/<gem>/data.json)."""
     rows = []
     for sub in sorted(OUT_DIR.glob("*/data.json")):
-        d = json.loads(sub.read_text()); m = d["metrics"]
+        d = json.loads(sub.read_text())
+        if "metrics" not in d or "gem" not in d:
+            continue                      # skip non-gem subdirs (e.g. docs/sweeps/)
+        m = d["metrics"]
         rows.append({"gem": d.get("gem", sub.parent.name.upper()), "url": f"{sub.parent.name}/index.html",
                      "ret": m["total_ret"], "spy": m["spy_ret"], "maxdd": m["max_dd"], "caught": d.get("caught"),
                      "window": f'{d["dates"][0]} → {d["dates"][-1]}',
