@@ -255,7 +255,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const P=D.params||{};
   const order=["initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
     "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
-  const pk=order.filter(k=>k in P).concat(Object.keys(P).filter(k=>!order.includes(k)));
+  const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
     +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
   document.getElementById("params").innerHTML=

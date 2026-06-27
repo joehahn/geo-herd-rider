@@ -24,8 +24,6 @@ lookback_period_days: 45          # LIVE. Trailing window (calendar days, ending
 rebalance_days: 7                 # LIVE. The single cadence knob: the firehose scans/rebalances every
                                   #   N days AND reads that same trailing news window. 7 = weekly. One
                                   #   parameter controls both (read "the news since the last scan").
-# news_lookback_days: 14          # OPTIONAL override of the news window ONLY (advanced; rare
-                                  #   sparse-coverage smoothing). Omitted => news window = rebalance_days.
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
 ---
 
@@ -36,8 +34,7 @@ the mean-variance optimizer that weights each curated event's basket.
 
 `rebalance_days` is the **one cadence knob** — it sets both how often the firehose re-scans/
 re-optimizes and the trailing news window each scan reads (they're the same thing: the news that
-arrived since the last scan). `news_lookback_days` exists only as an optional override of the news
-window for sparse-coverage smoothing; normally leave it unset.
+arrived since the last scan).
 
 `concentration_cap` and `min_trade_size` are the **two we'll sweep later** to optimize the
 size/concentration tradeoff; they're sizing-only (applied at backtest time), so changing them
