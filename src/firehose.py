@@ -362,11 +362,17 @@ def _daily_series(panel, days, reb, week_w, capital) -> dict | None:
     all_t = sorted({t for w in seg.values() for t in w})
     alloc = pd.DataFrame(0.0, index=d_idx, columns=all_t)
     cur, val, values = {}, capital, []
+    gain: dict = {}                       # per-ticker cumulative $ P&L (sums to total portfolio gain)
     for n, d in enumerate(d_idx):
         pos = days.get_loc(d)
         if pos in seg:
             cur = seg[pos]
         if n > 0:
+            vprev = val                   # dollars at start of day d earn day d's price move
+            for t in cur:
+                r = daily_ret.loc[d, t]
+                if pd.notna(r):
+                    gain[t] = gain.get(t, 0.0) + vprev * cur[t] * r
             val *= 1 + sum(cur.get(t, 0) * daily_ret.loc[d, t] for t in cur
                            if pd.notna(daily_ret.loc[d, t]))
         values.append(round(val, 2))
@@ -385,7 +391,8 @@ def _daily_series(panel, days, reb, week_w, capital) -> dict | None:
     cash = [max(0.0, round(1 - float(alloc.loc[d].sum()), 4)) for d in d_idx]
     return {"dates": [d.strftime("%Y-%m-%d") for d in d_idx], "value": values, "spy": spy_val,
             "overlay": overlay, "overlay_ticker": OVERLAY, "overlay_anchor": OVERLAY_ANCHOR,
-            "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns}, "cash": cash}
+            "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns}, "cash": cash,
+        "gain": {t: round(v, 2) for t, v in gain.items()}}
 
 
 def main(argv: list[str] | None = None) -> int:

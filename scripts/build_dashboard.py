@@ -117,8 +117,21 @@ def main(argv: list[str] | None = None) -> int:
     import retstats  # retrieval-health metrics from the run that built this book (if recorded)
     retrieval = retstats.load(str(ROOT / "data" / "windows" / "retrieval_stats.json"))
 
+    # GDELT beats queried each week — gem-agnostic, never the ticker. Keep in sync with
+    # run_harness.HARNESS_QUERIES (quotes stripped here for display).
+    beats = {
+        "superlatives": ["best performing stock", "biggest gainers", "best performing etf"],
+        "macro": ["geopolitics", "war", "shipping", "tariffs", "interest rates"],
+        "sectors": ["technology stocks", "energy stocks", "financial stocks", "healthcare stocks",
+                    "industrial stocks", "materials stocks", "consumer stocks", "utility stocks",
+                    "real estate stocks", "telecom stocks"],
+        "themes": ["cryptocurrency", "space stocks", "robotics stocks", "quantum stocks",
+                   "nuclear stocks"],
+    }
+
     payload = {
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
+        "gain": d.get("gain", {}), "beats": beats,
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"],
         "alloc": d["alloc"], "cash": d["cash"],
@@ -147,7 +160,7 @@ def main(argv: list[str] | None = None) -> int:
 
 INDEX_HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>geo-herd-rider — $50K firehose backtest</title>
+<title>Scan of the BWET gem — geo-herd-rider</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
  :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
@@ -175,7 +188,7 @@ INDEX_HTML = r"""<!doctype html>
  <nav class="nav"><a href="index.html" class="active">Dashboard</a>
    <a href="firehose.html">Firehose log</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
- <h1>Through the herd, on $50K</h1>
+ <h1>Scan of the BWET gem</h1>
  <p class="sub" id="sub"></p>
  <div class="warn"><b>Hindsight upper bound, not forward lift.</b> This is the
    <b>event-first agent</b> finding BWET in a realistic, noisy GDELT news firehose — with BWET's
@@ -213,7 +226,13 @@ INDEX_HTML = r"""<!doctype html>
    stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
  <div id="dollars"></div>
 
- <h2>Plot 5 — Watchlist by date</h2>
+ <h2>Plot 5 — Cumulative $ gain per holding</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
+   (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
+   portfolio's total gain.</p>
+ <div id="gain"></div>
+
+ <h2>Plot 6 — Watchlist by date</h2>
  <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
    the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
@@ -221,6 +240,12 @@ INDEX_HTML = r"""<!doctype html>
 
  <h2>What it cost</h2>
  <div id="costs"></div>
+
+ <h2>GDELT search terms</h2>
+ <p class="sub" style="margin:0 0 8px">The fixed, gem-agnostic beats queried against GDELT every week —
+   superlatives, macro drivers, the GICS sector sweep, and emerging-tech themes. <b>Never the ticker</b>
+   (the curator must discover the gem from theme noise). English-only (<code>sourcelang:english</code>).</p>
+ <div id="beats"></div>
 
  <h2>Retrieval health (GDELT + Wayback)</h2>
  <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
@@ -321,7 +346,25 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     yaxis:{tickprefix:"$",separatethousands:true},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
-  // Plot 5 — watchlist by date: rows where the live watchlist or its funding changed.
+  // Plot 5 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
+    marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // GDELT search terms — chips grouped by beat type
+  const B=D.beats||{};
+  const grp=(label,arr)=>(!arr||!arr.length)?"":`<div style="margin:0 0 9px"><div style="color:#888;`
+    +`font-size:11px;text-transform:uppercase;letter-spacing:.05em;margin:0 0 2px">${label}</div>`
+    +arr.map(t=>`<span style="display:inline-block;background:#f0f3f7;border:1px solid #dde;`
+      +`border-radius:12px;padding:2px 10px;margin:0 5px 0 0;font-size:13px">${t}</span>`).join("")+`</div>`;
+  document.getElementById("beats").innerHTML=
+    grp("superlatives",B.superlatives)+grp("macro",B.macro)+grp("sectors",B.sectors)+grp("themes",B.themes);
+
+  // Plot 6 — watchlist by date: rows where the live watchlist or its funding changed.
   let pw=null; const wrows=[];
   for(const w of (D.watchlist||[])){
     const fset=new Set(w.funded||[]);
@@ -363,14 +406,12 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
       w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
     // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
-    if(w && w.requests!=null)
-      h+=card("Wayback errors", `${w.http_429||0}·429  ${w.http_5xx||0}·5xx  ${w.timeout||0}·t/o`,
-        `${w.requests} reqs · ${w.items_per_min!=null?w.items_per_min+"/min":"—"}`,
-        (w.http_429||w.http_5xx)?"neg":"");
+    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join(" · ")+" (all retried)":"no errors";};
+    const rate=o=>`${(o.requests||0).toLocaleString()} req · ${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
     if(g && g.requests!=null)
-      h+=card("GDELT errors", `${g.http_429||0}·429  ${g.http_5xx||0}·5xx  ${g.timeout||0}·t/o`,
-        g.from_cache?"served from cache":`${g.requests} reqs · ${g.items_per_min!=null?g.items_per_min+"/min":"—"}`,
-        (g.http_429||g.http_5xx)?"neg":"");
+      h+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
+    if(w && w.requests!=null)
+      h+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
     document.getElementById("retr").innerHTML=h;
   }
 });

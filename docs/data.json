@@ -208,11 +208,11 @@
     50074.41,
     49796.28,
     49557.16,
-    49585.34,
+    49585.33,
     49148.27,
     49495.03,
     49219.07,
-    48573.95,
+    48573.94,
     48999.45,
     48920.71,
     48859.31,
@@ -221,7 +221,7 @@
     48331.94,
     48459.08,
     47782.9,
-    47665.15,
+    47665.14,
     46981.83,
     47475.14,
     47315.77,
@@ -291,6 +291,47 @@
     53329.07,
     52943.43
   ],
+  "gain": {
+    "BWET": 66464.96,
+    "CEG": 354.55,
+    "NFG": -7514.52,
+    "PCG": -7885.45,
+    "OKLO": 8735.23,
+    "RDW": -22434.06
+  },
+  "beats": {
+    "superlatives": [
+      "best performing stock",
+      "biggest gainers",
+      "best performing etf"
+    ],
+    "macro": [
+      "geopolitics",
+      "war",
+      "shipping",
+      "tariffs",
+      "interest rates"
+    ],
+    "sectors": [
+      "technology stocks",
+      "energy stocks",
+      "financial stocks",
+      "healthcare stocks",
+      "industrial stocks",
+      "materials stocks",
+      "consumer stocks",
+      "utility stocks",
+      "real estate stocks",
+      "telecom stocks"
+    ],
+    "themes": [
+      "cryptocurrency",
+      "space stocks",
+      "robotics stocks",
+      "quantum stocks",
+      "nuclear stocks"
+    ]
+  },
   "overlay": [
     40195.27,
     39866.39,
