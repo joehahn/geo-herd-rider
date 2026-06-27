@@ -239,7 +239,7 @@ INDEX_HTML = r"""<!doctype html>
    firehose finds gems in time. The clean verdict is the forward eval
    (<code>src/forward.py</code>).</div>
  <div class="cards" id="cards"></div>
- <p class="sub">The <b>firehose portfolio</b>: each week, the gems the financial press names as
+ <p class="sub">The <b>curated portfolio</b>: each week, the gems the financial press names as
    thesis-driven movers go on the watchlist; a position is held while its driving thesis is
    <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
    never sets a weight. Below, the portfolio vs <b>SPY</b>, with
@@ -303,8 +303,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
   document.getElementById("cards").innerHTML=[
-    ["Firehose portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
-    ["SPY buy & hold", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Final Curated Portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["Final SPY", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
     ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
     ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
@@ -327,7 +327,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
   const vtraces=[
-    {x:D.dates,y:D.value,name:"Firehose portfolio",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.value,name:"Curated portfolio",line:{color:BOOK,width:2.4}},
     {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
   ];
   const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
