@@ -4,7 +4,7 @@
   "concentration_cap": 0.5,
   "max_tickers_per_event": 16,
   "t_update_days": 1,
-  "min_trade_size": 0.5,
+  "min_trade_size": 0.2,
   "lookback_period_days": 150,
   "risk_free_rate": 0.04,
   "rebalance_days": 7,

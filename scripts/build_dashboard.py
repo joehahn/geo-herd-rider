@@ -189,7 +189,8 @@ SWEEPS = [
      "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "lookback_period_days", "label": "lookback_period_days",
      "values": [21, 30, 45, 60, 75, 90, 120, 150, 180, 215, 252, 330]},   # ~3wk -> ~1.3yr μ/Σ fit
-    # {"key": "risk_aversion",    "label": "risk_aversion",    "values": [0.5, 1.0, 2.0, 4.0]},
+    {"key": "risk_aversion", "label": "risk_aversion",
+     "values": [0.25, 0.5, 0.67, 1.0, 1.5, 2.0, 3.0, 5.0]},   # low λ = aggressive tilt -> high λ = risk-averse
 ]
 
 

@@ -1,6 +1,6 @@
 {
   "weeks": 19,
-  "final": 103678.85,
+  "final": 93129.65,
   "spy_final": 54535.01,
   "log": [
     {
@@ -42,26 +42,26 @@
     {
       "week": "2026-03-20",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "NFG:1.00",
-      "week_return": 0.0207
+      "weights": "NFG:0.50;BWET:0.50",
+      "week_return": 0.1694
     },
     {
       "week": "2026-03-27",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:1.00",
-      "week_return": 0.1302
+      "weights": "BWET:0.50;NFG:0.50",
+      "week_return": 0.0731
     },
     {
       "week": "2026-04-03",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:1.00",
-      "week_return": 0.1505
+      "weights": "BWET:0.50;NFG:0.50",
+      "week_return": 0.0506
     },
     {
       "week": "2026-04-10",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:1.00",
-      "week_return": -0.1279
+      "weights": "BWET:0.50;NFG:0.50",
+      "week_return": -0.089
     },
     {
       "week": "2026-04-17",
@@ -72,8 +72,8 @@
     {
       "week": "2026-04-24",
       "watchlist": "BWET;CEG;NFG;PCG",
-      "weights": "BWET:1.00",
-      "week_return": 0.229
+      "weights": "BWET:0.50;PCG:0.50",
+      "week_return": 0.109
     },
     {
       "week": "2026-05-01",
@@ -84,20 +84,20 @@
     {
       "week": "2026-05-08",
       "watchlist": "BWET;CEG;NFG;OKLO;PCG",
-      "weights": "BWET:1.00",
-      "week_return": 0.0509
+      "weights": "BWET:0.50;PCG:0.50",
+      "week_return": 0.0143
     },
     {
       "week": "2026-05-15",
       "watchlist": "BWET;CEG;LEU;NFG;OKLO;PCG",
-      "weights": "BWET:1.00",
-      "week_return": -0.1286
+      "weights": "BWET:0.57;PCG:0.43",
+      "week_return": -0.0573
     },
     {
       "week": "2026-05-22",
       "watchlist": "BWET;CEG;LEU;NFG;OKLO;PCG",
-      "weights": "PCG:1.00",
-      "week_return": -0.0164
+      "weights": "PCG:0.50;BWET:0.50",
+      "week_return": 0.0093
     },
     {
       "week": "2026-05-29",
@@ -108,8 +108,8 @@
     {
       "week": "2026-06-05",
       "watchlist": "BWET;CEG;LEU;NFG;PCG;RDW",
-      "weights": "BWET:1.00",
-      "week_return": 0.0113
+      "weights": "BWET:0.50;RDW:0.50",
+      "week_return": -0.0947
     }
   ]
 }
