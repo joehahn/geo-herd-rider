@@ -214,6 +214,28 @@ SWEEPS = [
 SWEEP_BASE = {}   # empty -> sweeps follow the live investor_profile defaults (add keys to pin a
                   # sweep-only baseline that differs from the gem dashboards)
 
+# Model bake-off: re-score each curator LLM's 3-gem books on the SAME per-gem panel and compare.
+# (short -> (display label, scale, approx $/3-gem). Order = display order, cheap/small -> big.)
+BAKEOFF_INFO = {  # cost = MEASURED $ for this 3-gem scan (today's ledger), not an estimate
+    "mimo":     ("mimo",     "~1T MoE / 42B act",  "$0.4"),
+    "llama4":   ("llama4",   "400B MoE / 17B act", "$0.3"),
+    "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1"),
+    "grok4":    ("grok-4.3", "frontier",           "$3.7"),
+    "sonnet":   ("sonnet",   "1-2T (est)",         "$3.6"),
+    "opus":     ("opus",     "2-5T (est)",         "$4.4"),
+}
+
+
+def _model_book_path(short: str, gem: str):
+    """Where a given model's scan book for a gem lives. mimo = pre-Sonnet backup, sonnet = the live
+    books, everyone else = the bakeoff/ dir written by the model bake-off scans."""
+    fn = {"BWET": "firehose_scans.json", "MP": "firehose_scans_mp.json", "SMR": "firehose_scans_smr.json"}[gem]
+    if short == "mimo":
+        return ROOT / "data" / "windows" / "_mimo_softened" / fn
+    if short == "sonnet":
+        return ROOT / "data" / "windows" / fn
+    return ROOT / "data" / "windows" / "bakeoff" / f"firehose_scans_{gem.lower()}__{short}.json"
+
 
 def build_sweeps() -> None:
     """Sweep dashboard at docs/sweeps/: for each parameter, re-score every gem's book across its
@@ -233,7 +255,10 @@ def build_sweeps() -> None:
     # enough pre-window history to cover the LONGEST lookback being swept (else early-week μ/Σ fits
     # would run short); +30d buffer, floor 70d.
     pre = max([70] + [max(sw["values"]) + 30 for sw in SWEEPS if sw["key"] == "lookback_period_days"])
-    # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare)
+    # bake-off models with a COMPLETE set of books (all 3 gems) — these get scored on the panels too
+    bake_models = [s for s in BAKEOFF_INFO if all(_model_book_path(s, t).exists() for t in gem_tickers)]
+    # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare).
+    # Panel tickers = union across ALL model books for the gem, so every model can be scored on it.
     gem_data = {}
     models = {}
     for t in gem_tickers:
@@ -245,6 +270,9 @@ def build_sweeps() -> None:
         ana = list(scans)
         tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
                                       if str(p.get("ticker", "")).strip()}
+        for s in bake_models:  # add every bake-off model's tickers so its book is scorable
+            for v in load_scans(_model_book_path(s, t)).values():
+                tix |= {p["ticker"] for p in v if str(p.get("ticker", "")).strip()}
         start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
@@ -266,6 +294,24 @@ def build_sweeps() -> None:
         out["params"][key] = {"label": sw["label"], "values": vals, "log": sw.get("log", False),
                               "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem}
         print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
+    # ---- LLM bake-off: each model's 3 books re-scored on the same panels at the live defaults ----
+    if bake_models:
+        bo = {"models": [], "label": [], "scale": [], "cost": [], "sum_curated": [],
+              "per_gem": {t: [] for t in gem_tickers}, "caught": {}}
+        for s in bake_models:
+            total = 0.0; caught = {}
+            for t in gem_tickers:
+                bk = load_scans(_model_book_path(s, t))
+                _, panel, anchor = gem_data[t]
+                bt = firehose.backtest(bk, fm0, capital, panel=panel, overlay=t, overlay_anchor=anchor)
+                total += bt["final"]; bo["per_gem"][t].append(round(bt["final"]))
+                caught[t] = any(str(p.get("ticker", "")).strip().upper() == t
+                                for v in bk.values() for p in v)
+            lbl, scl, cst = BAKEOFF_INFO[s]
+            bo["models"].append(s); bo["label"].append(lbl); bo["scale"].append(scl); bo["cost"].append(cst)
+            bo["sum_curated"].append(round(total)); bo["caught"][s] = caught
+        out["bakeoff"] = bo
+        print("  bake-off: " + " ".join(f"{l}->${c:,.0f}" for l, c in zip(bo["label"], bo["sum_curated"])))
     sd = OUT_DIR / "sweeps"; sd.mkdir(parents=True, exist_ok=True)
     (sd / "data.json").write_text(json.dumps(out, indent=2))
     (sd / "index.html").write_text(SWEEPS_HTML)
@@ -704,6 +750,27 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
+  // ---- LLM bake-off (top): stacked per-gem Final Curated value per curator model ----
+  const BO=D.bakeoff;
+  if(BO && BO.models && BO.models.length){
+    const h2=document.createElement("h2");
+    h2.textContent="LLM bake-off — Final Curated value per curator model (sum of 3 gems, live defaults)";
+    host.appendChild(h2);
+    const div=document.createElement("div"); div.className="chart"; div.id="c_bakeoff"; host.appendChild(div);
+    const idx=BO.models.map((_,i)=>i).sort((a,b)=>BO.sum_curated[b]-BO.sum_curated[a]);  // best first
+    const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+" · "+BO.cost[i]);
+    const gemcol={}; (D.gems||[]).forEach((g,gi)=>gemcol[g]=pal[gi%pal.length]);
+    const traces=(D.gems||[]).map(g=>({
+      type:"bar", name:g, x:labels, y:idx.map(i=>BO.per_gem[g][i]), marker:{color:gemcol[g]},
+      customdata:idx.map(i=>BO.caught[BO.models[i]][g]?"caught ✓":"missed ✗"),
+      hovertemplate:`%{x}<br>${g}: $%{y:,.0f} (%{customdata})<extra></extra>`}));
+    const ann=idx.map((i,xi)=>({x:labels[xi], y:BO.sum_curated[i], yanchor:"bottom", showarrow:false,
+      font:{size:10}, text:"$"+BO.sum_curated[i].toLocaleString()+"<br>"
+        +(D.gems||[]).map(g=>g+(BO.caught[BO.models[i]][g]?"✓":"✗")).join(" ")}));
+    Plotly.newPlot(div.id, traces, {barmode:"stack", margin:{l:72,r:20,t:30,b:62},
+      yaxis:{tickprefix:"$",separatethousands:true}, xaxis:{tickfont:{size:11}},
+      legend:{orientation:"h",y:1.12}, annotations:ann}, {displayModeBar:false,responsive:true});
+  }
   Object.keys(P).forEach((k,i)=>{
     const p=P[k];
     const h2=document.createElement("h2"); h2.textContent=`Plot ${i+1} — Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);

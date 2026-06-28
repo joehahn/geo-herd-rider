@@ -57,9 +57,13 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
 # Curator-model registry: short name -> (provider model id, provider). The profile's `model` knob
 # holds the short name; scanning + the dashboard resolve through here so there is ONE source of truth.
 CURATOR_MODELS: dict[str, tuple[str, str]] = {
-    "mimo":   ("xiaomi/mimo-v2.5-pro", "openrouter"),  # cheap OpenRouter open-weight (dev/bake-off)
-    "sonnet": ("claude-sonnet-4-6",    "anthropic"),
-    "opus":   ("claude-opus-4-8",      "anthropic"),
+    "mimo":     ("xiaomi/mimo-v2.5-pro",          "openrouter"),  # ~1T MoE open-weight (cheap)
+    "sonnet":   ("claude-sonnet-4-6",             "anthropic"),
+    "opus":     ("claude-opus-4-8",               "anthropic"),
+    # bake-off models (all OpenRouter):
+    "llama4":   ("meta-llama/llama-4-maverick",   "openrouter"),  # 400B MoE / 17B active
+    "deepseek": ("deepseek/deepseek-chat",        "openrouter"),  # V3, 671B MoE / 37B active
+    "grok4":    ("x-ai/grok-4.3",                 "openrouter"),  # grok-4 deprecated -> 4.3 (frontier reasoning)
 }
 
 

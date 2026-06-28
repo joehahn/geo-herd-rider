@@ -41,6 +41,27 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
+  // ---- LLM bake-off (top): stacked per-gem Final Curated value per curator model ----
+  const BO=D.bakeoff;
+  if(BO && BO.models && BO.models.length){
+    const h2=document.createElement("h2");
+    h2.textContent="LLM bake-off — Final Curated value per curator model (sum of 3 gems, live defaults)";
+    host.appendChild(h2);
+    const div=document.createElement("div"); div.className="chart"; div.id="c_bakeoff"; host.appendChild(div);
+    const idx=BO.models.map((_,i)=>i).sort((a,b)=>BO.sum_curated[b]-BO.sum_curated[a]);  // best first
+    const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+" · "+BO.cost[i]);
+    const gemcol={}; (D.gems||[]).forEach((g,gi)=>gemcol[g]=pal[gi%pal.length]);
+    const traces=(D.gems||[]).map(g=>({
+      type:"bar", name:g, x:labels, y:idx.map(i=>BO.per_gem[g][i]), marker:{color:gemcol[g]},
+      customdata:idx.map(i=>BO.caught[BO.models[i]][g]?"caught ✓":"missed ✗"),
+      hovertemplate:`%{x}<br>${g}: $%{y:,.0f} (%{customdata})<extra></extra>`}));
+    const ann=idx.map((i,xi)=>({x:labels[xi], y:BO.sum_curated[i], yanchor:"bottom", showarrow:false,
+      font:{size:10}, text:"$"+BO.sum_curated[i].toLocaleString()+"<br>"
+        +(D.gems||[]).map(g=>g+(BO.caught[BO.models[i]][g]?"✓":"✗")).join(" ")}));
+    Plotly.newPlot(div.id, traces, {barmode:"stack", margin:{l:72,r:20,t:30,b:62},
+      yaxis:{tickprefix:"$",separatethousands:true}, xaxis:{tickfont:{size:11}},
+      legend:{orientation:"h",y:1.12}, annotations:ann}, {displayModeBar:false,responsive:true});
+  }
   Object.keys(P).forEach((k,i)=>{
     const p=P[k];
     const h2=document.createElement("h2"); h2.textContent=`Plot ${i+1} — Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);

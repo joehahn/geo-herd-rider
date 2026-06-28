@@ -34,7 +34,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import firehose  # noqa: E402
 import agent  # noqa: E402
 import score  # noqa: E402
-from optimizer import load_financial_model, resolve_curator_model  # noqa: E402
+from optimizer import load_financial_model, resolve_curator_model, CURATOR_MODELS  # noqa: E402
 from util import load_dotenv  # noqa: E402
 
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
@@ -140,6 +140,8 @@ def main(argv: list[str] | None = None) -> int:
     resolved_id, resolved_prov = resolve_curator_model(model_short)
     if args.model is None:
         args.model = resolved_id
+    else:  # explicit --model override: recover its short name for the sidecar (else use the id)
+        model_short = {mid: s for s, (mid, _) in CURATOR_MODELS.items()}.get(args.model, args.model)
     if args.provider is None:
         args.provider = resolved_prov
     print(f"  curator model: {model_short} -> {args.model} ({args.provider})", file=sys.stderr)

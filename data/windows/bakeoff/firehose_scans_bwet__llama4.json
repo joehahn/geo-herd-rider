@@ -1,0 +1,1261 @@
+{
+  "2026-02-06": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/spx-technologies-spxc-well-positioned-for-data-center-infrastructure-evolution-1689601/",
+        "https://www.firstpost.com/explainers/union-budget-2026-winners-losers-infrastructure-traders-and-more-13975040.html"
+      ]
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/spx-technologies-spxc-well-positioned-084543197.html"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html",
+        "https://www.fool.com/investing/2026/02/08/is-rigetti-stock-rgti-a-buy-now/",
+        "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains"
+      ]
+    }
+  ],
+  "2026-02-20": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://247wallst.com/investing/2026/02/14/rigetti-computing-shares-drop-9-this-week-valuation-concerns-trigger-selling/",
+        "https://finance.yahoo.com/news/why-wedbush-thinks-norway-could-163002474.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-02-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/02/27/where-will-rigetti-computing-be-in-5-years/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
+        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
+        "https://finance.yahoo.com/news/better-quantum-computing-stock-rigetti-072000175.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    }
+  ],
+  "2026-03-13": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-top-quantum-computing-stocks-180000232.html",
+        "https://www.fool.com/investing/2026/03/11/3-top-quantum-computing-stocks-to-buy-in-march/",
+        "https://www.fool.com/investing/2026/03/10/should-investors-avoid-rigetti-computing-struggle/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/the-southern-company-gets-the-largest-ever-loan-from-the-us-department-of-energy-1714080/",
+        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html"
+      ]
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/20/quantum-computing-stocks-to-watch-now-march-20th.html",
+        "https://www.themarketsdaily.com/2026/03/18/promising-quantum-computing-stocks-to-add-to-your-watchlist-march-18th.html",
+        "https://www.livemint.com/focus/the-quantum-inflection-2026-a-us-stock-market-roadmap-to-the-2b-sub-atomic-economy-11773729145471.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/scotiabank-revises-rexford-industrial-rexr-045220720.html"
+      ]
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
+        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+      ]
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
+        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
+        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
+        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.rttnews.com/3642070/canadian-stocks-turning-in-mixed-performance-tsx-up-marginally.aspx"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.rttnews.com/3642070/canadian-stocks-turning-in-mixed-performance-tsx-up-marginally.aspx"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/stocks/news/volatile-market-you-would-have-made-up-to-400-return-in-these-12-penny-stocks-in-just-6-months/articleshow/130623214.cms",
+        "https://www.dailymail.com/yourmoney/article-15773029/paul-tudor-jones-warns-stock-market-overvaluation-crash.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.rttnews.com/3642070/canadian-stocks-turning-in-mixed-performance-tsx-up-marginally.aspx"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4589575-biggest-stock-movers-friday-xyz-ttd-net-and-more",
+        "https://www.insidermonkey.com/blog/10-best-small-cap-value-stocks-to-buy-2-1755368/",
+        "https://economictimes.indiatimes.com/markets/stocks/news/70-smallcap-stocks-repay-at-least-50-or-more-returns-to-investors-in-april-what-does-may-hold/articleshow/130727862.cms"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4589575-biggest-stock-movers-friday-xyz-ttd-net-and-more"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/14/consider-rigetti-computing-revenue-soar-rgti/?source=iedfolrf0000001",
+        "https://www.investorideas.com/news/2026/technology/05121-quantum-computing-qubt-jumps-q1-2026-results.asp",
+        "https://finance.yahoo.com/markets/article/quantum-computing-stock-surges-after-revenue-beat-160415768.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.nbcdfw.com/news/local/texas-news/small-texas-cities-metro-areas-lead-fastest-growing-municipalities-us/4024170/"
+      ]
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4589575-biggest-stock-movers-friday-xyz-ttd-net-and-more",
+        "https://www.cnbc.com/2026/05/15/can-the-sp-500-hold-on-for-a-7th-weekly-gain-plus-fridays-best-and-worst-stocks.html"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html",
+        "https://www.fool.com/investing/2026/05/21/why-rigetti-computing-stock-is-rocketing-higher-to/?source=iedfolrf0000001",
+        "https://www.dailypolitical.com/2026/05/21/rigetti-computing-nasdaqrgti-shares-gap-up-should-you-buy.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.geo.tv/latest/665566-oil-falls-stocks-climb-as-investors-hope-for-progress-in-us-iran-talks",
+        "https://www.proactiveinvestors.com.au/companies/news/1092565/the-morning-catch-up-asx-set-to-open-lower-as-bond-yields-climb-oil-stays-elevated-1092565.html"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act",
+        "https://finance.yahoo.com/sectors/technology/articles/d-wave-rigetti-ibm-lead-190906772.html"
+      ]
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.geo.tv/latest/665566-oil-falls-stocks-climb-as-investors-hope-for-progress-in-us-iran-talks",
+        "https://www.moneycontrol.com/news/business/markets/oil-falls-stocks-climb-as-investors-hope-for-progress-in-iran-war-talks-13927154.html"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.benzinga.com/Opinion/26/05/52792827/quantum-computing-stocks-rally-has-a-warning-baked-in"
+      ]
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/article/honeywells-quantinuums-ipo-puts-the-quantum-stock-rally-to-the-test-154531114.html"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis_live": false,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
+        "https://www.cnbc.com/2026/06/04/quantinuum-qnt-stock-first-trade-ipo.html",
+        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/ibm-stock-just-reached-record-172442037.html"
+      ]
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.orissapost.com/stock-markets-end-marginally-lower-amid-profit-taking-post-rbi-policy/",
+        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
+        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/sensex-today-stock-market-live-updates-nifty50-share-price-crude-fii-gift-nifty-rupee-latest-updates-10-06-2026-liveblog-13945486.html"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.castanetkamloops.net/news/Business/618737/Wall-Street-opens-higher-as-AI-stocks-regain-some-more-ground-and-oil-prices-ease"
+      ]
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.newsx.com/business/stock-market-today-opening-bell-can-bulls-extend-gains-through-the-day-sensex-jumps-700-points-nifty-tops-23300-233339/",
+        "https://247wallst.com/investing/2026/06/11/wall-street-strategist-stock-market-just-became-a-buyers-dream-after-recent-pull-back/"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Erste Group Bank forecasts FY2027 earnings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/06/12/what-is-erste-group-banks-forecast-for-lly-fy2027-earnings.html"
+      ]
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "http://www.bignewsnetwork.com/news/279134861/us-stocks-close-higher-friday-nasdaq-composite-surges-496-points",
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-rally-open-u-iran-104009987.html"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Erste Group Bank forecasts FY2027 earnings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13478740/notis-mcconarty-edward-has-3-72-million-stock-holdings-in-eli-lilly-and-company-lly.html",
+        "https://www.themarketsdaily.com/2026/06/17/berkshire-asset-management-llc-pa-has-4-19-million-stock-position-in-eli-lilly-and-company-lly.html"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "thesis": "U.S.-Iran peace deal impact",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-rally-open-u-iran-104009987.html",
+        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+      ]
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.tpr.org/environment/2026-06-26/most-data-centers-wont-share-data-about-water-use-with-texas-lawmakers",
+        "https://www.esecurityplanet.com/threats/chinese-development-framework-linked-to-global-scam-infrastructure/"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/06/26/best-penny-stocks-to-research-june-26th.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/stock-market-closed-today-nse-bse-shut-for-muharram-on-june-26-13958855.html",
+        "https://finance.yahoo.com/healthcare/articles/unitedhealth-near-52-week-high-195000164.html",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-ends-lower-chips-tumble-and-moderna-rallies/articleshow/132024472.cms"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Erste Group Bank forecasts FY2027 earnings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.afr.com/chanticleer/the-ai-boom-is-eating-itself-is-this-rally-nearing-a-final-innings-20260626-p60abf",
+        "https://www.gdnonline.com:443/Details/1398762"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "thesis": "U.S.-Iran peace deal impact",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-rally-open-u-iran-104009987.html",
+        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+      ]
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "CEG",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/city/lucknow/ai-revolution-is-bringing-creativity-to-our-doorstep/articleshow/132046894.cms"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing's stock dip to buy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/28/why-rocket-lab-stock-plummeted-this-week/?source=iedfolrf0000001",
+        "https://www.insidermonkey.com/blog/chris-hohns-tci-fund-portfolio-9-best-stocks-to-buy-1790246/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climb",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVA",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "$1.1B DOE loan catalyzes growth",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ULCC",
+      "thesis": "Frontier stock surges on specific unnamed event",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://thefrontierpost.com/mileis-top-aide-and-cabinet-chief-resigns-over-spiraling-corruption-scandal/"
+      ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "100% tariff on patented drugs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Erste Group Bank forecasts FY2027 earnings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.foreignpolicyjournal.com/2026/06/27/lloyds-banking-group-lse-lloy-stock-price-splits-valuation-signals-despite-48-one-year-rally/",
+        "https://finance.yahoo.com/markets/stocks/articles/markel-group-inc-mkl-bolsters-200745621.html"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "thesis": "U.S.-Iran peace deal impact",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-rally-open-u-iran-104009987.html",
+        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+      ]
+    },
+    {
+      "ticker": "XE",
+      "thesis": "X-Energy tied to nuclear reactor APPROVAL",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13488461/comparing-spine-injury-solutions-otcmktsspin-x-energy-nasdaqxe.html"
+      ]
+    }
+  ]
+}
