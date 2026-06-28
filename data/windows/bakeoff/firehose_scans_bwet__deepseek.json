@@ -1,10 +1,49 @@
 {
-  "2026-02-06": [],
-  "2026-02-13": [],
+  "2026-02-06": [
+    {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/02/06/d-wave-quantum-stock-is-surging-today-is-the-stock/?source=iedfolrf0000001",
+        "https://www.themarketsdaily.com/2026/02/05/promising-quantum-computing-stocks-to-consider-february-5th.html",
+        "https://finance.yahoo.com/news/buy-dip-ionq-stock-191525787.html",
+        "https://www.fool.com/investing/2026/02/02/is-ionq-stock-a-buy-now/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/ionq-stock-buy-now-083500925.html"
+      ]
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html",
+        "https://finance.yahoo.com/news/top-quantum-pick-only-stock-140317029.html",
+        "https://finance.yahoo.com/news/dont-miss-best-quantum-etf-152000311.html",
+        "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains",
+        "https://www.fool.com/investing/2026/02/11/where-will-ionq-stock-be-in-1-year/"
+      ]
+    }
+  ],
   "2026-02-20": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/02/19/heres-the-quantum-computing-stock-wall-street-love/?source=iedfolrf0000001",
+        "https://www.fool.com/coverage/filings/2026/02/19/trybe-capital-loads-up-qbts-with-1-9-million-shares-bought/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/1-quantum-computing-stock-buy-213500802.html",
+        "https://247wallst.com/investing/2026/02/14/rigetti-computing-shares-drop-9-this-week-valuation-concerns-trigger-selling/",
+        "https://finance.yahoo.com/news/why-wedbush-thinks-norway-could-163002474.html",
+        "https://www.fool.com/investing/2026/02/13/want-to-invest-in-quantum-computing-3-stocks-that/?source=iedfolrf0000001"
+      ]
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
@@ -13,14 +52,26 @@
   ],
   "2026-02-27": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/02/27/where-will-rigetti-computing-be-in-5-years/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/02/25/predict-quantum-computing-hype-cool-off-2026-why/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/02/25/should-you-forget-ionq-and-buy-these-2-tech-stocks/?source=iedfolrf0000001",
+        "https://techcrunch.com/2026/02/23/finnish-quantum-unicorn-iqm-set-to-go-public/",
+        "https://www.dailypolitical.com/2026/02/23/best-quantum-computing-stocks-to-consider-february-22nd.html"
+      ]
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
@@ -29,64 +80,124 @@
   ],
   "2026-03-06": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/better-quantum-computing-stock-rigetti-072000175.html",
+        "https://www.fool.com/investing/2026/03/01/2-best-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/south-korean-stocks-stage-sharp-rebound-after-worst-selloff-ce7e5fdadf8afe21",
+        "https://www.fool.com/investing/2026/03/02/why-did-near-protocol-surge-13-today/?source=iedfolrf0000001"
+      ]
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-03-13": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-top-quantum-computing-stocks-180000232.html",
+        "https://www.fool.com/investing/2026/03/11/3-top-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/03/10/should-investors-avoid-rigetti-computing-struggle/?source=iedfolrf0000001",
+        "https://www.tickerreport.com/banking-finance/13374131/quantum-computing-stocks-to-watch-today-march-10th.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html",
+        "https://www.finanznachrichten.de/nachrichten-2026-03/67923860-asian-shares-tumble-after-oil-price-surge-020.htm",
+        "https://economictimes.indiatimes.com/news/international/australia/sp/asx-200-closes-lower-as-australian-shares-slip-oil-price-surge-triggers-inflation-fears-check-top-gainers-and-losers/articleshow/129496909.cms"
+      ]
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/20/quantum-computing-stocks-to-watch-now-march-20th.html",
+        "https://www.insidermonkey.com/blog/heres-how-ionq-ionqs-shares-behaved-after-jim-cramer-said-it-was-speculative-in-may-2025-1720511/",
+        "https://finance.yahoo.com/markets/stocks/articles/ionq-ionq-shares-behaved-jim-160639549.html",
+        "https://www.themarketsdaily.com/2026/03/17/lansdowne-partners-uk-llp-purchases-1435394-shares-of-ionq-inc-ionq.html",
+        "https://www.livemint.com/focus/the-quantum-inflection-2026-a-us-stock-market-roadmap-to-the-2b-sub-atomic-economy-11773729145471.html"
+      ]
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-03-27": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
+        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/buy-rigetti-computing-stock-while-142000303.html",
+        "https://www.fool.com/investing/2026/03/24/should-you-buy-rigetti-computing-stock-while-its-b/",
+        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.deccanchronicle.com/business/market/stock-markets-surge-over-2-pc-as-drop-in-oil-prices-rally-in-asian-peers-cheer-investors-1946166"
+      ]
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-04-03": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.mymoinfo.com/syndicated-article/?id=1663391"
@@ -94,201 +205,244 @@
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
+      ]
     }
   ],
   "2026-04-10": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-04-17": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-04-24": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-05-01": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-05-08": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-05-15": [
     {
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/14/consider-rigetti-computing-revenue-soar-rgti/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/quantum-computing-stocks-ionq-d-092600721.html"
+      ]
+    },
+    {
       "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.investorideas.com/news/2026/technology/05121-quantum-computing-qubt-jumps-q1-2026-results.asp",
-        "https://www.investors.com/news/technology/quantum-computing-stocks-dwave-earnings-q12026/",
-        "https://finance.yahoo.com/markets/article/quantum-computing-stock-surges-after-revenue-beat-160415768.html"
+        "https://vietnamnews.vn/economy/1781275/foreign-selling-property-losses-keep-vn-index-under-pressure.html"
       ]
     }
   ],
   "2026-05-22": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.geo.tv/latest/665566-oil-falls-stocks-climb-as-investors-hope-for-progress-in-us-iran-talks",
-        "https://www.moneycontrol.com/news/business/markets/oil-falls-stocks-climb-as-investors-hope-for-progress-in-iran-war-talks-13927154.html",
-        "https://www.proactiveinvestors.com.au/companies/news/1092565/the-morning-catch-up-asx-set-to-open-lower-as-bond-yields-climb-oil-stays-elevated-1092565.html"
+        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it",
+        "https://finance.yahoo.com/sectors/technology/articles/d-wave-rigetti-ibm-lead-190906772.html",
+        "https://www.businessinsider.com/quantum-stocks-trump-investment-infleqtion-rigetti-computing-d-wave-ibm-2026-5"
       ]
     },
     {
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CEG",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
-        "https://www.dailypolitical.com/2026/05/22/quantum-computing-nasdaqqubt-sees-strong-trading-volume-still-a-buy.html",
-        "https://247wallst.com/investing/2026/05/22/qubt-rallies-with-the-rest-of-quantum-computing-but-dont-buy-the-hype/",
-        "https://www.ibtimes.com.au/ionq-shares-surge-record-q1-performance-raised-guidance-1869282",
-        "https://www.ibtimes.com.au/quantum-computing-stocks-surge-us-investment-1869268"
-      ]
+      "evidence_urls": []
     },
     {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
-        "https://www.dailypolitical.com/2026/05/21/rigetti-computing-nasdaqrgti-shares-gap-up-should-you-buy.html",
-        "https://www.cnbc.com/2026/05/21/stocks-making-the-biggest-moves-midday-rgti-de-be-spot.html",
-        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13451243/d-wave-quantum-nyseqbts-stock-price-up-13-2-should-you-buy.html",
-        "https://www.benzinga.com/markets/equities/26/05/52738125/d-wave-sophie-ames-sells-shares-qbts-stock-trending",
-        "https://finance.yahoo.com/sectors/technology/articles/d-wave-rigetti-ibm-lead-190906772.html"
-      ]
+      "evidence_urls": []
     }
   ],
   "2026-05-29": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.prokerala.com/news/articles/a1768034.html",
-        "https://www.newkerala.com/news/a/bangladesh-players-climb-icc-test-rankings-after-2-0-703.htm"
+        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
+        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/"
       ]
     },
     {
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/"
       ]
     },
     {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CEG",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/",
-        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
-      ]
+      "evidence_urls": []
     },
     {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/"
-      ]
+      "evidence_urls": []
     },
     {
       "ticker": "CLOV",
@@ -301,47 +455,38 @@
   ],
   "2026-06-05": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.thehindu.com/business/markets/stock-markets-rbi-monetary-policy-june-5-updates/article71063945.ece",
+        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
+        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
+        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/da-davidson-reiterates-neutral-rating-on-installed-building-products-ibp-1775319/",
+        "https://finance.yahoo.com/markets/stocks/articles/intuitive-surgical-isrg-valuation-check-221126228.html",
         "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
       ]
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
-        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
-        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
-        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
-        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/"
-      ]
     },
     {
       "ticker": "CLOV",
@@ -351,60 +496,50 @@
     },
     {
       "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study results",
+      "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
       "evidence_urls": [
         "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
       ]
     },
     {
-      "ticker": "QNT",
-      "thesis": "Quantinuum IPO at $14.3B valuation",
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.cnbc.com/2026/06/04/quantinuum-qnt-stock-first-trade-ipo.html",
-        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
-        "https://thenextweb.com/news/quantinuum-ipo-upsized-quantum-computing-14-billion"
+        "https://www.ibtimes.com.au/coopercompanies-record-earnings-revenue-growth-1870209"
       ]
     }
   ],
   "2026-06-12": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
+        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.perthnow.com.au/news/business/aussie-shares-surge-on-latest-us-iran-peace-deal-hopes-c-22421429"
+      ]
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.benzinga.com/markets/equities/26/06/53108423/stock-market-today-sp-500-dow-futures-fall-as-trump-orders-strikes-against-iran-autozi-internet-cracker-barrel-in-focus"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.benzinga.com/markets/equities/26/06/53108423/stock-market-today-sp-500-dow-futures-fall-as-trump-orders-strikes-against-iran-autozi-internet-cracker-barrel-in-focus"
-      ]
     },
     {
       "ticker": "CLOV",
@@ -414,60 +549,66 @@
     },
     {
       "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study results",
+      "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
       "evidence_urls": [
         "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
       ]
     },
     {
-      "ticker": "QNT",
-      "thesis": "Quantinuum IPO at $14.3B valuation",
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
       "thesis_live": true,
       "evidence_urls": []
+    },
+    {
+      "ticker": "REGN",
+      "thesis": "WHO supports Ebola antibody therapy",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
+      ]
+    },
+    {
+      "ticker": "ABT",
+      "thesis": "CE Mark for glucose-ketone sensor",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/abbott-abt-secures-ce-mark-174147076.html"
+      ]
     }
   ],
   "2026-06-19": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
       "evidence_urls": [
-        "http://www.bignewsnetwork.com/news/279134861/us-stocks-close-higher-friday-nasdaq-composite-surges-496-points",
+        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
+        "https://dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "tanker rates surge",
+      "thesis_live": false,
+      "evidence_urls": [
         "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
         "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
       ]
     },
     {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CEG",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
-        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
-      ]
+      "evidence_urls": []
     },
     {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
-      ]
+      "evidence_urls": []
     },
     {
       "ticker": "CLOV",
@@ -477,63 +618,51 @@
     },
     {
       "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study results",
+      "thesis": "Phase 2/3 POWER1 study findings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
+      ]
+    },
+    {
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/expect-q2-earnings-tech-strength-140000734.html"
+      ]
+    },
+    {
+      "ticker": "REGN",
+      "thesis": "WHO supports Ebola antibody therapy",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QNT",
-      "thesis": "Quantinuum IPO at $14.3B valuation",
+      "ticker": "ABT",
+      "thesis": "CE Mark for glucose-ketone sensor",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-06-26": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.gdnonline.com:443/Details/1398762"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CEG",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [
-        "http://www.bignewsnetwork.com/news/279134861/us-stocks-close-higher-friday-nasdaq-composite-surges-496-points",
-        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
-        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
-      ]
+      "evidence_urls": []
     },
     {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.the-star.co.ke/news/world/2026-06-26-ex-trump-adviser-pleads-guilty-to-mishandling-classified-documents",
-        "https://english.elpais.com/international/2026-06-25/trump-says-us-is-ready-willing-and-able-to-help-venezuela-after-the-earthquakes.html",
-        "https://www.koreatimes.co.kr/foreignaffairs/20260625/trump-retains-very-strong-interest-in-kim-jong-un-ex-white-house-official",
-        "https://www.theatlantic.com/technology/2026/06/reflecting-pool-america-250-trump/687716/"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.the-star.co.ke/news/world/2026-06-26-ex-trump-adviser-pleads-guilty-to-mishandling-classified-documents",
-        "https://english.elpais.com/international/2026-06-25/trump-says-us-is-ready-willing-and-able-to-help-venezuela-after-the-earthquakes.html",
-        "https://www.koreatimes.co.kr/foreignaffairs/20260625/trump-retains-very-strong-interest-in-kim-jong-un-ex-white-house-official",
-        "https://www.theatlantic.com/technology/2026/06/reflecting-pool-america-250-trump/687716/"
-      ]
+      "evidence_urls": []
     },
     {
       "ticker": "CLOV",
@@ -543,61 +672,52 @@
     },
     {
       "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study results",
+      "thesis": "Phase 2/3 POWER1 study findings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
+      ]
+    },
+    {
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/expect-q2-earnings-tech-strength-140000734.html",
+        "https://news.webindia123.com/news/Articles/World/20260626/4467582.html"
+      ]
+    },
+    {
+      "ticker": "REGN",
+      "thesis": "WHO supports Ebola antibody therapy",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QNT",
-      "thesis": "Quantinuum IPO at $14.3B valuation",
+      "ticker": "ABT",
+      "thesis": "CE Mark for glucose-ketone sensor",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2026-07-03": [
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates climb",
+      "ticker": "IONQ",
+      "thesis": "quantum computing advances",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-saturday-june-27-2026-earn-up-to-410-apy-100000193.html",
-        "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
-      ]
+      "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Q1 revenue beat drives surge",
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "RGTI",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://eturbonews.com/china-tourism-soft-power-investment-global-influence/",
-        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
-        "https://www.lamarledger.com/2026/06/19/short-term-investments/",
-        "https://www.fool.com/investing/2026/06/26/what-a-x-investment-in-spacex-could-return-by-2030/"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Trump admin $2B quantum investment",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://eturbonews.com/china-tourism-soft-power-investment-global-influence/",
-        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
-        "https://www.lamarledger.com/2026/06/19/short-term-investments/",
-        "https://www.fool.com/investing/2026/06/26/what-a-x-investment-in-spacex-could-return-by-2030/"
-      ]
     },
     {
       "ticker": "CLOV",
@@ -607,13 +727,30 @@
     },
     {
       "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study results",
+      "thesis": "Phase 2/3 POWER1 study findings",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html",
+        "https://www.thehindubusinessline.com/economy/indias-debt-market-not-equipped-to-finance-next-phase-of-growth-needs-structural-reforms-deloitte/article71157472.ece"
+      ]
+    },
+    {
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://newswire.co.nz/2026/06/gisborne-angus-bull-record-220000-2026/"
+      ]
+    },
+    {
+      "ticker": "REGN",
+      "thesis": "WHO supports Ebola antibody therapy",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
-      "ticker": "QNT",
-      "thesis": "Quantinuum IPO at $14.3B valuation",
+      "ticker": "ABT",
+      "thesis": "CE Mark for glucose-ketone sensor",
       "thesis_live": true,
       "evidence_urls": []
     }
