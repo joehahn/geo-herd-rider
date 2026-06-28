@@ -202,7 +202,7 @@ SWEEPS = [
 
 # Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values
 # (independent of the live gem-dashboard defaults). Pin cap=0.5 here per request.
-SWEEP_BASE = {"concentration_cap": 0.5}
+SWEEP_BASE = {"concentration_cap": 0.5, "lookback_period_days": 21}
 
 
 def build_sweeps() -> None:
