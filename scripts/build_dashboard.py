@@ -200,7 +200,7 @@ GEM_VERTICAL = {
 
 SWEEPS = [
     {"key": "lookback_period_days", "label": "lookback_period_days", "log": True,
-     "values": [1, 2, 3, 7, 14, 21, 30, 45, 60, 75, 100, 120, 150, 180]},   # ~1 day -> ~6mo μ/Σ fit (log x)
+     "values": [3, 7, 14, 21, 30, 45, 60, 75, 100, 120, 150, 180]},   # ~3 days -> ~6mo μ/Σ fit (log x)
     {"key": "concentration_cap", "label": "concentration_cap",
      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
@@ -222,10 +222,14 @@ def build_sweeps() -> None:
     import score
     fm0 = {**load_financial_model(str(ROOT / "investor_profile.md")), **SWEEP_BASE}
     capital = float(fm0.get("initial_investment_usd", 50_000))
+    # Include only gems with a CURRENT built dashboard (docs/<gem>/data.json) — this couples sweep
+    # membership to the live curated set, so a stale/other-prompt scan (e.g. a pre-gate RNMBY) that
+    # has no dashboard is auto-excluded, and any gem joins the sweep once its dashboard is built.
     gem_tickers = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
-                   if gem_config(g["ticker"])["scans"].exists()]
+                   if gem_config(g["ticker"])["scans"].exists()
+                   and (gem_config(g["ticker"])["out"] / "data.json").exists()]
     if not gem_tickers:
-        print("  sweeps: no gem scan logs yet — skipped"); return
+        print("  sweeps: no built gem dashboards yet — skipped"); return
     # enough pre-window history to cover the LONGEST lookback being swept (else early-week μ/Σ fits
     # would run short); +30d buffer, floor 70d.
     pre = max([70] + [max(sw["values"]) + 30 for sw in SWEEPS if sw["key"] == "lookback_period_days"])
