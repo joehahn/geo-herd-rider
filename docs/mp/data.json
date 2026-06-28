@@ -134,223 +134,224 @@
     50000.0,
     50000.0,
     50000.0,
-    50000.0,
-    50000.0,
-    50000.0,
-    50000.0,
-    49266.93,
-    49353.17,
-    56080.21,
-    52630.44,
-    53579.13,
-    52996.98,
-    52738.25,
-    52479.52,
-    53924.1,
-    54333.76,
-    53234.15,
-    50927.12,
-    51423.03,
-    47326.43,
-    45579.99,
-    44782.23,
-    45450.62,
-    45968.09,
-    45946.53,
-    45817.16,
-    45148.62,
-    44215.58,
-    46203.79,
-    44859.39,
-    44749.62,
-    43718.65,
-    43110.7,
-    43923.46,
-    43286.73,
-    46196.9,
-    50130.33,
-    51617.62,
-    51647.84,
-    54922.67,
-    54147.94,
-    51550.41,
-    56423.48,
-    58477.09,
-    65499.08,
-    66192.51,
-    71328.57,
-    72866.46,
-    71111.08,
-    70855.86,
-    72143.73,
-    74045.36,
-    68209.33,
-    68642.8,
-    65497.88,
-    68756.42,
-    68671.38,
-    68433.6,
-    68183.04,
-    70291.73,
-    81317.2,
-    80965.35,
-    83585.81,
-    95800.83,
-    96836.44,
-    99720.57,
-    103942.38,
-    98370.31,
-    99161.7,
-    100067.45,
-    100513.2,
-    100830.73,
-    102520.31,
-    97359.13,
-    98469.85,
-    99277.0,
-    97784.66,
-    100047.07,
-    101867.22,
-    101361.88,
-    105972.55,
-    109585.8,
-    108584.26,
-    111371.04,
-    112251.42,
-    113387.03,
-    111025.37,
-    108173.66,
-    103319.57,
-    102265.41,
-    102043.97,
-    103258.23,
-    107194.57,
-    104654.44,
-    106460.73,
-    108766.05,
-    105800.36,
-    101443.22,
-    99846.76,
-    98163.52
+    50152.3,
+    50117.15,
+    50866.92,
+    49806.71,
+    50349.01,
+    50440.75,
+    52298.98,
+    51427.18,
+    51898.31,
+    51966.29,
+    52040.13,
+    52104.45,
+    52943.67,
+    52955.69,
+    52381.6,
+    51858.3,
+    51831.46,
+    51058.13,
+    50776.07,
+    50069.37,
+    49886.87,
+    50712.33,
+    51179.73,
+    51152.21,
+    49683.84,
+    46939.67,
+    48335.83,
+    47397.04,
+    45182.45,
+    45571.19,
+    45150.75,
+    46614.38,
+    46755.82,
+    47566.35,
+    47423.51,
+    46927.63,
+    47906.59,
+    48937.37,
+    47974.89,
+    45922.12,
+    51025.98,
+    52647.07,
+    58439.22,
+    59379.53,
+    61599.04,
+    62168.6,
+    61235.25,
+    59427.22,
+    59797.06,
+    60894.14,
+    56862.53,
+    57457.14,
+    54491.16,
+    55576.16,
+    55131.59,
+    54387.17,
+    53755.07,
+    53805.54,
+    60169.98,
+    61269.7,
+    63063.55,
+    72132.28,
+    71883.74,
+    73451.31,
+    76952.4,
+    72897.16,
+    73883.36,
+    75204.51,
+    75474.07,
+    76285.4,
+    78232.6,
+    74819.7,
+    76203.86,
+    76956.17,
+    78620.42,
+    81036.51,
+    81884.53,
+    80756.65,
+    82869.46,
+    84874.52,
+    83365.94,
+    85755.02,
+    85448.44,
+    86358.8,
+    84784.44,
+    82455.59,
+    79601.37,
+    78446.6,
+    78436.06,
+    77943.35,
+    81791.09,
+    80075.53,
+    81385.33,
+    83413.07,
+    80649.31,
+    77341.12,
+    76284.78,
+    74751.36
   ],
   "spy": [
     50000.0,
     49403.08,
-    49271.89,
-    48279.64,
-    48603.72,
+    49271.88,
+    48279.63,
+    48603.71,
     48741.0,
     49049.45,
     46632.26,
-    43902.27,
+    43902.26,
     43824.07,
     43137.66,
-    47667.96,
+    47667.95,
     45579.19,
     46392.45,
     46842.52,
     46711.32,
-    45673.03,
-    45738.19,
+    45673.02,
+    45738.18,
     44649.49,
-    45811.18,
+    45811.17,
     46521.04,
-    47500.26,
+    47500.25,
     47843.46,
     47861.71,
-    48163.21,
-    48182.32,
-    48523.78,
-    49244.08,
-    48961.7,
+    48163.2,
+    48182.31,
+    48523.79,
+    49244.07,
+    48961.69,
     48552.46,
-    48756.65,
-    49096.38,
+    48756.64,
+    49096.37,
     49033.82,
-    50654.26,
+    50654.25,
     50988.77,
-    51053.94,
+    51053.93,
     51303.3,
     51628.26,
-    51684.74,
-    51510.96,
+    51684.73,
+    51510.95,
     50642.96,
-    50662.95,
-    50317.14,
+    50662.94,
+    50317.13,
     51363.25,
-    51066.1,
+    51066.09,
     51267.68,
-    51210.34,
-    51498.81,
-    51792.48,
+    51210.33,
+    51498.8,
+    51792.47,
     51778.57,
-    51528.34,
-    52057.48,
-    52104.4,
+    51528.33,
+    52057.47,
+    52104.39,
     52399.82,
     52250.37,
-    52458.03,
+    52458.02,
     51871.54,
-    52365.06,
-    51917.6,
-    51909.78,
+    52365.05,
+    51917.59,
+    51909.77,
     51787.86,
-    52299.4,
-    52877.16,
-    52906.79,
+    52299.39,
+    52877.15,
+    52906.78,
     53320.72,
     53585.64,
     53841.84,
     53824.41,
-    54068.42,
-    54494.55,
-    54088.46,
+    54068.41,
+    54494.54,
+    54088.45,
     54058.83,
     54383.0,
-    54536.38,
-    54344.66,
-    54448.36,
-    54215.69,
+    54536.37,
+    54344.65,
+    54448.35,
+    54215.68,
     54396.94,
     54729.83,
-    54689.76,
-    54793.46,
+    54689.75,
+    54793.45,
     54801.29,
     55267.51,
     55285.81,
-    55519.36,
-    55505.42,
-    55359.02,
-    55289.3,
-    55081.91,
+    55519.35,
+    55505.41,
+    55359.01,
+    55289.29,
+    55081.89,
     54179.08,
     55002.59,
     54723.73,
-    55142.9,
-    55096.71,
-    55526.34,
+    55142.89,
+    55096.7,
+    55526.32,
     55416.53,
-    56006.5,
-    56198.22,
-    56203.44,
-    56071.86,
-    56059.65,
-    55755.52,
+    56006.49,
+    56198.21,
+    56203.43,
+    56071.85,
+    56059.64,
+    55755.51,
     55607.37,
-    55384.29,
+    55384.28,
     56234.81,
-    55987.32,
-    56221.74,
+    55987.31,
+    56221.73,
     56349.84,
-    56549.4,
-    56212.16,
-    55795.61,
-    56098.0,
-    56566.83
+    56549.39,
+    56212.15,
+    55795.6,
+    56097.99,
+    56566.82
   ],
   "gain": {
-    "MP": 43372.49,
-    "COIN": 4791.02
+    "VNQ": 2123.42,
+    "MP": 23710.46,
+    "CEG": -1082.51
   },
   "overlay": [
     53496.23,
@@ -470,7 +471,12 @@
   "overlay_ticker": "MP",
   "overlay_anchor": "2025-04-01",
   "alloc": {
-    "COIN": [
+    "CEG": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -537,16 +543,11 @@
       0.25,
       0.25,
       0.25,
-      0.25,
       0.75,
       0.75,
       0.75,
       0.75,
       0.75,
-      0.75,
-      0.75,
-      0.75,
-      0.75,
       0.25,
       0.25,
       0.25,
@@ -562,11 +563,11 @@
       0.25,
       0.25,
       0.25,
-      0.25,
-      0.25,
-      0.25,
-      0.25,
-      0.25,
+      0.452,
+      0.452,
+      0.452,
+      0.452,
+      0.452,
       0.25,
       0.25,
       0.25,
@@ -605,21 +606,26 @@
       0.0,
       0.0,
       0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
+      0.25,
       1.0,
       1.0,
       1.0,
@@ -652,16 +658,11 @@
       0.75,
       0.75,
       0.75,
-      0.75,
       0.25,
       0.25,
       0.25,
       0.25,
       0.25,
-      0.25,
-      0.25,
-      0.25,
-      0.25,
       0.75,
       0.75,
       0.75,
@@ -677,11 +678,11 @@
       0.75,
       0.75,
       0.75,
-      0.75,
-      0.75,
-      0.75,
-      0.75,
-      0.75,
+      0.548,
+      0.548,
+      0.548,
+      0.548,
+      0.548,
       0.75,
       0.75,
       0.75,
@@ -699,6 +700,121 @@
       0.75,
       0.75,
       0.75
+    ],
+    "VNQ": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.75,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
     ]
   },
   "cash": [
@@ -717,10 +833,10 @@
     1.0,
     1.0,
     1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -817,72 +933,78 @@
     0.0
   ],
   "colors": {
-    "COIN": "#1f77b4",
-    "MP": "#ff7f0e"
+    "CEG": "#1f77b4",
+    "MP": "#ff7f0e",
+    "VNQ": "#2ca02c"
   },
   "metrics": {
-    "final": 98164.0,
-    "total_ret": 0.9633,
+    "final": 74751.0,
+    "total_ret": 0.495,
     "spy_ret": 0.1313,
-    "max_dd": -0.2313
+    "max_dd": -0.1474
   },
-  "cost_usd": 0.41,
+  "cost_usd": 0.42,
   "weeks": 22,
   "gems": [
     {
+      "week": "2025-04-11",
+      "ticker": "VNQ",
+      "thesis": "Tariff pause boosts real estate sector.",
+      "thesis_live": true,
+      "urls": [
+        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
+        "https://www.themarketsdaily.com/2025/04/09/vanguard-real-estate-etf-nysearcavnq-hits-new-1-year-low-heres-what-happened.html"
+      ]
+    },
+    {
+      "week": "2025-04-18",
+      "ticker": "VNQ",
+      "thesis": "Tariff pause boosts real estate sector.",
+      "thesis_live": false,
+      "urls": [
+        "https://therealdeal.com/national/2025/04/12/real-estate-impacted-by-trumps-tariff-reversal/",
+        "https://www.tickerreport.com/banking-finance/12917308/main-street-financial-solutions-llc-has-1-47-million-stock-holdings-in-vanguard-real-estate-etf-nysearcavnq.html"
+      ]
+    },
+    {
       "week": "2025-04-18",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-04-25",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-05-02",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
-      "urls": [
-        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
-      ]
+      "urls": []
     },
     {
       "week": "2025-05-09",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
-      "thesis_live": true,
-      "urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/"
-      ]
-    },
-    {
-      "week": "2025-05-16",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-05-16",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
-      "urls": [
-        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
-        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data",
-        "https://www.pilotonline.com/2025/05/15/coinbase-stolen-info/"
-      ]
+      "urls": []
     },
     {
       "week": "2025-05-23",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
@@ -890,128 +1012,128 @@
     },
     {
       "week": "2025-05-23",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
+      ]
     },
     {
       "week": "2025-05-30",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-05-30",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-06",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-06",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2025-06-13",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": [
-        "https://capitalpress.com/sponsored-content/the-benefits-and-limitations-of-an-intermediated-installment-sale-trust/"
+        "https://www.inquirer.com/business/american-water-works-john-griffith-20250602.html"
       ]
     },
     {
       "week": "2025-06-13",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
+      "thesis_live": true,
+      "urls": [
+        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+      ]
+    },
+    {
+      "week": "2025-06-13",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
+      "thesis_live": true,
+      "urls": [
+        "https://www.news18.com/viral/buying-vs-renting-internet-users-believe-owning-a-home-is-more-valuable-ws-l-aa-aa-9376612.html"
+      ]
+    },
+    {
+      "week": "2025-06-20",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-20",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2025-06-20",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
-      "thesis_live": true,
-      "urls": [
-        "https://www.fool.ca/2025/06/14/want-decades-of-passive-income-3-stocks-to-buy-now-and-hold-forever-6/"
-      ]
-    },
-    {
-      "week": "2025-06-27",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-27",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-06-27",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-04",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-04",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": [
-        "http://baystreet.ca/marketupdates/14234/Stocks-Peak-on-Having-Stage-to-Themselves",
-        "https://www.fool.ca/2025/07/02/2-high-yield-tsx-stocks-for-tfsa-passive-income/",
         "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
       ]
     },
     {
       "week": "2025-07-11",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-11",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": [
-        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook",
+        "https://www.forbes.com/sites/brendanahern/2025/07/10/china-market-update-real-estate-roars-on-policy-support/",
+        "https://www.rttnews.com/3552230/asian-shares-mostly-higher-despite-trump-s-tariff-threats.aspx",
         "https://www.finanznachrichten.de/nachrichten-2025-07/65872909-asian-shares-mostly-higher-despite-trump-s-tariff-threats-020.htm",
-        "https://www.fool.com/investing/2025/07/09/3-dividend-stocks-to-double-up-on-right-now/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/general/2025/07/08/10-under-the-radar-utility-stocks-with-incredible/?source=iedfolrf0000001",
-        "https://www.themarketsdaily.com/2025/07/07/top-utility-stocks-to-consider-july-7th.html",
-        "http://baystreet.ca/marketupdates/14242/Canadian-Stocks-Take-Mild-Hit"
+        "https://rollingout.com/2025/07/07/trump-threat-affect-phone-bills/"
       ]
     },
     {
       "week": "2025-07-18",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": [
         "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
@@ -1019,66 +1141,80 @@
     },
     {
       "week": "2025-07-18",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-25",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.kiplinger.com/investing/stocks/stocks-rise-after-trump-powell-fed-tour-stock-market-today"
+      ]
     },
     {
       "week": "2025-07-25",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.kiplinger.com/investing/stocks/stocks-rise-after-trump-powell-fed-tour-stock-market-today",
+        "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-7-24-trump-fed-tour-pressures-stock-market-dynamics"
+      ]
     },
     {
       "week": "2025-08-01",
       "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.investors.com/research/investing-action-plan/stock-market-fed-amazon-apple-microsoft-july-jobs-tariff-deadline-mag-7-earnings/"
+      ]
     },
     {
       "week": "2025-08-01",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
+      "thesis_live": true,
+      "urls": [
+        "https://freerepublic.com/f-focus/f-chat/4330846/posts"
+      ]
+    },
+    {
+      "week": "2025-08-08",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-08",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.fool.com/investing/2025/08/08/could-buying-vanguard-utilities-etf-today-set-you/?source=iedfolrf0000001"
+      ]
     },
     {
-      "week": "2025-08-08",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
+      "week": "2025-08-15",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports; MP is sole US producer.",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-15",
-      "ticker": "MP",
-      "thesis": "China's rare-earth export restrictions benefit sole US producer MP.",
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy favoring nuclear utilities",
       "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2025-08-15",
-      "ticker": "COIN",
-      "thesis": "Data breach and cyberattack lead to stock plunge and costs",
-      "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://lasvegassun.com/news/2025/aug/14/putin-has-the-upper-hand-in-meeting-with-trump-on/"
+      ]
     }
   ],
   "watchlist": [
@@ -1099,199 +1235,209 @@
     },
     {
       "week": "2025-04-11",
-      "names": [],
-      "funded": []
+      "names": [
+        "VNQ"
+      ],
+      "funded": [
+        "VNQ"
+      ]
     },
     {
       "week": "2025-04-18",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
     {
       "week": "2025-04-25",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
     {
       "week": "2025-05-02",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
     {
       "week": "2025-05-09",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
     {
       "week": "2025-05-16",
       "names": [
-        "COIN",
         "MP"
       ],
       "funded": [
-        "COIN",
         "MP"
       ]
     },
     {
       "week": "2025-05-23",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
-        "COIN",
+        "CEG",
         "MP"
       ]
     },
     {
       "week": "2025-05-30",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
-        "MP",
-        "COIN"
+        "CEG",
+        "MP"
       ]
     },
     {
       "week": "2025-06-06",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-06-13",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-06-20",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-06-27",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
-        "COIN",
-        "MP"
+        "MP",
+        "CEG"
       ]
     },
     {
       "week": "2025-07-04",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
-        "COIN",
+        "CEG",
         "MP"
       ]
     },
     {
       "week": "2025-07-11",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-07-18",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-07-25",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-08-01",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-08-08",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": [
         "MP",
-        "COIN"
+        "CEG"
       ]
     },
     {
       "week": "2025-08-15",
       "names": [
-        "COIN",
+        "CEG",
         "MP"
       ],
       "funded": []
     }
   ],
   "watch_daily": {
-    "COIN": [
+    "CEG": [
       0,
       0,
       0,
@@ -1329,11 +1475,11 @@
       0,
       0,
       0,
-      1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
       1,
       1,
@@ -1520,6 +1666,121 @@
       1,
       1,
       1
+    ],
+    "VNQ": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "retrieval": {
@@ -1533,19 +1794,19 @@
       "timeout": 0,
       "other_err": 0,
       "elapsed_s": 0.0,
-      "items_per_min": 66781830.3,
+      "items_per_min": 67449862.8,
       "from_cache": true
     },
     "wayback": {
-      "looked_up": 742,
-      "lede": 693,
-      "confirmed_no_snapshot": 49,
+      "looked_up": 677,
+      "lede": 398,
+      "confirmed_no_snapshot": 279,
       "transient_deferred": 0,
-      "join_rate_pct": 93.4,
-      "lede_len_median": 175,
-      "lede_pct_ge50": 99.3,
-      "lede_pct_ge80": 92.6,
-      "lede_pct_ge100": 87.9,
+      "join_rate_pct": 58.8,
+      "lede_len_median": 167,
+      "lede_pct_ge50": 97.7,
+      "lede_pct_ge80": 92.7,
+      "lede_pct_ge100": 87.4,
       "requests": 0,
       "http_429": 0,
       "http_5xx": 0,

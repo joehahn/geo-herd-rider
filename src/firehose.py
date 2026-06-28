@@ -70,15 +70,18 @@ CATALYST GATE (the hard filter — this is the bet). Keep a ticker ONLY if the p
 SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
 chokepoint, an export ban or tariff, a regulatory approval or named bill, an agency emergency
 declaration, a named contract/partnership/deal, a supply shock. That resolution is what later
-flips thesis_live FALSE; if you can't name the event AND say how it would resolve, there IS no
-thesis to hold and you must DROP the ticker. REJECT, however bullish the coverage:
+flips thesis_live FALSE. JUDGE BY THE STRONGEST REASON TO OWN IT, NOT THE WEAKEST: if a specific
+catalyst is present, KEEP the name even when the coverage ALSO wraps it in a theme, valuation, or
+technical story (e.g. "AI-power demand AND a reactor APPROVAL" -> keep; the approval is the
+catalyst). The reject list below applies ONLY to a name whose SOLE rationale is:
   - theme / secular-momentum  ("AI power demand benefits utilities", "next wave after AI")
   - valuation / positioning   ("undervalued", "hedge-fund accumulation", "13F", "cheap as ever")
   - technical / chart         ("golden cross", "breakout", "high dividend yield")
   - generic macro             ("rate-cut rally", "sector rotation")
   - hype / narrative          ("IPO hype", "meme", "everyone piling in")
-A named catalyst that later FAILS is fine — you couldn't have known. A theme with no resolution is
-NOT — it rides through every crash and bleeds. When unsure, DROP.
+A named catalyst that later FAILS is fine — you couldn't have known. A PURE theme with no resolution
+is NOT — it rides through every crash and bleeds. Drop only names that are theme/value/hype AND
+NOTHING ELSE.
 
 For each kept ticker decide:
   thesis        — the SPECIFIC catalyst event, <=12 words (e.g. "Iran war spikes tanker freight

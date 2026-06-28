@@ -69,16 +69,18 @@ CATALYST GATE (the hard filter — this is the bet). Propose a ticker ONLY if th
 SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
 chokepoint, an export ban or tariff, a regulatory approval or named bill, an agency emergency
 declaration, a named contract/partnership/deal, a supply shock. That resolution is what later flips
-the position to EXIT; if you cannot name the event AND say how it would resolve, there IS no thesis
-to hold — DROP it. REJECT, however bullish the coverage:
+the position to EXIT. JUDGE BY THE STRONGEST REASON TO OWN IT, NOT THE WEAKEST: if a specific
+catalyst is present, KEEP the name even when the coverage ALSO wraps it in a theme, valuation, or
+technical story (e.g. "AI-power demand AND a reactor APPROVAL" -> keep; the approval is the
+catalyst). The reject list below applies ONLY to a name whose SOLE rationale is:
   - theme / secular-momentum  ("AI power demand benefits utilities", "next wave after AI")
   - valuation / positioning   ("undervalued", "hedge-fund accumulation", "13F", "cheap as ever")
   - technical / chart         ("golden cross", "breakout", "high dividend yield")
   - generic macro             ("rate-cut rally", "sector rotation")
   - hype / narrative          ("IPO hype", "meme", "everyone piling in")
-A named catalyst that later FAILS is fine — you couldn't have known. A theme with no resolution is
-NOT — it rides through every crash and bleeds. The thesis you write must name the EVENT, not a trend
-or a valuation. When unsure, DROP.
+A named catalyst that later FAILS is fine — you couldn't have known. A PURE theme with no resolution
+is NOT — it rides through every crash and bleeds. When you write the thesis, NAME THE EVENT (it may
+sit alongside a theme). Drop only names that are theme/value/hype AND NOTHING ELSE.
 
 You forecast NOTHING. Output ONLY JSON: {"candidates":[{"ticker":"BWET","thesis":"<=12 words: the
 catalyst","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
@@ -95,11 +97,12 @@ Decide:
                  BUT BE SKEPTICAL ON ENTRY: thesis_live=true requires a SPECIFIC, DATABLE,
                  RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, regulatory approval/bill,
                  agency declaration, named deal, supply shock) — something whose resolution this
-                 switch can later act on. If the event is only a theme/secular-momentum story,
-                 a valuation/positioning call ("undervalued", "13F"), a technical/chart signal
-                 ("golden cross"), generic macro ("rate-cut rally"), or hype ("IPO hype") — or a
-                 one-off mention or routine gainer — set thesis_live=FALSE NOW. Only a genuine,
-                 still-active, resolvable catalyst earns thesis_live=true.
+                 switch can later act on. A real catalyst earns thesis_live=true EVEN IF the coverage
+                 also carries a theme/valuation angle — do not exit a genuine catalyst just because a
+                 theme framing co-occurs. Set thesis_live=FALSE NOW only when the event is SOLELY a
+                 theme/secular-momentum story, a valuation call ("undervalued", "13F"), a technical
+                 signal ("golden cross"), generic macro ("rate-cut rally"), hype ("IPO hype"), or a
+                 one-off mention/routine gainer with no resolvable catalyst at all.
   exit_advice  — <=20 words: the concrete condition that would end the thesis.
   assessment   — <=40 words: what changed this week and your read, continuous with your prior note.
   news_claims  — OPTIONAL <=12 words: attribute any size/return figure to the PRESS ("press cites
