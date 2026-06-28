@@ -34,7 +34,7 @@ sys.path.insert(0, str(ROOT / "src"))
 import firehose  # noqa: E402
 import agent  # noqa: E402
 import score  # noqa: E402
-from optimizer import load_financial_model  # noqa: E402
+from optimizer import load_financial_model, resolve_curator_model  # noqa: E402
 from util import load_dotenv  # noqa: E402
 
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
@@ -102,9 +102,10 @@ def main(argv: list[str] | None = None) -> int:
     spec = json.loads(GEMS_JSON.read_text())
     ap.add_argument("--start", default=spec["window"]["start"])
     ap.add_argument("--end", default=spec["window"]["end"])
-    ap.add_argument("--model", default="claude-opus-4-8")
-    ap.add_argument("--provider", default="anthropic", choices=["anthropic", "openrouter"],
-                    help="LLM provider for the agent variant (openrouter => DeepSeek etc. for cheap dev)")
+    ap.add_argument("--model", default=None,
+                    help="override the curator model id; default resolves from investor_profile `model` knob")
+    ap.add_argument("--provider", default=None, choices=["anthropic", "openrouter"],
+                    help="override provider; default resolves from the profile `model` knob (mimo=>openrouter)")
     ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--chunk-days", type=int, default=90, help="GDELT pool fetch chunk (coarser = fewer throttled calls)")
     ap.add_argument("--per", type=int, default=150, help="GDELT records per query-chunk")
@@ -135,6 +136,13 @@ def main(argv: list[str] | None = None) -> int:
     controls = {c["ticker"]: c for c in spec.get("controls", [])}
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
     rebalance = int(fm.get("rebalance_days", 7))
+    model_short = str(fm.get("model", "mimo")).strip().lower()
+    resolved_id, resolved_prov = resolve_curator_model(model_short)
+    if args.model is None:
+        args.model = resolved_id
+    if args.provider is None:
+        args.provider = resolved_prov
+    print(f"  curator model: {model_short} -> {args.model} ({args.provider})", file=sys.stderr)
 
     print(f"Harness: firehose over {args.start}..{args.end}, {len(gems)} gems, "
           f"{len(HARNESS_QUERIES)} broad queries, {rebalance}d cadence (single-scan baseline).",
@@ -159,7 +167,11 @@ def main(argv: list[str] | None = None) -> int:
     if args.dump_scans:  # persist {date: picks} so build_dashboard can render THIS engine's book
         Path(args.dump_scans).write_text(json.dumps(
             {a.date().isoformat(): scans[a] for a in scans}, indent=2, default=str))
-        print(f"  dumped scans -> {args.dump_scans}", file=sys.stderr)
+        # sidecar: which curator model produced THIS book (the dashboard reads it to display it)
+        meta_path = Path(args.dump_scans).with_suffix(".meta.json")
+        meta_path.write_text(json.dumps(
+            {"model": model_short, "model_id": args.model, "provider": args.provider}, indent=2))
+        print(f"  dumped scans -> {args.dump_scans}  (model {model_short})", file=sys.stderr)
     bt = firehose.backtest(scans, fm, daily=False)
 
     held = _held_weeks(bt)

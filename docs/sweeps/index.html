@@ -31,8 +31,12 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     +`Each book re-scored on a fixed price panel per gem; each plot sweeps one knob, the rest held at the baseline below.`;
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
     +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  const M=D.models||{}, mvals=[...new Set(Object.values(M))];
+  const mdisp = mvals.length<=1 ? (mvals[0]||"—")
+              : gems.map(g=>`${g}:${M[g]||"—"}`).join(", ");
   document.getElementById("sparams").innerHTML=
-    prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
+    prow("model", mdisp)
+    + prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
     + prow("concentration_cap", B.concentration_cap) + prow("min_trade_size", B.min_trade_size)
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};

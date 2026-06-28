@@ -128,8 +128,17 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         if j >= 0:
             for t in watch[anchors[j]]:
                 watch_daily[t][i] = 1
+    # curator model that PRODUCED this book: the scan sidecar wins over the current profile knob
+    meta_p = cfg["scans"].with_suffix(".meta.json")
+    disp_model = fm.get("model", "mimo")
+    if meta_p.exists():
+        try:
+            disp_model = json.loads(meta_p.read_text()).get("model", disp_model)
+        except (ValueError, OSError):
+            pass
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
+        "model": disp_model,
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
@@ -137,7 +146,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "metrics": metrics(d["value"], d["spy"], capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "watch_daily": watch_daily,
-        "retrieval": retstats.load(str(cfg["stats"])), "params": fm,
+        "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -159,7 +168,7 @@ def build_landing() -> None:
         m = d["metrics"]
         rows.append({"gem": d.get("gem", sub.parent.name.upper()), "url": f"{sub.parent.name}/index.html",
                      "ret": m["total_ret"], "spy": m["spy_ret"], "maxdd": m["max_dd"], "caught": d.get("caught"),
-                     "window": f'{d["dates"][0]} → {d["dates"][-1]}',
+                     "window": f'{d["dates"][0]} → {d["dates"][-1]}', "model": d.get("model", "—"),
                      "join": (d.get("retrieval") or {}).get("wayback", {}).get("join_rate_pct")})
     rows.sort(key=lambda r: r["window"], reverse=True)
 
@@ -172,7 +181,7 @@ def build_landing() -> None:
                 f'<div class="gv {cls}">{r["ret"]*100:+.0f}%</div>'
                 f'<div class="gs">vs SPY {r["spy"]*100:+.0f}% · maxDD {r["maxdd"]*100:.0f}%</div>'
                 f'<div class="gs"><span class="{cc}">{caught}</span> · Wayback join {jn}</div>'
-                f'<div class="gs">{r["window"]}</div></a>')
+                f'<div class="gs">{r["window"]} · model <b>{r["model"]}</b></div></a>')
     cards = "".join(card(r) for r in rows) or '<p class="sub">No gem dashboards built yet.</p>'
     OUT_DIR.mkdir(exist_ok=True)
     (OUT_DIR / "index.html").write_text(LANDING_HTML.replace("{{CARDS}}", cards))
@@ -222,8 +231,12 @@ def build_sweeps() -> None:
     pre = max([70] + [max(sw["values"]) + 30 for sw in SWEEPS if sw["key"] == "lookback_period_days"])
     # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare)
     gem_data = {}
+    models = {}
     for t in gem_tickers:
         cfg = gem_config(t)
+        meta_p = cfg["scans"].with_suffix(".meta.json")
+        models[t] = (json.loads(meta_p.read_text()).get("model") if meta_p.exists()
+                     else fm0.get("model", "mimo"))
         scans = load_scans(cfg["scans"])
         ana = list(scans)
         tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
@@ -231,7 +244,7 @@ def build_sweeps() -> None:
         start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
-    out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {},
+    out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}, "models": models,
            "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers},
            "baseline": {k: fm0.get(k) for k in
                         ("concentration_cap", "min_trade_size", "lookback_period_days", "risk_aversion")}}
@@ -395,7 +408,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
 
   // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
   const P=D.params||{};
-  const order=["initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
+  const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
     "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
   const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
@@ -677,8 +690,12 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     +`Each book re-scored on a fixed price panel per gem; each plot sweeps one knob, the rest held at the baseline below.`;
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
     +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  const M=D.models||{}, mvals=[...new Set(Object.values(M))];
+  const mdisp = mvals.length<=1 ? (mvals[0]||"—")
+              : gems.map(g=>`${g}:${M[g]||"—"}`).join(", ");
   document.getElementById("sparams").innerHTML=
-    prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
+    prow("model", mdisp)
+    + prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
     + prow("concentration_cap", B.concentration_cap) + prow("min_trade_size", B.min_trade_size)
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};

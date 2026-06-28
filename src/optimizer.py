@@ -40,6 +40,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 547,       # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
+    "model": "mimo",                   # LIVE (curator/scan): which LLM reads the firehose. Short
+                                       #   names resolved by resolve_curator_model(): mimo (cheap,
+                                       #   OpenRouter) | sonnet | opus. Stamped into the scan + shown
+                                       #   on the dashboards as the curator model that produced it.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
                                        #   every N days AND reads that same trailing news window. 7=weekly.
@@ -48,6 +52,21 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }
+
+
+# Curator-model registry: short name -> (provider model id, provider). The profile's `model` knob
+# holds the short name; scanning + the dashboard resolve through here so there is ONE source of truth.
+CURATOR_MODELS: dict[str, tuple[str, str]] = {
+    "mimo":   ("xiaomi/mimo-v2.5-pro", "openrouter"),  # cheap OpenRouter open-weight (dev/bake-off)
+    "sonnet": ("claude-sonnet-4-6",    "anthropic"),
+    "opus":   ("claude-opus-4-8",      "anthropic"),
+}
+
+
+def resolve_curator_model(short: str) -> tuple[str, str]:
+    """Map a profile `model` short name (mimo|sonnet|opus) to (model_id, provider).
+    Unknown names fall back to mimo (the safe, cheap default)."""
+    return CURATOR_MODELS.get(str(short).strip().lower(), CURATOR_MODELS["mimo"])
 
 
 def load_financial_model(profile_path: str = "investor_profile.md") -> dict[str, Any]:
