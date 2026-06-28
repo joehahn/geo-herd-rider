@@ -21,7 +21,7 @@ min_trade_size: 0.5               # Minimum POSITION-WEIGHT floor (NOT a turnove
                                   #   the rest (capital piles into the larger names; if all fall below,
                                   #   keep the single largest). ~1/N caps funded names near N: 0.20 -> ~<=5,
                                   #   0.34 -> ~<=3, 0.5 -> ~<=2, 0.05 -> ~<=20. 0 disables.
-lookback_period_days: 45          # Trailing window (calendar days, ending at entry) for the
+lookback_period_days: 150         # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
 rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every
                                   #   N days AND reads that same trailing news window. 7 = weekly. One
