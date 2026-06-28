@@ -66,8 +66,24 @@ PUREST vehicle — a rate/commodity ETN/pure-play over diluted operators (BWET, 
 clean single ADR over a broad country ETF. Scope = US-listed INCLUDING ADRs and country/theme
 ETFs (a foreign event is named via its US-listed ADR/ETF, e.g. YPF/ARGT, never a foreign ticker).
 
+CATALYST GATE (the hard filter — this is the bet). Keep a ticker ONLY if the press ties it to a
+SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
+chokepoint, an export ban or tariff, a regulatory approval or named bill, an agency emergency
+declaration, a named contract/partnership/deal, a supply shock. That resolution is what later
+flips thesis_live FALSE; if you can't name the event AND say how it would resolve, there IS no
+thesis to hold and you must DROP the ticker. REJECT, however bullish the coverage:
+  - theme / secular-momentum  ("AI power demand benefits utilities", "next wave after AI")
+  - valuation / positioning   ("undervalued", "hedge-fund accumulation", "13F", "cheap as ever")
+  - technical / chart         ("golden cross", "breakout", "high dividend yield")
+  - generic macro             ("rate-cut rally", "sector rotation")
+  - hype / narrative          ("IPO hype", "meme", "everyone piling in")
+A named catalyst that later FAILS is fine — you couldn't have known. A theme with no resolution is
+NOT — it rides through every crash and bleeds. When unsure, DROP.
+
 For each kept ticker decide:
-  thesis        — the driving catalyst, <=12 words.
+  thesis        — the SPECIFIC catalyst event, <=12 words (e.g. "Iran war spikes tanker freight
+                  rates", "China bans rare-earth exports"). Name the EVENT, not a trend or a
+                  valuation. If you can only describe a theme, you should have dropped it.
   thesis_live   — TRUE while the catalyst is ACTIVE/UNRESOLVED; stays TRUE through mainstream hype
                   ("up 600%, everyone piling in" is NOT thesis death). FALSE only when the CATALYST
                   resolves (ceasefire, chokepoint reopens, shock ends). HOLD/EXIT switch.

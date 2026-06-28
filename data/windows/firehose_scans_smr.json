@@ -2,329 +2,58 @@
   "2024-04-19": [],
   "2024-04-26": [],
   "2024-05-03": [],
-  "2024-05-10": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/hidden-gems-unveiling-the-5-stocks-on-hedge-funds-radar-1298479/",
-        "https://biztoc.com/x/0be4e6f92407a367"
-      ]
-    }
-  ],
-  "2024-05-17": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://seekingalpha.com/news/4105577-albemarle-most-shorted-sp-500-materials-stock-in-april-ecolab-least-shorted"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://investorplace.com/2024/05/quantum-leap-3-computing-stocks-on-the-brink-of-a-breakout/"
-      ]
-    }
-  ],
-  "2024-05-24": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/TSX-opens-higher-on-softer-retail-sales-data-46817885/",
-        "https://www.cnbc.com/2024/05/20/investor-bill-nygren-likes-financials-here-are-his-largest-positions.html"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3450246"
-      ]
-    }
-  ],
-  "2024-05-31": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/hedge-funds-just-picked-quantum-computing-inc-nasdaqqubt-as-a-top-quantum-computing-stock-ready-to-review-1306282/",
-        "https://www.fool.ca/2024/05/28/how-materials-stocks-are-reaping-the-benefits-of-the-artificial-intelligence-ai-explosion/",
-        "http://baystreet.ca/articles/marketupdates/97879/052724"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/445ff924284da271",
-        "https://investorplace.com/2024/05/3-quantum-computing-stocks-to-buy-on-the-dip-may-2024/"
-      ]
-    }
-  ],
-  "2024-06-07": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/quote/stock/GFL-ENVIRONMENTAL-INC-104092348/news/Toronto-Stocks-Retreat-Saputo-Shares-Rise-on-4Q-Revenue-Adjusted-Earnings-Beat-46930880/",
-        "https://www.ibtimes.co.uk/billionaire-george-soross-fund-sells-uber-novo-nordisk-q1-focus-ai-construction-apparel-1724911"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/a9cf70feb24864a6",
-        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/S-P-500-Nasdaq-hit-record-highs-as-markets-digest-economic-data-46913038/",
-        "https://insiderzim.com/company-earnings-to-be-subdued-in-2015/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/ff327c019f21d3f9"
-      ]
-    }
-  ],
-  "2024-06-14": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fitzhugh.ca/national-business/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-sweeping-reforms-9080619",
-        "https://www.stalbertgazette.com/national-business/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-sweeping-reforms-9080619"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.aol.com/chinese-evs-driving-mexico-starting-210133602.html",
-        "https://tribtown.com/2024/06/13/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/",
-        "https://finance.yahoo.com/news/chinese-evs-are-driving-into-mexico--and-its-starting-to-worry-the-us-210133299.html",
-        "https://medicinehatnews.com/business/2024/06/13/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-broad-reforms/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2024-06-21": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2024-06-28": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://investorplace.com/2024/06/3-quantum-computing-stocks-to-buy-now-june-2024/",
-        "https://investorplace.com/2024/06/3-quantum-stocks-to-buy-before-the-masses-mobilize/"
-      ]
-    }
-  ],
-  "2024-07-05": [
-    {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/29/3-magnificent-vanguard-etfs-buy-ai-stocks/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/news/3-magnificent-vanguard-etfs-buy-095100120.html",
-        "https://www.fool.com/investing/2024/06/29/3-magnificent-vanguard-etfs-buy-ai-stocks/"
-      ]
-    }
-  ],
+  "2024-05-10": [],
+  "2024-05-17": [],
+  "2024-05-24": [],
+  "2024-05-31": [],
+  "2024-06-07": [],
+  "2024-06-14": [],
+  "2024-06-21": [],
+  "2024-06-28": [],
+  "2024-07-05": [],
   "2024-07-12": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/63b94f93bee26db5"
       ]
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/2ca5fc9aeed5e555"
       ]
     }
   ],
   "2024-07-26": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "SMR",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/0af0397555446ac1"
-      ]
     }
   ],
   "2024-08-02": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/why-do-hedge-funds-think-that-exscientia-plc-exai-will-skyrocket-1327960/"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
         "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
       ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/31/could-rigetti-computing-become-the-next-ionq/",
-        "https://investorplace.com/2024/07/3-quantum-computing-stocks-to-bet-on-for-market-crushing-returns/",
-        "https://investorplace.com/2024/07/get-your-money-out-of-these-3-quantum-computing-stocks-by-2025/"
-      ]
     }
   ],
   "2024-08-09": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.hedgeweek.com/hedge-funds-turn-bearish-as-concerns-grow-over-us-economic-slowdown/",
-        "https://www.investing.com/news/stock-market-news/hedge-funds-grow-bearish-amid-economic-slowdown-jitters-goldman-says-3553444"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
@@ -333,31 +62,16 @@
   ],
   "2024-08-16": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/western-digital-corporation-wdc-a-storage-powerhouse-with-robust-growth-potential-1334010/"
       ]
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://investorplace.com/2024/08/what-are-the-hottest-quantum-computing-stocks-right-now-3-top-picks/",
-        "https://markets.businessinsider.com/news/stocks/what-are-the-hottest-quantum-computing-stocks-right-now-3-top-picks-1033678888"
-      ]
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency boosts demand for SIGA's antiviral drug TPOXX",
+      "ticker": "BVNRY",
+      "thesis": "WHO mpox emergency declaration boosts vaccine demand.",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
@@ -369,16 +83,8 @@
   ],
   "2024-08-23": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "http://baystreet.ca/articles/baystreetschool/101729/Hedge-Funds-Continue-To-Sell-Stocks-Report"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://economictimes.indiatimes.com/markets/stocks/news/big-movers-on-d-street-what-should-investors-do-with-icici-securities-reliance-power-and-nykaa/articleshow/112696207.cms",
@@ -386,179 +92,66 @@
       ]
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
+      "ticker": "BVNRY",
+      "thesis": "WHO mpox emergency declaration boosts vaccine demand.",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency boosts demand for SIGA's antiviral drug TPOXX",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VICI",
-      "thesis": "Golden cross signals bullish breakout; high dividend yield attracts.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.benzinga.com/real-estate/reit/24/08/40509275/vici-properties-is-poised-for-a-breakout-with-golden-cross-5-dividend-combo"
-      ]
     }
   ],
   "2024-08-30": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://markets.businessinsider.com/news/stocks/canadian-market-up-firmly-technology-materials-stocks-among-major-gainers-1033733953",
-        "https://www.rttnews.com/3471856/canadian-market-up-firmly-technology-materials-stocks-among-major-gainers.aspx",
-        "https://www.rttnews.com/3471522/materials-technology-stocks-dragging-down-canadian-market.aspx"
-      ]
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency boosts demand for SIGA's antiviral drug TPOXX",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
+        "https://www.energyandcapital.com/five-words-that-will-tank-nvidia-overnight/",
         "https://www.business-standard.com/markets/capital-market-news/sensex-rises-74-pts-nifty-hits-record-high-ltimindtree-soars-6-5-124082801000_1.html",
+        "http://baystreet.ca/articles/marketupdates/101926/One-More-All-Time-High-for-TSX",
+        "http://baystreet.ca/articles/marketupdates/101926/082624",
+        "http://baystreet.ca/marketupdates/13425/One-More-All-Time-High-for-TSX"
+      ]
+    },
+    {
+      "ticker": "BVNRY",
+      "thesis": "WHO mpox emergency declaration boosts vaccine demand.",
+      "thesis_live": true,
+      "evidence_urls": [
         "https://www.modernreaders.com/news/2024/08/26/verdence-capital-advisors-llc-boosts-stock-position-in-vanguard-real-estate-etf-nysearcavnq.html"
-      ]
-    },
-    {
-      "ticker": "VICI",
-      "thesis": "Golden cross signals bullish breakout; high dividend yield attracts.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://seekingalpha.com/article/4718170-schds-achilles-heel-a-warning-to-dividend-investors"
-      ]
-    },
-    {
-      "ticker": "XLRE",
-      "thesis": "Real estate stocks rally on Federal Reserve rate cut expectations.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.business-standard.com/markets/capital-market-news/real-estate-shares-rise-124083000171_1.html",
-        "https://www.themarketsdaily.com/2024/08/30/bfsg-llc-has-640000-stock-holdings-in-vanguard-real-estate-etf-nysearcavnq.html",
-        "https://theenterpriseleader.com/2024/08/29/ridgewood-investments-llc-makes-new-93000-investment-in-vanguard-real-estate-etf-nysearcavnq.html"
       ]
     }
   ],
   "2024-09-06": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.timescolonist.com/national-business/stock-market-today-wall-street-tumbles-on-worries-about-the-economy-and-dow-drops-more-than-600-9465940",
-        "https://www.airdriecityview.com/national-business/stock-market-today-wall-street-tumbles-on-worries-about-the-economy-and-dow-drops-more-than-600-9465929",
-        "https://www.fitzhugh.ca/national-business/stock-market-today-wall-street-tumbles-on-worries-about-the-economy-and-dow-drops-more-than-600-9465929"
-      ]
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency boosts demand for SIGA's antiviral drug TPOXX",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VICI",
-      "thesis": "Golden cross signals bullish breakout; high dividend yield attracts.",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.business-standard.com/finance/personal-finance/hsbc-mutual-fund-unveils-new-export-themed-equity-scheme-check-details-124090400775_1.html"
+        "https://www.dutchnews.nl/2024/09/dutch-music-rights-fund-buys-the-stranglers-gipsy-kings/"
       ]
     },
     {
-      "ticker": "XLRE",
-      "thesis": "Real estate stocks rally on Federal Reserve rate cut expectations.",
+      "ticker": "BVNRY",
+      "thesis": "WHO mpox emergency declaration boosts vaccine demand.",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.benzinga.com/news/earnings/24/09/40753887/kkr-real-estate-surges-5-7-is-this-an-indication-of-further-gains",
-        "https://www.etftrends.com/etf-building-blocks-channel/reit-rally-could-just-getting-started/",
-        "https://www.dailypolitical.com/2024/09/04/wealth-effects-llc-sells-245-shares-of-vanguard-real-estate-etf-nysearcavnq.html"
-      ]
+      "evidence_urls": []
     }
   ],
   "2024-09-13": [
     {
-      "ticker": "VMC",
-      "thesis": "Hedge fund accumulation signals undervalued construction materials play",
+      "ticker": "CCJ",
+      "thesis": "Nuclear power legislation signed, boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
-        "https://finance.yahoo.com/news/why-billionaire-bill-ackman-bought-094600516.html",
-        "https://www.fool.com/investing/2024/09/12/billionaire-bill-ackman-bought-2-stocks/"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "AI datacenter power demand and reactor approval news driving stock.",
-      "thesis_live": true,
-      "evidence_urls": [
+        "https://archinect.com/news/article/150446028/new-beijing-performing-arts-center-rises-from-its-historic-waterside-site-with-curtain-like-forms",
+        "https://powertalk1360.iheart.com/content/2024-09-11-inflation-slowed-to-lowest-level-in-three-years-as-fed-considers-rate-cut/",
         "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
       ]
     },
     {
-      "ticker": "QUBT",
-      "thesis": "Quantum computing positioned as next investment wave after AI; Intel breakthrough.",
+      "ticker": "BVNRY",
+      "thesis": "WHO mpox emergency declaration boosts vaccine demand.",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency boosts demand for SIGA's antiviral drug TPOXX",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VICI",
-      "thesis": "Golden cross signals bullish breakout; high dividend yield attracts.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.ca/2024/09/11/a-dividend-giant-id-buy-over-canadian-utilities-stock/"
-      ]
-    },
-    {
-      "ticker": "XLRE",
-      "thesis": "Real estate stocks rally on Federal Reserve rate cut expectations.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fox7austin.com/news/us-inflation-hits-low-fed-reserve-interest-rates",
-        "https://www.hometownregister.com/news/national/what-happens-when-the-fed-finally-cuts-rates/article_bd2dfa87-7375-5e90-a041-792bea857f2f.html"
-      ]
-    },
-    {
-      "ticker": "INSW",
-      "thesis": "Tanker market dynamics make stock almost as cheap as ever.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://seekingalpha.com/article/4720557-tanker-markets-and-why-international-seaways-is-almost-as-cheap-as-its-ever-been"
-      ]
     }
   ]
 }
