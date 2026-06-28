@@ -191,7 +191,7 @@ GEM_VERTICAL = {
 
 SWEEPS = [
     {"key": "lookback_period_days", "label": "lookback_period_days",
-     "values": [21, 30, 45, 60, 75, 90, 120, 150, 180, 215, 252, 330]},   # ~3wk -> ~1.3yr μ/Σ fit
+     "values": [7, 14, 21, 30, 45, 60, 75, 90, 120, 150, 180, 215, 252, 330]},   # ~1wk -> ~1.3yr μ/Σ fit
     {"key": "concentration_cap", "label": "concentration_cap",
      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
@@ -200,13 +200,17 @@ SWEEPS = [
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 1.0, 1.5, 2.0, 3.0, 5.0]},   # 0 = pure-μ -> high λ = risk-averse
 ]
 
+# Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values
+# (independent of the live gem-dashboard defaults). Pin cap=0.5 here per request.
+SWEEP_BASE = {"concentration_cap": 0.5}
+
 
 def build_sweeps() -> None:
     """Sweep dashboard at docs/sweeps/: for each parameter, re-score every gem's book across its
     values (ONE fixed price panel per gem, so the cap comparison is clean) and write the SUM across
     gems of Final Curated Portfolio value + Sum Final SPY (flat benchmark). Extensible via SWEEPS."""
     import score
-    fm0 = load_financial_model(str(ROOT / "investor_profile.md"))
+    fm0 = {**load_financial_model(str(ROOT / "investor_profile.md")), **SWEEP_BASE}
     capital = float(fm0.get("initial_investment_usd", 50_000))
     gem_tickers = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
                    if gem_config(g["ticker"])["scans"].exists()]
@@ -227,7 +231,9 @@ def build_sweeps() -> None:
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
     out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {},
-           "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers}}
+           "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers},
+           "baseline": {k: fm0.get(k) for k in
+                        ("concentration_cap", "min_trade_size", "lookback_period_days", "risk_aversion")}}
     for sw in SWEEPS:
         key, vals = sw["key"], sw["values"]
         sum_cur, sum_spy, per_gem = [], [], {t: [] for t in gem_tickers}
@@ -663,9 +669,11 @@ SWEEPS_HTML = r"""<!doctype html>
 <script>
 fetch("data.json").then(r=>r.json()).then(D=>{
   const gems=D.gems||[], n=gems.length;
+  const B=D.baseline||{};
+  const bstr=Object.keys(B).length?` Non-swept knobs held at: cap ${B.concentration_cap}, min_trade ${B.min_trade_size}, lookback ${B.lookback_period_days}, risk_aversion ${B.risk_aversion} (each plot overrides its own).`:"";
   document.getElementById("sub").textContent =
     `Sum across ${n} gem book(s) (${gems.join(", ")}) · $${(D.capital_per_gem*n).toLocaleString()} total start. `
-    +`Each book re-scored at every value on one fixed price panel per gem (a clean, deterministic comparison).`;
+    +`Each book re-scored at every value on one fixed price panel per gem (a clean, deterministic comparison).`+bstr;
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
   Object.keys(P).forEach((k,i)=>{
