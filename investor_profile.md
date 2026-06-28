@@ -25,7 +25,7 @@ t_update_days: 1                  # Business days from event detection (post-clo
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
 min_trade_size: 0.1               # Drop holdings smaller than this; reallocate
-lookback_period_days: 21          # Trailing window (calendar days, ending at entry) for the
+lookback_period_days: 14          # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
 rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every
                                   #   N days AND reads that same trailing news window. 7 = weekly. One
