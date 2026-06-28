@@ -40,9 +40,10 @@ def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date
 
 
 def _apply_min_trade(weights: dict[str, float], fm: dict) -> dict[str, float]:
-    """Drop positions below min_trade_size (a fraction of the basket) and renormalize the rest —
-    forcing capital to PILE INTO the few larger names instead of dribbling across many. Setting it
-    to ~1/N caps the funded names near N (0.20 -> ~<=5, 0.34 -> ~<=3). 0 disables."""
+    """Minimum POSITION-WEIGHT floor (NOT a turnover/trade-delta threshold): drop any name whose
+    TARGET weight (its fraction of the basket from the optimizer) is below min_trade_size, then
+    renormalize the survivors — forcing capital to PILE INTO the few larger names instead of
+    dribbling across many. ~1/N caps funded names near N (0.20 -> ~<=5, 0.34 -> ~<=3). 0 disables."""
     mts = float(fm.get("min_trade_size", 0.0))
     if mts <= 0:
         return weights

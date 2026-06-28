@@ -188,7 +188,7 @@ SWEEPS = [
     {"key": "min_trade_size", "label": "min_trade_size",
      "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "lookback_period_days", "label": "lookback_period_days",
-     "values": [21, 30, 45, 60, 90, 120, 180, 252]},   # ~3wk recent-only -> ~1yr full-cycle μ/Σ fit
+     "values": [21, 30, 45, 60, 75, 90, 120, 150, 180, 215, 252, 330]},   # ~3wk -> ~1.3yr μ/Σ fit
     # {"key": "risk_aversion",    "label": "risk_aversion",    "values": [0.5, 1.0, 2.0, 4.0]},
 ]
 
