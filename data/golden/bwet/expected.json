@@ -1,6 +1,6 @@
 {
   "weeks": 19,
-  "final": 82220.43,
+  "final": 77828.12,
   "spy_final": 54535.01,
   "log": [
     {
@@ -36,80 +36,80 @@
     {
       "week": "2026-03-13",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:0.33;NFG:0.33;CEG:0.33",
-      "week_return": 0.0569
+      "weights": "NFG:0.50;BWET:0.50",
+      "week_return": 0.1112
     },
     {
       "week": "2026-03-20",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:0.33;NFG:0.33;CEG:0.33",
-      "week_return": 0.1231
+      "weights": "BWET:0.50;NFG:0.50",
+      "week_return": 0.1694
     },
     {
       "week": "2026-03-27",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:0.33;NFG:0.33;CEG:0.33",
-      "week_return": 0.0197
+      "weights": "NFG:0.50;BWET:0.50",
+      "week_return": 0.0731
     },
     {
       "week": "2026-04-03",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "BWET:0.33;NFG:0.33;CEG:0.33",
-      "week_return": 0.0571
+      "weights": "BWET:0.50;NFG:0.50",
+      "week_return": 0.0506
     },
     {
       "week": "2026-04-10",
       "watchlist": "BWET;CEG;NFG",
-      "weights": "NFG:0.33;BWET:0.33;CEG:0.33",
-      "week_return": -0.0641
+      "weights": "NFG:0.50;BWET:0.50",
+      "week_return": -0.089
     },
     {
       "week": "2026-04-17",
       "watchlist": "BWET;CEG;NFG;PCG",
-      "weights": "BWET:0.33;PCG:0.33;NFG:0.33",
-      "week_return": -0.0066
+      "weights": "BWET:0.57;PCG:0.43",
+      "week_return": -0.0179
     },
     {
       "week": "2026-04-24",
       "watchlist": "BWET;CEG;NFG;PCG",
-      "weights": "BWET:0.33;PCG:0.33;NFG:0.33",
-      "week_return": 0.0508
+      "weights": "CEG:0.62;BWET:0.38",
+      "week_return": 0.0979
     },
     {
       "week": "2026-05-01",
       "watchlist": "BWET;CEG;NFG;PCG",
-      "weights": "BWET:0.33;PCG:0.33;NFG:0.33",
-      "week_return": -0.0091
+      "weights": "BWET:0.50;CEG:0.50",
+      "week_return": -0.0253
     },
     {
       "week": "2026-05-08",
       "watchlist": "BWET;CEG;NFG;OKLO;PCG",
-      "weights": "PCG:0.33;BWET:0.33;NFG:0.33",
-      "week_return": 0.0242
+      "weights": "BWET:0.61;CEG:0.39",
+      "week_return": -0.0175
     },
     {
       "week": "2026-05-15",
       "watchlist": "BWET;CEG;LEU;NFG;OKLO;PCG",
-      "weights": "PCG:0.33;BWET:0.33;NFG:0.33",
-      "week_return": -0.0433
+      "weights": "BWET:0.50;PCG:0.50",
+      "week_return": -0.0463
     },
     {
       "week": "2026-05-22",
       "watchlist": "BWET;CEG;LEU;NFG;OKLO;PCG",
-      "weights": "PCG:0.33;BWET:0.33;NFG:0.33",
-      "week_return": -0.0059
+      "weights": "NFG:0.50;PCG:0.50",
+      "week_return": -0.0264
     },
     {
       "week": "2026-05-29",
       "watchlist": "BWET;CEG;LEU;NFG;OKLO;PCG;RDW",
-      "weights": "RDW:0.33;BWET:0.33;PCG:0.33",
-      "week_return": 0.0345
+      "weights": "PCG:0.50;RDW:0.50",
+      "week_return": -0.0408
     },
     {
       "week": "2026-06-05",
       "watchlist": "BWET;CEG;LEU;NFG;PCG;RDW",
-      "weights": "BWET:0.33;RDW:0.33;PCG:0.33",
-      "week_return": -0.0613
+      "weights": "RDW:0.50;BWET:0.26;PCG:0.24",
+      "week_return": -0.0963
     }
   ]
 }

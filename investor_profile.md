@@ -6,7 +6,7 @@
 initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.3334         # Per-position max weight (≈1/3 -> forces >=3 names).
+concentration_cap: 0.5            # Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
 risk_aversion: 0.67               # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
@@ -17,7 +17,7 @@ t_update_days: 1                  # Business days from event detection (post-clo
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
 min_trade_size: 0.2               # Drop holdings smaller than this; reallocate
-lookback_period_days: 150         # Trailing window (calendar days, ending at entry) for the
+lookback_period_days: 21          # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
 rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every
                                   #   N days AND reads that same trailing news window. 7 = weekly. One
