@@ -183,7 +183,8 @@ def build_landing() -> None:
 # and the sweeps dashboard plots SUM-across-gems of final curated value vs the parameter. Extensible:
 # add risk_aversion / min_trade_size here later (left commented so they're not run yet).
 SWEEPS = [
-    {"key": "concentration_cap", "label": "concentration_cap", "values": [0.25, 0.33, 0.5, 0.67, 0.75, 1.0]},
+    {"key": "concentration_cap", "label": "concentration_cap",
+     "values": [0.25, 0.33, 0.4, 0.5, 0.55, 0.67, 0.75, 0.85, 1.0]},
     # {"key": "risk_aversion",    "label": "risk_aversion",    "values": [0.5, 1.0, 2.0, 4.0]},
     # {"key": "min_trade_size",   "label": "min_trade_size",   "values": [0.0, 0.1, 0.2, 0.34, 0.5]},
 ]
