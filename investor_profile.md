@@ -6,10 +6,10 @@
 initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.5            # Per-position max weight in the week's basket.
+concentration_cap: 0.67           # Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
-risk_aversion: 1.0                # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
+risk_aversion: 0.67               # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 max_tickers_per_event: 16         # Cap on tickers kept per event (the "limit the options"
                                   #   knob). Truncates each basket to the first N. Tune later:
                                   #   2 (1-2 names), 7 (3-7), 16 (8-16). Current baskets are ~3-5.

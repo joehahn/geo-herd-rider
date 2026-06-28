@@ -652,9 +652,9 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     +`Each book re-scored at every value on one fixed price panel per gem (a clean, deterministic comparison).`;
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
-  Object.keys(P).forEach(k=>{
+  Object.keys(P).forEach((k,i)=>{
     const p=P[k];
-    const h2=document.createElement("h2"); h2.textContent=`Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);
+    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+1} — Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);
     const div=document.createElement("div"); div.className="chart"; div.id="c_"+k; host.appendChild(div);
     const traces=[
       {x:p.values,y:p.sum_curated,name:"Sum Final Curated",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
