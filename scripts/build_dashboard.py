@@ -232,8 +232,8 @@ def _model_book_path(short: str, gem: str):
     fn = {"BWET": "firehose_scans.json", "MP": "firehose_scans_mp.json", "SMR": "firehose_scans_smr.json"}[gem]
     if short == "mimo":
         return ROOT / "data" / "windows" / "_mimo_softened" / fn
-    if short == "sonnet":
-        return ROOT / "data" / "windows" / fn
+    if short == "sonnet":  # sonnet was the live curator before deepseek; books archived here
+        return ROOT / "data" / "windows" / "_sonnet" / fn
     return ROOT / "data" / "windows" / "bakeoff" / f"firehose_scans_{gem.lower()}__{short}.json"
 
 

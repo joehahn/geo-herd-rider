@@ -1,0 +1,156 @@
+{
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [],
+  "2026-02-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Constellation Energy signs 380-MW deal with CyrusOne.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-23-the-great-defensive-pivot-why-investors-are-crowding-into-utilities-and-energy-amidst-2026-volatility"
+      ]
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "CEG",
+      "thesis": "Constellation Energy signs 380-MW deal with CyrusOne.",
+      "thesis_live": false,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/03/05/promising-renewable-energy-stocks-to-watch-today-march-2nd.html",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-sri-lankan-shares-drop-most-since-2022-as-middle-east-conflict-fans-energy-shortage-fears/articleshow/128969340.cms",
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    }
+  ],
+  "2026-03-13": [],
+  "2026-03-20": [],
+  "2026-03-27": [],
+  "2026-04-03": [],
+  "2026-04-10": [],
+  "2026-04-17": [],
+  "2026-04-24": [],
+  "2026-05-01": [],
+  "2026-05-08": [],
+  "2026-05-15": [],
+  "2026-05-22": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act",
+        "https://artvoice.com/2026/05/21/ibm-stock-jumps-7-percent-on-a-1-billion-government-quantum-award/",
+        "https://finance.yahoo.com/sectors/technology/articles/ibm-adds-market-value-adidas-102811740.html"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "IONQ",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
+        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/",
+        "https://www.benzinga.com/Opinion/26/05/52792827/quantum-computing-stocks-rally-has-a-warning-baked-in",
+        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/ibm-stock-just-reached-record-172442037.html",
+        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
+        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
+        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
+        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "IBM",
+      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.thisdaylive.com/2026/06/28/fgn-bond-subscriptions-hit-n9-04tn-as-investors-appetite-for-government-securities-soars/"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ]
+}

@@ -3,10 +3,13 @@
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these. All knobs are
 # flat top-level keys (one per line) so a diff renders each change vertically.
-model: sonnet                     # Curator LLM that reads the firehose. Choices:
-                                  #   mimo   = xiaomi/mimo-v2.5-pro (cheap, OpenRouter; ~$0.40/3-gem scan)
-                                  #   sonnet = claude-sonnet-4-6 (~$5/3-gem scan)
-                                  #   opus   = claude-opus-4-8 (~$25/3-gem scan)
+model: deepseek                   # Curator LLM that reads the firehose. Choices (measured $/3-gem scan):
+                                  #   deepseek = deepseek-chat V3 (OpenRouter) ~$0.1  -- DEFAULT: caught all 3 gems, cheapest
+                                  #   llama4   = llama-4-maverick (OpenRouter) ~$0.3
+                                  #   mimo     = xiaomi/mimo-v2.5-pro (OpenRouter) ~$0.4
+                                  #   sonnet   = claude-sonnet-4-6 (Anthropic)  ~$3.6
+                                  #   grok4    = x-ai/grok-4.3 (OpenRouter)      ~$3.7
+                                  #   opus     = claude-opus-4-8 (Anthropic)     ~$4.4
                                   #   Scans read this knob; dashboards display the model that produced each book.
 initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar

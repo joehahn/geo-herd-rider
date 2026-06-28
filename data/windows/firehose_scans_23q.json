@@ -1,0 +1,581 @@
+{
+  "2026-02-06": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/forget-tech-stocks-ai-power-154000334.html",
+        "https://www.fool.com/investing/2026/02/05/forget-tech-stocks-this-is-the-ai-power-play-that/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-reasons-nextera-energy-shares-145000368.html",
+        "https://www.fool.com/investing/2026/02/11/better-utility-stock-constellation-energy-v-vistra/?source=iedfolrf0000001",
+        "https://www.investing.com/analysis/how-to-play-ais-power-demand-for-10-dividends-200674677"
+      ]
+    }
+  ],
+  "2026-02-20": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-sectors-crushing-tech-2026-163500903.html",
+        "https://www.fool.com/investing/2026/02/18/2-utility-stocks-to-buy-in-february/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/2-utility-stocks-buy-february-015900317.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-02-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-27-vistra-corp-vst-q4-earnings-analysis-reality-check-for-the-ai-power-trade",
+        "https://finance.yahoo.com/news/morgan-stanley-keeps-overweight-rating-032619975.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/u-s-futures-largely-flat-european-equities-fall-as-new-10-tariffs-kick-in-ce7e5cdad98af023",
+        "https://finance.yahoo.com/news/stocks-set-open-lower-amid-111401119.html"
+      ]
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+        "https://www.kiplinger.com/investing/stocks/iran-hits-gulf-tanker-dow-drops-784-points-stock-market-today",
+        "https://slguardian.org/oil-shock-ripples-across-global-markets-as-middle-east-tensions-escalate/"
+      ]
+    }
+  ],
+  "2026-03-13": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.zawya.com/en/capital-markets/equities/mideast-stocks-saudi-extends-rally-on-energy-led-gains-qatar-slips-hu8qed0s"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/mario-gabelli-sees-unappreciated-value-212222059.html",
+        "https://www.insidermonkey.com/blog/mario-gabelli-sees-unappreciated-value-in-national-fuel-gas-nfg-appalachian-gas-assets-1713809/",
+        "https://www.wealthdaily.com/the-commodity-super-cycle-is-no-longer-a-theory/"
+      ]
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/16/better-utility-stock-constellation-vs-nextera/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/stock-index-futures-muted-oil-103520982.html",
+        "https://www.thehindubusinessline.com/markets/stock-markets/sensex-nifty-slip-in-early-trade-as-it-stocks-drag-crude-oil-surge-adds-to-pressure/article70752510.ece"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.gdnonline.com:443/Details/1379406",
+        "https://www.gdnonline.com:443/Details/1379406/Global-stocks-rebound-as-Trump-signals-pause-on-Iran-strikes"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/morning-catch-asx-set-ease-224100902.html"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/2-nuclear-stocks-energy-might-150617725.html",
+        "https://finance.yahoo.com/markets/stocks/articles/bkv-permian-resources-range-resources-014326894.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.marketpulse.com/markets/markets-today-oil-surges-8-stocks-retreat-as-trump-keeps-investors-guessing-fed-speakers-nfp-ahead/"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.morningstar.com/stocks/33-undervalued-stocks-buy-volatile-market"
+      ]
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/clearway-energy-cwen-price-target-015500398.html",
+        "https://finance.yahoo.com/markets/stocks/articles/dte-energy-dte-price-target-015605427.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/dte-energy-dte-poised-for-8-growth-on-data-center-opportunities-1740029/",
+        "https://www.insidermonkey.com/blog/this-is-why-nrg-energy-nrg-is-a-top-utility-stock-on-data-center-growth-1740047/",
+        "https://www.insidermonkey.com/blog/constellation-energy-ceg-asserts-dominance-on-clean-energy-with-calvert-cliffs-clean-energy-upgrades-1740049/",
+        "https://www.morningstar.com/markets/utilities-stocks-keep-rallying-investors-bet-power-demand-growth"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-settle-higher-hopes-agreement-203753467.html"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-pge-corporation-pcg-fairly-valued-after-20-gain-on-sb254-development-1740053/"
+      ]
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-pge-corporation-pcg-fairly-valued-after-20-gain-on-sb254-development-1740053/"
+      ]
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/nuclear-focused-constellation-energys-25-143500099.html",
+        "https://finance.yahoo.com/sectors/energy/articles/dte-energy-dte-poised-8-212246393.html",
+        "https://finance.yahoo.com/sectors/energy/articles/why-bmo-capital-raised-duke-212352211.html",
+        "https://finance.yahoo.com/news/heres-why-oklo-and-other-nuclear-power-stocks-skyrocketed-this-week-151034881.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.businesstimes.com.sg/companies-markets/etfs-traded-sgx-hit-record-over-s19-billion-aum-117-q1-turnover-surge"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/pg-e-corporation-pcg-fairly-211227083.html"
+      ]
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/pg-e-corporation-pcg-fairly-211227083.html"
+      ]
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.zerohedge.com/energy/oklo-nvidia-and-los-alamos-working-plutonium-powered-ai",
+        "https://www.fool.com/investing/2026/04/25/3-nuclear-energy-stocks-that-are-quietly-becom/",
+        "https://finance.yahoo.com/markets/stocks/articles/southern-company-raises-dividend-2-141743349.html",
+        "https://finance.yahoo.com/sectors/energy/articles/nrc-renews-license-duke-energy-141832333.html",
+        "https://www.insidermonkey.com/blog/nextera-energy-nee-hits-a-new-high-following-strong-q1-report-1747002/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
+        "https://www.livemint.com/market/stock-market-news/us-stock-market-today-s-p-500-nasdaq-futures-slide-up-to-1-as-crude-oil-price-spikes-chip-stocks-retreat-11777375387116.html",
+        "https://www.fool.ca/2026/05/01/tsx-today-what-to-watch-for-in-stocks-on-friday-may-1/"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "OKLO",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001",
+        "https://www.insidermonkey.com/blog/from-chips-to-kilowatts-5-utility-stocks-riding-the-2026-reliability-shock-1753146/",
+        "https://www.fool.com/investing/2026/05/07/3-powerful-nuclear-energy-stocks-to-buy-in-may/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3648193"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/constellation-energy-ceg-among-12-025609712.html",
+        "https://www.insidermonkey.com/blog/10-best-nuclear-energy-stocks-to-buy-as-smrs-go-mainstream-1761864/",
+        "https://finance.yahoo.com/sectors/energy/articles/cameco-ccj-remains-beneficiary-long-173639686.html",
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://news.webindia123.com/news/Articles/Business/20260514/4450133.html"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/roth-capital-factors-centrus-energy-173631647.html"
+      ]
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "Roth Capital raises PT to $230 on SMR-enrichment pure-play",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/roth-capital-factors-centrus-energy-173631647.html"
+      ]
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/utilities-etf-fxu-hits-17-180910539.html",
+        "https://fortune.com/2026/05/18/nextera-dominion-67-billion-acquisition-ai-data-centers-largest-utility/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/memory-stocks-tumble-seagate-ceo-191437146.html",
+        "https://www.finanznachrichten.de/nachrichten-2026-05/68540517-u-s-stocks-close-mostly-lower-as-treasury-yields-extend-surge-020.htm",
+        "https://www.rttnews.com/3653560/futures-pointing-to-initial-weakness-on-wall-street.aspx",
+        "https://fortune.com/2026/05/18/nextera-dominion-67-billion-acquisition-ai-data-centers-largest-utility/"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "Roth Capital raises PT to $230 on SMR-enrichment pure-play",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/17/bwxt-stock-is-up-nearly-100-is-rally-just-started/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/nuclear-power-energy-story-decade-235000884.html",
+        "https://finance.yahoo.com/markets/stocks/articles/nuclear-energy-startup-oklos-stock-154526723.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.thehindubusinessline.com/markets/stock-markets/markets-open-flat-after-monday-surge-crude-jumps-on-fresh-us-strikes-in-iran/article71023613.ece"
+      ]
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2026/defense/05271-astrotech-astc-nasdaq-top-gainer-lunar-resource.asp"
+      ]
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "Roth Capital raises PT to $230 on SMR-enrichment pure-play",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2026/defense/05291-spacex-1-8-trillion-ipo-investor-demand-devere.asp"
+      ]
+    },
+    {
+      "ticker": "RDW",
+      "thesis": "Drone deal enhances space tech capabilities amid SpaceX IPO hype",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/why-redwire-rdw-latest-drone-115245031.html",
+        "https://finance.yahoo.com/markets/stocks/articles/spacex-gets-attention-4-stocks-150000511.html"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "DOM",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/brookfield-renewable-holdings-corp-bepc-is-powering-ai-growth-with-operational-strength-1774777/",
+        "https://finance.yahoo.com/markets/stocks/articles/nuscale-power-stock-107-1-203500771.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/nuscale-power-stock-107-1-203500771.html"
+      ]
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "Roth Capital raises PT to $230 on SMR-enrichment pure-play",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RDW",
+      "thesis": "Drone deal enhances space tech capabilities amid SpaceX IPO hype",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2026/defense/06041-redwire-rdw-space-contract-astrobiome-iss.asp",
+        "https://www.foreignpolicyjournal.com/2026/06/04/jamie-dimon-pitches-spacex-ipo-to-2500-wealthy-clients-as-space-stocks-nasdaq-rklb-nasdaq-lunr-nasdaq-fly-nasdaq-sidu-recover/"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "CEG",
+      "thesis": "AI power demand benefits energy utilities.",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/economy/how-the-world-is-absorbing-the-2026-energy-crisis",
+        "https://www.longislandpress.com/2026/06/12/long-island-press-power-list-3/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Oil freight futures and tanker rate surge driving performance.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NFG",
+      "thesis": "Gabelli highlights unappreciated value in Appalachian gas assets",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PCG",
+      "thesis": "SB254 development drives 20% gain in PCG stock.",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "Roth Capital raises PT to $230 on SMR-enrichment pure-play",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RDW",
+      "thesis": "Drone deal enhances space tech capabilities amid SpaceX IPO hype",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.theepochtimes.com/business/wall-street-review-stocks-rebound-from-sell-off-led-by-small-caps-and-spacex-ipo-6047396",
+        "https://www.kiplinger.com/investing/stocks/stocks-pop-on-spacex-ipo-hormuz-peace-plan-stock-market-today"
+      ]
+    }
+  ]
+}

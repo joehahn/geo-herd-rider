@@ -1,12 +1,46 @@
 {
-  "2025-03-21": [],
-  "2025-03-28": [],
-  "2025-04-04": [],
-  "2025-04-11": [],
+  "2025-03-21": [
+    {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2025-03-28": [
+    {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-04": [
+    {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-11": [
+    {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    }
+  ],
   "2025-04-18": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/"
@@ -15,8 +49,14 @@
   ],
   "2025-04-25": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
@@ -27,8 +67,16 @@
   ],
   "2025-05-02": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.riotimesonline.com/ibovespa-holds-ground-as-trade-tensions-and-domestic-pressures-shape-market-mood/"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/",
@@ -40,133 +88,401 @@
   ],
   "2025-05-09": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-stocks-rise-after-Trump-strikes-tariff-deal-with-UK-49872677/",
-        "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/",
-        "https://www.moneycontrol.com/news/business/markets/tariffs-cash-pile-japan-ai-currency-doge-top-10-key-takeaways-from-warren-buffett-s-latest-address-at-berkshire-hathaway-meet-13012209.html"
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/",
+        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
+        "https://www.hellenicshippingnews.com/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
+        "https://www.marketscreener.com/quote/interest/CHINA-10Y-CASH-146043375/news/China-holds-off-on-new-stimulus-shows-composure-in-US-trade-war-49734296/"
       ]
     }
   ],
   "2025-05-16": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
-        "https://www.atlanticcouncil.org/content-series/inflection-points/trump-can-cement-his-middle-east-successes-by-calling-putins-bluff/"
+        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data",
+        "https://www.pilotonline.com/2025/05/15/coinbase-stolen-info/"
       ]
     }
   ],
   "2025-05-23": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
       ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
     }
   ],
   "2025-05-30": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-06-06": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-06-13": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.forbes.com/sites/leeorshimron/2025/06/09/bitcoin-2025-record-crowds-bold-visions-and-the-path-to-1-million/"
       ]
     }
   ],
   "2025-06-20": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-06-27": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-07-04": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-07-11": [
     {
-      "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
       "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65872909-asian-shares-mostly-higher-despite-trump-s-tariff-threats-020.htm"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/vistra-corp-vst-experiencing-trend-101935121.html",
+        "https://www.insidermonkey.com/blog/vistra-corp-vst-is-experiencing-a-trend-that-has-not-happened-since-the-90s-says-jim-cramer-1563471/"
+      ]
     }
   ],
   "2025-07-18": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.financialexpress.com/market/cryptocurrency/creed-capital-crypto/bitcoin-just-hit-118000-is-it-too-late-to-buy-or-just-the-beginning/3912419/"
+      ]
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-07-25": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/stocks/stocks-rise-after-trump-powell-fed-tour-stock-market-today",
+        "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-08-01": [
     {
-      "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
       "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/korea-electric-power-corporation-kep-162535915.html",
+        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/",
+        "https://www.investors.com/research/investing-action-plan/stock-market-fed-amazon-apple-microsoft-july-jobs-tariff-deadline-mag-7-earnings/"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEPU",
+      "thesis": "Lithium race stake",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/"
+      ]
     }
   ],
   "2025-08-08": [
     {
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEPU",
+      "thesis": "Lithium race stake",
       "thesis_live": true,
       "evidence_urls": []
     }
   ],
   "2025-08-15": [
     {
-      "ticker": "MP",
-      "thesis": "China rare-earth export restrictions; MP is sole scaled US producer",
+      "ticker": "TBD",
+      "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
       "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "hackers accessed customer data",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Electricity demand surge",
+      "thesis_live": true,
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEPU",
+      "thesis": "Lithium race stake",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html"
+      ]
+    },
+    {
+      "ticker": "DRNV",
+      "thesis": "Trump-Putin Alaska summit on Ukraine",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://lasvegassun.com/news/2025/aug/14/putin-has-the-upper-hand-in-meeting-with-trump-on/",
+        "https://www.news4jax.com/news/world/2025/08/14/orthodox-christians-in-alaska-pray-for-peace-ahead-of-trump-putin-summit/",
+        "https://www.newsx.com/world/donald-trump-vladimir-putin-volodymyr-zelenskyy-alaska-meeting-ukraine-conflict-us-russia-talks-peace-deal-46008/",
+        "http://www.arabherald.com/news/278507496/ukraine-vows-to-hold-remaining-30-of-donetsk-despite-peace-offer",
+        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html"
+      ]
     }
   ]
 }
