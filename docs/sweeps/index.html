@@ -37,8 +37,9 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       {x:p.values,y:p.sum_curated,name:"Sum Final Curated",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
       {x:p.values,y:p.sum_spy,name:"Sum Final SPY",mode:"lines+markers",line:{color:"#7f7f7f",width:2},marker:{size:6}},
     ];
+    const V=D.verticals||{};
     gems.forEach((g,gi)=>{ if(p.per_gem&&p.per_gem[g]) traces.push(
-      {x:p.values,y:p.per_gem[g],name:g+" (contribution)",mode:"lines+markers",
+      {x:p.values,y:p.per_gem[g],name:g+(V[g]?" ("+V[g]+")":""),mode:"lines+markers",
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
       xaxis:{title:p.label,tickvals:p.values},yaxis:{tickprefix:"$",separatethousands:true},

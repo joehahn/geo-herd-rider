@@ -182,6 +182,13 @@ def build_landing() -> None:
 # Parameter sweeps. Each entry re-scores every gem's book across `values` of `key` (an fm knob)
 # and the sweeps dashboard plots SUM-across-gems of final curated value vs the parameter. Extensible:
 # add risk_aversion / min_trade_size here later (left commented so they're not run yet).
+# Short vertical/theme per gem, for sweep-legend labels (e.g. "SMR (nuclear)").
+GEM_VERTICAL = {
+    "BWET": "shipping", "MP": "rare earth", "SMR": "nuclear", "RNMBY": "defense", "NVDA": "AI",
+    "CVNA": "consumer", "SMCI": "AI servers", "PLTR": "AI software", "URA": "uranium",
+    "YPF": "Argentina", "HIMS": "GLP-1", "MSTR": "crypto", "GDX": "gold",
+}
+
 SWEEPS = [
     {"key": "concentration_cap", "label": "concentration_cap",
      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
@@ -219,7 +226,8 @@ def build_sweeps() -> None:
         start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
-    out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}}
+    out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {},
+           "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers}}
     for sw in SWEEPS:
         key, vals = sw["key"], sw["values"]
         sum_cur, sum_spy, per_gem = [], [], {t: [] for t in gem_tickers}
@@ -668,8 +676,9 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       {x:p.values,y:p.sum_curated,name:"Sum Final Curated",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
       {x:p.values,y:p.sum_spy,name:"Sum Final SPY",mode:"lines+markers",line:{color:"#7f7f7f",width:2},marker:{size:6}},
     ];
+    const V=D.verticals||{};
     gems.forEach((g,gi)=>{ if(p.per_gem&&p.per_gem[g]) traces.push(
-      {x:p.values,y:p.per_gem[g],name:g+" (contribution)",mode:"lines+markers",
+      {x:p.values,y:p.per_gem[g],name:g+(V[g]?" ("+V[g]+")":""),mode:"lines+markers",
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
       xaxis:{title:p.label,tickvals:p.values},yaxis:{tickprefix:"$",separatethousands:true},
