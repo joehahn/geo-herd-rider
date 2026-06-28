@@ -54,7 +54,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       {x:p.values,y:p.per_gem[g],name:g+(V[g]?" ("+V[g]+")":""),mode:"lines+markers",
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
-      xaxis:{title:p.label,tickvals:p.values},yaxis:{tickprefix:"$",separatethousands:true},
+      xaxis:{title:p.label+(p.log?" (log)":""),type:p.log?"log":"linear",tickvals:p.values,ticktext:p.values.map(String)},
+      yaxis:{tickprefix:"$",separatethousands:true},
       legend:{orientation:"h",y:1.16},hovermode:"x unified"},{displayModeBar:false,responsive:true});
   });
   if(!Object.keys(P).length) host.innerHTML='<p class="sub">No sweeps recorded yet.</p>';

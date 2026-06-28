@@ -199,8 +199,8 @@ GEM_VERTICAL = {
 }
 
 SWEEPS = [
-    {"key": "lookback_period_days", "label": "lookback_period_days",
-     "values": [3, 7, 14, 21, 30, 45, 60, 75, 90, 120, 150, 180, 210]},   # ~few days -> ~7mo μ/Σ fit
+    {"key": "lookback_period_days", "label": "lookback_period_days", "log": True,
+     "values": [1, 2, 3, 7, 14, 21, 30, 45, 60, 75, 100, 120, 150, 180]},   # ~1 day -> ~6mo μ/Σ fit (log x)
     {"key": "concentration_cap", "label": "concentration_cap",
      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
@@ -259,7 +259,7 @@ def build_sweeps() -> None:
                                        overlay=t, overlay_anchor=anchor)
                 tc += bt["final"]; ts += bt["spy_final"]; per_gem[t].append(round(bt["final"]))
             sum_cur.append(round(tc)); sum_spy.append(round(ts))
-        out["params"][key] = {"label": sw["label"], "values": vals,
+        out["params"][key] = {"label": sw["label"], "values": vals, "log": sw.get("log", False),
                               "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem}
         print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
     sd = OUT_DIR / "sweeps"; sd.mkdir(parents=True, exist_ok=True)
@@ -713,7 +713,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       {x:p.values,y:p.per_gem[g],name:g+(V[g]?" ("+V[g]+")":""),mode:"lines+markers",
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
-      xaxis:{title:p.label,tickvals:p.values},yaxis:{tickprefix:"$",separatethousands:true},
+      xaxis:{title:p.label+(p.log?" (log)":""),type:p.log?"log":"linear",tickvals:p.values,ticktext:p.values.map(String)},
+      yaxis:{tickprefix:"$",separatethousands:true},
       legend:{orientation:"h",y:1.16},hovermode:"x unified"},{displayModeBar:false,responsive:true});
   });
   if(!Object.keys(P).length) host.innerHTML='<p class="sub">No sweeps recorded yet.</p>';
