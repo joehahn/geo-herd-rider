@@ -757,7 +757,8 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     h2.textContent="Plot 1 — LLM bake-off — Final Curated value per curator model (3 gems, live defaults)";
     host.appendChild(h2);
     const div=document.createElement("div"); div.className="chart"; div.id="c_bakeoff"; host.appendChild(div);
-    const idx=BO.models.map((_,i)=>i).sort((a,b)=>BO.sum_curated[b]-BO.sum_curated[a]);  // best first
+    const ncost=s=>parseFloat(String(s).replace(/[^0-9.]/g,""))||0;
+    const idx=BO.models.map((_,i)=>i).sort((a,b)=>ncost(BO.cost[a])-ncost(BO.cost[b]));  // cheapest -> priciest
     const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+"<br>"+BO.cost[i]);  // CR between size and cost
     const gems=D.gems||[];
     const traces=[{type:"scatter", mode:"lines+markers+text", name:"Sum (3 gems)", x:labels,
