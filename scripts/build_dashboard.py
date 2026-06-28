@@ -486,8 +486,10 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
       text:D.overlay_label||(D.overlay_ticker+" trigger"),font:{color:OVC,size:10}});
   }
+  const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
   Plotly.newPlot("chart",vtraces,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
+     xaxis:{type:"date",range:XR,autorange:false},
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
@@ -497,6 +499,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
     line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
   Plotly.newPlot("alloc",traces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
     yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
   const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
@@ -529,7 +532,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
     height:Math.max(180,34*gord.length+80),
     yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed",automargin:false},
-    xaxis:{type:"date"},hovermode:"closest"},
+    xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
   // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
@@ -542,6 +545,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",stackgroup:"d",
     line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
   Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
