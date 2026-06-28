@@ -14,7 +14,7 @@ model: deepseek                   # Curator LLM that reads the firehose. Choices
 initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.3334         # Per-position max weight in the week's basket.
+concentration_cap: 0.7            # Per-position max weight in the week's basket.
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
 risk_aversion: 1.0                # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
@@ -24,7 +24,7 @@ max_tickers_per_event: 16         # Cap on tickers kept per event (the "limit th
 t_update_days: 1                  # Business days from event detection (post-close ~4:30pm
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
-min_trade_size: 0.2               # Drop holdings smaller than this; reallocate
+min_trade_size: 0.1               # Drop holdings smaller than this; reallocate
 lookback_period_days: 21          # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
 rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every
