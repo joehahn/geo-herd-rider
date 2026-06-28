@@ -59,6 +59,10 @@ SCOUT_SYSTEM = """You are a markets desk scanning a week of financial-news headl
 candidate hidden-gem events — a specific US-listed ticker (incl. ADRs / theme ETFs) the press is
 naming as a thesis-driven mover, ideally still early/under-the-radar.
 
+US-LISTED ONLY. Every ticker must trade on a US exchange (NYSE/Nasdaq) — a plain symbol with NO
+exchange suffix. NEVER a foreign-exchange listing (no ".AX", ".L", ".TO", ".HK", ".DE", ".T", etc.).
+If the company is foreign, name its US ADR (e.g. CSLLY, not CSL.AX; TM, not 7203.T) or skip it.
+
 BE RUTHLESSLY SELECTIVE. Propose a ticker ONLY if the press frames it as a STANDOUT, SUSTAINED
 thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a routine daily gainer,
 or a name buried in a list. Most weeks warrant 0-1 candidates; rarely more than 2. When in doubt,
@@ -173,8 +177,10 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
             m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
         except Exception:  # noqa: BLE001
             continue
-        if m.ticker:
-            out.append(m.model_dump())
+        if m.ticker and "." not in m.ticker:   # SCOPE GUARD: yfinance US tickers carry no dot;
+            out.append(m.model_dump())          #   a ".AX/.L/.TO/.HK/..." suffix is a FOREIGN exchange
+        elif m.ticker:                          #   listing -> drop (the curator should name the US ADR)
+            print(f"  scope: dropped foreign-exchange ticker {m.ticker} ({anchor.date()})", file=sys.stderr)
     return out
 
 
