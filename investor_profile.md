@@ -6,7 +6,7 @@
 initial_investment_usd: 50000     # Day-0 dollars to allocate. The optimizer
                                   #   works in FRACTIONS, so this is scale-only: it sets the dollar
                                   #   labels (dashboard, reports), never the picks/weights/returns %.
-concentration_cap: 0.5            # Per-position max weight in the week's basket.
+concentration_cap: 0.3334         # Per-position max weight (≈1/3 -> forces >=3 names).
                                   #   1.0 -> let mean-variance tilt freely (min_trade_size still
                                   #   prunes sub-floor dribbles); low -> forced equal-ish split.
 risk_aversion: 0.67               # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
