@@ -3,99 +3,18 @@
   "2024-04-26": [],
   "2024-05-03": [],
   "2024-05-10": [],
-  "2024-05-17": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "ETF.com - 2024-05-15"
-      ]
-    }
-  ],
-  "2024-05-24": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2024-05-31": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2024-06-07": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/d8abb034cdc9a27b"
-      ]
-    }
-  ],
-  "2024-06-14": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://tribtown.com/2024/06/13/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/",
-        "https://medicinehatnews.com/business/2024/06/13/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-broad-reforms/"
-      ]
-    }
-  ],
-  "2024-06-21": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
-      ]
-    }
-  ],
-  "2024-06-28": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
-  "2024-07-05": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    }
-  ],
+  "2024-05-17": [],
+  "2024-05-24": [],
+  "2024-05-31": [],
+  "2024-06-07": [],
+  "2024-06-14": [],
+  "2024-06-21": [],
+  "2024-06-28": [],
+  "2024-07-05": [],
   "2024-07-12": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ]
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
@@ -104,22 +23,8 @@
   ],
   "2024-07-19": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
@@ -128,48 +33,16 @@
   ],
   "2024-07-26": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
     }
   ],
   "2024-08-02": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
-      ]
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
-      ]
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
@@ -178,7 +51,7 @@
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
@@ -188,221 +61,145 @@
   ],
   "2024-08-09": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
+      ]
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
+      "thesis_live": true,
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
       ]
     }
   ],
   "2024-08-16": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
-        "https://www.insidermonkey.com/blog/western-digital-corporation-wdc-a-storage-powerhouse-with-robust-growth-potential-1334010/"
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
       ]
     },
     {
-      "ticker": "BVNRY",
-      "thesis": "WHO mpox emergency declaration spikes vaccine maker shares",
+      "ticker": "SIGA",
+      "thesis": "WHO declares mpox global health emergency, driving TPOXX procurement demand",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
+        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs"
       ]
     }
   ],
   "2024-08-23": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
-        "https://economictimes.indiatimes.com/markets/stocks/news/big-movers-on-d-street-what-should-investors-do-with-icici-securities-reliance-power-and-nykaa/articleshow/112696207.cms",
-        "https://www.rediff.com/business/report/sensex-gains-102-points-in-range-bound-trade/20240821.htm"
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
       ]
     },
     {
-      "ticker": "BVNRY",
-      "thesis": "WHO mpox emergency declaration spikes vaccine maker shares",
+      "ticker": "SIGA",
+      "thesis": "WHO declares mpox global health emergency, driving TPOXX procurement demand",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
+      ]
     }
   ],
   "2024-08-30": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.energyandcapital.com/five-words-that-will-tank-nvidia-overnight/",
-        "http://baystreet.ca/articles/marketupdates/101926/One-More-All-Time-High-for-TSX",
-        "https://www.moneycontrol.com/news/business/markets/real-estate-stocks-slip-as-morgan-stanley-notes-slower-pre-sales-waning-investor-interest-12807498.html"
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
       ]
     },
     {
-      "ticker": "BVNRY",
-      "thesis": "WHO mpox emergency declaration spikes vaccine maker shares",
+      "ticker": "SIGA",
+      "thesis": "WHO declares mpox global health emergency, driving TPOXX procurement demand",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
+      ]
     }
   ],
   "2024-09-06": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.dutchnews.nl/2024/09/dutch-music-rights-fund-buys-the-stranglers-gipsy-kings/"
+        "https://www.rttnews.com/3473147/asian-shares-mixed-with-us-data-in-focus.aspx"
       ]
     },
     {
-      "ticker": "BVNRY",
-      "thesis": "WHO mpox emergency declaration spikes vaccine maker shares",
+      "ticker": "SIGA",
+      "thesis": "WHO declares mpox global health emergency, driving TPOXX procurement demand",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
+      ]
     }
   ],
   "2024-09-13": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power rises on regulatory approval for small modular reactor.",
+      "ticker": "CCJ",
+      "thesis": "Bipartisan nuclear ADVANCE Act signed into law boosting uranium demand",
       "thesis_live": true,
       "evidence_urls": []
-    },
-    {
-      "ticker": "CCJ",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://powertalk1360.iheart.com/content/2024-09-11-inflation-slowed-to-lowest-level-in-three-years-as-fed-considers-rate-cut/",
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
-      ]
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "U.S. Congress passes bipartisan law to spur nuclear power growth.",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://powertalk1360.iheart.com/content/2024-09-11-inflation-slowed-to-lowest-level-in-three-years-as-fed-considers-rate-cut/",
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
-      ]
     },
     {
       "ticker": "CEG",
-      "thesis": "Ninefold jump in power auction prices on largest US grid.",
+      "thesis": "PJM capacity auction prices jumped ninefold, direct nuclear revenue boost",
       "thesis_live": true,
       "evidence_urls": [
         "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
       ]
     },
     {
-      "ticker": "BVNRY",
-      "thesis": "WHO mpox emergency declaration spikes vaccine maker shares",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "DJT",
-      "thesis": "Presidential debate loss impacts stock price",
+      "ticker": "SIGA",
+      "thesis": "WHO declares mpox global health emergency, driving TPOXX procurement demand",
       "thesis_live": true,
       "evidence_urls": [
-        "https://www.kwbu.org/latest-from-npr/2024-09-11/an-undecided-swing-state-voter-watched-the-debate-it-moved-the-needle"
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
       ]
     }
   ]

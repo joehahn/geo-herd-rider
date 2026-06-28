@@ -3,7 +3,7 @@
 # this file via optimizer.load_financial_model(). Only the knobs below are LIVE — i.e. actually
 # applied by the code today. To tune the solution during optimization, edit these. All knobs are
 # flat top-level keys (one per line) so a diff renders each change vertically.
-model: mimo                       # Curator LLM that reads the firehose. Choices:
+model: sonnet                     # Curator LLM that reads the firehose. Choices:
                                   #   mimo   = xiaomi/mimo-v2.5-pro (cheap, OpenRouter; ~$0.40/3-gem scan)
                                   #   sonnet = claude-sonnet-4-6 (~$5/3-gem scan)
                                   #   opus   = claude-opus-4-8 (~$25/3-gem scan)

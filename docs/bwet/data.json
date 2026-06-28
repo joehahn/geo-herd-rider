@@ -2,7 +2,7 @@
   "gem": "BWET",
   "overlay_label": "BWET trigger",
   "caught": false,
-  "model": "mimo",
+  "model": "sonnet",
   "capital": 50000.0,
   "dates": [
     "2026-02-10",
@@ -119,84 +119,84 @@
     49650.01,
     49341.3,
     50750.4,
-    48762.08,
+    48762.07,
     49428.85,
     48525.94,
     46016.16,
     46147.77,
     46181.44,
     46764.5,
-    47087.41,
-    48545.83,
-    48431.06,
-    43154.4,
-    44343.49,
-    45122.44,
-    46418.65,
-    45174.47,
-    46138.59,
-    45697.85,
-    42735.09,
-    42767.22,
-    41751.07,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42109.17,
-    42866.73,
-    44381.85,
-    50022.38,
-    53821.94,
-    53995.2,
-    51519.65,
-    52254.78,
-    48223.03,
-    50078.3,
-    49830.86,
-    51828.32,
-    52436.59,
-    51622.21,
-    52680.66,
-    51823.64,
-    50372.23,
-    50794.62,
-    52010.65,
-    52475.0,
-    51577.67,
-    50295.86,
-    51391.9
+    46727.78,
+    47040.11,
+    46908.98,
+    43661.37,
+    44347.05,
+    44790.95,
+    45584.42,
+    45168.65,
+    45681.42,
+    45793.11,
+    44211.79,
+    44324.61,
+    43914.63,
+    43988.04,
+    43754.59,
+    44771.92,
+    44552.11,
+    44948.46,
+    45075.71,
+    45460.55,
+    45003.81,
+    45402.32,
+    45086.68,
+    44189.83,
+    43056.54,
+    43778.2,
+    44691.88,
+    46176.47,
+    46366.39,
+    45828.76,
+    44957.47,
+    46935.28,
+    46548.58,
+    47376.41,
+    47307.72,
+    46892.44,
+    45786.31,
+    45067.65,
+    45094.35,
+    43822.94,
+    42801.55,
+    42386.21,
+    40950.59,
+    40894.99,
+    41219.88,
+    43240.94,
+    43514.77,
+    44144.53,
+    44900.02,
+    45051.11,
+    45835.81,
+    45393.72,
+    43605.57,
+    43587.32,
+    42627.24,
+    43593.14,
+    41200.09,
+    42783.53,
+    43002.89,
+    45157.86,
+    45430.19,
+    44986.61,
+    46074.94,
+    45271.56,
+    45081.35,
+    47398.33,
+    48718.16,
+    47727.95,
+    48266.28,
+    48437.23,
+    48714.49
   ],
   "spy": [
     50000.0,
@@ -212,11 +212,11 @@
     50074.41,
     49796.28,
     49557.16,
-    49585.34,
+    49585.33,
     49148.27,
     49495.03,
     49219.07,
-    48573.95,
+    48573.94,
     48999.45,
     48920.71,
     48859.31,
@@ -225,7 +225,7 @@
     48331.94,
     48459.08,
     47782.9,
-    47665.15,
+    47665.14,
     46981.83,
     47475.14,
     47315.77,
@@ -296,10 +296,11 @@
     52943.43
   ],
   "gain": {
-    "CEG": -7890.83,
-    "IBM": 9023.28,
-    "CLOV": 5691.98,
-    "IONQ": -5432.54
+    "CEG": -3281.1,
+    "SO": -667.75,
+    "INTC": -2272.2,
+    "IONQ": -117.44,
+    "CLOV": 5052.99
   },
   "overlay": [
     40195.27,
@@ -426,55 +427,55 @@
       1.0,
       1.0,
       1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
       0.0,
       0.0,
       0.0,
@@ -576,16 +577,16 @@
       0.0,
       0.0,
       0.0,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
       0.3334,
       0.3334,
       0.3334,
@@ -595,7 +596,7 @@
       0.3334,
       0.3334
     ],
-    "IBM": [
+    "INTC": [
       0.0,
       0.0,
       0.0,
@@ -659,20 +660,6 @@
       0.0,
       0.0,
       0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
       0.3334,
       0.3334,
       0.3334,
@@ -687,10 +674,24 @@
       0.3334,
       0.3334,
       0.3334,
-      0.3332,
-      0.3332,
-      0.3332,
-      0.3332
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334
     ],
     "IONQ": [
       0.0,
@@ -766,15 +767,98 @@
       0.0,
       0.0,
       0.0,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
+      0.3334,
       0.0,
       0.0,
       0.0,
       0.0,
-      0.3334,
-      0.3334,
-      0.3334,
-      0.3334,
-      0.3334,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "SO": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.5,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
       0.3334,
       0.3334,
       0.3334,
@@ -784,10 +868,24 @@
       0.3332,
       0.3332,
       0.3332,
-      0.3334,
-      0.3334,
-      0.3334,
-      0.3334
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332,
+      0.3332
     ]
   },
   "cash": [
@@ -829,41 +927,41 @@
     0.0,
     0.0,
     0.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -890,67 +988,297 @@
   "colors": {
     "CEG": "#1f77b4",
     "CLOV": "#ff7f0e",
-    "IBM": "#2ca02c",
-    "IONQ": "#d62728"
+    "INTC": "#2ca02c",
+    "IONQ": "#d62728",
+    "SO": "#9467bd"
   },
   "metrics": {
-    "final": 51392.0,
-    "total_ret": 0.0278,
+    "final": 48714.0,
+    "total_ret": -0.0257,
     "spy_ret": 0.0589,
-    "max_dd": -0.1773
+    "max_dd": -0.1942
   },
-  "cost_usd": 2.93,
+  "cost_usd": 4.24,
   "weeks": 22,
   "gems": [
     {
       "week": "2026-02-27",
       "ticker": "CEG",
-      "thesis": "Constellation Energy signs 380-MW deal with CyrusOne.",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
       "thesis_live": true,
       "urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/",
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-23-the-great-defensive-pivot-why-investors-are-crowding-into-utilities-and-energy-amidst-2026-volatility"
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
       ]
     },
     {
       "week": "2026-03-06",
       "ticker": "CEG",
-      "thesis": "Constellation Energy signs 380-MW deal with CyrusOne.",
-      "thesis_live": false,
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
       "urls": [
-        "https://www.dailypolitical.com/2026/03/05/promising-renewable-energy-stocks-to-watch-today-march-2nd.html",
-        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-sri-lankan-shares-drop-most-since-2022-as-middle-east-conflict-fans-energy-shortage-fears/articleshow/128969340.cms",
-        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/?source=iedfolrf0000001",
+        "https://www.marketscreener.com/news/south-korean-stocks-stage-sharp-rebound-after-worst-selloff-ce7e5fdadf8afe21"
+      ]
+    },
+    {
+      "week": "2026-03-13",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html",
+        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html"
+      ]
+    },
+    {
+      "week": "2026-03-13",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/the-southern-company-gets-the-largest-ever-loan-from-the-us-department-of-energy-1714080/",
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html",
+        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html"
+      ]
+    },
+    {
+      "week": "2026-03-20",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-03-20",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/duke-energy-duk-to-raise-1b-through-convertible-senior-notes-1718062/",
+        "https://finance.yahoo.com/news/duke-energy-duk-raise-1b-055922423.html",
+        "https://www.fool.com/investing/2026/03/16/better-utility-stock-constellation-vs-nextera/",
+        "https://finance.yahoo.com/news/wec-energy-stock-underperforming-p-101545464.html"
+      ]
+    },
+    {
+      "week": "2026-03-27",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-03-27",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": [
+        "https://indianexpress.com/article/business/sensex-nifty-early-trade-surge-crude-fall-10599769/",
+        "https://www.fool.com/investing/2026/03/24/bank-stocks-just-got-some-very-good-news/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "week": "2026-04-03",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": [
+        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
+      ]
+    },
+    {
+      "week": "2026-04-03",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": [
+        "https://fox11online.com/news/nation-world/whitmer-declares-michigan-energy-emergency-cites-skyrocketing-gas-prices-iran-trump-economy-tariffs-war",
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/"
+      ]
+    },
+    {
+      "week": "2026-04-10",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-04-10",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-04-17",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-04-17",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-04-24",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-04-24",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-01",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-01",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-08",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-08",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-08",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html",
+        "https://seekingalpha.com/news/4585380-biggest-stock-movers-tuesday-intc-duol-and-more"
+      ]
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
       ]
     },
     {
       "week": "2026-05-22",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
       "thesis_live": true,
       "urls": [
+        "https://247wallst.com/investing/2026/05/21/trump-gave-intel-8-9-billion-now-taxpayers-are-buying-ibm/",
+        "https://finance.yahoo.com/economy/policy/articles/trump-gave-intel-8-9-171348904.html",
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
+      "thesis_live": true,
+      "urls": [
+        "https://www.benzinga.com/trading-ideas/movers/26/05/52720222/trump-admin-to-take-quantum-stakes-d-wave-rigetti-ionq-stocks-pop",
         "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act",
-        "https://artvoice.com/2026/05/21/ibm-stock-jumps-7-percent-on-a-1-billion-government-quantum-award/",
-        "https://finance.yahoo.com/sectors/technology/articles/ibm-adds-market-value-adidas-102811740.html"
+        "https://www.ibtimes.com.au/ionq-shares-surge-record-q1-performance-raised-guidance-1869282",
+        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
+        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it"
+      ]
+    },
+    {
+      "week": "2026-05-29",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-29",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-29",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/is-intel-corporation-intc-among-the-best-performing-quantum-computing-stocks-so-far-in-2026-1768764/",
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
       ]
     },
     {
       "week": "2026-05-29",
       "ticker": "IONQ",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
       "thesis_live": true,
       "urls": [
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
         "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
-        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/",
-        "https://www.benzinga.com/Opinion/26/05/52792827/quantum-computing-stocks-rally-has-a-warning-baked-in",
-        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://finance.yahoo.com/markets/article/honeywells-quantinuums-ipo-puts-the-quantum-stock-rally-to-the-test-154531114.html",
+        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/?source=iedfolrf0000001",
+        "https://www.fool.com/coverage/stock-market-today/2026/05/26/stock-market-today-may-26-d-wave-quantum-falls-even-after-commerce-department-usd100-million-funding/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/?source=iedfolrf0000001"
       ]
     },
     {
       "week": "2026-05-29",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
       "thesis_live": true,
       "urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
@@ -958,87 +1286,277 @@
     },
     {
       "week": "2026-06-05",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
       "thesis_live": true,
       "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/ibm-stock-just-reached-record-172442037.html",
+        "https://www.fool.com/investing/2026/06/02/billionaire-bill-gates-foundation-dumped-microsoft/"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
+      "thesis_live": true,
+      "urls": [
         "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
-        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html"
+        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
+        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
+        "https://thenextweb.com/news/quantinuum-ipo-upsized-quantum-computing-14-billion",
+        "https://www.fool.com/investing/2026/06/03/why-ionq-stock-skyrocketed-597-in-may/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/"
       ]
     },
     {
       "week": "2026-06-05",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-12",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
+      "thesis_live": true,
+      "urls": [
+        "http://theeconomiccollapseblog.com/a-historic-energy-squeeze-is-locked-in-u-s-oil-inventories-have-fallen-for-7-weeks-in-a-row-and-global-oil-inventories-will-soon-hit-the-lowest-level-ever-recorded/",
+        "https://www.castanetkamloops.net/news/Business/618737/Wall-Street-opens-higher-as-AI-stocks-regain-some-more-ground-and-oil-prices-ease",
+        "https://www.proactiveinvestors.co.uk/companies/news/1093628/ftse-100-live-london-and-wall-street-stocks-dive-gsk-deal-too-big-for-some-1093628.html"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
       "thesis_live": true,
       "urls": [
         "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+        "https://www.benzinga.com/markets/equities/26/06/53108423/stock-market-today-sp-500-dow-futures-fall-as-trump-orders-strikes-against-iran-autozi-internet-cracker-barrel-in-focus"
       ]
     },
     {
       "week": "2026-06-12",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/is-boston-scientific-bsx-one-of-the-best-healthcare-stocks-to-buy-with-the-highest-upside-potential-1777933/",
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-19",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
       "thesis_live": true,
       "urls": [
+        "https://www.morningstar.com/funds/keep-an-eye-out-key-person-risk-these-funds",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
+        "https://www.bnnbloomberg.ca/investing/market-outlook/2026/06/17/market-outlook-oil-remains-a-key-hedge-as-middle-east-risks-persist/",
+        "https://www.businesstimes.com.sg/property/chinas-new-home-prices-fall-faster-pace-may-soft-demand"
+      ]
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html",
         "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
-        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html"
       ]
     },
     {
       "week": "2026-06-19",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "SPCX",
+      "thesis": "SpaceX public listing; Day 2 IPO trading surge named standout",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
+        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+      ]
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-26",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.livemint.com/money/personal-finance/indore-to-navi-mumbai-top-5-cleanest-cities-in-india-and-their-cost-of-living-11782472807948.html",
+        "https://mwnation.com/lotus-resources-pauses-kayelekera-production/",
+        "https://www.thedp.com/article/2026/06/penn-adam-grant-peter-thiel-dialog-wharton-college",
+        "https://www.rawstory.com/mike-johnson-2677114842/"
+      ]
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html",
+        "https://www.zerohedge.com/markets/futures-drop-chips-resume-slide-openai-ipo-delay-dents-sentiment",
+        "https://www.rnz.co.nz/news/business/627337/wall-street-mixed-as-moderna-rallies-and-chips-tumble",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-ends-lower-chips-tumble-and-moderna-rallies/articleshow/132024472.cms"
+      ]
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
+      "thesis_live": true,
+      "urls": [
+        "https://www.the-star.co.ke/news/world/2026-06-26-ex-trump-adviser-pleads-guilty-to-mishandling-classified-documents",
+        "https://zerohedge.com/markets/us-equity-futures-lower-brent-continues-slide-focus-ships-traversing-strait-newsquawk-us",
+        "https://english.elpais.com/international/2026-06-25/trump-says-us-is-ready-willing-and-able-to-help-venezuela-after-the-earthquakes.html",
+        "https://www.koreatimes.co.kr/foreignaffairs/20260625/trump-retains-very-strong-interest-in-kim-jong-un-ex-white-house-official",
+        "https://indianexpress.com/article/india/grave-mistake-kuki-zo-council-on-killing-of-six-naga-hostages-in-manipur-10757946/",
+        "https://www.theatlantic.com/technology/2026/06/reflecting-pool-america-250-trump/687716/"
+      ]
     },
     {
       "week": "2026-06-26",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
+      "thesis_live": true,
+      "urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "SPCX",
+      "thesis": "SpaceX public listing; Day 2 IPO trading surge named standout",
+      "thesis_live": true,
+      "urls": [
+        "https://foreignpolicy.com/2026/06/25/spacex-elon-musk-geopolitics-ai-x-quinn-slobodian/"
+      ]
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "CEG",
+      "thesis": "Named 380 MW nuclear power contract signed with CyrusOne data center",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-07-03",
-      "ticker": "IBM",
-      "thesis": "US government awards $1 billion for quantum computing development.",
+      "ticker": "SO",
+      "thesis": "Largest-ever DOE loan backs Southern Co clean energy buildout",
       "thesis_live": true,
       "urls": [
-        "https://www.thisdaylive.com/2026/06/28/fgn-bond-subscriptions-hit-n9-04tn-as-investors-appetite-for-government-securities-soars/"
+        "https://www.aginfo.net/report/65710/2/Energy-El-Ni-o-and-Geopolitics-Fuel-Bullish-Grain-Market",
+        "https://eturbonews.com/china-tourism-soft-power-investment-global-influence/",
+        "https://newswire.co.nz/2026/06/gisborne-angus-bull-record-220000-2026/",
+        "https://www.thisdaylive.com/2026/06/28/fgn-bond-subscriptions-hit-n9-04tn-as-investors-appetite-for-government-securities-soars/",
+        "https://hotair.com/john-s-2/2026/06/27/the-lack-of-gasoline-is-getting-to-russians-n3816401",
+        "https://www.tickerreport.com/banking-finance/13488638/122800-shares-in-johnson-johnson-jnj-bought-by-louisiana-state-employees-retirement-system.html"
+      ]
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "INTC",
+      "thesis": "Apple named deal to buy Intel chips for iPhones",
+      "thesis_live": true,
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "IONQ",
+      "thesis": "Trump admin $2B quantum equity stake + Q1 beat/raised guidance",
+      "thesis_live": true,
+      "urls": [
+        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001"
       ]
     },
     {
       "week": "2026-07-03",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings, driving stock price surge.",
+      "thesis": "Won Star Ratings lawsuit, unlocking Medicare Advantage reimbursement upside",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "SPCX",
+      "thesis": "SpaceX public listing; Day 2 IPO trading surge named standout",
+      "thesis_live": true,
+      "urls": [
+        "https://www.fool.com/investing/2026/06/26/what-a-x-investment-in-spacex-could-return-by-2030/",
+        "https://www.howestreet.com/2026/06/trading-desk-notes-for-june-27-2026/"
+      ]
     }
   ],
   "watchlist": [
@@ -1078,135 +1596,209 @@
     {
       "week": "2026-03-13",
       "names": [
-        "CEG"
+        "CEG",
+        "SO"
       ],
       "funded": [
-        "CEG"
+        "CEG",
+        "SO"
       ]
     },
     {
       "week": "2026-03-20",
       "names": [
-        "CEG"
+        "CEG",
+        "SO"
       ],
       "funded": [
-        "CEG"
+        "CEG",
+        "SO"
       ]
     },
     {
       "week": "2026-03-27",
       "names": [
-        "CEG"
+        "CEG",
+        "SO"
       ],
       "funded": [
-        "CEG"
+        "CEG",
+        "SO"
       ]
     },
     {
       "week": "2026-04-03",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "SO"
+      ],
+      "funded": [
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-04-10",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "SO"
+      ],
+      "funded": [
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-04-17",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "SO"
+      ],
+      "funded": [
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-04-24",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "SO"
+      ],
+      "funded": [
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-05-01",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "SO"
+      ],
+      "funded": [
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-05-08",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "INTC",
+        "SO"
+      ],
+      "funded": [
+        "INTC",
+        "CEG",
+        "SO"
+      ]
     },
     {
       "week": "2026-05-15",
-      "names": [],
-      "funded": []
+      "names": [
+        "CEG",
+        "INTC",
+        "SO"
+      ],
+      "funded": [
+        "INTC",
+        "SO",
+        "CEG"
+      ]
     },
     {
       "week": "2026-05-22",
       "names": [
-        "IBM"
+        "CEG",
+        "INTC",
+        "IONQ",
+        "SO"
       ],
       "funded": [
-        "IBM"
+        "INTC",
+        "IONQ",
+        "SO"
       ]
     },
     {
       "week": "2026-05-29",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM",
-        "IONQ"
+        "INTC",
+        "IONQ",
+        "SO"
       ],
       "funded": [
+        "CLOV",
         "IONQ",
-        "IBM",
-        "CLOV"
+        "SO"
       ]
     },
     {
       "week": "2026-06-05",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM",
-        "IONQ"
+        "INTC",
+        "IONQ",
+        "SO"
       ],
       "funded": [
+        "CLOV",
         "IONQ",
-        "IBM",
-        "CLOV"
+        "SO"
       ]
     },
     {
       "week": "2026-06-12",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM",
-        "IONQ"
+        "INTC",
+        "IONQ",
+        "SO"
       ],
       "funded": [
         "CLOV",
-        "IBM",
-        "IONQ"
+        "INTC",
+        "SO"
       ]
     },
     {
       "week": "2026-06-19",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM",
-        "IONQ"
+        "INTC",
+        "IONQ",
+        "SO",
+        "SPCX"
       ],
       "funded": []
     },
     {
       "week": "2026-06-26",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM"
+        "INTC",
+        "IONQ",
+        "SO",
+        "SPCX"
       ],
       "funded": []
     },
     {
       "week": "2026-07-03",
       "names": [
+        "CEG",
         "CLOV",
-        "IBM"
+        "INTC",
+        "IONQ",
+        "SO",
+        "SPCX"
       ],
       "funded": []
     }
@@ -1250,64 +1842,64 @@
       1,
       1,
       1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
     ],
     "CLOV": [
       0,
@@ -1406,7 +1998,7 @@
       1,
       1
     ],
-    "IBM": [
+    "INTC": [
       0,
       0,
       0,
@@ -1468,16 +2060,16 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1,
       1,
@@ -1575,10 +2167,54 @@
       0,
       0,
       0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "SO": [
       0,
       0,
       0,
       0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
       1,
       1,
@@ -1598,7 +2234,157 @@
       1,
       1,
       1,
-      0
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "SPCX": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1
     ]
   },
   "retrieval": {
@@ -1612,7 +2398,7 @@
       "timeout": 0,
       "other_err": 0,
       "elapsed_s": 0.0,
-      "items_per_min": 62982100.3,
+      "items_per_min": 55353958.7,
       "from_cache": true
     },
     "wayback": {
@@ -1641,7 +2427,7 @@
     "t_update_days": 1,
     "min_trade_size": 0.2,
     "lookback_period_days": 21,
-    "model": "mimo",
+    "model": "sonnet",
     "risk_free_rate": 0.04,
     "rebalance_days": 7,
     "news_lookback_days": null,
