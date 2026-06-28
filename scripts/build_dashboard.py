@@ -218,6 +218,7 @@ SWEEP_BASE = {}   # empty -> sweeps follow the live investor_profile defaults (a
 # (short -> (display label, scale, approx $/3-gem). Order = display order, cheap/small -> big.)
 BAKEOFF_INFO = {  # cost = MEASURED $ for this 3-gem scan (today's ledger), not an estimate
     "mimo":     ("mimo",     "~1T MoE / 42B act",  "$0.4"),
+    "gemini":   ("gemini-2.5-pro", "frontier (Google)", "$9.7"),
     "llama4":   ("llama4",   "400B MoE / 17B act", "$0.3"),
     "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1"),
     "grok4":    ("grok-4.3", "frontier",           "$3.7"),
