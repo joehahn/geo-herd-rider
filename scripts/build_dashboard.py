@@ -186,7 +186,9 @@ SWEEPS = [
     {"key": "concentration_cap", "label": "concentration_cap",
      "values": [0.25, 0.33, 0.4, 0.5, 0.55, 0.67, 0.75, 0.85, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
-     "values": [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]},
+     "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
+    {"key": "lookback_period_days", "label": "lookback_period_days",
+     "values": [21, 30, 45, 60, 90, 120, 180, 252]},   # ~3wk recent-only -> ~1yr full-cycle μ/Σ fit
     # {"key": "risk_aversion",    "label": "risk_aversion",    "values": [0.5, 1.0, 2.0, 4.0]},
 ]
 
@@ -202,6 +204,9 @@ def build_sweeps() -> None:
                    if gem_config(g["ticker"])["scans"].exists()]
     if not gem_tickers:
         print("  sweeps: no gem scan logs yet — skipped"); return
+    # enough pre-window history to cover the LONGEST lookback being swept (else early-week μ/Σ fits
+    # would run short); +30d buffer, floor 70d.
+    pre = max([70] + [max(sw["values"]) + 30 for sw in SWEEPS if sw["key"] == "lookback_period_days"])
     # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare)
     gem_data = {}
     for t in gem_tickers:
@@ -210,7 +215,7 @@ def build_sweeps() -> None:
         ana = list(scans)
         tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
                                       if str(p.get("ticker", "")).strip()}
-        start = (ana[0] - pd.Timedelta(days=70)).strftime("%Y-%m-%d")
+        start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
     out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}}
