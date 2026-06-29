@@ -394,16 +394,23 @@ EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
         "vehicles": {"type": "array", "items": {"type": "string"}},
         "sources": {"type": "array", "items": {"type": "string"}}}}
 
-EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event's
-catalyst, its KNOWN vehicles (tickers seen expressing it), your prior weekly note, and this week's
-news. Write the new note.
+EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given: the event's
+CATALYST (FIXED — the discrete thing you entered on), its KNOWN vehicles, your FULL weekly journal
+for this event since entry (your memory — the whole arc, not just last week), and this week's news.
+Write the new note.
 
-Decide thesis_live / exit_advice / assessment / news_claims as a single-event tracker
-would (thesis_live = is the CATALYST still active; flip false only on resolution; be skeptical of
-one-off noise; mainstream hype is NOT resolution). PLUS pick **vehicles**: the 1-2
-PUREST tickers to HOLD for this event now, chosen from its known vehicles — prefer the cleanest
-pure-play / rate-or-commodity ETN / single ADR over diluted, redundant, or tangential names (do
-NOT hold five vehicles for one event). You may drop a vehicle that's no longer the best.
+USE THE WHOLE JOURNAL. The CATALYST is fixed; the best VEHICLE (ticker) MAY EVOLVE as the event
+develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cleanest pure-play /
+rate-or-commodity ETN / single ADR; drop a vehicle that is no longer the best). The event is the
+durable unit; the ticker can change with it.
+
+EXIT CHECK (do this EVERY week, against your WHOLE journal — not just this week's headlines): has
+the specific catalyst you entered on RESOLVED at any point — bill signed/passed/voted-down,
+approval granted/denied, named deal closed, emergency declared-then-ended, war/chokepoint/supply
+shock reversed? If yes, thesis_live=FALSE NOW, EVEN IF the stock is still rising and even if a
+broader THEME lingers (a resolved catalyst is no longer your edge — it is public and priced). The
+ONLY thing that is NOT a reason to exit: mainstream hype / crowding ("up 600%, everyone in").
+thesis_live=TRUE only while that specific catalyst is still PENDING.
 
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
 composition, the exit, and which vehicle. Output ONLY JSON: {"thesis_live":true,
@@ -443,12 +450,31 @@ def _filter_event(arts, event):
     return hits[:20]
 
 
-def event_agent_v2(client, anchor, event, prior, news):
-    pj = json.dumps(prior, default=str) if prior else "(none — first week of this event)"
+def _journal_digest(entries: list[dict], keep: int = 20) -> str:
+    """Compact week-by-week journal so the agent sees the FULL arc of an event since entry — the
+    catalyst it entered on, how the VEHICLE evolved, and every live/exit read — not just last week.
+    One line per week: date | live | vehicles | assessment. The entry week is always shown."""
+    if not entries:
+        return "(none — this is the first week of this event)"
+
+    def line(e):
+        veh = ",".join(e.get("vehicles", [])) or "-"
+        return f"{e.get('date', '?')} live={e.get('thesis_live')} veh=[{veh}] {e.get('assessment', '')}".strip()
+    if len(entries) <= keep:
+        return "\n".join(line(e) for e in entries)
+    head = [line(entries[0]), f"... ({len(entries) - keep - 1} earlier weeks omitted) ..."]
+    return "\n".join(head + [line(e) for e in entries[-keep:]])
+
+
+def event_agent_v2(client, anchor, event, entries, news):
+    digest = _journal_digest(entries)
+    entry_wk = entries[0]["date"] if entries else anchor.date().isoformat()
     nb = _block(news) if news else "(no fresh coverage for this event this week)"
-    user = (f"Event catalyst: {event['catalyst']}\nKnown vehicles: {', '.join(sorted(event['vehicles']))}\n"
-            f"Week ending {anchor.date()}.\nYour prior note: {pj}\n\nThis week's news:\n{nb}\n\n"
-            "Write the new note and pick the current vehicle(s) (JSON).")
+    user = (f"Event catalyst (FIXED — what you entered on): {event['catalyst']}\nEntered: {entry_wk}\n"
+            f"Known vehicles: {', '.join(sorted(event['vehicles']))}\nWeek ending {anchor.date()}.\n\n"
+            f"Your journal so far (oldest -> newest):\n{digest}\n\nThis week's news:\n{nb}\n\n"
+            "Re-check the EXIT condition against your WHOLE journal, then write this week's note and "
+            "pick the current vehicle(s) (JSON).")
     txt = client.complete(EVENT_AGENT_SYSTEM, user, use_web_search=False, stage="agent",
                           label=f"event-{event['id']}-{anchor.date()}", json_schema=EVENT_AGENT_SCHEMA)
     try:
@@ -543,8 +569,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         live_events = [ev for ev in events.values() if ev["status"] == "live"]
 
         def work(ev):
-            prior = ev["entries"][-1] if ev["entries"] else None
-            return ev, event_agent_v2(client, a, ev, prior, _filter_event(win, ev))
+            return ev, event_agent_v2(client, a, ev, ev["entries"], _filter_event(win, ev))
 
         picks = []
         with ThreadPoolExecutor(max_workers=workers) as ex:
