@@ -1,82 +1,15 @@
 {
-  "2026-02-06": [
-    {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/02/06/d-wave-quantum-stock-is-surging-today-is-the-stock/?source=iedfolrf0000001",
-        "https://www.themarketsdaily.com/2026/02/05/promising-quantum-computing-stocks-to-consider-february-5th.html",
-        "https://finance.yahoo.com/news/buy-dip-ionq-stock-191525787.html",
-        "https://www.fool.com/investing/2026/02/02/is-ionq-stock-a-buy-now/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/news/ionq-stock-buy-now-083500925.html"
-      ],
-      "lead": true
-    }
-  ],
-  "2026-02-13": [
-    {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html",
-        "https://finance.yahoo.com/news/top-quantum-pick-only-stock-140317029.html",
-        "https://finance.yahoo.com/news/dont-miss-best-quantum-etf-152000311.html",
-        "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains",
-        "https://www.fool.com/investing/2026/02/11/where-will-ionq-stock-be-in-1-year/"
-      ],
-      "lead": true
-    }
-  ],
-  "2026-02-20": [
-    {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/02/19/heres-the-quantum-computing-stock-wall-street-love/?source=iedfolrf0000001",
-        "https://www.fool.com/coverage/filings/2026/02/19/trybe-capital-loads-up-qbts-with-1-9-million-shares-bought/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/news/1-quantum-computing-stock-buy-213500802.html",
-        "https://247wallst.com/investing/2026/02/14/rigetti-computing-shares-drop-9-this-week-valuation-concerns-trigger-selling/",
-        "https://finance.yahoo.com/news/why-wedbush-thinks-norway-could-163002474.html",
-        "https://www.fool.com/investing/2026/02/13/want-to-invest-in-quantum-computing-3-stocks-that/?source=iedfolrf0000001"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
-      ]
-    }
-  ],
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [],
   "2026-02-27": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/02/27/where-will-rigetti-computing-be-in-5-years/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/02/25/predict-quantum-computing-hype-cool-off-2026-why/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/02/25/should-you-forget-ionq-and-buy-these-2-tech-stocks/?source=iedfolrf0000001",
-        "https://techcrunch.com/2026/02/23/finnish-quantum-unicorn-iqm-set-to-go-public/",
-        "https://www.dailypolitical.com/2026/02/23/best-quantum-computing-stocks-to-consider-february-22nd.html"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The event catalyst is still active, with no resolution indicated in the news. CEG remains the primary vehicle for this event.",
+      "exit_advice": "Hold; the 380-megawatt deal with CyrusOne remains pending and unresolved.",
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
       ]
@@ -84,313 +17,189 @@
   ],
   "2026-03-06": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/news/better-quantum-computing-stock-rigetti-072000175.html",
-        "https://www.fool.com/investing/2026/03/01/2-best-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/south-korean-stocks-stage-sharp-rebound-after-worst-selloff-ce7e5fdadf8afe21",
-        "https://www.fool.com/investing/2026/03/02/why-did-near-protocol-surge-13-today/?source=iedfolrf0000001"
-      ],
-      "lead": true
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "the catalyst remains pending with no new developments this week",
+      "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains unresolved",
       "evidence_urls": []
     }
   ],
   "2026-03-13": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/3-top-quantum-computing-stocks-180000232.html",
-        "https://www.fool.com/investing/2026/03/11/3-top-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/03/10/should-investors-avoid-rigetti-computing-struggle/?source=iedfolrf0000001",
-        "https://www.tickerreport.com/banking-finance/13374131/quantum-computing-stocks-to-watch-today-march-10th.html"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html",
-        "https://www.finanznachrichten.de/nachrichten-2026-03/67923860-asian-shares-tumble-after-oil-price-surge-020.htm",
-        "https://economictimes.indiatimes.com/news/international/australia/sp/asx-200-closes-lower-as-australian-shares-slip-oil-price-surge-triggers-inflation-fears-check-top-gainers-and-losers/articleshow/129496909.cms"
-      ]
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "No new developments this week; the 380-megawatt deal remains pending.",
+      "exit_advice": "",
+      "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/03/20/quantum-computing-stocks-to-watch-now-march-20th.html",
-        "https://www.insidermonkey.com/blog/heres-how-ionq-ionqs-shares-behaved-after-jim-cramer-said-it-was-speculative-in-may-2025-1720511/",
-        "https://finance.yahoo.com/markets/stocks/articles/ionq-ionq-shares-behaved-jim-160639549.html",
-        "https://www.themarketsdaily.com/2026/03/17/lansdowne-partners-uk-llp-purchases-1435394-shares-of-ionq-inc-ionq.html",
-        "https://www.livemint.com/focus/the-quantum-inflection-2026-a-us-stock-market-roadmap-to-the-2b-sub-atomic-economy-11773729145471.html"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "continue holding CEG as the 380-megawatt deal catalyst remains pending",
       "evidence_urls": []
     }
   ],
   "2026-03-27": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
-        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/markets/stocks/articles/buy-rigetti-computing-stock-while-142000303.html",
-        "https://www.fool.com/investing/2026/03/24/should-you-buy-rigetti-computing-stock-while-its-b/",
-        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-surge-over-2-pc-as-drop-in-oil-prices-rally-in-asian-peers-cheer-investors-1946166"
-      ]
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has been reported. Continue monitoring for any developments regarding the deal's status.",
+      "evidence_urls": []
     }
   ],
   "2026-04-03": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.mymoinfo.com/syndicated-article/?id=1663391"
-      ]
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has occurred. Continue holding until the catalyst resolves.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst is fresh and the market is reacting to the announcement of 100% tariffs on some patented drugs. CSLLY is a known vehicle affected by this policy.",
+      "exit_advice": "Exit if the tariff is officially revoked or significantly modified, or if CSLLY is confirmed to be exempt from the tariffs.",
       "evidence_urls": [
         "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
         "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
         "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
-      ],
-      "lead": true
+      ]
     }
   ],
   "2026-04-10": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has occurred. Continue holding until the catalyst resolves.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "continue monitoring for resolution of tariff implementation or policy reversal",
+      "evidence_urls": []
     }
   ],
   "2026-04-17": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The 380-megawatt deal with CyrusOne remains unresolved, with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "Exit if the 380-megawatt deal with CyrusOne is finalized or canceled.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments on the tariff policy. CSLLY continues to be the appropriate vehicle.",
+      "exit_advice": "Continue holding CSLLY as the tariff policy remains unresolved.",
+      "evidence_urls": []
     }
   ],
   "2026-04-24": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "Continue holding CEG until the 380-megawatt deal with CyrusOne resolves.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "the catalyst remains pending with no new developments on the tariff policy",
+      "exit_advice": "continue holding as the tariff policy remains unresolved",
+      "evidence_urls": []
     }
   ],
   "2026-05-01": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "Continue holding as the 380-megawatt deal with CyrusOne remains unresolved.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The tariff policy continues to affect CSLLY, with no new developments this week.",
+      "exit_advice": "The catalyst remains pending \u2014 no resolution or reversal of Trump's 100% tariff on foreign drugs.",
       "evidence_urls": []
     }
   ],
   "2026-05-08": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "The 380-megawatt deal with CyrusOne remains unresolved. Continue holding until the catalyst resolves.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments on the tariff policy. CSLLY continues to be the appropriate vehicle.",
+      "exit_advice": "Continue holding CSLLY as the tariff policy remains unresolved.",
+      "evidence_urls": []
     }
   ],
   "2026-05-15": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
+      "ticker": "CEG",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/14/consider-rigetti-computing-revenue-soar-rgti/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/markets/stocks/articles/quantum-computing-stocks-ionq-d-092600721.html"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "No new developments this week; the catalyst remains unresolved. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains pending.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
-      "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    },
-    {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY remains the appropriate vehicle.",
+      "exit_advice": "The tariff policy remains unresolved and continues to affect CSLLY. Hold until the policy is resolved or reversed.",
       "evidence_urls": [
         "https://vietnamnews.vn/economy/1781275/foreign-selling-property-losses-keep-vn-index-under-pressure.html"
       ]
@@ -398,73 +207,103 @@
   ],
   "2026-05-22": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it",
-        "https://finance.yahoo.com/sectors/technology/articles/d-wave-rigetti-ibm-lead-190906772.html",
-        "https://www.businessinsider.com/quantum-stocks-trump-investment-infleqtion-rigetti-computing-d-wave-ibm-2026-5"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "continue holding CEG as the 380-megawatt deal remains unresolved",
+      "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "Exit if the tariff policy is officially reversed or resolved, or if new developments indicate a significant change in the policy's impact.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Trump admin $2B quantum investment",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The $2B quantum investment catalyst remains pending, with no resolution reported this week. RGTI is the purest vehicle for this event, but monitor other quantum stocks like QBTS and QUBT for potential shifts in market sentiment.",
+      "exit_advice": "Hold until the $2B quantum investment catalyst resolves or further developments occur.",
+      "evidence_urls": [
+        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html",
+        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst is still live as the $2B quantum investment announcement is fresh and the market is reacting. QBTS remains the purest play among known vehicles.",
+      "exit_advice": "Exit if the $2B quantum investment is fully allocated or if the specific companies receiving funds are confirmed and priced in.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13451243/d-wave-quantum-nyseqbts-stock-price-up-13-2-should-you-buy.html",
+        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
+        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it",
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html"
+      ]
     }
   ],
   "2026-05-29": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
+      "ticker": "CEG",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains unresolved",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign drugs",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle.",
+      "exit_advice": "continue holding as the tariff policy remains unresolved",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Trump admin $2B quantum investment",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The $2B quantum investment catalyst remains pending with no resolution. RGTI continues as the purest vehicle, though INFQ shows increasing relevance due to recent CEO commentary and market attention.",
+      "exit_advice": "Continue monitoring for catalyst resolution (funding distribution or official announcement completion). Exit only when the $2B quantum investment is fully allocated or publicly canceled.",
       "evidence_urls": [
         "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
         "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
-        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
         "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/"
       ]
     },
     {
-      "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
-      "thesis_live": true,
-      "evidence_urls": []
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains live with continued market reaction and news coverage. QBTS is still the purest play.",
+      "exit_advice": "Hold until the $2B quantum investment catalyst resolves or shows clear signs of being priced in.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/"
+      ]
     },
     {
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
+      "thesis": "Won lawsuit on star ratings",
+      "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst of winning the lawsuit on star ratings has fully resolved, as confirmed by this week's news. While CLOV surged to a record high, the specific event-driven edge is now public and priced in. No further upside remains tied to this catalyst.",
+      "exit_advice": "exit immediately \u2014 catalyst resolved",
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
@@ -472,50 +311,58 @@
   ],
   "2026-06-05": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
-        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/da-davidson-reiterates-neutral-rating-on-installed-building-products-ibp-1775319/",
-        "https://finance.yahoo.com/markets/stocks/articles/intuitive-surgical-isrg-valuation-check-221126228.html",
-        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
-      ]
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The 380-megawatt deal with CyrusOne remains pending with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "continue holding CEG as the catalyst remains unresolved",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "Exit if the tariff policy is resolved or reversed.",
+      "evidence_urls": []
     },
     {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
+      "ticker": "RGTI",
+      "thesis": "Trump admin $2B quantum investment",
+      "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The specific catalyst -- the $2B quantum investment -- has been resolved with the funds being allocated to specific companies. While broader interest in quantum computing continues, this event has concluded.",
+      "exit_advice": "Exit now. The $2B quantum investment catalyst has resolved as the funds have been allocated to specific companies, making it public and priced.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/",
+        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
       "thesis_live": true,
-      "evidence_urls": []
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains live with continued market reaction and news coverage. QBTS is still the purest play among known vehicles. The news highlights ongoing developments in the quantum computing sector, including IPO activities and investments, which continue to support the thesis.",
+      "exit_advice": "Hold until the $2B quantum investment announcement resolves",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
+        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
+        "https://www.fool.com/investing/2026/06/04/should-you-buy-d-wave-quantum-stock-while-its-unde/",
+        "https://www.tickerreport.com/banking-finance/13463078/best-quantum-computing-stocks-to-follow-now-june-3rd.html"
+      ]
     },
     {
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst is the Phase 2/3 POWER1 study findings, which are still pending and not fully resolved. PRAX remains the purest vehicle for this event.",
+      "exit_advice": "Exit if the Phase 2/3 POWER1 study findings are fully resolved or if the catalyst is no longer pending.",
       "evidence_urls": [
         "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
       ]
@@ -524,6 +371,9 @@
       "ticker": "COO",
       "thesis": "Record Q2 revenue and earnings beat",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "COO's Q2 earnings beat is the primary catalyst, which remains live as the market digests the news",
+      "exit_advice": "hold until earnings catalyst fully resolves",
       "evidence_urls": [
         "https://www.ibtimes.com.au/coopercompanies-record-earnings-revenue-growth-1870209"
       ]
@@ -531,45 +381,42 @@
   ],
   "2026-06-12": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.perthnow.com.au/news/business/aussie-shares-surge-on-latest-us-iran-peace-deal-hopes-c-22421429"
-      ]
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The 380-megawatt deal with CyrusOne remains unresolved, with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne; continue holding CEG as the catalyst remains pending.",
       "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "Exit if the tariff policy is resolved or reversed, or if CSLLY is no longer the best vehicle for this catalyst.",
       "evidence_urls": []
     },
     {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
       "thesis_live": true,
-      "evidence_urls": []
+      "hindsight": "prior call holds",
+      "assessment": "The $2B quantum investment catalyst is still pending with no resolution. QBTS remains the purest play among known vehicles.",
+      "exit_advice": "continue holding as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
+        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+      ]
     },
     {
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved, and PRAX is still the purest vehicle for this event.",
+      "exit_advice": "Continue holding PRAX as the Phase 2/3 POWER1 study findings are still pending.",
       "evidence_urls": [
         "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
       ]
@@ -578,202 +425,218 @@
       "ticker": "COO",
       "thesis": "Record Q2 revenue and earnings beat",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
+      "exit_advice": "Hold until the market fully digests the Q2 earnings beat",
       "evidence_urls": []
     },
     {
-      "ticker": "REGN",
-      "thesis": "WHO supports Ebola antibody therapy",
+      "ticker": "SPCX",
+      "thesis": "SpaceX IPO debut",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Initial entry on SpaceX IPO debut remains valid as the event has not yet occurred",
+      "exit_advice": "hold until SpaceX IPO debut concludes",
       "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
-      ]
-    },
-    {
-      "ticker": "ABT",
-      "thesis": "CE Mark for glucose-ketone sensor",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/abbott-abt-secures-ce-mark-174147076.html"
+        "https://www.zerohedge.com/markets/futures-rally-amid-fresh-iran-peace-hopes-all-eyes-spacex",
+        "https://www.zerohedge.com/markets/crude-benchmarks-hit-mehr-mou-reporting-equities-bid-spcx-debut-newsquawk-us-market-open"
       ]
     }
   ],
   "2026-06-19": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
+      "ticker": "CEG",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
+      "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has been reported. Continue holding CEG as the purest vehicle for this event.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump's 100% tariff on foreign drugs",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "Exit if the 100% tariff policy is officially reversed or resolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains live with ongoing market reaction and news coverage. QBTS is still the purest play among known vehicles.",
+      "exit_advice": "continue holding as the $2B quantum investment catalyst remains pending",
       "evidence_urls": [
         "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
+        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
         "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
       ]
     },
     {
-      "ticker": "BWET",
-      "thesis": "tanker rates surge",
+      "ticker": "PRAX",
+      "thesis": "Phase 2/3 POWER1 study findings",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
+      "exit_advice": "Continue holding PRAX as the Phase 2/3 POWER1 study findings are still pending and unresolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COO",
+      "thesis": "Record Q2 revenue and earnings beat",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
+      "exit_advice": "exit when the Q2 earnings beat is fully priced in or when COO reports Q3 results",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/expect-q2-earnings-tech-strength-140000734.html"
+      ]
+    },
+    {
+      "ticker": "SPCX",
+      "thesis": "SpaceX IPO debut",
       "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The SpaceX IPO debut has occurred, with SPCX surging in its first days of trading. The catalyst is now publicly priced and resolved, so the thesis is no longer live.",
+      "exit_advice": "Exit now \u2014 the SpaceX IPO catalyst has resolved with the stock already trading",
       "evidence_urls": [
         "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
         "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
       ]
     },
     {
-      "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "ticker": "PNTG",
+      "thesis": "Turtle Creek Asset picks Pennant",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Initial entry based on Turtle Creek's stake in PNTG remains valid as no contrary news has emerged",
+      "exit_advice": "hold until Turtle Creek's position change is fully priced or new contrary evidence emerges",
       "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
+        "https://www.insidermonkey.com/blog/turtle-creek-asset-management-picked-pennant-group-pntg-amid-multiple-tailwinds-1784244/"
       ]
-    },
-    {
-      "ticker": "COO",
-      "thesis": "Record Q2 revenue and earnings beat",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/expect-q2-earnings-tech-strength-140000734.html"
-      ]
-    },
-    {
-      "ticker": "REGN",
-      "thesis": "WHO supports Ebola antibody therapy",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "ABT",
-      "thesis": "CE Mark for glucose-ketone sensor",
-      "thesis_live": true,
-      "evidence_urls": []
     }
   ],
   "2026-06-26": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The 380-megawatt deal with CyrusOne remains unresolved with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "Exit if the 380-megawatt deal with CyrusOne is resolved (signed/passed/voted-down). Until then, the catalyst remains pending.",
+      "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
+      "exit_advice": "continue holding as the tariff policy remains unresolved",
       "evidence_urls": []
     },
     {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains live with no resolution. QBTS is still the purest play among known vehicles.",
+      "exit_advice": "continue holding QBTS as the $2B quantum investment catalyst remains pending",
       "evidence_urls": []
     },
     {
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
-      ]
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
+      "exit_advice": "Exit if Phase 2/3 POWER1 study findings are released or if the study is canceled.",
+      "evidence_urls": []
     },
     {
       "ticker": "COO",
       "thesis": "Record Q2 revenue and earnings beat",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
+      "exit_advice": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/expect-q2-earnings-tech-strength-140000734.html",
+        "http://www.chinanationalnews.com/news/279149252/cooperation-serves-as-key-experts-declare-transition-to-new-world-order-to-be-irreversible-at-primakov-readings",
+        "http://www.europesun.com/news/279149252/cooperation-serves-as-key-experts-declare-transition-to-new-world-order-to-be-irreversible-at-primakov-readings",
+        "http://www.russiaherald.com/news/279149252/cooperation-serves-as-key-experts-declare-transition-to-new-world-order-to-be-irreversible-at-primakov-readings",
+        "http://www.indiagazette.com/news/279149252/cooperation-serves-as-key-experts-declare-transition-to-new-world-order-to-be-irreversible-at-primakov-readings",
+        "http://www.kenyastar.com/news/279149252/cooperation-serves-as-key-experts-declare-transition-to-new-world-order-to-be-irreversible-at-primakov-readings",
         "https://news.webindia123.com/news/Articles/World/20260626/4467582.html"
       ]
     },
     {
-      "ticker": "REGN",
-      "thesis": "WHO supports Ebola antibody therapy",
+      "ticker": "PNTG",
+      "thesis": "Turtle Creek Asset picks Pennant",
       "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "ABT",
-      "thesis": "CE Mark for glucose-ketone sensor",
-      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "no new developments this week; initial thesis remains intact",
+      "exit_advice": "continue holding as the catalyst remains pending",
       "evidence_urls": []
     }
   ],
   "2026-07-03": [
     {
-      "ticker": "IONQ",
-      "thesis": "quantum computing advances",
-      "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
       "ticker": "CEG",
-      "thesis": "New 380-megawatt deal with CyrusOne",
+      "thesis": "380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no resolution indicated in the news. CEG continues to be the purest vehicle for this event.",
+      "exit_advice": "Continue holding CEG as the 380-megawatt deal with CyrusOne remains unresolved with no new developments this week.",
+      "evidence_urls": []
     },
     {
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
+      "thesis": "Trump's 100% tariff on foreign drugs",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains active, and CSLLY continues to be the appropriate vehicle.",
+      "exit_advice": "No new developments; the tariff policy remains pending and unresolved.",
       "evidence_urls": []
     },
     {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
+      "ticker": "QBTS",
+      "thesis": "Trump admin $2B quantum investment",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains live with no resolution. QBTS is still the purest play among known vehicles.",
+      "exit_advice": "Continue holding QBTS as the $2B quantum investment catalyst remains pending with no resolution.",
       "evidence_urls": []
     },
     {
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html",
-        "https://www.thehindubusinessline.com/economy/indias-debt-market-not-equipped-to-finance-next-phase-of-growth-needs-structural-reforms-deloitte/article71157472.ece"
-      ]
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
+      "exit_advice": "No exit yet \u2014 Phase 2/3 POWER1 study findings still pending",
+      "evidence_urls": []
     },
     {
       "ticker": "COO",
       "thesis": "Record Q2 revenue and earnings beat",
-      "thesis_live": true,
+      "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The Q2 earnings beat was the primary catalyst, and it has now been fully absorbed by the market. No new developments have occurred to justify holding further.",
+      "exit_advice": "The Q2 earnings beat catalyst has been fully priced in and resolved after several weeks of market digestion. Exit the position.",
       "evidence_urls": [
         "https://newswire.co.nz/2026/06/gisborne-angus-bull-record-220000-2026/"
       ]
     },
     {
-      "ticker": "REGN",
-      "thesis": "WHO supports Ebola antibody therapy",
+      "ticker": "PNTG",
+      "thesis": "Turtle Creek Asset picks Pennant",
       "thesis_live": true,
-      "evidence_urls": []
-    },
-    {
-      "ticker": "ABT",
-      "thesis": "CE Mark for glucose-ketone sensor",
-      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Turtle Creek's stake in Pennant remains intact with no developments altering the initial thesis.",
+      "exit_advice": "Exit if Turtle Creek reduces or exits its stake in Pennant, or if significant contrary news emerges.",
       "evidence_urls": []
     }
   ]

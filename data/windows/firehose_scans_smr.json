@@ -1,249 +1,191 @@
 {
   "2024-04-19": [],
-  "2024-04-26": [],
-  "2024-05-03": [],
-  "2024-05-10": [],
+  "2024-04-26": [
+    {
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Microsoft's stock surged following upbeat earnings, confirming the initial thesis. The catalyst remains unresolved as the market continues to digest the positive earnings report.",
+      "exit_advice": "Hold until the catalyst (upbeat earnings) fully resolves and is priced in.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/04/38468462/dow-surges-over-200-points-microsoft-shares-gain-following-upbeat-earnings"
+      ]
+    }
+  ],
+  "2024-05-03": [
+    {
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Microsoft's stock continues to benefit from its upbeat earnings report. The catalyst remains unresolved as the market continues to digest the positive news and its impact on the company's valuation.",
+      "exit_advice": "hold",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-10": [
+    {
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Microsoft's stock continues to benefit from its strong earnings report. The market is still reacting to the positive news, making MSFT the best vehicle for this event.",
+      "exit_advice": "Hold MSFT as the upbeat earnings catalyst remains unresolved and the market continues to digest its impact.",
+      "evidence_urls": []
+    }
+  ],
   "2024-05-17": [
     {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "MSFT continues to benefit from its strong earnings report, making it the best vehicle for this event. The catalyst remains active as the market continues to digest the positive earnings impact.",
+      "exit_advice": "Hold MSFT as the catalyst \u2014 upbeat earnings driving stock surge \u2014 remains unresolved and the market continues to react to the positive news.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "SMR remains the purest vehicle for reactor approval news. The catalyst is still pending, and the news highlights its relevance to AI power demand, reinforcing the thesis.",
+      "exit_advice": "hold until reactor approval news resolves \u2014 either approval granted/denied or news fades",
       "evidence_urls": [
-        "https://investorplace.com/2024/05/quantum-leap-3-computing-stocks-on-the-brink-of-a-breakout/"
-      ],
-      "lead": true
+        "ETF.com"
+      ]
     }
   ],
   "2024-05-24": [
     {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
       "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "Microsoft's stock continues to benefit from its strong earnings report, making it the best vehicle for this event.",
+      "exit_advice": "The catalyst remains unresolved as the market continues to digest the positive impact of Microsoft's earnings report.",
       "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3450246"
-      ],
-      "lead": true
+        "https://www.marketscreener.com/quote/index/S-P-TSX-COMPOSITE-INDEX-7454/news/TSX-rises-on-softer-retail-sales-data-commodities-boost-46819601/"
+      ]
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news this week. SMR is still the purest vehicle for this event.",
+      "exit_advice": "Hold SMR until reactor approval news resolves.",
+      "evidence_urls": []
     }
   ],
   "2024-05-31": [
     {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
+      "ticker": "MSFT",
+      "thesis": "Upbeat earnings drive stock surge",
+      "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The earnings-driven surge has been fully absorbed by the market, and MSFT\u2019s momentum is now driven by broader factors rather than the specific earnings catalyst.",
+      "exit_advice": "Exit now \u2014 the earnings catalyst has fully resolved and is priced in.",
       "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3450246"
-      ],
-      "lead": true
+        "https://www.benzinga.com/news/24/05/39108952/cirrus-logic-texas-roadhouse-and-2-other-stocks-insiders-are-selling"
+      ]
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news",
+      "thesis_live": true,
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news. SMR is still the purest vehicle for reactor approval news.",
+      "exit_advice": "Exit if reactor approval news resolves (approved/denied).",
+      "evidence_urls": []
     }
   ],
   "2024-06-07": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://biztoc.com/x/a9cf70feb24864a6",
-        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/S-P-500-Nasdaq-hit-record-highs-as-markets-digest-economic-data-46913038/"
-      ],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news this week. SMR continues to be the purest vehicle for this event.",
+      "exit_advice": "Hold until reactor approval news resolves.",
+      "evidence_urls": []
     }
   ],
   "2024-06-14": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://tribtown.com/2024/06/13/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/",
-        "https://medicinehatnews.com/business/2024/06/13/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-broad-reforms/"
-      ],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news this week. SMR is still the purest vehicle for reactor approval news.",
+      "exit_advice": "No resolution to the reactor approval catalyst. Hold until further news develops.",
+      "evidence_urls": []
     }
   ],
   "2024-06-21": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
-      ],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news this week. SMR continues to be the purest vehicle for reactor approval news.",
+      "exit_advice": "No fresh news or resolution to the catalyst. Hold until reactor approval news resolves.",
+      "evidence_urls": []
     }
   ],
   "2024-06-28": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "No fresh news this week. SMR continues to be the purest vehicle for reactor approval news. The catalyst is still pending, and the thesis remains intact.",
+      "exit_advice": "Hold SMR; the catalyst (reactor approval news) remains pending with no new developments.",
+      "evidence_urls": []
     }
   ],
   "2024-07-05": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains pending with no fresh news this week. SMR continues to be the purest vehicle for reactor approval news. The thesis remains intact as there has been no resolution to the catalyst.",
+      "exit_advice": "Hold until reactor approval news resolves.",
+      "evidence_urls": []
     }
   ],
   "2024-07-12": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
+      "thesis": "reactor approval news",
       "thesis_live": true,
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ],
-      "lead": true
+      "hindsight": "prior call holds",
+      "assessment": "The catalyst remains unresolved, and there is no fresh news this week. SMR continues to be the purest vehicle for reactor approval news.",
+      "exit_advice": "no exit needed; catalyst remains pending",
+      "evidence_urls": []
     }
   ],
   "2024-07-19": [
     {
       "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
+      "thesis": "reactor approval news",
+      "thesis_live": false,
+      "hindsight": "prior call holds",
+      "assessment": "The ADVANCE Act has been signed into law, resolving the reactor approval catalyst. While this is a positive development for the nuclear industry, the specific catalyst that drove the thesis has now been priced in. SMR remains the purest vehicle, but the event-driven opportunity has concluded.",
+      "exit_advice": "The catalyst has resolved with the signing of the ADVANCE Act. Exit the position.",
       "evidence_urls": [
         "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ],
-      "lead": true
-    }
-  ],
-  "2024-07-26": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    }
-  ],
-  "2024-08-02": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
-      ],
-      "lead": true
-    }
-  ],
-  "2024-08-09": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
-      ],
-      "lead": true
-    }
-  ],
-  "2024-08-16": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/western-digital-corporation-wdc-a-storage-powerhouse-with-robust-growth-potential-1334010/"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox global health emergency",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
       ]
     }
   ],
-  "2024-08-23": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://economictimes.indiatimes.com/markets/stocks/news/big-movers-on-d-street-what-should-investors-do-with-icici-securities-reliance-power-and-nykaa/articleshow/112696207.cms",
-        "https://www.rediff.com/business/report/sensex-gains-102-points-in-range-bound-trade/20240821.htm"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox global health emergency",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
-      ]
-    }
-  ],
-  "2024-08-30": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "http://baystreet.ca/articles/marketupdates/101926/One-More-All-Time-High-for-TSX"
-      ],
-      "lead": true
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox global health emergency",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
-      ]
-    }
-  ],
-  "2024-09-06": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.dutchnews.nl/2024/09/dutch-music-rights-fund-buys-the-stranglers-gipsy-kings/"
-      ]
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox global health emergency",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-stocks-edge-higher-124090500179_1.html",
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-shares-gain-124090400197_1.html",
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-stocks-rise-124090300222_1.html"
-      ],
-      "lead": true
-    }
-  ],
-  "2024-09-13": [
-    {
-      "ticker": "SMR",
-      "thesis": "AI power demand and reactor approval news",
-      "thesis_live": true,
-      "evidence_urls": [
-        "https://powertalk1360.iheart.com/content/2024-09-11-inflation-slowed-to-lowest-level-in-three-years-as-fed-considers-rate-cut/",
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
-      ]
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox global health emergency",
-      "thesis_live": true,
-      "evidence_urls": [],
-      "lead": true
-    }
-  ]
+  "2024-07-26": [],
+  "2024-08-02": [],
+  "2024-08-09": [],
+  "2024-08-16": [],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
+  "2024-09-13": []
 }
