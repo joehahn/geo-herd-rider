@@ -64,7 +64,6 @@ CURATOR_MODELS: dict[str, tuple[str, str]] = {
     "llama4":   ("meta-llama/llama-4-maverick",   "openrouter"),  # 400B MoE / 17B active
     "deepseek": ("deepseek/deepseek-chat",        "openrouter"),  # V3, 671B MoE / 37B active
     "grok4":    ("x-ai/grok-4.3",                 "openrouter"),  # grok-4 deprecated -> 4.3 (frontier reasoning)
-    "gemini":   ("google/gemini-2.5-pro",         "openrouter"),  # Google frontier (gap-filler)
 }
 
 
