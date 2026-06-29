@@ -3105,6 +3105,7 @@
     "max_tickers_per_event": 16,
     "t_update_days": 1,
     "min_trade_size": 0.1,
+    "thesis_floor": 0.2,
     "lookback_period_days": 21,
     "model": "deepseek",
     "risk_free_rate": 0.04,

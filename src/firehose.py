@@ -339,6 +339,12 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
               file=sys.stderr)
     watch = {a: [t for t in w if t in valid] for a, w in watch.items()}
 
+    # earliest week each name entered the watchlist -> the "gem" the thesis_floor protects
+    first_seen = {}
+    for a in anchors:
+        for t in watch[a]:
+            first_seen.setdefault(t, a)
+
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     for k, a in enumerate(anchors):
@@ -346,7 +352,9 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         reb.append(None if i is None else i)
         if i is not None:
             wl = watch[a]
-            week_w[k] = (curator._optimized_weights(wl, panel, days[i], fm, lookback) or {}) if wl else {}
+            floor_t = min(wl, key=lambda t: first_seen[t]) if wl else None  # earliest-discovered live name
+            week_w[k] = (curator._optimized_weights(wl, panel, days[i], fm, lookback, floor_ticker=floor_t)
+                         or {}) if wl else {}
 
     value, spyval, log = capital, capital, []
     rows = [{"date": str(days[reb[0]].date()) if reb[0] else str(anchors[0].date()),

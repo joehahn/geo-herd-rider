@@ -205,6 +205,8 @@ SWEEPS = [
      "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
      "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
+    {"key": "thesis_floor", "label": "thesis_floor",
+     "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9]},
     {"key": "risk_aversion", "label": "risk_aversion",
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 1.0, 1.5, 2.0, 3.0, 5.0]},   # 0 = pure-μ -> high λ = risk-averse
 ]
@@ -280,7 +282,7 @@ def build_sweeps() -> None:
     out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}, "models": models,
            "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers},
            "baseline": {k: fm0.get(k) for k in
-                        ("concentration_cap", "min_trade_size", "lookback_period_days", "risk_aversion")}}
+                        ("concentration_cap", "min_trade_size", "thesis_floor", "lookback_period_days", "risk_aversion")}}
     for sw in SWEEPS:
         key, vals = sw["key"], sw["values"]
         sum_cur, sum_spy, per_gem = [], [], {t: [] for t in gem_tickers}
@@ -459,7 +461,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
 
   // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
   const P=D.params||{};
-  const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
+  const order=["model","initial_investment_usd","concentration_cap","min_trade_size","thesis_floor","risk_aversion",
     "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
   const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
@@ -752,6 +754,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     prow("model", mdisp)
     + prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
     + prow("concentration_cap", B.concentration_cap) + prow("min_trade_size", B.min_trade_size)
+    + prow("thesis_floor", B.thesis_floor)
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];
