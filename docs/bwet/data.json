@@ -108,97 +108,97 @@
     50000.0,
     50000.0,
     50000.0,
-    50020.38,
-    49927.67,
-    49937.81,
-    48814.59,
-    52390.55,
-    56496.27,
-    55465.11,
-    54206.9,
-    69267.53,
-    60072.22,
-    63458.97,
-    58624.81,
-    54377.18,
-    58350.47,
-    61693.73,
-    67751.32,
-    58956.16,
-    56169.68,
-    69251.1,
-    68266.22,
-    70412.62,
-    71616.11,
-    80154.04,
-    80815.06,
-    90359.59,
-    83288.27,
-    97535.41,
-    103683.62,
-    106522.6,
-    85778.91,
-    101297.49,
-    114961.15,
-    122494.03,
-    120386.57,
-    129077.67,
-    148018.7,
-    141896.61,
-    138509.0,
-    129357.36,
-    105967.68,
-    111718.69,
-    130887.02,
-    122670.81,
-    117923.73,
-    119269.33,
-    112935.69,
-    110707.79,
-    113306.73,
-    111342.48,
-    108835.46,
-    116614.96,
-    119406.28,
-    118243.23,
-    128749.31,
-    134821.16,
-    123105.94,
-    125298.57,
-    141749.57,
-    138954.81,
-    139848.24,
-    142832.4,
-    137049.78,
-    134697.75,
-    128432.98,
-    137226.09,
-    140997.15,
-    139337.92,
-    143188.15,
-    149594.65,
-    157543.01,
-    162592.21,
-    157098.06,
-    152273.72,
-    150180.28,
-    155873.64,
-    156771.36,
-    158501.13,
-    165532.38,
-    146393.91,
-    159480.58,
-    163698.39,
-    172183.9,
-    174919.52,
-    172565.47,
-    182184.22,
-    185092.04,
-    182211.23,
-    187612.75,
-    187612.75,
-    194814.77,
-    191213.76
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    53662.79,
+    57868.22,
+    56812.02,
+    55523.26,
+    70949.62,
+    61531.01,
+    65000.0,
+    60048.45,
+    55697.68,
+    59767.44,
+    63345.35,
+    69516.52,
+    60762.09,
+    57875.47,
+    71410.43,
+    70269.41,
+    74035.75,
+    75849.93,
+    86426.64,
+    85774.73,
+    94973.06,
+    88208.69,
+    101834.62,
+    107824.54,
+    109931.03,
+    88523.6,
+    104538.73,
+    118639.59,
+    126413.5,
+    124601.34,
+    132939.81,
+    150417.45,
+    144661.72,
+    141489.08,
+    130849.6,
+    104873.61,
+    111447.67,
+    132219.57,
+    123385.95,
+    120955.32,
+    115125.52,
+    124781.04,
+    124981.28,
+    125562.85,
+    123154.42,
+    118063.31,
+    121578.4,
+    120610.57,
+    124369.71,
+    145205.15,
+    131510.44,
+    124290.63,
+    119722.15,
+    124639.13,
+    124225.97,
+    127538.38,
+    127524.14,
+    128386.07,
+    130979.01,
+    135801.59,
+    133941.66,
+    133532.77,
+    123791.44,
+    114132.03,
+    111073.45,
+    111163.61,
+    111128.92,
+    107335.15,
+    105808.35,
+    100706.05,
+    105868.72,
+    96836.9,
+    101798.35,
+    94573.27,
+    94924.69,
+    97037.7,
+    95050.54,
+    105785.97,
+    107853.05,
+    106663.07,
+    110551.95,
+    113634.25,
+    111865.63,
+    115181.8,
+    115181.8,
+    119603.37,
+    117392.58
   ],
   "spy": [
     50000.0,
@@ -296,112 +296,112 @@
     53252.08,
     53329.07,
     52943.43,
-    53811.3
+    53815.66
   ],
   "gain": {
-    "IONQ": 18564.55,
-    "SPXC": -1020.16,
-    "BWET": 72890.54,
-    "ULCC": 36268.2,
-    "CLOV": 14510.63
+    "BWET": 71519.83,
+    "VST": -12488.63,
+    "CSLLY": 87.59,
+    "CLOV": 11926.21,
+    "QBTS": -3652.42
   },
   "overlay": [
-    40145.28,
-    39816.81,
-    37804.92,
-    39560.19,
-    42855.16,
-    45380.28,
-    47525.6,
-    49937.81,
-    52965.9,
-    56845.96,
-    61300.84,
-    60181.99,
-    58816.78,
-    75158.2,
-    65180.9,
-    68855.67,
-    63610.4,
-    59001.55,
-    63312.72,
-    67490.46,
-    75035.02,
-    64513.69,
-    61136.61,
-    76892.94,
-    75322.43,
-    79561.76,
-    81984.23,
-    96601.18,
-    95256.5,
-    106506.62,
-    98171.67,
-    114964.74,
-    122211.62,
-    125557.92,
-    101107.38,
-    119399.09,
-    135504.42,
-    144383.4,
-    141899.34,
-    152143.52,
-    174469.26,
-    167253.17,
-    163260.2,
-    150983.6,
-    121010.65,
-    128596.27,
-    152564.37,
-    142371.51,
-    139877.19,
-    131439.6,
-    144742.65,
-    143469.84,
-    143849.63,
-    158692.4,
-    158066.26,
-    167663.75,
-    178790.69,
-    176795.23,
-    217532.79,
-    190492.47,
-    178102.96,
-    171800.43,
-    179601.61,
-    179006.26,
-    183779.34,
-    183758.82,
-    185000.84,
-    188737.2,
-    195686.41,
-    193006.3,
-    192417.1,
-    178380.11,
-    164461.17,
-    153980.89,
-    170199.13,
-    163065.17,
-    170229.93,
-    185088.1,
-    192976.53,
-    215569.14,
-    206052.74,
-    201742.58,
-    195087.98,
-    194803.64,
-    196083.65,
-    205191.52,
-    204031.62,
-    200767.44,
-    215045.65,
-    217570.78,
-    223514.03,
-    211257.97,
-    171985.2,
-    153970.63,
-    131388.27,
-    158949.02
+    40195.27,
+    39866.39,
+    37852.0,
+    39609.45,
+    42908.53,
+    45436.79,
+    47584.79,
+    50000.0,
+    53031.86,
+    56916.75,
+    61377.18,
+    60256.94,
+    58890.03,
+    75251.8,
+    65262.07,
+    68941.42,
+    63689.62,
+    59075.02,
+    63391.57,
+    67574.51,
+    75128.46,
+    64594.04,
+    61212.74,
+    76988.7,
+    75416.23,
+    79660.84,
+    82086.33,
+    96721.48,
+    95375.13,
+    106639.26,
+    98293.93,
+    115107.91,
+    122363.82,
+    125714.28,
+    101233.3,
+    119547.79,
+    135673.17,
+    144563.21,
+    142076.05,
+    152332.99,
+    174686.53,
+    167461.46,
+    163463.51,
+    151171.63,
+    121161.35,
+    128756.42,
+    152754.37,
+    142548.81,
+    140051.39,
+    131603.29,
+    144922.91,
+    143648.51,
+    144028.77,
+    158890.03,
+    158263.1,
+    167872.55,
+    179013.35,
+    177015.4,
+    217803.7,
+    190729.7,
+    178324.76,
+    172014.38,
+    179825.28,
+    179229.18,
+    184008.21,
+    183987.67,
+    185231.23,
+    188972.24,
+    195930.11,
+    193246.66,
+    192656.73,
+    178602.25,
+    164665.98,
+    154172.65,
+    170411.09,
+    163268.24,
+    170441.92,
+    185318.6,
+    193216.85,
+    215837.6,
+    206309.34,
+    201993.82,
+    195330.94,
+    195046.24,
+    196327.84,
+    205447.06,
+    204285.71,
+    201017.46,
+    215313.46,
+    217841.73,
+    223792.39,
+    211521.06,
+    172199.38,
+    154162.38,
+    131551.9,
+    158396.7
   ],
   "overlay_ticker": "BWET",
   "overlay_anchor": "2026-02-20",
@@ -431,21 +431,16 @@
       0.9,
       0.9,
       0.9,
-      0.705,
-      0.705,
-      0.705,
-      0.705,
-      0.705,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
+      0.8725,
+      0.8725,
+      0.8725,
+      0.8725,
+      0.8725,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
       1.0,
       1.0,
       1.0,
@@ -455,42 +450,36 @@
       0.9,
       0.9,
       0.9,
-      0.1426,
-      0.1426,
-      0.1426,
-      0.1426,
-      0.1426,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.2189,
-      0.2189,
-      0.2189,
-      0.2189,
-      0.2189,
-      0.4099,
-      0.4099,
-      0.4099,
-      0.4099,
-      0.4099,
-      0.2991,
-      0.2991,
-      0.2991,
-      0.2991,
-      0.2991,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.8163,
+      0.8163,
+      0.8163,
+      0.8163,
+      0.8163,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.7305,
+      0.7305,
+      0.7305,
+      0.7305,
+      0.7305,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
       0.0,
       0.0,
       0.0,
@@ -498,6 +487,17 @@
       0.0,
       0.0,
       0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.174,
+      0.174,
+      0.174,
+      0.174,
       0.0,
       0.0,
       0.0,
@@ -582,56 +582,27 @@
       0.0,
       0.0,
       0.0,
-      0.1735,
-      0.1735,
-      0.1735,
-      0.1735,
-      0.1735,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.6919,
-      0.6919,
-      0.6919,
-      0.6919,
+      0.534,
+      0.534,
+      0.534,
+      0.534,
+      0.534,
+      0.1004,
+      0.1004,
+      0.1004,
+      0.1004,
+      0.1004,
+      0.826,
+      0.826,
+      0.826,
+      0.826,
       1.0,
       1.0,
       1.0,
       1.0,
       1.0
     ],
-    "IONQ": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.295,
-      0.295,
-      0.295,
-      0.295,
-      0.295,
+    "CSLLY": [
       0.0,
       0.0,
       0.0,
@@ -651,35 +622,20 @@
       0.0,
       0.0,
       0.0,
-      0.8574,
-      0.8574,
-      0.8574,
-      0.8574,
-      0.8574,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.7811,
-      0.7811,
-      0.7811,
-      0.7811,
-      0.7811,
-      0.4121,
-      0.4121,
-      0.4121,
-      0.4121,
-      0.4121,
       0.0,
       0.0,
       0.0,
       0.0,
       0.0,
-      0.7393,
-      0.7393,
-      0.7393,
-      0.7393,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -695,60 +651,6 @@
       0.0,
       0.0,
       0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0
-    ],
-    "SPXC": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
       0.0,
       0.0,
       0.0,
@@ -798,7 +700,7 @@
       0.0,
       0.0
     ],
-    "ULCC": [
+    "QBTS": [
       0.0,
       0.0,
       0.0,
@@ -862,34 +764,132 @@
       0.0,
       0.0,
       0.0,
-      0.178,
-      0.178,
-      0.178,
-      0.178,
-      0.178,
-      0.7009,
-      0.7009,
-      0.7009,
-      0.7009,
-      0.7009,
-      0.2607,
-      0.2607,
-      0.2607,
-      0.2607,
-      0.8265,
-      0.8265,
-      0.8265,
-      0.8265,
-      0.8265,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.466,
+      0.466,
+      0.466,
+      0.466,
+      0.466,
+      0.8996,
+      0.8996,
+      0.8996,
+      0.8996,
+      0.8996,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "VST": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1275,
+      0.1275,
+      0.1275,
+      0.1275,
+      0.1275,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1837,
+      0.1837,
+      0.1837,
+      0.1837,
+      0.1837,
       0.9,
       0.9,
       0.9,
       0.9,
       0.9,
-      0.3081,
-      0.3081,
-      0.3081,
-      0.3081,
+      0.2695,
+      0.2695,
+      0.2695,
+      0.2695,
+      0.2695,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -903,10 +903,10 @@
     1.0,
     1.0,
     1.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
     0.0,
     0.0,
     0.0,
@@ -998,64 +998,23 @@
   "colors": {
     "BWET": "#1f77b4",
     "CLOV": "#ff7f0e",
-    "IONQ": "#2ca02c",
-    "SPXC": "#d62728",
-    "ULCC": "#9467bd"
+    "CSLLY": "#2ca02c",
+    "QBTS": "#d62728",
+    "VST": "#9467bd"
   },
   "metrics": {
-    "final": 191214.0,
-    "total_ret": 2.8243,
-    "spy_ret": 0.0762,
-    "max_dd": -0.2841
+    "final": 117393.0,
+    "total_ret": 1.3479,
+    "spy_ret": 0.0763,
+    "max_dd": -0.3713
   },
-  "cost_usd": 2.8,
+  "cost_usd": 4.75,
   "weeks": 22,
   "gems": [
     {
-      "week": "2026-02-13",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/spx-technologies-spxc-well-positioned-084543197.html"
-      ]
-    },
-    {
-      "week": "2026-02-13",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html",
-        "https://finance.yahoo.com/news/top-quantum-pick-only-stock-140317029.html",
-        "https://finance.yahoo.com/news/dont-miss-best-quantum-etf-152000311.html",
-        "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains",
-        "https://247wallst.com/investing/2026/02/12/my-top-quantum-pick-the-only-stock-id-buy/",
-        "https://www.fool.com/investing/2026/02/11/where-will-ionq-stock-be-in-1-year/"
-      ]
-    },
-    {
-      "week": "2026-02-20",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-02-20",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.fool.com/investing/2026/02/19/heres-the-quantum-computing-stock-wall-street-love/?source=iedfolrf0000001",
-        "https://www.fool.com/coverage/filings/2026/02/19/trybe-capital-loads-up-qbts-with-1-9-million-shares-bought/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/news/1-quantum-computing-stock-buy-213500802.html"
-      ]
-    },
-    {
       "week": "2026-02-20",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
@@ -1063,521 +1022,287 @@
     },
     {
       "week": "2026-02-27",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/",
-        "https://finance.yahoo.com/news/american-states-water-q4-earnings-201855062.html"
-      ]
-    },
-    {
-      "week": "2026-02-27",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.fool.com/investing/2026/02/27/where-will-rigetti-computing-be-in-5-years/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/02/25/predict-quantum-computing-hype-cool-off-2026-why/?source=iedfolrf0000001",
-        "https://techcrunch.com/2026/02/23/finnish-quantum-unicorn-iqm-set-to-go-public/"
-      ]
-    },
-    {
-      "week": "2026-02-27",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-02-27",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": [
-        "https://finance.yahoo.com/news/bitcoin-ethereum-solana-shorts-rekt-181417564.html",
-        "https://www.indiablooms.com/finance/sensex-surges-in-early-trade-expert-reveals-why-this-rally-may-not-last/details",
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-26-seouls-sky-high-surge-kospi-shatters-6300-barrier-as-ai-gold-rush-electrifies-south-korean-markets",
-        "https://www.fool.com/investing/2026/02/25/4-dividend-stocks-to-double-up-on-right-now/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/02/25/should-you-forget-ionq-and-buy-these-2-tech-stocks/?source=iedfolrf0000001"
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-27-vistra-corp-vst-q4-earnings-analysis-reality-check-for-the-ai-power-trade"
+      ]
+    },
+    {
+      "week": "2026-02-27",
+      "ticker": "CEG",
+      "thesis": "380-megawatt deal with CyrusOne",
+      "thesis_live": false,
+      "urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
       ]
     },
     {
       "week": "2026-03-06",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
+      "ticker": "BWET",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": [
-        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
-        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/",
-        "https://www.fool.com/investing/2026/03/01/2-best-quantum-computing-stocks-to-buy-in-march/"
+        "https://www.wdef.com/markets-react-to-iran-tensions/"
       ]
     },
     {
       "week": "2026-03-06",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": [
         "https://www.moneycontrol.com/news/business/stocks/nifty-realty-index-falls-nearly-2-godrej-properties-prestige-down-4-as-crude-driven-inflation-worries-weigh-13852946.html",
-        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
-        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/?source=iedfolrf0000001",
-        "https://www.fool.ca/2026/03/03/the-top-3-dividend-stocks-id-tell-anyone-to-buy-2/",
-        "https://finance.yahoo.com/news/better-quantum-computing-stock-rigetti-072000175.html",
-        "https://www.fool.com/investing/2026/03/01/2-best-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "week": "2026-03-06",
-      "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-03-13",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html",
-        "https://finance.yahoo.com/news/xplr-infrastructure-lp-xifr-target-201039904.html"
-      ]
-    },
-    {
-      "week": "2026-03-13",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/3-top-quantum-computing-stocks-180000232.html",
-        "https://www.fool.com/investing/2026/03/11/3-top-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/03/10/should-investors-avoid-rigetti-computing-struggle/?source=iedfolrf0000001",
-        "https://www.tickerreport.com/banking-finance/13374131/quantum-computing-stocks-to-watch-today-march-10th.html",
-        "https://finance.yahoo.com/news/2-top-quantum-computing-stocks-201200816.html",
-        "https://www.fool.com/investing/2026/03/07/2-top-quantum-computing-stocks-to-buy-in-march/?source=iedfolrf0000001"
+        "https://www.dailypolitical.com/2026/03/05/promising-renewable-energy-stocks-to-watch-today-march-2nd.html",
+        "https://www.themarketsdaily.com/2026/03/01/top-real-estate-stocks-to-research-february-27th.html",
+        "https://www.themarketsdaily.com/2026/03/01/promising-real-estate-stocks-to-keep-an-eye-on-february-26th.html"
       ]
     },
     {
       "week": "2026-03-13",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": [
-        "https://www.moneycontrol.com/news/business/stocks/solar-wind-stocks-surge-up-to-14-as-crude-oil-price-spike-and-gulf-tensions-boost-renewable-energy-bets-13858182.html",
-        "https://www.finanznachrichten.de/nachrichten-2026-03/67923860-asian-shares-tumble-after-oil-price-surge-020.htm",
-        "https://economictimes.indiatimes.com/news/international/australia/sp/asx-200-closes-lower-as-australian-shares-slip-oil-price-surge-triggers-inflation-fears-check-top-gainers-and-losers/articleshow/129496909.cms"
+        "https://finance.yahoo.com/news/surprising-vanguard-etf-soaring-past-162000045.html"
       ]
     },
     {
-      "week": "2026-03-20",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
+      "week": "2026-03-13",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-20",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "ticker": "BWET",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
-      "urls": [
-        "https://www.dailypolitical.com/2026/03/20/quantum-computing-stocks-to-watch-now-march-20th.html",
-        "https://www.insidermonkey.com/blog/heres-how-ionq-ionqs-shares-behaved-after-jim-cramer-said-it-was-speculative-in-may-2025-1720511/",
-        "https://finance.yahoo.com/markets/stocks/articles/ionq-ionq-shares-behaved-jim-160639549.html",
-        "https://www.themarketsdaily.com/2026/03/18/promising-quantum-computing-stocks-to-add-to-your-watchlist-march-18th.html",
-        "https://www.themarketsdaily.com/2026/03/18/best-quantum-computing-stocks-worth-watching-march-17th.html",
-        "https://www.themarketsdaily.com/2026/03/17/lansdowne-partners-uk-llp-purchases-1435394-shares-of-ionq-inc-ionq.html"
-      ]
+      "urls": []
     },
     {
       "week": "2026-03-20",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/news/heres-much-micron-stock-expected-101000568.html",
+        "https://www.thehindu.com/business/markets/stock-markets-rebound-in-early-trade-after-3-day-slump/article70748698.ece"
+      ]
+    },
+    {
+      "week": "2026-03-27",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-27",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": [
-        "https://www.dailypolitical.com/2026/03/27/quantum-computing-stocks-to-consider-march-27th.html",
-        "https://www.fool.com/investing/2026/03/26/is-this-popular-quantum-computing-stock-heading-fo/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/markets/stocks/articles/buy-rigetti-computing-stock-while-142000303.html",
-        "https://www.fool.com/investing/2026/03/24/should-you-buy-rigetti-computing-stock-while-its-b/",
-        "https://www.fool.com/investing/2026/03/22/quantum-computing-stocks-with-upside-wall-st/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-surge-over-2-pc-as-drop-in-oil-prices-rally-in-asian-peers-cheer-investors-1946166"
-      ]
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
-      "thesis_live": true,
-      "urls": [
-        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
-      ]
-    },
-    {
-      "week": "2026-04-03",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
-      ]
-    },
-    {
-      "week": "2026-04-03",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.fox9.com/news/minnesota-unemployment-rate-increasing-job-growth-remains-flat-data",
-        "https://www.uschamber.com/international/u-s-chamber-calls-for-pro-growth-policies-not-new-tariffs"
+        "https://www.deccanchronicle.com/business/market/stock-markets-rally-in-early-trade-on-slump-in-oil-prices-1946142",
+        "https://www.aol.com/finance/cnbc-anchor-shocked-us-trade-120000757.html"
       ]
     },
     {
       "week": "2026-04-03",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": [
+        "https://abc7ny.com/post/tips-save-groceries-food-banks-nyc-feel-strain-rising-prices-due-iran-war/18829363/",
         "https://www.mymoinfo.com/syndicated-article/?id=1663391"
       ]
     },
     {
       "week": "2026-04-03",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
+        "https://www.chathamdailynews.ca/news/mp-chamber-boss-talk-food-security-trade/wcm/f714d732-eaca-4dc7-9509-5a16d33707ec",
+        "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-analyzes-impact-geopolitical-162803098.html"
+      ]
     },
     {
       "week": "2026-04-03",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": [
-        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
-        "https://www.independent.co.uk/news/world/americas/us-politics/trump-prescription-drugs-tariffs-liberation-day-b2951275.html",
-        "https://www.latintimes.com/trump-slaps-100-tariffs-drugmakers-that-refuse-cut-prices-596322"
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
       ]
     },
     {
       "week": "2026-04-10",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-10",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-10",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-10",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-10",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-17",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-17",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-17",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
+      "thesis_live": true,
+      "urls": [
+        "etf.com"
+      ]
+    },
+    {
+      "week": "2026-04-17",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-17",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-17",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-24",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
-      ]
-    },
-    {
-      "week": "2026-04-24",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-24",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-24",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/cohen-steers-cns-q4-2025-192343524.html",
+        "https://www.fool.com/earnings/call-transcripts/2026/04/21/cohen-and-steers-cns-q4-2025-earnings-transcript/?source=iedfolrf0000001"
+      ]
     },
     {
       "week": "2026-04-24",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-01",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-01",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-01",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-01",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-plunge-ai-concerns-103453694.html"
+      ]
     },
     {
       "week": "2026-05-01",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
-    },
-    {
-      "week": "2026-05-08",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-08",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
-      ]
     },
     {
       "week": "2026-05-08",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-08",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
-      "thesis_live": true,
-      "urls": []
+      "ticker": "VST",
+      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis_live": false,
+      "urls": [
+        "https://www.cnbc.com/2026/05/07/options-traders-love-this-under-the-radar-ai-play.html",
+        "https://fnarena.com/index.php/2026/05/06/the-overnight-report-chips-soar-with-ai-trade/"
+      ]
     },
     {
       "week": "2026-05-08",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-15",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/materials-sector-positioned-gain-ai-151258763.html"
-      ]
-    },
-    {
-      "week": "2026-05-15",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.tickerreport.com/banking-finance/13441331/promising-quantum-computing-stocks-to-watch-today-may-14th.html",
-        "https://finance.yahoo.com/markets/stocks/articles/quantum-computing-stocks-ionq-d-092600721.html"
-      ]
-    },
-    {
-      "week": "2026-05-15",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": [
-        "https://www.investordaily.com.au/banks-lose-grip-as-asx-leadership-rotation-accelerates/",
-        "https://www.rttnews.com/story.aspx?Id=3652299",
-        "https://www.investors.com/news/technology/quantum-computing-stocks-dwave-earnings-q12026/",
-        "https://finance.yahoo.com/markets/article/quantum-computing-stock-surges-after-revenue-beat-160415768.html",
-        "https://finance.yahoo.com/markets/stocks/articles/materials-sector-positioned-gain-ai-151258763.html"
-      ]
-    },
-    {
-      "week": "2026-05-15",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-15",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-22",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-22",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": [
-        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it",
-        "https://finance.yahoo.com/sectors/technology/articles/d-wave-rigetti-ibm-lead-190906772.html",
-        "https://www.businessinsider.com/quantum-stocks-trump-investment-infleqtion-rigetti-computing-d-wave-ibm-2026-5"
+        "https://vietnamnews.vn/economy/1781275/foreign-selling-property-losses-keep-vn-index-under-pressure.html"
       ]
     },
     {
       "week": "2026-05-22",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": [
-        "https://www.ibtimes.com.au/ionq-shares-surge-record-q1-performance-raised-guidance-1869282",
-        "https://www.ibtimes.com.au/quantum-computing-stocks-surge-us-investment-1869268",
-        "https://www.businessworld.in/article/modi-s-fuel-saving-call-triggers-3-slide-in-realty-stocks-sparks-office-demand-concerns-606988"
-      ]
-    },
-    {
-      "week": "2026-05-22",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-22",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
-    },
-    {
-      "week": "2026-05-29",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-29",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
-      "thesis_live": true,
-      "urls": [
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
-        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/"
-      ]
     },
     {
       "week": "2026-05-29",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-29",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-29",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
@@ -1591,44 +1316,30 @@
       ]
     },
     {
-      "week": "2026-06-05",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "week": "2026-05-29",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
       "thesis_live": true,
       "urls": [
-        "https://www.fool.com/investing/2026/06/05/why-ionq-stock-crashed-today/",
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
-        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
-        "https://www.fool.com/investing/2026/06/03/why-ionq-stock-skyrocketed-597-in-may/?source=iedfolrf0000001"
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
       ]
     },
     {
       "week": "2026-06-05",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
-      "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.insidermonkey.com/blog/da-davidson-reiterates-neutral-rating-on-installed-building-products-ibp-1775319/",
+        "https://www.ibtimes.co.in/indian-equities-open-higher-despite-rising-oil-prices-global-uncertainty-902514",
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
     },
     {
       "week": "2026-06-05",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
       "thesis_live": true,
       "urls": []
     },
@@ -1638,6 +1349,20 @@
       "thesis": "Wins lawsuit on Star Ratings",
       "thesis_live": true,
       "urls": []
+    },
+    {
+      "week": "2026-06-05",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
+      "thesis_live": true,
+      "urls": [
+        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
+        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
+        "https://www.fool.com/investing/2026/06/04/should-you-buy-d-wave-quantum-stock-while-its-unde/",
+        "https://www.tickerreport.com/banking-finance/13463078/best-quantum-computing-stocks-to-follow-now-june-3rd.html"
+      ]
     },
     {
       "week": "2026-06-05",
@@ -1650,15 +1375,29 @@
     },
     {
       "week": "2026-06-12",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
+      "ticker": "BWET",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-12",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "ticker": "CSLLY",
+      "thesis": "100% tariff on foreign pharma",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-12",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
       "thesis_live": true,
       "urls": [
         "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
@@ -1667,47 +1406,17 @@
     },
     {
       "week": "2026-06-12",
-      "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": [
-        "https://www.perthnow.com.au/news/business/aussie-shares-surge-on-latest-us-iran-peace-deal-hopes-c-22421429"
-      ]
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "ULCC",
-      "thesis": "Frontier Airlines benefits from Gulf War easing",
-      "thesis_live": false,
-      "urls": [
-        "https://naija247news.com/companies-2/markets/ngx/sector-performance/negative-market-breadth-signals-increasing-selectivity-beneath-nigerias-equity-rally/"
-      ]
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": false,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
+      ]
     },
     {
       "week": "2026-06-12",
       "ticker": "REGN",
-      "thesis": "WHO support for Ebola antibody therapy",
+      "thesis": "WHO backs Ebola antibody therapy",
       "thesis_live": true,
       "urls": [
         "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
@@ -1715,15 +1424,29 @@
     },
     {
       "week": "2026-06-19",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
+      "ticker": "BWET",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-19",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "ticker": "CSLLY",
+      "thesis": "100% tariff on foreign pharma",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-19",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
       "thesis_live": true,
       "urls": [
         "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
@@ -1733,22 +1456,6 @@
     },
     {
       "week": "2026-06-19",
-      "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html"
-      ]
-    },
-    {
-      "week": "2026-06-19",
-      "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-19",
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
@@ -1757,40 +1464,35 @@
     {
       "week": "2026-06-19",
       "ticker": "REGN",
-      "thesis": "WHO support for Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://www.tpr.org/environment/2026-06-26/most-data-centers-wont-share-data-about-water-use-with-texas-lawmakers",
-        "https://www.esecurityplanet.com/threats/chinese-development-framework-linked-to-global-scam-infrastructure/"
-      ]
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "WHO backs Ebola antibody therapy",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-26",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
-      "urls": [
-        "https://www.scmp.com/presented/business/topics/c-suite-content-hub/article/3358141/navigating-leviathans-professor-john-mearsheimer-and-resurgence-great-power-politics"
-      ]
+      "urls": []
     },
     {
       "week": "2026-06-26",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-06-26",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
       "thesis_live": true,
       "urls": []
     },
@@ -1804,32 +1506,17 @@
     {
       "week": "2026-06-26",
       "ticker": "REGN",
-      "thesis": "WHO support for Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "SPXC",
-      "thesis": "Positioned for data center infrastructure evolution",
-      "thesis_live": true,
-      "urls": [
-        "https://timesofindia.indiatimes.com/city/lucknow/ai-revolution-is-bringing-creativity-to-our-doorstep/articleshow/132046894.cms"
-      ]
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "IONQ",
-      "thesis": "Quantum computing growth potential",
+      "thesis": "WHO backs Ebola antibody therapy",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-07-03",
       "ticker": "BWET",
-      "thesis": "tanker rates surge on oil-freight demand",
+      "thesis": "rising tanker rates",
       "thesis_live": true,
       "urls": [
+        "https://www.theguardian.com/business/2026/jun/28/rising-cost-insuring-against-climate-crisis-knock-on-effects-for-uk-economy",
         "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
         "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-saturday-june-27-2026-earn-up-to-410-apy-100000193.html",
         "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
@@ -1838,7 +1525,21 @@
     {
       "week": "2026-07-03",
       "ticker": "CSLLY",
-      "thesis": "Trump's 100% drug tariffs",
+      "thesis": "100% tariff on foreign pharma",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "CLOV",
+      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-07-03",
+      "ticker": "QBTS",
+      "thesis": "US govt $2B quantum funding",
       "thesis_live": true,
       "urls": []
     },
@@ -1847,12 +1548,14 @@
       "ticker": "PRAX",
       "thesis": "Phase 2/3 POWER1 study findings",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.thehindubusinessline.com/economy/indias-debt-market-not-equipped-to-finance-next-phase-of-growth-needs-structural-reforms-deloitte/article71157472.ece"
+      ]
     },
     {
       "week": "2026-07-03",
       "ticker": "REGN",
-      "thesis": "WHO support for Ebola antibody therapy",
+      "thesis": "WHO backs Ebola antibody therapy",
       "thesis_live": true,
       "urls": []
     }
@@ -1865,21 +1568,13 @@
     },
     {
       "week": "2026-02-13",
-      "names": [
-        "IONQ",
-        "SPXC"
-      ],
-      "funded": [
-        "SPXC",
-        "IONQ"
-      ]
+      "names": [],
+      "funded": []
     },
     {
       "week": "2026-02-20",
       "names": [
-        "BWET",
-        "IONQ",
-        "SPXC"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1889,8 +1584,7 @@
       "week": "2026-02-27",
       "names": [
         "BWET",
-        "IONQ",
-        "SPXC"
+        "VST"
       ],
       "funded": [
         "BWET"
@@ -1900,44 +1594,40 @@
       "week": "2026-03-06",
       "names": [
         "BWET",
-        "IONQ",
-        "SPXC"
+        "VST"
       ],
       "funded": [
         "BWET",
-        "IONQ"
+        "VST"
       ]
     },
     {
       "week": "2026-03-13",
       "names": [
         "BWET",
-        "IONQ",
-        "SPXC"
+        "VST"
       ],
       "funded": [
         "BWET",
-        "IONQ"
+        "VST"
       ]
     },
     {
       "week": "2026-03-20",
       "names": [
         "BWET",
-        "IONQ",
-        "SPXC"
+        "VST"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "VST"
       ]
     },
     {
       "week": "2026-03-27",
       "names": [
         "BWET",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
         "BWET"
@@ -1948,12 +1638,11 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "CSLLY"
       ]
     },
     {
@@ -1961,13 +1650,10 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "BWET",
-        "SPXC"
+        "BWET"
       ]
     },
     {
@@ -1975,13 +1661,11 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "IONQ",
-        "BWET"
+        "BWET",
+        "VST"
       ]
     },
     {
@@ -1989,12 +1673,11 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "IONQ"
+        "VST",
+        "BWET"
       ]
     },
     {
@@ -2002,13 +1685,11 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "IONQ",
-        "BWET"
+        "BWET",
+        "VST"
       ]
     },
     {
@@ -2016,14 +1697,10 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "IONQ",
-        "BWET",
-        "ULCC"
+        "BWET"
       ]
     },
     {
@@ -2031,12 +1708,9 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "ULCC",
         "BWET"
       ]
     },
@@ -2045,13 +1719,10 @@
       "names": [
         "BWET",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "VST"
       ],
       "funded": [
-        "IONQ",
-        "ULCC"
+        "VST"
       ]
     },
     {
@@ -2060,13 +1731,12 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
-        "SPXC",
-        "ULCC"
+        "QBTS",
+        "VST"
       ],
       "funded": [
-        "ULCC",
-        "CLOV"
+        "CLOV",
+        "QBTS"
       ]
     },
     {
@@ -2075,14 +1745,12 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
         "PRAX",
-        "SPXC",
-        "ULCC"
+        "QBTS"
       ],
       "funded": [
-        "ULCC",
-        "IONQ"
+        "QBTS",
+        "CLOV"
       ]
     },
     {
@@ -2091,15 +1759,13 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
         "PRAX",
-        "REGN",
-        "SPXC",
-        "ULCC"
+        "QBTS",
+        "REGN"
       ],
       "funded": [
         "CLOV",
-        "ULCC"
+        "BWET"
       ]
     },
     {
@@ -2108,11 +1774,9 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
         "PRAX",
-        "REGN",
-        "SPXC",
-        "ULCC"
+        "QBTS",
+        "REGN"
       ],
       "funded": []
     },
@@ -2122,11 +1786,9 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
         "PRAX",
-        "REGN",
-        "SPXC",
-        "ULCC"
+        "QBTS",
+        "REGN"
       ],
       "funded": []
     },
@@ -2136,11 +1798,9 @@
         "BWET",
         "CLOV",
         "CSLLY",
-        "IONQ",
         "PRAX",
-        "REGN",
-        "SPXC",
-        "ULCC"
+        "QBTS",
+        "REGN"
       ],
       "funded": []
     }
@@ -2440,104 +2100,6 @@
       1,
       1
     ],
-    "IONQ": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1
-    ],
     "PRAX": [
       0,
       0,
@@ -2619,6 +2181,104 @@
       0,
       0,
       0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "QBTS": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
       1,
       1,
       1,
@@ -2734,125 +2394,7 @@
       1,
       1
     ],
-    "SPXC": [
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1
-    ],
-    "ULCC": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+    "VST": [
       0,
       0,
       0,
@@ -2928,7 +2470,27 @@
       1,
       1,
       1,
-      1
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "retrieval": {
@@ -2978,604 +2540,266 @@
     "max_watchlist_size": 12
   },
   "arcs": {
-    "SPXC": [
-      {
-        "date": "2026-02-13",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains live as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. SPX Technologies (SPXC) appears well-positioned based on initial analysis.",
-        "exit_advice": "Continue tracking the evolution of data center infrastructure as the catalyst remains unresolved."
-      },
-      {
-        "date": "2026-02-20",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "thesis remains valid with no new developments or exit triggers this week",
-        "exit_advice": "continue holding as the catalyst remains pending and no resolution has occurred"
-      },
-      {
-        "date": "2026-02-27",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains pending with no significant resolution or decay observed. The recent news does not directly impact the core thesis of data center infrastructure evolution, though the Constellation Energy deal underscores broader infrastructure activity.",
-        "exit_advice": "Continue monitoring the evolution of data center infrastructure for potential developments or shifts in the thesis."
-      },
-      {
-        "date": "2026-03-06",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "Thesis remains valid with no resolution or decay observed. Broader infrastructure activity, particularly in utilities and quantum computing, aligns with the thesis but does not directly impact it.",
-        "exit_advice": "Continue monitoring for developments in data center infrastructure evolution; no exit triggers identified yet."
-      },
-      {
-        "date": "2026-03-13",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. While broader infrastructure and utility activity is increasing, there have been no direct developments that resolve or decay the specific catalyst.",
-        "exit_advice": "Continue monitoring for direct developments in data center infrastructure evolution, particularly any major policy shifts, technological breakthroughs, or significant capital deployments that could resolve the catalyst."
-      },
-      {
-        "date": "2026-03-20",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid with no direct developments impacting the core catalyst of data center infrastructure evolution.",
-        "exit_advice": "Continue holding as the catalyst remains pending with no resolution or decay observed."
-      },
-      {
-        "date": "2026-03-27",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. There have been no direct developments or resolutions impacting the core thesis this week.",
-        "exit_advice": "hold"
-      },
-      {
-        "date": "2026-04-03",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains pending with no significant resolution or decay observed this week. Broad infrastructure activity continues, but no direct developments impact the core thesis.",
-        "exit_advice": "No exit trigger observed. Continue monitoring for direct developments related to data center infrastructure evolution."
-      },
-      {
-        "date": "2026-04-10",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst.",
-        "exit_advice": "continue holding; the catalyst remains pending with no significant resolution or decay observed"
-      },
-      {
-        "date": "2026-04-17",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid with no direct developments impacting the core catalyst of data center infrastructure evolution. Broader infrastructure activity continues but does not resolve or decay the specific catalyst.",
-        "exit_advice": "Continue monitoring for direct developments related to data center infrastructure evolution, as the catalyst remains pending."
-      },
-      {
-        "date": "2026-04-24",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid with no direct developments impacting the core catalyst. Broader infrastructure activity, including the $24bn Digital Finance Revolution in Australia, aligns with but does not resolve the specific catalyst. SPX Technologies (SPXC) remains the purest vehicle aligned with the thesis.",
-        "exit_advice": "continue holding as the catalyst\u2014positioning for data center infrastructure evolution\u2014remains pending with no resolution or decay observed"
-      },
-      {
-        "date": "2026-05-01",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst.",
-        "exit_advice": "Continue holding as the catalyst remains pending with no resolution or decay observed."
-      },
-      {
-        "date": "2026-05-08",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains pending, with no direct developments impacting the core thesis of data center infrastructure evolution. SPXC remains the purest vehicle aligned with the thesis.",
-        "exit_advice": "Hold position until the catalyst resolves or decays."
-      },
-      {
-        "date": "2026-05-15",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as there has been no resolution or decay of the specific catalyst. Broader infrastructure activity continues but does not directly impact or resolve the core thesis. SPXC remains the purest vehicle aligned with the thesis.",
-        "exit_advice": "Continue holding as the catalyst\u2014positioning for data center infrastructure evolution\u2014remains pending with no direct developments impacting the core thesis."
-      },
-      {
-        "date": "2026-05-22",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid with no direct developments impacting the core catalyst of data center infrastructure evolution. SPXC continues to be the purest vehicle aligned with the thesis.",
-        "exit_advice": "Continue holding as the catalyst remains pending with no resolution or decay observed. Monitor for any direct developments related to data center infrastructure evolution."
-      },
-      {
-        "date": "2026-05-29",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst.",
-        "exit_advice": "No direct developments impacting the core thesis of data center infrastructure evolution. SPXC remains the purest vehicle aligned with the thesis. Continue holding until the specific catalyst resolves or decays."
-      },
-      {
-        "date": "2026-06-05",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst.",
-        "exit_advice": "Continue monitoring for direct developments related to data center infrastructure evolution. Exit if the catalyst resolves or decays."
-      },
-      {
-        "date": "2026-06-12",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst.",
-        "exit_advice": "Continue monitoring for direct developments related to data center infrastructure evolution. Exit if the catalyst resolves or decays."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid with no direct developments impacting the core catalyst of data center infrastructure evolution. SPXC continues to be the purest vehicle aligned with the thesis.",
-        "exit_advice": "Continue holding as the catalyst remains pending with no resolution or decay observed."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst. SPXC continues to be the purest vehicle aligned with the thesis.",
-        "exit_advice": "Continue monitoring for direct developments related to data center infrastructure evolution. The catalyst remains pending with no resolution or decay observed."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The thesis remains valid as the catalyst\u2014positioning for data center infrastructure evolution\u2014is still pending. No direct developments have impacted the core thesis this week, and broader infrastructure activity continues without resolving or decaying the specific catalyst. SPXC continues to be the purest vehicle aligned with the thesis.",
-        "exit_advice": "Continue monitoring for direct developments impacting the data center infrastructure evolution catalyst. Exit if the catalyst resolves or decays."
-      }
-    ],
-    "IONQ": [
-      {
-        "date": "2026-02-13",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector is experiencing volatility and skepticism, but the long-term growth potential remains. IonQ continues to be the primary pure-play vehicle.",
-        "exit_advice": "Hold; the quantum computing growth potential remains intact as the technology is still in its early stages and no major catalyst resolution has occurred."
-      },
-      {
-        "date": "2026-02-20",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector remains volatile, but IonQ continues to be the primary pure-play vehicle for capturing growth potential in this emerging technology.",
-        "exit_advice": "Continue monitoring the quantum computing sector for developments that could impact IonQ's growth potential."
-      },
-      {
-        "date": "2026-02-27",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector remains volatile with mixed sentiment, but the long-term growth potential persists. IonQ continues to be the primary pure-play vehicle for this theme.",
-        "exit_advice": "Monitor for any significant technological breakthroughs or major shifts in market sentiment towards quantum computing."
-      },
-      {
-        "date": "2026-03-06",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector remains volatile but the long-term growth potential persists. IonQ continues to be the primary pure-play vehicle for this theme.",
-        "exit_advice": "Continue monitoring the quantum computing sector for any significant developments or shifts in sentiment that could impact the long-term growth potential."
-      },
-      {
-        "date": "2026-03-13",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector remains volatile but the long-term growth potential persists. IonQ continues to be the primary pure-play vehicle for this theme. The recent news indicates increasing media coverage and investor interest, which could lead to overvaluation risks.",
-        "exit_advice": "Monitor for mainstream hype or sector-wide loss of interest, which could signal overvaluation or fading growth potential."
-      },
-      {
-        "date": "2026-03-20",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news indicates increasing media coverage and investor interest, which could lead to overvaluation risks but does not yet signal a resolution of the catalyst.",
-        "exit_advice": "Monitor for signs of overvaluation or mainstream hype that could indicate the sector is becoming crowded, but the long-term growth potential in quantum computing remains intact."
-      },
-      {
-        "date": "2026-03-27",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news indicates increasing media coverage and investor interest, which could lead to overvaluation risks but does not yet signal a resolution of the catalyst.",
-        "exit_advice": "Monitor for signs of overvaluation or mainstream hype that could indicate the catalyst is fully priced in."
-      },
-      {
-        "date": "2026-04-03",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential remains intact, with IonQ still the primary pure-play vehicle. Recent news does not impact the quantum computing catalyst.",
-        "exit_advice": "Continue monitoring for signs of overvaluation or sector maturation that could signal the end of the growth potential thesis."
-      },
-      {
-        "date": "2026-04-10",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential continues to persist, with IonQ remaining the purest vehicle. No fresh news this week, but the catalyst remains intact.",
-        "exit_advice": "Hold, as the quantum computing growth catalyst remains unresolved."
-      },
-      {
-        "date": "2026-04-17",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential continues to persist, with IonQ remaining the purest vehicle. No fresh news this week, but the catalyst remains intact.",
-        "exit_advice": "Hold as the catalyst remains intact and the quantum computing growth potential persists."
-      },
-      {
-        "date": "2026-04-24",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential remains intact, with IonQ still the primary pure-play vehicle. No fresh news this week, but the catalyst remains pending.",
-        "exit_advice": "Continue monitoring for any signs of the quantum computing growth potential being fully priced in or a fundamental shift in the sector's outlook."
-      },
-      {
-        "date": "2026-05-01",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential remains intact, with IonQ still the primary pure-play vehicle. No fresh news this week, but the catalyst remains pending.",
-        "exit_advice": "Continue monitoring for any resolution of the quantum computing growth potential catalyst or signs of overvaluation in the sector."
-      },
-      {
-        "date": "2026-05-08",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential continues to persist, with IonQ remaining the primary pure-play vehicle. No fresh news this week impacts the quantum computing catalyst directly.",
-        "exit_advice": "Maintain position; the quantum computing growth catalyst remains intact."
-      },
-      {
-        "date": "2026-05-15",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Monitor for signs of overvaluation or mainstream hype, but the quantum computing growth catalyst remains intact."
-      },
-      {
-        "date": "2026-05-22",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Continue holding as the quantum computing catalyst remains pending with no resolution yet."
-      },
-      {
-        "date": "2026-05-29",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Continue holding as the quantum computing growth potential catalyst remains pending with no resolution in sight."
-      },
-      {
-        "date": "2026-06-05",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Continue holding as the quantum computing growth potential catalyst remains pending and the sector's long-term growth potential persists."
-      },
-      {
-        "date": "2026-06-12",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential remains intact, with IonQ still the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Continue monitoring for signs of overvaluation or mainstream hype that could signal the end of the catalyst's edge."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector continues to show long-term growth potential, with IonQ remaining the primary pure-play vehicle. Recent news highlights increasing media coverage and investor interest, but the catalyst remains pending.",
-        "exit_advice": "Continue holding as the quantum computing growth potential catalyst remains pending and the sector's long-term growth potential persists."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential persists, with IonQ remaining the primary pure-play vehicle. No fresh news this week impacts the catalyst directly.",
-        "exit_advice": "Continue monitoring for signs of catalyst resolution or sector overvaluation, but maintain position as the long-term growth potential remains intact."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The quantum computing sector's long-term growth potential persists, with IonQ remaining the primary pure-play vehicle. Recent news does not impact the quantum computing catalyst directly.",
-        "exit_advice": "Continue holding as the quantum computing growth potential catalyst remains pending and no significant news directly impacts the thesis."
-      }
-    ],
     "BWET": [
       {
         "date": "2026-02-20",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to oil-freight demand. BWET is the purest vehicle for this exposure.",
-        "exit_advice": "Continue monitoring tanker rates and oil-freight demand trends for any signs of reversal or catalyst resolution."
+        "assessment": "Tanker rates are rising, driving significant performance in BWET, which remains the primary vehicle for this event.",
+        "exit_advice": "Monitor for signs of plateauing or declining tanker rates, as well as shifts in oil supply/demand dynamics that could impact freight demand."
       },
       {
         "date": "2026-02-27",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with no signs of resolution or decay. BWET continues to be the purest vehicle for exposure to surging tanker rates due to oil-freight demand.",
-        "exit_advice": "Continue monitoring tanker rates and oil-freight demand for signs of resolution or decay in the catalyst."
+        "assessment": "BWET continues to be the purest vehicle for this event, with tanker rates driving its performance. No new developments this week to alter the thesis.",
+        "exit_advice": "Hold; tanker rates remain on a rising trajectory with no signs of reversal or resolution."
       },
       {
         "date": "2026-03-06",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "No signs of resolution or decay in the catalyst. Continue monitoring for any developments that may impact tanker rates."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions potentially further supporting the thesis. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring tanker rates and geopolitical developments for signs of resolution or decay in the catalyst."
       },
       {
         "date": "2026-03-13",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Monitor for signs of tanker rate stabilization or decline, geopolitical developments affecting oil freight, and shifts in oil demand."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring tanker rates and geopolitical tensions for signs of resolution or decay in the catalyst."
       },
       {
         "date": "2026-03-20",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue holding BWET as the catalyst remains active with no signs of resolution or decay."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring for signs of stabilization or reversal in tanker rates, particularly from geopolitical developments or shifts in global trade patterns."
       },
       {
         "date": "2026-03-27",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend. The drop in oil prices mentioned in the news does not directly indicate a resolution of the tanker rate surge or oil-freight demand.",
-        "exit_advice": "Continue monitoring for signs of resolution in tanker rates or oil-freight demand."
+        "assessment": "The thesis remains live with no signs of decay or resolution. Geopolitical tensions continue to support rising tanker rates, and BWET remains the purest vehicle for this event.",
+        "exit_advice": "The catalyst of rising tanker rates remains intact, and there is no evidence of resolution. Continue holding BWET as the primary vehicle."
       },
       {
         "date": "2026-04-03",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active. The recent news about mortgage rates rising due to geopolitical tensions does not directly impact the tanker rate surge or oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue holding BWET as the catalyst remains active with no resolution or decay observed."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
       },
       {
         "date": "2026-04-10",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Monitor for signs of declining oil-freight demand or resolution in tanker rate surge."
+        "assessment": "The catalyst remains live with no signs of decay or resolution. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Hold, as the catalyst of rising tanker rates remains intact and geopolitical tensions continue to support the thesis."
       },
       {
         "date": "2026-04-17",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst persists with no signs of resolution or decay. Tanker rates continue to surge, driven by oil-freight demand. BWET remains the purest vehicle for this exposure.",
-        "exit_advice": "Continue holding BWET as tanker rates remain elevated due to sustained oil-freight demand."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring for signs of geopolitical resolution or a decline in tanker rates, which would signal the end of the thesis."
       },
       {
         "date": "2026-04-24",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates continuing to surge due to persistent oil-freight demand. There is no indication of resolution or decay in the catalyst, and BWET remains the purest vehicle for exposure to this trend.",
-        "exit_advice": "Monitor for signs of tanker rate normalization or declining oil-freight demand."
+        "assessment": "the catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET continues to be the purest vehicle for this event",
+        "exit_advice": "continue to monitor the situation closely, especially geopolitical developments in the Middle East"
       },
       {
         "date": "2026-05-01",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active with no signs of resolution or decay. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue monitoring for signs of resolution or decay in tanker rates or oil-freight demand. Exit if either the catalyst resolves or the trend shows clear signs of reversal."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for any signs of resolution or decay."
       },
       {
         "date": "2026-05-08",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active with no signs of resolution or decay. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue monitoring for signs of resolution in tanker rates or oil-freight demand."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue to monitor geopolitical tensions and tanker rates for signs of resolution or decay."
       },
       {
         "date": "2026-05-15",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active. BWET continues to be the purest vehicle for exposure to this trend. There is no news this week that directly impacts the tanker rate surge or oil-freight demand.",
-        "exit_advice": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. There is no indication of resolution or decay in the catalyst. Hold position until there is a clear sign of resolution or decay in the catalyst."
+        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
       },
       {
         "date": "2026-05-22",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with no signs of resolution or decay in tanker rates surging due to oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue holding BWET as the catalyst of surging tanker rates due to oil-freight demand remains active. Monitor for any signs of resolution or decay in the catalyst."
+        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends. Exit if tensions ease or tanker rates stabilize/decline significantly."
       },
       {
         "date": "2026-05-29",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains active with tanker rates surging due to persistent oil-freight demand. There is no indication of resolution or decay in the catalyst, and BWET remains the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue holding BWET as the catalyst of surging tanker rates due to oil-freight demand remains active with no signs of resolution or decay."
+        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue holding as the catalyst remains intact with no signs of resolution or decay."
       },
       {
         "date": "2026-06-05",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains intact, and BWET continues to be the purest vehicle for exposure to this trend. There is no relevant news this week that impacts the tanker rate surge or oil-freight demand.",
-        "exit_advice": "Continue holding BWET as the catalyst of surging tanker rates due to oil-freight demand remains active with no signs of resolution or decay."
+        "assessment": "The catalyst of rising tanker rates remains intact, with ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue holding BWET as the catalyst of rising tanker rates remains intact and geopolitical tensions in the Middle East continue to support the thesis."
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "exit_case": "Potential US-Iran peace deal could reduce oil tensions, indirectly easing tanker rate pressures.",
+        "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active, but the potential US-Iran peace deal introduces uncertainty. If tensions ease, it could indirectly reduce demand for oil freight, thereby easing tanker rate pressures. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Monitor developments related to the US-Iran peace talks closely, as any progress could impact oil-freight demand and tanker rates."
+        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring for signs of resolution in geopolitical tensions or a decline in tanker rates."
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "exit_case": "Potential US-Iran peace deal may reduce oil freight demand, easing tanker rate pressures.",
+        "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active despite the potential US-Iran peace deal introducing uncertainty. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Monitor developments on the US-Iran peace deal closely, as its resolution could indirectly reduce oil freight demand and ease tanker rate pressures, potentially marking the end of the catalyst."
+        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
       },
       {
         "date": "2026-06-26",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active. The recent news about great power politics does not directly impact the tanker rate surge or oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue monitoring for signs of resolution in tanker rates or oil-freight demand, particularly any geopolitical developments that could ease tensions and reduce demand."
+        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event. No new developments this week alter the thesis.",
+        "exit_advice": "Continue holding BWET as the catalyst remains intact. Monitor for signs of geopolitical tensions easing or tanker rates stabilizing."
       },
       {
         "date": "2026-07-03",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of surging tanker rates due to oil-freight demand remains active with no signs of resolution or decay. The recent news about interest rates and savings accounts does not directly impact the tanker rate surge or oil-freight demand. BWET continues to be the purest vehicle for exposure to this trend.",
-        "exit_advice": "Continue monitoring for signs of resolution in tanker rates or oil-freight demand, particularly any developments related to geopolitical tensions or changes in oil supply/demand dynamics."
+        "assessment": "The catalyst of rising tanker rates remains intact, with no signs of resolution or decay. Geopolitical tensions, particularly in the Middle East, continue to support the thesis. BWET remains the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring geopolitical tensions and tanker rates, as they remain the core drivers of this thesis."
       }
     ],
-    "ULCC": [
+    "VST": [
+      {
+        "date": "2026-02-27",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with VST being the primary vehicle to watch. The news indicates mixed reactions in the market, but the specific catalyst has not yet resolved.",
+        "exit_advice": "Monitor VST's Q4 earnings impact on the AI-power trade closely, as the catalyst is still pending and the thesis remains live."
+      },
+      {
+        "date": "2026-03-06",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The Q4 earnings impact on the AI-power trade continues to evolve, with no resolution of the specific catalyst observed this week. VST remains the primary vehicle to watch, as there has been no significant change in the market conditions or news that would alter the thesis.",
+        "exit_advice": "Continue monitoring VST for developments related to Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved."
+      },
+      {
+        "date": "2026-03-13",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. VST remains the most suitable vehicle to monitor this event. The news about the Dallas-Fort Worth economy feeling the impact of the Iran war does not directly affect the AI-power trade thesis.",
+        "exit_advice": "Hold, as the Q4 earnings impact on the AI-power trade remains unresolved. The catalyst is still pending, and VST continues to be the appropriate vehicle."
+      },
+      {
+        "date": "2026-03-20",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Micron's earnings and the stock market rebound does not directly affect the AI-power trade thesis.",
+        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst has not yet resolved, and the thesis remains live."
+      },
       {
         "date": "2026-03-27",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "Frontier Airlines (ULCC) stock is up, possibly due to initial optimism or speculation about Gulf War easing, but the catalyst remains pending.",
-        "exit_advice": "Monitor for signs of Gulf War easing and its impact on fuel prices and travel demand."
+        "assessment": "The Q4 earnings impact on the AI-power trade remains unresolved, with no direct news this week affecting the thesis. VST continues to be the most appropriate vehicle to monitor this event.",
+        "exit_advice": "Continue monitoring the progression of the Q4 earnings impact on the AI-power trade, focusing on VST as the key vehicle."
       },
       {
         "date": "2026-04-03",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains pending with no new developments this week. The initial optimism may still be in play, but no concrete resolution has occurred.",
-        "exit_advice": "Continue monitoring for any developments related to Gulf War easing that could impact Frontier Airlines."
+        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about tariffs and geopolitical conflicts does not directly impact the AI-power trade thesis.",
+        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on AI-power trade. The catalyst remains unresolved, and there is no significant news this week that directly affects the thesis."
       },
       {
         "date": "2026-04-10",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, and there have been no significant developments or news coverage this week. Frontier Airlines (ULCC) is still the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring the Gulf War situation for signs of resolution or easing, as the catalyst remains pending."
+        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. There has been no direct news this week affecting the thesis, and VST remains the most appropriate vehicle to monitor this event.",
+        "exit_advice": "Continue to monitor VST as the primary vehicle for the Q4 earnings impact on the AI-power trade, as the specific catalyst remains unresolved."
       },
       {
         "date": "2026-04-17",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains pending with no new developments this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "The Gulf War easing catalyst remains unresolved, and there are no strong reasons to exit yet. Continue monitoring for developments."
+        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event.",
+        "exit_advice": "Continue monitoring VST for any developments related to the Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved."
       },
       {
         "date": "2026-04-24",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, and there have been no significant developments or news coverage this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for any developments related to Gulf War easing. Exit if the catalyst resolves or if there is significant decay in the thesis."
+        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Cohen and Steers' Q4 2025 earnings does not directly affect the AI-power trade thesis.",
+        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst remains unresolved, and there is no significant news this week that would alter the thesis."
       },
       {
         "date": "2026-05-01",
         "live": true,
-        "exit_case": "none",
+        "exit_case": "AI concerns resurfacing in the market may indicate the Q4 earnings impact has been priced in or is no longer a dominant driver",
         "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, and there have been no significant developments or news coverage this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for any developments related to Gulf War easing that could impact Frontier Airlines (ULCC). Exit if the catalyst resolves or if there is significant decay in the thesis."
+        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold, but the resurfacing of AI concerns in the market suggests the catalyst may be losing its edge. VST remains the primary vehicle to watch, but the thesis is becoming less clear as new market dynamics emerge.",
+        "exit_advice": "Monitor for further signs that the Q4 earnings impact on the AI-power trade is fully priced in or overshadowed by new market concerns"
       },
       {
         "date": "2026-05-08",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, and there have been no significant developments or news coverage this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for any developments related to Gulf War easing. Exit if the catalyst resolves or if there is a significant change in the geopolitical situation."
-      },
-      {
-        "date": "2026-05-15",
-        "live": true,
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains pending with no new developments this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue to monitor for developments regarding Gulf War easing, as the catalyst remains unresolved."
-      },
-      {
-        "date": "2026-05-22",
-        "live": true,
-        "exit_case": "Gulf War easing remains unresolved \u2014 no developments yet",
-        "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains pending with no new developments this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event.",
-        "exit_advice": "Hold until resolution of Gulf War easing"
-      },
-      {
-        "date": "2026-05-29",
-        "live": true,
-        "exit_case": "Initial optimism may have priced in Gulf War easing prospects already.",
-        "resolved": false,
-        "assessment": "The catalyst remains pending, with no significant developments this week. Frontier Airlines (ULCC) continues to be the purest vehicle for this event, but initial optimism may have already priced in the potential easing.",
-        "exit_advice": "Monitor for concrete signs of Gulf War easing or loss of momentum."
-      },
-      {
-        "date": "2026-06-05",
-        "live": true,
-        "exit_case": "Initial optimism may have already priced in the potential easing, with no new developments for weeks.",
-        "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, but the lack of new developments and potential pricing in of initial optimism suggests the thesis may be losing steam.",
-        "exit_advice": "Monitor for any new developments on Gulf War easing, but consider exiting if the catalyst remains stagnant for another week."
-      },
-      {
-        "date": "2026-06-12",
         "live": false,
-        "exit_case": "Initial optimism may have already priced in the potential Gulf War easing, with no new developments to sustain the thesis.",
+        "exit_case": "The AI-power trade has become mainstream and crowded, with options traders and media heavily focusing on it, suggesting the catalyst may have lost its edge.",
         "resolved": false,
-        "assessment": "The Gulf War easing catalyst remains unresolved, but the lack of new developments and potential pricing in of initial optimism suggests the thesis may no longer be viable. Frontier Airlines (ULCC) continues to be the purest vehicle for this event, but the lack of progress on the catalyst makes the thesis less compelling.",
-        "exit_advice": "Consider exiting as the catalyst has not materialized and initial optimism may have already been priced in, with no new developments to sustain the thesis."
+        "assessment": "The Q4 earnings impact on the AI-power trade has evolved into a mainstream narrative, with options traders and media heavily focusing on it. This suggests the catalyst may have lost its original edge, even though the specific Q4 earnings event has not been resolved.",
+        "exit_advice": "Consider exiting the position as the AI-power trade has become mainstream and crowded, potentially diminishing the original edge."
+      }
+    ],
+    "CEG": [
+      {
+        "date": "2026-02-27",
+        "live": false,
+        "exit_case": "none",
+        "resolved": true,
+        "assessment": "The deal was announced on February 9 and reported by Reuters and other outlets, confirming the catalyst has passed. While CEG may still benefit from broader momentum, the specific thesis tied to this deal is no longer actionable.",
+        "exit_advice": "The catalyst (380-megawatt deal with CyrusOne) has already occurred and been reported, making it public and priced. Exit the position as the specific event driving the thesis is resolved."
       }
     ],
     "CSLLY": [
@@ -3584,112 +2808,112 @@
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs have been announced, but the full impact on CSL Limited (CSLLY) is still unfolding. The company's ability to negotiate or adapt to these tariffs will be key.",
-        "exit_advice": "Monitor for any deals or exemptions that CSL Limited (CSLLY) might secure with the Trump administration to lower prices and avoid the tariffs."
+        "assessment": "This week marked the announcement of the 100% tariff on some patented pharmaceuticals by Trump, as reported across multiple news outlets. This is the initial catalyst for the event, and its effects on the pharmaceutical market, particularly foreign manufacturers, are just beginning to materialize.",
+        "exit_advice": "The catalyst remains live as the 100% tariff on foreign pharma has been announced but its full impact and market reaction are still unfolding. Monitor for further developments and price adjustments in the pharmaceutical sector."
       },
       {
         "date": "2026-04-10",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs have been announced but the full impact on CSL Limited (CSLLY) is still unfolding. The company's ability to negotiate or adapt to these tariffs will be key. No fresh coverage this week suggests the market is still digesting the news.",
-        "exit_advice": "Continue monitoring for any developments regarding the implementation or negotiation of the tariffs, as well as CSL Limited's response."
+        "assessment": "No significant news this week, but the tariff's implications remain active and unresolved.",
+        "exit_advice": "Hold, as the tariff's impact on foreign pharma is still unfolding"
       },
       {
         "date": "2026-04-17",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs have been announced but the full impact on CSL Limited (CSLLY) is still unfolding. The market is still digesting the news, and there is no fresh coverage this week to suggest any resolution or significant change in the situation.",
-        "exit_advice": "Continue monitoring for any developments regarding the implementation or negotiation of the 100% drug tariffs and their impact on CSL Limited."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments related to the tariff implementation or potential reversals."
       },
       {
         "date": "2026-04-24",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs have been announced but their full impact on CSLLY is still unfolding. The market is still digesting the news, and there is no fresh coverage to suggest any resolution or significant change in the situation.",
-        "exit_advice": "Continue monitoring for any developments related to the 100% drug tariffs and CSLLY's response or adaptation to them."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
       },
       {
         "date": "2026-05-01",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs remain pending with no resolution or significant market reaction yet. CSL Limited (CSLLY) continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Continue monitoring for signs of tariff implementation impact or potential negotiations."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Hold until there is a resolution or reversal of the 100% tariff on foreign pharmaceuticals."
       },
       {
         "date": "2026-05-08",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The tariffs remain pending with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Hold for now, as the tariffs remain unresolved and the market is still digesting the impact. Monitor for any negotiations or adaptations by CSL Limited."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
       },
       {
         "date": "2026-05-15",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "the 100% drug tariffs remain pending with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved",
-        "exit_advice": "continue monitoring for any signs of tariff resolution or CSLLY's adaptation strategy"
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals, as the catalyst remains unresolved."
       },
       {
         "date": "2026-05-22",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Continue monitoring for any signs of resolution or adaptation by CSLLY to the tariffs."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
       },
       {
         "date": "2026-05-29",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Continue monitoring for any developments on the 100% drug tariffs, as the catalyst remains unresolved and the market impact is still unfolding."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. Exit if the tariff is repealed or significantly modified."
       },
       {
         "date": "2026-06-05",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Continue to monitor for any resolution or significant market reaction to the 100% drug tariffs."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals."
       },
       {
         "date": "2026-06-12",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved. The market is still digesting the news, and there is no fresh coverage to suggest any resolution or significant change in the situation.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% drug tariffs and their impact on CSLLY. Exit if the tariffs are repealed or significantly modified, or if CSLLY announces a clear adaptation strategy that mitigates the tariff impact."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
       },
       {
         "date": "2026-06-19",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect with no resolution or significant market reaction. CSLLY continues to be the purest vehicle for this event, and the thesis remains live as the catalyst has not resolved.",
-        "exit_advice": "Continue holding as the 100% drug tariffs remain in effect with no resolution or significant market reaction."
+        "assessment": "The 100% tariff on foreign pharmaceuticals continues to be in effect with no new developments this week. The catalyst remains pending resolution, and the implications for the market are still active.",
+        "exit_advice": "Continue monitoring for any developments related to the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "exit_case": "Tariffs remain in effect with no resolution or significant market reaction.",
+        "exit_case": "none",
         "resolved": false,
-        "assessment": "The 100% drug tariffs announced by Trump remain in effect, and CSLLY continues to be the purest vehicle for this event. The thesis remains live as the catalyst has not resolved, and there is no fresh coverage to suggest any resolution or significant change in the situation.",
-        "exit_advice": "Continue monitoring for any resolution or significant market reaction."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "exit_case": "The tariffs have been in effect for three months with no significant market reaction or resolution, suggesting the catalyst may have already been priced in.",
+        "exit_case": "none",
         "resolved": false,
-        "assessment": "The tariffs remain in effect, but the lack of significant market reaction over three months suggests the catalyst may be losing its edge. CSLLY continues to be the purest vehicle for this event.",
-        "exit_advice": "Monitor for signs the market fully prices in the tariffs or for negotiations that could resolve the situation."
+        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
+        "exit_advice": "Continue monitoring for any developments regarding the tariff, as the catalyst remains unresolved."
       }
     ],
     "CLOV": [
@@ -3698,24 +2922,98 @@
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of winning the lawsuit on Star Ratings has just occurred, and the stock has reacted positively. The thesis remains live as the full implications of the lawsuit win are still being absorbed by the market.",
-        "exit_advice": "Monitor for any legal challenges or appeals to the lawsuit outcome that could reverse the positive impact on CLOV."
+        "assessment": "The catalyst event (lawsuit win) has just occurred, and the stock has reacted positively. The thesis remains live as the full implications of the lawsuit win are still being absorbed by the market.",
+        "exit_advice": "Monitor for any legal appeals or further developments in the lawsuit that could reverse the initial win."
       },
       {
         "date": "2026-06-05",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst remains live as the market continues to digest the implications of the Star Ratings lawsuit win. No new developments have emerged this week that would indicate the thesis is fully priced in or resolved.",
-        "exit_advice": "Continue monitoring the market's absorption of the lawsuit win's implications."
+        "assessment": "The catalyst remains live with no new developments this week. The stock's reaction to the lawsuit win is still unfolding.",
+        "exit_advice": "Continue holding as the market is still digesting the implications of the lawsuit win."
       },
       {
         "date": "2026-06-12",
-        "live": false,
-        "exit_case": "The market has already reacted to the lawsuit win, potentially pricing in the news fully",
-        "resolved": true,
-        "assessment": "The lawsuit win is now a resolved event, and the market likely reflects its full implications",
-        "exit_advice": "Consider exiting, as the catalyst has been resolved and the market appears to have priced in the lawsuit win"
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
+        "exit_advice": "Continue holding as the market continues to absorb the implications of the lawsuit win."
+      },
+      {
+        "date": "2026-06-19",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
+        "exit_advice": "Continue to monitor for any new developments or signs that the market has fully priced in the lawsuit win."
+      },
+      {
+        "date": "2026-06-26",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
+        "exit_advice": "Continue monitoring for any new developments related to the lawsuit win or signs of market fully pricing in the event."
+      },
+      {
+        "date": "2026-07-03",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
+        "exit_advice": "Hold as the catalyst remains unresolved and the thesis is still live."
+      }
+    ],
+    "QBTS": [
+      {
+        "date": "2026-05-29",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The $2B quantum funding announcement has sparked optimism in quantum computing stocks, with QBTS emerging as a key beneficiary. The news cycle highlights ongoing enthusiasm and speculation, but the full impact of the funding is yet to materialize, leaving room for further developments.",
+        "exit_advice": "Hold; catalyst remains pending as funding program implications unfold."
+      },
+      {
+        "date": "2026-06-05",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The $2B US government quantum funding catalyst remains live, with no resolution or decay observed in the news cycle or journal. QBTS continues to be the purest vehicle, benefiting from ongoing optimism in the sector. Recent IPO activity and stock-specific news (e.g., D-Wave Quantum's crash) highlight sector volatility but do not impact the core thesis.",
+        "exit_advice": "Continue holding as the $2B quantum funding catalyst remains pending, with no evidence of resolution or decay. Stay alert for signs of crowding or mainstream hype, which could indicate overexposure."
+      },
+      {
+        "date": "2026-06-12",
+        "live": true,
+        "exit_case": "Mainstream hype and crowding around quantum computing stocks suggests enthusiasm may be peaking.",
+        "resolved": false,
+        "assessment": "The catalyst remains live, but the increasing mainstream attention to quantum computing stocks, as highlighted in recent news, raises the risk of overexuberance. QBTS continues to be the purest play on the theme.",
+        "exit_advice": "Monitor for signs of the $2B quantum funding being formally allocated or any shift in sentiment that could precede a sector-wide pullback."
+      },
+      {
+        "date": "2026-06-19",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The $2B quantum funding catalyst remains live with no resolution or decay observed. QBTS continues to be the purest vehicle, despite recent volatility and insider selling. The sector is gaining mainstream attention, but the core thesis remains intact.",
+        "exit_advice": "Monitor for signs of mainstream hype or sector-wide overexuberance, which could indicate the catalyst is fully priced in."
+      },
+      {
+        "date": "2026-06-26",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The $2B US government quantum funding catalyst remains active, with no signs of resolution or decay. QBTS continues to be the purest vehicle for this event, despite sector volatility and increasing mainstream attention.",
+        "exit_advice": "Continue holding QBTS as the $2B quantum funding catalyst remains live with no resolution or decay observed."
+      },
+      {
+        "date": "2026-07-03",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The $2B US government quantum funding catalyst is still pending, and QBTS remains the optimal vehicle. No new developments this week suggest any change in the thesis.",
+        "exit_advice": "The $2B quantum funding catalyst remains live with no signs of resolution or decay. Continue holding QBTS as the purest vehicle for this event."
       }
     ],
     "PRAX": [
@@ -3724,7 +3022,7 @@
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings have been shared, but the full implications and next steps are still pending. The catalyst is still live as the study results are being digested and potential regulatory or partnership moves are yet to unfold.",
+        "assessment": "The Phase 2/3 POWER1 study findings have been shared, but the full implications and next steps are still pending. The catalyst remains live as the study results are being analyzed and potential regulatory pathways are being considered.",
         "exit_advice": "Monitor for further updates on the POWER1 study findings and any subsequent regulatory or clinical developments."
       },
       {
@@ -3732,32 +3030,32 @@
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings remain the central catalyst, and no resolution or decay of this catalyst has occurred. PRAX continues to be the appropriate vehicle as it is directly tied to the study.",
-        "exit_advice": "Continue to monitor for developments related to the POWER1 study findings, including regulatory updates or partnership announcements."
+        "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
+        "exit_advice": "Continue monitoring for further updates on the POWER1 study findings and potential regulatory pathways."
       },
       {
         "date": "2026-06-19",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings continue to be the central catalyst, with no resolution or decay observed. PRAX remains the appropriate vehicle as it is directly tied to the study.",
-        "exit_advice": "Continue holding as the Phase 2/3 POWER1 study findings catalyst remains unresolved."
+        "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
+        "exit_advice": "Continue monitoring for any updates on the Phase 2/3 POWER1 study findings and potential regulatory pathways."
       },
       {
         "date": "2026-06-26",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings remain the central catalyst, with no resolution or decay observed. PRAX continues to be the appropriate vehicle as it is directly tied to the study.",
-        "exit_advice": "Continue monitoring for any developments related to the Phase 2/3 POWER1 study findings, including regulatory updates or partnership announcements."
+        "assessment": "The catalyst remains live with no resolution or decay observed. The Phase 2/3 POWER1 study findings are still being analyzed, and potential regulatory pathways are under consideration.",
+        "exit_advice": "Hold as the Phase 2/3 POWER1 study findings are still under analysis and no resolution or decay has occurred."
       },
       {
         "date": "2026-07-03",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings remain the central catalyst, with no resolution or decay observed. PRAX continues to be the appropriate vehicle as it is directly tied to the study.",
-        "exit_advice": "Continue monitoring the POWER1 study's implications and any potential regulatory or partnership developments."
+        "assessment": "The catalyst remains live with no significant developments indicating resolution or decay. The Phase 2/3 POWER1 study findings are still under analysis, and regulatory pathways are still under consideration.",
+        "exit_advice": "Continue to monitor as the Phase 2/3 POWER1 study findings are still being analyzed and no resolution or decay has occurred."
       }
     ],
     "REGN": [
@@ -3766,32 +3064,32 @@
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The WHO's support for REGN's antibody therapy is a strong initial catalyst, but the full impact depends on further deployment and adoption in the Ebola outbreak.",
-        "exit_advice": "Monitor for WHO's formal endorsement or deployment of REGN's antibody therapy in the Ebola outbreak."
+        "assessment": "The catalyst is still pending as WHO's support has been announced but formal approval or widespread deployment has not yet occurred. REGN remains the purest vehicle for this event.",
+        "exit_advice": "Monitor for WHO's formal approval or rejection of the therapy, as well as any significant developments in the Ebola outbreak that could affect demand."
       },
       {
         "date": "2026-06-19",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The initial WHO support remains a valid catalyst, but the full impact is still pending further developments in the Ebola outbreak.",
-        "exit_advice": "Continue monitoring for further WHO deployment and adoption updates."
+        "assessment": "The catalyst remains pending, with no resolution or decay observed this week. REGN continues to be the purest vehicle for this event.",
+        "exit_advice": "Hold as the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred."
       },
       {
         "date": "2026-06-26",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The initial WHO support for REGN's antibody therapy remains a valid catalyst, but the full impact is still pending further developments in the Ebola outbreak. No fresh coverage this week indicates no new developments to alter the thesis.",
-        "exit_advice": "Continue monitoring for further developments in WHO support and Ebola outbreak response."
+        "assessment": "The catalyst remains pending with no new developments this week. REGN continues to be the purest vehicle for this event.",
+        "exit_advice": "Continue monitoring for WHO's formal approval or widespread deployment of the Ebola antibody therapy. Exit if the catalyst resolves or shows signs of decay."
       },
       {
         "date": "2026-07-03",
         "live": true,
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The initial WHO support for REGN's antibody therapy remains a valid catalyst, but there have been no new developments this week to alter the thesis. The news this week is unrelated to the Ebola outbreak or REGN's therapy.",
-        "exit_advice": "Continue monitoring for further developments in the Ebola outbreak and WHO's deployment of REGN's antibody therapy."
+        "assessment": "The catalyst remains unresolved, with no new developments this week. REGN continues to be the purest vehicle for this event.",
+        "exit_advice": "Hold; the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred, keeping the catalyst pending."
       }
     ]
   }

@@ -1,0 +1,362 @@
+{
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [],
+  "2026-02-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Signs 380MW power deal with CyrusOne for AI data centers",
+      "thesis_live": false,
+      "exit_case": "Deal signed on Feb 9 and reported before entry; catalyst already resolved.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst\u2014the signing of a 380MW power deal with CyrusOne for AI data centers\u2014occurred on February 9, 2026, and was reported on February 26 before entry on February 27. This makes the event public and priced, leaving no event-driven edge. The broader AI-power theme may persist, but the specific catalyst is resolved.",
+      "exit_advice": "Exit the position immediately as the catalyst is no longer pending.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-27-vistra-corp-vst-q4-earnings-analysis-reality-check-for-the-ai-power-trade",
+        "https://finance.yahoo.com/news/morgan-stanley-keeps-overweight-rating-033811168.html",
+        "https://telecom.economictimes.indiatimes.com/news/internet/no-listed-ai-giants-data-centre-and-power-stocks-rally-as-india-pushes-global-ai-hub-ambition/128696403"
+      ]
+    }
+  ],
+  "2026-03-06": [],
+  "2026-03-13": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Initial entry on Hormuz chokepoint risk; BWET rising as Mideast tensions support elevated tanker day-rates. Catalyst remains pending with no resolution seen.",
+      "exit_advice": "Hold until clear signs of Hormuz risk de-escalation or sustained decline in tanker day-rates.",
+      "evidence_urls": [
+        "MarketWatch - 2026-03-13"
+      ]
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "No Hormuz escalation; catalyst decaying without new triggers.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk catalyst remains pending; BWET is pure-play on tanker day-rate spikes from Mideast tensions.",
+      "exit_advice": "Monitor for Iran-related escalation; exit if tensions de-escalate or tanker rates decline.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk catalyst remains pending; no resolution seen this week.",
+      "exit_advice": "Hold; monitor for geopolitical developments affecting Hormuz.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst pending with no resolution seen; tanker day-rates sustained by ongoing Mideast tensions.",
+      "exit_advice": "Hold; Hormuz chokepoint risk remains unresolved.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "No fresh coverage suggests Iran war catalyst is decaying rather than escalating \u2014 chokepoint risk not materializing.",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news this week. Hormuz chokepoint risk catalyst remains pending \u2014 no Iran war declared, no chokepoint physically blocked, no resolution. Tensions are latent without active escalation, but the catalyst has not closed. BWET remains the pure-play vehicle on tanker day-rates. Stale week, but thesis intact.",
+      "exit_advice": "Hold. Catalyst is pending with no resolution. Stale news flow warrants close monitoring \u2014 if another week passes with no escalation signal, assess whether the risk premium is decaying from the trade rather than building.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "No active Iran war; persistent risk priced in, catalyst decaying, edge gone.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker day-rates remain high due to persistent Gulf/Hormuz shipping risk from potential Iran conflict; no escalation to war or physical blockade, but risk sustains elevated rates.",
+      "exit_advice": "Hold position; catalyst remains pending as latent risk continues to support tanker day-rates, with no resolution in sight.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz tensions continue to affect markets, as seen in the Nasdaq dip due to geopolitical risk, sustaining elevated tanker day-rates without war or blockade resolution. Catalyst remains pending with latent but active risk.",
+      "exit_advice": "Continue holding; monitor for escalation to war or reduced tensions that could resolve catalyst. Current risk environment supports thesis.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/26/04/51930047/nasdaq-snaps-13-session-win-streak-on-hormuz-tensions-investor-sentiment-improves-further-fear-index-in-greed-zone"
+      ]
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "No active conflict or blockade; risk premium may have peaked without escalation.",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news this week. Hormuz chokepoint risk catalyst remains pending with latent tensions sustaining elevated tanker day-rates, but no active conflict or blockade has occurred.",
+      "exit_advice": "Monitor for Iran war escalation or geopolitical resolution that would directly impact Hormuz shipping risk.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Potential Hormuz breakthrough reports could resolve risk, reducing tanker day-rate support.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst pending but weakened by reports of potential Hormuz breakthrough, which if confirmed would reduce geopolitical risk and tanker day-rate support.",
+      "exit_advice": "Monitor for confirmation of breakthrough; if risk materially diminishes, reconsider position as catalyst may decay.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No confirmation of deal; catalyst remains purely speculative.",
+      "catalyst_resolved": false,
+      "assessment": "Intel stock moved on chip sector optimism, but Apple deal remains speculative with no concrete developments this week.",
+      "exit_advice": "Hold position until catalyst resolves via official deal announcement or denial.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Reports of Hormuz breakthrough weaken catalyst; no escalation over months suggests decay.",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news this week; Hormuz chokepoint risk catalyst remains pending with latent tensions, but unconfirmed breakthrough reports continue to weaken the thesis without resolution.",
+      "exit_advice": "Maintain position but monitor closely for breakthrough confirmation; exit if catalyst resolves.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Intel stock moved on chip sector optimism at entry, but the potential Apple deal remains speculative with no concrete developments this week; thesis is entirely pending on unconfirmed catalyst.",
+      "exit_advice": "Hold pending any concrete news or announcement regarding the Apple chip supply deal; no reason to exit yet as catalyst is still potential.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Unconfirmed Hormuz breakthrough reports indicate easing tensions, which may erode risk premium.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker day-rates remain elevated due to persistent Hormuz tensions, but unconfirmed breakthrough reports introduce downside risk; catalyst still pending.",
+      "exit_advice": "Hold; exit only if breakthrough is confirmed, de-escalating risk.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No credible sources or progress on Apple deal after entry; catalyst decaying from lack of substance.",
+      "catalyst_resolved": false,
+      "assessment": "Potential Apple deal remains speculative with no concrete developments after two weeks; Intel stock not moving on this catalyst.",
+      "exit_advice": "Hold but monitor closely; consider exiting if no credible reports emerge soon.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Unconfirmed breakthrough reports indicate risk fading; catalyst decaying without war or blockade.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk persists as latent tension sustaining tanker day-rates, but unconfirmed breakthrough reports weaken the catalyst without resolution.",
+      "exit_advice": "Exit on confirmed Hormuz de-escalation or if tanker day-rates normalize, signaling risk premium collapse.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No Apple deal developments after three weeks; catalyst decayed with zero concrete progress.",
+      "catalyst_resolved": false,
+      "assessment": "Intel thesis relies solely on unconfirmed Apple deal; three weeks without progress, stock moves on other factors like AI and quantum computing.",
+      "exit_advice": "Exit position due to prolonged lack of catalyst confirmation and speculative nature, despite pending status.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/real-estate/india-s-data-centre-vacancy-shrinks-as-ai-demand-outpaces-new-supply-13932510.html",
+        "https://www.insidermonkey.com/blog/is-intel-corporation-intc-among-the-best-performing-quantum-computing-stocks-so-far-in-2026-1768764/"
+      ]
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "US government announces $2 billion funding for quantum computing companies.",
+      "thesis_live": false,
+      "exit_case": "Catalyst announced; funding public, stocks pricing in, edge gone.",
+      "catalyst_resolved": true,
+      "assessment": "The US government announced $2 billion in funding for quantum computing companies, causing stock rallies. Since the catalyst is now public, the thesis is no longer live.",
+      "exit_advice": "Exit the position immediately as the specific funding announcement has already occurred and is priced into the market.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
+        "https://www.foreignpolicyjournal.com/2026/05/28/federal-funding-sparks-ionq-rally-as-short-squeeze-threat-looms-over-bearish-traders/",
+        "https://www.fool.com/investing/2026/05/28/quantum-computing-ionq-rgti-qbts-wall-st-warning/",
+        "https://www.insidermonkey.com/blog/honeywells-hon-quantum-isnt-a-science-project-asserts-jim-cramer-1769838/"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Unconfirmed breakthrough reports have eroded Hormuz war risk, making catalyst ineffective and thesis stale.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk remains pending but weakened by unconfirmed breakthrough reports; tanker day-rates sustained by latent Gulf tensions.",
+      "exit_advice": "Maintain position but prepare to exit if Hormuz tensions formally de-escalate or war risk dissipates entirely.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No progress on Apple deal for four weeks; catalyst appears increasingly unlikely or dead.",
+      "catalyst_resolved": false,
+      "assessment": "Intel stock moves on unrelated factors; Apple deal remains unconfirmed after four weeks with no developments, suggesting little market anticipation.",
+      "exit_advice": "Monitor for concrete news; consider exit if no progress in next 1-2 weeks to avoid capital stagnation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QNT",
+      "thesis": "US Commerce Dept $2B quantum push; Quantinuum IPO upsized to $1.68B",
+      "thesis_live": false,
+      "exit_case": "Quantinuum IPO completed and US $2B push announced; catalyst fully priced in.",
+      "catalyst_resolved": true,
+      "assessment": "The Quantinuum IPO closed on 2026-06-04 raising $1.68B, and the US Commerce Dept's $2B quantum push is public news. The event-driven catalyst is fully resolved, and the market has priced in both developments, eliminating any edge.",
+      "exit_advice": "Exit the position now; the catalyst is public and priced in, with no further event-driven upside.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/06/04/quantinuum-qnt-stock-first-trade-ipo.html",
+        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Unconfirmed breakthrough reports and prolonged latency without escalation weaken Hormuz chokepoint risk catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk remains pending with latent tension sustaining tanker rates, but no war or blockade yet. Unconfirmed reports add downside risk.",
+      "exit_advice": "Monitor for confirmed breakthrough or actual blockade; exit if risk dissipates further.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "Catalyst decayed; no developments after five weeks and market indifference.",
+      "catalyst_resolved": false,
+      "assessment": "Intel stock moves on unrelated factors; Apple deal remains unconfirmed after five weeks with no progress or market anticipation.",
+      "exit_advice": "Exit recommended due to catalyst decay and lack of market response.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Unconfirmed diplomatic breakthroughs persist, eroding war risk and reducing catalyst effectiveness.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz chokepoint risk catalyst remains pending; latent geopolitical tensions continue to support elevated tanker day-rates. However, unconfirmed diplomatic breakthrough reports have persistently weakened the thesis over recent weeks, indicating downside risk without formal resolution. The catalyst is decaying as no war or blockade has materialized.",
+      "exit_advice": "Hold with increased caution; monitor for concrete diplomatic resolution or escalation. The catalyst is decaying due to repeated unconfirmed reports, eroding risk premium.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No Apple deal progress after 6 weeks; catalyst seems abandoned by market.",
+      "catalyst_resolved": false,
+      "assessment": "Thesis remains live as Apple deal catalyst is unresolved, but six weeks without progress or market interest suggests decay.",
+      "exit_advice": "Consider exiting due to catalyst decay and lack of developments after extended period.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Actual Hormuz ship strike met muted reaction, suggesting risk premium already priced in and catalyst edge gone",
+      "catalyst_resolved": false,
+      "assessment": "Iran's strike near Hormuz escalates tensions but muted market response suggests tanker day-rate risk is fully priced in. Catalyst pending but edge weakening, consistent with journal's decaying trend.",
+      "exit_advice": "Consider exiting position as catalyst decaying and muted reaction indicates risk premium already incorporated; preserve gains from earlier entry.",
+      "evidence_urls": [
+        "https://www.actionforex.com/contributors/fundamental-analysis/645245-iran-strikes-ship-near-hormuz-reaction-muted/"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "No deal progress after 7 weeks; stock ignores catalyst, suggesting effective abandonment.",
+      "catalyst_resolved": false,
+      "assessment": "The Apple deal catalyst remains unconfirmed after seven weeks. Intel stock moves on unrelated factors (AI, quantum, general chip sentiment). This week, chips slid on OpenAI IPO delay news, with no mention of Apple deal. The catalyst has not resolved but has clearly decayed with no market interest. Recommendation is to exit.",
+      "exit_advice": "Exit position due to catalyst decay and lack of market anticipation; edge is gone.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-chips-resume-slide-openai-ipo-delay-dents-sentiment"
+      ]
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "BWET",
+      "thesis": "Hormuz chokepoint risk from Iran war lifting tanker day-rates",
+      "thesis_live": true,
+      "exit_case": "Tanker day-rate risk fully priced in; muted market response to Hormuz tensions indicates thesis edge gone.",
+      "catalyst_resolved": false,
+      "assessment": "Hormuz tensions persist but no war or blockade materializes; tanker day-rates sustained by latent risk, yet muted market response and unconfirmed breakthroughs indicate the edge is decaying. Catalyst remains pending but weakened.",
+      "exit_advice": "Monitor for formal diplomatic resolution or further market indifference; consider exit if risk premium erodes without escalation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to supply chips for iPhones, boosting Intel's growth.",
+      "thesis_live": true,
+      "exit_case": "Catalyst decayed with no market interest after eight weeks of no progress.",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news this week; Apple deal catalyst remains unconfirmed after eight weeks with no progress, and Intel stock moves on unrelated factors.",
+      "exit_advice": "Exit position due to catalyst decay, lack of market interest, and no developments over eight weeks.",
+      "evidence_urls": []
+    }
+  ]
+}

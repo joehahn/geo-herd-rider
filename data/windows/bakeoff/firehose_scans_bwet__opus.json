@@ -1,0 +1,287 @@
+{
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [],
+  "2026-02-27": [],
+  "2026-03-06": [],
+  "2026-03-13": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis_live": true,
+      "exit_case": "Hormuz tensions could de-escalate, collapsing elevated tanker day-rates and the freight-futures premium.",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Catalyst is ongoing Strait of Hormuz war-risk lifting tanker day-rates, which BWET (freight-futures ETN) tracks directly. Risk premium is still PENDING, not resolved \u2014 no de-escalation, no chokepoint reversal. BWET remains the purest under-owned vehicle. Watch for tension easing or day-rate decay as exit triggers.",
+      "exit_advice": "Hold while Hormuz war-risk keeps tanker rates elevated; exit on clear de-escalation or rate rollover.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis_live": true,
+      "exit_case": "No fresh catalyst signal; war-risk premium could be decaying silently with no day-rate confirmation.",
+      "catalyst_resolved": false,
+      "assessment": "Second week, no fresh coverage. The entered catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 remains PENDING: no de-escalation, no chokepoint reversal, no signed truce. Silence is not resolution; absence of news cuts both ways, but nothing in the record shows the risk premium closed. BWET still the purest direct freight-futures vehicle for this risk. Watch for either tension easing or day-rate decay as the genuine exit trigger.",
+      "exit_advice": "Hold; exit on confirmed Hormuz de-escalation or tanker day-rate rollover.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis_live": true,
+      "exit_case": "Third straight week with zero fresh coverage \u2014 war-risk premium may have quietly bled off without any tracked confirmation.",
+      "catalyst_resolved": false,
+      "assessment": "The fixed catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 has NOT resolved: no truce signed, no chokepoint reopening, no de-escalation in the record. It remains PENDING, so thesis_live stays true. But this is now the third consecutive week with no fresh coverage; silence cuts both ways and the absence of confirming day-rate strength is a growing concern. Nothing shows the premium closed, but nothing reaffirms it either. BWET remains the only and purest freight-futures vehicle tracking this risk directly.",
+      "exit_advice": "Hold, but on a short leash: three weeks of total silence is itself a soft decay signal. Exit on any de-escalation headline or visible day-rate rollover.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis_live": true,
+      "exit_case": "Four straight weeks of no coverage and no confirming day-rate strength \u2014 the war-risk premium has likely quietly decayed.",
+      "catalyst_resolved": false,
+      "assessment": "The fixed catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 has NOT formally resolved: no truce, no chokepoint reopening, no de-escalation appears anywhere in the record. So technically it remains PENDING and thesis_live stays true. But this is the FOURTH consecutive week with zero fresh coverage and zero confirmation of day-rate strength. Absence of resolution keeps me nominally in, but absence of any reaffirming signal makes this a hollow hold \u2014 the risk premium may have quietly bled out without a headline. BWET remains the only and purest freight-futures vehicle for this risk. Conviction is thinning fast; the burden of proof is shifting against the position.",
+      "exit_advice": "Silence is now the dominant signal; if a fifth week brings no day-rate reaffirmation, treat the premium as decayed and exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis_live": false,
+      "exit_case": "Five straight weeks of zero coverage and no day-rate confirmation \u2014 war-risk premium has quietly bled out.",
+      "catalyst_resolved": false,
+      "assessment": "The fixed catalyst \u2014 Hormuz war-risk lifting tanker day-rates \u2014 never formally resolved: no truce, no chokepoint reopening anywhere in the record. But this is now the FIFTH consecutive week with zero fresh coverage and zero reaffirmation of day-rate strength. A war-risk premium is a perishable, event-driven thing; absent any confirming signal for over a month, the honest read is that it has decayed and bled out without a headline rather than remaining live. I've held four weeks on 'absence of resolution is not resolution,' but the burden of proof has fully shifted \u2014 a hollow hold with no pulse is not a thesis. Calling the catalyst decayed and stepping out. BWET was and remains the only/purest freight-futures vehicle, but the underlying driver is gone.",
+      "exit_advice": "Exit. The risk premium has decayed by attrition, not headline.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Catalyst is elevated tanker day-rates driven by persistent Gulf/Hormuz shipping risk \u2014 still ongoing and pending, not resolved. BWET is the purest pure-play, a freight-futures ETN that captures spot rates directly without the equity dilution of tanker operators. Thesis live as long as the chokepoint risk persists and rates stay high.",
+      "exit_advice": "Hold while Gulf/Hormuz shipping risk keeps tanker day-rates elevated; exit if risk premium fades and rates normalize.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis_live": true,
+      "exit_case": "No fresh coverage \u2014 shipping-risk premium may be quietly normalizing, rates reverting.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst is a persistent rate/risk condition, not a discrete signable event \u2014 it resolves only when Gulf/Hormuz risk eases and tanker day-rates revert. No news this week means no confirmation of reversal, but also no fresh validation; silence is the main risk that the premium is decaying unnoticed. BWET remains the purest pure-play, capturing spot freight futures directly. Thesis stays live while the chokepoint premium persists; watch for rate normalization as the true exit trigger.",
+      "exit_advice": "Hold; exit if Hormuz risk de-escalates and day-rates revert to baseline.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis_live": true,
+      "exit_case": "Two straight weeks of zero coverage; Hormuz premium may have quietly decayed and rates reverted unnoticed.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst is a persistent Gulf/Hormuz risk premium on tanker day-rates, not a signable discrete event \u2014 it resolves only when rates normalize. No fresh news again this week means no reversal but also no validation; two consecutive blank weeks raise the odds the chokepoint premium is quietly bleeding off. BWET remains the cleanest pure-play, capturing spot freight futures directly without operator equity noise. Thesis stays live by default since no rate normalization has been confirmed, but conviction is weakening on information starvation.",
+      "exit_advice": "Hold but tighten: this is a condition-based thesis and silence is now the dominant risk. If a third week passes with no rate confirmation, treat the premium as decayed and exit on suspicion rather than waiting for explicit reversal.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis_live": true,
+      "exit_case": "Three straight blank weeks suggest the Hormuz risk premium has quietly bled off and rates reverted unnoticed.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst is a persistent rate/risk condition, not a signable discrete event, so it cannot be 'resolved' by a single occurrence \u2014 it resolves only when day-rates revert. Third consecutive week with zero fresh coverage. No reversal confirmed, but no validation either, and prolonged silence is exactly how a chokepoint premium decays without a headline. Conviction is now thin; I am holding by default only because no rate normalization has been confirmed. BWET stays the purest pure-play, capturing spot freight futures directly. If a fourth blank week passes I treat sustained silence as de facto decay.",
+      "exit_advice": "Exit on any confirmation of rate normalization or easing Gulf/Hormuz risk; information starvation alone is now a near-exit signal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis_live": true,
+      "exit_case": "Apple-Intel deal is still only speculative reporting; no deal signed, no edge yet \u2014 but could be just a one-day rumor that fades.",
+      "catalyst_resolved": false,
+      "assessment": "Entry week on speculation that Apple may buy Intel chips (CNBC, 5/8). This is a pending, unsigned catalyst \u2014 purely report-stage, no terms, no announcement. INTC is the clean and only pure-play vehicle. Chip tape is strong on the broader AI trade, which adds tailwind but is not the specific catalyst. Watch for either confirmation/signing (resolves, exit) or denial (kills thesis).",
+      "exit_advice": "Hold while the Apple-Intel deal remains pending/unsigned; exit if reports are explicitly denied or a deal is formally announced and priced.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis_live": false,
+      "exit_case": "Fourth straight blank week \u2014 chokepoint premium has bled off unnoticed; per my own rule, sustained silence is de facto decay.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst is a persistent Gulf/Hormuz risk premium on day-rates, not a signable event, so it never 'resolves' discretely \u2014 it decays. Four consecutive weeks of zero coverage is exactly the slow bleed I flagged: no headline confirms reversal, but a chokepoint premium that no longer generates news is almost certainly normalizing. I built the exit trigger explicitly last week and honor it now rather than holding on inertia. BWET remains the cleanest pure-play if rates re-spike, but with no live premium to capture I take the position off.",
+      "exit_advice": "Exit. I pre-committed last week that a fourth blank week means treating silence as de facto rate normalization. That week is here.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis_live": true,
+      "exit_case": "Single CNBC rumor with no follow-up or confirmation; report may be decaying into nothing",
+      "catalyst_resolved": false,
+      "assessment": "No fresh coverage this week. The specific catalyst \u2014 an Apple-Intel chip deal \u2014 remains at the rumor/report stage: nothing signed, no terms, no confirmation, no denial. It has neither occurred nor been killed, so it stays pending and my edge is intact. The risk is decay: a lone 5/8 CNBC report with zero follow-up can quietly fade rather than resolve, leaving INTC to trade purely on the broader AI/chip tape. But that is theme-drift, not catalyst resolution. INTC remains the only and cleanest pure-play vehicle. Keep watching for either a named confirmation (resolves, exit) or a denial (kills thesis).",
+      "exit_advice": "Hold \u2014 catalyst still pending, unsigned. Exit on confirmation (signing) or explicit denial.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis_live": true,
+      "exit_case": "Two weeks of zero follow-up; this week's news is off-thesis (govt funding), suggesting the Apple report has quietly faded.",
+      "catalyst_resolved": false,
+      "assessment": "The specific catalyst \u2014 an Apple-Intel chip deal \u2014 is still pending: nothing signed, no terms, no confirmation, no denial. This week's coverage is entirely unrelated (the $8.9B government stake / IBM purchases), not the Apple deal. That is noise on a different storyline, not resolution of my catalyst. Edge technically intact but the report-stage thesis continues to decay with no follow-up \u2014 the live risk remains theme-drift/fade rather than a clean resolve. INTC stays the only and cleanest pure-play vehicle.",
+      "exit_advice": "Hold but on a short leash \u2014 a lone 5/8 CNBC report with two weeks of silence is decaying toward irrelevance; if a third week passes with no named confirmation, treat as faded and exit.",
+      "evidence_urls": [
+        "https://247wallst.com/investing/2026/05/21/trump-gave-intel-8-9-billion-now-taxpayers-are-buying-ibm/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+      "thesis_live": true,
+      "exit_case": "Hormuz tensions could de-escalate, collapsing the war-driven freight spike that lifted BWET",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Catalyst is the Hormuz war chokepoint driving tanker freight rates higher, lifting BWET. News confirms rates stay elevated and the spike has NOT resolved \u2014 chokepoint disruption ongoing, catalyst still pending. BWET (Breakwave Tanker Shipping ETN) is the pure freight-futures vehicle and remains the cleanest play. Thesis live.",
+      "exit_advice": "Hold while Hormuz chokepoint disruption persists; exit on de-escalation or rate normalization",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Trump admin $2B equity stake into quantum firms",
+      "thesis_live": false,
+      "exit_case": "The $2B equity-stake deal was announced/granted 05-21; stocks already popped, news fully public and priced.",
+      "catalyst_resolved": true,
+      "assessment": "I entered 05-22 on the $2B Trump-admin quantum equity-stake program, but the specific catalyst \u2014 the named deal awarding stakes (IBM $1B, nine firms, $2B total) \u2014 was announced and struck 05-21. RGTI and peers already gapped up sharply on the news. The discrete government-stake event has occurred and been absorbed by the market; what remains is sector hype, crowding, and shorts piling in ('Traders Bet Against IONQ/RGTI/QBTS'). That lingering theme is not a pending catalyst. My edge from the specific announcement is gone the moment it became public, which was before/at entry. Thesis not live.",
+      "exit_advice": "Catalyst is the announced $2B stake \u2014 it occurred 05-21, one day pre-entry, with stocks gapping up. Discrete event closed and priced; exit, no remaining edge.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html",
+        "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis_live": true,
+      "exit_case": "Lone 5/8 rumor now three weeks dead \u2014 zero follow-up, only unrelated quantum/government noise; report-stage thesis has faded.",
+      "catalyst_resolved": false,
+      "assessment": "The specific catalyst \u2014 an Apple-Intel chip deal \u2014 remains unsigned, unconfirmed and undenied, so it has not formally resolved and edge is technically intact. But this is the third consecutive week of complete silence on the original 5/8 CNBC report. This week's coverage (quantum computing performance) is again entirely unrelated noise on a different storyline. The dominant risk is no longer binary confirm/deny but a quiet fade into theme-drift, which is now effectively materializing. INTC stays the only and cleanest pure-play vehicle, but the report-stage thesis is on the edge of being functionally over.",
+      "exit_advice": "Near-terminal decay \u2014 if no Apple-Intel confirmation surfaces imminently, treat the catalyst as faded and exit; INTC is now trading on AI/quantum tape, not my catalyst.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-intel-corporation-intc-among-the-best-performing-quantum-computing-stocks-so-far-in-2026-1768764/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+      "thesis_live": true,
+      "exit_case": "No fresh coverage \u2014 Hormuz spikes fade fast; freight rates may have already normalized, catalyst silently decayed.",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news this week. The Hormuz chokepoint disruption that drove tanker freight rates and lifted BWET has not been reported as resolved \u2014 no reopening, no de-escalation confirmed. Absent any signal of reversal, the specific catalyst (war chokepoint freight spike) remains pending, not closed. Silence is not resolution, but it raises uncertainty: chokepoint spikes are sharp and short-lived, so I cannot confirm rates remain elevated either. Keeping thesis live on the presumption the disruption persists, while flagging that the lack of coverage is itself a risk. BWET (Breakwave Tanker Shipping ETN) remains the purest freight-futures vehicle.",
+      "exit_advice": "Hold but watch closely; a war chokepoint can reverse abruptly. If next week confirms rates normalized or strait reopened, exit immediately.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Court win on Medicare Star Ratings lawsuit",
+      "thesis_live": false,
+      "exit_case": "Court win already announced \u2014 lawsuit decided, stock soared to record high, catalyst is public and priced.",
+      "catalyst_resolved": true,
+      "assessment": "I entered on a court win on the Medicare Star Ratings lawsuit. This very week's news confirms Clover WON the lawsuit and soared to a record high. The discrete event I bet on has resolved \u2014 the ruling is decided and public, not pending. The remaining move is hype/crowding ('soars to record high'), not edge. The Star Ratings theme may benefit revenue longer-term, but the specific catalyst is closed. No pending decision remains.",
+      "exit_advice": "Exit. The specific catalyst \u2014 winning the Star Ratings lawsuit \u2014 has occurred and is fully public; the record-high move confirms it's already priced.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "INTC",
+      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis_live": false,
+      "exit_case": "Lone 5/8 CNBC report, now four straight weeks of total silence \u2014 the rumor has faded with zero follow-up; functionally dead.",
+      "catalyst_resolved": false,
+      "assessment": "The specific Apple-Intel deal catalyst remains technically unsigned/unconfirmed/undenied, so it has not formally resolved. But this is the fourth consecutive week of zero coverage on the original 5/8 report \u2014 the quiet-fade risk I flagged for weeks has now fully materialized. A report-stage rumor that generates no follow-up for a month is functionally over; there is no remaining edge to harvest. INTC stays the only pure-play vehicle, but I am calling the thesis dead by decay rather than waiting indefinitely for a confirm/deny that isn't coming.",
+      "exit_advice": "Exit on decay. The catalyst never resolved (no signing, no denial), but a single unsourced report with a full month of complete silence is no longer a live, tradeable edge \u2014 it has faded into nothing. INTC now trades purely on broader AI/chip tape, which is theme-drift, not my catalyst. Stand down.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+      "thesis_live": false,
+      "exit_case": "Chokepoint freight spikes are sharp and short-lived; two straight weeks of silence imply the disruption eased and rates already mean-reverted.",
+      "catalyst_resolved": true,
+      "assessment": "Entered on the Hormuz war chokepoint driving tanker freight rates and BWET higher. Last week I flagged that silence raised real uncertainty because chokepoint spikes are short-lived. A second week of total silence converts that uncertainty into a conclusion: a sharp emergency spike that produces no further news has run its course \u2014 the freight surge has faded and the acute catalyst has effectively passed. I will not keep holding on the mere presumption the disruption persists.",
+      "exit_advice": "Exit. The catalyst was an acute war-chokepoint freight spike \u2014 a flare-then-fade event. Two consecutive weeks with zero fresh coverage, combined with the known sharp/transient nature of these spikes, means the disruption has almost certainly de-escalated and the freight surge decayed. No live edge remains; presuming persistence on silence is hold-inertia.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "$2B Commerce Dept quantum funding push places D-Wave in focus",
+      "thesis_live": false,
+      "exit_case": "$2B was already plowed into 9 quantum firms June 2-3; allocation done, public, priced \u2014 D-Wave stock crashed on the news.",
+      "catalyst_resolved": true,
+      "assessment": "I entered 6/5 on the $2B Commerce quantum funding push, but the journal's own news shows the money was 'plowed into 9 companies' on June 2-3 \u2014 the specific catalyst already occurred before/at entry. It is public and priced; QBTS in fact crashed this week (classic sell-the-news). The lingering quantum hype (Quantinuum/Quantinuum IPO, listicles) is theme, not my catalyst. Edge gone.",
+      "exit_advice": "Catalyst resolved \u2014 funding announced and disbursed; the sell-the-news crash confirms it's priced. Exit.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "REGN",
+      "thesis": "Antibody therapy gains WHO support amid active Ebola outbreak",
+      "thesis_live": true,
+      "exit_case": "WHO endorsement already granted June 11 \u2014 the discrete approval milestone has occurred and is public/priced.",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Regeneron's antibody therapy won WHO support amid an active Ebola outbreak (June 11). The discrete endorsement is the trigger, but the durable driver is the ongoing outbreak generating procurement/usage demand \u2014 that remains unresolved. Surrounding news is dominated by macro (Iran strikes, Middle East, oil), not REGN-specific noise, so the signal is clean but thin. REGN is the only and purest vehicle. Watch for outbreak containment/declared-over, which would resolve the thesis.",
+      "exit_advice": "Hold \u2014 WHO support is granted but the active Ebola outbreak still drives demand for Regeneron's antibody therapy; catalyst remains live while outbreak persists.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
+      ]
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "REGN",
+      "thesis": "Antibody therapy gains WHO support amid active Ebola outbreak",
+      "thesis_live": false,
+      "exit_case": "WHO support was granted June 11 \u2014 the discrete endorsement catalyst already occurred and is public/priced.",
+      "catalyst_resolved": true,
+      "assessment": "Entered on a discrete WHO endorsement that had already been granted (June 11). Per resolution rules, an approval granted is a closed catalyst regardless of a lingering outbreak theme. This week's news is entirely macro (Iran/US agreement, India/UAE markets, quantum stocks) with zero REGN or Ebola-outbreak content \u2014 no new procurement, no escalation, nothing to re-arm the thesis. The durable 'ongoing outbreak demand' framing is a theme, not a pending catalyst. Edge is exhausted.",
+      "exit_advice": "The specific trigger \u2014 WHO support for the antibody therapy \u2014 was granted before entry; it is public, priced, and edge is gone. No fresh REGN-specific catalyst this week, only macro noise.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+      ]
+    }
+  ],
+  "2026-06-26": [],
+  "2026-07-03": []
+}

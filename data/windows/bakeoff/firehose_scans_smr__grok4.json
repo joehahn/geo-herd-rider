@@ -1,0 +1,217 @@
+{
+  "2024-04-19": [],
+  "2024-04-26": [],
+  "2024-05-03": [],
+  "2024-05-10": [],
+  "2024-05-17": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "initial entry on reactor approval + AI power demand catalyst; SMR reacting early",
+      "exit_advice": "monitor for concrete approval milestones vs. hype",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-24": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No catalyst developments; unrelated market note only",
+      "exit_advice": "Hold for pending approvals; no resolution observed",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3450246"
+      ]
+    }
+  ],
+  "2024-05-31": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No relevant developments; news unrelated",
+      "exit_advice": "Hold; catalyst still pending",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-07": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst remains pending after 3 weeks; no reactor approval developments in journal or this week's news.",
+      "exit_advice": "Hold; no approval news yet.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-14": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "catalyst still pending after 4 weeks; no resolution in journal or news; SMR remains vehicle",
+      "exit_advice": "hold pending approval news",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-21": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst remains fully pending with zero developments across journal.",
+      "exit_advice": "Hold; no resolution, vehicle unchanged.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-28": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst still fully pending with zero developments in journal or this week's news; SMR remains cleanest vehicle",
+      "exit_advice": "Hold position; no resolution yet",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-05": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "catalyst remains fully pending after 7 weeks with zero reactor approval developments in entire journal",
+      "exit_advice": "hold; no resolution yet",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-12": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "catalyst unchanged after 8 weeks",
+      "exit_advice": "hold pending approval",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "Nuclear power growth bill signed into law",
+      "thesis_live": false,
+      "exit_case": "Bill signed into law this week",
+      "catalyst_resolved": true,
+      "assessment": "Legislation signed; event complete",
+      "exit_advice": "Catalyst occurred; exit position",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "UUUU",
+      "thesis": "Nuclear power growth bill signed into law",
+      "thesis_live": false,
+      "exit_case": "Bill already signed July 10 per report",
+      "catalyst_resolved": true,
+      "assessment": "Legislation signed; event complete",
+      "exit_advice": "Catalyst public and priced; exit",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2024-07-19": [
+    {
+      "ticker": "SMR",
+      "thesis": "reactor approval news amid AI datacenter demand",
+      "thesis_live": false,
+      "exit_case": "ADVANCE Act signed into law, resolving approvals",
+      "catalyst_resolved": true,
+      "assessment": "Specific reactor approval catalyst closed this week by bipartisan law.",
+      "exit_advice": "Exit all positions; catalyst occurred and priced.",
+      "evidence_urls": [
+        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
+      ]
+    }
+  ],
+  "2024-07-26": [],
+  "2024-08-02": [
+    {
+      "ticker": "CEG",
+      "thesis": "Power auction prices rose 9x YoY on largest US grid",
+      "thesis_live": false,
+      "exit_case": "Auction results announced this week, stocks already reacted",
+      "catalyst_resolved": true,
+      "assessment": "Immediate resolution on announcement day",
+      "exit_advice": "Exit; catalyst realized and priced in",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+      ]
+    },
+    {
+      "ticker": "VST",
+      "thesis": "Power auction prices rose 9x YoY on largest US grid",
+      "thesis_live": false,
+      "exit_case": "9x auction price rise announced, stocks already soared",
+      "catalyst_resolved": true,
+      "assessment": "Catalyst occurred via public auction result",
+      "exit_advice": "Exit: catalyst public and priced",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+      ]
+    }
+  ],
+  "2024-08-09": [],
+  "2024-08-16": [
+    {
+      "ticker": "EBS",
+      "thesis": "WHO mpox emergency declaration drives vaccine demand",
+      "thesis_live": false,
+      "exit_case": "WHO declaration already issued this week",
+      "catalyst_resolved": true,
+      "assessment": "Declaration triggered immediate stock moves; edge exhausted",
+      "exit_advice": "Exit EBS; catalyst occurred and priced in",
+      "evidence_urls": [
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
+        "https://biztoc.com/x/2c9e67dcc48c2600"
+      ]
+    },
+    {
+      "ticker": "SIGA",
+      "thesis": "WHO mpox emergency declaration drives vaccine demand",
+      "thesis_live": false,
+      "exit_case": "WHO mpox declaration issued and priced in this week",
+      "catalyst_resolved": true,
+      "assessment": "Declaration happened; immediate stock reaction captured the event",
+      "exit_advice": "Exit; catalyst occurred and is public",
+      "evidence_urls": [
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak"
+      ]
+    }
+  ],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
+  "2024-09-13": []
+}

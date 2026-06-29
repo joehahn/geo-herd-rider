@@ -1,0 +1,115 @@
+{
+  "2024-04-19": [],
+  "2024-04-26": [],
+  "2024-05-03": [],
+  "2024-05-10": [],
+  "2024-05-17": [
+    {
+      "ticker": "SMR",
+      "thesis": "Regulatory reactor approval news catalyzes AI power demand growth",
+      "thesis_live": false,
+      "exit_case": "Reactor approval news already public; stock reaction indicates catalyst priced in.",
+      "catalyst_resolved": true,
+      "assessment": "The regulatory reactor approval news catalyzing AI power demand growth was publicly reported on May 15, 2024, causing SMR to spike. The catalyst is now out and likely priced in.",
+      "exit_advice": "Exit the position immediately; the specific catalyst has occurred and the edge is gone.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-24": [],
+  "2024-05-31": [],
+  "2024-06-07": [],
+  "2024-06-14": [],
+  "2024-06-21": [],
+  "2024-06-28": [],
+  "2024-07-05": [],
+  "2024-07-12": [
+    {
+      "ticker": "SMR",
+      "thesis": "Nuclear power legislation signed into law drives sector.",
+      "thesis_live": true,
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-19": [
+    {
+      "ticker": "SMR",
+      "thesis": "Nuclear power legislation signed into law drives sector.",
+      "thesis_live": false,
+      "exit_case": "Catalyst resolved: ADVANCE Act signed into law.",
+      "catalyst_resolved": true,
+      "assessment": "The nuclear power legislation was signed into law on July 13, 2024, resolving the event catalyst. The sector may see residual effects, but the specific edge from the pending law is gone.",
+      "exit_advice": "Exit position; catalyst has occurred and is priced in.",
+      "evidence_urls": [
+        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
+      ]
+    }
+  ],
+  "2024-07-26": [],
+  "2024-08-02": [
+    {
+      "ticker": "CEG",
+      "thesis": "PJM auction prices surged ninefold, directly lifting nuclear generator earnings.",
+      "thesis_live": false,
+      "exit_case": "Auction price surge already public, stocks soared; catalyst resolved.",
+      "catalyst_resolved": true,
+      "assessment": "The PJM auction price surge has been publicly announced, causing nuclear stocks to soar, indicating the event has passed.",
+      "exit_advice": "Sell or exit the position as the catalyst has resolved and is priced in.",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+      ]
+    },
+    {
+      "ticker": "VST",
+      "thesis": "PJM auction prices surged ninefold, directly lifting nuclear generator earnings.",
+      "thesis_live": false,
+      "exit_case": "PJM auction ninefold surge has been publicly announced and stocks have already soared.",
+      "catalyst_resolved": true,
+      "assessment": "The discrete catalyst\u2014the PJM auction ninefold price surge\u2014was announced on August 1, causing an immediate stock reaction. The edge from the specific, unpublished auction result is gone, as the market has now priced the news.",
+      "exit_advice": "Exit the position. The catalyst has been publicly announced and the initial price move has occurred, eliminating the event-driven edge.",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+      ]
+    }
+  ],
+  "2024-08-09": [],
+  "2024-08-16": [
+    {
+      "ticker": "SIGA",
+      "thesis": "WHO mpox emergency declaration boosts antiviral treatment demand.",
+      "thesis_live": false,
+      "exit_case": "WHO emergency declaration already made and stock surge reflects priced-in resolution.",
+      "catalyst_resolved": true,
+      "assessment": "WHO mpox emergency declaration has occurred, boosting antiviral stocks like SIGA, but the specific catalyst is now fully public and market reaction has occurred.",
+      "exit_advice": "Exit long position immediately as the catalyst is resolved and any edge from the pending declaration is now gone.",
+      "evidence_urls": [
+        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
+        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
+        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs"
+      ]
+    }
+  ],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
+  "2024-09-13": [
+    {
+      "ticker": "DJT",
+      "thesis": "Shares plunged after Trump lost debate, a discrete event catalyst.",
+      "thesis_live": false,
+      "exit_case": "Debate already happened and shares already plunged \u2014 the discrete catalyst is fully resolved.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst \u2014 Trump losing the debate, causing DJT shares to plunge \u2014 is entirely in the past. The debate occurred on Sept 10; the plunge occurred on Sept 11\u201312; entry was Sept 13 into an already-realized move. There is no pending discrete event left to trade. The news this week simply confirms the plunge occurred and offers polling anecdotes \u2014 none of which constitute a new catalyst. The stock may drift lower on election uncertainty, but that is a theme, not the discrete event-driven edge we entered on.",
+      "exit_advice": "Exit. The debate is over, the plunge happened, and the market has absorbed the news. Remaining long or short is now a directional bet on election polling \u2014 categorically different from the event catalyst.",
+      "evidence_urls": [
+        "https://www.ijpr.org/npr-news/2024-09-11/wall-street-investors-think-trump-lost-the-debate-too",
+        "https://www.orlandosentinel.com/2024/09/12/trump-plans-to-launch-his-sons-crypto-business-on-monday-50-days-before-election-day/"
+      ]
+    }
+  ]
+}

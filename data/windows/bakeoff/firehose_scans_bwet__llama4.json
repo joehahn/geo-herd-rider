@@ -1,0 +1,1090 @@
+{
+  "2026-02-06": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event is still in its initial stage, and SPXC is well-positioned for data center infrastructure evolution.",
+      "exit_advice": "Monitor data center infrastructure evolution progress",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/spx-technologies-spxc-well-positioned-for-data-center-infrastructure-evolution-1689601/"
+      ]
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "SPXC remains a good vehicle for the event",
+      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/spx-technologies-spxc-well-positioned-084543197.html"
+      ]
+    },
+    {
+      "ticker": "RGTI",
+      "thesis": "Rigetti Computing stock plunge on quantum computing reality check",
+      "thesis_live": false,
+      "exit_case": "The catalyst has already occurred as Rigetti Computing stock has plunged.",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst was the stock plunge on quantum computing reality check, which has already happened.",
+      "exit_advice": "close position",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html"
+      ]
+    }
+  ],
+  "2026-02-20": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No change in the event or vehicle.",
+      "exit_advice": "Continue to hold SPXC",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates are climbing, and BWET has nearly doubled in value.",
+      "exit_advice": "Monitor tanker rates for a decline or stabilization.",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+      ]
+    }
+  ],
+  "2026-02-27": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event is ongoing, with data center infrastructure evolution continuing to be relevant.",
+      "exit_advice": "Continue to hold the position as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/american-states-water-q4-earnings-201855062.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates still climbing, BWET remains a valid vehicle.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Constellation Energy unit signs 380-megawatt deal",
+      "thesis_live": false,
+      "exit_case": "Constellation Energy unit has signed the 380-megawatt deal, resolving the catalyst.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst for the event is Constellation Energy unit signing a 380-megawatt deal, which has been reported.",
+      "exit_advice": "The event is considered resolved as the catalyst has occurred.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
+      ]
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Data center infrastructure evolution remains relevant, with recent news highlighting the growth in data center demand and its impact on related sectors.",
+      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
+        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Still trending",
+      "exit_advice": "Monitor for rate reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "TVA's reversal on coal plant retirement is a significant development in the energy sector, with potential implications for coal prices and related stocks",
+      "exit_advice": "continue to monitor TVA's coal plant plans",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
+      ]
+    }
+  ],
+  "2026-03-13": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution continues to be relevant with growing demand and increasing electricity consumption.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates could collapse if Middle East tensions ease and Strait of Hormuz risk dissipates.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and Strait of Hormuz risk; BWET remains a valid vehicle.",
+      "exit_advice": "Monitor Middle East tensions and tanker rates for signs of reversal.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/national-grid-ngg-among-best-035618386.html is irrelevant, MarketWatch article is not a primary source but summarizes the current state"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The initial reversal by TVA remains a significant event with ongoing implications for the energy sector, particularly for coal-related stocks and prices. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
+      "exit_advice": "Monitor TVA's further announcements regarding coal plant operations and retirement plans",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Data center infrastructure evolution is still an ongoing trend.",
+      "exit_advice": "Monitor for resolution or significant shift in data center infrastructure evolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb, driven by ongoing Mideast tensions and Strait of Hormuz risk.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with potential long-term implications for the energy sector, particularly for coal-related stocks and prices.",
+      "exit_advice": "Monitor for TVA's official decision finalization or changes in coal plant retirement plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst has just occurred, and the market is likely to react to the revised outlook. The thesis remains live as the full impact is still unknown.",
+      "exit_advice": "Monitor Scotiabank's revised outlook impact on REXR",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/scotiabank-revises-rexford-industrial-rexr-045220720.html",
+        "https://www.insidermonkey.com/blog/scotiabank-revises-rexford-industrial-rexr-outlook-as-reit-strategy-shifts-1720305/"
+      ]
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution remains an ongoing trend with no indication of resolution or decay.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and Strait of Hormuz risk; BWET remains a valid vehicle",
+      "exit_advice": "Monitor for resolution of Mideast tensions or stabilization of tanker rates",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "continue to monitor TVA's plans and coal market developments",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "REXR",
+      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
+      "thesis_live": false,
+      "exit_case": "The initial reaction to Scotiabank's revised outlook has been fully priced in and reflected in REXR.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst occurred on 2026-03-20, and there has been no new information since then. The market has likely absorbed the impact.",
+      "exit_advice": "Close the position as the catalyst has resolved and the edge is gone.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution remains an ongoing trend",
+      "exit_advice": "continue to monitor the event's progression",
+      "evidence_urls": [
+        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have surged due to actual war, potentially becoming a new normal.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and the onset of war between Iran and other nations, increasing risk premium.",
+      "exit_advice": "Monitor for signs that the war is ending or tanker rates plateau.",
+      "evidence_urls": [
+        "https://www.mymoinfo.com/syndicated-article/?id=1663391"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "faces 100% tariff",
+      "thesis_live": false,
+      "exit_case": "Tariff announcement has been made, potentially resolving the catalyst immediately.",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst, 100% tariff on some patented drugs, has been announced on 2026-04-03, which indicates the catalyst has occurred.",
+      "exit_advice": "Close position as the catalyst has been resolved.",
+      "evidence_urls": [
+        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
+      ]
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
+      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by geopolitical tensions",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks",
+      "exit_advice": "continue to monitor TVA's coal plant plans",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-17": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event remains ongoing with no resolution or decay.",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have not yet shown signs of reversal despite prolonged climb and ongoing geopolitical tensions.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by geopolitical tensions and shipping risk, BWET remains a valid vehicle.",
+      "exit_advice": "Monitor for signs of rate normalization or geopolitical risk easing.",
+      "evidence_urls": [
+        "https://etf.com"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications.",
+      "exit_advice": "Monitor for TVA's final decision on coal plant retirement.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution continues to be an ongoing trend",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have consistently risen over 7 weeks, potentially nearing a peak due to sustained geopolitical tensions.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
+      "exit_advice": "Monitor for a reversal in tanker rates or a decrease in geopolitical tensions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
+      "exit_advice": "continue to monitor data center infrastructure evolution trend",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have continued to climb without a clear peak or reversal",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk",
+      "exit_advice": "Monitor for signs of rate stabilization or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
+      "exit_advice": "continue to monitor TVA's plans on coal plant retirement",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
+      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates still climbing, driven by ongoing geopolitical tensions.",
+      "exit_advice": "Monitor for resolution of Mideast tensions or Strait of Hormuz risk.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "The TVA's reversal has been consistently reported as ongoing with no indication of resolution or decay.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains live with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "Continue to monitor for resolution or significant development regarding TVA's coal plant retirement plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to drive market sentiment",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.freemalaysiatoday.com/category/business/2026/05/06/asia-markets-hit-records-on-ai-euphoria-iran-peace-hopes",
+        "https://www.yasstribune.com.au/story/9240633/asia-markets-hit-record-highs-amid-iran-peace-hopes/",
+        "https://www.edenmagnet.com.au/story/9240633/asia-markets-hit-record-highs-amid-iran-peace-hopes/",
+        "https://www.marketscreener.com/news/asia-markets-hit-records-on-ai-euphoria-iran-peace-hopes-ce7f58dddb80f723",
+        "https://www.ibtimes.co.in/sensex-surges-940-points-nifty-tops-24300-amid-us-iran-deal-hopes-901830"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
+      "exit_advice": "continue to monitor the trend",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have continued climbing for 12 weeks, possibly peaking due to sustained high levels.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by geopolitical tensions.",
+      "exit_advice": "Monitor for signs of rate decline or stabilization.",
+      "evidence_urls": [
+        "https://www.investordaily.com.au/banks-lose-grip-as-asx-leadership-rotation-accelerates/"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant developments in coal prices.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "US-Iran deal talks have concluded and an agreement is finalized",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to influence market sentiment; COMP remains a suitable vehicle",
+      "exit_advice": "Monitor US-Iran diplomatic developments",
+      "evidence_urls": [
+        "https://thebull.com.au/us-news/nasdaq-composite-pulls-back-as-tech-high-flyers-give-back-some-gains/"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst (quantum computing revenue beat) has not been fully resolved as the event is still unfolding. QUBT is still a valid vehicle.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2026/technology/05121-quantum-computing-qubt-jumps-q1-2026-results.asp",
+        "https://finance.yahoo.com/markets/article/quantum-computing-stock-surges-after-revenue-beat-160415768.html"
+      ]
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
+      "exit_advice": "continue to monitor data center infrastructure evolution trend",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have continued to climb without resolution to the geopolitical tensions.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
+      "exit_advice": "Monitor for a decline in tanker rates or resolution of geopolitical tensions.",
+      "evidence_urls": [
+        "https://seekingalpha.com/"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event.",
+      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant developments in coal prices.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to drive market sentiment, with COMP remaining a suitable vehicle.",
+      "exit_advice": "Monitor for a significant development in US-Iran deal negotiations.",
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2026-05/68571053-asian-shares-extend-gains-on-us-iran-deal-hopes-020.htm",
+        "https://www.zerohedge.com/markets/stocks-gain-and-crude-falls-end-war-hopes-newsquawk-us-market-wrap"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "The $2 billion government investment in quantum firms has been announced, potentially resolving the catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst (quantum computing revenue beat) has not been directly resolved by the government's investment announcement, as it focuses on equity stakes rather than revenue performance. QUBT remains a valid vehicle as it is still associated with the quantum computing theme.",
+      "exit_advice": "Monitor the impact of the government's $2 billion investment on quantum computing companies.",
+      "evidence_urls": [
+        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
+        "https://www.dailypolitical.com/2026/05/22/quantum-computing-nasdaqqubt-sees-strong-trading-volume-still-a-buy.html",
+        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it"
+      ]
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
+      "exit_advice": "continue to monitor data center infrastructure evolution trend",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates have been climbing consistently, driven by geopolitical tensions and shipping risk.",
+      "exit_advice": "Monitor for resolution or decay in tanker rate climb drivers.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event.",
+      "exit_advice": "Monitor for official TVA decision finalization or significant policy shift.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "US-Iran deal hopes have dissipated with no concrete agreement reached",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to influence market sentiment, with COMP remaining a suitable vehicle",
+      "exit_advice": "Monitor for a significant breakthrough or collapse in US-Iran deal hopes",
+      "evidence_urls": [
+        "https://www.perthnow.com.au/news/business/oil-slips-aussie-shares-advance-on-peace-deal-hopes-c-22332088"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst (quantum computing revenue beat) remains unresolved as there are no direct revenue announcements from the known vehicles. The recent news focuses on government investments and general optimism around quantum computing, but does not directly resolve the revenue beat catalyst.",
+      "exit_advice": "continue to monitor quantum computing revenue announcements",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html"
+      ]
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution remains relevant with no indication of resolution or decay.",
+      "exit_advice": "Continue to monitor the trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Geopolitical tensions in the Middle East ease significantly or tanker rates plateau.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to be driven by geopolitical tensions.",
+      "exit_advice": "Monitor for resolution of geopolitical tensions or decline in tanker rates.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
+      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "US-Iran deal hopes have materialized or been dismissed, rendering the catalyst obsolete.",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to influence market sentiment, with COMP remaining a suitable vehicle.",
+      "exit_advice": "Monitor news for significant developments in US-Iran deal negotiations.",
+      "evidence_urls": [
+        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
+        "https://www.prokerala.com/news/articles/a1771142.html"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "Quantinuum's successful IPO and government investments may indicate a revenue beat is imminent, potentially resolving the catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT. Recent news focuses on IPOs and government investments in quantum computing, but doesn't directly resolve the revenue beat catalyst. QUBT remains a valid vehicle.",
+      "exit_advice": "Monitor revenue announcements from known vehicles QMCO and QUBT.",
+      "evidence_urls": [
+        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
+        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/"
+      ]
+    },
+    {
+      "ticker": "PRAX",
+      "thesis": "Shares Phase 2/3 POWER1 Study Findings",
+      "thesis_live": false,
+      "exit_case": "Catalyst occurred on entry date, potentially resolving immediately",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst (POWER1 Study Findings release) occurred on the entry date itself, potentially resolving the catalyst immediately.",
+      "exit_advice": "Close position as catalyst has been released",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
+      ]
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "no major resolution or decay in data center infrastructure evolution trend",
+      "catalyst_resolved": false,
+      "assessment": "data center infrastructure evolution remains an ongoing trend with growing demand and no clear indication of resolution or decay",
+      "exit_advice": "continue to monitor data center infrastructure evolution for resolution or decay",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have continued to climb without showing signs of reversal or plateauing.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to be driven by geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
+      "exit_advice": "Monitor for signs of rate normalization or geopolitical tension easing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "TVA has not yet finalized or reversed its coal plant retirement plans, keeping the catalyst pending.",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "Monitor TVA's progress on coal plant retirement plans for resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to drive market sentiment",
+      "exit_advice": "Monitor for a concrete deal or a definitive collapse in negotiations",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-rally-amid-fresh-iran-peace-hopes-all-eyes-spacex",
+        "https://www.moneycontrol.com/news/business/markets/taking-stock-nifty-above-23-600-sensex-gains-1-695-pts-on-middle-east-peace-hopes-13948101.html",
+        "https://www.perthnow.com.au/news/business/aussie-shares-surge-on-latest-us-iran-peace-deal-hopes-c-22421429"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT. Recent news focuses on general optimism around quantum computing stocks, but doesn't directly resolve the revenue beat catalyst.",
+      "exit_advice": "continue to monitor for revenue beat announcement",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+      ]
+    },
+    {
+      "ticker": "HCA",
+      "thesis": "acquires College of Health Care Professions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "HCA Healthcare has announced the acquisition agreement, but the deal is still pending and not yet completed",
+      "exit_advice": "continue to monitor acquisition progress",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/healthcare/articles/hca-healthcare-hca-announces-agreement-174127513.html"
+      ]
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution trend remains ongoing with SPXC as a suitable vehicle.",
+      "exit_advice": "Monitor for signs of resolution or decay in data center infrastructure evolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Tanker rates have consistently climbed for 16 weeks, potentially nearing a peak or reversal due to sustained high levels.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to be driven by geopolitical tensions; BWET remains a valid vehicle.",
+      "exit_advice": "Monitor for signs of tanker rate reversal or stabilization.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
+      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "US-Iran deal talks have stalled and lost momentum",
+      "catalyst_resolved": false,
+      "assessment": "US-Iran deal hopes continue to drive market sentiment, with COMP remaining a suitable vehicle",
+      "exit_advice": "Monitor for tangible progress or collapse in US-Iran deal talks",
+      "evidence_urls": [
+        "http://www.bignewsnetwork.com/news/279134861/us-stocks-close-higher-friday-nasdaq-composite-surges-496-points"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as there's still no direct revenue announcement from QMCO or QUBT.",
+      "exit_advice": "Monitor for a direct revenue announcement from QMCO or QUBT.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
+        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+      ]
+    },
+    {
+      "ticker": "HCA",
+      "thesis": "acquires College of Health Care Professions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition is still pending, no significant updates on the deal's status",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/06/17/healthcare-stocks-to-watch-now-june-17th.html",
+        "https://www.dailypolitical.com/2026/06/16/healthcare-stocks-to-research-june-16th.html"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Insider selling impacts stock price",
+      "thesis_live": true,
+      "exit_case": "Insider selling stops or is fully priced in.",
+      "catalyst_resolved": false,
+      "assessment": "Insider selling's impact on QBTS stock price is being monitored.",
+      "exit_advice": "If insider selling stops or QBTS stock price stabilizes.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html"
+      ]
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The trend remains ongoing with no clear indication of resolution or decay.",
+      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "evidence_urls": [
+        "https://www.tpr.org/environment/2026-06-26/most-data-centers-wont-share-data-about-water-use-with-texas-lawmakers"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates have been consistently climbing due to geopolitical tensions and shipping risk.",
+      "exit_advice": "Monitor for a decrease in geopolitical tensions or a resolution in shipping risk.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "TVA has not made any significant progress or resolution on the coal plant retirement reversal since entry.",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant updates.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The US-Iran deal hopes continue to be a topic of interest, with COMP remaining a suitable vehicle.",
+      "exit_advice": "Monitor developments in US-Iran deal hopes, exit when a definitive resolution occurs.",
+      "evidence_urls": [
+        "https://aliran.com/civil-society-voices/lending-respectability-to-a-zionist-cheerleader-is-completely-unacceptable",
+        "http://www.pambazuka.org/Forced-Migrant-Returns"
+      ]
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT.",
+      "exit_advice": "Monitor for a direct revenue announcement from QMCO or QUBT.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HCA",
+      "thesis": "acquires College of Health Care Professions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition deal is still pending with no significant updates or resolution.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/healthcare/articles/unitedhealth-near-52-week-high-195000164.html",
+        "https://www.fool.com/coverage/better-buy/2026/06/26/bristol-myers-squibb-vs-johnson-johnson-which-healthcare-stock-is-a-better-buy-in-2026/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Insider selling impacts stock price",
+      "thesis_live": true,
+      "exit_case": "No significant insider selling activity reported or resolved.",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst 'Insider selling impacts stock price' is still being monitored as there is no resolution or significant development reported in the news or journal.",
+      "exit_advice": "Monitor insider selling activity and its impact on QBTS stock price.",
+      "evidence_urls": [
+        "https://www.morningstar.com/stocks/coinbase-reducing-fair-value-estimate-cryptocurrency-prices-collapse"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "thesis": "Moderna rallies on unspecified news",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Moderna rallied on unspecified news, indicating potential catalyst; no resolution yet",
+      "exit_advice": "Monitor news for catalyst resolution",
+      "evidence_urls": [
+        "https://www.rnz.co.nz/news/business/627337/wall-street-mixed-as-moderna-rallies-and-chips-tumble",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-ends-lower-chips-tumble-and-moderna-rallies/articleshow/132024472.cms"
+      ]
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "SPXC",
+      "thesis": "Data center infrastructure evolution",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The data center infrastructure evolution trend remains ongoing with growing demand and no clear indication of resolution or decay.",
+      "exit_advice": "Continue holding the position as the event remains ongoing.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/city/lucknow/ai-revolution-is-bringing-creativity-to-our-doorstep/articleshow/132046894.cms"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Tanker rates climbing",
+      "thesis_live": true,
+      "exit_case": "Geopolitical tensions have not subsided, and tanker rates remain elevated.",
+      "catalyst_resolved": false,
+      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk.",
+      "exit_advice": "Monitor geopolitical tensions and tanker rates for signs of easing.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
+      ]
+    },
+    {
+      "ticker": "TVEI",
+      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "thesis_live": true,
+      "exit_case": "TVA has not made any significant progress or announcements regarding the reversal of coal plant retirement plans.",
+      "catalyst_resolved": false,
+      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
+      "exit_advice": "Monitor TVA's announcements and decisions regarding the coal plant retirement plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COMP",
+      "thesis": "US-Iran deal hopes",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The market continues to be influenced by US-Iran deal hopes, and COMP remains a suitable vehicle.",
+      "exit_advice": "Monitor for a definitive announcement or conclusion regarding the US-Iran deal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QUBT",
+      "thesis": "quantum computing revenue beat",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT.",
+      "exit_advice": "continue to monitor for revenue announcements",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HCA",
+      "thesis": "acquires College of Health Care Professions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition deal is still pending with no new updates.",
+      "exit_advice": "Monitor for deal completion or significant updates.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Insider selling impacts stock price",
+      "thesis_live": true,
+      "exit_case": "No insider selling activity has been reported or resolved for QBTS.",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst 'Insider selling impacts stock price' is still being monitored as there is no resolution or significant development reported in the news or journal.",
+      "exit_advice": "Monitor insider selling activity and its impact on QBTS stock price.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/28/why-rocket-lab-stock-plummeted-this-week/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "MRNA",
+      "thesis": "Moderna rallies on unspecified news",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Moderna rally lacks clarity on catalyst; no new info",
+      "exit_advice": "Wait for catalyst resolution or clear decay",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab stock plummeted on earnings",
+      "thesis_live": false,
+      "exit_case": "Earnings already reported and stock reacted",
+      "catalyst_resolved": true,
+      "assessment": "Weak start to the event-driven analysis as the initial catalyst has already occurred.",
+      "exit_advice": "The event is no longer relevant as the catalyst has resolved.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/06/28/why-rocket-lab-stock-plummeted-this-week/?source=iedfolrf0000001"
+      ]
+    }
+  ]
+}

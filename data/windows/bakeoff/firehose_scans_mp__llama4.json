@@ -1,0 +1,895 @@
+{
+  "2025-03-21": [],
+  "2025-03-28": [],
+  "2025-04-04": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Trump tariffs impact real estate",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Trump tariffs potentially affecting real estate as global markets react.",
+      "exit_advice": "Monitor tariff implementation impact on real estate.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/tariff-avoiders-among-surprise-bright-110140186.html",
+        "https://therealdeal.com/national/2025/04/03/trump-tariffs-cause-real-estate-stocks-to-tumble/"
+      ]
+    }
+  ],
+  "2025-04-11": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Trump tariffs impact real estate",
+      "thesis_live": true,
+      "exit_case": "Trump tariffs paused, potentially resolving the immediate impact on real estate",
+      "catalyst_resolved": false,
+      "assessment": "The initial tariff announcement still impacts the market, and a pause does not necessarily mean resolution.",
+      "exit_advice": "Monitor tariff developments and real estate market reaction",
+      "evidence_urls": [
+        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/"
+      ]
+    }
+  ],
+  "2025-04-18": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Trump tariffs impact real estate",
+      "thesis_live": true,
+      "exit_case": "Trump tariff reversal indicates potential resolution of initial catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "The initial tariff announcement still impacts the market, and while there's mention of a tariff reversal, it doesn't necessarily mean the catalyst is resolved as the overall impact on real estate is still unfolding.",
+      "exit_advice": "Monitor tariff policy developments and real estate market reactions.",
+      "evidence_urls": [
+        "https://therealdeal.com/national/2025/04/12/real-estate-impacted-by-trumps-tariff-reversal/"
+      ]
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's restriction on rare-earth exports is driving the surge in MP Materials (MP), the lone scaled US producer.",
+      "exit_advice": "Monitor for resolution or decay of China's export restrictions.",
+      "evidence_urls": [
+        "https://www.etf.com (implied, no url)"
+      ]
+    }
+  ],
+  "2025-04-25": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Trump tariffs impact real estate",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event remains live as Trump's tariffs continue to impact real estate, with ongoing market reactions.",
+      "exit_advice": "Monitor for a clear resolution or reversal of Trump's tariffs on real estate.",
+      "evidence_urls": [
+        "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
+        "https://finance.yahoo.com/news/jim-cramer-cvs-health-cvs-224546168.html"
+      ]
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there is no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
+      "exit_advice": "continue to monitor China's export policies and MP's stock performance",
+      "evidence_urls": [
+        "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
+        "https://www.tahoedailytribune.com/news/everything-everywhere-all-at-once/"
+      ]
+    }
+  ],
+  "2025-05-02": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Trump tariffs impact real estate",
+      "thesis_live": false,
+      "exit_case": "The impact of Trump tariffs on real estate has become more evident with US GDP shrinking to 0.3% in Q1 2025.",
+      "catalyst_resolved": true,
+      "assessment": "The initial catalyst of Trump tariffs affecting real estate has now manifested in tangible economic data, such as the contraction of US GDP.",
+      "exit_advice": "The event has reached a point where the catalyst is considered resolved due to the significant impact on US GDP.",
+      "evidence_urls": [
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/"
+      ]
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China lifts or relaxes its restrictions on rare-earth exports",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as China has not lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "evidence_urls": [
+        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
+        "https://www.hellenicshippingnews.com/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
+      ]
+    },
+    {
+      "ticker": "BWXT",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": false,
+      "exit_case": "none",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst (China approves 10 new reactors) has occurred as reported on 2025-04-28",
+      "exit_advice": "Catalyst has occurred and is public",
+      "evidence_urls": [
+        "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-approves-10-new-reactors-nuclear-power-ramp"
+      ]
+    }
+  ],
+  "2025-05-09": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst, China restricting rare-earth exports, remains relevant as there's no indication it's been lifted or relaxed.",
+      "exit_advice": "Monitor for official announcements from China regarding the lifting or relaxation of rare-earth export restrictions.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Initial entry on electric vehicle surge boosting Tesla, with news confirming the trend on the entry date.",
+      "exit_advice": "Monitor for signs that the electric vehicle surge is plateauing or that Tesla's growth is slowing.",
+      "evidence_urls": [
+        "https://www.forexlive.com/stock-market-update/electric-vehicle-surge-tesla-powers-ahead-while-tech-and-healthcare-struggle-20250509/"
+      ]
+    }
+  ],
+  "2025-05-16": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China's rare-earth export restrictions have been in place for a month with no indication of being lifted.",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
+      "exit_advice": "Monitor for official announcements regarding the lifting or relaxation of China's rare-earth export restrictions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend as of the latest journal entry, with no clear indication that it has resolved or decayed.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.crn.com/news/components-peripherals/2025/surge-in-nvidia-grace-cpus-contributes-to-record-arm-market-share-estimate"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Coinbase has been hacked and is reimbursing customers, with estimated costs up to $400 million. The event is still unfolding.",
+      "exit_advice": "wait for reimbursement process to complete or further developments",
+      "evidence_urls": [
+        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
+        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data",
+        "https://www.pilotonline.com/2025/05/15/coinbase-stolen-info/"
+      ]
+    }
+  ],
+  "2025-05-23": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "To adhere to the format, first the exit case is required.",
+      "exit_advice": "none",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event remains unresolved as there's no update on reimbursement or hack resolution.",
+      "exit_advice": "Monitor official statements or reimbursement progress.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event has just started, and the catalyst is still pending. CEG is a relevant vehicle.",
+      "exit_advice": "continue to monitor Trump's uranium-related announcements",
+      "evidence_urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
+      ]
+    }
+  ],
+  "2025-05-30": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Reviewing the entire journal",
+      "exit_advice": "Continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": true,
+      "exit_case": "The hack and reimbursement process has not been officially closed or resolved.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution.",
+      "exit_advice": "Monitor official statements on reimbursement completion or hack resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no new developments.",
+      "exit_advice": "Continue to hold the position.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-06": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues, and the latest news doesn't directly indicate resolution or decay.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.thehindubusinessline.com/markets/stock-markets/rate-sensitive-stocks-surge-as-rbi-delivers-50-bps-cut/article69664313.ece",
+        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": true,
+      "exit_case": "The reimbursement process has been completed and the hack fully investigated.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution for three consecutive weeks.",
+      "exit_advice": "Monitor for updates on reimbursement completion or official closure.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending, and CEG is still a relevant vehicle.",
+      "exit_advice": "Monitor for resolution or significant development in Trump's uranium policy.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The new CEO's plan to continue acquiring small public utilities suggests the catalyst is still active",
+      "exit_advice": "Monitor for acquisition announcements and changes in CEO plans",
+      "evidence_urls": [
+        "https://www.inquirer.com/business/american-water-works-john-griffith-20250602.html"
+      ]
+    }
+  ],
+  "2025-06-13": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "the event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
+      "exit_advice": "continue to monitor for any sign of relaxation or lifting of China's restrictions on rare-earth exports",
+      "evidence_urls": [
+        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues as per the latest news and journal entries, with TSLA remaining the purest play.",
+      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/rate-cut-boosts-sentiment-for-home-buyers-but-fund-managers-still-cautious-on-stock-valuations-13105033.html"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": true,
+      "exit_case": "Coinbase has completed reimbursement and resolved the hack.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution for four consecutive weeks.",
+      "exit_advice": "Monitor for updates on reimbursement and hack resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no resolution.",
+      "exit_advice": "Continue to hold CEG as it remains a relevant vehicle for the pending catalyst.",
+      "evidence_urls": [
+        "https://www.news18.com/viral/buying-vs-renting-internet-users-believe-owning-a-home-is-more-valuable-ws-l-aa-aa-9376612.html"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved",
+      "exit_advice": "continue to hold AWK",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-20": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "the event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "The electric vehicle surge has been consistently reported with no clear resolution or decay.",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend as per the latest journal entries.",
+      "exit_advice": "Monitor for signs of the electric vehicle surge resolving or decaying.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "COINBASE hacked and reimbursing customers",
+      "thesis_live": false,
+      "exit_case": "The hack and reimbursement process has been ongoing for five weeks with no updates, suggesting a potential loss of market relevance.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains unresolved but market interest appears to be waning due to the absence of updates.",
+      "exit_advice": "The lack of new information or developments suggests the event's impact is diminishing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new developments; catalyst remains pending.",
+      "exit_advice": "Continue to hold.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "The CEO's acquisition plans have been publicly disclosed with no further updates or changes.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there is no indication that the CEO's plans for acquisitions have been resolved or changed.",
+      "exit_advice": "Monitor for changes in the CEO's acquisition plans or significant developments.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-27": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No fresh news on China relaxing or tightening rare-earth export restrictions.",
+      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Reviewing the entire journal, the electric vehicle surge remains a valid trend with no signs of resolution or decay.",
+      "exit_advice": "Continue holding TSLA as it remains the purest play on the electric vehicle surge.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst 'Trump sparks uranium frenzy' remains pending with no new developments.",
+      "exit_advice": "Continue to monitor the catalyst for resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new information on the CEO's acquisition plans; still active based on prior entries.",
+      "exit_advice": "Sell when the CEO's acquisition plans are resolved or significantly altered.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-04": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China lifts or relaxes rare-earth export restrictions",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
+      "exit_advice": "Monitor for news that China has lifted or relaxed rare-earth export restrictions",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge remains a valid trend with no signs of resolution or decay.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "Trump has not made any concrete moves on uranium policy.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no resolution; CEG remains a relevant vehicle.",
+      "exit_advice": "Monitor for developments in uranium policy.",
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new information has emerged regarding the CEO's acquisition plans",
+      "exit_advice": "Continue to monitor for updates on AWK's acquisition plans",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-11": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China lifts or relaxes restrictions on rare-earth exports",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
+      "exit_advice": "Monitor for news of China lifting or relaxing restrictions on rare-earth exports",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "the electric vehicle surge continues to be a valid trend with TSLA as the purest play",
+      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": true,
+      "exit_case": "Trump's uranium-related actions have been announced and are being priced in, as indicated by ongoing market reactions.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst 'Trump sparks uranium frenzy' remains pending with no clear resolution; CEG remains a relevant vehicle.",
+      "exit_advice": "Monitor for concrete uranium-related policy changes or actions.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/10/china-market-update-real-estate-roars-on-policy-support/"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "The CEO has not made any significant acquisition announcements or changes to their plans.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
+      "exit_advice": "Continue to monitor for significant acquisition announcements or changes to the CEO's plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "Stimulus revival is officially rejected or fails to materialize",
+      "catalyst_resolved": false,
+      "assessment": "Stimulus revival rumors boosted China property stocks.",
+      "exit_advice": "Monitor stimulus policy developments.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook"
+      ]
+    }
+  ],
+  "2025-07-18": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant with no indication of China lifting or relaxing restrictions on rare-earth exports.",
+      "exit_advice": "Monitor for news of China lifting or relaxing restrictions on rare-earth exports.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend with no signs of resolution or decay.",
+      "exit_advice": "continue to hold TSLA",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump sparks uranium frenzy",
+      "thesis_live": false,
+      "exit_case": "The catalyst has remained pending with no developments for 8 weeks, indicating potential decay.",
+      "catalyst_resolved": false,
+      "assessment": "The event 'Trump sparks uranium frenzy' has not seen any significant developments or resolution over the past 8 weeks, suggesting that the catalyst may have lost its potency or is not going to resolve as anticipated.",
+      "exit_advice": "Close the position due to lack of progress or resolution on the catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
+      "exit_advice": "Monitor for news on acquisition plans or changes in CEO strategy.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/07/46487605/us-stocks-likely-to-open-higher-after-scaling-record-close-american-express-3m-charles-schwab-earnings-in-focus"
+      ]
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Stimulus rumors boosted China property stocks; no new devs.",
+      "exit_advice": "Monitor stimulus revival progress",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/07/46487605/us-stocks-likely-to-open-higher-after-scaling-record-close-american-express-3m-charles-schwab-earnings-in-focus",
+        "https://www.rttnews.com/story.aspx?Id=3553096"
+      ]
+    }
+  ],
+  "2025-07-25": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China lifts or relaxes rare-earth export restrictions",
+      "catalyst_resolved": false,
+      "assessment": "No indication that China has lifted or relaxed restrictions on rare-earth exports",
+      "exit_advice": "Monitor for news of China lifting or relaxing restrictions",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "the electric vehicle surge continues to be a valid trend with TSLA as the purest play",
+      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "evidence_urls": [
+        "https://spectator.sme.sk/politics-and-society/c/news-digest-foreigners-in-slovaks-out"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new information has emerged regarding the CEO's acquisition plans, so the catalyst remains active.",
+      "exit_advice": "Continue to monitor for resolution or significant developments in the CEO's acquisition plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Still plausible given prior week's notes.",
+      "exit_advice": "Monitor stimulus revival developments.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Alphabet beats quarterly results",
+      "thesis_live": false,
+      "exit_case": "Alphabet released quarterly results, beating forecasts",
+      "catalyst_resolved": true,
+      "assessment": "Alphabet's quarterly results have been released and beat forecasts, potentially impacting stock performance.",
+      "exit_advice": "The catalyst has resolved as Alphabet has released its quarterly results.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nasdaq-futures-climb-upbeat-alphabet-100930255.html"
+      ]
+    }
+  ],
+  "2025-08-01": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant with no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "Continue to monitor for any changes in China's rare-earth export restrictions.",
+      "evidence_urls": [
+        "finance.yahoo.com"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
+      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/07/30/top-utility-stocks-to-add-to-your-watchlist-july-27th.html"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "CEO has made or announced specific acquisitions resolving the catalyst",
+      "catalyst_resolved": false,
+      "assessment": "No new information on the CEO's acquisition plans; the catalyst remains active based on prior entries",
+      "exit_advice": "Monitor for announcement or completion of specific acquisitions by the CEO",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/07/30/this-water-purification-stock-is-set-to-have-a-bullish-breakout-according-to-the-charts.html"
+      ]
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "Stimulus revival rumors have not materialized and no new developments have been observed for several weeks.",
+      "catalyst_resolved": false,
+      "assessment": "The likelihood of stimulus revival remains plausible given prior week's notes and no clear resolution.",
+      "exit_advice": "Monitor for actual stimulus announcement or clear signs of decay in stimulus expectations.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3559543"
+      ]
+    },
+    {
+      "ticker": "CAT",
+      "thesis": "Caterpillar forecast cut weighs on industrials",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Caterpillar forecast cut has negatively impacted industrials, and the event is still unfolding.",
+      "exit_advice": "continue to monitor CAT",
+      "evidence_urls": [
+        "https://quicknews-africa.net/wall-street-opens-sharply-lower-as-caterpillar-weighs/"
+      ]
+    }
+  ],
+  "2025-08-08": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China lifts or relaxes rare-earth export restrictions",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant with no indication of resolution",
+      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.rttnews.com/3564241/nasdaq-reaches-new-record-closing-high-as-apple-extends-surge.aspx",
+        "https://www.finanznachrichten.de/nachrichten-2025-08/66136074-nasdaq-reaches-new-record-closing-high-as-apple-extends-surge-020.htm"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "No acquisitions announced or completed, but CEO's plan remains unaltered and unstopped",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there's no indication that the CEO's acquisition plans have changed or been resolved",
+      "exit_advice": "Monitor for acquisition announcements or changes in CEO's plans",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "No new developments or concrete evidence for stimulus revival for 4 weeks.",
+      "catalyst_resolved": false,
+      "assessment": "Likelihood of stimulus revival remains plausible, supported by prior week's notes.",
+      "exit_advice": "Monitor for concrete stimulus announcements or clear indicators of revival.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CAT",
+      "thesis": "Caterpillar forecast cut weighs on industrials",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Caterpillar forecast cut still impacting industrials",
+      "exit_advice": "continue to monitor CAT",
+      "evidence_urls": [
+        "https://finance.yahoo.com/research/reports/ARGUS_44329_TechnicalAnalysis_1754566140000"
+      ]
+    }
+  ],
+  "2025-08-15": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "exit_case": "China has not lifted or relaxed restrictions on rare-earth exports as per the journal entries.",
+      "catalyst_resolved": false,
+      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "exit_advice": "Continue to monitor China's rare-earth export policies and MP's performance.",
+      "evidence_urls": [
+        "http://www.indiagazette.com/news/278510448/only-trump-knows-what-next-ex-nsa-pankaj-saran-says-india-us-strain-part-of-global-disruption",
+        "https://www.newsx.com/world/why-japan-and-china-mark-wwii-end-on-different-days-and-what-it-means-45672/"
+      ]
+    },
+    {
+      "ticker": "TSLA",
+      "thesis": "Electric vehicle surge boosts Tesla",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water Works CEO plans acquisitions",
+      "thesis_live": true,
+      "exit_case": "The CEO has made an acquisition announcement or the plans have been otherwise resolved.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
+      "exit_advice": "Monitor for acquisition announcements or changes in CEO plans.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CHL",
+      "thesis": "likely stimulus revival",
+      "thesis_live": true,
+      "exit_case": "Stimulus revival has been officially announced or denied with clear evidence.",
+      "catalyst_resolved": false,
+      "assessment": "The likelihood of stimulus revival remains plausible with no clear resolution or denial.",
+      "exit_advice": "Monitor for official government announcements on stimulus revival.",
+      "evidence_urls": [
+        "https://www.searchlight.vc/r-rose-eye-of-the-needle/2025/08/14/ah-never-proud/"
+      ]
+    },
+    {
+      "ticker": "CAT",
+      "thesis": "Caterpillar forecast cut weighs on industrials",
+      "thesis_live": true,
+      "exit_case": "Caterpillar revises forecast back to previous levels or industrials recover fully.",
+      "catalyst_resolved": false,
+      "assessment": "The event remains relevant as industrials continue to be impacted.",
+      "exit_advice": "Monitor Caterpillar's further guidance and industrials' reaction.",
+      "evidence_urls": [
+        "https://www.10tv.com/article/news/nation-world/judge-trump-administration-guidance-dei-programs-schools/507-608196d6-5c31-4852-990b-4b6eb6394cb1"
+      ]
+    },
+    {
+      "ticker": "PLUG",
+      "thesis": "US Tariff Hike on India",
+      "thesis_live": true,
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The US tariff hike on India is still pending and has not been resolved. Former NSA Pankaj Saran's comments suggest uncertainty in India-US relations.",
+      "exit_advice": "continue to monitor news on US tariff hike on India",
+      "evidence_urls": [
+        "http://www.indiagazette.com/news/278510448/only-trump-knows-what-next-ex-nsa-pankaj-saran-says-india-us-strain-part-of-global-disruption",
+        "http://www.indiagazette.com/news/278510377/impose-illogical-additional-trump-tariff-on-turkey-china-eu-and-us-importers-amitabh-kant"
+      ]
+    }
+  ]
+}

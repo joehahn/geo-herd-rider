@@ -1,0 +1,35 @@
+{
+  "2025-03-21": [],
+  "2025-03-28": [],
+  "2025-04-04": [],
+  "2025-04-11": [],
+  "2025-04-18": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbing rare-earth exports",
+      "thesis_live": false,
+      "exit_case": "China export curbs already enacted Apr 12",
+      "catalyst_resolved": true,
+      "assessment": "Catalyst resolved on enactment; MP reacted immediately",
+      "exit_advice": "Exit: catalyst occurred and priced",
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-25": [],
+  "2025-05-02": [],
+  "2025-05-09": [],
+  "2025-05-16": [],
+  "2025-05-23": [],
+  "2025-05-30": [],
+  "2025-06-06": [],
+  "2025-06-13": [],
+  "2025-06-20": [],
+  "2025-06-27": [],
+  "2025-07-04": [],
+  "2025-07-11": [],
+  "2025-07-18": [],
+  "2025-07-25": [],
+  "2025-08-01": [],
+  "2025-08-08": [],
+  "2025-08-15": []
+}

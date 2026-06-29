@@ -1,0 +1,90 @@
+{
+  "2025-03-21": [],
+  "2025-03-28": [],
+  "2025-04-04": [],
+  "2025-04-11": [
+    {
+      "ticker": "VNQ",
+      "thesis": "Tariff pause news catalyzes real estate stock rebound.",
+      "thesis_live": false,
+      "exit_case": "Tariff pause news already announced; real estate rebound has occurred and edge is gone.",
+      "catalyst_resolved": true,
+      "assessment": "The tariff pause news catalyzed a real estate stock rebound as reported on April 9-10, with VNQ surging despite market volatility. However, the market remains down over 5% post-tariffs, and the rebound may be temporary as the catalyst has publicly occurred.",
+      "exit_advice": "Exit or avoid entry now, as the tariff pause news is public and the rebound is already priced in.",
+      "evidence_urls": [
+        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
+        "https://therealdeal.com/new-york/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
+        "https://www.themarketsdaily.com/2025/04/09/vanguard-real-estate-etf-nysearcavnq-hits-new-1-year-low-heres-what-happened.html"
+      ]
+    }
+  ],
+  "2025-04-18": [
+    {
+      "ticker": "MP",
+      "thesis": "China's rare-earth export curbs boost sole US miner MP Materials.",
+      "thesis_live": false,
+      "exit_case": "China's rare-earth export curbs are already public and MP has surged, pricing in the catalyst.",
+      "catalyst_resolved": true,
+      "assessment": "China's rare-earth export restrictions are in place, boosting MP Materials as the sole US miner. The catalyst is public and priced, so the thesis is no longer live.",
+      "exit_advice": "Exit the position as the specific catalyst has resolved and MP has already reacted.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-25": [],
+  "2025-05-02": [],
+  "2025-05-09": [],
+  "2025-05-16": [
+    {
+      "ticker": "AUR",
+      "thesis": "Werner partnership expands driverless pilot to new Fort Worth\u2013Phoenix route",
+      "thesis_live": false,
+      "exit_case": "Announcement public; catalyst resolved, no pending edge.",
+      "catalyst_resolved": true,
+      "assessment": "The driverless pilot expansion announcement is public, resolving the catalyst. Future milestones like route start are separate events.",
+      "exit_advice": "Exit position as the specific catalyst has already occurred and is priced in.",
+      "evidence_urls": [
+        "https://www.freightwaves.com/news/werner-and-aurora-expand-driverless-pilot-with-new-route"
+      ]
+    }
+  ],
+  "2025-05-23": [
+    {
+      "ticker": "CEG",
+      "thesis": "Trump's uranium policy announcement boosts nuclear energy stocks",
+      "thesis_live": false,
+      "exit_case": "Trump's uranium policy announcement has occurred and is already priced into market gains.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst\u2014Trump's uranium policy announcement\u2014has triggered explosive gains in nuclear stocks, indicating the event is over and the market has reacted.",
+      "exit_advice": "Exit position immediately; the catalyst is public and priced, leaving no edge.",
+      "evidence_urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains",
+        "https://www.fool.ca/2025/05/23/tsx-today-what-to-watch-for-in-stocks-on-friday-may-23/",
+        "https://www.themarketsdaily.com/2025/05/23/promising-utility-stocks-to-watch-today-may-20th.html"
+      ]
+    },
+    {
+      "ticker": "LITM",
+      "thesis": "Trump's uranium policy sparks interest in uranium-related resources",
+      "thesis_live": false,
+      "exit_case": "Trump's uranium policy announcement has already sparked market frenzy, priced in.",
+      "catalyst_resolved": true,
+      "assessment": "The specific catalyst of Trump's uranium policy sparking interest has occurred, as evidenced by explosive gains in nuclear ETFs and uranium-related stocks.",
+      "exit_advice": "The catalyst has resolved with public policy announcement and market reaction; consider exiting.",
+      "evidence_urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
+      ]
+    }
+  ],
+  "2025-05-30": [],
+  "2025-06-06": [],
+  "2025-06-13": [],
+  "2025-06-20": [],
+  "2025-06-27": [],
+  "2025-07-04": [],
+  "2025-07-11": [],
+  "2025-07-18": [],
+  "2025-07-25": [],
+  "2025-08-01": [],
+  "2025-08-08": [],
+  "2025-08-15": []
+}
