@@ -128,16 +128,16 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         if j >= 0:
             for t in watch[anchors[j]]:
                 watch_daily[t][i] = 1
-    # per-event agent journal arc (week-by-week hindsight/read/exit), if the scan persisted it
+    # per-event agent journal arc (week-by-week exit-case/read/exit), if the scan persisted it
     arcs = {}
     for a in sorted(scans):
         for p in scans[a]:
             t = str(p.get("ticker", "")).strip().upper()
-            if t and (p.get("assessment") or p.get("hindsight")):
+            if t and (p.get("assessment") or p.get("exit_case")):
                 arcs.setdefault(t, []).append({
                     "date": a.date().isoformat(), "live": p.get("thesis_live"),
-                    "hindsight": p.get("hindsight", ""), "assessment": p.get("assessment", ""),
-                    "exit_advice": p.get("exit_advice", "")})
+                    "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
+                    "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
 
     # curator model that PRODUCED this book: the scan sidecar wins over the current profile knob
     meta_p = cfg["scans"].with_suffix(".meta.json")
@@ -442,9 +442,9 @@ INDEX_HTML = r"""<!doctype html>
  <table class="atab" id="watchtable"></table>
 
  <h2>Agent journal — week-by-week (per event)</h2>
- <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry: its weekly <b>hindsight</b>
-   (self-critique of last week's call), <b>read</b> (assessment), live/exit state, and exit trigger.
-   This is the agent's memory — use it to spot anchoring (repeating a stale call) or a missed exit.</p>
+ <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry: its weekly <b>exit case</b>
+   (devil's-advocate argument that the thesis is already over, with a RESOLVED flag that forces the
+   exit), <b>read</b> (assessment), live/exit state, and exit trigger. Use it to spot a missed exit.</p>
  <div id="arcs"></div>
 
  <h2>What it cost</h2>
@@ -599,12 +599,13 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
   document.getElementById("arcs").innerHTML = ats.length ? ats.map(t=>{
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
-      +`<td>${esc(e.hindsight)||"—"}</td><td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
+      +`<td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     return `<details${open} style="margin:0 0 6px"><summary><b>${t}</b> · ${A[t].length} wk`
       +`${t===D.gem?" (gem)":""}</summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>State</th><th>Hindsight</th><th>Read</th>`
-      +`<th>Exit trigger</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+      +`<table class="atab"><thead><tr><th>Date</th><th>State</th><th>Exit case (devil's-advocate)</th>`
+      +`<th>Read</th><th>Exit trigger</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
 
   document.getElementById("costs").innerHTML =

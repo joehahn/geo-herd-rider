@@ -144,7 +144,8 @@ class JournalEntry(BaseModel):
     the thesis_live/exit call, and prose. news_claims is attribution of what the PRESS says."""
     model_config = ConfigDict(extra="ignore")
     thesis_live: bool = True
-    hindsight: str = ""          # weekly self-critique of last week's call (Reflexion; breaks inertia)
+    exit_case: str = ""              # devil's-advocate: strongest reason the thesis is already over
+    catalyst_resolved: bool = False  # binary: has the entry catalyst already happened? -> forces exit
     exit_advice: str = ""
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
@@ -361,8 +362,8 @@ or "new" if it is a genuinely different catalyst. Output ONLY JSON:
 {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["hindsight", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
-    "properties": {"hindsight": {"type": "string"},
+    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
@@ -374,27 +375,28 @@ CATALYST (FIXED — the discrete thing you entered on), its KNOWN vehicles, your
 for this event since entry (your memory — the whole arc, not just last week), and this week's news.
 Write the new note.
 
-FIRST, HINDSIGHT (self-critique — do this BEFORE deciding): given what's now known, was last week's
-call right? If last week's thesis_live/vehicle now looks WRONG (e.g. the catalyst had already
-resolved and you kept holding, or you held a stale vehicle), SAY SO plainly in <=20 words and let
-it CHANGE this week's call — do not just repeat last week because you said it last week. If last
-week was right, say "prior call holds" and move on. This breaks repeat-the-same-mistake inertia.
+FIRST, ARGUE FOR EXIT (devil's advocate — do this BEFORE deciding, EVERY week, against your WHOLE
+journal): state the SINGLE strongest reason this thesis is ALREADY OVER — the catalyst has resolved
+or decayed (`exit_case`, <=20 words). Write "none" ONLY after genuinely looking and finding nothing.
+This is NOT a "was I right?" review (that just rubber-stamps the hold) — it is the case AGAINST the
+position, made fresh each week, which is what defeats hold-inertia.
+
+THEN answer `catalyst_resolved` (true/false): re-reading your ENTIRE journal, has the SPECIFIC
+catalyst you entered on already OCCURRED / passed / closed / been signed — a bill signed or
+voted-down, approval granted/denied, named deal closed, emergency declared-then-ended,
+war/chokepoint/supply shock reversed — in THIS week OR ANY PRIOR week (even one you did not flag at
+the time)? If true, the catalyst is public and priced, your edge is gone, and thesis_live MUST be
+false — EVEN IF the stock is still rising or a broader THEME lingers. The ONLY thing that is NOT
+resolution: mainstream hype / crowding ("up 600%, everyone in"). thesis_live=TRUE only while the
+specific catalyst is still PENDING (catalyst_resolved=false).
 
 USE THE WHOLE JOURNAL. The CATALYST is fixed; the best VEHICLE (ticker) MAY EVOLVE as the event
 develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cleanest pure-play /
 rate-or-commodity ETN / single ADR; drop a vehicle that is no longer the best). The event is the
 durable unit; the ticker can change with it.
 
-EXIT CHECK (do this EVERY week, against your WHOLE journal — not just this week's headlines): has
-the specific catalyst you entered on RESOLVED at any point — bill signed/passed/voted-down,
-approval granted/denied, named deal closed, emergency declared-then-ended, war/chokepoint/supply
-shock reversed? If yes, thesis_live=FALSE NOW, EVEN IF the stock is still rising and even if a
-broader THEME lingers (a resolved catalyst is no longer your edge — it is public and priced). The
-ONLY thing that is NOT a reason to exit: mainstream hype / crowding ("up 600%, everyone in").
-thesis_live=TRUE only while that specific catalyst is still PENDING.
-
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
-composition, the exit, and which vehicle. Output ONLY JSON: {"hindsight":"...","thesis_live":true,
+composition, the exit, and which vehicle. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
 "exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
@@ -462,10 +464,14 @@ def event_agent_v2(client, anchor, event, entries, news):
         e = JournalEntry(**_extract(txt))
     except Exception:  # noqa: BLE001
         e = JournalEntry()
+    # #3: the binary FORCES the exit — a resolved catalyst can't be held out of inertia (the LLM
+    # selects whether it resolved; the exit is mechanical, like the scope guard — non-negotiable #1).
+    live = e.thesis_live and not e.catalyst_resolved
     veh = [v.strip().upper() for v in e.vehicles if v.strip()]
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
-    return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
-            "hindsight": e.hindsight, "exit_advice": e.exit_advice, "assessment": e.assessment,
+    return {"date": anchor.date().isoformat(), "thesis_live": live,
+            "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
+            "exit_advice": e.exit_advice, "assessment": e.assessment,
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
 
@@ -560,7 +566,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"],
-                                  "hindsight": entry.get("hindsight", ""),
+                                  "exit_case": entry.get("exit_case", ""),
+                                  "catalyst_resolved": entry.get("catalyst_resolved", False),
                                   "assessment": entry.get("assessment", ""),
                                   "exit_advice": entry.get("exit_advice", ""),
                                   "evidence_urls": entry["sources"]})
