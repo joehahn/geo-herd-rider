@@ -9,7 +9,7 @@
 
 **The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, naming the winner **early** (while it's still under the radar) and then repeatedly, more loudly, as the move builds. For example, the niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. Our edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis — a *thesis* being the specific catalyst driving the ticker (here, a war spiking tanker freight rates), *live* while that catalyst is unresolved — ride while the thesis holds, and exit when it decays. AI is never used to predict *how big* a move will be — only which ticker, and whether its thesis still holds, while a non-AI mechanical optimizer sizes it.
 
-**What this repo does.** Each week (of historical news) an LLM reads the news firehose as well as some high-reach posts, extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and curates a watchlist. A plain mean-variance optimizer then weights that watchlist. A position is **held while its driving catalyst is live** and **dropped when the thesis decays** (ceasefire signed, chokepoint reopens). The whole run is then scored against a locked set of historical "gems."
+**What this repo does.** Walking week by week through historical news, an LLM reads the news firehose, extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and curates a watchlist. A plain mean-variance optimizer then weights that watchlist. A position is **held while its driving catalyst is live** and **dropped when the thesis decays** (ceasefire signed, chokepoint reopens). The whole run is then scored against a locked set of historical "gems."
 
 ## How it works, at a glance
 
@@ -105,7 +105,7 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 One source, three jobs — plus mechanical sizing:
 
-- **Read** — *what's worth owning.* The news firehose (and high-reach posts via `trump_feed.py`, point-in-time-sliceable) — the tickers the press explicitly **names** as thesis-driven movers. The human never picks.
+- **Read** — *what's worth owning.* The news firehose — the tickers the press explicitly **names** as thesis-driven movers. The human never picks. (High-reach posts via `trump_feed.py` are a *roadmapped* second source — point-in-time-sliceable and wired into the legacy single-scan path, but not yet read by the event-first engine.)
 - **Enter** — *the press names it on a live thesis.* The human never sets the trade; the curator just reports which tickers the press is naming as live movers.
 - **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is **not thesis death** — only the catalyst resolving ends the hold.
 - **Sizing** — mechanical (the ⚖️ **Optimizer** box). A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers, and a schema guardrail (below) drops any magnitude it tries to emit.
