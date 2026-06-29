@@ -99,7 +99,8 @@
     "2026-06-23",
     "2026-06-24",
     "2026-06-25",
-    "2026-06-26"
+    "2026-06-26",
+    "2026-06-29"
   ],
   "value": [
     50000.0,
@@ -196,7 +197,8 @@
     38411.32,
     39038.76,
     40097.57,
-    39176.01
+    39176.01,
+    39430.91
   ],
   "spy": [
     50000.0,
@@ -212,11 +214,11 @@
     50074.41,
     49796.28,
     49557.16,
-    49585.33,
+    49585.34,
     49148.27,
     49495.03,
     49219.07,
-    48573.94,
+    48573.95,
     48999.45,
     48920.71,
     48859.31,
@@ -225,7 +227,7 @@
     48331.94,
     48459.08,
     47782.9,
-    47665.14,
+    47665.15,
     46981.83,
     47475.14,
     47315.77,
@@ -293,11 +295,12 @@
     53276.78,
     53252.08,
     53329.07,
-    52943.43
+    52943.43,
+    53788.79
   ],
   "gain": {
     "CEG": -4945.95,
-    "CSLLY": 597.25,
+    "CSLLY": 852.15,
     "RGTI": -5950.84,
     "COO": -1146.03,
     "QBTS": 621.58
@@ -397,7 +400,8 @@
     211521.06,
     172199.38,
     154162.38,
-    131551.9
+    131551.9,
+    163412.12
   ],
   "overlay_ticker": "BWET",
   "overlay_anchor": "2026-02-20",
@@ -476,6 +480,7 @@
       1.0,
       1.0,
       1.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -594,6 +599,7 @@
       0.0,
       0.0,
       0.0,
+      0.0,
       0.0
     ],
     "CSLLY": [
@@ -688,6 +694,7 @@
       0.1,
       0.1,
       0.1,
+      1.0,
       1.0,
       1.0,
       1.0,
@@ -788,6 +795,7 @@
       0.0,
       0.0,
       0.0,
+      0.0,
       0.0
     ],
     "RGTI": [
@@ -873,6 +881,7 @@
       1.0,
       1.0,
       1.0,
+      0.0,
       0.0,
       0.0,
       0.0,
@@ -983,6 +992,7 @@
     0.0,
     0.0,
     0.0,
+    0.0,
     0.0
   ],
   "colors": {
@@ -993,9 +1003,9 @@
     "RGTI": "#9467bd"
   },
   "metrics": {
-    "final": 39176.0,
-    "total_ret": -0.2165,
-    "spy_ret": 0.0589,
+    "final": 39431.0,
+    "total_ret": -0.2114,
+    "spy_ret": 0.0758,
     "max_dd": -0.2901
   },
   "cost_usd": 2.8,
@@ -1811,6 +1821,7 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "COO": [
@@ -1908,6 +1919,7 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "CSLLY": [
@@ -1948,6 +1960,7 @@
       0,
       0,
       0,
+      1,
       1,
       1,
       1,
@@ -2102,6 +2115,7 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "PRAX": [
@@ -2199,6 +2213,7 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "QBTS": [
@@ -2273,6 +2288,7 @@
       0,
       0,
       0,
+      1,
       1,
       1,
       1,
@@ -2393,6 +2409,7 @@
       1,
       1,
       1,
+      1,
       1
     ],
     "SPCX": [
@@ -2490,6 +2507,7 @@
       1,
       1,
       1,
+      1,
       1
     ]
   },
@@ -2504,7 +2522,7 @@
       "timeout": 0,
       "other_err": 0,
       "elapsed_s": 0.0,
-      "items_per_min": 73383788.2,
+      "items_per_min": 63514722.5,
       "from_cache": true
     },
     "wayback": {
@@ -2544,133 +2562,152 @@
       {
         "date": "2026-02-27",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The event catalyst is still active, with no resolution indicated in the news. CEG remains the primary vehicle for this event.",
         "exit_advice": "Hold; the 380-megawatt deal with CyrusOne remains pending and unresolved."
       },
       {
         "date": "2026-03-06",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "the catalyst remains pending with no new developments this week",
         "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains unresolved"
       },
       {
         "date": "2026-03-13",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "No new developments this week; the 380-megawatt deal remains pending.",
         "exit_advice": ""
       },
       {
         "date": "2026-03-20",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "continue holding CEG as the 380-megawatt deal catalyst remains pending"
       },
       {
         "date": "2026-03-27",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has been reported. Continue monitoring for any developments regarding the deal's status."
       },
       {
         "date": "2026-04-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has occurred. Continue holding until the catalyst resolves."
       },
       {
         "date": "2026-04-10",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has occurred. Continue holding until the catalyst resolves."
       },
       {
         "date": "2026-04-17",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The 380-megawatt deal with CyrusOne remains unresolved, with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "Exit if the 380-megawatt deal with CyrusOne is finalized or canceled."
       },
       {
         "date": "2026-04-24",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "Continue holding CEG until the 380-megawatt deal with CyrusOne resolves."
       },
       {
         "date": "2026-05-01",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "Continue holding as the 380-megawatt deal with CyrusOne remains unresolved."
       },
       {
         "date": "2026-05-08",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "The 380-megawatt deal with CyrusOne remains unresolved. Continue holding until the catalyst resolves."
       },
       {
         "date": "2026-05-15",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "No new developments this week; the catalyst remains unresolved. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains pending."
       },
       {
         "date": "2026-05-22",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "continue holding CEG as the 380-megawatt deal remains unresolved"
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "continue holding as the 380-megawatt deal with CyrusOne remains unresolved"
       },
       {
         "date": "2026-06-05",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The 380-megawatt deal with CyrusOne remains pending with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "continue holding CEG as the catalyst remains unresolved"
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The 380-megawatt deal with CyrusOne remains unresolved, with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne; continue holding CEG as the catalyst remains pending."
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. CEG continues to be the appropriate vehicle for this event.",
         "exit_advice": "No resolution of the 380-megawatt deal with CyrusOne has been reported. Continue holding CEG as the purest vehicle for this event."
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The 380-megawatt deal with CyrusOne remains unresolved with no new developments reported this week. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "Exit if the 380-megawatt deal with CyrusOne is resolved (signed/passed/voted-down). Until then, the catalyst remains pending."
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no resolution indicated in the news. CEG continues to be the purest vehicle for this event.",
         "exit_advice": "Continue holding CEG as the 380-megawatt deal with CyrusOne remains unresolved with no new developments this week."
       }
@@ -2679,98 +2716,112 @@
       {
         "date": "2026-04-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst is fresh and the market is reacting to the announcement of 100% tariffs on some patented drugs. CSLLY is a known vehicle affected by this policy.",
         "exit_advice": "Exit if the tariff is officially revoked or significantly modified, or if CSLLY is confirmed to be exempt from the tariffs."
       },
       {
         "date": "2026-04-10",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending as the tariff policy has not been resolved or reversed.",
         "exit_advice": "continue monitoring for resolution of tariff implementation or policy reversal"
       },
       {
         "date": "2026-04-17",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments on the tariff policy. CSLLY continues to be the appropriate vehicle.",
         "exit_advice": "Continue holding CSLLY as the tariff policy remains unresolved."
       },
       {
         "date": "2026-04-24",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "the catalyst remains pending with no new developments on the tariff policy",
         "exit_advice": "continue holding as the tariff policy remains unresolved"
       },
       {
         "date": "2026-05-01",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The tariff policy continues to affect CSLLY, with no new developments this week.",
         "exit_advice": "The catalyst remains pending \u2014 no resolution or reversal of Trump's 100% tariff on foreign drugs."
       },
       {
         "date": "2026-05-08",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments on the tariff policy. CSLLY continues to be the appropriate vehicle.",
         "exit_advice": "Continue holding CSLLY as the tariff policy remains unresolved."
       },
       {
         "date": "2026-05-15",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY remains the appropriate vehicle.",
         "exit_advice": "The tariff policy remains unresolved and continues to affect CSLLY. Hold until the policy is resolved or reversed."
       },
       {
         "date": "2026-05-22",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
         "exit_advice": "Exit if the tariff policy is officially reversed or resolved, or if new developments indicate a significant change in the policy's impact."
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle.",
         "exit_advice": "continue holding as the tariff policy remains unresolved"
       },
       {
         "date": "2026-06-05",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
         "exit_advice": "Exit if the tariff policy is resolved or reversed."
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
         "exit_advice": "Exit if the tariff policy is resolved or reversed, or if CSLLY is no longer the best vehicle for this catalyst."
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
         "exit_advice": "Exit if the 100% tariff policy is officially reversed or resolved."
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains pending with no new developments this week. CSLLY continues to be the appropriate vehicle as the tariff policy has not been resolved or reversed.",
         "exit_advice": "continue holding as the tariff policy remains unresolved"
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst\u2014Trump's 100% tariff on foreign drugs\u2014remains active, and CSLLY continues to be the appropriate vehicle.",
         "exit_advice": "No new developments; the tariff policy remains pending and unresolved."
       }
@@ -2779,21 +2830,24 @@
       {
         "date": "2026-05-22",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The $2B quantum investment catalyst remains pending, with no resolution reported this week. RGTI is the purest vehicle for this event, but monitor other quantum stocks like QBTS and QUBT for potential shifts in market sentiment.",
         "exit_advice": "Hold until the $2B quantum investment catalyst resolves or further developments occur."
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The $2B quantum investment catalyst remains pending with no resolution. RGTI continues as the purest vehicle, though INFQ shows increasing relevance due to recent CEO commentary and market attention.",
         "exit_advice": "Continue monitoring for catalyst resolution (funding distribution or official announcement completion). Exit only when the $2B quantum investment is fully allocated or publicly canceled."
       },
       {
         "date": "2026-06-05",
         "live": false,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The specific catalyst -- the $2B quantum investment -- has been resolved with the funds being allocated to specific companies. While broader interest in quantum computing continues, this event has concluded.",
         "exit_advice": "Exit now. The $2B quantum investment catalyst has resolved as the funds have been allocated to specific companies, making it public and priced."
       }
@@ -2802,49 +2856,56 @@
       {
         "date": "2026-05-22",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst is still live as the $2B quantum investment announcement is fresh and the market is reacting. QBTS remains the purest play among known vehicles.",
         "exit_advice": "Exit if the $2B quantum investment is fully allocated or if the specific companies receiving funds are confirmed and priced in."
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains live with continued market reaction and news coverage. QBTS is still the purest play.",
         "exit_advice": "Hold until the $2B quantum investment catalyst resolves or shows clear signs of being priced in."
       },
       {
         "date": "2026-06-05",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains live with continued market reaction and news coverage. QBTS is still the purest play among known vehicles. The news highlights ongoing developments in the quantum computing sector, including IPO activities and investments, which continue to support the thesis.",
         "exit_advice": "Hold until the $2B quantum investment announcement resolves"
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The $2B quantum investment catalyst is still pending with no resolution. QBTS remains the purest play among known vehicles.",
         "exit_advice": "continue holding as the catalyst remains pending"
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains live with ongoing market reaction and news coverage. QBTS is still the purest play among known vehicles.",
         "exit_advice": "continue holding as the $2B quantum investment catalyst remains pending"
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains live with no resolution. QBTS is still the purest play among known vehicles.",
         "exit_advice": "continue holding QBTS as the $2B quantum investment catalyst remains pending"
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains live with no resolution. QBTS is still the purest play among known vehicles.",
         "exit_advice": "Continue holding QBTS as the $2B quantum investment catalyst remains pending with no resolution."
       }
@@ -2853,7 +2914,8 @@
       {
         "date": "2026-05-29",
         "live": false,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst of winning the lawsuit on star ratings has fully resolved, as confirmed by this week's news. While CLOV surged to a record high, the specific event-driven edge is now public and priced in. No further upside remains tied to this catalyst.",
         "exit_advice": "exit immediately \u2014 catalyst resolved"
       }
@@ -2862,35 +2924,40 @@
       {
         "date": "2026-06-05",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst is the Phase 2/3 POWER1 study findings, which are still pending and not fully resolved. PRAX remains the purest vehicle for this event.",
         "exit_advice": "Exit if the Phase 2/3 POWER1 study findings are fully resolved or if the catalyst is no longer pending."
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved, and PRAX is still the purest vehicle for this event.",
         "exit_advice": "Continue holding PRAX as the Phase 2/3 POWER1 study findings are still pending."
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
         "exit_advice": "Continue holding PRAX as the Phase 2/3 POWER1 study findings are still pending and unresolved."
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
         "exit_advice": "Exit if Phase 2/3 POWER1 study findings are released or if the study is canceled."
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The catalyst remains unresolved with no new developments this week. PRAX is still the purest vehicle for this event.",
         "exit_advice": "No exit yet \u2014 Phase 2/3 POWER1 study findings still pending"
       }
@@ -2899,35 +2966,40 @@
       {
         "date": "2026-06-05",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "COO's Q2 earnings beat is the primary catalyst, which remains live as the market digests the news",
         "exit_advice": "hold until earnings catalyst fully resolves"
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
         "exit_advice": "Hold until the market fully digests the Q2 earnings beat"
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
         "exit_advice": "exit when the Q2 earnings beat is fully priced in or when COO reports Q3 results"
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst.",
         "exit_advice": "The Q2 earnings beat remains the primary catalyst, and the market is still digesting the news. No significant developments have occurred to resolve the catalyst."
       },
       {
         "date": "2026-07-03",
         "live": false,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The Q2 earnings beat was the primary catalyst, and it has now been fully absorbed by the market. No new developments have occurred to justify holding further.",
         "exit_advice": "The Q2 earnings beat catalyst has been fully priced in and resolved after several weeks of market digestion. Exit the position."
       }
@@ -2936,14 +3008,16 @@
       {
         "date": "2026-06-12",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "Initial entry on SpaceX IPO debut remains valid as the event has not yet occurred",
         "exit_advice": "hold until SpaceX IPO debut concludes"
       },
       {
         "date": "2026-06-19",
         "live": false,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "The SpaceX IPO debut has occurred, with SPCX surging in its first days of trading. The catalyst is now publicly priced and resolved, so the thesis is no longer live.",
         "exit_advice": "Exit now \u2014 the SpaceX IPO catalyst has resolved with the stock already trading"
       }
@@ -2952,21 +3026,24 @@
       {
         "date": "2026-06-19",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "Initial entry based on Turtle Creek's stake in PNTG remains valid as no contrary news has emerged",
         "exit_advice": "hold until Turtle Creek's position change is fully priced or new contrary evidence emerges"
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "no new developments this week; initial thesis remains intact",
         "exit_advice": "continue holding as the catalyst remains pending"
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "hindsight": "prior call holds",
+        "exit_case": "",
+        "resolved": false,
         "assessment": "Turtle Creek's stake in Pennant remains intact with no developments altering the initial thesis.",
         "exit_advice": "Exit if Turtle Creek reduces or exits its stake in Pennant, or if significant contrary news emerges."
       }

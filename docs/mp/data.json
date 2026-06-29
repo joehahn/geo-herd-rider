@@ -135,104 +135,104 @@
     50000.0,
     50000.0,
     50000.0,
-    50000.0,
-    50000.0,
-    50000.0,
-    50000.0,
-    49266.93,
-    49353.17,
-    56080.21,
-    52630.44,
-    53579.13,
-    52996.98,
-    52738.25,
-    52479.52,
-    53924.1,
-    54333.76,
-    59256.25,
-    57889.28,
-    58425.61,
-    58111.75,
-    60578.14,
-    61664.64,
-    61115.13,
-    60468.89,
-    61828.08,
-    62364.98,
-    61876.7,
-    60527.43,
-    61534.7,
-    62559.04,
-    64456.47,
-    64245.83,
-    63269.78,
-    63849.58,
-    65367.87,
-    65284.44,
-    62471.02,
-    60456.36,
-    62316.68,
-    62496.04,
-    61381.45,
-    58180.39,
-    65613.75,
-    68267.68,
-    76769.13,
-    78608.04,
-    82463.12,
-    83615.21,
-    81000.85,
-    77345.17,
-    78430.8,
-    79737.98,
-    72891.9,
-    73711.66,
-    69767.96,
-    71717.65,
-    70543.41,
-    68793.11,
-    67623.68,
-    68546.69,
-    67792.29,
-    69504.28,
-    70466.19,
-    81436.27,
-    81312.74,
-    83213.25,
-    87205.27,
-    82353.29,
-    83694.91,
-    85179.53,
-    85652.74,
-    86455.14,
-    89034.1,
-    84272.39,
-    85391.06,
-    86275.56,
-    88865.22,
-    91405.89,
-    91673.47,
-    90392.83,
-    92239.55,
-    94042.76,
-    92455.6,
-    94856.19,
-    95143.45,
-    96159.44,
-    94246.3,
-    90977.79,
-    87298.87,
-    85887.77,
-    86026.36,
-    85522.4,
-    91103.78,
-    87979.22,
-    89957.27,
-    92603.07,
-    89629.69,
-    84804.25,
-    83141.18,
-    80860.75
+    50152.3,
+    50117.15,
+    50866.91,
+    49806.7,
+    50603.52,
+    50696.44,
+    51555.59,
+    51158.6,
+    51536.57,
+    51720.45,
+    51854.4,
+    51977.56,
+    52704.63,
+    52644.56,
+    58062.33,
+    56853.66,
+    57377.42,
+    57542.81,
+    60492.37,
+    61606.24,
+    60904.71,
+    60302.6,
+    61735.94,
+    62290.79,
+    61920.3,
+    60855.47,
+    61991.73,
+    62943.69,
+    65224.4,
+    62259.43,
+    60925.07,
+    60381.54,
+    60406.02,
+    60324.48,
+    58001.66,
+    56313.66,
+    57900.3,
+    58058.02,
+    57022.58,
+    54048.83,
+    60954.33,
+    63419.79,
+    71317.53,
+    72829.64,
+    76069.37,
+    77020.78,
+    74969.17,
+    72831.47,
+    73974.34,
+    75494.04,
+    69224.93,
+    69868.01,
+    66774.36,
+    70387.6,
+    70513.63,
+    70570.55,
+    70045.07,
+    73521.72,
+    76115.19,
+    75972.78,
+    77305.67,
+    85389.15,
+    86651.61,
+    89271.1,
+    92582.37,
+    88548.62,
+    89796.93,
+    91075.6,
+    91613.26,
+    92193.35,
+    94620.1,
+    88937.87,
+    89808.66,
+    90768.0,
+    94000.22,
+    96553.53,
+    96836.11,
+    95483.35,
+    97434.03,
+    99338.75,
+    97662.21,
+    100197.98,
+    100501.41,
+    101574.62,
+    99553.74,
+    96101.17,
+    92215.08,
+    90724.51,
+    90870.91,
+    90338.56,
+    96234.26,
+    92933.74,
+    95023.18,
+    97817.98,
+    94677.16,
+    89579.97,
+    87823.24,
+    85414.4
   ],
   "spy": [
     50000.0,
@@ -244,7 +244,7 @@
     49049.46,
     46632.27,
     43902.27,
-    43824.08,
+    43824.07,
     43137.67,
     47667.96,
     45579.19,
@@ -257,11 +257,11 @@
     45811.18,
     46521.04,
     47500.27,
-    47843.46,
+    47843.47,
     47861.71,
     48163.21,
     48182.33,
-    48523.78,
+    48523.79,
     49244.08,
     48961.71,
     48552.46,
@@ -272,7 +272,7 @@
     50988.78,
     51053.95,
     51303.31,
-    51628.27,
+    51628.26,
     51684.74,
     51510.97,
     50642.97,
@@ -282,10 +282,10 @@
     51066.11,
     51267.69,
     51210.34,
-    51498.81,
+    51498.8,
     51792.48,
     51778.58,
-    51528.34,
+    51528.35,
     52057.48,
     52104.41,
     52399.82,
@@ -350,9 +350,11 @@
     56566.83
   ],
   "gain": {
-    "MP": 22867.56,
-    "CEG": 8971.05,
-    "CEPU": -977.85
+    "VNQ": 2353.5,
+    "MP": 22049.53,
+    "CEG": 6850.03,
+    "COIN": 5194.25,
+    "CEPU": -1032.92
   },
   "overlay": [
     53496.23,
@@ -502,30 +504,30 @@
       0.0,
       0.0,
       0.0,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
       1.0,
       1.0,
       1.0,
       1.0,
       1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
       0.1,
       0.1,
       0.1,
@@ -544,26 +546,26 @@
       0.0,
       0.0,
       0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.1971,
-      0.1971,
-      0.1971,
-      0.1971,
-      0.1971,
       0.1,
       0.1,
       0.1,
       0.1,
       0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.5495,
       0.5495,
       0.5495,
@@ -702,6 +704,121 @@
       0.0,
       0.0
     ],
+    "COIN": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.4433,
+      0.4433,
+      0.4433,
+      0.4433,
+      0.4433,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
     "MP": [
       0.0,
       0.0,
@@ -722,31 +839,16 @@
       0.0,
       0.0,
       0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
       0.1,
       0.1,
       0.1,
       0.1,
       0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
+      0.1109,
+      0.1109,
+      0.1109,
+      0.1109,
+      0.1109,
       0.0,
       0.0,
       0.0,
@@ -756,34 +858,21 @@
       0.0,
       0.0,
       0.0,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
       0.0,
       0.0,
       0.0,
       0.0,
       0.0,
-      0.8029,
-      0.8029,
-      0.8029,
-      0.8029,
-      0.8029,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
       0.9,
       0.9,
       0.9,
@@ -794,6 +883,34 @@
       0.9,
       0.9,
       0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5567,
+      0.5567,
+      0.5567,
+      0.5567,
+      0.5567,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
       0.4505,
       0.4505,
       0.4505,
@@ -816,6 +933,121 @@
       1.0,
       1.0,
       1.0
+    ],
+    "VNQ": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.9,
+      0.8891,
+      0.8891,
+      0.8891,
+      0.8891,
+      0.8891,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1,
+      0.1,
+      0.1,
+      0.1,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
     ]
   },
   "cash": [
@@ -834,10 +1066,10 @@
     1.0,
     1.0,
     1.0,
-    1.0,
-    1.0,
-    1.0,
-    1.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -936,30 +1168,68 @@
   "colors": {
     "CEG": "#1f77b4",
     "CEPU": "#ff7f0e",
-    "MP": "#2ca02c"
+    "COIN": "#2ca02c",
+    "MP": "#d62728",
+    "VNQ": "#9467bd"
   },
   "metrics": {
-    "final": 80861.0,
-    "total_ret": 0.6172,
+    "final": 85414.0,
+    "total_ret": 0.7083,
     "spy_ret": 0.1313,
-    "max_dd": -0.1913
+    "max_dd": -0.1713
   },
-  "cost_usd": 0.8,
+  "cost_usd": 0.33,
   "weeks": 22,
   "gems": [
     {
-      "week": "2025-04-18",
-      "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "week": "2025-04-11",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
       "thesis_live": true,
       "urls": [
-        "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/"
+        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
+        "https://theenterpriseleader.com/2025/04/10/first-foundation-advisors-buys-3496-shares-of-vanguard-real-estate-etf-nysearcavnq.html"
+      ]
+    },
+    {
+      "week": "2025-04-18",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": [
+        "https://therealdeal.com/national/2025/04/12/real-estate-impacted-by-trumps-tariff-reversal/",
+        "https://vietnamnews.vn/economy/1715887/vn-index-reverses-and-drops-nearly-14-points-as-experts-urge-caution-amid-profit-taking-and-tariff-uncertainty.html"
+      ]
+    },
+    {
+      "week": "2025-04-18",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "urls": [
+        "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/",
+        "https://www.naroomanewsonline.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/?cs=14264",
+        "https://www.redlandcitybulletin.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/?cs=30776"
+      ]
+    },
+    {
+      "week": "2025-04-25",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
+        "https://finance.yahoo.com/news/jim-cramer-cvs-health-cvs-224546168.html",
+        "https://finance.yahoo.com/news/jim-cramer-shopify-shop-minimis-224435173.html",
+        "https://www.insidermonkey.com/blog/jim-cramer-on-centene-cnc-centenes-doing-incredibly-well-1514130/",
+        "https://www.insidermonkey.com/blog/jim-cramer-on-cvs-health-cvs-cvs-is-the-best-the-last-one-standing-1514131/",
+        "https://www.insidermonkey.com/blog/jim-cramer-on-coreweave-crwv-a-lot-of-it-is-with-openai-1514122/"
       ]
     },
     {
       "week": "2025-04-25",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
@@ -969,35 +1239,62 @@
     },
     {
       "week": "2025-05-02",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/"
+      ]
+    },
+    {
+      "week": "2025-05-02",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/",
+        "https://www.insidermonkey.com/blog/why-medical-properties-trust-inc-mpw-is-surging-in-2025-1521848/",
+        "https://finance.yahoo.com/news/constellation-energy-corporation-ceg-among-130850813.html",
+        "https://www.insidermonkey.com/blog/why-compania-cervecerias-unidas-ccu-is-surging-in-2025-1520707/",
+        "https://www.insidermonkey.com/blog/is-walt-disney-company-dis-the-worst-performing-blue-chip-stock-so-far-in-2025-1519676/",
         "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
       ]
     },
     {
       "week": "2025-05-02",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
-        "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-approves-10-new-reactors-nuclear-power-ramp",
-        "https://finance.yahoo.com/news/constellation-energy-corporation-ceg-among-130850813.html"
+        "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-approves-10-new-reactors-nuclear-power-ramp"
+      ]
+    },
+    {
+      "week": "2025-05-09",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-stocks-rise-after-Trump-strikes-tariff-deal-with-UK-49872677/",
+        "https://finance.yahoo.com/news/5-trades-morgan-stanley-says-204822931.html",
+        "https://www.dailypolitical.com/2025/05/07/dunhill-financial-llc-purchases-2836-shares-of-vanguard-real-estate-etf-nysearcavnq.html",
+        "https://www.businessinsider.com/stock-market-outlook-trade-recommendations-tariffs-morgan-stanley-large-cap-2025-5",
+        "https://www.moneycontrol.com/news/business/markets/tariffs-cash-pile-japan-ai-currency-doge-top-10-key-takeaways-from-warren-buffett-s-latest-address-at-berkshire-hathaway-meet-13012209.html"
       ]
     },
     {
       "week": "2025-05-09",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/"
+      ]
     },
     {
       "week": "2025-05-09",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
         "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/"
@@ -1005,22 +1302,60 @@
     },
     {
       "week": "2025-05-16",
-      "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.aspenpublicradio.org/2025-05-15/in-abu-dhabi-trump-makes-first-visit-to-a-mosque-as-president"
+      ]
+    },
+    {
+      "week": "2025-05-16",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "urls": [
+        "https://www.hollywoodreporter.com/news/music-news/eurovision-2025-sets-finals-with-israel-1236218320/",
+        "https://www.aspenpublicradio.org/2025-05-15/in-abu-dhabi-trump-makes-first-visit-to-a-mosque-as-president",
+        "https://www.adn.com/nation-world/2025/05/15/what-is-birthright-citizenship-and-which-countries-have-it/",
+        "https://www.wvtm13.com/article/alabama-2025-legislative-session-new-bills-laws/64784422",
+        "https://www.hawkesburygazette.com.au/story/8968418/walk-and-chew-gum-greens-wont-abandon-gaza-campaign/",
+        "https://www.reporterherald.com/2025/05/15/trump-refugee-admissions-lawsuit/"
+      ]
     },
     {
       "week": "2025-05-16",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.yahoo.com/news/st-charles-county-woman-embezzles-212955373.html"
+      ]
+    },
+    {
+      "week": "2025-05-16",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": [
+        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
+        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data",
+        "https://www.pilotonline.com/2025/05/15/coinbase-stolen-info/"
+      ]
+    },
+    {
+      "week": "2025-05-23",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": [
+        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
+      ]
     },
     {
       "week": "2025-05-23",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
@@ -1029,30 +1364,58 @@
     {
       "week": "2025-05-23",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
       ]
     },
     {
+      "week": "2025-05-23",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-05-30",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
       "week": "2025-05-30",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-05-30",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-05-30",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-06-06",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-06",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
@@ -1061,58 +1424,104 @@
     {
       "week": "2025-06-06",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": []
+    },
+    {
+      "week": "2025-06-06",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-06-13",
+      "ticker": "VNQ",
+      "thesis": "Trump tariff pause lifts REITs",
+      "thesis_live": false,
+      "urls": [
+        "https://www.tickerreport.com/banking-finance/13002518/neumann-capital-management-llc-has-5-81-million-stock-position-in-vanguard-real-estate-etf-nysearcavnq.html",
+        "https://www.dailypolitical.com/2025/06/12/vanguard-real-estate-etf-nysearcavnq-stock-position-decreased-by-neumann-capital-management-llc.html",
+        "https://www.themarketsdaily.com/2025/06/11/catalyst-capital-advisors-llc-raises-stock-holdings-in-vanguard-real-estate-etf-nysearcavnq.html",
+        "https://www.dailypolitical.com/2025/06/10/michael-a-dubis-financial-planning-llc-acquires-350-shares-of-vanguard-real-estate-etf-nysearcavnq.html",
+        "https://www.tickerreport.com/banking-finance/12998934/wesbanco-bank-inc-decreases-position-in-vanguard-real-estate-etf-nysearcavnq.html",
+        "https://www.tickerreport.com/banking-finance/12998685/first-national-bank-sioux-falls-sells-3911-shares-of-vanguard-real-estate-etf-nysearcavnq.html"
+      ]
     },
     {
       "week": "2025-06-13",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2025-06-13",
-      "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
       ]
     },
     {
+      "week": "2025-06-13",
+      "ticker": "CEG",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": [
+        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+      ]
+    },
+    {
+      "week": "2025-06-13",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": [
+        "https://www.forbes.com/sites/leeorshimron/2025/06/09/bitcoin-2025-record-crowds-bold-visions-and-the-path-to-1-million/"
+      ]
+    },
+    {
       "week": "2025-06-20",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-20",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-06-20",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-27",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-06-27",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-06-27",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-04",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.coastreporter.net/the-mix/sptsx-composite-manages-slight-gain-on-real-estate-strength-10901578",
@@ -1125,14 +1534,21 @@
     {
       "week": "2025-07-04",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-07-04",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-11",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.zerohedge.com/markets/chinas-big-housing-stimulus-rescue-wishful-thinking",
@@ -1143,14 +1559,25 @@
     {
       "week": "2025-07-11",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": [
+        "https://www.zerohedge.com/markets/chinas-big-housing-stimulus-rescue-wishful-thinking",
+        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook",
+        "https://www.forbes.com/sites/brendanahern/2025/07/10/china-market-update-real-estate-roars-on-policy-support/"
+      ]
+    },
+    {
+      "week": "2025-07-11",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-07-18",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": [
         "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
@@ -1159,55 +1586,85 @@
     {
       "week": "2025-07-18",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
         "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
       ]
     },
     {
-      "week": "2025-07-25",
-      "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "week": "2025-07-18",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": [
-        "https://www.kiplinger.com/investing/stocks/stocks-rise-after-trump-powell-fed-tour-stock-market-today"
+        "https://www.financialexpress.com/market/cryptocurrency/creed-capital-crypto/bitcoin-just-hit-118000-is-it-too-late-to-buy-or-just-the-beginning/3912419/"
+      ]
+    },
+    {
+      "week": "2025-07-25",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "urls": [
+        "https://www.kiplinger.com/investing/stocks/stocks-rise-after-trump-powell-fed-tour-stock-market-today",
+        "https://spectator.sme.sk/politics-and-society/c/news-digest-foreigners-in-slovaks-out",
+        "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan",
+        "http://www.utahindependent.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan",
+        "http://www.vietnamtribune.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan",
+        "http://www.jamaicantimes.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan"
       ]
     },
     {
       "week": "2025-07-25",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
         "https://www.nakedcapitalism.com/2025/07/michael-hudson-todays-civilizational-conflict.html"
       ]
     },
     {
-      "week": "2025-08-01",
-      "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/korea-electric-power-corporation-kep-162535915.html",
-        "https://finance.yahoo.com/news/edison-international-eix-launches-wildfire-160415612.html",
-        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/",
-        "https://vietnamnews.vn/economy/1722381/realty-stocks-experience-remarkable-growth-amid-market-optimism.html",
-        "https://www.themarketsdaily.com/2025/07/30/top-utility-stocks-to-add-to-your-watchlist-july-27th.html",
-        "https://www.niagarafallsreview.ca/business/s-p-tsx-composite-index-makes-gains-while-u-s-markets-dip/article_8348d44e-cfb9-5c75-84d3-ff92fd84f396.html"
-      ]
-    },
-    {
-      "week": "2025-08-01",
-      "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "week": "2025-07-25",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-01",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-08-01",
+      "ticker": "CEG",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-08-01",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-08-01",
+      "ticker": "KEP",
+      "thesis": "Offshore wind expansion catalyst",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/news/korea-electric-power-corporation-kep-162535915.html"
+      ]
+    },
+    {
+      "week": "2025-08-01",
       "ticker": "CEPU",
-      "thesis": "Major stake in Tres Cruces lithium project",
+      "thesis": "Lithium project stake catalyst",
       "thesis_live": true,
       "urls": [
         "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/"
@@ -1216,37 +1673,53 @@
     {
       "week": "2025-08-08",
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-08",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-08-08",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2025-08-08",
+      "ticker": "KEP",
+      "thesis": "Offshore wind expansion catalyst",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-08",
       "ticker": "CEPU",
-      "thesis": "Major stake in Tres Cruces lithium project",
-      "thesis_live": true,
-      "urls": [
-        "https://invezz.com/news/2025/08/06/europe-markets-open-equities-gain-focus-on-earnings-uk-budget-deficit-concerns/"
-      ]
-    },
-    {
-      "week": "2025-08-15",
-      "ticker": "MP",
-      "thesis": "China rare-earth export curbs benefit sole US miner",
+      "thesis": "Lithium project stake catalyst",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2025-08-15",
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "urls": [
+        "http://www.indiagazette.com/news/278510448/only-trump-knows-what-next-ex-nsa-pankaj-saran-says-india-us-strain-part-of-global-disruption",
+        "https://www.newsx.com/world/why-japan-and-china-mark-wwii-end-on-different-days-and-what-it-means-45672/",
+        "https://lasvegassun.com/news/2025/aug/14/putin-has-the-upper-hand-in-meeting-with-trump-on/"
+      ]
+    },
+    {
+      "week": "2025-08-15",
       "ticker": "CEG",
-      "thesis": "China approves 10 new nuclear reactors",
+      "thesis": "China approves 10 new reactors",
       "thesis_live": true,
       "urls": [
         "https://www.newsx.com/world/why-japan-and-china-mark-wwii-end-on-different-days-and-what-it-means-45672/",
@@ -1255,10 +1728,29 @@
     },
     {
       "week": "2025-08-15",
-      "ticker": "CEPU",
-      "thesis": "Major stake in Tres Cruces lithium project",
+      "ticker": "COIN",
+      "thesis": "Coinbase cyberattack and SEC investigation",
       "thesis_live": true,
       "urls": []
+    },
+    {
+      "week": "2025-08-15",
+      "ticker": "KEP",
+      "thesis": "Offshore wind expansion catalyst",
+      "thesis_live": true,
+      "urls": [
+        "https://foreignpolicy.com/2025/08/14/smotrich-israel-settlements-west-bank-e1-palestine-statehood/"
+      ]
+    },
+    {
+      "week": "2025-08-15",
+      "ticker": "CEPU",
+      "thesis": "Lithium project stake catalyst",
+      "thesis_live": true,
+      "urls": [
+        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html",
+        "https://www.smdailyjournal.com/news/world/israel-announces-a-settlement-project-that-critics-say-will-effectively-cut-the-west-bank-in/article_f39b0bed-3d36-5ea6-9c61-36313e7a84b4.html"
+      ]
     }
   ],
   "watchlist": [
@@ -1279,24 +1771,32 @@
     },
     {
       "week": "2025-04-11",
-      "names": [],
-      "funded": []
+      "names": [
+        "VNQ"
+      ],
+      "funded": [
+        "VNQ"
+      ]
     },
     {
       "week": "2025-04-18",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
     {
       "week": "2025-04-25",
       "names": [
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "VNQ",
         "MP"
       ]
     },
@@ -1304,60 +1804,70 @@
       "week": "2025-05-02",
       "names": [
         "CEG",
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
-        "CEG",
-        "MP"
+        "CEG"
       ]
     },
     {
       "week": "2025-05-09",
       "names": [
         "CEG",
-        "MP"
+        "MP",
+        "VNQ"
       ],
       "funded": [
         "CEG",
-        "MP"
+        "VNQ"
       ]
     },
     {
       "week": "2025-05-16",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
         "CEG",
-        "MP"
+        "COIN"
       ]
     },
     {
       "week": "2025-05-23",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
-        "CEG"
+        "COIN"
       ]
     },
     {
       "week": "2025-05-30",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
-        "CEG"
+        "CEG",
+        "VNQ"
       ]
     },
     {
       "week": "2025-06-06",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
         "MP",
@@ -1368,29 +1878,38 @@
       "week": "2025-06-13",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
-        "MP"
+        "MP",
+        "VNQ"
       ]
     },
     {
       "week": "2025-06-20",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
-        "MP"
+        "MP",
+        "COIN"
       ]
     },
     {
       "week": "2025-06-27",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "COIN",
         "MP"
       ]
     },
@@ -1398,9 +1917,12 @@
       "week": "2025-07-04",
       "names": [
         "CEG",
-        "MP"
+        "COIN",
+        "MP",
+        "VNQ"
       ],
       "funded": [
+        "COIN",
         "CEG"
       ]
     },
@@ -1408,33 +1930,35 @@
       "week": "2025-07-11",
       "names": [
         "CEG",
+        "COIN",
         "MP"
       ],
       "funded": [
         "MP",
-        "CEG"
+        "COIN"
       ]
     },
     {
       "week": "2025-07-18",
       "names": [
         "CEG",
+        "COIN",
         "MP"
       ],
       "funded": [
         "MP",
-        "CEG"
+        "COIN"
       ]
     },
     {
       "week": "2025-07-25",
       "names": [
         "CEG",
+        "COIN",
         "MP"
       ],
       "funded": [
-        "MP",
-        "CEG"
+        "MP"
       ]
     },
     {
@@ -1442,6 +1966,8 @@
       "names": [
         "CEG",
         "CEPU",
+        "COIN",
+        "KEP",
         "MP"
       ],
       "funded": [
@@ -1454,6 +1980,8 @@
       "names": [
         "CEG",
         "CEPU",
+        "COIN",
+        "KEP",
         "MP"
       ],
       "funded": [
@@ -1466,6 +1994,8 @@
       "names": [
         "CEG",
         "CEPU",
+        "COIN",
+        "KEP",
         "MP"
       ],
       "funded": []
@@ -1702,6 +2232,236 @@
       1,
       1
     ],
+    "COIN": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "KEP": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
     "MP": [
       0,
       0,
@@ -1816,6 +2576,121 @@
       1,
       1,
       1
+    ],
+    "VNQ": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ]
   },
   "retrieval": {
@@ -1865,269 +2740,528 @@
     "max_watchlist_size": 12
   },
   "arcs": {
-    "MP": [
+    "VNQ": [
+      {
+        "date": "2025-04-11",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The tariff pause has lifted REITs, but the market remains down from initial tariff announcement. The catalyst is still live as the policy impact is ongoing.",
+        "exit_advice": "Monitor for any reversal or new developments in the tariff policy that could impact REITs."
+      },
       {
         "date": "2025-04-18",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. The news confirms the initial thesis without any resolution signs.",
-        "exit_advice": "Exit if China reverses rare-earth export curbs or if US announces alternative rare-earth supply sources."
+        "exit_case": "Tariff pause remains active, but broader market uncertainty persists, potentially limiting REIT gains.",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but news highlights global market uncertainty and profit-taking.",
+        "exit_advice": "Monitor for signs of tariff policy reversal or broader market shifts that could impact REITs."
       },
       {
         "date": "2025-04-25",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs remain in place, directly benefiting MP Materials as the sole US producer. No signs of catalyst resolution or new competitors yet.",
-        "exit_advice": "Exit if China reverses its rare-earth export curbs or if other US producers emerge."
+        "exit_case": "The tariff pause impact on REITs may already be priced in, with limited recent market reaction.",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, suggesting the catalyst's influence may be weakening.",
+        "exit_advice": "Monitor closely for signs of fading impact or new tariffs."
       },
       {
         "date": "2025-05-02",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs remain in place, directly benefiting MP Materials. No new developments suggest a resolution to the catalyst.",
-        "exit_advice": "No signs of China lifting rare-earth export curbs; continue holding MP as the sole US beneficiary."
+        "exit_case": "Market reaction to tariff pause has stabilized, suggesting the catalyst's influence is waning",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, indicating the catalyst's impact may be diminishing",
+        "exit_advice": "Monitor for further stabilization or reversal in REIT performance"
       },
       {
         "date": "2025-05-09",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "No new developments suggest a resolution to the catalyst. China's rare-earth export curbs continue to benefit MP Materials.",
-        "exit_advice": "Hold MP Materials as China's rare-earth export curbs remain unresolved and directly benefit the company as the sole US producer."
+        "exit_case": "Tariff pause impact has stabilized, suggesting the catalyst's influence is diminishing",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, indicating the catalyst's influence may be diminishing.",
+        "exit_advice": "Monitor for further stabilization or reversal in REITs, as the tariff pause's impact appears to be weakening."
       },
       {
         "date": "2025-05-16",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst.",
-        "exit_advice": "Hold until China's rare-earth export curbs show signs of resolution or new competitors emerge."
+        "exit_case": "The tariff pause's impact on REITs has stabilized, suggesting the catalyst's influence has diminished.",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, indicating the catalyst's influence may be diminishing further. No new significant developments this week.",
+        "exit_advice": "Monitor for any resurgence in tariff-related volatility or policy changes, but consider exiting if the thesis continues to weaken."
       },
       {
         "date": "2025-05-23",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs persist, directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "continue holding MP as the catalyst remains unresolved"
+        "exit_case": "The catalyst's influence has stabilized and may be fully priced in, diminishing its impact.",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, suggesting the catalyst's influence is diminishing.",
+        "exit_advice": "Monitor for further stabilization or signs of reversal in REITs, as the catalyst's impact appears to be waning."
       },
       {
         "date": "2025-05-30",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "Exit if China lifts rare-earth export curbs or if MP loses its sole US producer status."
+        "exit_case": "Market reaction has stabilized, indicating the catalyst\u2019s influence is diminishing",
+        "resolved": false,
+        "assessment": "The tariff pause continues to support REITs, but the market reaction has stabilized, suggesting the catalyst\u2019s influence is diminishing. No new significant developments this week.",
+        "exit_advice": "Consider exiting as the catalyst\u2019s impact appears to be fading, with no significant developments this week."
       },
       {
         "date": "2025-06-06",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs persist, directly benefiting MP Materials as the sole US producer. The recent news about metal stocks rallying due to RBI rate cuts is unrelated to the rare-earth export curbs catalyst.",
-        "exit_advice": "No resolution to China's rare-earth export curbs; continue holding MP as the sole US beneficiary."
+        "exit_case": "Market reaction to tariff pause has stabilized, indicating the catalyst's influence has diminished",
+        "resolved": false,
+        "assessment": "The tariff pause continues to provide support to REITs, but the market's stabilization suggests the catalyst's influence has largely played out.",
+        "exit_advice": "Consider exiting as the catalyst's impact appears to have plateaued; further upside may be limited."
+      },
+      {
+        "date": "2025-06-13",
+        "live": false,
+        "exit_case": "The tariff pause's impact on REITs has fully played out as market reaction has stabilized for weeks.",
+        "resolved": false,
+        "assessment": "The tariff pause initially provided support to REITs, but the market reaction has stabilized over the past several weeks, suggesting the catalyst's influence has largely played out. The recent news shows mixed institutional activity, but no significant developments related to the tariff pause.",
+        "exit_advice": "Exit the position as the catalyst's influence has diminished and the market has stabilized, indicating no further significant impact from the tariff pause."
+      }
+    ],
+    "MP": [
+      {
+        "date": "2025-04-18",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst of China restricting rare-earth exports is still active, and MP Materials remains the primary beneficiary as the lone scaled US producer. The news highlights MP's surge due to this development, indicating the market is reacting to the catalyst.",
+        "exit_advice": "Monitor for any signs of China reversing its rare-earth export restrictions or any significant policy changes from the US that could impact MP's position."
+      },
+      {
+        "date": "2025-04-25",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with no resolution or decay observed. MP Materials continues to be the primary beneficiary as the lone scaled US producer of rare-earth materials.",
+        "exit_advice": "Continue monitoring for any official announcements or policy changes regarding China's rare-earth export restrictions."
+      },
+      {
+        "date": "2025-05-02",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with no resolution or decay observed. MP Materials continues to benefit as the primary US producer of rare-earth materials.",
+        "exit_advice": "Continue holding MP Materials as the catalyst of China restricting rare-earth exports remains active. Monitor for any developments in China's trade policies or potential resolutions to the export restrictions."
+      },
+      {
+        "date": "2025-05-09",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with no resolution or decay observed. MP Materials continues to be the primary beneficiary as the lone scaled US producer of rare-earth materials.",
+        "exit_advice": "Continue to monitor for any signs of resolution or decay in China's rare-earth export restrictions."
+      },
+      {
+        "date": "2025-05-16",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active, with no indications of decay or reversal. MP Materials continues to benefit as the primary US producer of rare-earth materials.",
+        "exit_advice": "Continue to monitor the situation as China's rare-earth export restrictions remain unresolved. The thesis is still intact."
+      },
+      {
+        "date": "2025-05-23",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with no signs of resolution or decay. MP Materials continues to benefit as the primary US producer of rare-earth materials, and the sector dynamics remain favorable.",
+        "exit_advice": "Hold until China reverses rare-earth export restrictions or MP Materials loses its position as the primary US producer."
+      },
+      {
+        "date": "2025-05-30",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "China's restriction on rare-earth exports continues to drive the thesis, with MP Materials benefiting as the primary U.S. producer. No new developments this week, but the sector dynamics remain favorable.",
+        "exit_advice": "Hold position as the catalyst remains active with no signs of resolution or decay."
+      },
+      {
+        "date": "2025-06-06",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "China's rare-earth export restrictions continue unabated, maintaining MP Materials' position as the primary beneficiary in the sector.",
+        "exit_advice": "Hold as the catalyst remains active with no signs of resolution or decay."
       },
       {
         "date": "2025-06-13",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs continue to benefit MP Materials as the sole US producer. The recent news about trade talks and unrelated market movements do not affect the catalyst.",
-        "exit_advice": "Continue holding MP as the catalyst remains unresolved and no competing vehicles have emerged."
+        "exit_case": "Potential easing of U.S.-China trade tensions could lead to a reversal of rare-earth export restrictions",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the news of U.S.-China trade talks introduces a potential risk of the restrictions being eased. MP Materials continues to be the primary beneficiary for now.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any signs of easing restrictions on rare-earth exports, which would directly impact the thesis."
       },
       {
         "date": "2025-06-20",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "Continue holding MP as the catalyst remains unresolved. Exit only if China's rare-earth export curbs are lifted or MP's sole US producer status changes."
+        "exit_case": "Potential easing of restrictions due to U.S.-China trade talks",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the risk of easing restrictions due to ongoing trade talks introduces uncertainty. MP Materials continues to be the primary beneficiary for now, but the situation is fluid.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any signs of easing rare-earth export restrictions, as this would directly impact the thesis."
       },
       {
         "date": "2025-06-27",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "Continue holding MP Materials as China's rare-earth export curbs remain unresolved and continue to benefit the company."
+        "exit_case": "Potential easing of restrictions due to ongoing U.S.-China trade talks",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the risk of easing restrictions due to ongoing trade talks introduces uncertainty. MP Materials continues to be the primary beneficiary for now, but the situation is fluid.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any signs of easing restrictions. Exit if restrictions are lifted or significantly eased."
       },
       {
         "date": "2025-07-04",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "continue holding as China's rare-earth export curbs remain in place, directly benefiting MP Materials as the sole US producer."
+        "exit_case": "None",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but ongoing U.S.-China trade talks introduce uncertainty. MP Materials continues to benefit as the primary U.S. rare-earth producer.",
+        "exit_advice": "Monitor U.S.-China trade talks for signs of easing export restrictions, which would decay the catalyst."
       },
       {
         "date": "2025-07-11",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs persist, directly benefiting MP Materials as the sole US producer. Recent news on China's housing stimulus and Trump tariff threats are unrelated to the catalyst.",
-        "exit_advice": "No signs of China lifting rare-earth export curbs; continue holding until catalyst resolves."
+        "exit_case": "Ongoing U.S.-China trade talks introduce uncertainty, potentially easing China's rare-earth export restrictions.",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the ongoing U.S.-China trade talks introduce a significant risk of easing restrictions, which could undermine MP Materials' position as the primary beneficiary.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any hints of easing export restrictions, as this could jeopardize the thesis."
       },
       {
         "date": "2025-07-18",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs persist, directly benefiting MP Materials as the sole US producer. Recent news on China's EV industry focus is unrelated to the catalyst.",
-        "exit_advice": "No signs of resolution to China's rare-earth export curbs yet. Continue holding as the catalyst remains live."
+        "exit_case": "There is no specific resolution or reversal of China's rare-earth export restrictions, but ongoing U.S.-China trade talks introduce significant risk of easing restrictions.",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the ongoing U.S.-China trade talks introduce significant risk. MP Materials continues to benefit as the primary U.S. rare-earth producer, but the situation is fluid.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any signs of easing restrictions, which would undermine the thesis."
       },
       {
         "date": "2025-07-25",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs continue to benefit MP Materials as the sole US producer. The recent news on stock market rallies and trade deals is unrelated to the catalyst.",
-        "exit_advice": "Exit if China's rare-earth export curbs are lifted or if MP Materials faces significant competition in the US market."
+        "exit_case": "US-China trade talks introduce significant risk of easing rare-earth export restrictions.",
+        "resolved": false,
+        "assessment": "The catalyst remains active, but the ongoing US-China trade talks introduce significant risk. MP Materials continues to benefit as the primary US rare-earth producer, but the situation is fluid.",
+        "exit_advice": "Monitor any news related to US-China trade talks closely, as an easing of restrictions would likely undermine the thesis."
       },
       {
         "date": "2025-08-01",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's rare-earth export curbs continue to directly benefit MP Materials as the sole US producer. No news this week suggests a resolution to the catalyst.",
-        "exit_advice": "Exit only if China reverses its rare-earth export curbs, which remains unresolved."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with China's rare-earth export restrictions still in place, but the ongoing U.S.-China trade talks introduce significant risk of easing these restrictions. MP Materials continues to benefit as the primary U.S. rare-earth producer, but the situation is fluid.",
+        "exit_advice": "Continue to monitor U.S.-China trade talks for any signs of easing restrictions on rare-earth exports, which would undermine the thesis."
       },
       {
         "date": "2025-08-08",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "Exit if China's rare-earth export curbs are lifted or if MP Materials faces significant competition in the US market."
+        "exit_case": "Ongoing U.S.-China trade talks introduce risk of easing restrictions, potentially undermining the catalyst",
+        "resolved": false,
+        "assessment": "The catalyst remains active as China's rare-earth export restrictions are still in place, but the ongoing U.S.-China trade talks introduce significant uncertainty. MP Materials continues to benefit as the primary U.S. rare-earth producer, but the situation is fluid.",
+        "exit_advice": "Monitor trade talks closely; any easing of restrictions could close the thesis"
       },
       {
         "date": "2025-08-15",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's rare-earth export curbs directly benefiting MP Materials as the sole US producer. No new developments suggest a resolution to the catalyst this week.",
-        "exit_advice": "Continue holding as China's rare-earth export curbs persist with no resolution signs."
+        "exit_case": "Ongoing U.S.-China trade talks introduce significant risk of easing rare-earth export restrictions",
+        "resolved": false,
+        "assessment": "The catalyst remains active as China's rare-earth export restrictions are still in place, but the ongoing U.S.-China trade talks introduce significant uncertainty. MP Materials continues to benefit as the primary U.S. rare-earth producer, but the situation is fluid and could change rapidly if trade talks progress.",
+        "exit_advice": "Monitor U.S.-China trade talks closely for any signs of easing rare-earth export restrictions, which would be a strong signal to exit."
       }
     ],
     "CEG": [
       {
         "date": "2025-05-02",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors, supporting the nuclear energy sector. CEG is a suitable vehicle as it is highlighted among top energy companies with upside potential.",
-        "exit_advice": "Exit if China reverses its approval of the 10 new nuclear reactors or if the reactors' construction is halted."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst of China approving 10 new reactors remains intact, with no signs of reversal or resolution. The news confirms the approval, which is a positive development for nuclear energy companies like CEG.",
+        "exit_advice": "Monitor for any signs of China reversing its decision on the new reactors or any significant policy shifts that could impact the nuclear power sector."
       },
       {
         "date": "2025-05-09",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "China's approval of nuclear reactors supports CEG's growth potential, with no indications of the catalyst being resolved yet.",
-        "exit_advice": "The catalyst remains unresolved; continue holding as China's nuclear reactor approvals are still pending implementation."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China continues to support the thesis for CEG as a pure-play vehicle in nuclear energy. The news this week does not directly impact the catalyst but highlights broader economic developments in China.",
+        "exit_advice": "The catalyst remains pending with no signs of resolution or reversal. Continue to monitor developments closely."
       },
       {
         "date": "2025-05-16",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors, supporting the nuclear energy sector. CEG continues to be a suitable vehicle as it is highlighted among top energy companies with upside potential.",
-        "exit_advice": "Continue holding CEG as the catalyst remains unresolved and the nuclear reactor approvals in China are still pending implementation."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors in China remains the driving force behind the thesis. This week's news is unrelated and does not impact the event or the vehicle.",
+        "exit_advice": "Hold \u2013 the catalyst remains intact with no signs of resolution or decay."
       },
       {
         "date": "2025-05-23",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds, including the recent uranium frenzy sparked by political developments.",
-        "exit_advice": "Continue holding as the catalyst (China's approval of 10 new nuclear reactors) remains unresolved. Monitor for any official announcements from China regarding the completion or cancellation of the reactor approvals."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and this week's news about Trump's uranium frenzy does not directly impact or resolve the original event. CEG remains the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue holding CEG as the catalyst of China approving 10 new reactors remains intact and unresolved. Monitor for any direct news on the reactor approvals."
       },
       {
         "date": "2025-05-30",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Exit if China's approval of the 10 new nuclear reactors is officially confirmed or denied, or if the catalyst is otherwise resolved."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains unresolved and continues to support the thesis. CEG is still the pure-play vehicle for this event.",
+        "exit_advice": "The catalyst remains intact with no signs of resolution or decay. Continue holding until the China reactor approvals are fully priced."
       },
       {
         "date": "2025-06-06",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Exit if China's approval of the 10 new nuclear reactors is confirmed or denied, or if the catalyst is otherwise resolved."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China continues to support the thesis for CEG as a pure-play vehicle in nuclear energy. The catalyst remains unresolved, and there is no evidence of reversal or resolution in the journal or this week's news.",
+        "exit_advice": "Hold position; the catalyst remains unresolved."
       },
       {
         "date": "2025-06-13",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Continue holding CEG as the catalyst remains live with China's approval of 10 new nuclear reactors still pending."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains unresolved, and CEG continues to be the best vehicle for this thesis. This week's news about U.S.-China trade talks does not impact the catalyst directly.",
+        "exit_advice": "The thesis remains intact as the catalyst \u2014 China's approval of 10 new reactors \u2014 has not resolved or reversed. Continue holding CEG as the pure-play vehicle for this event."
       },
       {
         "date": "2025-06-20",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Exit if China's approval of the 10 new nuclear reactors is officially confirmed or denied."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "the catalyst remains intact, with no signs of resolution or reversal in the journal or this week's news",
+        "exit_advice": "continue holding CEG as the approval of 10 new reactors in China remains unresolved and supports the thesis"
       },
       {
         "date": "2025-06-27",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Continue holding CEG as the catalyst remains pending with no resolution indicated."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst of China approving 10 new reactors remains intact, with no signs of reversal or resolution. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue monitoring for any signs of reversal or resolution of the catalyst, particularly any news related to the construction or cancellation of the approved reactors."
       },
       {
         "date": "2025-07-04",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Exit if China's approval of 10 new nuclear reactors is officially confirmed or denied."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains unresolved and continues to support the thesis for CEG as a pure-play vehicle in nuclear energy. There is no evidence of reversal or resolution in the journal or this week's news.",
+        "exit_advice": "Continue holding CEG as the catalyst remains intact with no signs of resolution or reversal."
       },
       {
         "date": "2025-07-11",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains live with China's approval of 10 new nuclear reactors still pending. CEG continues to be a suitable vehicle, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Continue holding CEG as the catalyst remains pending with no resolution yet."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue holding CEG as the catalyst remains intact and unresolved. Monitor for any news directly related to the approval or construction of the 10 new reactors in China."
       },
       {
         "date": "2025-07-18",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains unresolved, and CEG continues to benefit from positive sentiment in the nuclear energy sector. Despite unrelated market volatility in Asia, the event-driven thesis for CEG remains intact.",
-        "exit_advice": "Continue holding as the catalyst \u2014 China's approval of 10 new nuclear reactors \u2014 remains pending. Exit only if the approval is officially confirmed or denied."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue holding CEG as the catalyst remains unresolved and there is no evidence of reversal or resolution in the journal or this week's news."
       },
       {
         "date": "2025-07-25",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst of China approving 10 new nuclear reactors remains live, with no resolution or reversal indicated in the news or journal. CEG continues to be the purest vehicle for this event, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "The catalyst remains unresolved, and there is no indication of the approval being reversed or completed. Continue holding CEG as the primary vehicle."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue monitoring for any signs of reversal or resolution of the catalyst."
       },
       {
         "date": "2025-08-01",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains unresolved, and CEG continues to be the purest vehicle for this event, benefiting from the broader nuclear energy sector tailwinds. No fresh news this week, but the thesis remains intact.",
-        "exit_advice": "Hold until China's approval of 10 new nuclear reactors is resolved or reversed."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue holding as the catalyst remains unresolved and there is no evidence of reversal or resolution in the journal or this week's news."
       },
       {
         "date": "2025-08-08",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains unresolved with no fresh news this week. CEG continues to be the purest vehicle for this event, benefiting from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "Exit if China's approval of the 10 new nuclear reactors is officially confirmed or denied, or if the catalyst is otherwise resolved."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "Continue holding as the catalyst remains unresolved and there is no evidence of reversal or resolution in the journal or this week's news."
       },
       {
         "date": "2025-08-15",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains unresolved with no fresh news impacting the nuclear reactor approvals. CEG continues to benefit from the broader nuclear energy sector tailwinds.",
-        "exit_advice": "No resolution or reversal of the catalyst (China's approval of 10 new nuclear reactors) has occurred. Continue holding CEG as the purest vehicle for this event."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The approval of 10 new reactors by China remains the core catalyst, and there is no evidence of reversal or resolution in the journal or this week's news. CEG continues to be the pure-play vehicle for this thesis.",
+        "exit_advice": "continue to hold CEG as the catalyst remains unresolved"
+      }
+    ],
+    "COIN": [
+      {
+        "date": "2025-05-16",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation are still ongoing, with Coinbase announcing reimbursement plans but no final resolution yet. The event is still live with potential for further developments.",
+        "exit_advice": "Monitor for resolution of the cyberattack reimbursement and SEC investigation, as these are the key catalysts."
+      },
+      {
+        "date": "2025-05-23",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved, with no new developments this week. The event is still live, and Coinbase remains the best vehicle.",
+        "exit_advice": "Hold until the cyberattack and SEC investigation are fully resolved."
+      },
+      {
+        "date": "2025-05-30",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved, with no new developments this week. The event is still live, and Coinbase remains the best vehicle.",
+        "exit_advice": "Continue monitoring for resolution of the cyberattack and SEC investigation. Exit if either is resolved or if the event loses relevance."
+      },
+      {
+        "date": "2025-06-06",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved, with no new developments this week. The event is still live, and Coinbase remains the best vehicle.",
+        "exit_advice": "Continue monitoring for resolution of the cyberattack and SEC investigation. Exit if either is resolved or if the event loses relevance."
+      },
+      {
+        "date": "2025-06-13",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved, with no new developments this week. The event is still live, and Coinbase remains the best vehicle.",
+        "exit_advice": "Continue monitoring for resolution of the cyberattack and SEC investigation. The event remains unresolved, and no new developments have occurred this week."
+      },
+      {
+        "date": "2025-06-20",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The event remains live with no resolution of the cyberattack or SEC investigation. Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue holding as the cyberattack and SEC investigation remain unresolved. No new developments this week."
+      },
+      {
+        "date": "2025-06-27",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved with no new developments this week. The event is still live, and Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue monitoring for resolution of the cyberattack and SEC investigation. Exit if either catalyst resolves or if new information significantly alters the risk-reward balance."
+      },
+      {
+        "date": "2025-07-04",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "No new developments this week. The event is still live, and Coinbase remains the best vehicle.",
+        "exit_advice": "Continue holding as both the cyberattack and SEC investigation remain unresolved."
+      },
+      {
+        "date": "2025-07-11",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved with no new developments this week. The event is still live, and Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue monitoring for any resolution of the cyberattack or SEC investigation. Exit if either is resolved or if the event loses relevance."
+      },
+      {
+        "date": "2025-07-18",
+        "live": true,
+        "exit_case": "No resolution announced for cyberattack or SEC investigation",
+        "resolved": false,
+        "assessment": "Both the cyberattack and SEC investigation remain unresolved. No new developments this week. The event is still active, and Coinbase remains the best vehicle.",
+        "exit_advice": "Continue holding until the cyberattack reimbursement or SEC investigation concludes"
+      },
+      {
+        "date": "2025-07-25",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved with no new developments this week. The event is still live, and Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue monitoring for any resolution of the cyberattack or SEC investigation. Exit if either catalyst resolves or if the event loses relevance."
+      },
+      {
+        "date": "2025-08-01",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The cyberattack and SEC investigation remain unresolved with no new developments this week. The event is still live, and Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue monitoring for any resolution of the cyberattack or SEC investigation. Exit if either catalyst resolves or shows significant progress towards resolution."
+      },
+      {
+        "date": "2025-08-08",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The event remains live with no resolution of the cyberattack or SEC investigation. Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Continue holding as the cyberattack and SEC investigation remain unresolved with no new developments this week."
+      },
+      {
+        "date": "2025-08-15",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains unresolved, with no new developments this week. The event is still live, and Coinbase continues to be the best vehicle for this event.",
+        "exit_advice": "Hold until either the cyberattack reimbursement is finalized or the SEC investigation concludes."
+      }
+    ],
+    "KEP": [
+      {
+        "date": "2025-08-01",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst is still in its early stages with KEP announcing its offshore wind expansion plans. The news highlights KEP's position as a potential leader in this space, but the project's execution and timeline remain key factors to watch.",
+        "exit_advice": "Monitor for signs of project delays, policy shifts, or financial constraints that could derail the offshore wind expansion plans."
+      },
+      {
+        "date": "2025-08-08",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "KEP continues to be the purest play for this event, with no new developments reported this week. The thesis remains intact as the expansion plans are still in progress.",
+        "exit_advice": "Hold. The offshore wind expansion catalyst remains pending with no updates to suggest resolution or decay."
+      },
+      {
+        "date": "2025-08-15",
+        "live": true,
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The offshore wind expansion catalyst remains intact with no resolution or significant changes reported. KEP continues to be the purest play for this event.",
+        "exit_advice": "Continue monitoring KEP's offshore wind expansion plans for any significant developments or delays."
       }
     ],
     "CEPU": [
       {
         "date": "2025-08-01",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst is still pending as the major stake in the Tres Cruces lithium project has not been finalized or canceled. CEPU remains the purest vehicle for this event.",
-        "exit_advice": "Exit if the stake in Tres Cruces lithium project is confirmed to be finalized or canceled."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "CEPU\u2019s entry into the lithium sector via the Tres Cruces project is the defining catalyst, which remains active and unresolved. The news confirms their stake but does not indicate resolution of the event.",
+        "exit_advice": "Hold \u2014 the catalyst (CEPU\u2019s stake in the lithium project) is still pending and unresolved."
       },
       {
         "date": "2025-08-08",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "The catalyst remains pending with no new developments this week. CEPU is still the purest vehicle for this event.",
-        "exit_advice": "No resolution on the Tres Cruces lithium project stake. Continue holding until the deal is finalized or canceled."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The catalyst remains active with no new developments this week. CEPU's stake in the Tres Cruces project is still pending resolution.",
+        "exit_advice": "Hold until the lithium project stake catalyst resolves or further developments occur."
       },
       {
         "date": "2025-08-15",
         "live": true,
-        "hindsight": "prior call holds",
-        "assessment": "There are no new developments related to the Tres Cruces lithium project this week. The catalyst remains pending, and CEPU continues to be the purest vehicle for this event.",
-        "exit_advice": "Hold until the major stake in the Tres Cruces lithium project is finalized or canceled."
+        "exit_case": "none",
+        "resolved": false,
+        "assessment": "The lithium project stake catalyst is still pending, with no new developments reported this week.",
+        "exit_advice": "Continue to monitor CEPU's stake in the Tres Cruces lithium project as the catalyst remains unresolved."
       }
     ]
   }
