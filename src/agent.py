@@ -191,6 +191,33 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
     return out
 
 
+LEAD_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["lead"],
+               "properties": {"lead": {"type": "string"}}}
+LEAD_SYSTEM = """You rank a book of LIVE event-driven positions to name THE single primary gem —
+the one whose SPECIFIC catalyst is the strongest, most-resolvable, highest-conviction driver right
+now (the name that most deserves the largest position). Given this week's live names + theses, pick
+EXACTLY ONE of the given tickers. You choose WHICH name only — NEVER the size. Output ONLY JSON:
+{"lead":"TICKER"}."""
+
+
+def select_lead(client, anchor: pd.Timestamp, live_picks: list[dict]) -> str | None:
+    """LLM picks the single primary gem among this week's live picks. A SELECTION (like picking
+    tickers / the live-exit switch), NOT a weight — the mechanical thesis_floor sets the size, so
+    this stays within non-negotiable #1 (the LLM never sizes). Returns a ticker or None."""
+    names = [p for p in live_picks if str(p.get("ticker", "")).strip()]
+    if not names:
+        return None
+    if len(names) == 1:
+        return names[0]["ticker"].strip().upper()
+    lst = "\n".join(f"- {p['ticker']}: {p.get('thesis', '')}" for p in names)
+    user = f"Week ending {anchor.date()}. Live positions:\n{lst}\n\nName the primary gem. JSON only."
+    txt = client.complete(LEAD_SYSTEM, user, use_web_search=False, stage="agent",
+                          label=f"lead-{anchor.date()}", json_schema=LEAD_SCHEMA)
+    valid = {p["ticker"].strip().upper() for p in names}
+    t = str(_extract(txt).get("lead", "")).strip().upper()
+    return t if t in valid else names[0]["ticker"].strip().upper()
+
+
 def _filter_pool(arts: list[dict], event: dict) -> list[dict]:
     """Filter an article set to this event's coverage (ticker or thesis keywords)."""
     tk = event["ticker"].lower()
@@ -528,6 +555,11 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"],
                                   "evidence_urls": entry["sources"]})
+        lead = select_lead(client, a, [p for p in picks if p.get("thesis_live")])  # LLM names the gem
+        for p in picks:
+            if p["ticker"] == lead and p.get("thesis_live"):
+                p["lead"] = True
+                break
         out[a] = picks
         done.add(a.isoformat())
         tmp = f"{resume_f}.tmp"

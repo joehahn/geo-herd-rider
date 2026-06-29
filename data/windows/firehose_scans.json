@@ -10,7 +10,8 @@
         "https://finance.yahoo.com/news/buy-dip-ionq-stock-191525787.html",
         "https://www.fool.com/investing/2026/02/02/is-ionq-stock-a-buy-now/?source=iedfolrf0000001",
         "https://finance.yahoo.com/news/ionq-stock-buy-now-083500925.html"
-      ]
+      ],
+      "lead": true
     }
   ],
   "2026-02-13": [
@@ -24,7 +25,8 @@
         "https://finance.yahoo.com/news/dont-miss-best-quantum-etf-152000311.html",
         "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains",
         "https://www.fool.com/investing/2026/02/11/where-will-ionq-stock-be-in-1-year/"
-      ]
+      ],
+      "lead": true
     }
   ],
   "2026-02-20": [
@@ -39,7 +41,8 @@
         "https://247wallst.com/investing/2026/02/14/rigetti-computing-shares-drop-9-this-week-valuation-concerns-trigger-selling/",
         "https://finance.yahoo.com/news/why-wedbush-thinks-norway-could-163002474.html",
         "https://www.fool.com/investing/2026/02/13/want-to-invest-in-quantum-computing-3-stocks-that/?source=iedfolrf0000001"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "BWET",
@@ -61,7 +64,8 @@
         "https://www.fool.com/investing/2026/02/25/should-you-forget-ionq-and-buy-these-2-tech-stocks/?source=iedfolrf0000001",
         "https://techcrunch.com/2026/02/23/finnish-quantum-unicorn-iqm-set-to-go-public/",
         "https://www.dailypolitical.com/2026/02/23/best-quantum-computing-stocks-to-consider-february-22nd.html"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "BWET",
@@ -96,7 +100,8 @@
       "evidence_urls": [
         "https://www.marketscreener.com/news/south-korean-stocks-stage-sharp-rebound-after-worst-selloff-ce7e5fdadf8afe21",
         "https://www.fool.com/investing/2026/03/02/why-did-near-protocol-surge-13-today/?source=iedfolrf0000001"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "CEG",
@@ -131,7 +136,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-03-20": [
@@ -151,7 +157,8 @@
       "ticker": "BWET",
       "thesis": "tanker rates surge",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CEG",
@@ -185,7 +192,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-04-03": [
@@ -217,7 +225,8 @@
         "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
         "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
         "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
-      ]
+      ],
+      "lead": true
     }
   ],
   "2026-04-10": [
@@ -243,7 +252,8 @@
       "ticker": "CSLLY",
       "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-04-17": [
@@ -269,7 +279,8 @@
       "ticker": "CSLLY",
       "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-04-24": [
@@ -295,7 +306,8 @@
       "ticker": "CSLLY",
       "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-05-01": [
@@ -309,7 +321,8 @@
       "ticker": "BWET",
       "thesis": "tanker rates surge",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CEG",
@@ -347,7 +360,8 @@
       "ticker": "CSLLY",
       "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2026-05-15": [
@@ -370,7 +384,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",
@@ -402,7 +417,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",
@@ -436,7 +452,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",
@@ -486,7 +503,8 @@
       "ticker": "CSLLY",
       "thesis": "Trump's 100% tariff on foreign pharmaceuticals",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CLOV",
@@ -519,7 +537,8 @@
       "evidence_urls": [
         "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
         "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "BWET",
@@ -602,7 +621,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",
@@ -656,7 +676,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",
@@ -711,7 +732,8 @@
       "ticker": "CEG",
       "thesis": "New 380-megawatt deal with CyrusOne",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "CSLLY",

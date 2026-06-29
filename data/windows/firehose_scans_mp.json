@@ -4,7 +4,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2025-03-28": [
@@ -12,7 +13,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2025-04-04": [
@@ -20,7 +22,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2025-04-11": [
@@ -28,7 +31,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     }
   ],
   "2025-04-18": [
@@ -36,7 +40,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -62,7 +67,8 @@
         "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
         "https://www.fool.com/investing/2025/04/21/plug-oklo-constellation-nano-nuclear-stocks-drop/",
         "https://www.tahoedailytribune.com/news/everything-everywhere-all-at-once/"
-      ]
+      ],
+      "lead": true
     }
   ],
   "2025-05-02": [
@@ -83,7 +89,8 @@
         "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
         "https://www.hellenicshippingnews.com/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
         "https://www.marketscreener.com/quote/interest/CHINA-10Y-CASH-146043375/news/China-holds-off-on-new-stimulus-shows-composure-in-US-trade-war-49734296/"
-      ]
+      ],
+      "lead": true
     }
   ],
   "2025-05-09": [
@@ -91,7 +98,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -110,7 +118,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -134,7 +143,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -162,7 +172,8 @@
       "ticker": "MP",
       "thesis": "China rare-earth export curbs",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -184,7 +195,8 @@
       "thesis_live": true,
       "evidence_urls": [
         "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -198,7 +210,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -222,7 +235,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -248,7 +262,8 @@
       "ticker": "MP",
       "thesis": "China rare-earth export curbs",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -262,7 +277,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -284,7 +300,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -323,7 +340,8 @@
       "thesis_live": true,
       "evidence_urls": [
         "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -345,7 +363,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
@@ -384,7 +403,8 @@
         "https://finance.yahoo.com/news/korea-electric-power-corporation-kep-162535915.html",
         "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/",
         "https://www.investors.com/research/investing-action-plan/stock-market-fed-amazon-apple-microsoft-july-jobs-tariff-deadline-mag-7-earnings/"
-      ]
+      ],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -418,7 +438,8 @@
       "ticker": "MP",
       "thesis": "China rare-earth export curbs",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "COIN",
@@ -444,7 +465,8 @@
       "ticker": "TBD",
       "thesis": "China-Taiwan tensions escalate",
       "thesis_live": true,
-      "evidence_urls": []
+      "evidence_urls": [],
+      "lead": true
     },
     {
       "ticker": "MP",
