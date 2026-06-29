@@ -121,6 +121,10 @@ class OpenRouterClient(LLMClient):
             kw["response_format"] = {"type": "json_schema",            # ~27% JSON-format failures)
                                      "json_schema": {"name": "mapping", "strict": True,
                                                      "schema": json_schema}}
+            # require_parameters: only route to OpenRouter providers that SUPPORT json_schema, so a
+            # rate-limited primary doesn't fall back to one that 400s on structured output (the
+            # StreamLake/DeepInfra failure that crashed deepseek BWET mid-scan).
+            kw["extra_body"] = {"provider": {"require_parameters": True}}
         r = self._c.chat.completions.create(**kw)
         text = r.choices[0].message.content or ""
         u = r.usage
