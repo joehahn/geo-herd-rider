@@ -25,10 +25,6 @@ t_update_days: 1                  # Business days from event detection (post-clo
                                   #   cron) to execution, entering at that day's close. 1=next
                                   #   session, 2/3=wait. (0.5/next-morning-open needs intraday data.)
 min_trade_size: 0.1               # Drop holdings smaller than this; reallocate
-thesis_floor: 0.2                 # Min weight guaranteed to the highest-conviction live name (the
-                                  #   earliest-discovered still-live gem) before mean-variance sizes
-                                  #   the rest. 0 = off (pure MV). Keeps the book ON the gem while its
-                                  #   thesis is live, so MV can't rotate off it before the catalyst pays.
 lookback_period_days: 21          # Trailing window (calendar days, ending at entry) for the
                                   #   optimizer's mu/Sigma fit. Short (45) = recent-only, noisier.
 rebalance_days: 7                 # The single cadence knob: the firehose scans/rebalances every

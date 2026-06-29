@@ -38,7 +38,6 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     prow("model", mdisp)
     + prow("gems", gems.join(", ")) + prow("total start", "$"+(D.capital_per_gem*n).toLocaleString())
     + prow("concentration_cap", B.concentration_cap) + prow("min_trade_size", B.min_trade_size)
-    + prow("thesis_floor", B.thesis_floor)
     + prow("lookback_period_days", B.lookback_period_days) + prow("risk_aversion", B.risk_aversion);
   const host=document.getElementById("charts"), P=D.params||{};
   const pal=["#1f77b4","#2ca02c","#9467bd","#ff7f0e","#17becf"];

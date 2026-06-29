@@ -144,6 +144,7 @@ class JournalEntry(BaseModel):
     the thesis_live/exit call, and prose. news_claims is attribution of what the PRESS says."""
     model_config = ConfigDict(extra="ignore")
     thesis_live: bool = True
+    hindsight: str = ""          # weekly self-critique of last week's call (Reflexion; breaks inertia)
     exit_advice: str = ""
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
@@ -189,33 +190,6 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
         elif m.ticker:                          #   listing -> drop (the curator should name the US ADR)
             print(f"  scope: dropped foreign-exchange ticker {m.ticker} ({anchor.date()})", file=sys.stderr)
     return out
-
-
-LEAD_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["lead"],
-               "properties": {"lead": {"type": "string"}}}
-LEAD_SYSTEM = """You rank a book of LIVE event-driven positions to name THE single primary gem —
-the one whose SPECIFIC catalyst is the strongest, most-resolvable, highest-conviction driver right
-now (the name that most deserves the largest position). Given this week's live names + theses, pick
-EXACTLY ONE of the given tickers. You choose WHICH name only — NEVER the size. Output ONLY JSON:
-{"lead":"TICKER"}."""
-
-
-def select_lead(client, anchor: pd.Timestamp, live_picks: list[dict]) -> str | None:
-    """LLM picks the single primary gem among this week's live picks. A SELECTION (like picking
-    tickers / the live-exit switch), NOT a weight — the mechanical thesis_floor sets the size, so
-    this stays within non-negotiable #1 (the LLM never sizes). Returns a ticker or None."""
-    names = [p for p in live_picks if str(p.get("ticker", "")).strip()]
-    if not names:
-        return None
-    if len(names) == 1:
-        return names[0]["ticker"].strip().upper()
-    lst = "\n".join(f"- {p['ticker']}: {p.get('thesis', '')}" for p in names)
-    user = f"Week ending {anchor.date()}. Live positions:\n{lst}\n\nName the primary gem. JSON only."
-    txt = client.complete(LEAD_SYSTEM, user, use_web_search=False, stage="agent",
-                          label=f"lead-{anchor.date()}", json_schema=LEAD_SCHEMA)
-    valid = {p["ticker"].strip().upper() for p in names}
-    t = str(_extract(txt).get("lead", "")).strip().upper()
-    return t if t in valid else names[0]["ticker"].strip().upper()
 
 
 def _filter_pool(arts: list[dict], event: dict) -> list[dict]:
@@ -387,8 +361,9 @@ or "new" if it is a genuinely different catalyst. Output ONLY JSON:
 {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
-    "properties": {"thesis_live": {"type": "boolean"},
+    "required": ["hindsight", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "properties": {"hindsight": {"type": "string"},
+        "thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
@@ -398,6 +373,12 @@ EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are g
 CATALYST (FIXED — the discrete thing you entered on), its KNOWN vehicles, your FULL weekly journal
 for this event since entry (your memory — the whole arc, not just last week), and this week's news.
 Write the new note.
+
+FIRST, HINDSIGHT (self-critique — do this BEFORE deciding): given what's now known, was last week's
+call right? If last week's thesis_live/vehicle now looks WRONG (e.g. the catalyst had already
+resolved and you kept holding, or you held a stale vehicle), SAY SO plainly in <=20 words and let
+it CHANGE this week's call — do not just repeat last week because you said it last week. If last
+week was right, say "prior call holds" and move on. This breaks repeat-the-same-mistake inertia.
 
 USE THE WHOLE JOURNAL. The CATALYST is fixed; the best VEHICLE (ticker) MAY EVOLVE as the event
 develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cleanest pure-play /
@@ -413,7 +394,7 @@ ONLY thing that is NOT a reason to exit: mainstream hype / crowding ("up 600%, e
 thesis_live=TRUE only while that specific catalyst is still PENDING.
 
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
-composition, the exit, and which vehicle. Output ONLY JSON: {"thesis_live":true,
+composition, the exit, and which vehicle. Output ONLY JSON: {"hindsight":"...","thesis_live":true,
 "exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
@@ -484,8 +465,8 @@ def event_agent_v2(client, anchor, event, entries, news):
     veh = [v.strip().upper() for v in e.vehicles if v.strip()]
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
     return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
-            "exit_advice": e.exit_advice, "assessment": e.assessment, "news_claims": e.news_claims,
-            "sources": [u for u in e.sources if u][:6], "vehicles": veh}
+            "hindsight": e.hindsight, "exit_advice": e.exit_advice, "assessment": e.assessment,
+            "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
@@ -579,12 +560,10 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"],
+                                  "hindsight": entry.get("hindsight", ""),
+                                  "assessment": entry.get("assessment", ""),
+                                  "exit_advice": entry.get("exit_advice", ""),
                                   "evidence_urls": entry["sources"]})
-        lead = select_lead(client, a, [p for p in picks if p.get("thesis_live")])  # LLM names the gem
-        for p in picks:
-            if p["ticker"] == lead and p.get("thesis_live"):
-                p["lead"] = True
-                break
         out[a] = picks
         done.add(a.isoformat())
         tmp = f"{resume_f}.tmp"

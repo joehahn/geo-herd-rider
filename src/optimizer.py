@@ -38,9 +38,6 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
                                        #   renormalize (pile in). ~1/N caps funded names near N.
-    "thesis_floor": 0.0,               # LIVE: min weight guaranteed to the highest-conviction live
-                                       #   name (earliest-discovered still-live gem) before MV sizes
-                                       #   the rest. 0 = off. Keeps the book on the gem while live.
     "lookback_period_days": 547,       # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
     "model": "mimo",                   # LIVE (curator/scan): which LLM reads the firehose. Short

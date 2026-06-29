@@ -16,7 +16,7 @@ BACKTEST_LOOKBACK_DAYS = 547  # default trailing window (calendar days) for the 
 
 
 def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date: pd.Timestamp,
-                       fm: dict, lookback_days: int, floor_ticker: str | None = None) -> dict[str, float] | None:
+                       fm: dict, lookback_days: int) -> dict[str, float] | None:
     """Mean-variance weights for one basket, fit on a trailing lookback that ENDS at entry
     (look-ahead-safe — no price on/after entry informs the weights). Drops tickers lacking full
     history over the window; returns None only if none survive.
@@ -36,26 +36,7 @@ def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date
     returns = compute_returns(fit[usable].dropna())
     opt = optimize_portfolio(returns, objective="mean_variance",
                              risk_aversion=fm["risk_aversion"], max_weight=fm["concentration_cap"])
-    w = _apply_min_trade(opt["weights"] if opt.get("success") else equal, fm)
-    return _apply_thesis_floor(w, fm, floor_ticker)
-
-
-def _apply_thesis_floor(weights: dict[str, float], fm: dict, floor_ticker: str | None) -> dict[str, float]:
-    """Guarantee a minimum weight to the highest-conviction live name (the 'gem' — passed as
-    floor_ticker, the earliest-discovered still-live event), then scale the rest to fill the
-    remainder. Mechanically encodes the strategy's premise ("concentrate on the named gem while
-    its thesis is live") so backward-looking mean-variance can't rotate the book off the gem right
-    before its catalyst pays. 0 disables. Deterministic — the LLM never sets a weight."""
-    f = float(fm.get("thesis_floor", 0.0))
-    if f <= 0 or not floor_ticker or floor_ticker not in weights or len(weights) < 2:
-        return weights
-    f = min(f, float(fm.get("concentration_cap", 1.0)))  # floor can't exceed the per-position cap
-    if weights[floor_ticker] >= f:
-        return weights                                   # mean-variance already meets the floor
-    others = {t: w for t, w in weights.items() if t != floor_ticker}
-    s = sum(others.values())
-    scaled = {t: w / s * (1.0 - f) for t, w in others.items()} if s > 0 else {}
-    return {floor_ticker: f, **scaled}
+    return _apply_min_trade(opt["weights"] if opt.get("success") else equal, fm)
 
 
 def _apply_min_trade(weights: dict[str, float], fm: dict) -> dict[str, float]:

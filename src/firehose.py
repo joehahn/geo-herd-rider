@@ -339,20 +339,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
               file=sys.stderr)
     watch = {a: [t for t in w if t in valid] for a, w in watch.items()}
 
-    # the "gem" the thesis_floor protects: the LLM-named lead pick (a 'lead' flag in the scan),
-    # carried forward (sticky) through coverage gaps. Fallback for books with no lead flags =
-    # earliest-discovered live name.
-    first_seen = {}
-    for a in anchors:
-        for t in watch[a]:
-            first_seen.setdefault(t, a)
-    lead_map, cur_lead = {}, None
-    for a in anchors:
-        flagged = [p.get("ticker", "").strip().upper() for p in scans.get(a, []) if p.get("lead")]
-        if flagged:
-            cur_lead = flagged[0]
-        lead_map[a] = cur_lead
-
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     for k, a in enumerate(anchors):
@@ -360,10 +346,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         reb.append(None if i is None else i)
         if i is not None:
             wl = watch[a]
-            led = lead_map.get(a)
-            floor_t = led if (led in wl) else (min(wl, key=lambda t: first_seen[t]) if wl else None)
-            week_w[k] = (curator._optimized_weights(wl, panel, days[i], fm, lookback, floor_ticker=floor_t)
-                         or {}) if wl else {}
+            week_w[k] = (curator._optimized_weights(wl, panel, days[i], fm, lookback) or {}) if wl else {}
 
     value, spyval, log = capital, capital, []
     rows = [{"date": str(days[reb[0]].date()) if reb[0] else str(anchors[0].date()),
