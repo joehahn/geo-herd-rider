@@ -93,20 +93,27 @@ AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given t
 prior weekly note (your memory), and THIS week's news for this event. Write the new weekly note.
 
 Decide:
-  thesis_live  — TRUE while the driving CATALYST is still active/unresolved; FALSE once it RESOLVES
-                 (ceasefire signed and shipping resumes, chokepoint reopens, the supply shock ends,
-                 the policy passes/fails). This is the HOLD/EXIT switch. Use common sense about WHEN
-                 the event is over — that is your job. Mainstream hype ("up 600%, everyone in") is
-                 NOT resolution; do NOT exit just because a trade has gotten crowded.
-                 BUT BE SKEPTICAL ON ENTRY: thesis_live=true requires a SPECIFIC, DATABLE,
-                 RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, regulatory approval/bill,
-                 agency declaration, named deal, supply shock) — something whose resolution this
-                 switch can later act on. A real catalyst earns thesis_live=true EVEN IF the coverage
-                 also carries a theme/valuation angle — do not exit a genuine catalyst just because a
-                 theme framing co-occurs. Set thesis_live=FALSE NOW only when the event is SOLELY a
-                 theme/secular-momentum story, a valuation call ("undervalued", "13F"), a technical
-                 signal ("golden cross"), generic macro ("rate-cut rally"), hype ("IPO hype"), or a
-                 one-off mention/routine gainer with no resolvable catalyst at all.
+  thesis_live  — the HOLD/EXIT switch. TRUE only while the SPECIFIC catalyst you entered on is still
+                 PENDING / unresolved. Flip it to FALSE the WEEK that catalyst RESOLVES — the discrete
+                 event you were early to has now HAPPENED and is public/priced:
+                   - a bill/policy is SIGNED (or voted down); a regulator GRANTS or denies approval;
+                   - a named deal/contract CLOSES or is announced; an emergency is declared then ENDS;
+                   - a war/chokepoint/supply shock reverses (ceasefire, route reopens, shock passes).
+                 EXIT THEN EVEN IF THE STOCK IS STILL RISING, and even if a broader THEME lingers: once
+                 the event occurs the early-gem edge is gone (the catalyst is no longer news). Do NOT
+                 keep a resolved catalyst alive by leaning on a surrounding secular theme — e.g. "the
+                 reactor/ADVANCE Act was SIGNED, but AI-power demand continues" => the ACT resolved, so
+                 thesis_live=FALSE (the lingering theme is NOT your datable catalyst).
+                 The ONLY thing that is NOT a reason to exit: mainstream hype / crowding ("up 600%,
+                 everyone in"). Resolution = the EVENT happened; crowding = the trade got popular —
+                 exit on the former, NEVER on the latter.
+                 ON ENTRY be skeptical: thesis_live=true requires a SPECIFIC, DATABLE, RESOLVABLE
+                 catalyst (war/chokepoint, export ban/tariff, regulatory approval/bill, agency
+                 declaration, named deal, supply shock). A real catalyst earns thesis_live=true EVEN IF
+                 the coverage also carries a theme/valuation angle. Set thesis_live=FALSE NOW only when
+                 the event is SOLELY a theme/secular-momentum story, a valuation call ("undervalued",
+                 "13F"), a technical signal ("golden cross"), generic macro, hype, or a one-off mention
+                 with no resolvable catalyst at all.
   exit_advice  — <=20 words: the concrete condition that would end the thesis.
   assessment   — <=40 words: what changed this week and your read, continuous with your prior note.
   news_claims  — OPTIONAL <=12 words: attribute any size/return figure to the PRESS ("press cites
