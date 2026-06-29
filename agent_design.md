@@ -174,13 +174,16 @@ US-listed; latter is an event-probability signal, not a mean-variance-sizable po
 { "date": "2026-02-20",
   "thesis_live": true,                    // THE hold/exit switch (catalyst active?) — drives the trade
   "vehicles": ["BWET"],                   // current best vehicle(s) for the event this week
+  "hindsight": "prior call holds",        // weekly SELF-CRITIQUE of last week's call (anti-inertia)
   "exit_advice": "exit on ceasefire / Hormuz reopens / rates roll over",
   "assessment": "<=40 words: what changed + the read, continuous with the prior note",
   "news_claims": "press cites ~240% YTD", // ATTRIBUTION ONLY — never our forecast, never feeds sizing
   "sources": ["url", "url"] }
 ```
-The journal is the agent's **one-week-deep memory** (it reads only the prior entry — anti-anchoring)
-*and* the human audit trail. No magnitude/target/size field exists (Pydantic guardrail).
+The journal is the agent's **memory** *and* the human audit trail. No magnitude/target/size field
+exists (Pydantic guardrail). NOTE: the memory model changed — the agent now reads its **whole arc
+since entry**, not just the prior entry, plus writes a weekly `hindsight` self-critique. See
+"Memory, exits & scope (2026-06)" below for why and the anti-anchoring tradeoff.
 
 ## Lifecycle **[CURRENT]**
 - **Born** — scout proposes a candidate → deterministic same-ticker guard (a held ticker belongs to
@@ -219,6 +222,52 @@ silent weeks (passive timeout) to exit — that asymmetry *is* the stickiness. T
 not in `investor_profile.md` — so unlike `concentration_cap` / `min_trade_size` they aren't swept
 through config. They are behavior-affecting (guarded by the golden regression check) and are
 **candidates to promote into `investor_profile.md`** if exit-stickiness tuning is wanted.
+
+## Memory, exits & scope — 2026-06 revisions **[CURRENT]**
+
+Diagnosing three backtest failures (BWET/MP under-concentrated, SMR held its whole post-peak
+decline) drove a batch of agent changes. The root cause of the SMR miss: **exits under-fired** — the
+agent only saw last week's note, so as the prose chain drifted ("ADVANCE Act signed" → "AI-power
+demand continues") it lost the *specific discrete catalyst* and defaulted to holding.
+
+- **Full-arc memory (replaces one-week memory).** `event_agent_v2` now receives the WHOLE journal
+  since entry via `_journal_digest()` (one compact line/week: date · live · vehicle · assessment;
+  entry week always shown, capped ~20 weeks). The event stays the durable unit; the **vehicle may
+  evolve** and the arc shows that lineage. *Tradeoff:* the original one-week design was deliberately
+  anti-anchoring (amnesia prevents repeating a stale call); full memory reintroduces anchoring risk
+  (the "Diplomacy-A2A" effect — agents repeating a mistake turn after turn). The mitigation is the
+  self-critique step below, not amnesia.
+- **Exit-on-resolution (`EVENT_AGENT_SYSTEM`).** The weekly exit check is forceful and re-read
+  against the *whole* journal: flip `thesis_live=FALSE` the week the specific catalyst RESOLVES
+  (bill signed/voted, approval granted/denied, deal closed, emergency ended, chokepoint reopened) —
+  EVEN IF the stock is still rising and even if a broader theme lingers. Crowding/hype is still NOT
+  an exit. (Verified: re-scan exits SMR ~the ADVANCE-Act signing / mid-July peak, vs holding to Sept.)
+- **Weekly self-critique / `hindsight` (Reflexion).** Before deciding, the agent writes a ≤20-word
+  critique of last week's call and lets it CHANGE this week's call ("prior call holds" if it was
+  right). This is the anti-anchoring mechanism that replaces one-week amnesia. *Open issue:* in
+  practice the field often defaults to "prior call holds" — it may need a sharper prompt to force a
+  genuine re-examination.
+- **Scope guard — US-listed only.** `scout()` drops any candidate whose ticker contains a `.`
+  (yfinance US tickers have none; a `.AX/.L/.TO/.HK/...` suffix is a foreign exchange). The prompt
+  also says to name the US ADR (CSLLY, not CSL.AX) or skip. This is a code guard (doesn't trust the
+  LLM) plus prompt — added after deepseek picked `CSL.AX`, which both violated scope and polluted the
+  shared price panel (foreign trading calendar). The LLM verified to name the ADR under the new prompt.
+- **Curator-model knob + bake-off.** `model:` in `investor_profile.md` (resolved by
+  `optimizer.resolve_curator_model`: `mimo|sonnet|opus|llama4|deepseek|grok4|gemini`) selects the
+  curator LLM; the scan stamps a `<scan>.meta.json` sidecar so dashboards show which model produced
+  each book. A 7-model bake-off (sweeps page, top plot) re-scored each model's 3-gem books on shared
+  panels; **deepseek-V3 (the cheap default)** caught all 3 gems at the lowest cost.
+- **Agent-journal arc view.** Scans persist `hindsight`/`assessment`/`exit_advice` onto each pick;
+  the gem dashboard renders an "Agent journal — week-by-week (per event)" section so the arc is
+  inspectable (spot anchoring / missed exits).
+- **`thesis_floor` — tried and ROLLED BACK.** A mechanical floor that guaranteed a min weight to the
+  LLM-named "lead" gem (to stop mean-variance rotating off it). The sweep showed it near-inert once
+  exits work (cap already concentrates), so it was removed entirely in favor of the memory/exit fix.
+  Recorded here so it isn't re-litigated.
+
+**Caveat (carried throughout):** the curator LLM is **stochastic** — re-scans give different draws,
+so single-run before/after comparisons are noisy. Treat per-draw deltas as suggestive, not proof;
+the forward eval (or multi-seed averaging) is the real test.
 
 ## Storage & format
 - **JSON, not a database** **[CURRENT]** — at ~5-year scale this is small data (see below); JSON is
