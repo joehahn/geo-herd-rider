@@ -239,13 +239,8 @@ BAKEOFF_INFO = {  # cost = MEASURED $ for this 3-gem scan (today's ledger), not 
 
 
 def _model_book_path(short: str, gem: str):
-    """Where a given model's scan book for a gem lives. mimo = pre-Sonnet backup, sonnet = the live
-    books, everyone else = the bakeoff/ dir written by the model bake-off scans."""
-    fn = {"BWET": "firehose_scans.json", "MP": "firehose_scans_mp.json", "SMR": "firehose_scans_smr.json"}[gem]
-    if short == "mimo":
-        return ROOT / "data" / "windows" / "_mimo_softened" / fn
-    if short == "sonnet":  # sonnet was the live curator before deepseek; books archived here
-        return ROOT / "data" / "windows" / "_sonnet" / fn
+    """Every model's bake-off book lives under bakeoff/ as firehose_scans_<gem>__<model>.json —
+    one canonical store, all written by the 6-model bake-off re-scan under the current prompts."""
     return ROOT / "data" / "windows" / "bakeoff" / f"firehose_scans_{gem.lower()}__{short}.json"
 
 
