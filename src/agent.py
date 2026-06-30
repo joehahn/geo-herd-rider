@@ -364,10 +364,17 @@ EVENT_MATCH_SCHEMA = {"type": "object", "additionalProperties": False, "required
 MATCH_SYSTEM = """You group market candidates into EVENTS. An event is ONE underlying catalyst (a
 war, an election, a supply shock, a tech wave); MANY tickers can express the same event — e.g.
 Rheinmetall's two ADRs RNMBY/RHMTY are one company; SMR/OKLO/CCJ/CEG are all the nuclear-for-AI
-event; URA and CCJ are both the uranium event. Given the OPEN events (id + catalyst) and this
+event; URA/CCJ/UUUU are all the uranium event. Given the OPEN events (id + catalyst) and this
 week's CANDIDATES (ticker + thesis), assign each candidate to the open event it belongs to (by id)
-or "new" if it is a genuinely different catalyst. Output ONLY JSON:
-{"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
+or "new" if it is a genuinely different catalyst.
+
+DEFAULT TO MERGING. Assign a candidate to an existing open event whenever they share the SAME
+underlying driver — same commodity (uranium, rare-earth, oil), same sector/policy shock (nuclear,
+defense, shipping, AI-power), same war / election / supply event — EVEN IF the tickers differ or the
+thesis is worded differently. A reactor builder, a nuclear utility, and a uranium miner are ONE
+nuclear event; do NOT open three. Use "new" ONLY when a candidate's catalyst is CLEARLY unrelated to
+every open event. When unsure, MERGE — fragmenting one catalyst across several events is the single
+biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
     "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
