@@ -13,7 +13,7 @@
 
 ## How it works, at a glance
 
-The machine is one short assembly line **run on a loop, once a week**. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock, as well as the **gem(s)** that each event throws off (namely the tickers journalists name for it). A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio.
+The machine is one short assembly line **run on a loop, once a week**. We **read the firehose** to spot the **events** the press is flagging — a war, an election, a supply shock — and the specific tickers (the **gems**) rising on that catalyst, namely the ones journalists explicitly name for it. A **scout** discovers those events; a **matcher** groups each week's named tickers into the events already in flight; and then a **per-event agent** **tracks each event over time**: an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We hold the gem while its agent deems the event's thesis alive and exit when it **resolves**; a **plain optimizer** (never the AI) sizes the portfolio.
 
 ```mermaid
 flowchart TD
