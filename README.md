@@ -71,12 +71,14 @@ The progression in that last column, from "under the radar" to "everyone piling 
     ```
     superlatives:  "best performing stock"  "biggest gainers"  "best performing etf"
     macro beats:   geopolitics  war  shipping  tariffs  "interest rates"
-    sectors:       "technology stocks"  "energy stocks"  "financial stocks"  "healthcare stocks"
-                   "industrial stocks"  "materials stocks"  "consumer stocks"
-                   "utility stocks"  "real estate stocks"  "telecom stocks"
-    themes:        cryptocurrency  "space stocks"  "robotics stocks"  "quantum stocks"  "nuclear stocks"
+    sectors:       "technology stocks"  "energy stocks"  "financial stocks"
+                   "healthcare stocks"  "industrial stocks"  "materials stocks"
+                   "consumer stocks"  "utility stocks"  "real estate stocks"
+                   "telecom stocks"
+    themes:        cryptocurrency  "space stocks"  "robotics stocks"
+                   "quantum stocks"  "nuclear stocks"
     ```
-    The first three groups are gem-agnostic by construction: the 10-beat sector sweep covers all 11 GICS sectors (consumer staples and discretionary merged into one `consumer`), plus market-wide superlatives, so nothing is privileged. The themes group covers non-GICS asset classes and emerging-tech areas where gems emerge but the sector sweep is too coarse (quantum) or doesn't reach at all (crypto).
+    The first three groups are gem-agnostic by construction, while the 10-beat sector sweep is derived from the 11 GICS sectors but with consumer staples and discretionary merged into a single consumer search term, plus market-wide superlatives, so that nothing is privileged. The themes group covers non-GICS asset classes and emerging-tech areas where gems emerge but the sector sweep is too coarse (quantum) or doesn't reach at all (crypto).
   - **But GDELT catches a gem late, not early.** It monitors a mostly-mainstream source list and surfaces a story only once it has propagated across those outlets, so the niche, low-readership early write-ups (the "(BWET) … under the radar" pieces) are under-indexed or absent, and a gem usually enters GDELT only after it has gone mainstream. GDELT also returns headlines only, and a headline names the theme, rarely the ticker.
   - So **Wayback** is used to patch the headline gap: for each URL GDELT did return, it fetches that page's as-of-date archived lede (which usually names the ticker). But it can't conjure URLs GDELT never returned, so GDELT plus Wayback is itself incomplete and largely misses the early trajectory.
   - **Seeds** fill exactly that hole: a handful of real early articles, harvested from each gem's under-the-radar phase and injected at their true publish dates. Because they are genuine, date-stamped news, the curator sees them only on or after the day they actually appeared, which fixes the incompleteness with no look-ahead poison. (Honest caveat: the seeds are harvested knowing which gems won, so seeded recall is an upper bound; this grants the early naming rather than proving the solution would have retrieved it.)
