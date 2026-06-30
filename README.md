@@ -22,9 +22,9 @@ flowchart TD
     subgraph CUR["🧠 Curator — names tickers, never sizes"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
-      SC["🔍 Scout<br/>discover the week's<br/>candidate events"]
-      MA["🧩 Matcher<br/>group named tickers<br/>into events in flight"]
-      AG["🟢/⚪ Per-event agent<br/>weekly note: thesis live? (hold/exit);<br/>the gem can evolve"]
+      SC["🔍 Scout<br/>discover the week's candidate events<br/>— catalyst gate: only specific, datable,<br/>resolvable catalysts pass"]
+      MA["🧩 Matcher<br/>group named tickers into events<br/>(same-ticker dedup guard)"]
+      AG["🟢/⚪ Per-event agent<br/>weekly note: is the catalyst still live,<br/>or has it resolved? (hold/exit);<br/>the gem can evolve"]
       SC --> MA --> AG
     end
 
@@ -43,7 +43,7 @@ flowchart TD
     class E bet
 ```
 
-The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (which can change over time), and the optimizer re-sizes. An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit.
+The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (which can change over time), and the optimizer re-sizes. An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven**: each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position even if the coverage is still loud. (Entry needs a specific, datable catalyst precisely so this exit check has something concrete to resolve against; that pairing is what fixed SMR riding past the ADVANCE Act.)
 
 The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — we just read the name the press has given and ride it while its thesis holds.
 
@@ -99,7 +99,7 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 ## Live dashboard
 
-[**A landing page of per-gem scans**](https://joehahn.github.io/geo-herd-rider/) — one dashboard per hidden-gem event ([BWET](https://joehahn.github.io/geo-herd-rider/bwet/), [MP](https://joehahn.github.io/geo-herd-rider/mp/), …), each showing value vs SPY, allocation over time, cumulative $-gain per holding, the **per-event agent-journal arc** (week-by-week hindsight / read / exit-state, for spotting anchoring or missed exits), a firehose log, retrieval-health, the curator **model** used, and an LLM-cost panel. Each portfolio is the **event-first agent** finding that gem in a **realistic, noisy GDELT news firehose**, with **Wayback** recovering the as-of-date ticker-naming ledes GDELT's headlines omit (look-ahead-clean) and the niche early pieces GDELT never indexes **seeded** at their true dates (the one retrieval shortcut; see Status). Each is a **hindsight upper bound** (seeded early naming + a model trained past the events), not a promise — the ceiling the mechanics can reach on clean inputs. A [**parameter-sweep dashboard**](https://joehahn.github.io/geo-herd-rider/sweeps/) leads with a **7-model LLM bake-off** (sum Final Curated value per curator model, ordered by cost) and then plots the sum (across all gems) of Final Curated Portfolio value vs sizing knobs (`concentration_cap`, `lookback_period_days`, `min_trade_size`, `risk_aversion`) against the flat Sum-SPY benchmark. Rebuild all with `python scripts/build_dashboard.py --all`.
+[**A landing page of per-gem scans**](https://joehahn.github.io/geo-herd-rider/) — one dashboard per hidden-gem event ([BWET](https://joehahn.github.io/geo-herd-rider/bwet/), [MP](https://joehahn.github.io/geo-herd-rider/mp/), …), each showing value vs SPY, allocation over time, cumulative $-gain per holding, the **per-event agent-journal arc** (week-by-week hindsight / read / exit-state, for spotting anchoring or missed exits), a firehose log, retrieval-health, the curator **model** used, and an LLM-cost panel. Each portfolio is the **event-first agent** finding that gem in a **realistic, noisy GDELT news firehose**, with **Wayback** recovering the as-of-date ticker-naming ledes GDELT's headlines omit (look-ahead-clean) and the niche early pieces GDELT never indexes **seeded** at their true dates (the one retrieval shortcut; see Status). Each is a **hindsight upper bound** (seeded early naming + a model trained past the events), not a promise — the ceiling the mechanics can reach on clean inputs. A [**parameter-sweep dashboard**](https://joehahn.github.io/geo-herd-rider/sweeps/) leads with a **6-model LLM bake-off** (sum Final Curated value per curator model, ordered by cost) and then plots the sum (across all gems) of Final Curated Portfolio value vs sizing knobs (`concentration_cap`, `lookback_period_days`, `min_trade_size`, `risk_aversion`) against the flat Sum-SPY benchmark. Rebuild all with `python scripts/build_dashboard.py --all`.
 
 ## The signal, and its jobs
 
