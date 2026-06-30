@@ -140,6 +140,24 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
                     "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
                     "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
 
+    # full-window lifecycle for THIS gem (the dashboard's subject): EVERY scanned week labeled
+    # pre (scanned, not yet flagged) / live / exit / post (dropped) — so the agent's behavior
+    # before, during, and after the event is visible, not just the live span.
+    lifecycle = []
+    seen = False
+    for a in sorted(scans):
+        gp = [p for p in scans[a] if str(p.get("ticker", "")).strip().upper() == ticker]
+        if gp:
+            seen = True
+            p = gp[0]
+            lifecycle.append({"date": a.date().isoformat(),
+                              "state": "live" if p.get("thesis_live") else "exit",
+                              "src": p.get("src", ""), "exit_case": p.get("exit_case", ""),
+                              "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
+        else:
+            lifecycle.append({"date": a.date().isoformat(), "state": "post" if seen else "pre",
+                              "src": "", "exit_case": "", "assessment": "", "exit_advice": ""})
+
     # curator model that PRODUCED this book: the scan sidecar wins over the current profile knob
     meta_p = cfg["scans"].with_suffix(".meta.json")
     disp_model = fm.get("model", "mimo")
@@ -159,7 +177,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "watch_daily": watch_daily,
         "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
-        "arcs": arcs,
+        "arcs": arcs, "lifecycle": lifecycle,
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -436,6 +454,13 @@ INDEX_HTML = r"""<!doctype html>
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
  <table class="atab" id="watchtable"></table>
 
+ <h2>Gem lifecycle — full window (pre / live / exit / post)</h2>
+ <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
+   this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
+   dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
+   <i>before, during, and after</i> the event — not just the live span.</p>
+ <table class="atab" id="lifecycle"></table>
+
  <h2>Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
@@ -609,6 +634,16 @@ fetch("data.json").then(r=>r.json()).then(D=>{
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
+
+  // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
+  const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
+  document.getElementById("lifecycle").innerHTML = LC.length
+    ? `<thead><tr><th>Date</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
+      + LC.map(e=>`<tr><td>${e.date}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
+        +`${e.state==='pre'?'— not flagged':e.state==='post'?'— dropped':e.state}</td>`
+        +`<td>${esc(e.src)}</td><td>${esc(e.exit_case)}</td><td>${esc(e.assessment)}</td>`
+        +`<td class="sub">${esc(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
+    : '<tr><td class="sub">No lifecycle (re-scan to populate).</td></tr>';
 
   document.getElementById("costs").innerHTML =
     `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`

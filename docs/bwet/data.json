@@ -2412,5 +2412,183 @@
         "exit_advice": "Tighten hard \u2014 exit on any program disbursement that skips D-Wave, or after continued silence the discrete grant looks dead."
       }
     ]
-  }
+  },
+  "lifecycle": [
+    {
+      "date": "2026-02-06",
+      "state": "pre",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-02-13",
+      "state": "pre",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-02-20",
+      "state": "pre",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-02-27",
+      "state": "pre",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-03-06",
+      "state": "pre",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-03-13",
+      "state": "live",
+      "src": "seed",
+      "exit_case": "none",
+      "assessment": "Entry week. Catalyst is Strait of Hormuz war-risk premium keeping oil-tanker day-rates elevated, which lifts the freight-futures ETN. This is an ongoing, unresolved geopolitical chokepoint risk \u2014 no ceasefire, no de-escalation, no normalization of transit. The catalyst is still PENDING, not a discrete event that has occurred. BWET is the cleanest pure-play freight-futures vehicle; renewables/Vanguard mentions are unrelated rotation noise. Hold.",
+      "exit_advice": "Hold while Hormuz tension keeps tanker day-rates elevated; exit if Mideast de-escalates or freight rates roll over."
+    },
+    {
+      "date": "2026-03-20",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "No fresh coverage \u2014 war-risk premium may be quietly decaying without a confirmed de-escalation to flag.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing geopolitical chokepoint state, not a discrete event that has occurred. No news this week means no de-escalation, no ceasefire, no normalization of transit; the premium and the freight-futures bid remain in place. The catalyst is still PENDING. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+      "exit_advice": "Hold, but watch for any ceasefire/de-escalation headline or a sharp drop in tanker day-rates \u2014 that would resolve the chokepoint premium and end the thesis."
+    },
+    {
+      "date": "2026-03-27",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "Two weeks of zero coverage suggests war-risk premium may be quietly decaying as transit normalizes.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium holding tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization has been reported, so the specific catalyst remains PENDING. The risk is that two consecutive weeks of no fresh coverage signals a fading premium rather than a stable one; news-less holds in a geopolitical-premium trade are vulnerable to silent decay. Absent any confirmation of de-escalation, I hold but flag the staleness. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle.",
+      "exit_advice": "If silence persists another week or rates roll over, treat the premium as decayed and exit."
+    },
+    {
+      "date": "2026-04-03",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "Three+ weeks no direct tanker/freight coverage; war-risk premium may be silently fading or priced in.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms an active 'Iran war' driving rising prices, evidence the conflict and its supply-disruption premium persist rather than de-escalate. No ceasefire, no normalization of transit \u2014 the specific catalyst remains PENDING. The continued staleness on direct freight coverage is a real risk (silent premium decay), but the active-war framing argues the premium is intact, not faded. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+      "exit_advice": "Hold while Hormuz remains a live war zone; exit on confirmed ceasefire, de-escalation, or transit normalization."
+    },
+    {
+      "date": "2026-04-10",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "Two of last three weeks news-less; geopolitical premium may be silently decaying toward normalization without explicit ceasefire.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. Last week's active 'Iran war' framing argued the premium was intact; this week brings no fresh coverage. No ceasefire, de-escalation, or transit normalization has been reported, so the specific catalyst remains PENDING and not resolved. The accumulating news-silence (now most weeks) is the central live risk: geopolitical-premium trades decay quietly without a headline, and I cannot confirm day-rates are still bid. Absent any de-escalation signal I hold, but the burden is shifting \u2014 another silent week or any normalization confirmation tips to exit. BWET remains the only and cleanest pure-play freight-futures ETN.",
+      "exit_advice": "Hold, but staleness risk is now elevated \u2014 a single confirmation of de-escalation or transit normalization flips this to exit."
+    },
+    {
+      "date": "2026-04-17",
+      "state": "live",
+      "src": "seed",
+      "exit_case": "War-risk premium may now be fully priced into BWET, making the chokepoint state baseline rather than a fresh catalyst.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news directly confirms BWET extending its advance as day-rates stay high on persistent Gulf/Hormuz shipping risk, ending the multi-week coverage silence that had been my central decay worry. The fresh confirmation that rates remain bid removes the silent-premium-decay risk for now. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+      "exit_advice": "Hold; exit on any confirmed ceasefire, de-escalation, or transit normalization that collapses the war-risk premium."
+    },
+    {
+      "date": "2026-04-24",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "News ties Hormuz tensions to equity sentiment, not tanker rates \u2014 no direct freight-premium confirmation this week.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms Hormuz tensions remain a live, market-moving force (snapping a 13-session Nasdaq win streak), evidence the geopolitical premium persists rather than de-escalates. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. The mild caveat: this headline ties Hormuz to broad equity sentiment, not directly to freight day-rates, so I lack fresh confirmation rates are still bid \u2014 but the tension itself is clearly intact. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+      "exit_advice": "Hold; exit on any ceasefire, de-escalation, or transit-normalization headline."
+    },
+    {
+      "date": "2026-05-01",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "No fresh confirmation rates are still bid; geopolitical-premium trades decay silently and this is a news-less week again.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization of transit has been reported in any week, so the specific catalyst remains PENDING and unresolved. This week brings no fresh coverage, reviving the silent-premium-decay risk that recurred earlier in the arc; last week's headline tied Hormuz to broad equity sentiment but not directly to freight rates, so I again lack fresh confirmation day-rates are still bid. The burden is shifting \u2014 the trade has run weeks with intermittent confirmation, and another silent stretch or any de-escalation signal tips to exit. Absent any normalization evidence I hold. BWET remains the only and cleanest pure-play freight-futures ETN.",
+      "exit_advice": "Exit on any confirmed Iran/Hormuz ceasefire, de-escalation, or transit normalization, or a clear breakdown in tanker day-rates/BWET."
+    },
+    {
+      "date": "2026-05-08",
+      "state": "exit",
+      "src": "gdelt",
+      "exit_case": "Strait of Hormuz breakthrough reported, crude slipping \u2014 war-risk premium unwinding, the de-escalation signal I flagged tips to exit.",
+      "assessment": "My entire arc set one explicit exit trigger: any de-escalation, ceasefire, or normalization-of-transit signal. This week delivers exactly that \u2014 reports of a potential Strait of Hormuz breakthrough with crude slipping in direct response. The war-risk premium that kept tanker day-rates and the freight-futures bid elevated is unwinding as the chokepoint risk resolves toward normalization. Crude falling on the news is the cleanest tell the geopolitical premium is bleeding out. This is no longer a pending, unresolved chokepoint state \u2014 the catalyst has flipped from intact to resolving. Combined with the recurring silent-decay risk I flagged, the burden has tipped decisively to exit. BWET was the correct vehicle throughout, but the catalyst is gone.",
+      "exit_advice": "Exit. The breakthrough headline is the normalization-of-transit signal I warned for weeks would end the thesis."
+    },
+    {
+      "date": "2026-05-15",
+      "state": "post",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-05-22",
+      "state": "live",
+      "src": "seed",
+      "exit_case": "Hormuz tensions could de-escalate, collapsing the war-driven freight premium quickly.",
+      "assessment": "Entry week. Catalyst \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 remains live and unresolved; BWET holds elevated gains as rates stay high. Chokepoint still active, premium intact, no de-escalation signed. BWET is the sole pure freight-futures vehicle and correctly captures the spike.",
+      "exit_advice": "Hold while chokepoint disruption persists; exit on de-escalation or freight rates normalizing."
+    },
+    {
+      "date": "2026-05-29",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "No fresh coverage \u2014 silence may mean the freight spike is fading without a new catalyst leg.",
+      "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 is unresolved. No de-escalation or reopening signed; chokepoint premium presumed intact despite no fresh coverage this week. BWET remains the sole pure freight-futures ETN capturing the spike. Watch for silence resolving into either escalation (rates higher) or quiet normalization (thesis decays).",
+      "exit_advice": "Hold while Hormuz remains disrupted; exit on signed de-escalation or rates normalizing."
+    },
+    {
+      "date": "2026-06-05",
+      "state": "live",
+      "src": "gdelt",
+      "exit_case": "Two straight weeks of silence \u2014 no escalation; freight spike likely quietly normalizing, premium decaying without a signed catalyst.",
+      "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 has NOT formally resolved: no reopening or de-escalation signed. But this is the second consecutive week with zero fresh coverage, and a war-premium freight spike does not stay elevated on silence. The thesis is technically live yet visibly thinning; the binary is escalation (rates higher) vs. quiet decay (premium bleeds out). Absent confirmation rates are holding, conviction weakens each silent week. BWET remains the sole pure freight-futures ETN and the correct vehicle while the spike persists.",
+      "exit_advice": "Hold but tighten \u2014 a freight spike is fast-decaying; if a third silent week passes with no escalation, treat as quiet normalization and exit."
+    },
+    {
+      "date": "2026-06-12",
+      "state": "exit",
+      "src": "gdelt",
+      "exit_case": "Third straight week of silence; a war-premium freight spike cannot hold on no news \u2014 premium has bled out.",
+      "assessment": "No reopening or de-escalation has been formally signed, so the catalyst is not technically resolved. But a war-driven freight spike is sustained only by active chokepoint news, and this is the third consecutive silent week. My prior two notes flagged that the thesis was thinning and that the binary was escalation vs. quiet decay; silence has now resolved decisively toward decay. BWET remains the correct vehicle but there is no longer a live spike to capture. Treat as over.",
+      "exit_advice": "Exit. The spike is the tradeable event, and three consecutive weeks of zero coverage means the chokepoint premium has quietly normalized rather than escalated \u2014 the edge is gone even without a signed de-escalation."
+    },
+    {
+      "date": "2026-06-19",
+      "state": "post",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-06-26",
+      "state": "post",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    },
+    {
+      "date": "2026-07-03",
+      "state": "post",
+      "src": "",
+      "exit_case": "",
+      "assessment": "",
+      "exit_advice": ""
+    }
+  ]
 }
