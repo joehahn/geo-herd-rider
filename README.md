@@ -23,13 +23,13 @@ flowchart TD
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>reads the news to discover the rising gems the press<br/>names, and writes their catalyst statements"]
-      MA["🧩 Matcher<br/>assigns each gem to an event,<br/>pre-existing or new"]
-      AG["🟢/⚪ Per-event agent<br/>each week per event: is the catalyst still live<br/>or resolved? (hold/exit) · pick the gem that fits now"]
+      MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
+      AG["🟢/⚪ Per-event agent<br/>asks: is the catalyst still live<br/>or resolved? and forwards live gems to the watchlist"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>the list of gems to hold (the bet)"]
-    W["⚖️ Optimizer<br/>a standard method recommends the portfolio distribution<br/>across the watchlist (the AI never sizes)"]
+    E["🎯 Watchlist<br/>lists the live events' gems for possible funding"]
+    W["⚖️ Optimizer<br/>uses a standard method to derive the optimal portfolio<br/>distribution across the watchlist"]
     B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
 
     S --> SS
