@@ -31,14 +31,13 @@ flowchart TD
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding"]
     W["⚖️ Optimizer<br/>derives optimal portfolio<br/>distribution across watchlist"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
-    B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
 
     S --> SS
     S --> SC
     SS --> E
     AG --> E
-    E --> W --> U --> B
-    B == "repeat again next week" ==> S
+    E --> W --> U
+    U == "repeat weekly" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
