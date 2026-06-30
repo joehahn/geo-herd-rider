@@ -25,9 +25,11 @@ import os
 import re
 import socket
 import sys
+import threading
 import time
 import urllib.error
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -37,6 +39,8 @@ _RETRY_CODES = {429, 500, 502, 503, 504}   # transient HTTP statuses worth retry
 # Identify the client with contact info — archive.org asks automated clients to do so.
 _UA = "geo-herd-rider/1.0 (+https://github.com/joehahn/geo-herd-rider; jmh.datasciences@gmail.com)"
 _last = [0.0]
+_throttle_lock = threading.Lock()    # guards _last[0] slot reservation for concurrent enrich fetches
+_ENRICH_WORKERS = 8                  # concurrent lede() fetches; latency overlaps, starts stay rate-capped
 # retrieval-health counters (process-cumulative across a run)
 _STAT = {"requests": 0, "http_429": 0, "http_5xx": 0, "timeout": 0, "wall_s": 0.0}
 
@@ -47,10 +51,17 @@ class WaybackTransient(Exception):
 
 
 def _throttle() -> None:
-    dt = time.monotonic() - _last[0]
-    if dt < MIN_INTERVAL:
-        time.sleep(MIN_INTERVAL - dt)
-    _last[0] = time.monotonic()
+    """Thread-safe rate limiter: hands out request START slots spaced >= MIN_INTERVAL apart, but
+    RESERVES the slot under the lock and sleeps outside it — so concurrent callers (the enrich
+    thread pool) get evenly staggered starts (<= ~40/min, the same safe rate as the old serial
+    path) while their multi-second archive.org latencies overlap instead of serializing."""
+    with _throttle_lock:
+        now = time.monotonic()
+        slot = max(now, _last[0] + MIN_INTERVAL)   # next free slot, at least MIN_INTERVAL after last
+        _last[0] = slot
+    wait = slot - now
+    if wait > 0:
+        time.sleep(wait)
 
 
 def _get(url: str, timeout: int = 30, tries: int = 4) -> bytes:
@@ -165,30 +176,55 @@ def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
     cache: dict = {}
     if cache_path and os.path.exists(cache_path):
         cache = json.loads(Path(cache_path).read_text())
-    n_hit = n_miss = n_defer = n_new = 0
+
+    # PASS 1 — collect the unique URLs that still need an archive.org fetch this round.
+    need: list[str] = []
+    if fetch:
+        seen: set[str] = set()
+        for a in articles:
+            url, title = a.get("url", ""), a.get("title", "")
+            if not url or url in seen or (a.get("snippet") and a.get("snippet") != title):
+                continue                               # no url, dup, or already-real snippet (seed)
+            if url not in cache or cache.get(url) is None:   # unattempted/legacy-null -> (re)attempt
+                seen.add(url); need.append(url)
+
+    # PASS 2 — fetch them CONCURRENTLY. lede() does the slow CDX + snapshot round-trips; _throttle
+    # keeps request STARTS rate-capped while the pool overlaps their multi-second latency (the win
+    # over the old serial loop). Transient failures aren't cached, so a re-run retries them.
+    n_defer = n_new = 0
+    deferred: set[str] = set()
+    if need:
+        with ThreadPoolExecutor(max_workers=_ENRICH_WORKERS) as ex:
+            futs = {ex.submit(lede, url, cutoff): url for url in need}
+            for fut in as_completed(futs):
+                url = futs[fut]
+                try:
+                    res = fut.result()                 # str (hit) | None (confirmed miss)
+                except WaybackTransient:
+                    n_defer += 1
+                    deferred.add(url)                  # don't cache; not tallied as a miss
+                    continue
+                cache[url] = res if res else False     # hit -> string; confirmed miss -> False
+                n_new += 1
+        if cache_path and n_new:
+            tmp = f"{cache_path}.tmp"
+            Path(tmp).write_text(json.dumps(cache))
+            os.replace(tmp, cache_path)
+
+    # PASS 3 — apply cached ledes to snippets and tally (deferred URLs stay unattempted, uncounted).
+    n_hit = n_miss = 0
     for a in articles:
         url, title = a.get("url", ""), a.get("title", "")
         if not url or (a.get("snippet") and a.get("snippet") != title):
-            continue                                   # no url, or already has a real snippet (seed)
+            continue
+        if url in deferred:
+            continue
         cached = cache.get(url)
-        if fetch and (url not in cache or cached is None):   # unattempted/legacy-null -> (re)attempt
-            try:
-                res = lede(url, cutoff)                 # str (hit) | None (confirmed miss)
-            except WaybackTransient:
-                n_defer += 1
-                continue                               # don't cache; a re-run retries it
-            cache[url] = res if res else False         # hit -> string; confirmed miss -> False
-            n_new += 1
-            if cache_path:
-                tmp = f"{cache_path}.tmp"
-                Path(tmp).write_text(json.dumps(cache))
-                os.replace(tmp, cache_path)
-            cached = cache[url]
         if isinstance(cached, str) and cached:
             a["snippet"] = cached[:max_chars]
             n_hit += 1
         else:
-            n_miss += 1                                # confirmed 'not archived' (False)
+            n_miss += 1                                # confirmed 'not archived' (False) or uncached
     mode = "" if fetch else " [cache-only, no archive.org calls]"
     print(f"  wayback enrich{mode}: {n_hit} enriched, {n_miss} not-in-cache/unarchived, {n_defer}"
           f" deferred, {n_new} newly fetched, cutoff<={cutoff}", file=sys.stderr)
