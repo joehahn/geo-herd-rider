@@ -17,27 +17,28 @@ This solution is one short assembly line that loops once a week. It reads the ne
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>assembles the week's pool of news articles"]
+    S["📰 Firehose<br/>gathers last week's pool of news articles"]
 
     subgraph CUR["🧠 Curator — names tickers, never sizes"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
-      SC["🔍 Scout<br/>reads the news to discover the rising gems the press<br/>names, and writes their catalyst statements"]
+      SC["🔍 Scout<br/>scans news to discover rising gems named by the press<br/>& writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Per-event agent<br/>asks: is the catalyst still live<br/>or resolved? and forwards live gems to the watchlist"]
+      AG["🟢/⚪ Per-event agent<br/>determines whether the catalyst is still alive or resolved"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>lists the live events' gems for possible funding"]
-    W["⚖️ Optimizer<br/>uses a standard method to derive the optimal portfolio<br/>distribution across the watchlist"]
+    E["🎯 Watchlist<br/>gathers live events' gems for possible funding"]
+    W["⚖️ Optimizer<br/>derives optimal portfolio<br/>distribution across watchlist"]
+    U["🧑 User<br/>adjusts portfolio at brokerage"]
     B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
 
     S --> SS
     S --> SC
     SS --> E
     AG --> E
-    E --> W --> B
-    B == "next week — re-scan the news since last scan (every rebalance_days)" ==> S
+    E --> W --> U --> B
+    B == "repeat again next week" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
