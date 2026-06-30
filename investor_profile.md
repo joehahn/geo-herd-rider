@@ -8,7 +8,7 @@ model: sonnet                     # Curator LLM that reads the firehose. Choices
                                   #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
 initial_investment_usd: 50000     # Day-0 dollar allocation.
-concentration_cap: 0.3334         # Per-tickermax allocation.
+concentration_cap: 0.7            # Per-ticker max allocation.
 risk_aversion: 0.25               # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 max_tickers_per_event: 16         # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
