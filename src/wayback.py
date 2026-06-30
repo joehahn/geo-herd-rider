@@ -40,7 +40,8 @@ _RETRY_CODES = {429, 500, 502, 503, 504}   # transient HTTP statuses worth retry
 _UA = "geo-herd-rider/1.0 (+https://github.com/joehahn/geo-herd-rider; jmh.datasciences@gmail.com)"
 _last = [0.0]
 _throttle_lock = threading.Lock()    # guards _last[0] slot reservation for concurrent enrich fetches
-_ENRICH_WORKERS = 8                  # concurrent lede() fetches; latency overlaps, starts stay rate-capped
+_ENRICH_WORKERS = 16                 # concurrent lede() fetches; latency overlaps, starts stay rate-capped
+                                     # (bumped 8->16 to overlap archive.org's slow ~30s/query nights)
 # retrieval-health counters (process-cumulative across a run)
 _STAT = {"requests": 0, "http_429": 0, "http_5xx": 0, "timeout": 0, "wall_s": 0.0}
 
