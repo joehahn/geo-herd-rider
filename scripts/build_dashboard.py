@@ -171,7 +171,8 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "model": disp_model, "storyline": STORYLINE.get(ticker, ""), "ever_funded": ever_funded,
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
-        "gain": d.get("gain", {}), "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
+        "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
+        "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
         "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
         "metrics": metrics(d["value"], d["spy"], capital),
@@ -446,6 +447,13 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 1 — Portfolio value</h2>
  <div id="chart"></div>
 
+ <h2>Plot 1b — Cumulative $ gain per agent (event)</h2>
+ <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
+   holds, then flatlines at its realized gain once it exits.</b> The bold <b>Total</b> is the portfolio's
+   gain (the lines sum to it). Flat-near-zero = an agent that contributed little; never-funded agents are
+   omitted.</p>
+ <div id="gainseries"></div>
+
  <h2>Plot 2 — Allocation over time</h2>
  <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
    watchlist is non-empty; to cash when the press names nothing live.</p>
@@ -554,6 +562,18 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
      xaxis:{type:"date",range:XR,autorange:false},
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 1b — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]);
+  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:t,mode:"lines",
+    line:{color:D.colors[t]||"#888",width:2},hovertemplate:t+" $%{y:,.0f}"}));
+  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
+    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
+  Plotly.newPlot("gainseries",gtr,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
   const traces=[];

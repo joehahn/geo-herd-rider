@@ -396,6 +396,7 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
     alloc = pd.DataFrame(0.0, index=d_idx, columns=all_t)
     cur, val, values = {}, capital, []
     gain: dict = {}                       # per-ticker cumulative $ P&L (sums to total portfolio gain)
+    gain_series = {t: [] for t in all_t}  # per-DAY cumulative $ gain per ticker (for the per-agent plot)
     for n, d in enumerate(d_idx):
         pos = days.get_loc(d)
         if pos in seg:
@@ -411,6 +412,8 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
         values.append(round(val, 2))
         for t in cur:
             alloc.loc[d, t] = cur[t]
+        for t in all_t:                   # snapshot the running cumulative gain (flatlines after exit)
+            gain_series[t].append(round(gain.get(t, 0.0), 2))
     spy = panel[score.BENCHMARK].reindex(d_idx).ffill()
     spy_val = [round(capital * v, 2) for v in (spy / spy.iloc[0]).tolist()]
     overlay_vals = None
@@ -425,7 +428,7 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
     return {"dates": [d.strftime("%Y-%m-%d") for d in d_idx], "value": values, "spy": spy_val,
             "overlay": overlay_vals, "overlay_ticker": overlay, "overlay_anchor": overlay_anchor,
             "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns}, "cash": cash,
-        "gain": {t: round(v, 2) for t, v in gain.items()}}
+        "gain": {t: round(v, 2) for t, v in gain.items()}, "gain_series": gain_series}
 
 
 def main(argv: list[str] | None = None) -> int:
