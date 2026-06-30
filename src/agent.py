@@ -558,6 +558,14 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         def work(ev):
             return ev, event_agent_v2(client, a, ev, ev["entries"], _filter_event(win, ev))
 
+        # provenance: was this ticker NAMED in a hand-seed article this week (vs found in the real
+        # GDELT firehose)? Word-boundary match against the seed slice's text. Lets the dashboard show
+        # whether a discovery is the solution's own (gdelt) or carried by the seed overlay.
+        import re as _re
+        seed_blob = " ".join((s.get("title", "") + " " + s.get("snippet", "")) for s in seed_slice).upper()
+        def _src(tk):
+            return "seed" if _re.search(rf"\b{_re.escape(tk.upper())}\b", seed_blob) else "gdelt"
+
         picks = []
         with ThreadPoolExecutor(max_workers=workers) as ex:
             for ev, entry in (ex.map(work, live_events) if live_events else []):
@@ -565,7 +573,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
-                                  "thesis_live": entry["thesis_live"],
+                                  "thesis_live": entry["thesis_live"], "src": _src(tk),
                                   "exit_case": entry.get("exit_case", ""),
                                   "catalyst_resolved": entry.get("catalyst_resolved", False),
                                   "assessment": entry.get("assessment", ""),

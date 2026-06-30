@@ -7,118 +7,205 @@
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "Hormuz tensions could de-escalate, collapsing elevated tanker day-rates and the freight-futures premium.",
+      "src": "seed",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Catalyst is ongoing Strait of Hormuz war-risk lifting tanker day-rates, which BWET (freight-futures ETN) tracks directly. Risk premium is still PENDING, not resolved \u2014 no de-escalation, no chokepoint reversal. BWET remains the purest under-owned vehicle. Watch for tension easing or day-rate decay as exit triggers.",
-      "exit_advice": "Hold while Hormuz war-risk keeps tanker rates elevated; exit on clear de-escalation or rate rollover.",
+      "assessment": "Entry week. Catalyst is Strait of Hormuz war-risk premium keeping oil-tanker day-rates elevated, which lifts the freight-futures ETN. This is an ongoing, unresolved geopolitical chokepoint risk \u2014 no ceasefire, no de-escalation, no normalization of transit. The catalyst is still PENDING, not a discrete event that has occurred. BWET is the cleanest pure-play freight-futures vehicle; renewables/Vanguard mentions are unrelated rotation noise. Hold.",
+      "exit_advice": "Hold while Hormuz tension keeps tanker day-rates elevated; exit if Mideast de-escalates or freight rates roll over.",
       "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "No fresh catalyst signal; war-risk premium could be decaying silently with no day-rate confirmation.",
+      "src": "gdelt",
+      "exit_case": "No fresh coverage \u2014 war-risk premium may be quietly decaying without a confirmed de-escalation to flag.",
       "catalyst_resolved": false,
-      "assessment": "Second week, no fresh coverage. The entered catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 remains PENDING: no de-escalation, no chokepoint reversal, no signed truce. Silence is not resolution; absence of news cuts both ways, but nothing in the record shows the risk premium closed. BWET still the purest direct freight-futures vehicle for this risk. Watch for either tension easing or day-rate decay as the genuine exit trigger.",
-      "exit_advice": "Hold; exit on confirmed Hormuz de-escalation or tanker day-rate rollover.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing geopolitical chokepoint state, not a discrete event that has occurred. No news this week means no de-escalation, no ceasefire, no normalization of transit; the premium and the freight-futures bid remain in place. The catalyst is still PENDING. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+      "exit_advice": "Hold, but watch for any ceasefire/de-escalation headline or a sharp drop in tanker day-rates \u2014 that would resolve the chokepoint premium and end the thesis.",
       "evidence_urls": []
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "Third straight week with zero fresh coverage \u2014 war-risk premium may have quietly bled off without any tracked confirmation.",
+      "src": "gdelt",
+      "exit_case": "Two weeks of zero coverage suggests war-risk premium may be quietly decaying as transit normalizes.",
       "catalyst_resolved": false,
-      "assessment": "The fixed catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 has NOT resolved: no truce signed, no chokepoint reopening, no de-escalation in the record. It remains PENDING, so thesis_live stays true. But this is now the third consecutive week with no fresh coverage; silence cuts both ways and the absence of confirming day-rate strength is a growing concern. Nothing shows the premium closed, but nothing reaffirms it either. BWET remains the only and purest freight-futures vehicle tracking this risk directly.",
-      "exit_advice": "Hold, but on a short leash: three weeks of total silence is itself a soft decay signal. Exit on any de-escalation headline or visible day-rate rollover.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium holding tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization has been reported, so the specific catalyst remains PENDING. The risk is that two consecutive weeks of no fresh coverage signals a fading premium rather than a stable one; news-less holds in a geopolitical-premium trade are vulnerable to silent decay. Absent any confirmation of de-escalation, I hold but flag the staleness. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle.",
+      "exit_advice": "If silence persists another week or rates roll over, treat the premium as decayed and exit.",
       "evidence_urls": []
     }
   ],
   "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "Four straight weeks of no coverage and no confirming day-rate strength \u2014 the war-risk premium has likely quietly decayed.",
+      "src": "gdelt",
+      "exit_case": "Three+ weeks no direct tanker/freight coverage; war-risk premium may be silently fading or priced in.",
       "catalyst_resolved": false,
-      "assessment": "The fixed catalyst \u2014 Strait of Hormuz war-risk lifting tanker day-rates \u2014 has NOT formally resolved: no truce, no chokepoint reopening, no de-escalation appears anywhere in the record. So technically it remains PENDING and thesis_live stays true. But this is the FOURTH consecutive week with zero fresh coverage and zero confirmation of day-rate strength. Absence of resolution keeps me nominally in, but absence of any reaffirming signal makes this a hollow hold \u2014 the risk premium may have quietly bled out without a headline. BWET remains the only and purest freight-futures vehicle for this risk. Conviction is thinning fast; the burden of proof is shifting against the position.",
-      "exit_advice": "Silence is now the dominant signal; if a fifth week brings no day-rate reaffirmation, treat the premium as decayed and exit.",
-      "evidence_urls": []
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms an active 'Iran war' driving rising prices, evidence the conflict and its supply-disruption premium persist rather than de-escalate. No ceasefire, no normalization of transit \u2014 the specific catalyst remains PENDING. The continued staleness on direct freight coverage is a real risk (silent premium decay), but the active-war framing argues the premium is intact, not faded. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+      "exit_advice": "Hold while Hormuz remains a live war zone; exit on confirmed ceasefire, de-escalation, or transit normalization.",
+      "evidence_urls": [
+        "https://abc7ny.com/post/tips-save-groceries-food-banks-nyc-feel-strain-rising-prices-due-iran-war/18829363/"
+      ]
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Tariff signed via executive order Apr 2 \u2014 the announcement catalyst has already occurred and is public.",
+      "catalyst_resolved": false,
+      "assessment": "Entered same week Trump unveiled the 100% patented-drug tariff via executive order. The headline is out, but the structure is conditional: tariff hits companies that haven't reached a deal/lack US factories. CSL is flagged as a potential escapee given its US plasma/manufacturing footprint \u2014 that determination has NOT been made, so the specific catalyst (does CSL escape) is live. Implementation is phased ('could hit this year') and deal negotiations ongoing, keeping the edge intact. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes-via-US-factories thesis.",
+      "exit_advice": "Hold. Order is signed but the operative variable \u2014 which companies reach deals/escape via US factories \u2014 is still pending; CSL's exemption status unresolved.",
+      "evidence_urls": [
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://www.aljazeera.com/news/2026/4/2/trump-unveils-100-percent-tariff-on-drugs-to-push-for-pharmaceutical-deals"
+      ]
     }
   ],
   "2026-04-10": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker freight ETN climbing on Strait of Hormuz war risk",
-      "thesis_live": false,
-      "exit_case": "Five straight weeks of zero coverage and no day-rate confirmation \u2014 war-risk premium has quietly bled out.",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Two of last three weeks news-less; geopolitical premium may be silently decaying toward normalization without explicit ceasefire.",
       "catalyst_resolved": false,
-      "assessment": "The fixed catalyst \u2014 Hormuz war-risk lifting tanker day-rates \u2014 never formally resolved: no truce, no chokepoint reopening anywhere in the record. But this is now the FIFTH consecutive week with zero fresh coverage and zero reaffirmation of day-rate strength. A war-risk premium is a perishable, event-driven thing; absent any confirming signal for over a month, the honest read is that it has decayed and bled out without a headline rather than remaining live. I've held four weeks on 'absence of resolution is not resolution,' but the burden of proof has fully shifted \u2014 a hollow hold with no pulse is not a thesis. Calling the catalyst decayed and stepping out. BWET was and remains the only/purest freight-futures vehicle, but the underlying driver is gone.",
-      "exit_advice": "Exit. The risk premium has decayed by attrition, not headline.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. Last week's active 'Iran war' framing argued the premium was intact; this week brings no fresh coverage. No ceasefire, de-escalation, or transit normalization has been reported, so the specific catalyst remains PENDING and not resolved. The accumulating news-silence (now most weeks) is the central live risk: geopolitical-premium trades decay quietly without a headline, and I cannot confirm day-rates are still bid. Absent any de-escalation signal I hold, but the burden is shifting \u2014 another silent week or any normalization confirmation tips to exit. BWET remains the only and cleanest pure-play freight-futures ETN.",
+      "exit_advice": "Hold, but staleness risk is now elevated \u2014 a single confirmation of de-escalation or transit normalization flips this to exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Tariff headline already public/priced; CSL's US-factory escape may be assumed by market, edge decaying with no catalyst confirmation",
+      "catalyst_resolved": false,
+      "assessment": "The fixed catalyst \u2014 whether CSL escapes the 100% pharma tariff through its US plasma/manufacturing presence \u2014 remains unresolved. The executive order is out, but the exemption/deal determination for CSL specifically has NOT been made, and implementation is phased. No fresh coverage this week means nothing has closed; the binary outcome that defines my edge is still open. CSLLY stays the sole pure-play vehicle for the Australian-drugmaker-escapes thesis. Watch for any named deal, formal exemption grant/denial, or tariff effective-date that would resolve and price the catalyst.",
+      "exit_advice": "Hold; the specific determination (does CSL formally escape via US footprint) is still pending \u2014 no deal/exemption confirmed and tariff implementation phased.",
       "evidence_urls": []
     }
   ],
   "2026-04-17": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "seed",
+      "exit_case": "War-risk premium may now be fully priced into BWET, making the chokepoint state baseline rather than a fresh catalyst.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Catalyst is elevated tanker day-rates driven by persistent Gulf/Hormuz shipping risk \u2014 still ongoing and pending, not resolved. BWET is the purest pure-play, a freight-futures ETN that captures spot rates directly without the equity dilution of tanker operators. Thesis live as long as the chokepoint risk persists and rates stay high.",
-      "exit_advice": "Hold while Gulf/Hormuz shipping risk keeps tanker day-rates elevated; exit if risk premium fades and rates normalize.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news directly confirms BWET extending its advance as day-rates stay high on persistent Gulf/Hormuz shipping risk, ending the multi-week coverage silence that had been my central decay worry. The fresh confirmation that rates remain bid removes the silent-premium-decay risk for now. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+      "exit_advice": "Hold; exit on any confirmed ceasefire, de-escalation, or transit normalization that collapses the war-risk premium.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Tariff EO already issued; CSL's US footprint makes escape near-certain \u2014 binary essentially decayed to foregone conclusion.",
+      "catalyst_resolved": false,
+      "assessment": "Two straight weeks of no fresh coverage. The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued, so the binary that defines my edge is still open. Silence means nothing has closed. CSLLY stays the sole pure-play vehicle.",
+      "exit_advice": "Hold unless a formal CSL exemption/deal is named or a tariff effective-date is set with CSL explicitly carved in/out \u2014 that resolves the binary.",
       "evidence_urls": []
     }
   ],
   "2026-04-24": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "No fresh coverage \u2014 shipping-risk premium may be quietly normalizing, rates reverting.",
+      "src": "gdelt",
+      "exit_case": "News ties Hormuz tensions to equity sentiment, not tanker rates \u2014 no direct freight-premium confirmation this week.",
       "catalyst_resolved": false,
-      "assessment": "Catalyst is a persistent rate/risk condition, not a discrete signable event \u2014 it resolves only when Gulf/Hormuz risk eases and tanker day-rates revert. No news this week means no confirmation of reversal, but also no fresh validation; silence is the main risk that the premium is decaying unnoticed. BWET remains the purest pure-play, capturing spot freight futures directly. Thesis stays live while the chokepoint premium persists; watch for rate normalization as the true exit trigger.",
-      "exit_advice": "Hold; exit if Hormuz risk de-escalates and day-rates revert to baseline.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms Hormuz tensions remain a live, market-moving force (snapping a 13-session Nasdaq win streak), evidence the geopolitical premium persists rather than de-escalates. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. The mild caveat: this headline ties Hormuz to broad equity sentiment, not directly to freight day-rates, so I lack fresh confirmation rates are still bid \u2014 but the tension itself is clearly intact. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+      "exit_advice": "Hold; exit on any ceasefire, de-escalation, or transit-normalization headline.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/26/04/51930047/nasdaq-snaps-13-session-win-streak-on-hormuz-tensions-investor-sentiment-improves-further-fear-index-in-greed-zone"
+      ]
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four weeks of total silence; catalyst may be decaying into irrelevance with no determination ever forthcoming.",
+      "catalyst_resolved": false,
+      "assessment": "Third straight week (now fourth since entry) with no fresh coverage. The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued. The binary that defines my edge is still open, so thesis stays live, but the prolonged silence is the real risk: a determination that never comes is an edge that quietly erodes. CSLLY remains the sole pure-play vehicle. Watch for any named deal, formal exemption grant/denial, or tariff effective-date.",
+      "exit_advice": "Hold but flag staleness \u2014 if another 1-2 weeks pass with no named exemption, deal, or tariff effective-date, the edge is decaying even absent formal resolution.",
       "evidence_urls": []
     }
   ],
   "2026-05-01": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "exit_case": "Two straight weeks of zero coverage; Hormuz premium may have quietly decayed and rates reverted unnoticed.",
+      "src": "gdelt",
+      "exit_case": "No fresh confirmation rates are still bid; geopolitical-premium trades decay silently and this is a news-less week again.",
       "catalyst_resolved": false,
-      "assessment": "Catalyst is a persistent Gulf/Hormuz risk premium on tanker day-rates, not a signable discrete event \u2014 it resolves only when rates normalize. No fresh news again this week means no reversal but also no validation; two consecutive blank weeks raise the odds the chokepoint premium is quietly bleeding off. BWET remains the cleanest pure-play, capturing spot freight futures directly without operator equity noise. Thesis stays live by default since no rate normalization has been confirmed, but conviction is weakening on information starvation.",
-      "exit_advice": "Hold but tighten: this is a condition-based thesis and silence is now the dominant risk. If a third week passes with no rate confirmation, treat the premium as decayed and exit on suspicion rather than waiting for explicit reversal.",
+      "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization of transit has been reported in any week, so the specific catalyst remains PENDING and unresolved. This week brings no fresh coverage, reviving the silent-premium-decay risk that recurred earlier in the arc; last week's headline tied Hormuz to broad equity sentiment but not directly to freight rates, so I again lack fresh confirmation day-rates are still bid. The burden is shifting \u2014 the trade has run weeks with intermittent confirmation, and another silent stretch or any de-escalation signal tips to exit. Absent any normalization evidence I hold. BWET remains the only and cleanest pure-play freight-futures ETN.",
+      "exit_advice": "Exit on any confirmed Iran/Hormuz ceasefire, de-escalation, or transit normalization, or a clear breakdown in tanker day-rates/BWET.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of total silence; the CSL-specific exemption determination may never come, an edge eroding into dead money.",
+      "catalyst_resolved": false,
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued. This is now the fourth straight week (fifth since entry) with no fresh coverage. The binary that defines my edge is still technically open, so thesis stays live, but the persistent silence is the dominant risk: a determination that never arrives is an edge that erodes to nothing. CSLLY remains the sole pure-play vehicle.",
+      "exit_advice": "Hold but treat prolonged silence as a soft exit signal \u2014 if no named deal/exemption/effective-date emerges soon, the edge has quietly decayed.",
       "evidence_urls": []
     }
   ],
   "2026-05-08": [
     {
       "ticker": "BWET",
-      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Strait of Hormuz breakthrough reported, crude slipping \u2014 war-risk premium unwinding, the de-escalation signal I flagged tips to exit.",
+      "catalyst_resolved": true,
+      "assessment": "My entire arc set one explicit exit trigger: any de-escalation, ceasefire, or normalization-of-transit signal. This week delivers exactly that \u2014 reports of a potential Strait of Hormuz breakthrough with crude slipping in direct response. The war-risk premium that kept tanker day-rates and the freight-futures bid elevated is unwinding as the chokepoint risk resolves toward normalization. Crude falling on the news is the cleanest tell the geopolitical premium is bleeding out. This is no longer a pending, unresolved chokepoint state \u2014 the catalyst has flipped from intact to resolving. Combined with the recurring silent-decay risk I flagged, the burden has tipped decisively to exit. BWET was the correct vehicle throughout, but the catalyst is gone.",
+      "exit_advice": "Exit. The breakthrough headline is the normalization-of-transit signal I warned for weeks would end the thesis.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
+      ]
+    },
+    {
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
-      "exit_case": "Three straight blank weeks suggest the Hormuz risk premium has quietly bled off and rates reverted unnoticed.",
+      "src": "gdelt",
+      "exit_case": "Six weeks of total silence on CSL exemption; a determination that never arrives is a dead catalyst, edge gone.",
       "catalyst_resolved": false,
-      "assessment": "Catalyst is a persistent rate/risk condition, not a signable discrete event, so it cannot be 'resolved' by a single occurrence \u2014 it resolves only when day-rates revert. Third consecutive week with zero fresh coverage. No reversal confirmed, but no validation either, and prolonged silence is exactly how a chokepoint premium decays without a headline. Conviction is now thin; I am holding by default only because no rate normalization has been confirmed. BWET stays the purest pure-play, capturing spot freight futures directly. If a fourth blank week passes I treat sustained silence as de facto decay.",
-      "exit_advice": "Exit on any confirmation of rate normalization or easing Gulf/Hormuz risk; information starvation alone is now a near-exit signal.",
-      "evidence_urls": []
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. No named exemption, deal, or tariff effective-date applying to CSL has been issued. This week's only news is unrelated macro (Iran deal, oil, record stocks), nothing pharma-tariff specific. This is now the fifth straight week (sixth since entry) with zero fresh coverage of the catalyst. The binary that defines my edge is technically still open, so thesis stays live, but the persistent silence is the dominant and worsening risk: a determination that never materializes is an edge that has effectively eroded to nothing. CSLLY remains the sole pure-play vehicle.",
+      "exit_advice": "If another 1-2 weeks pass with no named CSL exemption/deal or tariff effective-date, treat the catalyst as decayed and exit \u2014 silence this long is itself the signal.",
+      "evidence_urls": [
+        "https://www.theguardian.com/business/live/2026/may/06/oil-prices-retreat-global-stocks-hit-record-highs-trump-great-progress-iran-deal-live-updates"
+      ]
     },
     {
       "ticker": "INTC",
-      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
       "thesis_live": true,
-      "exit_case": "Apple-Intel deal is still only speculative reporting; no deal signed, no edge yet \u2014 but could be just a one-day rumor that fades.",
+      "src": "gdelt",
+      "exit_case": "Deal is only 'reported'\u2014no signed agreement, could be denied or never materialize, leaving INTC exposed.",
       "catalyst_resolved": false,
-      "assessment": "Entry week on speculation that Apple may buy Intel chips (CNBC, 5/8). This is a pending, unsigned catalyst \u2014 purely report-stage, no terms, no announcement. INTC is the clean and only pure-play vehicle. Chip tape is strong on the broader AI trade, which adds tailwind but is not the specific catalyst. Watch for either confirmation/signing (resolves, exit) or denial (kills thesis).",
-      "exit_advice": "Hold while the Apple-Intel deal remains pending/unsigned; exit if reports are explicitly denied or a deal is formally announced and priced.",
+      "assessment": "Entry week on a reported (not confirmed) Apple deal to source iPhone chips from Intel. The specific catalyst\u2014an actual signed/announced supply agreement\u2014has NOT occurred; it remains rumor-stage per CNBC's conditional framing ('what a deal would mean'). Chip tape is strong on the AI trade broadly, but my edge is the unpriced INTC-specific Apple foundry/modem win still pending. INTC is the only and purest vehicle. Watch for either confirmation (deal signed \u2192 resolved/priced) or denial.",
+      "exit_advice": "Hold while the Apple-Intel chip deal remains unconfirmed and unsigned; this is a pending report, not a closed deal.",
       "evidence_urls": [
         "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
       ]
@@ -126,35 +213,51 @@
   ],
   "2026-05-15": [
     {
-      "ticker": "BWET",
-      "thesis": "Tanker day-rates elevated on Gulf/Hormuz shipping risk",
-      "thesis_live": false,
-      "exit_case": "Fourth straight blank week \u2014 chokepoint premium has bled off unnoticed; per my own rule, sustained silence is de facto decay.",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six straight weeks of total silence \u2014 the CSL exemption determination may never come, leaving the edge decayed to nothing.",
       "catalyst_resolved": false,
-      "assessment": "Catalyst is a persistent Gulf/Hormuz risk premium on day-rates, not a signable event, so it never 'resolves' discretely \u2014 it decays. Four consecutive weeks of zero coverage is exactly the slow bleed I flagged: no headline confirms reversal, but a chokepoint premium that no longer generates news is almost certainly normalizing. I built the exit trigger explicitly last week and honor it now rather than holding on inertia. BWET remains the cleanest pure-play if rates re-spike, but with no live premium to capture I take the position off.",
-      "exit_advice": "Exit. I pre-committed last week that a fourth blank week means treating silence as de facto rate normalization. That week is here.",
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued. But this is now the sixth straight week (seventh since entry) with zero fresh coverage of the event. The binary that defines my edge is technically still open, so thesis stays live, but the persistent silence is the dominant and worsening risk \u2014 a determination that never materializes is an edge that has effectively eroded to nothing. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes thesis.",
+      "exit_advice": "Edge has eroded badly; if a seventh week passes with no determination, treat the catalyst as functionally dead and exit on the decay alone rather than wait for a resolution that isn't arriving.",
       "evidence_urls": []
     },
     {
       "ticker": "INTC",
-      "thesis": "Potential Apple deal to buy Intel chips",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
       "thesis_live": true,
-      "exit_case": "Single CNBC rumor with no follow-up or confirmation; report may be decaying into nothing",
+      "src": "gdelt",
+      "exit_case": "Rumor with zero follow-up confirmation a week later \u2014 story may be quietly dying, edge decaying without catalyst materializing",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. The specific catalyst \u2014 an Apple-Intel chip deal \u2014 remains at the rumor/report stage: nothing signed, no terms, no confirmation, no denial. It has neither occurred nor been killed, so it stays pending and my edge is intact. The risk is decay: a lone 5/8 CNBC report with zero follow-up can quietly fade rather than resolve, leaving INTC to trade purely on the broader AI/chip tape. But that is theme-drift, not catalyst resolution. INTC remains the only and cleanest pure-play vehicle. Keep watching for either a named confirmation (resolves, exit) or a denial (kills thesis).",
-      "exit_advice": "Hold \u2014 catalyst still pending, unsigned. Exit on confirmation (signing) or explicit denial.",
+      "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred; it remains rumor-stage from entry week and saw no fresh coverage this week. My edge (the unpriced INTC-specific Apple win) is intact only while pending, which it is. No confirmation and no denial means the binary remains open. INTC stays the sole pure vehicle. Watch closely: continued silence weakens the thesis, while either a signed deal (resolved/priced) or explicit denial would end it.",
+      "exit_advice": "Hold, but a reported deal with no corroboration after a week risks fading into nothing; treat silence as a yellow flag, not green.",
       "evidence_urls": []
     }
   ],
   "2026-05-22": [
     {
-      "ticker": "INTC",
-      "thesis": "Potential Apple deal to buy Intel chips",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
-      "exit_case": "Two weeks of zero follow-up; this week's news is off-thesis (govt funding), suggesting the Apple report has quietly faded.",
+      "src": "gdelt",
+      "exit_case": "Seven weeks of total silence \u2014 a CSL determination that never arrives is an edge eroded to nothing.",
       "catalyst_resolved": false,
-      "assessment": "The specific catalyst \u2014 an Apple-Intel chip deal \u2014 is still pending: nothing signed, no terms, no confirmation, no denial. This week's coverage is entirely unrelated (the $8.9B government stake / IBM purchases), not the Apple deal. That is noise on a different storyline, not resolution of my catalyst. Edge technically intact but the report-stage thesis continues to decay with no follow-up \u2014 the live risk remains theme-drift/fade rather than a clean resolve. INTC stays the only and cleanest pure-play vehicle.",
-      "exit_advice": "Hold but on a short leash \u2014 a lone 5/8 CNBC report with two weeks of silence is decaying toward irrelevance; if a third week passes with no named confirmation, treat as faded and exit.",
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued. This is now the seventh straight week (eighth since entry) with zero fresh coverage of the pharma-tariff event; this week's news is entirely Trump quantum-computing equity stakes (IBM, D-Wave, Rigetti, IonQ), wholly unrelated to my thesis. The binary that defines my edge is technically still open, so the thesis stays live, but the persistent silence is the dominant and worsening risk \u2014 an edge that has effectively eroded to near nothing. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes thesis.",
+      "exit_advice": "If another week passes with zero pharma-tariff coverage and no CSL determination, treat the edge as effectively dead and exit on inertia grounds.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html"
+      ]
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Three weeks of total silence on the Apple deal; rumor decaying with zero confirming coverage\u2014edge fading.",
+      "catalyst_resolved": false,
+      "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred and again drew no fresh coverage this week. This week's news (the $8.9B government stake / unrelated IBM commentary) is off-thesis noise and does not touch the Apple foundry/modem binary. My edge (unpriced INTC-specific Apple win) remains technically intact only because the binary stays open\u2014but three consecutive weeks of silence materially weaken the live rumor. No confirmation, no denial. INTC remains the sole pure vehicle. The clock is the real risk now: continued silence is itself decay toward a dead rumor.",
+      "exit_advice": "Silence is now the dominant signal\u2014if another week passes with no confirmation, treat the rumor as dead and exit.",
       "evidence_urls": [
         "https://247wallst.com/investing/2026/05/21/trump-gave-intel-8-9-billion-now-taxpayers-are-buying-ibm/"
       ]
@@ -163,20 +266,22 @@
       "ticker": "BWET",
       "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
       "thesis_live": true,
-      "exit_case": "Hormuz tensions could de-escalate, collapsing the war-driven freight spike that lifted BWET",
+      "src": "seed",
+      "exit_case": "Hormuz tensions could de-escalate, collapsing the war-driven freight premium quickly.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Catalyst is the Hormuz war chokepoint driving tanker freight rates higher, lifting BWET. News confirms rates stay elevated and the spike has NOT resolved \u2014 chokepoint disruption ongoing, catalyst still pending. BWET (Breakwave Tanker Shipping ETN) is the pure freight-futures vehicle and remains the cleanest play. Thesis live.",
-      "exit_advice": "Hold while Hormuz chokepoint disruption persists; exit on de-escalation or rate normalization",
+      "assessment": "Entry week. Catalyst \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 remains live and unresolved; BWET holds elevated gains as rates stay high. Chokepoint still active, premium intact, no de-escalation signed. BWET is the sole pure freight-futures vehicle and correctly captures the spike.",
+      "exit_advice": "Hold while chokepoint disruption persists; exit on de-escalation or freight rates normalizing.",
       "evidence_urls": []
     },
     {
       "ticker": "RGTI",
-      "thesis": "Trump admin $2B equity stake into quantum firms",
-      "thesis_live": false,
-      "exit_case": "The $2B equity-stake deal was announced/granted 05-21; stocks already popped, news fully public and priced.",
-      "catalyst_resolved": true,
-      "assessment": "I entered 05-22 on the $2B Trump-admin quantum equity-stake program, but the specific catalyst \u2014 the named deal awarding stakes (IBM $1B, nine firms, $2B total) \u2014 was announced and struck 05-21. RGTI and peers already gapped up sharply on the news. The discrete government-stake event has occurred and been absorbed by the market; what remains is sector hype, crowding, and shorts piling in ('Traders Bet Against IONQ/RGTI/QBTS'). That lingering theme is not a pending catalyst. My edge from the specific announcement is gone the moment it became public, which was before/at entry. Thesis not live.",
-      "exit_advice": "Catalyst is the announced $2B stake \u2014 it occurred 05-21, one day pre-entry, with stocks gapping up. Discrete event closed and priced; exit, no remaining edge.",
+      "thesis": "Trump $2B government equity stakes in quantum firms",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Stakes announced 5-21, RGTI already gapped up double-digits \u2014 pop priced in, edge may be gone",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Catalyst is the Trump $2B government equity-stake program in quantum firms, announced 5-21; RGTI is an explicitly named recipient. Stocks ripped (RGTI gapped up, IBM +7% on $1bn, D-Wave +13%). The administration's language is largely 'to take' stakes \u2014 announced intent with definitive agreements/closings still pending, so the discrete event is not fully consummated. That keeps the thesis live, but the risk is obvious: the announcement pop already happened and shorts are piling in on the broader quantum hype. RGTI is the purest current pure-play among the known set \u2014 a named beneficiary, small-cap, highest beta to the program. Keep it as the single vehicle. Watch for the gap between announced intent and actual stake closing; once stakes close/fund, catalyst is resolved and edge is gone.",
+      "exit_advice": "Hold while stake-taking is still announced-intent, not closed. Exit the moment definitive agreements close/disburse for the named nine, or if RGTI pop reverses on short crowding (banklesstimes flags heavy bets against RGTI/QBTS/QUBT).",
       "evidence_urls": [
         "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html",
         "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act"
@@ -185,13 +290,25 @@
   ],
   "2026-05-29": [
     {
-      "ticker": "INTC",
-      "thesis": "Potential Apple deal to buy Intel chips",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
-      "exit_case": "Lone 5/8 rumor now three weeks dead \u2014 zero follow-up, only unrelated quantum/government noise; report-stage thesis has faded.",
+      "src": "gdelt",
+      "exit_case": "Eight weeks of total silence \u2014 the CSL exemption determination may never come; edge decayed to nothing.",
       "catalyst_resolved": false,
-      "assessment": "The specific catalyst \u2014 an Apple-Intel chip deal \u2014 remains unsigned, unconfirmed and undenied, so it has not formally resolved and edge is technically intact. But this is the third consecutive week of complete silence on the original 5/8 CNBC report. This week's coverage (quantum computing performance) is again entirely unrelated noise on a different storyline. The dominant risk is no longer binary confirm/deny but a quiet fade into theme-drift, which is now effectively materializing. INTC stays the only and cleanest pure-play vehicle, but the report-stage thesis is on the edge of being functionally over.",
-      "exit_advice": "Near-terminal decay \u2014 if no Apple-Intel confirmation surfaces imminently, treat the catalyst as faded and exit; INTC is now trading on AI/quantum tape, not my catalyst.",
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued, so catalyst_resolved stays false. But this is now the eighth straight week (ninth since entry) with zero fresh coverage of the event. The binary that defines my edge is technically still open, keeping the thesis live, but the persistent silence is now the dominant and decisive risk \u2014 a determination that never materializes is an edge eroded to nothing. This is a decay-based near-exit, not a resolution exit. CSLLY remains the sole pure-play vehicle.",
+      "exit_advice": "On decay grounds this is a near-exit: eight straight weeks with zero catalyst coverage means the edge has effectively eroded. If another silent week passes, exit on decay regardless of formal resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Four straight weeks of total silence on the Apple-Intel deal; the rumor has decayed into a dead, unconfirmed lead.",
+      "catalyst_resolved": false,
+      "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred, so it is not resolved/priced. But after four straight weeks with no confirmation and no denial, the live rumor has decayed past usefulness; my edge required an active, unpriced binary that is now stale. This week's coverage is quantum-computing list filler, fully off-thesis. Silence is itself the verdict here. INTC remains the only pure vehicle, but the thesis is dead from decay, not resolution.",
+      "exit_advice": "Exit. Catalyst never confirmed nor denied, but four consecutive weeks of zero fresh coverage = a dead rumor. Only off-thesis noise (quantum, govt stake) now drives INTC.",
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/is-intel-corporation-intc-among-the-best-performing-quantum-computing-stocks-so-far-in-2026-1768764/"
       ]
@@ -200,20 +317,36 @@
       "ticker": "BWET",
       "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
       "thesis_live": true,
-      "exit_case": "No fresh coverage \u2014 Hormuz spikes fade fast; freight rates may have already normalized, catalyst silently decayed.",
+      "src": "gdelt",
+      "exit_case": "No fresh coverage \u2014 silence may mean the freight spike is fading without a new catalyst leg.",
       "catalyst_resolved": false,
-      "assessment": "No fresh news this week. The Hormuz chokepoint disruption that drove tanker freight rates and lifted BWET has not been reported as resolved \u2014 no reopening, no de-escalation confirmed. Absent any signal of reversal, the specific catalyst (war chokepoint freight spike) remains pending, not closed. Silence is not resolution, but it raises uncertainty: chokepoint spikes are sharp and short-lived, so I cannot confirm rates remain elevated either. Keeping thesis live on the presumption the disruption persists, while flagging that the lack of coverage is itself a risk. BWET (Breakwave Tanker Shipping ETN) remains the purest freight-futures vehicle.",
-      "exit_advice": "Hold but watch closely; a war chokepoint can reverse abruptly. If next week confirms rates normalized or strait reopened, exit immediately.",
+      "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 is unresolved. No de-escalation or reopening signed; chokepoint premium presumed intact despite no fresh coverage this week. BWET remains the sole pure freight-futures ETN capturing the spike. Watch for silence resolving into either escalation (rates higher) or quiet normalization (thesis decays).",
+      "exit_advice": "Hold while Hormuz remains disrupted; exit on signed de-escalation or rates normalizing.",
       "evidence_urls": []
     },
     {
-      "ticker": "CLOV",
-      "thesis": "Court win on Medicare Star Ratings lawsuit",
+      "ticker": "RGTI",
+      "thesis": "Trump $2B government equity stakes in quantum firms",
       "thesis_live": false,
-      "exit_case": "Court win already announced \u2014 lawsuit decided, stock soared to record high, catalyst is public and priced.",
+      "src": "gdelt",
+      "exit_case": "Stakes now actually funding (Commerce $100M to D-Wave deployed); $2B 'poured in' \u2014 intent consummated, surge is pure hype.",
       "catalyst_resolved": true,
-      "assessment": "I entered on a court win on the Medicare Star Ratings lawsuit. This very week's news confirms Clover WON the lawsuit and soared to a record high. The discrete event I bet on has resolved \u2014 the ruling is decided and public, not pending. The remaining move is hype/crowding ('soars to record high'), not edge. The Star Ratings theme may benefit revenue longer-term, but the specific catalyst is closed. No pending decision remains.",
-      "exit_advice": "Exit. The specific catalyst \u2014 winning the Star Ratings lawsuit \u2014 has occurred and is fully public; the record-high move confirms it's already priced.",
+      "assessment": "Re-reading the arc: entry thesis was the gap between announced intent (5-21) and actual stake closings. This week that gap closed \u2014 Commerce Department $100M funding to D-Wave is a concrete consummation, and coverage now describes the $2B as deployed. RGTI/QBTS still rising on 'quantum optimism' but that is crowding, not a pending discrete event. The $931M dilution warning signals the equity raises are real and underway. Edge is gone.",
+      "exit_advice": "Exit. The announced intent has transitioned to actual disbursement \u2014 Commerce deployed $100M to D-Wave this week and headlines read 'US Government Pours $2B' in past tense. The discrete catalyst (stakes closing/funding) has occurred and is public; remaining flow is mainstream hype, IPO chatter, and dilution warnings ($931M), not edge.",
+      "evidence_urls": [
+        "https://www.fool.com/coverage/stock-market-today/2026/05/26/stock-market-today-may-26-d-wave-quantum-falls-even-after-commerce-department-usd100-million-funding/",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/"
+      ]
+    },
+    {
+      "ticker": "CLOV",
+      "thesis": "Won lawsuit on Medicare Star Ratings, hits record high",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Lawsuit already won and stock at record high \u2014 discrete catalyst has occurred and is fully public/priced.",
+      "catalyst_resolved": true,
+      "assessment": "Entered on the discrete event of Clover winning its Medicare Star Ratings lawsuit, which this week's sole news confirms has already happened, sending CLOV to a record high. The catalyst is a resolved court outcome \u2014 analogous to a verdict handed down \u2014 not a pending decision. The price spike is the market pricing the win, leaving no informational edge. While the favorable ratings may aid future bonus payments, that is a downstream theme, not the catalyst entered. Resolved; thesis not live.",
+      "exit_advice": "The named catalyst \u2014 winning the Star Ratings lawsuit \u2014 is a closed, adjudicated event. The court ruling is public and the record-high pop already reflects it. No pending edge remains; the higher star-rating revenue benefit is a known consequence, not a fresh catalyst. Exit.",
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
@@ -221,67 +354,111 @@
   ],
   "2026-06-05": [
     {
-      "ticker": "INTC",
-      "thesis": "Potential Apple deal to buy Intel chips",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": false,
-      "exit_case": "Lone 5/8 CNBC report, now four straight weeks of total silence \u2014 the rumor has faded with zero follow-up; functionally dead.",
+      "src": "gdelt",
+      "exit_case": "Nine straight weeks of zero coverage; a determination on CSL's escape that never arrives is an edge decayed to nothing.",
       "catalyst_resolved": false,
-      "assessment": "The specific Apple-Intel deal catalyst remains technically unsigned/unconfirmed/undenied, so it has not formally resolved. But this is the fourth consecutive week of zero coverage on the original 5/8 report \u2014 the quiet-fade risk I flagged for weeks has now fully materialized. A report-stage rumor that generates no follow-up for a month is functionally over; there is no remaining edge to harvest. INTC stays the only pure-play vehicle, but I am calling the thesis dead by decay rather than waiting indefinitely for a confirm/deny that isn't coming.",
-      "exit_advice": "Exit on decay. The catalyst never resolved (no signing, no denial), but a single unsourced report with a full month of complete silence is no longer a live, tradeable edge \u2014 it has faded into nothing. INTC now trades purely on broader AI/chip tape, which is theme-drift, not my catalyst. Stand down.",
+      "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved, so catalyst_resolved stays false. But this is the ninth straight week (tenth since entry) with no fresh coverage of the event. An edge requires the determination to actually surface and reprice; after this much silence it effectively never will. The thesis is no longer live on decay grounds. CSLLY was the sole pure-play vehicle.",
+      "exit_advice": "Exit. The catalyst is formally still pending \u2014 no exemption, deal, or effective-date for CSL has been issued \u2014 but nine consecutive weeks of total silence means the binary that defined my edge has decayed past the point of tradability. This is a decay exit, not a resolution exit.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
       "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
-      "thesis_live": false,
-      "exit_case": "Chokepoint freight spikes are sharp and short-lived; two straight weeks of silence imply the disruption eased and rates already mean-reverted.",
-      "catalyst_resolved": true,
-      "assessment": "Entered on the Hormuz war chokepoint driving tanker freight rates and BWET higher. Last week I flagged that silence raised real uncertainty because chokepoint spikes are short-lived. A second week of total silence converts that uncertainty into a conclusion: a sharp emergency spike that produces no further news has run its course \u2014 the freight surge has faded and the acute catalyst has effectively passed. I will not keep holding on the mere presumption the disruption persists.",
-      "exit_advice": "Exit. The catalyst was an acute war-chokepoint freight spike \u2014 a flare-then-fade event. Two consecutive weeks with zero fresh coverage, combined with the known sharp/transient nature of these spikes, means the disruption has almost certainly de-escalated and the freight surge decayed. No live edge remains; presuming persistence on silence is hold-inertia.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Two straight weeks of silence \u2014 no escalation; freight spike likely quietly normalizing, premium decaying without a signed catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 has NOT formally resolved: no reopening or de-escalation signed. But this is the second consecutive week with zero fresh coverage, and a war-premium freight spike does not stay elevated on silence. The thesis is technically live yet visibly thinning; the binary is escalation (rates higher) vs. quiet decay (premium bleeds out). Absent confirmation rates are holding, conviction weakens each silent week. BWET remains the sole pure freight-futures ETN and the correct vehicle while the spike persists.",
+      "exit_advice": "Hold but tighten \u2014 a freight spike is fast-decaying; if a third silent week passes with no escalation, treat as quiet normalization and exit.",
       "evidence_urls": []
     },
     {
       "ticker": "QBTS",
-      "thesis": "$2B Commerce Dept quantum funding push places D-Wave in focus",
-      "thesis_live": false,
-      "exit_case": "$2B was already plowed into 9 quantum firms June 2-3; allocation done, public, priced \u2014 D-Wave stock crashed on the news.",
-      "catalyst_resolved": true,
-      "assessment": "I entered 6/5 on the $2B Commerce quantum funding push, but the journal's own news shows the money was 'plowed into 9 companies' on June 2-3 \u2014 the specific catalyst already occurred before/at entry. It is public and priced; QBTS in fact crashed this week (classic sell-the-news). The lingering quantum hype (Quantinuum/Quantinuum IPO, listicles) is theme, not my catalyst. Edge gone.",
-      "exit_advice": "Catalyst resolved \u2014 funding announced and disbursed; the sell-the-news crash confirms it's priced. Exit.",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Funding announced June 2-3 and QBTS already crashed \u2014 sell-the-news suggests catalyst priced/resolved.",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. The $2B Commerce quantum push naming D-Wave is the catalyst; the program was unveiled this week but disbursement/named-award specifics to the 9 companies remain a multi-stage process still unfolding, so the specific D-Wave allocation is pending, not closed. Notably QBTS crashed this week despite the funding news \u2014 a sell-the-news move and the single biggest red flag, suggesting the headline may already be partly priced. Heavy competing supply (Quantinuum's $1.68B IPO) dilutes the quantum-funding narrative. QBTS remains the only known and purest vehicle for this specific catalyst. Thesis stays live only while the named-award detail is pending; tighten exit if formal D-Wave grant is signed/announced.",
+      "exit_advice": "Hold but watch closely: if specific D-Wave award is formally finalized, edge is gone. The crash is a warning, not proof of resolution.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/",
+        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/",
         "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html"
       ]
     }
   ],
   "2026-06-12": [
     {
-      "ticker": "REGN",
-      "thesis": "Antibody therapy gains WHO support amid active Ebola outbreak",
-      "thesis_live": true,
-      "exit_case": "WHO endorsement already granted June 11 \u2014 the discrete approval milestone has occurred and is public/priced.",
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Third straight week of silence; a war-premium freight spike cannot hold on no news \u2014 premium has bled out.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Regeneron's antibody therapy won WHO support amid an active Ebola outbreak (June 11). The discrete endorsement is the trigger, but the durable driver is the ongoing outbreak generating procurement/usage demand \u2014 that remains unresolved. Surrounding news is dominated by macro (Iran strikes, Middle East, oil), not REGN-specific noise, so the signal is clean but thin. REGN is the only and purest vehicle. Watch for outbreak containment/declared-over, which would resolve the thesis.",
-      "exit_advice": "Hold \u2014 WHO support is granted but the active Ebola outbreak still drives demand for Regeneron's antibody therapy; catalyst remains live while outbreak persists.",
+      "assessment": "No reopening or de-escalation has been formally signed, so the catalyst is not technically resolved. But a war-driven freight spike is sustained only by active chokepoint news, and this is the third consecutive silent week. My prior two notes flagged that the thesis was thinning and that the binary was escalation vs. quiet decay; silence has now resolved decisively toward decay. BWET remains the correct vehicle but there is no longer a live spike to capture. Treat as over.",
+      "exit_advice": "Exit. The spike is the tradeable event, and three consecutive weeks of zero coverage means the chokepoint premium has quietly normalized rather than escalated \u2014 the edge is gone even without a signed de-escalation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Sell-the-news crash at entry suggests the $2B headline is already priced; only generic hype remains.",
+      "catalyst_resolved": false,
+      "assessment": "No substantive news this week \u2014 only generic 'stocks to watch' listicles, which is pure hype/crowding, not catalyst resolution. The specific D-Wave named-award allocation from the $2B Commerce program remains pending and unsigned, so the catalyst has not occurred. The entry-week sell-the-news crash remains the key risk that the headline is partly priced, but the multi-stage disbursement still leaves the named-award detail live. QBTS stays the only and purest vehicle. Hold while the formal grant is pending; tighten on any signed allocation.",
+      "exit_advice": "Exit if formal named D-Wave grant/allocation is signed/announced, or if program disbursement closes without D-Wave.",
       "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html"
       ]
     }
   ],
   "2026-06-19": [
     {
-      "ticker": "REGN",
-      "thesis": "Antibody therapy gains WHO support amid active Ebola outbreak",
-      "thesis_live": false,
-      "exit_case": "WHO support was granted June 11 \u2014 the discrete endorsement catalyst already occurred and is public/priced.",
-      "catalyst_resolved": true,
-      "assessment": "Entered on a discrete WHO endorsement that had already been granted (June 11). Per resolution rules, an approval granted is a closed catalyst regardless of a lingering outbreak theme. This week's news is entirely macro (Iran/US agreement, India/UAE markets, quantum stocks) with zero REGN or Ebola-outbreak content \u2014 no new procurement, no escalation, nothing to re-arm the thesis. The durable 'ongoing outbreak demand' framing is a theme, not a pending catalyst. Edge is exhausted.",
-      "exit_advice": "The specific trigger \u2014 WHO support for the antibody therapy \u2014 was granted before entry; it is public, priced, and edge is gone. No fresh REGN-specific catalyst this week, only macro noise.",
+      "ticker": "QBTS",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Catalyst decaying: three weeks post-unveil with no named D-Wave award; only hype/insider-selling noise, suggesting allocation may never specifically crystallize.",
+      "catalyst_resolved": false,
+      "assessment": "Third week with no substantive catalyst progress. This week's news is pure hype (Yahoo 'experts see gains') and noise (insider selling, -4.2%) \u2014 neither resolves nor advances the specific $2B Commerce named-award to D-Wave, which remains pending and unsigned. The multi-stage disbursement keeps the named allocation technically live, but the lack of any concrete program movement plus persistent sell-the-news/insider-selling weakness raises the risk the specific D-Wave allocation never materializes as a discrete signed event. Catalyst not occurred, not priced as resolved. QBTS remains the only and purest vehicle. Hold, but on a short leash \u2014 tighten on any signed grant or program disbursement that skips D-Wave.",
+      "exit_advice": "Exit if a formal D-Wave grant is signed/announced (resolution) OR if the program disburses without naming D-Wave specifically (catalyst decayed to nothing).",
       "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/26/06/53216164/stock-market-today-sp-500-futures-fall-dow-gains-amid-us-iran-agreement-spcx-stock-surge-dave-and-busters-western-digital-in-focus"
+        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
       ]
     }
   ],
-  "2026-06-26": [],
-  "2026-07-03": []
+  "2026-06-26": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four weeks with zero program movement; sell-the-news crash plus insider selling suggest the discrete D-Wave award may never materialize as a signed event.",
+      "catalyst_resolved": false,
+      "assessment": "Fourth straight week with no substantive catalyst progress. This week's news is pure macro noise (equity futures, Brent/Strait of Hormuz) with zero relevance to the $2B Commerce quantum program. The specific named-award allocation to D-Wave remains pending and unsigned, so the catalyst has not occurred or been priced as resolved. However, the prolonged silence since the June unveiling, combined with the entry-week sell-the-news crash and ongoing insider selling, keeps raising the risk the discrete D-Wave grant never crystallizes. Technically still live while the allocation is pending. QBTS remains the only and purest vehicle.",
+      "exit_advice": "Hold on a very short leash; exit on any signed grant, a disbursement that skips D-Wave, or continued total absence of program news.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/us-equity-futures-lower-brent-continues-slide-focus-ships-traversing-strait-newsquawk-us"
+      ]
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of total silence since June unveiling; the discrete D-Wave named-award may never crystallize as a signed event.",
+      "catalyst_resolved": false,
+      "assessment": "Fifth straight week with zero catalyst progress. This week's only news is an unrelated Markel insurance/buyback item \u2014 no relevance whatsoever to the $2B Commerce quantum program. The specific named-award allocation to D-Wave remains pending and unsigned, so the catalyst has not occurred or been priced as resolved. But the now five-week silence since the June unveiling, layered on the entry-week sell-the-news crash and insider selling, keeps raising the odds the discrete D-Wave grant never materializes as a clean signed event. Technically still live while the allocation is pending; on a very short leash. QBTS remains the only and purest vehicle.",
+      "exit_advice": "Tighten hard \u2014 exit on any program disbursement that skips D-Wave, or after continued silence the discrete grant looks dead.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/markel-group-inc-mkl-bolsters-200745621.html"
+      ]
+    }
+  ]
 }

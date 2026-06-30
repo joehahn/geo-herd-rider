@@ -2,7 +2,7 @@
   "gem": "BWET",
   "overlay_label": "BWET trigger",
   "caught": true,
-  "model": "deepseek",
+  "model": "opus",
   "capital": 50000.0,
   "dates": [
     "2026-02-10",
@@ -112,93 +112,93 @@
     50000.0,
     50000.0,
     50000.0,
-    53662.79,
-    57868.22,
-    56812.02,
-    55523.26,
-    70949.62,
-    62289.5,
-    65514.03,
-    61184.41,
-    56874.83,
-    60793.2,
-    64432.52,
-    70709.6,
-    61804.92,
-    58868.75,
-    72636.01,
-    71475.41,
-    75306.39,
-    77151.7,
-    87909.93,
-    87246.83,
-    97550.98,
-    89916.88,
-    105297.89,
-    111935.42,
-    115000.34,
-    92605.74,
-    109359.38,
-    124110.49,
-    132242.88,
-    130347.15,
-    139070.14,
-    157353.73,
-    151332.58,
-    148013.64,
-    136883.53,
-    109709.7,
-    116586.92,
-    138316.68,
-    129075.71,
-    126533.0,
-    120434.37,
-    130535.14,
-    130744.61,
-    131353.0,
-    128833.51,
-    123507.62,
-    127184.82,
-    126172.35,
-    130104.83,
-    151901.07,
-    137574.85,
-    130022.11,
-    125242.96,
-    130386.69,
-    129954.47,
-    133419.62,
-    133404.73,
-    134306.4,
-    137018.91,
-    142063.88,
-    140118.18,
-    139690.44,
-    129499.9,
-    119395.07,
-    116195.44,
-    116289.76,
-    116253.47,
-    112284.76,
-    110687.55,
-    105349.96,
-    110750.7,
-    101302.39,
-    106492.63,
-    98934.38,
-    99302.0,
-    101512.45,
-    99433.65,
-    110664.14,
-    112826.54,
-    111581.68,
-    115649.89,
-    118874.33,
-    117024.15,
-    120493.24,
-    120493.24,
-    125118.7,
-    122805.97
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    50000.0,
+    48978.77,
+    51735.41,
+    53310.64,
+    62815.38,
+    61940.99,
+    69256.44,
+    63836.6,
+    74756.37,
+    79468.69,
+    81644.64,
+    65745.56,
+    77639.83,
+    88112.39,
+    93885.99,
+    93078.92,
+    98326.43,
+    108250.35,
+    104778.25,
+    102887.36,
+    97659.75,
+    84846.0,
+    87837.49,
+    99425.63,
+    94727.64,
+    92842.55,
+    87675.13,
+    93669.77,
+    93462.12,
+    94119.78,
+    95606.45,
+    93169.51,
+    95717.06,
+    97236.12,
+    96272.44,
+    112048.06,
+    102824.09,
+    96894.21,
+    94360.78,
+    92652.95,
+    88136.46,
+    88677.8,
+    86424.89,
+    82863.73,
+    83045.83,
+    85376.54,
+    89427.11,
+    89103.15,
+    87858.41,
+    87690.28,
+    86273.88,
+    90669.21,
+    85823.21,
+    84202.59,
+    87807.53,
+    81623.27,
+    83177.45,
+    74790.08,
+    77317.36,
+    70289.54,
+    69465.85,
+    71796.49,
+    71078.7,
+    79133.66,
+    78438.49,
+    81867.48,
+    83327.5,
+    86078.66,
+    81943.64,
+    82048.02,
+    83227.52,
+    80645.65,
+    82332.75
   ],
   "spy": [
     50000.0,
@@ -299,11 +299,11 @@
     53815.66
   ],
   "gain": {
-    "BWET": 76905.88,
-    "VST": -12846.86,
-    "CSLLY": 91.63,
-    "CLOV": 12476.17,
-    "QBTS": -3820.85
+    "BWET": 57623.17,
+    "CSLLY": -7891.12,
+    "INTC": -11449.72,
+    "RGTI": -7013.62,
+    "QBTS": 1064.04
   },
   "overlay": [
     40195.27,
@@ -416,70 +416,6 @@
       0.0,
       0.0,
       0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.8725,
-      0.8725,
-      0.8725,
-      0.8725,
-      0.8725,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      0.8163,
-      0.8163,
-      0.8163,
-      0.8163,
-      0.8163,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.7305,
-      0.7305,
-      0.7305,
-      0.7305,
-      0.7305,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
       0.0,
       0.0,
       0.0,
@@ -494,113 +430,79 @@
       0.0,
       0.0,
       0.0,
-      0.174,
-      0.174,
-      0.174,
-      0.174,
+      0.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      1.0,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1202,
+      0.1202,
+      0.1202,
+      0.1202,
+      0.1202,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
       0.0,
       0.0,
       0.0,
       0.0,
       0.0
-    ],
-    "CLOV": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.534,
-      0.534,
-      0.534,
-      0.534,
-      0.534,
-      0.1004,
-      0.1004,
-      0.1004,
-      0.1004,
-      0.1004,
-      0.826,
-      0.826,
-      0.826,
-      0.826,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0
     ],
     "CSLLY": [
       0.0,
@@ -641,11 +543,66 @@
       0.0,
       0.0,
       0.0,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.1798,
+      0.1798,
+      0.1798,
+      0.1798,
+      0.1798,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.3,
+      0.3,
+      0.3,
+      0.3,
+      0.2861,
+      0.2861,
+      0.2861,
+      0.2861,
+      0.2861
+    ],
+    "INTC": [
       0.0,
       0.0,
       0.0,
@@ -698,7 +655,50 @@
       0.0,
       0.0,
       0.0,
-      0.0
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.4466,
+      0.4466,
+      0.4466,
+      0.4466,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.7139,
+      0.7139,
+      0.7139,
+      0.7139,
+      0.7139
     ],
     "QBTS": [
       0.0,
@@ -778,16 +778,16 @@
       0.0,
       0.0,
       0.0,
-      0.466,
-      0.466,
-      0.466,
-      0.466,
-      0.466,
-      0.8996,
-      0.8996,
-      0.8996,
-      0.8996,
-      0.8996,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.752,
+      0.752,
+      0.752,
+      0.752,
+      0.752,
       0.0,
       0.0,
       0.0,
@@ -798,36 +798,7 @@
       0.0,
       0.0
     ],
-    "VST": [
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.0,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1,
-      0.1275,
-      0.1275,
-      0.1275,
-      0.1275,
-      0.1275,
+    "RGTI": [
       0.0,
       0.0,
       0.0,
@@ -847,21 +818,6 @@
       0.0,
       0.0,
       0.0,
-      0.1837,
-      0.1837,
-      0.1837,
-      0.1837,
-      0.1837,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.9,
-      0.2695,
-      0.2695,
-      0.2695,
-      0.2695,
-      0.2695,
       0.0,
       0.0,
       0.0,
@@ -872,10 +828,6 @@
       0.0,
       0.0,
       0.0,
-      1.0,
-      1.0,
-      1.0,
-      1.0,
       0.0,
       0.0,
       0.0,
@@ -886,6 +838,54 @@
       0.0,
       0.0,
       0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.5534,
+      0.5534,
+      0.5534,
+      0.5534,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.7,
+      0.248,
+      0.248,
+      0.248,
+      0.248,
+      0.248,
       0.0,
       0.0,
       0.0,
@@ -907,21 +907,21 @@
     1.0,
     1.0,
     1.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
     0.0,
     0.0,
     0.0,
@@ -997,567 +997,302 @@
   ],
   "colors": {
     "BWET": "#1f77b4",
-    "CLOV": "#ff7f0e",
-    "CSLLY": "#2ca02c",
+    "CSLLY": "#ff7f0e",
+    "INTC": "#2ca02c",
     "QBTS": "#d62728",
-    "VST": "#9467bd"
+    "RGTI": "#9467bd"
   },
   "metrics": {
-    "final": 122806.0,
-    "total_ret": 1.4561,
+    "final": 82333.0,
+    "total_ret": 0.6467,
     "spy_ret": 0.0763,
-    "max_dd": -0.3713
+    "max_dd": -0.38
   },
-  "cost_usd": 4.75,
+  "cost_usd": 5.29,
   "weeks": 22,
   "gems": [
     {
-      "week": "2026-02-20",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
-      ]
-    },
-    {
-      "week": "2026-02-27",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-02-27",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-27-vistra-corp-vst-q4-earnings-analysis-reality-check-for-the-ai-power-trade"
-      ]
-    },
-    {
-      "week": "2026-02-27",
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
-      "thesis_live": false,
-      "urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
-      ]
-    },
-    {
-      "week": "2026-03-06",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.wdef.com/markets-react-to-iran-tensions/"
-      ]
-    },
-    {
-      "week": "2026-03-06",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "urls": [
-        "https://www.moneycontrol.com/news/business/stocks/nifty-realty-index-falls-nearly-2-godrej-properties-prestige-down-4-as-crude-driven-inflation-worries-weigh-13852946.html",
-        "https://www.dailypolitical.com/2026/03/05/promising-renewable-energy-stocks-to-watch-today-march-2nd.html",
-        "https://www.themarketsdaily.com/2026/03/01/top-real-estate-stocks-to-research-february-27th.html",
-        "https://www.themarketsdaily.com/2026/03/01/promising-real-estate-stocks-to-keep-an-eye-on-february-26th.html"
-      ]
-    },
-    {
       "week": "2026-03-13",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/surprising-vanguard-etf-soaring-past-162000045.html"
-      ]
-    },
-    {
-      "week": "2026-03-13",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-20",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-03-20",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/news/heres-much-micron-stock-expected-101000568.html",
-        "https://www.thehindu.com/business/markets/stock-markets-rebound-in-early-trade-after-3-day-slump/article70748698.ece"
-      ]
-    },
-    {
-      "week": "2026-03-27",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-03-27",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "ticker": "BWET",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
-      "urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-rally-in-early-trade-on-slump-in-oil-prices-1946142",
-        "https://www.aol.com/finance/cnbc-anchor-shocked-us-trade-120000757.html"
-      ]
+      "urls": []
     },
     {
       "week": "2026-04-03",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": [
-        "https://abc7ny.com/post/tips-save-groceries-food-banks-nyc-feel-strain-rising-prices-due-iran-war/18829363/",
-        "https://www.mymoinfo.com/syndicated-article/?id=1663391"
-      ]
-    },
-    {
-      "week": "2026-04-03",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "urls": [
-        "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
-        "https://www.chathamdailynews.ca/news/mp-chamber-boss-talk-food-security-trade/wcm/f714d732-eaca-4dc7-9509-5a16d33707ec",
-        "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-analyzes-impact-geopolitical-162803098.html"
+        "https://abc7ny.com/post/tips-save-groceries-food-banks-nyc-feel-strain-rising-prices-due-iran-war/18829363/"
       ]
     },
     {
       "week": "2026-04-03",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": [
-        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
-        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
+        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43",
+        "https://www.aljazeera.com/news/2026/4/2/trump-unveils-100-percent-tariff-on-drugs-to-push-for-pharmaceutical-deals"
       ]
     },
     {
       "week": "2026-04-10",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-10",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-10",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-17",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "etf.com"
-      ]
-    },
-    {
-      "week": "2026-04-17",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-17",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-04-24",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-04-24",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/cohen-steers-cns-q4-2025-192343524.html",
-        "https://www.fool.com/earnings/call-transcripts/2026/04/21/cohen-and-steers-cns-q4-2025-earnings-transcript/?source=iedfolrf0000001"
+        "https://www.benzinga.com/markets/equities/26/04/51930047/nasdaq-snaps-13-session-win-streak-on-hormuz-tensions-investor-sentiment-improves-further-fear-index-in-greed-zone"
       ]
     },
     {
       "week": "2026-04-24",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-01",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-01",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-plunge-ai-concerns-103453694.html"
-      ]
-    },
-    {
-      "week": "2026-05-01",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-08",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-05-08",
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
       "thesis_live": false,
       "urls": [
-        "https://www.cnbc.com/2026/05/07/options-traders-love-this-under-the-radar-ai-play.html",
-        "https://fnarena.com/index.php/2026/05/06/the-overnight-report-chips-soar-with-ai-trade/"
+        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
       ]
     },
     {
       "week": "2026-05-08",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.theguardian.com/business/live/2026/may/06/oil-prices-retreat-global-stocks-hit-record-highs-trump-great-progress-iran-deal-live-updates"
+      ]
     },
     {
-      "week": "2026-05-15",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "week": "2026-05-08",
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
       "thesis_live": true,
-      "urls": []
+      "urls": [
+        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+      ]
     },
     {
       "week": "2026-05-15",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-15",
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
+      "thesis_live": true,
+      "urls": []
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": [
-        "https://vietnamnews.vn/economy/1781275/foreign-selling-property-losses-keep-vn-index-under-pressure.html"
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html"
+      ]
+    },
+    {
+      "week": "2026-05-22",
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
+      "thesis_live": true,
+      "urls": [
+        "https://247wallst.com/investing/2026/05/21/trump-gave-intel-8-9-billion-now-taxpayers-are-buying-ibm/"
       ]
     },
     {
       "week": "2026-05-22",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-22",
+      "ticker": "RGTI",
+      "thesis": "Trump $2B government equity stakes in quantum firms",
+      "thesis_live": true,
+      "urls": [
+        "https://finance.yahoo.com/markets/stocks/article/d-wave-rigetti-and-other-quantum-stocks-jump-as-trump-administration-doles-out-2-billion-in-exchange-for-equity-stakes-144923499.html",
+        "https://thenextweb.com/news/us-2bn-quantum-equity-stakes-chips-act"
+      ]
+    },
+    {
+      "week": "2026-05-29",
       "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
       "thesis_live": true,
       "urls": []
+    },
+    {
+      "week": "2026-05-29",
+      "ticker": "INTC",
+      "thesis": "Apple reportedly to buy Intel chips for iPhone",
+      "thesis_live": false,
+      "urls": [
+        "https://www.insidermonkey.com/blog/is-intel-corporation-intc-among-the-best-performing-quantum-computing-stocks-so-far-in-2026-1768764/"
+      ]
     },
     {
       "week": "2026-05-29",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-05-29",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
+      "ticker": "RGTI",
+      "thesis": "Trump $2B government equity stakes in quantum firms",
+      "thesis_live": false,
+      "urls": [
+        "https://www.fool.com/coverage/stock-market-today/2026/05/26/stock-market-today-may-26-d-wave-quantum-falls-even-after-commerce-department-usd100-million-funding/",
+        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/"
+      ]
     },
     {
       "week": "2026-05-29",
       "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
+      "thesis": "Won lawsuit on Medicare Star Ratings, hits record high",
+      "thesis_live": false,
       "urls": [
         "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
       ]
     },
     {
-      "week": "2026-05-29",
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "urls": [
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
-      ]
+      "week": "2026-06-05",
+      "ticker": "CSLLY",
+      "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+      "thesis_live": false,
+      "urls": []
     },
     {
       "week": "2026-06-05",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": [
-        "https://www.insidermonkey.com/blog/da-davidson-reiterates-neutral-rating-on-installed-building-products-ibp-1775319/",
-        "https://www.ibtimes.co.in/indian-equities-open-higher-despite-rising-oil-prices-global-uncertainty-902514",
-        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
-      ]
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
       "thesis_live": true,
       "urls": []
     },
     {
       "week": "2026-06-05",
       "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
       "thesis_live": true,
       "urls": [
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
-        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
-        "https://www.fool.com/investing/2026/06/04/should-you-buy-d-wave-quantum-stock-while-its-unde/",
-        "https://www.tickerreport.com/banking-finance/13463078/best-quantum-computing-stocks-to-follow-now-june-3rd.html"
-      ]
-    },
-    {
-      "week": "2026-06-05",
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
+        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/",
+        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html"
       ]
     },
     {
       "week": "2026-06-12",
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
+      "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+      "thesis_live": false,
       "urls": []
     },
     {
       "week": "2026-06-12",
       "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
       "thesis_live": true,
       "urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
+        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html"
       ]
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
-      ]
-    },
-    {
-      "week": "2026-06-12",
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
-      ]
-    },
-    {
-      "week": "2026-06-19",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-19",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-19",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "urls": []
     },
     {
       "week": "2026-06-19",
       "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
       "thesis_live": true,
       "urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
         "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
       ]
     },
     {
-      "week": "2026-06-19",
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-19",
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
       "week": "2026-06-26",
       "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-06-26",
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
       "thesis_live": true,
       "urls": [
-        "https://www.theguardian.com/business/2026/jun/28/rising-cost-insuring-against-climate-crisis-knock-on-effects-for-uk-economy",
-        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-saturday-june-27-2026-earn-up-to-410-apy-100000193.html",
-        "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
+        "https://www.zerohedge.com/markets/us-equity-futures-lower-brent-continues-slide-focus-ships-traversing-strait-newsquawk-us"
       ]
     },
     {
       "week": "2026-07-03",
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-07-03",
       "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "urls": []
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
+      "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
       "thesis_live": true,
       "urls": [
-        "https://www.thehindubusinessline.com/economy/indias-debt-market-not-equipped-to-finance-next-phase-of-growth-needs-structural-reforms-deloitte/article71157472.ece"
+        "https://finance.yahoo.com/markets/stocks/articles/markel-group-inc-mkl-bolsters-200745621.html"
       ]
-    },
-    {
-      "week": "2026-07-03",
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "urls": []
     }
   ],
   "watchlist": [
@@ -1573,51 +1308,32 @@
     },
     {
       "week": "2026-02-20",
-      "names": [
-        "BWET"
-      ],
-      "funded": [
-        "BWET"
-      ]
+      "names": [],
+      "funded": []
     },
     {
       "week": "2026-02-27",
-      "names": [
-        "BWET",
-        "VST"
-      ],
-      "funded": [
-        "BWET",
-        "VST"
-      ]
+      "names": [],
+      "funded": []
     },
     {
       "week": "2026-03-06",
-      "names": [
-        "BWET",
-        "VST"
-      ],
-      "funded": [
-        "BWET",
-        "VST"
-      ]
+      "names": [],
+      "funded": []
     },
     {
       "week": "2026-03-13",
       "names": [
-        "BWET",
-        "VST"
+        "BWET"
       ],
       "funded": [
-        "BWET",
-        "VST"
+        "BWET"
       ]
     },
     {
       "week": "2026-03-20",
       "names": [
-        "BWET",
-        "VST"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1626,8 +1342,7 @@
     {
       "week": "2026-03-27",
       "names": [
-        "BWET",
-        "VST"
+        "BWET"
       ],
       "funded": [
         "BWET"
@@ -1637,8 +1352,7 @@
       "week": "2026-04-03",
       "names": [
         "BWET",
-        "CSLLY",
-        "VST"
+        "CSLLY"
       ],
       "funded": [
         "BWET",
@@ -1649,34 +1363,32 @@
       "week": "2026-04-10",
       "names": [
         "BWET",
-        "CSLLY",
-        "VST"
+        "CSLLY"
       ],
       "funded": [
-        "BWET"
+        "BWET",
+        "CSLLY"
       ]
     },
     {
       "week": "2026-04-17",
       "names": [
         "BWET",
-        "CSLLY",
-        "VST"
+        "CSLLY"
       ],
       "funded": [
         "BWET",
-        "VST"
+        "CSLLY"
       ]
     },
     {
       "week": "2026-04-24",
       "names": [
         "BWET",
-        "CSLLY",
-        "VST"
+        "CSLLY"
       ],
       "funded": [
-        "VST",
+        "CSLLY",
         "BWET"
       ]
     },
@@ -1684,12 +1396,11 @@
       "week": "2026-05-01",
       "names": [
         "BWET",
-        "CSLLY",
-        "VST"
+        "CSLLY"
       ],
       "funded": [
         "BWET",
-        "VST"
+        "CSLLY"
       ]
     },
     {
@@ -1697,9 +1408,10 @@
       "names": [
         "BWET",
         "CSLLY",
-        "VST"
+        "INTC"
       ],
       "funded": [
+        "INTC",
         "BWET"
       ]
     },
@@ -1708,9 +1420,10 @@
       "names": [
         "BWET",
         "CSLLY",
-        "VST"
+        "INTC"
       ],
       "funded": [
+        "INTC",
         "BWET"
       ]
     },
@@ -1719,64 +1432,64 @@
       "names": [
         "BWET",
         "CSLLY",
-        "VST"
+        "INTC",
+        "RGTI"
       ],
       "funded": [
-        "VST"
+        "RGTI",
+        "INTC"
       ]
     },
     {
       "week": "2026-05-29",
       "names": [
         "BWET",
-        "CLOV",
         "CSLLY",
-        "QBTS",
-        "VST"
+        "INTC",
+        "RGTI"
       ],
       "funded": [
-        "CLOV",
-        "QBTS"
+        "RGTI",
+        "CSLLY",
+        "BWET"
       ]
     },
     {
       "week": "2026-06-05",
       "names": [
         "BWET",
-        "CLOV",
         "CSLLY",
-        "PRAX",
-        "QBTS"
+        "INTC",
+        "QBTS",
+        "RGTI"
       ],
       "funded": [
         "QBTS",
-        "CLOV"
+        "RGTI"
       ]
     },
     {
       "week": "2026-06-12",
       "names": [
         "BWET",
-        "CLOV",
         "CSLLY",
-        "PRAX",
+        "INTC",
         "QBTS",
-        "REGN"
+        "RGTI"
       ],
       "funded": [
-        "CLOV",
-        "BWET"
+        "BWET",
+        "CSLLY"
       ]
     },
     {
       "week": "2026-06-19",
       "names": [
         "BWET",
-        "CLOV",
         "CSLLY",
-        "PRAX",
+        "INTC",
         "QBTS",
-        "REGN"
+        "RGTI"
       ],
       "funded": []
     },
@@ -1784,11 +1497,8 @@
       "week": "2026-06-26",
       "names": [
         "BWET",
-        "CLOV",
         "CSLLY",
-        "PRAX",
-        "QBTS",
-        "REGN"
+        "QBTS"
       ],
       "funded": []
     },
@@ -1796,11 +1506,7 @@
       "week": "2026-07-03",
       "names": [
         "BWET",
-        "CLOV",
-        "CSLLY",
-        "PRAX",
-        "QBTS",
-        "REGN"
+        "QBTS"
       ],
       "funded": []
     }
@@ -1814,41 +1520,21 @@
       0,
       0,
       0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
       1,
       1,
@@ -1902,84 +1588,6 @@
       1,
       1,
       1,
-      1
-    ],
-    "CLOV": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
       1,
       1,
       1,
@@ -2100,26 +1708,7 @@
       1,
       1
     ],
-    "PRAX": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
+    "INTC": [
       0,
       0,
       0,
@@ -2196,7 +1785,26 @@
       1,
       1,
       1,
-      1
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      0,
+      0
     ],
     "QBTS": [
       0,
@@ -2274,11 +1882,11 @@
       0,
       0,
       0,
-      1,
-      1,
-      1,
-      1,
-      1,
+      0,
+      0,
+      0,
+      0,
+      0,
       1,
       1,
       1,
@@ -2296,7 +1904,7 @@
       1,
       1
     ],
-    "REGN": [
+    "RGTI": [
       0,
       0,
       0,
@@ -2368,56 +1976,6 @@
       0,
       0,
       0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1
-    ],
-    "VST": [
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
       1,
       1,
       1,
@@ -2441,54 +1999,6 @@
       1,
       1,
       1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      1,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
-      0,
       0,
       0
     ]
@@ -2528,12 +2038,12 @@
   "params": {
     "initial_investment_usd": 50000,
     "risk_aversion": 1.0,
-    "concentration_cap": 0.9,
+    "concentration_cap": 0.7,
     "max_tickers_per_event": 16,
     "t_update_days": 1,
     "min_trade_size": 0.1,
     "lookback_period_days": 21,
-    "model": "deepseek",
+    "model": "opus",
     "risk_free_rate": 0.04,
     "rebalance_days": 7,
     "news_lookback_days": null,
@@ -2542,621 +2052,364 @@
   "arcs": {
     "BWET": [
       {
-        "date": "2026-02-20",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "Tanker rates are rising, driving significant performance in BWET, which remains the primary vehicle for this event.",
-        "exit_advice": "Monitor for signs of plateauing or declining tanker rates, as well as shifts in oil supply/demand dynamics that could impact freight demand."
-      },
-      {
-        "date": "2026-02-27",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "BWET continues to be the purest vehicle for this event, with tanker rates driving its performance. No new developments this week to alter the thesis.",
-        "exit_advice": "Hold; tanker rates remain on a rising trajectory with no signs of reversal or resolution."
-      },
-      {
-        "date": "2026-03-06",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions potentially further supporting the thesis. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring tanker rates and geopolitical developments for signs of resolution or decay in the catalyst."
-      },
-      {
         "date": "2026-03-13",
         "live": true,
-        "thesis": "rising tanker rates",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "seed",
         "exit_case": "none",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring tanker rates and geopolitical tensions for signs of resolution or decay in the catalyst."
+        "assessment": "Entry week. Catalyst is Strait of Hormuz war-risk premium keeping oil-tanker day-rates elevated, which lifts the freight-futures ETN. This is an ongoing, unresolved geopolitical chokepoint risk \u2014 no ceasefire, no de-escalation, no normalization of transit. The catalyst is still PENDING, not a discrete event that has occurred. BWET is the cleanest pure-play freight-futures vehicle; renewables/Vanguard mentions are unrelated rotation noise. Hold.",
+        "exit_advice": "Hold while Hormuz tension keeps tanker day-rates elevated; exit if Mideast de-escalates or freight rates roll over."
       },
       {
         "date": "2026-03-20",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "No fresh coverage \u2014 war-risk premium may be quietly decaying without a confirmed de-escalation to flag.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for signs of stabilization or reversal in tanker rates, particularly from geopolitical developments or shifts in global trade patterns."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing geopolitical chokepoint state, not a discrete event that has occurred. No news this week means no de-escalation, no ceasefire, no normalization of transit; the premium and the freight-futures bid remain in place. The catalyst is still PENDING. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+        "exit_advice": "Hold, but watch for any ceasefire/de-escalation headline or a sharp drop in tanker day-rates \u2014 that would resolve the chokepoint premium and end the thesis."
       },
       {
         "date": "2026-03-27",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "Two weeks of zero coverage suggests war-risk premium may be quietly decaying as transit normalizes.",
         "resolved": false,
-        "assessment": "The thesis remains live with no signs of decay or resolution. Geopolitical tensions continue to support rising tanker rates, and BWET remains the purest vehicle for this event.",
-        "exit_advice": "The catalyst of rising tanker rates remains intact, and there is no evidence of resolution. Continue holding BWET as the primary vehicle."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium holding tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization has been reported, so the specific catalyst remains PENDING. The risk is that two consecutive weeks of no fresh coverage signals a fading premium rather than a stable one; news-less holds in a geopolitical-premium trade are vulnerable to silent decay. Absent any confirmation of de-escalation, I hold but flag the staleness. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle.",
+        "exit_advice": "If silence persists another week or rates roll over, treat the premium as decayed and exit."
       },
       {
         "date": "2026-04-03",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "Three+ weeks no direct tanker/freight coverage; war-risk premium may be silently fading or priced in.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms an active 'Iran war' driving rising prices, evidence the conflict and its supply-disruption premium persist rather than de-escalate. No ceasefire, no normalization of transit \u2014 the specific catalyst remains PENDING. The continued staleness on direct freight coverage is a real risk (silent premium decay), but the active-war framing argues the premium is intact, not faded. BWET remains the cleanest pure-play freight-futures ETN and the correct vehicle. Hold.",
+        "exit_advice": "Hold while Hormuz remains a live war zone; exit on confirmed ceasefire, de-escalation, or transit normalization."
       },
       {
         "date": "2026-04-10",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "Two of last three weeks news-less; geopolitical premium may be silently decaying toward normalization without explicit ceasefire.",
         "resolved": false,
-        "assessment": "The catalyst remains live with no signs of decay or resolution. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Hold, as the catalyst of rising tanker rates remains intact and geopolitical tensions continue to support the thesis."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. Last week's active 'Iran war' framing argued the premium was intact; this week brings no fresh coverage. No ceasefire, de-escalation, or transit normalization has been reported, so the specific catalyst remains PENDING and not resolved. The accumulating news-silence (now most weeks) is the central live risk: geopolitical-premium trades decay quietly without a headline, and I cannot confirm day-rates are still bid. Absent any de-escalation signal I hold, but the burden is shifting \u2014 another silent week or any normalization confirmation tips to exit. BWET remains the only and cleanest pure-play freight-futures ETN.",
+        "exit_advice": "Hold, but staleness risk is now elevated \u2014 a single confirmation of de-escalation or transit normalization flips this to exit."
       },
       {
         "date": "2026-04-17",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "seed",
+        "exit_case": "War-risk premium may now be fully priced into BWET, making the chokepoint state baseline rather than a fresh catalyst.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for signs of geopolitical resolution or a decline in tanker rates, which would signal the end of the thesis."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news directly confirms BWET extending its advance as day-rates stay high on persistent Gulf/Hormuz shipping risk, ending the multi-week coverage silence that had been my central decay worry. The fresh confirmation that rates remain bid removes the silent-premium-decay risk for now. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+        "exit_advice": "Hold; exit on any confirmed ceasefire, de-escalation, or transit normalization that collapses the war-risk premium."
       },
       {
         "date": "2026-04-24",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "News ties Hormuz tensions to equity sentiment, not tanker rates \u2014 no direct freight-premium confirmation this week.",
         "resolved": false,
-        "assessment": "the catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET continues to be the purest vehicle for this event",
-        "exit_advice": "continue to monitor the situation closely, especially geopolitical developments in the Middle East"
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. This week's news confirms Hormuz tensions remain a live, market-moving force (snapping a 13-session Nasdaq win streak), evidence the geopolitical premium persists rather than de-escalates. No ceasefire, de-escalation, or normalization of transit reported, so the specific catalyst remains PENDING. The mild caveat: this headline ties Hormuz to broad equity sentiment, not directly to freight day-rates, so I lack fresh confirmation rates are still bid \u2014 but the tension itself is clearly intact. BWET remains the only and cleanest pure-play freight-futures ETN. Hold.",
+        "exit_advice": "Hold; exit on any ceasefire, de-escalation, or transit-normalization headline."
       },
       {
         "date": "2026-05-01",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "No fresh confirmation rates are still bid; geopolitical-premium trades decay silently and this is a news-less week again.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for any signs of resolution or decay."
+        "assessment": "Catalyst is the Strait of Hormuz war-risk premium keeping tanker day-rates elevated \u2014 an ongoing chokepoint state, not a discrete resolved event. No ceasefire, de-escalation, or normalization of transit has been reported in any week, so the specific catalyst remains PENDING and unresolved. This week brings no fresh coverage, reviving the silent-premium-decay risk that recurred earlier in the arc; last week's headline tied Hormuz to broad equity sentiment but not directly to freight rates, so I again lack fresh confirmation day-rates are still bid. The burden is shifting \u2014 the trade has run weeks with intermittent confirmation, and another silent stretch or any de-escalation signal tips to exit. Absent any normalization evidence I hold. BWET remains the only and cleanest pure-play freight-futures ETN.",
+        "exit_advice": "Exit on any confirmed Iran/Hormuz ceasefire, de-escalation, or transit normalization, or a clear breakdown in tanker day-rates/BWET."
       },
       {
         "date": "2026-05-08",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue to monitor geopolitical tensions and tanker rates for signs of resolution or decay."
-      },
-      {
-        "date": "2026-05-15",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
+        "live": false,
+        "thesis": "Tanker freight ETN rising on Strait of Hormuz war risk",
+        "src": "gdelt",
+        "exit_case": "Strait of Hormuz breakthrough reported, crude slipping \u2014 war-risk premium unwinding, the de-escalation signal I flagged tips to exit.",
+        "resolved": true,
+        "assessment": "My entire arc set one explicit exit trigger: any de-escalation, ceasefire, or normalization-of-transit signal. This week delivers exactly that \u2014 reports of a potential Strait of Hormuz breakthrough with crude slipping in direct response. The war-risk premium that kept tanker day-rates and the freight-futures bid elevated is unwinding as the chokepoint risk resolves toward normalization. Crude falling on the news is the cleanest tell the geopolitical premium is bleeding out. This is no longer a pending, unresolved chokepoint state \u2014 the catalyst has flipped from intact to resolving. Combined with the recurring silent-decay risk I flagged, the burden has tipped decisively to exit. BWET was the correct vehicle throughout, but the catalyst is gone.",
+        "exit_advice": "Exit. The breakthrough headline is the normalization-of-transit signal I warned for weeks would end the thesis."
       },
       {
         "date": "2026-05-22",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+        "src": "seed",
+        "exit_case": "Hormuz tensions could de-escalate, collapsing the war-driven freight premium quickly.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends. Exit if tensions ease or tanker rates stabilize/decline significantly."
+        "assessment": "Entry week. Catalyst \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 remains live and unresolved; BWET holds elevated gains as rates stay high. Chokepoint still active, premium intact, no de-escalation signed. BWET is the sole pure freight-futures vehicle and correctly captures the spike.",
+        "exit_advice": "Hold while chokepoint disruption persists; exit on de-escalation or freight rates normalizing."
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+        "src": "gdelt",
+        "exit_case": "No fresh coverage \u2014 silence may mean the freight spike is fading without a new catalyst leg.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue holding as the catalyst remains intact with no signs of resolution or decay."
+        "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 is unresolved. No de-escalation or reopening signed; chokepoint premium presumed intact despite no fresh coverage this week. BWET remains the sole pure freight-futures ETN capturing the spike. Watch for silence resolving into either escalation (rates higher) or quiet normalization (thesis decays).",
+        "exit_advice": "Hold while Hormuz remains disrupted; exit on signed de-escalation or rates normalizing."
       },
       {
         "date": "2026-06-05",
         "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
+        "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+        "src": "gdelt",
+        "exit_case": "Two straight weeks of silence \u2014 no escalation; freight spike likely quietly normalizing, premium decaying without a signed catalyst.",
         "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue holding BWET as the catalyst of rising tanker rates remains intact and geopolitical tensions in the Middle East continue to support the thesis."
+        "assessment": "Catalyst entered on \u2014 Hormuz war chokepoint driving tanker freight spike \u2014 has NOT formally resolved: no reopening or de-escalation signed. But this is the second consecutive week with zero fresh coverage, and a war-premium freight spike does not stay elevated on silence. The thesis is technically live yet visibly thinning; the binary is escalation (rates higher) vs. quiet decay (premium bleeds out). Absent confirmation rates are holding, conviction weakens each silent week. BWET remains the sole pure freight-futures ETN and the correct vehicle while the spike persists.",
+        "exit_advice": "Hold but tighten \u2014 a freight spike is fast-decaying; if a third silent week passes with no escalation, treat as quiet normalization and exit."
       },
       {
         "date": "2026-06-12",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for signs of resolution in geopolitical tensions or a decline in tanker rates."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event. No new developments this week alter the thesis.",
-        "exit_advice": "Continue holding BWET as the catalyst remains intact. Monitor for signs of geopolitical tensions easing or tanker rates stabilizing."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "thesis": "rising tanker rates",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst of rising tanker rates remains intact, with no signs of resolution or decay. Geopolitical tensions, particularly in the Middle East, continue to support the thesis. BWET remains the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring geopolitical tensions and tanker rates, as they remain the core drivers of this thesis."
-      }
-    ],
-    "VST": [
-      {
-        "date": "2026-02-27",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with VST being the primary vehicle to watch. The news indicates mixed reactions in the market, but the specific catalyst has not yet resolved.",
-        "exit_advice": "Monitor VST's Q4 earnings impact on the AI-power trade closely, as the catalyst is still pending and the thesis remains live."
-      },
-      {
-        "date": "2026-03-06",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade continues to evolve, with no resolution of the specific catalyst observed this week. VST remains the primary vehicle to watch, as there has been no significant change in the market conditions or news that would alter the thesis.",
-        "exit_advice": "Continue monitoring VST for developments related to Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved."
-      },
-      {
-        "date": "2026-03-13",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. VST remains the most suitable vehicle to monitor this event. The news about the Dallas-Fort Worth economy feeling the impact of the Iran war does not directly affect the AI-power trade thesis.",
-        "exit_advice": "Hold, as the Q4 earnings impact on the AI-power trade remains unresolved. The catalyst is still pending, and VST continues to be the appropriate vehicle."
-      },
-      {
-        "date": "2026-03-20",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Micron's earnings and the stock market rebound does not directly affect the AI-power trade thesis.",
-        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst has not yet resolved, and the thesis remains live."
-      },
-      {
-        "date": "2026-03-27",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade remains unresolved, with no direct news this week affecting the thesis. VST continues to be the most appropriate vehicle to monitor this event.",
-        "exit_advice": "Continue monitoring the progression of the Q4 earnings impact on the AI-power trade, focusing on VST as the key vehicle."
-      },
-      {
-        "date": "2026-04-03",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about tariffs and geopolitical conflicts does not directly impact the AI-power trade thesis.",
-        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on AI-power trade. The catalyst remains unresolved, and there is no significant news this week that directly affects the thesis."
-      },
-      {
-        "date": "2026-04-10",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. There has been no direct news this week affecting the thesis, and VST remains the most appropriate vehicle to monitor this event.",
-        "exit_advice": "Continue to monitor VST as the primary vehicle for the Q4 earnings impact on the AI-power trade, as the specific catalyst remains unresolved."
-      },
-      {
-        "date": "2026-04-17",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event.",
-        "exit_advice": "Continue monitoring VST for any developments related to the Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved."
-      },
-      {
-        "date": "2026-04-24",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Cohen and Steers' Q4 2025 earnings does not directly affect the AI-power trade thesis.",
-        "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst remains unresolved, and there is no significant news this week that would alter the thesis."
-      },
-      {
-        "date": "2026-05-01",
-        "live": true,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "AI concerns resurfacing in the market may indicate the Q4 earnings impact has been priced in or is no longer a dominant driver",
-        "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold, but the resurfacing of AI concerns in the market suggests the catalyst may be losing its edge. VST remains the primary vehicle to watch, but the thesis is becoming less clear as new market dynamics emerge.",
-        "exit_advice": "Monitor for further signs that the Q4 earnings impact on the AI-power trade is fully priced in or overshadowed by new market concerns"
-      },
-      {
-        "date": "2026-05-08",
         "live": false,
-        "thesis": "Q4 earnings impact on AI-power trade",
-        "exit_case": "The AI-power trade has become mainstream and crowded, with options traders and media heavily focusing on it, suggesting the catalyst may have lost its edge.",
+        "thesis": "Tanker freight ETN spiking on Hormuz war chokepoint",
+        "src": "gdelt",
+        "exit_case": "Third straight week of silence; a war-premium freight spike cannot hold on no news \u2014 premium has bled out.",
         "resolved": false,
-        "assessment": "The Q4 earnings impact on the AI-power trade has evolved into a mainstream narrative, with options traders and media heavily focusing on it. This suggests the catalyst may have lost its original edge, even though the specific Q4 earnings event has not been resolved.",
-        "exit_advice": "Consider exiting the position as the AI-power trade has become mainstream and crowded, potentially diminishing the original edge."
-      }
-    ],
-    "CEG": [
-      {
-        "date": "2026-02-27",
-        "live": false,
-        "thesis": "380-megawatt deal with CyrusOne",
-        "exit_case": "none",
-        "resolved": true,
-        "assessment": "The deal was announced on February 9 and reported by Reuters and other outlets, confirming the catalyst has passed. While CEG may still benefit from broader momentum, the specific thesis tied to this deal is no longer actionable.",
-        "exit_advice": "The catalyst (380-megawatt deal with CyrusOne) has already occurred and been reported, making it public and priced. Exit the position as the specific event driving the thesis is resolved."
+        "assessment": "No reopening or de-escalation has been formally signed, so the catalyst is not technically resolved. But a war-driven freight spike is sustained only by active chokepoint news, and this is the third consecutive silent week. My prior two notes flagged that the thesis was thinning and that the binary was escalation vs. quiet decay; silence has now resolved decisively toward decay. BWET remains the correct vehicle but there is no longer a live spike to capture. Treat as over.",
+        "exit_advice": "Exit. The spike is the tradeable event, and three consecutive weeks of zero coverage means the chokepoint premium has quietly normalized rather than escalated \u2014 the edge is gone even without a signed de-escalation."
       }
     ],
     "CSLLY": [
       {
         "date": "2026-04-03",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Tariff signed via executive order Apr 2 \u2014 the announcement catalyst has already occurred and is public.",
         "resolved": false,
-        "assessment": "This week marked the announcement of the 100% tariff on some patented pharmaceuticals by Trump, as reported across multiple news outlets. This is the initial catalyst for the event, and its effects on the pharmaceutical market, particularly foreign manufacturers, are just beginning to materialize.",
-        "exit_advice": "The catalyst remains live as the 100% tariff on foreign pharma has been announced but its full impact and market reaction are still unfolding. Monitor for further developments and price adjustments in the pharmaceutical sector."
+        "assessment": "Entered same week Trump unveiled the 100% patented-drug tariff via executive order. The headline is out, but the structure is conditional: tariff hits companies that haven't reached a deal/lack US factories. CSL is flagged as a potential escapee given its US plasma/manufacturing footprint \u2014 that determination has NOT been made, so the specific catalyst (does CSL escape) is live. Implementation is phased ('could hit this year') and deal negotiations ongoing, keeping the edge intact. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes-via-US-factories thesis.",
+        "exit_advice": "Hold. Order is signed but the operative variable \u2014 which companies reach deals/escape via US factories \u2014 is still pending; CSL's exemption status unresolved."
       },
       {
         "date": "2026-04-10",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Tariff headline already public/priced; CSL's US-factory escape may be assumed by market, edge decaying with no catalyst confirmation",
         "resolved": false,
-        "assessment": "No significant news this week, but the tariff's implications remain active and unresolved.",
-        "exit_advice": "Hold, as the tariff's impact on foreign pharma is still unfolding"
+        "assessment": "The fixed catalyst \u2014 whether CSL escapes the 100% pharma tariff through its US plasma/manufacturing presence \u2014 remains unresolved. The executive order is out, but the exemption/deal determination for CSL specifically has NOT been made, and implementation is phased. No fresh coverage this week means nothing has closed; the binary outcome that defines my edge is still open. CSLLY stays the sole pure-play vehicle for the Australian-drugmaker-escapes thesis. Watch for any named deal, formal exemption grant/denial, or tariff effective-date that would resolve and price the catalyst.",
+        "exit_advice": "Hold; the specific determination (does CSL formally escape via US footprint) is still pending \u2014 no deal/exemption confirmed and tariff implementation phased."
       },
       {
         "date": "2026-04-17",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Tariff EO already issued; CSL's US footprint makes escape near-certain \u2014 binary essentially decayed to foregone conclusion.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments related to the tariff implementation or potential reversals."
+        "assessment": "Two straight weeks of no fresh coverage. The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued, so the binary that defines my edge is still open. Silence means nothing has closed. CSLLY stays the sole pure-play vehicle.",
+        "exit_advice": "Hold unless a formal CSL exemption/deal is named or a tariff effective-date is set with CSL explicitly carved in/out \u2014 that resolves the binary."
       },
       {
         "date": "2026-04-24",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Four weeks of total silence; catalyst may be decaying into irrelevance with no determination ever forthcoming.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
+        "assessment": "Third straight week (now fourth since entry) with no fresh coverage. The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued. The binary that defines my edge is still open, so thesis stays live, but the prolonged silence is the real risk: a determination that never comes is an edge that quietly erodes. CSLLY remains the sole pure-play vehicle. Watch for any named deal, formal exemption grant/denial, or tariff effective-date.",
+        "exit_advice": "Hold but flag staleness \u2014 if another 1-2 weeks pass with no named exemption, deal, or tariff effective-date, the edge is decaying even absent formal resolution."
       },
       {
         "date": "2026-05-01",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Five weeks of total silence; the CSL-specific exemption determination may never come, an edge eroding into dead money.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Hold until there is a resolution or reversal of the 100% tariff on foreign pharmaceuticals."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. The executive order is public, but no named exemption, deal, or tariff effective-date applying to CSL has been issued. This is now the fourth straight week (fifth since entry) with no fresh coverage. The binary that defines my edge is still technically open, so thesis stays live, but the persistent silence is the dominant risk: a determination that never arrives is an edge that erodes to nothing. CSLLY remains the sole pure-play vehicle.",
+        "exit_advice": "Hold but treat prolonged silence as a soft exit signal \u2014 if no named deal/exemption/effective-date emerges soon, the edge has quietly decayed."
       },
       {
         "date": "2026-05-08",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Six weeks of total silence on CSL exemption; a determination that never arrives is a dead catalyst, edge gone.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains unresolved. No named exemption, deal, or tariff effective-date applying to CSL has been issued. This week's only news is unrelated macro (Iran deal, oil, record stocks), nothing pharma-tariff specific. This is now the fifth straight week (sixth since entry) with zero fresh coverage of the catalyst. The binary that defines my edge is technically still open, so thesis stays live, but the persistent silence is the dominant and worsening risk: a determination that never materializes is an edge that has effectively eroded to nothing. CSLLY remains the sole pure-play vehicle.",
+        "exit_advice": "If another 1-2 weeks pass with no named CSL exemption/deal or tariff effective-date, treat the catalyst as decayed and exit \u2014 silence this long is itself the signal."
       },
       {
         "date": "2026-05-15",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Six straight weeks of total silence \u2014 the CSL exemption determination may never come, leaving the edge decayed to nothing.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals, as the catalyst remains unresolved."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued. But this is now the sixth straight week (seventh since entry) with zero fresh coverage of the event. The binary that defines my edge is technically still open, so thesis stays live, but the persistent silence is the dominant and worsening risk \u2014 a determination that never materializes is an edge that has effectively eroded to nothing. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes thesis.",
+        "exit_advice": "Edge has eroded badly; if a seventh week passes with no determination, treat the catalyst as functionally dead and exit on the decay alone rather than wait for a resolution that isn't arriving."
       },
       {
         "date": "2026-05-22",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Seven weeks of total silence \u2014 a CSL determination that never arrives is an edge eroded to nothing.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued. This is now the seventh straight week (eighth since entry) with zero fresh coverage of the pharma-tariff event; this week's news is entirely Trump quantum-computing equity stakes (IBM, D-Wave, Rigetti, IonQ), wholly unrelated to my thesis. The binary that defines my edge is technically still open, so the thesis stays live, but the persistent silence is the dominant and worsening risk \u2014 an edge that has effectively eroded to near nothing. CSLLY remains the sole pure-play vehicle for the Australian-drugmaker-escapes thesis.",
+        "exit_advice": "If another week passes with zero pharma-tariff coverage and no CSL determination, treat the edge as effectively dead and exit on inertia grounds."
       },
       {
         "date": "2026-05-29",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Eight weeks of total silence \u2014 the CSL exemption determination may never come; edge decayed to nothing.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. Exit if the tariff is repealed or significantly modified."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved: no named exemption, deal, or tariff effective-date applying to CSL has been issued, so catalyst_resolved stays false. But this is now the eighth straight week (ninth since entry) with zero fresh coverage of the event. The binary that defines my edge is technically still open, keeping the thesis live, but the persistent silence is now the dominant and decisive risk \u2014 a determination that never materializes is an edge eroded to nothing. This is a decay-based near-exit, not a resolution exit. CSLLY remains the sole pure-play vehicle.",
+        "exit_advice": "On decay grounds this is a near-exit: eight straight weeks with zero catalyst coverage means the edge has effectively eroded. If another silent week passes, exit on decay regardless of formal resolution."
       },
       {
         "date": "2026-06-05",
-        "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "live": false,
+        "thesis": "Trump 100% pharma tariff; CSL may escape via US factories",
+        "src": "gdelt",
+        "exit_case": "Nine straight weeks of zero coverage; a determination on CSL's escape that never arrives is an edge decayed to nothing.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals."
+        "assessment": "The fixed catalyst \u2014 whether CSL specifically escapes the 100% pharma tariff via its US plasma/manufacturing footprint \u2014 remains formally unresolved, so catalyst_resolved stays false. But this is the ninth straight week (tenth since entry) with no fresh coverage of the event. An edge requires the determination to actually surface and reprice; after this much silence it effectively never will. The thesis is no longer live on decay grounds. CSLLY was the sole pure-play vehicle.",
+        "exit_advice": "Exit. The catalyst is formally still pending \u2014 no exemption, deal, or effective-date for CSL has been issued \u2014 but nine consecutive weeks of total silence means the binary that defined my edge has decayed past the point of tradability. This is a decay exit, not a resolution exit."
+      }
+    ],
+    "INTC": [
+      {
+        "date": "2026-05-08",
+        "live": true,
+        "thesis": "Apple reportedly to buy Intel chips for iPhone",
+        "src": "gdelt",
+        "exit_case": "Deal is only 'reported'\u2014no signed agreement, could be denied or never materialize, leaving INTC exposed.",
+        "resolved": false,
+        "assessment": "Entry week on a reported (not confirmed) Apple deal to source iPhone chips from Intel. The specific catalyst\u2014an actual signed/announced supply agreement\u2014has NOT occurred; it remains rumor-stage per CNBC's conditional framing ('what a deal would mean'). Chip tape is strong on the AI trade broadly, but my edge is the unpriced INTC-specific Apple foundry/modem win still pending. INTC is the only and purest vehicle. Watch for either confirmation (deal signed \u2192 resolved/priced) or denial.",
+        "exit_advice": "Hold while the Apple-Intel chip deal remains unconfirmed and unsigned; this is a pending report, not a closed deal."
       },
       {
-        "date": "2026-06-12",
+        "date": "2026-05-15",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Apple reportedly to buy Intel chips for iPhone",
+        "src": "gdelt",
+        "exit_case": "Rumor with zero follow-up confirmation a week later \u2014 story may be quietly dying, edge decaying without catalyst materializing",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
+        "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred; it remains rumor-stage from entry week and saw no fresh coverage this week. My edge (the unpriced INTC-specific Apple win) is intact only while pending, which it is. No confirmation and no denial means the binary remains open. INTC stays the sole pure vehicle. Watch closely: continued silence weakens the thesis, while either a signed deal (resolved/priced) or explicit denial would end it.",
+        "exit_advice": "Hold, but a reported deal with no corroboration after a week risks fading into nothing; treat silence as a yellow flag, not green."
       },
       {
-        "date": "2026-06-19",
+        "date": "2026-05-22",
         "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "thesis": "Apple reportedly to buy Intel chips for iPhone",
+        "src": "gdelt",
+        "exit_case": "Three weeks of total silence on the Apple deal; rumor decaying with zero confirming coverage\u2014edge fading.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals continues to be in effect with no new developments this week. The catalyst remains pending resolution, and the implications for the market are still active.",
-        "exit_advice": "Continue monitoring for any developments related to the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live."
+        "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred and again drew no fresh coverage this week. This week's news (the $8.9B government stake / unrelated IBM commentary) is off-thesis noise and does not touch the Apple foundry/modem binary. My edge (unpriced INTC-specific Apple win) remains technically intact only because the binary stays open\u2014but three consecutive weeks of silence materially weaken the live rumor. No confirmation, no denial. INTC remains the sole pure vehicle. The clock is the real risk now: continued silence is itself decay toward a dead rumor.",
+        "exit_advice": "Silence is now the dominant signal\u2014if another week passes with no confirmation, treat the rumor as dead and exit."
       },
       {
-        "date": "2026-06-26",
-        "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
+        "date": "2026-05-29",
+        "live": false,
+        "thesis": "Apple reportedly to buy Intel chips for iPhone",
+        "src": "gdelt",
+        "exit_case": "Four straight weeks of total silence on the Apple-Intel deal; the rumor has decayed into a dead, unconfirmed lead.",
         "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals."
+        "assessment": "The specific catalyst\u2014a signed/announced Apple-Intel iPhone chip supply agreement\u2014still has NOT occurred, so it is not resolved/priced. But after four straight weeks with no confirmation and no denial, the live rumor has decayed past usefulness; my edge required an active, unpriced binary that is now stale. This week's coverage is quantum-computing list filler, fully off-thesis. Silence is itself the verdict here. INTC remains the only pure vehicle, but the thesis is dead from decay, not resolution.",
+        "exit_advice": "Exit. Catalyst never confirmed nor denied, but four consecutive weeks of zero fresh coverage = a dead rumor. Only off-thesis noise (quantum, govt stake) now drives INTC."
+      }
+    ],
+    "RGTI": [
+      {
+        "date": "2026-05-22",
+        "live": true,
+        "thesis": "Trump $2B government equity stakes in quantum firms",
+        "src": "gdelt",
+        "exit_case": "Stakes announced 5-21, RGTI already gapped up double-digits \u2014 pop priced in, edge may be gone",
+        "resolved": false,
+        "assessment": "Entry week. Catalyst is the Trump $2B government equity-stake program in quantum firms, announced 5-21; RGTI is an explicitly named recipient. Stocks ripped (RGTI gapped up, IBM +7% on $1bn, D-Wave +13%). The administration's language is largely 'to take' stakes \u2014 announced intent with definitive agreements/closings still pending, so the discrete event is not fully consummated. That keeps the thesis live, but the risk is obvious: the announcement pop already happened and shorts are piling in on the broader quantum hype. RGTI is the purest current pure-play among the known set \u2014 a named beneficiary, small-cap, highest beta to the program. Keep it as the single vehicle. Watch for the gap between announced intent and actual stake closing; once stakes close/fund, catalyst is resolved and edge is gone.",
+        "exit_advice": "Hold while stake-taking is still announced-intent, not closed. Exit the moment definitive agreements close/disburse for the named nine, or if RGTI pop reverses on short crowding (banklesstimes flags heavy bets against RGTI/QBTS/QUBT)."
       },
       {
-        "date": "2026-07-03",
-        "live": true,
-        "thesis": "100% tariff on foreign pharma",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-        "exit_advice": "Continue monitoring for any developments regarding the tariff, as the catalyst remains unresolved."
+        "date": "2026-05-29",
+        "live": false,
+        "thesis": "Trump $2B government equity stakes in quantum firms",
+        "src": "gdelt",
+        "exit_case": "Stakes now actually funding (Commerce $100M to D-Wave deployed); $2B 'poured in' \u2014 intent consummated, surge is pure hype.",
+        "resolved": true,
+        "assessment": "Re-reading the arc: entry thesis was the gap between announced intent (5-21) and actual stake closings. This week that gap closed \u2014 Commerce Department $100M funding to D-Wave is a concrete consummation, and coverage now describes the $2B as deployed. RGTI/QBTS still rising on 'quantum optimism' but that is crowding, not a pending discrete event. The $931M dilution warning signals the equity raises are real and underway. Edge is gone.",
+        "exit_advice": "Exit. The announced intent has transitioned to actual disbursement \u2014 Commerce deployed $100M to D-Wave this week and headlines read 'US Government Pours $2B' in past tense. The discrete catalyst (stakes closing/funding) has occurred and is public; remaining flow is mainstream hype, IPO chatter, and dilution warnings ($931M), not edge."
       }
     ],
     "CLOV": [
       {
         "date": "2026-05-29",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst event (lawsuit win) has just occurred, and the stock has reacted positively. The thesis remains live as the full implications of the lawsuit win are still being absorbed by the market.",
-        "exit_advice": "Monitor for any legal appeals or further developments in the lawsuit that could reverse the initial win."
-      },
-      {
-        "date": "2026-06-05",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains live with no new developments this week. The stock's reaction to the lawsuit win is still unfolding.",
-        "exit_advice": "Continue holding as the market is still digesting the implications of the lawsuit win."
-      },
-      {
-        "date": "2026-06-12",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
-        "exit_advice": "Continue holding as the market continues to absorb the implications of the lawsuit win."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
-        "exit_advice": "Continue to monitor for any new developments or signs that the market has fully priced in the lawsuit win."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
-        "exit_advice": "Continue monitoring for any new developments related to the lawsuit win or signs of market fully pricing in the event."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "thesis": "Wins lawsuit on Star Ratings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
-        "exit_advice": "Hold as the catalyst remains unresolved and the thesis is still live."
+        "live": false,
+        "thesis": "Won lawsuit on Medicare Star Ratings, hits record high",
+        "src": "gdelt",
+        "exit_case": "Lawsuit already won and stock at record high \u2014 discrete catalyst has occurred and is fully public/priced.",
+        "resolved": true,
+        "assessment": "Entered on the discrete event of Clover winning its Medicare Star Ratings lawsuit, which this week's sole news confirms has already happened, sending CLOV to a record high. The catalyst is a resolved court outcome \u2014 analogous to a verdict handed down \u2014 not a pending decision. The price spike is the market pricing the win, leaving no informational edge. While the favorable ratings may aid future bonus payments, that is a downstream theme, not the catalyst entered. Resolved; thesis not live.",
+        "exit_advice": "The named catalyst \u2014 winning the Star Ratings lawsuit \u2014 is a closed, adjudicated event. The court ruling is public and the record-high pop already reflects it. No pending edge remains; the higher star-rating revenue benefit is a known consequence, not a fresh catalyst. Exit."
       }
     ],
     "QBTS": [
       {
-        "date": "2026-05-29",
-        "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The $2B quantum funding announcement has sparked optimism in quantum computing stocks, with QBTS emerging as a key beneficiary. The news cycle highlights ongoing enthusiasm and speculation, but the full impact of the funding is yet to materialize, leaving room for further developments.",
-        "exit_advice": "Hold; catalyst remains pending as funding program implications unfold."
-      },
-      {
         "date": "2026-06-05",
         "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "none",
+        "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+        "src": "gdelt",
+        "exit_case": "Funding announced June 2-3 and QBTS already crashed \u2014 sell-the-news suggests catalyst priced/resolved.",
         "resolved": false,
-        "assessment": "The $2B US government quantum funding catalyst remains live, with no resolution or decay observed in the news cycle or journal. QBTS continues to be the purest vehicle, benefiting from ongoing optimism in the sector. Recent IPO activity and stock-specific news (e.g., D-Wave Quantum's crash) highlight sector volatility but do not impact the core thesis.",
-        "exit_advice": "Continue holding as the $2B quantum funding catalyst remains pending, with no evidence of resolution or decay. Stay alert for signs of crowding or mainstream hype, which could indicate overexposure."
+        "assessment": "Entry week. The $2B Commerce quantum push naming D-Wave is the catalyst; the program was unveiled this week but disbursement/named-award specifics to the 9 companies remain a multi-stage process still unfolding, so the specific D-Wave allocation is pending, not closed. Notably QBTS crashed this week despite the funding news \u2014 a sell-the-news move and the single biggest red flag, suggesting the headline may already be partly priced. Heavy competing supply (Quantinuum's $1.68B IPO) dilutes the quantum-funding narrative. QBTS remains the only known and purest vehicle for this specific catalyst. Thesis stays live only while the named-award detail is pending; tighten exit if formal D-Wave grant is signed/announced.",
+        "exit_advice": "Hold but watch closely: if specific D-Wave award is formally finalized, edge is gone. The crash is a warning, not proof of resolution."
       },
       {
         "date": "2026-06-12",
         "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "Mainstream hype and crowding around quantum computing stocks suggests enthusiasm may be peaking.",
+        "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+        "src": "gdelt",
+        "exit_case": "Sell-the-news crash at entry suggests the $2B headline is already priced; only generic hype remains.",
         "resolved": false,
-        "assessment": "The catalyst remains live, but the increasing mainstream attention to quantum computing stocks, as highlighted in recent news, raises the risk of overexuberance. QBTS continues to be the purest play on the theme.",
-        "exit_advice": "Monitor for signs of the $2B quantum funding being formally allocated or any shift in sentiment that could precede a sector-wide pullback."
+        "assessment": "No substantive news this week \u2014 only generic 'stocks to watch' listicles, which is pure hype/crowding, not catalyst resolution. The specific D-Wave named-award allocation from the $2B Commerce program remains pending and unsigned, so the catalyst has not occurred. The entry-week sell-the-news crash remains the key risk that the headline is partly priced, but the multi-stage disbursement still leaves the named-award detail live. QBTS stays the only and purest vehicle. Hold while the formal grant is pending; tighten on any signed allocation.",
+        "exit_advice": "Exit if formal named D-Wave grant/allocation is signed/announced, or if program disbursement closes without D-Wave."
       },
       {
         "date": "2026-06-19",
         "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "none",
+        "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+        "src": "gdelt",
+        "exit_case": "Catalyst decaying: three weeks post-unveil with no named D-Wave award; only hype/insider-selling noise, suggesting allocation may never specifically crystallize.",
         "resolved": false,
-        "assessment": "The $2B quantum funding catalyst remains live with no resolution or decay observed. QBTS continues to be the purest vehicle, despite recent volatility and insider selling. The sector is gaining mainstream attention, but the core thesis remains intact.",
-        "exit_advice": "Monitor for signs of mainstream hype or sector-wide overexuberance, which could indicate the catalyst is fully priced in."
+        "assessment": "Third week with no substantive catalyst progress. This week's news is pure hype (Yahoo 'experts see gains') and noise (insider selling, -4.2%) \u2014 neither resolves nor advances the specific $2B Commerce named-award to D-Wave, which remains pending and unsigned. The multi-stage disbursement keeps the named allocation technically live, but the lack of any concrete program movement plus persistent sell-the-news/insider-selling weakness raises the risk the specific D-Wave allocation never materializes as a discrete signed event. Catalyst not occurred, not priced as resolved. QBTS remains the only and purest vehicle. Hold, but on a short leash \u2014 tighten on any signed grant or program disbursement that skips D-Wave.",
+        "exit_advice": "Exit if a formal D-Wave grant is signed/announced (resolution) OR if the program disburses without naming D-Wave specifically (catalyst decayed to nothing)."
       },
       {
         "date": "2026-06-26",
         "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "none",
+        "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+        "src": "gdelt",
+        "exit_case": "Four weeks with zero program movement; sell-the-news crash plus insider selling suggest the discrete D-Wave award may never materialize as a signed event.",
         "resolved": false,
-        "assessment": "The $2B US government quantum funding catalyst remains active, with no signs of resolution or decay. QBTS continues to be the purest vehicle for this event, despite sector volatility and increasing mainstream attention.",
-        "exit_advice": "Continue holding QBTS as the $2B quantum funding catalyst remains live with no resolution or decay observed."
+        "assessment": "Fourth straight week with no substantive catalyst progress. This week's news is pure macro noise (equity futures, Brent/Strait of Hormuz) with zero relevance to the $2B Commerce quantum program. The specific named-award allocation to D-Wave remains pending and unsigned, so the catalyst has not occurred or been priced as resolved. However, the prolonged silence since the June unveiling, combined with the entry-week sell-the-news crash and ongoing insider selling, keeps raising the risk the discrete D-Wave grant never crystallizes. Technically still live while the allocation is pending. QBTS remains the only and purest vehicle.",
+        "exit_advice": "Hold on a very short leash; exit on any signed grant, a disbursement that skips D-Wave, or continued total absence of program news."
       },
       {
         "date": "2026-07-03",
         "live": true,
-        "thesis": "US govt $2B quantum funding",
-        "exit_case": "none",
+        "thesis": "$2B Commerce Dept quantum funding push names D-Wave in focus",
+        "src": "gdelt",
+        "exit_case": "Five weeks of total silence since June unveiling; the discrete D-Wave named-award may never crystallize as a signed event.",
         "resolved": false,
-        "assessment": "The $2B US government quantum funding catalyst is still pending, and QBTS remains the optimal vehicle. No new developments this week suggest any change in the thesis.",
-        "exit_advice": "The $2B quantum funding catalyst remains live with no signs of resolution or decay. Continue holding QBTS as the purest vehicle for this event."
-      }
-    ],
-    "PRAX": [
-      {
-        "date": "2026-06-05",
-        "live": true,
-        "thesis": "Phase 2/3 POWER1 study findings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings have been shared, but the full implications and next steps are still pending. The catalyst remains live as the study results are being analyzed and potential regulatory pathways are being considered.",
-        "exit_advice": "Monitor for further updates on the POWER1 study findings and any subsequent regulatory or clinical developments."
-      },
-      {
-        "date": "2026-06-12",
-        "live": true,
-        "thesis": "Phase 2/3 POWER1 study findings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
-        "exit_advice": "Continue monitoring for further updates on the POWER1 study findings and potential regulatory pathways."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "thesis": "Phase 2/3 POWER1 study findings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
-        "exit_advice": "Continue monitoring for any updates on the Phase 2/3 POWER1 study findings and potential regulatory pathways."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "thesis": "Phase 2/3 POWER1 study findings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains live with no resolution or decay observed. The Phase 2/3 POWER1 study findings are still being analyzed, and potential regulatory pathways are under consideration.",
-        "exit_advice": "Hold as the Phase 2/3 POWER1 study findings are still under analysis and no resolution or decay has occurred."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "thesis": "Phase 2/3 POWER1 study findings",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains live with no significant developments indicating resolution or decay. The Phase 2/3 POWER1 study findings are still under analysis, and regulatory pathways are still under consideration.",
-        "exit_advice": "Continue to monitor as the Phase 2/3 POWER1 study findings are still being analyzed and no resolution or decay has occurred."
-      }
-    ],
-    "REGN": [
-      {
-        "date": "2026-06-12",
-        "live": true,
-        "thesis": "WHO backs Ebola antibody therapy",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst is still pending as WHO's support has been announced but formal approval or widespread deployment has not yet occurred. REGN remains the purest vehicle for this event.",
-        "exit_advice": "Monitor for WHO's formal approval or rejection of the therapy, as well as any significant developments in the Ebola outbreak that could affect demand."
-      },
-      {
-        "date": "2026-06-19",
-        "live": true,
-        "thesis": "WHO backs Ebola antibody therapy",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains pending, with no resolution or decay observed this week. REGN continues to be the purest vehicle for this event.",
-        "exit_advice": "Hold as the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred."
-      },
-      {
-        "date": "2026-06-26",
-        "live": true,
-        "thesis": "WHO backs Ebola antibody therapy",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains pending with no new developments this week. REGN continues to be the purest vehicle for this event.",
-        "exit_advice": "Continue monitoring for WHO's formal approval or widespread deployment of the Ebola antibody therapy. Exit if the catalyst resolves or shows signs of decay."
-      },
-      {
-        "date": "2026-07-03",
-        "live": true,
-        "thesis": "WHO backs Ebola antibody therapy",
-        "exit_case": "none",
-        "resolved": false,
-        "assessment": "The catalyst remains unresolved, with no new developments this week. REGN continues to be the purest vehicle for this event.",
-        "exit_advice": "Hold; the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred, keeping the catalyst pending."
+        "assessment": "Fifth straight week with zero catalyst progress. This week's only news is an unrelated Markel insurance/buyback item \u2014 no relevance whatsoever to the $2B Commerce quantum program. The specific named-award allocation to D-Wave remains pending and unsigned, so the catalyst has not occurred or been priced as resolved. But the now five-week silence since the June unveiling, layered on the entry-week sell-the-news crash and insider selling, keeps raising the odds the discrete D-Wave grant never materializes as a clean signed event. Technically still live while the allocation is pending; on a very short leash. QBTS remains the only and purest vehicle.",
+        "exit_advice": "Tighten hard \u2014 exit on any program disbursement that skips D-Wave, or after continued silence the discrete grant looks dead."
       }
     ]
   }

@@ -6,12 +6,13 @@
   "2025-04-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "China curbs just announced; MP already surging \u2014 risk it's a one-day priced pop, not durable",
+      "src": "seed",
+      "exit_case": "China curbs just announced; reshoring/tariff dynamic still unfolding \u2014 no reversal or resolution yet",
       "catalyst_resolved": false,
-      "assessment": "Entry week. China rare-earth export curbs are active and escalating within the US-China tariff war; MP Materials is the sole scaled US producer, a direct reshoring beneficiary still described as under-owned. Catalyst is live and unresolved \u2014 curbs are in force with no reversal. MP remains the cleanest and only pure-play vehicle.",
-      "exit_advice": "Hold; curbs are freshly imposed and ongoing, not reversed \u2014 catalyst pending",
+      "assessment": "Entry week. China restricted rare-earth exports amid the US-China tariff war, and MP Materials \u2014 the only scaled US rare-earth miner \u2014 is the direct, purest beneficiary as a reshoring/supply-security play. The curbs are newly active, not reversed, so the catalyst remains open. Noise in the feed (Australian shares, real estate, tax) is irrelevant. MP is the clean pure-play vehicle.",
+      "exit_advice": "Hold. China export curbs are freshly imposed and escalating; MP is the sole scaled US producer and remains under-owned. Catalyst pending.",
       "evidence_urls": [
         "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/"
       ]
@@ -20,12 +21,13 @@
   "2025-04-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "No reversal of China curbs; this week's news (pharma tariffs, nuclear stocks) is unrelated noise \u2014 nothing resolves the catalyst.",
+      "src": "gdelt",
+      "exit_case": "China curbs could be reversed in tariff de-escalation talks, ending supply-security premium",
       "catalyst_resolved": false,
-      "assessment": "China rare-earth export curbs remain active and unresolved within the ongoing US-China tariff conflict. No deal, no reversal, no easing announced this week. MP Materials stays the sole scaled US producer and only pure-play vehicle. This week's headlines covered pharma tariffs and nuclear power stocks \u2014 irrelevant to the rare-earth thesis, so no new signal either way. Catalyst remains live.",
-      "exit_advice": "Hold. China export curbs remain in force with no rollback; MP's reshoring catalyst is still pending and unpriced.",
+      "assessment": "China's rare-earth export curbs remain in place this week \u2014 no reversal, no resolution. The catalyst stays open and pending. This week's news is all noise (pharma tariffs, nuclear stocks, market volatility commentary), nothing directly bearing on rare earths or MP. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Thesis intact.",
+      "exit_advice": "Hold; curbs remain active and unreversed. Exit if China lifts rare-earth export restrictions in a US-China deal.",
       "evidence_urls": [
         "https://www.fool.com/research/pharmaceutical-tariffs-imports/"
       ]
@@ -34,26 +36,28 @@
   "2025-05-02": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "China-US trade war showing 'composure'/de-escalation tone; tariff talks could ease curbs anytime",
+      "src": "gdelt",
+      "exit_case": "China curbs could be lifted in tariff de-escalation, but no reversal yet this week.",
       "catalyst_resolved": false,
-      "assessment": "No rare-earth-specific news this week. China export curbs remain active and unresolved within the ongoing trade war. Headlines covered Q1 GDP contraction, China's restraint on stimulus, and nuclear/uranium \u2014 none touch rare-earth curbs. China holding composure hints at eventual negotiation but no easing of rare-earth restrictions announced. MP Materials stays the sole scaled US producer and only pure-play vehicle. Catalyst remains pending.",
-      "exit_advice": "Hold; curbs still in force. Watch for any rare-earth-specific easing in a trade deal \u2014 that would resolve the catalyst.",
+      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is entirely noise \u2014 GDP contraction, MPW REIT, uranium/nuclear, China stimulus restraint \u2014 nothing reverses the curbs or directly bears on MP. China showing 'composure' in trade war suggests no near-term concession, so curbs likely persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
+      "exit_advice": "Hold. Exit only if China formally rescinds rare-earth export curbs or a US-China deal explicitly removes them.",
       "evidence_urls": [
-        "https://www.malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
+        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
       ]
     }
   ],
   "2025-05-09": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-UK tariff deal signals de-escalation momentum; US-China talks looming could reverse curbs soon.",
+      "src": "gdelt",
+      "exit_case": "US-UK tariff deal hints at de-escalation; a US-China deal could reverse curbs and unwind the supply-security premium.",
       "catalyst_resolved": false,
-      "assessment": "China rare-earth export curbs remain active and unresolved. This week's news covers a US-UK tariff deal, PBOC rate cuts, and Berkshire \u2014 none touch the rare-earth curbs directly. The UK deal hints at broader tariff de-escalation, which raises the risk of an eventual US-China deal that could ease curbs, but no such reversal has occurred. MP Materials stays the sole scaled US producer and only pure-play vehicle. Catalyst remains pending.",
-      "exit_advice": "Hold, but watch for any US-China deal that eases rare-earth curbs \u2014 that would resolve the catalyst.",
+      "assessment": "China's rare-earth export curbs remain in place and unresolved this week \u2014 no reversal, no concession. This week's news is entirely noise: UK logistics REIT, Trump-UK tariff deal, Eli Lilly, PBOC rate cuts, Buffett. The Trump-UK deal is worth flagging as a de-escalation signal, but it touches nothing on China rare earths; curbs persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
+      "exit_advice": "Hold, but watch for a US-China trade deal that explicitly lifts rare-earth curbs \u2014 that would resolve the catalyst.",
       "evidence_urls": [
         "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-stocks-rise-after-Trump-strikes-tariff-deal-with-UK-49872677/"
       ]
@@ -62,22 +66,24 @@
   "2025-05-16": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "Broad US-China tariff de-escalation underway raises odds curbs get negotiated away soon, eroding the scarcity premium.",
+      "src": "gdelt",
+      "exit_case": "US-China trade de-escalation could prompt China to lift rare-earth curbs, dissolving the supply-shock thesis.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Eurovision, Trump Middle East tour, Coinbase, refugees \u2014 zero rare-earth content. China's rare-earth export curbs remain in force with no announced reversal of the specific licensing restrictions. The broader US-China de-escalation (UK deal prior week, ongoing tariff talks) continues to raise the probability that curbs get bargained away, but that has NOT happened \u2014 the specific catalyst stays pending and unpriced for reversal. MP Materials remains the sole scaled US producer and only pure-play vehicle. No reason to change vehicle. Catalyst live.",
-      "exit_advice": "Hold, but watch closely: any explicit rare-earth export-curb easing in a US-China deal resolves the catalyst \u2014 exit immediately on that headline.",
+      "assessment": "This week's feed is 100% noise: Eurovision, Trump Middle East tour, birthright citizenship, Coinbase hack, Nvidia/Arm. Nothing touches China rare-earth curbs or MP. The curbs remain in place and unresolved \u2014 no announced rollback despite ongoing US-China de-escalation chatter. Until China explicitly lifts the export restrictions, the supply-security catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring vehicle.",
+      "exit_advice": "Hold, but watch for any explicit rollback of rare-earth export curbs in US-China negotiations \u2014 that ends the thesis.",
       "evidence_urls": []
     },
     {
       "ticker": "COIN",
-      "thesis": "Cyberattack breach, $20M ransom, ~$400M cost, SEC probe",
+      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
       "thesis_live": true,
-      "exit_case": "Breach already disclosed and reimbursement plan announced; shares plunged and event may be priced same-day.",
+      "src": "gdelt",
+      "exit_case": "Disclosure already public Thursday; stock plunged and $400M cost is now priced \u2014 one-time shock done",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Coinbase disclosed a cyberattack: insiders bribed to leak customer data, $20M ransom demand, estimated up to $400M cost, plus an emerging SEC investigation. Stock plunged Thursday. The specific catalyst \u2014 the breach fallout and SEC probe \u2014 is fresh and unresolved: the investigation is just beginning, cost estimates are preliminary, and reimbursement/legal liabilities are still developing. COIN is the only and purest vehicle (single-name pure-play on its own breach). Thesis live while probe pends.",
-      "exit_advice": "Hold \u2014 SEC probe is newly reported and still pending; full ~$400M cost and remediation/litigation arc not yet quantified or resolved.",
+      "assessment": "Entry week. Coinbase disclosed a cyberattack exposing customer data, a $20M ransom demand, and remediation/reimbursement costs up to $400M, with reports of an SEC investigation. Shares plunged Thursday. The specific catalyst \u2014 the SEC probe and the full breach fallout \u2014 is still PENDING, not closed; only the initial disclosure has hit. COIN is the sole and purest vehicle. Watch for SEC resolution, class-action filings, and any revision to the $400M cost estimate as the trigger to reassess.",
+      "exit_advice": "Hold while SEC probe is unresolved and breach-cost/litigation fallout still developing; the disclosure dropped this week but the investigation outcome is pending.",
       "evidence_urls": [
         "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
         "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data"
@@ -87,36 +93,37 @@
   "2025-05-23": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China Geneva tariff truce (mid-May) raises odds curbs get bargained away, but rare-earth licensing restrictions remain in force.",
+      "src": "gdelt",
+      "exit_case": "US-China de-escalation (Geneva tariff truce) could prompt China to roll back curbs, collapsing the supply-security premium.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is uranium/nuclear noise (Trump nuclear EOs) \u2014 zero rare-earth content. China's rare-earth export curbs remain in force; despite the broader US-China tariff de-escalation, no reversal of the specific licensing restrictions has been announced. The catalyst stays pending and unpriced for reversal. MP Materials remains the sole scaled US producer and only pure-play vehicle. No reason to change vehicle.",
-      "exit_advice": "Hold, but watch the trade-truce track closely \u2014 any named rare-earth licensing easing resolves this.",
+      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is pure noise \u2014 Trump uranium/nuclear frenzy, no bearing on rare earths or MP. Despite ongoing US-China trade de-escalation, no announced rollback of the curbs. Catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Exit if China explicitly lifts rare-earth export restrictions or grants broad US-bound licenses.",
       "evidence_urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
       ]
     },
     {
       "ticker": "COIN",
-      "thesis": "Cyberattack breach, $20M ransom, ~$400M cost, SEC probe",
+      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
       "thesis_live": true,
-      "exit_case": "Breach already disclosed and stock plunged on 5/16 \u2014 initial shock is public and priced; no new fallout this week.",
+      "src": "gdelt",
+      "exit_case": "Initial breach disclosure and stock drop already public/priced; market may have absorbed the $400M hit.",
       "catalyst_resolved": false,
-      "assessment": "No event-specific news this week \u2014 only unrelated European market headlines. The breach disclosure shock is priced, but the SPECIFIC catalyst components I entered on remain pending: the SEC investigation is still open, the ~$400M cost is a preliminary estimate not finalized, and reimbursement/legal liabilities are still developing. None of these have resolved in this or any prior week. COIN remains the sole pure-play vehicle on its own breach. Thesis live.",
-      "exit_advice": "Hold while SEC probe and cost/legal liabilities remain unresolved; exit when probe closes or settles.",
-      "evidence_urls": [
-        "https://www.marketpulse.com/markets/europe-mid-session-bell-markets-eye-trade-deals-dax-breaches-24000/"
-      ]
+      "assessment": "No relevant news this week \u2014 the only headline is an unrelated UK dividend piece. The specific catalyst (SEC investigation, breach remediation costs, potential cost revisions/litigation) is still in motion and unresolved. Nothing has closed: no SEC settlement or denial, no finalized cost figure, no class-action resolution. Edge persists while these triggers stay pending. COIN remains the sole pure vehicle for this single-name event.",
+      "exit_advice": "Hold. SEC probe unresolved, no class-action or cost-revision outcome yet; the full breach fallout remains pending.",
+      "evidence_urls": []
     },
     {
-      "ticker": "LITM",
-      "thesis": "Trump nuclear executive orders spark uranium frenzy",
-      "thesis_live": false,
-      "exit_case": "Trump's nuclear executive orders were signed May 23 \u2014 the discrete catalyst is done, public, and already priced into the frenzy.",
-      "catalyst_resolved": true,
-      "assessment": "Entered on the exact day Trump signed his package of nuclear executive orders. The specific discrete catalyst \u2014 the signing \u2014 has already occurred and is public. LITM (Snow Lake) spiked alongside nuclear/uranium names on the news, but that is the priced reaction, not a pending trigger. There is no further discrete approval or vote left in THIS event; the orders are inked. Per the resolution rule, a signed order = resolved even while the stock and broader nuclear theme keep running. No remaining informational edge.",
-      "exit_advice": "Catalyst resolved on entry day: the EOs are signed. Edge is gone; remaining upside is mainstream hype/crowding, not pending event. Exit into the frenzy strength.",
+      "ticker": "CEG",
+      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Executive orders just signed this week \u2014 discrete signing event technically occurred",
+      "catalyst_resolved": false,
+      "assessment": "Entry week. Trump's pro-nuclear executive orders sparked an immediate uranium/nuclear rally. CEG, as the largest US nuclear generator, is a clean pure-play beneficiary of policy tailwinds (reactor licensing, demand growth from data centers/AI). The signing is the spark, but implementation and re-rating are pending \u2014 thesis live. Watch for the policy momentum to fade or fully price in over coming weeks.",
+      "exit_advice": "Hold \u2014 EOs signed but the nuclear buildout/repricing they unleash is multi-month and just beginning; frenzy is fresh, not priced.",
       "evidence_urls": [
         "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
       ]
@@ -125,48 +132,76 @@
   "2025-05-30": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "Broad US-China tariff de-escalation makes curb reversal increasingly likely; reshoring premium may erode if curbs bargained away.",
+      "src": "gdelt",
+      "exit_case": "Ongoing US-China trade de-escalation could trigger a curb rollback, collapsing the supply-security premium without warning.",
       "catalyst_resolved": false,
-      "assessment": "No rare-earth-specific news this week. China's export curbs remain in force with no announced reversal of the specific licensing restrictions. The ongoing US-China tariff thaw is the main standing risk \u2014 it keeps raising the odds curbs get bargained away \u2014 but that reversal has NOT occurred, so the specific catalyst stays pending and unpriced for reversal. MP Materials remains the sole scaled US producer and only pure-play vehicle. No reason to change vehicle.",
-      "exit_advice": "Hold, but watch for a named US-China deal that explicitly eases rare-earth licensing \u2014 that is the resolution trigger.",
+      "assessment": "No fresh coverage this week. China's rare-earth export curbs remain in place and unresolved \u2014 no announced rollback despite the de-escalation backdrop from earlier Geneva-style talks. The specific catalyst I entered on (active export curbs + sole US producer) is still pending; nothing this week resolved it. MP remains the only scaled US rare-earth miner and the purest reshoring/supply-security vehicle. Catalyst open.",
+      "exit_advice": "Hold, but watch for any explicit China announcement lifting rare-earth export restrictions \u2014 that ends the thesis instantly.",
       "evidence_urls": []
     },
     {
       "ticker": "COIN",
-      "thesis": "Cyberattack breach, $20M ransom, ~$400M cost, SEC probe",
+      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Breach disclosure shock is two weeks old and fully priced; no SEC action, cost revision, or litigation catalyst has materialized \u2014 edge is decaying.",
+      "catalyst_resolved": false,
+      "assessment": "The specific catalyst \u2014 SEC investigation, finalized breach remediation cost, and litigation \u2014 remains formally PENDING. No settlement, denial, finalized $400M figure, or class-action resolution has occurred. But the market has had two quiet weeks to absorb the initial disclosure, so the original price shock is priced in and the live edge now hinges entirely on an unresolved-yet-stale SEC/litigation overhang. Thesis stays live only because none of those triggers has closed.",
+      "exit_advice": "Hold, but treat as decaying \u2014 two consecutive weeks of no news. If a third week passes with no SEC development, cost revision, or class-action milestone, the catalyst has effectively gone dormant and should be exited.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
       "thesis_live": false,
-      "exit_case": "Breach disclosed and priced two weeks ago; only a lingering open SEC probe remains, no fresh discrete trigger.",
+      "src": "gdelt",
+      "exit_case": "Executive orders already signed at entry; the discrete catalyst has occurred and is public/priced \u2014 frenzy fading, no fresh coverage.",
       "catalyst_resolved": true,
-      "assessment": "The specific event I entered on (the breach disclosure with ransom, cost estimate, and SEC probe) is now two weeks old with zero new developments. The initial plunge priced the shock. While the SEC investigation technically remains open and the $400M is preliminary, these are no longer discrete pending triggers I hold an edge on \u2014 they are background overhang. Re-reading the whole journal, the catalyst event has occurred and been digested. COIN remains the only vehicle, but the catalyst is resolved.",
-      "exit_advice": "Exit. The discrete catalyst \u2014 breach disclosure, ransom, ~$400M cost estimate, SEC probe announcement \u2014 occurred May 16 and the shock is fully priced after two weeks of no fresh coverage. An open investigation is a slow-burn that won't re-shock on schedule; the edge is gone.",
+      "assessment": "The catalyst I entered on was the actual signing of Trump's pro-nuclear executive orders \u2014 a discrete, completed government action. That event is in the past, public, and priced. My entry note hoped for a re-rating to follow, but that is theme/narrative, not the specific catalyst. One week on there is no fresh coverage, signaling the initial frenzy has already faded rather than building. Re-reading the journal, the catalyst has resolved: a signed order cannot be un-signed and offers no remaining informational edge. CEG remains the cleanest nuclear pure-play, but holding now is betting on lingering hype, not a pending event. Thesis no longer live.",
+      "exit_advice": "Exit. The signing was the catalyst \u2014 it occurred at entry and is fully public. The one-week post-signing pop has come and gone with zero follow-through this week; edge is gone.",
       "evidence_urls": []
     }
   ],
   "2025-06-06": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China tariff thaw could bargain away curbs any week, voiding the reshoring premium",
+      "src": "gdelt",
+      "exit_case": "Ongoing US-China de-escalation talks could yield a curb rollback, collapsing the supply-security premium.",
       "catalyst_resolved": false,
-      "assessment": "This week's news (Indian metal stocks rallying on an RBI rate cut) is pure noise \u2014 zero rare-earth content. China's rare-earth export curbs remain in force with no announced reversal of the specific licensing restrictions. The ongoing US-China tariff thaw is the standing risk that keeps raising the odds curbs get bargained away, but that reversal has NOT happened, so the specific catalyst stays pending and unpriced for reversal. MP Materials remains the sole scaled US producer and only pure-play vehicle. No reason to change vehicle.",
-      "exit_advice": "Hold; exit only on an announced reversal/easing of the specific rare-earth licensing restrictions.",
+      "assessment": "This week's news is pure noise \u2014 Indian metal stocks rallying on an RBI rate cut, nothing touching China rare earths or MP. China's export curbs remain in place and unresolved; no announced rollback despite ongoing de-escalation chatter. The specific catalyst I entered on (active curbs + sole US producer) is still pending. MP remains the only scaled US rare-earth miner and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Hold; exit immediately if China explicitly lifts or rolls back the rare-earth export curbs in a trade deal.",
       "evidence_urls": [
         "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
+      ]
+    },
+    {
+      "ticker": "COIN",
+      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Disclosure-driven price shock fully priced over three quiet weeks; SEC probe now a stale, dateless overhang with no fresh catalyst pending.",
+      "catalyst_resolved": true,
+      "assessment": "Fourth week, and the news is irrelevant (NZ/Fletcher-SkyCity, no Coinbase content). Re-reading the whole journal: the event I entered on was a one-time disclosure shock, and the market has now had a full month to price it. The SEC probe technically remains open, but an undated, unresolved investigation is not a pending discrete catalyst I have edge on \u2014 it is a lingering theme. The original price reaction is the resolution. Edge is gone.",
+      "exit_advice": "Exit. The discrete catalyst \u2014 the breach disclosure, $400M cost estimate, and SEC-probe headline that sank shares \u2014 occurred at entry and has been fully absorbed across three weeks of silence. No finalized cost, settlement, or litigation milestone has produced a new tradable trigger; the remaining 'overhang' is an open-ended investigation with no date, which is theme, not edge.",
+      "evidence_urls": [
+        "https://www.nzherald.co.nz/business/markets/shares/nz-stocks-end-flat-amid-fletcher-skycity-legal-woes-market-close/JKCBMWFWNVB5LC7ISVOWUNVJDM/"
       ]
     }
   ],
   "2025-06-13": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China London talks reportedly include China easing rare-earth licensing \u2014 the bargained-away reversal risk is now materializing.",
+      "src": "gdelt",
+      "exit_case": "US-China trade talks turning positive \u2014 framework reportedly easing rare-earth curbs, the catalyst could reverse imminently.",
       "catalyst_resolved": false,
-      "assessment": "The standing risk I've flagged for weeks \u2014 curbs getting bargained away in a US-China deal \u2014 is now closest it has been. This week's market positivity stems from US-China trade talks (London framework) that reportedly touch rare-earth export licensing. But the provided headline is generic ('positivity from trade talks') with no confirmed, signed reversal of the specific licensing restrictions. Curbs remain formally in force; no executed agreement removing them has been announced. So the specific catalyst stays pending \u2014 but the probability of imminent resolution has stepped up materially, and a signed deal next week would flip this. MP Materials remains the sole scaled US producer and only pure-play vehicle. No reason to change vehicle. Catalyst live but on watch.",
-      "exit_advice": "If a signed framework confirms China resuming/expediting rare-earth export licenses to the US, the specific catalyst is resolved \u2014 exit. Watch for explicit rare-earth language in the deal text.",
+      "assessment": "This week's news is the first material threat to the thesis: US-China trade talks (London framework) are turning positive and reportedly involve China easing rare-earth export restrictions in exchange for US concessions. This is no longer pure noise \u2014 it is direct de-escalation pressure on my exact catalyst. However, as of this week there is NO explicit, signed rollback of the curbs; the talks are positive but the restrictions remain formally in place. The catalyst is still pending but visibly decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. I hold, but this is the closest to exit I've been \u2014 a confirmed curb rollback next week would resolve the catalyst.",
+      "exit_advice": "Watch for an explicit rollback announcement; if China formally lifts rare-earth export curbs in the trade framework, exit immediately \u2014 that resolves the catalyst.",
       "evidence_urls": [
         "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
       ]
@@ -175,36 +210,39 @@
   "2025-06-20": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "London trade framework reportedly restores rare-earth licensing; curb catalyst may be quietly decaying away.",
+      "src": "gdelt",
+      "exit_case": "London framework talks point to China easing rare-earth curbs \u2014 catalyst decaying toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. Last week's London framework talks reportedly touched rare-earth export licensing, stepping up resolution odds, but no executed agreement removing the specific curbs has been announced. Absent new confirmation, I treat the curbs as still formally in force and the catalyst as pending and unpriced for reversal \u2014 though decay risk is now the dominant threat to this thesis. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change. Catalyst live but on close watch.",
-      "exit_advice": "Hold, but tighten the watch \u2014 a confirmed signed reversal of the export-license restrictions flips this immediately, even absent a single dramatic headline.",
+      "assessment": "No fresh coverage this week. Last week's London-framework de-escalation (China reportedly to ease rare-earth export restrictions for US concessions) remains the key threat, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on is still pending. The thesis is intact but fragile and visibly decaying; a confirmed rollback would resolve it and force exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Hold, but exit on any explicit signed curb rollback or formal license resumption from China.",
       "evidence_urls": []
     }
   ],
   "2025-06-27": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "London framework reportedly resolved rare-earth licensing; curbs may already be bargained away, edge gone.",
+      "src": "gdelt",
+      "exit_case": "London-framework de-escalation has China reportedly easing rare-earth curbs; catalyst visibly decaying toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage again this week. The specific catalyst \u2014 China's rare-earth export curbs \u2014 remains formally in force; no executed agreement removing the licensing restrictions has been announced. The London framework talks two weeks ago reportedly touched rare-earth licensing and stepped up resolution odds materially, and the absence of confirmation since leaves ambiguity, but I have no public sign the curbs have actually been lifted. Decay/de-escalation is now the dominant threat to this thesis rather than any new escalation. Until a signed reversal is confirmed, the catalyst stays pending and unpriced for reversal. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change. Catalyst live but on close watch.",
-      "exit_advice": "If a signed US-China deal explicitly restoring rare-earth export licenses is confirmed, exit immediately \u2014 catalyst resolved.",
+      "assessment": "No fresh coverage this week. The key threat remains the June London-framework de-escalation, where China reportedly agreed to ease rare-earth export restrictions in exchange for US concessions. But as of now there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying; a confirmed rollback resolves it and forces exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Hold, but exit immediately on any confirmed/signed China curb rollback \u2014 the thesis is fragile.",
       "evidence_urls": []
     }
   ],
   "2025-07-04": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "London framework deal reportedly restored rare-earth licensing; curbs likely bargained away despite no confirmed signed reversal.",
+      "src": "gdelt",
+      "exit_case": "June London-framework deal has China agreeing to ease rare-earth curbs \u2014 catalyst effectively de-escalated and decaying toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 TSX real estate, Indian REITs, generic July-9 tariff-deadline worries \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat remains decay/de-escalation: the mid-June London framework reportedly touched rare-earth licensing and stepped up resolution odds materially, and three weeks of silence since leaves real ambiguity about whether curbs have quietly been eased. But absent a confirmed signed reversal, I treat the catalyst as still pending and unpriced for reversal. This is now my dominant risk, not new escalation. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change. Catalyst live but on close watch.",
-      "exit_advice": "Hold, but flip immediately if a signed US-China rare-earth licensing agreement is confirmed.",
+      "assessment": "This week's feed is pure noise \u2014 TSX real estate, Indian REITs, Asian shares on renewed tariff worries \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "A confirmed, signed curb rollback resolves the catalyst and forces immediate exit; watch for explicit Chinese export-license restoration.",
       "evidence_urls": [
         "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
       ]
@@ -213,12 +251,13 @@
   "2025-07-11": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "London framework talks (mid-June) reportedly touched rare-earth licensing; curbs may be quietly de-escalating/bargained away.",
+      "src": "gdelt",
+      "exit_case": "June London framework had China reportedly agreeing to ease rare-earth curbs for US concessions \u2014 de-escalation may have quietly resolved it.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China property stimulus rumors, TSX real estate, Vistra/Cramer, generic Trump tariff threats \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged: the mid-June London framework reportedly touched rare-earth licensing and stepped up resolution odds materially, and a month of silence since leaves real ambiguity about whether curbs have quietly been eased. Absent a confirmed signed reversal, I treat the catalyst as still pending and unpriced for reversal \u2014 this remains my dominant risk, not new escalation. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change. Catalyst live but on close watch.",
-      "exit_advice": "Hold, but decay/de-escalation is the dominant threat \u2014 a confirmed signed reversal of the licensing curbs flips this immediately.",
+      "assessment": "This week's feed is pure noise \u2014 China property stimulus rumors, TSX real estate, Vistra/Cramer \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Exit immediately on any explicit, signed China rollback of the rare-earth export curbs \u2014 the de-escalation track makes this imminent.",
       "evidence_urls": [
         "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook"
       ]
@@ -227,12 +266,13 @@
   "2025-07-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "Mid-June London framework reportedly touched rare-earth licensing; a quiet de-escalation could have already eased the specific curbs.",
+      "src": "gdelt",
+      "exit_case": "June London framework had China agree to ease rare-earth curbs for US concessions \u2014 catalyst decaying toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China State Council anti-involution campaign on EVs, Asian equity moves \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged: the mid-June London framework reportedly touched rare-earth licensing and stepped up resolution odds, and weeks of silence since leaves real ambiguity about whether curbs have quietly been eased. Absent a confirmed signed reversal, I treat the catalyst as still pending and unpriced for reversal \u2014 decay/de-escalation remains my dominant risk, not new escalation. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change.",
-      "exit_advice": "Hold. No confirmed signed reversal of China's rare-earth export licensing curbs has been announced; the specific catalyst remains formally in force and pending.",
+      "assessment": "This week's feed is pure noise \u2014 China State Council anti-involution EV campaign, Asian equity moves \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Hold. No explicit, signed rollback of curbs has occurred; a confirmed rollback resolves the catalyst and forces exit.",
       "evidence_urls": [
         "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
       ]
@@ -241,12 +281,13 @@
   "2025-07-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "Mid-June London framework reportedly resolved rare-earth licensing; broad trade-deal wave (Japan) suggests curbs already bargained away and priced.",
+      "src": "gdelt",
+      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation decaying the catalyst toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Japan trade deal, Trump-Powell Fed tour, Indian realty selloff, Michael Hudson essays \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged and arguably intensifying: the cascade of Trump trade deals (Japan now signed) raises the odds the US-China framework that touched rare-earth licensing gets finalized and curbs quietly eased. Absent a confirmed signed reversal, I treat the catalyst as still pending and unpriced for reversal \u2014 but decay/de-escalation, not new escalation, is firmly my dominant risk. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change.",
-      "exit_advice": "Hold, but tighten \u2014 a confirmed signed rollback of the licensing curbs flips this immediately.",
+      "assessment": "This week's feed is pure noise \u2014 Japan/Trump trade deal, Fed tour, Indian realty selloff, Michael Hudson essays \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 broader US-China de-escalation (now extending to Japan deals) keeps pressure on. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Hold; a confirmed, signed rollback of China's rare-earth export curbs forces immediate exit.",
       "evidence_urls": [
         "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan"
       ]
@@ -255,24 +296,24 @@
   "2025-08-01": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China London framework reportedly touched rare-earth licensing in June; curbs may have quietly been eased/bargained away during the ongoing trade-deal cascade.",
+      "src": "gdelt",
+      "exit_case": "June London framework: China reportedly agreed to ease rare-earth exports \u2014 curbs visibly decaying toward de-escalation.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 utility stock screeners, Korean wind, Argentine lithium, TSX/Berkshire, tariff-deadline previews \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged and intensifying: the cascade of Trump trade deals raises the odds the US-China framework that touched rare-earth licensing gets finalized and curbs quietly eased \u2014 decay/de-escalation, not new escalation, is firmly my dominant risk. Absent a confirmed signed reversal, the catalyst stays pending and unpriced for reversal. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change.",
-      "exit_advice": "Hold, but exit immediately if a signed US-China agreement confirms removal of the specific rare-earth export licensing restrictions.",
-      "evidence_urls": [
-        "https://www.investors.com/research/investing-action-plan/stock-market-fed-amazon-apple-microsoft-july-jobs-tariff-deadline-mag-7-earnings/"
-      ]
+      "assessment": "This week's feed is pure noise \u2014 utility stock lists (KEP, EIX, CEPU), TSX/realty moves, Fed/tariff-deadline previews \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "A confirmed, signed rollback of China's export curbs resolves the catalyst and forces immediate exit.",
+      "evidence_urls": []
     },
     {
       "ticker": "CEPU",
       "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
       "thesis_live": true,
-      "exit_case": "Stake purchase already announced this week; discrete deal is done and may be priced, lithium output years away",
+      "src": "gdelt",
+      "exit_case": "Stake announcement is public; a power utility's lithium entry may already be fully priced.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. CEPU announced a major stake in the Tres Cruces lithium project (7/31), pivoting an Argentine power utility into lithium. The catalyst just broke and is still being absorbed \u2014 deal scale, financing, and project development path remain to be priced. Rest of week's news is generic market-tape noise, irrelevant. CEPU is the only and purest vehicle. Catalyst (the stake acquisition and resulting lithium optionality) is still fresh and not yet fully digested.",
-      "exit_advice": "Hold while market digests CEPU's fresh lithium pivot; exit if deal terms confirm fully priced with no follow-through development news",
+      "assessment": "Entered on the discrete catalyst: Central Puerto (CEPU) taking a major stake in the Tres Cruces lithium project, marking an Argentine power-gen company pivoting into lithium. News confirms the announcement but lacks detail on stake size, price, and close timing \u2014 the market is only beginning to reprice the optionality. Rest of newsflow is generic macro/market noise, not event-specific. Catalyst is fresh and still unfolding, not yet closed-and-priced. CEPU is the sole and purest vehicle.",
+      "exit_advice": "Hold. Entry week \u2014 the Tres Cruces stake was just announced and the repricing of CEPU from pure utility to utility-plus-lithium optionality is still fresh and developing. Watch for deal-close confirmation, stake size/terms, and project resource details; once the transaction formally closes and is digested, edge decays.",
       "evidence_urls": [
         "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/"
       ]
@@ -281,22 +322,24 @@
   "2025-08-08": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China trade thaw (London framework reportedly touched rare-earth licensing) risks curbs being quietly bargained away, decaying the catalyst.",
+      "src": "gdelt",
+      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation may have quietly resolved my catalyst.",
       "catalyst_resolved": false,
-      "assessment": "No fresh rare-earth coverage again this week. The specific catalyst \u2014 China's rare-earth export curbs \u2014 remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged and intensifying: the cascade of Trump trade deals raises the odds the mid-June London framework that touched rare-earth licensing gets finalized and curbs quietly eased \u2014 decay/de-escalation, not new escalation, is firmly my dominant risk. Absent a confirmed signed reversal, the catalyst stays pending and unpriced for reversal. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change.",
-      "exit_advice": "Hold, but exit immediately on any confirmed signed US-China agreement removing the specific rare-earth export licensing restrictions.",
+      "assessment": "No fresh coverage this week. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Exit on any explicit, signed rollback of China's rare-earth export curbs, or a confirmed MP-specific de-escalation outcome.",
       "evidence_urls": []
     },
     {
       "ticker": "CEPU",
       "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
-      "thesis_live": false,
-      "exit_case": "Stake-acquisition announcement broke 7/31, now a week old and fully digested; no new development, edge gone.",
-      "catalyst_resolved": true,
-      "assessment": "Entry was on the 7/31 announcement of CEPU's stake in Tres Cruces lithium. That discrete event has now happened and been absorbed over a week with no fresh financing/closing/development news. The only news this week is irrelevant European equities tape. The specific catalyst we entered on is resolved and priced; lingering lithium-optionality theme is not a fresh catalyst.",
-      "exit_advice": "Exit. The discrete catalyst \u2014 the announced stake purchase in Tres Cruces \u2014 has occurred, is public, and has had a full week to be priced. This week's news is pure generic market-tape noise with zero CEPU/lithium-specific content. No pending binary remains to provide edge.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Announcement already public; no new detail this week, market may have fully priced the initial reveal.",
+      "catalyst_resolved": false,
+      "assessment": "No event-specific news this week \u2014 only generic European market noise, nothing about Central Puerto or Tres Cruces. The discrete catalyst (CEPU acquiring a major stake in Tres Cruces) was announced at entry but remains incomplete: stake size, price, and close timing are still unknown. The lithium-pivot optionality has not been concretely repriced because the market lacks the hard terms. Catalyst still pending; no resolution event has passed. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
+      "exit_advice": "Hold. Deal terms (stake size, price, close timing) remain undisclosed and unclosed \u2014 the catalyst is still unfolding, not resolved. Exit only when the transaction closes with confirmed terms or the lithium pivot is abandoned.",
       "evidence_urls": [
         "https://invezz.com/news/2025/08/06/europe-markets-open-equities-gain-focus-on-earnings-uk-budget-deficit-concerns/"
       ]
@@ -305,13 +348,27 @@
   "2025-08-15": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs; sole scaled US producer",
+      "thesis": "China rare-earth export curbs, sole US producer",
       "thesis_live": true,
-      "exit_case": "US-China de-escalation cascade risks curbs being quietly bargained away, decaying the catalyst's edge.",
+      "src": "gdelt",
+      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs; de-escalation is grinding the catalyst toward resolution.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Trump-Putin Alaska summit, India-US strain, WWII anniversaries, DEI court rulings, mpox \u2014 zero rare-earth content. The specific catalyst, China's rare-earth export curbs, remains formally in force; no executed agreement removing the licensing restrictions has been publicly confirmed in the news I'm given. The standing threat is unchanged: the cascade of Trump trade deals raises the odds the mid-June London framework that touched rare-earth licensing gets finalized and curbs quietly eased \u2014 decay/de-escalation, not new escalation, is firmly my dominant risk. Absent a confirmed signed reversal, the catalyst stays pending and unpriced for reversal. MP remains the sole scaled US producer and only pure-play vehicle; no reason to change.",
-      "exit_advice": "hold",
+      "assessment": "This week's feed is pure noise \u2014 Trump-Putin Alaska summit, India-US strain, WWII anniversaries, DEI rulings \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
+      "exit_advice": "Exit on any explicit, signed China rollback of rare-earth export curbs; until then hold.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "CEPU",
+      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal terms (stake size, price, close) still undisclosed two weeks on \u2014 risk catalyst quietly fizzles without concrete repricing.",
+      "catalyst_resolved": false,
+      "assessment": "The discrete catalyst \u2014 CEPU acquiring a major stake in Tres Cruces \u2014 was announced at entry but remains incomplete: stake size, price, and close timing are still unknown, so the lithium-pivot optionality is not yet fully repriced. This week's news is entirely unrelated geopolitical noise (Trump-Putin summit, UN conflict report, West Bank) with zero mention of Central Puerto or Tres Cruces. No resolution event has passed. Catalyst still pending. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
+      "exit_advice": "Hold; exit if deal closes with disclosed terms (priced) or announcement is abandoned.",
+      "evidence_urls": [
+        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html"
+      ]
     }
   ]
 }

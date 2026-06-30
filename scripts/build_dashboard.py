@@ -136,7 +136,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             if t and (p.get("assessment") or p.get("exit_case")):
                 arcs.setdefault(t, []).append({
                     "date": a.date().isoformat(), "live": p.get("thesis_live"),
-                    "thesis": p.get("thesis", ""),
+                    "thesis": p.get("thesis", ""), "src": p.get("src", ""),
                     "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
                     "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
 
@@ -597,14 +597,16 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
   document.getElementById("arcs").innerHTML = ats.length ? ats.map(t=>{
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
-      +`<td>${esc(e.thesis)}</td>`
+      +`<td>${esc(e.src)}</td><td>${esc(e.thesis)}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
       +`<td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
+    const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
+    const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
     return `<details${open} style="margin:0 0 6px"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""} — <span class="sub">${esc(thesis)}</span></summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>thesis (event)</th>`
+      +`${t===D.gem?" (gem)":""}${discTag} — <span class="sub">${esc(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
 
