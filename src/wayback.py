@@ -18,6 +18,7 @@ Enrichment, not discovery: it can only fetch URLs GDELT already surfaced. Covera
 """
 from __future__ import annotations
 
+import datetime
 import gzip
 import html
 import json
@@ -42,6 +43,8 @@ _last = [0.0]
 _throttle_lock = threading.Lock()    # guards _last[0] slot reservation for concurrent enrich fetches
 _ENRICH_WORKERS = 16                 # concurrent lede() fetches; latency overlaps, starts stay rate-capped
                                      # (bumped 8->16 to overlap archive.org's slow ~30s/query nights)
+_CDX_FROM_DAYS = 120                 # CDX scan lower bound: cutoff-120d (news captured near publish);
+                                     # without a `from=` the full-history scan 504s/times out on busy URLs
 # retrieval-health counters (process-cumulative across a run)
 _STAT = {"requests": 0, "http_429": 0, "http_5xx": 0, "timeout": 0, "wall_s": 0.0}
 
@@ -103,7 +106,12 @@ def snapshot(url: str, cutoff: str) -> str | None:
     Returns the timestamp (hit), None for a CONFIRMED 'no snapshot by then', or raises
     WaybackTransient if it couldn't determine (so the caller won't cache a permanent miss)."""
     to = cutoff.replace("-", "") + "235959"
-    q = (f"{CDX}?output=json&limit=-1&filter=statuscode:200&to={to}"
+    # Bound the scan with a `from=` lower edge: without it, CDX scans a URL's ENTIRE capture
+    # history up to `to`, which is O(captures) and 504s/timeouts on heavily-archived URLs. Our
+    # per-week articles are captured within days of their publish date (~= cutoff), so a
+    # _CDX_FROM_DAYS-day window comfortably contains the relevant snapshot while collapsing the scan.
+    frm = (datetime.date.fromisoformat(cutoff) - datetime.timedelta(days=_CDX_FROM_DAYS)).strftime("%Y%m%d") + "000000"
+    q = (f"{CDX}?output=json&limit=-1&filter=statuscode:200&from={frm}&to={to}"
          f"&url={urllib.request.quote(url, safe='')}")
     try:
         rows = json.loads(_get(q).decode("utf-8", "ignore"))    # WaybackTransient propagates
