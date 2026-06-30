@@ -447,37 +447,37 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 1 — Portfolio value</h2>
  <div id="chart"></div>
 
- <h2>Plot 1b — Cumulative $ gain per agent (event)</h2>
+ <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
  <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
    holds, then flatlines at its realized gain once it exits.</b> The bold <b>Total</b> is the portfolio's
    gain (the lines sum to it). Flat-near-zero = an agent that contributed little; never-funded agents are
    omitted.</p>
  <div id="gainseries"></div>
 
- <h2>Plot 2 — Allocation over time</h2>
+ <h2>Plot 3 — Allocation over time</h2>
  <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
    watchlist is non-empty; to cash when the press names nothing live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
 
- <h2>Plot 3 — Holdings timeline (proposed vs funded)</h2>
+ <h2>Plot 4 — Holdings timeline (proposed vs funded)</h2>
  <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
    dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
    (the optimizer actually bought it).</p>
  <div id="gantt"></div>
 
- <h2>Plot 4 — Dollars held per ticker</h2>
+ <h2>Plot 5 — Dollars held per ticker</h2>
  <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
-   stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
+   stack's top edge is the portfolio value). Plot 3 shows the same split as percentages.</p>
  <div id="dollars"></div>
 
- <h2>Plot 5 — Cumulative $ gain per holding</h2>
+ <h2>Plot 6 — Cumulative $ gain per holding</h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
    (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 6 — Watchlist by date</h2>
+ <h2>Plot 7 — Watchlist by date</h2>
  <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
    the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
@@ -564,7 +564,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
-  // Plot 1b — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
+  // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
   const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]);
   const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:t,mode:"lines",
     line:{color:D.colors[t]||"#888",width:2},hovertemplate:t+" $%{y:,.0f}"}));
@@ -591,7 +591,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   document.getElementById("allocnote").innerHTML=
     `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
 
-  // Plot 3 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
   // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
   const WD=D.watch_daily||{};
   // contiguous spans where series[i] passes thresh
@@ -618,7 +618,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
-  // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
   // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
   const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
               .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
@@ -632,7 +632,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
-  // Plot 5 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  // Plot 6 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
   const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
   Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
     marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
@@ -641,7 +641,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 6 — watchlist by date: rows where the live watchlist or its funding changed.
+  // Plot 7 — watchlist by date: rows where the live watchlist or its funding changed.
   let pw=null; const wrows=[];
   for(const w of (D.watchlist||[])){
     const fset=new Set(w.funded||[]);
