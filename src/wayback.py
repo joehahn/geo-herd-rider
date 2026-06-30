@@ -41,8 +41,9 @@ _RETRY_CODES = {429, 500, 502, 503, 504}   # transient HTTP statuses worth retry
 _UA = "geo-herd-rider/1.0 (+https://github.com/joehahn/geo-herd-rider; jmh.datasciences@gmail.com)"
 _last = [0.0]
 _throttle_lock = threading.Lock()    # guards _last[0] slot reservation for concurrent enrich fetches
-_ENRICH_WORKERS = 16                 # concurrent lede() fetches; latency overlaps, starts stay rate-capped
-                                     # (bumped 8->16 to overlap archive.org's slow ~30s/query nights)
+_ENRICH_WORKERS = 6                  # concurrent lede() fetches. The CDX server (timestamp lookup) is
+                                     # the slow link and degrades under our own concurrency, so keep this
+                                     # modest -- too many parallel CDX queries self-inflict 504s/timeouts.
 _CDX_FROM_DAYS = 120                 # CDX scan lower bound: cutoff-120d (news captured near publish);
                                      # without a `from=` the full-history scan 504s/times out on busy URLs
 # retrieval-health counters (process-cumulative across a run)
@@ -68,7 +69,7 @@ def _throttle() -> None:
         time.sleep(wait)
 
 
-def _get(url: str, timeout: int = 30, tries: int = 4) -> bytes:
+def _get(url: str, timeout: int = 60, tries: int = 4) -> bytes:
     """GET with retry+backoff on transient errors (429/5xx/timeout/conn). Returns bytes on 200;
     re-raises a non-retryable HTTPError (e.g. 404) for the caller to treat as a confirmed miss;
     raises WaybackTransient once retries are exhausted (so it is NOT recorded as a permanent miss)."""
