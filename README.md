@@ -19,12 +19,12 @@ This solution is one short assembly line that loops once a week. It reads the ne
 flowchart TD
     S["📰 Firehose<br/>gathers last week's pool of news articles"]
 
-    subgraph CUR["🧠 Curator — names tickers, never sizes"]
+    subgraph CUR["🧠 Curator"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press<br/>& writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Per-event agent<br/>determines whether the catalyst is still alive or resolved"]
+      AG["🟢/⚪ Per-event agent<br/>determines whether the catalyst is still alive or resolved;<br/>also picks which gem(s) best express the event"]
       SC --> MA --> AG
     end
 
@@ -35,7 +35,7 @@ flowchart TD
     S --> SS
     S --> SC
     SS --> E
-    AG --> E
+    AG -- "alive: keep gem · resolved: drop it" --> E
     E --> W --> U
     U == "repeat weekly" ==> S
 
@@ -43,7 +43,7 @@ flowchart TD
     class E bet
 ```
 
-The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (which can change over time), and the optimizer re-sizes. An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven**: each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position even if the coverage is still loud. (Entry needs a specific, datable catalyst precisely so this exit check has something concrete to resolve against; that pairing is what fixed SMR riding past the ADVANCE Act.)
+The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era — that's the thick loop edge. Each pass re-reads the firehose, the per-event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (the gem can evolve over time), and the optimizer re-sizes — **sizing is mechanical; the AI never sets the position sizes** (it only names tickers and the hold/exit call). An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven**: each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position even if the coverage is still loud. (Entry needs a specific, datable catalyst precisely so this exit check has something concrete to resolve against; that pairing is what fixed SMR riding past the ADVANCE Act.)
 
 The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — we just read the name the press has given and ride it while its thesis holds.
 
