@@ -17,12 +17,12 @@ This solution is one short assembly line that loops once a week. It reads the ne
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>(live: web search · backtest: GDELT + Wayback + seeds)"]
+    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search during live use and GDELT + Wayback + seeds when backtesting"]
 
     subgraph CUR["🧠 Curator"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
-      SC["🔍 Scout<br/>scans news to discover rising gems named by the press<br/>& writes their catalyst statements"]
+      SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
       AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved;<br/>also picks which gem(s) best express the event"]
       SC --> MA --> AG
