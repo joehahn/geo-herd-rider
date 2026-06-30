@@ -322,6 +322,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     fetching live — used by the golden-snapshot regression replay so results are deterministic
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
+    max_pos = int(fm.get("max_concurrent_positions", 0) or 0)   # 0 = uncapped; else fund only top-N/week
+    prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
     tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
@@ -341,12 +343,22 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
 
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
+    zero_streak, pruned = {}, set()   # visibility: drop chronically-unfunded names; cap funded concurrency
     for k, a in enumerate(anchors):
         i = score.entry_index(days, a.strftime("%Y-%m-%dT%H:%M:%S%z"), fm.get("t_update_days"))
         reb.append(None if i is None else i)
         if i is not None:
-            wl = watch[a]
-            week_w[k] = (curator._optimized_weights(wl, panel, days[i], fm, lookback) or {}) if wl else {}
+            wl = [t for t in watch[a] if t not in pruned]
+            w = (curator._optimized_weights(wl, panel, days[i], fm, lookback) or {}) if wl else {}
+            if max_pos and len(w) > max_pos:                 # keep the N highest weights; tail -> cash
+                w = {t: w[t] for t in sorted(w, key=lambda x: -w[x])[:max_pos]}
+            if prune_k:                                       # a name the optimizer keeps starving -> drop
+                for t in wl:
+                    zero_streak[t] = 0 if w.get(t, 0) > 1e-9 else zero_streak.get(t, 0) + 1
+                    if zero_streak[t] >= prune_k:
+                        pruned.add(t)
+            watch[a] = wl                                     # expose the pruned watch to log + dashboard
+            week_w[k] = w
 
     value, spyval, log = capital, capital, []
     rows = [{"date": str(days[reb[0]].date()) if reb[0] else str(anchors[0].date()),
@@ -365,7 +377,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                      "held": held})
         log.append({"week": str(anchors[k].date()), "watchlist": ";".join(watch[anchors[k]]),
                     "weights": held, "week_return": round(ret, 4)})
-    out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors)}
+    out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors),
+           "watch": {a: watch[a] for a in anchors}}   # pruned sticky watch, so the dashboard matches
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor)
     return out

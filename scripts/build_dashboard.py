@@ -111,8 +111,9 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     caught = ticker in {str(p.get("ticker", "")).strip().upper() for picks in scans.values()
                         for p in picks if str(p.get("ticker", "")).strip()}
     tickers = sorted(d["alloc"].keys())
-    watch = firehose._stateful_watch(scans)
+    watch = bt.get("watch") or firehose._stateful_watch(scans)   # pruned watch (matches the backtest)
     funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s] for lg in bt["log"]}
+    ever_funded = sorted({t for names in funded_by_week.values() for t in names})  # got real capital >=1 week
     watchlist = [{"week": a.date().isoformat(), "names": watch[a],
                   "funded": funded_by_week.get(a.date().isoformat(), [])} for a in scans]
 
@@ -168,7 +169,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             pass
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
-        "model": disp_model, "storyline": STORYLINE.get(ticker, ""),
+        "model": disp_model, "storyline": STORYLINE.get(ticker, ""), "ever_funded": ever_funded,
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
@@ -638,10 +639,17 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
     `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
 
-  // Agent journal arcs: one collapsible <details> per event-ticker, gem first
-  const A=D.arcs||{}, ats=Object.keys(A).sort((x,y)=>(x===D.gem?-1:y===D.gem?1:A[y].length-A[x].length));
+  // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
+  const ats=Object.keys(A).sort((x,y)=>{
+    if(x===D.gem)return -1; if(y===D.gem)return 1;
+    const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
+    return A[y].length-A[x].length;});
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-  document.getElementById("arcs").innerHTML = ats.length ? ats.map(t=>{
+  const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
+  const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
+  document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
+    const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
       +`<td>${esc(e.src)}</td><td>${esc(e.thesis)}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
@@ -650,11 +658,13 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
     const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
     const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
-    return `<details${open} style="margin:0 0 6px"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag} — <span class="sub">${esc(thesis)}</span></summary>`
+    const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
+    const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
+    return `<details${open} style="${style}"><summary><b>${t}</b> · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${esc(thesis)}</span></summary>`
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
-  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
+  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
   // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
   const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
