@@ -9,6 +9,7 @@
  h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
  .sub{color:var(--mut);margin:0 0 18px}
  .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .story{background:#fff;border:1px solid var(--line);border-left:4px solid #2980b9;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:1.55;margin:12px 0 20px}
  .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
  .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
  .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
@@ -32,19 +33,8 @@
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
- <div class="warn"><b>Hindsight upper bound, not forward lift.</b> This is the
-   <b>event-first agent</b> finding the gem in a realistic, noisy GDELT news firehose — with its
-   early under-the-radar article <b>seeded</b> (real search misses those niche pieces). It still
-   leans on that seed and on a model trained past the events, so it does <i>not</i> prove the
-   firehose finds gems in time. The clean verdict is the forward eval
-   (<code>src/forward.py</code>).</div>
+ <div class="story" id="story"></div>
  <div class="cards" id="cards"></div>
- <p class="sub">The <b>curated portfolio</b>: each week, the gems the financial press names as
-   thesis-driven movers go on the watchlist; a position is held while its driving thesis is
-   <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
-   never sets a weight. Below, the portfolio vs <b>SPY</b>, with
-   <b id="gemname">the gem</b> (dashed) scaled to the portfolio at its trigger — does the portfolio
-   ride the same move?</p>
 
  <h2>Scan parameters</h2>
  <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
@@ -52,30 +42,37 @@
  <h2>Plot 1 — Portfolio value</h2>
  <div id="chart"></div>
 
- <h2>Plot 2 — Allocation over time</h2>
+ <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
+ <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
+   holds, then flatlines at its realized gain once it exits.</b> The bold <b>Total</b> is the portfolio's
+   gain (the lines sum to it). Flat-near-zero = an agent that contributed little; never-funded agents are
+   omitted.</p>
+ <div id="gainseries"></div>
+
+ <h2>Plot 3 — Allocation over time</h2>
  <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
    watchlist is non-empty; to cash when the press names nothing live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
 
- <h2>Plot 3 — Holdings timeline (proposed vs funded)</h2>
+ <h2>Plot 4 — Holdings timeline (proposed vs funded)</h2>
  <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
    dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
    (the optimizer actually bought it).</p>
  <div id="gantt"></div>
 
- <h2>Plot 4 — Dollars held per ticker</h2>
+ <h2>Plot 5 — Dollars held per ticker</h2>
  <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
-   stack's top edge is the portfolio value). Plot 2 shows the same split as percentages.</p>
+   stack's top edge is the portfolio value). Plot 3 shows the same split as percentages.</p>
  <div id="dollars"></div>
 
- <h2>Plot 5 — Cumulative $ gain per holding</h2>
+ <h2>Plot 6 — Cumulative $ gain per holding</h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
    (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 6 — Watchlist by date</h2>
+ <h2>Plot 7 — Watchlist by date</h2>
  <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
    the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
@@ -114,6 +111,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
   document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
   const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
+  const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
   document.getElementById("sub").textContent =
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
@@ -161,6 +159,18 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
+  // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]);
+  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:t,mode:"lines",
+    line:{color:D.colors[t]||"#888",width:2},hovertemplate:t+" $%{y:,.0f}"}));
+  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
+    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
+  Plotly.newPlot("gainseries",gtr,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
   const traces=[];
   for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
     stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
@@ -176,7 +186,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   document.getElementById("allocnote").innerHTML=
     `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
 
-  // Plot 3 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
   // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
   const WD=D.watch_daily||{};
   // contiguous spans where series[i] passes thresh
@@ -203,7 +213,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
-  // Plot 4 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
   // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
   const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
               .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
@@ -217,7 +227,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
-  // Plot 5 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  // Plot 6 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
   const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
   Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
     marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
@@ -226,7 +236,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 6 — watchlist by date: rows where the live watchlist or its funding changed.
+  // Plot 7 — watchlist by date: rows where the live watchlist or its funding changed.
   let pw=null; const wrows=[];
   for(const w of (D.watchlist||[])){
     const fset=new Set(w.funded||[]);
@@ -244,10 +254,17 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
     `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
 
-  // Agent journal arcs: one collapsible <details> per event-ticker, gem first
-  const A=D.arcs||{}, ats=Object.keys(A).sort((x,y)=>(x===D.gem?-1:y===D.gem?1:A[y].length-A[x].length));
+  // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
+  const ats=Object.keys(A).sort((x,y)=>{
+    if(x===D.gem)return -1; if(y===D.gem)return 1;
+    const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
+    return A[y].length-A[x].length;});
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-  document.getElementById("arcs").innerHTML = ats.length ? ats.map(t=>{
+  const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
+  const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
+  document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
+    const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
       +`<td>${esc(e.src)}</td><td>${esc(e.thesis)}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
@@ -256,11 +273,13 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
     const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
     const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
-    return `<details${open} style="margin:0 0 6px"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag} — <span class="sub">${esc(thesis)}</span></summary>`
+    const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
+    const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
+    return `<details${open} style="${style}"><summary><b>${t}</b> · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${esc(thesis)}</span></summary>`
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
-  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
+  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
   // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
   const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
