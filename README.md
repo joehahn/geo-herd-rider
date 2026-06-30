@@ -163,6 +163,15 @@ The firehose pipeline is built end-to-end and runs over historical news; below i
 
 Later phases extend beyond backtesting and are intentionally out of scope for this README; they'll be folded back in once we get there.
 
+## Requirements
+
+- **Python 3.12** with the `requirements.txt` packages (anthropic, openai, yfinance, pandas, numpy, scipy, pyyaml, requests, matplotlib, pydantic).
+- **An Anthropic API key** (`ANTHROPIC_API_KEY`) is the only key the default pipeline needs. Running the curator bills your Anthropic account.
+- **Optional keys:** `OPENROUTER_API_KEY` (only for the cheap open-weight models: mimo, llama4, deepseek, grok4) and `TAVILY_API_KEY` (date-bounded news search in `src/search.py`).
+- **No key needed** for GDELT (the news pool), the Wayback Machine (as-of-date ledes), or yfinance (prices). The fixture/mechanics dashboard (`build_dashboard.py`) makes no LLM calls, so it needs no key at all.
+
+You do **not** need Claude Code to run this. Claude Code is the tool the repo was developed with, not a runtime dependency; the solution calls the Anthropic API directly through the `anthropic` Python SDK (`src/llm.py`).
+
 ## Setup
 
 ```bash
