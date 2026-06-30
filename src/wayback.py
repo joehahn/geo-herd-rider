@@ -126,7 +126,13 @@ def _extract_lede(h: str) -> str | None:
     Robustness fixes over the naive original: the `content` attribute's quote is captured with a
     BACKREFERENCE so an apostrophe inside a double-quoted value ("...isn't...") no longer truncates
     the match; HTML entities are unescaped; sub-fragment results (<40 chars) are rejected; and the
-    <p> fallback skips whole-page blobs (a malformed/nested <p> can swallow the entire document)."""
+    <p> fallback skips whole-page blobs (a malformed/nested <p> can swallow the entire document).
+
+    Input is bounded to the first ~200 KB: meta/og descriptions live in <head> and the first real
+    <p> is near the top, but some archived pages are multi-MB — and the `(.*?)</p>` scan over a
+    huge body is O(n^2), which (since `re` holds the GIL) can pin the whole process at 100% CPU for
+    many minutes on one pathological page. Truncating caps that worst case without losing the lede."""
+    h = h[:200_000]
     def meta(key: str, attr: str) -> str | None:
         # content=(["\'])...\1  -> the closing quote must match the opening one
         pats = [rf'<meta[^>]+{attr}=["\']{re.escape(key)}["\'][^>]*content=(["\'])(.*?)\1',
