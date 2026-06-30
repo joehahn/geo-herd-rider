@@ -22,7 +22,7 @@ flowchart TD
     subgraph CUR["🧠 Curator — names tickers, never sizes"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
-      SC["🔍 Scout<br/>discover the week's candidate events<br/>— catalyst gate: only specific, datable,<br/>resolvable catalysts pass"]
+      SC["🔍 Scout<br/>read the week's news for tickers the press names<br/>on a specific, datable, resolvable catalyst"]
       MA["🧩 Matcher<br/>group named tickers into events<br/>(same-ticker dedup guard)"]
       AG["🟢/⚪ Per-event agent<br/>weekly note: is the catalyst still live,<br/>or has it resolved? (hold/exit);<br/>the gem can evolve"]
       SC --> MA --> AG
