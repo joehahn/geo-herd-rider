@@ -82,9 +82,12 @@
  <table class="atab" id="watchtable"></table>
 
  <h2>Agent journal — week-by-week (per event)</h2>
- <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry: its weekly <b>exit case</b>
-   (devil's-advocate argument that the thesis is already over, with a RESOLVED flag that forces the
-   exit), <b>read</b> (assessment), live/exit state, and exit trigger. Use it to spot a missed exit.</p>
+ <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
+   ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
+   <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
+   (devil's-advocate; RESOLVED flag forces the exit), <code>assessment</code> (the weekly read), and
+   <code>exit_advice</code> (the exit trigger). Use it to confirm what event/ticker was discovered, when,
+   and that it exited as the thesis decayed.</p>
  <div id="arcs"></div>
 
  <h2>What it cost</h2>
@@ -239,13 +242,15 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
   document.getElementById("arcs").innerHTML = ats.length ? ats.map(t=>{
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
+      +`<td>${esc(e.thesis)}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
       +`<td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
+    const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
     return `<details${open} style="margin:0 0 6px"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}</summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>State</th><th>Exit case (devil's-advocate)</th>`
-      +`<th>Read (assessment)</th><th>Exit trigger (exit_advice)</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+      +`${t===D.gem?" (gem)":""} — <span class="sub">${esc(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>thesis (event)</th>`
+      +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>';
 
   document.getElementById("costs").innerHTML =
