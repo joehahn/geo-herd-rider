@@ -83,8 +83,13 @@ catalyst). The reject list below applies ONLY to a name whose SOLE rationale is:
   - generic macro             ("rate-cut rally", "sector rotation")
   - hype / narrative          ("IPO hype", "meme", "everyone piling in")
 A named catalyst that later FAILS is fine — you couldn't have known. A PURE theme with no resolution
-is NOT — it rides through every crash and bleeds. When you write the thesis, NAME THE EVENT (it may
-sit alongside a theme). Drop only names that are theme/value/hype AND NOTHING ELSE.
+is NOT — it rides through every crash and bleeds. The thesis you write MUST name a SPECIFIC, DATABLE
+EVENT — a discrete thing with a knowable date and resolution ("China bans rare-earth exports",
+"ADVANCE Act nuclear bill signed", "Iran war spikes tanker rates") — NOT an open-ended trend phrased
+as ongoing "news / demand / growth / approval news" ("reactor approval news", "AI power demand",
+"rare-earth strength"), which can never be marked RESOLVED and so never exits. If the only phrasing
+you can give is an ongoing trend, it's a theme — drop it. Drop only names that are theme/value/hype
+AND NOTHING ELSE.
 
 You forecast NOTHING. Output ONLY JSON: {"candidates":[{"ticker":"BWET","thesis":"<=12 words: the
 catalyst","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
@@ -389,6 +394,12 @@ the time)? If true, the catalyst is public and priced, your edge is gone, and th
 false — EVEN IF the stock is still rising or a broader THEME lingers. The ONLY thing that is NOT
 resolution: mainstream hype / crowding ("up 600%, everyone in"). thesis_live=TRUE only while the
 specific catalyst is still PENDING (catalyst_resolved=false).
+
+YOUR BINARY MUST FOLLOW YOUR OWN ARGUMENT: if the exit_case you just wrote says the catalyst has
+ALREADY happened / been signed / was granted / is "backward-looking" / "already resolved", then you
+MUST set catalyst_resolved=TRUE. Do NOT write an exit_case that concludes "it already resolved" and
+then leave catalyst_resolved=false and hold — that contradiction IS the inertia trap this is meant to
+break.
 
 USE THE WHOLE JOURNAL. The CATALYST is fixed; the best VEHICLE (ticker) MAY EVOLVE as the event
 develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cleanest pure-play /
