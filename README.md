@@ -55,7 +55,6 @@ The red highlighted box is where our advantage comes from: the press has already
 | 🧠 **Curator** (Single scan · Scout · Matcher · Per-event agent) | [Inside the curator](#inside-the-curator-scout--per-event-agents) |
 | 🎯 **Watchlist / the bet** | [The signal, and its jobs](#the-signal-and-its-jobs) |
 | ⚖️ **Optimizer** (+ schema guardrail) | [The signal, and its jobs → Sizing](#the-signal-and-its-jobs) |
-| 💼 **Portfolio** | [Live dashboard](#live-dashboard) |
 
 ## The news firehose: why reading beats reasoning
 
