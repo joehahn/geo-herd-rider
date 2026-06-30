@@ -17,19 +17,19 @@ This solution is one short assembly line that loops once a week. It reads the ne
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>assemble the week's news pool"]
+    S["📰 Firehose<br/>assembles the week's pool of news articles"]
 
     subgraph CUR["🧠 Curator — names tickers, never sizes"]
       direction TB
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
-      SC["🔍 1 · Scout<br/>discovers the rising gems (tickers) the press names that<br/>week, and writes its catalyst statement"]
-      MA["🧩 2 · Matcher<br/>assigns each gem to an event,<br/>pre-existing or new"]
-      AG["🟢/⚪ 3 · Per-event agent — track<br/>each week per event: is the catalyst still live<br/>or resolved? (hold/exit) · pick the gem that fits now"]
+      SC["🔍 Scout<br/>reads the news to discover the rising gems the press<br/>names, and writes their catalyst statements"]
+      MA["🧩 Matcher<br/>assigns each gem to an event,<br/>pre-existing or new"]
+      AG["🟢/⚪ Per-event agent<br/>each week per event: is the catalyst still live<br/>or resolved? (hold/exit) · pick the gem that fits now"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>live events & the gems the press names (the bet)"]
-    W["⚖️ Optimizer<br/>mechanical mean-variance sizing — AI never sizes (schema guardrail)"]
+    E["🎯 Watchlist<br/>the list of gems to hold (the bet)"]
+    W["⚖️ Optimizer<br/>a standard method recommends the portfolio distribution<br/>across the watchlist (the AI never sizes)"]
     B["💼 Portfolio<br/>between the smart<br/>money and the herd"]
 
     S --> SS
