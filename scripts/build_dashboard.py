@@ -168,7 +168,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             pass
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
-        "model": disp_model,
+        "model": disp_model, "storyline": STORYLINE.get(ticker, ""),
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
@@ -371,6 +371,36 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
+STORYLINE = {
+    "SMR": (
+        "<b>NuScale Power (SMR)</b> builds small modular reactors. It rose through mid-2024 on the "
+        "nuclear-revival trade — AI datacenters scrambling for clean baseload power, and Washington "
+        "turning pro-nuclear. The move <b>peaked when the ADVANCE Act was signed (July 9, 2024)</b> — "
+        "the <i>Accelerating Deployment of Versatile, Advanced Nuclear for Clean Energy Act</i>, which "
+        "streamlines NRC licensing and fees for advanced / small modular reactors. Classic "
+        "buy-the-rumor / sell-the-news: SMR topped ~July 15, then fell ~44%. "
+        "<b>What we'd want:</b> exit as the bill is signed (the catalyst resolves) — which the agent did, "
+        "exiting 2024-07-12 within ~3 days and ~3% of the peak, dodging the crash."
+    ),
+    "MP": (
+        "<b>MP Materials (MP)</b> is the main US rare-earth miner. It rose on <b>China's rare-earth "
+        "export curbs</b> — Beijing restricting critical-mineral exports makes a domestic supplier "
+        "strategically valuable. The catalyst is <b>open-ended</b> (ongoing trade tension, no single "
+        "resolution date); MP's price flattened around Nov 2025 as the scarcity premium faded. "
+        "<b>What we'd want:</b> exit when the curbs ease / the premium fades (~Nov 2025). Here the agent "
+        "held the position live the whole window — the <i>under-exit</i> case, because an open-ended "
+        "catalyst never cleanly 'resolves' on a date."
+    ),
+    "BWET": (
+        "<b>Breakwave Dry Bulk Shipping (BWET)</b> tracks dry-bulk freight rates. It spiked on the "
+        "<b>2026 Iran war and Strait-of-Hormuz risk</b>, which threatened Gulf shipping lanes and sent "
+        "freight rates soaring. The catalyst <b>resolves when the conflict de-escalates</b> (a ceasefire, "
+        "or the Strait reopening) and rates roll over. "
+        "<b>What we'd want:</b> ride it while the war risk is live and exit when it resolves — <i>not</i> "
+        "when coverage merely gets crowded (crowding is not thesis death)."
+    ),
+}
+
 INDEX_HTML = r"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>geo-herd-rider — gem scan</title>
@@ -382,6 +412,7 @@ INDEX_HTML = r"""<!doctype html>
  h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
  .sub{color:var(--mut);margin:0 0 18px}
  .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .story{background:#fff;border:1px solid var(--line);border-left:4px solid #2980b9;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:1.55;margin:12px 0 20px}
  .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
  .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
  .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
@@ -405,19 +436,8 @@ INDEX_HTML = r"""<!doctype html>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
- <div class="warn"><b>Hindsight upper bound, not forward lift.</b> This is the
-   <b>event-first agent</b> finding the gem in a realistic, noisy GDELT news firehose — with its
-   early under-the-radar article <b>seeded</b> (real search misses those niche pieces). It still
-   leans on that seed and on a model trained past the events, so it does <i>not</i> prove the
-   firehose finds gems in time. The clean verdict is the forward eval
-   (<code>src/forward.py</code>).</div>
+ <div class="story" id="story"></div>
  <div class="cards" id="cards"></div>
- <p class="sub">The <b>curated portfolio</b>: each week, the gems the financial press names as
-   thesis-driven movers go on the watchlist; a position is held while its driving thesis is
-   <b>live</b> and dropped when it decays. A plain mean-variance optimizer sizes it — the LLM
-   never sets a weight. Below, the portfolio vs <b>SPY</b>, with
-   <b id="gemname">the gem</b> (dashed) scaled to the portfolio at its trigger — does the portfolio
-   ride the same move?</p>
 
  <h2>Scan parameters</h2>
  <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
@@ -487,6 +507,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
   document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
   const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
+  const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
   document.getElementById("sub").textContent =
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 

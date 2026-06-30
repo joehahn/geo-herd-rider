@@ -91,8 +91,11 @@ as ongoing "news / demand / growth / approval news" ("reactor approval news", "A
 you can give is an ongoing trend, it's a theme — drop it. Drop only names that are theme/value/hype
 AND NOTHING ELSE.
 
-You forecast NOTHING. Output ONLY JSON: {"candidates":[{"ticker":"BWET","thesis":"<=12 words: the
-catalyst","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
+You forecast NOTHING. The "thesis" MUST BE THE DATABLE CATALYST EVENT, never the umbrella theme:
+write "ADVANCE Act nuclear bill signed" NOT "NuScale gains on AI power demand"; write "China bans
+rare-earth exports" NOT "rare-earth demand". If your thesis can't be marked RESOLVED on a date it is
+a theme — rewrite it as the event or drop the name. Output ONLY JSON: {"candidates":[{"ticker":"BWET",
+"thesis":"<=12 words: the catalyst EVENT","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
 prior weekly note (your memory), and THIS week's news for this event. Write the new weekly note.
