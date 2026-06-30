@@ -17,7 +17,7 @@ This solution is one short assembly line that loops once a week. It reads the ne
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>gathers last week's pool of news articles"]
+    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>(live: web search · backtest: GDELT + Wayback + seeds)"]
 
     subgraph CUR["🧠 Curator"]
       direction TB
