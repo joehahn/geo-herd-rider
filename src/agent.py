@@ -567,8 +567,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
-    retired: dict[str, tuple] = {}   # ticker -> (catalyst-resolved string, week idx) for the scout guard,
-                                     #   windowed to the last `curator_memory_weeks` weeks (0 = whole history)
+    retired: dict[str, tuple] = {}   # ticker -> (catalyst-resolved string, week idx) for the scout guard;
+                                     #   curator_memory_weeks: 0 = OFF, <0 = whole history, >0 = last N weeks
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
     rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{qs}".encode()).hexdigest()[:10]
@@ -603,8 +603,11 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
              "published_date": x.get("published_date", ""), "source": x.get("source", ""),
              "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
             for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]
-        rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()      # only the last N weeks of
-                         if not curator_memory_weeks or (i - ri) < curator_memory_weeks)  # resolved catalysts
+        if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
+            rmem = ""
+        else:                                                  # <0 = whole history; >0 = last N weeks only
+            rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
+                             if curator_memory_weeks < 0 or (i - ri) < curator_memory_weeks)
         cands = scout(client, a, win, retired=rmem)
         # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
         # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW

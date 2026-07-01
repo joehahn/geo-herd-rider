@@ -55,8 +55,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   starving (~0 weight) for this many weeks (0 = off).
     "hold_benchmark": False,           # LIVE (firehose backtest): park idle capital (cash residual after
                                        #   gem sizing) in SPY so the book starts 100% SPY, never sits in cash.
-    "curator_memory_weeks": 8,         # LIVE (scan): how many weeks of RESOLVED catalysts the scout is
-                                       #   reminded of (so it won't re-chase a done thesis). 0 = whole history.
+    "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of
+                                       #   (so it won't re-chase a done thesis): 0 = off, <0 = whole history, >0 = last N.
     "min_corroboration": 0,            # LIVE (firehose backtest): a name may only ENTER on a live read
                                        #   backed by >=N evidence sources (0 = off; kills thin 1-source theses).
     "reentry_block_weeks": 0,          # LIVE (firehose backtest): after a ticker exits, block re-entry for

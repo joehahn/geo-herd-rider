@@ -18,7 +18,7 @@ prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0
 hold_benchmark: true              # SPY is ALWAYS in the optimizer watchlist/universe (every week); gems must beat SPY to be funded, else capital stays in SPY
 min_corroboration: 0              # OFF: helped BWET but clipped MP's thin-sourced WINNERS (RKLB/WSR) — evidence-count != conviction (fails cross-gem)
 reentry_block_weeks: 0            # OFF (the 'K weeks' hack): re-holds are prevented at the SOURCE now — the scout is told which catalysts resolved and won't re-chase the hype
-curator_memory_weeks: 8           # How many weeks of RESOLVED catalysts the scout is reminded of, so it won't re-chase a done thesis (0 = whole history); sweepable
+curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks; sweepable
 lookback_period_days: 7           # Optimizer's Trailing lookback window, in calendar days
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
