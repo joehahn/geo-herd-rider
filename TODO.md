@@ -24,9 +24,19 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
-## Evaluate Claude Sonnet 5 as the curator (not urgent)
+## Evaluate stronger curator models — Sonnet 5 / Fable 5 (not urgent)
 
-Sonnet 5 (announced 2026-06-30) is "near-Opus intelligence at Sonnet pricing" — a plausible
+**Claude Fable 5** (`claude-fable-5`, announced 2026-07-01) is the priciest frontier tier —
+**$10/$50** per M in/out (vs sonnet-4.6 $3/$15, opus-4.8 ~$5/$25) — built for the hardest,
+longest-horizon reasoning ("plans across stages, checks its own work"). It lands exactly on our weak
+spot: the nuanced entry/exit judgments (pending-vs-in-force catalyst, don't-re-chase-a-resolved-catalyst).
+A 3-gem scan would run ~$12–18+, so it's only worth it **if the scoreboard shows lift over sonnet** (#3).
+Best used via the **advisor strategy** — cheap worker (sonnet/llama4) for the high-volume scout/agent
+calls, consult Fable 5 only at the hard exit/entry decisions (near-frontier judgment, not frontier cost).
+Integration: add `claude-fable-5` to `CURATOR_MODELS`; `src/llm.py` already uses the adaptive-thinking +
+effort path it needs. Safety classifiers (cyber/bio) + 30-day retention don't affect our news-curation use.
+
+**Claude Sonnet 5** is "near-Opus intelligence at Sonnet pricing" — a plausible
 better-and-cheaper replacement for the current `sonnet` (claude-sonnet-4-6) curator. In our test,
 sonnet-4.6 already dominated llama4 (5 named events for MP vs 13–27; +436%/−25.5% MP; clean
 discrete exits), so Sonnet 5 should be at least as good and cheaper (intro **$2/$10** vs 4.6's
