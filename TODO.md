@@ -10,6 +10,26 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
+## Evaluate Claude Sonnet 5 as the curator (not urgent)
+
+Sonnet 5 (announced 2026-06-30) is "near-Opus intelligence at Sonnet pricing" — a plausible
+better-and-cheaper replacement for the current `sonnet` (claude-sonnet-4-6) curator. In our test,
+sonnet-4.6 already dominated llama4 (5 named events for MP vs 13–27; +436%/−25.5% MP; clean
+discrete exits), so Sonnet 5 should be at least as good and cheaper (intro **$2/$10** vs 4.6's
+$3/$15 through 2026-08-31, roughly cost-neutral after its 1.0–1.35× tokenizer bump).
+
+- **Integration is one line** — `src/llm.py` already sets no `temperature`/`top_p`/`top_k` and
+  already uses `thinking:{type:adaptive}` + `output_config:{effort:...}` (Sonnet 5's required model;
+  `budget_tokens`/extended-thinking are gone). Just add the model ID to `CURATOR_MODELS` in
+  `src/optimizer.py` (need the exact ID) and set `model: sonnet5` in `investor_profile.md`.
+- **Validate:** one 3-gem re-scan on the warm caches (~$3–4 intro, ~1 hr), A/B vs sonnet-4.6 on
+  returns/sprawl/exits; keep only if it adds lift (scoreboard, CLAUDE.md #3/#5).
+- **Won't fix the open-ended-catalyst exit** (MP-type) — that's not model-IQ; an ongoing curb never
+  "resolves". The price trailing-stop remains that fix regardless of curator model.
+- **Advisor-strategy option** (Sonnet 5 executor + Opus advisor at key moments) maps naturally onto
+  our engine: cheap per-event agents on Sonnet 5, consult Opus only at the hard calls (the matcher /
+  the exit). Near-frontier judgment at Sonnet cost. Park as a later upgrade.
+
 ## Maturity tag as an entry/exit gate (does framing add lift?)
 
 We removed the per-event **maturity tag** (`early | building | consensus | crested`) from the
