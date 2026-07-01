@@ -30,6 +30,23 @@ $3/$15 through 2026-08-31, roughly cost-neutral after its 1.0–1.35× tokenizer
   our engine: cheap per-event agents on Sonnet 5, consult Opus only at the hard calls (the matcher /
   the exit). Near-frontier judgment at Sonnet cost. Park as a later upgrade.
 
+## GDELT reliability — BigQuery as a production-grade source (not urgent)
+
+The GDELT DOC API is our firehose retrieval, and it's proven flaky: degraded CDX / archive.org
+stalls during cold scans, and a full doc-API outage (api.gdeltproject.org → http=000 for 10h+ on
+2026-06-30/07-01) that blocked the GDX cold scan entirely. Per GDELT: they're mid-migration to
+Spanner (frequent latency/interruptions); the DOC API *officially* supports only the most recent
+~3 months (we get older data via enforced `startdatetime`/`enddatetime`, which has worked but may
+degrade for old weeks during the migration); and it locks up above ~1 req/5s (we already throttle
+at 15s in `src/gdelt.py`, so rate-limiting is not our problem).
+
+- **The robust fix:** pull GDELT from **Google BigQuery** (the full dataset, production-grade,
+  no 3-month limit, no per-request throttle) instead of the DOC API — for cold historical pool
+  builds especially. Would need a `gdelt.py` alternate fetch path + GCP creds; keep the DOC API as
+  the cheap/no-key default for recent windows.
+- **Until then:** cold scans depend on the DOC API being up; the auto-resume poll handles transient
+  outages. Warm caches are unaffected (retrieval is cache-hit, no API).
+
 ## Maturity tag as an entry/exit gate (does framing add lift?)
 
 We removed the per-event **maturity tag** (`early | building | consensus | crested`) from the
