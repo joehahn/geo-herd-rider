@@ -162,6 +162,39 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         agent_of.setdefault(agent_meta[aid]["ticker"], []).append(aid)
     agent_of = {tk: "+".join(ids) for tk, ids in agent_of.items()}
 
+    # per-agent $ attribution (Plot 7): partition each ticker's cumulative gain across its agents by
+    # their active windows -> telescopes to the ticker total, and splits a shared ticker (BWET ev2/ev6).
+    ag_dates, ag_gs = d["dates"], d.get("gain_series", {})
+
+    def _idx_le(ds):
+        j = -1
+        for i, dd in enumerate(ag_dates):
+            if dd <= ds:
+                j = i
+            else:
+                break
+        return j
+    by_tk: dict = {}
+    for aid, mt in agent_meta.items():
+        by_tk.setdefault(mt["ticker"], []).append(aid)
+    agent_gain = {}
+    for tk, aids in by_tk.items():
+        gs = ag_gs.get(tk)
+        aids = sorted(aids, key=lambda a: agent_meta[a]["first"])
+        if not gs:
+            for a in aids:
+                agent_gain[a] = 0.0
+            continue
+        for k, a in enumerate(aids):
+            s = _idx_le(agent_meta[a]["first"]) - 1
+            start_val = gs[s] if s >= 0 else 0.0
+            if k + 1 < len(aids):                      # bounded by the next agent's start
+                e = _idx_le(agent_meta[aids[k + 1]]["first"]) - 1
+                end_val = gs[e] if e >= 0 else 0.0
+            else:                                      # last agent keeps the tail
+                end_val = gs[-1]
+            agent_gain[a] = round(end_val - start_val, 2)
+
     # Plot-2 markers: the weeks each ticker's agent went LIVE (entry) and EXITED (thesis_live -> False)
     agent_marks, _prev_live = {}, {}
     for a in sorted(scans):
@@ -219,7 +252,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "watchlist": watchlist, "watch_daily": watch_daily,
         "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
         "arcs": arcs, "lifecycle": lifecycle, "agents": agent_meta, "agent_of": agent_of,
-        "agent_marks": agent_marks,
+        "agent_marks": agent_marks, "agent_gain": agent_gain,
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -521,20 +554,27 @@ INDEX_HTML = r"""<!doctype html>
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 7 — Watchlist by date</h2>
+ <h2>Plot 7 — Cumulative $ earned per agent (event)</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
+   partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
+   agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
+   winner, red = loser; the bars sum to the portfolio's total gain.</p>
+ <div id="agentgain"></div>
+
+ <h2>Plot 8 — Watchlist by date</h2>
  <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
    the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
  <table class="atab" id="watchtable"></table>
 
- <h2>Plot 8 — Gem lifecycle — full window (pre / live / exit / post)</h2>
+ <h2>Plot 9 — Gem lifecycle — full window (pre / live / exit / post)</h2>
  <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
    this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
    dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
    <i>before, during, and after</i> the event — not just the live span.</p>
  <table class="atab" id="lifecycle"></table>
 
- <h2>Plot 9 — Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 10 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -613,22 +653,22 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
   const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
     line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
-  // entry/exit markers: ▲ = week the agent went live, ✕ = week it exited (on that agent's curve)
+  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
+    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
+  // entry/exit markers LAST so they draw ON TOP of the Total curve: ▲ = went live, ✕ = exit
   const AM=D.agent_marks||{};
   const idxOf=ds=>{let j=0;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
   Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{
     const col=D.colors[t]||"#888", mk=AM[t]||{};
     const mkTrace=(dates,sym,tag)=>{const pts=(dates||[]).map(idxOf);if(!pts.length)return;
-      gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,
-        marker:{symbol:sym,size:18,color:col,line:{color:"#fff",width:2}},
+      gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,cliponaxis:false,
+        marker:{symbol:sym,size:26,color:col,line:{color:"#fff",width:2.5}},
         hovertemplate:alab(t)+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});};
     mkTrace(mk.live,"triangle-up","went live"); mkTrace(mk.exit,"x","exit");
   });
-  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
-    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
   // legend keys for the two marker symbols (neutral gray, no data point drawn)
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:14,color:"#666"}});
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:13,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:15,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:14,color:"#666"}});
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
      xaxis:{type:"date",range:XR,autorange:false},
@@ -700,7 +740,18 @@ fetch("data.json").then(r=>r.json()).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 7 — watchlist by date: rows where the live watchlist or its funding changed.
+  // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
+  const AG=D.agent_gain||{}, AGM=D.agents||{};
+  const aglab=id=>AGM[id]?id+" ("+AGM[id].ticker+")":id;
+  const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
+    marker:{color:agS.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:70},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 8 — watchlist by date: rows where the live watchlist or its funding changed.
   let pw=null; const wrows=[];
   for(const w of (D.watchlist||[])){
     const fset=new Set(w.funded||[]);
