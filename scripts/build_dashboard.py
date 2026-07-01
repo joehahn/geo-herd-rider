@@ -162,6 +162,23 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         agent_of.setdefault(agent_meta[aid]["ticker"], []).append(aid)
     agent_of = {tk: "+".join(ids) for tk, ids in agent_of.items()}
 
+    # Plot-2 markers: the weeks each ticker's agent went LIVE (entry) and EXITED (thesis_live -> False)
+    agent_marks, _prev_live = {}, {}
+    for a in sorted(scans):
+        ds = a.date().isoformat()
+        for p in scans[a]:
+            tk = str(p.get("ticker", "")).strip().upper()
+            if not tk:
+                continue
+            lv = bool(p.get("thesis_live"))
+            m = agent_marks.setdefault(tk, {"live": [], "exit": []})
+            was = _prev_live.get(tk, False)
+            if lv and not was:
+                m["live"].append(ds)
+            elif was and not lv:
+                m["exit"].append(ds)
+            _prev_live[tk] = lv
+
     # full-window lifecycle for THIS gem (the dashboard's subject): EVERY scanned week labeled
     # pre (scanned, not yet flagged) / live / exit / post (dropped) — so the agent's behavior
     # before, during, and after the event is visible, not just the live span.
@@ -202,6 +219,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "watchlist": watchlist, "watch_daily": watch_daily,
         "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
         "arcs": arcs, "lifecycle": lifecycle, "agents": agent_meta, "agent_of": agent_of,
+        "agent_marks": agent_marks,
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -475,9 +493,9 @@ INDEX_HTML = r"""<!doctype html>
 
  <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
  <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
-   holds, then flatlines at its realized gain once it exits.</b> The bold <b>Total</b> is the portfolio's
-   gain (the lines sum to it). Flat-near-zero = an agent that contributed little; never-funded agents are
-   omitted.</p>
+   holds, then flatlines at its realized gain once it exits.</b> <b>▲</b> marks the week the agent went
+   live, <b>✕</b> its exit. The bold <b>Total</b> is the portfolio's gain (the lines sum to it).
+   Flat-near-zero = an agent that contributed little; never-funded agents are omitted.</p>
  <div id="gainseries"></div>
 
  <h2>Plot 3 — Allocation over time</h2>
@@ -595,8 +613,22 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
   const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
     line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
+  // entry/exit markers: ▲ = week the agent went live, ✕ = week it exited (on that agent's curve)
+  const AM=D.agent_marks||{};
+  const idxOf=ds=>{let j=0;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
+  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{
+    const col=D.colors[t]||"#888", mk=AM[t]||{};
+    const mkTrace=(dates,sym,tag)=>{const pts=(dates||[]).map(idxOf);if(!pts.length)return;
+      gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,
+        marker:{symbol:sym,size:11,color:col,line:{color:"#fff",width:1.5}},
+        hovertemplate:alab(t)+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});};
+    mkTrace(mk.live,"triangle-up","went live"); mkTrace(mk.exit,"x","exit");
+  });
   gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
     line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
+  // legend keys for the two marker symbols (neutral gray, no data point drawn)
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:10,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:9,color:"#666"}});
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
      xaxis:{type:"date",range:XR,autorange:false},
