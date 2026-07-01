@@ -620,15 +620,15 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const col=D.colors[t]||"#888", mk=AM[t]||{};
     const mkTrace=(dates,sym,tag)=>{const pts=(dates||[]).map(idxOf);if(!pts.length)return;
       gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,
-        marker:{symbol:sym,size:11,color:col,line:{color:"#fff",width:1.5}},
+        marker:{symbol:sym,size:18,color:col,line:{color:"#fff",width:2}},
         hovertemplate:alab(t)+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});};
     mkTrace(mk.live,"triangle-up","went live"); mkTrace(mk.exit,"x","exit");
   });
   gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
     line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
   // legend keys for the two marker symbols (neutral gray, no data point drawn)
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:10,color:"#666"}});
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:9,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:14,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:13,color:"#666"}});
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
      xaxis:{type:"date",range:XR,autorange:false},
