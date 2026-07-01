@@ -350,13 +350,13 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         reb.append(None if i is None else i)
         if i is not None:
             wl = [t for t in watch[a] if t not in pruned]
-            uni = wl + ([bench] if hold_bench and bench in valid and bench not in wl else [])
-            w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
-            if max_pos:                                      # cap SPECULATIVE names; benchmark is exempt
-                spec = {t: v for t, v in w.items() if t != bench}
-                if len(spec) > max_pos:                      # keep top-N gems (+ SPY); rest -> cash
-                    keep = set(sorted(spec, key=lambda x: -spec[x])[:max_pos])
-                    w = {t: v for t, v in w.items() if t == bench or t in keep}
+            w = (curator._optimized_weights(wl, panel, days[i], fm, lookback) or {}) if wl else {}
+            if max_pos and len(w) > max_pos:                 # keep the N highest-weight gems; tail -> residual
+                w = {t: w[t] for t in sorted(w, key=lambda x: -w[x])[:max_pos]}
+            if hold_bench and bench in valid:                # park idle capital (cash residual) in SPY, so
+                resid = round(1.0 - sum(w.values()), 6)      # the book starts 100% SPY & never sits in cash;
+                if resid > 1e-9:                             # gem weights are UNTOUCHED (no dilution)
+                    w = {**w, bench: round(w.get(bench, 0.0) + resid, 6)}
             if prune_k:                                       # a name the optimizer keeps starving -> drop
                 for t in wl:
                     zero_streak[t] = 0 if w.get(t, 0) > 1e-9 else zero_streak.get(t, 0) + 1

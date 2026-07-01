@@ -49,6 +49,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
+    "max_concurrent_positions": 0,     # LIVE (firehose backtest): fund only the top-N optimizer-weighted
+                                       #   names/week (0 = uncapped). Visibility/risk cap on the tail.
+    "prune_zero_weight_weeks": 0,      # LIVE (firehose backtest): drop a name the optimizer keeps
+                                       #   starving (~0 weight) for this many weeks (0 = off).
+    "hold_benchmark": False,           # LIVE (firehose backtest): park idle capital (cash residual after
+                                       #   gem sizing) in SPY so the book starts 100% SPY, never sits in cash.
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }

@@ -8,14 +8,14 @@ model: sonnet                     # Curator LLM that reads the firehose. Choices
                                   #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
 initial_investment_usd: 50000     # Day-0 dollar allocation.
-concentration_cap: 0.7            # Per-ticker max allocation.
+concentration_cap: 0.9            # Per-ticker max allocation.
 risk_aversion: 0.25               # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 max_tickers_per_event: 16         # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.1               # Drop holdings smaller than this & reallocate
-max_concurrent_positions: 4       # Visibility/risk cap: fund only the top-N optimizer-weighted names/week (0 = uncapped)
+max_concurrent_positions: 2       # Visibility/risk cap: fund only the top-N optimizer-weighted names/week (0 = uncapped)
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
-hold_benchmark: false             # OFF: SPY in the optimizer universe over-dilutes (parks ~all weeks, returns collapse to SPY); kept as an optional knob
+hold_benchmark: true              # Park idle capital (the cash residual after gem sizing) in SPY: book starts 100% SPY & never sits in cash; gem weights untouched
 lookback_period_days: 7           # Optimizer's Trailing lookback window, in calendar days
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
