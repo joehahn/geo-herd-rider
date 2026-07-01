@@ -24,6 +24,10 @@
  .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
  .atab th{color:var(--mut);font-weight:600}
  .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ details.clip{display:inline}
+ details.clip>summary{display:inline;cursor:pointer;color:#2980b9;font-size:11px;list-style:none}
+ details.clip>summary::-webkit-details-marker{display:none}
+ details.clip[open]>summary{display:none}
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="../index.html">↑ All gems</a>
@@ -78,14 +82,14 @@
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
  <table class="atab" id="watchtable"></table>
 
- <h2>Gem lifecycle — full window (pre / live / exit / post)</h2>
+ <h2>Plot 8 — Gem lifecycle — full window (pre / live / exit / post)</h2>
  <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
    this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
    dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
    <i>before, during, and after</i> the event — not just the live span.</p>
  <table class="atab" id="lifecycle"></table>
 
- <h2>Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 9 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -160,9 +164,10 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     {displayModeBar:false,responsive:true});
 
   // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
-  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]);
-  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:t,mode:"lines",
-    line:{color:D.colors[t]||"#888",width:2},hovertemplate:t+" $%{y:,.0f}"}));
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{};
+  const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
+  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
+    line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
   gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
     line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
   Plotly.newPlot("gainseries",gtr,
@@ -261,22 +266,25 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
     return A[y].length-A[x].length;});
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
+    :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
   const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
   const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
   document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
     const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
-      +`<td>${esc(e.src)}</td><td>${esc(e.thesis)}</td>`
-      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
-      +`<td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
+      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
+      +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
     const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
     const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
     const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
-    return `<details${open} style="${style}"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${esc(thesis)}</span></summary>`
+    return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
@@ -284,11 +292,11 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
   const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
   document.getElementById("lifecycle").innerHTML = LC.length
-    ? `<thead><tr><th>Date</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
-      + LC.map(e=>`<tr><td>${e.date}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
+    ? `<thead><tr><th>Date</th><th>agent</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
+      + LC.map(e=>`<tr><td>${e.date}</td><td>${esc(e.agent||'')}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
         +`${e.state==='pre'?'— not flagged':e.state==='post'?'— dropped':e.state}</td>`
-        +`<td>${esc(e.src)}</td><td>${esc(e.exit_case)}</td><td>${esc(e.assessment)}</td>`
-        +`<td class="sub">${esc(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
+        +`<td>${esc(e.src)}</td><td>${clip(e.exit_case)}</td><td>${clip(e.assessment)}</td>`
+        +`<td class="sub">${clip(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
     : '<tr><td class="sub">No lifecycle (re-scan to populate).</td></tr>';
 
   document.getElementById("costs").innerHTML =

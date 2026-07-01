@@ -141,6 +141,27 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
                     "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
                     "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
 
+    # stable agent ids: each distinct event (catalyst/thesis) = one agent, numbered ev1, ev2... in
+    # first-appearance order (matches the engine's event-creation numbering). A ticker maps to >1
+    # agent when its thesis exits and the same ticker later re-emerges as a fresh event (e.g. BWET).
+    thesis_id, agent_meta = {}, {}
+    for a in sorted(scans):
+        for p in scans[a]:
+            th, tk = p.get("thesis", ""), str(p.get("ticker", "")).strip().upper()
+            if not th or not tk:
+                continue
+            aid = thesis_id.get(th)
+            if aid is None:
+                aid = thesis_id[th] = f"ev{len(thesis_id) + 1}"
+                agent_meta[aid] = {"ticker": tk, "thesis": th,
+                                   "first": a.date().isoformat(), "last": a.date().isoformat()}
+            else:
+                agent_meta[aid]["last"] = a.date().isoformat()
+    agent_of: dict = {}                       # ticker -> "ev1" (or "ev2+ev6" if it had >1 event)
+    for th, aid in thesis_id.items():
+        agent_of.setdefault(agent_meta[aid]["ticker"], []).append(aid)
+    agent_of = {tk: "+".join(ids) for tk, ids in agent_of.items()}
+
     # full-window lifecycle for THIS gem (the dashboard's subject): EVERY scanned week labeled
     # pre (scanned, not yet flagged) / live / exit / post (dropped) — so the agent's behavior
     # before, during, and after the event is visible, not just the live span.
@@ -153,11 +174,12 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             p = gp[0]
             lifecycle.append({"date": a.date().isoformat(),
                               "state": "live" if p.get("thesis_live") else "exit",
+                              "agent": thesis_id.get(p.get("thesis", ""), ""),
                               "src": p.get("src", ""), "exit_case": p.get("exit_case", ""),
                               "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
         else:
             lifecycle.append({"date": a.date().isoformat(), "state": "post" if seen else "pre",
-                              "src": "", "exit_case": "", "assessment": "", "exit_advice": ""})
+                              "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""})
 
     # curator model that PRODUCED this book: the scan sidecar wins over the current profile knob
     meta_p = cfg["scans"].with_suffix(".meta.json")
@@ -179,7 +201,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "watch_daily": watch_daily,
         "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
-        "arcs": arcs, "lifecycle": lifecycle,
+        "arcs": arcs, "lifecycle": lifecycle, "agents": agent_meta, "agent_of": agent_of,
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     (out / "data.json").write_text(json.dumps(payload, indent=2))
@@ -429,6 +451,10 @@ INDEX_HTML = r"""<!doctype html>
  .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
  .atab th{color:var(--mut);font-weight:600}
  .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ details.clip{display:inline}
+ details.clip>summary{display:inline;cursor:pointer;color:#2980b9;font-size:11px;list-style:none}
+ details.clip>summary::-webkit-details-marker{display:none}
+ details.clip[open]>summary{display:none}
 </style></head>
 <body><div class="wrap">
  <nav class="nav"><a href="../index.html">↑ All gems</a>
@@ -483,14 +509,14 @@ INDEX_HTML = r"""<!doctype html>
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
  <table class="atab" id="watchtable"></table>
 
- <h2>Gem lifecycle — full window (pre / live / exit / post)</h2>
+ <h2>Plot 8 — Gem lifecycle — full window (pre / live / exit / post)</h2>
  <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
    this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
    dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
    <i>before, during, and after</i> the event — not just the live span.</p>
  <table class="atab" id="lifecycle"></table>
 
- <h2>Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 9 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -565,9 +591,10 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     {displayModeBar:false,responsive:true});
 
   // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
-  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]);
-  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:t,mode:"lines",
-    line:{color:D.colors[t]||"#888",width:2},hovertemplate:t+" $%{y:,.0f}"}));
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{};
+  const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
+  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
+    line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
   gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
     line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
   Plotly.newPlot("gainseries",gtr,
@@ -666,22 +693,25 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
     return A[y].length-A[x].length;});
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
+    :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
   const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
   const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
   document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
     const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
-      +`<td>${esc(e.src)}</td><td>${esc(e.thesis)}</td>`
-      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${esc(e.exit_case)||"—"}</td>`
-      +`<td>${esc(e.assessment)}</td><td class="sub">${esc(e.exit_advice)}</td></tr>`).join("");
+      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
+      +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
     const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
     const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
     const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
-    return `<details${open} style="${style}"><summary><b>${t}</b> · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${esc(thesis)}</span></summary>`
+    return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
@@ -689,11 +719,11 @@ fetch("data.json").then(r=>r.json()).then(D=>{
   // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
   const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
   document.getElementById("lifecycle").innerHTML = LC.length
-    ? `<thead><tr><th>Date</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
-      + LC.map(e=>`<tr><td>${e.date}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
+    ? `<thead><tr><th>Date</th><th>agent</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
+      + LC.map(e=>`<tr><td>${e.date}</td><td>${esc(e.agent||'')}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
         +`${e.state==='pre'?'— not flagged':e.state==='post'?'— dropped':e.state}</td>`
-        +`<td>${esc(e.src)}</td><td>${esc(e.exit_case)}</td><td>${esc(e.assessment)}</td>`
-        +`<td class="sub">${esc(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
+        +`<td>${esc(e.src)}</td><td>${clip(e.exit_case)}</td><td>${clip(e.assessment)}</td>`
+        +`<td class="sub">${clip(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
     : '<tr><td class="sub">No lifecycle (re-scan to populate).</td></tr>';
 
   document.getElementById("costs").innerHTML =

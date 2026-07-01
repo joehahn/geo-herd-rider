@@ -221,11 +221,11 @@
     50074.41,
     49796.28,
     49557.16,
-    49585.34,
+    49585.33,
     49148.27,
     49495.03,
     49219.07,
-    48573.95,
+    48573.94,
     48999.45,
     48920.71,
     48859.31,
@@ -234,7 +234,7 @@
     48331.94,
     48459.08,
     47782.9,
-    47665.15,
+    47665.14,
     46981.83,
     47475.14,
     47315.77,
@@ -1788,6 +1788,7 @@
     {
       "date": "2026-02-06",
       "state": "pre",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1796,6 +1797,7 @@
     {
       "date": "2026-02-13",
       "state": "pre",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1804,6 +1806,7 @@
     {
       "date": "2026-02-20",
       "state": "pre",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1812,6 +1815,7 @@
     {
       "date": "2026-02-27",
       "state": "pre",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1820,6 +1824,7 @@
     {
       "date": "2026-03-06",
       "state": "pre",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1828,6 +1833,7 @@
     {
       "date": "2026-03-13",
       "state": "live",
+      "agent": "ev2",
       "src": "seed",
       "exit_case": "Strait closure already occurred March 9 and initial tanker-rate spike is priced in; first-mover edge exhausted.",
       "assessment": "Entry week. The Strait of Hormuz closure is confirmed ~March 9 (el-balad.com explicitly cites market plunge 'after closure of Strait of Hormuz'). US military operations inside Iran are actively ongoing as of March 11 (Eurasia Review WMD analysis). Critically, there is ZERO news this week of the strait reopening \u2014 the chokepoint has not been reversed. BWET is still climbing as of March 13 (MarketWatch), confirming tanker day-rates remain elevated and the freight-futures curve has not collapsed. The exit case is real \u2014 the initial shock move is behind us and crowding is possible \u2014 but per the rules this is a 'priced in' argument, not a catalyst resolution. Catalyst resolution requires the strait to REOPEN or the conflict to formally end; neither has occurred. BWET remains the single cleanest pure-play vehicle: it holds tanker freight futures directly, has no equity noise, and is still under-owned per MarketWatch. Hold. Watch for any ceasefire signal, Iranian government communication, or US drawdown announcement as the hard exit trigger.",
@@ -1836,6 +1842,7 @@
     {
       "date": "2026-03-20",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "Tanker day-rates may have already peaked as markets adapt to alternative routing; BWET gains from here require fresh escalation, not just status quo.",
       "assessment": "The Strait of Hormuz remains closed \u2014 no reopening or ceasefire news anywhere in this week's feed. If anything, the catalyst is deepening: oil is confirmed above $100/barrel (MarketWatch/MarketScreener, Mar 19), European markets are pricing persistent inflation from the conflict, and the Mar 16 FTSE article explicitly notes investors are still watching 'developments in the Strait of Hormuz' as an unresolved live risk. The only honest exit case is that day-rates already captured the first-shock move and further BWET upside requires incremental escalation \u2014 that is a 'priced-in' crowding argument, not catalyst resolution under the rules. Catalyst resolution still requires the chokepoint to physically reopen or the conflict to formally end; neither has occurred in this week or any prior week. BWET remains the cleanest vehicle: direct tanker freight-futures exposure, no equity noise. Hold with hard trigger on any ceasefire or reopening headline.",
@@ -1844,6 +1851,7 @@
     {
       "date": "2026-03-27",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "BWET has fully captured the initial shock-spike; two weeks of appreciation may have priced maximum escalation, leaving only de-escalation upside risk.",
       "assessment": "The exit case is purely a 'priced-in / crowding' argument, which the rules explicitly exclude as a catalyst-resolution trigger. The catalyst \u2014 Strait closed, tanker day-rates spiked \u2014 has not resolved in this week or any prior week. This week's news is unambiguously in the other direction: US ground assault troops are moving toward the Gulf, peace proposals have been rejected by both sides, and the UN is warning of out-of-control escalation. The chokepoint remains physically closed; the conflict is deepening, not winding down. BWET remains the single cleanest vehicle \u2014 direct tanker freight-futures exposure, no equity noise. The hard exit trigger (ceasefire, reopening, formal drawdown) has not been pulled. Hold.",
@@ -1852,6 +1860,7 @@
     {
       "date": "2026-04-03",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "Trump publicly declares 'end is near' and UK-led 40-nation coalition is actively demanding strait reopening \u2014 resolution is visibly imminent, market will front-run it.",
       "assessment": "Week 4 (Apr 3). The strait remains physically closed \u2014 'Iran's chokehold on the Strait of Hormuz HAS disrupted world energy supplies' (present tense), Iran is still targeting Israel and Gulf neighbours, and no ceasefire has been signed. catalyst_resolved is therefore still false. However, this week is a qualitative inflection: Trump delivered a televised 'end is near / final blow' declaration, the UK convened 40 foreign ministers explicitly to demand the blockade end, and Macron is pre-positioning a free-passage coalition 'once hostilities have stopped.' These are the forward-looking resolution signals the journal has been watching for since entry. The thesis is technically alive but entering its final innings. BWET remains the cleanest pure-play (direct tanker freight-futures, no equity noise). Hold only through this week; treat any ceasefire headline, US drawdown announcement, or formal reopening agreement as an immediate hard exit.",
@@ -1860,6 +1869,7 @@
     {
       "date": "2026-04-10",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "Trump's 'end is near' + UK/Macron coalition push last week; zero news this week suggests quiet resolution possible.",
       "assessment": "Week 5 is a pure information vacuum: no fresh coverage, no confirmed reopening, no confirmed continuation. The last solid read (Apr 3) was: strait physically closed, Trump declaring 'end is near,' UK convening 40 foreign ministers to force the blockade's end, Macron pre-staging a free-passage coalition. Catalyst_resolved stays false \u2014 a strait reopening is the single biggest energy/shipping story of the year; its absence from the newswire is tentative evidence the closure persists. But the thesis entered its final innings last week, the exit signals are fully loaded, and holding through a news vacuum when diplomatic resolution was explicitly flagged as imminent carries real gap-down risk. BWET remains the only vehicle (direct tanker freight-futures, no equity noise). Hold only on the presumption that the strait is still closed \u2014 any credible signal of reopening or ceasefire triggers an immediate exit.",
@@ -1868,6 +1878,7 @@
     {
       "date": "2026-04-17",
       "state": "live",
+      "agent": "ev2",
       "src": "seed",
       "exit_case": "Trump's 'end is near' + 40-nation coalition assembled 2 weeks ago; reopening gap-risk is acute.",
       "assessment": "Week 6: BWET extends its advance and tanker day-rates remain elevated (etf.com, Apr 17), the single most direct real-time indicator that the strait is still physically closed and the catalyst has not resolved. That said, the journal's own exit-signal checklist from Apr 3 is fully populated: Trump's televised 'end is near' declaration, the UK's 40-foreign-minister summit explicitly targeting the blockade, and Macron's pre-staged free-passage coalition. The thesis is technically alive \u2014 rates are up, strait is closed \u2014 but it is operating on fumes of an imminent diplomatic resolution. Hold only while the strait is confirmed closed; the exit trigger is hair-trigger and will not telegraph itself.",
@@ -1876,6 +1887,7 @@
     {
       "date": "2026-04-24",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "Diplomatic resolution signals fully loaded 3+ weeks; Bahrain equity market rising suggests Gulf risk premium easing \u2014 catalyst may have quietly closed.",
       "assessment": "Week 7: The only news is Bahrain's stock index closing higher on back-to-back days \u2014 a regional risk-premium signal, not a hard catalyst read, but noteworthy. Bahrain is a Gulf-trade-dependent economy; its equity market climbing is a soft leading indicator that the war's acute pressure on regional commerce may be easing. That said, no source this week confirms the strait has reopened or a ceasefire has been signed, so catalyst_resolved stays false. However, the journal's 'final innings' flag has now been live for three straight weeks (first raised Apr 3), and this is the second consecutive week with zero direct Hormuz/tanker-rate coverage. The combination of pre-loaded exit signals (Trump's 'end is near' declaration, UK's 40-minister summit targeting the blockade, Macron's pre-staged free-passage coalition) and a now-rising Gulf equity market makes the gap-risk of a surprise resolution headline very high. BWET remains the only vehicle \u2014 direct tanker freight-futures, no equity noise \u2014 and the last confirmed read (Apr 17) still showed elevated rates. Hold only on the presumption the strait is physically closed; the exit trigger is hair-trigger and will not telegraph itself.",
@@ -1884,6 +1896,7 @@
     {
       "date": "2026-05-01",
       "state": "live",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "US-Iran peace talks now publicly confirmed active; diplomatic resolution and strait reopening appear imminent.",
       "assessment": "Week 8. The single most important data point this week is LiveMint Apr 28: 'uncertainty over US-Iran peace talks keeps energy prices high.' This sentence does two things simultaneously \u2014 it confirms that formal US-Iran peace negotiations are now active and publicly acknowledged, AND it confirms that energy prices (and by extension tanker day-rates) remain elevated, meaning the strait is still effectively closed. Catalyst_resolved stays false: active talks are not a signed deal, no ceasefire has been announced, no reopening confirmed. But the thesis is now operating on its thinnest possible margin. The 'final innings' warning first raised Apr 3 has been live four straight weeks. The pre-loaded exit signals (Trump 'end is near,' UK 40-minister summit, Macron free-passage coalition) are now joined by the hardest signal yet \u2014 confirmed bilateral negotiations. Gulf equity markets are rising for the second consecutive week (Bahrain last week, Saudi Arabia this week), pricing in regional de-escalation. The only reason to hold is the one the rules require: the chokepoint has not physically reopened and rates remain elevated. BWET remains the sole vehicle \u2014 direct tanker freight-futures, no equity noise, the cleanest real-time read on the catalyst. Hold by the narrowest margin; the exit trigger will not telegraph itself.",
@@ -1892,6 +1905,7 @@
     {
       "date": "2026-05-08",
       "state": "exit",
+      "agent": "ev2",
       "src": "gdelt",
       "exit_case": "Crude oil now FALLING on explicit US-Iran deal hopes \u2014 supply shock reversing in real-time, BWET thesis inverting.",
       "assessment": "Week 9 (ending May 8). This is the exit week. Indian equities surged 940 pts on two simultaneous triggers: 'US-Iran deal hopes AND falling crude oil prices.' The second half \u2014 crude FALLING \u2014 is the kill shot. Every week since entry, BWET's thesis rested on crude elevated by the strait closure and spiking tanker day-rates. Crude falling in anticipation of a deal means the disruption premium is being actively unwound RIGHT NOW, before the deal is even signed. Tanker day-rates follow crude directionally; BWET is inverting. Five consecutive weeks of pre-loaded exit signals had fully stacked the powder: Trump's 'end is near' declaration (Apr 3), UK 40-minister summit targeting the blockade (Apr 3), Macron's pre-staged free-passage coalition (Apr 3), confirmed bilateral US-Iran peace talks (Apr 28), and rising Gulf equities for two straight weeks (Bahrain Apr 24, Saudi Arabia May 1). The journal's own standing trigger \u2014 'supply shock reversed' = catalyst resolved \u2014 is now met. The thesis has been in 'final innings' since Apr 3 (five weeks). The newswire delivered. Per the rules, waiting for a signed piece of paper after crude has already started falling is the inertia trap this process exists to break. Catalyst resolved. Exit.",
@@ -1900,6 +1914,7 @@
     {
       "date": "2026-05-15",
       "state": "post",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1908,6 +1923,7 @@
     {
       "date": "2026-05-22",
       "state": "live",
+      "agent": "ev6",
       "src": "seed",
       "exit_case": "No confirmed physical Hormuz blockade exists \u2014 'tensions' may be fully priced; spike already captured in BWET entry.",
       "assessment": "Week 1. Both available news items confirm the catalyst remains live: BWET is explicitly described as holding gains 'as elevated tanker freight rates persist amid ongoing Hormuz tensions' with the 'war-driven oil-freight spike has not resolved.' The Hudson piece adds macro corroboration (war + oil crisis narrative is mainstream) but does not change catalyst status. Devil's advocate is noted \u2014 there is no confirmed hard blockade announcement, only tension-driven rate elevation, so the spike could be partially sentiment-driven and vulnerable to sudden de-escalation. However, rates are factually elevated and the strait remains a live risk. BWET is the cleanest pure-play vehicle: it holds tanker freight futures directly and has no equity dilution or corporate noise. Hold while Hormuz remains contested and spot/forward freight rates stay above pre-event baseline. Watch for any Iran-US diplomatic signal or Houthi/Iran ceasefire as the primary exit trigger.",
@@ -1916,6 +1932,7 @@
     {
       "date": "2026-05-29",
       "state": "live",
+      "agent": "ev6",
       "src": "gdelt",
       "exit_case": "Zero fresh news this week; freight rates may have quietly normalized without a reported de-escalation trigger.",
       "assessment": "Week 2. No fresh coverage this week. The devil's advocate case is real but not conclusive: absence of news is not confirmation of resolution, yet it does remove positive catalyst reinforcement and raises the risk the market has already fully priced or quietly moved past the tension premium. The specific catalyst \u2014 Hormuz tensions driving elevated tanker freight rates, formally unresolved \u2014 has not been reported as ended. No ceasefire, no Iran-US diplomatic breakthrough, no strait-reopening signal appears anywhere in the journal. BWET remains the cleanest vehicle: direct tanker-freight-futures exposure with no equity or corporate noise. Primary exit triggers remain unchanged: (1) confirmed Iran-US or Houthi ceasefire/deal, (2) freight rate indices (e.g., BDTI/BCTI) reported back at pre-event baseline, or (3) a third consecutive week of zero corroborating coverage, which would signal full thesis decay.",
@@ -1924,6 +1941,7 @@
     {
       "date": "2026-06-05",
       "state": "exit",
+      "agent": "ev6",
       "src": "gdelt",
       "exit_case": "Third consecutive zero-coverage week triggers pre-set decay exit defined in Week 2 journal.",
       "assessment": "Week 3 delivers a third consecutive week of zero Hormuz, tanker-freight, or BWET-relevant news. The three articles this week (IBP analyst rating, VST price target, LEU hold) are entirely unrelated to the catalyst. In Week 2 I pre-committed in writing: 'a third consecutive week of zero corroborating coverage would signal full thesis decay.' That condition is now satisfied. The catalyst has not been formally resolved \u2014 no ceasefire, no Iran-US diplomatic deal, no strait-reopening, no freight-rate normalization has been reported \u2014 but formal resolution is not required to declare the trade dead. The information edge is gone. Three weeks of silence means the market has either fully priced the tension premium or quietly moved on without a newsworthy reversal. Staying in without reinforcing newsflow is pure hope. Exit BWET cleanly and on pre-set rules, not emotion or inertia.",
@@ -1932,6 +1950,7 @@
     {
       "date": "2026-06-12",
       "state": "post",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1940,6 +1959,7 @@
     {
       "date": "2026-06-19",
       "state": "post",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1948,6 +1968,7 @@
     {
       "date": "2026-06-26",
       "state": "post",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
@@ -1956,10 +1977,62 @@
     {
       "date": "2026-07-03",
       "state": "post",
+      "agent": "",
       "src": "",
       "exit_case": "",
       "assessment": "",
       "exit_advice": ""
     }
-  ]
+  ],
+  "agents": {
+    "ev1": {
+      "ticker": "USAR",
+      "thesis": "US Commerce Dept letter of intent plus $3.5B financing deals signed",
+      "first": "2026-02-13",
+      "last": "2026-02-13"
+    },
+    "ev2": {
+      "ticker": "BWET",
+      "thesis": "US-Iran conflict closes Strait of Hormuz, spiking tanker day-rates",
+      "first": "2026-03-13",
+      "last": "2026-05-08"
+    },
+    "ev3": {
+      "ticker": "AA",
+      "thesis": "Trump orders revised aluminum duties on Liberation Day April 2",
+      "first": "2026-04-03",
+      "last": "2026-04-03"
+    },
+    "ev4": {
+      "ticker": "HUM",
+      "thesis": "CMS finalizes 2027 Medicare Advantage rates with $13B+ payment boost",
+      "first": "2026-04-10",
+      "last": "2026-04-10"
+    },
+    "ev5": {
+      "ticker": "OKLO",
+      "thesis": "NRC regulatory decision due May 12, 2026",
+      "first": "2026-05-08",
+      "last": "2026-05-15"
+    },
+    "ev6": {
+      "ticker": "BWET",
+      "thesis": "Hormuz war blockade spikes tanker freight rates unresolved",
+      "first": "2026-05-22",
+      "last": "2026-06-05"
+    },
+    "ev7": {
+      "ticker": "OKLO",
+      "thesis": "Oklo in advanced DOE talks for specific nuclear fuel program",
+      "first": "2026-05-29",
+      "last": "2026-06-19"
+    }
+  },
+  "agent_of": {
+    "USAR": "ev1",
+    "BWET": "ev2+ev6",
+    "AA": "ev3",
+    "HUM": "ev4",
+    "OKLO": "ev5+ev7"
+  }
 }
