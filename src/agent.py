@@ -541,7 +541,7 @@ def event_agent_v2(client, anchor, event, entries, news):
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False, enrich_fetch=True) -> dict:
+                          enrich=False, enrich_fetch=True, curator_memory_weeks=8) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
@@ -567,10 +567,11 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
-    retired: dict[str, str] = {}   # ticker -> "catalyst (resolved YYYY-MM-DD)" for the scout guard
+    retired: dict[str, tuple] = {}   # ticker -> (catalyst-resolved string, week idx) for the scout guard,
+                                     #   windowed to the last `curator_memory_weeks` weeks (0 = whole history)
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
-    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{qs}".encode()).hexdigest()[:10]
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{qs}".encode()).hexdigest()[:10]
     enrich_cache = str(REPO_ROOT / "data" / "windows" / f"wayback_{key}.json")
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
@@ -586,7 +587,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     prov_f = REPO_ROOT / "data" / "windows" / f"agent_provenance_{rsig}.json"
     provenance: dict = json.loads(prov_f.read_text()) if prov_f.exists() else {}
 
-    for a in anchors:
+    for i, a in enumerate(anchors):
         if a.isoformat() in done:
             continue
         gslice = sorted(firehose._window(gpool, a, rebalance_days),
@@ -602,7 +603,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
              "published_date": x.get("published_date", ""), "source": x.get("source", ""),
              "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
             for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]
-        cands = scout(client, a, win, retired="\n".join(f"- {t}: {c}" for t, c in retired.items()))
+        rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()      # only the last N weeks of
+                         if not curator_memory_weeks or (i - ri) < curator_memory_weeks)  # resolved catalysts
+        cands = scout(client, a, win, retired=rmem)
         # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
         # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
         # tickers go to the (fallible) LLM matcher for cross-ticker grouping.
@@ -641,7 +644,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
                 if entry.get("catalyst_resolved"):   # remember it so the scout won't re-chase the hype
                     for tk in ev["vehicles"]:
-                        retired[tk] = f"{ev['catalyst']} (resolved {a.date()})"
+                        retired[tk] = (f"{ev['catalyst']} (resolved {a.date()})", i)
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),
