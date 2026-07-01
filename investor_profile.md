@@ -16,6 +16,8 @@ min_trade_size: 0.1               # Drop holdings smaller than this & reallocate
 max_concurrent_positions: 2       # Visibility/risk cap: fund only the top-N optimizer-weighted names/week (0 = uncapped)
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
 hold_benchmark: true              # Park idle capital (the cash residual after gem sizing) in SPY: book starts 100% SPY & never sits in cash; gem weights untouched
+min_corroboration: 0              # OFF: helped BWET but clipped MP's thin-sourced WINNERS (RKLB/WSR) — evidence-count != conviction (fails cross-gem)
+reentry_block_weeks: 0            # OFF: inert — sticky-hold MAX_STALE already bridges the gaps, so ev6/ev7 were continuous holds, not re-entries
 lookback_period_days: 7           # Optimizer's Trailing lookback window, in calendar days
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.

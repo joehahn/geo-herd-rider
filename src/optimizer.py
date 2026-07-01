@@ -55,6 +55,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   starving (~0 weight) for this many weeks (0 = off).
     "hold_benchmark": False,           # LIVE (firehose backtest): park idle capital (cash residual after
                                        #   gem sizing) in SPY so the book starts 100% SPY, never sits in cash.
+    "min_corroboration": 0,            # LIVE (firehose backtest): a name may only ENTER on a live read
+                                       #   backed by >=N evidence sources (0 = off; kills thin 1-source theses).
+    "reentry_block_weeks": 0,          # LIVE (firehose backtest): after a ticker exits, block re-entry for
+                                       #   K weeks (0 = off; kills sequential-fragmentation re-opens).
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
     "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }

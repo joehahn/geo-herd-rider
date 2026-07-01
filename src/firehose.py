@@ -279,31 +279,48 @@ EXIT_PATIENCE = 2   # consecutive EXPLICIT thesis-dead reads before exiting (hys
 MAX_STALE = 4       # weeks a held name may go UNMENTIONED before we drop it (no thesis confirmation)
 
 
-def _stateful_watch(scans: dict) -> dict:
+def _stateful_watch(scans: dict, min_corroboration: int = 0, reentry_block_weeks: int = 0) -> dict:
     """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
     one-off noise. It EXITS only on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
     consecutive *reads*) or prolonged silence (unmentioned >=MAX_STALE weeks). Single-week
-    flip-flops — the trigger-happy exit the GDELT run exposed — no longer churn the position."""
+    flip-flops — the trigger-happy exit the GDELT run exposed — no longer churn the position.
+
+    Two OUTCOME-INDEPENDENT selectivity dials (both default off), from the BWET post-mortem where the
+    money-losers were an under-corroborated thin agent + two re-entry duplicates:
+      min_corroboration N  — a name can only ENTER on a live read backed by >=N evidence sources
+                             (a thin, single-source thesis never gets funded; already-held names still
+                             refresh on low-evidence live weeks, so no premature exit).
+      reentry_block_weeks K — once a ticker EXITS, block it from re-entering for K weeks (kills the
+                             sequential-fragmentation re-opens, e.g. BWET/OKLO spawning a 2nd agent
+                             right after the 1st resolved). Neither rule looks at price/P&L."""
     anchors = list(scans)
-    holding, dead, stale, out = {}, {}, {}, {}
-    for a in anchors:
+    holding, dead, stale, out, exited_at = {}, {}, {}, {}, {}
+    for idx, a in enumerate(anchors):
         live = {p["ticker"] for p in scans[a] if _live(p)}
+        corrob = {p["ticker"] for p in scans[a]                       # live AND well-sourced -> may ENTER
+                  if _live(p) and len(p.get("evidence_urls", [])) >= min_corroboration}
         flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
-        for t in live:                       # (re)enter / refresh
+        for t in corrob:                     # ENTER (needs corroboration + not re-entry-blocked) / refresh
+            if (t not in holding and reentry_block_weeks
+                    and t in exited_at and idx - exited_at[t] < reentry_block_weeks):
+                continue                     # re-entry too soon after this ticker's last exit -> skip
             holding[t] = True; dead[t] = 0; stale[t] = 0
+        for t in live - corrob:              # live but under-corroborated: refresh an EXISTING hold only
+            if t in holding:
+                dead[t] = 0; stale[t] = 0
         for t in list(holding):
             if t in live:
                 continue
             if t in flagged_dead:
                 dead[t] += 1; stale[t] = 0
                 if dead[t] >= EXIT_PATIENCE:
-                    del holding[t]
+                    del holding[t]; exited_at[t] = idx
             else:                            # unmentioned this week — tolerate, but not forever
                 stale[t] += 1
                 if stale[t] >= MAX_STALE:
-                    del holding[t]
+                    del holding[t]; exited_at[t] = idx
         out[a] = sorted(holding)
     return out
 
@@ -326,7 +343,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     hold_bench = bool(fm.get("hold_benchmark", False))          # SPY as an always-available default risk asset
     bench = score.BENCHMARK                                     # so idle capital + marginal gems compete vs SPY
     anchors = list(scans)
-    watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
+    watch = _stateful_watch(scans, int(fm.get("min_corroboration", 0) or 0),
+                            int(fm.get("reentry_block_weeks", 0) or 0))  # sticky hold + selectivity dials
     tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
