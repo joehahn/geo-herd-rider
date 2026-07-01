@@ -328,6 +328,7 @@ BAKEOFF_INFO = {  # cost = MEASURED $ for this 3-gem scan (today's ledger), not 
     "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1"),
     "grok4":    ("grok-4.3", "frontier",           "$3.7"),
     "sonnet":   ("sonnet",   "1-2T (est)",         "$3.6"),
+    "sonnet5":  ("sonnet5",  "near-Opus",          "$3.8"),
     "opus":     ("opus",     "2-5T (est)",         "$4.4"),
 }
 
