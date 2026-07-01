@@ -450,6 +450,32 @@ def match_to_events(client, anchor, candidates, events):
     return out
 
 
+_NEWS_STOP = set(("the a an and or of to in on for with is are was were be as at by from that this it "
+                  "its into over under after before amid new news said says will has have had not но "
+                  "up down more most than then out about their they market stock stocks shares week "
+                  "year years company inc corp reports report amid amid").split())
+
+
+def _news_tokens(arts: list[dict]) -> set:
+    """Content word-set (>=4 letters, de-stopworded) from a batch of articles' titles + snippets —
+    the raw material for the DETERMINISTIC news-novelty (priced-in) signal."""
+    import re
+    toks = set()
+    for x in arts:
+        text = ((x.get("title", "") or "") + " " + (x.get("snippet", "") or "")).lower()
+        for w in re.findall(r"[a-z]{4,}", text):
+            if w not in _NEWS_STOP:
+                toks.add(w)
+    return toks
+
+
+def _news_novelty(this_toks: set, hist_toks: set) -> float:
+    """Fraction of THIS week's content words that are NEW vs everything seen for the event so far.
+    ~1.0 = a fresh development; ~0.0 = restating the same story (priced in). Deterministic, LLM-free,
+    price-free — the honest 'has the catalyst produced anything new?' signal llama4 wouldn't give."""
+    return round(len(this_toks - hist_toks) / len(this_toks), 3) if this_toks else 0.0
+
+
 def _norm_catalyst(s: str) -> str:
     """Normalize a catalyst string for duplicate detection: lowercase, alphanumerics only."""
     import re
@@ -563,6 +589,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
+    ev_news_hist: dict = {}        # event id -> accumulated content words (deterministic news-novelty)
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
     rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{qs}".encode()).hexdigest()[:10]
@@ -634,12 +661,18 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
             for ev, entry in (ex.map(work, live_events) if live_events else []):
                 ev["entries"].append(entry)
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
+                # DETERMINISTIC news-novelty (priced-in signal): fraction of this week's event-news
+                # content words that are NEW vs all prior weeks for this event. Model-free, price-free.
+                this_tok = _news_tokens(_filter_event(win, ev))
+                novelty = _news_novelty(this_tok, ev_news_hist.get(ev["id"], set()))
+                ev_news_hist[ev["id"]] = ev_news_hist.get(ev["id"], set()) | this_tok
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),
                                   "exit_case": entry.get("exit_case", ""),
                                   "catalyst_resolved": entry.get("catalyst_resolved", False),
                                   "new_development": entry.get("new_development", True),
+                                  "news_novelty": novelty,
                                   "assessment": entry.get("assessment", ""),
                                   "exit_advice": entry.get("exit_advice", ""),
                                   "evidence_urls": entry["sources"]})
