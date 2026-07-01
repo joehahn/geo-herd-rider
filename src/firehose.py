@@ -279,35 +279,20 @@ EXIT_PATIENCE = 2   # consecutive EXPLICIT thesis-dead reads before exiting (hys
 MAX_STALE = 4       # weeks a held name may go UNMENTIONED before we drop it (no thesis confirmation)
 
 
-def _stateful_watch(scans: dict, exit_after_quiet_weeks: int = 0, news_novelty_threshold: float = 0.0) -> dict:
+def _stateful_watch(scans: dict) -> dict:
     """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
     one-off noise. It EXITS only on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
     consecutive *reads*) or prolonged silence (unmentioned >=MAX_STALE weeks). Single-week
-    flip-flops — the trigger-happy exit the GDELT run exposed — no longer churn the position.
-
-    PRICED-IN exit (exit_after_quiet_weeks K > 0): a held name whose catalyst produced no NEW
-    development (pick.new_development=False) for K consecutive live weeks is exited — the catalyst is
-    fully absorbed / priced in even if it is still 'live', which retires open-ended catalysts (e.g. an
-    ongoing export curb) that never formally 'resolve'. Reads the scanned new_development flag, so K is
-    a BACKTEST-side knob (sweepable) — no re-scan to retune it. Legacy books (no flag) default to
-    new_development=True, so K is a no-op on them."""
+    flip-flops — the trigger-happy exit the GDELT run exposed — no longer churn the position."""
     anchors = list(scans)
-    holding, dead, stale, quiet, out = {}, {}, {}, {}, {}
+    holding, dead, stale, out = {}, {}, {}, {}
     for a in anchors:
         live = {p["ticker"] for p in scans[a] if _live(p)}
         flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
-        newdev = {p["ticker"]: bool(p.get("new_development", True)) for p in scans[a]}
-        novelty = {p["ticker"]: p.get("news_novelty") for p in scans[a]}
         for t in live:                       # (re)enter / refresh
             holding[t] = True; dead[t] = 0; stale[t] = 0
-            if exit_after_quiet_weeks:       # priced-in: count consecutive weeks with no NEW news
-                nv = novelty.get(t)          # prefer deterministic news-novelty; fall back to LLM flag
-                is_new = (nv >= news_novelty_threshold) if nv is not None else newdev.get(t, True)
-                quiet[t] = 0 if is_new else quiet.get(t, 0) + 1
-                if quiet[t] >= exit_after_quiet_weeks:
-                    del holding[t]
         for t in list(holding):
             if t in live:
                 continue
@@ -339,8 +324,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     max_pos = int(fm.get("max_concurrent_positions", 0) or 0)   # 0 = uncapped; else fund only top-N/week
     prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
     anchors = list(scans)
-    watch = _stateful_watch(scans, int(fm.get("exit_after_quiet_weeks", 0) or 0),
-                            float(fm.get("news_novelty_threshold", 0.0) or 0.0))  # sticky hold + priced-in exit
+    watch = _stateful_watch(scans)  # sticky hold (hysteresis), not raw per-week thesis_live
     tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
