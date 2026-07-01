@@ -94,7 +94,16 @@ AND NOTHING ELSE.
 You forecast NOTHING. The "thesis" MUST BE THE DATABLE CATALYST EVENT, never the umbrella theme:
 write "ADVANCE Act nuclear bill signed" NOT "NuScale gains on AI power demand"; write "China bans
 rare-earth exports" NOT "rare-earth demand". If your thesis can't be marked RESOLVED on a date it is
-a theme — rewrite it as the event or drop the name. Output ONLY JSON: {"candidates":[{"ticker":"BWET",
+a theme — rewrite it as the event or drop the name.
+
+DON'T CHASE A RESOLVED CATALYST. If a ticker's driving catalyst has ALREADY RESOLVED (the ceasefire
+was signed, the ban was lifted, the ruling came down), the edge is GONE — even if the press KEEPS
+hyping the name for weeks afterward ("tanker rates still elevated", "tensions linger"). Lingering hype
+about a catalyst that already happened is NOT a fresh catalyst. If the user message lists a ticker's
+catalyst as ALREADY-RESOLVED, do NOT re-propose that ticker unless a genuinely NEW, distinct catalyst
+has since emerged (a SECOND, different datable event — not a restatement of the resolved one).
+
+Output ONLY JSON: {"candidates":[{"ticker":"BWET",
 "thesis":"<=12 words: the catalyst EVENT","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
@@ -180,10 +189,13 @@ def _block(arts: list[dict]) -> str:
                      f" — {a.get('snippet','')[:200]} ({a.get('url','') or 'no url'})" for a in arts)
 
 
-def scout(client, anchor: pd.Timestamp, arts: list[dict]) -> list[dict]:
+def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> list[dict]:
     if not arts:
         return []
-    user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(arts)}\n\n"
+    rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
+              f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
+              if retired else "")
+    user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(arts)}\n{rblock}\n"
             "Which tickers is the press naming as thesis-driven movers? Output the JSON.")
     txt = client.complete(SCOUT_SYSTEM, user, use_web_search=False, stage="agent",
                           label=f"scout-{anchor.date()}", json_schema=SCOUT_SCHEMA)
@@ -555,6 +567,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
     events: dict[str, dict] = {}   # id -> {id, catalyst, status, vehicles:set, entries:[]}
+    retired: dict[str, str] = {}   # ticker -> "catalyst (resolved YYYY-MM-DD)" for the scout guard
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
     rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{qs}".encode()).hexdigest()[:10]
@@ -589,7 +602,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
              "published_date": x.get("published_date", ""), "source": x.get("source", ""),
              "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
             for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]
-        cands = scout(client, a, win)
+        cands = scout(client, a, win, retired="\n".join(f"- {t}: {c}" for t, c in retired.items()))
         # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
         # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
         # tickers go to the (fallible) LLM matcher for cross-ticker grouping.
@@ -626,6 +639,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
             for ev, entry in (ex.map(work, live_events) if live_events else []):
                 ev["entries"].append(entry)
                 ev["status"] = "live" if entry["thesis_live"] else "exited"
+                if entry.get("catalyst_resolved"):   # remember it so the scout won't re-chase the hype
+                    for tk in ev["vehicles"]:
+                        retired[tk] = f"{ev['catalyst']} (resolved {a.date()})"
                 for tk in entry["vehicles"]:
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),

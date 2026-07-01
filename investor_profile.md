@@ -17,7 +17,7 @@ max_concurrent_positions: 2       # Visibility/risk cap: fund only the top-N opt
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
 hold_benchmark: true              # SPY is ALWAYS in the optimizer watchlist/universe (every week); gems must beat SPY to be funded, else capital stays in SPY
 min_corroboration: 0              # OFF: helped BWET but clipped MP's thin-sourced WINNERS (RKLB/WSR) — evidence-count != conviction (fails cross-gem)
-reentry_block_weeks: 0            # OFF: inert — sticky-hold MAX_STALE already bridges the gaps, so ev6/ev7 were continuous holds, not re-entries
+reentry_block_weeks: 0            # OFF (the 'K weeks' hack): re-holds are prevented at the SOURCE now — the scout is told which catalysts resolved and won't re-chase the hype
 lookback_period_days: 7           # Optimizer's Trailing lookback window, in calendar days
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.

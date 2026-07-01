@@ -298,10 +298,13 @@ def _stateful_watch(scans: dict, min_corroboration: int = 0, reentry_block_weeks
     anchors = list(scans)
     holding, dead, stale, out, exited_at = {}, {}, {}, {}, {}
     for idx, a in enumerate(anchors):
+        resolved = {p["ticker"] for p in scans[a] if p.get("catalyst_resolved")}
         live = {p["ticker"] for p in scans[a] if _live(p)}
         corrob = {p["ticker"] for p in scans[a]                       # live AND well-sourced -> may ENTER
-                  if _live(p) and len(p.get("evidence_urls", [])) >= min_corroboration}
+                  if _live(p) and len(p.get("evidence_urls", [])) >= min_corroboration} - resolved
         flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
+        for t in resolved:                   # catalyst RESOLVED -> honor the agent's verdict, exit NOW
+            holding.pop(t, None); dead.pop(t, None); stale.pop(t, None); exited_at[t] = idx
         for t in corrob:                     # ENTER (needs corroboration + not re-entry-blocked) / refresh
             if (t not in holding and reentry_block_weeks
                     and t in exited_at and idx - exited_at[t] < reentry_block_weeks):
