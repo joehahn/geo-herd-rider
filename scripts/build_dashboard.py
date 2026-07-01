@@ -240,6 +240,8 @@ SWEEPS = [
      "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "risk_aversion", "label": "risk_aversion",
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 1.0, 1.5, 2.0, 3.0, 5.0]},   # 0 = pure-μ -> high λ = risk-averse
+    {"key": "exit_after_quiet_weeks", "label": "exit_after_quiet_weeks",
+     "values": [0, 2, 3, 4, 5, 6, 8, 12]},   # 0 = off; priced-in exit after K quiet (no-new-development) weeks
 ]
 
 # Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values

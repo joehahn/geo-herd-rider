@@ -377,8 +377,9 @@ every open event. When unsure, MERGE — fragmenting one catalyst across several
 biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "required": ["exit_case", "catalyst_resolved", "new_development", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
+        "new_development": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
@@ -416,8 +417,15 @@ develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cle
 rate-or-commodity ETN / single ADR; drop a vehicle that is no longer the best). The event is the
 durable unit; the ticker can change with it.
 
+ALSO report `new_development` (true/false): did THIS week's news bring a GENUINELY NEW, market-moving
+development that ADVANCES this catalyst (a fresh escalation, ruling, deal, data point) — or does it
+just RESTATE the existing situation ("curbs still in place", "no change")? Absence of fresh news, or
+mere repetition/crowding ("still up, everyone's in"), is new_development=FALSE. This is how we detect
+a catalyst that is fully PRICED IN: once it stops producing new developments, the repricing (our
+edge) is done even if the condition persists. Judge the NEWS, not the price.
+
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
-composition, the exit, and which vehicle. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
+composition, the exit, and which vehicle. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"new_development":true,"thesis_live":true,
 "exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
@@ -631,6 +639,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),
                                   "exit_case": entry.get("exit_case", ""),
                                   "catalyst_resolved": entry.get("catalyst_resolved", False),
+                                  "new_development": entry.get("new_development", True),
                                   "assessment": entry.get("assessment", ""),
                                   "exit_advice": entry.get("exit_advice", ""),
                                   "evidence_urls": entry["sources"]})
