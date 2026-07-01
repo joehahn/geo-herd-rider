@@ -442,6 +442,37 @@ def match_to_events(client, anchor, candidates, events):
     return out
 
 
+def _norm_catalyst(s: str) -> str:
+    """Normalize a catalyst string for duplicate detection: lowercase, alphanumerics only."""
+    import re
+    return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
+
+
+def _consolidate_events(events: dict) -> int:
+    """Consolidation-of-agents pass (deterministic safety net for the per-candidate matcher's
+    under-merges under load): merge LIVE events that share the SAME catalyst (normalized-identical)
+    into the earliest one — fold the duplicates' vehicles in and retire them (status='merged', so they
+    stop spawning an agent). Catches e.g. IBM & QBTS both 'quantum computing', VLO & NRG both
+    'California pays Valero'. Returns how many events it retired."""
+    import re
+    def evnum(eid):
+        m = re.search(r"\d+", eid)
+        return int(m.group()) if m else 0
+    keep_by_cat, merged = {}, 0
+    for eid, ev in sorted(((e, v) for e, v in events.items() if v["status"] == "live"),
+                          key=lambda x: evnum(x[0])):
+        key = _norm_catalyst(ev["catalyst"])
+        if not key:
+            continue
+        if key in keep_by_cat:                       # duplicate catalyst -> fold into the survivor
+            events[keep_by_cat[key]]["vehicles"] |= ev["vehicles"]
+            ev["status"] = "merged"
+            merged += 1
+        else:
+            keep_by_cat[key] = eid
+    return merged
+
+
 def _filter_event(arts, event):
     """Broad-pool articles relevant to an event: mention any of its vehicles or catalyst keywords."""
     veh = {v.lower() for v in event["vehicles"]}
@@ -574,6 +605,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 nid[0] += 1
                 events[f"ev{nid[0]}"] = {"id": f"ev{nid[0]}", "catalyst": c["thesis"],
                                          "status": "live", "vehicles": {tk}, "entries": []}
+        merged = _consolidate_events(events)   # weekly consolidation-of-agents pass (dup-catalyst merge)
+        if merged:
+            print(f"  consolidated {merged} duplicate-catalyst event(s) ({a.date()})", file=sys.stderr)
         live_events = [ev for ev in events.values() if ev["status"] == "live"]
 
         def work(ev):
