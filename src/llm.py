@@ -22,7 +22,7 @@ import costs
 ANTHROPIC_DEFAULT = "claude-opus-4-8"
 # Adaptive thinking + effort + dynamic-filtering web search work on these; cheaper Anthropic
 # models (Haiku) reject them and use the basic web-search variant.
-_ADVANCED = ("opus-4", "sonnet-4-6", "fable", "mythos")
+_ADVANCED = ("opus-4", "sonnet-4-6", "sonnet-5", "fable", "mythos")
 
 
 def _supports_advanced(model: str) -> bool:
