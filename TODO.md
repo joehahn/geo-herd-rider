@@ -3,6 +3,20 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## Window the resolved-catalyst ledger fed to the scout (not urgent)
+
+The scout is told which catalysts have RESOLVED so it won't re-chase the hype (the `retired` ledger in
+`run_event_agent_scans`, injected into the scout's weekly prompt). Today that ledger is **cumulative and
+never expires** — fine for a short backtest, but over a long/forward run it (a) bloats the scout prompt and
+(b) permanently bars a ticker whose thesis genuinely re-emerges much later on a *new* shock.
+
+- **Window it:** keep only recent retirements — either **time-based** (last ~2–4 months) or **count-based**
+  (last N resolved agents). Time-based is cleaner for forward operation; count-based bounds prompt size.
+- **Tradeoff to tune (scoreboard):** too short → a ticker can re-hop right after the window closes (the ev6
+  failure returns); too long → prompt clutter + legit re-entries blocked. Make the window a profile knob and
+  sweep it once the resolved-catalyst guard itself is validated.
+- Depends on the resolved-catalyst scout guard proving out first (currently under test).
+
 ## Standing risks (carried from the retired SPEC)
 
 Deep ladders are seductive storytelling; public events get priced fast; survivorship bias is
