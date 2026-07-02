@@ -30,31 +30,31 @@ TRADING_DAYS = 252
 _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "initial_investment_usd": 50_000,  # LIVE (display/scale): day-0 dollars. The optimizer works in
                                        #   fractions, so this only sets dollar labels, not picks/weights.
-    "risk_aversion": 1.0,              # LIVE: optimizer lambda (mean-variance)
-    "concentration_cap": 0.25,         # LIVE: per-position max weight (top-level profile key)
+    "risk_aversion": 0.67,             # LIVE: optimizer lambda (mean-variance)
+    "concentration_cap": 0.9,          # LIVE: per-position max weight (top-level profile key)
     "max_tickers_per_event": 16,       # LIVE: cap on tickers kept per event's basket (the
                                        #   "limit the options" knob; truncates to the first N)
     "t_update_days": 1,                # LIVE: business days from event detection to execution
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
                                        #   renormalize (pile in). ~1/N caps funded names near N.
-    "lookback_period_days": 547,       # LIVE: trailing window (calendar days, ending at entry)
+    "lookback_period_days": 21,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
-    "model": "mimo",                   # LIVE (curator/scan): which LLM reads the firehose. Short
-                                       #   names resolved by resolve_curator_model(): mimo (cheap,
-                                       #   OpenRouter) | sonnet | opus. Stamped into the scan + shown
-                                       #   on the dashboards as the curator model that produced it.
+    "model": "deepseek",               # LIVE (curator/scan): which LLM reads the firehose. Short
+                                       #   names resolved by resolve_curator_model(): deepseek (cheap,
+                                       #   OpenRouter) | sonnet | sonnet5 | opus | .... Stamped into the
+                                       #   scan + shown on the dashboards as the curator model.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
-    "max_concurrent_positions": 0,     # LIVE (firehose backtest): fund only the top-N optimizer-weighted
+    "max_concurrent_positions": 2,     # LIVE (firehose backtest): fund only the top-N optimizer-weighted
                                        #   names/week (0 = uncapped). Visibility/risk cap on the tail.
-    "prune_zero_weight_weeks": 0,      # LIVE (firehose backtest): drop a name the optimizer keeps
+    "prune_zero_weight_weeks": 4,      # LIVE (firehose backtest): drop a name the optimizer keeps
                                        #   starving (~0 weight) for this many weeks (0 = off).
-    "hold_benchmark": False,           # LIVE (firehose backtest): park idle capital (cash residual after
-                                       #   gem sizing) in SPY so the book starts 100% SPY, never sits in cash.
+    "hold_benchmark": True,            # LIVE (firehose backtest): SPY always in the optimizer universe
+                                       #   (gems must beat SPY to be funded; idle capital rides the market).
     "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of
                                        #   (so it won't re-chase a done thesis): 0 = off, <0 = whole history, >0 = last N.
     # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
