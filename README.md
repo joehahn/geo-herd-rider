@@ -23,7 +23,7 @@ flowchart TD
       direction TB
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved<br/>(drops the position the instant it resolves);<br/>also picks which gem(s) best express the event"]
+      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); also picks which gem(s) best express the event"]
       SC --> MA --> AG
     end
 
