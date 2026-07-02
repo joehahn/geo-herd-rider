@@ -9,11 +9,11 @@ model: deepseek                     # Curator LLM that reads the firehose. Choic
                                   #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
 initial_investment_usd: 50000     # Day-0 dollar allocation.
-concentration_cap: 0.8            # Per-ticker max allocation.
-risk_aversion: 0.0                 # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
+concentration_cap: 0.9            # Per-ticker max allocation.
+risk_aversion: 0.67              # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 max_tickers_per_event: 16         # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
-min_trade_size: 0.05              # Drop holdings smaller than this & reallocate
+min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_concurrent_positions: 2       # Visibility/risk cap: fund only the top-N optimizer-weighted names/week (0 = uncapped)
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
 hold_benchmark: true              # SPY is ALWAYS in the optimizer watchlist/universe (every week); gems must beat SPY to be funded
