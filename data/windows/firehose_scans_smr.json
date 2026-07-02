@@ -6,86 +6,78 @@
   "2024-05-17": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "seed",
-      "exit_case": "NuScale's NRC standard design approval was already certified back in Jan 2023 \u2014 that specific approval is arguably priced.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "First week on the NuScale SMR-meets-AI-power thesis. SMR is the only pure-play vehicle in the known set and the cleanest expression. News confirms the AI datacenter power-crunch narrative driving the name while it remains a small-cap not yet broadly hyped, so edge remains. The genuine risk is that the headline 'approval' refers to the 2023 design certification already in hand \u2014 meaning the specific approval catalyst could be backward-looking; but the forward catalyst (incremental NRC approvals + first AI-linked deployment contracts) is still pending. Hold with SMR.",
-      "exit_advice": "Hold. Entry week; stock still a micro-cap 'under the radar' per ETF.com \u2014 far from crowded. Watch for the actual incremental approval (uprated 77MW design / NRC milestone) or a named SMR deployment deal; if that lands and prices, exit.",
+      "assessment": "The catalyst (NuScale reactor approval news) is still pending and the thesis remains live. The stock is benefiting from AI power demand hype but the core catalyst has not yet resolved.",
+      "exit_advice": "Monitor for NuScale reactor approval news and AI power demand trends. Exit if approval is denied or if the catalyst is fully priced in.",
       "evidence_urls": []
     }
   ],
   "2024-05-24": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Headline 'approval' may refer to 2023 design certification already in hand \u2014 catalyst backward-looking, edge gone.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's news is pure macro noise (Canadian market, BSE cap) with zero bearing on NuScale or SMR \u2014 no resolution of the catalyst either way. The 2023 design certification is the only thing already granted; what I entered on \u2014 the forward NRC approval cascade plus a named AI-datacenter deployment deal \u2014 has not occurred. Until that happens or the name gets broadly hyped on a concrete contract, edge persists. SMR remains the only pure-play vehicle. Hold.",
-      "exit_advice": "Hold SMR; specific forward catalyst (incremental NRC approvals + first AI-linked deployment contract) still pending and unpriced.",
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3450246"
-      ]
+      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and the thesis remains live. No fresh news this week to alter the thesis.",
+      "exit_advice": "Continue monitoring for NuScale reactor approval news as the catalyst remains pending.",
+      "evidence_urls": []
     }
   ],
   "2024-05-31": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Entry 'approval' may reference the 2023 NRC design certification already granted \u2014 backward-looking catalyst possibly resolved at entry.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's news is entirely irrelevant macro/election noise (Indian Lok Sabha, AAL/GME/MNMD) with zero bearing on NuScale. No resolution of the forward catalyst either way. The only thing already granted remains the 2023 design certification; the AI-power-linked deployment deal and further NRC approvals have not occurred. SMR remains the sole pure-play vehicle and cleanest expression. Edge persists. Hold.",
-      "exit_advice": "Hold. The forward catalyst \u2014 incremental NRC approvals plus a named AI-datacenter deployment contract \u2014 remains pending. Exit only on a concrete signed deal or broad hype on a specific contract.",
-      "evidence_urls": [
-        "https://www.livemint.com/market/stock-market-news/bjpled-nda-likely-to-win-lok-sabha-election-2024-says-phillip-capital-recommends-over-50-stocks-to-buy-11717045731744.html"
-      ]
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending. No fresh news this week alters the thesis. The thesis is still live, and SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Hold until NuScale reactor approval news resolves.",
+      "evidence_urls": []
     }
   ],
   "2024-06-07": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The 2023 design certification is already in hand \u2014 if that IS the 'approval,' the catalyst is backward-looking and resolved.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Fourth straight week of irrelevant macro/index noise (S&P/Nasdaq records, China property, stale 2015 item) with zero bearing on NuScale. The forward catalyst I entered on \u2014 the NRC approval cascade plus a first named AI-power deployment deal \u2014 remains pending and unpriced. Only the 2023 design certification is already granted, and that is not what I am holding for. SMR is still the sole pure-play and cleanest vehicle. Edge persists; hold.",
-      "exit_advice": "Hold unless a named AI-datacenter SMR deployment contract is signed or the next NRC approval milestone publicly lands \u2014 either resolves edge.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/S-P-500-Nasdaq-hit-record-highs-as-markets-digest-economic-data-46913038/"
-      ]
+      "assessment": "The thesis remains live with no resolution or decay of the catalyst. SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news as the core catalyst remains pending.",
+      "evidence_urls": []
     }
   ],
   "2024-06-14": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Entry 'approval' may reference the already-granted 2023 design certification \u2014 backward-looking catalyst possibly resolved at entry.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Fifth straight week of irrelevant macro noise (Yellen/China trade, Argentina/Milei) with zero bearing on NuScale. The forward catalyst I entered on \u2014 the NRC approval cascade plus a first named AI-power deployment deal \u2014 remains pending and unpriced. Only the 2023 design certification is already granted, which is not what I'm holding for. SMR remains the sole pure-play and cleanest vehicle. Edge persists; hold.",
-      "exit_advice": "Exit if a named AI-datacenter deployment deal closes or NRC approval cascade is granted and broadly hyped.",
-      "evidence_urls": [
-        "https://tribtown.com/2024/06/13/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/"
-      ]
+      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and there is no fresh news this week to alter the thesis. The thesis remains live, and SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news as the catalyst remains pending.",
+      "evidence_urls": []
     }
   ],
   "2024-06-21": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Stock now 'heating up' on hype while cash-burn concerns surface \u2014 crowding plus dilution risk, not catalyst progress.",
+      "exit_case": "NuScale reactor approval has not yet occurred, but concerns about cash position raise risks",
       "catalyst_resolved": false,
-      "assessment": "The forward catalyst I entered on \u2014 the NRC approval cascade plus a first named AI-power deployment contract \u2014 remains pending and unpriced; only the 2023 design certification is already granted, which is not what I'm holding for. This week's news is the first NuScale-specific item in six weeks: the stock 'heated up' but the substance is a cash-runway warning, not catalyst resolution. Hype/crowding alone does not resolve the thesis. SMR remains the sole pure-play and cleanest vehicle. Edge persists; hold.",
-      "exit_advice": "Hold, but watch the cash-runway risk \u2014 a dilutive raise could undercut the name before any AI-deployment deal lands.",
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending, but news about potential cash shortages introduces new risks. SMR continues to be the appropriate vehicle, but financial stability concerns warrant caution.",
+      "exit_advice": "Monitor for any updates on NuScale's financial health and reactor approval progress. Consider setting a tighter stop-loss given cash concerns.",
       "evidence_urls": [
         "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
       ]
@@ -94,317 +86,116 @@
   "2024-06-28": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Design certification already granted in 2023; the forward AI-deployment deal may never materialize as a discrete catalyst.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. Re-reading the whole journal: the only thing already granted remains the 2023 design certification, which is not what I'm holding for. The forward catalyst \u2014 incremental NRC approvals plus a first named AI-power deployment deal \u2014 remains pending and unpriced. Last week's cash-runway warning was a risk flag, not catalyst resolution, and hype/crowding alone does not close the thesis. SMR stays the sole pure-play and cleanest vehicle. Edge persists; hold.",
-      "exit_advice": "Exit only on a named AI-datacenter deployment contract or a clear NRC approval milestone \u2014 that is resolution.",
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending. SMR continues as the appropriate vehicle, but financial concerns warrant vigilance.",
+      "exit_advice": "Continue monitoring for NuScale reactor approval news. Be cautious of financial stability risks for SMR.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The earnings release is still pending, making the thesis live. The news highlights anticipation of Nike's Q4 earnings, but no resolution has occurred yet.",
+      "exit_advice": "Monitor the earnings release this Thursday and assess its implications post-release.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/earn-500-month-nike-stock-123653829.html"
+      ]
     }
   ],
   "2024-07-05": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Cash-runway warning flagged two weeks ago signals dilution risk that could overhang the name before any approval catalyst lands.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage again this week. Re-reading the entire journal: the only thing already granted remains the 2023 design certification, which is not the catalyst I'm holding for. The forward catalyst \u2014 incremental NRC approvals plus a first named AI-power datacenter deployment contract \u2014 has not occurred in any prior week. The June cash-runway warning was a risk flag, not catalyst resolution, and hype/crowding alone does not close the thesis. SMR remains the sole pure-play and cleanest vehicle. Edge persists; hold.",
-      "exit_advice": "Hold; forward NRC approval cascade plus first named AI-power deployment deal remains pending and unpriced.",
+      "assessment": "The catalyst remains pending with no resolution in sight. SMR continues to be the appropriate vehicle, but financial risks introduced in prior weeks warrant vigilance.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news, but remain cautious due to financial stability concerns.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Q4 earnings release remains pending, keeping the thesis live. No relevant news impacting Nike's earnings has emerged this week.",
+      "exit_advice": "Hold until Nike's Q4 earnings are released and assessed.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3458070/asian-markets-track-global-markets-higher.aspx",
+        "https://www.rttnews.com/story.aspx?Id=3458070"
+      ]
     }
   ],
   "2024-07-12": [
     {
       "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "thesis": "NuScale reactor approval news",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Congress passed and signed bipartisan nuclear power legislation, resolving the catalyst",
+      "catalyst_resolved": true,
+      "assessment": "The core catalyst (NuScale reactor approval news) has now resolved with the signing of bipartisan nuclear power legislation. While the broader nuclear theme may continue, the specific catalyst that drove the thesis is now priced in.",
+      "exit_advice": "Exit position as the catalyst has resolved with the signing of bipartisan nuclear power legislation",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Bipartisan nuclear law signed and stock 'powering higher' \u2014 theme now mainstream and getting priced in.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's signed legislation (ADVANCE Act, bipartisan) is a real discrete event and lifted SMR/Cameco/UUUU \u2014 but it is broad nuclear-licensing reform, NOT the specific catalyst I entered on: a NuScale-specific NRC approval cascade plus a first named AI-power deployment contract. Neither of those has occurred in any prior week; only the 2023 design certification was ever granted. The law is a tailwind to the theme, and the price move is closer to thematic hype than resolution of my pending catalyst. SMR remains the sole pure-play and cleanest vehicle; UUUU is a uranium-fuel proxy, less pure. Edge persists; hold SMR.",
-      "exit_advice": "Hold; reassess if a named AI-datacenter deployment deal or NuScale-specific NRC approval actually lands and prices in.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/"
-      ]
+      "assessment": "The Q4 earnings release remains the key catalyst, and it has not yet occurred.",
+      "exit_advice": "Continue monitoring Nike's Q4 earnings release, which is still pending.",
+      "evidence_urls": []
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "ADVANCE Act now signed and the nuclear-licensing theme is publicly priced; legislative catalyst may have decayed into hype.",
-      "catalyst_resolved": false,
-      "assessment": "This week's item is a recycled ADVANCE Act story \u2014 same broad bipartisan nuclear-licensing reform already covered last week, not the NuScale-specific catalyst I entered on. The only NuScale event ever granted remains the 2023 design certification; the forward catalyst \u2014 incremental NRC approval cascade plus a first named AI-power datacenter deployment contract \u2014 has not occurred in any prior week. The Act is a thematic tailwind, and any price move is closer to crowding than resolution of my pending catalyst. SMR stays the sole pure-play and cleanest vehicle; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold; specific NuScale NRC approval cascade plus first named AI-power deployment contract still pending.",
-      "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
-    }
-  ],
-  "2024-07-26": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "ADVANCE Act signed + cash-runway warnings suggest catalyst is broad reform already priced, not pending NuScale-specific event.",
-      "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. Re-reading the entire journal: the only NuScale event ever granted remains the 2023 design certification, which is not the catalyst I entered on. The forward catalyst \u2014 an incremental NRC approval cascade plus a first named AI-power datacenter deployment contract \u2014 has not occurred in any prior week. The July ADVANCE Act was broad bipartisan licensing reform, a thematic tailwind, not the NuScale-specific resolution; the June cash-runway warning was a risk flag, not catalyst closure. Hype/crowding alone does not resolve the thesis. SMR remains the sole pure-play and cleanest vehicle; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold; exit on a named AI-datacenter deployment contract or NuScale-specific NRC approval, or if cash-runway forces dilution.",
-      "evidence_urls": []
-    }
-  ],
-  "2024-08-02": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "The only NuScale 'approval' (2023 design certification) was granted pre-entry; the approval catalyst may be backward-looking and already resolved.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is a PJM capacity-auction price spike lifting Constellation and Vistra \u2014 merchant nuclear utilities, not NuScale and not in my known set. It is a thematic AI-power-demand tailwind, not resolution of the NuScale-specific catalyst I entered on: an incremental NRC approval cascade plus a first named AI-power datacenter deployment contract. Neither has occurred in any prior week; only the 2023 design certification was ever granted, which is not what I hold for. The auction news validates the power-crunch narrative without closing my pending catalyst. SMR remains the sole pure-play and cleanest vehicle; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold SMR; exit if a NuScale-specific NRC approval cascade or named AI-power deployment contract is signed/announced, or if name becomes broadly hyped on a concrete contract.",
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "PJM capacity auction prices jumped ninefold, lifting nuclear generators",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Auction cleared and result is public; ninefold print is a one-day discrete event possibly already priced in.",
-      "catalyst_resolved": false,
-      "assessment": "Entry week. PJM capacity auction cleared ~9x higher YoY, a structural revenue uplift for unregulated nuclear/IPP generators with delivery-year cash flows ahead. VST is the cleanest pure-play merchant generator vehicle with large nuclear/gas fleet leverage to PJM pricing. The discrete auction is public, but the multi-year earnings re-rate is forward-looking and still unfolding, so edge remains while the market reprices forward revenue.",
-      "exit_advice": "Hold. Auction result is announced but the earnings re-rating from elevated capacity payments (2025/26 delivery year) is still being digested \u2014 repricing is just beginning, not closed.",
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "PJM auction ninefold price jump boosts nuclear power revenue",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Auction cleared and results are public; ninefold price already announced and stocks soared same day.",
-      "catalyst_resolved": false,
-      "assessment": "Entry week. PJM's 2025/26 capacity auction cleared ninefold higher YoY, a direct revenue tailwind for nuclear fleet operators. The result was just announced and the stock spiked, but the multi-year earnings/guidance reset is still ahead \u2014 the catalyst (uplift translating to numbers) is not yet fully priced. CEG is the cleanest pure-play nuclear vehicle (largest US nuclear fleet); Vistra is more mixed. Watch for management guidance updates confirming the revenue boost.",
-      "exit_advice": "Hold; auction clearing is public but the revenue uplift hasn't yet flowed into CEG guidance/earnings \u2014 repricing still pending.",
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
-      ]
-    }
-  ],
-  "2024-08-09": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Stock heavily hyped post-ADVANCE Act, design cert long granted \u2014 risk the only real approval is backward-looking, edge gone.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is pure China-inflation macro noise with zero bearing on NuScale. Re-reading the whole journal: only the 2023 design certification was ever granted \u2014 not the catalyst I entered on. The forward catalyst (incremental NRC approval cascade plus a first named AI-power datacenter deployment contract) has not occurred in any prior week. July's ADVANCE Act was broad bipartisan licensing reform; the PJM auction and the June cash-runway warning were thematic tailwinds/risk flags, not catalyst resolution. Hype/crowding alone does not close the thesis. SMR remains the sole pure-play; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold SMR; exit if a NuScale-specific NRC approval cascade plus first named AI-power deployment contract is signed, or if cash-runway forces dilution.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "PJM capacity auction prices jumped ninefold, lifting nuclear generators",
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "PJM auction already cleared ~9x at entry \u2014 the discrete catalyst is public, priced, and closed; only forward theme lingers.",
+      "exit_case": "Q4 earnings release has occurred and results are public",
       "catalyst_resolved": true,
-      "assessment": "The catalyst was the discrete PJM capacity auction clearing ninefold \u2014 that print occurred at entry week and is public knowledge. No pending auction event remains; the multi-year revenue re-rate is a forward theme, not a discrete edge. This week's news (China CPI) is wholly unrelated and adds nothing to the PJM thesis. With the specific catalyst resolved, edge is gone.",
-      "exit_advice": "Exit. The auction event you entered on cleared and is fully public; remaining upside is a generic merchant-power earnings theme, not your specific edge.",
+      "assessment": "The Q4 earnings release was the sole catalyst for this event. Once the earnings are public, the uncertainty driving the thesis is resolved, and the edge is gone.",
+      "exit_advice": "The specific catalyst for this event has resolved, as Nike's Q4 earnings have been released. No further edge exists based on this catalyst.",
       "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "PJM auction ninefold price jump boosts nuclear power revenue",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "The PJM auction already cleared ninefold higher and was publicly announced at entry \u2014 the discrete catalyst has occurred and CEG already spiked.",
-      "catalyst_resolved": true,
-      "assessment": "The auction clearing is the discrete event I entered on, and it occurred and was disclosed in entry week; the price is set, public, and reflected in the spike. Remaining upside (guidance confirmation) is just the known result flowing into numbers \u2014 no informational edge left. This week's news (China inflation) is wholly irrelevant to the nuclear/PJM thesis and adds nothing. The catalyst has resolved.",
-      "exit_advice": "Exit. The capacity auction result \u2014 the specific catalyst \u2014 was announced and is fully public/priced. The 'guidance reset still ahead' is mechanical follow-through, not pending edge.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/"
+        "https://www.fool.com/investing/2024/07/18/stock-split-watch-is-super-micro-computer-next/?source=iedfolrf0000001"
       ]
     }
   ],
-  "2024-08-16": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Only the 2023 design certification was ever granted; no NuScale-specific NRC cascade or named AI deployment deal has closed \u2014 catalyst still pending, no resolution.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is irrelevant (WDC storage, small-cap value ETF) with zero bearing on NuScale. Re-reading the whole journal: only the 2023 design certification was ever granted \u2014 not the catalyst I entered on. The forward catalyst (incremental NRC approval cascade plus a first named AI-power datacenter deployment contract) has not occurred in any prior week. July's ADVANCE Act was broad licensing reform; the PJM auction and June cash-runway warning were thematic tailwinds/risk flags, not resolution. Hype alone does not close the thesis. SMR remains the sole pure-play; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold. Exit on a named AI-datacenter deployment contract or NuScale-specific NRC approval (resolution), or if a dilutive raise/cash crisis structurally impairs the name.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/western-digital-corporation-wdc-a-storage-powerhouse-with-robust-growth-potential-1334010/"
-      ]
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO declares mpox global health emergency; TPOXX antiviral demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "WHO declaration already made Aug 15 and stocks spiked same day \u2014 event public, possibly priced",
-      "catalyst_resolved": false,
-      "assessment": "Entered on the WHO mpox emergency declaration (made Aug 15). SIGA is the pure-play vehicle for TPOXX antiviral demand \u2014 its sole catalyst is government stockpiling/procurement following the emergency. The declaration is the discrete trigger and has occurred, but the demand response (named orders, BARDA/USG procurement) has NOT yet landed, so my edge is in anticipating order flow, not the already-public declaration. First-week sympathy rally is hype-driven (Bavarian Nordic +17%, SIGA moving), not yet backed by orders. Live while procurement is pending.",
-      "exit_advice": "Hold; the declaration triggered the thesis but the actual TPOXX procurement/stockpiling orders that justify SIGA are still pending \u2014 watch for government order announcements.",
-      "evidence_urls": [
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/"
-      ]
-    },
-    {
-      "ticker": "EBS",
-      "thesis": "Mpox emergency boosts vaccine/countermeasure maker shares",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "WHO emergency declared Aug 14-15 already triggered the share spike (EBS/peers jumped); the news event is public and priced.",
-      "catalyst_resolved": false,
-      "assessment": "Entry week. WHO declared mpox a public health emergency of international concern (Aug 14-15), sparking a broad rally in countermeasure makers \u2014 EBS, Bavarian Nordic, SIGA, GeoVax. The declaration itself is the trigger but is not the resolution: the durable driver is the procurement/order cycle that follows a declared emergency, which is still pending. EBS (ACAM2000, smallpox/mpox countermeasures) is the known vehicle and a reasonable pure-ish play, though Bavarian Nordic (Jynneos) is the cleaner mpox-vaccine name if it enters the known set. Holding on the active, unresolved emergency.",
-      "exit_advice": "Hold while the declared emergency is active and government vaccine-procurement orders remain pending; exit if contracts get placed/denied or WHO de-escalates.",
-      "evidence_urls": [
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs",
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/"
-      ]
-    }
-  ],
-  "2024-08-23": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Catalyst may be backward-looking: 2023 design certification already granted; forward NuScale-specific NRC/AI deal still absent after 14 weeks.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is irrelevant Indian-market macro noise (Nykaa, Reliance Power, Sensex) with zero bearing on NuScale. Re-reading the whole journal: only the 2023 design certification was ever granted \u2014 not the catalyst I entered on. The forward catalyst (incremental NRC approval cascade plus a first named AI-power datacenter deployment contract) has not occurred in any prior week. July's ADVANCE Act was broad licensing reform; the PJM auction and June cash-runway warning were thematic tailwinds/risk flags, not resolution. Hype alone does not close the thesis. SMR remains the sole pure-play; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Exit if NuScale announces the named AI-datacenter deployment deal (resolution) or if cash-runway distress forces dilution that breaks the thesis.",
-      "evidence_urls": [
-        "https://economictimes.indiatimes.com/markets/stocks/news/big-movers-on-d-street-what-should-investors-do-with-icici-securities-reliance-power-and-nykaa/articleshow/112696207.cms"
-      ]
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO declares mpox global health emergency; TPOXX antiviral demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "WHO declaration occurred Aug 15 (pre-entry) and is fully priced; no procurement orders have materialized to validate demand thesis.",
-      "catalyst_resolved": false,
-      "assessment": "Week two brought zero SIGA-specific news \u2014 all headlines are unrelated market/healthcare noise (Sensex pharma, ASX earnings, Forbes picks). The WHO declaration itself is public and priced, but my edge was never the declaration; it was anticipating the TPOXX procurement/stockpiling order flow that follows it, which has NOT yet landed. No named USG/BARDA contract, no order announcement this week. The catalyst's demand leg remains pending, so thesis stays live. SIGA remains the only pure-play vehicle for TPOXX procurement. The clock is ticking, however \u2014 without a concrete order, this degrades into pure declaration-hype, which would not justify a hold.",
-      "exit_advice": "Hold, but watch for a decay-driven exit: if no BARDA/USG named TPOXX order lands within a few weeks, the declaration-only catalyst is spent and the sympathy rally fades.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "EBS",
-      "thesis": "Mpox emergency boosts vaccine/countermeasure maker shares",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "WHO declaration is two weeks old and priced; no fresh mpox news this week, only market noise \u2014 initial rally exhausted.",
-      "catalyst_resolved": false,
-      "assessment": "Emergency declared Aug 14-15 remains active and unresolved \u2014 it has not ended or reversed, and the procurement/order cycle that follows a declared PHEIC is still pending, which is the durable driver. This week's news contains zero mpox-specific content (all real-estate/index noise), so no new information either confirms momentum or signals resolution. Catalyst still PENDING on the order front. Holding EBS, the only known vehicle; Bavarian Nordic (Jynneos) remains the cleaner pure-play if it enters the known set.",
-      "exit_advice": "Exit if WHO downgrades/ends the PHEIC or if procurement orders fail to materialize over coming weeks; the order cycle is the live edge, not the now-priced declaration.",
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3470216"
-      ]
-    }
-  ],
-  "2024-08-30": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "NuScale-specific NRC approval cascade and named AI-power deployment contract still have not occurred \u2014 but neither has the catalyst, so thesis isn't dead.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is entirely irrelevant macro noise (Nvidia clickbait, Sensex/Nifty/TSX records, Indian real estate, ASX healthcare) with zero bearing on NuScale. Re-reading the whole journal: only the 2023 design certification was ever granted \u2014 not the catalyst I entered on. The forward catalyst (incremental NRC approval cascade plus a first named AI-power datacenter deployment contract) has not occurred in any prior week. July's ADVANCE Act was broad licensing reform; the PJM auction and June cash-runway warning were thematic tailwinds/risk flags, not resolution. Hype alone does not close the thesis. SMR remains the sole pure-play; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "hold",
-      "evidence_urls": [
-        "https://www.energyandcapital.com/five-words-that-will-tank-nvidia-overnight/"
-      ]
-    },
-    {
-      "ticker": "SIGA",
-      "thesis": "WHO declares mpox global health emergency; TPOXX antiviral demand",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Declaration public/priced for two weeks; three straight weeks of ZERO procurement signal \u2014 thesis has decayed into pure declaration-hype, my own stated kill-condition.",
-      "catalyst_resolved": false,
-      "assessment": "Week three brings nothing but generic healthcare/index noise \u2014 no SIGA-specific item, no named TPOXX order, no BARDA/USG procurement headline. My edge was always anticipating order flow following the Aug-15 declaration; that flow has not materialized and the declaration itself is long since public and priced. I explicitly flagged last week that without a concrete order this degrades into hype that wouldn't justify holding \u2014 that threshold is now reached. Cutting before the position becomes a momentum bet on stockpiling I have no informational edge on. SIGA remains the only pure-play, but the live edge is gone.",
-      "exit_advice": "Exit. The WHO declaration is fully priced and the procurement/order leg I was anticipating has shown no sign for three consecutive weeks. Per my Aug-23 warning, absent a concrete USG/BARDA contract this is now pure declaration-hype, which does not justify a hold.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/08/30/2-top-healthcare-growth-stocks-to-buy-right-now/"
-      ]
-    },
-    {
-      "ticker": "EBS",
-      "thesis": "Mpox emergency boosts vaccine/countermeasure maker shares",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "PHEIC declared Aug 14-15 is public, priced-in; two straight weeks of zero mpox news = spike over, catalyst decayed.",
-      "catalyst_resolved": false,
-      "assessment": "The WHO PHEIC remains active and has not ended or reversed, and no procurement/order announcement has yet closed \u2014 so the durable driver (post-emergency countermeasure orders) is still pending and the specific catalyst is not resolved. The honest counter, made fresh: the declaration itself is now two weeks old, fully public and priced, and the news flow contains zero mpox content for a second consecutive week (all real-estate/index noise), indicating the initial rally has been digested and momentum is fading. Still PENDING on the order front, so holding, but decay risk is rising. EBS remains the only known vehicle; Bavarian Nordic (Jynneos) would be the cleaner pure-play if it enters the known set.",
-      "exit_advice": "Hold, but on notice: the post-declaration order/procurement cycle is the only thing keeping this live. Another week with no mpox-specific news or named procurement and this becomes a decayed catalyst to exit.",
-      "evidence_urls": [
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-shares-gain-124082900173_1.html"
-      ]
-    }
-  ],
-  "2024-09-06": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "NuScale's only granted event is the 2023 design certification; if the 'approval' was always backward-looking, the catalyst may already be resolved.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is entirely irrelevant (small-cap healthcare lists, Indian/Dutch market noise) with zero bearing on NuScale. Re-reading the whole journal: only the 2023 design certification was ever granted, which is not what I entered on. The forward catalyst remains pending and unpriced. July's ADVANCE Act was broad licensing reform; the PJM auction and June cash-runway warning were thematic tailwinds/risk flags, not resolution. Hype alone does not close the thesis. SMR remains the sole pure-play; UUUU is a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold. The forward catalyst \u2014 incremental NRC approval cascade plus a first named AI-power datacenter deployment contract \u2014 has not occurred in any prior week.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/10-best-small-cap-healthcare-stocks-to-buy-now-1344505/"
-      ]
-    },
-    {
-      "ticker": "EBS",
-      "thesis": "Mpox emergency boosts vaccine/countermeasure maker shares",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Three straight weeks of zero mpox news; Aug 14-15 declaration fully priced, no procurement orders ever materialized \u2014 rally dead and decayed.",
-      "catalyst_resolved": false,
-      "assessment": "The specific order/procurement catalyst never closed, so it is technically still pending, but pending-forever with no flow is functionally dead. For a third straight week the news contains zero mpox content (all real-estate/index/13F noise), confirming the initial rally is fully digested and momentum has collapsed. The declaration itself is public and priced. With no procurement announcement materializing and no news catalyst on the horizon, edge is gone and the position should be closed. EBS remained the only known vehicle throughout; Bavarian Nordic (Jynneos) never entered the known set.",
-      "exit_advice": "Exit. The emergency-declaration boost is exhausted: the PHEIC trigger is three weeks old and fully priced, and the procurement/order cycle that was supposed to be the durable driver has produced nothing across three consecutive weeks of total mpox news silence. Decay has overtaken the thesis \u2014 no live catalyst remains to trade.",
-      "evidence_urls": [
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-shares-gain-124090400197_1.html"
-      ]
-    }
-  ],
+  "2024-07-26": [],
+  "2024-08-02": [],
+  "2024-08-09": [],
+  "2024-08-16": [],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
   "2024-09-13": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale small modular reactor approval amid AI power demand",
+      "ticker": "UUUU",
+      "thesis": "Federal Court approves Base Resources acquisition",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "NuScale's only granted event remains the 2023 design certification; if my catalyst was that, it's long resolved and decayed.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's news is entirely irrelevant (King Island Dairy, Fed inflation/rate-cut, swing-state debate, Benzinga utility-AI piece on CEG/AEP) with zero bearing on NuScale. The Benzinga power-sector item is a thematic AI-power tailwind via merchant utilities not in my set, not resolution. Re-reading the whole journal: only the 2023 design certification was ever granted, which is not what I entered on. The forward catalyst has not occurred in any prior week. ADVANCE Act, PJM auction, and the June cash-runway warning were tailwinds/risk flags, not catalyst closure. Hype alone does not resolve the thesis. SMR remains the sole pure-play; UUUU a less-pure uranium-fuel proxy. Edge persists; hold SMR.",
-      "exit_advice": "Hold. The forward catalyst \u2014 NuScale-specific NRC approval cascade plus a first named AI-power datacenter deployment contract \u2014 remains pending and unpriced; exit only on that resolution or concrete crowding.",
+      "assessment": "The Federal Court of Australia has approved the acquisition of Base Resources by Energy Fuels Inc., with the transaction expected to close on October 2, 2024. The catalyst remains pending until the deal is officially completed.",
+      "exit_advice": "Hold until the acquisition officially closes on October 2, 2024.",
       "evidence_urls": [
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
+        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]
     }
   ]

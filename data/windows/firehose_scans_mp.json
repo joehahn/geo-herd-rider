@@ -1,374 +1,1796 @@
 {
   "2025-03-21": [],
-  "2025-03-28": [],
-  "2025-04-04": [],
+  "2025-03-28": [
+    {
+      "ticker": "USM",
+      "thesis": "Trump's new Canada auto tariff",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as Trump's new Canada auto tariff has not been officially announced or implemented yet. Market sentiment is reacting to speculation and uncertainty.",
+      "exit_advice": "Monitor for official tariff announcements or policy reversals that would resolve the catalyst.",
+      "evidence_urls": [
+        "https://www.theglobeandmail.com/business/article-trump-auto-tariffs-canada-business-quiz-march-28/",
+        "https://www.fxstreet.com/cryptocurrencies/news/donald-trumps-tariff-policies-set-to-increase-market-uncertainty-and-risk-off-sentiment-202503280747",
+        "https://www.insidermonkey.com/blog/why-united-states-cellular-corp-usm-is-surging-in-2025-1495791/",
+        "https://www.investopedia.com/barclays-analysts-become-latest-to-cut-s-and-p-500-forecast-amid-tariff-uncertainty-11703798",
+        "https://malaya.com.ph/business/market/southeast-asian-stocks-feel-the-heat-from-economic-us-tariff-worries/",
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/European-US-shares-helped-by-optimism-around-tariffs-bond-yields-rise-49426379/"
+      ]
+    }
+  ],
+  "2025-04-04": [
+    {
+      "ticker": "USM",
+      "thesis": "Trump's new Canada auto tariff",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Tariffs were announced during Liberation Day, indicating the catalyst has occurred.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst has resolved with Trump's tariff announcement, leading to market reactions globally. The event is now concluded.",
+      "exit_advice": "Exit the position as the tariff announcement has been made and is now priced in.",
+      "evidence_urls": [
+        "https://www.trains.com/trn/news-reviews/news-wire/new-u-s-tariffs-new-u-s-tariffs-pummel-railroad-stocks/"
+      ]
+    }
+  ],
   "2025-04-11": [],
   "2025-04-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "seed",
-      "exit_case": "China curbs just announced; reshoring/tariff dynamic still unfolding \u2014 no reversal or resolution yet",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Entry week. China restricted rare-earth exports amid the US-China tariff war, and MP Materials \u2014 the only scaled US rare-earth miner \u2014 is the direct, purest beneficiary as a reshoring/supply-security play. The curbs are newly active, not reversed, so the catalyst remains open. Noise in the feed (Australian shares, real estate, tax) is irrelevant. MP is the clean pure-play vehicle.",
-      "exit_advice": "Hold. China export curbs are freshly imposed and escalating; MP is the sole scaled US producer and remains under-owned. Catalyst pending.",
+      "assessment": "The catalyst remains live with no indication of reversal or resolution. MP Materials (MP) is the primary beneficiary and continues to be under-owned, positioning it for potential appreciation as the market digests the impact of China's export restrictions.",
+      "exit_advice": "Hold as the catalyst remains active; monitor for any reversals in China's export policy or significant developments in US rare-earth production.",
       "evidence_urls": [
-        "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/"
+        "https://www.etf.com/"
       ]
     }
   ],
   "2025-04-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "China curbs could be reversed in tariff de-escalation talks, ending supply-security premium",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place this week \u2014 no reversal, no resolution. The catalyst stays open and pending. This week's news is all noise (pharma tariffs, nuclear stocks, market volatility commentary), nothing directly bearing on rare earths or MP. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Thesis intact.",
-      "exit_advice": "Hold; curbs remain active and unreversed. Exit if China lifts rare-earth export restrictions in a US-China deal.",
+      "assessment": "The catalyst remains live with no indication of reversal or resolution. China's rare-earth export restrictions continue to be in place, and MP Materials (MP) remains the primary beneficiary. The recent news about easing US-China trade tensions does not directly address the rare-earth export restrictions, so the thesis remains intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions or any significant developments in US-China trade tensions that could impact the catalyst.",
       "evidence_urls": [
-        "https://www.fool.com/research/pharmaceutical-tariffs-imports/"
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-shares-rise-on-signs-of-easing-US-China-trade-tensions-49718457/",
+        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/Wall-St-rallies-on-tariff-optimism-Trump-eases-Powell-threats-49687002/"
       ]
     }
   ],
   "2025-05-02": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "China curbs could be lifted in tariff de-escalation, but no reversal yet this week.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is entirely noise \u2014 GDP contraction, MPW REIT, uranium/nuclear, China stimulus restraint \u2014 nothing reverses the curbs or directly bears on MP. China showing 'composure' in trade war suggests no near-term concession, so curbs likely persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
-      "exit_advice": "Hold. Exit only if China formally rescinds rare-earth export curbs or a US-China deal explicitly removes them.",
+      "assessment": "China's rare-earth export restrictions remain in place, and MP Materials (MP) continues to be the primary beneficiary. The recent news about upbeat jobs data and optimism regarding US-China trade talks does not directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP Materials (MP) until there is evidence that China's rare-earth export restrictions have been reversed or resolved.",
       "evidence_urls": [
-        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
+        "http://www.bignewsnetwork.com/news/278199250/positive-jobs-report-lights-up-wall-street",
+        "https://www.rttnews.com/story.aspx?Id=3534955",
+        "https://www.rttnews.com/3534955/upbeat-jobs-data-optimism-about-trade-talks-with-china-sparks-rally-on-wall-street.aspx",
+        "https://www.rttnews.com/3534925/u-s-stocks-surge-on-upbeat-jobs-data-optimism-about-trade-talks-with-china.aspx"
       ]
     }
   ],
   "2025-05-09": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-UK tariff deal hints at de-escalation; a US-China deal could reverse curbs and unwind the supply-security premium.",
+      "exit_case": "China maintains rare-earth export restrictions with no signs of reversal.",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week \u2014 no reversal, no concession. This week's news is entirely noise: UK logistics REIT, Trump-UK tariff deal, Eli Lilly, PBOC rate cuts, Buffett. The Trump-UK deal is worth flagging as a de-escalation signal, but it touches nothing on China rare earths; curbs persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
-      "exit_advice": "Hold, but watch for a US-China trade deal that explicitly lifts rare-earth curbs \u2014 that would resolve the catalyst.",
+      "assessment": "China's rare-earth export restrictions persist, and MP Materials (MP) continues to benefit. There is no indication of relaxation or reversal of these restrictions in the news this week.",
+      "exit_advice": "Hold position in MP Materials (MP) as the catalyst remains unresolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Regencell Bioscience's 72% surge this week has drawn significant attention, but the catalyst remains unresolved as the reason behind the surge is still speculative.",
+      "exit_advice": "Monitor for signs of a secondary catalyst driving continued momentum or potential reversal.",
       "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-stocks-rise-after-Trump-strikes-tariff-deal-with-UK-49872677/"
+        "https://www.energyandcapital.com/regencell-bioscience-holdings-ltd-rgc-why-shares-soared-72-in-a-single-week/"
       ]
     }
   ],
   "2025-05-16": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China trade de-escalation could prompt China to lift rare-earth curbs, dissolving the supply-shock thesis.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is 100% noise: Eurovision, Trump Middle East tour, birthright citizenship, Coinbase hack, Nvidia/Arm. Nothing touches China rare-earth curbs or MP. The curbs remain in place and unresolved \u2014 no announced rollback despite ongoing US-China de-escalation chatter. Until China explicitly lifts the export restrictions, the supply-security catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring vehicle.",
-      "exit_advice": "Hold, but watch for any explicit rollback of rare-earth export curbs in US-China negotiations \u2014 that ends the thesis.",
-      "evidence_urls": []
+      "assessment": "China's rare-earth export restrictions remain in place with no indication of reversal or relaxation. MP Materials (MP) continues to be the primary beneficiary of this policy. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China relaxing its rare-earth export restrictions or any significant policy shifts that could impact the thesis.",
+      "evidence_urls": [
+        "https://www.thisismoney.co.uk/money/markets/article-14717287/US-tariff-cuts-wont-kick-weeks-British-firms-left-dark-Trumps-levies-finally-lifted.html",
+        "https://www.turnto23.com/politics/economy/tariffs-are-supposed-to-promote-domestic-investments-but-transitioning-supply-chains-could-take-years",
+        "https://biztoc.com/x/ace911a6bc8dec26",
+        "https://www.echopress.com/news/despite-ethics-agreement-to-sell-u-s-treasury-secretarys-family-still-appears-to-own-north-dakota-farmland",
+        "https://article.wn.com/view/2025/05/15/us_uses_8216poison_pills_8217_to_isolate_china_from_supply_c/",
+        "http://www.abbynews.com/news/turbulent-waters-trump-tension-clips-victoria-to-seattle-sailings-8010991"
+      ]
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Disclosure already public Thursday; stock plunged and $400M cost is now priced \u2014 one-time shock done",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Coinbase disclosed a cyberattack exposing customer data, a $20M ransom demand, and remediation/reimbursement costs up to $400M, with reports of an SEC investigation. Shares plunged Thursday. The specific catalyst \u2014 the SEC probe and the full breach fallout \u2014 is still PENDING, not closed; only the initial disclosure has hit. COIN is the sole and purest vehicle. Watch for SEC resolution, class-action filings, and any revision to the $400M cost estimate as the trigger to reassess.",
-      "exit_advice": "Hold while SEC probe is unresolved and breach-cost/litigation fallout still developing; the disclosure dropped this week but the investigation outcome is pending.",
-      "evidence_urls": [
-        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
-        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data"
-      ]
+      "assessment": "The catalyst remains unresolved as the reason behind the surge is still speculative. No new information has emerged to explain the initial surge.",
+      "exit_advice": "Continue monitoring for any clarification on the reason behind the surge in Regencell Bioscience shares.",
+      "evidence_urls": []
     }
   ],
   "2025-05-23": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China de-escalation (Geneva tariff truce) could prompt China to roll back curbs, collapsing the supply-security premium.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is pure noise \u2014 Trump uranium/nuclear frenzy, no bearing on rare earths or MP. Despite ongoing US-China trade de-escalation, no announced rollback of the curbs. Catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit if China explicitly lifts rare-earth export restrictions or grants broad US-bound licenses.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Initial breach disclosure and stock drop already public/priced; market may have absorbed the $400M hit.",
-      "catalyst_resolved": false,
-      "assessment": "No relevant news this week \u2014 the only headline is an unrelated UK dividend piece. The specific catalyst (SEC investigation, breach remediation costs, potential cost revisions/litigation) is still in motion and unresolved. Nothing has closed: no SEC settlement or denial, no finalized cost figure, no class-action resolution. Edge persists while these triggers stay pending. COIN remains the sole pure vehicle for this single-name event.",
-      "exit_advice": "Hold. SEC probe unresolved, no class-action or cost-revision outcome yet; the full breach fallout remains pending.",
+      "assessment": "The catalyst remains live with no indication of reversal or resolution. China's rare-earth export restrictions continue to be in place, and MP Materials (MP) remains the primary beneficiary. The lack of fresh coverage this week does not alter the thesis.",
+      "exit_advice": "Continue monitoring for any signs of China relaxing its rare-earth export restrictions or any significant policy changes that could impact MP Materials.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEG",
-      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Executive orders just signed this week \u2014 discrete signing event technically occurred",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Trump's pro-nuclear executive orders sparked an immediate uranium/nuclear rally. CEG, as the largest US nuclear generator, is a clean pure-play beneficiary of policy tailwinds (reactor licensing, demand growth from data centers/AI). The signing is the spark, but implementation and re-rating are pending \u2014 thesis live. Watch for the policy momentum to fade or fully price in over coming weeks.",
-      "exit_advice": "Hold \u2014 EOs signed but the nuclear buildout/repricing they unleash is multi-month and just beginning; frenzy is fresh, not priced.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
+      "assessment": "The catalyst remains unresolved as the reason behind the surge is still speculative. No new information has emerged to explain the initial surge.",
+      "exit_advice": "Continue monitoring for any new information that could explain the initial surge in Regencell Bioscience shares.",
+      "evidence_urls": []
     }
   ],
   "2025-05-30": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Ongoing US-China trade de-escalation could trigger a curb rollback, collapsing the supply-security premium without warning.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. China's rare-earth export curbs remain in place and unresolved \u2014 no announced rollback despite the de-escalation backdrop from earlier Geneva-style talks. The specific catalyst I entered on (active export curbs + sole US producer) is still pending; nothing this week resolved it. MP remains the only scaled US rare-earth miner and the purest reshoring/supply-security vehicle. Catalyst open.",
-      "exit_advice": "Hold, but watch for any explicit China announcement lifting rare-earth export restrictions \u2014 that ends the thesis instantly.",
-      "evidence_urls": []
+      "assessment": "The catalyst remains live with no indication of reversal or resolution. China's rare-earth export restrictions continue to be in place, and MP Materials (MP) remains the primary beneficiary. The recent news about U.S. stocks moving higher due to delayed EU tariffs does not directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP as the rare-earth export restrictions by China remain in place with no signs of reversal.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3542179",
+        "https://www.rttnews.com/3542179/u-s-stocks-move-sharply-higher-after-trump-delays-eu-tariffs.aspx"
+      ]
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Breach disclosure shock is two weeks old and fully priced; no SEC action, cost revision, or litigation catalyst has materialized \u2014 edge is decaying.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The specific catalyst \u2014 SEC investigation, finalized breach remediation cost, and litigation \u2014 remains formally PENDING. No settlement, denial, finalized $400M figure, or class-action resolution has occurred. But the market has had two quiet weeks to absorb the initial disclosure, so the original price shock is priced in and the live edge now hinges entirely on an unresolved-yet-stale SEC/litigation overhang. Thesis stays live only because none of those triggers has closed.",
-      "exit_advice": "Hold, but treat as decaying \u2014 two consecutive weeks of no news. If a third week passes with no SEC development, cost revision, or class-action milestone, the catalyst has effectively gone dormant and should be exited.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Executive orders already signed at entry; the discrete catalyst has occurred and is public/priced \u2014 frenzy fading, no fresh coverage.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst I entered on was the actual signing of Trump's pro-nuclear executive orders \u2014 a discrete, completed government action. That event is in the past, public, and priced. My entry note hoped for a re-rating to follow, but that is theme/narrative, not the specific catalyst. One week on there is no fresh coverage, signaling the initial frenzy has already faded rather than building. Re-reading the journal, the catalyst has resolved: a signed order cannot be un-signed and offers no remaining informational edge. CEG remains the cleanest nuclear pure-play, but holding now is betting on lingering hype, not a pending event. Thesis no longer live.",
-      "exit_advice": "Exit. The signing was the catalyst \u2014 it occurred at entry and is fully public. The one-week post-signing pop has come and gone with zero follow-through this week; edge is gone.",
+      "assessment": "The catalyst remains unresolved as the reason behind Regencell Bioscience's surge is still speculative. No new information has emerged this week to explain the initial 72% surge.",
+      "exit_advice": "Hold until the catalyst resolves or new information explains the surge.",
       "evidence_urls": []
     }
   ],
   "2025-06-06": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Ongoing US-China de-escalation talks could yield a curb rollback, collapsing the supply-security premium.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's news is pure noise \u2014 Indian metal stocks rallying on an RBI rate cut, nothing touching China rare earths or MP. China's export curbs remain in place and unresolved; no announced rollback despite ongoing de-escalation chatter. The specific catalyst I entered on (active curbs + sole US producer) is still pending. MP remains the only scaled US rare-earth miner and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold; exit immediately if China explicitly lifts or rolls back the rare-earth export curbs in a trade deal.",
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
-      ]
+      "assessment": "The catalyst remains unchanged and live, with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Continue holding MP Materials (MP) as China's rare-earth export restrictions remain in place with no indication of reversal or relaxation.",
+      "evidence_urls": []
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
-      "thesis_live": false,
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Disclosure-driven price shock fully priced over three quiet weeks; SEC probe now a stale, dateless overhang with no fresh catalyst pending.",
-      "catalyst_resolved": true,
-      "assessment": "Fourth week, and the news is irrelevant (NZ/Fletcher-SkyCity, no Coinbase content). Re-reading the whole journal: the event I entered on was a one-time disclosure shock, and the market has now had a full month to price it. The SEC probe technically remains open, but an undated, unresolved investigation is not a pending discrete catalyst I have edge on \u2014 it is a lingering theme. The original price reaction is the resolution. Edge is gone.",
-      "exit_advice": "Exit. The discrete catalyst \u2014 the breach disclosure, $400M cost estimate, and SEC-probe headline that sank shares \u2014 occurred at entry and has been fully absorbed across three weeks of silence. No finalized cost, settlement, or litigation milestone has produced a new tradable trigger; the remaining 'overhang' is an open-ended investigation with no date, which is theme, not edge.",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst behind Regencell Bioscience's surge remains unresolved, with no new information explaining the initial 72% jump.",
+      "exit_advice": "Continue monitoring for clarity on the surge's catalyst.",
       "evidence_urls": [
-        "https://www.nzherald.co.nz/business/markets/shares/nz-stocks-end-flat-amid-fletcher-skycity-legal-woes-market-close/JKCBMWFWNVB5LC7ISVOWUNVJDM/"
+        "https://www.fool.ca/2025/06/05/heres-how-many-shares-of-telus-stock-you-should-own-to-get-1000-in-annual-dividends/"
       ]
     }
   ],
   "2025-06-13": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China trade talks turning positive \u2014 framework reportedly easing rare-earth curbs, the catalyst could reverse imminently.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's news is the first material threat to the thesis: US-China trade talks (London framework) are turning positive and reportedly involve China easing rare-earth export restrictions in exchange for US concessions. This is no longer pure noise \u2014 it is direct de-escalation pressure on my exact catalyst. However, as of this week there is NO explicit, signed rollback of the curbs; the talks are positive but the restrictions remain formally in place. The catalyst is still pending but visibly decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. I hold, but this is the closest to exit I've been \u2014 a confirmed curb rollback next week would resolve the catalyst.",
-      "exit_advice": "Watch for an explicit rollback announcement; if China formally lifts rare-earth export curbs in the trade framework, exit immediately \u2014 that resolves the catalyst.",
+      "assessment": "The catalyst remains unchanged and live, with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Continue holding MP as China's rare-earth export restrictions persist with no indication of reversal or relaxation.",
       "evidence_urls": [
-        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+        "https://www.thecarillon.com/local/2025/06/09/narth-911-ethics-complaint-after-callers-on-hold"
       ]
+    },
+    {
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst behind Regencell Bioscience's surge remains speculative with no new information explaining the initial 72% jump.",
+      "exit_advice": "Continue holding as the catalyst remains unresolved.",
+      "evidence_urls": []
     }
   ],
   "2025-06-20": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "London framework talks point to China easing rare-earth curbs \u2014 catalyst decaying toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. Last week's London-framework de-escalation (China reportedly to ease rare-earth export restrictions for US concessions) remains the key threat, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on is still pending. The thesis is intact but fragile and visibly decaying; a confirmed rollback would resolve it and force exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold, but exit on any explicit signed curb rollback or formal license resumption from China.",
+      "assessment": "The catalyst remains unchanged and live, with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Hold MP as China's rare-earth export restrictions remain in place with no indication of reversal or relaxation. The thesis remains intact.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The initial surge remains unexplained, suggesting the catalyst may have been a transient event or speculation that has since faded.",
+      "catalyst_resolved": false,
+      "assessment": "The initial surge in Regencell Bioscience shares remains unexplained, and without new information, the catalyst appears to be speculative and potentially transient. The lack of follow-up news or developments suggests the initial move may have been driven by rumors or short-term interest that has since dissipated.",
+      "exit_advice": "Monitor for any new information that could explain the initial surge. If no explanation emerges soon, consider exiting as the catalyst may have been speculative and is now stale.",
       "evidence_urls": []
     }
   ],
   "2025-06-27": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "London-framework de-escalation has China reportedly easing rare-earth curbs; catalyst visibly decaying toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. The key threat remains the June London-framework de-escalation, where China reportedly agreed to ease rare-earth export restrictions in exchange for US concessions. But as of now there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying; a confirmed rollback resolves it and forces exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold, but exit immediately on any confirmed/signed China curb rollback \u2014 the thesis is fragile.",
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Continue to monitor for any signs of China reversing or relaxing its rare-earth export restrictions. Until such a development occurs, the thesis remains intact.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The initial surge remains unexplained and appears speculative, with no follow-up developments.",
+      "catalyst_resolved": false,
+      "assessment": "The initial surge in Regencell Bioscience shares remains unexplained, and without new information, the catalyst appears speculative and potentially transient. The lack of follow-up news or developments suggests the initial move may have been driven by rumors or short-term interest that has since dissipated.",
+      "exit_advice": "Exit the position as the catalyst lacks clarity and follow-through, indicating the move may have been transient.",
       "evidence_urls": []
     }
   ],
   "2025-07-04": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London-framework deal has China agreeing to ease rare-earth curbs \u2014 catalyst effectively de-escalated and decaying toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 TSX real estate, Indian REITs, Asian shares on renewed tariff worries \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "A confirmed, signed curb rollback resolves the catalyst and forces immediate exit; watch for explicit Chinese export-license restoration.",
-      "evidence_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
-      ]
+      "assessment": "China's rare-earth export restrictions are still in place, and MP Materials (MP) continues to be the primary beneficiary. There is no fresh coverage or developments this week that would alter the thesis.",
+      "exit_advice": "Continue holding as the catalyst remains live with no indication of reversal or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RGC",
+      "thesis": "Regencell Bioscience shares soar 72%",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The initial surge remains unexplained and speculative, with no follow-up news or developments to sustain the catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "The initial surge in Regencell Bioscience shares remains unexplained, and the lack of follow-up news or developments suggests the catalyst was driven by rumors or short-term interest that has since dissipated.",
+      "exit_advice": "Exit the position as the catalyst appears to be speculative and transient, with no new information to sustain the initial surge.",
+      "evidence_urls": []
     }
   ],
   "2025-07-11": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agreeing to ease rare-earth curbs for US concessions \u2014 de-escalation may have quietly resolved it.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China property stimulus rumors, TSX real estate, Vistra/Cramer \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit immediately on any explicit, signed China rollback of the rare-earth export curbs \u2014 the de-escalation track makes this imminent.",
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions are still in place, and MP Materials (MP) continues to be the primary beneficiary.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions or any significant developments in US-China trade talks that may impact the policy.",
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook"
+        "https://www.forbes.com/sites/brendanahern/2025/07/11/china-market-update-is-a-trump-xi-summit-coming-week-in-review/",
+        "https://finance.yahoo.com/news/irobot-corporation-launches-first-multi-044004846.html",
+        "https://www.benzinga.com/analyst-stock-ratings/reiteration/25/07/46281768/telecom-stocks-are-no-longer-one-size-fits-all-analyst-says-heres-which-company-stands-out"
       ]
     }
   ],
   "2025-07-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China agree to ease rare-earth curbs for US concessions \u2014 catalyst decaying toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China State Council anti-involution EV campaign, Asian equity moves \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold. No explicit, signed rollback of curbs has occurred; a confirmed rollback resolves the catalyst and forces exit.",
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions are still in place, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing or relaxing its rare-earth export restrictions. Exit if such news emerges or if the market fully prices in the current restrictions.",
       "evidence_urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
+        "https://www.forbes.com/sites/brendanahern/2025/07/18/china-market-update-hong-kong-higher-regulators-comment-on-instant-commerce-week-in-review/",
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65917916-asian-shares-mostly-lower-as-tariff-concerns-linger-020.htm",
+        "https://www.2gb.com/podcast/money-news-with-scott-haywood-15th-july-2/",
+        "https://www.6pr.com.au/podcast/money-news-with-scott-haywood-15th-july-2/",
+        "https://www.marketpulse.com/markets/markets-today-chinese-data-mixed-dax-holds-at-support-as-us-inflation-and-earnings-loom/"
       ]
     }
   ],
   "2025-07-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation decaying the catalyst toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Japan/Trump trade deal, Fed tour, Indian realty selloff, Michael Hudson essays \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 broader US-China de-escalation (now extending to Japan deals) keeps pressure on. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold; a confirmed, signed rollback of China's rare-earth export curbs forces immediate exit.",
+      "assessment": "The catalyst remains live with no indication of reversal or resolution. China's rare-earth export restrictions continue to be in place, and MP Materials (MP) remains the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP Materials (MP) as China's rare-earth export restrictions remain unchanged and unresolved.",
       "evidence_urls": [
-        "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan"
+        "https://www.livemint.com/market/stock-market-news/fpi-heatmap-it-fmcg-lead-outflows-while-services-metals-draw-inflows-in-july-here-s-where-the-smart-money-is-going-11753172547430.html",
+        "https://finance.yahoo.com/news/jefferies-raises-merck-mrk-price-184554664.html",
+        "https://finance.yahoo.com/news/j-p-morgan-sees-strong-184552015.html"
       ]
     }
   ],
   "2025-08-01": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework: China reportedly agreed to ease rare-earth exports \u2014 curbs visibly decaying toward de-escalation.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 utility stock lists (KEP, EIX, CEPU), TSX/realty moves, Fed/tariff-deadline previews \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "A confirmed, signed rollback of China's export curbs resolves the catalyst and forces immediate exit.",
+      "assessment": "The catalyst remains unchanged and live, with no indications of reversal or resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Hold until there is evidence of China lifting or easing the rare-earth export restrictions.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "CEG",
+      "thesis": "FERC approves Calpine deal",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "FERC approval for the Calpine deal has already occurred, resolving the catalyst",
+      "catalyst_resolved": true,
+      "assessment": "The FERC approval for the Calpine deal was the specific catalyst for this event. With the approval now public and the stock reacting accordingly, the thesis is no longer live.",
+      "exit_advice": "The catalyst has resolved, and the event is priced in. Exit the position.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-gains-following-ferc-approval-on-calpine-deal-1581290/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Stake announcement is public; a power utility's lithium entry may already be fully priced.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Entered on the discrete catalyst: Central Puerto (CEPU) taking a major stake in the Tres Cruces lithium project, marking an Argentine power-gen company pivoting into lithium. News confirms the announcement but lacks detail on stake size, price, and close timing \u2014 the market is only beginning to reprice the optionality. Rest of newsflow is generic macro/market noise, not event-specific. Catalyst is fresh and still unfolding, not yet closed-and-priced. CEPU is the sole and purest vehicle.",
-      "exit_advice": "Hold. Entry week \u2014 the Tres Cruces stake was just announced and the repricing of CEPU from pure utility to utility-plus-lithium optionality is still fresh and developing. Watch for deal-close confirmation, stake size/terms, and project resource details; once the transaction formally closes and is digested, edge decays.",
+      "assessment": "Initial news indicates progress on the LNG project, but the catalyst is still in early stages with no resolution yet.",
+      "exit_advice": "Monitor for concrete milestones or setbacks in the LNG project development.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/"
+        "https://www.insidermonkey.com/blog/venture-global-vg-gains-following-progress-on-new-lng-project-1581288/"
       ]
     }
   ],
   "2025-08-08": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation may have quietly resolved my catalyst.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit on any explicit, signed rollback of China's rare-earth export curbs, or a confirmed MP-specific de-escalation outcome.",
-      "evidence_urls": []
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions are still in place, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing or relaxing its rare-earth export restrictions. Exit if the restrictions are lifted or if there is significant evidence of market saturation or alternative supply chains reducing the impact.",
+      "evidence_urls": [
+        "https://www.swissinfo.ch/eng/asian-stocks-rise-as-japan-jumps-on-tariff-relief:-markets-wrap/89800995",
+        "https://finance.yahoo.com/news/dividend-stock-yields-almost-7-233002644.html",
+        "https://finance.yahoo.com/news/analysis-struggling-us-healthcare-stocks-100340329.html",
+        "https://www.moneycontrol.com/news/business/markets/dow-sp-500-nasdaq-open-higher-as-trumps-tariffs-take-effect-13426150.html",
+        "http://baystreet.ca/marketupdates/14330/TSX-Fades-Thursday",
+        "https://finance.yahoo.com/news/historical-trends-no-longer-working-135500668.html"
+      ]
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Announcement already public; no new detail this week, market may have fully priced the initial reveal.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No event-specific news this week \u2014 only generic European market noise, nothing about Central Puerto or Tres Cruces. The discrete catalyst (CEPU acquiring a major stake in Tres Cruces) was announced at entry but remains incomplete: stake size, price, and close timing are still unknown. The lithium-pivot optionality has not been concretely repriced because the market lacks the hard terms. Catalyst still pending; no resolution event has passed. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
-      "exit_advice": "Hold. Deal terms (stake size, price, close timing) remain undisclosed and unclosed \u2014 the catalyst is still unfolding, not resolved. Exit only when the transaction closes with confirmed terms or the lithium pivot is abandoned.",
-      "evidence_urls": [
-        "https://invezz.com/news/2025/08/06/europe-markets-open-equities-gain-focus-on-earnings-uk-budget-deficit-concerns/"
-      ]
+      "assessment": "The LNG project is still in early stages with no resolution yet, and there has been no fresh coverage this week to indicate any change in status.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project progress as the catalyst is still pending.",
+      "evidence_urls": []
     }
   ],
   "2025-08-15": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China restricts rare-earth exports",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs; de-escalation is grinding the catalyst toward resolution.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Trump-Putin Alaska summit, India-US strain, WWII anniversaries, DEI rulings \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit on any explicit, signed China rollback of rare-earth export curbs; until then hold.",
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Deal terms (stake size, price, close) still undisclosed two weeks on \u2014 risk catalyst quietly fizzles without concrete repricing.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The discrete catalyst \u2014 CEPU acquiring a major stake in Tres Cruces \u2014 was announced at entry but remains incomplete: stake size, price, and close timing are still unknown, so the lithium-pivot optionality is not yet fully repriced. This week's news is entirely unrelated geopolitical noise (Trump-Putin summit, UN conflict report, West Bank) with zero mention of Central Puerto or Tres Cruces. No resolution event has passed. Catalyst still pending. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
-      "exit_advice": "Hold; exit if deal closes with disclosed terms (priced) or announcement is abandoned.",
+      "assessment": "The LNG project remains in early stages with no clear resolution or significant updates this week. The catalyst has not yet occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for definitive progress or resolution on the LNG project.",
       "evidence_urls": [
-        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html"
+        "https://latitude.plos.org/2025/08/plos-climate-call-for-submissions-climate-and-sustainable-development-finance-understanding-the-what-who-and-how/",
+        "https://www.newcivilengineer.com/latest/nuclear-taskforce-urges-overhaul-of-risk-averse-regulation-to-speed-up-delivery-13-08-2025/"
       ]
+    }
+  ],
+  "2025-08-22": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. There is no fresh news or developments this week that directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Hold MP Materials (MP) as China's rare-earth export restrictions remain in place with no indication of reversal or resolution.",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/hero-motocorp-shares-jump-over-17-in-august-post-biggest-monthly-gain-in-nearly-two-years-time-to-buy-11755861138042.html",
+        "https://finance.yahoo.com/news/why-palantir-stock-tumbling-tuesday-185512900.html",
+        "https://www.insidermonkey.com/blog/aris-water-solutions-aris-fell-on-concerns-over-oil-price-downturn-1594152/",
+        "https://www.swissinfo.ch/eng/stock-rally-falters-after-wall-street-tech-slump:-markets-wrap/89862053",
+        "https://www.themarketsdaily.com/2025/08/20/best-telecom-stocks-to-consider-august-19th.html",
+        "https://www.insidermonkey.com/blog/is-csg-systems-csgs-an-attractively-priced-stock-1593513/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates this week. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Hold; no resolution on LNG project yet.",
+      "evidence_urls": [
+        "https://www.investopedia.com/why-solar-stocks-are-surging-today-11792689"
+      ]
+    }
+  ],
+  "2025-08-29": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions remain in place with no indication of reversal. MP Materials (MP) continues to be the primary beneficiary of this policy. The catalyst remains live, and there is no fresh news or developments this week that directly impact the rare-earth export restrictions.",
+      "exit_advice": "Hold until there is a clear resolution or reversal of China's rare-earth export restrictions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates this week. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project's progress.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-09-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains live, with China's rare-earth export restrictions persisting and MP Materials (MP) continuing to be the primary beneficiary. The recent news does not directly address or impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP Materials (MP) as the rare-earth export restrictions remain in place with no indication of reversal.",
+      "evidence_urls": [
+        "https://www.irishtimes.com/business/2025/09/04/shares-shake-off-china-selloff-as-bond-markets-brighten/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project is still in early stages with no resolution or significant updates this week. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project progress, as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://www.lbc.co.uk/article/6cee6ebec4814c769368834d9fb19d85-5HjdBk4_2/"
+      ]
+    }
+  ],
+  "2025-09-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged and live, with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Continue monitoring for any news or developments related to China's rare-earth export restrictions. Exit if there is any indication of reversal or relaxation of these restrictions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project progress. Exit if the project is canceled or significantly delayed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst is still pending as discussions are ongoing, with no resolution yet.",
+      "exit_advice": "Monitor for official confirmation or rejection of the subsidy by California legislators.",
+      "evidence_urls": [
+        "https://beniciaindependent.com/california-in-talks-to-pay-hundreds-of-millions-to-valero-to-stave-off-refinery-shutdown/"
+      ]
+    },
+    {
+      "ticker": "JOBY",
+      "thesis": "Completed US defense autonomous flight exercise",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst is the completion of a US defense autonomous flight exercise, which has just occurred. This is a significant milestone for Joby Aviation, but the long-term implications and potential follow-on contracts are still pending.",
+      "exit_advice": "Monitor for further developments in autonomous flight technology adoption by the US defense sector and any follow-up contracts or partnerships.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/joby-aviation-joby-completes-landmark-u-s-defense-exercise-using-autonomous-flight-technology-1606746/"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition announcement is fresh and pending, with no resolution yet.",
+      "exit_advice": "Hold until confirmation of acquisition completion or cancellation.",
+      "evidence_urls": [
+        "https://biztoc.com/x/f6b6a32ae3027584",
+        "https://finance.yahoo.com/news/teledyne-buy-transpondertech-saab-150610412.html"
+      ]
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. There is no fresh news or developments this week that directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP as the catalyst remains live with no indication of reversal or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project progress.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as discussions continue without resolution. The news this week is unrelated to the refinery subsidy issue.",
+      "exit_advice": "Continue monitoring for the California subsidy decision; no resolution or decay in the catalyst yet.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/dte-energy-dte-announces-that-its-smart-grid-devices-prevents-over-16000-outages-1612356/"
+      ]
+    },
+    {
+      "ticker": "JOBY",
+      "thesis": "Completed US defense autonomous flight exercise",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The autonomous flight exercise has already completed, which was the specific catalyst for entry.",
+      "catalyst_resolved": true,
+      "assessment": "The completion of the autonomous flight exercise was the key event, and without follow-on contracts or new developments, the catalyst is resolved.",
+      "exit_advice": "Exit the position as the catalyst has already occurred and there is no new significant development to sustain the thesis.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition announcement is still fresh and pending, with no new developments this week. The catalyst remains unresolved.",
+      "exit_advice": "Continue monitoring for updates on the acquisition of TransponderTech from Saab. The catalyst remains pending with no resolution yet.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/09/19/tcv-trust-wealth-management-inc-purchases-426-shares-of-vanguard-real-estate-etf-vnq.html"
+      ]
+    },
+    {
+      "ticker": "SO",
+      "thesis": "Georgia PSC approves Georgia Power plan",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Georgia PSC has already approved Georgia Power's plan, resolving the catalyst.",
+      "catalyst_resolved": true,
+      "assessment": "The Georgia PSC approval was the key catalyst, and it has now been publicly announced. The event is resolved, and any further price movement in SO would be based on broader utility sector trends rather than this specific event.",
+      "exit_advice": "The specific catalyst has occurred, and the event is now priced in. Exit the position to avoid holding without an active thesis.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/the-southern-company-so-georgia-power-receives-approval-from-georgia-public-service-commission-psc-1612351/"
+      ]
+    },
+    {
+      "ticker": "CEPU",
+      "thesis": "Completion of spin-off-merger with ECOGAS",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The spin-off-merger with ECOGAS has been completed, which was the specific catalyst for entry.",
+      "catalyst_resolved": true,
+      "assessment": "The spin-off-merger with ECOGAS has been completed, fulfilling the initial catalyst. There is no further pending event to drive the thesis.",
+      "exit_advice": "Exit the position as the catalyst has resolved. The event is now public and priced in.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-announces-completion-of-spin-off-merger-with-ecogas-inversiones-s-a-1612404/"
+      ]
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program has been approved, which is the catalyst for this event. Since this is the first week, the program is still pending execution, and the thesis remains live.",
+      "exit_advice": "Monitor the execution of the share repurchase program and any updates from Pampa Energ\u00eda regarding the progress or completion of the program.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/pampa-energia-s-a-pam-announces-approval-of-14th-share-repurchase-program-1612402/"
+      ]
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged, and MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions. There is no fresh news or developments this week that directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding as China's rare-earth export restrictions remain in place with no indication of reversal or relaxation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any updates on the LNG project progress. Exit if the project is canceled or significantly delayed.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3576861/u-s-stocks-extend-yesterday-s-pullback-as-nvidia-oracle-slump.aspx",
+        "https://www.nakedcapitalism.com/2025/09/links-9-21-2025.html"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst is still pending as discussions are ongoing. The news this week is unrelated to the refinery subsidy issue and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for updates on the California subsidy discussions. The catalyst remains pending with no resolution yet.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/09/22/stock-market-usually-ignores-government-shutdowns-maybe-not-this-time.html"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new developments or resolution regarding the acquisition catalyst this week. The event remains live and unresolved.",
+      "exit_advice": "Continue holding TDY as the acquisition of TransponderTech from Saab remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program has been approved but not yet executed. No news this week indicates resolution of the catalyst, so the thesis remains intact.",
+      "exit_advice": "Continue to monitor the execution of the 14th share repurchase program. The catalyst remains pending, and the thesis is still live.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/pampa-energ-pam-announces-approval-045707974.html"
+      ]
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding MP as the rare-earth export restrictions remain in place with no signs of reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for progress or resolution of the LNG project.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unresolved as discussions continue without a decision on the refinery subsidy. The news this week is unrelated to the refinery subsidy issue and does not impact the thesis.",
+      "exit_advice": "Hold until the California subsidy decision is finalized or significant progress is made.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/10/48011379/sp-500-settles-at-record-high-despite-government-shutdown-investor-sentiment-improves-fear-greed",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-9-30-tsx-navigates-choppy-waters-energy-drags-while-gold-shines-amid-us-shutdown-fears"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for any official updates or resolutions regarding the acquisition of TransponderTech from Saab.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program has been approved but not yet executed. No news this week indicates resolution of the catalyst, so the thesis remains intact.",
+      "exit_advice": "Continue holding PAM as the share repurchase program remains pending execution.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. There is no fresh news or developments this week that directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue holding as the catalyst remains live with no indication of reversal or resolution. Monitor for any changes in China's rare-earth export policies.",
+      "evidence_urls": [
+        "https://www.investegate.co.uk/announcement/rns/utilico-emerging-markets-ltd-di---uem/publication-of-monthly-factsheet/9163570"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project is still in early stages with no resolution or significant updates. The thesis remains live as the catalyst has not occurred.",
+      "exit_advice": "Continue to monitor for any updates on the LNG project, as the catalyst remains pending and there have been no significant developments.",
+      "evidence_urls": [
+        "https://en.vietnamplus.vn/ftse-russell-upgrades-vietnam-to-secondary-emerging-market-status-post329982.vnp",
+        "https://vietnamnews.vn/economy/1726818/ftse-russell-upgrades-viet-nam-to-secondary-emerging-market-status.html"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as discussions continue without resolution. No new relevant news this week to impact the thesis.",
+      "exit_advice": "Continue monitoring for any resolution or significant developments regarding the California refinery subsidy discussions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments. The thesis is live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Hold until the acquisition is resolved or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The share repurchase program remains approved but not yet executed. No news this week indicates its resolution, so the thesis remains intact.",
+      "exit_advice": "Continue monitoring for execution of the share repurchase program. Exit only upon confirmation of its completion or if macroeconomic conditions significantly impact the thesis.",
+      "evidence_urls": [
+        "https://biztoc.com/x/b09b3be898ecbdeb",
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html",
+        "https://www.bozemandailychronicle.com/ap_news/business/asian-shares-advance-and-oil-prices-fall-as-israel-and-hamas-agree-to-pause-fighting/article_bf0c57b9-fe75-5fe0-84a2-79583eb5cd65.html",
+        "https://www.stardem.com/ap/world/asian-shares-advance-and-oil-prices-fall-as-israel-and-hamas-agree-to-pause-fighting/article_c50450c2-e793-5677-9dd0-673bdbc79471.html",
+        "https://www.news-gazette.com/news/nation-world/asian-shares-advance-and-oil-prices-fall-as-israel-and-hamas-agree-to-pause-fighting/article_7a88942d-396d-5a1e-b85c-d2e3bcda58f7.html",
+        "https://www.clickondetroit.com/business/2025/10/09/asian-shares-advance-and-oil-prices-fall-as-israel-and-hamas-agree-to-pause-fighting/"
+      ]
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged, with no signs of resolution or reversal in China's rare-earth export restrictions. MP Materials (MP) continues to be the primary beneficiary.",
+      "exit_advice": "Continue to monitor for any developments regarding China's rare-earth export restrictions. Exit if there is evidence of policy reversal or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Hold until the LNG project reaches a resolution or significant update.",
+      "evidence_urls": [
+        "https://www.ynetnews.com/business/article/b1sl0cupll"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there have been no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for any developments on the California refinery subsidy discussions. Exit if the subsidy is approved or denied, or if the refinery shutdown is confirmed without subsidy.",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4503430-real-estate-stocks-tumble-amid-lingering-government-shutdown-renewed-trade-war-concerns"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending. The acquisition of TransponderTech from Saab has not yet been finalized or canceled, and there is no evidence in the journal or news to indicate resolution. The thesis remains live.",
+      "exit_advice": "Continue holding TDY as the acquisition remains unresolved, with no news suggesting resolution or cancellation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The share repurchase program has not yet been executed, and there is no evidence of its resolution.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no indication of resolution. The thesis continues to hold.",
+      "exit_advice": "Continue monitoring for news of the program's execution or cancellation.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/10/17/utility-stocks-to-add-to-your-watchlist-october-14th.html"
+      ]
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged, with no signs of resolution or reversal in China's rare-earth export restrictions. MP Materials (MP) continues to be the primary beneficiary.",
+      "exit_advice": "Hold position until there is a clear indication that China\u2019s rare-earth export restrictions have been reversed or resolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst has not occurred, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for any progress or resolution on the LNG project. Exit if the catalyst resolves or if there is no progress over an extended period.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there have been no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for any developments or resolutions regarding the California refinery subsidy discussions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains pending with no new developments or resolution reported this week. The thesis is still live as the event has not yet been finalized or canceled.",
+      "exit_advice": "Continue to hold TDY as the acquisition of TransponderTech from Saab remains unresolved. Monitor for any developments or resolution in the coming weeks.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but not yet executed. No news this week indicates resolution of the catalyst, so the thesis remains intact.",
+      "exit_advice": "Continue monitoring for execution of the share repurchase program. Exit if the program is executed or if there is news indicating cancellation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Trump seeks stake in quantum firms",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump administration denied engaging in negotiations for equity stakes in quantum computing companies",
+      "catalyst_resolved": true,
+      "assessment": "The initial catalyst of Trump seeking stakes in quantum firms has been directly refuted by official sources, making the thesis no longer viable despite the sector's recent volatility and media attention.",
+      "exit_advice": "Exit the position as the catalyst has been refuted by the Trump administration, removing the initial investment thesis.",
+      "evidence_urls": [
+        "https://www.el-balad.com/6742581"
+      ]
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged, with China's rare-earth export restrictions still in place. MP Materials (MP) continues to be the primary beneficiary, and there is no fresh news or developments this week that directly impact the rare-earth export restrictions. The thesis remains intact.",
+      "exit_advice": "Continue holding MP as the catalyst remains live with no signs of resolution or reversal in China's rare-earth export restrictions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no significant updates or resolution this week. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Hold until there is clear progress or resolution on the LNG project.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there have been no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for any developments or resolutions regarding the California refinery subsidy discussions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition of TransponderTech from Saab has not yet been finalized or canceled, and there is no evidence in the journal or news to indicate resolution. The thesis remains live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue holding as the acquisition catalyst remains pending with no new developments or resolution reported this week.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The share repurchase program has been approved but not yet executed, so the catalyst remains pending.",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no indication of execution or resolution. The thesis continues to hold as the program has not yet been carried out.",
+      "exit_advice": "Hold until the share repurchase program is executed or there is definitive news indicating its resolution.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/pg-e-pcg-unveils-73-114649201.html",
+        "https://www.fool.co.uk/2025/10/30/up-165-in-a-year-is-it-time-investors-woke-up-to-this-eye-popping-growth-share/",
+        "https://www.moneycontrol.com/news/business/markets/vodafone-idea-shares-fall-12-on-sc-s-written-order-on-agr-dues-other-telecom-stocks-also-face-pressure-13641778.html",
+        "https://finance.yahoo.com/news/international-business-machines-corporation-ibm-181730642.html",
+        "https://www.benzinga.com/markets/market-summary/25/10/48502294/crude-oil-gains-over-1-boeing-shares-fall-after-q3-results",
+        "https://www.rttnews.com/3587203/asian-shares-rise-ahead-of-fed-decision.aspx"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions or any significant developments in the rare-earth market that could impact MP Materials.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no significant updates or resolution. The catalyst has not occurred, and the thesis remains live as there is no evidence of the project's progress being resolved or decayed.",
+      "exit_advice": "Continue monitoring for any progress or resolution on the LNG project. Exit if the catalyst resolves or if there is a significant change in project status.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there have been no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for any developments or resolutions regarding the California refinery subsidy discussions.",
+      "evidence_urls": [
+        "https://jbhe.com/2025/11/a-trio-of-black-scholars-selected-for-new-roles-in-the-academic-world/"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for any developments regarding the acquisition of TransponderTech from Saab. Exit if the acquisition is finalized or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but not yet executed. No news this week indicates resolution of the catalyst, so the thesis remains intact.",
+      "exit_advice": "Continue monitoring for execution of the share repurchase program. Exit if the program is executed or if there is any indication of cancellation.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. There is no fresh news or developments this week that directly impact the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Hold until there is evidence of China lifting rare-earth export restrictions or a significant market shift.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for progress on the LNG project, as there has been no resolution or significant updates yet.",
+      "evidence_urls": [
+        "https://thyblackman.com/2025/11/11/donald-trump-approval-ratings-collapse/"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The refinery subsidy discussions remain unresolved with no new developments this week. The news is unrelated to the catalyst and does not impact the thesis.",
+      "exit_advice": "Hold until the California subsidy discussions reach a resolution.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/top-stock-movers-now-palantir-172222567.html",
+        "https://www.nzherald.co.nz/world/trump-is-temporary-california-governor-newsom-seizes-spotlight-at-un-climate-summit/OKL44IWCSNC3ZJIYQHKZJ3JALM/",
+        "https://www.rte.ie/news/environment/2025/1111/1543409-cop-30-brazil/",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-11-11-industrials-soar-s-and-p-500-sector-defies-expectations-with-robust-gains-as-government-shutdown-nears-end"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments or resolution reported this week. The thesis remains live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Hold until the acquisition of TransponderTech from Saab is finalized or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no indication of resolution in this week's news. The thesis continues to hold.",
+      "exit_advice": "Continue to hold as the 14th share repurchase program remains pending execution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and the thesis remains live. GEV is the purest vehicle for this event as it is directly tied to nuclear power generation and is receiving positive attention from analysts. The pullback in nuclear stocks presents an opportunity to enter or add to positions.",
+      "exit_advice": "Hold until the ADVANCE Act nuclear bill is signed or the catalyst resolves.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/ai-nuclear-energy-stocks-now-225500330.html",
+        "https://www.insidermonkey.com/blog/ge-vernova-gev-is-talking-about-2029-when-it-comes-to-nuclear-plants-says-jim-cramer-1644215/",
+        "https://www.themarketsdaily.com/2025/11/12/top-nuclear-stocks-to-watch-now-november-11th.html"
+      ]
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions remain in place with no indication of reversal or resolution. MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue to monitor China's rare-earth export restrictions for any signs of reversal or resolution. The thesis remains intact as long as the restrictions persist.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no significant updates or resolution this week. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Hold until there is clear progress or resolution on the LNG project.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending as there have been no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for any developments or resolutions regarding the California refinery subsidy discussions. Exit if the subsidy is granted or denied, or if the discussions are officially concluded without resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments or resolution reported this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue holding as the acquisition of TransponderTech from Saab remains pending with no resolution or cancellation reported.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but not yet executed, with no news indicating its resolution. The thesis continues to hold.",
+      "exit_advice": "Hold until the 14th share repurchase program is executed or news indicates its resolution.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/19/nuclear-stocks-to-watch-now-november-19th.html",
+        "https://www.tickerreport.com/banking-finance/13249417/promising-nuclear-stocks-to-keep-an-eye-on-november-15th.html",
+        "https://www.themarketsdaily.com/2025/11/15/promising-nuclear-stocks-to-watch-now-november-12th.html"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and GEV remains the purest vehicle for this event. The news continues to highlight nuclear stocks, suggesting ongoing market interest in the sector.",
+      "exit_advice": "Hold until the ADVANCE Act nuclear bill is signed or the thesis materially deteriorates.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuclear-energy-earnings-names-won-181200402.html",
+        "https://www.dailypolitical.com/2025/11/19/nuclear-stocks-to-watch-now-november-19th.html"
+      ]
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains live with no new developments or signs of resolution. MP Materials (MP) continues to be the primary beneficiary of China's rare-earth export restrictions.",
+      "exit_advice": "Hold as China's rare-earth export restrictions remain unchanged and MP Materials (MP) continues to benefit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in its early stages with no significant updates or resolution this week. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live. There is no evidence of the project's progress being resolved or decayed.",
+      "exit_advice": "Hold until there is clear resolution or significant progress on the LNG project, as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue holding as the catalyst remains unresolved. Monitor for any developments in the California refinery subsidy discussions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition of TransponderTech from Saab remains unresolved with no new developments reported this week. The catalyst remains pending, and there is no evidence of resolution or cancellation in the journal or news.",
+      "exit_advice": "Hold until the acquisition is finalized or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but has not yet been executed. There is no news indicating resolution or abandonment of the catalyst. The thesis continues to hold as the event is still pending.",
+      "exit_advice": "Continue monitoring for execution of the share repurchase program. Exit if the program is executed or if there is clear evidence of abandonment.",
+      "evidence_urls": [
+        "https://www.fool.com.au/2025/11/28/here-are-the-top-10-asx-200-shares-today-28-november-2025/",
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.tickerreport.com/banking-finance/13270526/best-industrial-stocks-worth-watching-november-27th.html",
+        "https://www.themarketsdaily.com/2025/11/27/industrial-stocks-worth-watching-november-26th.html",
+        "https://www.themarketsdaily.com/2025/11/26/industrial-stocks-to-add-to-your-watchlist-november-25th.html",
+        "https://www.fool.com.au/2025/11/26/here-are-the-top-10-asx-200-shares-today-26-november-2025/"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and GEV remains the best vehicle for this event. News continues to highlight nuclear stocks, suggesting ongoing market interest. The thesis remains live.",
+      "exit_advice": "Hold until the ADVANCE Act nuclear bill is signed, as the catalyst remains pending and GEV is still the purest vehicle.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/",
+        "https://moneylife.in/article/nifty-sensex-pause-for-breath-smallcaps-remain-under-pressure-thursday-market-report/78964.html",
+        "http://www.econotimes.com/Asian-Stocks-Extend-Gains-as-Tech-Rebounds-and-Fed-Rate-Cut-Bets-Strengthen-1727109",
+        "https://moneylife.in/article/nifty-sensex-reverse-course-near-alltime-high-wednesday-market-report/78951.html",
+        "https://www.aol.com/finance/nuscale-stock-could-hidden-gem-123700742.html"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "Ukraine-Russia peace proposal news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The news indicates a sector-wide pullback in nuclear and uranium stocks due to Ukraine-Russia peace proposal news, suggesting market uncertainty. However, the catalyst itself (the proposal) has not yet been resolved or publicly concluded.",
+      "exit_advice": "Hold until there is clarity on the Ukraine-Russia peace proposal's progress or resolution.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/49071513/oklo-stock-trades-lower-amid-sector-pullback-on-ukraine-russia-peace-proposal-news",
+        "https://biztoc.com/x/923270c3c49bbfa1"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "China's rare-earth export restrictions remain in place with no signs of resolution. MP Materials (MP) continues to be the primary beneficiary, and there is no fresh news or developments this week that directly impact the rare-earth export restrictions. The thesis remains intact.",
+      "exit_advice": "Continue monitoring China's rare-earth export restrictions. Exchanging information on possible changes in policy or geopolitical developments related to rare earths is crucial.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13280778/nuclear-stocks-to-watch-now-december-4th.html"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in its early stages with no significant updates or resolution. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Hold until progress on the LNG project is resolved or significant updates occur.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no resolutions or developments regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for developments on the California refinery subsidy discussions. Exit if the subsidy is approved or denied, or if the refinery shutdown is confirmed without subsidy.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/honeywell-hon-to-support-major-expansion-at-nigerias-dangote-refinery-by-2028-1653089/"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments reported this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for any developments regarding the acquisition of TransponderTech from Saab. Exit if the acquisition is finalized or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but has not yet been executed. No news this week indicates resolution or abandonment of the catalyst. The thesis continues to hold as the event is still pending.",
+      "exit_advice": "Monitor for execution of the 14th share repurchase program or any news indicating its abandonment.",
+      "evidence_urls": [
+        "https://www.fool.com.au/2025/12/05/here-are-the-top-10-asx-200-shares-today-05-december-2025/",
+        "https://economictimes.indiatimes.com/markets/stocks/news/european-shares-steady-after-three-day-rally-focus-on-us-inflation/articleshow/125784841.cms",
+        "https://www.fool.com.au/2025/12/04/here-are-the-top-10-asx-200-shares-today-04-december-2025/",
+        "https://www.wealthdaily.com/why-oklo-inc-oklo-shares-surged-1559-nuclear-powers-ai-driven-comeback-1/",
+        "https://www.tickerreport.com/banking-finance/13280778/nuclear-stocks-to-watch-now-december-4th.html",
+        "https://www.thehindubusinessline.com/markets/stock-market-highlights-3-december-2025/article70350013.ece"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and the thesis remains live. GEV continues to be the purest vehicle for this event, with ongoing market interest in nuclear stocks.",
+      "exit_advice": "Hold position until the ADVANCE Act nuclear bill is signed or definitive news indicating its failure is announced.",
+      "evidence_urls": [
+        "https://www.wealthdaily.com/why-oklo-inc-oklo-shares-surged-1559-nuclear-powers-ai-driven-comeback-1/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "Ukraine-Russia peace proposal news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Ukraine-Russia peace proposal remains unresolved, and the market continues to react to related news. OKLO's recent surge appears driven by broader nuclear sector interest and AI industry attention, not directly tied to the peace proposal catalyst.",
+      "exit_advice": "Monitor for any official resolution or public conclusion of the Ukraine-Russia peace proposal, as this remains the key catalyst for the event.",
+      "evidence_urls": [
+        "https://www.wealthdaily.com/why-oklo-inc-oklo-shares-surged-1559-nuclear-powers-ai-driven-comeback-1/",
+        "https://www.tickerreport.com/banking-finance/13280778/nuclear-stocks-to-watch-now-december-4th.html",
+        "https://www.themarketsdaily.com/2025/12/03/best-nuclear-stocks-to-consider-december-3rd.html",
+        "https://finance.yahoo.com/news/oklo-inc-oklo-fell-over-012809624.html"
+      ]
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates this week. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for updates on the LNG project progress. Exit if the project is abandoned or significantly delayed.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/william-blair-reiterates-outperform-sterling-162913990.html"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The thesis remains live with no resolution to the catalyst. Discussions are ongoing, and there have been no developments or decisions regarding the California refinery subsidy. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Hold as the catalyst remains pending with no resolution or developments in the California refinery subsidy discussions.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains pending with no new developments or resolution reported this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for any developments regarding the acquisition of TransponderTech from Saab. The catalyst remains unresolved, and there is no evidence of resolution or cancellation in the journal or news.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but has not yet been executed. There is no news indicating resolution or abandonment of the catalyst. The thesis continues to hold as the event is still pending.",
+      "exit_advice": "Continue to monitor for execution of the 14th share repurchase program. Exit if the program is executed or abandoned.",
+      "evidence_urls": [
+        "https://www.gdnonline.com:443/Details/1370894",
+        "https://www.tickerreport.com/banking-finance/13289635/promising-industrial-stocks-to-follow-today-december-12th.html",
+        "https://www.themarketsdaily.com/2025/12/10/invesco-sp-500-equal-weight-industrials-etf-nysearcarspn-reaches-new-52-week-high-whats-next.html",
+        "https://www.irishtimes.com/business/2025/12/10/european-shares-flat-ahead-of-fed-decision/",
+        "https://www.tickerreport.com/banking-finance/13286803/top-industrial-stocks-to-consider-december-10th.html",
+        "https://finance.yahoo.com/news/rbc-stays-bullish-aecom-acm-162910204.html"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and the thesis remains live. GEV continues to be the purest vehicle for this event, with ongoing market interest in nuclear stocks. News highlights the sector's volatility and potential overvaluation, but the core catalyst remains pending.",
+      "exit_advice": "Continue monitoring for the signing of the ADVANCE Act nuclear bill. The thesis remains live as the catalyst has not yet resolved.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuscale-power-next-nuclear-energy-165100105.html",
+        "https://moneylife.in/article/nifty-sensex-stabilise-broader-market-rebound-strongly-tuesday-market-report/79074.html",
+        "https://wwd.com/beauty-industry-news/wellness/hospitality-wellness-trends-7-trillion-wellness-industry-1238368122/",
+        "https://finance.yahoo.com/news/prediction-stock-market-bubble-burst-202500013.html",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "Ukraine-Russia peace proposal news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Ukraine-Russia peace proposal remains unresolved, with no public conclusion or resolution yet.",
+      "catalyst_resolved": false,
+      "assessment": "The Ukraine-Russia peace proposal remains an active catalyst, with no resolution or public conclusion. OKLO's performance continues to be influenced by broader nuclear sector trends rather than direct peace proposal news, but the underlying catalyst remains relevant.",
+      "exit_advice": "Continue monitoring developments related to the Ukraine-Russia peace proposal. Exit if the catalyst resolves or if market dynamics shift away from nuclear sector uncertainty.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html",
+        "https://www.themarketsdaily.com/2025/12/07/top-nuclear-stocks-worth-watching-december-7th.html"
+      ]
+    }
+  ],
+  "2025-12-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary.",
+      "exit_advice": "Hold until China reverses its rare-earth export restrictions or signs of resolution emerge.",
+      "evidence_urls": [
+        "https://www.rediff.com/business/report/sensex-jumps-448-points-on-fresh-fund-inflows/20251219.htm",
+        "https://www.tribuneindia.com/news/business/stock-markets-surge-after-four-days-of-decline-sensex-jumps-447-points/",
+        "https://www.thehindu.com/business/markets/stock-markets-surge-after-four-days-of-decline-sensex-jumps-447-points/article70415475.ece"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project is still in early stages, and there has been no resolution or significant updates. The catalyst, progress on the new LNG project, has not yet occurred, and the thesis remains live.",
+      "exit_advice": "The LNG project remains in early stages with no significant updates or resolution. Continue monitoring for any progress or developments that could impact the thesis.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no new developments or resolutions regarding the California refinery subsidy discussions. The thesis is still live as the event has not yet occurred or been resolved.",
+      "exit_advice": "Continue monitoring for any developments or resolutions regarding the California refinery subsidy discussions. Exit if the subsidy is granted or denied, or if discussions are officially abandoned.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition of TransponderTech from Saab remains unresolved, with no new developments reported this week. The catalyst is still pending, and no evidence of resolution or cancellation has been presented in the journal or news. The thesis remains live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for acquisition resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but has not yet been executed. There is no news indicating resolution or abandonment of the catalyst. The thesis continues to hold as the event is still pending.",
+      "exit_advice": "Continue monitoring for execution of the share repurchase program. Exit if the program is executed or if there is news indicating its cancellation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has still not been signed, and the thesis remains live. GEV continues to be the purest vehicle for this event, with ongoing market interest in the nuclear sector. The news highlights various nuclear stocks, reinforcing the sector's relevance, but the core catalyst\u2014the signing of the bill\u2014remains unresolved.",
+      "exit_advice": "Continue holding GEV as the ADVANCE Act nuclear bill has not yet been signed, and the catalyst remains pending.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/best-nuclear-energy-stock-invest-182600618.html",
+        "https://www.dailypolitical.com/2025/12/19/best-nuclear-stocks-to-consider-december-19th.html",
+        "https://www.dailypolitical.com/2025/12/18/nuclear-stocks-to-add-to-your-watchlist-december-18th.html",
+        "https://www.tickerreport.com/banking-finance/13295640/nuclear-stocks-to-add-to-your-watchlist-december-18th.html",
+        "https://www.fool.com/investing/2025/12/17/should-you-buy-nuclear-energy-stocks-in-2026/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/17/should-you-buy-nuclear-energy-stocks-in-2026/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "Ukraine-Russia peace proposal news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Ukraine-Russia peace proposal remains unresolved, but market focus has shifted away from it toward broader nuclear sector trends.",
+      "catalyst_resolved": false,
+      "assessment": "The Ukraine-Russia peace proposal is still pending, but OKLO\u2019s performance increasingly reflects broader nuclear sector dynamics rather than direct peace proposal news.",
+      "exit_advice": "Hold while the peace proposal remains unresolved, but monitor if broader nuclear trends fully displace the initial catalyst.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-these-energy-stocks-are-losing-this-week-31-1662368/",
+        "https://www.dailypolitical.com/2025/12/19/best-nuclear-stocks-to-consider-december-19th.html",
+        "https://www.dailypolitical.com/2025/12/18/nuclear-stocks-to-add-to-your-watchlist-december-18th.html",
+        "https://www.tickerreport.com/banking-finance/13295640/nuclear-stocks-to-add-to-your-watchlist-december-18th.html"
+      ]
+    }
+  ],
+  "2025-12-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China restricts rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains unchanged with no new developments or signs of resolution. China's rare-earth export restrictions persist, and MP Materials (MP) continues to be the primary beneficiary. The recent news does not directly address the rare-earth export restrictions, keeping the thesis intact.",
+      "exit_advice": "Continue monitoring for any signs of China reversing its rare-earth export restrictions, which would be the primary exit signal.",
+      "evidence_urls": [
+        "https://www.morningstar.com/stocks/weekly-market-wrap-stocks-extend-2025-rally-basic-materials-tech-rise"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "Progress on new LNG project",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The LNG project remains in early stages with no resolution or significant updates this week. The catalyst, progress on the new LNG project, has not occurred yet, and the thesis remains live.",
+      "exit_advice": "Continue monitoring for updates on the LNG project's progress. Exit once there is clear resolution or significant updates indicating the project has moved beyond early stages.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California subsidy to prevent refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The catalyst remains pending with no new developments or resolutions regarding the California refinery subsidy discussions. The news this week is unrelated and does not impact the thesis.",
+      "exit_advice": "Continue monitoring for developments in the California refinery subsidy discussions. Exit if the subsidy is approved or denied, or if discussions conclude without resolution.",
+      "evidence_urls": [
+        "https://www.jamaicaobserver.com/2025/12/26/mission-done-popular-crime-vlogger-sir-p-says-hes-signing-off/"
+      ]
+    },
+    {
+      "ticker": "TDY",
+      "thesis": "Acquiring TransponderTech from Saab",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The acquisition catalyst remains unresolved with no new developments reported this week. The thesis is still live as the event has not yet occurred or been canceled.",
+      "exit_advice": "Continue monitoring for any developments regarding the acquisition of TransponderTech from Saab. Exit if the acquisition is finalized or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PAM",
+      "thesis": "14th share repurchase program approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The 14th share repurchase program remains approved but has not yet been executed. No news this week indicates resolution or abandonment of the catalyst. The thesis continues to hold as the event is still pending.",
+      "exit_advice": "Hold until the share repurchase program is executed or officially abandoned.",
+      "evidence_urls": [
+        "https://www.queanbeyanage.com.au/story/9142022/asia-stocks-at-six-week-high-precious-metals-on-a-tear/"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "ADVANCE Act nuclear bill signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The ADVANCE Act nuclear bill has not yet been signed, and the thesis remains live. GEV continues to be the purest vehicle for this event. The news about nuclear tensions in Europe is unrelated to the bill's signing and does not affect the core catalyst.",
+      "exit_advice": "Continue monitoring for the signing of the ADVANCE Act nuclear bill. The current news about nuclear tensions in Europe does not directly impact the bill's signing status.",
+      "evidence_urls": [
+        "https://athens-times.com/putin-deploys-hypersonic-nuclear-capable-missiles-to-belarus/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "Ukraine-Russia peace proposal news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Ukraine-Russia peace proposal remains unresolved, with no fresh news this week. OKLO\u2019s performance continues to reflect broader nuclear sector trends rather than direct peace proposal developments, but the catalyst remains live.",
+      "exit_advice": "Hold until the Ukraine-Russia peace proposal resolves or the catalyst clearly decays.",
+      "evidence_urls": []
     }
   ]
 }
