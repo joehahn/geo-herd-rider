@@ -24,18 +24,19 @@ flowchart TD
       SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved;<br/>also picks which gem(s) best express the event"]
+      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved<br/>(drops the position the instant it resolves);<br/>also picks which gem(s) best express the event"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>gathers live events' gems for possible funding"]
-    W["⚖️ Optimizer<br/>derives optimal portfolio<br/>distribution across watchlist"]
+    E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
+    W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist;<br/>parks idle capital in SPY when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
     S --> SS
     S --> SC
     SS --> E
     AG -- "alive: keep gem · resolved: drop it" --> E
+    AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
     U == "repeat weekly" ==> S
 
@@ -43,7 +44,7 @@ flowchart TD
     class E bet
 ```
 
-The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era. Each pass re-reads the firehose, the event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (and those gems can change over time), and then the optimizer rebalances the portfolio — **sizing is mechanical; the AI never sets the position sizes** (it only names tickers and the hold/exit call). An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven** (we drop on the catalyst *resolving* — war ends, bill passes). Each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position even if the coverage is still loud.
+The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era. Each pass re-reads the firehose, the event agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (and those gems can change over time), and then the optimizer rebalances the portfolio — **sizing is mechanical; the AI never sets the position sizes** (it only names tickers and the hold/exit call). An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven** (we drop on the catalyst *resolving* — war ends, bill passes). Each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position **immediately** (a resolved catalyst is definitive, so it exits at once rather than waiting out the sticky-hold), even if the coverage is still loud. And once a catalyst resolves it is **remembered**: the scout is told which catalysts have already resolved (over the last `curator_memory_weeks`, default 8) so it won't **re-open the same ticker on lingering hype** after the catalyst is done (a ceasefire already signed isn't a fresh catalyst).
 
 The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — this solution just reads the ticker named by the press and rides it while its thesis holds.
 
@@ -100,7 +101,7 @@ One source, three jobs — plus mechanical sizing:
 - **Read** — *what's worth owning.* The news firehose — the tickers the press explicitly **names** as thesis-driven movers. The human never picks. (High-reach posts via `trump_feed.py` are a *roadmapped* second source — point-in-time-sliceable and wired into the legacy single-scan path, but not yet read by the event-first engine.)
 - **Enter** — *the press names it on a live thesis.* The human never sets the trade; the curator just reports which tickers the press is naming as live movers.
 - **Exit** — *is the thesis still live?* Hold while the driving catalyst is active; drop it when the press says it's resolving. Mainstream hype ("up 600%, everyone piling in") is **not thesis death** — only the catalyst resolving ends the hold.
-- **Sizing** — mechanical (the ⚖️ **Optimizer** box). A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md`. The LLM never touches the numbers, and a schema guardrail (below) drops any magnitude it tries to emit.
+- **Sizing** — mechanical (the ⚖️ **Optimizer** box). A standard mean-variance optimizer weights whatever watchlist results, tuned only by `investor_profile.md` — including a per-week **position cap** (`max_concurrent_positions`, funds only the top-N by weight) and an always-available **SPY** default (`hold_benchmark`), so a gem must beat SPY to be funded and idle capital rides the market instead of sitting in cash. The LLM never touches the numbers, and a schema guardrail (below) drops any magnitude it tries to emit.
 
 Cadence is **one knob** (`rebalance_days`, default 7 = weekly): it sets both how often the firehose re-scans/re-optimizes *and* the trailing news window each scan reads — they're the same thing ("the news since the last scan"). A position persists across scans via a [sticky hold](agent_design.md#sticky-hold-hysteresis-current) (it exits on confirmed thesis death or prolonged silence), so coverage gaps don't churn it.
 
@@ -127,7 +128,7 @@ The curator runs in one of two modes, both feeding the same optimizer — the tw
 
 ## Models — one seam, pick by need
 
-Every LLM call routes through a provider-agnostic seam (`src/llm.py`), so the same pipeline runs on Anthropic (Opus/Sonnet/Haiku) or any OpenRouter model via the **`model:` knob in `investor_profile.md`** (`optimizer.resolve_curator_model` maps `mimo|sonnet|opus|llama4|deepseek|grok4|gemini` → provider + id), with structured-output JSON schemas keeping cheap models' output clean. Each scan stamps a `<scan>.meta.json` sidecar so every dashboard shows *which* model produced that book. A **6-model bake-off** (top plot on the sweeps page) re-scans each model's 3 gems under the current prompts and re-scores them on shared price panels: with the multi-seed discovery fix **every model now catches the gems**, the frontier models (Opus, Sonnet) score highest, and the cheap open-weights (Llama-4, MiMo, DeepSeek, ~$0.1–0.4 per 3-gem scan) land close behind — so cost, not capability, is the main differentiator. The live curator is whatever the **`model:` knob** in `investor_profile.md` is set to (currently Sonnet). Every call's cost is priced into `data/llm_costs.csv`.
+Every LLM call routes through a provider-agnostic seam (`src/llm.py`), so the same pipeline runs on Anthropic (Opus/Sonnet/Haiku) or any OpenRouter model via the **`model:` knob in `investor_profile.md`** (`optimizer.resolve_curator_model` maps `mimo|sonnet|sonnet5|opus|llama4|deepseek|grok4` → provider + id), with structured-output JSON schemas keeping cheap models' output clean. Each scan stamps a `<scan>.meta.json` sidecar so every dashboard shows *which* model produced that book. A **7-model bake-off** (top plot on the sweeps page) re-scans each model's 3 gems under the current prompts and re-scores them on shared price panels. The current read: **sonnet-4.6 is the best curator**, and its edge is **selectivity** — naming *few, high-conviction* events — not raw catch-rate. The cheap open-weights (Llama-4, MiMo, DeepSeek, ~$0.1–0.4 per 3-gem scan) tend to **sprawl**, naming many events and funding the losers, so *catching* a gem doesn't mean *profiting* from it (Llama-4 caught all three gems yet lost money). So here **capability, not cost, is the differentiator** — and "newer/stronger" isn't automatically better (Sonnet 5 is faster and cheaper but exits winners too early under these prompts). One caveat: the ranking is **sensitive to the optimizer config** (e.g. the lookback window can flip it), and each model is a single draw, so treat the bake-off as **directional**. The live curator is whatever the **`model:` knob** in `investor_profile.md` is set to (currently Sonnet-4.6). Every call's cost is priced into `data/llm_costs.csv`.
 
 ## Harvesting the distribution, not one gem
 
