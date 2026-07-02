@@ -90,14 +90,18 @@ def gem_config(ticker: str) -> dict:
 
 
 def _write_page(path, html: str) -> None:
-    """Write an HTML page with a fixed 'built <local timestamp>' badge (bottom-right) so a viewer can
-    tell fresh from a stale GitHub-Pages deploy at a glance."""
+    """Write an HTML page with a 'generated <local timestamp>' bar at the TOP so a viewer can tell
+    fresh from a stale GitHub-Pages deploy at a glance."""
     import datetime  # noqa: PLC0415
     ts = datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
-    badge = ('<div style="position:fixed;bottom:5px;right:8px;z-index:9999;font:11px ui-monospace,'
-             'monospace;color:#888;background:rgba(255,255,255,.85);border:1px solid #ddd;'
-             f'padding:2px 7px;border-radius:5px">built {ts}</div>')
-    path.write_text(html.replace("</body>", badge + "</body>", 1))
+    bar = ('<div style="font:12px ui-monospace,monospace;color:#666;text-align:right;'
+           'padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">'
+           f'\U0001F552 generated {ts}</div>')
+    if "<body>" in html:
+        html = html.replace("<body>", "<body>" + bar, 1)
+    else:
+        html = html.replace("</body>", bar + "</body>", 1)  # fallback
+    path.write_text(html)
 
 
 def build_gem(ticker: str, capital_override: float | None = None) -> dict:
