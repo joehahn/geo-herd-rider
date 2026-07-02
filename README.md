@@ -28,7 +28,7 @@ flowchart TD
     end
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
-    W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist;<br/>parks idle capital in SPY when no gem qualifies"]
+    W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
     S --> SC
