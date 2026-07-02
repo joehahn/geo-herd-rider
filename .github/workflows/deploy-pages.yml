@@ -32,3 +32,5 @@ jobs:
           path: docs
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1200000  # 20 min (default 10): GitHub's Pages publish backend has been slow
