@@ -1,5 +1,5 @@
 {
-  "model": "deepseek",
-  "model_id": "deepseek/deepseek-chat",
-  "provider": "openrouter"
+  "model": "sonnet",
+  "model_id": "claude-sonnet-4-6",
+  "provider": "anthropic"
 }

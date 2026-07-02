@@ -325,7 +325,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     fetching live — used by the golden-snapshot regression replay so results are deterministic
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
-    max_pos = int(fm.get("max_concurrent_positions", 0) or 0)   # 0 = uncapped; else fund only top-N/week
     prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
     hold_bench = bool(fm.get("hold_benchmark", False))          # SPY as an always-available default risk asset
     bench = score.BENCHMARK                                     # so idle capital + marginal gems compete vs SPY
@@ -356,11 +355,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             wl = [t for t in watch[a] if t not in pruned]
             uni = wl + ([bench] if hold_bench and bench in valid and bench not in wl else [])
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
-            if max_pos:                                      # cap the SPECULATIVE gems; SPY baseline is exempt
-                spec = {t: v for t, v in w.items() if t != bench}
-                if len(spec) > max_pos:                      # keep top-N gems (SPY always kept)
-                    keep = set(sorted(spec, key=lambda x: -spec[x])[:max_pos])
-                    w = {t: v for t, v in w.items() if t == bench or t in keep}
             if prune_k:                                       # a name the optimizer keeps starving -> drop
                 for t in wl:
                     zero_streak[t] = 0 if w.get(t, 0) > 1e-9 else zero_streak.get(t, 0) + 1

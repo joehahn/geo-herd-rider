@@ -3,200 +3,236 @@
   "2024-04-26": [],
   "2024-05-03": [],
   "2024-05-10": [],
-  "2024-05-17": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
-      "thesis_live": true,
-      "src": "seed",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst (NuScale reactor approval news) is still pending and the thesis remains live. The stock is benefiting from AI power demand hype but the core catalyst has not yet resolved.",
-      "exit_advice": "Monitor for NuScale reactor approval news and AI power demand trends. Exit if approval is denied or if the catalyst is fully priced in.",
-      "evidence_urls": []
-    }
-  ],
-  "2024-05-24": [
-    {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and the thesis remains live. No fresh news this week to alter the thesis.",
-      "exit_advice": "Continue monitoring for NuScale reactor approval news as the catalyst remains pending.",
-      "evidence_urls": []
-    }
-  ],
+  "2024-05-17": [],
+  "2024-05-24": [],
   "2024-05-31": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Macquarie's $5.2B prediction is now public; sophisticated front-runners may fully price inflows today, eliminating edge.",
       "catalyst_resolved": false,
-      "assessment": "The core catalyst (NuScale reactor approval) remains pending. No fresh news this week alters the thesis. The thesis is still live, and SMR continues to be the appropriate vehicle.",
-      "exit_advice": "Hold until NuScale reactor approval news resolves.",
-      "evidence_urls": []
+      "assessment": "Week 1 / Entry week. Catalyst is the August MSCI India rebalancing which Macquarie estimates will force ~$5.2B of passive inflows into HDFC Bank as its index weight normalises after the foreign-room-limit overhang clears post-merger. The actual event is ~3 months away; the prediction is now public (Moneycontrol exclusive today). Key milestones to watch: (1) MSCI's official August index review announcement, typically early August \u2014 will confirm weight changes and give passive funds a hard deadline; (2) HDFC Bank's foreign ownership headroom data \u2014 if it widens further it strengthens the weight-increase case. Near-term noise: election result volatility (results due ~4 June) is weighing on Indian financials broadly and may create a better entry window early next week. HDB (NYSE ADR) is the cleanest single vehicle \u2014 direct exposure with USD liquidity. No change in vehicle warranted at this stage.",
+      "exit_advice": "Hold into late August 2024 MSCI rebalancing effective date; exit on or just before the actual forced-buying window closes \u2014 not before MSCI's official August preview announcement.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/stocks/mc-exclusive-5-2-billion-inflows-could-chase-hdfc-bank-in-august-msci-india-index-rebalancing-predicts-macquarie-12737623.html",
+        "https://www.marketscreener.com/quote/index/SENSEX-BSE30-7426/news/INDIA-STOCKS-Indian-shares-fall-as-heavyweight-financials-IT-stocks-drag-46846805/"
+      ]
     }
   ],
   "2024-06-07": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Narrower Modi majority raises coalition policy uncertainty, potentially dampening FII appetite before the August MSCI rebalancing materializes.",
       "catalyst_resolved": false,
-      "assessment": "The thesis remains live with no resolution or decay of the catalyst. SMR continues to be the appropriate vehicle.",
-      "exit_advice": "Continue to monitor for NuScale reactor approval news as the core catalyst remains pending.",
-      "evidence_urls": []
+      "assessment": "Week 2. The election overhang played out largely as feared then cleared: Sensex crashed ~4% on 4 June as Modi underperformed polls, then surged ~3% on 5 June once NDA coalition support was confirmed. Neither move affects the core catalyst \u2014 the August MSCI index review and the ~$5.2B passive inflow into HDFC Bank driven by foreign-room headroom normalization post-merger. That event is still ~2 months away and no MSCI announcement has been made. The weaker-than-expected Modi mandate introduces some policy uncertainty (budget composition, capex pace) but does not alter HDFC Bank's structural foreign-ownership headroom or MSCI's mechanical rebalancing process, which is rules-based. RBI is expected to hold rates \u2014 a mild neutral-to-positive for Indian financials. No new HDFC Bank-specific news on foreign ownership room this week. Next key milestone remains MSCI's official August review announcement (typically first week of August). HDB (ADR) remains the cleanest single vehicle \u2014 direct exposure, USD liquidity, no leverage needed.",
+      "exit_advice": "Hold. Catalyst (MSCI August rebalancing) has not occurred and no MSCI announcement has been made. Election volatility is noise, not resolution.",
+      "evidence_urls": [
+        "https://www.brecorder.com/news/40307019/indian-shares-surge-as-modis-allies-pledge-support-to-form-government",
+        "https://www.yahoo.com/news/stock-traders-revising-india-playbook-062031457.html",
+        "https://www.marketscreener.com/quote/index/SENSEX-BSE30-7426/news/INDIA-STOCKS-Indian-shares-set-to-open-higher-ahead-of-central-bank-policy-decision-46924891/"
+      ]
     }
   ],
   "2024-06-14": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Macquarie's $5.2B inflow estimate has been public for two weeks; passive-fund arbitrageurs may have already priced the rebalancing into HDB.",
       "catalyst_resolved": false,
-      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and there is no fresh news this week to alter the thesis. The thesis remains live, and SMR continues to be the appropriate vehicle.",
-      "exit_advice": "Continue to monitor for NuScale reactor approval news as the catalyst remains pending.",
+      "assessment": "Week 3. Zero relevant news this week \u2014 the two items are a UN Sudan resolution and a local opinion column, both entirely orthogonal to the catalyst. The core thesis is unchanged: the MSCI August index review (announcement expected early August, implementation end-August) is the hard, rules-based deadline that forces passive rebalancing into HDFC Bank as foreign-ownership headroom normalises post-merger. That event is still approximately 6\u20137 weeks away. No MSCI communication, no HDFC Bank foreign-room data, no Indian regulatory signal has emerged to alter the mechanics. The election noise from prior weeks has fully settled. The one genuine risk to monitor is whether HDB (ADR) has already run up sufficiently on the Macquarie publication to eliminate the risk/reward \u2014 worth checking price vs. 31 May entry, but that is a sizing/entry-quality question, not a catalyst-resolution question. HDB remains the cleanest single vehicle: direct HDFC Bank exposure, USD liquidity, no leverage. No vehicle change warranted.",
+      "exit_advice": "Hold. Pricing-in concern is real but not catalyst resolution \u2014 the MSCI August review has not been announced, no weight changes confirmed, no rebalancing executed. Exit only on: (a) MSCI confirms no material weight increase for HDFC Bank in the August review, or (b) foreign-room headroom data deteriorates materially, undermining the passive-flow math.",
       "evidence_urls": []
     }
   ],
   "2024-06-21": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "NuScale reactor approval has not yet occurred, but concerns about cash position raise risks",
+      "exit_case": "Macquarie's $5.2B estimate is 3 weeks public; progressive front-running may already have priced the passive inflow before the August event.",
       "catalyst_resolved": false,
-      "assessment": "The core catalyst (NuScale reactor approval) remains pending, but news about potential cash shortages introduces new risks. SMR continues to be the appropriate vehicle, but financial stability concerns warrant caution.",
-      "exit_advice": "Monitor for any updates on NuScale's financial health and reactor approval progress. Consider setting a tighter stop-loss given cash concerns.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
-      ]
+      "assessment": "Week 4. A fourth consecutive week of silence \u2014 no MSCI communication, no HDFC Bank foreign-room data, no Indian regulatory signal, no fresh analyst coverage. The core mechanics are intact: the August MSCI rebalancing and the forced ~$5.2B passive inflow into HDFC Bank are still roughly 5\u20136 weeks from the official announcement. The devil's-advocate risk is real \u2014 three weeks of public knowledge from the Macquarie note means sophisticated money may be front-running gradually, compressing the eventual gap-up. That is a price/risk-reward concern (worth verifying HDB's move since 31 May entry), not catalyst resolution. The catalyst \u2014 the actual MSCI August review announcement and the mechanical passive rebalancing \u2014 has definitively not occurred. Monitoring focus this week: any early MSCI index-review signals, HDFC Bank's reported foreign ownership headroom figures, and whether HDB ADR has materially re-rated vs. entry. No vehicle change warranted; HDB remains the cleanest direct vehicle.",
+      "exit_advice": "Exit on or just after MSCI's official August index-review announcement (typically first week of August), when passive funds receive their hard deadline and the 'news' becomes fully public \u2014 do not wait for the end-of-August implementation date.",
+      "evidence_urls": []
     }
   ],
   "2024-06-28": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Macquarie note is now 4 weeks public; sophisticated capital has had ample time to fully front-run the forced inflow, leaving little edge before August.",
       "catalyst_resolved": false,
-      "assessment": "The core catalyst (NuScale reactor approval) remains pending. SMR continues as the appropriate vehicle, but financial concerns warrant vigilance.",
-      "exit_advice": "Continue monitoring for NuScale reactor approval news. Be cautious of financial stability risks for SMR.",
+      "assessment": "Week 5 \u2014 fifth consecutive week of no relevant news. The catalyst is unchanged and unresolved: the MSCI August index review announcement (typically first week of August) and the mechanical ~$5.2B passive rebalancing into HDFC Bank (end-August implementation) are still approximately 4\u20135 weeks away. Nothing in the journal or this week's news indicates MSCI has communicated weight changes, that HDFC Bank's foreign-room headroom has reversed, or that any regulatory action has altered the mechanics. The sole genuine threat is the front-running risk flagged last week and sharpened this week: the Macquarie thesis is now a full month old, widely read, and any fast-money positioning may already be largely in \u2014 compressing the remaining gap-up to the actual event. This is a risk/reward and entry-quality question (check HDB price vs. May 31 entry), NOT catalyst resolution. The specific pending event \u2014 MSCI's formal August weight-change confirmation \u2014 has definitively not occurred. HDB (NYSE ADR) remains the cleanest direct vehicle: pure HDFC Bank exposure, USD liquidity, no leverage required.",
+      "exit_advice": "Hold through MSCI's early-August official announcement (the last hard confirmation milestone); if HDB has materially re-rated vs. the May 31 entry price, reassess risk/reward against remaining upside before end-August execution. Exit on MSCI confirmation or at rebalancing execution \u2014 whichever comes first.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "NKE",
-      "thesis": "Q4 earnings release",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The earnings release is still pending, making the thesis live. The news highlights anticipation of Nike's Q4 earnings, but no resolution has occurred yet.",
-      "exit_advice": "Monitor the earnings release this Thursday and assess its implications post-release.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/earn-500-month-nike-stock-123653829.html"
-      ]
     }
   ],
   "2024-07-05": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Macquarie thesis is 5+ weeks public; sophisticated front-runners have likely already priced the pending passive inflow gap.",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution in sight. SMR continues to be the appropriate vehicle, but financial risks introduced in prior weeks warrant vigilance.",
-      "exit_advice": "Continue to monitor for NuScale reactor approval news, but remain cautious due to financial stability concerns.",
+      "assessment": "Week 6 \u2014 sixth consecutive week of silence. The catalyst is still unresolved: MSCI's official August index review announcement has not been made, and the mechanical ~$5.2B passive rebalancing into HDFC Bank (end-August implementation) has not occurred. The hard deadline is now close enough (~4 weeks to announcement, ~7\u20138 weeks to implementation) that the remaining time value of the thesis is compressing rapidly. Nothing in this week's news or the cumulative journal changes the mechanics. The dominant and increasingly urgent risk remains front-running: a Macquarie note that is now five weeks old and widely circulated means that most nimble/systematic capital may already be positioned, leaving the actual announcement as a potential 'sell the news' event rather than a gap-up catalyst. This is the key risk to adjudicate before the August announcement window opens. No regulatory, MSCI, or HDFC Bank foreign-room headline has emerged to alter the underlying setup. HDB (NYSE ADR) remains the cleanest vehicle \u2014 direct HDFC Bank exposure, USD liquidity, no leverage. No vehicle change warranted.",
+      "exit_advice": "Hold but elevate urgency on a price check: if HDB has materially re-rated from the May 31 entry, risk/reward is deteriorating fast even though the catalyst is still technically pending. The MSCI August announcement (first week of August) is now ~4 weeks away \u2014 that is the last binary checkpoint before implementation. If HDB has not moved, the setup remains intact; if it has rallied 10%+ on the thesis, trim and reassess.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "NKE",
-      "thesis": "Q4 earnings release",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings release remains pending, keeping the thesis live. No relevant news impacting Nike's earnings has emerged this week.",
-      "exit_advice": "Hold until Nike's Q4 earnings are released and assessed.",
-      "evidence_urls": [
-        "https://www.rttnews.com/3458070/asian-markets-track-global-markets-higher.aspx",
-        "https://www.rttnews.com/story.aspx?Id=3458070"
-      ]
     }
   ],
   "2024-07-12": [
     {
-      "ticker": "SMR",
-      "thesis": "NuScale reactor approval news",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Congress passed and signed bipartisan nuclear power legislation, resolving the catalyst",
-      "catalyst_resolved": true,
-      "assessment": "The core catalyst (NuScale reactor approval news) has now resolved with the signing of bipartisan nuclear power legislation. While the broader nuclear theme may continue, the specific catalyst that drove the thesis is now priced in.",
-      "exit_advice": "Exit position as the catalyst has resolved with the signing of bipartisan nuclear power legislation",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "NKE",
-      "thesis": "Q4 earnings release",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "Six-week-old public Macquarie thesis fully front-run; MSCI announcement likely 'sell the news' with upside already captured.",
       "catalyst_resolved": false,
-      "assessment": "The Q4 earnings release remains the key catalyst, and it has not yet occurred.",
-      "exit_advice": "Continue monitoring Nike's Q4 earnings release, which is still pending.",
+      "assessment": "Week 7. No fresh news for the seventh consecutive week. The specific catalyst \u2014 MSCI's official August index review announcement and end-August passive implementation \u2014 remains pending and unresolved; catalyst_resolved is false. However, the front-running risk is now critical: the Macquarie note is six weeks old, widely circulated, and the announcement window is ~3 weeks away with implementation ~7 weeks away. Sophisticated and systematic capital has had ample time to position. The practical question is no longer 'will the event happen?' (it almost certainly will) but 'has the expected return already been captured in price?' Check HDB's move since May 31 entry \u2014 if it has fully priced the $5.2B inflow thesis, the announcement itself becomes the exit trigger, not an entry catalyst. Mechanics and foreign-room headroom thesis remain structurally intact. HDB (NYSE ADR) remains the cleanest single vehicle: direct HDFC Bank exposure, USD liquidity, no leverage.",
+      "exit_advice": "Hold into MSCI early-August announcement; if HDB gaps up materially on that announcement, exit before end-August passive implementation \u2014 that is the 'sell the news' window. If HDB has already re-rated 8\u201310%+ vs. May 31 entry, the risk/reward no longer justifies the remaining hold.",
       "evidence_urls": []
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "NKE",
-      "thesis": "Q4 earnings release",
-      "thesis_live": false,
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Q4 earnings release has occurred and results are public",
-      "catalyst_resolved": true,
-      "assessment": "The Q4 earnings release was the sole catalyst for this event. Once the earnings are public, the uncertainty driving the thesis is resolved, and the edge is gone.",
-      "exit_advice": "The specific catalyst for this event has resolved, as Nike's Q4 earnings have been released. No further edge exists based on this catalyst.",
+      "exit_case": "Macquarie thesis is 7 weeks old, widely circulated; sophisticated capital has fully front-run the $5.2B inflow, eliminating remaining edge.",
+      "catalyst_resolved": false,
+      "assessment": "Week 8 \u2014 eighth consecutive week of no relevant news. The specific catalyst (MSCI official August index-review announcement + end-August passive rebalancing implementation) is still pending and unresolved; catalyst_resolved is false. However, the setup has materially deteriorated from entry. The Macquarie note is now 7 weeks old and broadly circulated; the announcement window is roughly 2 weeks away and implementation ~6 weeks away. Any systematic, passive-anticipation, or discretionary front-running capital has had maximum opportunity to position. The mechanics remain intact \u2014 foreign-room headroom thesis is structurally unchanged, no MSCI communication or HDFC Bank regulatory signal has intervened \u2014 but the asymmetry has compressed sharply. The operative decision is now execution-timing, not thesis validity: the MSCI announcement in early August is almost certainly the sell-the-news exit point, not an entry catalyst. HDB (NYSE ADR) remains the cleanest single vehicle \u2014 direct HDFC Bank exposure, USD liquidity, no leverage.",
+      "exit_advice": "With the MSCI announcement window ~2 weeks away, treat the announcement itself as the EXIT trigger \u2014 7 weeks of front-running makes this a near-certain 'sell the news' event; do NOT hold through end-August implementation expecting a second leg.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-26": [
+    {
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Macquarie thesis is 8 weeks old, fully circulated; sophisticated capital has had maximum time to front-run \u2014 remaining upside likely already priced before announcement.",
+      "catalyst_resolved": false,
+      "assessment": "Week 9. No relevant news for the ninth consecutive week \u2014 the two Nomura India Equity Fund articles are generic UK retail coverage of India equity as an asset class, wholly unrelated to the MSCI rebalancing mechanics or HDFC Bank's foreign-room headroom. The specific catalyst remains unresolved: MSCI has not yet published its official August index review, and the end-August passive rebalancing (~$5.2B into HDFC Bank) has not occurred. However, the announcement window is now approximately one week away (MSCI typically publishes early August), making this almost certainly the final holding week before the catalyst fires. The eight-week front-running window is the dominant risk: any fast-money or systematic capital anticipating the inflow has had maximum opportunity to position. The announcement itself is now the exit point \u2014 not a fresh entry signal \u2014 and the implementation in late August is a distant second. Mechanically the thesis is structurally intact (foreign-room headroom normalisation post-merger, rules-based MSCI weight change), but the risk/reward has compressed sharply from entry. HDB (NYSE ADR) remains the cleanest and only warranted vehicle. Prepare exit orders ahead of the MSCI publication.",
+      "exit_advice": "Exit on or immediately after the MSCI August index review announcement (expected first week of August); treat the announcement itself as the sell-the-news trigger \u2014 do not wait for end-August implementation.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/18/stock-split-watch-is-super-micro-computer-next/?source=iedfolrf0000001"
+        "https://www.dailymail.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html",
+        "https://www.thisismoney.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html"
       ]
     }
   ],
-  "2024-07-26": [],
-  "2024-08-02": [],
-  "2024-08-09": [],
-  "2024-08-16": [],
-  "2024-08-23": [],
-  "2024-08-30": [],
-  "2024-09-06": [],
-  "2024-09-13": [
+  "2024-08-02": [
     {
-      "ticker": "UUUU",
-      "thesis": "Federal Court approves Base Resources acquisition",
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none",
+      "exit_case": "MSCI August announcement window opens this week; publication imminent \u2014 sell-the-news risk now at maximum.",
       "catalyst_resolved": false,
-      "assessment": "The Federal Court of Australia has approved the acquisition of Base Resources by Energy Fuels Inc., with the transaction expected to close on October 2, 2024. The catalyst remains pending until the deal is officially completed.",
-      "exit_advice": "Hold until the acquisition officially closes on October 2, 2024.",
+      "assessment": "Week 10 \u2014 the MSCI August index review announcement window has now opened (MSCI typically publishes in the first week of August; we are at Aug 2). No publication is confirmed in this week's news, but the trigger is days away. Both items \u2014 India market-cap milestone and Nvidia earnings \u2014 are wholly irrelevant to the catalyst. Mechanically the thesis is intact: foreign-room headroom normalisation post-merger, rules-based weight change, ~$5.2B passive inflow remains on schedule. But the entire journal arc has converged on one operative conclusion: the announcement IS the exit, not an entry. Fast-money, systematic, and passive-anticipation capital has had a full nine weeks to position on the Macquarie note. The moment MSCI publishes the August weight-change confirmation, exit HDB. Holding through end-August implementation is the wrong play \u2014 the forward return is likely negative by then. This is the last journal note before the catalyst fires.",
+      "exit_advice": "Exit HDB immediately on MSCI August review publication \u2014 do NOT hold through end-August implementation. The announcement is the exit trigger, not a re-entry signal. Nine weeks of front-running have compressed residual upside; holding through implementation risks a hard sell-the-news reversal.",
       "evidence_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
       ]
+    }
+  ],
+  "2024-08-09": [
+    {
+      "ticker": "HDB",
+      "thesis": "August MSCI India rebalancing forces ~$5.2B inflows into HDFC Bank",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "MSCI August quarterly review announcement lands ~Aug 8 per standard schedule; passive-inflow catalyst is now public and pricing is absorbed.",
+      "catalyst_resolved": true,
+      "assessment": "Week 11 \u2014 catalyst resolved. The MSCI August 2024 quarterly index review announcement, which is the specific event this trade was entered on, falls on or around August 8 per MSCI's mechanical schedule. We are at August 9 and past that window. The news this week is entirely orthogonal: Sensex bouncing 819 points and global markets stabilising after the Aug 5 Japan/carry-unwind shock are macro noise, not MSCI signals. The 11-week journal arc has a single consistent throughline: (1) the $5.2B passive inflow thesis was published publicly on May 31 (Macquarie); (2) every week since has noted progressive front-running compression; (3) every note from Week 9 onward explicitly designated the MSCI announcement as the sell-the-news exit, not a hold-through event. The implementation at the close of August 30 is for passive index funds to execute mechanically \u2014 there is no edge in holding through that. The catalyst has resolved; the position should be closed.",
+      "exit_advice": "Exit HDB immediately. MSCI's August index review announcement falls on or around Aug 8 \u2014 we are past that date. The entire journal arc has identified the announcement, not the end-August implementation, as the exit trigger. Nine-plus weeks of front-running on the Macquarie note, a global volatility shock (yen carry unwind, Aug 5 selloff) that compressed the setup further, and now a resolved catalyst all point to the same conclusion: any remaining upside belongs to passive funds mechanically implementing at month-end, not to discretionary holders. Sell into the bounce.",
+      "evidence_urls": [
+        "https://www.newkerala.com/news/2024/48023.htm",
+        "https://moneylife.in/article/as-global-markets-stabilise-indian-indices-move-up-wednesday-closing-report/74859.html"
+      ]
+    }
+  ],
+  "2024-08-16": [
+    {
+      "ticker": "K",
+      "thesis": "Mars announces $36B all-cash acquisition of Kellanova",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The announcement \u2014 the stated catalyst \u2014 has already occurred and is fully priced; K now trades ~$80 vs $83.50 offer.",
+      "catalyst_resolved": false,
+      "assessment": "Week 1. Mars announced Aug 14 it will acquire Kellanova for ~$83.50/share all-cash (~$36B total). K immediately jumped to ~$79-80, opening a ~4-5% gross merger-arb spread. The entry is the spread-to-close, not a directional bet. Positives: all-cash (no financing contingency), Mars is privately held and extremely well-capitalized, deal framed as strategic/complementary rather than horizontal (Mars = chocolate/confectionery; Kellanova = salty snacks/crackers), reducing direct antitrust overlap. Key pending milestones that keep the thesis alive: FTC/DOJ review, international regulatory approvals, Kellanova shareholder vote, and final closing (guided ~H1 2025). No deal-specific news in this week's feed \u2014 all noise is general macro (India/TSX/Nasdaq rallies on retail-sales/jobs data). Spread is the alpha; hold K until close or a material break signal.",
+      "exit_advice": "Exit when deal closes at $83.50/share OR if a credible regulatory block or deal break emerges; do not wait beyond closing.",
+      "evidence_urls": [
+        "https://www.wsj.com/articles/mars-to-acquire-kellanova-for-36-billion-2024-08-14"
+      ]
+    }
+  ],
+  "2024-08-23": [
+    {
+      "ticker": "K",
+      "thesis": "Mars announces $36B all-cash acquisition of Kellanova",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Announcement is already public and fully priced into K (~$79-80); remaining spread is time/regulatory risk, not undiscovered catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "Week 2: zero deal-specific news in this week's feed \u2014 entirely macro noise (Jackson Hole, Nifty, ASX, TSX). The merger arb thesis is unchanged. K trades ~$79-80 vs. $83.50 cash offer, preserving a ~4-5% gross spread. All key milestones remain pending: HSR/DOJ filing and review period, international regulatory approvals, Kellanova shareholder vote, and final close (guided H1 2025). No adverse signals: Mars has no reported financing constraint (privately held, fortress balance sheet), and the complementary product overlap (confectionery vs. salty snacks/crackers) continues to argue for manageable antitrust exposure. Quiet week is neutral \u2014 no incremental risk, no spread compression. Maintain K as the sole vehicle.",
+      "exit_advice": "Hold K; exit on deal close at $83.50 or on a credible break signal \u2014 formal antitrust challenge, deal withdrawal, or confirmed financing failure.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-08-30": [
+    {
+      "ticker": "K",
+      "thesis": "Mars announces $36B all-cash acquisition of Kellanova",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Announcement catalyst is already fully public and priced; remaining play is merely grinding a 4-5% spread over 6+ months with no new information.",
+      "catalyst_resolved": false,
+      "assessment": "Week 3: no deal-specific news again. The only K-relevant item in the feed is Seeking Alpha naming Kellanova the S&P 500's top August performer \u2014 this reflects the announcement-day pop (K ~$59 pre-deal to ~$79-80 post-deal), not meaningful additional spread compression. The gross spread to the $83.50 deal price remains ~4-5%. All key pending milestones are still open: HSR initial review window (30 days from filing, likely still running), potential international regulatory reviews, Kellanova shareholder vote, and final close guided H1 2025. No adverse signals in three weeks of monitoring: Mars has reported no financing constraint, no FTC challenge has been filed, and the complementary product overlap (confectionery vs. salty snacks/crackers) continues to argue for manageable antitrust exposure. The devil's advocate concern is real \u2014 this is a slow-burn spread trade with capital tied up 6+ months \u2014 but without a break signal the thesis is intact. Hold K as sole vehicle.",
+      "exit_advice": "Hold K. No material adverse deal signal exists. Exit triggers: HSR second request filed, international regulator opens formal probe, Mars financing concern surfaces, or deal break announced. Spread compression toward $83.50 is the target, not a stop.",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4145670-sp-august-winners-and-losers-kellanova-tops-index-after-turbulent-month-smci-plunges"
+      ]
+    }
+  ],
+  "2024-09-06": [
+    {
+      "ticker": "K",
+      "thesis": "Mars announces $36B all-cash acquisition of Kellanova",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four straight weeks of zero spread compression; capital locked 6+ months for <5% gross as macro risk-off (weak jobs, Nasdaq rout) can widen arb spreads.",
+      "catalyst_resolved": false,
+      "assessment": "Week 4: fourth consecutive week with zero deal-specific news. This week's feed is entirely macro noise \u2014 Nasdaq -437pts on weak August payrolls, oil collapse pressuring energy names, broad risk-off. None of this is directly relevant to a privately-financed all-cash deal by Mars (no public equity or debt financing to reprice). Key milestones remain squarely pending: HSR/DOJ initial review window still running, international regulatory filings not yet confirmed cleared, no Kellanova shareholder vote date set, closing still guided H1 2025. The gross spread to $83.50 is unchanged at ~4-5%. Devil's advocate point is real \u2014 annualized return is eroding with every quiet week and a risk-off macro environment can mechanically widen merger arb spreads as hedge funds reduce gross exposure. But there is no adverse deal-specific signal after four weeks of monitoring: no FTC second request reported, no financing concern (Mars is privately held with a fortress balance sheet), and the confectionery-vs.-salty-snacks product overlap continues to argue for manageable antitrust exposure. Hold K as sole vehicle; spread-to-close is the only thesis.",
+      "exit_advice": "Exit only on: (1) deal break/termination announcement, (2) regulatory block filing, (3) spread widens materially past ~6-7% signalling market pricing elevated break risk, or (4) deal close at $83.50.",
+      "evidence_urls": [
+        "https://www.trinidadtimes.com/news/274565312/tech-stocks-rout-nasdaq-composite-tumbles-437-points",
+        "https://www.rttnews.com/story.aspx?Id=3473580"
+      ]
+    }
+  ],
+  "2024-09-13": [
+    {
+      "ticker": "K",
+      "thesis": "Mars announces $36B all-cash acquisition of Kellanova",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five consecutive weeks of zero deal-specific news; spread is now pure time-value decay with H1 2025 close still ~6 months away.",
+      "catalyst_resolved": false,
+      "assessment": "Week 5 \u2014 fifth consecutive week of zero deal-specific news. This week's feed is entirely irrelevant (Indian equities, Harris campaign, crypto, defense procurement). The merger arb thesis is structurally unchanged: K ~$79-80 vs. $83.50 all-cash offer, ~4-5% gross spread intact. All key milestones remain squarely pending: HSR initial 30-day review window has likely elapsed without a reported second request (a quiet positive), international regulatory filings not confirmed cleared, Kellanova shareholder vote not yet scheduled, and closing still guided H1 2025. Mars remains privately held with no financing contingency. The devil's advocate concern \u2014 five weeks of time-value erosion on a 6-month horizon is real and the annualized yield degrades with every quiet week \u2014 but the spread has not compressed and no adverse deal-specific signal has emerged across the entire journal arc. No change in vehicle or posture. Hold K as sole vehicle; the only thesis is spread-to-close.",
+      "exit_advice": "Exit only on: (1) confirmed FTC second request or foreign-regulator challenge, (2) deal withdrawal/price cut, or (3) spread collapses to <1% on confirmed close. Do not exit on continued silence.",
+      "evidence_urls": []
     }
   ]
 }

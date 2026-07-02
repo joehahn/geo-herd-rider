@@ -40,7 +40,7 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 21,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
-    "model": "deepseek",               # LIVE (curator/scan): which LLM reads the firehose. Short
+    "model": "sonnet",                 # LIVE (curator/scan): which LLM reads the firehose. Short
                                        #   names resolved by resolve_curator_model(): deepseek (cheap,
                                        #   OpenRouter) | sonnet | sonnet5 | opus | .... Stamped into the
                                        #   scan + shown on the dashboards as the curator model.
@@ -49,8 +49,6 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
-    "max_concurrent_positions": 2,     # LIVE (firehose backtest): fund only the top-N optimizer-weighted
-                                       #   names/week (0 = uncapped). Visibility/risk cap on the tail.
     "prune_zero_weight_weeks": 4,      # LIVE (firehose backtest): drop a name the optimizer keeps
                                        #   starving (~0 weight) for this many weeks (0 = off).
     "hold_benchmark": True,            # LIVE (firehose backtest): SPY always in the optimizer universe
