@@ -21,7 +21,6 @@ flowchart TD
 
     subgraph CUR["🧠 Curator"]
       direction TB
-      SS["Single scan · baseline<br/>one LLM call/week → watchlist<br/>(tends to tunnel on the loud gem)"]
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes their catalyst statements"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
       AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved<br/>(drops the position the instant it resolves);<br/>also picks which gem(s) best express the event"]
@@ -32,9 +31,7 @@ flowchart TD
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist;<br/>parks idle capital in SPY when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
-    S --> SS
     S --> SC
-    SS --> E
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
