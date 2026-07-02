@@ -308,11 +308,11 @@ SWEEPS = [
     {"key": "lookback_period_days", "label": "lookback_period_days", "log": True,
      "values": [3, 7, 14, 21, 30, 45, 60, 75, 100, 120, 150, 180]},   # ~3 days -> ~6mo μ/Σ fit (log x)
     {"key": "concentration_cap", "label": "concentration_cap",
-     "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 1.0]},
+     "values": [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 1.0]},
     {"key": "min_trade_size", "label": "min_trade_size",
-     "values": [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
+     "values": [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "risk_aversion", "label": "risk_aversion",
-     "values": [0.0, 0.1, 0.25, 0.5, 0.67, 1.0, 1.5, 2.0, 3.0, 5.0]},   # 0 = pure-μ -> high λ = risk-averse
+     "values": [0.0, 0.1, 0.25, 0.5, 0.67, 0.85, 1.0, 1.25, 1.5, 2.0, 3.0]},   # 0 = pure-μ -> high λ = risk-averse
 ]
 
 # Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values
