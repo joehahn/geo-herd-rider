@@ -312,6 +312,40 @@ def _stateful_watch(scans: dict) -> dict:
     return out
 
 
+def _agent_precision(scans: dict, panel) -> list:
+    """CURATOR-QUALITY metric, UNMASKED by the optimizer: for EVERY agent the curator created
+    (one per distinct thesis/catalyst), the standalone return of its ticker over the span it was
+    thesis_live — i.e. 'if you'd simply held what this agent named while it said hold, did it rise?'
+    Independent of sizing/caps, so it measures the scout/agent's skill at picking good theses vs
+    manufacturing losers. Returns a per-agent list (ticker, thesis, first/last live week, return)."""
+    ag: dict = {}
+    for a in sorted(scans):
+        for p in scans[a]:
+            if not p.get("thesis_live"):
+                continue
+            e = ag.setdefault(p["thesis"], {"ticker": p["ticker"], "first": a, "last": a})
+            e["last"] = a
+    def _naive(ts):
+        ts = pd.Timestamp(ts)
+        return ts.tz_localize(None) if ts.tzinfo is not None else ts
+    rows = []
+    for th, e in ag.items():
+        tk, ret = e["ticker"], None
+        if panel is not None and tk in panel.columns:
+            s = panel[tk].dropna()
+            if getattr(s.index, "tz", None) is not None:   # tz-robust: match the panel index to the anchors
+                s = s.copy(); s.index = s.index.tz_localize(None)
+            try:
+                lo = s.loc[:_naive(e["first"])]; hi = s.loc[:_naive(e["last"])]
+                if len(lo) and len(hi):
+                    ret = round(float(hi.iloc[-1] / lo.iloc[-1] - 1), 4)
+            except Exception:  # noqa: BLE001
+                ret = None
+        rows.append({"ticker": tk, "thesis": th, "first": _naive(e["first"]).date().isoformat(),
+                     "last": _naive(e["last"]).date().isoformat(), "ret": ret})
+    return sorted(rows, key=lambda r: (r["ret"] is None, r["ret"] or 0))
+
+
 OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->W.Med transit
 
 
@@ -381,7 +415,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         log.append({"week": str(anchors[k].date()), "watchlist": ";".join(watch[anchors[k]]),
                     "weights": held, "week_return": round(ret, 4)})
     out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors),
-           "watch": {a: watch[a] for a in anchors}}   # pruned sticky watch, so the dashboard matches
+           "watch": {a: watch[a] for a in anchors},   # pruned sticky watch, so the dashboard matches
+           "agent_precision": _agent_precision(scans, panel)}   # unmasked curator-skill metric
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor)
     return out

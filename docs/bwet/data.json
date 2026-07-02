@@ -2415,5 +2415,28 @@
     "ev2": 47714.08,
     "ev3": -10312.05,
     "ev4": 513.11
-  }
+  },
+  "agent_precision": [
+    {
+      "ticker": "OKLO",
+      "thesis": "Oklo in advanced Energy Department talks for nuclear fuel program",
+      "first": "2026-05-29",
+      "last": "2026-06-12",
+      "ret": -0.1404
+    },
+    {
+      "ticker": "INTC",
+      "thesis": "Apple named as buyer of Intel chips for iPhone in new supply deal",
+      "first": "2026-05-08",
+      "last": "2026-05-15",
+      "ret": -0.1293
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
+      "first": "2026-03-13",
+      "last": "2026-04-03",
+      "ret": 1.2164
+    }
+  ]
 }
