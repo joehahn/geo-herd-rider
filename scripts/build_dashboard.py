@@ -412,7 +412,10 @@ def build_sweeps() -> None:
     # would run short); +30d buffer, floor 70d.
     pre = max([70] + [max(sw["values"]) + 30 for sw in SWEEPS if sw["key"] == "lookback_period_days"])
     # bake-off models with a COMPLETE set of books (all 3 gems) — these get scored on the panels too
-    bake_models = [s for s in BAKEOFF_INFO if all(_model_book_path(s, t).exists() for t in gem_tickers)]
+    # bake-off runs on the gems that HAVE bake-off books (3-gem set) — NOT all built gems: GDX has a
+    # dashboard but no bake-off books, so requiring it would empty bake_models and drop the LLM plot.
+    bake_tickers = [t for t in gem_tickers if any(_model_book_path(s, t).exists() for s in BAKEOFF_INFO)]
+    bake_models = [s for s in BAKEOFF_INFO if bake_tickers and all(_model_book_path(s, t).exists() for t in bake_tickers)]
     # load each gem's scans + fetch ONE panel, reused across every param/value (deterministic compare).
     # Panel tickers = union across ALL model books for the gem, so every model can be scored on it.
     gem_data = {}
@@ -427,8 +430,10 @@ def build_sweeps() -> None:
         tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
                                       if str(p.get("ticker", "")).strip()}
         for s in bake_models:  # add every bake-off model's tickers so its book is scorable
-            for v in load_scans(_model_book_path(s, t)).values():
-                tix |= {p["ticker"] for p in v if str(p.get("ticker", "")).strip()}
+            bp = _model_book_path(s, t)
+            if bp.exists():
+                for v in load_scans(bp).values():
+                    tix |= {p["ticker"] for p in v if str(p.get("ticker", "")).strip()}
         start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
@@ -453,10 +458,10 @@ def build_sweeps() -> None:
     # ---- LLM bake-off: each model's 3 books re-scored on the same panels at the live defaults ----
     if bake_models:
         bo = {"models": [], "label": [], "scale": [], "cost": [], "time": [], "sum_curated": [],
-              "per_gem": {t: [] for t in gem_tickers}, "caught": {}}
+              "per_gem": {t: [] for t in bake_tickers}, "caught": {}}
         for s in bake_models:
             total = 0.0; caught = {}
-            for t in gem_tickers:
+            for t in bake_tickers:
                 bk = load_scans(_model_book_path(s, t))
                 _, panel, anchor = gem_data[t]
                 bt = firehose.backtest(bk, fm0, capital, panel=panel, overlay=t, overlay_anchor=anchor)
