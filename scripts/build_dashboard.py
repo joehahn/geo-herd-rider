@@ -322,14 +322,14 @@ SWEEP_BASE = {}   # empty -> sweeps follow the live investor_profile defaults (a
 
 # Model bake-off: re-score each curator LLM's 3-gem books on the SAME per-gem panel and compare.
 # (short -> (display label, scale, approx $/3-gem). Order = display order, cheap/small -> big.)
-BAKEOFF_INFO = {  # cost = MEASURED $ for this 3-gem scan (today's ledger), not an estimate
-    "mimo":     ("mimo",     "~1T MoE / 42B act",  "$0.4"),
-    "llama4":   ("llama4",   "400B MoE / 17B act", "$0.3"),
-    "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1"),
-    "grok4":    ("grok-4.3", "frontier",           "$3.7"),
-    "sonnet":   ("sonnet",   "1-2T (est)",         "$3.6"),
-    "sonnet5":  ("sonnet5",  "near-Opus",          "$3.8"),
-    "opus":     ("opus",     "2-5T (est)",         "$4.4"),
+BAKEOFF_INFO = {  # (label, scale, MEASURED $ /3-gem scan, MEASURED wall-clock /3-gem scan) — today's ledger
+    "mimo":     ("mimo",     "~1T MoE / 42B act",  "$0.4", "83min"),
+    "llama4":   ("llama4",   "400B MoE / 17B act", "$0.4", "10min"),
+    "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1", "14min"),
+    "grok4":    ("grok-4.3", "frontier",           "$3.7", "9min"),
+    "sonnet":   ("sonnet",   "1-2T (est)",         "$3.6", "61min"),
+    "sonnet5":  ("sonnet5",  "near-Opus",          "$3.8", "8min"),
+    "opus":     ("opus",     "2-5T (est)",         "$4.4", "16min"),
 }
 
 
@@ -398,7 +398,7 @@ def build_sweeps() -> None:
         print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
     # ---- LLM bake-off: each model's 3 books re-scored on the same panels at the live defaults ----
     if bake_models:
-        bo = {"models": [], "label": [], "scale": [], "cost": [], "sum_curated": [],
+        bo = {"models": [], "label": [], "scale": [], "cost": [], "time": [], "sum_curated": [],
               "per_gem": {t: [] for t in gem_tickers}, "caught": {}}
         for s in bake_models:
             total = 0.0; caught = {}
@@ -409,8 +409,9 @@ def build_sweeps() -> None:
                 total += bt["final"]; bo["per_gem"][t].append(round(bt["final"]))
                 caught[t] = any(str(p.get("ticker", "")).strip().upper() == t
                                 for v in bk.values() for p in v)
-            lbl, scl, cst = BAKEOFF_INFO[s]
-            bo["models"].append(s); bo["label"].append(lbl); bo["scale"].append(scl); bo["cost"].append(cst)
+            lbl, scl, cst, tm = BAKEOFF_INFO[s]
+            bo["models"].append(s); bo["label"].append(lbl); bo["scale"].append(scl)
+            bo["cost"].append(cst); bo["time"].append(tm)
             bo["sum_curated"].append(round(total)); bo["caught"][s] = caught
         out["bakeoff"] = bo
         print("  bake-off: " + " ".join(f"{l}->${c:,.0f}" for l, c in zip(bo["label"], bo["sum_curated"])))
@@ -998,7 +999,7 @@ fetch("data.json").then(r=>r.json()).then(D=>{
     const div=document.createElement("div"); div.className="chart"; div.id="c_bakeoff"; host.appendChild(div);
     const ncost=s=>parseFloat(String(s).replace(/[^0-9.]/g,""))||0;
     const idx=BO.models.map((_,i)=>i).sort((a,b)=>ncost(BO.cost[a])-ncost(BO.cost[b]));  // cheapest -> priciest
-    const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+"<br>"+BO.cost[i]);  // CR between size and cost
+    const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+"<br>"+BO.cost[i]+(BO.time&&BO.time[i]?" · "+BO.time[i]:""));  // size · cost · wall-clock
     const gems=D.gems||[];
     const traces=[{type:"scatter", mode:"lines+markers+text", name:"Sum (3 gems)", x:labels,
       y:idx.map(i=>BO.sum_curated[i]), line:{color:"#d62728",width:2.8}, marker:{size:9},
