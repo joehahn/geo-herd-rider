@@ -14,7 +14,7 @@ risk_aversion: 0.67              # lambda in mean-variance utility (μᵀw − �
 max_tickers_per_event: 16         # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
-max_concurrent_positions: 2       # Visibility/risk cap: fund only the top-N optimizer-weighted names/week (0 = uncapped)
+max_concurrent_positions: 2       # DORMANT backstop: fund only top-N/week (0=uncapped). Currently INERT — concentration_cap=0.9 already funds <=2/wk; kept as a safety net, drop later if confirmed unneeded
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
 hold_benchmark: true              # SPY is ALWAYS in the optimizer watchlist/universe (every week); gems must beat SPY to be funded
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks; sweepable
