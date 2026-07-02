@@ -29,13 +29,12 @@ flowchart TD
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY when no gem qualifies"]
-    U["🧑 User<br/>adjusts portfolio at brokerage"]
+    U["🧑 User<br/>adjusts portfolio at brokerage<br/>↻ the whole line then repeats next week"]
 
     S --> SC
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
-    U == "repeat weekly" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
