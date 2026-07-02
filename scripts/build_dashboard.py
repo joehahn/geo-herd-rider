@@ -89,6 +89,17 @@ def gem_config(ticker: str) -> dict:
             "stats": ROOT / "data" / "windows" / stats, "out": OUT_DIR / low}
 
 
+def _write_page(path, html: str) -> None:
+    """Write an HTML page with a fixed 'built <local timestamp>' badge (bottom-right) so a viewer can
+    tell fresh from a stale GitHub-Pages deploy at a glance."""
+    import datetime  # noqa: PLC0415
+    ts = datetime.datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S %Z")
+    badge = ('<div style="position:fixed;bottom:5px;right:8px;z-index:9999;font:11px ui-monospace,'
+             'monospace;color:#888;background:rgba(255,255,255,.85);border:1px solid #ddd;'
+             f'padding:2px 7px;border-radius:5px">built {ts}</div>')
+    path.write_text(html.replace("</body>", badge + "</body>", 1))
+
+
 def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     """Build one gem's dashboard into docs/<gem>/ (data.json + index.html + firehose.html).
     The gem's own price is the overlay, anchored at its trigger date. Returns the payload."""
@@ -258,8 +269,8 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     pj = json.dumps(payload).replace("</", "<\\/")   # inline data (works from file:// too), </script>-safe
     (out / "data.json").write_text(json.dumps(payload, indent=2))   # kept: landing/sweeps read this
-    (out / "index.html").write_text(INDEX_HTML.replace("{{DATA}}", pj))
-    (out / "firehose.html").write_text(FIREHOSE_HTML.replace("{{DATA}}", pj))
+    _write_page(out / "index.html", INDEX_HTML.replace("{{DATA}}", pj))
+    _write_page(out / "firehose.html", FIREHOSE_HTML.replace("{{DATA}}", pj))
     m = payload["metrics"]
     print(f"  {ticker}: ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}), "
           f"maxDD {m['max_dd']:.1%}  caught={caught}  -> {out}/")
@@ -344,7 +355,7 @@ def build_landing() -> None:
     cards = "".join(card(r) for r in rows) or '<p class="sub">No gem dashboards built yet.</p>'
     OUT_DIR.mkdir(exist_ok=True)
     html = LANDING_HTML.replace("{{CARDS}}", cards).replace("{{GEMSPLOT}}", json.dumps(series))
-    (OUT_DIR / "index.html").write_text(html)
+    _write_page(OUT_DIR / "index.html", html)
     print(f"  landing: {len(rows)} gem(s) -> {OUT_DIR}/index.html")
 
 
@@ -476,7 +487,7 @@ def build_sweeps() -> None:
         print("  bake-off: " + " ".join(f"{l}->${c:,.0f}" for l, c in zip(bo["label"], bo["sum_curated"])))
     sd = OUT_DIR / "sweeps"; sd.mkdir(parents=True, exist_ok=True)
     (sd / "data.json").write_text(json.dumps(out, indent=2))
-    (sd / "index.html").write_text(SWEEPS_HTML.replace("{{DATA}}", json.dumps(out).replace("</", "<\\/")))
+    _write_page(sd / "index.html", SWEEPS_HTML.replace("{{DATA}}", json.dumps(out).replace("</", "<\\/")))
     print(f"  sweeps -> {sd}/index.html ({len(gem_tickers)} gems: {', '.join(gem_tickers)})")
 
 
