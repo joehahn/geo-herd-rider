@@ -1,212 +1,278 @@
 {
-  "2026-02-06": [],
-  "2026-02-13": [
+  "2025-12-26": [
     {
-      "ticker": "USAR",
-      "thesis": "US Commerce Dept issued $3.5B rare-earth financing letter of intent Jan 26",
-      "thesis_live": false,
+      "ticker": "QBTS",
+      "thesis": "D-Wave major company event scheduled January 27, 2026",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "LOI was issued Jan 26 \u2014 already public 18 days pre-entry; Cantor repriced USAR on it by Feb 10.",
-      "catalyst_resolved": true,
-      "assessment": "This is a first-week entry but the catalyst predates entry by 18 days. The Commerce Dept LOI was issued January 26; by February 10 Cantor Fitzgerald published a formal USAR price-target raise citing it by name. That means the discrete event is backward-looking, publicly disseminated, and already embedded in analyst models before we even entered. A future catalyst (LOI converting to a binding financing contract, final DoD/Commerce approval, or ground-breaking) would be a genuinely new and unresolved event \u2014 but that is NOT the catalyst on record here. Holding USAR now is pure rare-earth theme exposure, not event-driven. Any re-entry should be keyed to the next discrete, pending milestone (e.g., signed financing agreement), entered fresh with that as the catalyst.",
-      "exit_advice": "Exit USAR immediately. The specific catalyst \u2014 Commerce Dept issuing the $3.5B LOI on Jan 26 \u2014 has already occurred, was public before entry, and has been explicitly repriced by sell-side (Cantor Fitzgerald price target hike, Feb 10). No event-driven edge remains on this stated catalyst.",
+      "exit_case": "QBTS surged ~20% in one session; January 27 event is now widely publicized, informational edge may already be priced in.",
+      "catalyst_resolved": false,
+      "assessment": "First week of tracking. Catalyst is intact: D-Wave's major company event is confirmed for January 27, 2026 (per Yahoo Finance Dec 26), still ~32 days out. QBTS ripped ~20% on Dec 23 amid a sector-wide quantum computing wave (Google Willow, IBM, Microsoft hype cycle), not specifically tied to the Jan 27 reveal. The event content remains unknown \u2014 product launch, commercial contract, partnership, or technology milestone are all plausible. That uncertainty is where residual edge lives. Key risk: the move from ~$27 to ~$32 in one session front-runs some of the catalyst premium, so the reward/risk window has compressed. Still, the specific event has not occurred and no details have leaked. Monitor for any pre-announcement leaks or investor-day agenda releases that would accelerate the 'priced in' dynamic. QBTS remains the only pure-play vehicle.",
+      "exit_advice": "Hold into January 27 event; exit on the day-of or immediately after announcement regardless of content \u2014 classic buy-the-rumor, sell-the-news setup.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/usa-rare-earth-usar-3-5b-financing-deals-prompt-higher-price-target-from-cantor-fitzgerald-1692014/"
+        "https://finance.yahoo.com/news/interested-d-wave-quantum-mark-202000583.html",
+        "https://www.tickerreport.com/banking-finance/13300523/d-wave-quantum-nyseqbts-shares-up-19-8-should-you-buy/",
+        "https://finance.yahoo.com/news/why-2026-could-d-wave-233800209.html"
       ]
     }
   ],
+  "2026-01-02": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave major company event scheduled January 27, 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Cumulative ~40% surge since entry (Dec 23 +20%, Dec 31 +17%) has largely priced Jan 27 premium already.",
+      "catalyst_resolved": false,
+      "assessment": "The Jan 27, 2026 D-Wave major company event remains pending and unresolved \u2014 catalyst_resolved stays false. However, a new near-term event has surfaced: QBTS is presenting at CES 2026 (Jan 7-10), which drove another ~17% surge around Dec 31 on top of the ~20% Dec 23 move. Total cumulative gain from entry is now likely ~40%+, severely compressing the remaining risk/reward window for the Jan 27 catalyst. The key risks identified at entry (front-running, pre-announcement leaks) are now materially elevated. Critical watch items: (1) does the CES presentation pre-reveal the Jan 27 event content, collapsing the remaining edge? (2) does the quantum sector hype cycle fade post-CES before Jan 27, causing a sell-the-CES-news flush? The Fool article noting institutional preference for larger quantum plays over pure-plays like QBTS is a mild headwind. The thesis is technically intact but the risk/reward is now marginal \u2014 the original edge was the gap between the stock price and the unpriced Jan 27 event; that gap has narrowed dramatically. QBTS remains the only pure-play vehicle.",
+      "exit_advice": "Hold through Jan 27 event, but treat CES 2026 presentation (Jan 7-10) as an interim tripwire: if D-Wave reveals substantive content there that overlaps with the Jan 27 event, reassess immediately as a pre-leak. Otherwise, watch for post-CES profit-taking as a potential secondary entry degradation signal.",
+      "evidence_urls": [
+        "https://biztoc.com/x/f86e0a3113de761b",
+        "https://www.fool.com/investing/2026/01/02/quantum-computing-stock-billionaire-2026-ionq-rgti/"
+      ]
+    }
+  ],
+  "2026-01-09": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave major company event scheduled January 27, 2026",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Quantum sector bubble burst (Rigetti -54%, mainstream bubble warnings); ~40% pre-run likely reversed by sector-wide crash before Jan 27 even arrives.",
+      "catalyst_resolved": false,
+      "assessment": "The Jan 27 D-Wave event is still pending (catalyst_resolved=false), but the thesis is no longer live. Entry premise: capture the gap between market price and an unpriced company-event premium. That gap closed in two waves \u2014 Dec 23 (~20%) and Dec 31 (~17%) \u2014 for a ~40%+ cumulative move. CES (Jan 7-10) passed without pre-revealing Jan 27 content, but post-CES the sector flushed hard: Rigetti is -54% from recent highs, and Motley Fool published multiple pieces (Jan 8) explicitly naming D-Wave/QBTS as bubble candidates set to crash in 2026. The quantum hype cycle that created the pre-run premium is now working in reverse, and QBTS almost certainly gave back a large portion of those gains this week. Even if the Jan 27 event delivers a positive surprise, it must first overcome a deeply negative sector re-rating \u2014 a setup that inverts rather than confirms the original risk/reward. Thesis is broken; exit.",
+      "exit_advice": "Exit QBTS. The original edge was the gap between stock price and an unpriced Jan 27 event; that gap closed via a ~40% pre-run. Now the sector is in a full unwind (Rigetti -54%, multiple Motley Fool bubble-burst pieces naming D-Wave specifically). Holding 18 more days in a broken-sector environment for a catalyst whose premium has already been built then likely erased is not defensible.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/08/3-popular-stocks-crash-2026-market-bubble-bursts/",
+        "https://www.fool.com/investing/2026/01/08/down-54-should-you-buy-the-dip-in-rigetti-computin/"
+      ]
+    }
+  ],
+  "2026-01-16": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave $550M acquisition announced, deal close pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Acquisition announcement is already fully public and priced; market has had ~6 days to react with no new close catalyst.",
+      "catalyst_resolved": false,
+      "assessment": "First week of event. D-Wave (QBTS) announced a $550M acquisition around Jan 10; entry on Jan 16. The ANNOUNCEMENT is the trigger for entry, but the pending DEAL CLOSE is the remaining forward catalyst \u2014 it has not occurred. The thesis is intact: event-driven edge persists until close confirmation. Key watch items: regulatory filings, shareholder votes, any financing risk signals. News flow this week is general quantum hype (Motley Fool millionaire framing, stock screener lists) \u2014 not signal. Only the Yahoo Finance piece directly references the $550M acquisition as 'transformational technology moat' strengthener, confirming QBTS is the acquirer, not target. Pure-play remains QBTS \u2014 no superior vehicle in the known set.",
+      "exit_advice": "Exit when deal close is formally confirmed (signed/completed) OR if deal is terminated/abandoned. Monitor for regulatory filings or shareholder vote dates.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/550-million-reason-buy-quantum-140002965.html",
+        "https://www.fool.com/investing/2026/01/16/is-d-wave-quantum-your-ticket-to-becoming-a/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-01-23": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave $550M acquisition announced, deal close pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Announcement hit Jan 10 \u2014 6 days before entry; market has fully priced the news with no deal-close catalyst this week.",
+      "catalyst_resolved": false,
+      "assessment": "Week 2: still no deal-close news, no S-4/proxy filing, no regulatory submission, no shareholder vote date disclosed. The Rosenblatt PT raise to $43 (Jan 8, pre-entry) is analyst sentiment predating entry \u2014 not a deal-process signal. All other QBTS mentions are sector-screener noise (Motley Fool, MarketBeat lists). The pending DEAL CLOSE remains the sole outstanding forward catalyst; catalyst_resolved = false. The exit_case flags the real risk: the announcement has been public since Jan 10, entry was Jan 16, and the longer deal-process news is absent, the more the position bleeds into pure quantum-hype exposure rather than event-driven edge. Watch for proxy/S-4 filing or any financing/regulatory update as signal. QBTS remains the only pure-play vehicle.",
+      "exit_advice": "Exit on confirmed deal close or termination/withdrawal announcement; also exit if thesis decays further into pure sector momentum with no deal-process filings surfacing.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/rosenblatt-lifts-pt-d-wave-173326731.html"
+      ]
+    },
+    {
+      "ticker": "TLN",
+      "thesis": "Signed definitive agreements to acquire three PJM gas-fired plants",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Definitive agreements were already signed ~Jan 15; TLN surged ~12% that day \u2014 catalyst is backward-looking and priced.",
+      "catalyst_resolved": true,
+      "assessment": "This is the first journal entry and already the catalyst has resolved. The signing of definitive agreements for three PJM gas-fired plants was announced on January 15, 2026. By January 23 (entry date), the event is already public, the stock has absorbed the news, and no information asymmetry remains around the signing itself. A residual thesis about PJM capacity value or data-center power demand is a thematic/strategic idea, not an event-driven catalyst \u2014 it would require a new entry thesis tied to a still-pending discrete event (e.g., FERC approval, deal closing). Under this framework's rules, catalyst_resolved = true forces thesis_live = false regardless of whether TLN may continue to appreciate on broader AI/power themes.",
+      "exit_advice": "Exit TLN. The specific stated catalyst \u2014 signing of definitive agreements \u2014 occurred on ~January 15 and the market already repriced the stock +12% on that news. The edge from the signing event is gone. If you want re-entry, the new forward-looking catalyst must be defined separately (e.g., pending FERC/regulatory approval or deal close), which is a different thesis.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/talen-energy-tln-buys-three-gas-fired-power-plants-1677955/"
+      ]
+    }
+  ],
+  "2026-01-30": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave $550M acquisition announced, deal close pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Three weeks post-announcement, zero deal-process filings (no S-4, proxy, regulator submission); position has decayed from event-driven to pure quantum-hype exposure.",
+      "catalyst_resolved": false,
+      "assessment": "Week 3: No deal-close news, no S-4/proxy filing, no regulatory submission, no shareholder vote date set \u2014 identical to Week 2 and Week 1. This week's news is wholly irrelevant (UnitedHealth/Medicare, S&P record closes, quantum-sector screener list). The $550M deal close remains formally unresolved, so catalyst_resolved=false and thesis_live=true hold technically. However, the exit_case this week is the sharpest it has been: three full weeks post-announcement with zero deal-process evidence means the position is now functionally indistinguishable from a speculative quantum-sector hold. Event-driven edge requires observable deal mechanics \u2014 filings, vote dates, financing confirmations \u2014 none have appeared. Each passing week without process signal shifts the risk/reward toward hype exposure. The next inflection is a deal-process filing or close confirmation; absent either, exit pressure should override hold inertia. QBTS remains the only pure-play vehicle.",
+      "exit_advice": "Set a hard process deadline: if no S-4/proxy filing or deal-process signal surfaces within the next 1-2 weeks, exit \u2014 edge has rotted to sector speculation.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/01/24/best-quantum-computing-stocks-to-follow-today-january-24th.html"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "thesis": "Honeywell moved up aerospace spinoff timeline, announced Q4 2025",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Announcement already made Jan 29; HON shares already jumped \u2014 catalyst is public and fully priced.",
+      "catalyst_resolved": true,
+      "assessment": "The fixed catalyst is 'Honeywell moved up aerospace spinoff timeline, announced Q4 2025.' Per CNBC (Jan 29, 2026), Honeywell made exactly this announcement on its Q4 2025 earnings call and shares jumped the same day. The entry on Jan 30 was therefore made the morning after the catalyst event was already fully public. The announcement is backward-looking from the entry date \u2014 the market saw it, moved on it, and repriced HON in real time. The actual aerospace spinoff completion remains a future event, but that is a distinct, longer-dated catalyst not captured by this entry thesis. Holding for the spinoff execution would require re-entering on a new, explicitly defined catalyst (e.g., spinoff record date, listing, or Form-10 filing). Under event-driven discipline, once the specific catalyst has been announced and priced, the position's edge is exhausted.",
+      "exit_advice": "Exit HON. The specific entry catalyst \u2014 Honeywell's announcement of an accelerated aerospace spinoff timeline on its Q4 2025 earnings call \u2014 has already occurred and the market has immediately absorbed it with a price jump. No residual informational edge from this catalyst remains.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/01/29/honeywells-business-and-stock-are-looking-good-cramer-has-this-advice-for-investors.html"
+      ]
+    }
+  ],
+  "2026-02-06": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave $550M acquisition announced, deal close pending",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Four weeks post-announcement, zero deal-process filings; QBTS now trades on quantum hype, not pending-close mechanics.",
+      "catalyst_resolved": false,
+      "assessment": "Week 4: the deal-process void is now complete \u2014 no S-4/proxy filing, no regulatory submission, no shareholder vote date, no financing confirmation. The only QBTS-specific news is a Motley Fool 'skyrocketed today / rebound rally' piece, pure sentiment framing with zero deal mechanics referenced. The rest of the feed is sector-screener noise and wholly unrelated stories (India budget, Novartis, SPX Technologies). The journal arc is unambiguous: Weeks 1-3 each flagged the identical absence of deal-process signals, with Week 3 explicitly concluding 'exit pressure should override hold inertia absent process signals.' Week 4 delivers no change whatsoever. The deal close remains technically unresolved (catalyst_resolved=false), but the event-driven thesis requires observable deal mechanics to distinguish it from speculative quantum exposure \u2014 none have appeared in a full month. Holding QBTS now is a quantum-hype bet, not an event-driven position. Thesis_live=false. Exit.",
+      "exit_advice": "Exit QBTS. Four consecutive weeks of zero deal-process evidence (no S-4, no proxy, no regulatory filing, no vote date, no financing update) confirm event-driven edge has fully decayed into speculative quantum-sector exposure.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/02/06/d-wave-quantum-stock-is-surging-today-is-the-stock/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-02-13": [],
   "2026-02-20": [],
   "2026-02-27": [],
   "2026-03-06": [],
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
+      "thesis": "Strait of Hormuz chokepoint risk spikes oil-tanker day-rates",
       "thesis_live": true,
       "src": "seed",
-      "exit_case": "Hormuz closure announced ~March 9; BWET has already spiked \u2014 front-end tanker futures may be fully priced.",
+      "exit_case": "A rapid Iran-US diplomatic breakthrough could collapse Hormuz risk premium and day-rates overnight.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Strait of Hormuz closure confirmed circa March 9 as U.S.-Iran conflict escalated; Eurasia Review (March 11) confirms U.S. military operations in Iran are ongoing. El-balad (March 9) noted markets plunged specifically on Hormuz closure news. MarketWatch (March 13) reports BWET still climbing as Hormuz risk keeps tanker day-rates elevated \u2014 the catalyst is live and unresolved. No evidence of strait re-opening or ceasefire. BWET is the correct and only vehicle: a pure-play tanker freight-futures ETN with direct exposure to VLCC/crude day-rates. Critical structural risk to monitor: BWET rolls front-month tanker futures and can suffer severe NAV decay via contango even while spot rates remain elevated \u2014 this is a time-sensitive hold, not a passive one. Exit trigger is geopolitical (strait re-opens / conflict ends) OR structural (roll yield turns deeply negative and NAV decouples from rates).",
-      "exit_advice": "Hold BWET while Strait remains closed and day-rates are elevated; exit immediately on credible ceasefire, confirmed strait re-opening, or if BWET NAV is visibly eroding from contango roll despite firm spot rates.",
-      "evidence_urls": [
-        "https://www.el-balad.com/16874214",
-        "https://www.eurasiareview.com/10032026-security-of-weapons-of-mass-destruction-related-materials-in-the-iran-conflict-analysis/",
-        "https://thebull.com.au/news/asx-200-moves-negative-ytd-as-middle-east-oil-shock-triggers-broad-sell-off/"
-      ]
+      "assessment": "First week. Hormuz chokepoint risk remains live and is actively lifting VLCC day-rates per this week's news. BWET is described as still niche and under-owned \u2014 no crowding signal yet, suggesting the freight-futures curve has not fully priced the risk spike. Catalyst is unambiguously still pending. Key watch items: any Iran-US back-channel talks, IRGC naval activity, or US carrier-group posture changes. BWET is the sole known vehicle and the cleanest pure-play (freight-futures ETN, not shipping equity), so no vehicle rotation needed at this stage. Hold and monitor diplomatic headlines as the primary exit trigger.",
+      "exit_advice": "Exit if a credible Iran-US deal or Hormuz de-escalation is announced \u2014 that resolves the specific catalyst regardless of where BWET trades at that moment.",
+      "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
+      "thesis": "Strait of Hormuz chokepoint risk spikes oil-tanker day-rates",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "BWET contango roll decay may now outpace spot-rate gains; NAV decoupling risk accelerates with time.",
+      "exit_case": "Week's only Hormuz mention is a passive 'investors watch' note \u2014 no fresh escalation driving day-rates higher.",
       "catalyst_resolved": false,
-      "assessment": "Week 2: all three news items confirm the catalyst remains fully live and is intensifying. Oil has surged 'well above $100 a barrel,' European equities are logging their second consecutive weekly loss driven by Middle East conflict fears, and the Strait of Hormuz is explicitly named as the focal point of investor anxiety. No ceasefire, no re-opening, no diplomatic resolution reported anywhere. BWET remains the correct and only vehicle. The one growing concern is structural, not geopolitical: each week of hold adds another monthly futures roll under what could be a steep contango in tanker-rate futures. The position must be actively monitored \u2014 not passively held \u2014 and exit should be swift once either trigger fires.",
-      "exit_advice": "Hold BWET but watch it with urgency: the geopolitical catalyst (strait closed, conflict escalating) is unambiguously live \u2014 oil above $100, markets in second weekly loss, Hormuz explicitly cited by investors \u2014 so no forced exit. However, BWET's structural roll-cost risk grows every week the strait stays closed; if spot tanker rates plateau or the futures curve steepens in contango, NAV will silently bleed. Trigger exit on ANY confirmed ceasefire/re-opening OR on evidence that BWET NAV is materially decoupling (lagging) spot VLCC rates despite continued closure.",
+      "assessment": "Second week; the chokepoint risk is unresolved and still being cited by market participants (FTSE energy-stock move linked explicitly to Hormuz watching). No ceasefire, back-channel deal, or carrier-group posture change has been reported. The news flow is thin \u2014 one brief secondary mention \u2014 which is neither a resolution signal nor a new escalation catalyst. BWET remains under-owned relative to equity tanker names and is the cleanest pure-play on freight-futures rather than shipping-company P&L. Devil's advocate is noted: absent a fresh flashpoint this week, day-rate momentum may stall. But stalling is not reversal and the structural threat (Iran leverage over the strait) is intact. Hold BWET; primary watch remains any formal Iran-US diplomatic announcement or IRGC naval stand-down order.",
+      "exit_advice": "Exit if Iran-US diplomatic channel reopens formally, IRGC naval activity stands down, or VLCC day-rate indices show sustained multi-week decline without new threat event.",
       "evidence_urls": [
-        "https://www.marketscreener.com/news/milan-stocks-tumble-at-the-open-alongside-european-peers-eni-holds-firm-as-inwit-collapses-ce7e5eded88bf520",
-        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625",
-        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/european-shares-log-second-week-losses-middle-east-war-fuels-inflation-fears"
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
       ]
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
+      "thesis": "Strait of Hormuz chokepoint risk spikes oil-tanker day-rates",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "BWET three weeks into hold; each futures roll in steep contango erodes NAV even if rates stay elevated \u2014 structural decay may now outpace geopolitical upside.",
+      "exit_case": "Three weeks in, zero fresh Hormuz incidents; the day-rate spike may already be decaying without any formal resolution.",
       "catalyst_resolved": false,
-      "assessment": "Week 3 \u2014 catalyst not only unresolved but visibly intensifying. Mirror (March 26) reports thousands of US ground assault troops deploying to the Gulf, peace proposals rejected by both sides, and the UN explicitly warning the conflict is 'out of control.' This is directionally opposite to resolution. Fortescue/China story is irrelevant noise. The Hormuz closure thesis remains fully intact: no ceasefire, no diplomatic channel, no re-opening. The sole risk that has grown materially is structural \u2014 three weekly futures rolls on BWET under what prior notes flag as potential steep contango in tanker-rate futures. This is now the dominant monitoring variable. The geopolitical trigger (strait re-opens / conflict ends) remains the primary exit, but roll-yield deterioration must be checked at each roll date. BWET remains the only vehicle; no alternative is cleaner for crude tanker day-rate exposure.",
-      "exit_advice": "Hold but treat roll decay as a hard clock: if next roll produces deeply negative carry vs. spot rate move, exit regardless of geopolitics. Exit immediately on any credible ceasefire or strait re-opening signal.",
-      "evidence_urls": [
-        "https://www.mirror.co.uk/news/world-news/iran-war-escalation-fears-un-36926530"
-      ]
+      "assessment": "No news this week is the core problem. The devil's advocate case is genuinely strong: the catalyst was a *spike* in day-rates driven by acute Hormuz risk, and three weeks of no new incident or escalation suggests the risk premium embedded in freight futures is likely eroding even without a formal resolution. The structural threat (Iran's leverage) is unchanged, but structural threats that stop generating headlines stop generating freight-rate moves. BWET as a freight-futures ETN decays on carry if the curve flattens \u2014 unlike an equity tanker name, it has no operational upside cushion. Thesis is technically still live (no ceasefire, no deal, no IRGC stand-down), but conviction is dropping. Hold BWET narrowly; any further news vacuum next week should flip this to exit.",
+      "exit_advice": "Exit if confirmed Iran-US back-channel deal, IRGC naval stand-down, or a sustained multi-week collapse in VLCC day-rates signals the risk premium has fully drained. The silence this week is the loudest warning yet \u2014 a fourth consecutive week of no new flashpoint should prompt a hard re-evaluation of whether the spike thesis has quietly expired.",
+      "evidence_urls": []
     }
   ],
   "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
-      "thesis_live": true,
+      "thesis": "Strait of Hormuz chokepoint risk spikes oil-tanker day-rates",
+      "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "Trump declares conflict's 'final phase'; 40-nation coalition demands Hormuz reopening \u2014 market front-runs resolution before physical reopening.",
-      "catalyst_resolved": false,
-      "assessment": "Week 4: The Hormuz blockade is physically still in place \u2014 Iran continues to target Israel and Gulf neighbors, and every headline confirms the strait remains closed \u2014 so the catalyst has not technically resolved. However, the resolution arc shifted decisively this week. Trump (Day 34) declared the conflict in its 'final phase' and threatened a 'final blow.' The UK has convened 40 nations explicitly demanding the end of the Hormuz blockade. Macron confirmed an allied coalition is being assembled for free passage 'once hostilities stop.' These are not noise: they are coordinated political signals that precede a ceasefire. The thesis entered on was 'Hormuz closed, spiking day-rates' \u2014 that dynamic is still intact today, but tanker futures markets will price reopening the moment a ceasefire is credibly telegraphed, which may be within days. Combined with four consecutive weeks of front-month futures rolls flagged since entry as a structural drag, the optimal exit window is now, not after confirmation. The strait is still closed; the thesis is still technically live \u2014 but holding into a telegraphed resolution is how the gain turns into a loss.",
-      "exit_advice": "EXIT THIS WEEK \u2014 do not wait for the strait to physically reopen. Trump's 'final phase' declaration + UK-convened 40-nation coalition explicitly demanding Hormuz reopening will be priced into tanker futures before any physical event. BWET will crater on ceasefire rumours, not confirmation. Four weeks of contango roll decay already eroding NAV. The risk/reward is now inverted: remaining upside is days, downside is immediate once resolution trades.",
+      "exit_case": "Trump signals willingness to end war without reopening Hormuz \u2014 de-escalation removes the acute risk premium that drove the day-rate spike.",
+      "catalyst_resolved": true,
+      "assessment": "The entire thesis rested on ACUTE Hormuz risk spiking day-rates \u2014 a fear-premium trade, not a physical-disruption trade. Three weeks of news vacuum had already eroded conviction, and last week's note explicitly said the next news vacuum should flip this to exit. Instead we got something worse than silence: a direct presidential de-escalation signal. 'Willing to end war without reopening Hormuz' tells us (1) there is active back-channel movement toward war termination, and (2) even the US is no longer anchoring settlement terms to Hormuz re-opening. The tail-risk premium that drove the day-rate spike is now being priced out. The physical restriction of the strait may persist \u2014 but a permanently restricted strait at stable low-risk is a structural ton-miles thesis, not the risk-spike thesis entered on. The catalyst (acute risk spike) has peaked and is reversing. Exiting.",
+      "exit_advice": "Exit BWET immediately. The presidential de-escalation signal is the clean exit trigger that last week's journal explicitly called for. BWET is a freight-futures ETN with no operational cushion \u2014 carry erosion accelerates as the risk curve flattens. Do not re-enter on a 'Hormuz stays closed' structural thesis; that is a different trade requiring a different vehicle.",
       "evidence_urls": [
-        "http://www.australiannews.net/news/278961043/iran-war-day-34-trump-says-end-is-near-threatens-final-blow",
-        "http://www.iraqsun.com/news/278961123/uk-led-40-nation-coalition-demands-end-to-hormuz-blockade",
-        "https://www.independent.co.uk/news/world/middle-east/macron-strait-of-hormuz-trump-iran-b2951286.html",
-        "https://www.chesterstandard.co.uk/news/national/25991400.iran-targets-israel-gulf-neighbours-trump-talks-winding-war"
+        "https://www.morningstar.com/news/dow-jones/2026033011096/dow-jones-top-markets-headlines-at-11-pm-et-trump-tells-aides-hes-willing-to-end-war-without-reopening-hormuz-stock"
       ]
     }
   ],
-  "2026-04-10": [
-    {
-      "ticker": "BWET",
-      "thesis": "Strait of Hormuz closed by Iran conflict, spiking tanker day-rates",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Own journal Week 4 explicitly said exit 'now, not after confirmation'; zero news this week confirms narrative decay \u2014 edge is gone.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst was 'Hormuz closed, spiking tanker day-rates.' That closure was the surprise/ongoing shock that created the edge. By Week 4, the edge had already eroded: Trump's 'final phase' declaration, a 40-nation UK-led coalition explicitly demanding strait reopening, and Macron's free-passage coalition language were coordinated resolution signals, not noise. This week, zero news coverage for an event that had been generating daily global headlines \u2014 oil crises, ground troop deployments, UN emergency sessions \u2014 is decisive. Acute blockades that remain live do not go quiet; they generate news. The silence confirms the narrative has resolved or decayed past the point of edge. The structural drag (five monthly futures roll cycles on a contango curve) has been flagged since entry as the secondary exit trigger; five weeks is well past the safe hold window for a front-month futures ETN in this rate environment. Catalyst resolved; thesis closed.",
-      "exit_advice": "Exit BWET immediately. The journal's Week 4 note was unambiguous: 'the optimal exit window is now, not after confirmation.' Holding one additional week past your own explicit exit call \u2014 into a news vacuum \u2014 is exactly the inertia this process is meant to break. Five weeks of front-month futures roll drag on a contango-exposed ETN compounds daily. Tanker-rate futures price strait reopening before headlines confirm it; the absence of any Hormuz coverage this week for an event that was generating daily coverage (oil above $100, US ground troops, UN emergency sessions) is itself a signal that the acute phase has passed and the market has repriced. Do not wait for a formal ceasefire announcement \u2014 you will be selling into a crowd. The trade is over.",
-      "evidence_urls": []
-    }
-  ],
+  "2026-04-10": [],
   "2026-04-17": [],
   "2026-04-24": [],
   "2026-05-01": [],
   "2026-05-08": [
     {
-      "ticker": "INTC",
-      "thesis": "Apple named as buyer of Intel chips for iPhone in new supply deal",
+      "ticker": "OKLO",
+      "thesis": "Named May 12 regulatory/approval event cited as next catalyst",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "CNBC headline uses conditional 'would mean' \u2014 but if deal is already signed, catalyst is fully priced.",
+      "exit_case": "Stock already surged 46% in April; May 12 catalyst is heavily pre-priced, buy-the-rumor dynamic may be exhausted.",
       "catalyst_resolved": false,
-      "assessment": "First week of this event. The CNBC article (May 8) discusses what an Apple-Intel iPhone chip deal 'would mean,' framing it as still prospective or in negotiation \u2014 not yet a signed, closed supply agreement. The catalyst (formal deal signing/announcement) is therefore still PENDING. INTC is the direct, cleanest vehicle: a confirmed Apple supply agreement for iPhone chips would be a major volume and credibility inflection for Intel's foundry/chip business. The thesis is live until the deal is formally confirmed (at which point it resolves and the edge is gone) or definitively falls apart. Watch for official press releases from either Apple or Intel confirming a multiyear supply arrangement.",
-      "exit_advice": "Exit on formal, confirmed signing of Apple-Intel iPhone chip supply agreement, or on credible denial/collapse of talks.",
+      "assessment": "First week of entry (May 8); May 12 regulatory/approval event is 4 days away and explicitly unresolved per Motley Fool framing ('set for another big jump after May 12?'). Catalyst is still pending, thesis is live. Key risk: the 46% April surge means the event is heavily front-run, raising 'sell the news' probability even on a positive outcome. OKLO remains the only named pure-play vehicle. Hold through May 12, then exit promptly \u2014 do not let a catalyst that has resolved linger as a 'theme' hold.",
+      "exit_advice": "Exit on or immediately after May 12 event resolution \u2014 catalyst will be fully public and priced regardless of outcome; do not hold through a post-event drift hoping for more.",
       "evidence_urls": [
-        "https://www.cnbc.com/2026/05/08/what-an-apple-deal-to-buy-intel-chips-would-mean-for-the-iphone-maker.html"
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001"
       ]
     }
   ],
   "2026-05-15": [
     {
-      "ticker": "INTC",
-      "thesis": "Apple named as buyer of Intel chips for iPhone in new supply deal",
-      "thesis_live": true,
+      "ticker": "OKLO",
+      "thesis": "Named May 12 regulatory/approval event cited as next catalyst",
+      "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "Original CNBC article was speculative framing; two weeks with zero deal confirmation suggests rumor already fully priced or quietly fading.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news cycle is entirely unrelated to the Apple-Intel iPhone chip thesis \u2014 all coverage concerns SK Hynix's AI-driven market cap milestone and South Korean chipmaker rallies. Zero incremental signal on the Apple-Intel supply deal. The catalyst (formal deal announcement/signing) remains PENDING \u2014 no official press release from either Apple or Intel has surfaced in the two weeks since entry. The thesis stays technically live, but the growing silence is a yellow flag: the longer no confirmation emerges, the more the original article looks like speculative framing that was a one-day trade, not a pending event catalyst. INTC remains the sole, cleanest vehicle \u2014 nothing in the known set has changed.",
-      "exit_advice": "Exit immediately on any Apple or Intel statement explicitly denying the deal, or if a formal signing is announced (catalyst resolves). Also exit if three more weeks pass with no confirmation \u2014 rumor decay risk rises sharply.",
+      "exit_case": "May 12 event date has passed; the specific dated catalyst is resolved by calendar alone.",
+      "catalyst_resolved": true,
+      "assessment": "The catalyst entered on was a specific named date \u2014 May 12 regulatory/approval event. That date has passed. Regardless of outcome (positive, negative, or anticlimactic), a time-stamped catalyst resolves when the date passes; the information is now public and any edge is gone. The entry journal anticipated this precisely and pre-committed to a prompt exit. This week's only news \u2014 JPMorgan declining to turn bullish on OKLO despite a favorable SMR macro outlook \u2014 confirms no new near-term event-driven catalyst has replaced the May 12 one. JPMorgan's caution on valuation further argues against holding into a theme narrative. The SMR/nuclear story may continue, but that is a theme, not the specific event-driven catalyst this position was built around. Close the position.",
+      "exit_advice": "Exit OKLO immediately. The May 12 catalyst date has passed (it is now May 15), and the entry journal's own standing instruction was explicit: 'exit promptly after May 12, do not let a resolved catalyst linger as a theme hold.' Execute that exit now.",
       "evidence_urls": [
-        "https://www.channelnewsasia.com/business/south-korea-kospi-record-high-ai-samsung-sk-hynix-6112751",
-        "https://finance.yahoo.com/markets/stocks/articles/ai-boom-puts-sk-hynix-024830771.html"
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html"
       ]
     }
   ],
-  "2026-05-22": [
+  "2026-05-22": [],
+  "2026-05-29": [],
+  "2026-06-05": [],
+  "2026-06-12": [],
+  "2026-06-19": [
     {
-      "ticker": "INTC",
-      "thesis": "Apple named as buyer of Intel chips for iPhone in new supply deal",
-      "thesis_live": false,
+      "ticker": "UNP",
+      "thesis": "$85B UNP\u2013Norfolk Southern merger awaiting STB regulatory approval",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Three weeks of total silence; original article was speculative framing ('what it would mean'), not a confirmed imminent deal \u2014 catalyst credibility gone.",
+      "exit_case": "STB Class I railroad merger reviews run 3+ years; no binary ruling imminent, so near-term edge is structurally thin.",
       "catalyst_resolved": false,
-      "assessment": "Reviewing the full journal: at entry, the CNBC article itself framed the Apple-Intel deal as hypothetical ('what it would mean') \u2014 a red flag that was noted but held through. Week 2 and now Week 3 have produced zero confirmation from either Apple or Intel, no secondary reporting, and no supply agreement leak. A genuine pending supply deal of this magnitude \u2014 Apple switching iPhone chips to Intel \u2014 would have generated follow-on coverage, supply chain chatter, or at minimum analyst commentary in 15 days. The silence is diagnostic: the original catalyst was analyst speculation dressed as a pending event, not an actual imminent announcement. Thesis_live is set false not because the deal was signed/denied (catalyst_resolved=false), but because the evidentiary basis for the catalyst being real and pending has fully collapsed. The edge is gone.",
-      "exit_advice": "Exit INTC. The original article was prospective/speculative, not a deal announcement. Three consecutive weeks of zero incremental confirmation from Apple, Intel, or any credible secondary source means the 'pending catalyst' premise was likely never real. The thesis has not resolved \u2014 it has evaporated. With no confirmed deal incoming, holding carries the downside of INTC without the event edge that justified entry.",
+      "assessment": "First week of coverage. The catalyst \u2014 STB regulatory approval for the $85B UNP\u2013NSC merger \u2014 is firmly pending. This week's news confirms UNP is making formal supporting submissions to the STB, which is early-stage procedural activity, not a resolution signal. STB reviews of Class I railroad combinations under modern rules are notoriously long (historically 3+ years), so no ruling is imminent. The thesis is alive but requires patience. Key milestones to track: STB acceptance of the application, formal hearing schedule, DOJ Antitrust Division posture, shipper/competitor opposition filings (CN, BNSF, CSX likely to intervene), and any political pressure from agricultural or labor constituencies. UNP is an impure vehicle \u2014 as acquirer it bears integration risk and regulatory uncertainty, unlike the target (NSC) which would trade a cleaner spread to deal price. NSC is not in the known vehicle set, so UNP remains the designated vehicle; consider flagging NSC for addition if spread-to-close becomes the primary signal. No material new information this week beyond the filing confirmation.",
+      "exit_advice": "Exit on STB approval or denial (catalyst resolved either way); also exit on merger withdrawal, abandonment, or DOJ block that ends the deal.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/union-pacific-corporation-unp-makes-211933430.html",
+        "https://www.insidermonkey.com/blog/union-pacific-corporation-unp-makes-submissions-supporting-85b-merger-with-norfolk-southern-1782066/"
+      ]
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "UNP",
+      "thesis": "$85B UNP\u2013Norfolk Southern merger awaiting STB regulatory approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero news this week; STB Class I reviews historically run 3+ years \u2014 thesis has no near-term resolution and suffers pure time-decay.",
+      "catalyst_resolved": false,
+      "assessment": "Second week of coverage; no material developments. The STB regulatory process remains at the very earliest procedural stage \u2014 formal submission support, no acceptance or docketing announced. The 3+ year historical review window for Class I combinations means no ruling is imminent. The exit case this week is legitimate: this is pure time-decay with no catalyst progression. The thesis is technically alive (approval still pending, not denied or withdrawn), but the holding cost is rising without offsetting information flow. UNP as acquirer remains an impure vehicle \u2014 it absorbs integration risk and regulatory drag rather than trading a clean spread to deal close. If NSC (the target) were added to the known vehicle set, it would be the cleaner express of this thesis. No change to vehicle or stance; monitor STB docket for application acceptance.",
+      "exit_advice": "Hold but flag: the time-decay argument is real. With no news flow and a multi-year STB timeline, UNP offers little event-driven edge in the near term. The position is not wrong, but it is idle \u2014 watch for STB application acceptance, DOJ posture announcement, or intervenor filings as the next live milestones.",
       "evidence_urls": []
     }
   ],
-  "2026-05-29": [
+  "2026-07-03": [
     {
-      "ticker": "OKLO",
-      "thesis": "Oklo in advanced Energy Department talks for nuclear fuel program",
+      "ticker": "UNP",
+      "thesis": "$85B UNP\u2013Norfolk Southern merger awaiting STB regulatory approval",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Advanced-talks news broke May 27 and is fully public; stock already surged \u2014 catalyst is priced.",
+      "exit_case": "Three consecutive weeks of zero news; STB approval is 3+ years away \u2014 pure time-decay, no near-term catalyst progression in an impure acquirer vehicle.",
       "catalyst_resolved": false,
-      "assessment": "First week. The catalyst \u2014 Oklo in advanced DOE fuel-program talks \u2014 was publicly reported May 27 and caused an immediate share surge. The exit case is real: the 'talks' news itself is already priced. However, the talks have NOT concluded; no contract has been signed, awarded, or denied. The actionable binary (deal closed vs. talks fail) is still pending, which preserves edge. The thesis lives on the outcome, not the announcement of the process. Broader nuclear hype (multiple 'best nuclear stocks' articles) is general crowding, not catalyst resolution. Hold OKLO as the only pure-play vehicle; no alternative in known set. Monitor for formal DOE program award or breakdown of negotiations.",
-      "exit_advice": "Exit when DOE fuel program contract is formally signed/awarded (catalyst complete) OR if talks officially collapse or are denied.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/nuclear-energy-startup-oklos-stock-154526723.html"
-      ]
+      "assessment": "Third consecutive week with no material news. The STB process remains at the absolute earliest procedural stage \u2014 no formal application acceptance, no docketing, no hearing schedule, no DOJ posture signal. The specific catalyst (STB approval) is unambiguously still pending and has not been granted or denied, so catalyst_resolved stays false and thesis_live stays true \u2014 but this is a minimal, technical 'alive.' The structural problems identified in weeks 1 and 2 are compounding: (1) information velocity is zero and the review horizon is 3+ years, making this a pure carry trade with no near-term binary; (2) UNP as acquirer is the least efficient vehicle \u2014 it absorbs integration execution risk and regulatory overhang rather than expressing a clean deal-close spread; (3) with no news flow, there is no edge advantage over a passive holder. The next meaningful milestone remains STB docket acceptance of the formal application \u2014 that event would restart genuine catalyst monitoring. Until then, the position is costing time and opportunity. NSC (target) remains the structurally cleaner vehicle but is outside the known set.",
+      "exit_advice": "Thesis technically alive but degrading rapidly: zero information velocity for three straight weeks, 3+ year review horizon, and UNP absorbs acquirer drag rather than trading a clean spread. Seriously consider exiting to redeploy capital until a concrete STB milestone (application acceptance, docketing, hearing schedule) materializes.",
+      "evidence_urls": []
     }
-  ],
-  "2026-06-05": [
-    {
-      "ticker": "OKLO",
-      "thesis": "Oklo in advanced Energy Department talks for nuclear fuel program",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "DOE 'advanced talks' announcement fully priced at entry; two weeks on, zero deal-specific updates \u2014 stock now moves on sector hype alone.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is 100% sector noise: 'best nuclear stocks' listicles, AI-energy narratives, analyst reinstates OKLO at Buy/$80 on general thesis \u2014 zero OKLO-specific DOE fuel program updates. The binary (contract awarded vs. talks collapse) is still pending; the specific catalyst has neither resolved nor been denied. The exit_case is real \u2014 the 'talks' announcement is fully priced \u2014 but that is an announcement, not a resolution. Crowding in the nuclear theme is not catalyst resolution. Hold OKLO as sole pure-play vehicle; the event clock is running, and any formal DOE program announcement (award or cancellation) is the true exit trigger.",
-      "exit_advice": "Exit on formal DOE contract award (catalyst fully priced/resolved) OR confirmed breakdown of negotiations. Do NOT exit on continued nuclear-sector hype articles alone.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/analyst-reinstates-oklo-with-buy-rating-80-price-target-1771780/",
-        "https://finance.yahoo.com/sectors/energy/articles/analyst-reinstates-oklo-buy-rating-005347785.html"
-      ]
-    }
-  ],
-  "2026-06-12": [
-    {
-      "ticker": "OKLO",
-      "thesis": "Oklo in advanced Energy Department talks for nuclear fuel program",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Three weeks since 'advanced talks' announcement; zero DOE-specific updates \u2014 thesis decays by irrelevance, not resolution.",
-      "catalyst_resolved": false,
-      "assessment": "This week's news is again 100% sector noise \u2014 a generic 'promising nuclear stocks' listicle and an irrelevant Indian equities report. There is no OKLO-specific DOE fuel program update for the third straight week. The specific catalyst (advanced DOE talks \u2192 contract outcome) has neither been awarded nor denied, so catalyst_resolved remains false. However, the hold is increasingly fragile: the original announcement is fully priced and aging (entered May 27), and time-decay is now the primary risk rather than an adverse binary outcome. OKLO remains the only pure-play vehicle in the known set. The thesis lives, but just barely \u2014 the absence of news is itself information suggesting the talks may have stalled, gone quiet, or been superseded by other DOE priorities.",
-      "exit_advice": "The binary (contract awarded vs. talks collapse) remains technically open, but three consecutive weeks of zero catalyst-specific news is a serious decay signal. Any DOE program announcement \u2014 award OR cancellation \u2014 is the immediate exit trigger. If a fourth week passes with no DOE update, re-evaluate whether this thesis has simply gone dark rather than pending.",
-      "evidence_urls": [
-        "https://www.themarketsdaily.com/2026/06/11/promising-nuclear-stocks-to-follow-today-june-11th.html"
-      ]
-    }
-  ],
-  "2026-06-19": [
-    {
-      "ticker": "OKLO",
-      "thesis": "Oklo in advanced Energy Department talks for nuclear fuel program",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Four consecutive weeks of zero DOE-specific news; advanced-talks announcement fully priced, event edge has completely decayed.",
-      "catalyst_resolved": false,
-      "assessment": "This is week four since entry and the fourth consecutive week of zero OKLO-specific DOE fuel-program news. The news this week is entirely generic sector noise: nuclear listicles, AI-energy demand narratives, and broad market commentary \u2014 none touching the specific catalyst. No contract has been publicly awarded or denied, so catalyst_resolved stays false in the strict technical sense. However, thesis_live is now false on time-decay grounds: event-driven edge requires a pending binary that the market is still pricing toward resolution; after four weeks of silence the market has no signal to price, the original announcement premium has fully absorbed, and any continued position is indistinguishable from a plain nuclear sector bet. The talks may be ongoing, may have collapsed without announcement, or may have been superseded by other DOE priorities \u2014 none of those scenarios preserve edge. Exit cleanly.",
-      "exit_advice": "Exit OKLO. Four weeks of total silence on the DOE fuel-program talks means the event-driven edge is gone regardless of formal resolution status. Talks have either stalled, concluded quietly, or are running on an indefinitely long timeline. The original announcement is fully priced; holding further is a sector-theme bet, not this event.",
-      "evidence_urls": [
-        "https://www.themarketsdaily.com/2026/06/19/nuclear-stocks-to-research-june-19th.html",
-        "https://finance.yahoo.com/energy/articles/2-nuclear-stocks-worth-buying-105000954.html"
-      ]
-    }
-  ],
-  "2026-06-26": [],
-  "2026-07-03": []
+  ]
 }
