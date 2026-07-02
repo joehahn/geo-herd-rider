@@ -288,7 +288,9 @@ def _gem_universe() -> list:
         if tk not in panel.columns or not trig:
             continue
         s = panel[tk].dropna()
-        s = s[(s.index >= pd.Timestamp(trig)) & (s.index <= pd.Timestamp(trig) + pd.Timedelta(days=730))]
+        wend = g.get("window_end")   # per-gem window end if set, else 24 months from trigger
+        end = pd.Timestamp(wend) if wend else pd.Timestamp(trig) + pd.Timedelta(days=730)
+        s = s[(s.index >= pd.Timestamp(trig)) & (s.index <= end)]
         if len(s) < 2 or not float(s.iloc[0]):
             continue
         base = float(s.iloc[0])
