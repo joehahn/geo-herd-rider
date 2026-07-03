@@ -1,255 +1,188 @@
 {
+  "2025-12-26": [],
+  "2026-01-02": [],
+  "2026-01-09": [],
+  "2026-01-16": [],
+  "2026-01-23": [],
+  "2026-01-30": [],
   "2026-02-06": [],
   "2026-02-13": [],
-  "2026-02-20": [],
-  "2026-02-27": [
+  "2026-02-20": [
     {
-      "ticker": "CEG",
-      "thesis": "Unit signs new 380 MW CyrusOne deal",
-      "thesis_live": false,
-      "exit_case": "Deal signed Feb 9 (already public)",
-      "catalyst_resolved": true,
-      "assessment": "CEG unit signed 380 MW CyrusOne PPA on Feb 9; reported this week",
-      "exit_advice": "Exit; catalyst complete and priced in",
+      "ticker": "BWET",
+      "thesis": "Iran tensions lift tanker rates",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tanker rates rising on BWET; tensions cited but news omits Iran link. Catalyst remains early and pending.",
+      "exit_advice": "HOLD; Iran-specific tanker spike unconfirmed and under-reported so far.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "http://www.bignewsnetwork.com/news/278876684/farewell-to-soft-power"
       ]
     }
   ],
-  "2026-03-06": [],
+  "2026-02-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran tensions lift tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Catalyst still pending with zero fresh coverage this week; initial notes confirm early stage and Iran link not yet explicit in reporting. Silence does not constitute exit while driving condition (Iran tensions) remains active.",
+      "exit_advice": "Maintain position; no resolution or reversal evident.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran tensions lift tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Iran tensions still driving pending catalyst with zero coverage; arc incomplete and under-radar",
+      "exit_advice": "Hold; tensions active, no resolution",
+      "evidence_urls": []
+    }
+  ],
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Iran tensions lift tanker rates",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Catalyst remains live; BWET tracks ongoing Hormuz-driven tanker rate spike.",
-      "exit_advice": "Exit once Hormuz risk visibly eases or day-rates roll over.",
+      "conviction": 8,
+      "assessment": "Iran/Hormuz tensions continue to support elevated tanker rates with BWET under-owned and no resolution in sight; coverage remains limited despite price climb.",
+      "exit_advice": "Hold; still early niche freight play on active Hormuz risk.",
       "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Iran tensions lift tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Catalyst remains live; no coverage this week.",
-      "exit_advice": "Hold; no resolution evidence.",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "Iran/Hormuz tensions continue elevating tanker rates with no resolution or reversal; still under-radar despite slow price gains and BWET remains the clean vehicle.",
+      "exit_advice": "Hold; tensions active, coverage thin, edge intact",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-european-shares-log-second-week-of-losses-as-mideast-war-fuels-inflation-fears/articleshow/129569450.cms"
+      ]
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst ongoing per journal; BWET still tracks Hormuz-driven rates with zero new signals.",
-      "exit_advice": "Hold; no resolution visible.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-04-03": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Journal shows catalyst ongoing with zero signals of decay or closure; BWET remains clean vehicle.",
-      "exit_advice": "Hold; no resolution signal.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-04-10": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst unchanged; Hormuz tanker-rate support intact with no closure evidence.",
-      "exit_advice": "Hold; no decay signals across journal.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-04-17": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz-driven rate support intact; BWET clean vehicle.",
-      "exit_advice": "Hold; no resolution signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-04-24": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz tanker-rate support intact; BWET clean vehicle.",
-      "exit_advice": "Hold; no resolution signal.",
+      "thesis": "Iran tensions lift tanker rates",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "War fears ease, oil slumps, tensions reversed",
+      "catalyst_resolved": true,
+      "conviction": 4,
+      "assessment": "Iran/Hormuz catalyst ended by easing tensions",
+      "exit_advice": "Exit: driving condition reversed this week",
       "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/26/04/51930047/nasdaq-snaps-13-session-win-streak-on-hormuz-tensions-investor-sentiment-improves-further-fear-index-in-greed-zone"
+        "https://indianexpress.com/article/business/sensex-nifty-early-trade-surge-crude-fall-10599769/"
       ]
     }
   ],
-  "2026-05-01": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz rate support intact across full journal; BWET clean.",
-      "exit_advice": "Hold; no resolution signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-05-08": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "Potential Hormuz breakthrough reported, possibly resolving risk",
-      "catalyst_resolved": false,
-      "assessment": "Journal unchanged through May 1; this week's potential breakthrough is first signal of possible resolution but remains unconfirmed",
-      "exit_advice": "Monitor for confirmed breakthrough; rates may normalize quickly",
-      "evidence_urls": [
-        "https://www.zerohedge.com/markets/crude-slips-amid-reports-potential-strait-hormuz-breakthrough-us-equity-futures-modestly"
-      ]
-    }
-  ],
-  "2026-05-15": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains live per full journal with no resolution signals; 05-08 entry notes unconfirmed breakthrough only.",
-      "exit_advice": "Exit only on confirmed closure of Hormuz risk or rate spike reversal.",
-      "evidence_urls": []
-    }
-  ],
+  "2026-04-03": [],
+  "2026-04-10": [],
+  "2026-04-17": [],
+  "2026-04-24": [],
+  "2026-05-01": [],
+  "2026-05-08": [],
+  "2026-05-15": [],
   "2026-05-22": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Hormuz tensions sustain elevated tanker rates",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Rates remain elevated on ongoing Hormuz tensions per this week's note and entire journal; catalyst pending.",
-      "exit_advice": "Hold; no closure evidence.",
+      "conviction": 8,
+      "assessment": "Hormuz-driven freight spike persists; BWET holding gains on elevated tanker rates.",
+      "exit_advice": "Hold; no resolution in tensions or rates.",
       "evidence_urls": []
     }
   ],
   "2026-05-29": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Hormuz tensions sustain elevated tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Hormuz risk and elevated tanker rates remain intact; 05-08 unconfirmed breakthrough did not close catalyst.",
-      "exit_advice": "Hold; no resolution signals across journal.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": false,
-      "exit_case": "Lawsuit won and announced this week",
-      "catalyst_resolved": true,
-      "assessment": "Catalyst occurred on 2026-05-29 per news; no pending element remains",
-      "exit_advice": "Exit immediately; catalyst fully resolved",
+      "conviction": 5,
+      "assessment": "Hormuz tensions still unaddressed; irrelevant news does not alter tanker-rate catalyst.",
+      "exit_advice": "Hold; no resolution evident.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
+        "https://www.fool.ca/2026/05/28/2-canadian-dividend-giants-id-buy-with-rates-on-hold-5/"
       ]
     }
   ],
   "2026-06-05": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Hormuz tensions sustain elevated tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Hormuz risk and elevated tanker rates unchanged per full journal; 05-08 unconfirmed note did not close catalyst.",
-      "exit_advice": "Hold; no resolution signals.",
+      "conviction": 5,
+      "assessment": "Hormuz tensions remain unaddressed; no new developments alter elevated tanker rates catalyst.",
+      "exit_advice": "Hold; no resolution or reversal evident.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US gov $2B quantum funding push",
-      "thesis_live": false,
-      "exit_case": "Funding push publicly announced 6/3 and allocated",
-      "catalyst_resolved": true,
-      "assessment": "Catalyst occurred at announcement; no pending discrete event remains",
-      "exit_advice": "Exit immediately; catalyst is public and priced-in",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/",
-        "https://www.foreignpolicyjournal.com/2026/06/02/u-s-department-of-commerces-2b-quantum-push-places-d-wave-nyse-qbts-and-honeywell-nasdaq-hon-quantinuum-in-focus/"
-      ]
     }
   ],
   "2026-06-12": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
+      "thesis": "Hormuz tensions sustain elevated tanker rates",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "Markets rebound on easing Middle East geopolitical tensions (Jun 9).",
       "catalyst_resolved": false,
-      "assessment": "Full journal through 06-05 shows catalyst unresolved; 05-08 unconfirmed note did not close it and later entries confirm persistence. No fresh coverage this week.",
-      "exit_advice": "Hold; no exit trigger met.",
-      "evidence_urls": []
+      "conviction": 6,
+      "assessment": "Tensions remain the core driver with mixed signals; no resolution yet and BWET the clean vehicle.",
+      "exit_advice": "Monitor for confirmed de-escalation or Hormuz transit normalization before exiting.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/prediction-markets/26/06/53108294/sp500-june-10-open-up-or-down-polymarket-cpi-inflation-iran-strikes",
+        "https://www.ibtimes.com.au/dow-jones-surges-ai-optimism-middle-east-de-escalation-1870404"
+      ]
     }
   ],
   "2026-06-19": [
     {
       "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz-driven rate support fully intact; 05-08 note never closed catalyst.",
-      "exit_advice": "Hold; no resolution signals across journal.",
-      "evidence_urls": []
-    }
-  ],
-  "2026-06-26": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz risk intact, rates elevated.",
-      "exit_advice": "Hold; no resolution signal.",
+      "thesis": "Hormuz tensions sustain elevated tanker rates",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran deal paves way to reopen Hormuz, reversing tensions and rate driver",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "Deal announcement closes the Hormuz-tension catalyst that justified entry. No remaining scheduled step keeps the original thesis alive.",
+      "exit_advice": "Exit immediately; driving condition reversed by deal.",
       "evidence_urls": [
-        "https://www.actionforex.com/contributors/fundamental-analysis/645245-iran-strikes-ship-near-hormuz-reaction-muted/"
+        "https://www.actionforex.com/contributors/fundamental-analysis/644000-us-iran-deal-paves-way-to-reopen-hormuz-boj-hikes-to-1-0/",
+        "https://www.insidermonkey.com/blog/is-okeanis-eco-tankers-corp-eco-one-of-the-most-profitable-industrial-stocks-to-buy-now-1782047/"
       ]
     }
   ],
-  "2026-07-03": [
-    {
-      "ticker": "BWET",
-      "thesis": "Hormuz risk lifts tanker day-rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Hormuz risk and tanker-rate support fully intact across every entry; 05-08 note never closed catalyst and later weeks confirm persistence.",
-      "exit_advice": "Hold; no resolution in full journal.",
-      "evidence_urls": []
-    }
-  ]
+  "2026-06-26": [],
+  "2026-07-03": []
 }

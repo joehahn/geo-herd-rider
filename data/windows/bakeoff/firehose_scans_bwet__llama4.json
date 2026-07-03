@@ -1,63 +1,277 @@
 {
-  "2026-02-06": [
+  "2025-12-26": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event is still in its initial stage, and SPXC is well-positioned for data center infrastructure evolution.",
-      "exit_advice": "Monitor data center infrastructure evolution progress",
+      "conviction": 8,
+      "assessment": "D-Wave Quantum event on January 27 is the catalyst, with QBTS as the vehicle. News highlights the upcoming event and D-Wave's potential in quantum computing.",
+      "exit_advice": "Continue to hold as the catalyst is still pending and not resolved.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/spx-technologies-spxc-well-positioned-for-data-center-infrastructure-evolution-1689601/"
+        "https://finance.yahoo.com/news/interested-d-wave-quantum-mark-202000583.html"
+      ]
+    }
+  ],
+  "2026-01-02": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "D-Wave Quantum's event on January 27 is still pending, and while there is some mainstream attention, it hasn't reached saturation yet.",
+      "exit_advice": "Hold QBTS as the event is still pending and the catalyst hasn't resolved. Monitor for mainstream saturation and event completion.",
+      "evidence_urls": [
+        "https://biztoc.com/x/f86e0a3113de761b",
+        "https://www.fool.com/investing/2026/01/02/quantum-computing-stock-billionaire-2026-ionq-rgti/"
+      ]
+    },
+    {
+      "ticker": "RTX",
+      "thesis": "Raytheon wins new contract from Space Development Agency",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Contract awarded on December 23, which is before the entry date, potentially resolving the catalyst.",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The contract was awarded prior to the entry date, indicating the catalyst is resolved.",
+      "exit_advice": "The catalyst has already occurred before the entry date, so the edge is gone.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/rtx-corporation-rtx-raytheon-wins-164207376.html"
+      ]
+    }
+  ],
+  "2026-01-09": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The event on January 27 is still pending, and while there is growing mainstream attention on quantum computing stocks, it hasn't reached saturation yet.",
+      "exit_advice": "Hold QBTS as the event is still pending and the catalyst hasn't been fully priced in.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/01/09/top-quantum-computing-stocks-to-keep-an-eye-on-january-9th.html",
+        "https://www.fool.com/investing/2026/01/08/the-best-quantum-computing-stock-to-buy-hand-over/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Track 2 proposed decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "Monitor news for Track 2 decision finalization or significant developments.",
+      "evidence_urls": [
+        "https://biztoc.com/x/7c7121dd7c9206ff",
+        "https://www.insidermonkey.com/blog/sempra-sre-estimates-a-471-million-after-tax-impact-to-earnings-from-track-2-proposed-decision-1669789/",
+        "https://finance.yahoo.com/news/sempra-sre-estimates-471-million-222640495.html"
+      ]
+    }
+  ],
+  "2026-01-16": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The event on January 27 is still pending, and while there is growing mainstream attention on quantum computing stocks, it hasn't reached saturation yet.",
+      "exit_advice": "Hold QBTS as the event is still pending and hasn't reached mainstream saturation.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/16/is-d-wave-quantum-your-ticket-to-becoming-a/?source=iedfolrf0000001",
+        "https://www.morningstar.com/markets/beyond-ai-are-quantum-stocks-next-big-thing-tech-investing"
+      ]
+    },
+    {
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The event remains pending with ongoing discussions and no resolution.",
+      "exit_advice": "Hold as the Track 2 decision's impact is still being estimated.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-01-23": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The D-Wave Quantum event on January 27 is still pending, and mainstream attention on quantum computing stocks is growing, with articles highlighting various quantum computing companies, including D-Wave Quantum (QBTS).",
+      "exit_advice": "Hold QBTS as the event on January 27 is still pending and has not reached mainstream saturation yet.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/rosenblatt-lifts-pt-d-wave-173326731.html",
+        "https://www.insidermonkey.com/blog/10-best-quantum-computing-stocks-to-buy-for-2026-1676934/"
+      ]
+    },
+    {
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions.",
+      "exit_advice": "Hold as the Track 2 decision's impact is still being estimated.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "Constellation Energy completes acquisition of Calpine Corporation",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Constellation Energy completed acquisition of Calpine Corporation on January 7, resolving the catalyst.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The event catalyst has been completed, marking a significant milestone for Constellation Energy Corporation.",
+      "exit_advice": "Exit position as the catalyst has been resolved.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/constellation-energy-ceg-completes-acquisition-of-calpine-corporation-1677946/"
+      ]
+    }
+  ],
+  "2026-01-30": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum event on January 27",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The D-Wave Quantum event on January 27 has occurred and is now public.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The D-Wave Quantum event occurred on January 27, 2026, and is now public.",
+      "exit_advice": "The catalyst has resolved, so it's time to exit the position.",
+      "evidence_urls": [
+        "fool.com"
+      ]
+    },
+    {
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "continue to hold SRE as the Track 2 decision's impact is still being estimated and discussed",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly beat-and-raise earnings expected",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/30/should-you-buy-eli-lilly-before-feb-4/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-02-06": [
+    {
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution.",
+      "exit_advice": "Hold as the Track 2 decision impact is still being estimated and discussed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly beat-and-raise earnings expected",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Eli Lilly earnings expected on 2026-02-06, which is within the week, potentially resolving the catalyst.",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The catalyst for the event was Eli Lilly's beat-and-raise earnings expected on 2026-02-06. Given that the earnings report falls within the week ending 2026-02-06, it is likely that the catalyst has been resolved.",
+      "exit_advice": "Exit position as the catalyst (Eli Lilly beat-and-raise earnings expected) has resolved.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/eli-lilly-and-company-lly-earns-fresh-bullish-calls-from-analysts-1686257/"
       ]
     }
   ],
   "2026-02-13": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "SPXC remains a good vehicle for the event",
-      "exit_advice": "continue to monitor data center infrastructure evolution",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/spx-technologies-spxc-well-positioned-084543197.html"
-      ]
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "Hold as the catalyst remains pending with ongoing discussions and no resolution.",
+      "evidence_urls": []
     },
     {
-      "ticker": "RGTI",
-      "thesis": "Rigetti Computing stock plunge on quantum computing reality check",
+      "ticker": "PTGX",
+      "thesis": "H.C. Wainwright raises Protagonist Therapeutics target",
       "thesis_live": false,
-      "exit_case": "The catalyst has already occurred as Rigetti Computing stock has plunged.",
+      "src": "gdelt",
+      "exit_case": "H.C. Wainwright raised Protagonist Therapeutics target on January 30, 2026, which is now public and priced.",
       "catalyst_resolved": true,
-      "assessment": "The event catalyst was the stock plunge on quantum computing reality check, which has already happened.",
-      "exit_advice": "close position",
+      "conviction": 6,
+      "assessment": "The event catalyst is H.C. Wainwright raising Protagonist Therapeutics target, which occurred on January 30, 2026.",
+      "exit_advice": "The catalyst has already occurred and is public.",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html"
+        "https://finance.yahoo.com/news/h-c-wainwright-raises-protagonist-201315283.html"
       ]
     }
   ],
   "2026-02-20": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No change in the event or vehicle.",
-      "exit_advice": "Continue to hold SPXC",
+      "conviction": 7,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "continue to hold SRE as the catalyst remains pending",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates are climbing, and BWET has nearly doubled in value.",
-      "exit_advice": "Monitor tanker rates for a decline or stabilization.",
+      "conviction": 8,
+      "assessment": "The event catalyst is rising tanker rates, which is still ongoing as indicated by the Breakwave Tanker Shipping ETF (BWET) nearly doubling in the first weeks of 2026.",
+      "exit_advice": "Hold BWET as rising tanker rates continue to be a catalyst.",
       "evidence_urls": [
         "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
       ]
@@ -65,1025 +279,867 @@
   ],
   "2026-02-27": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event is ongoing, with data center infrastructure evolution continuing to be relevant.",
-      "exit_advice": "Continue to hold the position as the catalyst remains pending.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/american-states-water-q4-earnings-201855062.html"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates still climbing, BWET remains a valid vehicle.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "Hold as the catalyst remains pending with ongoing discussions and no resolution.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEG",
-      "thesis": "Constellation Energy unit signs 380-megawatt deal",
-      "thesis_live": false,
-      "exit_case": "Constellation Energy unit has signed the 380-megawatt deal, resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst for the event is Constellation Energy unit signing a 380-megawatt deal, which has been reported.",
-      "exit_advice": "The event is considered resolved as the catalyst has occurred.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
-      ]
+      "ticker": "BWET",
+      "thesis": "Rising tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains ongoing with no resolution or reversal in sight. BWET is still a valid vehicle.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
     }
   ],
   "2026-03-06": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Data center infrastructure evolution remains relevant, with recent news highlighting the growth in data center demand and its impact on related sectors.",
-      "exit_advice": "continue to monitor data center infrastructure evolution",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/03/05/3-millionaire-maker-quantum-computing-stocks/",
-        "https://www.fool.com/investing/2026/03/03/buy-vanguard-sector-etf-utility-march-dividends/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Still trending",
-      "exit_advice": "Monitor for rate reversal",
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "Continue to hold as the Track 2 decision's impact is still being estimated and discussed.",
       "evidence_urls": []
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "BWET",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "TVA's reversal on coal plant retirement is a significant development in the energy sector, with potential implications for coal prices and related stocks",
-      "exit_advice": "continue to monitor TVA's coal plant plans",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/coal-back-tennessee-valley-authority-190020318.html"
-      ]
+      "conviction": 8,
+      "assessment": "Assessing the catalyst's status",
+      "exit_advice": "Continue to hold the position as the catalyst remains unresolved.",
+      "evidence_urls": []
     }
   ],
   "2026-03-13": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution continues to be relevant with growing demand and increasing electricity consumption.",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/3-utility-etfs-massive-upside-163208979.html"
-      ]
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed, indicating the event is still live.",
+      "exit_advice": "Hold as the catalyst remains pending.",
+      "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates could collapse if Middle East tensions ease and Strait of Hormuz risk dissipates.",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and Strait of Hormuz risk; BWET remains a valid vehicle.",
-      "exit_advice": "Monitor Middle East tensions and tanker rates for signs of reversal.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/national-grid-ngg-among-best-035618386.html is irrelevant, MarketWatch article is not a primary source but summarizes the current state"
-      ]
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The initial reversal by TVA remains a significant event with ongoing implications for the energy sector, particularly for coal-related stocks and prices. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
-      "exit_advice": "Monitor TVA's further announcements regarding coal plant operations and retirement plans",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active with BWET continuing to rise due to Mideast tensions and Strait of Hormuz risk. The event is still niche and under-owned.",
+      "exit_advice": "Hold as the catalyst remains ongoing and under-the-radar.",
+      "evidence_urls": [
+        "https://www.marketwatch.com/story/tanker-freight-etn-keeps-climbing-as-hormuz-risk-lifts-rates-2026-03-13"
+      ]
     }
   ],
   "2026-03-20": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Data center infrastructure evolution is still an ongoing trend.",
-      "exit_advice": "Monitor for resolution or significant shift in data center infrastructure evolution.",
+      "conviction": 7,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution.",
+      "exit_advice": "continue to hold SRE as the Track 2 decision's impact is still being estimated and discussed",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb, driven by ongoing Mideast tensions and Strait of Hormuz risk.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "No fresh news, but the catalyst remains ongoing.",
+      "exit_advice": "Hold BWET.",
       "evidence_urls": []
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "BWX",
+      "thesis": "Middle East conflict boosts nuclear stocks",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with potential long-term implications for the energy sector, particularly for coal-related stocks and prices.",
-      "exit_advice": "Monitor for TVA's official decision finalization or changes in coal plant retirement plans.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "REXR",
-      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst has just occurred, and the market is likely to react to the revised outlook. The thesis remains live as the full impact is still unknown.",
-      "exit_advice": "Monitor Scotiabank's revised outlook impact on REXR",
+      "conviction": 8,
+      "assessment": "The Middle East conflict is escalating, with oil prices surging above $100 a barrel, stoking fears of persistent inflation and boosting nuclear stocks.",
+      "exit_advice": "Hold BWX as the Middle East conflict continues to escalate and nuclear stocks remain in focus.",
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/scotiabank-revises-rexford-industrial-rexr-045220720.html",
-        "https://www.insidermonkey.com/blog/scotiabank-revises-rexford-industrial-rexr-outlook-as-reit-strategy-shifts-1720305/"
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-slip-open-oil-prices-103622855.html",
+        "https://www.marketscreener.com/news/milan-stocks-tumble-at-the-open-alongside-european-peers-eni-holds-firm-as-inwit-collapses-ce7e5eded88bf520",
+        "https://www.themarketsdaily.com/2026/03/17/top-nuclear-stocks-to-follow-today-march-16th.html"
       ]
     }
   ],
   "2026-03-27": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution remains an ongoing trend with no indication of resolution or decay.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "Hold as the Track 2 decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and Strait of Hormuz risk; BWET remains a valid vehicle",
-      "exit_advice": "Monitor for resolution of Mideast tensions or stabilization of tanker rates",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active with BWET continuing to be a valid vehicle due to Mideast tensions and Strait of Hormuz risk. No resolution or reversal in sight.",
+      "exit_advice": "Hold as the catalyst remains ongoing and under-the-radar.",
       "evidence_urls": [
-        "https://markets.financialcontent.com/stocks/article/stockstory-2026-3-23-why-frontier-ulcc-stock-is-up-today"
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-24-construction-spending-unexpectedly-dips-as-high-rates-and-consumer-fatigue-freeze-the-us-building-sector",
+        "https://www.insidermonkey.com/blog/td-securities-initiates-coverage-of-bwx-technologies-bwxt-with-a-buy-rating-1723692/"
       ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "BWX",
+      "thesis": "Middle East conflict boosts nuclear stocks",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "continue to monitor TVA's plans and coal market developments",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "REXR",
-      "thesis": "Scotiabank revises outlook due to REIT strategy shift",
-      "thesis_live": false,
-      "exit_case": "The initial reaction to Scotiabank's revised outlook has been fully priced in and reflected in REXR.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst occurred on 2026-03-20, and there has been no new information since then. The market has likely absorbed the impact.",
-      "exit_advice": "Close the position as the catalyst has resolved and the edge is gone.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The Middle East conflict is still escalating with ongoing fears of further escalation, supporting nuclear stocks.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.mirror.co.uk/news/world-news/iran-war-escalation-fears-un-36926530",
+        "https://www.dailypolitical.com/2026/03/26/best-nuclear-stocks-to-watch-today-march-25th.html"
+      ]
     }
   ],
   "2026-04-03": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution remains an ongoing trend",
-      "exit_advice": "continue to monitor the event's progression",
-      "evidence_urls": [
-        "https://kfgo.com/2026/04/02/cost-of-data-center-power-project-rises-but-wont-affect-customers-minnkota-says/"
-      ]
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
-      "thesis_live": true,
-      "exit_case": "Tanker rates have surged due to actual war, potentially becoming a new normal.",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb, driven by Mideast tensions and the onset of war between Iran and other nations, increasing risk premium.",
-      "exit_advice": "Monitor for signs that the war is ending or tanker rates plateau.",
-      "evidence_urls": [
-        "https://www.mymoinfo.com/syndicated-article/?id=1663391"
-      ]
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
-      "exit_case": "",
-      "catalyst_resolved": false,
-      "assessment": "",
-      "exit_advice": "",
+      "conviction": 7,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed.",
+      "exit_advice": "Hold as the catalyst remains pending with ongoing discussions and no resolution.",
       "evidence_urls": []
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "faces 100% tariff",
-      "thesis_live": false,
-      "exit_case": "Tariff announcement has been made, potentially resolving the catalyst immediately.",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst, 100% tariff on some patented drugs, has been announced on 2026-04-03, which indicates the catalyst has occurred.",
-      "exit_advice": "Close position as the catalyst has been resolved.",
+      "ticker": "BWET",
+      "thesis": "Rising tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains ongoing with no resolution or reversal in sight. BWET continues to be a valid vehicle due to ongoing Mideast tensions and Strait of Hormuz risk.",
+      "exit_advice": "Hold BWET as the catalyst remains active.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWX",
+      "thesis": "Middle East conflict boosts nuclear stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The Middle East conflict is still escalating, and nuclear stocks are being considered as a potential beneficiary.",
+      "exit_advice": "The position remains valid as the Middle East conflict is still ongoing and nuclear stocks are being watched.",
       "evidence_urls": [
-        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
-        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
+        "https://www.tickerreport.com/banking-finance/13399159/nuclear-stocks-to-consider-april-3rd.html",
+        "https://www.fool.com/investing/2026/04/02/nuscale-power-vs-bwx-technologies-which-nuclear-en/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/sectors/energy/articles/2-nuclear-stocks-energy-might-150617725.html",
+        "https://finance.yahoo.com/sectors/energy/articles/best-3-nuclear-energy-stocks-150500353.html"
       ]
     }
   ],
   "2026-04-10": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
-      "exit_advice": "continue to monitor data center infrastructure evolution",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution.",
+      "exit_advice": "Hold as the Track 2 decision's impact is still being estimated and discussed.",
+      "evidence_urls": [
+        "https://www.financialmirror.com/2026/04/08/oil-prices-to-stay-high-relief-rally-follows-us-iran-ceasefire/"
+      ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by geopolitical tensions",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active with BWET continuing to be a valid vehicle due to ongoing Mideast tensions and Strait of Hormuz risk. No resolution or reversal is in sight.",
+      "exit_advice": "Hold as the catalyst remains ongoing and under-the-radar.",
       "evidence_urls": []
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks",
-      "exit_advice": "continue to monitor TVA's coal plant plans",
-      "evidence_urls": []
+      "ticker": "BWX",
+      "thesis": "Middle East conflict boosts nuclear stocks",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Ceasefire in the Middle East conflict was announced, reversing the driving condition.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The news of a ceasefire in the Middle East conflict directly impacts the catalyst that was driving the investment thesis. With the conflict potentially easing, the boost to nuclear stocks due to the escalating conflict is no longer relevant.",
+      "exit_advice": "The ceasefire announcement has resolved the catalyst, making the thesis no longer live.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/trading-day-ceasefire-sends-stocks-higher-ce7e50d8da80f521",
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-soaring-trump-reaches-ceasefire-145246199.html"
+      ]
     }
   ],
   "2026-04-17": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains ongoing with no resolution or decay.",
-      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "Hold as the catalyst remains pending.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have not yet shown signs of reversal despite prolonged climb and ongoing geopolitical tensions.",
+      "src": "seed",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by geopolitical tensions and shipping risk, BWET remains a valid vehicle.",
-      "exit_advice": "Monitor for signs of rate normalization or geopolitical risk easing.",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains ongoing due to persistent Gulf/Hormuz shipping risk. BWET continues to be a valid and pure vehicle.",
+      "exit_advice": "Hold BWET as the catalyst remains active.",
       "evidence_urls": [
         "https://etf.com"
       ]
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications.",
-      "exit_advice": "Monitor for TVA's final decision on coal plant retirement.",
-      "evidence_urls": []
     }
   ],
   "2026-04-24": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution continues to be an ongoing trend",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://fnarena.com/index.php/2026/04/22/the-24bn-digital-finance-revolution-in-australia/"
-      ]
+      "conviction": 8,
+      "assessment": "There is no new information this week regarding the Track 2 decision's impact on Sempra.",
+      "exit_advice": "Hold the position as the catalyst remains pending.",
+      "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have consistently risen over 7 weeks, potentially nearing a peak due to sustained geopolitical tensions.",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
-      "exit_advice": "Monitor for a reversal in tanker rates or a decrease in geopolitical tensions.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, the catalyst of rising tanker rates remains active due to ongoing Mideast tensions and Strait of Hormuz risk.",
+      "exit_advice": "Continue to hold as the catalyst remains ongoing and BWET is a valid vehicle.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-ge-vernova-gev-185608725.html"
+      ]
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "NuScale gains on nuclear bill passage",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The nuclear bill passage is the catalyst that drove NuScale's gain. This week's news shows a surge in nuclear energy stocks, with NuScale Power stock jumping over 40% this week due to global nuclear developments.",
+      "exit_advice": "Hold SMR as the nuclear bill passage is still driving the event and the catalyst is not yet resolved.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/why-nuscale-power-stock-jumped-201915822.html",
+        "https://finance.yahoo.com/sectors/energy/articles/battle-royale-oklo-vs-nuscale-152500735.html"
+      ]
     }
   ],
   "2026-05-01": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
-      "exit_advice": "continue to monitor data center infrastructure evolution trend",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact is still being estimated and discussed as per the journal entries, indicating the catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and there is no indication of resolution or mainstream saturation.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/26/04/52186563/why-is-opendoor-technologies-stock-sliding-on-thursday",
+        "http://www.japanherald.com/news/279019619/indian-markets-end-higher-despite-brent-crude-topping-115-nifty-gains-08-led-by-itc-and-reliance"
+      ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have continued to climb without a clear peak or reversal",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk",
-      "exit_advice": "Monitor for signs of rate stabilization or reversal",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
-      "exit_advice": "continue to monitor TVA's plans on coal plant retirement",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active.",
+      "exit_advice": "Continue to hold as the catalyst remains active and under-the-radar.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/research/reports/ARGUS_3054_AnalystReport_1777570853000",
+        "https://www.benzinga.com/trading-ideas/movers/26/04/52186563/why-is-opendoor-technologies-stock-sliding-on-thursday"
+      ]
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "NuScale gains on nuclear bill passage",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Nuclear bill passage is the catalyst that has already occurred.",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "Reviewing the journal and this week's news, the catalyst was the passage of the nuclear bill, which occurred before this week. The initial entry on 2026-04-24 noted a surge in nuclear energy stocks due to global nuclear developments and the nuclear bill passage.",
+      "exit_advice": "The catalyst has resolved as the nuclear bill has passed.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/04/30/nuscale-power-stock-is-outrageously-cheap-heres-wh/?source=iedfolrf0000001"
+      ]
     }
   ],
   "2026-05-08": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution trend remains ongoing with no clear indication of resolution or decay.",
-      "exit_advice": "continue to monitor data center infrastructure evolution",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "The Track 2 decision's impact on Sempra is still being estimated and discussed. There is no resolution or new development that indicates the catalyst has been resolved.",
+      "exit_advice": "continue to hold SRE as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/stock-recommendations-8-may-marketsmith-india-11778167335197.html",
+        "https://www.insidermonkey.com/blog/10-best-utility-stocks-that-beat-earnings-estimates-1756552/",
+        "https://www.finanznachrichten.de/nachrichten-2026-05/68404621-asian-markets-track-wall-street-higher-020.htm"
+      ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates still climbing, driven by ongoing geopolitical tensions.",
-      "exit_advice": "Monitor for resolution of Mideast tensions or Strait of Hormuz risk.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
-      "exit_case": "The TVA's reversal has been consistently reported as ongoing with no indication of resolution or decay.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains live with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "Continue to monitor for resolution or significant development regarding TVA's coal plant retirement plans.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to drive market sentiment",
-      "exit_advice": "hold",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing US-Iran tensions and Strait of Hormuz risk. BWET continues to be a valid and pure vehicle.",
+      "exit_advice": "Continue to hold BWET as the pure-play vehicle for rising tanker rates.",
       "evidence_urls": [
-        "https://www.freemalaysiatoday.com/category/business/2026/05/06/asia-markets-hit-records-on-ai-euphoria-iran-peace-hopes",
-        "https://www.yasstribune.com.au/story/9240633/asia-markets-hit-record-highs-amid-iran-peace-hopes/",
-        "https://www.edenmagnet.com.au/story/9240633/asia-markets-hit-record-highs-amid-iran-peace-hopes/",
-        "https://www.marketscreener.com/news/asia-markets-hit-records-on-ai-euphoria-iran-peace-hopes-ce7f58dddb80f723",
-        "https://www.ibtimes.co.in/sensex-surges-940-points-nifty-tops-24300-amid-us-iran-deal-hopes-901830"
+        "https://www.indiainfoline.com/news/markets/closing-bell-sensex-drops-516-points-as-us-iran-tensions-flare-up-and-banking-stocks-drag-markets-lower"
       ]
     }
   ],
   "2026-05-15": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
-      "exit_advice": "continue to monitor the trend",
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "The Track 2 decision's impact on Sempra is still being estimated and discussed, indicating the catalyst remains pending.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have continued climbing for 12 weeks, possibly peaking due to sustained high levels.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by geopolitical tensions.",
-      "exit_advice": "Monitor for signs of rate decline or stabilization.",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates persists, driven by ongoing Mideast tensions and Strait of Hormuz risk, as indicated by BWET's performance and market discussions.",
+      "exit_advice": "Hold BWET as the catalyst remains active and under-the-radar, despite recent silence.",
       "evidence_urls": [
-        "https://www.investordaily.com.au/banks-lose-grip-as-asx-leadership-rotation-accelerates/"
+        "https://finance.yahoo.com/sectors/energy/articles/bwx-technologies-bwxt-could-present-173637949.html",
+        "https://www.insidermonkey.com/blog/10-best-nuclear-energy-stocks-to-buy-as-smrs-go-mainstream-1761864/"
       ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant developments in coal prices.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
-      "thesis_live": true,
-      "exit_case": "US-Iran deal talks have concluded and an agreement is finalized",
-      "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to influence market sentiment; COMP remains a suitable vehicle",
-      "exit_advice": "Monitor US-Iran diplomatic developments",
+      "conviction": 8,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results is still a valid catalyst. The news this week confirms the upgrade and reiterates the buy rating.",
+      "exit_advice": "Hold UEC as the catalyst is still pending and has not been resolved.",
       "evidence_urls": [
-        "https://thebull.com.au/us-news/nasdaq-composite-pulls-back-as-tech-high-flyers-give-back-some-gains/"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst (quantum computing revenue beat) has not been fully resolved as the event is still unfolding. QUBT is still a valid vehicle.",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://www.investorideas.com/news/2026/technology/05121-quantum-computing-qubt-jumps-q1-2026-results.asp",
-        "https://finance.yahoo.com/markets/article/quantum-computing-stock-surges-after-revenue-beat-160415768.html"
+        "https://finance.yahoo.com/sectors/energy/articles/td-securities-reiterates-buy-rating-173636888.html"
       ]
     }
   ],
   "2026-05-22": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
-      "exit_advice": "continue to monitor data center infrastructure evolution trend",
+      "conviction": 7,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "continue to hold SRE as the Track 2 decision's impact is still being estimated and discussed",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have continued to climb without resolution to the geopolitical tensions.",
+      "src": "seed",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
-      "exit_advice": "Monitor for a decline in tanker rates or resolution of geopolitical tensions.",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, particularly US-Iran tensions and Strait of Hormuz risk, as indicated by BWET's performance.",
+      "exit_advice": "Continue to hold as the catalyst remains unresolved and under-the-radar.",
       "evidence_urls": [
-        "https://seekingalpha.com/"
+        "Seeking Alpha"
       ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event.",
-      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant developments in coal prices.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to drive market sentiment, with COMP remaining a suitable vehicle.",
-      "exit_advice": "Monitor for a significant development in US-Iran deal negotiations.",
+      "conviction": 8,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There is no indication that the catalyst has resolved or that its driving condition has reversed.",
+      "exit_advice": "Hold UEC as the catalyst remains valid and under-the-radar.",
       "evidence_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2026-05/68571053-asian-shares-extend-gains-on-us-iran-deal-hopes-020.htm",
-        "https://www.zerohedge.com/markets/stocks-gain-and-crude-falls-end-war-hopes-newsquawk-us-market-wrap"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
-      "exit_case": "The $2 billion government investment in quantum firms has been announced, potentially resolving the catalyst.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst (quantum computing revenue beat) has not been directly resolved by the government's investment announcement, as it focuses on equity stakes rather than revenue performance. QUBT remains a valid vehicle as it is still associated with the quantum computing theme.",
-      "exit_advice": "Monitor the impact of the government's $2 billion investment on quantum computing companies.",
-      "evidence_urls": [
-        "https://www.banklesstimes.com/articles/2026/05/22/traders-bet-against-ionq-rgti-qbts-qubt-infq-stocks-amid-quantum-computing-hype/",
-        "https://www.dailypolitical.com/2026/05/22/quantum-computing-nasdaqqubt-sees-strong-trading-volume-still-a-buy.html",
-        "https://www.benzinga.com/markets/prediction-markets/26/05/52749561/the-us-government-bet-2-billion-on-quantum-firms-heres-what-prediction-markets-say-about-it"
+        "https://www.perthnow.com.au/news/business/aussie-shares-up-despite-mixed-signals-from-iran-talks-c-22322084",
+        "https://www.zerohedge.com/markets/futures-slump-ignoring-korean-euphoria-after-iran-rejects-trump-enriched-uranium-demands"
       ]
     }
   ],
   "2026-05-29": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution remains an ongoing trend with no clear indication of resolution or decay",
-      "exit_advice": "continue to monitor data center infrastructure evolution trend",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates have been climbing consistently, driven by geopolitical tensions and shipping risk.",
-      "exit_advice": "Monitor for resolution or decay in tanker rate climb drivers.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event.",
-      "exit_advice": "Monitor for official TVA decision finalization or significant policy shift.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
-      "thesis_live": true,
-      "exit_case": "US-Iran deal hopes have dissipated with no concrete agreement reached",
-      "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to influence market sentiment, with COMP remaining a suitable vehicle",
-      "exit_advice": "Monitor for a significant breakthrough or collapse in US-Iran deal hopes",
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact on Sempra is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "Hold as the catalyst remains pending with ongoing discussions and no resolution.",
       "evidence_urls": [
-        "https://www.perthnow.com.au/news/business/oil-slips-aussie-shares-advance-on-peace-deal-hopes-c-22332088"
+        "https://wcbm.com/local-story/fact-check-team-states-raise-taxes-on-high-earners-debate-continues-over-economic-impact/"
       ]
     },
     {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
+      "ticker": "BWET",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst (quantum computing revenue beat) remains unresolved as there are no direct revenue announcements from the known vehicles. The recent news focuses on government investments and general optimism around quantum computing, but does not directly resolve the revenue beat catalyst.",
-      "exit_advice": "continue to monitor quantum computing revenue announcements",
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, the catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk.",
+      "exit_advice": "The catalyst remains active; no resolution or reversal in sight.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/29/why-xanadu-quantum-technologies-stock-is-soaring-t/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-may-28-224946629.html"
+        "https://www.fool.ca/2026/05/28/2-canadian-dividend-giants-id-buy-with-rates-on-hold-5/"
+      ]
+    },
+    {
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There is no indication that the catalyst has resolved or that its driving condition has reversed. This week's news does not directly impact UEC or the catalyst.",
+      "exit_advice": "Hold UEC as the catalyst remains valid and under-the-radar.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/duke-energy-duk-price-target-lowered-by-5-1768232/"
       ]
     }
   ],
   "2026-06-05": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution remains relevant with no indication of resolution or decay.",
-      "exit_advice": "Continue to monitor the trend.",
+      "conviction": 7,
+      "assessment": "The catalyst remains pending with ongoing discussions and no resolution, indicating the event is still live.",
+      "exit_advice": "Hold the position as the catalyst is still pending and there is no resolution or mainstream saturation.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Geopolitical tensions in the Middle East ease significantly or tanker rates plateau.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to be driven by geopolitical tensions.",
-      "exit_advice": "Monitor for resolution of geopolitical tensions or decline in tanker rates.",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk.",
+      "exit_advice": "Continue to hold as the catalyst remains ongoing and under-the-radar.",
       "evidence_urls": [
-        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
+        "https://oilprice.com/Energy/Energy-General/The-Next-Stranded-Asset-Crisis-Could-Hit-Utilities.html"
       ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
-      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
-      "evidence_urls": []
+      "conviction": 6,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There is still no indication that the catalyst has resolved or that its driving condition has reversed. This week's news does not directly impact UEC or the catalyst.",
+      "exit_advice": "continue to hold UEC as the catalyst remains valid",
+      "evidence_urls": [
+        "https://www.businesstoday.in/markets/stocks/story/tata-power-nhpc-acme-solar-jsw-energy-ntpc-cesc-target-prices-as-valuations-turn-rich-534583-2026-06-03",
+        "https://www.insidermonkey.com/blog/xcel-energy-xel-benefits-from-stable-growth-and-favorable-regulation-1769062/"
+      ]
     },
     {
       "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
+      "thesis": "NY AG probe antitrust concerns",
       "thesis_live": true,
-      "exit_case": "US-Iran deal hopes have materialized or been dismissed, rendering the catalyst obsolete.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to influence market sentiment, with COMP remaining a suitable vehicle.",
-      "exit_advice": "Monitor news for significant developments in US-Iran deal negotiations.",
+      "conviction": 8,
+      "assessment": "The NY AG probe into Compass over antitrust concerns has just been revealed and is still ongoing. The stock price has reacted, but the full implications and potential outcomes are still unknown, keeping the catalyst live.",
+      "exit_advice": "Hold as the catalyst has just begun and is still pending",
       "evidence_urls": [
-        "https://www.ibtimes.co.in/crude-oil-falls-over-1-israel-lebanon-ceasefire-boosts-hopes-regional-calm-902624",
-        "https://www.prokerala.com/news/articles/a1771142.html"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
-      "exit_case": "Quantinuum's successful IPO and government investments may indicate a revenue beat is imminent, potentially resolving the catalyst.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT. Recent news focuses on IPOs and government investments in quantum computing, but doesn't directly resolve the revenue beat catalyst. QUBT remains a valid vehicle.",
-      "exit_advice": "Monitor revenue announcements from known vehicles QMCO and QUBT.",
-      "evidence_urls": [
-        "http://www.econotimes.com/Quantinuum-Raises-168-Billion-in-Upsized-Nasdaq-IPO-Amid-Growing-Quantum-Computing-Demand-1743468",
-        "https://www.fool.com/investing/2026/06/02/the-us-government-just-plowed-2-billion-into-9/"
-      ]
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Shares Phase 2/3 POWER1 Study Findings",
-      "thesis_live": false,
-      "exit_case": "Catalyst occurred on entry date, potentially resolving immediately",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst (POWER1 Study Findings release) occurred on the entry date itself, potentially resolving the catalyst immediately.",
-      "exit_advice": "Close position as catalyst has been released",
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
+        "https://nypost.com/2026/06/04/business/ny-ag-probe-decimates-compass-stock-price/"
       ]
     }
   ],
   "2026-06-12": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
-      "exit_case": "no major resolution or decay in data center infrastructure evolution trend",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "data center infrastructure evolution remains an ongoing trend with growing demand and no clear indication of resolution or decay",
-      "exit_advice": "continue to monitor data center infrastructure evolution for resolution or decay",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "The Track 2 decision's impact on Sempra is still being estimated and discussed, indicating the catalyst is still pending.",
+      "exit_advice": "continue to hold SRE as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13471378/short-interest-in-xtrackers-international-real-estate-etf-nysearcahauz-grows-by-561-4.html"
+      ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have continued to climb without showing signs of reversal or plateauing.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to be driven by geopolitical tensions and shipping risk; BWET remains a valid vehicle.",
-      "exit_advice": "Monitor for signs of rate normalization or geopolitical tension easing.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk.",
+      "exit_advice": "continue to hold as the catalyst remains active",
+      "evidence_urls": [
+        "https://finance.yahoo.com/"
+      ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
-      "exit_case": "TVA has not yet finalized or reversed its coal plant retirement plans, keeping the catalyst pending.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "Monitor TVA's progress on coal plant retirement plans for resolution.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, the TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst as there's no indication it has resolved or its driving condition reversed.",
+      "exit_advice": "The catalyst remains valid as it has not resolved and its driving condition has not reversed. Continue to hold the position.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/nrg-energy-inc-nrg-stock-price-target-raised-get-the-bigger-picture-1779776/"
+      ]
     },
     {
       "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
+      "thesis": "NY AG probe antitrust concerns",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to drive market sentiment",
-      "exit_advice": "Monitor for a concrete deal or a definitive collapse in negotiations",
+      "conviction": 8,
+      "assessment": "Re-evaluating the NY AG probe into Compass over antitrust concerns.",
+      "exit_advice": "The catalyst remains live as the probe is still ongoing with unknown outcomes.",
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/futures-rally-amid-fresh-iran-peace-hopes-all-eyes-spacex",
-        "https://www.moneycontrol.com/news/business/markets/taking-stock-nifty-above-23-600-sensex-gains-1-695-pts-on-middle-east-peace-hopes-13948101.html",
-        "https://www.perthnow.com.au/news/business/aussie-shares-surge-on-latest-us-iran-peace-deal-hopes-c-22421429"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT. Recent news focuses on general optimism around quantum computing stocks, but doesn't directly resolve the revenue beat catalyst.",
-      "exit_advice": "continue to monitor for revenue beat announcement",
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html"
-      ]
-    },
-    {
-      "ticker": "HCA",
-      "thesis": "acquires College of Health Care Professions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "HCA Healthcare has announced the acquisition agreement, but the deal is still pending and not yet completed",
-      "exit_advice": "continue to monitor acquisition progress",
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/hca-healthcare-hca-announces-agreement-174127513.html"
+        "https://finance.yahoo.com/markets/stocks/articles/toll-brothers-tol-announces-luxury-100502601.html"
       ]
     }
   ],
   "2026-06-19": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution trend remains ongoing with SPXC as a suitable vehicle.",
-      "exit_advice": "Monitor for signs of resolution or decay in data center infrastructure evolution.",
+      "conviction": 8,
+      "assessment": "The Track 2 decision's impact on Sempra is still being estimated and discussed, indicating the catalyst remains pending.",
+      "exit_advice": "Hold SRE as the catalyst remains pending with ongoing discussions and no resolution.",
       "evidence_urls": []
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Tanker rates have consistently climbed for 16 weeks, potentially nearing a peak or reversal due to sustained high levels.",
-      "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to be driven by geopolitical tensions; BWET remains a valid vehicle.",
-      "exit_advice": "Monitor for signs of tanker rate reversal or stabilization.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks. The lack of fresh coverage this week does not indicate resolution or decay of the catalyst.",
-      "exit_advice": "continue to monitor TVA's coal plant retirement plans",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk.",
+      "exit_advice": "Continue holding BWET as it remains a valid and pure vehicle for the catalyst of rising tanker rates.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-okeanis-eco-tankers-corp-eco-one-of-the-most-profitable-industrial-stocks-to-buy-now-1782047/"
+      ]
+    },
+    {
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There's no new information indicating the catalyst has resolved or its driving condition has reversed. The news this week does not directly impact UEC or the catalyst.",
+      "exit_advice": "Continue to hold UEC as the catalyst remains valid and there's no indication of resolution or reversal.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/bofa-securities-maintains-buy-rating-104303371.html",
+        "https://www.themarketsdaily.com/2026/06/19/oak-grove-capital-llc-raises-stock-holdings-in-duke-energy-corporation-duk.html",
+        "https://www.insidermonkey.com/blog/energy-vault-holdings-nrgv-aiming-for-geographic-expansion-through-latest-acquisition-1784189/"
+      ]
     },
     {
       "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
+      "thesis": "NY AG probe antitrust concerns",
       "thesis_live": true,
-      "exit_case": "US-Iran deal talks have stalled and lost momentum",
-      "catalyst_resolved": false,
-      "assessment": "US-Iran deal hopes continue to drive market sentiment, with COMP remaining a suitable vehicle",
-      "exit_advice": "Monitor for tangible progress or collapse in US-Iran deal talks",
-      "evidence_urls": [
-        "http://www.bignewsnetwork.com/news/279134861/us-stocks-close-higher-friday-nasdaq-composite-surges-496-points"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved as there's still no direct revenue announcement from QMCO or QUBT.",
-      "exit_advice": "Monitor for a direct revenue announcement from QMCO or QUBT.",
+      "conviction": 8,
+      "assessment": "The NY AG probe into Compass over antitrust concerns remains a live catalyst. There have been no updates indicating its resolution or reversal. The initial reaction has passed, but the full implications are still being digested.",
+      "exit_advice": "Hold as the NY AG probe is still ongoing and its outcome is uncertain.",
       "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
-        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
-      ]
-    },
-    {
-      "ticker": "HCA",
-      "thesis": "acquires College of Health Care Professions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The acquisition is still pending, no significant updates on the deal's status",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/healthcare-stocks-to-watch-now-june-17th.html",
-        "https://www.dailypolitical.com/2026/06/16/healthcare-stocks-to-research-june-16th.html"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Insider selling impacts stock price",
-      "thesis_live": true,
-      "exit_case": "Insider selling stops or is fully priced in.",
-      "catalyst_resolved": false,
-      "assessment": "Insider selling's impact on QBTS stock price is being monitored.",
-      "exit_advice": "If insider selling stops or QBTS stock price stabilizes.",
-      "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html"
+        "https://finance.yahoo.com/",
+        "https://www.insidermonkey.com/",
+        "https://www.livemint.com/"
       ]
     }
   ],
   "2026-06-26": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The trend remains ongoing with no clear indication of resolution or decay.",
-      "exit_advice": "continue to monitor data center infrastructure evolution",
+      "conviction": 6,
+      "assessment": "The Track 2 decision's impact on Sempra is still being estimated and discussed, indicating the catalyst remains pending. There is no new information this week directly related to Sempra or the Track 2 decision, but the lack of resolution or final decision keeps the thesis live.",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
       "evidence_urls": [
-        "https://www.tpr.org/environment/2026-06-26/most-data-centers-wont-share-data-about-water-use-with-texas-lawmakers"
+        "https://www.foreignpolicyjournal.com/2026/06/26/ftse-100-stock-united-utilities-group-lse-uu-faces-analyst-scrutiny-as-fair-value-estimates-are-revised/"
       ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates have been consistently climbing due to geopolitical tensions and shipping risk.",
-      "exit_advice": "Monitor for a decrease in geopolitical tensions or a resolution in shipping risk.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk. BWET continues to be a valid and pure vehicle.",
+      "exit_advice": "Hold BWET as the catalyst remains active.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/06/26/global-tech-stocks-ai-infrastructure-costs-selloff-softbank-apple.html"
+      ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
-      "exit_case": "TVA has not made any significant progress or resolution on the coal plant retirement reversal since entry.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "Monitor for TVA's final decision on coal plant retirement or significant updates.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There is no indication that the catalyst has resolved or that its driving condition has reversed. The news this week does not directly impact UEC or the catalyst.",
+      "exit_advice": "Hold the position as the catalyst remains valid and there's no indication of resolution or reversal.",
+      "evidence_urls": [
+        "https://www.kitco.com/news/article/2026-06-25/gold-going-lower-decarley-tradings-garner-sees-one-potential-trade-play",
+        "https://finance.yahoo.com/technology/ai/articles/wall-street-says-ai-slowing-152227316.html",
+        "https://www.channelnewsasia.com/world/wall-street-micron-nasdaq-apple-hormuz-oil-prices-6211336"
+      ]
     },
     {
       "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
+      "thesis": "NY AG probe antitrust concerns",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The US-Iran deal hopes continue to be a topic of interest, with COMP remaining a suitable vehicle.",
-      "exit_advice": "Monitor developments in US-Iran deal hopes, exit when a definitive resolution occurs.",
-      "evidence_urls": [
-        "https://aliran.com/civil-society-voices/lending-respectability-to-a-zionist-cheerleader-is-completely-unacceptable",
-        "http://www.pambazuka.org/Forced-Migrant-Returns"
-      ]
-    },
-    {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT.",
-      "exit_advice": "Monitor for a direct revenue announcement from QMCO or QUBT.",
+      "conviction": 8,
+      "assessment": "The NY AG probe into Compass over antitrust concerns remains a live issue with no resolution or updates on its status.",
+      "exit_advice": "The catalyst remains live as there are no updates indicating its resolution or reversal. Continue holding the position.",
       "evidence_urls": []
     },
     {
-      "ticker": "HCA",
-      "thesis": "acquires College of Health Care Professions",
+      "ticker": "MU",
+      "thesis": "Micron blowout quarter boosts chip rally",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The acquisition deal is still pending with no significant updates or resolution.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The event catalyst is Micron's blowout quarter boosting the chip rally. The news shows a strong reaction with Needham tripling Micron's target ahead of earnings, indicating the event is still unfolding and under the radar. The chip rally is expected to continue according to Wedbush.",
+      "exit_advice": "Hold as Micron's blowout quarter is still driving the chip rally and is under the radar.",
       "evidence_urls": [
-        "https://finance.yahoo.com/healthcare/articles/unitedhealth-near-52-week-high-195000164.html",
-        "https://www.fool.com/coverage/better-buy/2026/06/26/bristol-myers-squibb-vs-johnson-johnson-which-healthcare-stock-is-a-better-buy-in-2026/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Insider selling impacts stock price",
-      "thesis_live": true,
-      "exit_case": "No significant insider selling activity reported or resolved.",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst 'Insider selling impacts stock price' is still being monitored as there is no resolution or significant development reported in the news or journal.",
-      "exit_advice": "Monitor insider selling activity and its impact on QBTS stock price.",
-      "evidence_urls": [
-        "https://www.morningstar.com/stocks/coinbase-reducing-fair-value-estimate-cryptocurrency-prices-collapse"
-      ]
-    },
-    {
-      "ticker": "MRNA",
-      "thesis": "Moderna rallies on unspecified news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Moderna rallied on unspecified news, indicating potential catalyst; no resolution yet",
-      "exit_advice": "Monitor news for catalyst resolution",
-      "evidence_urls": [
-        "https://www.rnz.co.nz/news/business/627337/wall-street-mixed-as-moderna-rallies-and-chips-tumble",
-        "https://economictimes.indiatimes.com/markets/us-stocks/news/us-stocks-us-market-ends-lower-chips-tumble-and-moderna-rallies/articleshow/132024472.cms"
+        "https://finance.yahoo.com/markets/stocks/articles/needham-triples-micron-target-ahead-163300247.html",
+        "https://www.proactiveinvestors.com/companies/news/1094490/wedbush-says-chip-rally-has-further-to-run-after-micron-s-blowout-quarter-1094490.html"
       ]
     }
   ],
   "2026-07-03": [
     {
-      "ticker": "SPXC",
-      "thesis": "Data center infrastructure evolution",
+      "ticker": "SRE",
+      "thesis": "Sempra estimates $471M after-tax impact from Track 2 decision",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The data center infrastructure evolution trend remains ongoing with growing demand and no clear indication of resolution or decay.",
-      "exit_advice": "Continue holding the position as the event remains ongoing.",
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, there's no indication that the Track 2 decision's impact on Sempra has been resolved or finalized. The discussions and estimations continue, indicating the catalyst remains pending.",
+      "exit_advice": "The position should be held as the catalyst remains pending and there is no indication of resolution or finalization regarding the Track 2 decision's impact on Sempra.",
       "evidence_urls": [
-        "https://timesofindia.indiatimes.com/city/lucknow/ai-revolution-is-bringing-creativity-to-our-doorstep/articleshow/132046894.cms"
+        "https://www.wnmufm.org/2026-06-30/supreme-court-issues-rulings-on-birthright-citizenship-campaign-finance-and-more",
+        "https://www.wknofm.org/2026-06-30/supreme-court-issues-rulings-on-birthright-citizenship-campaign-finance-and-more",
+        "https://www.kasu.org/public-safety-social-justice/2026-06-30/supreme-court-issues-rulings-on-birthright-citizenship-campaign-finance-and-more",
+        "https://www.courant.com/2026/06/30/ct-officials-cheer-supreme-court-decision-upholding-birthright-citizenship/"
       ]
     },
     {
       "ticker": "BWET",
-      "thesis": "Tanker rates climbing",
+      "thesis": "Rising tanker rates",
       "thesis_live": true,
-      "exit_case": "Geopolitical tensions have not subsided, and tanker rates remain elevated.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates continue to climb driven by ongoing geopolitical tensions and shipping risk.",
-      "exit_advice": "Monitor geopolitical tensions and tanker rates for signs of easing.",
+      "conviction": 8,
+      "assessment": "The catalyst of rising tanker rates remains active due to ongoing Mideast tensions, US-Iran tensions, and Strait of Hormuz risk. BWET continues to be a valid and pure vehicle.",
+      "exit_advice": "Continue to hold as the catalyst remains active.",
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
+        "https://www.newschannel6now.com/2026/06/30/local-fireworks-sellers-navigate-price-increases/"
       ]
     },
     {
-      "ticker": "TVEI",
-      "thesis": "Tennessee Valley Authority reverses coal plant retirement plans",
+      "ticker": "UEC",
+      "thesis": "TD Securities upgrades Uranium Energy on strong Q2 results",
       "thesis_live": true,
-      "exit_case": "TVA has not made any significant progress or announcements regarding the reversal of coal plant retirement plans.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The TVA's reversal on coal plant retirement remains a live event with ongoing implications for the energy sector and coal-related stocks.",
-      "exit_advice": "Monitor TVA's announcements and decisions regarding the coal plant retirement plans.",
+      "conviction": 8,
+      "assessment": "The TD Securities upgrade on Uranium Energy following strong Q2 results remains a valid catalyst. There's been no new information indicating the catalyst has resolved or its driving condition has reversed. The news this week does not directly impact UEC or the catalyst.",
+      "exit_advice": "Hold UEC as the catalyst remains valid and there's no indication of resolution or reversal.",
       "evidence_urls": []
     },
     {
       "ticker": "COMP",
-      "thesis": "US-Iran deal hopes",
+      "thesis": "NY AG probe antitrust concerns",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The market continues to be influenced by US-Iran deal hopes, and COMP remains a suitable vehicle.",
-      "exit_advice": "Monitor for a definitive announcement or conclusion regarding the US-Iran deal.",
+      "conviction": 8,
+      "assessment": "The NY AG probe into Compass over antitrust concerns is still ongoing with no updates on its resolution or status.",
+      "exit_advice": "Continue to hold as the probe's outcome is still uncertain.",
       "evidence_urls": []
     },
     {
-      "ticker": "QUBT",
-      "thesis": "quantum computing revenue beat",
+      "ticker": "MU",
+      "thesis": "Micron blowout quarter boosts chip rally",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved as there's no direct revenue announcement from QMCO or QUBT.",
-      "exit_advice": "continue to monitor for revenue announcements",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "HCA",
-      "thesis": "acquires College of Health Care Professions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The acquisition deal is still pending with no new updates.",
-      "exit_advice": "Monitor for deal completion or significant updates.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "Insider selling impacts stock price",
-      "thesis_live": true,
-      "exit_case": "No insider selling activity has been reported or resolved for QBTS.",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst 'Insider selling impacts stock price' is still being monitored as there is no resolution or significant development reported in the news or journal.",
-      "exit_advice": "Monitor insider selling activity and its impact on QBTS stock price.",
+      "conviction": 8,
+      "assessment": "The event catalyst, Micron's blowout quarter, is still driving the chip rally. Needham tripling Micron's target ahead of earnings indicates the event is still unfolding. Although there is news about other chip manufacturing stocks like Lam Research, the focus remains on Micron's performance.",
+      "exit_advice": "Hold, the catalyst is still unfolding and under the radar.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/28/why-rocket-lab-stock-plummeted-this-week/?source=iedfolrf0000001"
+        "https://finance.yahoo.com/technology/articles/lam-research-lrcx-citi-raises-102212911.html"
       ]
     },
     {
-      "ticker": "MRNA",
-      "thesis": "Moderna rallies on unspecified news",
+      "ticker": "MX",
+      "thesis": "USMCA review begins, 10-year countdown starts",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Moderna rally lacks clarity on catalyst; no new info",
-      "exit_advice": "Wait for catalyst resolution or clear decay",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "RKLB",
-      "thesis": "Rocket Lab stock plummeted on earnings",
-      "thesis_live": false,
-      "exit_case": "Earnings already reported and stock reacted",
-      "catalyst_resolved": true,
-      "assessment": "Weak start to the event-driven analysis as the initial catalyst has already occurred.",
-      "exit_advice": "The event is no longer relevant as the catalyst has resolved.",
+      "conviction": 8,
+      "assessment": "The USMCA review has begun as expected, and the 10-year countdown has started. This is the initial step in the process, and there is still a long way to go before any resolution.",
+      "exit_advice": "Hold as the USMCA review has just begun and the countdown has started. The catalyst is still pending.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/28/why-rocket-lab-stock-plummeted-this-week/?source=iedfolrf0000001"
+        "https://www.riotimesonline.com/usmca-review-trump-not-extend-countdown-2026/",
+        "https://www.theepochtimes.com/world/carney-says-dont-expect-drama-as-cusma-partners-meet-july-1-for-review-6055426",
+        "https://www.theglobeandmail.com/world/us-politics/article-us-renew-trade-deal-canada-mexico-usmca/"
       ]
     }
   ]

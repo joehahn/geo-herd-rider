@@ -3,30 +3,14 @@
   "2024-04-26": [],
   "2024-05-03": [],
   "2024-05-10": [],
-  "2024-05-17": [
-    {
-      "ticker": "SMR",
-      "thesis": "Regulatory reactor approval news catalyzes AI power demand growth",
-      "thesis_live": false,
-      "exit_case": "Reactor approval news already public; stock reaction indicates catalyst priced in.",
-      "catalyst_resolved": true,
-      "assessment": "The regulatory reactor approval news catalyzing AI power demand growth was publicly reported on May 15, 2024, causing SMR to spike. The catalyst is now out and likely priced in.",
-      "exit_advice": "Exit the position immediately; the specific catalyst has occurred and the edge is gone.",
-      "evidence_urls": []
-    }
-  ],
+  "2024-05-17": [],
   "2024-05-24": [],
-  "2024-05-31": [],
-  "2024-06-07": [],
-  "2024-06-14": [],
-  "2024-06-21": [],
-  "2024-06-28": [],
-  "2024-07-05": [],
-  "2024-07-12": [
+  "2024-05-31": [
     {
-      "ticker": "SMR",
-      "thesis": "Nuclear power legislation signed into law drives sector.",
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "",
       "catalyst_resolved": false,
       "assessment": "",
@@ -34,81 +18,256 @@
       "evidence_urls": []
     }
   ],
-  "2024-07-19": [
+  "2024-06-07": [
     {
-      "ticker": "SMR",
-      "thesis": "Nuclear power legislation signed into law drives sector.",
-      "thesis_live": false,
-      "exit_case": "Catalyst resolved: ADVANCE Act signed into law.",
-      "catalyst_resolved": true,
-      "assessment": "The nuclear power legislation was signed into law on July 13, 2024, resolving the event catalyst. The sector may see residual effects, but the specific edge from the pending law is gone.",
-      "exit_advice": "Exit position; catalyst has occurred and is priced in.",
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Modi's election setback prompts India playbook revisions, potentially diluting expected MSCI inflows into HDFC Bank.",
+      "catalyst_resolved": false,
+      "assessment": "The MSCI India Index August rebalancing catalyst remains pending with no direct news this week. Indian market focus has shifted to RBI policy and post-election political adjustments under Modi's narrower victory, which may introduce volatility but do not yet impact the rebalancing event. HDFC Bank continues to be favored by analysts, but broader sentiment is cautious.",
+      "exit_advice": "Monitor for MSCI announcements and political developments that could alter inflow expectations; consider exit if rebalancing is canceled, reduced, or HDFC Bank inclusion is jeopardized.",
       "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
+        "https://www.yahoo.com/news/stock-traders-revising-india-playbook-062031457.html",
+        "https://www.businesstoday.in/markets/stock-picks/story/25-stocks-that-jpmorgan-likes-fo-strategy-nifty-historical-returns-post-elections-more-432165-2024-06-05"
       ]
     }
   ],
-  "2024-07-26": [],
+  "2024-06-14": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new developments this week on the MSCI India Index August rebalancing catalyst. Focus remains on pending August event. HDFC Bank continues as the direct vehicle for expected inflows.",
+      "exit_advice": "Hold until catalyst approaches or resolution occurs; continue monitoring for MSCI announcements.",
+      "evidence_urls": [
+        "https://atholdailynews.com/LtrLaChance-55537087",
+        "https://www.scmp.com/news/world/middle-east/article/3266548/hezbollah-says-it-attacked-9-israeli-military-sites-rockets-and-drones"
+      ]
+    }
+  ],
+  "2024-06-21": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Catalyst distant in August; no fresh catalysts to sustain momentum amid market caution.",
+      "catalyst_resolved": false,
+      "assessment": "No new developments on MSCI India Index rebalancing; catalyst remains pending for August. HDFC Bank (HDB) continues as direct vehicle, but cautious sentiment and lack of near-term catalysts add uncertainty.",
+      "exit_advice": "Hold HDB until August; monitor for MSCI official announcements or changes in expected inflows.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3455828/tsx-ends-marginally-down.aspx",
+        "https://www.marketscreener.com/quote/index/S-P-TSX-COMPOSITE-INDEX-7454/news/Miners-pull-up-TSX-at-open-47002611/",
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/TSX-futures-slip-amid-thin-volumes-as-oil-prices-ease-47001508/"
+      ]
+    }
+  ],
+  "2024-06-28": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The August rebalancing is still in the future; the $5.2B inflow event has not occurred.",
+      "catalyst_resolved": false,
+      "assessment": "No new developments this week on the MSCI India Index August rebalancing. The catalyst remains pending and on the expected timeline. HDFC Bank (HDB) remains the direct vehicle for the expected inflows. Market sentiment remains cautious but does not alter the pending event.",
+      "exit_advice": "Position should be maintained until the catalyst resolves. Next key date is the actual August rebalancing and inflow period. Monitor for any official MSCI announcement or market anticipation shifts.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-05": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "No new developments on MSCI India Index August rebalancing; catalyst remains pending for August with HDFC Bank (HDB) as direct vehicle. Market sentiment cautious due to RBI policy and political adjustments, but does not alter the expected event timeline.",
+      "exit_advice": "Hold position as the MSCI India Index August rebalancing catalyst is still pending and on expected timeline with no resolution.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-12": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst remains pending for August with HDFC Bank (HDB) as direct vehicle. No new developments this week; market sentiment cautious but event timeline unchanged.",
+      "exit_advice": "Hold until August rebalancing event or if new information indicates delayed or canceled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act nuclear bill signed into law",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The ADVANCE Act was signed into law on July 10; the catalyst is public and priced.",
+      "catalyst_resolved": true,
+      "assessment": "The ADVANCE Act was signed into law on July 10, 2024, as confirmed by news, already triggering a move in nuclear stocks.",
+      "exit_advice": "Exit position immediately; catalyst is realized and edge gone.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2024-07-19": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "MSCI India Index August rebalancing remains pending with no new developments this week. HDFC Bank (HDB) continues as the direct vehicle for expected inflows. Market sentiment remains cautious due to RBI policy and political adjustments, but event timeline is unchanged.",
+      "exit_advice": "Hold position and monitor for news on MSCI India Index August rebalancing; catalyst remains pending.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-07-26": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst remains pending for August rebalancing with no new developments this week; HDFC Bank (HDB) continues as direct vehicle, and market sentiment is cautious but does not alter the event timeline.",
+      "exit_advice": "Hold until the MSCI India Index August rebalancing is officially announced or completed; exit if catalyst occurs or unexpected negative news emerges.",
+      "evidence_urls": [
+        "https://www.dailymail.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html",
+        "https://www.thisismoney.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html"
+      ]
+    }
+  ],
   "2024-08-02": [
     {
-      "ticker": "CEG",
-      "thesis": "PJM auction prices surged ninefold, directly lifting nuclear generator earnings.",
-      "thesis_live": false,
-      "exit_case": "Auction price surge already public, stocks soared; catalyst resolved.",
-      "catalyst_resolved": true,
-      "assessment": "The PJM auction price surge has been publicly announced, causing nuclear stocks to soar, indicating the event has passed.",
-      "exit_advice": "Sell or exit the position as the catalyst has resolved and is priced in.",
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "MSCI August rebalancing not confirmed despite imminent timing; anticipated inflows likely priced in.",
+      "catalyst_resolved": false,
+      "assessment": "Catalyst pending for August; HDB remains direct vehicle; India market strength noted but no MSCI rebalancing confirmation yet.",
+      "exit_advice": "Monitor for MSCI announcement; if no release by mid-August, reconsider as thesis decays.",
       "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
       ]
     },
     {
-      "ticker": "VST",
-      "thesis": "PJM auction prices surged ninefold, directly lifting nuclear generator earnings.",
+      "ticker": "CEG",
+      "thesis": "PJM power auction prices jump ninefold, boosting nuclear generators",
       "thesis_live": false,
-      "exit_case": "PJM auction ninefold surge has been publicly announced and stocks have already soared.",
+      "src": "gdelt",
+      "exit_case": "The ninefold price jump in PJM auction has already occurred and is priced into stocks.",
       "catalyst_resolved": true,
-      "assessment": "The discrete catalyst\u2014the PJM auction ninefold price surge\u2014was announced on August 1, causing an immediate stock reaction. The edge from the specific, unpublished auction result is gone, as the market has now priced the news.",
-      "exit_advice": "Exit the position. The catalyst has been publicly announced and the initial price move has occurred, eliminating the event-driven edge.",
+      "assessment": "The event-driven opportunity has passed following the public announcement of the PJM auction price jump, with nuclear stocks already reacting.",
+      "exit_advice": "Exit the position as the catalyst is resolved and priced in; no further edge.",
       "evidence_urls": [
         "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
         "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
       ]
     }
   ],
-  "2024-08-09": [],
-  "2024-08-16": [
+  "2024-08-09": [
     {
-      "ticker": "SIGA",
-      "thesis": "WHO mpox emergency declaration boosts antiviral treatment demand.",
-      "thesis_live": false,
-      "exit_case": "WHO emergency declaration already made and stock surge reflects priced-in resolution.",
-      "catalyst_resolved": true,
-      "assessment": "WHO mpox emergency declaration has occurred, boosting antiviral stocks like SIGA, but the specific catalyst is now fully public and market reaction has occurred.",
-      "exit_advice": "Exit long position immediately as the catalyst is resolved and any edge from the pending declaration is now gone.",
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "MSCI India Index August rebalancing catalyst remains pending with no confirmation this week. HDFC Bank (HDB) is still the direct vehicle. Market sentiment is positive overall, but not specific to the rebalancing event.",
+      "exit_advice": "Hold pending MSCI India Index August rebalancing confirmation; no catalyst resolution yet.",
       "evidence_urls": [
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs"
+        "https://www.newkerala.com/news/2024/48023.htm",
+        "https://www.sakshipost.com/news/sensex-jumps-819-points-auto-and-it-stocks-outshine-322213",
+        "https://moneylife.in/article/as-global-markets-stabilise-indian-indices-move-up-wednesday-closing-report/74859.html",
+        "https://www.tribuneindia.com/news/business/sensex-nifty-bounce-back-sharply-in-early-trade-amid-rally-in-asian-peers/"
       ]
     }
   ],
-  "2024-08-23": [],
-  "2024-08-30": [],
+  "2024-08-16": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "MSCI August rebalancing unconfirmed; expected inflows may be priced in already, reducing edge.",
+      "catalyst_resolved": false,
+      "assessment": "No developments on MSCI India Index August rebalancing this week. HDFC Bank remains the vehicle; positive Indian market sentiment does not directly impact the catalyst.",
+      "exit_advice": "Hold until the MSCI rebalancing event is announced or occurs; monitor for official confirmation.",
+      "evidence_urls": [
+        "http://www.navhindtimes.in/2024/08/17/business/sensex-jumps-1330-pts-on-easing-us-recession-fears-rate-cut-hopes/",
+        "https://www.ndtv.com/india-news/sensex-jumps-1330-points-to-2-week-high-on-easing-us-recession-fears-6350913",
+        "https://www.thehindubusinessline.com/markets/stock-market-today-sensex-snaps-two-day-losing-streak-on-rebound-in-it-shares/article68524344.ece"
+      ]
+    },
+    {
+      "ticker": "K",
+      "thesis": "Mars Inc. announces $36 billion acquisition of Kellanova.",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Acquisition announcement has already occurred; catalyst no longer pending.",
+      "catalyst_resolved": true,
+      "assessment": "No new information this week; acquisition announcement occurred on entry date but no further developments.",
+      "exit_advice": "Close the position as the catalyst has resolved.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-08-23": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "MSCI August rebalancing expected soon but market anticipation may have already priced in inflows, limiting upside.",
+      "catalyst_resolved": false,
+      "assessment": "MSCI India Index August rebalancing catalyst remains pending with no confirmation this week. HDFC Bank (HDB) is still the direct vehicle. Market sentiment is mixed, with Indian indices showing volatility but no specific catalyst news. The thesis is live but time-sensitive.",
+      "exit_advice": "Maintain position until rebalancing confirmation; consider exiting if no positive move by end-August.",
+      "evidence_urls": [
+        "https://www.dailyexcelsior.com/sensex-rises-147-pts-nifty-ends-above-24800-on-firm-global-trend/",
+        "https://www.vccircle.com/sensexnifty-end-mildly-higher-as-falling-financial-stocks-cap-gains",
+        "https://www.moneycontrol.com/news/business/markets/nifty-sensex-finish-strong-as-bank-it-index-shine-fmcg-stocks-buck-trend-12801855.html"
+      ]
+    }
+  ],
+  "2024-08-30": [
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index August rebalancing expected to trigger $5.2B inflows into HDFC Bank",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "August rebalancing window closed without specific catalyst confirmation; event decayed.",
+      "catalyst_resolved": true,
+      "assessment": "August MSCI rebalancing expected to trigger HDFC Bank inflows, but no confirmation by month-end; Indian market gains are general, not specific to the catalyst.",
+      "exit_advice": "Exit position as catalyst window has closed without confirmation; thesis invalidated.",
+      "evidence_urls": [
+        "https://www.dailyexcelsior.com/sensex-nifty-extend-gains-to-scale-fresh-peaks-on-firm-global-cues/"
+      ]
+    }
+  ],
   "2024-09-06": [],
   "2024-09-13": [
     {
-      "ticker": "DJT",
-      "thesis": "Shares plunged after Trump lost debate, a discrete event catalyst.",
+      "ticker": "UUUU",
+      "thesis": "Federal Court of Australia approves acquisition of Base Resources.",
       "thesis_live": false,
-      "exit_case": "Debate already happened and shares already plunged \u2014 the discrete catalyst is fully resolved.",
+      "src": "gdelt",
+      "exit_case": "The Federal Court approved the Base Resources acquisition on Sep 12 \u2014 the catalyst is fully resolved and public.",
       "catalyst_resolved": true,
-      "assessment": "The catalyst \u2014 Trump losing the debate, causing DJT shares to plunge \u2014 is entirely in the past. The debate occurred on Sept 10; the plunge occurred on Sept 11\u201312; entry was Sept 13 into an already-realized move. There is no pending discrete event left to trade. The news this week simply confirms the plunge occurred and offers polling anecdotes \u2014 none of which constitute a new catalyst. The stock may drift lower on election uncertainty, but that is a theme, not the discrete event-driven edge we entered on.",
-      "exit_advice": "Exit. The debate is over, the plunge happened, and the market has absorbed the news. Remaining long or short is now a directional bet on election polling \u2014 categorically different from the event catalyst.",
+      "assessment": "THE CATALYST ALREADY HAPPENED THIS WEEK. On 2024-09-12 the Federal Court of Australia approved Energy Fuels' acquisition of Base Resources \u2014 the exact discrete event I entered on. I cannot even construct a first-week journal entry because there is nothing left to wait for. The approval is public, the news is out, the stock will price this in immediately if it hasn't already. The Oct 2 closing is a formality, not a catalyst. There is no second act here. I never had an edge because I entered on the same day the catalyst resolved. This is a textbook case of chasing a headline, not anticipating one.",
+      "exit_advice": "Exit immediately. The catalyst is resolved \u2014 court approval granted 2024-09-12. Do not wait for Oct 2 formal close, which is a non-event certainty. There is no pending binary outcome left to express a view on. Move to the next idea.",
       "evidence_urls": [
-        "https://www.ijpr.org/npr-news/2024-09-11/wall-street-investors-think-trump-lost-the-debate-too",
-        "https://www.orlandosentinel.com/2024/09/12/trump-plans-to-launch-his-sons-crypto-business-on-monday-50-days-before-election-day/"
+        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]
     }
   ]

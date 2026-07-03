@@ -523,7 +523,7 @@ BAKEOFF_INFO = {  # (label, scale, MEASURED $ /3-gem scan, MEASURED wall-clock /
     "llama4":   ("llama4",   "400B MoE / 17B act", "$0.4", "10min"),
     "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1", "14min"),
     "grok4":    ("grok-4.3", "frontier",           "$3.7", "9min"),
-    "sonnet":   ("sonnet",   "1-2T (est)",         "$3.6", "61min"),
+    "sonnet4":   ("sonnet4",   "1-2T (est)",         "$3.6", "61min"),
     "sonnet5":  ("sonnet5",  "near-Opus",          "$3.8", "8min"),
     "opus":     ("opus",     "2-5T (est)",         "$4.4", "16min"),
 }

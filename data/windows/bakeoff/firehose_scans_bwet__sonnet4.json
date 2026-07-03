@@ -1,0 +1,180 @@
+{
+  "2025-12-26": [],
+  "2026-01-02": [],
+  "2026-01-09": [],
+  "2026-01-16": [],
+  "2026-01-23": [],
+  "2026-01-30": [],
+  "2026-02-06": [],
+  "2026-02-13": [],
+  "2026-02-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "BWET has nearly doubled YTD already; tanker-rate fear from Hormuz risk may be substantially priced into the vehicle.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1. The Trump-Iran standoff is live and unresolved \u2014 no deal signed, no Hormuz chokepoint formally reopened, no de-escalation framework in place. The driving condition (elevated Hormuz closure risk from US-Iran tension) remains intact. BWET's ~2x YTD run flagged by MarketBeat is a meaningful caution: some tanker-rate fear is already in the price and one financial outlet has explicitly named it as a top performer, meaning it is no longer fully under the radar. However, 'priced-in' is not a valid exit \u2014 the catalyst arc is incomplete and no concrete resolution event is imminent. Congressional pushback on Trump's Iran posture adds political noise but does not end the standoff. Hold BWET; the Hormuz risk thesis remains open. Conviction docked from peak because of the sharp early move and initial mainstream coverage.",
+      "exit_advice": "Exit if US-Iran talks produce a concrete framework, Hormuz transit threat formally de-escalates, or sanctions are lifted/eased in a signed agreement. Also exit if BWET becomes full retail-frenzy saturation AND no new concrete Iran escalation step is scheduled or announced.",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "https://www.islamicinvitationturkey.com/trumps-aggressive-stance-on-iran-draws-strong-backlash-from-us-lawmakers/"
+      ]
+    }
+  ],
+  "2026-02-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "A full week of total silence could mean the acute escalation narrative has already peaked and quietly fizzled without a formal resolution.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 2, no fresh news. The driving condition \u2014 elevated Hormuz closure risk from the Trump-Iran standoff \u2014 remains structurally unresolved: no deal signed, no de-escalation framework announced, no formal Hormuz security guarantee. The quiet week is explicitly not an exit trigger; a live catalyst can go dark for weeks and re-accelerate on a follow-on headline (sanctions snapback, naval incident, IAEA finding). The exit case this week is the weakest possible: pure silence, which the rules prohibit as an exit reason. Conviction stays at 5 \u2014 docked for the sharp pre-existing move (~2x YTD at entry) and initial mainstream flag from Week 1, neither of which resolves. BWET remains the cleanest single pure-play on tanker-rate Hormuz risk in the known vehicle set. Hold through silence.",
+      "exit_advice": "Hold BWET; exit only on confirmed US-Iran diplomatic breakthrough, a signed framework, or Hormuz formally declared reopened/secured \u2014 not on silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No escalation in three weeks may signal quiet back-channel diplomacy already defusing Hormuz risk.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 3; second consecutive no-news week. The devil's-advocate exit case is that three weeks of zero escalation hints at quiet diplomatic movement reversing the driving condition. This is the strongest honest argument against holding right now \u2014 but it is still speculative, not confirmed: no deal has been signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, and no tanker-rate collapse reported. Per the full journal arc, the structural driving condition (elevated Hormuz closure risk from the Trump-Iran standoff) remains formally unresolved. A live catalyst can go silent for weeks and re-accelerate on a single follow-on headline \u2014 naval incident, IAEA finding, sanctions snapback \u2014 and exiting on silence forfeits exactly that second leg. No fresh coverage this week changes none of the underlying facts. BWET remains the cleanest single pure-play vehicle in the known set. Conviction held at 5: the ~2\u00d7-YTD-at-entry price move and the Week 1 mainstream flag remain the only structural docks; a second quiet week adds nothing incremental. Hold through silence.",
+      "exit_advice": "Exit only on confirmed US-Iran deal, formal de-escalation framework, or a concrete Hormuz security guarantee \u2014 speculation about back-channel talks does not qualify.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-13": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Four consecutive weeks without a fresh escalation event; quiet diplomatic drift could be slowly unwinding the standoff.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 4 is the first week since entry with directly confirming news: MarketWatch reports BWET continues climbing as Mideast tensions and Strait of Hormuz risk keep oil-freight day-rates elevated, and critically characterises it as 'still a niche, under-owned freight-futures play.' That language is the opposite of mainstream saturation, so the third-exit condition (arc complete AND crowd fully arrived) is not triggered. The Trump-Iran standoff remains formally unresolved \u2014 no deal signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, no collapse in tanker rates reported. The driving condition is alive and actively moving the vehicle. The devil's-advocate exit case (four quiet weeks of no escalation) remains speculative and unconfirmed; the rules require a concrete resolution or reversal, not mere silence. Conviction nudged to 6 from 5: thesis is visibly working, vehicle is still under-owned per the coverage itself, and the catalyst arc is incomplete. BWET remains the cleanest pure-play in the known vehicle set. Hold.",
+      "exit_advice": "Hold. Driving condition confirmed intact this week by on-point fresh coverage; BWET explicitly still described as niche and under-owned \u2014 mainstream-saturation exit trigger is NOT met.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks without a concrete escalation event; standoff may have quietly stabilized through back-channel diplomacy without announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5. This week's MarketScreener note directly ties FTSE 100 energy-stock gains to investors 'watching the Strait of Hormuz,' confirming the driving condition is still actively moving capital \u2014 not resolved, not reversed. The devil's-advocate exit case (five weeks of no concrete escalation implies quiet stabilization) remains the honest challenge to the position, but it is still speculative: no deal has been signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, and no tanker-rate collapse reported. The structural standoff is formally open. The third-exit condition (arc complete AND crowd fully arrived) is also not triggered: this week's coverage is about oil majors in a broad FTSE note that names Hormuz only as context \u2014 BWET itself is still not the subject of mainstream saturation, consistent with last week's 'niche, under-owned freight-futures play' characterisation. The arc has a concrete next leg available (a naval incident, IAEA finding, or snapback sanction move) and no scheduled resolution date is on the calendar. Conviction held at 6: thesis is working, vehicle remains under-the-radar, catalyst unresolved. BWET is still the cleanest pure-play in the known vehicle set.",
+      "exit_advice": "Hold. The driving condition is explicitly cited in live market coverage this week \u2014 no resolution, reversal, or arc-completion trigger is present.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    }
+  ],
+  "2026-03-27": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump halted Iran strikes (Mar 25), potentially signaling de-escalation that could reverse Hormuz closure risk.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 6 is the most consequential since entry. The devil's-advocate exit case is the zawya.com 'Trump halts strikes on Iran' headline (Mar 25) \u2014 a strike pause could be read as a de-escalation pivot reversing Hormuz risk. That is the honest strongest argument against the position. But it collapses against the Mirror piece published the very next day (Mar 26): thousands of US ground assault troops heading to the Gulf, both sides rejecting peace proposals, and the UN explicitly warning the conflict is 'out of control.' The halt appears tactical, not diplomatic closure. ADNOC expanding shipping routes to 'avoid supply chain disruptions' is an operational confirmation of live Hormuz risk \u2014 companies are paying real costs to route around the chokepoint, which is the opposite of normalcy. No deal signed, no sanctions lifted, no Hormuz security guarantee issued, no tanker-rate collapse reported. The structural standoff is not only unresolved but has escalated materially with US ground forces now in theater and the diplomatic track publicly broken. Third-exit condition also fails: coverage is in a UK tabloid and a Gulf regional outlet \u2014 no mainstream BWET-specific saturation, consistent with the 'niche, under-owned' characterisation from Week 4. Conviction raised to 7 \u2014 the catalyst arc has accelerated with a concrete new development (US ground troops, rejected peace proposals) that extends the thesis forward.",
+      "exit_advice": "Hold BWET. The driving condition has intensified \u2014 US ground troops deploying to Gulf, peace proposals rejected by both sides, UN warning of out-of-control conflict. The 'strike halt' is tactical noise, not resolution.",
+      "evidence_urls": [
+        "https://www.mirror.co.uk/news/world-news/iran-war-escalation-fears-un-36926530",
+        "https://www.zawya.com/capital-markets/equities/gulf-markets-hold-steady-as-trump-halts-strikes-on-iran-bwmdi37l"
+      ]
+    }
+  ],
+  "2026-04-03": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump 'vows escalation before exit' could signal a planned diplomatic withdrawal is imminent, resolving the standoff.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 7. The news flow this week is a single syndicated wire story blasted across ~20 Australian regional outlets \u2014 identical copy, zero original reporting, and not a BWET-specific piece. The headline 'Trump vows escalation before exit' is the only new signal, and it cuts in opposite directions: 'vows escalation' directly confirms the Trump-Iran standoff remains live and kinetic; 'before exit' is genuinely ambiguous (could refer to exiting a specific operation, a tactical posture, or something unrelated to Iran altogether \u2014 possibly tariff context given the Australian equities market framing). Against the Week 6 backdrop \u2014 US ground troops deployed to the Gulf, peace proposals publicly rejected by both sides, the UN warning the conflict is 'out of control,' and ADNOC paying real money to reroute ships around the chokepoint \u2014 a single ambiguous headline does not constitute a confirmed de-escalation or deal closure. The devil's-advocate exit case (planned diplomatic withdrawal signaled by 'before exit') is the honest challenge this week, but it collapses against the 'vows escalation' language in the same headline and the absence of any concrete confirmation: no Iran deal signed, no sanctions lifted, no Hormuz security guarantee issued, no tanker-rate collapse reported. The structural driving condition is formally unresolved. Third-exit condition also fails: 20 Australian regional wire pickups of the same piece is syndication noise, not BWET-specific mainstream saturation. Conviction held at 7. BWET remains the cleanest pure-play on Hormuz closure risk in the known vehicle set.",
+      "exit_advice": "Exit only on a confirmed Iran deal, formal Hormuz security guarantee, sanctions lift, or documented collapse in tanker rates. The 'before exit' language is noted but unresolved in meaning \u2014 do not exit on ambiguity.",
+      "evidence_urls": [
+        "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
+      ]
+    }
+  ],
+  "2026-04-10": [
+    {
+      "ticker": "BWET",
+      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; crude fell immediately as Hormuz supply-flow expectations eased \u2014 driving condition formally reversed.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "Seven weeks of holding through the full arc: entry on structural Hormuz risk, two quiet weeks, confirming tanker-rate coverage (Week 4), FTSE capital flows citing Hormuz (Week 5), US ground troops deployed and peace talks publicly rejected (Week 6), and an ambiguous 'vows escalation / before exit' headline (Week 7). The thesis delivered \u2014 BWET climbed on genuine Hormuz closure fear across that arc. This week the driving condition reversed concretely: the US and Iran agreed a two-week ceasefire on April 8. Crude fell on the announcement specifically because markets repriced Hormuz supply-flow risk lower. RT\u00c9, FinancialMirror, Yahoo Finance, MarketScreener, and Baystreet all confirm the ceasefire is real and that the Strait-of-Hormuz premium drove the relief move. 'Ceasefire' is an explicitly named reversal condition in the framework \u2014 identical to 'curbs lifted / chokepoint reopened / shortage ended.' The fact that the ceasefire is only two weeks does not keep the thesis alive: we exit on the reversal event and re-enter on a new escalation catalyst if the standoff resumes. catalyst_resolved=true, thesis_live=false. Clean exit.",
+      "exit_advice": "Exit BWET immediately. A formal ceasefire is explicitly named in the framework as a reversal condition. Crude prices already fell on the announcement and multiple outlets cited eased Hormuz closure risk as the cause. The relief rally is underway and the early-edge window is closed. If re-escalation resumes after the two-week ceasefire lapses, treat it as a new catalyst entry \u2014 do not hold through resolution hoping for a restart.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://www.financialmirror.com/2026/04/08/oil-prices-to-stay-high-relief-rally-follows-us-iran-ceasefire/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
+        "https://www.marketscreener.com/news/trading-day-trump-s-iran-deadline-looms-ce7e50dad980ff22",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
+      ]
+    }
+  ],
+  "2026-04-17": [],
+  "2026-04-24": [],
+  "2026-05-01": [],
+  "2026-05-08": [
+    {
+      "ticker": "OKLO",
+      "thesis": "Specific datable NRC/regulatory event expected May 12 drives re-rating",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "OKLO already surged 46% in April; May 12 NRC event may be substantially priced in.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "First week. The Motley Fool article (May 8) explicitly confirms a specific May 12 catalyst remains PENDING and frames it as a potential re-rating event. The NRC/regulatory binary has not yet occurred \u2014 catalyst_resolved is false. The devil's advocate case (46% April pre-run) is real but is a 'priced-in' concern, not a catalyst resolution; the event itself is still ahead in four days. OKLO remains the cleanest pure-play vehicle. Coverage is present but still in 'will-it-happen' framing rather than mainstream-saturated consensus, so the early-mover window has not fully closed. Conviction docked one point for the large April pre-run reducing potential remaining asymmetry on the upside leg. Binary resolution on May 12 is the sole exit trigger.",
+      "exit_advice": "Hold through May 12. Exit immediately once the NRC regulatory decision/meeting outcome is public \u2014 whether favorable or not, the datable binary will have resolved and the edge is gone. Do not chase a post-decision gap.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "OKLO",
+      "thesis": "Specific datable NRC/regulatory event expected May 12 drives re-rating",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "May 12 NRC/regulatory date has now passed; the specific datable pending catalyst is no longer pending \u2014 resolved or lapsed.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "Re-reading the full journal: the FIXED catalyst was explicitly a 'specific datable NRC/regulatory event expected May 12.' Entry note on May 8 stated 'binary resolution on May 12 is the sole exit trigger.' It is now May 15 \u2014 that date has come and gone. Whether the event occurred as expected, disappointed, or was quietly delayed, the specific pending binary this position was entered on is no longer pending. That mechanically makes catalyst_resolved true. Corroborating evidence: the only fresh news (JPMorgan, May 15) explicitly declines to turn bullish on OKLO despite acknowledging a strong SMR outlook \u2014 precisely what you would expect from a sell-side analyst surveying the post-May 12 landscape and finding no compelling re-rating has occurred. There is no concrete scheduled next catalyst named in any source. The arc is complete: the shock (regulatory binary), the response (pre-run into May 12), and the resolution have all played out. Thesis_live = false. Exit.",
+      "exit_advice": "Exit OKLO. The sole thesis driver was a specific datable binary on May 12 \u2014 that date has elapsed. JPMorgan's May 15 note (stopping short of bullish despite strong SMR backdrop) confirms no transformative re-rating materialised post-May 12. The edge was the pending event; with the window closed, there is nothing left to hold for.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html"
+      ]
+    }
+  ],
+  "2026-05-22": [],
+  "2026-05-29": [],
+  "2026-06-05": [],
+  "2026-06-12": [],
+  "2026-06-19": [],
+  "2026-06-26": [],
+  "2026-07-03": []
+}

@@ -6,369 +6,1370 @@
   "2025-04-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "seed",
-      "exit_case": "China curbs just announced; reshoring/tariff dynamic still unfolding \u2014 no reversal or resolution yet",
+      "exit_case": "none \u2014 China export curbs just imposed this week, driving condition freshly in force, not lifted",
       "catalyst_resolved": false,
-      "assessment": "Entry week. China restricted rare-earth exports amid the US-China tariff war, and MP Materials \u2014 the only scaled US rare-earth miner \u2014 is the direct, purest beneficiary as a reshoring/supply-security play. The curbs are newly active, not reversed, so the catalyst remains open. Noise in the feed (Australian shares, real estate, tax) is irrelevant. MP is the clean pure-play vehicle.",
-      "exit_advice": "Hold. China export curbs are freshly imposed and escalating; MP is the sole scaled US producer and remains under-owned. Catalyst pending.",
+      "conviction": 8,
+      "assessment": "Entry week. China's rare-earth export restrictions are a specific, datable supply-shock that directly benefits MP as the lone scaled US producer \u2014 a clean pure-play reshoring bet still described as under-owned. Driving condition (curbs) freshly imposed and in force; catalyst pending, not resolved. Coverage still niche (etf.com), not mainstream-saturated. MP remains the purest vehicle.",
+      "exit_advice": "Hold; curbs are live and MP is the sole scaled US pure-play, still under-owned early",
       "evidence_urls": [
-        "https://www.katherinetimes.com.au/story/8942015/latest-tariff-twist-puts-australian-shares-in-the-green/"
+        "https://www.etf.com"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 selected to BID, actual contract awards still pending; catalyst just occurred",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Entry week. Rocket Lab selected to bid on multibillion US/UK launch contracts \u2014 a specific, datable catalyst with a clean pure-play vehicle (RKLB). Being chosen to bid is only the first step; actual awards remain the concrete next catalyst still pending. Early, still under-the-radar. Hold RKLB.",
+      "exit_advice": "Hold; selection to bid opens a path to concrete contract awards still ahead.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-rocket-lab-big-today-155654682.html"
       ]
     }
   ],
   "2025-04-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "China curbs could be reversed in tariff de-escalation talks, ending supply-security premium",
+      "exit_case": "Headlines cite easing US-China trade tensions \u2014 but China's rare-earth export curbs remain in force, not lifted",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place this week \u2014 no reversal, no resolution. The catalyst stays open and pending. This week's news is all noise (pharma tariffs, nuclear stocks, market volatility commentary), nothing directly bearing on rare earths or MP. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Thesis intact.",
-      "exit_advice": "Hold; curbs remain active and unreversed. Exit if China lifts rare-earth export restrictions in a US-China deal.",
+      "conviction": 8,
+      "assessment": "This week's news is broad tariff-optimism noise (Wall St rally, 'easing US-China tensions') with nothing MP-specific and, crucially, no lifting of China's rare-earth export restrictions \u2014 the actual driving condition. 'Signs of easing' is sentiment, not a signed rollback of the curbs. The supply-shock catalyst remains in force and pending; MP is still the sole scaled US producer and the purest vehicle. Coverage remains non-mainstream on the rare-earth angle. No resolution, no herd arrival, no concrete reversal \u2014 hold. Monitor for any explicit Chinese curb rollback, which is the true exit trigger.",
+      "exit_advice": "Hold; watch for an actual lifting of China's rare-earth export curbs, which would reverse the driving condition",
       "evidence_urls": [
-        "https://www.fool.com/research/pharmaceutical-tariffs-imports/"
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-shares-rise-on-signs-of-easing-US-China-trade-tensions-49718457/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Selected-to-bid is done, but actual contract awards \u2014 the real catalyst \u2014 remain pending and unresolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No relevant news this week (the item is an unrelated Maine grocery store). Driving condition intact: RKLB remains in the running for US/UK launch awards, which have not been decided. Silence is not exit \u2014 hold through the quiet stretch awaiting the award decisions.",
+      "exit_advice": "Hold RKLB. Being chosen to bid is only step one; the concrete next catalyst \u2014 actual multibillion contract awards \u2014 is still ahead. No mainstream saturation yet.",
+      "evidence_urls": [
+        "https://www.pressherald.com/2025/04/22/third-space-market-launches-in-gorham/"
       ]
     }
   ],
   "2025-05-02": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "China curbs could be lifted in tariff de-escalation, but no reversal yet this week.",
+      "exit_case": "Rising US-China trade-talk optimism could soon roll back curbs \u2014 but no signed rollback yet.",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is entirely noise \u2014 GDP contraction, MPW REIT, uranium/nuclear, China stimulus restraint \u2014 nothing reverses the curbs or directly bears on MP. China showing 'composure' in trade war suggests no near-term concession, so curbs likely persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
-      "exit_advice": "Hold. Exit only if China formally rescinds rare-earth export curbs or a US-China deal explicitly removes them.",
+      "conviction": 7,
+      "assessment": "Another week of generic macro/trade-talk sentiment (jobs report, 'optimism about China trade talks') with zero MP-specific news and, critically, no actual signed lifting of China's rare-earth export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. Trade-talk optimism is sentiment, not a rollback; this is exactly the noise flagged last week. No herd arrival on the rare-earth reshoring angle, no concrete reversal, catalyst still pending. MP remains the sole scaled US producer and purest vehicle. Hold through the quiet.",
+      "exit_advice": "Hold. Exit only on an explicit, signed Chinese rollback of rare-earth export curbs.",
       "evidence_urls": [
-        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
+        "https://www.rttnews.com/3534925/u-s-stocks-surge-on-upbeat-jobs-data-optimism-about-trade-talks-with-china.aspx"
       ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 selected only to bid; actual US/UK launch awards not yet decided, catalyst still pending",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Second quiet week with no fresh coverage. Being selected to bid is only the first step; the awards themselves are the concrete scheduled catalyst still ahead. Under-the-radar and unresolved. Hold through silence.",
+      "exit_advice": "Hold RKLB. The concrete next catalyst \u2014 actual launch award decisions \u2014 remains pending. Silence is not exit; the driving condition (in-the-running for undecided contracts) is fully intact.",
+      "evidence_urls": []
     }
   ],
   "2025-05-09": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-UK tariff deal hints at de-escalation; a US-China deal could reverse curbs and unwind the supply-security premium.",
+      "exit_case": "US-China trade talks looming this week could yield a curb rollback \u2014 but nothing signed yet; curbs remain in force.",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week \u2014 no reversal, no concession. This week's news is entirely noise: UK logistics REIT, Trump-UK tariff deal, Eli Lilly, PBOC rate cuts, Buffett. The Trump-UK deal is worth flagging as a de-escalation signal, but it touches nothing on China rare earths; curbs persist. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. Catalyst open and pending.",
-      "exit_advice": "Hold, but watch for a US-China trade deal that explicitly lifts rare-earth curbs \u2014 that would resolve the catalyst.",
+      "conviction": 6,
+      "assessment": "Fourth straight week of generic macro/trade-deal noise (US-UK deal, FOMC, 'China shores up economy ahead of trade talks') with zero MP-specific news and, critically, NO signed lifting of China's rare-earth export curbs. The driving condition remains fully in force. Trade-talk optimism is sentiment, not a rollback. Rare-earth reshoring angle still non-mainstream \u2014 no herd arrival. Catalyst pending. MP remains the sole scaled US producer and purest vehicle. A quiet stretch is not an exit; hold through silence. Note: the imminent US-China talks are a concrete near-term event that could reverse the driving condition \u2014 monitor for any explicit curb rollback.",
+      "exit_advice": "Hold, but the upcoming US-China trade talks are the key watch \u2014 a signed rare-earth curb rollback is the true exit trigger.",
       "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-stocks-rise-after-Trump-strikes-tariff-deal-with-UK-49872677/"
+        "https://whdh.com/news/wall-street-wavers-as-china-shores-up-its-economy-ahead-of-trade-talks-with-the-us/",
+        "https://www.investopedia.com/s-and-p-500-gains-and-losses-today-stocks-gain-in-volatile-session-as-markets-react-to-fed-meeting-trump-trade-comments-11730398"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 awards from US/UK launch contracts not yet decided; catalyst still pending",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Third-plus quiet week with no RKLB-specific news; the only item is an unrelated BlackSky earnings pop. Driving condition intact: RKLB remains in the running for US/UK launch awards, which have not been decided. Under-the-radar, unresolved. Hold through silence.",
+      "exit_advice": "Hold RKLB. Selected-to-bid is step one; the actual contract awards remain the concrete scheduled catalyst still ahead. This week's news is about BlackSky, unrelated to RKLB's award pipeline. Silence is not exit.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-blacksky-stock-rocketing-higher-161100478.html"
       ]
     }
   ],
   "2025-05-16": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China trade de-escalation could prompt China to lift rare-earth curbs, dissolving the supply-shock thesis.",
+      "exit_case": "US-China Geneva deal lowered tariffs both ways \u2014 easing tensions could presage curb rollback, but NO rare-earth export curbs actually lifted.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is 100% noise: Eurovision, Trump Middle East tour, birthright citizenship, Coinbase hack, Nvidia/Arm. Nothing touches China rare-earth curbs or MP. The curbs remain in place and unresolved \u2014 no announced rollback despite ongoing US-China de-escalation chatter. Until China explicitly lifts the export restrictions, the supply-security catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring vehicle.",
-      "exit_advice": "Hold, but watch for any explicit rollback of rare-earth export curbs in US-China negotiations \u2014 that ends the thesis.",
-      "evidence_urls": []
+      "conviction": 6,
+      "assessment": "Fifth straight week of macro/tariff-truce noise. The big development \u2014 US-China tariff de-escalation post-Geneva \u2014 is precisely the event I flagged to watch, but it lowered TARIFFS, not the rare-earth EXPORT CURBS that are MP's driving condition. No signed lifting of those restrictions. Meanwhile 'US uses poison pill to isolate China from supply chains' and 'supply chains take years to relocate' both reinforce the reshoring premium favoring the sole scaled US producer. Rare-earth reshoring angle remains non-mainstream \u2014 no herd arrival on MP specifically. Catalyst still pending; curbs still in force. MP remains the purest vehicle. Hold, but tighten watch: a tariff truce raises the odds a rare-earth rollback follows \u2014 that would be the exit.",
+      "exit_advice": "Hold. The Geneva tariff truce lowered reciprocal tariffs but did NOT sign away China's specific rare-earth export licensing curbs \u2014 the actual driving condition remains in force. Exit only on an explicit curb rollback.",
+      "evidence_urls": [
+        "https://article.wn.com/view/2025/05/15/us_uses_8216poison_pills_8217_to_isolate_china_from_supply_c/",
+        "https://www.turnto23.com/politics/economy/tariffs-are-supposed-to-promote-domestic-investments-but-transitioning-supply-chains-could-take-years"
+      ]
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Disclosure already public Thursday; stock plunged and $400M cost is now priced \u2014 one-time shock done",
+      "exit_case": "none \u2014 awards not yet decided; selected-to-bid status intact, no resolution or reversal",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Coinbase disclosed a cyberattack exposing customer data, a $20M ransom demand, and remediation/reimbursement costs up to $400M, with reports of an SEC investigation. Shares plunged Thursday. The specific catalyst \u2014 the SEC probe and the full breach fallout \u2014 is still PENDING, not closed; only the initial disclosure has hit. COIN is the sole and purest vehicle. Watch for SEC resolution, class-action filings, and any revision to the $400M cost estimate as the trigger to reassess.",
-      "exit_advice": "Hold while SEC probe is unresolved and breach-cost/litigation fallout still developing; the disclosure dropped this week but the investigation outcome is pending.",
+      "conviction": 7,
+      "assessment": "Fourth-plus quiet week with no RKLB-specific coverage. Being selected to bid remains only the first step; the awards themselves are the concrete scheduled catalyst still ahead and undecided. Driving condition intact, still under-the-radar. Silence is not exit \u2014 hold.",
+      "exit_advice": "Hold RKLB; the concrete next catalyst (actual US/UK launch award decisions) is still pending. This week's news is irrelevant (Mastercard/MoonPay stablecoins).",
       "evidence_urls": [
-        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
-        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data"
+        "https://www.pymnts.com/cryptocurrency/2025/mastercard-and-moonpay-team-to-promote-stablecoin-payments/"
       ]
     }
   ],
   "2025-05-23": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China de-escalation (Geneva tariff truce) could prompt China to roll back curbs, collapsing the supply-security premium.",
+      "exit_case": "Post-Geneva tariff truce could presage a rare-earth curb rollback \u2014 but no signed lifting of the export restrictions has occurred.",
       "catalyst_resolved": false,
-      "assessment": "China's rare-earth export curbs remain in place and unresolved this week. News is pure noise \u2014 Trump uranium/nuclear frenzy, no bearing on rare earths or MP. Despite ongoing US-China trade de-escalation, no announced rollback of the curbs. Catalyst stays open and pending. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit if China explicitly lifts rare-earth export restrictions or grants broad US-bound licenses.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "Initial breach disclosure and stock drop already public/priced; market may have absorbed the $400M hit.",
-      "catalyst_resolved": false,
-      "assessment": "No relevant news this week \u2014 the only headline is an unrelated UK dividend piece. The specific catalyst (SEC investigation, breach remediation costs, potential cost revisions/litigation) is still in motion and unresolved. Nothing has closed: no SEC settlement or denial, no finalized cost figure, no class-action resolution. Edge persists while these triggers stay pending. COIN remains the sole pure vehicle for this single-name event.",
-      "exit_advice": "Hold. SEC probe unresolved, no class-action or cost-revision outcome yet; the full breach fallout remains pending.",
+      "conviction": 7,
+      "assessment": "Sixth straight quiet week \u2014 no fresh MP-specific coverage. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP specifically has not gone mainstream, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue to watch for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit signed Chinese rollback of the rare-earth export curbs, or once MP reshoring goes mainstream-saturated with no concrete next catalyst.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEG",
-      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Executive orders just signed this week \u2014 discrete signing event technically occurred",
+      "exit_case": "none \u2014 being selected to bid is only step one; actual US/UK launch awards remain undecided, driving condition intact",
       "catalyst_resolved": false,
-      "assessment": "Entry week. Trump's pro-nuclear executive orders sparked an immediate uranium/nuclear rally. CEG, as the largest US nuclear generator, is a clean pure-play beneficiary of policy tailwinds (reactor licensing, demand growth from data centers/AI). The signing is the spark, but implementation and re-rating are pending \u2014 thesis live. Watch for the policy momentum to fade or fully price in over coming weeks.",
-      "exit_advice": "Hold \u2014 EOs signed but the nuclear buildout/repricing they unleash is multi-month and just beginning; frenzy is fresh, not priced.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
+      "conviction": 6,
+      "assessment": "No fresh coverage again. RKLB remains in the running for the multibillion US/UK launch awards, which have not been decided or announced. The specific catalyst has not occurred, coverage is not saturated, and a concrete award decision is still scheduled ahead. Hold through the quiet stretch.",
+      "exit_advice": "Hold RKLB. Fifth quiet week but the concrete next catalyst \u2014 the actual contract awards \u2014 is still ahead and undecided. Silence is not exit while under-the-radar.",
+      "evidence_urls": []
     }
   ],
   "2025-05-30": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Ongoing US-China trade de-escalation could trigger a curb rollback, collapsing the supply-security premium without warning.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; this week is generic EU-tariff-delay macro noise, not a reversal.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. China's rare-earth export curbs remain in place and unresolved \u2014 no announced rollback despite the de-escalation backdrop from earlier Geneva-style talks. The specific catalyst I entered on (active export curbs + sole US producer) is still pending; nothing this week resolved it. MP remains the only scaled US rare-earth miner and the purest reshoring/supply-security vehicle. Catalyst open.",
-      "exit_advice": "Hold, but watch for any explicit China announcement lifting rare-earth export restrictions \u2014 that ends the thesis instantly.",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "Seventh straight quiet week \u2014 the sole headlines are generic macro (Trump delays EU tariffs, stocks higher), zero MP-specific and, critically, NO signed lifting of China's rare-earth export restrictions. The driving condition remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold; the reshoring angle on MP specifically has not gone mainstream, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue to watch for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export curbs.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3542179/u-s-stocks-move-sharply-higher-after-trump-delays-eu-tariffs.aspx"
+      ]
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Breach disclosure shock is two weeks old and fully priced; no SEC action, cost revision, or litigation catalyst has materialized \u2014 edge is decaying.",
+      "exit_case": "none \u2014 awards not yet decided or announced; being selected to bid has not converted to a resolution or reversal",
       "catalyst_resolved": false,
-      "assessment": "The specific catalyst \u2014 SEC investigation, finalized breach remediation cost, and litigation \u2014 remains formally PENDING. No settlement, denial, finalized $400M figure, or class-action resolution has occurred. But the market has had two quiet weeks to absorb the initial disclosure, so the original price shock is priced in and the live edge now hinges entirely on an unresolved-yet-stale SEC/litigation overhang. Thesis stays live only because none of those triggers has closed.",
-      "exit_advice": "Hold, but treat as decaying \u2014 two consecutive weeks of no news. If a third week passes with no SEC development, cost revision, or class-action milestone, the catalyst has effectively gone dormant and should be exited.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump executive orders boosting nuclear power spark uranium frenzy",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Executive orders already signed at entry; the discrete catalyst has occurred and is public/priced \u2014 frenzy fading, no fresh coverage.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst I entered on was the actual signing of Trump's pro-nuclear executive orders \u2014 a discrete, completed government action. That event is in the past, public, and priced. My entry note hoped for a re-rating to follow, but that is theme/narrative, not the specific catalyst. One week on there is no fresh coverage, signaling the initial frenzy has already faded rather than building. Re-reading the journal, the catalyst has resolved: a signed order cannot be un-signed and offers no remaining informational edge. CEG remains the cleanest nuclear pure-play, but holding now is betting on lingering hype, not a pending event. Thesis no longer live.",
-      "exit_advice": "Exit. The signing was the catalyst \u2014 it occurred at entry and is fully public. The one-week post-signing pop has come and gone with zero follow-through this week; edge is gone.",
+      "conviction": 6,
+      "assessment": "Multiple quiet weeks with no fresh coverage, but silence is not exit. RKLB remains in the running for the multibillion US/UK launch awards, which have not been announced. Being selected to bid is only the first step; the award decisions are the concrete pending catalyst. Not mainstream-saturated, still under-the-radar. Hold through the quiet stretch.",
+      "exit_advice": "Hold RKLB. The concrete next catalyst \u2014 actual US/UK launch award decisions \u2014 remains scheduled ahead and undecided.",
       "evidence_urls": []
     }
   ],
   "2025-06-06": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Ongoing US-China de-escalation talks could yield a curb rollback, collapsing the supply-security premium.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; tariff truce lowered tariffs, not export restrictions \u2014 driving condition still fully in force.",
       "catalyst_resolved": false,
-      "assessment": "This week's news is pure noise \u2014 Indian metal stocks rallying on an RBI rate cut, nothing touching China rare earths or MP. China's export curbs remain in place and unresolved; no announced rollback despite ongoing de-escalation chatter. The specific catalyst I entered on (active curbs + sole US producer) is still pending. MP remains the only scaled US rare-earth miner and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold; exit immediately if China explicitly lifts or rolls back the rare-earth export curbs in a trade deal.",
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
-      ]
+      "conviction": 7,
+      "assessment": "Eighth straight quiet week \u2014 no fresh MP-specific coverage. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP specifically has not gone mainstream, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export restrictions, or if MP-reshoring coverage goes fully mainstream with no concrete next catalyst ahead.",
+      "evidence_urls": []
     },
     {
-      "ticker": "COIN",
-      "thesis": "Cyberattack, $400M cost, SEC probe sinks Coinbase shares",
-      "thesis_live": false,
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Disclosure-driven price shock fully priced over three quiet weeks; SEC probe now a stale, dateless overhang with no fresh catalyst pending.",
-      "catalyst_resolved": true,
-      "assessment": "Fourth week, and the news is irrelevant (NZ/Fletcher-SkyCity, no Coinbase content). Re-reading the whole journal: the event I entered on was a one-time disclosure shock, and the market has now had a full month to price it. The SEC probe technically remains open, but an undated, unresolved investigation is not a pending discrete catalyst I have edge on \u2014 it is a lingering theme. The original price reaction is the resolution. Edge is gone.",
-      "exit_advice": "Exit. The discrete catalyst \u2014 the breach disclosure, $400M cost estimate, and SEC-probe headline that sank shares \u2014 occurred at entry and has been fully absorbed across three weeks of silence. No finalized cost, settlement, or litigation milestone has produced a new tradable trigger; the remaining 'overhang' is an open-ended investigation with no date, which is theme, not edge.",
-      "evidence_urls": [
-        "https://www.nzherald.co.nz/business/markets/shares/nz-stocks-end-flat-amid-fletcher-skycity-legal-woes-market-close/JKCBMWFWNVB5LC7ISVOWUNVJDM/"
-      ]
+      "exit_case": "Being 'selected to bid' already occurred at entry; but actual awards remain undecided \u2014 no resolution/reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Another quiet week with no RKLB-specific coverage. The driving condition is intact: Rocket Lab remains in the running for the US/UK launch awards, which have not been announced or decided. Being selected to bid was only the first step; the award itself is the concrete scheduled catalyst still ahead. Not mainstream-saturated. Hold through the quiet stretch.",
+      "exit_advice": "Hold. The concrete award decisions on the multibillion US/UK launch contracts remain pending and undecided; coverage is not saturated and RKLB stays under-the-radar. Silence is not exit.",
+      "evidence_urls": []
     }
   ],
   "2025-06-13": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-China trade talks turning positive \u2014 framework reportedly easing rare-earth curbs, the catalyst could reverse imminently.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force. This week's news is unrelated telecom-ethics noise.",
       "catalyst_resolved": false,
-      "assessment": "This week's news is the first material threat to the thesis: US-China trade talks (London framework) are turning positive and reportedly involve China easing rare-earth export restrictions in exchange for US concessions. This is no longer pure noise \u2014 it is direct de-escalation pressure on my exact catalyst. However, as of this week there is NO explicit, signed rollback of the curbs; the talks are positive but the restrictions remain formally in place. The catalyst is still pending but visibly decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle. I hold, but this is the closest to exit I've been \u2014 a confirmed curb rollback next week would resolve the catalyst.",
-      "exit_advice": "Watch for an explicit rollback announcement; if China formally lifts rare-earth export curbs in the trade framework, exit immediately \u2014 that resolves the catalyst.",
+      "conviction": 7,
+      "assessment": "Ninth straight quiet week \u2014 this week's only headline is an unrelated Canadian telecom-ethics story, zero MP relevance. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions. A quiet stretch is not an exit, and silence while under-the-radar = hold. The MP reshoring angle has not gone mainstream \u2014 no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Exit only on an explicit signed rollback of China's rare-earth export restrictions, or on full mainstream saturation of the MP reshoring angle.",
       "evidence_urls": [
-        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+        "https://www.thecarillon.com/local/2025/06/09/narth-911-ethics-complaint-after-callers-on-hold"
       ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Being selected to bid already occurred at entry \u2014 but the actual multibillion awards remain undecided, so not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Another quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the award decisions themselves are the concrete scheduled catalyst still ahead and undecided. Not front-page, not crowded \u2014 still under-the-radar. Hold through the quiet stretch awaiting the award announcements.",
+      "exit_advice": "Hold. The concrete pending catalyst \u2014 the actual US/UK launch award decisions \u2014 has not landed. Silence is not exit; the driving condition (RKLB in the running for undecided awards) remains fully intact and coverage is not mainstream-saturated.",
+      "evidence_urls": []
     }
   ],
   "2025-06-20": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "London framework talks point to China easing rare-earth curbs \u2014 catalyst decaying toward resolution.",
+      "exit_case": "No signed rollback of China's rare-earth export curbs; tariff truce touched tariffs, not export restrictions \u2014 driving condition still in force.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. Last week's London-framework de-escalation (China reportedly to ease rare-earth export restrictions for US concessions) remains the key threat, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on is still pending. The thesis is intact but fragile and visibly decaying; a confirmed rollback would resolve it and force exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold, but exit on any explicit signed curb rollback or formal license resumption from China.",
+      "conviction": 7,
+      "assessment": "Tenth straight quiet week \u2014 no fresh MP-specific coverage. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions, and no signed rollback of the curbs has occurred. A quiet stretch is not an exit, and silence while under-the-radar = hold. The MP reshoring angle has not gone mainstream \u2014 no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit, signed lifting of China's rare-earth export curbs, or if MP reshoring coverage turns front-page mainstream with no concrete next catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Selection-to-bid already occurred at entry, but the actual award decisions remain undecided and pending.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Ninth-plus quiet week with no RKLB-specific coverage. Driving condition intact: Rocket Lab remains in the running for the multibillion US/UK launch awards, which have not been announced or decided. The specific award catalyst is still pending and concrete; coverage has not turned mainstream. Hold through the quiet stretch.",
+      "exit_advice": "Hold RKLB. The award decisions are the concrete scheduled catalyst still ahead and undecided; being selected to bid was only step one. Coverage remains sparse/under-the-radar, not mainstream-saturated. Silence is not exit \u2014 hold awaiting the award announcements.",
       "evidence_urls": []
     }
   ],
   "2025-06-27": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "London-framework de-escalation has China reportedly easing rare-earth curbs; catalyst visibly decaying toward resolution.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. The key threat remains the June London-framework de-escalation, where China reportedly agreed to ease rare-earth export restrictions in exchange for US concessions. But as of now there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying; a confirmed rollback resolves it and forces exit. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold, but exit immediately on any confirmed/signed China curb rollback \u2014 the thesis is fragile.",
+      "conviction": 6,
+      "assessment": "Eleventh straight quiet week \u2014 no fresh MP-specific coverage. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions, and no signed rollback of the curbs has occurred. A quiet stretch is not an exit, and silence while under-the-radar = hold. The MP reshoring angle has not gone mainstream \u2014 no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit, signed rollback of China's rare-earth export restrictions \u2014 none has occurred.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 bids selected but the multibillion US/UK launch awards remain undecided and unannounced",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves are the concrete scheduled catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold through the quiet stretch awaiting the award announcements.",
+      "exit_advice": "Hold. The concrete award decisions are still pending; silence is not exit.",
       "evidence_urls": []
     }
   ],
   "2025-07-04": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London-framework deal has China agreeing to ease rare-earth curbs \u2014 catalyst effectively de-escalated and decaying toward resolution.",
+      "exit_case": "No signed rollback of China's rare-earth export curbs; driving condition still fully in force.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 TSX real estate, Indian REITs, Asian shares on renewed tariff worries \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "A confirmed, signed curb rollback resolves the catalyst and forces immediate exit; watch for explicit Chinese export-license restoration.",
-      "evidence_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
-      ]
+      "conviction": 7,
+      "assessment": "Twelfth straight quiet week \u2014 no fresh MP-specific coverage. The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions, and no signed rollback of the curbs has occurred. A quiet stretch is not an exit, and silence while under-the-radar = hold. The MP reshoring angle has not gone mainstream \u2014 no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit, signed Chinese curb rollback or MP-specific mainstream saturation with no concrete catalyst ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "'Selected to bid' already occurred at entry; awards have no confirmed date after 11 silent weeks",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Eleventh-plus quiet week with no RKLB-specific coverage. Driving condition intact: Rocket Lab remains in the running for the US/UK launch awards, which have not been announced or decided. Being selected to bid was only step one; the award decisions are the concrete catalyst still ahead. Not front-page, not crowded. Hold through the quiet stretch. Conviction trimmed slightly given the long silence and no confirmed award date.",
+      "exit_advice": "Hold. The bid-selection opened the door; the multibillion US/UK launch awards themselves remain the pending, undecided catalyst. Silence is not exit and coverage is not mainstream-saturated.",
+      "evidence_urls": []
     }
   ],
   "2025-07-11": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agreeing to ease rare-earth curbs for US concessions \u2014 de-escalation may have quietly resolved it.",
+      "exit_case": "none \u2014 no signed lifting of China's rare-earth export curbs; the 'Trump-Xi summit' headline is a speculative question, not a scheduled reversal",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China property stimulus rumors, TSX real estate, Vistra/Cramer \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 a confirmed rollback resolves it. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit immediately on any explicit, signed China rollback of the rare-earth export curbs \u2014 the de-escalation track makes this imminent.",
+      "conviction": 7,
+      "assessment": "Thirteenth straight quiet week \u2014 this week's headlines are irrelevant (iRobot marketing, telecom ratings) or speculative macro (a question-mark 'Is a Trump-Xi summit coming?' piece, which is rumor, not a scheduled catalyst). The driving condition (China's rare-earth export curbs) remains fully in force; the tariff truce lowered tariffs, not the export restrictions, and no signed rollback has occurred. A quiet stretch is not an exit, and silence while under-the-radar = hold. The MP reshoring angle has not gone mainstream \u2014 no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export restrictions, or if MP reshoring coverage goes fully mainstream-saturated with no concrete catalyst ahead.",
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook"
+        "https://www.forbes.com/sites/brendanahern/2025/07/11/china-market-update-is-a-trump-xi-summit-coming-week-in-review/"
       ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 award decisions for US/UK launch contracts still not announced; catalyst unresolved, driving condition intact",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Twelfth-plus quiet week with no RKLB-specific coverage (this week's items are unrelated robotics names). Being selected to bid was only step one; the multibillion US/UK launch awards themselves are the concrete scheduled catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold through the quiet stretch. Conviction stays trimmed given the long silence and no confirmed award date.",
+      "exit_advice": "Hold. The specific award decisions remain the concrete pending catalyst; exit only when awards are announced or the bid process closes.",
+      "evidence_urls": []
     }
   ],
   "2025-07-18": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China agree to ease rare-earth curbs for US concessions \u2014 catalyst decaying toward resolution.",
+      "exit_case": "none \u2014 no signed lifting of China's rare-earth export curbs; driving condition still fully in force",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 China State Council anti-involution EV campaign, Asian equity moves \u2014 nothing touching rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold. No explicit, signed rollback of curbs has occurred; a confirmed rollback resolves the catalyst and forces exit.",
+      "conviction": 7,
+      "assessment": "Fourteenth straight quiet week on the MP-specific angle \u2014 this week's headlines are all generic macro (Hong Kong equities, Indonesia tariffs, Australian record close, mixed China data), zero MP relevance and, critically, NO signed lifting of China's rare-earth export restrictions. The driving condition \u2014 the export curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP specifically has not gone mainstream, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle. Continue watching for any explicit curb rollback as the true exit trigger.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export curbs, or once the MP reshoring angle goes mainstream-saturated with no concrete next catalyst ahead.",
       "evidence_urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
+        "https://www.forbes.com/sites/brendanahern/2025/07/18/china-market-update-hong-kong-higher-regulators-comment-on-instant-commerce-week-in-review/"
       ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 the multibillion US/UK launch awards have not been announced, granted, or decided; selection-to-bid was step one and remains unresolved",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Thirteenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves are the concrete scheduled catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "Hold RKLB. The concrete award decisions remain pending; silence over ~13 quiet weeks is not an exit while the driving condition is intact and coverage is not mainstream-saturated. Exit only on actual award decision or reversal.",
+      "evidence_urls": []
     }
   ],
   "2025-07-25": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation decaying the catalyst toward resolution.",
+      "exit_case": "none \u2014 China's rare-earth export curbs remain in force; no signed rollback of the restrictions has occurred",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Japan/Trump trade deal, Fed tour, Indian realty selloff, Michael Hudson essays \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying \u2014 broader US-China de-escalation (now extending to Japan deals) keeps pressure on. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Hold; a confirmed, signed rollback of China's rare-earth export curbs forces immediate exit.",
+      "conviction": 7,
+      "assessment": "Fifteenth straight quiet week on the MP-specific angle \u2014 this week's headlines (Indian FPI heatmap, Merck and Eli Lilly price-target notes) are entirely irrelevant to rare earths and MP, and critically there is NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed lifting of China's rare-earth export curbs, or on full herd arrival with no concrete catalyst ahead.",
       "evidence_urls": [
-        "http://www.newzealandstar.com/news/278463472/u-s-stocks-rally-as-trump-secures-trade-deal-with-japan"
+        "https://www.livemint.com/market/stock-market-news/fpi-heatmap-it-fmcg-lead-outflows-while-services-metals-draw-inflows-in-july-here-s-where-the-smart-money-is-going-11753172547430.html"
       ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Being selected to bid is a done step, but the actual multibillion US/UK launch awards remain undecided and unannounced \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Fourteenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves are the concrete scheduled catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "",
+      "evidence_urls": []
     }
   ],
   "2025-08-01": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework: China reportedly agreed to ease rare-earth exports \u2014 curbs visibly decaying toward de-escalation.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition remains fully in force \u2014 nothing this week resolves or reverses it.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 utility stock lists (KEP, EIX, CEPU), TSX/realty moves, Fed/tariff-deadline previews \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "A confirmed, signed rollback of China's export curbs resolves the catalyst and forces immediate exit.",
+      "conviction": 7,
+      "assessment": "Sixteenth straight quiet week on the MP-specific angle \u2014 this week's feed is entirely energy-earnings, LNG, telecom and macro noise, zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's export curbs, or if the MP reshoring angle goes fully mainstream-saturated with no concrete catalyst left ahead.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Stake announcement is public; a power utility's lithium entry may already be fully priced.",
+      "exit_case": "Award decisions never announced; catalyst still pending, not resolved or reversed.",
       "catalyst_resolved": false,
-      "assessment": "Entered on the discrete catalyst: Central Puerto (CEPU) taking a major stake in the Tres Cruces lithium project, marking an Argentine power-gen company pivoting into lithium. News confirms the announcement but lacks detail on stake size, price, and close timing \u2014 the market is only beginning to reprice the optionality. Rest of newsflow is generic macro/market noise, not event-specific. Catalyst is fresh and still unfolding, not yet closed-and-priced. CEPU is the sole and purest vehicle.",
-      "exit_advice": "Hold. Entry week \u2014 the Tres Cruces stake was just announced and the repricing of CEPU from pure utility to utility-plus-lithium optionality is still fresh and developing. Watch for deal-close confirmation, stake size/terms, and project resource details; once the transaction formally closes and is digested, edge decays.",
+      "conviction": 4,
+      "assessment": "Fifteenth-plus quiet week; this week's news is unrelated (Nigerian telecom MVNO). Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete scheduled catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/central-puerto-s-a-cepu-enters-lithium-race-with-major-stake-in-tres-cruces-project-1579372/"
+        "https://www.legit.ng/business-economy/technology/1667197-new-telecom-operator-launches-number-series-completes-integration-mtn-others/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US trade deal finalized this week \u2014 the signing itself has occurred and is now public",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Entry week. EU-US trade deal explicitly ties to a surge in US LNG export commitments, and press names Venture Global (VG) directly \u2014 a clean pure-play LNG exporter gaining on new project progress. The deal signing is the trigger, but the driving condition (multi-year European LNG offtake demand) is in force and just starting to play out; VG has concrete near-term project milestones ahead. Coverage is fresh, not yet saturated. Hold VG as purest vehicle.",
+      "exit_advice": "Hold. Deal signed but LNG export demand ramp is just beginning; VG advancing new project, concrete follow-on catalysts still ahead.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/venture-global-vg-gains-following-progress-on-new-lng-project-1581288/",
+        "https://finance.yahoo.com/news/trumps-eu-deal-good-us-203108606.html"
       ]
     }
   ],
   "2025-08-08": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs \u2014 de-escalation may have quietly resolved my catalyst.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; all news is generic tariff/macro noise with no rollback of the driving condition.",
       "catalyst_resolved": false,
-      "assessment": "No fresh coverage this week. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback \u2014 the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit on any explicit, signed rollback of China's rare-earth export curbs, or a confirmed MP-specific de-escalation outcome.",
+      "conviction": 7,
+      "assessment": "Seventeenth straight quiet week on the MP-specific angle \u2014 this week's feed is entirely tariff-Wall Street noise (sweeping Trump tariffs take effect, chip tariffs, Japan tariff relief), zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export curbs, or on clear mainstream saturation of the MP reshoring angle with no concrete next catalyst ahead.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/global-markets-edge-up-as-sweeping-trump-tariffs-take-effect-ce7c5edfd889f127"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Being selected to bid is backward-looking, but the actual awards remain undecided \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Sixteenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the award decisions themselves are the concrete catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Conviction stays trimmed given the extended silence and no confirmed award date, but silence is not exit \u2014 hold.",
+      "exit_advice": "Hold. The multibillion US/UK launch awards are still undecided and unannounced \u2014 the concrete catalyst remains pending. Silence is not an exit while the driving condition (RKLB in the running for undecided awards) is intact.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Announcement already public; no new detail this week, market may have fully priced the initial reveal.",
+      "exit_case": "EU-US trade deal signed late July \u2014 the signing trigger has occurred and is public.",
       "catalyst_resolved": false,
-      "assessment": "No event-specific news this week \u2014 only generic European market noise, nothing about Central Puerto or Tres Cruces. The discrete catalyst (CEPU acquiring a major stake in Tres Cruces) was announced at entry but remains incomplete: stake size, price, and close timing are still unknown. The lithium-pivot optionality has not been concretely repriced because the market lacks the hard terms. Catalyst still pending; no resolution event has passed. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
-      "exit_advice": "Hold. Deal terms (stake size, price, close timing) remain undisclosed and unclosed \u2014 the catalyst is still unfolding, not resolved. Exit only when the transaction closes with confirmed terms or the lithium pivot is abandoned.",
+      "conviction": 6,
+      "assessment": "This week's only item is a generic Energy Transfer dividend piece, not about VG \u2014 no new VG-specific catalyst and no saturation. Silence on VG is not an exit. The deal's signing was the trigger, but multi-year European LNG offtake commitments continue to materialize and VG's project milestones (FIDs, phase progress, offtake contracts) remain pending and concrete. VG stays the purest pure-play exporter vehicle; Energy Transfer is a diluted midstream play, not adopted.",
+      "exit_advice": "Hold VG. The trade-deal signing occurred, but the driving condition \u2014 multi-year European LNG offtake demand \u2014 is still ramping, and VG has concrete near-term project milestones ahead. Exit only when those milestones land and coverage saturates.",
       "evidence_urls": [
-        "https://invezz.com/news/2025/08/06/europe-markets-open-equities-gain-focus-on-earnings-uk-budget-deficit-concerns/"
+        "https://finance.yahoo.com/news/dividend-stock-yields-almost-7-233002644.html"
       ]
     }
   ],
   "2025-08-15": [
     {
       "ticker": "MP",
-      "thesis": "China rare-earth export curbs, sole US producer",
+      "thesis": "China rare-earth export curbs lift sole US producer",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "June London framework had China reportedly agree to ease rare-earth curbs; de-escalation is grinding the catalyst toward resolution.",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force. No reversal.",
       "catalyst_resolved": false,
-      "assessment": "This week's feed is pure noise \u2014 Trump-Putin Alaska summit, India-US strain, WWII anniversaries, DEI rulings \u2014 nothing touching China rare earths or MP. The standing threat remains the June London framework where China reportedly agreed to ease rare-earth export restrictions for US concessions, but there is still NO explicit, signed rollback; the curbs remain formally in place, so the specific catalyst I entered on (active curbs + sole US producer) is still pending. Thesis intact but fragile and decaying. MP remains the sole scaled US producer and purest reshoring/supply-security vehicle.",
-      "exit_advice": "Exit on any explicit, signed China rollback of rare-earth export curbs; until then hold.",
+      "conviction": 7,
+      "assessment": "Eighteenth straight quiet week on the MP-specific angle. This week's feed is entirely Ukraine/Putin-summit, Trump tariff, and Canada-China canola noise \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's rare-earth export curbs, or if MP-specific reshoring coverage turns mainstream-saturated with no concrete next catalyst ahead.",
+      "evidence_urls": [
+        "https://www.squamishchief.com/asia-pacific/is-it-time-for-bc-and-canada-to-reset-their-relationship-with-china-11073385"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 awards not yet decided; selection-to-bid catalyst has not resolved and driving condition (open US/UK award decisions) remains in force",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Seventeenth-plus quiet week with no RKLB-specific coverage (this week's items are unrelated Indian solar and Lloyd's Register ports stories). Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.financialexpress.com/policy/economy-us-begins-probe-against-indian-solar-imports-3945841/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US trade deal already signed (Aug 1 trigger) \u2014 the discrete signing is backward-looking and done.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Zero VG- or LNG-specific news this week; the feed is dominated by unrelated tariff, India, Latin America and space-stock noise. This is silence, not resolution \u2014 a quiet stretch is not an exit while European LNG demand continues to materialize. No sign of mainstream saturation on VG specifically, and concrete near-term project catalysts remain ahead. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold VG. The signing was the trigger, but the driving condition \u2014 multi-year European LNG offtake demand \u2014 remains in force, and VG's concrete project milestones (FIDs, phase progress, offtake contracts) are still pending ahead. Exit only when those milestones land and coverage turns saturated.",
+      "evidence_urls": [
+        "https://www.publicradioeast.org/2025-08-13/president-trump-is-upending-global-trade-as-we-know-it-what-comes-next"
+      ]
+    }
+  ],
+  "2025-08-22": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs \u2014 driving condition still fully in force; no reversal.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Nineteenth straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (Hero MotoCorp, Palantir, solar/utility/telecom screeners, generic macro) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit, signed Chinese rollback of the export restrictions, or if MP-specific coverage goes fully mainstream-saturated with no concrete catalyst ahead.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEPU",
-      "thesis": "Central Puerto buys major stake in Tres Cruces lithium project",
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Deal terms (stake size, price, close) still undisclosed two weeks on \u2014 risk catalyst quietly fizzles without concrete repricing.",
+      "exit_case": "none \u2014 the multibillion US/UK launch awards remain undecided and unannounced; catalyst not resolved",
       "catalyst_resolved": false,
-      "assessment": "The discrete catalyst \u2014 CEPU acquiring a major stake in Tres Cruces \u2014 was announced at entry but remains incomplete: stake size, price, and close timing are still unknown, so the lithium-pivot optionality is not yet fully repriced. This week's news is entirely unrelated geopolitical noise (Trump-Putin summit, UN conflict report, West Bank) with zero mention of Central Puerto or Tres Cruces. No resolution event has passed. Catalyst still pending. CEPU remains the sole pure vehicle for the Argentine power-to-lithium pivot.",
-      "exit_advice": "Hold; exit if deal closes with disclosed terms (priced) or announcement is abandoned.",
+      "conviction": 4,
+      "assessment": "Eighteenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US trade deal already signed early August \u2014 the signing trigger is a closed, backward-looking event.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourth straight week with zero VG- or LNG-specific news; the feed is unrelated telecom, UAE retail, and dirt-cheap-stock filler. This is silence, not resolution. European LNG demand from the deal continues to materialize and VG's near-term catalysts remain concrete and ahead. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. The signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 remains in force, and VG's concrete project milestones (FIDs, phase progress, offtake contracts) are still pending. No mainstream saturation on VG specifically; silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "Treasury clean-energy tax-credit guidance less restrictive than feared",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Treasury released the less-restrictive guidance Aug 19; the specific surprise is public and already produced a one-day surge \u2014 catalyst has occurred.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "Entered on Treasury clean-energy credit guidance coming in less restrictive than feared. But that guidance was released Aug 19 and solar stocks surged the same day \u2014 the specific event has occurred and is public. This is a one-shot news pop, not a still-pending binary; the early edge on the surprise is spent. No scheduled final-rule or vote flagged in the news to justify a second leg. Resolved \u2014 exit rather than hold on a backward-looking catalyst.",
+      "exit_advice": "Exit \u2014 the discrete guidance release IS the catalyst and it already dropped, driving Monday's pop before/at our entry; the surprise is now public and priced with no concrete scheduled follow-on rule mentioned.",
       "evidence_urls": [
-        "https://www.fbherald.com/news/national/trump-vows-not-to-be-intimidated-ahead-of-putin-summit/article_a8976cac-e11a-5e59-a90e-6cbc16c12c22.html"
+        "https://www.investopedia.com/why-solar-stocks-are-surging-today-11792689"
       ]
+    }
+  ],
+  "2025-08-29": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition remains fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twentieth straight quiet week on the MP-specific angle. This week's feed is generic utility-stock screener noise (Tesla, Berkshire, Rivian) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit, signed Chinese rollback of the rare-earth export curbs, or clear mainstream-saturated herd arrival on the MP reshoring angle.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/08/27/best-utility-stocks-to-watch-today-august-26th.html"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Awards never announced/decided; the specific catalyst (US/UK launch contract awards) remains pending, not resolved or reversed.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Nineteenth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Silence is not exit \u2014 hold. Conviction stays trimmed given the extended silence and no confirmed award date.",
+      "exit_advice": "hold",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed and priced; driving condition (multi-year LNG offtake) intact, so no reversal \u2014 but catalyst trigger is behind us.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth straight week with zero VG- or LNG-specific news; this week's feed is an unrelated Saudi market close. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG demand \u2014 continues to materialize, and VG's near-term project catalysts remain concrete and ahead. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold VG; the deal-driven multi-year European LNG offtake demand remains in force and VG's concrete project milestones (FIDs, phase progress, offtake contracts) stay pending ahead.",
+      "evidence_urls": [
+        "https://www.arabnews.com/node/2612978/business-economy"
+      ]
+    }
+  ],
+  "2025-09-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twenty-first straight quiet week on the MP-specific angle. This week's feed is generic macro (China selloff shrugged off, telecom stock screener) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's export curbs or full mainstream herd arrival on MP.",
+      "evidence_urls": [
+        "https://www.irishtimes.com/business/2025/09/04/shares-shake-off-china-selloff-as-bond-markets-brighten/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Selection-to-bid already occurred at entry; but the award decisions it set up remain undecided \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Twentieth-plus quiet week with no RKLB-specific coverage. Being selected to bid was only step one; the award decisions themselves remain the concrete catalyst still ahead and undecided. Driving condition intact, coverage not mainstream-saturated, still under-the-radar. Conviction stays trimmed given the very extended silence and no confirmed award date, but silence is not exit \u2014 hold.",
+      "exit_advice": "Hold. The multibillion US/UK launch awards remain the concrete pending catalyst; no award has been announced and no driving condition has reversed. Silence is not exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal signed was trigger but multi-year European LNG offtake demand still in force; VG project milestones still pending",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Sixth straight week with zero VG- or LNG-specific news; this week's feed is unrelated telecom stock filler. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 continues to materialize, and VG's near-term project catalysts (FIDs, phase progress, offtake contracts) remain concrete and ahead. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold VG through silence; exit only on resolution of VG's project milestones or mainstream saturation.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/08/30/telecom-stocks-to-research-august-29th.html"
+      ]
+    }
+  ],
+  "2025-09-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force \u2014 nothing has resolved or reversed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twenty-second straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (Kentucky unclaimed property, Joby, Newmont Canada listing, telecom/space/utility screeners, China market updates) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed Chinese curb rollback, or if MP-reshoring coverage goes fully mainstream-saturated with no concrete next catalyst ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Award decisions never landed; catalyst (being selected to bid) occurred at entry but the awards themselves remain undecided \u2014 no resolution.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Twenty-first-plus quiet week with no RKLB-specific award coverage; this week's items are generic 'best space stocks' listicles and a broad market note. Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided. Driving condition intact and not yet mainstream-saturated, but the listicle-style coverage hints the name is drifting toward the herd. Silence is not exit \u2014 hold, but conviction stays low given the very extended silence and no confirmed award date.",
+      "exit_advice": "Hold, but conviction is thin: 21+ weeks of silence and no confirmed award date, with coverage now creeping into generic space-stock listicles rather than award-specific reporting.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13140323/top-space-stocks-to-watch-today-september-4th.html"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal signed but multi-year European LNG offtake demand still in force and VG project milestones (FIDs, phase progress, offtake contracts) remain pending, not resolved",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Seventh straight week with zero VG- or LNG-specific news; feed is unrelated telecom/space/AI filler. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 continues to materialize, and VG's near-term project catalysts remain concrete and ahead. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "hold",
+      "evidence_urls": []
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition remains fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twenty-third straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (Southern/Georgia Power, Central Puerto, Pampa, DTE, Vanguard REIT, utility/telecom/space screeners, SK Telecom) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's export curbs, or once MP coverage turns mainstream-saturated with no concrete next catalyst ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 the specific US/UK multibillion launch awards have not been announced or decided; being selected to bid was only step one and no reversal has occurred",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Twenty-second-plus quiet week with no RKLB-specific award coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided \u2014 driving condition intact. Coverage has not turned front-page or crowded, though listicle drift continues. Silence is not exit \u2014 hold. Conviction stays low given the very extended silence and no confirmed award date.",
+      "exit_advice": "Hold. The concrete award decisions remain the pending catalyst; silence is not exit and coverage is not yet mainstream-saturated.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed at entry; but multi-year European LNG offtake demand still in force, VG project milestones still pending \u2014 not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eighth straight week with zero VG- or LNG-specific news; this week's feed is unrelated REIT, utility, telecom and space filler. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 remains in force and VG's near-term project catalysts (FIDs, phase progress, offtake contracts) remain concrete and ahead. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition remains fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twenty-fourth straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (DroneShield, VNQ/REIT stakes, Metaplanet Bitcoin, nuclear/space/telecom screeners, Fed-cut macro) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit, signed rollback of China's rare-earth export restrictions \u2014 not seen.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Being 'selected to bid' occurred at entry, but the actual multibillion awards remain undecided \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Twenty-third-plus quiet week with no RKLB-specific award coverage. Being selected to bid was only step one; the multibillion US/UK launch awards themselves remain the concrete catalyst still ahead and undecided \u2014 driving condition intact. Coverage has not turned front-page or crowded, though listicle drift continues. Silence is not exit \u2014 hold. Conviction stays low given the very extended silence and no confirmed award date.",
+      "exit_advice": "Hold \u2014 award decisions are still the concrete pending catalyst; coverage not yet mainstream-saturated.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The EU-US deal was already signed at entry; the discrete trigger long since occurred and VG has produced no fresh milestone in nine weeks.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Ninth straight week with zero VG- or LNG-specific news; this week's feed is unrelated REIT/VNQ, Saudi market, Indian realty and telecom/space filler. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG demand \u2014 has not reversed, and no concrete VG milestone has landed and been priced. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. Silence, not resolution \u2014 the multi-year European LNG offtake demand remains in force and VG's project catalysts (FIDs, phase progress, offtake contracts) are still concrete and pending.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition still fully in force, no reversal.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twenty-fifth straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (IBM/quantum, dividend champions, VNQ 13F filings, S&P record/shutdown macro, telecom/space screeners) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's export curbs, or once MP goes mainstream-saturated with no concrete next catalyst ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No award decision has been announced or signed; catalyst not resolved. Only weak angle: 24+ weeks silence with no confirmed award date, but that is staleness, not resolution.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Twenty-fourth-plus quiet week with no RKLB-specific award coverage; this week's items are a Firefly ground-test explosion story and a generic 'space stocks to watch' listicle naming Boeing/GE/Honeywell \u2014 none tied to Rocket Lab's US/UK award. Driving condition intact: the awards remain undecided. Not front-page for RKLB, though listicle drift persists. Conviction stays low given the extended silence and no confirmed award date, but silence is not exit \u2014 hold.",
+      "exit_advice": "Hold. The specific catalyst \u2014 the multibillion US/UK launch award decisions \u2014 has NOT been announced, signed or decided. Being selected to bid was only step one; the award itself remains the concrete pending catalyst. Coverage is not mainstream-saturated. Silence is not an exit trigger.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/10/01/why-firefly-aerospace-stock-collapsed-35-last-mont/",
+        "https://www.tickerreport.com/banking-finance/13172952/promising-space-stocks-to-keep-an-eye-on-september-28th.html"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed at entry; but multi-year European LNG offtake demand still in force, not reversed",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Tenth straight week with zero VG- or LNG-specific news; feed is unrelated VNQ 13F filings, UAE retail, telecom and space filler. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. No sign of mainstream saturation on VG. Silence is not resolution. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold; exit only on a reversal of European LNG demand or once a concrete VG milestone lands and coverage saturates.",
+      "evidence_urls": [
+        "https://www.arabianbusiness.com/gcc/uae/uae-investors-bet-on-local-stocks-etoro"
+      ]
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's rare-earth export curbs; driving condition remains fully in force \u2014 no reversal, no resolution.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Twenty-sixth straight quiet week on the MP-specific angle. This week's feed is entirely unrelated (UK factsheet RNS, horoscopes, crude/oil moves, Israel-Hamas ceasefire, Wall Street records, FTSE Vietnam upgrade) \u2014 zero rare-earth or MP relevance, and critically NO signed lifting of China's export restrictions. The driving condition \u2014 the curbs \u2014 remains fully in force. A quiet stretch is not an exit, and silence while under-the-radar = hold. The reshoring angle on MP has not gone mainstream in this feed, so no herd arrival. Catalyst still pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Exit only on an explicit signed rollback of China's export curbs, or on clear mainstream-saturated herd arrival on MP with no concrete next catalyst ahead.",
+      "evidence_urls": [
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid US/UK multibillion launch contracts",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "RKLB at new highs with retail investors piling in; award has no confirmed date, only speculative \u2014 herd has fully arrived, early edge spent.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "After ~24 quiet weeks under the radar, this week's news marks the herd's arrival \u2014 RKLB hitting new highs with retail investors digesting contracts, space stocks 'in the spotlight.' The specific award decision remains undecided but has never had a confirmed date, so nothing concrete is scheduled ahead; what's left is speculation. With mainstream saturation now present and no datable next catalyst, the smart-money window has closed.",
+      "exit_advice": "Exit RKLB. The under-the-radar edge is gone: coverage has flipped to retail-frenzy 'new highs' front-page tracking, and the only remaining catalyst (the actual award) has no scheduled/announced date \u2014 purely speculative. Both third-exit conditions now hold: arc lacks a concrete pending catalyst and crowd has fully arrived.",
+      "evidence_urls": [
+        "https://biztoc.com/x/bb0fcf69c1804257"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal was signed at entry; if the signing itself was the catalyst, it already occurred and is priced.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Eleventh straight week with zero VG- or LNG-specific news; feed is unrelated crude/oil and utility/AI filler. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. No sign of mainstream saturation on VG. Silence is not resolution. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold; driving condition (multi-year European LNG offtake demand) still in force and VG project milestones remain pending, but eleven silent weeks with no fresh VG catalyst warrant watching for either a concrete FID/offtake announcement or a demand reversal.",
+      "evidence_urls": [
+        "https://biztoc.com/x/b09b3be898ecbdeb"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "FTSE announced the upgrade Oct 8 \u2014 the awaited decision has occurred and record high already priced it in",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "FTSE Russell confirmed Vietnam's promotion to secondary emerging-market status this week, sending the benchmark to record highs. Crucially the upgrade only TAKES EFFECT Sept 21, 2026, subject to a March 2026 interim assessment on market-access progress. Two concrete, scheduled catalysts sit ahead, and actual index-tracking fund flows have not yet landed \u2014 so the herd's arrival is far from complete despite the record-high headlines. VNM is the cleanest US-listed pure-play vehicle for Vietnam equities. Early stage of a multi-tranche re-rating.",
+      "exit_advice": "Hold. Announcement is only the first leg; concrete scheduled catalysts remain \u2014 March 2026 interim assessment and Sept 21, 2026 effective inclusion date, which triggers billions in passive/active EM inflows. Exit only if the interim review fails or effective inclusion completes.",
+      "evidence_urls": [
+        "https://www.dealstreetasia.com/stories/ftse-russell-vietnam-459111",
+        "https://en.vietnamplus.vn/ftse-russell-upgrades-vietnam-to-secondary-emerging-market-status-post329982.vnp"
+      ]
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China just EXPANDED rare-earth export curbs this week and Trump threatens 100% tariffs Nov 1; driving condition escalating, not reversed",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Decisive break from the long quiet stretch. This week's feed carries direct rare-earth relevance for the first time in months: Japan Times and multiple outlets report China unveiled NEW curbs on rare-earth exports, prompting Trump to threaten an additional 100% tariff on China from Nov 1. The driving condition \u2014 China's export restrictions \u2014 is not merely in force but escalating, and there is a concrete announced next catalyst (Nov 1 tariff date). MP as the sole scaled US producer benefits directly from tightened Chinese supply. Coverage is still framed as macro trade-war, not MP-specific herd frenzy, so the early edge persists. Catalyst pending, not resolved; conviction raised on re-acceleration. MP remains the purest vehicle.",
+      "exit_advice": "Hold. After 26 quiet weeks the catalyst RE-ACCELERATED: Beijing unveiled fresh rare-earth export curbs and Trump countered with a 100% tariff threat effective Nov 1 \u2014 a concrete scheduled escalation date still ahead. This is exactly the second leg silence-holding preserves. Exit only on a signed rollback of the curbs.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/",
+        "https://www.moneycontrol.com/news/business/markets/chinese-stocks-slide-as-renewed-trade-tensions-threaten-bull-run-13611470.html"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed months ago; but multi-year European LNG offtake demand still in force, not reversed \u2014 no true exit trigger.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Twelfth straight week with zero VG- or LNG-specific news; this week's feed is entirely US-China trade-war, Asian equity, and REIT/AI filler unrelated to European LNG. The EU-US deal's driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and VG's near-term project catalysts (FIDs, phase progress, offtake contracts) remain concrete and pending. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. The signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 remains in force and has not reversed. No concrete VG milestone has landed and priced; no mainstream saturation on VG. Silence is not an exit.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "FTSE promotion already announced/confirmed Oct 2025 \u2014 the decision itself is public and priced",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No relevant news this week (ConEd dividend item is noise). The driving condition \u2014 a scheduled, multi-tranche re-rating with fund flows pending \u2014 remains fully in force. Two concrete dated catalysts ahead means the herd's arrival is incomplete despite record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the quiet stretch.",
+      "exit_advice": "Hold. The promotion is announced but not yet effective \u2014 the March 2026 interim assessment and the Sept 21, 2026 effective date are both concrete, scheduled catalysts still ahead, and index-tracking passive inflows have NOT yet landed. That second leg is exactly what silence forfeits.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-16-consolidated-edison-poised-to-declare-85-cent-quarterly-dividend-reinforcing-its-status-as-a-utility-dividend-titan"
+      ]
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed lifting of China's export curbs; last week China escalated with NEW curbs and Trump's 100% tariff (Nov 1) still pending \u2014 driving condition intensifying, not reversed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "After last week's decisive re-acceleration (China's new rare-earth curbs + Trump's threatened 100% Nov-1 tariff), this week's feed reverts to pure noise \u2014 utilities/dividends, quantum-computing frenzy, CPI-driven index records \u2014 with zero MP-specific or rare-earth content. Critically, NO signed lifting of China's export restrictions. The driving condition remains fully in force and, per last week, escalating. A concrete announced catalyst (Nov 1 additional tariff) is still ahead, so the arc is not complete and the crowd has not arrived on the MP-specific angle. Silence-while-under-the-radar = hold. Catalyst pending, not resolved. MP remains the sole scaled US producer and purest vehicle.",
+      "exit_advice": "Hold. Curbs remain in force and escalating; the Nov 1 tariff date is a concrete scheduled next catalyst still ahead. Exit only on a signed curb rollback.",
+      "evidence_urls": [
+        "https://www.businessinsider.com/quantum-computing-stocks-trump-government-investment-us-dominance-trade-war-2025-10"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed at entry; but driving condition (multi-year European LNG offtake demand) remains in force and no VG milestone has landed/priced",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Thirteenth straight week with zero VG- or LNG-specific news; this week's feed is TSX/US-Canada trade-tension, retail-ETF crypto froth, and VNQ 13F filler \u2014 nothing tied to European LNG. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and VG's near-term project catalysts (FIDs, phase progress, offtake contracts) remain concrete and pending. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. Driving condition intact, no concrete VG milestone priced, no mainstream saturation \u2014 a long quiet stretch is not an exit.",
+      "evidence_urls": [
+        "https://www.fool.ca/2025/10/24/tsx-today-what-to-watch-for-in-stocks-on-friday-october-24/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "FTSE promotion decision itself already announced Oct 2025 \u2014 the confirmation is public and priced.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Second quiet week, no fresh coverage. Thesis intact: promotion announced but effectiveness and passive inflows remain future events. March 2026 interim assessment and Sept 2026 effective date are both concrete scheduled catalysts ahead, so the herd has not fully arrived. VNM stays the cleanest US-listed pure-play for Vietnam equities.",
+      "exit_advice": "Hold. The upgrade is confirmed but only TAKES EFFECT Sept 21, 2026, gated by a March 2026 interim access review \u2014 two concrete, dated catalysts still lie ahead and actual index-tracking fund flows have NOT yet landed. Silence this week is not a resolution; the driving condition (a scheduled multi-tranche re-rating with pending inflows) remains fully in force. Exit only when the March review passes or fund flows fully arrive with mainstream saturation.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export curbs lift sole US producer",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit closed Oct 30 with a trade deal de-escalating the tariff fight \u2014 the Nov-1 escalation catalyst resolved and curbs are being rolled back, reversing the driving condition.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "After last week's Nov-1 tariff threat, the Oct 30 Trump-Xi summit occurred and closed with a trade deal (multiple outlets: 'summit underwhelms,' 'trade deal optimism'). The scheduled catalyst has passed and the trade-war escalation that re-accelerated the thesis in mid-October has reversed into de-escalation \u2014 the export-curb pressure that made MP the reshoring beneficiary is being negotiated down rather than tightened. The concrete announced catalyst is behind us with no new curb-tightening step scheduled ahead. Driving condition reversed; the position's edge is gone.",
+      "exit_advice": "Exit. The concrete scheduled catalyst I was holding for \u2014 the Nov-1 tariff / Trump-Xi summit \u2014 has now occurred, closing with a trade deal that de-escalates the rare-earth trade war. This is precisely the reversal of the driving condition I flagged for months as the true exit trigger. The escalation leg is spent and no further concrete curb-tightening catalyst is scheduled ahead; only speculation remains. Close the position.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-trump-xi-summit-underwhelms-mag-7-earnings-disappoint",
+        "https://smallcapnetwork.com/banner_articles/north-american-markets-mixed-as-fed-caution-tempers-trade-deal-optimism/"
+      ]
+    },
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EU-US LNG offtake demand still in force; no signing/reversal, no VG milestone priced",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourteenth straight week with zero VG- or LNG-specific news; this week's feed is US-China trade-deal optimism, TSX resource gains, India equities, and VNQ/telecom filler \u2014 nothing tied to European LNG. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and VG's near-term project catalysts (FIDs, phase progress, offtake contracts) remain concrete and pending. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. Fourteenth straight quiet week is silence, not resolution; driving condition intact and VG milestones still pending.",
+      "evidence_urls": [
+        "https://smallcapnetwork.com/banner_articles/north-american-markets-mixed-as-fed-caution-tempers-trade-deal-optimism/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 upgrade announced but not yet effective; March 2026 review and Sept 2026 effective date still ahead, passive inflows not yet landed",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third consecutive quiet week with no fresh coverage. Nothing has resolved: the promotion is announced but its EFFECTIVENESS and the tracking-fund inflows remain future, dated events. The re-rating is multi-tranche with two concrete scheduled catalysts still ahead, so coverage is far from mainstream-saturated on the actual flow event. VNM remains the cleanest US-listed pure-play for Vietnam equities.",
+      "exit_advice": "Hold. Two concrete scheduled catalysts (March 2026 interim assessment, Sept 2026 effective date) remain ahead and actual passive inflows have not landed \u2014 the herd's arrival is incomplete despite the initial record-high headlines. Silence is not an exit while the driving condition holds.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EU-US deal driving condition (multi-year European LNG offtake demand) still in force; no curb lifted, no demand reversal, no VG milestone landed and priced",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Fifteenth consecutive week with zero VG- or LNG-specific news; this week's feed is S&P 500 ETF, Datadog/AI earnings, beef trade, Vietnam liquidity, and VNQ/quantum filler \u2014 nothing tied to European LNG. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. Fifteenth straight week of silence but silence is not resolution; the driving condition has not reversed and VG's project milestones remain concrete and pending. Exit only on a reversal or a landed-and-priced VG catalyst amid mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 upgrade only takes effect Sept 2026 with a March 2026 interim assessment still ahead; catalyst unresolved, condition intact",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fourth week with no thesis-relevant news; the market weakness/low liquidity is short-term noise, not a reversal. Nothing has resolved \u2014 the promotion's effectiveness and the passive fund inflows remain future, dated events. Two concrete scheduled catalysts (March 2026 review, Sept 2026 effective date) mean the herd has not fully arrived. VNM stays the cleanest US-listed pure-play for Vietnam equities.",
+      "exit_advice": "Hold. The March 2026 interim assessment and Sept 2026 effective date are both concrete, scheduled catalysts still ahead, and passive tracking inflows have not landed. This week's liquidity dip / market decline is a normal pullback, not a reversal of the driving condition \u2014 a quiet, weak-tape stretch is not an exit while dated catalysts remain pending.",
+      "evidence_urls": [
+        "https://en.vietnamplus.vn/liquidity-hits-nearly-five-month-low-as-market-declines-post332042.vnp"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 MCB's revised proposal is only an offer; no deal signed, accepted, or rejected yet, catalyst still pending",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Entered on MCB Real Estate's REVISED buyout proposal for Whitestone REIT \u2014 a specific, datable M&A catalyst with a clean single pure-play vehicle (WSR). The 'revised' framing implies an ongoing negotiation: MCB has pursued Whitestone before, and a raised bid signals the board's earlier resistance may be eroding, leaving room for a definitive agreement or a competing offer. Stock rose on the news but this is early-stage \u2014 no board acceptance, no signed deal, no shareholder vote yet. Broader REIT weakness (fading rate-cut hopes) is macro noise irrelevant to a firm-specific control premium. WSR remains the only and purest vehicle. Hold pending resolution.",
+      "exit_advice": "Hold. This is entry week on a live, unresolved takeover proposal. Exit only when a definitive merger agreement is signed, the offer is formally rejected/withdrawn, or a higher-price bidding war concludes. A quiet negotiating stretch is not an exit.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/48624273/wsr-stock-rises-on-mcb-real-estate-revised-acquisition-proposal"
+      ]
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EU-US LNG offtake demand still in force; no VG milestone priced, deal signing was trigger but multi-year demand persists",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Sixteenth consecutive week with zero VG- or LNG-specific news; this week's feed is AI-nuclear energy stocks (CEG, GEV) \u2014 nothing tied to European LNG. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. Sixteenth straight quiet week is silence, not resolution; the driving condition (durable multi-year European LNG offtake demand) has not reversed and VG's project milestones remain pending and concrete.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/ai-nuclear-energy-stocks-now-225500330.html"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "FTSE upgrade announced Oct 2025, but effective date Sept 2026 and March 2026 review still pending \u2014 catalyst not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fifth consecutive quiet week with no thesis-relevant coverage. A quiet stretch is not an exit. Nothing has resolved: the promotion is announced but its EFFECTIVENESS (Sept 21, 2026) and the actual tracking-fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. Two concrete dated catalysts still ahead; passive inflows have not landed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 revised bid still pending, no board acceptance, signed deal, or withdrawal; driving M&A condition intact",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No fresh coverage this week. The revised MCB proposal remains an open M&A situation \u2014 no definitive agreement, no shareholder vote, no counter-bid yet. Quiet week does not equal resolution; a raised bid typically implies ongoing negotiation that can re-accelerate with acceptance or a competing offer. WSR stays the sole pure-play vehicle. Not mainstream-saturated; the binary (deal signed vs. abandoned) is still ahead. Hold through silence.",
+      "exit_advice": "Hold. A revised takeover bid is a live, unresolved catalyst; silence this week is not resolution. Exit only on a signed deal, board rejection, or MCB withdrawal.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US trade deal was signed back in mid-2025 \u2014 the discrete signing trigger has occurred and is priced.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Seventeenth consecutive week with zero VG- or LNG-specific news; this week's feed is nuclear-stock screener filler and a jewelry-stock piece \u2014 nothing tied to European LNG. Silence, not resolution. The driving condition has not reversed and no concrete VG milestone has landed and been priced. No sign of mainstream saturation on VG specifically. VG stays the purest pure-play LNG exporter vehicle. Hold through the quiet stretch.",
+      "exit_advice": "Hold. The signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 remains in force, and VG's concrete project milestones (FIDs, phase progress, offtake contracts) remain pending and unpriced. Exit only on demand reversal or a landed-and-priced milestone amid mainstream saturation.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/17/promising-nuclear-stocks-worth-watching-november-17th.html"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Promotion announced but effective date (Sept 2026) and March 2026 review both still pending; nothing signed/resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Sixth consecutive quiet week with no thesis-relevant coverage. A quiet stretch is not an exit. Nothing has resolved: the promotion is announced but its EFFECTIVENESS (Sept 21, 2026) and the actual tracking-fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the early edge is intact despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. Two concrete dated catalysts (March 2026 interim review, Sept 21 2026 effective date) still lie ahead and passive fund inflows have not landed \u2014 the herd has not fully arrived. Exit only when the effective date passes or the review reverses access progress.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no definitive agreement signed, no shareholder vote, no abandonment; the revised proposal remains an open, unresolved M&A situation",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Second consecutive week with no fresh coverage. The revised MCB proposal is still an unresolved control situation: no board acceptance, no signed merger agreement, no shareholder vote, no counter-bid. A raised bid implies live negotiation that can re-accelerate at any time via acceptance or a competing offer \u2014 precisely the second leg that silence-exiting would forfeit. Coverage remains under-the-radar, not mainstream-saturated. WSR stays the sole pure-play vehicle. Hold through silence.",
+      "exit_advice": "Hold. Two quiet weeks is not a resolution \u2014 the binary (deal signed vs. abandoned/counter-bid) is still ahead. Exit only on a definitive agreement, a rejection/withdrawal, or a competing offer surfacing.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ukraine-Russia peace proposal could revive Russian gas to Europe, reversing the LNG-demand driving condition \u2014 but it's only a proposal, not signed.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Eighteenth consecutive week with zero VG- or LNG-specific news; this week's feed is nuclear/uranium stocks (OKLO) pulling back on a Ukraine-Russia peace proposal, plus Indian equity filler \u2014 nothing tied to European LNG or VG. The peace proposal is the first item that could threaten the thesis: a durable ceasefire restoring Russian pipeline gas would undercut European LNG demand. But it is only a proposal, not signed, and VG's multi-year offtake commitments are contractual. Driving condition not yet reversed and no concrete VG milestone has landed and been priced. VG stays the purest pure-play LNG exporter vehicle. Hold, but flag the peace-deal reversal risk.",
+      "exit_advice": "Hold, but watch the peace deal closely \u2014 a signed Russia-Ukraine ceasefire that restores Russian gas flows would genuinely reverse the driving condition and trigger exit.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/49071513/oklo-stock-trades-lower-amid-sector-pullback-on-ukraine-russia-peace-proposal-news"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Promotion announcement is public, but effective date (Sept 2026) and March 2026 review remain future \u2014 nothing resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Seventh consecutive quiet week with no thesis-relevant coverage. A quiet stretch is not an exit. Nothing has resolved: the promotion is announced but its EFFECTIVENESS (Sept 21, 2026) and the actual tracking-fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. Two concrete dated catalysts still ahead (March 2026 interim assessment, Sept 21 2026 effective date + passive inflows); the actual fund-flow event has not occurred, so the early edge is intact.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No signed merger agreement, no board acceptance, no counter-bid \u2014 catalyst still pending, not resolved or reversed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Third consecutive week with no WSR-specific coverage \u2014 this week's news is Oklo/nuclear sector noise, wholly irrelevant to the MCB-Whitestone M&A situation. The revised proposal is still live: no definitive agreement, no board acceptance, no shareholder vote, no competing bid. A raised bid implies ongoing negotiation that can re-accelerate via acceptance or a counter-offer \u2014 the exact second leg silence-exiting would forfeit. Coverage remains under-the-radar, not mainstream-saturated, and the binary (deal signed vs. abandoned) is still ahead. WSR stays the sole pure-play vehicle. Hold through silence.",
+      "exit_advice": "Hold. The revised MCB buyout proposal remains an open, unresolved control situation.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/49071513/oklo-stock-trades-lower-amid-sector-pullback-on-ukraine-russia-peace-proposal-news"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ukraine-Russia peace proposal could restore Russian pipeline gas, undercutting European LNG demand \u2014 but still unsigned proposal, not a reversal.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Nineteenth consecutive week with zero VG- or LNG-specific news; this week's feed is India/AI-rally filler \u2014 nothing tied to European LNG or VG. The EU-US deal signing was the trigger but the driving condition \u2014 multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. The Ukraine-Russia peace proposal remains the one genuine reversal risk to watch, but it is unsigned and VG's offtake commitments are contractual/multi-year. No sign of mainstream saturation on VG. Silence is not resolution. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold, but the peace-deal reversal risk is now the live exit trigger \u2014 a signed ceasefire restoring Russian pipeline gas to Europe would reverse the driving condition and end the thesis.",
+      "evidence_urls": [
+        "https://www.thehindubusinessline.com/markets/stock-market-highlights-3-december-2025/article70350013.ece"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Promotion already confirmed/announced Oct 2025 \u2014 the naming event is backward-looking and public.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Eighth consecutive quiet week with no thesis-relevant coverage. A quiet stretch is not an exit. The promotion was announced but its EFFECTIVENESS (Sept 21, 2026) and the actual tracking-fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. The March 2026 interim assessment and Sept 21, 2026 effective date (with passive fund inflows) are concrete scheduled catalysts still ahead; exit only when flows land or the review clears.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no definitive agreement, board acceptance, shareholder vote, or counter-bid has occurred; catalyst unresolved",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourth consecutive week with no WSR-specific coverage. The MCB-Whitestone control situation is still open: no signed merger agreement, no board acceptance, no shareholder vote, no counter-bid, no abandonment. A quiet stretch is not an exit while the driving condition \u2014 an unresolved raised buyout proposal \u2014 remains in force. Coverage stays under-the-radar, not mainstream-saturated, and the binary (deal signed vs. walked) is still ahead. WSR remains the sole pure-play vehicle. Hold through silence.",
+      "exit_advice": "Hold. The revised MCB proposal remains a live, unresolved M&A situation; a raised bid implies ongoing negotiation that can re-accelerate via acceptance or a competing offer \u2014 exactly the second leg silence-exiting would forfeit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DNN",
+      "thesis": "Denison secures landmark uranium development pact with Athabasca communities",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The landmark pact was signed/secured Dec 1 \u2014 the named deal has already closed.",
+      "catalyst_resolved": true,
+      "conviction": 5,
+      "assessment": "Entered on a discrete, signed agreement. A community development pact being 'secured' is by nature a closed deal, not an open-ended pending catalyst. The pure-play vehicle (DNN) is clean, but the binary I entered on has already resolved this very week per the Benzinga confirmation. No scheduled follow-on (permit ruling, final investment decision) is announced, so nothing concrete remains ahead to hold for. Discipline dictates treating a signed pact as resolved rather than manufacturing a speculative next-leg.",
+      "exit_advice": "Exit. The specific catalyst \u2014 a signed landmark development pact with Athabasca communities \u2014 is a closed, dated event that occurred Dec 1 and is now public. As a de-risking milestone it is realized, not pending; there is no concrete scheduled next catalyst named in the news (no FID date, no approval hearing set). Edge on the discrete signing is spent even though broader uranium coverage is not yet saturated.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ukraine-Russia peace proposal could restore Russian pipeline gas and undercut European LNG demand \u2014 but still unsigned, not a reversal",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Twentieth consecutive week with zero VG- or LNG-specific news; this week's feed is FTSE, Walmart exchange move, an industrials ETF, and Indian market filler \u2014 nothing tied to European LNG or VG. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. The Ukraine-Russia peace proposal remains the one genuine reversal risk, but it is unsigned and VG's offtake commitments are contractual/multi-year. No sign of mainstream saturation on VG. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold VG; watch the Ukraine peace proposal \u2014 a signed durable ceasefire restoring Russian pipeline gas would reverse the driving condition and force exit.",
+      "evidence_urls": [
+        "https://www.sharecast.com/news/market-report-close/london-close-late-rally-sends-ftse-100-to-one-week-high--21366179.html"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 promotion announced but effectiveness (Sept 2026) and passive inflows are still future, dated events; nothing has resolved or reversed",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Ninth consecutive quiet week with no thesis-relevant coverage. A quiet stretch is not an exit. Nothing has resolved: the promotion is announced but its EFFECTIVENESS (Sept 21, 2026) and the actual tracking-fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no signed merger, no board acceptance, no shareholder vote, no counter-bid, no abandonment; the revised proposal is still an open, unresolved control situation",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth consecutive week with no WSR-specific coverage. The MCB revised buyout proposal remains open \u2014 no definitive agreement, no board acceptance, no shareholder vote, no competing bid, no walk-away. A raised bid implies live negotiation that can re-accelerate via acceptance or a counter-offer, the exact second leg silence-exiting would forfeit. Coverage stays under-the-radar, not mainstream-saturated, and the resolution is still ahead. WSR remains the sole pure-play vehicle. Hold through silence.",
+      "exit_advice": "Hold. A datable M&A catalyst remains pending \u2014 the binary (deal signed vs. walked) has not resolved. Silence is not an exit while an unresolved raised buyout proposal stays in force.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-19": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ukraine-Russia peace proposal could restore Russian pipeline gas and undercut European LNG demand \u2014 but still unsigned.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Twenty-first consecutive week with zero VG- or LNG-specific news; this week's feed is Indian market rebound, Cameco/nuclear, an industrials ETF, RTX defense, and Insurance Bill filler \u2014 nothing tied to European LNG or VG. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. The Ukraine-Russia peace proposal remains the one genuine reversal risk, but it is unsigned and VG's offtake commitments are contractual/multi-year. No sign of mainstream saturation on VG. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold. Twenty-one weeks of silence is not resolution; driving condition (multi-year European LNG offtake demand) remains in force and no concrete VG milestone has landed and priced. Exit only on a signed Ukraine ceasefire restoring Russian pipeline gas, or on full mainstream saturation with the arc complete.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 promotion announced but effectiveness (Sept 2026) and passive inflows remain future, gated by March 2026 review; neither has landed",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tenth consecutive quiet week with no thesis-relevant coverage. Nothing has resolved: the FTSE promotion is announced but its EFFECTIVENESS and the passive fund inflows remain future, dated events, gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. Two concrete dated catalysts still ahead (March 2026 interim assessment, Sept 21 2026 effective date) and actual tracking-fund inflows have not yet landed. A ten-week quiet stretch is not an exit while the driving condition is fully in force.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no signed agreement, board acceptance, shareholder vote, counter-bid, or walk-away has occurred; the revised proposal is still open",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Sixth consecutive week with no WSR-specific coverage. The MCB-Whitestone control situation remains open: no definitive merger agreement, no board acceptance, no shareholder vote, no counter-bid, no abandonment. A quiet stretch is not an exit while the driving condition \u2014 an unresolved raised buyout proposal \u2014 is still in force. Coverage remains under-the-radar, not mainstream-saturated, and the binary (deal signed vs. walked) is still ahead. WSR stays the sole pure-play vehicle. Hold through silence.",
+      "exit_advice": "Hold. The MCB revised buyout proposal is still unresolved after six quiet weeks. A raised bid implies ongoing negotiation that can re-accelerate at any time via acceptance or a competing offer \u2014 the exact second leg silence-exiting would forfeit.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-26": [
+    {
+      "ticker": "VG",
+      "thesis": "EU-US trade deal boosts US LNG export demand",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU-US deal signed in Aug; Ukraine-Russia peace proposal could restore Russian pipeline gas and undercut EU LNG demand \u2014 but still unsigned.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Twenty-second consecutive week with zero VG- or LNG-specific news; this week's feed is KOSPI/AI, Santa-rally, gold/silver, and holiday-thinned US market filler \u2014 nothing tied to European LNG or VG. Silence, not resolution. The EU-US deal signing was the trigger but the driving condition \u2014 durable multi-year European LNG offtake demand \u2014 has not reversed, and no concrete VG milestone (FID, phase progress, offtake contract) has landed and been priced. The Ukraine-Russia peace proposal remains the one genuine reversal risk, but it is still unsigned and VG's offtake commitments are contractual/multi-year. No sign of mainstream saturation on VG. VG stays the purest pure-play LNG exporter vehicle. Hold.",
+      "exit_advice": "Hold VG; exit only on a signed Ukraine ceasefire restoring Russian pipeline gas or a landed-and-priced VG milestone.",
+      "evidence_urls": [
+        "https://neworleanscitybusiness.com/blog/2025/12/26/us-stocks-record-highs-gold-silver-prices/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging-market status",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Promotion announced Oct 2025, but effectiveness (Sept 21 2026) and passive inflows have not occurred; catalyst still pending, not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Eleventh consecutive quiet week with no thesis-relevant coverage. Nothing has resolved: FTSE promotion is announced but EFFECTIVENESS (Sept 21, 2026) and actual tracking-fund inflows remain future, dated events gated by the March 2026 interim assessment. Two concrete scheduled catalysts still sit ahead, so the herd has not fully arrived despite the initial record-high headlines. VNM remains the cleanest US-listed pure-play for Vietnam equities. Hold through the silence.",
+      "exit_advice": "Hold. The March 2026 interim assessment and Sept 2026 effective date are concrete scheduled catalysts still ahead; passive fund inflows have not landed. Silence is not an exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised buyout proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no signed merger agreement, board acceptance, shareholder vote, counter-bid, or abandonment has occurred; the revised MCB proposal remains unresolved.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Seventh consecutive week with no WSR-specific coverage. The MCB-Whitestone situation remains open: no definitive agreement, no board acceptance, no shareholder vote, no counter-bid, no walk-away. A quiet stretch is not an exit while the driving condition \u2014 an unresolved raised buyout proposal \u2014 is still in force. Coverage stays under-the-radar, not mainstream-saturated, and the binary (deal signed vs. abandoned) is still ahead. WSR remains the sole pure-play vehicle.",
+      "exit_advice": "Hold. The MCB revised buyout proposal is still an open, unresolved control situation. A raised bid implies live negotiation that can re-accelerate via acceptance or a competing offer \u2014 the exact second leg silence-exiting would forfeit.",
+      "evidence_urls": []
     }
   ]
 }

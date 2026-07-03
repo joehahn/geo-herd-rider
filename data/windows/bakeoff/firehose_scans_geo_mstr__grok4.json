@@ -1,0 +1,488 @@
+{
+  "2024-08-02": [],
+  "2024-08-09": [],
+  "2024-08-16": [],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
+  "2024-09-13": [],
+  "2024-09-20": [],
+  "2024-09-27": [],
+  "2024-10-04": [],
+  "2024-10-11": [],
+  "2024-10-18": [],
+  "2024-10-25": [],
+  "2024-11-01": [],
+  "2024-11-08": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Post-election mandate positions GEO for expanded ICE contracts",
+      "exit_advice": "Hold; EO still pending post-win",
+      "evidence_urls": [
+        "fortune.com"
+      ]
+    }
+  ],
+  "2024-11-15": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Post-election positioning intact; no mass-deportation order issued yet.",
+      "exit_advice": "Hold through silence; concrete EO still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Trump election win surfaces pledged Strategic Bitcoin Reserve as concrete policy catalyst; MSTR remains cleanest leveraged proxy with no mainstream saturation yet.",
+      "exit_advice": "Hold; monitor for legislative filings or executive action on reserve.",
+      "evidence_urls": [
+        "https://qz.com"
+      ]
+    }
+  ],
+  "2024-11-22": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Positioning intact as executive order still pending; unrelated weekly headlines add no new information.",
+      "exit_advice": "Hold; no order issued and coverage remains absent.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Election catalyst still pending; irrelevant news only",
+      "exit_advice": "Hold MSTR; no resolution or saturation",
+      "evidence_urls": []
+    }
+  ],
+  "2024-11-29": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No developments on mass-deportation order; journal shows it remains unsigned and catalyst condition unchanged",
+      "exit_advice": "Hold; EO still pending with no reversal or resolution",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Catalyst remains pending with election win as only driver; this week's coverage addresses unrelated Trump sector impacts with zero Bitcoin Reserve mentions.",
+      "exit_advice": "Hold; nothing resolved or reversed.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/10-best-construction-materials-stocks-to-buy-now-2-1398718/",
+        "https://www.nbcnewyork.com/news/business/money-report/how-president-elect-donald-trump-may-impact-investors-in-these-8-market-sectors/6019678/",
+        "https://www.businesstimes.com.sg/property/why-real-estate-stocks-took-hit-developers-cheered-trump",
+        "https://vir.com.vn/trump-may-mean-challenges-for-vietnam-but-fdi-remains-strong-118434.html",
+        "https://therealdeal.com/national/2024/11/25/property-stocks-drop-after-donald-trumps-win/",
+        "https://www.nationalmortgagenews.com/articles/why-real-estate-stocks-took-a-hit-as-developers-cheered-trump"
+      ]
+    }
+  ],
+  "2024-12-06": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No developments; post-election GEO positioning for expanded ICE contracts intact.",
+      "exit_advice": "Hold; order remains unsigned and driving condition unchanged.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Election-derived reserve pledge still pending; coverage unrelated to policy.",
+      "exit_advice": "Hold; no policy action or reversal.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/12/42360151/us-stocks-likely-to-open-in-red-as-investors-remain-cautious-ahead-of-key-payrolls-data-bitcoins-ra"
+      ]
+    }
+  ],
+  "2024-12-13": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No developments; mass-deportation EO still pending.",
+      "exit_advice": "Hold; no order issued yet, condition unchanged.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Catalyst remains unresolved with zero relevant coverage or action this week.",
+      "exit_advice": "Hold MSTR; policy still pending.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3497055/tsx-ends-nearly-1-down-as-resources-stocks-fall.aspx",
+        "https://www.benzinga.com/markets/equities/24/12/42420845/googles-quantum-willow-chip-lightyears-from-cracking-bitcoin-expert"
+      ]
+    }
+  ],
+  "2024-12-20": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Mass-deportation EO remains pending after six weeks; GEO positioning for expanded ICE contracts unchanged and catalyst condition intact.",
+      "exit_advice": "Hold; EO still unsigned and no reversal occurred.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election-derived Bitcoin reserve pledge still pending and under-radar; this week's coverage contains zero policy mentions.",
+      "exit_advice": "Hold; catalyst remains pending with no resolution.",
+      "evidence_urls": [
+        "https://www.perthnow.com.au/business/asx-falls-continue-as-investors-factor-in-the-federal-reserves-pivot-c-17151228",
+        "https://finance.yahoo.com/news/office-rebound-expected-2025-while-163505161.html",
+        "http://www.econotimes.com/Wall-Street-Rallies-Despite-Shutdown-Threat-and-Fewer-Rate-Cuts-in-2025-1697446",
+        "https://markets.businessinsider.com/news/stocks/asian-shares-mixed-as-investors-await-fed-decision-1034149430"
+      ]
+    }
+  ],
+  "2024-12-27": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Catalyst remains pending after seven weeks; this week's headlines contain zero mention of ICE expansion or deportation order.",
+      "exit_advice": "Hold; EO still unsigned with no reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Election catalyst still pending, zero reserve mentions, under-radar.",
+      "exit_advice": "Hold; policy pledge unresolved and coverage absent.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-03": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Seven silent weeks; catalyst unchanged and pending, no reversal or closure.",
+      "exit_advice": "Hold; EO still unsigned, driving condition intact.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election-derived pledge still pending and under-radar; zero policy progress or coverage this week.",
+      "exit_advice": "Hold; catalyst remains pending with no resolution or reversal.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-10": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Catalyst unchanged after nine weeks; silent streak does not reverse or close the pending mass-deportation order. GEO remains the pure-play vehicle for any future ICE expansion once signed.",
+      "exit_advice": "Hold; EO still unsigned",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election-derived reserve pledge still fully pending; zero resolution, reversal, or mainstream saturation across entire journal.",
+      "exit_advice": "Hold; catalyst remains pending and under-radar.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-17": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Pending mass-deportation order unchanged; GEO remains pure-play vehicle.",
+      "exit_advice": "Hold; EO still unsigned after 9 weeks.",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/trump-presidency-stock-market-impact",
+        "https://www.fool.com/investing/2025/01/13/which-vanguard-etf-is-most-likely-to-soar-during-t/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Catalyst remains under-radar and unresolved after 9 weeks; no policy progress or relevant coverage in journal.",
+      "exit_advice": "Hold MSTR; policy still fully pending with no resolution or mainstream saturation.",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/trump-presidency-stock-market-impact",
+        "https://www.investmentexecutive.com/news/products/product-roundup-blackrock-doubles-down-on-its-successful-spot-bitcoin-etf/",
+        "https://www.fool.com/investing/2025/01/13/which-vanguard-etf-is-most-likely-to-soar-during-t/"
+      ]
+    }
+  ],
+  "2025-01-24": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Catalyst unchanged after 11 weeks; no EO signed or reversed, GEO remains sole pure-play.",
+      "exit_advice": "Hold; order still unsigned and pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Election-derived pledge remains unresolved and under-radar after 10 weeks; this week's coverage focuses on unrelated Trump actions.",
+      "exit_advice": "Hold; still pending post-inauguration with no policy progress or saturation.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nvidia-hearts-trump-bitcoin-bounces-100000231.html"
+      ]
+    }
+  ],
+  "2025-01-31": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eleven weeks of total silence with catalyst condition unchanged; no signing, reversal, or mainstream saturation yet. GEO remains sole pure-play.",
+      "exit_advice": "hold; EO still pending and unsigned",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Election pledge still fully pending after 11 weeks; zero policy mentions or progress in entire journal or this week's unrelated coverage.",
+      "exit_advice": "Hold; no resolution or reversal.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-no-brainer-space-stocks-150000654.html",
+        "https://finance.yahoo.com/news/trump-spurs-surprise-world-rally-215040452.html"
+      ]
+    }
+  ],
+  "2025-02-07": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eleven-plus weeks of silence; order unsigned, condition unchanged, GEO remains pure-play.",
+      "exit_advice": "hold pending EO signature",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election-derived reserve pledge unresolved after 12 weeks of zero policy coverage or progress; remains early and silent.",
+      "exit_advice": "Hold; still under-radar and fully pending.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-14": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Mass-deportation EO remains pending after 14 weeks of silence; driving condition unchanged and GEO still sole pure-play for future ICE expansion.",
+      "exit_advice": "Hold; EO still unsigned.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election pledge remains fully pending and under-radar with zero policy progress or mainstream coverage across entire journal.",
+      "exit_advice": "Hold; no resolution or reversal in 13-week journal.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-21": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fourteen weeks of total silence; mass-deportation EO unsigned and driving condition intact. No coverage, no saturation, GEO remains sole pure-play.",
+      "exit_advice": "Hold; catalyst still pending.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/GLOBAL-MARKETS-Global-equities-mixed-oil-drops-on-uncertainty-about-Trump-moves-geopolitics-49130726/",
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Election pledge remains unresolved after 14 weeks of total silence on reserve policy; still under-radar.",
+      "exit_advice": "Hold; catalyst fully pending with zero policy action or coverage.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/GLOBAL-MARKETS-Global-equities-mixed-oil-drops-on-uncertainty-about-Trump-moves-geopolitics-49130726/",
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    }
+  ],
+  "2025-02-28": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Seventeen weeks of silence; mass-deportation EO unsigned, no reversal or coverage.",
+      "exit_advice": "Hold; catalyst remains unsigned and pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "15 weeks of total silence; election pledge fully unresolved, no progress or mainstream coverage.",
+      "exit_advice": "Hold; still pending under-radar.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/bitcoin-slides-more-5-lowest-025610392.html",
+        "https://www.zerohedge.com/markets/sp-futures-rebound-thursday-rout-which-wiped-out-all-2025-gains-bitcoin-crash-continues"
+      ]
+    }
+  ]
+}

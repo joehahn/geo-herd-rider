@@ -1,0 +1,1329 @@
+{
+  "2024-08-02": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Auction cleared and result is public; the ninefold price jump is a discrete event that already occurred.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Entry week. PJM base residual auction cleared ninefold higher YoY, a specific datable shock the press explicitly ties to VST/CEG. VST is a merchant power/nuclear pure-play that captures this uplift in future delivery years, so the cash flow is pending, not priced. Early, clean vehicle.",
+      "exit_advice": "Hold. Auction cleared 8/1 but elevated capacity revenue lands in the 2025/26 delivery year \u2014 earnings uplift is still ahead and not yet in guidance. Coverage is one-day-old, not mainstream-saturated. Exit only once VST reprices the capacity revenue into guidance and the herd fully arrives.",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105"
+      ]
+    }
+  ],
+  "2024-08-09": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Auction already cleared 8/02 \u2014 the ninefold print is public and known.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Quiet week, no fresh coverage. The specific catalyst \u2014 PJM's ninefold capacity clear \u2014 is a datable, thesis-driving shock explicitly tied to VST, a merchant/nuclear pure-play. While the auction event itself has occurred, the uplift monetizes across coming delivery years and is not yet fully priced into estimates; the repricing arc is still early and under-the-radar. Driving condition (structurally tight PJM capacity) remains firmly in force. Hold VST through the silence.",
+      "exit_advice": "Hold. Auction cleared but the elevated capacity revenue flows into future delivery years \u2014 cash flow is pending, not yet in earnings, and coverage remains early. No mainstream saturation, no next scheduled catalyst has passed. Silence in week one is not an exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-08-16": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The auction itself already cleared and printed\u2014the ninefold result is public; nothing new left to land.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Second quiet week, no fresh coverage. The ninefold PJM clear is a datable, thesis-driving shock explicitly tied to VST, a merchant/nuclear pure-play that captures the uplift over future delivery periods. The repricing into estimates is still early and the driving condition (tight PJM capacity) firmly in force. Herd has not arrived; hold through the silence.",
+      "exit_advice": "Hold VST. The auction cleared but the capacity uplift monetizes across coming delivery years and is not yet in consensus estimates; PJM capacity remains structurally tight and coverage stays under-the-radar\u2014silence is not exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-08-23": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The PJM auction cleared and closed Aug 2 \u2014 the datable shock is a past event, backward-looking.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third consecutive quiet week, no fresh coverage. The ninefold PJM clear is a specific, datable shock explicitly tied to VST, a merchant/nuclear pure-play that captures the uplift over future delivery periods. Repricing into estimates is still underway and the herd has not arrived. VST remains the cleanest vehicle.",
+      "exit_advice": "Hold. The auction cleared, but VST's capacity-revenue uplift monetizes across coming delivery years and is not yet fully baked into estimates; the repricing arc is still early and coverage remains thin. The driving condition \u2014 structurally tight PJM capacity \u2014 is firmly in force. Third quiet week is not an exit; hold through silence for the second leg (estimate revisions, next auction). Exit only if capacity prices reverse or the repricing goes fully mainstream.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-08-30": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PJM auction already cleared Aug 2024 \u2014 the price-setting event is backward-looking and done.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourth consecutive quiet week; this week's headlines are Indian equity noise, wholly unrelated to PJM/VST. The auction event has occurred but the cash-flow uplift reprices over future delivery periods and is not yet fully in estimates. Herd has not arrived, no sell-side chase, coverage remains thin. VST stays the cleanest merchant/nuclear pure-play capturing the capacity uplift. Hold through the silence \u2014 silence is not exit.",
+      "exit_advice": "Hold. The datable ninefold clear monetizes across coming delivery years; that uplift is still flowing into estimates and the driving condition \u2014 structurally tight PJM capacity \u2014 remains in force. No mainstream saturation yet.",
+      "evidence_urls": [
+        "https://www.thehindu.com/business/markets/nifty-gains-marginally-to-hit-lifetime-high/article68576697.ece"
+      ]
+    }
+  ],
+  "2024-09-06": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PJM auction cleared and closed in July; the datable clearing event is backward-looking and done.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth consecutive quiet week. This week's only headline is Indian Sensex market-rally noise, wholly unrelated to PJM/VST. The ninefold capacity clear remains a specific, datable shock tied to VST, a merchant/nuclear pure-play capturing the uplift over future delivery periods. No sell-side chase, no mainstream saturation, no scheduled resolution consumed. VST stays the cleanest vehicle; hold through silence.",
+      "exit_advice": "Hold. The auction cleared, but the ninefold capacity uplift monetizes across future PJM delivery years and is still repricing into estimates; the driving condition (structurally tight PJM capacity) remains firmly in force and coverage stays thin \u2014 herd has not arrived.",
+      "evidence_urls": [
+        "https://www.businesstoday.in/markets/top-story/story/eight-most-valued-firms-see-combined-market-valuation-surge-by-rs-153-lakh-crore-amid-market-rally-443852-2024-09-01"
+      ]
+    }
+  ],
+  "2024-09-13": [
+    {
+      "ticker": "VST",
+      "thesis": "PJM capacity auction prices jumped ninefold year-over-year",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "PJM auction cleared and result is public since July; now AI/nuclear frenzy has made VST mainstream \u2014 under-the-radar edge gone.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "The catalyst \u2014 the ninefold PJM capacity clear \u2014 is a completed, public auction result. After five quiet weeks the narrative flipped this week: uranium/nuclear stocks spiked on AI datacenter power demand, mainstream press explicitly tying nuclear/merchant power to the AI trade. Both exit conditions now hold: the auction arc is complete with no concrete scheduled next catalyst, and coverage has turned mainstream-saturated with the crowd fully arrived. The early edge that justified entry is gone.",
+      "exit_advice": "Exit. The auction event itself closed months ago and its result is fully public. This week's AI-driven nuclear/uranium frenzy confirms the herd has arrived \u2014 coverage is now mainstream-saturated and merchant/nuclear power (VST) is a front-page AI-power trade. The original early, specific, datable capacity-auction edge is spent; no concrete scheduled next PJM catalyst is still ahead, only broad AI-power theme. Window closed.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/09/13/artificial-intelligence-drives-uranium-stock-spike/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2024-09-20": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 PPA just signed this week; NRC relicensing and 2028 restart still ahead, driving condition (nuclear-for-datacenter demand) firmly in force",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Entry week. Catalyst is a specific, datable 20-year PPA between Microsoft and Constellation to restart Three Mile Island Unit 1 \u2014 a landmark tying big-tech/datacenter power demand to nuclear. CEG owns the plant and is the purest single vehicle. This week's actual headlines (Korea shares, semis, Taiwan) are noise unrelated to the event \u2014 no fresh event-specific news, but the deal itself just dropped and remains under-the-radar with a long regulatory runway. Strong under-the-radar shock with clean pure-play; hold.",
+      "exit_advice": "Hold. The Microsoft-Constellation PPA was just announced this week \u2014 the arc is only beginning. Concrete pending catalysts remain: NRC relicensing/approval and the targeted 2028 Crane Clean Energy Center (TMI Unit 1) restart. This is early, specific, and CEG is the clean pure-play. Exit only when NRC approval lands AND coverage is fully saturated.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-09-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA signed at announcement \u2014 the deal itself is a done, public event",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Specific, datable landmark deal tying datacenter power demand to nuclear restart. CEG owns TMI and is the clean pure-play. Signing occurred but the driving condition \u2014 actually restarting the reactor \u2014 remains pending with NRC approvals and a long execution timeline ahead. Still early, still under-the-radar one week in. No fresh news this week; a quiet stretch is not an exit while the restart process is live.",
+      "exit_advice": "Hold. The PPA is signed, but the restart itself has a multi-year regulatory runway (NRC relicensing, ~2028 restart) \u2014 concrete catalysts still ahead. Coverage is only one week old and not yet mainstream-saturated. Exit only on NRC denial or if the restart narrative goes fully front-page with no approvals left pending.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-10-04": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA signed Sept 20; deal itself is done and public \u2014 signing event has resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No event-specific news this week; the India nuclear headline is unrelated noise. The Microsoft-Constellation PPA remains a specific, datable, landmark deal, and CEG stays the clean pure-play owning TMI. Signing is done but restart execution (NRC approvals, grid interconnection, fuel) is the live pending leg \u2014 a quiet stretch is not an exit. Hold through silence.",
+      "exit_advice": "Hold. The PPA was signed, but the DRIVING CONDITION \u2014 the actual TMI Unit 1 restart \u2014 remains pending with NRC approvals and a multi-year execution timeline still ahead. Concrete regulatory catalysts (NRC relicensing) are genuinely scheduled ahead, so the arc is not complete. Exit only when restart approvals land and coverage saturates.",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/it-might-be-too-early-to-bet-on-indias-nuclear-power-sector-caution-experts-11728020617864.html"
+      ]
+    }
+  ],
+  "2024-10-11": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA already signed at entry; the deal itself is closed and public.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fourth straight quiet week with no event-specific coverage. The catalyst remains a specific, datable, landmark PPA tying datacenter demand to nuclear restart; CEG owns TMI and stays the clean pure-play. Signing is backward-looking, but the restart execution leg (NRC license amendment, interconnection, fuel) is genuinely live and scheduled ahead \u2014 not yet mainstream-saturated. A quiet stretch is not an exit while this second leg is pending.",
+      "exit_advice": "Hold. The signing is done but the driving condition \u2014 actual reactor restart via NRC approval, grid interconnection, fuel loading \u2014 is still pending with a multi-year runway and concrete regulatory milestones ahead. Silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal only just announced this week, not yet closed, shareholder vote and regulatory approvals still pending in 2025",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Entry week. Rio Tinto agreed to buy Arcadium Lithium (all-cash ~$6.7B). Specific, datable M&A catalyst with clean single pure-play vehicle ALTM. Deal pending \u2014 closing expected mid-2025 pending approvals. ALTM is the only sensible vehicle (target ADR); Rio slipped modestly on announcement. Spread to deal price plus small chance of counterbid or terms sweetening keeps thesis live.",
+      "exit_advice": "Hold. Rio Tinto's agreed all-cash acquisition of Arcadium at $5.85/share is announced but not signed-closed; shareholder vote and multi-jurisdiction regulatory clearances remain ahead (concrete scheduled catalysts). ALTM trades as merger-arb toward deal price. Exit only when the deal formally closes or is blocked.",
+      "evidence_urls": [
+        "https://www.swissinfo.ch/eng/london-stocks-opened-higher,-rio-tinto-slips-on-acquisition-plan/87699726"
+      ]
+    }
+  ],
+  "2024-10-18": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA already signed; Amazon/Google deals now make big-tech nuclear mainstream \u2014 the under-the-radar edge is fading fast",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The signing is backward-looking, but the actual restart of TMI Unit 1 \u2014 NRC license amendment, interconnection, fuel \u2014 is the live pending leg and a concrete scheduled catalyst still ahead, so this is not resolved. This week's Amazon and broader tech-nuclear deals aren't about the specific TMI PPA; they're the wider theme going mainstream, which erodes the early edge but does not make our binary true. CEG stays the clean pure-play owning TMI. Nuclear stocks soaring signals crowding, so conviction ticks down, but with a concrete restart-approval catalyst still pending, hold through the noise.",
+      "exit_advice": "Hold CEG while the NRC license amendment for the TMI restart remains a concrete pending catalyst; watch for the theme turning fully saturated.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/24/10/41358363/nuclear-stocks-soar-as-amazon-becomes-latest-tech-giant-to-invest-in-nuclear-power"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal already agreed/announced; merger is signed and priced \u2014 arb spread thin, upside capped absent counterbid.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Rio\u2013Arcadium remains a pending all-cash acquisition, closing expected mid-2025 subject to regulatory approvals. This week's headlines were noise (nuclear/AI hype; a generic 'buy the rally or sell the news' mention of ALTM) with no development on the deal itself. The specific catalyst \u2014 deal completion \u2014 has not occurred; concrete approval/vote steps remain scheduled ahead. ALTM (target) stays the sole clean vehicle, trading toward the deal price. Hold through the quiet stretch; modest arb spread plus small counterbid/sweetener chance sustains the thesis.",
+      "exit_advice": "Hold. Agreement is signed but deal is NOT closed \u2014 approvals and shareholder vote still pending into mid-2025; spread plus counterbid optionality keep it live. Exit on close or a competing-bid resolution.",
+      "evidence_urls": [
+        "https://www.benzinga.com/general/biotech/24/10/41310431/these-3-stocks-just-spiked-buy-the-rally-or-sell-the-news"
+      ]
+    }
+  ],
+  "2024-10-25": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA already signed; deal itself is done and backward-looking, only execution remains",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 remains the live pending leg and a concrete scheduled catalyst still ahead, so this is not resolved. This week's SMR/AI-boom headline is generic sector-theme noise, not about the specific TMI PPA. The wider nuclear-for-datacenters theme continues going mainstream, eroding the early edge and keeping conviction capped, but crowding alone does not make our binary true. CEG stays the clean pure-play owning TMI. Hold through the noise while the restart approval is pending.",
+      "exit_advice": "Hold while the NRC license amendment / restart-approval leg is still concretely pending; exit once that approval lands or coverage fully saturates with nothing scheduled ahead.",
+      "evidence_urls": [
+        "https://biztoc.com/x/ae25b5d99c2bf822"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Rio\u2013Arcadium deal still pending, closing mid-2025 subject to approvals; not signed-closed or terminated",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No development on the deal this week \u2014 all headlines are unrelated nuclear/AI hype with zero mention of Rio\u2013Arcadium. The specific catalyst (deal completion) remains pending mid-2025 with approvals ahead. Quiet stretch, not a resolution. ALTM (target) stays the sole clean vehicle, trading toward deal price. Hold through silence.",
+      "exit_advice": "Hold. Pending all-cash acquisition with concrete regulatory/vote steps still scheduled ahead before mid-2025 close; arb spread plus small counterbid/sweetener chance keeps thesis live.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-11-01": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Nuclear leaders +30% since deal \u2014 coverage now mainstream-saturated, early edge largely spent",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The PPA signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. This week is pure crowd-arrival: 'nuclear leaders +30% since Microsoft deal' plus generic AI-nuclear listicles confirm the theme has gone mainstream-saturated, which caps conviction. But the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the smart-money window is not fully closed. CEG stays the clean pure-play owning TMI. Hold through the crowd while approval is pending.",
+      "exit_advice": "Hold while the NRC license-amendment/restart approval remains a concrete pending catalyst; exit once that ruling lands or coverage fully saturates with no next step scheduled.",
+      "evidence_urls": [
+        "https://www.investors.com/news/nuclear-energy-sp500-leaders-earnings-microsoft-deal/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal still pending, closing mid-2025 subject to approvals; no signing/close/termination has occurred",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourth week; no fresh coverage on Rio\u2013Arcadium. Catalyst (deal completion) remains pending mid-2025 with regulatory/vote steps concretely scheduled ahead. This is a quiet stretch, not a resolution or reversal \u2014 arb spread plus residual counterbid/sweetener optionality keep it live. ALTM (target ADR) stays the sole clean vehicle, trading toward the ~$6.7B all-cash price.",
+      "exit_advice": "Hold. Merger arb still open \u2014 all-cash deal awaiting regulatory approvals and shareholder vote (concrete scheduled steps ahead). Silence is not resolution.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-11-08": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA was signed at entry and the nuclear-for-datacenters theme is now mainstream-saturated (+30% run)",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. CEG owns TMI and stays the clean pure-play. The theme has gone mainstream (capping conviction), but a quiet stretch is not an exit, and the restart-approval leg keeps the catalyst pending. Hold through silence.",
+      "exit_advice": "Hold. The signing is backward-looking, but Constellation's NRC license-amendment for the actual TMI Unit 1 restart is a filed, concrete process still awaiting ruling \u2014 a scheduled catalyst genuinely ahead. The third-exit test needs BOTH saturation AND a complete arc; the arc is not complete while approval is pending, so the window is not fully closed despite crowding.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not closed, approvals/shareholder vote still pending mid-2025; no reversal",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth week, no news on the deal. Catalyst pending mid-2025 with approvals concretely scheduled ahead. Quiet stretch, not a reversal or resolution. Hold.",
+      "exit_advice": "Hold. Rio\u2013Arcadium is a pending all-cash acquisition; the specific catalyst (deal completion) is still ahead with concrete regulatory/vote steps scheduled into mid-2025. Fifth consecutive quiet week with no fresh coverage \u2014 silence is not resolution. ALTM (target) remains the sole clean vehicle, trading toward the ~$6.7B deal price; arb spread plus residual counterbid/sweetener optionality sustains it.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Election won but no deportation EO signed yet; buildout hasn't started \u2014 nothing resolved",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Entry week. Trump's win makes mass-deportation the federal mandate, with an EO-driven ICE detention capacity expansion as the concrete, datable policy arc ahead. GEO is the lead private-detention contractor and cleanest pure-play. Catalyst is early \u2014 EOs unsigned, contracts unlet, capacity unbuilt \u2014 so the whole arc lies ahead. Coverage is fresh, not yet mainstream-saturated. Strong specific policy shock tied directly to the ticker.",
+      "exit_advice": "Hold \u2014 the executive-order push and ICE detention buildout are entirely ahead; policy actions still pending.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-11-15": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA already signed Sept 2024; only restart execution remains, deal itself is done and priced",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week \u2014 lottery and crypto headlines are pure noise. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. CEG stays the clean pure-play owning TMI. Hold through silence while approval is pending.",
+      "exit_advice": "Hold; the concrete NRC license-amendment restart approval is still genuinely pending ahead, keeping the catalyst live despite theme saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal still pending, closing mid-2025 subject to approvals; not signed-closed nor reversed",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Sixth week, no fresh coverage on Rio\u2013Arcadium. Specific catalyst (deal completion) remains pending mid-2025 with concrete approval/vote steps still scheduled ahead. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. All-cash acquisition remains pending with regulatory approvals and shareholder vote concretely scheduled ahead into mid-2025; silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no EO signed, no ICE contracts let; capacity expansion arc still entirely ahead",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This week's news is all off-thesis Trump-trade coverage (crypto reserve, Canadian banks, Fed, Dow records) \u2014 nothing on ICE detention or GEO. The specific deportation/detention-capacity arc has not begun: inauguration is January, EOs unsigned, contracts unlet, beds unbuilt. Silence on the specific catalyst while the driving mandate is firmly in force = hold, not exit. Coverage of the private-detention angle remains under-the-radar versus the mainstream Trump-trade froth. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. Specific, datable policy catalyst still fully pending \u2014 Trump not yet inaugurated, no detention EOs signed, no contracts awarded to GEO. Quiet week of generic Trump-trade noise is not a resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none \u2014 reserve is only a campaign pledge, no executive order or legislation signed yet; catalyst still fully pending",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Entry week. Trump's win puts the pledged US Strategic Bitcoin Reserve on the table as a specific, knowable federal catalyst. Still early and under-the-radar despite broad post-election crypto euphoria \u2014 no order or bill has been drafted, so the specific catalyst is entirely pending. MSTR remains the cleanest liquid leveraged proxy on the policy.",
+      "exit_advice": "Hold. The Strategic Bitcoin Reserve is a pledged, datable federal policy action still unenacted \u2014 the whole arc (executive order, legislation, actual purchases) lies ahead. MSTR is the leveraged corporate-BTC proxy the press explicitly ties to this policy. Exit only when the reserve is formally established/signed or the pledge is abandoned.",
+      "evidence_urls": [
+        "https://qz.com",
+        "https://www.marketscreener.com/news/latest/With-Trump-market-mayhem-meets-Bitcoin-boom-48336664/"
+      ]
+    }
+  ],
+  "2024-11-22": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA already signed Sept 2024; deal is backward-looking and nuclear-for-datacenters theme is fully mainstream-saturated.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week \u2014 Dow-tumble and Cathie Wood/DOGE-nuclear headlines are generic sector noise, not about the specific TMI PPA. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the smart-money window is not fully closed. CEG stays the clean pure-play owning TMI. Hold through the noise while approval is pending.",
+      "exit_advice": "Hold; exit only when NRC license-amendment ruling lands or restart is approved/denied.",
+      "evidence_urls": [
+        "https://biztoc.com/x/1a710a90a3145f11"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal still pending mid-2025 close; not signed/closed/reversed \u2014 no resolution.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Seventh week, no fresh coverage. Rio\u2013Arcadium remains a pending all-cash acquisition closing expected mid-2025 with regulatory/shareholder approval steps concretely scheduled ahead \u2014 a live, unresolved catalyst. Quiet stretch is not a reversal or resolution. ALTM (target) stays the sole clean vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold through silence; exit only on deal completion, shareholder vote passage, or regulatory clearance closing the arb.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EOs still unsigned, inauguration is January, no detention contracts let; catalyst has not occurred",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Third straight week of off-thesis Trump-trade noise (healthcare, hedge funds trimming Trump trades, cabinet picks, geopolitics) \u2014 nothing on ICE detention or GEO. The specific deportation/detention-capacity catalyst remains entirely ahead: inauguration January, EOs unsigned, contracts unlet, beds unbuilt. This is exactly the under-the-radar silence to hold through, not exit. GEO remains the cleanest pure-play private-detention vehicle.",
+      "exit_advice": "Hold. The specific detention-capacity arc has not begun; silence while the mandate is firmly in force is a hold, not an exit.",
+      "evidence_urls": [
+        "http://baystreet.ca/stockstowatch/19579/Hedge-Funds-Sell-Stocks-Associated-With-Trump-Trade"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no reserve order or bill drafted; the pledged policy catalyst remains entirely pending, driving condition still in force",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Second week, no news. The pledged US Strategic Bitcoin Reserve remains a specific, datable federal catalyst that is still entirely pending \u2014 no order drafted, inauguration not yet occurred. Broad crypto euphoria persists but the named policy itself is not yet mainstream-priced. MSTR stays the cleanest liquid leveraged proxy on the policy. Arc is early: shock (win) landed, but the concrete next steps (inauguration, any executive action) are still ahead.",
+      "exit_advice": "Hold. This is a quiet week with no fresh coverage \u2014 not an exit. The specific catalyst (an actual executive order or reserve legislation) has NOT occurred; Trump isn't even inaugurated yet. Silence while still under-the-radar is exactly the setup to hold through; exit only on a signed order/bill or a policy reversal.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-11-29": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA was signed at entry \u2014 signing is backward-looking; but the actual TMI restart requires NRC approval still pending.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. Signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. CEG stays the clean pure-play owning TMI. Hold through silence while approval is pending.",
+      "exit_advice": "Hold. Signing done but the concrete NRC restart-approval leg remains genuinely pending \u2014 a quiet stretch is not an exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal still pending; no signing/close, approvals scheduled mid-2025 \u2014 catalyst unresolved, no reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No fresh coverage again. The specific catalyst \u2014 deal completion \u2014 has not occurred; approval/vote milestones remain concretely scheduled ahead. Quiet stretch, not exit-triggering. ALTM (target) stays the sole clean vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. All-cash Rio\u2013Arcadium acquisition remains pending with concrete regulatory/shareholder approval steps scheduled ahead into mid-2025. Eighth quiet week is not a resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EOs still unsigned, inauguration in January; detention-capacity arc has not begun, no resolution or reversal",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week's news is again pure off-thesis froth (construction materials, real estate, Vietnam FDI, sector roundups) \u2014 nothing on ICE detention or GEO. The datable policy arc (EO-driven ICE capacity expansion, contract lettings, bed buildout) all still lies ahead. Coverage of the private-detention angle remains under-the-radar versus mainstream Trump-trade coverage. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. Fourth week of off-thesis Trump-trade noise, but the specific ICE detention-capacity catalyst remains entirely ahead \u2014 inauguration January, EOs unsigned, contracts unlet, beds unbuilt. Silence while the mandate is firmly in force is exactly what to hold through, not exit. Exit only when EOs are signed and detention contracts are let and mainstream-saturated.",
+      "evidence_urls": [
+        "https://www.nbcnewyork.com/news/business/money-report/how-president-elect-donald-trump-may-impact-investors-in-these-8-market-sectors/6019678/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no order, bill, or inauguration has occurred; the pledged Strategic Bitcoin Reserve remains entirely unenacted",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third quiet week with no direct news on the reserve policy, but the catalyst arc is still early: only the election shock has landed. Inauguration and any executive/legislative action remain scheduled/expected ahead \u2014 concrete next catalysts. Coverage of the specific named policy is not yet mainstream-saturated. MSTR remains the cleanest liquid leveraged proxy on Bitcoin policy exposure.",
+      "exit_advice": "Hold. The specific federal catalyst \u2014 an executive action or bill establishing a US Strategic Bitcoin Reserve \u2014 is still entirely pending. Inauguration hasn't happened; no concrete policy step has landed. This week's news (construction materials, Vietnam FDI) is unrelated noise, not resolution or reversal. A quiet stretch is not an exit while the driving condition is fully in force and concrete next steps (inauguration, any executive order) remain ahead.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/10-best-construction-materials-stocks-to-buy-now-2-1398718/"
+      ]
+    }
+  ],
+  "2024-12-06": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "PPA signing is done and backward-looking; deal fully public since September.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week \u2014 the MSFT-AI and foreign-index headlines are pure noise unrelated to the specific TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. The restart-approval leg keeps the catalyst pending, so the window is not fully closed despite the theme having gone mainstream (capping conviction). A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved and a concrete next catalyst remains ahead.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-microsoft-corporation-msft-will-be-a-major-beneficiary-of-ai-1402435/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal still pending, closing expected mid-2025 with approvals ahead; no resolution or reversal",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eighth week, no fresh coverage on Rio\u2013Arcadium (this week's headline is unrelated ETF noise). The specific catalyst \u2014 deal completion \u2014 has not occurred; approval/vote steps remain concretely scheduled toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Pending all-cash acquisition with concrete regulatory/shareholder approval milestones still scheduled ahead; quiet weeks are not an exit.",
+      "evidence_urls": [
+        "https://www.wkrb13.com/2024/12/05/invesco-sp-500-quality-etf-nysearcasphq-shares-acquired-by-flow-traders-u-s-llc.html"
+      ]
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 EOs unsigned, inauguration is January, no ICE contracts let; catalyst arc entirely ahead, not resolved",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "No fresh coverage again. The deportation/detention-capacity arc remains fully pending: Trump not yet inaugurated, EOs unsigned, contracts unlet, beds unbuilt. Driving mandate firmly in force and the private-detention angle stays under-the-radar vs mainstream Trump-trade froth. This is the silence to hold through \u2014 a concrete January catalyst is scheduled ahead. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. Fifth straight quiet week but this is textbook under-the-radar silence, not resolution. The specific catalyst \u2014 EO-driven ICE detention capacity expansion, contract lettings, bed buildout \u2014 has not begun; inauguration in January is the concrete scheduled trigger ahead. Exit only when EOs are signed and contracts awarded with saturated coverage.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bitcoin above $100K is mainstream, but the specific Strategic Bitcoin Reserve order/bill is still undrafted and unsigned \u2014 nothing resolved.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourth week. Bitcoin's break above $100K has made crypto broadly euphoric and front-page, but this week's news is generic macro/Bitcoin coverage \u2014 not the specific Strategic Bitcoin Reserve policy, which is still undrafted and unsigned. The catalyst arc remains early: only the election shock has landed; inauguration and any executive/legislative action are concrete, scheduled next steps ahead. Crowding on Bitcoin itself is noise while the named policy catalyst is still pending. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The named reserve policy remains entirely pending with concrete next catalysts scheduled ahead (inauguration Jan 20, any executive action). Exit only when an order/bill is signed or voted down.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/12/42360151/us-stocks-likely-to-open-in-red-as-investors-remain-cautious-ahead-of-key-payrolls-data-bitcoins-rally-above-100k-is-precursor-to-sp-500s-performance-for-res"
+      ]
+    }
+  ],
+  "2024-12-13": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 PPA signed but TMI Unit 1 restart still pending NRC license amendment, not yet operating",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not yet closed; approvals/shareholder vote still scheduled ahead toward mid-2025 close",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Ninth quiet week; no fresh coverage. Specific catalyst (deal completion) has not occurred \u2014 approval/vote steps concretely remain ahead. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price. Hold through silence.",
+      "exit_advice": "Hold. Merger arb remains live: all-cash Rio\u2013Arcadium deal is unclosed with concrete regulatory/shareholder approval milestones still scheduled toward mid-2025. Silence is not resolution; residual counterbid/sweetener optionality plus arb spread persist. Exit only on deal close, termination, or a definitive approval sequence completing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Trump not yet inaugurated, EOs unsigned, ICE detention contracts unlet; catalyst still fully ahead",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Sixth week of off-thesis noise (TSX/tariffs, geopolitical stock picks) \u2014 nothing on ICE detention or GEO. The datable policy arc remains entirely pending: inauguration January, EOs unsigned, contracts unlet, beds unbuilt. Driving mandate firmly in force; private-detention angle still under-the-radar vs mainstream Trump-trade froth. This is exactly the quiet stretch to hold through \u2014 a concrete scheduled catalyst lies ahead. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. The specific EO-driven ICE detention capacity expansion has not begun; a concrete January inauguration catalyst is scheduled ahead. Silence-while-under-the-radar = hold.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3497055/tsx-ends-nearly-1-down-as-resources-stocks-fall.aspx"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Strategic Bitcoin Reserve still undrafted/unsigned, inauguration (Jan 20) not yet occurred; catalyst entirely pending",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth week, no direct news on the named reserve policy \u2014 just generic Bitcoin/macro noise (quantum chip, tariff-driven commodity selling). The specific Strategic Bitcoin Reserve catalyst is still entirely pending: no order drafted, no bill, inauguration still ahead. Silence is not exit; the arc remains early with inauguration and any executive action as concrete scheduled next steps. Broad crypto euphoria post-$100K is crowding on Bitcoin itself, not saturation of this named policy. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. Concrete next catalysts remain scheduled ahead \u2014 inauguration and any executive/legislative action on the reserve. Exit only when a reserve order/bill is actually signed or explicitly abandoned.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3497055/tsx-ends-nearly-1-down-as-resources-stocks-fall.aspx"
+      ]
+    }
+  ],
+  "2024-12-20": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done; but TMI Unit 1 restart still awaits NRC license amendment ruling \u2014 not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "This week's Oklo/Sam Altman data-center deal is generic sector-theme noise, not about the specific Microsoft-Constellation TMI PPA. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme is mainstream (capping conviction), but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the window is not fully closed. CEG stays the clean pure-play owning TMI. Hold while approval is pending.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.investors.com/news/nuclear-stocks-sam-altman-oklo-data-center-deal/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not yet closed; regulatory/shareholder approvals still pending mid-2025",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tenth quiet week; this week's headline is unrelated nuclear/data-center noise. Specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory and shareholder approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Rio\u2013Arcadium remains a pending all-cash acquisition with concrete approval/vote steps scheduled toward mid-2025 close; quiet stretch is not resolution.",
+      "evidence_urls": [
+        "https://www.investors.com/news/nuclear-stocks-sam-altman-oklo-data-center-deal/"
+      ]
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Trump not yet inaugurated, no EO signed, no ICE detention contracts let; catalyst wholly ahead",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "No fresh coverage again. The deportation/detention-capacity arc remains entirely pending: inauguration Jan 20, EOs unsigned, contracts unlet, beds unbuilt. Private-detention angle still under-the-radar vs mainstream Trump-trade froth. Concrete January catalyst dead ahead \u2014 exactly the stretch to hold through. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. Seventh straight quiet week, but the driving mandate is firmly in force and a concrete, datable catalyst (Jan 20 inauguration + expected day-one deportation EOs) is scheduled just ahead. Silence-while-under-the-radar = hold; exit only on the actual EO/contract lettings once fully public and priced.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 reserve policy still undrafted/unsigned, inauguration Jan 20 still ahead; no resolution or reversal",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Sixth week. This week's news is pure macro (Fed pivot, fewer 2025 rate cuts, shutdown threat) \u2014 nothing on the specific Strategic Bitcoin Reserve policy, which remains undrafted and unsigned. The catalyst arc is still early: only the election shock has landed; the Jan 20 inauguration and any executive/legislative action on the reserve are concrete, scheduled next steps ahead. Silence and broad crypto crowding on Bitcoin itself are noise while this named policy catalyst is pending. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold; the named Strategic Bitcoin Reserve catalyst is still entirely pending with inauguration and any executive action as concrete scheduled next steps.",
+      "evidence_urls": [
+        "http://www.econotimes.com/Wall-Street-Rallies-Despite-Shutdown-Threat-and-Fewer-Rate-Cuts-in-2025-1697446"
+      ]
+    }
+  ],
+  "2024-12-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done; but restart (NRC license amendment, interconnection, fuel) still pending \u2014 driving condition intact, not reversed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "This week's news \u2014 Spanish stocks, Gaza, Suriname \u2014 is pure noise, wholly unrelated to the TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the smart-money window is not fully closed. CEG stays the clean pure-play owning TMI. Hold through silence while approval is pending.",
+      "exit_advice": "Hold through silence while restart approval is the concrete pending catalyst; exit only when NRC rules and the arc completes.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not closed; regulatory/shareholder approvals remain scheduled ahead toward mid-2025",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eleventh quiet week, no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory and shareholder approvals remain concretely scheduled toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Rio\u2013Arcadium remains a pending all-cash acquisition with concrete approval/vote milestones still scheduled ahead; silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 inauguration Jan 20 still ahead, no EO signed, no ICE detention contracts let; catalyst fully pending",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Seventh straight week of off-thesis Trump/geopolitics froth (Christmas messages, Ukraine, tariffs, Netanyahu inauguration attendance) \u2014 nothing on ICE detention or GEO. The datable policy arc remains entirely pending: inauguration Jan 20, EOs unsigned, contracts unlet, beds unbuilt. Driving mandate firmly in force; private-detention angle still under-the-radar. This is exactly the quiet stretch to hold through \u2014 a concrete January catalyst lies just weeks ahead. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. The concrete January 20 catalyst (inauguration, EO signing, ICE capacity expansion) is dead ahead and unresolved. Exit only when EOs are signed and contracts let with mainstream saturation.",
+      "evidence_urls": [
+        "https://www.ynetnews.com/article/hk11bpaysye"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 reserve policy still undrafted/unsigned, inauguration (Jan 20) not yet occurred; driving condition intact",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Seventh week, no direct news on the named reserve policy (this week's headline is unrelated foreign-policy noise). The Strategic Bitcoin Reserve catalyst is still undrafted and unsigned; only the election shock has landed. The Jan 20 inauguration and any executive/legislative action are concrete, scheduled next steps ahead, keeping the arc early. Broad Bitcoin crowding is noise while this specific policy remains pending. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The specific Strategic Bitcoin Reserve catalyst remains entirely pending \u2014 no order, no bill, inauguration still ahead as a concrete scheduled next step. This week's news is irrelevant (foreign-policy item), pure silence, which is not an exit. Reassess after Jan 20 executive action.",
+      "evidence_urls": [
+        "https://www.1290wlby.com/news/sen-shaheen-dems-next-foreign-policy-leader/"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ban announced Dec 3; but export curbs remain fully in force, no reversal or lifting",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "China's Dec 3 ban on antimony/gallium/germanium exports to the US is a specific, datable supply-shock still in force. UAMY (United States Antimony) is the cleanest domestic pure-play beneficiary. Coverage is still spreading to mainstream ('why it matters to you') but the reshoring/price-squeeze arc is early \u2014 no domestic supply replacement yet, no catalyst that reverses the shortage. Driving condition intact; hold.",
+      "exit_advice": "Hold \u2014 the export ban is a live, in-force supply shock, not a resolved one-off; curbs remain until lifted",
+      "evidence_urls": [
+        "https://www.deseret.com/utah/2024/12/25/china-banned-minerals-to-us/",
+        "https://www.yahoo.com/news/china-banned-sale-minerals-u-223105622.html"
+      ]
+    }
+  ],
+  "2025-01-03": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done Sept 2024; but reactor restart requires NRC license amendment still pending \u2014 driving condition (actual restart) unresolved.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The theme has gone mainstream (capping conviction), but the third exit requires BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. The PPA signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, and fuel loading \u2014 is a concrete filed process still awaiting ruling, so a scheduled catalyst is genuinely ahead. Exit only when that approval lands.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No completion, reversal, or termination \u2014 deal still pending regulatory/shareholder approvals toward mid-2025.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Twelfth quiet week, no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory and shareholder approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch is not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Merger arb: deal completion is the specific catalyst and it hasn't occurred; concrete approval/vote milestones remain scheduled ahead toward mid-2025.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 inauguration Jan 20 not yet occurred; EOs unsigned, ICE contracts unlet, beds unbuilt; catalyst entirely ahead",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Eighth straight quiet week with no fresh GEO/ICE coverage. The deportation/detention-capacity arc remains fully pending: Trump inaugurated Jan 20, EOs unsigned, contracts unlet, capacity unbuilt. Driving mandate firmly in force and the private-detention angle stays under-the-radar versus mainstream Trump-trade froth. This is exactly the silence to hold through \u2014 a concrete, datable January catalyst lies days ahead. GEO remains the cleanest pure-play private-detention vehicle.",
+      "exit_advice": "Hold through this final pre-inauguration silence \u2014 the concrete Jan 20 catalyst (EO-driven ICE capacity expansion, contract lettings) is just weeks away and still under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 reserve policy still undrafted/unsigned; Jan 20 inauguration and any executive action remain ahead, catalyst unresolved",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Eighth week, no direct news on the named Strategic Bitcoin Reserve. Catalyst remains entirely pending: no order, no bill signed. The Jan 20 inauguration and any executive/legislative action are concrete, scheduled next steps just ahead \u2014 arc still early. Broad Bitcoin crowding is noise, not saturation of this specific policy. Silence is not exit while the driving condition (pledged reserve) is intact and a datable next step is imminent. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 export ban still in force, no domestic supply replacement, no reversal",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "China's antimony/gallium/germanium export ban to the US is still active \u2014 the specific, datable supply-shock persists with no lifting of curbs and no domestic replacement online. This week's only news is an unrelated China index annual gain, no bearing on the ban. UAMY stays the cleanest domestic antimony pure-play. Coverage still not saturated; reshoring/price-squeeze arc remains early with no concrete resolution scheduled. Hold through the quiet.",
+      "exit_advice": "Hold. The Dec 3 ban remains in force with no reversal or domestic supply fix; driving condition intact.",
+      "evidence_urls": [
+        "https://www.barrons.com/livecoverage/stock-market-today-123124/card/china-s-benchmark-index-posts-first-annual-gain-since-2021-JtfII50Q1HyLrrEaLIVM"
+      ]
+    }
+  ],
+  "2025-01-10": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done long ago; but NRC license-amendment approval and physical restart still pending \u2014 not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit requires BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No reversal; deal still pending regulatory approvals, not yet closed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Thirteenth quiet week, no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch is not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold; deal completion has not occurred, approvals still concretely scheduled toward mid-2025.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Inauguration is Jan 20; no EO signed, no contracts let, no beds built \u2014 catalyst still entirely pending, not resolved or reversed.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Ninth quiet week, no fresh GEO/ICE coverage. Driving mandate firmly in force and the datable policy arc remains fully pending: Trump inaugurated Jan 20, EOs unsigned, contracts unlet, capacity unbuilt. Private-detention angle still under-the-radar versus mainstream Trump-trade froth \u2014 not saturated. Concrete scheduled catalyst is now days ahead. This is precisely the silence to hold through. GEO stays the cleanest pure-play.",
+      "exit_advice": "Hold. The specific detention-capacity arc is days from its first concrete trigger (Jan 20 inauguration/EOs); exiting now on nine weeks of silence forfeits the exact leg you waited for.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 reserve policy still undrafted/unsigned; Jan 20 inauguration and any executive order remain ahead",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Ninth week, no fresh coverage of the named Strategic Bitcoin Reserve. Catalyst is still entirely pending \u2014 no order drafted, no bill signed. The Jan 20 inauguration is now days away and is the concrete, scheduled next step where a reserve executive action could land, keeping the arc early. Silence is not exit while the pledged-reserve driving condition is intact and a datable next step is imminent. Broad Bitcoin crowding remains noise, not saturation of this specific policy. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold through the quiet stretch; the concrete next catalyst (Jan 20 inauguration and any day-one executive action on the reserve) is now imminent.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Could China lift the ban? No \u2014 curbs still in force, no reversal, no domestic supply online.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "China's Dec 3 antimony/gallium/germanium ban to the US is still in force \u2014 a specific, datable supply-shock with no resolution or reversal. No fresh coverage this week, but silence is not exit while the driving condition persists. UAMY remains the cleanest domestic antimony pure-play; reshoring/price-squeeze arc still early, coverage not saturated.",
+      "exit_advice": "Hold. The export ban remains active with no lifting of curbs and no domestic replacement; a quiet news week is not an exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-17": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 PPA signed but TMI Unit 1 physical restart still awaits NRC license amendment/interconnection/fuel; driving condition (reactor offline) not reversed",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week \u2014 quantum-computing rally on Microsoft's 'quantum-ready' directive and Cramer's Oklo worry are unrelated noise, not about the specific Microsoft-Constellation TMI PPA. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/jim-cramer-says-nuclear-power-companies-like-oklo-inc-oklo-worry-him-1422375/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not yet closed; completion still pending regulatory approvals toward mid-2025",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No fresh coverage on Rio\u2013Arcadium again. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Fourteenth quiet week; catalyst (deal completion) remains pending with regulatory approvals concretely scheduled ahead. Silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 inauguration Jan 20 not yet occurred, EOs unsigned, no ICE detention contracts let; catalyst still fully pending",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Tenth straight quiet week \u2014 this week's news is generic Trump-market froth (Kiplinger, Motley Fool ETF piece), nothing on ICE detention or GEO. The datable policy arc remains fully pending: Trump inaugurated Jan 20 (days away), immigration EOs unsigned, detention contracts unlet, capacity unbuilt. Driving mandate firmly in force and the private-detention angle stays under-the-radar versus mainstream Trump-trade coverage \u2014 not saturated. This is exactly the silence to hold through with a concrete scheduled catalyst imminent. GEO remains the cleanest pure-play private-detention vehicle.",
+      "exit_advice": "Hold. Concrete datable catalyst (Jan 20 inauguration + expected day-one immigration EOs) is days ahead; window still open. Reassess once EOs are signed and contract lettings begin to gauge herd arrival.",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/trump-presidency-stock-market-impact"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no reserve executive order drafted or signed; pledged policy intact, inauguration (Jan 20) still ahead as concrete next step",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Tenth week. This week's news is generic product coverage (BlackRock spot bitcoin ETF) \u2014 not the named Strategic Bitcoin Reserve policy, which is still undrafted and unsigned. Catalyst arc remains early: only the election shock has landed; inauguration is days out and any executive/legislative reserve action is the concrete next step. Broad Bitcoin/ETF crowding is noise, not saturation of this specific policy. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The specific Strategic Bitcoin Reserve catalyst remains entirely pending \u2014 no order, no bill. The Jan 20 inauguration is now days away and is the concrete scheduled next step where a reserve action could land. Silence is not exit while the driving condition is intact and a datable catalyst is imminent.",
+      "evidence_urls": [
+        "https://www.investmentexecutive.com/news/products/product-roundup-blackrock-doubles-down-on-its-successful-spot-bitcoin-etf/"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China export ban still in force, no lifting of curbs, no domestic replacement online",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Second consecutive quiet week with no fresh coverage, but the specific, datable supply-shock (China's antimony/gallium/germanium export ban) persists with no reversal and no domestic replacement. Reshoring/price-squeeze arc still early, coverage not saturated, no concrete resolution scheduled. A live catalyst can go silent and re-accelerate; holding through the quiet.",
+      "exit_advice": "Hold. The Dec 3 export ban is the driving condition and remains in force; silence is not exit. UAMY stays the cleanest domestic antimony pure-play. Exit only if curbs are lifted or a domestic supply replacement comes online.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-24": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done long ago; but reactor restart (NRC approval) still pending \u2014 not resolved, not reversed.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No event-specific news this week. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 Constellation's NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The wider nuclear-for-datacenters theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still genuinely ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. The concrete restart-approval leg (NRC license amendment, interconnection, fuel) is still ahead; exit only on the ruling or if crowd fully arrives with nothing scheduled left.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal not yet closed; regulatory approvals still pending toward mid-2025, this week's news is unrelated AI noise",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourteenth quiet week; this week's headline is unrelated Musk/Altman AI 'Stargate' noise with zero mention of Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Deal completion still pending mid-2025 with regulatory approvals concretely scheduled ahead. Exit only on close or a reversal (deal collapse).",
+      "evidence_urls": [
+        "https://financialpost.com/technology/tech-news/musk-altman-spar-over-stargate-ai"
+      ]
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump's Jan 20 inauguration EO barrage arguably signed the immigration/border orders \u2014 the triggering signature may have occurred.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Trump inaugurated Jan 20 and signed a barrage of executive orders. Even if border/immigration EOs were among them, the specific detention-capacity arc I entered on \u2014 contract awards and bed buildout benefiting GEO \u2014 remains fully pending and unpriced. This week's news is 100% off-thesis (space stocks, quantum, AI Stargate, Indian markets); nothing on ICE detention or GEO. The driving mandate is now activating, not reversing, and the private-detention angle stays under-the-radar versus mainstream Trump-trade froth. This is the transition from silence into the live catalyst phase \u2014 precisely when to hold. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. The signing is only the first step; the concrete follow-on \u2014 actual ICE detention-contract awards/expansions to GEO and bed buildout \u2014 is scheduled ahead and has NOT been let or priced. Coverage this week is entirely off-thesis (space, quantum, AI, Indian markets); GEO/private-detention remains completely under-the-radar, not saturated. Exit only when contract lettings are public AND coverage turns mainstream.",
+      "evidence_urls": [
+        "https://www.yahoo.com/news/tesla-slides-space-stocks-soar-181707924.html"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Inauguration (the scheduled anchor) passed Jan 20 with no reserve order signed \u2014 the concrete next step is consumed",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eleventh week. Inauguration occurred Jan 20 \u2014 the scheduled anchor I kept citing has now passed, but crucially NO Strategic Bitcoin Reserve executive action landed in this week's news (coverage is generic Trump-2.0 market moves, space/quantum/Bitcoin bounce). The specific named catalyst remains entirely pending: no order, no bill. The devil's-advocate note is that my one concrete scheduled step is now behind me, so I must watch for the next concrete step (a crypto/reserve EO or working-group directive) rather than assume one is scheduled. But the driving condition (the pledge) is intact and unsigned, so the catalyst is not resolved and the arc is not complete. Broad Bitcoin/inauguration euphoria is crowding on the theme, not saturation of this specific policy. Hold. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold: the pledged Strategic Bitcoin Reserve itself remains undrafted and unsigned \u2014 the specific catalyst has NOT occurred. Exit only when a reserve order/bill is actually signed or the pledge is abandoned.",
+      "evidence_urls": [
+        "https://markets.businessinsider.com/news/stocks/donald-trump-stock-market-ai-ev-stocks-bitcoin-peso-dollar-2025-1",
+        "https://finance.yahoo.com/news/nvidia-hearts-trump-bitcoin-bounces-100000231.html"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China's Dec 3 export ban remains in force, no lifting of curbs, no domestic antimony supply online",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third consecutive quiet week with no fresh coverage, but the specific, datable supply-shock (China's antimony/gallium/germanium export ban) persists \u2014 no lifting of curbs, no domestic replacement online. Coverage never reached saturation and no concrete resolution is scheduled. UAMY remains the cleanest domestic antimony pure-play. A live catalyst can go silent and re-accelerate; holding through the quiet.",
+      "exit_advice": "Hold. The driving condition (export ban) is still active with no reversal; silence isn't exit. Exit only if China lifts the curbs or domestic antimony supply comes online.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-31": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 PPA signed but TMI Unit 1 restart still awaits NRC license-amendment ruling; driving condition (physical restart) unresolved.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "This week's DeepSeek/OpenAI data-access story is unrelated noise, not about the specific Microsoft-Constellation TMI PPA (the DeepSeek efficiency angle could theoretically soften datacenter power-demand narratives, but it does not touch our specific catalyst). The PPA remains a specific, datable landmark tying datacenter demand to nuclear restart. The actual TMI Unit 1 restart is a concrete filed process still awaiting NRC ruling, so the catalyst is not resolved. The theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. The signing is backward-looking, but the concrete restart-approval leg (NRC license amendment, interconnection, fuel) is a scheduled catalyst still genuinely ahead, so neither resolution nor full arc-completion has occurred.",
+      "evidence_urls": [
+        "https://www.ibtimes.com/microsoft-investigate-unauthorized-access-openai-model-data-group-tied-ai-firm-deepseek-3761387"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal not yet closed; approvals still pending toward mid-2025 \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifteenth quiet week; no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. All-cash Rio\u2013Arcadium deal remains pending with regulatory/shareholder approvals concretely scheduled ahead toward mid-2025; silence is not resolution. ALTM stays the sole clean vehicle.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Immigration EOs signed post-inauguration \u2014 but specific detention-contract awards/bed buildout for GEO not yet let, capacity unbuilt",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Twelfth straight week with no direct GEO/ICE coverage \u2014 this week is pure off-thesis froth (space stocks, global rally on Trump backing off tariffs). Trump signed immigration EOs after the Jan 20 inauguration, so the mandate is now activating, but the specific catalyst I entered on \u2014 federal detention-capacity expansion via ICE contract awards and bed buildout to GEO \u2014 is still fully ahead and unlet. This is the transition from silence into the live catalyst phase: the EO is a start, the concrete contract/appropriation follow-on is the next scheduled leg. The private-detention angle remains under-the-radar versus mainstream Trump-trade coverage \u2014 no retail frenzy, no sell-side chase. Hold; GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. EO signing merely activated the mandate; the specific detention-capacity buildout arc \u2014 ICE contract awards and beds benefiting GEO \u2014 remains pending and unpriced. Coverage still off-thesis/under-the-radar, not saturated.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/trump-spurs-surprise-world-rally-215040452.html"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Inauguration passed with no reserve signed; only speculation about a future EO now remains ahead",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Twelfth week. This week's news is unrelated space-stock coverage \u2014 nothing on the named Strategic Bitcoin Reserve, which remains undrafted, unsigned, and unestablished. The specific catalyst I entered on is still entirely pending: the pledge is intact but no reserve exists. Last week's scheduled anchor (Jan 20 inauguration) passed without a reserve action, so I'm now watching for the next concrete step \u2014 a crypto/reserve executive order or working-group directive that turns the pledge into policy. Broad Bitcoin/crypto euphoria is crowding on the theme, not saturation of this specific reserve policy. Silence on the named catalyst is not exit while the driving condition (the pledge) is intact and unsigned. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold, but next concrete reserve action (EO/working-group directive) is the make-or-break; exit if theme goes fully mainstream with no scheduled reserve step ahead.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/3-no-brainer-space-stocks-150000654.html"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No lifting of China's export ban; driving condition (supply shock) still fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fourth consecutive quiet week with no fresh coverage, but China's Dec 3 antimony/gallium/germanium export ban to the US remains in force \u2014 a specific, datable supply-shock with no curbs lifted and no domestic supply online. Coverage never reached mainstream saturation and no concrete resolution is scheduled. UAMY stays the cleanest domestic antimony pure-play. A live catalyst can go silent and re-accelerate; holding through the quiet.",
+      "exit_advice": "Hold. Ban remains active, no domestic replacement, coverage never saturated \u2014 silence is not exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-07": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 PPA signed but the actual TMI Unit 1 restart still awaits NRC license-amendment approval; driving condition (restart execution) unresolved.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "This week's telecom-screener headline is pure noise, wholly unrelated to the TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. The restart-approval leg is a concrete, filed process still awaiting an NRC ruling \u2014 a scheduled catalyst ahead. Exit only on the ruling or if coverage saturates with no next step pending.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/02/05/telecom-stocks-to-follow-now-february-03rd.html"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "None \u2014 deal not yet closed; regulatory/shareholder approvals still pending toward mid-2025 completion.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Sixteenth quiet week; no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Merger-arb catalyst (deal completion) remains concretely scheduled ahead toward mid-2025; silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Immigration EOs signed post-Jan 20 \u2014 but specific ICE detention contract awards/bed buildout to GEO still unlet, not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Thirteenth straight week with no direct GEO/ICE coverage \u2014 this week has no fresh event coverage at all. Trump's immigration EOs are now in force, activating the mandate, but the specific catalyst I entered on \u2014 federal detention-capacity expansion via ICE contract awards and appropriated bed buildout to GEO \u2014 remains fully ahead and unlet. That concrete follow-on is the next scheduled leg, so the arc is not complete. The private-detention angle stays under-the-radar versus mainstream Trump-trade froth; no crowding. Silence-while-under-the-radar and while the driving mandate accelerates = hold, not exit. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. The EOs signed are only the trigger; the concrete detention-capacity leg \u2014 ICE contract awards and bed buildout to GEO \u2014 is still ahead and unpriced. Coverage remains under-the-radar, no retail frenzy or sell-side chase. Exit only on named GEO contract awards landing plus mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 the reserve is still undrafted, unsigned, unestablished; the pledged policy driving condition remains fully intact.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Thirteenth week, no fresh coverage of the named Strategic Bitcoin Reserve. Catalyst remains entirely pending: no order signed, no reserve established. The Jan 20 inauguration anchor passed without a reserve action, so I'm watching for the next concrete step \u2014 a crypto/reserve executive order or working-group directive converting the pledge into policy. Broad crypto/Bitcoin euphoria is crowding on the theme, not saturation of this specific named reserve policy. Silence on the specific catalyst is not exit while the pledged-reserve driving condition is intact and unsigned. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The named Strategic Bitcoin Reserve has NOT been established or signed \u2014 the specific catalyst is still entirely pending. Exit only when a reserve EO/bill actually lands (resolution) or the pledge is abandoned (reversal). This week's silence is not an exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China's Dec 3 export ban remains in force, no curbs lifted, no domestic antimony supply online",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fifth consecutive quiet week with no ban-specific coverage; this week's only news is generic European trade-war jitters, no bearing on the curb. The Dec 3 ban stays in force \u2014 datable supply-shock, no lifting, no domestic replacement, coverage never saturated, no concrete resolution scheduled. Escalating trade-war rhetoric arguably reinforces the reshoring case. UAMY remains the cleanest domestic antimony pure-play. Silence is not exit; holding for a possible re-acceleration.",
+      "exit_advice": "Hold. The specific supply-shock (China antimony/gallium/germanium export ban) persists with no reversal; exit only on curbs lifting or domestic replacement coming online.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/stocks/news/european-shares-fall-as-investors-weigh-trade-war-fears-vodafone-tumbles/articleshow/117910703.cms"
+      ]
+    }
+  ],
+  "2025-02-14": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing occurred Sept 2024; but restart NRC approval/execution still pending, so driving condition not reversed.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "This week's quantum-computing and space-stock screener headlines are pure noise, wholly unrelated to the TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. Signing is backward-looking but the concrete TMI Unit 1 restart approval (NRC license amendment) is still filed and awaiting ruling \u2014 a scheduled catalyst ahead. Exit only when the NRC ruling lands or restart completes.",
+      "evidence_urls": [
+        "https://www.investors.com:443/news/technology/quantum-computing-stocks-ionq-ibm-msft-google/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal not yet closed; no completion, no regulatory approval finalized, no reversal \u2014 merger still pending mid-2025.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Seventeenth quiet week; no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Concrete regulatory/shareholder approval steps remain scheduled ahead toward mid-2025 close; quiet stretch is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Immigration EOs signed post-Jan 20 \u2014 the executive-order trigger has occurred; only downstream contracting remains",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fourteenth straight week with no direct GEO/ICE coverage. Trump's immigration EOs are in force, activating the mandate, but the specific catalyst I entered on \u2014 federal detention-capacity expansion via ICE contract awards and appropriated bed buildout to GEO \u2014 remains fully ahead and unlet. That concrete follow-on is the next scheduled leg; the arc is not complete. The private-detention angle stays under-the-radar versus mainstream Trump-trade froth; no retail frenzy, no sell-side chase. Silence while the driving mandate accelerates = hold, not exit. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold until ICE detention contract awards / appropriated bed buildout to GEO are public and mainstream-saturated, or the deportation mandate reverses.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Jan 20 inauguration passed with no reserve action, but pledge intact and no order signed \u2014 catalyst not resolved or reversed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fourteenth week, no fresh coverage of the named Strategic Bitcoin Reserve. The specific catalyst remains entirely pending: no executive order, no bill, no reserve established. The Jan 20 inauguration anchor passed without a reserve action, so I'm watching for the next concrete step \u2014 a crypto/reserve executive order or working-group directive converting the pledge into policy. Broad crypto/Bitcoin euphoria remains crowding on the theme, not saturation of this specific named reserve policy. Silence on the named catalyst is not exit while the pledged-reserve driving condition is intact and unsigned. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The specific named catalyst \u2014 an actual Strategic Bitcoin Reserve established by order or law \u2014 is still entirely pending. Silence is not exit while the pledge stands unsigned. Exit only when a reserve EO/directive is actually signed (resolution) or the pledge is explicitly abandoned (reversal).",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China's Dec 3 export ban remains in force, no curbs lifted, no domestic supply online, catalyst unresolved",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Sixth consecutive quiet week with no ban-specific coverage. China's Dec 3 antimony/gallium/germanium export ban to the US remains in force \u2014 a specific, datable supply-shock with no curbs lifted and no domestic replacement online. Coverage never reached mainstream saturation and no concrete resolution is scheduled. A live catalyst can go silent for weeks and re-accelerate (a follow-on curb, a price spike, a government stockpile move); exiting on silence forfeits that second leg. UAMY stays the cleanest domestic antimony pure-play. Holding through the quiet.",
+      "exit_advice": "hold",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-21": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing done long ago; theme mainstream \u2014 but TMI Unit 1 restart still awaits NRC approval, not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "This week's news is entirely Microsoft's Majorana 1 quantum chip \u2014 pure noise, wholly unrelated to the TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold; exit only when NRC license amendment approval lands or restart completes \u2014 that's the concrete pending leg.",
+      "evidence_urls": [
+        "https://observer.com/2025/02/satya-nadella-unveils-microsofts-quantum-breakthrough-a-new-state-of-matter/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal not yet closed; completion still pending mid-2025 with regulatory approvals ahead \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eighteenth quiet week; no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. All-cash Rio\u2013Arcadium acquisition remains pending; closing expected mid-2025 with regulatory approvals concretely scheduled ahead. Quiet stretch is not exit-triggering.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Immigration EOs signed Jan 20 and mandate activating; but specific ICE detention contract awards/bed buildout to GEO still unlet \u2014 catalyst not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fifteenth straight week with no direct GEO/ICE coverage \u2014 this week is pure off-thesis global-markets froth. Trump's immigration EOs are in force, activating the mandate, but the specific catalyst I entered on \u2014 federal detention-capacity expansion via ICE contract awards and appropriated bed buildout to GEO \u2014 remains fully ahead and unlet. That concrete follow-on is the next scheduled leg; the arc is not complete. The private-detention angle stays under-the-radar versus mainstream Trump-trade coverage; no retail frenzy, no sell-side chase. Silence while the driving mandate accelerates = hold, not exit. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. The specific detention-capacity leg \u2014 ICE contract awards and appropriated bed buildout to GEO \u2014 remains unlet and fully ahead; exit only when contracts are publicly awarded AND coverage turns mainstream-saturated.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no Strategic Bitcoin Reserve order signed, no bill, no reserve established; pledge intact and entirely pending",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifteenth week. This week's news is unrelated foreign-market coverage (Nigerian stock market) \u2014 nothing on the named Strategic Bitcoin Reserve, which remains undrafted, unsigned, and unestablished. The specific catalyst I entered on is still entirely pending: the pledge is intact but no reserve exists. The Jan 20 inauguration anchor passed without a reserve action, so I continue watching for the next concrete step \u2014 a crypto/reserve executive order or working-group directive converting the pledge into policy. Broad crypto/Bitcoin euphoria remains crowding on the theme, not saturation of this specific named reserve policy. Silence on the named catalyst is not exit while the pledged-reserve driving condition is intact and unsigned. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://leadership.ng/positive-momentum-to-continue-on-stock-market-this-week/"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 ban still in force, no curbs lifted, no domestic antimony supply online, no reversal",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Seventh consecutive quiet week with no ban-specific coverage; this week's item is a generic China shares consolidation note, no bearing on the curb. China's Dec 3 antimony/gallium/germanium export ban to the US stays in force \u2014 a specific, datable supply-shock with no lifting and no domestic replacement online. Coverage never reached mainstream saturation and no concrete resolution is scheduled. A live catalyst can go silent for weeks and re-accelerate (follow-on curb, price spike, government stockpile move); exiting on silence forfeits that second leg. UAMY remains the cleanest domestic antimony pure-play. Holding through the quiet.",
+      "exit_advice": "Hold. The Dec 3 export ban remains the active driving condition; exit only on curbs lifted or domestic replacement online.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3513105"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Microsoft Majorana 1 quantum chip unveiling lifts pure-plays",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Majorana 1 was unveiled this week \u2014 the discrete event has occurred and is public.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Entry week. Microsoft's Feb 19 Majorana 1 unveiling \u2014 a topological-qubit 'new state of matter' claim \u2014 triggered a sharp two-day rally across quantum pure-plays (QBTS, RGTI, QUBT). The catalyst is specific and datable; QBTS is the cleanest listed pure-play in the known set. Coverage is already broad (ZeroHedge, Forbes, Fool, Yahoo) but this is the first leg off the shock. Chip is 'theoretical' per skeptics, which leaves room for a debate-driven second leg. Hold the freshly-triggered move.",
+      "exit_advice": "Hold \u2014 the unveiling just landed this week and pure-plays are still re-rating on the fresh shock; the herd has not fully arrived and follow-on momentum (roadmap detail, sell-side chase) is still ahead.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/quantum-computing-stocks-soar-after-msft-unveils-majorana",
+        "https://finance.yahoo.com/news/quantum-computing-stocks-rise-microsofts-135544634.html"
+      ]
+    }
+  ],
+  "2025-02-28": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft 20-year PPA to restart Three Mile Island reactor",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Signing is backward-looking, but NRC restart approval still pending \u2014 no resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "This week's Bitcoin-slide headline is pure noise, wholly unrelated to the TMI PPA. The Microsoft-Constellation PPA remains a specific, datable landmark tying datacenter power demand to nuclear restart. The signing is backward-looking, but the actual TMI Unit 1 restart \u2014 NRC license amendment, interconnection, fuel \u2014 is a concrete filed process still awaiting ruling, so the catalyst is not resolved. The theme has gone mainstream, capping conviction, but the third exit needs BOTH saturation AND a complete arc; a concrete restart-approval catalyst is still ahead, so the window is not fully closed. A quiet stretch is not an exit. CEG stays the clean pure-play owning TMI.",
+      "exit_advice": "Hold. NRC license-amendment ruling on TMI Unit 1 restart is a concrete scheduled catalyst still ahead; exit only on that ruling or a reversal.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2025/0228/1499416-bitcoin/"
+      ]
+    },
+    {
+      "ticker": "ALTM",
+      "thesis": "Rio Tinto agrees to acquire Arcadium Lithium",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal closing not yet occurred; no reversal \u2014 completion still pending mid-2025 with approvals ahead.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Nineteenth quiet week; no fresh coverage on Rio\u2013Arcadium. The specific catalyst \u2014 deal completion \u2014 has not occurred; regulatory approvals remain concretely scheduled ahead toward mid-2025. Quiet stretch, not a reversal or resolution. ALTM (target ADR) stays the sole clean pure-play vehicle, trading toward the ~$6.7B all-cash price; arb spread plus residual counterbid/sweetener optionality keeps thesis live.",
+      "exit_advice": "Hold. Concrete regulatory/shareholder approval milestones remain scheduled toward mid-2025 close; silence is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation order expands ICE detention capacity",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Immigration EOs signed Jan 20 \u2014 but detention-capacity contract awards to GEO still unlet, not the catalyst I entered on.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Sixteenth straight week with no direct GEO/ICE coverage \u2014 this week is pure off-thesis froth (bitcoin slide, Ukraine minerals deal, tariff-recession fears, Greenland). Trump's immigration EOs are in force, activating the mandate, but the specific catalyst I entered on \u2014 federal detention-capacity expansion via ICE contract awards and appropriated bed buildout to GEO \u2014 remains fully ahead and unlet. That concrete follow-on is the next scheduled leg; the arc is not complete. The private-detention angle stays under-the-radar versus mainstream Trump coverage; no retail frenzy, no sell-side chase. Silence while the driving mandate accelerates = hold, not exit. GEO remains the cleanest pure-play.",
+      "exit_advice": "Hold. Signed EOs are only the trigger; the ICE detention contract awards and appropriated bed buildout to GEO \u2014 the specific catalyst \u2014 remain fully ahead and unlet. Exit only when those contracts land AND coverage saturates.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/bitcoin-slides-more-5-lowest-025610392.html"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump's pledged US Strategic Bitcoin Reserve policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 reserve still undrafted/unsigned; Bitcoin selloff and crypto-policy uncertainty are price noise, not a reversal of the intact pledge",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Sixteenth week. This week's news is a broad Bitcoin selloff (3.5-month low) driven by tariff/crypto-policy uncertainty and a large exchange hack \u2014 none of it is the named Strategic Bitcoin Reserve, which remains undrafted, unsigned, and unestablished. The specific catalyst I entered on is still entirely pending: the pledge is intact but no reserve exists. The Jan 20 inauguration anchor passed without a reserve action, so I keep watching for the concrete next step \u2014 a crypto/reserve executive order or working-group directive converting the pledge into policy. A price drawdown is not a reversal of the driving condition (the pledge); silence/weakness on the named catalyst is not exit while it stays intact and unsigned. MSTR stays the cleanest liquid leveraged proxy.",
+      "exit_advice": "Hold. The named Strategic Bitcoin Reserve remains entirely pending \u2014 no executive order, no bill, no reserve established. This week's Bitcoin crash (tariff/crypto-policy uncertainty, $1.5B hack) is a drawdown in the theme, not a resolution or reversal of the specific pledged-reserve catalyst.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2025/0228/1499416-bitcoin/",
+        "https://finance.yahoo.com/news/bitcoin-slides-more-5-lowest-025610392.html"
+      ]
+    },
+    {
+      "ticker": "UAMY",
+      "thesis": "China bans antimony/gallium/germanium exports to US",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 China's Dec 3 export ban remains in force, no curbs lifted, no domestic antimony supply online",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Eighth consecutive quiet week with no ban-specific coverage; this week's items (ChinaLux gala, Russian/Iranian oil to China, China-EU charm offensive, a US diplomat's HK keynote) all have zero bearing on the antimony/gallium/germanium curb. China's Dec 3 export ban to the US stays in force \u2014 a specific, datable supply-shock with no lifting and no domestic replacement online. Coverage never reached mainstream saturation and no concrete resolution is scheduled. A live catalyst can go silent for weeks and re-accelerate (follow-on curb, price spike, government stockpile move); exiting on silence forfeits that second leg. UAMY remains the cleanest domestic antimony pure-play. Holding through the quiet.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.scmp.com/news/china/politics/article/3300495/former-senior-us-diplomat-kurt-campbell-address-american-and-hong-kong-business-leaders"
+      ]
+    },
+    {
+      "ticker": "QBTS",
+      "thesis": "Microsoft Majorana 1 quantum chip unveiling lifts pure-plays",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Feb 19 Majorana 1 unveiling already occurred \u2014 the discrete catalyst is public and priced, backward-looking.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "The entered catalyst \u2014 Microsoft's Majorana 1 unveiling \u2014 is a specific dated event that has already happened and driven its rally. QBTS is only tangentially exposed (it's D-Wave, not Microsoft). No fresh coverage this week and no scheduled next leg; the debate-driven 'second leg' is pure speculation, not a concrete pending catalyst. Resolution reached.",
+      "exit_advice": "Exit. The unveiling was a one-time discrete event that fired on Feb 19; the two-day rally was the reaction. No concrete scheduled follow-on catalyst is ahead \u2014 only a speculative 'is the chip real' debate. QBTS is a peripheral vehicle (Microsoft's chip isn't its product), so even the theme link is loose.",
+      "evidence_urls": []
+    }
+  ]
+}

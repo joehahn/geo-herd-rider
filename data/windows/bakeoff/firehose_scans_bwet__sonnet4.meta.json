@@ -1,5 +1,5 @@
 {
-  "model": "sonnet",
+  "model": "sonnet4",
   "model_id": "claude-sonnet-4-6",
   "provider": "anthropic"
 }

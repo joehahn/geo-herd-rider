@@ -2,604 +2,469 @@
   "2024-04-19": [],
   "2024-04-26": [
     {
-      "ticker": "MSFT",
-      "thesis": "Microsoft gains on upbeat earnings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Microsoft's upbeat earnings drove gains",
-      "exit_advice": "wait for catalyst resolution",
-      "evidence_urls": [
-        "https://www.benzinga.com/news/earnings/24/04/38468462/dow-surges-over-200-points-microsoft-shares-gain-following-upbeat-earnings"
-      ]
-    }
-  ],
-  "2024-05-03": [
-    {
-      "ticker": "MSFT",
-      "thesis": "Microsoft gains on upbeat earnings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "No new information indicates that Microsoft's upbeat earnings have resolved or decayed as a catalyst.",
-      "exit_advice": "Monitor MSFT's price action and news for signs of catalyst resolution or decay.",
-      "evidence_urls": [
-        "https://biztoc.com/x/9e2c08385f80ef0c"
-      ]
-    }
-  ],
-  "2024-05-10": [
-    {
-      "ticker": "MSFT",
-      "thesis": "Microsoft gains on upbeat earnings",
+      "ticker": "VEDL",
+      "thesis": "strong Q4 numbers",
       "thesis_live": false,
-      "exit_case": "Microsoft's earnings are now historical and likely priced in, having occurred over two weeks ago.",
-      "catalyst_resolved": true,
-      "assessment": "The initial catalyst was Microsoft's upbeat earnings on 2024-04-26. The earnings have been reported and are now part of history. There is no new information indicating that the catalyst is still pending or has any remaining effect.",
-      "exit_advice": "Close the position as the catalyst has resolved.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Initial week, assessing materials sector concerns tied to Freeport-McMoRan.",
-      "exit_advice": "Monitor resolution of materials sector concerns.",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst was Vedanta's strong Q4 numbers, which have now been released.",
+      "exit_advice": "The catalyst (strong Q4 numbers) has already occurred.",
       "evidence_urls": [
-        "https://biztoc.com/x/0be4e6f92407a367",
-        "https://www.insidermonkey.com/blog/hidden-gems-unveiling-the-5-stocks-on-hedge-funds-radar-1298479/"
+        "https://www.financialexpress.com/market/vedanta-shares-surge-over-5-on-strong-q4-numbers-what-should-be-your-strategy-now-3469185/"
       ]
     }
   ],
+  "2024-05-03": [],
+  "2024-05-10": [],
   "2024-05-17": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "short interest in materials stocks increased marginally",
-      "exit_advice": "continue monitoring materials sector concerns tied to Freeport-McMoRan",
-      "evidence_urls": [
-        "https://seekingalpha.com/news/4105577-albemarle-most-shorted-sp-500-materials-stock-in-april-ecolab-least-shorted"
-      ]
-    },
-    {
       "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "NuScale Power's reactor approval news and growing AI datacenter power demand are driving interest in SMR",
-      "exit_advice": "continue to monitor reactor approval and AI datacenter power demand news",
+      "assessment": "Reactor approval news is emerging as a catalyst, reflected in SMR's performance.",
+      "exit_advice": "Monitor reactor approval progress",
       "evidence_urls": [
-        "https://menafn.com/1108224193/TSX-Finishes-Flat",
-        "https://seekingalpha.com/news/4105577-albemarle-most-shorted-sp-500-materials-stock-in-april-ecolab-least-shorted",
-        "https://investorplace.com/2024/05/quantum-leap-3-computing-stocks-on-the-brink-of-a-breakout/",
-        "ETF.com"
+        "https://www.etf.com/section/industryviews/nuclear-stock-nuscale-power-ai-power-demand"
       ]
     }
   ],
   "2024-05-24": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "short interest in materials stocks remains a concern",
-      "exit_advice": "continue to monitor materials sector concerns tied to Freeport-McMoRan",
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/TSX-opens-higher-on-softer-retail-sales-data-46817885/"
-      ]
+      "assessment": "Reactor approval news catalyst remains pending",
+      "exit_advice": "Monitor for approval news",
+      "evidence_urls": []
     },
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "NuScale Power's reactor approval news and growing AI datacenter power demand still driving interest",
-      "exit_advice": "watch for NuScale Power's reactor approval progress and changes in AI datacenter power demand",
+      "ticker": "NVDA",
+      "thesis": "Nvidia earnings boom",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Nvidia earnings have been released and the market has reacted.",
+      "catalyst_resolved": true,
+      "assessment": "Nvidia earnings boom has driven Nasdaq to record highs and lifted AI stocks.",
+      "exit_advice": "The catalyst has resolved as Nvidia earnings have already been reported and reacted to by the market.",
       "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/S-P-TSX-COMPOSITE-INDEX-7454/news/TSX-rises-on-softer-retail-sales-data-commodities-boost-46819601/",
-        "https://www.rttnews.com/story.aspx?Id=3450246"
+        "https://carrollspaper.com/news/national/wall-streets-nasdaq-heads-towards-record-highs-on-nvidia/article_865f4ea3-d398-5af1-8b43-e625bf7be881.html",
+        "https://www.investors.com:443/market-trend/stock-market-today/dow-jones-futures-nvidia-earnings-nvda-stock/"
       ]
     }
   ],
   "2024-05-31": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "short interest in materials stocks remains a concern, and commodity prices are still gaining",
-      "exit_advice": "continue to monitor materials sector concerns tied to Freeport-McMoRan",
-      "evidence_urls": [
-        "https://www.livemint.com/market/stock-market-news/lok-sabha-elections-2024-results-trading-strategy-what-should-your-portfolio-look-like-stock-market-portfolio-tips-11717142623252.html",
-        "http://baystreet.ca/articles/marketupdates/97879/052724"
-      ]
-    },
-    {
       "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending as there's no clear resolution on NuScale Power's reactor approval or a significant change in AI datacenter power demand. The journal entries still support the initial thesis.",
-      "exit_advice": "continue to monitor NuScale Power's reactor approval progress and AI datacenter power demand",
-      "evidence_urls": [
-        "https://www.journalgazette.net/business/wall-street-wilts-to-trim-its-big-gain-for-may/article_aeb3bf38-d39d-5897-9a44-7121d51f8868.html",
-        "https://www.fool.ca/2024/05/28/how-materials-stocks-are-reaping-the-benefits-of-the-artificial-intelligence-ai-explosion/"
-      ]
-    },
-    {
-      "ticker": "ANF",
-      "thesis": "Boosted forecasts after upbeat earnings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Analysts boosted forecasts after Abercrombie & Fitch's upbeat earnings, indicating a positive outlook.",
-      "exit_advice": "Monitor if ANF's earnings-driven forecast boost is fully priced or if subsequent news alters the outlook.",
-      "evidence_urls": [
-        "https://www.benzinga.com/24/05/39085361/abercrombie-fitch-analysts-boost-their-forecasts-after-upbeat-earnings"
-      ]
+      "assessment": "No new information on reactor approval",
+      "exit_advice": "Monitor for reactor approval updates",
+      "evidence_urls": []
     }
   ],
   "2024-06-07": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
-      "thesis_live": true,
-      "exit_case": "Materials sector concerns have not resolved and remain a concern.",
-      "catalyst_resolved": false,
-      "assessment": "The materials sector continues to be a concern with sharp declines noted in the latest week. Short interest remains a concern and commodity prices are still a factor.",
-      "exit_advice": "Continue to monitor materials sector concerns and Freeport-McMoRan's relation to it.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/quote/stock/GFL-ENVIRONMENTAL-INC-104092348/news/Toronto-Stocks-Retreat-Saputo-Shares-Rise-on-4Q-Revenue-Adjusted-Earnings-Beat-46930880/",
-        "https://www.rttnews.com/story.aspx?Id=3453184"
-      ]
-    },
-    {
       "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The journal entries still support the initial thesis, and there's no clear resolution on NuScale Power's reactor approval or significant change in AI datacenter power demand.",
-      "exit_advice": "Monitor NuScale Power's reactor approval progress and AI datacenter power demand developments.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/Wall-St-inches-up-set-for-weekly-gains-after-mixed-data-46930993/",
-        "https://www.news.com.au/finance/markets/australian-markets/share-market-climbs-after-wall-street-resets-record-high/news-story/af414831ab6600470e925f9302043da0"
-      ]
-    },
-    {
-      "ticker": "ANF",
-      "thesis": "Boosted forecasts after upbeat earnings",
-      "thesis_live": true,
-      "exit_case": "No new information indicates the catalyst has resolved or decayed.",
-      "catalyst_resolved": false,
-      "assessment": "The initial catalyst of boosted forecasts after upbeat earnings remains relevant. The stock is still considered a pure play for the event.",
-      "exit_advice": "Continue to monitor ANF for further developments related to the earnings and forecasts.",
-      "evidence_urls": [
-        "https://www.benzinga.com/insights/movers/24/06/39236629/12-consumer-discretionary-stocks-moving-in-fridays-after-market-session"
-      ]
+      "assessment": "Reactor approval news remains a pending catalyst.",
+      "exit_advice": "Monitor for official approval or denial news.",
+      "evidence_urls": []
     }
   ],
   "2024-06-14": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The materials sector continues to be a concern with sharp declines and short interest remaining a factor.",
-      "exit_advice": "Monitor for resolution in materials sector concerns or significant changes in commodity prices.",
-      "evidence_urls": [
-        "https://www.wboc.com/news/international/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/article_945128ec-2200-555e-8e0b-836074c2852a.html",
-        "https://www.marketscreener.com/quote/stock/FORD-MOTOR-COMPANY-12542/news/Industrials-Drop-on-Growth-Concerns-Industrials-Roundup-46970496/"
-      ]
-    },
-    {
       "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reviewing the entire journal, there is no indication that the catalyst has been resolved; NuScale Power's reactor approval and AI datacenter power demand remain pending.",
-      "exit_advice": "Monitor NuScale Power's reactor approval progress and changes in AI datacenter power demand.",
-      "evidence_urls": [
-        "https://tribtown.com/2024/06/13/yellen-says-chinas-trade-policies-could-interfere-significantly-with-us-bilateral-relationship/",
-        "https://watchingamerica.com/WA/2024/06/13/americas-plans-to-build-protectionist-alliance-against-china-fated-to-fail/",
-        "https://medicinehatnews.com/business/2024/06/13/jittery-markets-rally-after-argentinas-milei-gets-his-first-legislative-triumph-on-broad-reforms/"
-      ]
+      "assessment": "no new information on reactor approval",
+      "exit_advice": "continue to monitor reactor approval news",
+      "evidence_urls": []
     },
     {
-      "ticker": "ANF",
-      "thesis": "Boosted forecasts after upbeat earnings",
-      "thesis_live": false,
-      "exit_case": "The stock has already surged following the initial catalyst and may be fully priced.",
-      "catalyst_resolved": true,
-      "assessment": "The initial boost in forecasts after Abercrombie & Fitch's upbeat earnings has likely been fully incorporated into the stock price.",
-      "exit_advice": "Close the position as the catalyst has resolved.",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship has caused disruption and potential impact on shipping companies",
+      "exit_advice": "Monitor for resolution or de-escalation of the Houthi rebel attack on the Ukrainian-owned ship",
       "evidence_urls": [
-        "https://www.fxstreet.com/news/gbp-usd-weakens-below-12800-as-fed-pencils-just-one-rate-cut-this-year-202406132324"
-      ]
-    },
-    {
-      "ticker": "RFIL",
-      "thesis": "Reports second quarter fiscal year 2024 financial results",
-      "thesis_live": false,
-      "exit_case": "The company has already reported its second quarter fiscal year 2024 financial results.",
-      "catalyst_resolved": true,
-      "assessment": "RF Industries has reported its Q2 FY2024 financial results, fulfilling the catalyst. The event is now closed.",
-      "exit_advice": "The event is complete, and the catalyst has been resolved. Consider exiting the position.",
-      "evidence_urls": [
-        "https://www.saltlakecitysun.com/news/274408195/rf-industries-reports-second-quarter-fiscal-year-2024-financial-results",
-        "https://www.finanznachrichten.de/nachrichten-2024-06/62488917-rf-industries-ltd-rf-industries-reports-second-quarter-fiscal-year-2024-financial-results-200.htm"
+        "https://www.latimes.com/world-nation/story/2024-06-13/yemens-houthi-rebels-hit-ukrainian-owned-ship-in-gulf-of-aden-sparking-blaze-us-says",
+        "https://www.singletonargus.com.au/story/8662345/houthi-missile-strikes-set-ship-ablaze-injuring-one/"
       ]
     }
   ],
   "2024-06-21": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The materials sector remains a concern with ongoing short interest and commodity price fluctuations.",
-      "exit_advice": "Monitor short interest and commodity prices for significant changes.",
+      "assessment": "the reactor approval news remains a pending catalyst with no new information",
+      "exit_advice": "continue to monitor SMR for reactor approval news",
       "evidence_urls": []
     },
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "NuScale Power's cash reserves deplete without resolving reactor approval or meeting AI datacenter power demand",
+      "src": "gdelt",
+      "exit_case": "No new developments or resolution on the Houthi rebels' attack on the Ukrainian-owned ship",
       "catalyst_resolved": false,
-      "assessment": "The latest news raises concerns about NuScale Power's cash reserves, but doesn't resolve the reactor approval or AI datacenter power demand catalysts",
-      "exit_advice": "Monitor NuScale Power's reactor approval progress and AI datacenter power demand developments",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
-      ]
+      "assessment": "The event remains ongoing with no clear resolution",
+      "exit_advice": "Monitor for news on resolution or further escalation",
+      "evidence_urls": []
     }
   ],
   "2024-06-28": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "materials sector concerns tied to Freeport-McMoRan remain ongoing with continued short interest and commodity price fluctuations",
-      "exit_advice": "continue to monitor materials sector concerns and commodity prices",
+      "assessment": "no new information on reactor approval",
+      "exit_advice": "continue to monitor reactor approval news",
       "evidence_urls": []
     },
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "The event has not been resolved or decayed as there's still potential impact on shipping.",
       "catalyst_resolved": false,
-      "assessment": "the catalyst remains pending with no clear resolution on NuScale Power's reactor approval or significant change in AI datacenter power demand",
-      "exit_advice": "continue to hold",
+      "assessment": "The Houthi rebels' attack remains a concern for shipping companies.",
+      "exit_advice": "Monitor for resolution or significant decay in the event's impact.",
       "evidence_urls": []
     }
   ],
   "2024-07-05": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The materials sector remains a concern with ongoing short interest and commodity price fluctuations.",
-      "exit_advice": "Monitor short interest and commodity prices for resolution or significant change.",
+      "assessment": "no new information on reactor approval",
+      "exit_advice": "continue to monitor for reactor approval news",
       "evidence_urls": []
     },
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "The event has not been resolved or decayed as there's ongoing concern for shipping companies.",
       "catalyst_resolved": false,
-      "assessment": "the catalyst remains pending with no clear resolution or significant change",
-      "exit_advice": "continue to monitor NuScale Power's reactor approval and AI datacenter power demand",
+      "assessment": "The event remains ongoing with continued potential impact on shipping companies like SBLK.",
+      "exit_advice": "Monitor for resolution or decay in the Houthi rebels' attacks on shipping.",
       "evidence_urls": []
     }
   ],
   "2024-07-12": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "ongoing concerns in the materials sector tied to Freeport-McMoRan continue with no resolution",
-      "exit_advice": "continue to monitor materials sector concerns and short interest",
-      "evidence_urls": [
-        "https://biztoc.com/x/63b94f93bee26db5"
-      ]
+      "assessment": "no new info",
+      "exit_advice": "continue to monitor for reactor approval news",
+      "evidence_urls": []
     },
     {
-      "ticker": "SMR",
-      "thesis": "NuScale Power gains on reactor approval news and AI datacenter power demand",
-      "thesis_live": false,
-      "exit_case": "Legislation signed into law, resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The recent news about bipartisan legislation being signed into law to spur nuclear power growth impacts NuScale Power's reactor approval and AI datacenter power demand positively.",
-      "exit_advice": "The catalyst has been resolved as the legislation has been signed into law.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
-      ]
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The event remains ongoing with potential impact on shipping companies like SBLK",
+      "exit_advice": "continue to monitor for resolution or significant development",
+      "evidence_urls": []
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SMR",
+      "thesis": "Reactor approval news",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The ADVANCE Act has been signed into law, supporting nuclear development.",
+      "catalyst_resolved": true,
+      "assessment": "The event catalyst was the pending reactor approval news, which has now been effectively supported by the signing of the ADVANCE Act.",
+      "exit_advice": "The catalyst has been resolved with the signing of the ADVANCE Act into law.",
+      "evidence_urls": [
+        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
+      ]
+    },
+    {
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Materials sector concerns related to Freeport-McMoRan remain ongoing.",
-      "exit_advice": "Monitor resolution of materials sector concerns and commodity price stabilization.",
+      "assessment": "the event remains ongoing with potential impact on shipping companies like SBLK",
+      "exit_advice": "continue to monitor for resolution or further developments",
       "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Supermicro earnings release is pending, market is anticipating the results",
+      "exit_advice": "Wait for earnings release outcome",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/18/stock-split-watch-is-super-micro-computer-next/?source=iedfolrf0000001"
+      ]
     }
   ],
   "2024-07-26": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The event remains ongoing with no clear resolution or decay in impact on shipping companies.",
+      "catalyst_resolved": false,
+      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship continues to pose a risk to shipping companies like SBLK.",
+      "exit_advice": "Monitor for resolution or significant decrease in impact on shipping companies.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new developments; ongoing concerns.",
-      "exit_advice": "Monitor for resolution or decay in materials sector concerns tied to Freeport-McMoRan.",
-      "evidence_urls": []
+      "assessment": "Supermicro earnings release is still pending.",
+      "exit_advice": "Wait for earnings release outcome",
+      "evidence_urls": [
+        "https://investorplace.com/2024/07/3-ai-stocks-to-buy-before-q2-earnings/"
+      ]
     }
   ],
   "2024-08-02": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "No significant resolution or decay in materials sector concerns tied to Freeport-McMoRan.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Ongoing concerns in the materials sector remain with continued short interest and commodity price fluctuations.",
-      "exit_advice": "Continue to monitor materials sector concerns and Freeport-McMoRan's impact.",
+      "assessment": "No new developments, ongoing risk to shipping companies.",
+      "exit_advice": "Monitor for resolution or significant developments.",
       "evidence_urls": []
     },
     {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Hims & Hers is positioning itself to capitalize on GLP-1 hype with a controversial strategy; valuation may be getting rich",
-      "exit_advice": "monitor GLP-1 weight loss drug strategy approval progress",
+      "assessment": "Supermicro earnings release is still pending",
+      "exit_advice": "hold",
       "evidence_urls": [
-        "https://www.fool.com/investing/2024/08/02/hims-hers-stock-is-looking-to-cash-in-from-the-glp/?source=iedfolrf0000001"
+        "http://baystreet.ca/marketupdates/13362/Stocks-Bludgeoned"
+      ]
+    },
+    {
+      "ticker": "CEG",
+      "thesis": "PJM power market auction prices jump ninefold",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The ninefold jump in PJM power market auction prices has already been reported and priced in.",
+      "catalyst_resolved": true,
+      "assessment": "The event has reached its climax with the news of the ninefold price jump, and the stocks have already reacted.",
+      "exit_advice": "Close the position as the catalyst has already occurred.",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
       ]
     }
   ],
   "2024-08-09": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "The event has been ongoing for nearly 2 months with no significant escalation or resolution.",
       "catalyst_resolved": false,
-      "assessment": "ongoing concerns in the materials sector remain with continued short interest and commodity price fluctuations",
-      "exit_advice": "continue to monitor materials sector concerns tied to Freeport-McMoRan",
-      "evidence_urls": [
-        "https://www.hedgeweek.com/hedge-funds-turn-bearish-as-concerns-grow-over-us-economic-slowdown/"
-      ]
+      "assessment": "The ongoing risk to shipping companies like SBLK remains a concern.",
+      "exit_advice": "Continue to monitor for changes in the Houthi rebels' activity or shipping company responses.",
+      "evidence_urls": []
     },
     {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "HIMS remains the purest vehicle as it continues to position itself for GLP-1 weight loss market",
-      "exit_advice": "continue to monitor GLP-1 strategy developments",
+      "assessment": "Supermicro earnings release is still pending",
+      "exit_advice": "continue to hold until earnings release",
       "evidence_urls": [
-        "https://www.fool.com/investing/2024/08/03/eli-lilly-vs-novo-nordisk-a-recent-study-suggests/?source=iedfolrf0000001"
+        "https://seekingalpha.com/news/4135693-biggest-stock-today-smci-lumn-and-more"
       ]
     }
   ],
   "2024-08-16": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "The event has been ongoing for two months with no significant escalation or resolution indicated in the journal or news.",
       "catalyst_resolved": false,
-      "assessment": "The materials sector concerns tied to Freeport-McMoRan remain ongoing with continued short interest and commodity price fluctuations.",
-      "exit_advice": "Monitor for resolution or significant change in materials sector concerns tied to Freeport-McMoRan.",
-      "evidence_urls": [
-        "https://www.investing.com/news/stock-market-news/weekly-market-recap-heres-how-sp-500-sectors-performed-last-week-3565454"
-      ]
-    },
-    {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "HIMS remains the purest vehicle as there's been no significant development on GLP-1 strategy approval",
-      "exit_advice": "continue to monitor GLP-1 strategy approval progress",
+      "assessment": "The risk to shipping companies like SBLK remains ongoing.",
+      "exit_advice": "Continue to monitor for signs of escalation or resolution.",
       "evidence_urls": []
     },
     {
-      "ticker": "EBS",
-      "thesis": "WHO declares mpox global health emergency, boosting vaccine demand",
-      "thesis_live": false,
-      "exit_case": "WHO has already declared mpox a global health emergency, resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The WHO's declaration of mpox as a global health emergency has already occurred, and the market has reacted. The initial surge in demand for vaccines is likely to be priced in.",
-      "exit_advice": "Close the position as the catalyst has been resolved.",
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Supermicro earnings release has not occurred yet",
+      "catalyst_resolved": false,
+      "assessment": "Still pending, no new information on earnings release",
+      "exit_advice": "Monitor for earnings release date",
       "evidence_urls": [
-        "https://www.euronews.com/business/2024/08/16/vaccine-makers-see-surge-in-shares-as-concerns-grow-over-mpox-outbreak",
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/",
-        "https://www.benzinga.com/news/24/08/40402519/emergent-biosolutions-bavarian-nordic-geovax-and-siga-technologies-shares-are-making-big-moves-thurs"
+        "https://fnarena.com/index.php/2024/08/16/next-week-at-a-glance-19-23-aug-2024/"
       ]
     }
   ],
   "2024-08-23": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "The materials sector concerns tied to Freeport-McMoRan have been ongoing with no clear resolution or decay noted in the journal.",
+      "src": "gdelt",
+      "exit_case": "The event has been ongoing for over two months with no clear resolution or significant developments.",
       "catalyst_resolved": false,
-      "assessment": "The materials sector remains a concern with ongoing short interest and commodity price fluctuations. No significant change or resolution noted.",
-      "exit_advice": "Continue to monitor the materials sector concerns and short interest tied to Freeport-McMoRan.",
-      "evidence_urls": [
-        "https://www.wkrb13.com/2024/08/23/real-estate-select-sector-spdr-fund-nysearcaxlre-trading-0-1-higher.html",
-        "https://www.dailypolitical.com/2024/08/22/real-estate-select-sector-spdr-fund-nysearcaxlre-trading-0-1-higher.html",
-        "https://www.themarketsdaily.com/2024/08/21/real-estate-select-sector-spdr-fund-nysearcaxlre-hits-new-1-year-high-at-42-35.html",
-        "https://www.rttnews.com/3470129/tsx-snaps-8-day-winning-streak-ends-modestly-lower.aspx"
-      ]
-    },
-    {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "HIMS remains the purest play on GLP-1 weight loss strategy, with no new developments.",
-      "exit_advice": "Monitor FDA approval decision or significant developments on GLP-1 strategy.",
+      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the Houthi rebels' continued activities.",
+      "exit_advice": "Continue to monitor for a resolution or significant change in the situation.",
       "evidence_urls": []
     },
     {
-      "ticker": "XLRE",
-      "thesis": "Fed Chair Jerome Powell's Jackson Hole speech",
-      "thesis_live": false,
-      "exit_case": "Powell's Jackson Hole speech has occurred, potentially resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst was Fed Chair Jerome Powell's Jackson Hole speech, which occurred on August 23, 2024. The speech has likely resolved the catalyst, and the market has reacted accordingly.",
-      "exit_advice": "Close position as the catalyst has resolved.",
-      "evidence_urls": [
-        "https://www.rttnews.com/3470813/canadian-stocks-surge-to-record-highs-after-powell-speech.aspx",
-        "https://www.benzinga.com/news/earnings/24/08/40524309/us-stocks-eye-strong-start-as-traders-discount-dovish-comments-from-jerome-powell-at-jackson-hole-n"
-      ]
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "Supermicro earnings release is still pending, no new information",
+      "exit_advice": "continue to monitor Supermicro earnings release",
+      "evidence_urls": []
     }
   ],
   "2024-08-30": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The materials sector remains a concern with ongoing short interest and commodity price fluctuations.",
-      "exit_advice": "Monitor for resolution or significant change in materials sector concerns tied to Freeport-McMoRan.",
+      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship continues to pose a risk to shipping companies.",
+      "exit_advice": "Monitor for a significant decrease in the risk posed by Houthi rebels to shipping companies.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Supermicro earnings release",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Supermicro earnings release has occurred and been reported, likely resolving the catalyst.",
+      "catalyst_resolved": true,
+      "assessment": "The earnings release for Supermicro has happened, and the market has reacted. The specific catalyst that was pending has now occurred.",
+      "exit_advice": "Close position as the catalyst has resolved.",
       "evidence_urls": [
-        "https://markets.businessinsider.com/news/stocks/canadian-market-up-firmly-technology-materials-stocks-among-major-gainers-1033733953",
-        "https://www.rttnews.com/3471856/canadian-market-up-firmly-technology-materials-stocks-among-major-gainers.aspx",
-        "https://www.rttnews.com/3471522/materials-technology-stocks-dragging-down-canadian-market.aspx"
+        "https://seekingalpha.com/news/4145670-sp-august-winners-and-losers-kellanova-tops-index-after-turbulent-month-smci-plunges"
       ]
     },
     {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
-      "thesis_live": true,
-      "exit_case": "HIMS has had no significant developments on GLP-1 strategy approval for 4 weeks",
-      "catalyst_resolved": false,
-      "assessment": "HIMS remains the purest play on GLP-1 weight loss strategy",
-      "exit_advice": "Monitor for FDA decision or significant developments",
+      "ticker": "NVDA",
+      "thesis": "Nvidia sales forecast misses expectations",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Nvidia's sales forecast has already been released and missed expectations, potentially resolving the catalyst.",
+      "catalyst_resolved": true,
+      "assessment": "The initial catalyst was Nvidia's sales forecast missing expectations. This has now happened, and the news is reflected in the current market sentiment.",
+      "exit_advice": "The event catalyst has occurred, and the market has likely priced it in.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/18-best-52-week-low-stocks-to-buy-now-according-to-short-sellers-1341248/"
+        "https://finance.yahoo.com/news/nvidia-sales-forecast-fails-meet-205538110.html",
+        "https://www.bnnbloomberg.ca/business/technology/2024/08/28/nvidias-sales-forecast-fails-to-meet-lofty-expectations/"
       ]
     }
   ],
   "2024-09-06": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "Materials sector concerns tied to Freeport-McMoRan have not resolved or decayed; ongoing short interest and commodity price fluctuations persist.",
-      "catalyst_resolved": false,
-      "assessment": "Concerns in the materials sector remain ongoing with continued short interest and commodity price fluctuations; no significant change or resolution noted.",
-      "exit_advice": "Monitor ongoing concerns and commodity price fluctuations.",
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3473599",
-        "https://www.latimes.com/business/story/2024-09-04/stock-market-today-wall-street-extends-losses-as-technology-and-energy-stocks-fall"
-      ]
-    },
-    {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new developments on GLP-1 strategy approval",
-      "exit_advice": "Monitor for FDA approval or rejection",
+      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the Houthi rebels' continued activities.",
+      "exit_advice": "continue monitoring for resolution or significant development",
       "evidence_urls": []
-    },
-    {
-      "ticker": "XLRE",
-      "thesis": "Real Estate Select Sector SPDR Fund hits new 52-week high",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Real Estate Select Sector SPDR Fund (XLRE) has hit a new 52-week high, indicating strong performance in the real estate sector.",
-      "exit_advice": "Monitor for signs of sector fatigue or macroeconomic shifts that could impact real estate performance.",
-      "evidence_urls": [
-        "https://www.benzinga.com/news/earnings/24/09/40753887/kkr-real-estate-surges-5-7-is-this-an-indication-of-further-gains",
-        "https://www.wkrb13.com/2024/09/03/real-estate-select-sector-spdr-fund-nysearcaxlre-hits-new-12-month-high-at-43-69.html"
-      ]
     }
   ],
   "2024-09-13": [
     {
-      "ticker": "FCX",
-      "thesis": "Freeport-McMoRan tied to materials sector concerns",
+      "ticker": "SBLK",
+      "thesis": "Houthi rebels hit Ukrainian-owned ship",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "The event has been ongoing for months with no significant escalation or resolution indicated recently.",
       "catalyst_resolved": false,
-      "assessment": "Concerns in the materials sector tied to Freeport-McMoRan remain ongoing with continued short interest and commodity price fluctuations; no significant change or resolution noted.",
-      "exit_advice": "continue monitoring",
-      "evidence_urls": [
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
-      ]
-    },
-    {
-      "ticker": "HIMS",
-      "thesis": "GLP-1 weight loss drug strategy approval",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "No new developments; HIMS remains the purest play.",
-      "exit_advice": "Monitor for FDA approval or rejection.",
+      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the continued activities of the Houthi rebels.",
+      "exit_advice": "Continue to monitor for a significant change in the Houthi rebels' activities or a clear resolution.",
       "evidence_urls": []
     },
     {
-      "ticker": "XLRE",
-      "thesis": "Real Estate Select Sector SPDR Fund hits new 52-week high",
+      "ticker": "UUUU",
+      "thesis": "Federal Court of Australia Approves Energy Fuels' Acquisition",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "XLRE remains strong, still at 52-week high",
-      "exit_advice": "continue to monitor XLRE",
+      "assessment": "The Federal Court of Australia has approved Energy Fuels' acquisition, a significant step towards the deal's closure.",
+      "exit_advice": "Monitor the acquisition's closure expected on October 2, 2024.",
       "evidence_urls": [
-        "https://www.benzinga.com/analyst-ratings/analyst-color/24/09/40823561/this-under-the-radar-defensive-ai-sector-quietly-outperforms-all-others-despite-rec"
-      ]
-    },
-    {
-      "ticker": "INSW",
-      "thesis": "Trump's son crypto business launch",
-      "thesis_live": true,
-      "exit_case": "The launch has not happened yet, and the event is still pending.",
-      "catalyst_resolved": false,
-      "assessment": "The event is still developing as Trump's son crypto business is set to launch.",
-      "exit_advice": "Monitor news for actual launch and market reaction.",
-      "evidence_urls": [
-        "https://www.orlandosentinel.com/2024/09/12/trump-plans-to-launch-his-sons-crypto-business-on-monday-50-days-before-election-day/"
+        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]
     }
   ]

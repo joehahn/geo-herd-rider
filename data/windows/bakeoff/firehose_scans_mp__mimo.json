@@ -1,80 +1,30 @@
 {
   "2025-03-21": [],
-  "2025-03-28": [],
-  "2025-04-04": [],
-  "2025-04-11": [
+  "2025-03-28": [
     {
-      "ticker": "VNQ",
-      "thesis": "Tariff pause news catalyzes real estate stock rebound.",
+      "ticker": "NOC",
+      "thesis": "Damage to Cygnus cargo module disrupts International Space Station supply missions",
       "thesis_live": false,
-      "exit_case": "Tariff pause news already announced; real estate rebound has occurred and edge is gone.",
+      "src": "gdelt",
+      "exit_case": "Damage to Cygnus cargo module reported and ISS supply missions disrupted; catalyst has occurred.",
       "catalyst_resolved": true,
-      "assessment": "The tariff pause news catalyzed a real estate stock rebound as reported on April 9-10, with VNQ surging despite market volatility. However, the market remains down over 5% post-tariffs, and the rebound may be temporary as the catalyst has publicly occurred.",
-      "exit_advice": "Exit or avoid entry now, as the tariff pause news is public and the rebound is already priced in.",
+      "conviction": 7,
+      "assessment": "The Cygnus cargo module damage was reported this week, confirming the catalyst and triggering supply mission disruptions. Since the specific event has been announced, the initial information is public and likely priced, making the thesis no longer live.",
+      "exit_advice": "Close the position immediately as the catalyst has resolved and the edge is gone.",
       "evidence_urls": [
-        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
-        "https://therealdeal.com/new-york/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/",
-        "https://www.themarketsdaily.com/2025/04/09/vanguard-real-estate-etf-nysearcavnq-hits-new-1-year-low-heres-what-happened.html"
+        "https://www.independent.co.uk/space/nasa-cargo-launch-cygnus-damaged-b2723382.html",
+        "https://www.yahoo.com/news/shuttle-used-supply-international-space-153802207.html"
       ]
     }
   ],
-  "2025-04-18": [
-    {
-      "ticker": "MP",
-      "thesis": "China's rare-earth export curbs boost sole US miner MP Materials.",
-      "thesis_live": false,
-      "exit_case": "China's rare-earth export curbs are already public and MP has surged, pricing in the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "China's rare-earth export restrictions are in place, boosting MP Materials as the sole US miner. The catalyst is public and priced, so the thesis is no longer live.",
-      "exit_advice": "Exit the position as the specific catalyst has resolved and MP has already reacted.",
-      "evidence_urls": []
-    }
-  ],
+  "2025-04-04": [],
+  "2025-04-11": [],
+  "2025-04-18": [],
   "2025-04-25": [],
   "2025-05-02": [],
   "2025-05-09": [],
-  "2025-05-16": [
-    {
-      "ticker": "AUR",
-      "thesis": "Werner partnership expands driverless pilot to new Fort Worth\u2013Phoenix route",
-      "thesis_live": false,
-      "exit_case": "Announcement public; catalyst resolved, no pending edge.",
-      "catalyst_resolved": true,
-      "assessment": "The driverless pilot expansion announcement is public, resolving the catalyst. Future milestones like route start are separate events.",
-      "exit_advice": "Exit position as the specific catalyst has already occurred and is priced in.",
-      "evidence_urls": [
-        "https://www.freightwaves.com/news/werner-and-aurora-expand-driverless-pilot-with-new-route"
-      ]
-    }
-  ],
-  "2025-05-23": [
-    {
-      "ticker": "CEG",
-      "thesis": "Trump's uranium policy announcement boosts nuclear energy stocks",
-      "thesis_live": false,
-      "exit_case": "Trump's uranium policy announcement has occurred and is already priced into market gains.",
-      "catalyst_resolved": true,
-      "assessment": "The catalyst\u2014Trump's uranium policy announcement\u2014has triggered explosive gains in nuclear stocks, indicating the event is over and the market has reacted.",
-      "exit_advice": "Exit position immediately; the catalyst is public and priced, leaving no edge.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains",
-        "https://www.fool.ca/2025/05/23/tsx-today-what-to-watch-for-in-stocks-on-friday-may-23/",
-        "https://www.themarketsdaily.com/2025/05/23/promising-utility-stocks-to-watch-today-may-20th.html"
-      ]
-    },
-    {
-      "ticker": "LITM",
-      "thesis": "Trump's uranium policy sparks interest in uranium-related resources",
-      "thesis_live": false,
-      "exit_case": "Trump's uranium policy announcement has already sparked market frenzy, priced in.",
-      "catalyst_resolved": true,
-      "assessment": "The specific catalyst of Trump's uranium policy sparking interest has occurred, as evidenced by explosive gains in nuclear ETFs and uranium-related stocks.",
-      "exit_advice": "The catalyst has resolved with public policy announcement and market reaction; consider exiting.",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
-    }
-  ],
+  "2025-05-16": [],
+  "2025-05-23": [],
   "2025-05-30": [],
   "2025-06-06": [],
   "2025-06-13": [],
@@ -86,5 +36,499 @@
   "2025-07-25": [],
   "2025-08-01": [],
   "2025-08-08": [],
-  "2025-08-15": []
+  "2025-08-15": [],
+  "2025-08-22": [],
+  "2025-08-29": [],
+  "2025-09-05": [],
+  "2025-09-12": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Early-stage discussions between California legislators and Valero to prevent Benicia refinery shutdown. Catalyst is specific and under-the-radar, with high stakes for regional fuel supply and Valero's operations. Outcome remains uncertain but non-resolved.",
+      "exit_advice": "Hold pending concrete legislative action. Monitor for official approval, bill signing, or formal agreement.",
+      "evidence_urls": [
+        "https://beniciaindependent.com/california-in-talks-to-pay-hundreds-of-millions-to-valero-to-stave-off-refinery-shutdown/"
+      ]
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 no news this week; early-stage discussions remain pending with no deal signed or shutdown confirmed",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1 post-entry with zero catalyst-specific news. The DTE Energy piece is entirely unrelated. The thesis rests on early-stage discussions between California legislators and Valero over a potential state payment to keep the Benicia refinery operating \u2014 a specific, high-stakes, still-under-the-radar event. No fresh signal this week but no negation either. VLO remains the clean pure-play vehicle. Conviction held at 6: catalyst is concrete and vehicle is clean, but outcome uncertainty is high and no fresh confirmation has emerged. Continue monitoring for any legislative movement, Valero statements on Benicia timeline, or reporting on negotiation progress.",
+      "exit_advice": "HOLD. The catalyst (California paying Valero to prevent Benicia shutdown) remains unresolved \u2014 no agreement signed, no payment announced, no shutdown executed. Early-stage discussions were the basis for entry and nothing has closed them out. Silence this week is not resolution; it is normal lag in legislative/regulatory negotiations. Exit only if (a) a deal is announced and fully priced, (b) California formally abandons the idea, or (c) Valero confirms the shutdown proceeds unopposed.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "This week's news concerns a potential federal government shutdown, which is unrelated to the catalyst. No fresh catalyst-specific updates on California-Valero negotiations or the Benicia refinery shutdown have emerged. The thesis remains based on early-stage discussions with no resolution signals.",
+      "exit_advice": "Monitor for official statements from California legislators or Valero regarding refinery shutdown timeline, payment negotiations, or legislative actions.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/09/22/stock-market-usually-ignores-government-shutdowns-maybe-not-this-time.html"
+      ]
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No catalyst-specific news this week. Thesis remains based on early-stage discussions between California and Valero on potential state payment to prevent Benicia refinery shutdown. No resolution, reversal, or concrete updates; unrelated market news on government shutdown fears and S&P 500 highs. Vehicle unchanged.",
+      "exit_advice": "Hold; continue monitoring for legislative updates, Valero statements, or news on negotiations or shutdown timeline. Exit only if concrete payment announced or discussions collapse.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/10/48011379/sp-500-settles-at-record-high-despite-government-shutdown-investor-sentiment-improves-fear-greed",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-9-30-tsx-navigates-choppy-waters-energy-drags-while-gold-shines-amid-us-shutdown-fears"
+      ]
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No fresh catalyst-specific news this week. Thesis remains on early-stage discussions to prevent Benicia refinery shutdown via state payment; still under-the-radar with no resolution signals. Vehicle VLO unchanged.",
+      "exit_advice": "Monitor for legislative or company announcements\u2014exit if a deal is signed or shutdown is confirmed to proceed without intervention.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 upgrade announced but implementation pending March 2026 review and Sept 2026 effective date; driving condition fully in force.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "FTSE Russell formally upgraded Vietnam to Secondary Emerging Market status on Oct 8, 2025, effective Sept 21, 2026, contingent on a March 2026 interim review confirming continued progress on market-access reforms (pre-funding, global broker access). Vietnam's VN-Index hit a record high on the news. Historical precedent is strong: Saudi Arabia's 2018-2019 FTSE EM upgrade drove sustained inflows over multiple tranches. Vietnam's upgrade is expected similarly in tranches, with details TBD. This is a well-defined, date-stamped structural catalyst with a clean vehicle (VNM). The event is early \u2014 announcement just landed this week, and the real passive-flow catalyst is ~11 months out. Two concrete checkpoints ahead keep the thesis live: March 2026 interim review (binary confirmation) and September 2026 implementation (actual index inclusion triggering buys).",
+      "exit_advice": "HOLD. The FTSE Russell upgrade has been formally announced but is NOT implemented \u2014 the March 2026 interim review (confirming Vietnam's market-access progress) and the September 21, 2026 effective date are both concrete, scheduled catalysts still ahead. This is a multi-leg event: announcement just landed (Oct 8), VNM hit record highs immediately, but the structural fund-flow catalyst \u2014 billions in passive EM index-tracking money mechanically buying Vietnamese stocks \u2014 has not even begun. The initial pop is just the first leg. The March review creates a binary checkpoint where progress or backsliding moves the stock; the September implementation is when passive flows actually hit. Premature to exit on day one of a catalyst arc that runs through late 2026. Watch for: (1) any signs Vietnam may stumble on the market-access conditions before the March review; (2) whether VNM's premium to NAV blows out unsustainably; (3) competing EM upgrade narratives absorbing attention.",
+      "evidence_urls": [
+        "https://www.dealstreetasia.com/stories/ftse-russell-vietnam-459111",
+        "https://en.vietnamplus.vn/ftse-russell-upgrades-vietnam-to-secondary-emerging-market-status-post329982.vnp",
+        "https://www.vietnamnews.vn/economy/1726818/ftse-russell-upgrades-viet-nam-to-secondary-emerging-market-status.html",
+        "https://www.businesstimes.com.sg/international/asean/vietnam-be-promoted-emerging-stock-market-ftse-september-2026",
+        "https://news.tuoitre.vn/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status-103251009093031161.htm"
+      ]
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No catalyst-specific news this week; early-stage discussions between California and Valero to prevent Benicia refinery shutdown continue with no resolution signals. The vehicle VLO remains unchanged as the clean pure-play.",
+      "exit_advice": "Hold; the catalyst remains pending with no resolution or reversal. Monitor for legislative action, Valero statements, or negotiation updates.",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4503430-real-estate-stocks-tumble-amid-lingering-government-shutdown-renewed-trade-war-concerns"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "FTSE Russell's Vietnam upgrade remains on track with concrete checkpoints ahead. Vietnam's market showed resilience this week amid global trade tensions, supporting the thesis of sustained inflows upon implementation.",
+      "exit_advice": "Hold through the March 2026 interim review and Sept 2026 implementation; exit only if upgrade is canceled or market access reforms fail.",
+      "evidence_urls": [
+        "https://vietnamnews.vn/economy/1727296/vn-index-fall-slightly-weighed-by-selling-force.html",
+        "https://vietnamnews.vn/economy/1727209/vn-index-extends-gain-for-fourth-straight-session.html"
+      ]
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China's rare-earth export curbs boost US miners",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "China's rare-earth export curbs have been announced; the catalyst has resolved.",
+      "catalyst_resolved": true,
+      "conviction": 6,
+      "assessment": "China's rare-earth export curbs were announced earlier in the week, triggering US-China trade tensions and threats of additional tariffs. While US miners like MP may face continued tailwinds from the policy, the initial catalyst is now public and resolved. Concrete follow-on developments, such as Trump's tariff implementation scheduled for Nov. 1, exist but the entry-specific edge from the curb announcement has dissipated as the event is now mainstream news.",
+      "exit_advice": "Exit position. The catalyst\u2014Beijing's announcement of export curbs\u2014has occurred and is public. While broader themes persist, the early edge is gone, and the thesis should be closed.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/",
+        "https://www.fool.com/investing/2025/10/12/is-the-white-house-about-to-invest-in-these-lithiu/"
+      ]
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No updates on California-Valero discussions; catalyst remains pending with high uncertainty but still under-the-radar. Vehicle VLO unchanged.",
+      "exit_advice": "Hold pending resolution or reversal of the catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "FTSE Russell Vietnam upgrade announcement is on track with concrete future checkpoints: March 2026 interim review and Sept 2026 implementation. No relevant news this week, but the driving condition remains intact with inflows still pending.",
+      "exit_advice": "Hold through silence; next catalyst is March 2026 interim review confirming reform progress, followed by Sept 2026 implementation triggering passive flows.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Catalyst remains pending with no resolution signals; early-stage discussions between California and Valero over Benicia refinery shutdown continue, but no updates or news this week.",
+      "exit_advice": "Hold; catalyst still pending with no concrete updates. Monitor for legislative moves, Valero statements on Benicia timeline, or negotiation progress.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No news this week related to FTSE Russell Vietnam upgrade. The upgrade announcement remains on track with concrete future checkpoints: March 2026 interim review and September 2026 implementation. Driving condition intact, vehicle unchanged.",
+      "exit_advice": "Hold through silence; concrete catalysts (March 2026 interim review, Sept 2026 implementation) are still ahead. Exit only if upgrade is revoked or implementation cancelled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Trump admin indicates potential investment in quantum computing",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump indication already public and priced; catalyst resolved, driving condition unchanged but edge gone.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "The catalyst, Trump admin indicating potential investment in quantum computing, appears to have been publicly reported and market-reacted to within this initial week, with mainstream media coverage (e.g., Yahoo Finance article on 2025-10-29 discussing potential investment). No concrete, scheduled next catalyst is evident; only speculation remains. Thus, the specific event has likely occurred and the early edge is exhausted.",
+      "exit_advice": "Exit immediately; catalyst resolved and coverage is mainstream-saturated, closing the window.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/did-president-trump-just-huge-133000305.html"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No fresh updates on California-Valero discussions for over a month; catalyst remains early-stage and under-the-radar with no resolution signals.",
+      "exit_advice": "Hold pending concrete catalyst updates; monitor for legislative moves, Valero statements, or reporting on negotiation progress.",
+      "evidence_urls": [
+        "https://jbhe.com/2025/11/a-trio-of-black-scholars-selected-for-new-roles-in-the-academic-world/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "FTSE Russell Vietnam upgrade announced on Oct 8, 2025, remains on track with no news of reversal or resolution. This week's Vietnam market decline and low liquidity reflect short-term sentiment but do not affect the long-term catalyst. Historical precedent supports sustained inflows upon implementation.",
+      "exit_advice": "Continue holding; the catalyst remains pending with concrete future checkpoints (March 2026 interim review, September 2026 implementation). Monitor for any changes in FTSE Russell's stance or Vietnam's market reforms.",
+      "evidence_urls": [
+        "https://en.vietnamplus.vn/liquidity-hits-nearly-five-month-low-as-market-declines-post332042.vnp",
+        "https://vietnamnews.vn/economy/1729028/liquidity-hits-nearly-five-month-low-as-market-declines.html"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "WSR stock rose on MCB Real Estate's revised acquisition proposal, with the catalyst still active and outcomes pending.",
+      "exit_advice": "Hold position as MCB's revised acquisition proposal is pending; monitor for acceptance, rejection, or competing offers.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/48624273/wsr-stock-rises-on-mcb-real-estate-revised-acquisition-proposal"
+      ]
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "VLO",
+      "thesis": "California may pay Valero to prevent Benicia refinery shutdown",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Newsom's COP30 anti-fossil fuel rhetoric signals reversal of California's willingness to pay Valero.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Catalyst remains unresolved with no news on negotiations, but Governor Newsom's strong anti-fossil fuel comments at COP30 indicate reduced state support for refinery subsidies, reversing the driving condition.",
+      "exit_advice": "Exit position as Newsom's public stance against fossil fuels at COP30 undermines the likelihood of state payment to prevent Benicia refinery shutdown.",
+      "evidence_urls": [
+        "https://www.nzherald.co.nz/world/trump-is-temporary-california-governor-newsom-seizes-spotlight-at-un-climate-summit/OKL44IWCSNC3ZJIYQHKZJ3JALM/",
+        "https://www.rte.ie/news/environment/2025/1111/1543409-cop-30-brazil/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Upgrade decision already public and VN-Index rallied on announcement; market may have front-run expected passive flows 10 months ahead of Sept 2026 inclusion.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Another quiet week with no Vietnam/FTSE Russell news. The driving condition is fully intact: Vietnam remains on track for Sept 2026 FTSE EM implementation, contingent on March 2026 interim review confirming continued market-access reforms (pre-funding, global broker access). No reversal, no resolution. Two concrete scheduled events remain ahead \u2014 this is not a speculation-only tail. VNM remains the cleanest vehicle. The position is in a waiting phase, which is expected for a catalyst with a 10-month implementation horizon.",
+      "exit_advice": "The upgrade decision is public and the initial pop occurred, but the actual index inclusion triggering passive buying is still ~10 months out with a concrete March 2026 interim review as a binary checkpoint. Saudi precedent shows inflows sustain over multiple tranches post-implementation \u2014 the main event hasn't fired yet. HOLD through the quiet period; the next concrete catalyst (March 2026 review) will re-focus attention. Exit only if the interim review fails or FTSE reverses the upgrade.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Another quiet week with no news related to Vietnam or FTSE Russell. The driving condition remains fully intact: Vietnam's upgrade to emerging market status is on track for September 2026 implementation, contingent on the March 2026 interim review. No reversal, no resolution. The position is in a waiting phase with two concrete scheduled events ahead.",
+      "exit_advice": "Continue holding pending the March 2026 interim review. Exit only if the review fails, implementation is cancelled, or driving conditions reverse. Ignore market noise and hold through quiet periods.",
+      "evidence_urls": [
+        "https://moneylife.in/article/reliance-industries-pulls-nifty-sensex-head-higher-broader-market-stagnates-thursday-market-report/78904.html",
+        "https://www.dailypolitical.com/2025/11/19/nuclear-stocks-to-watch-now-november-19th.html",
+        "https://www.dailypolitical.com/2025/11/17/promising-nuclear-stocks-worth-watching-november-17th.html",
+        "https://www.tickerreport.com/banking-finance/13249417/promising-nuclear-stocks-to-keep-an-eye-on-november-15th.html",
+        "https://www.themarketsdaily.com/2025/11/15/promising-nuclear-stocks-to-watch-now-november-12th.html"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT.",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Revised acquisition proposal already announced; catalyst resolved.",
+      "catalyst_resolved": true,
+      "conviction": 6,
+      "assessment": "The revised acquisition proposal for Whitestone REIT has been announced with no further developments, making the catalyst resolved.",
+      "exit_advice": "Exit position as the specific catalyst has already occurred and is no longer pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "first week; IAEA resolution pending; Iran warns against it but no vote yet; LEU remains pure-play on uranium enrichment supply.",
+      "exit_advice": "hold pending IAEA Board resolution vote; catalyst not yet triggered.",
+      "evidence_urls": [
+        "https://www.globalsecurity.org/wmd/library/news/iran/2025/11/iran-251119-irna03.htm",
+        "https://english.aawsat.com/world/5209294-iran-warns-us-e3-against-new-iaea-resolution"
+      ]
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Vietnam FTSE upgrade on track for Sept 2026 implementation pending March 2026 interim review. No news this week, driving condition intact.",
+      "exit_advice": "Exit after March 2026 interim review if conditions worsen, or after Sept 2026 implementation when flows materialize.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "IAEA resolution still pending; no vote or reversal from prior week; LEU retains pure-play exposure.",
+      "exit_advice": "Hold through quiet period; catalyst is concrete and still ahead.",
+      "evidence_urls": [
+        "https://biztoc.com/x/923270c3c49bbfa1",
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "FTSE Russell Vietnam upgrade announced Oct 2025 remains on track for Sept 2026 implementation pending March 2026 interim review. No news or reversal this week; driving condition intact with two concrete scheduled catalysts ahead.",
+      "exit_advice": "Hold position; concrete catalysts (March 2026 review, Sept 2026 implementation) remain ahead. Exit only on resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "IAEA resolution against Iran remains pending with no vote or reversal this week; LEU stays pure-play on uranium enrichment supply.",
+      "exit_advice": "Hold until IAEA vote occurs or catalyst reverses (e.g., resolution dropped, enrichment curbs eased).",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    },
+    {
+      "ticker": "DNN",
+      "thesis": "Denison Mines secures landmark uranium development pact with Athabasca communities",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The uranium development pact was already secured and announced before entry.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The event catalyst was the securing of the uranium development pact, which has already been publicly announced, closing the specific catalyst.",
+      "exit_advice": "Exit the position as the catalyst has resolved and is no longer pending.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No Vietnam or FTSE Russell news this week. The driving condition remains fully intact with two concrete scheduled catalysts ahead: March 2026 interim review and September 2026 implementation. The position is in a waiting phase.",
+      "exit_advice": "Hold. Next concrete checkpoint is March 2026 interim review.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No fresh news; IAEA resolution still pending; LEU retains pure-play exposure.",
+      "exit_advice": "Monitor IAEA resolution vote; hold until catalyst resolves.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-19": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Vietnam FTSE Russell upgrade remains on track for Sept 2026 implementation pending March 2026 interim review. No relevant news this week; driving condition intact with concrete scheduled catalysts ahead.",
+      "exit_advice": "Hold until March 2026 interim review or Sept 2026 implementation confirms; exit immediately if upgrade is reversed or reforms stall.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "IAEA resolution against Iran remains pending; no vote or reversal this week; LEU maintains pure-play exposure to uranium enrichment supply.",
+      "exit_advice": "Hold until IAEA resolution is voted on or catalyst resolves.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-26": [
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market status, Sept 2026 implementation pending March interim review",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "FTSE Russell Vietnam upgrade remains on track for Sept 2026 implementation pending March 2026 interim review. No news this week; driving condition intact with concrete scheduled catalysts ahead. VNM remains the cleanest vehicle.",
+      "exit_advice": "Hold unless March 2026 interim review signals failure or upgrade is canceled; else ride until implementation or exit if catalyst arc completes and herds fully arrive.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA resolution against Iran tightens uranium enrichment supply.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "IAEA resolution remains pending with no vote or reversal; LEU maintains pure-play exposure; this week's news is unrelated to event.",
+      "exit_advice": "Hold until IAEA resolution vote or reversal of driving condition.",
+      "evidence_urls": [
+        "https://japantoday.com/category/national/u.s.-forces-modify-unit-relocation-from-okinawa-to-guam-with-china-in-mind"
+      ]
+    }
+  ]
 }

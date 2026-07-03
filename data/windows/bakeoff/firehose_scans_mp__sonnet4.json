@@ -1,0 +1,921 @@
+{
+  "2025-03-21": [],
+  "2025-03-28": [],
+  "2025-04-04": [],
+  "2025-04-11": [],
+  "2025-04-18": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Trump's selective tariff easings on electronics hint at US-China de-escalation that could prompt China to reverse rare-earth curbs.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 of entry. China's rare-earth export restrictions are confirmed in force; MP Materials is the sole scaled US producer and is described by press as 'still under-owned' \u2014 the early-edge window is open. The selective electronics tariff pause is noise: it involves consumer goods, not rare-earth minerals, and China simultaneously halted Boeing deliveries (escalation, not de-escalation). The specific driving condition \u2014 China chokepoint on rare earths \u2014 is live and unresolved. MP is the cleanest single pure-play: no other US-listed vehicle offers comparable direct exposure. Hold MP.",
+      "exit_advice": "Exit if China formally lifts or materially narrows its rare-earth export restrictions, or a comprehensive US-China trade deal explicitly covers rare-earth flows. Do NOT exit on general tariff-noise or quiet weeks.",
+      "evidence_urls": [
+        "https://www.al.com/business/2025/04/boeing-stock-slips-as-china-stops-purchasing-aircraft-equipment-from-us.html",
+        "https://www.swissinfo.ch/eng/stocks-rebound-fizzles-as-trump-goes-on-offensive:-markets-wrap/89176691"
+      ]
+    }
+  ],
+  "2025-04-25": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Broad US-China trade-tension easing signals could precede China voluntarily lifting rare-earth curbs as a concession.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. The China rare-earth export curbs remain formally in force; nothing in this week's news feed specifically addresses, reverses, or resolves them. The 'easing US-China trade tensions' headlines are general macro/equity-sentiment items tied to tariff rhetoric and Powell commentary \u2014 not a policy reversal of rare-earth controls. The exit case (China lifts curbs as a concession) is the correct devil's-advocate flag, but it is still speculative: no announcement, no formal suspension, no bilateral agreement naming rare earths has appeared. Coverage of MP and rare earths is essentially absent from this week's news \u2014 the thesis remains early/under-the-radar relative to mainstream saturation. No concrete next catalyst has been announced yet, but the primary driving condition (China chokepoint) is live and unresolved. MP remains the sole clean pure-play. Hold.",
+      "exit_advice": "Exit only if China formally announces removal/suspension of the rare-earth export licensing restrictions \u2014 not on general trade-tone headlines. Hold through diplomatic noise.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-shares-rise-on-signs-of-easing-US-China-trade-tensions-49718457/",
+        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/Wall-St-rallies-on-tariff-optimism-Trump-eases-Powell-threats-49687002/"
+      ]
+    }
+  ],
+  "2025-05-02": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "General 'optimism about US-China trade talks' could foreshadow rare-earth curbs being lifted as a concession.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3. The China rare-earth export curbs remain formally in force; nothing in this week's news feed specifically names, reverses, or resolves them. The 'optimism about trade talks with China' headlines are broad macro/sentiment items tied to jobs data and tariff rhetoric \u2014 exactly the same pattern as Week 2. No bilateral agreement, no formal suspension, no regulatory notice addressing rare-earth controls has appeared. The exit case is the correct devil's-advocate flag (trade talks as a potential pathway to curb removal), but it remains speculative: 'optimism' is not a policy reversal. MP and rare earths are again completely absent from this week's news cycle \u2014 the thesis stays early/under-the-radar relative to mainstream saturation. The primary driving condition (China chokepoint on rare earths) is live and unresolved. The Q1 US GDP contraction (-0.3%) actually reinforces urgency around domestic critical-mineral supply chains. No concrete next catalyst has been scheduled, but the underlying condition is unchanged. MP remains the sole clean pure-play. Hold.",
+      "exit_advice": "Exit only on a concrete, named announcement that China has suspended or reversed rare-earth export controls \u2014 not on general trade-talk optimism or macro headlines.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3534955/upbeat-jobs-data-optimism-about-trade-talks-with-china-sparks-rally-on-wall-street.aspx",
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/"
+      ]
+    }
+  ],
+  "2025-05-09": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "US-China trade talks are now explicitly scheduled/imminent; rare-earth curbs could be lifted as a concession in days.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. The China rare-earth export curbs remain formally in force \u2014 nothing in this week's news feed names, reverses, or resolves them. The dominant macro story is the US-UK trade deal (automobiles, not minerals) and imminent US-China trade talks ('China shores up economy ahead of trade talks with the US'). Those talks represent the first genuinely concrete proximity to a potential catalyst resolution: unlike prior weeks' 'optimism' headlines, there is now an identified upcoming bilateral engagement. That said, proximity is not resolution. No rare-earth carve-out, no ministerial statement naming critical minerals, no suspension notice has appeared. The driving condition \u2014 China chokepoint on rare earths \u2014 is live and unresolved. Rare earths and MP are entirely absent from this week's news cycle; coverage remains early/under-the-radar relative to mainstream saturation. The exit case is now sharper than prior weeks (scheduled talks vs. vague optimism), which is why conviction holds at 7 rather than ticking up. If talks conclude with a broad tariff truce silent on rare earths, the thesis accelerates; if rare earths are explicitly named in a deal, exit immediately. MP remains the sole clean pure-play.",
+      "exit_advice": "Exit immediately if any bilateral US-China statement names rare-earth export controls as lifted, suspended, or subject to a negotiated pause \u2014 that is the specific resolution event. The imminent trade talks are the closest proximity to resolution since entry; watch for any headline naming rare earths in a deal framework. Do NOT exit on general 'trade optimism' or a broad tariff truce that is silent on rare earths.",
+      "evidence_urls": [
+        "https://whdh.com/news/wall-street-wavers-as-china-shores-up-its-economy-ahead-of-trade-talks-with-the-us/",
+        "https://www.dailydemocrat.com/2025/05/07/stock-market-today-fed-decision/"
+      ]
+    }
+  ],
+  "2025-05-16": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "US-China 90-day tariff truce sealed; broad de-escalation could extend to rare-earth curbs as a follow-on concession.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 5. The dominant development confirmed in this week's news is that the US-China 90-day tariff truce was sealed ('after the two countries lowered tariffs for each other' \u2014 article.wn.com). This is the sharpest exit-proximity signal yet and is why the devil's-advocate case is stronger than any prior week. However, the rare-earth export licensing regime was NOT named as part of the deal: the same article that describes the truce explicitly lists steel, pharmaceuticals, and semiconductors as the focus of US strategic decoupling efforts \u2014 rare earths are conspicuously absent. No regulatory notice, no ministerial statement, and no bilateral communiqu\u00e9 suspending MOFCOM's rare-earth export controls has appeared anywhere in this week's feed. The driving condition (China chokepoint on rare earths) is formally in force. Paradoxically, the 'poison pill' decoupling push reinforces the thesis: the US doubling down on supply-chain separation from China across multiple sectors raises the strategic premium on domestic rare-earth production, making MP more essential, not less. Coverage of rare earths and MP remains completely absent from mainstream news this week \u2014 the early-edge window remains open. The concrete watch-item going forward is whether continued 90-day negotiation sessions produce a specific rare-earth carve-out or suspension notice; speculation is not resolution. Hold MP.",
+      "exit_advice": "Exit immediately if China formally suspends or lifts the rare-earth export licensing controls, or if any bilateral communiqu\u00e9 explicitly names critical minerals as covered by the Geneva-style truce framework.",
+      "evidence_urls": [
+        "https://article.wn.com/view/2025/05/15/us_uses_8216poison_pills_8217_to_isolate_china_from_supply_c/"
+      ]
+    }
+  ],
+  "2025-05-23": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "US-China 90-day tariff truce sealed last week; ongoing negotiations could produce a rare-earth-specific carve-out.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 6 \u2014 no fresh coverage. The driving condition is unchanged: China's rare-earth export licensing regime, imposed by MOFCOM, remains formally in force. The 90-day tariff truce sealed in Week 5 explicitly excluded rare earths; the same articles that described the truce named steel, pharma, and semiconductors as focal decoupling sectors, conspicuously omitting critical minerals. Nothing in this week's news feed addresses, reverses, or modifies that status. Per standing rules, a quiet stretch is not an exit \u2014 the chokepoint is live and the thesis has not resolved. The watch-item is unchanged: any bilateral text (joint statement, regulatory filing, press conference) that names rare-earth controls as part of the 90-day negotiation outcome triggers an immediate re-evaluation. Absent that, the primary condition that created the trade is intact. MP remains the sole scaled US pure-play; no vehicle change warranted. Hold MP.",
+      "exit_advice": "Exit immediately if a bilateral communiqu\u00e9, MOFCOM regulatory notice, or ministerial statement explicitly suspends or lifts the rare-earth export licensing controls \u2014 even as a partial measure. The 90-day truce clock is running; monitor each negotiating session for any rare-earth language. Silence this week is not resolution.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-30": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day US-China tariff-truce normalization framework could implicitly relax rare-earth licensing as broader bilateral de-escalation deepens.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 7 \u2014 another fully quiet stretch. This week's entire news feed is two duplicate articles about Trump delaying EU tariffs and the resulting US equity rally; neither article mentions China, rare earths, export controls, or MP Materials. The driving condition \u2014 China's MOFCOM rare-earth export licensing regime \u2014 remains formally in force and has not been addressed in any bilateral text since entry. The 90-day US-China tariff truce sealed in Week 5 explicitly excluded rare earths (steel, pharma, and semiconductors were the named focal sectors); nothing since has changed that status. The EU tariff delay is a separate macro-sentiment item and provides zero signal for this thesis. Per standing rules, a quiet stretch is not an exit: the chokepoint is live, the early-edge window remains open (rare-earth/MP coverage is still absent from mainstream press), and the sole exit trigger \u2014 a concrete bilateral text naming rare-earth controls \u2014 has not appeared. The devil's-advocate case (that truce normalization implicitly loosens rare-earth controls) is the sharpest available, but it remains speculative; speculation is not resolution. Hold MP.",
+      "exit_advice": "Exit immediately if any bilateral text, regulatory filing, joint communiqu\u00e9, or MOFCOM notice names rare-earth export controls as part of the 90-day truce outcome or follow-on negotiation session. EU tariff developments are irrelevant to this trigger.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3542179/u-s-stocks-move-sharply-higher-after-trump-delays-eu-tariffs.aspx"
+      ]
+    }
+  ],
+  "2025-06-06": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day US-China truce now ~3 weeks old; implicit normalization could quietly unwind rare-earth licensing without a named announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 8 \u2014 second consecutive fully silent week. No news this cycle mentions China, rare earths, export controls, or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime remains formally in force. The 90-day US-China tariff truce sealed in Week 5 is now approximately three weeks old; its text focused on steel, pharma, and semiconductors and conspicuously omitted rare earths \u2014 nothing since has altered that status. The devil's-advocate case is the same as Week 7: that truce normalization could implicitly soften the licensing environment without a named announcement. That remains the most credible exit threat, but it is still speculative \u2014 no regulatory filing, no joint statement, no ministerial press conference has named rare-earth controls as part of the negotiation. Per standing rules, a quiet stretch (now two consecutive weeks) is not an exit while the chokepoint is formally in force. Early-edge window remains open: rare-earth and MP coverage is still absent from mainstream press. The sole exit trigger \u2014 a concrete bilateral text or MOFCOM notice naming rare-earth export controls \u2014 has not appeared. Hold MP.",
+      "exit_advice": "Exit immediately on any bilateral communiqu\u00e9, MOFCOM notice, or credible press report explicitly suspending or relaxing the rare-earth export licensing regime. Do NOT exit on continued silence, general trade-optimism headlines, or the passage of more quiet weeks.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-13": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day US-China truce now ~4 weeks old; implicit normalization may soften rare-earth licensing without a named announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 9 \u2014 third consecutive fully silent week. This week's sole news item is an entirely unrelated Canadian provincial ethics complaint about telecom stocks; it contains zero signal for rare earths, China, or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime remains formally in force. The 90-day US-China tariff truce (sealed Week 5) is now roughly four weeks old; its documented focus was steel, pharma, and semiconductors \u2014 rare earths were conspicuously omitted and remain so. The devil's-advocate case is identical to Weeks 7\u20138: that truce normalization might quietly soften the licensing environment without a named announcement. That is still the most credible exit threat, but it remains speculative \u2014 no regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended. Per standing rules, three consecutive quiet weeks do not constitute an exit while the chokepoint is formally live. The early-edge window remains open: rare-earth and MP coverage is still absent from mainstream press, sell-side has not crowded in, and no 'everyone's in' dynamic is present. The single exit trigger \u2014 a concrete bilateral text or MOFCOM notice naming rare-earth export controls \u2014 has not appeared. Hold MP.",
+      "exit_advice": "Exit only on a concrete MOFCOM notice, joint statement, or bilateral communiqu\u00e9 explicitly suspending or removing China's rare-earth export licensing regime. Speculation and silence are not triggers.",
+      "evidence_urls": [
+        "https://www.thecarillon.com/local/2025/06/09/narth-911-ethics-complaint-after-callers-on-hold"
+      ]
+    }
+  ],
+  "2025-06-20": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day truce normalization may quietly soften MOFCOM licensing environment without a formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 10 \u2014 fourth consecutive fully silent week. This week's news feed contains no coverage of China, rare earths, export controls, or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime, imposed in early April 2025, remains formally in force. The 90-day US-China tariff truce sealed in Week 5 (\u2248mid-May) is now roughly five weeks old; its documented scope covered steel, pharmaceuticals, and semiconductors \u2014 rare earths were conspicuously omitted and have not been addressed in any subsequent bilateral text. The devil's-advocate case is the same as Weeks 7\u20139: truce normalization might quietly relax the licensing environment without a named announcement. That is still the most credible exit threat, and four consecutive silent weeks make it worth flagging again \u2014 but it remains speculative. Speculation is not resolution. Per standing rules, a quiet stretch is not an exit while the chokepoint is formally in force. Early-edge window remains open: rare-earth and MP coverage is still absent from mainstream press, there is no sell-side crowding, and no 'everyone's in' dynamic has emerged. The single hard exit trigger \u2014 a concrete bilateral text or MOFCOM notice naming rare-earth export controls \u2014 has not appeared. Hold MP.",
+      "exit_advice": "Exit immediately on: (1) any MOFCOM regulatory notice suspending or materially loosening rare-earth export licensing; (2) any joint US-China communiqu\u00e9 or ministerial statement explicitly naming rare-earth controls as resolved or paused; (3) simultaneous mainstream-saturation + no concrete next catalyst scheduled. Do NOT exit on continued silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-27": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks post-truce with zero rare-earth news suggests the licensing shock may have quietly normalized de facto without formal reversal.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 11 \u2014 fifth consecutive fully silent week. No news this cycle mentions China, rare earths, export controls, or MP Materials. The devil's-advocate case is the most credible it has been: five weeks of post-truce silence raises the legitimate question of whether the MOFCOM licensing regime has softened de facto even absent a formal announcement. That said, 'softened de facto' is still speculative \u2014 no regulatory filing, no ministerial press conference, no joint bilateral text has named rare-earth controls as resolved or suspended. The formal policy is in force. The 90-day US-China tariff truce (sealed ~mid-May, documented scope: steel, pharma, semiconductors) is now roughly six weeks old and runs approximately through mid-August; that window is a concrete ongoing negotiation timeline, not a resolved arc. Neither arm of the 'arc-complete + crowd-arrived' exit condition is met: mainstream rare-earth and MP coverage is still absent (no sell-side crowding, no retail frenzy), and a concrete pending window (the 90-day truce period) has not yet closed. Per standing rules, a quiet stretch \u2014 even five consecutive weeks \u2014 is not an exit while the chokepoint is formally in force. The sole hard exit trigger has not appeared. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete MOFCOM notice, joint communiqu\u00e9, or ministerial statement formally suspending or resolving the rare-earth export licensing regime. The 90-day truce window (~mid-May through mid-August) remains a live negotiation period; a rare-earth carve-out surfacing in that window would be the hard trigger. Do not exit on silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-04": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six consecutive silent weeks post-truce; MOFCOM controls may have softened de facto without formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 12 \u2014 sixth consecutive fully silent week. No news this cycle mentions China, rare earths, export controls, or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The 90-day US-China tariff truce sealed in Week 5 (~mid-May) is now roughly seven weeks old and runs approximately through mid-August; its documented scope covered steel, pharmaceuticals, and semiconductors \u2014 rare earths were conspicuously omitted and no subsequent bilateral text has addressed them. The devil's-advocate case is at its sharpest yet: six weeks of post-truce silence is the longest quiet stretch in the journal, and the legitimate question of whether controls have softened de facto without a formal announcement cannot be dismissed. However, 'softened de facto' remains speculative \u2014 no regulatory filing, no ministerial press conference, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended. The formal policy is in force. Critically, neither arm of the 'arc-complete + crowd-arrived' exit condition is met: (a) a concrete pending window \u2014 the 90-day truce negotiation period through ~mid-August \u2014 has not yet closed, so the arc is not complete; and (b) mainstream rare-earth and MP coverage is still absent (no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible in this or any prior week's feed). Per standing rules, a quiet stretch \u2014 even six consecutive weeks \u2014 is not an exit while the chokepoint is formally in force and a concrete negotiation timeline remains open. The sole hard exit trigger \u2014 a concrete bilateral text or MOFCOM notice naming rare-earth export controls \u2014 has not appeared. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete MOFCOM regulatory notice, ministerial statement, or joint bilateral text explicitly naming rare-earth export controls as suspended or resolved. The 90-day truce scope (steel/pharma/semiconductors) omitted rare earths; that omission stands. Do not exit on continued silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-11": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Seven post-truce silent weeks: MOFCOM controls may have softened de facto without a formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 13 \u2014 seventh consecutive silent week on rare earths and MP specifically. The only China-relevant item is a Forbes question-mark headline ('Is a Trump-Xi Summit Coming?'). By standing rules, 'Is a summit coming?' is explicitly the 'analysts wonder if' / question-mark category that does NOT count as a concrete pending catalyst \u2014 it is speculation, not a scheduled event. China's MOFCOM rare-earth export licensing regime remains formally in force; no regulatory filing, ministerial statement, or joint bilateral text has named rare-earth controls as resolved or suspended across the entire 13-week journal. The 90-day US-China tariff truce (~mid-May through mid-August) is still open \u2014 a concrete negotiation window that has not yet closed. Neither arm of the arc-complete + crowd-arrived exit condition is satisfied: (a) rare-earth controls are untouched in any bilateral text, and the truce window has not expired; (b) mainstream rare-earth and MP coverage remains absent \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible in any week of this journal. The summit speculation is worth monitoring: if Trump and Xi formally schedule a meeting (with a date announced), that flips from speculation to a concrete upcoming event and raises the risk that rare-earth controls become a diplomatic token \u2014 exit trigger sharpens materially at that point. For now, it is a question mark and changes nothing. Hold MP.",
+      "exit_advice": "Exit only on a concrete bilateral text, MOFCOM regulatory notice, or formally-scheduled summit communiqu\u00e9 that explicitly names rare-earth export controls as resolved or suspended. A question-mark summit headline does not qualify.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/11/china-market-update-is-a-trump-xi-summit-coming-week-in-review/"
+      ]
+    }
+  ],
+  "2025-07-18": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive post-truce silent weeks suggest MOFCOM controls may have softened de facto through broad trade normalization without formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 14 \u2014 eighth consecutive silent week on rare earths and MP specifically. This week's news covers Asian equity performance, Australian sharemarket records, Indonesian tariff bilateral pact, and mixed Chinese macro data \u2014 zero signal for rare-earth export controls or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The 90-day US-China tariff truce sealed ~mid-May (scope: steel, pharma, semiconductors; rare earths conspicuously omitted) is now ~8-9 weeks old, with roughly 3-4 weeks remaining before the window closes around mid-August. That approaching expiration is the single most concrete upcoming event in the journal \u2014 a real scheduled moment, not speculation. At that threshold, either rare earths will appear in the renewed framework (hard exit trigger) or the controls persist into a new negotiation phase (thesis strengthens). The devil's-advocate case is the sharpest of the entire journal: eight post-truce silent weeks is the longest quiet stretch recorded, and de facto normalization without a formal announcement cannot be dismissed. However, 'de facto softening' is still speculative \u2014 no regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved in any of the 14 weeks. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the 90-day truce window has not yet closed, so the arc is not complete; (b) rare-earth and MP coverage remains absent from mainstream press \u2014 no sell-side crowding, no retail frenzy visible across any week of this journal. Per standing rules, eight silent weeks do not constitute an exit while the chokepoint is formally in force and a concrete negotiation window remains open. The mid-August truce expiration is the next hard watch-point. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately on any MOFCOM regulatory filing, joint bilateral communiqu\u00e9, or ministerial statement explicitly suspending/ending rare-earth export licensing controls. Also exit if the 90-day truce expires (~mid-August) and a renewed deal document explicitly covers rare earths. Do NOT exit on continued silence alone.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/18/china-market-update-hong-kong-higher-regulators-comment-on-instant-commerce-week-in-review/",
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65917916-asian-shares-mostly-lower-as-tariff-concerns-linger-020.htm"
+      ]
+    }
+  ],
+  "2025-07-25": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Nine post-truce silent weeks; de facto MOFCOM relaxation without formal notice remains the sharpest unresolved speculative threat.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 15 \u2014 ninth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed covers Indian FPI flows, a Merck price-target raise, and JP Morgan commentary on Eli Lilly \u2014 zero signal for China export controls or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The devil's-advocate case is at its absolute sharpest: nine consecutive post-truce silent weeks is the longest quiet stretch in the journal, and the legitimate question of de facto normalization without a formal announcement cannot be waved away. However, 'de facto softening' is still speculative \u2014 no regulatory filing, no ministerial statement, no joint bilateral communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 15 weeks in this journal. The formal policy is in force. The 90-day US-China tariff truce (sealed ~mid-May, scope: steel, pharma, semiconductors; rare earths conspicuously omitted) is now within approximately three weeks of its ~mid-August expiration. That approaching deadline is a concrete, calendar-anchored upcoming event \u2014 not speculation \u2014 and is the clearest near-term catalyst inflection point of the entire trade. At that threshold: rare earths named in the renewal framework = hard exit trigger; controls persist into a new phase = thesis strengthens. Neither arm of the arc-complete + crowd-arrived exit condition is yet met: (a) the 90-day truce window has not closed, so the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 15 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere. Per standing rules, nine silent weeks do not constitute an exit while the chokepoint is formally in force and a concrete negotiation deadline remains open. The mid-August truce expiration is now the dominant watch-point. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately if: (1) any bilateral text, MOFCOM notice, or joint communiqu\u00e9 names rare-earth export controls as suspended/resolved; (2) the 90-day truce renewal (~mid-August) explicitly incorporates critical minerals in its scope. The truce expiration is now roughly 3 weeks away \u2014 it is the single most concrete watch-point in the journal. If it passes with rare earths again conspicuously omitted, thesis strengthens materially.",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/fpi-heatmap-it-fmcg-lead-outflows-while-services-metals-draw-inflows-in-july-here-s-where-the-smart-money-is-going-11753172547430.html",
+        "https://finance.yahoo.com/news/jefferies-raises-merck-mrk-price-184554664.html",
+        "https://finance.yahoo.com/news/j-p-morgan-sees-strong-184552015.html"
+      ]
+    }
+  ],
+  "2025-08-01": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten consecutive post-truce silent weeks suggest rare-earth controls may have softened de facto without a formal announcement, making the driving condition effectively reversed in practice.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 16 \u2014 tenth consecutive fully silent week on rare earths and MP specifically. This week's news feed is entirely unrelated: ASX energy earnings, Nigerian telecom, US energy sector Q2 results, a finalized US-EU trade deal (LNG/tech focus, not minerals), and an Asian-markets note flagging a US tariff deadline of August 1. None of these carry any signal for China's MOFCOM rare-earth export licensing regime or MP Materials. The US-EU deal is a separate bilateral track; the August 1 tariff deadline referenced in RTTNews appears to relate to a distinct US trade action, not the US-China 90-day truce clock. The driving condition is unchanged: China's rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 16 weeks in this journal. The devil's-advocate case is the most credible it has ever been \u2014 ten post-truce silent weeks is the longest quiet stretch recorded, and the 'de facto normalization without a formal announcement' thesis cannot be dismissed. However, speculation is not resolution; the formal policy is in force. Critically, the 90-day US-China tariff truce sealed ~mid-May (scope: steel, pharma, semiconductors; rare earths conspicuously omitted) is now within approximately two weeks of its ~mid-August expiration. That imminent deadline is the most concrete, calendar-anchored upcoming event in the entire 16-week journal \u2014 not speculation. At that threshold: rare earths named in the renewal framework = hard exit trigger; controls persist into a new phase = thesis strengthens. Neither arm of the arc-complete + crowd-arrived exit condition is yet met: (a) the truce window has not closed and no rare-earth carve-out has appeared, so the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 16 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere. Per standing rules, ten silent weeks do not constitute an exit while the chokepoint is formally in force and a concrete negotiation deadline remains open. The mid-August truce expiration is now the single dominant watch-point; the next 2\u20133 weeks will be the most decisive of the entire trade. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit immediately if any bilateral US-China text, MOFCOM regulatory notice, or joint communiqu\u00e9 names rare-earth export controls as suspended, resolved, or carved out of the renewal framework as the 90-day truce expires around mid-August. Also exit if the truce-renewal framework produces a comprehensive critical-minerals chapter. Do NOT exit on continued silence.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3559871/asian-markets-mostly-lower-on-tariff-worries.aspx",
+        "https://finance.yahoo.com/news/trumps-eu-deal-good-us-203108606.html"
+      ]
+    }
+  ],
+  "2025-08-08": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day US-China truce at/near expiration; 'sweeping tariffs now in effect' signals changed landscape, yet rare-earth controls not formally revoked.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 17 \u2014 eleventh consecutive fully silent week on rare earths and MP specifically, but the surrounding tariff news is meaningfully directional. The 90-day US-China truce sealed ~mid-May is at or within days of its ~mid-August expiration, and headlines confirm 'sweeping Trump tariffs take effect' (Aug 7\u20138) alongside a new 100% tariff on semiconductor imports. These developments are the most consequential macro signal in weeks \u2014 but they cut AGAINST the exit thesis: a reimposition of broader tariffs and a new 100% semiconductor tariff signal intensifying US-China decoupling, not normalization. China has stronger incentive, not weaker, to maintain rare-earth export leverage in this environment. No regulatory filing, no ministerial statement, no joint bilateral text has named China's MOFCOM rare-earth export licensing regime as resolved, suspended, or even discussed across all 17 weeks of this journal. The truce expiration is the concrete calendar event flagged since Week 14 as the dominant watch-point \u2014 it has now arrived, and the absence of any rare-earth mention in the surrounding tariff news is itself informative: controls appear to be persisting into whatever comes next. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) no rare-earth carve-out has appeared in any bilateral text, and the arc is now entering a new post-truce phase rather than resolving; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 17 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic anywhere in the journal. The truce-expiration inflection has now passed without resolution, which resets the thesis into a new phase: the 90-day window closes without rare-earth relief, controls persist, and the next concrete watch-point becomes whether a truce renewal or new framework explicitly names critical minerals. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit immediately ONLY if a regulatory filing, joint bilateral communiqu\u00e9, or MOFCOM notice formally names rare-earth export controls as lifted or suspended. The truce expiration itself is not resolution; if it lapses with controls intact, the thesis strengthens into the next negotiating phase.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/global-markets-edge-up-as-sweeping-trump-tariffs-take-effect-ce7c5edfd889f127",
+        "https://www.thestar.com.my/business/business-news/2025/08/07/semiconductor-shares-slide-as-trump-announced-100-tariff-on-chip-imports",
+        "https://www.zerohedge.com/markets/us-futures-global-markets-jump-tariff-exemptions-renewed-hopes-ukraine-ceasefire"
+      ]
+    }
+  ],
+  "2025-08-15": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The 90-day US-China truce has now fully expired; its concrete calendar anchor\u2014the dominant watch-point since Week 14\u2014is past, leaving no specifically scheduled next event ahead.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 18 \u2014 twelfth consecutive fully silent week on rare earths and MP specifically, but the macro backdrop is materially more hawkish on trade, reinforcing rather than undermining the thesis. China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force; no regulatory filing, ministerial statement, or joint communiqu\u00e9 has named it as resolved or suspended across all 18 weeks of this journal. The 90-day US-China truce that has served as the primary concrete watch-point since Week 14 has now expired (mid-August) \u2014 and it expired without any rare-earth carve-out appearing in any bilateral text, confirming controls persist into the post-truce phase. Surrounding macro signals are directionally supportive: China is actively imposing new tariffs on Canadian canola (this week's news), the US imposed sweeping new tariffs including a 100% semiconductor levy (confirmed Week 17), and Trump's engagement is focused on Ukraine/Russia \u2014 not Chinese trade concessions. Broader decoupling is accelerating, not reversing, which raises the strategic premium on domestic US rare-earth production and MP's irreplaceable position in that supply chain. The one honest structural change from prior weeks: the loss of the concrete 90-day calendar anchor means the next hard watch-point (a newly announced US-China negotiation framework explicitly naming critical minerals) has not yet been scheduled. This is a slight decrease in catalyst concreteness, but it does not constitute resolution. The driving condition is live. Mainstream rare-earth and MP coverage remains entirely absent across all 18 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central catalyst condition (MOFCOM controls) remains in force and unresolved in any bilateral text; (b) the crowd has not arrived. Hold MP.",
+      "exit_advice": "Exit only on a concrete bilateral text, MOFCOM regulatory notice, or joint US-China communiqu\u00e9 explicitly naming rare-earth export controls as suspended or terminated. The truce expiring without any rare-earth mention is NOT resolution \u2014 it means controls persist into the post-truce phase.",
+      "evidence_urls": [
+        "https://www.squamishchief.com/national-news/this-is-our-livelihood-farmers-brace-for-hit-from-new-china-canola-tariff-11071380",
+        "https://www.publicradioeast.org/2025-08-13/president-trump-is-upending-global-trade-as-we-know-it-what-comes-next"
+      ]
+    }
+  ],
+  "2025-08-22": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day truce expired mid-August without rare-earth mention; 13 consecutive post-truce silent weeks raise legitimate de facto normalization risk.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 19 \u2014 thirteenth consecutive fully silent week on rare earths and MP specifically. This week's news feed covers Hero MotoCorp, Palantir, solar stocks, Aris Water, and global equity macro \u2014 zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials. The driving condition is unchanged: China's rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across all 19 weeks of this journal. The 90-day US-China tariff truce expired in mid-August (confirmed Weeks 17\u201318) without any rare-earth carve-out appearing in any bilateral text \u2014 controls have now persisted into the full post-truce phase, exactly as the thesis anticipated. The surrounding macro backdrop remains directionally supportive: the 100% semiconductor tariff, sweeping US tariff reimposition, and China's own retaliatory moves (including new canola tariffs on Canada) confirm deepening decoupling rather than normalization, sustaining the strategic premium on domestic US rare-earth production. The honest structural change from prior weeks is the loss of the 90-day calendar anchor as a concrete near-term catalyst \u2014 no new US-China negotiation framework naming critical minerals has been formally scheduled, which is a modest reduction in near-term catalyst sharpness and drives conviction down one notch to 6. However, the formal driving condition is live and unresolved, and neither arm of the arc-complete + crowd-arrived exit condition is met: (a) MOFCOM controls remain active and unaddressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 19 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic anywhere in the journal. Per standing rules, silence is not an exit while the chokepoint is formally in force. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately on any MOFCOM regulatory notice, joint bilateral communiqu\u00e9, or ministerial press conference naming China's rare-earth export licensing regime as suspended or resolved. Also exit if a newly announced US-China framework explicitly includes rare-earth concessions.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-08-29": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "90-day truce expired mid-August without rare-earth carve-out; no concrete next negotiation window naming critical minerals is scheduled.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 20 \u2014 fourteenth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed is irrelevant utility-stock screener content (Tesla, Berkshire, Rivian); zero signal for China export controls or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 20 weeks in this journal. The structural state of the thesis is identical to Week 19: the 90-day US-China tariff truce expired mid-August without any rare-earth carve-out appearing in any bilateral text \u2014 controls have now been confirmed active through the full post-truce phase. The devil's-advocate case is unchanged and honest: we are now well into post-truce territory with no concrete next catalyst window on the calendar, which is the weakest near-term catalyst posture of the entire trade. However, 'no scheduled catalyst' is not the same as 'catalyst resolved' \u2014 the MOFCOM licensing regime is still the live, formal policy. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 20 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic anywhere in the journal. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction remains at 6, reflecting the live-but-uncatalyzed state. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately on any regulatory filing, MOFCOM notice, or joint US-China communiqu\u00e9 formally suspending or resolving rare-earth export controls. Also exit if a newly announced negotiation framework explicitly names rare earths as a resolved item.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-09-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Fifteen consecutive post-truce silent weeks suggest MOFCOM controls may have softened de facto without a formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 21 \u2014 fifteenth consecutive fully silent week on rare earths and MP specifically. This week's news feed is a general European/Asian equity sentiment piece (referencing a China equity selloff, not rare-earth policy) and a wholly irrelevant telecom screener \u2014 zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials. The 'China selloff' in the Irish Times headline is a broad equity market item with no bearing on export-control policy. The driving condition is unchanged: China's rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 21 weeks in this journal. The 90-day US-China tariff truce expired mid-August (confirmed Weeks 17\u201318) without any rare-earth carve-out; controls have now been confirmed active through three full post-truce weeks. The devil's-advocate case is the same as Weeks 19\u201320 and remains the strongest honest challenge: fifteen consecutive silent post-truce weeks is the longest quiet stretch of the entire trade, and 'de facto normalization without a formal announcement' cannot be waved away. However, speculation is not resolution \u2014 no text names the controls as ended, and the formal policy is in force. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) MOFCOM controls are active and have never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 21 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic anywhere in the journal. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately on any MOFCOM regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 naming rare-earth export controls as suspended or resolved.",
+      "evidence_urls": [
+        "https://www.irishtimes.com/business/2025/09/04/shares-shake-off-china-selloff-as-bond-markets-brighten/"
+      ]
+    }
+  ],
+  "2025-09-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Truce expired mid-August with zero rare-earth carve-out; de facto normalization may have occurred silently without a formal MOFCOM notice.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 22 \u2014 sixteenth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed is noise: Kentucky unclaimed property, Joby Aviation, Newmont Canada listing dynamics, Ghana equities, AT&T/BCE telecom deals, a Korea Zinc/Lockheed Martin zinc MOU (zinc \u2260 rare earths), Indonesia bourse, and generic stock screeners. The sole China item is a Forbes piece covering Alibaba's birthday announcement and restaurant-delivery anti-involution policy \u2014 no mention of export controls, critical minerals, or MP Materials. Zero signal for the thesis in any direction. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 22 weeks in this journal. The 90-day US-China tariff truce expired mid-August (confirmed Weeks 17\u201318) without any rare-earth carve-out appearing in any bilateral text \u2014 controls have now been confirmed active through five full post-truce weeks. The devil's-advocate case is honest and unchanged: sixteen post-truce silent weeks is the longest quiet stretch of the entire trade, and de facto normalization without a formal announcement cannot be dismissed. However, speculation is not resolution \u2014 the formal MOFCOM policy is in force and has never been officially addressed. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM rare-earth controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 22 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic anywhere in the journal. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit ONLY on a concrete regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 explicitly naming China's rare-earth export licensing regime as suspended or resolved. A rumor, question-mark headline, or continued silence does not qualify.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS already repriced on announcement; spectrum-sale proceeds likely service EchoStar debt, not equity \u2014 close may be anticlimactic for shareholders.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "SpaceX's ~$17B acquisition of EchoStar's spectrum licenses was announced around Sept 8-9 and has gone mainstream fast (Baystreet, Biztoc, FirstPost all covered it; telecom peers TMUS etc. sold off on competitive-threat read). This is a PARTIAL asset sale, not a full company buyout \u2014 no classic merger-arb spread exists. The thesis rests on deal-close unlocking value for a distressed SATS balance sheet (debt relief / cash injection). The concrete pending gate is FCC regulatory approval, which is a real, datable event not yet cleared. Coverage is mainstream but the catalyst is not resolved. Hold through the noise; the FCC review arc is the remaining edge. Watch closely for any sign that spectrum proceeds are fully subordinated to senior creditors, which would undercut the equity story and warrant early exit even before close.",
+      "exit_advice": "Exit on confirmed FCC/regulatory approval and deal close, or immediately on any regulatory block or deal termination announcement.",
+      "evidence_urls": [
+        "http://baystreet.ca/articles/stockstowatch/114553/Why-TMUS-and-Others-Fell-After-17-Billion-SpaceX-Deal",
+        "https://biztoc.com/x/f418f1076c70c90a"
+      ]
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "17+ consecutive post-truce silent weeks; de facto normalization without formal MOFCOM announcement cannot be dismissed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 23 \u2014 seventeenth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed is irrelevant utility/REIT/telecom screener content (Southern Company PSC approval, Central Puerto spin-off, Pampa Energ\u00eda buyback, DTE smart grid, VNQ institutional filing, SK Telecom API partnership, and generic MarketBeat screeners). Zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials in any direction. The driving condition is unchanged: China's rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 23 weeks in this journal. The 90-day US-China tariff truce expired mid-August without any rare-earth carve-out appearing in any bilateral text \u2014 controls have now been confirmed active through seven full post-truce weeks. The devil's-advocate case is honest and unchanged from Weeks 19\u201322: seventeen consecutive silent weeks is the longest quiet stretch of the entire trade, and de facto normalization without a formal announcement remains the most credible exit threat. However, speculation is not resolution \u2014 no text names the controls as ended and the formal MOFCOM policy is in force. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM rare-earth controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 23 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence \u2014 even seventeen consecutive weeks of it \u2014 is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 explicitly naming China's MOFCOM rare-earth export licensing regime as suspended or resolved \u2014 speculation and silence do not qualify.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Senior creditors likely absorb all spectrum proceeds, leaving SATS equity with zero recovery even on deal close.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Quiet week \u2014 neither news item is relevant to the SpaceX/EchoStar spectrum deal. The two articles are a generic telecom stock-screener mention (EchoStar listed among seven unrelated names) and an unrelated Australian defence ETF piece. The sole concrete pending gate remains FCC regulatory approval of the ~$17B spectrum asset sale, which has not been granted, denied, or materially advanced publicly. The journal-wide risk flag stands: SATS is deeply distressed, and if senior secured creditors are legally entitled to absorb substantially all of the $17B in proceeds, equity receives nothing \u2014 deal close would be a non-event or worse for SATS shareholders. That subordination question, not the FCC timeline, is the most urgent watch item. Hold while the FCC review is live and no subordination confirmation has emerged; but conviction stays moderate given the distressed-equity structural uncertainty and mainstream-coverage ceiling reached at entry.",
+      "exit_advice": "Exit immediately on: (1) FCC denial or deal withdrawal; (2) confirmed legal/filing disclosure that spectrum sale proceeds are fully subordinated to senior debt with no equity residual; (3) FCC approval + deal close (catalyst resolved, edge spent). Do NOT exit on silence while FCC review is pending.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/09/18/telecom-stocks-to-follow-now-september-15th.html"
+      ]
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "18 consecutive post-truce silent weeks raises legitimate de facto normalization without formal announcement; controls may be quietly unwound.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 24 \u2014 eighteenth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed is noise: DroneShield drone-defence rally, VNQ ETF stake changes, Metaplanet/Bitcoin, Canadian TSX performance, GE Vernova upgrade, Saudi foreign-ownership cap, Indian real estate, nuclear energy screeners, Nvidia/Oracle pullback, telecom stocks, space stocks, and the Dow hitting a record high on a Fed rate cut. Zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials in any direction. The Fed rate cut and Dow record are broadly positive macro sentiment but carry no thesis-specific signal. The driving condition is unchanged: China's rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 24 weeks in this journal. The 90-day US-China tariff truce expired mid-August (confirmed Weeks 17\u201318) without any rare-earth carve-out appearing in any bilateral text \u2014 controls have now been confirmed active through ten full post-truce weeks. The devil's-advocate case is honest and unchanged: eighteen consecutive post-truce silent weeks is the longest quiet stretch of the entire trade, and de facto normalization without a formal announcement remains the most credible exit threat. However, speculation is not resolution \u2014 no text names the controls as ended and the formal MOFCOM policy is in force. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM rare-earth controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 24 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence \u2014 even eighteen consecutive post-truce weeks of it \u2014 is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately on any regulatory filing, ministerial statement, or joint US-China bilateral text naming rare-earth export controls as resolved, suspended, or carved out of a new framework. Also exit if mainstream press saturates with MP/rare-earth coverage alongside a completed diplomatic arc.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/09/47782260/dow-hits-record-high-as-fed-cuts-rates-investor-sentiment-improves-fear-index-remains-in-greed-zone"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Senior secured creditors likely absorb all $17B proceeds; SATS equity thesis may be structurally void regardless of FCC outcome.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Second quiet week in a row with zero news on the SpaceX/EchoStar spectrum deal. This week's three news items (Vistra CEO stock sales, Saudi foreign-ownership cap, Cramer on J&J) are entirely unrelated. The sole live gate remains FCC regulatory approval of the ~$17B asset sale \u2014 not yet granted, denied, or scheduled for a specific hearing. The arc is incomplete: catalyst pending, no mainstream saturation beyond initial coverage, no resolution signal. However, conviction is cut to 4 \u2014 the distressed-equity subordination risk has been flagged two weeks running and no clarifying disclosure has emerged. If senior secured creditors are entitled to the full proceeds (highly plausible given EchoStar's debt load), deal close is a non-event or destroys remaining equity optionality entirely. The catalyst quality (specific named deal, real FCC process) is offset heavily by structural uncertainty about whether SATS equity captures any value. Maintain the position while the regulatory process is live, but treat the subordination question as the primary thesis-killer to monitor, not the FCC calendar.",
+      "exit_advice": "Do NOT exit yet \u2014 FCC regulatory approval is a concrete, datable pending gate that has not been granted or denied. Three consecutive weeks of zero deal-specific news do not constitute resolution. HOLD, but watch urgently for any creditor-waterfall disclosure or bankruptcy filing that would confirm equity receives nothing at close, which would be a structural-thesis collapse warranting immediate exit even before FCC rules.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/vistra-corp-vsts-ceo-james-a-burke-discloses-stock-sales-worth-9-1-million-1616185/",
+        "https://english.aawsat.com/business/5190169-saudi-market-seen-drawing-billions-foreign-ownership-cap-nears-shift",
+        "https://finance.yahoo.com/news/jim-cramer-johnson-johnson-very-032601025.html"
+      ]
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Nineteen consecutive post-truce silent weeks: MOFCOM controls may have softened de facto without formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 25 \u2014 nineteenth consecutive fully silent week on rare earths and MP specifically. The entire news feed is noise: IBM/quantum computing, dividend screeners, VNQ ETF filings, S&P 500 record high despite a government shutdown, Jim Cramer on J&J, Canadian commodity-sector pressure, telecom/space screeners, ASX LIT update, a self-storage facility in Pasig, and generic macro pieces. The single marginally relevant item is a Yahoo Finance headline noting 'New Trump Tariffs' as of late September \u2014 directionally supportive of the decoupling thesis and the strategic premium on domestic rare-earth production, but containing zero specific mention of China export controls or MP Materials. The driving condition is unchanged: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 25 weeks in this journal. The 90-day US-China tariff truce expired mid-August (confirmed Weeks 17\u201318) without any rare-earth carve-out \u2014 controls have now been confirmed active through eleven full post-truce weeks. The devil's-advocate case is honest and unchanged: nineteen consecutive post-truce silent weeks is the longest quiet stretch of the entire trade, and de facto normalization without a formal announcement remains the most credible exit threat. However, speculation is not resolution \u2014 no text names the controls as ended and the formal MOFCOM policy is in force. The new Trump tariff salvo (late September) is the only directional signal this week; it reinforces decoupling, not normalization. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM rare-earth controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 25 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence \u2014 even nineteen consecutive post-truce weeks \u2014 is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit ONLY on a concrete MOFCOM suspension notice, a joint US-China communiqu\u00e9 naming rare-earth export controls as resolved, or a bilateral framework text explicitly lifting the April 2025 licensing regime. Silence alone \u2014 even nineteen post-truce weeks of it \u2014 is not the trigger.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/p-futures-muted-trump-tariffs-101222550.html",
+        "https://www.benzinga.com/markets/equities/25/10/48011379/sp-500-settles-at-record-high-despite-government-shutdown-investor-sentiment-improves-fear-greed"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Senior secured creditors may absorb all ~$17B in proceeds; deal close could be a non-event or net negative for SATS equity.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Third consecutive quiet week \u2014 both news items (a VNQ 13F filing and a Saudi Tadawul close) are entirely unrelated to the SpaceX/EchoStar spectrum deal. The single concrete pending gate remains FCC regulatory approval of the ~$17B asset sale; it has not been granted, denied, calendared for a hearing, or otherwise advanced publicly. The thesis is technically live: catalyst not resolved, regulatory process ongoing. However, the primary thesis-killer flagged across all three prior weeks continues to go unaddressed: EchoStar's distressed balance sheet makes it highly plausible that senior secured creditors are legally entitled to absorb virtually all proceeds, leaving SATS equity with nothing on close. Three weeks of silence has produced zero clarifying disclosure on that subordination question. Conviction stays at 4 \u2014 the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the structural probability that SATS equity captures zero value on a successful close nearly offsets those qualities entirely. Hold while FCC review is live; treat any creditor-claim disclosure as the first-order exit trigger, not the FCC calendar.",
+      "exit_advice": "Exit immediately on any disclosure confirming senior secured creditors capture substantially all spectrum-sale proceeds, on FCC denial, or on deal cancellation/restructuring that strips equity of any residual claim.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/09/29/2357-shares-in-vanguard-real-estate-etf-vnq-acquired-by-sonora-investment-management-group-llc.html",
+        "https://www.arabnews.com/node/2617068/business-economy"
+      ]
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Twenty consecutive post-truce silent weeks; de facto normalization without formal announcement remains most credible threat.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 26 \u2014 twentieth consecutive fully silent week on rare earths and MP specifically. This week's entire news feed is noise: an Israeli-Hamas ceasefire pause (multiple syndicated AP wires), Wall Street and gold record highs, Vietnam's FTSE Russell upgrade, a UK fund factsheet, and horoscopes. The Israel-Hamas ceasefire is a separate geopolitical track with zero bearing on China-US rare-earth policy. Gold above $4,000 is broadly supportive macro (hard-asset / decoupling sentiment) but carries no thesis-specific signal. China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. No regulatory filing, ministerial statement, or joint bilateral text has named it as resolved or suspended across any of the 26 weeks in this journal. The 90-day US-China tariff truce expired mid-August (Weeks 17\u201318) without any rare-earth carve-out \u2014 controls have now been confirmed active through twelve full post-truce weeks. The devil's-advocate case is honest and unchanged: twenty consecutive post-truce silent weeks is the longest quiet stretch of the entire trade, and de facto normalization without a formal announcement remains the most credible exit threat. However, speculation is not resolution \u2014 no text names the controls as ended and the formal MOFCOM policy is in force. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM rare-earth controls) is active and has never been addressed in any bilateral text \u2014 the arc is not complete; (b) rare-earth and MP coverage remains entirely absent from mainstream press across all 26 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence \u2014 even twenty consecutive post-truce weeks of it \u2014 is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state with no concrete next calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete bilateral text, MOFCOM notice, or joint communiqu\u00e9 naming rare-earth export controls as resolved, suspended, or formally included in a new negotiation framework. Do not exit on silence alone.",
+      "evidence_urls": [
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html",
+        "https://www.butlereagle.com/20251008/u-s-stocks-hit-records-as-golds-price-keeps-rising/"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Senior secured creditors likely absorb all $17B proceeds; SATS equity captures zero value even on deal close.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Fourth straight quiet week (fifth since entry) with zero deal-specific news. This week's items \u2014 OPEC data previews, duplicated Wall Street-records wire, Vietnam ETF upgrade, AI utility fund \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, scheduled for a hearing, or otherwise advanced publicly. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The devil's-advocate exit case \u2014 that SATS equity is structurally worthless because senior secured creditors will absorb virtually all proceeds \u2014 is the real risk, not the FCC calendar, and it has now gone unaddressed for five consecutive weeks. No clarifying creditor-priority disclosure has emerged in any week since entry. Conviction remains at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures nothing on a successful close nearly offsets those qualities. Hold while the regulatory process is live and no subordination confirmation exists; treat any creditor-claim disclosure as the primary first-order exit trigger.",
+      "exit_advice": "Exit immediately on any creditor-claim disclosure confirming full subordination of equity, or on FCC denial. Do NOT exit on continued silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Fresh curbs may be a bargaining chip China quickly withdraws to avoid Trump's threatened Nov. 1 additional 100% tariff.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 27 \u2014 MAJOR RE-ACCELERATION after 20 consecutive silent weeks. This is precisely the scenario the standing rules warn against exiting prematurely on silence: three converging signals this week. (1) Japan Times (Oct 13) states 'Beijing unveiled curbs on the export of rare earths earlier in the week' \u2014 fresh rare-earth export restrictions, confirming the MOFCOM regime is not merely persisting but being actively reinforced six months after the original April action. (2) Trump threatened an additional 100% tariff on China from Nov. 1 \u2014 the first new concrete, dated calendar anchor since the 90-day truce expired in August and the clearest hard watch-point since entry. (3) Motley Fool (Oct 12) reports the White House may be eyeing direct investment in rare earth and lithium mining companies, with shares already moving higher \u2014 an additional upstream domestic-policy catalyst that benefits MP as the sole scaled US producer. The 'de facto normalization' hypothesis that has been the honest devil's-advocate case every week since Week 19 is now definitively falsified: China did not quietly ease controls across 20 silent weeks \u2014 it imposed new ones. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the driving condition just re-intensified with fresh curbs and a concrete Nov. 1 calendar event is ahead \u2014 the arc is not complete, it has re-escalated; (b) the Fool article frames White House investment as a question, no sell-side crowding or retail frenzy is visible across any week of this 27-week journal \u2014 the crowd has not fully arrived. Conviction raised to 8, the highest since entry, reflecting fresh catalyst re-escalation, a new datable event (Nov. 1), and a potential government-equity catalyst \u2014 while mainstream saturation is still absent. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit if China formally lifts or suspends rare-earth export controls in any bilateral text or MOFCOM notice, OR if Trump's Nov. 1 tariff deadline produces a named deal explicitly covering critical minerals. Monitor the White House investment-in-miners story \u2014 if a confirmed government equity stake in MP is announced, assess whether that closes the catalyst arc by internalizing the thesis.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/",
+        "https://www.fool.com/investing/2025/10/12/is-the-white-house-about-to-invest-in-these-lithiu/"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated \u2014 senior creditors legally absorb virtually all $17B proceeds, equity worthless at close.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Fifth consecutive quiet week (sixth week since entry) with zero deal-specific news. This week's items \u2014 three duplicate Australian ASX record-high wires, a mixed U.S. session summary, and a Saudi Tadawul close \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, scheduled for a hearing, or otherwise advanced publicly. Thesis technically live: catalyst not resolved, regulatory arc incomplete, no mainstream saturation of the FCC-process arc specifically. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually all proceeds, making deal-close a non-event or value-destroyer for equity \u2014 has now gone unaddressed for six consecutive weeks without any clarifying creditor-priority disclosure. The devil's-advocate exit case is not FCC denial; it is that the equity is already a structural zero regardless of deal outcome. Conviction remains at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures nothing at close nearly fully offsets those catalyst-quality attributes. Hold while the regulatory process is live; treat any creditor-claim disclosure as the first-order exit trigger, not the FCC calendar.",
+      "exit_advice": "Hold while FCC review is live and no creditor-subordination confirmation exists; exit immediately on any filing or disclosure confirming senior creditors absorb substantially all proceeds, or on FCC denial of the spectrum transfer.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Business Insider states Trump 'already taken stakes' in rare-mineral companies \u2014 secondary government-equity catalyst from Week 27 may have already fired.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 28 \u2014 the news feed is dominated by quantum computing, the Dow record, and macro; zero direct rare-earth or MP Materials content this week. The single relevant signal is Business Insider (Oct 24): 'Trump has already taken stakes in chipmaking and rare-mineral companies. Is quantum computing next?' \u2014 this is written as an established fact used to analogize quantum computing investment, suggesting the government-equity catalyst flagged in Week 27 (Motley Fool: White House eyeing direct investment in rare earth/lithium miners, shares already moving) has progressed and may have at least partly materialized for rare minerals. This is directionally bullish confirmation of the Week 27 re-acceleration. The more consequential point: Trump's threatened +100% tariff on China from November 1 \u2014 announced Week 27 and the sharpest concrete calendar anchor in the 28-week journal \u2014 is now days away. China's MOFCOM rare-earth export licensing regime remains formally in force; the fresh export curbs confirmed in Week 27 have not been reversed, and no bilateral text has named them as resolved or suspended across any of the 28 weeks in this journal. The 'de facto normalization' thesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs rather than quietly easing them \u2014 that falsification stands. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the arc re-escalated in Week 27 with fresh curbs, a new concrete Nov. 1 calendar event is still imminent, and the government-stake catalyst is apparently executing \u2014 the arc is not complete; (b) coverage of MP and rare earths specifically remains absent from mainstream press \u2014 no sell-side crowding, no retail frenzy visible in any week of this journal. The Nov. 1 tariff deadline is the dominant watch-point this week \u2014 the most imminent hard catalyst in the entire 28-week journal. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit if: Nov. 1 tariff framework or any new US-China text explicitly names rare-earth controls as resolved or suspended; OR confirmed MP government-equity deal closes AND China simultaneously lifts MOFCOM controls; OR mainstream MP/rare-earth saturation appears with no further concrete catalysts scheduled ahead.",
+      "evidence_urls": [
+        "https://www.businessinsider.com/quantum-computing-stocks-trump-government-investment-us-dominance-trade-war-2025-10"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity may be structurally zero regardless of FCC outcome if senior secured creditors absorb all $17B proceeds.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Sixth consecutive quiet week (seventh since entry). This week's three news items \u2014 Oklo/Cramer, Saudi Tadawul close, Nasdaq general session summary \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, scheduled for a specific hearing, or publicly advanced in any form. The arc is incomplete; the catalyst is not resolved. The exit case articulated every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors who may be entitled to absorb virtually the entire $17B in proceeds, making a successful deal close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for seven consecutive weeks without any clarifying creditor-priority disclosure. This structural concern is the primary thesis-killer, not the FCC calendar. The deal itself remains specific, named, and real, and the FCC process remains a genuine datable gate (arc incomplete), so the hold criterion is technically met. Conviction stays at 4: catalyst quality and specificity are offset nearly entirely by the high structural probability that equity captures zero value at close. The herd-arrival exit condition is not yet met \u2014 the FCC-process arc has not been saturated in coverage and a concrete regulatory decision remains ahead. Hold while the FCC review is live and no subordination confirmation exists; treat any creditor-claim or waterfall disclosure as the first-order exit trigger.",
+      "exit_advice": "Hold while FCC regulatory approval of the ~$17B spectrum asset sale remains pending and no creditor-priority disclosure has confirmed equity subordination. Exit immediately on: (1) any court filing, creditor disclosure, or EchoStar statement confirming senior secured lenders are entitled to substantially all proceeds; (2) FCC denial; or (3) deal close without equity-value disclosure. Do NOT exit on continued silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/jim-cramer-says-oklo-oklo-getting-it-right-might-not-be-enough-1633206/",
+        "https://www.arabnews.com/node/2619976/business-economy",
+        "https://www.proactiveinvestors.com/companies/news/1080960/nasdaq-closes-higher-as-inflation-data-intel-results-take-center-stage-1080960.html"
+      ]
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit has now actually occurred; US is offering China chip-sale concessions, signaling normalization trajectory that may de facto ease rare-earth pressure without formal MOFCOM reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 29. The Trump-Xi summit flagged as a key watch-point since Week 13 has now materially occurred \u2014 and it 'underwhelmed' (ZeroHedge Oct 30). For the thesis, an underwhelming summit is modestly bullish: no rare-earth relief was announced in any summit text, meaning China's MOFCOM licensing regime persists into the post-summit phase. However, two new normalization signals this week introduce a genuine and honest headwind: (1) Trump is dangling Blackwell chip-sale concessions to China (Benzinga Oct 29) \u2014 a softening posture that could extend to rare-earth controls as a quiet diplomatic token in a follow-on deal; (2) 'growing optimism the U.S. and China could strike a trade deal' (Investopedia Oct 27) marks the first week where mainstream deal-optimism framing has appeared, shifting the macro narrative from escalation toward deal-making. The November 1 tariff deadline \u2014 the sharpest concrete calendar anchor since entry (flagged Weeks 27\u201328) \u2014 coincides exactly with this summit window. Its outcome is not confirmed in this week's feed, but the summit occurring immediately before it strongly suggests the threat was used as leverage rather than implemented, partially defusing that catalyst leg. The Week 27 fresh curbs and government-investment catalyst remain intact. China's Shanghai composite hitting a decade high (China Daily Oct 29) signals Beijing is confident, paradoxically making it less likely to make rare-earth concessions quietly. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the summit underwhelmed with zero rare-earth language in any bilateral text \u2014 arc not complete, formal MOFCOM controls still in force; (b) no MP or rare-earth mainstream coverage, no sell-side crowding, no retail frenzy anywhere in the 29-week journal. The de facto normalization hypothesis honestly flagged since Week 19 now gains its most concrete support yet (actual summit + chip concessions), but 'gaining credibility' is still not resolution. Conviction returns to 6 from 8: the Nov 1 deadline has been partially diffused by the underwhelming summit, offsetting the Week 27 re-escalation premium, while the formal driving condition remains live and unresolved. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete MOFCOM notice or bilateral text explicitly lifting rare-earth export controls \u2014 or if a follow-on US-China framework deal formally addresses critical minerals. The summit underwhelming without rare-earth language is NOT resolution; exit the moment a signed text names the controls as lifted.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-trump-xi-summit-underwhelms-mag-7-earnings-disappoint",
+        "https://www.benzinga.com/Opinion/25/10/48501343/nvidia-2-surprises-nvda-soars-on-trump-fueled-hopes-of-china-blackwell-sales-fed-in-focus",
+        "https://www.investopedia.com/top-stock-movers-now-qualcomm-keurig-dr-pepper-newmont-novartis-and-more-11837488",
+        "http://africa.chinadaily.com.cn/a/202510/29/WS6900e98aa310f735438b7704.html"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated to senior creditors who absorb all $17B proceeds; deal-close is a non-event for equity regardless of FCC outcome.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Seventh consecutive quiet week (eighth since entry). All seven news items \u2014 Fresnillo/Gold Probe mining deal, general North American and Canadian market summaries, India Nifty setup, PG&E capital plan (\u00d72), and Saudi Tadawul close \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete, no mainstream saturation of the FCC-process arc specifically. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making a successful deal close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for eight consecutive weeks without any clarifying creditor-priority disclosure. This structural concern remains the first-order exit trigger, not the FCC calendar. Hold only because the concrete regulatory gate (FCC decision) remains genuinely ahead and not yet resolved; that is the sole remaining basis for a live thesis. Conviction stays at 4: catalyst specificity and the real datable FCC process are offset nearly entirely by the high structural probability that equity captures zero value at close. Treat any creditor-claim, waterfall, or proceeds-distribution disclosure as an immediate exit signal.",
+      "exit_advice": "Exit immediately on any creditor-waterfall or subordination disclosure confirming equity receives zero proceeds; also exit on FCC denial. Do NOT exit on continued silence alone \u2014 the regulatory arc is still incomplete and no concrete resolution has occurred.",
+      "evidence_urls": [
+        "https://www.cityam.com/fresnillo-moves-into-canadian-market-after-major-acquisition/",
+        "https://smallcapnetwork.com/banner_articles/north-american-markets-cap-october-on-a-high-note/",
+        "https://www.arabnews.com/node/2620311/business-economy"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit occurred; Blackwell chip concessions dangled; growing deal-optimism framing could make rare-earth relief a quiet diplomatic token in a follow-on agreement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 30 \u2014 first fully silent week since the Week 27 re-acceleration; zero signal for China export controls or MP Materials anywhere in this week's feed (quantum computing earnings, Datadog, oil, Boeing settlement, Kazakhstan bilateral, telecom/REIT screeners \u2014 all noise). The structural state is unchanged from Week 29: the Trump-Xi summit 'underwhelmed' with no rare-earth language in any summit text, China's MOFCOM rare-earth export licensing regime remains formally in force, and the Week 27 fresh curbs that definitively falsified the 'de facto normalization' hypothesis have not been reversed. The November 1 tariff threat \u2014 the sharpest concrete calendar anchor since entry \u2014 was likely deployed as leverage given the summit timing, and its outcome was not confirmed in this week's feed either; this partially defuses that specific leg but does not resolve the underlying chokepoint. The most credible exit threat, honestly stated: the summit occurred, chip concessions were visibly dangled (Blackwell), and 'growing deal optimism' was the dominant framing in Week 29 \u2014 the conditions for a quiet rare-earth token in a follow-on deal are more plausible now than at any prior point in the 30-week journal. That said, 'more plausible' is still speculation, not resolution. No regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 30 weeks of this journal. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) MOFCOM controls are active, Week 27 fresh curbs stand unreversed, and no bilateral text addresses rare earths \u2014 arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 30 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: the Week 27 re-escalation premium is intact but partially offset by the post-summit deal-optimism overhang and the absence of a new concrete calendar anchor. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit only on a concrete bilateral text, MOFCOM notice, or signed trade-deal annex explicitly naming rare-earth export controls as resolved, suspended, or lifted. The summit occurring without rare-earth language is NOT resolution \u2014 it is the absence of resolution. Hold while formal MOFCOM licensing regime is in force.",
+      "evidence_urls": [
+        "https://www.investopedia.com/datadog-stock-jumps-23-percent-after-earnings-its-results-got-a-boost-from-ai-customers-update-11844926",
+        "https://timesca.com/tokayev-secures-17b-in-u-s-deals-trump-hints-at-kazakhstan-visit/"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated \u2014 senior secured creditors absorb virtually all $17B proceeds; deal close worthless for equity.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Eighth consecutive quiet week (ninth since entry). This week's sole news item \u2014 Saudi Tadawul closing bell \u2014 is entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a specific hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making a successful deal close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for nine consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved. Conviction stays at 4: catalyst specificity and the real datable FCC process are offset nearly entirely by the high structural probability that equity captures zero value at close. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any creditor-waterfall, proceeds-distribution, or subordination disclosure confirming senior creditors absorb substantially all proceeds; also exit on FCC denial. The FCC decision remaining pending is the sole technical basis for holding.",
+      "evidence_urls": [
+        "https://www.arabnews.com/node/2621514/business-economy"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "WSR board formally rejects MCB's revised proposal and MCB publicly withdraws \u2014 bid arc complete.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "MCB Real Estate submitted a REVISED acquisition proposal for Whitestone REIT (WSR), confirmed live by Benzinga on 2025-11-04. 'Revised' is meaningfully constructive: it signals a prior approach was rejected or deemed insufficient and MCB returned with a presumably sweetened bid \u2014 demonstrating acquirer conviction. WSR stock rose on the announcement, confirming the market prices this as a credible live offer. The concrete next catalyst is WSR's board response (acceptance, counter, formal rejection). No acceptance, no signing, no board vote, no MCB withdrawal has occurred \u2014 catalyst is fully pending. WSR is the clean, pure-play vehicle. Coverage is limited to specialist financial outlets; mainstream saturation is absent. Hold while bid negotiation arc remains open.",
+      "exit_advice": "Exit on any of: (1) formal WSR board rejection with MCB confirming withdrawal, (2) deal signed/closed at agreed price (arbitrage spread collapses to zero), or (3) MCB publicly abandons the effort. Hold through silence \u2014 no board response yet is NOT resolution.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/48624273/wsr-stock-rises-on-mcb-real-estate-revised-acquisition-proposal"
+      ]
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit occurred, Nov 1 tariff threat likely lapsed unused, chip concessions dangled \u2014 post-summit deal-optimism is now the dominant US-China framing with no new concrete catalyst scheduled.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 31 \u2014 second consecutive silent week since the Week 27\u201329 re-acceleration/summit cluster; this week's entire feed is pure noise (Bitcoin/Strategy, dividend screeners, Saudi-Israel diplomacy, Veterans Day ceremonies, COP30, Trump approval ratings). Zero signal for China export controls or MP Materials in any direction. The devil's-advocate case is at its sharpest since the post-summit overhang began: the Trump-Xi summit has now occurred and underwhelmed (Week 29), the Nov 1 tariff threat was the sharpest concrete calendar anchor of the entire journal and has now lapsed without confirmed implementation, Trump visibly dangled Blackwell chip concessions to China (Week 29), and 'growing deal optimism' remains the dominant macro framing \u2014 the conditions for a quiet rare-earth token in a follow-on deal are more plausible now than at any prior point in the 31-week journal. That said, 'plausible' is still not resolution: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force; the fresh export curbs confirmed in Week 27 (Beijing 'unveiled curbs on the export of rare earths earlier in the week,' Japan Times Oct 13) have not been reversed; and no regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 31 weeks of this journal. The 'de facto normalization' hypothesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs rather than quietly easing them \u2014 that falsification stands. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, the Week 27 fresh curbs are unreversed, and no bilateral text addresses rare earths \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 31 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. The post-summit, post-Nov1 quiet period is the weakest near-term catalyst posture of the entire trade, but absence of a new scheduled catalyst is not the same as resolution. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit ONLY on a regulatory filing, ministerial statement, or joint bilateral text explicitly naming China's MOFCOM rare-earth export controls as lifted/suspended \u2014 or if mainstream coverage of MP/rare earths turns fully saturated simultaneously. 'Deal optimism' without a named rare-earth carve-out is not resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated to senior secured creditors who absorb all $17B proceeds, rendering deal-close valueless for shareholders.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Ninth consecutive quiet week (tenth since entry). All four news items \u2014 South Africa rand/inflation target, U.S. stock movers (Palantir/Micron), Canadian military spending, Argentina LIBRA probe \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a specific hearing, or publicly advanced in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for ten consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved. Conviction stays at 4: catalyst specificity and the real datable FCC process are nearly fully offset by the high structural probability that equity captures zero value at close. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any creditor-waterfall, proceeds-distribution, or subordination disclosure confirming equity receives nothing; also exit on FCC denial. FCC approval alone is NOT sufficient to hold \u2014 confirm equity participation in proceeds first.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "One week of total media silence could indicate MCB quietly withdrew or board informally rebuffed the proposal off-record.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news is not resolution. The concrete pending catalyst \u2014 WSR board's formal response to MCB's revised proposal \u2014 has not occurred, been announced, or been withdrawn as of this week. The revised nature of the bid (signaling acquirer conviction after a prior rejection) still makes the next board action a genuine binary event. Coverage remains thin; no mainstream saturation. The silence is consistent with a live negotiation in progress, not a closed deal. Hold WSR while the board response remains outstanding. Watch for: (1) WSR board acceptance or counter-offer \u2014 bullish acceleration; (2) formal rejection or MCB withdrawal \u2014 exit immediately; (3) any regulatory filing (Schedule 13D amendment, merger agreement) confirming deal progression.",
+      "exit_advice": "Exit ONLY on confirmed board acceptance/rejection or MCB formal withdrawal \u2014 not on silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit occurred and underwhelmed; Nov 1 tariff threat lapsed; chip concessions dangled \u2014 quiet rare-earth token in a follow-on deal is the most plausible resolution path now.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 32 \u2014 third consecutive silent week since the Week 27\u201329 re-acceleration/summit cluster; this week's entire news feed is pure noise (nuclear stock screeners for Oklo, NuScale, BWX Technologies, Centrus, Nano Nuclear, Lightbridge; an Iran/IAEA resolution warning). Zero signal for China's rare-earth export controls or MP Materials in any direction. The nuclear screeners are unrelated to rare earths in the rare-earth-export-control sense \u2014 these are uranium/fission plays, not MP's neodymium-praseodymium supply chain. The devil's-advocate case is the sharpest it has been across the entire 32-week journal: the Trump-Xi summit has occurred and underwhelmed (Week 29), the November 1 tariff threat \u2014 the sharpest concrete calendar anchor since entry \u2014 has lapsed without confirmed implementation, Blackwell chip concessions were visibly dangled (Week 29), and 'growing deal optimism' remains the dominant macro framing entering Week 32. The conditions for a quiet rare-earth token in a follow-on bilateral deal are more plausible now than at any prior point in the journal. That said, 'plausible' is still not resolution: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force; the fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed; and no regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 32 weeks of this journal. The 'de facto normalization' hypothesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs rather than quietly easing them \u2014 that falsification stands. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text addresses rare earths \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 32 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. The post-summit, post-Nov-1 quiet period is the weakest near-term catalyst posture of the entire trade, but absence of a new concrete scheduled catalyst is not the same as resolution of the chokepoint. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play.",
+      "exit_advice": "Exit on any regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 that names China's MOFCOM rare-earth export licensing regime as suspended, eased, or resolved. A formally scheduled US-China follow-on deal framework that explicitly addresses critical minerals would also be an exit trigger. Do NOT exit on continued silence, deal-optimism framing, or speculation alone.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/19/nuclear-stocks-to-watch-now-november-19th.html",
+        "https://www.dailypolitical.com/2025/11/17/promising-nuclear-stocks-worth-watching-november-17th.html",
+        "https://english.aawsat.com/world/5209294-iran-warns-us-e3-against-new-iaea-resolution",
+        "https://www.tickerreport.com/banking-finance/13249417/promising-nuclear-stocks-to-keep-an-eye-on-november-15th.html",
+        "https://www.themarketsdaily.com/2025/11/15/promising-nuclear-stocks-to-watch-now-november-12th.html"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Senior secured creditors likely absorb all $17B proceeds; SATS equity captures zero value regardless of FCC outcome.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Tenth consecutive quiet week (eleventh since entry). No fresh news on EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for eleven consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those qualities. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any creditor-waterfall or proceeds-distribution disclosure confirming full subordination of equity, or on FCC approval/denial of the spectrum transfer.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Two consecutive silent weeks could indicate WSR board quietly rejected MCB's revised bid without public disclosure.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third week in the arc; no news is still not a resolution. The driving condition is unchanged: MCB's revised acquisition proposal is live, WSR's board has issued no formal public response, and no regulatory filing (merger agreement, SC 13D amendment) has appeared. Coverage remains thin \u2014 no mainstream saturation, no sell-side pile-on, no retail frenzy. The silence is consistent with a private negotiation still in motion, not a closed or dead deal. The next concrete catalyst remains the same: a WSR board statement or a regulatory filing confirming deal progression or termination. WSR is the clean, pure-play vehicle. Hold while the board response arc stays open.",
+      "exit_advice": "Hold. Silence is not resolution. The concrete pending catalyst \u2014 WSR board's formal public response (acceptance, counter, or rejection) to MCB's revised proposal \u2014 remains unresolved and unannounced. No merger agreement, no Schedule 13D amendment, no MCB withdrawal, no board statement has surfaced in three weeks. Per standing rules, a quiet stretch does not close the position while the driving condition (a live, revised bid awaiting a board decision) is still in force. The 'revised' nature of the bid continues to signal acquirer conviction after a prior rebuff, keeping the binary meaningful. EXIT immediately and cleanly on any of: (1) formal WSR board rejection or MCB public withdrawal; (2) executed merger agreement (catalyst resolved, edge gone); (3) mainstream saturation arriving simultaneously with no concrete next catalyst still ahead.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Post-summit deal-optimism plus visible Blackwell chip concessions could enable a quiet rare-earth diplomatic token in a follow-on US-China deal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 33 \u2014 fourth consecutive fully silent week since the Week 27\u201329 re-acceleration/summit cluster. This week's entire news feed is pure noise: Meesho IPO, Indian equity records, nuclear stock screeners (Oklo, NuScale, Centrus \u2014 uranium/fission plays, not MP's neodymium-praseodymium supply chain), industrial screeners (Deere, Caterpillar, Linde), Tesla AI chips, Norway wealth tax, and an Andrew Left/Citron piece on a 'little-known nuclear contractor' (not MP Materials). The sole tangentially relevant item is an Economic Times macro piece titled 'tariff deal hopes position markets for a strong two-year run' \u2014 generic deal-optimism framing with zero specific mention of rare earths, China export controls, or MP Materials. Zero directional signal for the thesis in any direction. The structural state of the thesis is fully unchanged from Week 32: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force; the fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed; no regulatory filing, ministerial statement, or joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 33 weeks of this journal. The devil's-advocate case is the sharpest of the post-summit phase and must be stated honestly: the Trump-Xi summit occurred and underwhelmed with zero rare-earth language (Week 29), the November 1 tariff threat \u2014 the sharpest concrete calendar anchor in the entire 28-week journal \u2014 has lapsed without confirmed implementation, Blackwell chip concessions were visibly dangled (Week 29), and 'tariff deal hopes' recurs as a mainstream macro framing this very week. The conditions for a quiet rare-earth token in a follow-on deal are more plausible now than at any prior point in the journal. However, 'plausible' is not resolution: no text names the controls as ended, and the formal MOFCOM policy is in force. The 'de facto normalization' hypothesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 \u2014 when China imposed fresh curbs after 20 silent weeks rather than quietly easing them \u2014 and that falsification continues to stand. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text addresses rare earths \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 33 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence \u2014 even four consecutive post-summit silent weeks \u2014 is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit immediately if any bilateral text \u2014 joint statement, MOFCOM filing, ministerial announcement, or named trade framework \u2014 explicitly suspends or resolves China's rare-earth export licensing regime. Also exit if a formal US-China critical-minerals agreement is announced and signed.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/expert-view/earnings-rebound-tariff-deal-hopes-position-markets-for-a-strong-two-year-run-nilesh-shetty/articleshow/125612611.cms"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity is near-certainly a structural zero; senior secured creditors likely absorb all $17B proceeds regardless of FCC outcome.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Eleventh consecutive quiet week (twelfth since entry). All four news items \u2014 Nvidia/Home Depot/Lowe's/Walmart/Target earnings recap, UK budget postmortem / Thanksgiving commentary, Indian Sensex/Nifty rally (\u00d72) \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a specific hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or value-destroyer for SATS shareholders \u2014 has now gone unaddressed for twelve consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those qualities. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any creditor-waterfall or proceeds-distribution disclosure confirming senior claims absorb all proceeds, OR on FCC grant/denial. Do NOT exit on continued silence alone.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/11/28/semiconductors-and-housing-and-retail-oh-my/?source=iedfolrf0000001",
+        "https://www.fxstreet.com/analysis/thanksgiving-holiday-gives-time-to-digest-uk-budget-and-growing-stock-market-breadth-202511271036",
+        "https://www.newkerala.com/news/o/sensex-nifty-close-near-record-highs-broad-based-market-rally-744",
+        "https://www.ibtimes.co.in/sensex-nifty-close-near-record-highs-broad-based-market-rally-893145"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four straight weeks of complete silence \u2014 no board response, no filing, no MCB statement \u2014 could signal quiet withdrawal or dead deal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 4 in the arc. This week's news feed contains zero WSR/MCB-related items \u2014 only unrelated Oklo/nuclear sector content. Silence is not resolution. The driving condition is unchanged: MCB's revised acquisition proposal remains the last public event on record, WSR's board has issued no formal public response, no SC 13D amendment or merger agreement has been filed, and MCB has not announced a withdrawal. Per journal discipline, a quiet stretch does not close the binary \u2014 the pending catalyst (formal board response: acceptance, counter, or rejection) is still outstanding. Coverage remains thin with zero mainstream saturation or retail frenzy. The arc is incomplete and the next concrete step is still ahead. Slight conviction trim from 7\u21926 to reflect that extended silence marginally raises the probability of a quiet dead deal, but this does not justify exit absent an actual resolution signal. WSR remains the sole clean pure-play vehicle. Watch for any SEC filing or press release from either party as the primary exit/acceleration trigger.",
+      "exit_advice": "Exit immediately on: (1) MCB formal withdrawal; (2) WSR board public rejection; (3) signed merger agreement (catalyst resolved \u2014 priced). Hold through continued silence.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/49071513/oklo-stock-trades-lower-amid-sector-pullback-on-ukraine-russia-peace-proposal-news"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit (Week 29) produced zero rare-earth language; Nov 1 tariff threat lapsed unimplemented; deal-optimism framing dominates five consecutive post-summit silent weeks.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 34 \u2014 fifth consecutive fully silent week since the Week 27\u201329 re-acceleration/summit cluster. This week's entire news feed is pure noise: nuclear stock screeners (Oklo, NuScale, Centrus \u2014 uranium/fission, not MP's neodymium-praseodymium chain), Bitcoin/Strategy, Wall Street and Asian equity roundups, industrial screeners, an S&P 500 daily note, and an Indian market-cap piece \u2014 zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials in any direction. The single marginally relevant item is a Business Times piece (Dec 1) noting China's CSI300 has matched the S&P 500 with a ~16% YTD gain. Beijing's equity confidence is paradoxically thesis-supportive: a stable, rallying Chinese market reduces pressure on Beijing to offer rare-earth concessions as a diplomatic token, making quiet easing less likely rather than more. The structural state is fully unchanged from Week 33: China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force; the fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed; no regulatory filing, ministerial statement, or joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 34 weeks of this journal. The devil's-advocate case is the sharpest of the post-summit phase and must be stated honestly: the Trump-Xi summit occurred and underwhelmed with zero rare-earth language (Week 29), the November 1 tariff threat \u2014 the sharpest concrete calendar anchor in the entire journal \u2014 has lapsed without confirmed implementation, Blackwell chip concessions were visibly dangled (Week 29), and deal-optimism remains the dominant macro framing entering a fifth consecutive post-summit silent week. This is the most sustained quiet stretch since the post-truce phase (Weeks 7\u201326). However, 'plausible' is still not resolution \u2014 no text names the controls as ended and the formal MOFCOM policy is in force. The 'de facto normalization' hypothesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs after 20 silent weeks rather than quietly easing them \u2014 that falsification continues to stand. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text addresses rare earths \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 34 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, silence is not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a confirmed regulatory filing, ministerial statement, or joint communiqu\u00e9 naming China's MOFCOM rare-earth export controls as resolved, suspended, or explicitly incorporated into a bilateral deal \u2014 none of which has occurred across 34 weeks.",
+      "evidence_urls": [
+        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/chinas-slow-motion-stock-rally-starts-win-investor-trust"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated; senior creditors absorb virtually all $17B proceeds, making close a zero for equity.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Twelfth consecutive quiet week (thirteenth since entry). All four news items \u2014 Milan bourse opening, Indian Sensex/Nifty flat session, Ghana Stock Exchange marginal gains, ASX 200 recap \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a specific hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or outright value-destroyer for SATS shareholders \u2014 has now gone unaddressed for thirteen consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those catalyst-quality attributes. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on FCC decision (grant or deny) or any creditor-waterfall / proceeds-distribution disclosure; silence alone is not exit.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/milan-stock-exchange-opens-slightly-higher-stm-surges-fincantieri-performs-well-ce7d51dfda8cf625",
+        "https://www.thehindubusinessline.com/markets/stock-market-highlights-3-december-2025/article70350013.ece",
+        "https://www.newsghana.com.gh/ghana-stock-exchange-opens-december-with-marginal-gains/",
+        "https://www.fool.com.au/2025/12/02/here-are-the-top-10-asx-200-shares-today-02-december-2025/"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of complete silence \u2014 no SEC filing, no board statement, no MCB communication \u2014 suggests the bid may have quietly died without public announcement.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 5 in the arc; second consecutive week with zero event-related news. The discipline holds: silence is not resolution. The driving condition \u2014 MCB's revised acquisition proposal \u2014 remains the last public event on record. No merger agreement, no SC 13D amendment, no board press release, and no MCB withdrawal have appeared. The pending concrete catalyst (formal board response: acceptance, counter, or rejection) is still technically outstanding. That said, five weeks of total radio silence in M&A is materially concerning \u2014 it raises the probability that the proposal was informally rebuffed in private and MCB chose not to publicize a withdrawal, or that negotiations stalled without either party making a public statement. This does not constitute a resolution per the exit rules, but it does erode conviction further. Trimming conviction 6\u21925 to reflect the diminishing signal-to-noise ratio. WSR remains the sole clean pure-play vehicle. Watch obsessively for any SEC filing from either party (SC 13D/A, merger proxy, or 8-K) or a press release \u2014 those remain the only legitimate exit or acceleration triggers.",
+      "exit_advice": "Exit immediately on: (1) MCB formal public withdrawal; (2) WSR board rejection announcement; (3) any SEC filing confirming deal termination. Also exit if mainstream coverage arrives simultaneously with no concrete next step remaining.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Post-summit deal-optimism plus six consecutive silent post-summit weeks raises credible 'quiet normalization' risk, though no text confirms it.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 35 \u2014 sixth consecutive fully silent week since the Week 27\u201329 re-acceleration/summit cluster, and the longest post-summit quiet stretch in the journal. This week's entire news feed is pure noise: industrial stock screeners (Caterpillar, Linde, Coherent, Eaton, Deere), Ghana Stock Exchange flat sessions, Walmart's NYSE-to-Nasdaq exchange move, nuclear stock screeners (Oklo, NuScale, Centrus \u2014 uranium/fission plays wholly unrelated to MP's neodymium-praseodymium supply chain), quantum computing bubble predictions, a Pakistani MNC exodus piece, and Indian market-cap roundups. Zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials in any direction across any article in the feed.\n\nThe devil's-advocate case must be stated at its sharpest: the Trump-Xi summit occurred and underwhelmed with zero rare-earth language in any bilateral text (Week 29); the November 1 tariff threat \u2014 the sharpest concrete calendar anchor in the entire journal \u2014 lapsed without confirmed implementation (Week 29\u201331); Blackwell chip concessions were visibly dangled as a diplomatic token (Week 29); 'deal optimism' has been the dominant macro framing for six consecutive post-summit weeks; and we are now well into the most sustained quiet stretch since the post-truce silent phase (Weeks 7\u201326). This is the most credible 'quiet normalization without a formal announcement' environment of the entire 35-week journal. It must not be waved away.\n\nHowever, 'most credible' is still speculation, not resolution. China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed. No regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 35 weeks of this journal. The 'de facto normalization' hypothesis that was the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs after 20 silent weeks rather than quietly easing them \u2014 that falsification continues to stand and should anchor the exit threshold: speculation is not enough.\n\nNeither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text has ever addressed rare earths in any of the 35 weeks \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 35 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal. Per standing rules, six post-summit silent weeks are not an exit while the chokepoint is formally in force. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a concrete regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 explicitly naming China's MOFCOM rare-earth export licensing regime as suspended or terminated \u2014 or if mainstream saturation AND arc completion both arrive simultaneously. Neither condition is met.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity is structurally subordinated; senior creditors absorb virtually all $17B proceeds, making deal-close worthless for shareholders.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Thirteenth consecutive quiet week (fourteenth since entry). All four news items \u2014 Wall Street records/Oracle, Ghana Stock Exchange flat, FTSE 100 rally, Nigerian glass-maker acquisition \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial asset sale has not been granted, denied, calendared for a specific hearing, or otherwise advanced publicly in any form. The thesis is technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or outright value-destroyer for SATS shareholders \u2014 has now gone unaddressed for fourteen consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those catalyst-quality attributes. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on: (1) FCC approval or denial, OR (2) any creditor-priority / waterfall disclosure confirming equity receives zero proceeds. Do NOT exit on continued silence alone.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six consecutive weeks of public silence after a publicly-announced revised bid; proposal may have quietly lapsed or been informally rejected without announcement.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Week 6 of the arc; sixth consecutive week with zero event-related news. Journal discipline holds: silence is not resolution, and no formal catalyst-ending event has occurred \u2014 no merger agreement, no board rejection press release, no MCB withdrawal, no SC 13D/A, no 8-K from either party. The catalyst remains technically pending. That said, six weeks of public silence following a publicly-announced revised acquisition proposal is at the outer edge of credible 'ongoing private negotiation' timelines in small-cap REIT M&A. The probability distribution has shifted materially toward quiet lapse or informal rejection. Trimming conviction 5\u21924 \u2014 one notch above minimum \u2014 reflecting that the 'active bid' driving condition is functionally strained even if not formally reversed. WSR remains the sole clean pure-play vehicle. The only legitimate acceleration or exit triggers are an SEC filing or a press release from either party; no other signal is actionable.",
+      "exit_advice": "Hold by strict journal rules (silence \u2260 resolution, no formal withdrawal or rejection confirmed), but conviction is now at near-floor. Exit immediately on: (1) any confirmed MCB withdrawal or WSR board rejection press release; (2) a SC 13D/A or 8-K with deal-termination language. If a seventh consecutive blank week passes with zero SEC filing activity, the arc is effectively dead and the position should be closed even absent a formal announcement \u2014 at that point the 'active negotiation' hypothesis becomes untenable.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Post-summit deal optimism dominant 7 weeks; no concrete catalyst scheduled; quiet normalization without formal announcement plausible.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 36 \u2014 seventh consecutive fully silent week since the Week 27\u201329 re-acceleration/summit cluster, and the longest post-summit quiet stretch in the 36-week journal. This week's entire news feed is pure noise: Indian Sensex rally on fund inflows and lower US CPI, nuclear stock screeners (Oklo, NuScale, Centrus \u2014 uranium/fission, wholly unrelated to MP's neodymium-praseodymium supply chain), renewable energy screeners, Canadian/US equity macro, Tata/iPhone manufacturing, India AI bubble commentary, and hedge fund energy-to-tech rotation. Zero signal for China's MOFCOM rare-earth export licensing regime or MP Materials in any direction. The hedge-fund rotation piece (HedgeCo, Dec 17) flagging reduced energy exposure and increased tech allocation carries no rare-earth signal \u2014 it is a broad sector call, not a China-export-control item. The devil's-advocate case must be stated at its sharpest for Week 36: the Trump-Xi summit occurred and underwhelmed with zero rare-earth language in any bilateral text (Week 29); the November 1 tariff threat \u2014 the sharpest concrete calendar anchor in the entire journal \u2014 lapsed without confirmed implementation (Weeks 29\u201331); Blackwell chip concessions were visibly dangled as a diplomatic token (Week 29); 'deal optimism' has been the dominant macro framing for seven consecutive post-summit weeks; and no new concrete, datable, scheduled catalyst has emerged to replace the expired 90-day truce and the lapsed Nov-1 deadline. This is the most sustained quiet stretch since the post-truce phase (Weeks 7\u201326) and the most credible 'quiet normalization without a formal announcement' environment of the entire 36-week journal. That possibility must not be waved away. However, 'most credible threat' is still speculation, not resolution. China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed. No regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 36 weeks of this journal. The 'de facto normalization' hypothesis that served as the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs after 20 consecutive silent weeks rather than quietly easing them \u2014 that falsification continues to anchor the exit threshold: speculation is not resolution. Neither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text has ever addressed rare earths across any of the 36 weeks \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 36 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal \u2014 the crowd has not arrived. Per standing rules, seven post-summit silent weeks are not an exit while the chokepoint is formally in force and the crowd has not arrived. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only on a formal MOFCOM ministerial statement, regulatory filing, or joint bilateral communiqu\u00e9 explicitly naming rare-earth controls as resolved or suspended \u2014 OR if both arc-complete AND mainstream-crowd conditions are simultaneously met. Seven silent weeks alone do not qualify.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated; senior secured creditors likely absorb all $17B proceeds, making deal-close worthless for shareholders.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Fourteenth consecutive quiet week (fifteenth since entry). All four news items \u2014 India solar glut and three duplicate Dow Jones general-market wires \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial spectrum asset sale has not been granted, denied, calendared for a specific hearing, or otherwise advanced publicly in any form. Thesis technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or outright value-destroyer for SATS shareholders \u2014 has now gone unaddressed for fifteen consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those catalyst-quality attributes. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any of: (1) FCC grants or denies the spectrum-sale application, (2) any creditor-waterfall or proceeds-distribution disclosure confirming equity is out-of-the-money, or (3) deal cancellation. Silence alone is not exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Seven consecutive weeks of public silence on a revised acquisition proposal strongly implies the bid has informally lapsed or been quietly rejected \u2014 active driving condition de facto reversed.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Week 7; seventh consecutive week with zero WSR/MCB-related news. This week's only item is an unrelated energy sector screener \u2014 no connection to the event whatsoever. Journal discipline holds: silence is not resolution, and no formal catalyst-ending event has appeared \u2014 no merger agreement, no SC 13D/A, no 8-K, no board press release, no MCB withdrawal statement. The catalyst is technically pending. That said, seven weeks of public silence following a publicly-announced revised acquisition proposal in small-cap REIT M&A is far outside the normal active-negotiation timeline. The probability distribution has shifted heavily toward quiet lapse or informal private rejection with neither party choosing to make a public statement. This does not meet the formal exit threshold under journal rules (which requires a confirmed resolution or reversal event, not inference from silence), but it is as close as silence can get without crossing it. Conviction trimmed 4\u21923 \u2014 minimum threshold consistent with still holding. The position is kept alive solely on procedural grounds; the practical edge is near-zero. WSR remains the sole clean pure-play vehicle. The only legitimate triggers remaining: an SEC filing or press release from either party. If none materializes by the turn of the year, the January review should treat the driving condition as reversed by prolonged lapse.",
+      "exit_advice": "Hold only on the strict technical ground that no formal resolution has been announced. Exit immediately on any confirmed MCB withdrawal, WSR board rejection, or if January 2026 opens with still no SEC filing or press release \u2014 at that point treat the driving condition as reversed by lapse regardless of lack of formal announcement.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports, MP sole scaled US producer",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit underwhelmed; Nov-1 tariff threat lapsed; eight consecutive post-summit silent weeks with deal optimism dominant.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 37 \u2014 eighth consecutive fully silent week since the Week 27\u201329 re-acceleration/summit cluster, and the longest unbroken quiet stretch in the post-summit phase. The entire news feed is holiday-week noise: US equity indices flat to slightly lower in thin post-Christmas trading, gold and silver rallying on safe-haven demand, Asian stocks at a six-week high, basic materials and tech lifting the broader market \u2014 none of it carries any rare-earth or MP signal. The single geopolitically relevant item is a Japan Today piece reporting US Marine Corps modifications to its Okinawa-to-Guam redeployment plan, explicitly framed around China deterrence and Taiwan contingency planning. This is a military posture item, not a rare-earth export-control item \u2014 but it is marginally thesis-supportive: deepening US-China strategic competition and explicit Taiwan contingency planning raise the strategic premium on domestic US rare-earth production and reduce Beijing's incentive to quietly concede rare-earth leverage as a diplomatic token.\n\nThe devil's-advocate case must be stated at its sharpest for Week 37: the Trump-Xi summit occurred and underwhelmed with zero rare-earth language in any bilateral text (Week 29); the November 1 tariff threat \u2014 the sharpest concrete calendar anchor in the entire journal \u2014 lapsed without confirmed implementation (Weeks 29\u201331); Blackwell chip concessions were visibly dangled as a diplomatic token (Week 29); 'deal optimism' has been the dominant macro framing for eight consecutive post-summit weeks; and no new concrete, datable, scheduled catalyst has emerged to replace the expired 90-day truce and the lapsed Nov-1 deadline. This is the most sustained post-summit silence in the journal. The possibility of quiet normalization without a formal announcement must not be waved away.\n\nHowever, 'most credible threat' is still speculation, not resolution. China's MOFCOM rare-earth export licensing regime imposed in early April 2025 remains formally in force. The fresh export curbs confirmed in Week 27 (Japan Times, Oct 13: 'Beijing unveiled curbs on the export of rare earths earlier in the week') have not been reversed. No regulatory filing, no ministerial statement, no joint communiqu\u00e9 has named rare-earth controls as resolved or suspended across any of the 37 weeks of this journal. The 'de facto normalization' hypothesis that served as the standing devil's-advocate case for Weeks 7\u201326 was definitively falsified in Week 27 when China imposed fresh curbs after 20 consecutive silent weeks rather than quietly easing them \u2014 that falsification continues to anchor the exit threshold: speculation is not resolution. The US military repositioning toward a more assertive China-deterrence posture (Japan Today this week) further reduces the plausibility of Beijing quietly conceding rare-earth leverage without extracting a formal quid pro quo.\n\nNeither arm of the arc-complete + crowd-arrived exit condition is met: (a) the central driving condition (MOFCOM controls) is formally active, Week 27 fresh curbs are unreversed, and no bilateral text has ever addressed rare earths across any of the 37 weeks \u2014 the arc is not complete; (b) MP and rare-earth coverage remains entirely absent from mainstream press across all 37 weeks \u2014 no sell-side crowding, no retail frenzy, no 'everyone's in' dynamic visible anywhere in the journal \u2014 the crowd has not arrived. Per standing rules, eight post-summit silent weeks \u2014 including a holiday-shortened final week of the year \u2014 are not an exit while the chokepoint is formally in force and the crowd has not arrived. Conviction held at 6, reflecting the live-but-uncatalyzed state: Week 27 re-escalation evidence intact, partially offset by post-summit deal-optimism overhang and the absence of any new concrete calendar anchor. MP remains the sole scaled US pure-play. Hold MP.",
+      "exit_advice": "Exit only when a regulatory filing, ministerial statement, or joint bilateral communiqu\u00e9 explicitly names China's MOFCOM rare-earth export licensing regime as resolved, suspended, or formally carved out of a deal \u2014 or when that formal resolution coincides with full mainstream saturation of MP/rare-earth coverage. Neither condition exists today.",
+      "evidence_urls": [
+        "https://japantoday.com/category/national/u.s.-forces-modify-unit-relocation-from-okinawa-to-guam-with-china-in-mind",
+        "https://www.morningstar.com/stocks/weekly-market-wrap-stocks-extend-2025-rally-basic-materials-tech-rise"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "SpaceX $17B deal to acquire EchoStar spectrum licenses pending close",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "SATS equity structurally subordinated \u2014 senior secured creditors absorb virtually all ~$17B proceeds; deal-close is a non-event for shareholders.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Fifteenth consecutive quiet week (sixteenth since entry). All nine news items \u2014 Asian stock/holiday-trading wires, precious-metals rally, Indian Sensex decline \u2014 are entirely unrelated to EchoStar, SpaceX, or the FCC spectrum review. The single concrete pending gate is unchanged: FCC regulatory approval of the ~$17B partial spectrum asset sale has not been granted, denied, calendared for a specific hearing, or otherwise publicly advanced in any form. Thesis technically live: catalyst not resolved, regulatory arc incomplete. The primary thesis-killer flagged every week since entry \u2014 that SATS equity is structurally subordinated to senior secured creditors entitled to absorb virtually the entire $17B in proceeds, making deal-close a non-event or outright value-destroyer for SATS shareholders \u2014 has now gone unaddressed for sixteen consecutive weeks without any clarifying creditor-priority or waterfall disclosure. That structural concern, not the FCC calendar, remains the first-order exit trigger. Hold only because a concrete regulatory gate genuinely remains ahead and unresolved; that is the sole surviving basis for a live thesis. Conviction stays at 4: the deal is specific, named, and real, and the FCC process is a genuine datable gate, but the high structural probability that equity captures zero value at close nearly fully offsets those catalyst-quality attributes. Silence is not exit; FCC resolution or a creditor-waterfall disclosure is the exit.",
+      "exit_advice": "Exit immediately on any of: (1) FCC grants or denies the spectrum transfer; (2) any creditor-waterfall or proceeds-distribution disclosure confirming subordination of equity; (3) deal termination. Silence alone is not exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive silent weeks in small-cap REIT M&A; active revised-bid driving condition has functionally lapsed with no concrete catalyst remaining.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 8; eighth consecutive week with zero WSR/MCB-related news. Conviction has declined from 7 at entry to an effective floor. The exit-on-silence rule is preserved \u2014 this is not a stale-thesis exit \u2014 but the underlying premise of that rule ('while the driving condition is still in force') no longer holds. An active revised acquisition proposal that has produced zero public follow-on communication for eight weeks in the small-cap REIT space is, by any practical measure, a dead proposal. The driving condition has reversed by prolonged lapse. The prior journal explicitly committed to this decision at year-end if no signal emerged. None has. Thesis closed.",
+      "exit_advice": "Exit WSR. The driving condition \u2014 an active, live revised acquisition proposal awaiting a formal board response \u2014 is no longer meaningfully in force. Eight weeks of total public silence following a publicly-announced revised bid in small-cap REIT M&A is far outside any credible active-negotiation timeline. No merger agreement, no SC 13D/A, no 8-K, no board press release, and no MCB withdrawal statement have appeared. This is NOT an exit on staleness per se; it is a recognition that the specific driving condition (an active live bid pending board response) has effectively reversed by prolonged lapse \u2014 the acquirer's demonstrable conviction is gone. My own prior journal entry explicitly flagged this year-end review as the decision point and committed to treating the driving condition as reversed if no signal materialized. None has. The no-formal-announcement standard is satisfied by the absence of any catalyst-ending event (catalyst_resolved=false), but thesis_live=false because the driving condition is no longer in force. No concrete scheduled catalyst exists \u2014 nothing filed, nothing announced, nothing formally expected. The practical edge is zero. Exit WSR and redeploy attention.",
+      "evidence_urls": []
+    }
+  ]
+}

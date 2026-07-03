@@ -3,893 +3,3094 @@
   "2025-03-28": [],
   "2025-04-04": [
     {
-      "ticker": "VNQ",
-      "thesis": "Trump tariffs impact real estate",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Trump tariffs potentially affecting real estate as global markets react.",
-      "exit_advice": "Monitor tariff implementation impact on real estate.",
+      "conviction": 8,
+      "assessment": "The US tariff hikes announced on 'Liberation Day' have negatively impacted railroad stocks, aligning with the initial thesis. The news is still fresh and under the radar for potential further developments.",
+      "exit_advice": "Hold as the catalyst is still unfolding.",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/tariff-avoiders-among-surprise-bright-110140186.html",
-        "https://therealdeal.com/national/2025/04/03/trump-tariffs-cause-real-estate-stocks-to-tumble/"
+        "https://www.trains.com/trn/news-reviews/news-wire/new-u-s-tariffs-new-u-s-tariffs-pummel-railroad-stocks/"
       ]
     }
   ],
   "2025-04-11": [
     {
-      "ticker": "VNQ",
-      "thesis": "Trump tariffs impact real estate",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "Trump tariffs paused, potentially resolving the immediate impact on real estate",
+      "src": "gdelt",
+      "exit_case": "US suspends tariffs on India until July 9, potentially reversing the driving condition.",
       "catalyst_resolved": false,
-      "assessment": "The initial tariff announcement still impacts the market, and a pause does not necessarily mean resolution.",
-      "exit_advice": "Monitor tariff developments and real estate market reaction",
+      "conviction": 6,
+      "assessment": "The initial tariff hike thesis still holds despite a temporary suspension on India; UNP remains a valid vehicle.",
+      "exit_advice": "Monitor tariff developments and their impact on railroad stocks.",
       "evidence_urls": [
-        "https://therealdeal.com/national/2025/04/09/real-estate-stocks-shoot-up-on-news-of-tariff-pause/"
+        "https://www.moneycontrol.com/news/business/markets/taking-stock-nifty-above-22-800-sensex-jumps-1-310-pts-on-trump-s-tariff-pause-12991899.html",
+        "https://www.orissapost.com/sensex-nifty-surge-nearly-2-as-us-suspends-tariffs-on-india-until-july-9/"
       ]
     }
   ],
   "2025-04-18": [
     {
-      "ticker": "VNQ",
-      "thesis": "Trump tariffs impact real estate",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "Trump tariff reversal indicates potential resolution of initial catalyst.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The initial tariff announcement still impacts the market, and while there's mention of a tariff reversal, it doesn't necessarily mean the catalyst is resolved as the overall impact on real estate is still unfolding.",
-      "exit_advice": "Monitor tariff policy developments and real estate market reactions.",
+      "conviction": 8,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively, with ongoing trade talks and tariff discussions keeping the thesis relevant. UNP remains a valid vehicle as it is directly affected by trade policies.",
+      "exit_advice": "Continue to hold UNP as the tariff hikes and trade talks continue to drive the narrative around railroad stocks.",
       "evidence_urls": [
-        "https://therealdeal.com/national/2025/04/12/real-estate-impacted-by-trumps-tariff-reversal/"
+        "https://www.tribuneindia.com/news/business/markets-surge-for-4th-day-sensex-reclaims-78000-level-amid-us-japan-tariff-talks-fii-inflows/",
+        "https://www.thehindubusinessline.com/markets/markets-surge-for-fourth-day-sensex-reclaims-78000-level-amid-us-japan-tariff-talks-fii-inflows/article69460612.ece",
+        "https://www.insidermonkey.com/blog/msc-industrial-direct-msm-among-mid-and-large-cap-stocks-insiders-are-buying-after-trumps-tariff-rollout-1509602/"
       ]
     },
     {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "China's restriction on rare-earth exports is driving the surge in MP Materials (MP), the lone scaled US producer.",
-      "exit_advice": "Monitor for resolution or decay of China's export restrictions.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' has been triggered, with news indicating that China has restricted rare-earth exports, directly benefiting MP Materials (MP), the lone scaled US producer.",
+      "exit_advice": "The catalyst is still pending as it has just started and there's potential for further developments in the export restrictions.",
       "evidence_urls": [
-        "https://www.etf.com (implied, no url)"
+        "https://www.etf.com/[no url provided]"
       ]
     }
   ],
   "2025-04-25": [
     {
-      "ticker": "VNQ",
-      "thesis": "Trump tariffs impact real estate",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains live as Trump's tariffs continue to impact real estate, with ongoing market reactions.",
-      "exit_advice": "Monitor for a clear resolution or reversal of Trump's tariffs on real estate.",
+      "conviction": 8,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively, with ongoing trade talks and tariff discussions keeping the thesis relevant. However, recent news articles suggest a potential de-escalation in tariffs, which could affect the thesis.",
+      "exit_advice": "Continue to monitor trade talks and tariff discussions for any significant developments that could impact railroad stocks.",
       "evidence_urls": [
-        "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
-        "https://finance.yahoo.com/news/jim-cramer-cvs-health-cvs-224546168.html"
+        "https://www.juneesoutherncross.com.au/story/8950160/us-tariff-de-escalation-talk-helps-aussie-shares-higher/?cs=6409",
+        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/Wall-St-rallies-on-tariff-optimism-Trump-eases-Powell-threats-49687002/"
       ]
     },
     {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending as there is no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
-      "exit_advice": "continue to monitor China's export policies and MP's stock performance",
+      "conviction": 8,
+      "assessment": "The initial catalyst 'China curbs rare-earth exports' remains in effect with no clear resolution or reversal. The news this week doesn't directly address the rare-earth export curbs, but ongoing trade tensions and tariff discussions keep the broader theme relevant. MP remains the purest play among the known vehicles.",
+      "exit_advice": "Hold MP as the catalyst remains pending and under-the-radar.",
       "evidence_urls": [
-        "https://www.fool.com/research/pharmaceutical-tariffs-imports/",
-        "https://www.tahoedailytribune.com/news/everything-everywhere-all-at-once/"
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-shares-rise-on-signs-of-easing-US-China-trade-tensions-49718457/"
       ]
     }
   ],
   "2025-05-02": [
     {
-      "ticker": "VNQ",
-      "thesis": "Trump tariffs impact real estate",
-      "thesis_live": false,
-      "exit_case": "The impact of Trump tariffs on real estate has become more evident with US GDP shrinking to 0.3% in Q1 2025.",
-      "catalyst_resolved": true,
-      "assessment": "The initial catalyst of Trump tariffs affecting real estate has now manifested in tangible economic data, such as the contraction of US GDP.",
-      "exit_advice": "The event has reached a point where the catalyst is considered resolved due to the significant impact on US GDP.",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The US tariff hikes continue to impact railroad stocks, aligning with the initial thesis. Recent news indicates a potential de-escalation in tariffs, which could affect the thesis, but no concrete resolution has been reached.",
+      "exit_advice": "Hold the position as the catalyst is still pending and has not been fully resolved or reversed.",
       "evidence_urls": [
-        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/"
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/",
+        "https://www.rttnews.com/3534925/u-s-stocks-surge-on-upbeat-jobs-data-optimism-about-trade-talks-with-china.aspx"
       ]
     },
     {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
-      "exit_case": "China lifts or relaxes its restrictions on rare-earth exports",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as China has not lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "evidence_urls": [
-        "https://malaya.com.ph/business/world-business/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/",
-        "https://www.hellenicshippingnews.com/china-holds-off-on-new-stimulus-shows-composure-in-us-trade-war/"
-      ]
-    },
-    {
-      "ticker": "BWXT",
-      "thesis": "China approves 10 new reactors",
-      "thesis_live": false,
+      "src": "gdelt",
       "exit_case": "none",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst (China approves 10 new reactors) has occurred as reported on 2025-04-28",
-      "exit_advice": "Catalyst has occurred and is public",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with no resolution or reversal. Ongoing trade tensions and discussions keep the theme relevant. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold MP as the purest play on China's rare-earth export curbs.",
       "evidence_urls": [
-        "https://www.businesstimes.com.sg/companies-markets/energy-commodities/china-approves-10-new-reactors-nuclear-power-ramp"
+        "http://www.bignewsnetwork.com/news/278199250/positive-jobs-report-lights-up-wall-street",
+        "https://www.rttnews.com/story.aspx?Id=3534955",
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/"
       ]
     }
   ],
   "2025-05-09": [
     {
-      "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "US-UK trade deal announced, potentially reversing US tariff hikes driving condition.",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst, China restricting rare-earth exports, remains relevant as there's no indication it's been lifted or relaxed.",
-      "exit_advice": "Monitor for official announcements from China regarding the lifting or relaxation of rare-earth export restrictions.",
+      "conviction": 6,
+      "assessment": "The US-UK trade deal may ease tariffs, affecting railroad stocks negatively impacted by initial tariff hikes. UNP remains a valid vehicle.",
+      "exit_advice": "Monitor trade deal developments and UNP's response.",
       "evidence_urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/05/07/china-market-update-pboc-cuts-rates--consumption-stimulus-raised/"
+        "https://www.kiplinger.com/investing/stocks/stock-market-today-stocks-rise-on-trump-trade-deal",
+        "https://townhall.com/columnists/bob-rubin/2025/05/09/america-first-global-gains-the-us-uk-trade-deal-signals-a-new-era-for-equities-n2656782"
       ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Initial entry on electric vehicle surge boosting Tesla, with news confirming the trend on the entry date.",
-      "exit_advice": "Monitor for signs that the electric vehicle surge is plateauing or that Tesla's growth is slowing.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions.",
+      "exit_advice": "Continue to hold as the catalyst remains live and the driving condition is still in force.",
       "evidence_urls": [
-        "https://www.forexlive.com/stock-market-update/electric-vehicle-surge-tesla-powers-ahead-while-tech-and-healthcare-struggle-20250509/"
+        "https://www.dawn.com/news/1909332/chinas-defence-stocks-rise-after-indo-pak-clash",
+        "https://www.thenews.com.pk/print/1309304-shares-of-rafale-maker-plunge-china-s-defence-stocks-advance-as-pakistan-downs-iaf-jets",
+        "https://www.brecorder.com/news/40361497/chinas-defence-stocks-advance-after-pakistan-india-tensions-bloomberg-report"
+      ]
+    },
+    {
+      "ticker": "AFRM",
+      "thesis": "US-UK trade deal lowers auto tariffs",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-UK trade deal announced, potentially resolving auto tariff issue",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The news of the US-UK trade deal has been widely covered, and the specific catalyst of lowering auto tariffs has been addressed.",
+      "exit_advice": "The catalyst has been largely resolved with the announcement of the US-UK trade deal.",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/stocks/stock-market-today-stocks-rise-on-trump-trade-deal",
+        "https://townhall.com/columnists/bob-rubin/2025/05/09/america-first-global-gains-the-us-uk-trade-deal-signals-a-new-era-for-equities-n2656782"
       ]
     }
   ],
   "2025-05-16": [
     {
-      "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "China's rare-earth export restrictions have been in place for a month with no indication of being lifted.",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
-      "exit_advice": "Monitor for official announcements regarding the lifting or relaxation of China's rare-earth export restrictions.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend as of the latest journal entry, with no clear indication that it has resolved or decayed.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively. Recent news indicates ongoing discussions and potential de-escalation, but no concrete resolution has been reached.",
+      "exit_advice": "hold",
       "evidence_urls": [
-        "https://www.crn.com/news/components-peripherals/2025/surge-in-nvidia-grace-cpus-contributes-to-record-arm-market-share-estimate"
+        "https://www.wjcl.com/article/walmart-price-hikes-tariffs/64784292",
+        "https://www.thisismoney.co.uk/money/markets/article-14717287/US-tariff-cuts-wont-kick-weeks-British-firms-left-dark-Trumps-levies-finally-lifted.html",
+        "https://www.turnto23.com/politics/economy/tariffs-are-supposed-to-promote-domestic-investments-but-transitioning-supply-chains-could-take-years",
+        "https://biztoc.com/x/ace911a6bc8dec26",
+        "https://article.wn.com/view/2025/05/15/us_uses_8216poison_pills_8217_to_isolate_china_from_supply_c/",
+        "https://www.dailyexcelsior.com/pakistan-offers-zero-tariff-bilateral-trade-deal-to-us-report/"
       ]
     },
     {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Coinbase has been hacked and is reimbursing customers, with estimated costs up to $400 million. The event is still unfolding.",
-      "exit_advice": "wait for reimbursement process to complete or further developments",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions and strategic decoupling from China, keeping the theme relevant.",
+      "exit_advice": "Hold MP as the catalyst remains live and under-the-radar.",
       "evidence_urls": [
-        "https://www.investopedia.com/why-coinbase-stock-plunged-thursday-update-11735309",
-        "https://www.turnto23.com/life/money/coinbase-says-it-will-reimburse-customers-after-hackers-accessed-their-data",
-        "https://www.pilotonline.com/2025/05/15/coinbase-stolen-info/"
+        "https://article.wn.com/view/2025/05/15/us_uses_8216poison_pills_8217_to_isolate_china_from_supply_c/",
+        "https://www.turnto23.com/politics/economy/tariffs-are-supposed-to-promote-domestic-investments-but-transitioning-supply-chains-could-take-years",
+        "https://biztoc.com/x/ace911a6bc8dec26"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Deere surged to a record on optimism for an upturn in the farm economy, with earnings beating the highest analyst estimates. Although Deere trimmed its profit outlook for the year, the positive earnings surprise and record stock price indicate a strong catalyst. The farm economy upturn is still unfolding, and there is no indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/deere-lowers-bottom-outlook-range-111823614.html"
       ]
     }
   ],
   "2025-05-23": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively, with ongoing trade talks and potential de-escalation in tariffs. UNP remains a valid vehicle.",
+      "exit_advice": "continue to monitor tariff discussions and their impact on railroad stocks",
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "To adhere to the format, first the exit case is required.",
-      "exit_advice": "none",
+      "conviction": 8,
+      "assessment": "The catalyst remains live as there's no resolution or reversal of China's rare-earth export curbs.",
+      "exit_advice": "Hold MP as the purest play on China's rare-earth export curbs.",
       "evidence_urls": []
     },
     {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains unresolved as there's no update on reimbursement or hack resolution.",
-      "exit_advice": "Monitor official statements or reimbursement progress.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn is still unfolding with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn continues.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The event has just started, and the catalyst is still pending. CEG is a relevant vehicle.",
-      "exit_advice": "continue to monitor Trump's uranium-related announcements",
-      "evidence_urls": [
-        "https://www.benzinga.com/etfs/sector-etfs/25/05/45593231/trump-sparks-uranium-frenzy-nuclear-etfs-see-explosive-gains"
-      ]
     }
   ],
   "2025-05-30": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The initial thesis of US tariff hikes negatively impacting railroad stocks remains relevant, although recent news indicates a potential de-escalation in tariffs.",
+      "exit_advice": "Continue to hold UNP as the primary vehicle as long as the tariff discussions and potential impacts remain unresolved.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3542179",
+        "https://www.theglobeandmail.com/investing/investment-ideas/article-market-factors-how-tariffs-can-sink-the-magnificent-seven-and-us/"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The specific catalyst 'China curbs rare-earth exports' remains live as there's been no resolution or reversal, and the broader trade tensions continue to keep the theme relevant. The news this week doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions and strategic decoupling from China, keeping the theme relevant.",
+      "exit_advice": "Continue to hold MP as the purest play among the known vehicles.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3542179",
+        "https://www.rttnews.com/3542179/u-s-stocks-move-sharply-higher-after-trump-delays-eu-tariffs.aspx"
+      ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reviewing the entire journal",
-      "exit_advice": "Continue to hold",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
-      "thesis_live": true,
-      "exit_case": "The hack and reimbursement process has not been officially closed or resolved.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution.",
-      "exit_advice": "Monitor official statements on reimbursement completion or hack resolution.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no new developments.",
-      "exit_advice": "Continue to hold the position.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The farm economy upturn is still unfolding with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn continues without clear resolution.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/05/30/there-the-manager-of-this-top-dividend-fund-sees-opportunity-now-.html"
+      ]
     }
   ],
   "2025-06-06": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "the initial thesis of US tariff hikes negatively impacting railroad stocks remains relevant, although recent news indicates a potential de-escalation in tariffs",
+      "exit_advice": "continue to monitor trade talks and tariff discussions",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/top-gainers-and-losers-today-stocks-that-moved-the-most-june-6-13102685.html"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
-      ]
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues, and the latest news doesn't directly indicate resolution or decay.",
-      "exit_advice": "continue to hold",
-      "evidence_urls": [
-        "https://www.thehindubusinessline.com/markets/stock-markets/rate-sensitive-stocks-surge-as-rbi-delivers-50-bps-cut/article69664313.ece",
-        "https://www.moneycontrol.com/news/business/markets/jsw-steel-tata-steel-other-metal-stocks-surge-up-to-4-after-rbi-s-surprise-50-bps-rate-cut-13102160.html"
-      ]
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
-      "thesis_live": true,
-      "exit_case": "The reimbursement process has been completed and the hack fully investigated.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution for three consecutive weeks.",
-      "exit_advice": "Monitor for updates on reimbursement completion or official closure.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live as there's been no resolution or reversal. The broader trade tensions continue to keep the theme relevant.",
+      "exit_advice": "Hold MP as the purest play on the China rare-earth export curbs.",
       "evidence_urls": []
     },
     {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending, and CEG is still a relevant vehicle.",
-      "exit_advice": "Monitor for resolution or significant development in Trump's uranium policy.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The new CEO's plan to continue acquiring small public utilities suggests the catalyst is still active",
-      "exit_advice": "Monitor for acquisition announcements and changes in CEO plans",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst is still driving Deere's performance, with no indication of resolution or reversal.",
+      "exit_advice": "continue to hold DE as the farm economy upturn is still unfolding",
       "evidence_urls": [
-        "https://www.inquirer.com/business/american-water-works-john-griffith-20250602.html"
+        "https://www.moneycontrol.com/news/business/markets/top-gainers-and-losers-today-stocks-that-moved-the-most-june-6-13102685.html"
       ]
     }
   ],
   "2025-06-13": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "US tariff hikes have been discussed for months with no concrete resolution or reversal.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The initial thesis of US tariff hikes negatively impacting railroad stocks remains relevant, although recent news indicates a potential de-escalation in tariffs.",
+      "exit_advice": "Continue to monitor trade talks and tariff discussions for potential de-escalation or resolution.",
+      "evidence_urls": [
+        "https://biztoc.com/x/4ab323130bcbd43b"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
-      "exit_advice": "continue to monitor for any sign of relaxation or lifting of China's restrictions on rare-earth exports",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with no clear resolution or reversal. Ongoing trade tensions and strategic decoupling from China keep the theme relevant.",
+      "exit_advice": "The catalyst remains live as there's no resolution or reversal of China's rare-earth export curbs.",
       "evidence_urls": [
-        "https://www.rttnews.com/3545973/canadian-stocks-scale-new-high-amid-positivity-from-u-s-china-trade-talks.aspx"
+        "https://www.thecarillon.com/local/2025/06/09/narth-911-ethics-complaint-after-callers-on-hold"
       ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues as per the latest news and journal entries, with TSLA remaining the purest play.",
-      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "conviction": 8,
+      "assessment": "The farm economy upturn is still unfolding with Deere's stock surging to a record high on strong earnings and optimism. There is no indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "continue holding DE as the farm economy upturn continues to drive Deere's performance",
       "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/markets/rate-cut-boosts-sentiment-for-home-buyers-but-fund-managers-still-cautious-on-stock-valuations-13105033.html"
+        "https://economictimes.indiatimes.com/",
+        "https://www.benzinga.com/",
+        "https://biztoc.com/",
+        "https://www.thecarillon.com/"
       ]
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
-      "thesis_live": true,
-      "exit_case": "Coinbase has completed reimbursement and resolved the hack.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains unresolved with no updates on reimbursement or hack resolution for four consecutive weeks.",
-      "exit_advice": "Monitor for updates on reimbursement and hack resolution.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution.",
-      "exit_advice": "Continue to hold CEG as it remains a relevant vehicle for the pending catalyst.",
-      "evidence_urls": [
-        "https://www.news18.com/viral/buying-vs-renting-internet-users-believe-owning-a-home-is-more-valuable-ws-l-aa-aa-9376612.html"
-      ]
-    },
-    {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved",
-      "exit_advice": "continue to hold AWK",
-      "evidence_urls": []
     }
   ],
   "2025-06-20": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The initial thesis of US tariff hikes negatively impacting railroad stocks remains relevant. Although there are indications of potential de-escalation in tariffs, no concrete resolution has been reached. UNP remains a valid vehicle as it is directly affected by trade policies.",
+      "exit_advice": "Hold as the catalyst is still pending and has not been fully resolved or reversed.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with no resolution or reversal. Ongoing trade tensions and strategic decoupling from China keep the theme relevant. There is no fresh news directly addressing the rare-earth export curbs this week, but the broader context remains supportive.",
+      "exit_advice": "Continue to hold MP as the purest play on China's rare-earth export curbs.",
       "evidence_urls": []
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
-      "exit_case": "The electric vehicle surge has been consistently reported with no clear resolution or decay.",
-      "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend as per the latest journal entries.",
-      "exit_advice": "Monitor for signs of the electric vehicle surge resolving or decaying.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "COIN",
-      "thesis": "COINBASE hacked and reimbursing customers",
-      "thesis_live": false,
-      "exit_case": "The hack and reimbursement process has been ongoing for five weeks with no updates, suggesting a potential loss of market relevance.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains unresolved but market interest appears to be waning due to the absence of updates.",
-      "exit_advice": "The lack of new information or developments suggests the event's impact is diminishing.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new developments; catalyst remains pending.",
-      "exit_advice": "Continue to hold.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
-      "thesis_live": true,
-      "exit_case": "The CEO's acquisition plans have been publicly disclosed with no further updates or changes.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there is no indication that the CEO's plans for acquisitions have been resolved or changed.",
-      "exit_advice": "Monitor for changes in the CEO's acquisition plans or significant developments.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn is still unfolding.",
       "evidence_urls": []
     }
   ],
   "2025-06-27": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively. Although there are indications of potential de-escalation in tariffs, no concrete resolution has been reached, keeping the thesis relevant.",
+      "exit_advice": "Hold UNP as the thesis remains relevant and no concrete resolution has been reached.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No fresh news on China relaxing or tightening rare-earth export restrictions.",
-      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with no clear resolution or reversal. Ongoing trade tensions and strategic decoupling from China keep the theme relevant.",
+      "exit_advice": "Hold as the catalyst remains live with ongoing trade tensions.",
       "evidence_urls": []
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reviewing the entire journal, the electric vehicle surge remains a valid trend with no signs of resolution or decay.",
-      "exit_advice": "Continue holding TSLA as it remains the purest play on the electric vehicle surge.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst 'Trump sparks uranium frenzy' remains pending with no new developments.",
-      "exit_advice": "Continue to monitor the catalyst for resolution.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "No new information on the CEO's acquisition plans; still active based on prior entries.",
-      "exit_advice": "Sell when the CEO's acquisition plans are resolved or significantly altered.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with no indication of resolution or reversal. The lack of fresh coverage this week does not indicate a reversal or resolution of the catalyst.",
+      "exit_advice": "Continue holding DE as the farm economy upturn catalyst remains unresolved.",
       "evidence_urls": []
     }
   ],
   "2025-07-04": [
     {
-      "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "China lifts or relaxes rare-earth export restrictions",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports",
-      "exit_advice": "Monitor for news that China has lifted or relaxed rare-earth export restrictions",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge remains a valid trend with no signs of resolution or decay.",
-      "exit_advice": "continue to hold",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "Trump has not made any concrete moves on uranium policy.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution; CEG remains a relevant vehicle.",
-      "exit_advice": "Monitor for developments in uranium policy.",
+      "conviction": 6,
+      "assessment": "Recent news articles do not directly address the US tariff hikes and their impact on railroad stocks, indicating a lack of new developments related to the initial thesis. However, the journal indicates ongoing relevance of the thesis due to the lack of concrete resolution on tariff de-escalation.",
+      "exit_advice": "Continue holding as there is no concrete resolution on tariff hikes or de-escalation.",
       "evidence_urls": [
-        "https://www.finanznachrichten.de/nachrichten-2025-07/65810048-asian-shares-mostly-lower-on-renewed-tariff-worries-020.htm"
+        "https://www.tickerreport.com/banking-finance/13032663/best-robotics-stocks-to-watch-now-june-29th.html",
+        "https://www.dailypolitical.com/2025/07/02/best-robotics-stocks-to-watch-now-june-29th.html"
       ]
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new information has emerged regarding the CEO's acquisition plans",
-      "exit_advice": "Continue to monitor for updates on AWK's acquisition plans",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with no resolution or reversal. Ongoing trade tensions and strategic decoupling from China continue to keep the theme relevant. There is no fresh news directly addressing the rare-earth export curbs this week, but the broader context remains supportive.",
+      "exit_advice": "Hold MP as the purest play on China's rare-earth export curbs.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance. Despite the lack of fresh coverage this week, there is no indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "Continue to hold DE as the farm economy upturn catalyst remains unresolved and the driving condition is still in force.",
       "evidence_urls": []
     }
   ],
   "2025-07-11": [
     {
-      "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "China lifts or relaxes restrictions on rare-earth exports",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports. MP remains the most relevant vehicle.",
-      "exit_advice": "Monitor for news of China lifting or relaxing restrictions on rare-earth exports",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the electric vehicle surge continues to be a valid trend with TSLA as the purest play",
-      "exit_advice": "continue to monitor the electric vehicle surge trend",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": true,
-      "exit_case": "Trump's uranium-related actions have been announced and are being priced in, as indicated by ongoing market reactions.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst 'Trump sparks uranium frenzy' remains pending with no clear resolution; CEG remains a relevant vehicle.",
-      "exit_advice": "Monitor for concrete uranium-related policy changes or actions.",
+      "conviction": 6,
+      "assessment": "The US tariff hikes continue to impact railroad stocks negatively, with ongoing trade talks and potential de-escalation in tariffs. No concrete resolution has been reached.",
+      "exit_advice": "Continue holding UNP as it remains a valid vehicle for the thesis.",
       "evidence_urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/07/10/china-market-update-real-estate-roars-on-policy-support/"
+        "https://www.thehindubusinessline.com/markets/share-market-nifty-sensex-highlights-on-11-july-2025/article69796758.ece",
+        "https://nagalandpost.com/sensex-drops-345-points-on-weakness-in-it-stocks/",
+        "https://www.livemint.com/market/stock-market-news/markets-wilt-under-selling-pressure-sensex-drops-345-points-on-weakness-in-it-stocks-11752144525896.html"
       ]
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
-      "exit_case": "The CEO has not made any significant acquisition announcements or changes to their plans.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
-      "exit_advice": "Continue to monitor for significant acquisition announcements or changes to the CEO's plans.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates speculation about a potential Trump-Xi summit, keeping the broader trade tension theme relevant.",
+      "exit_advice": "Hold as there's no resolution or reversal of China's rare-earth export curbs and ongoing trade tensions.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/07/11/china-market-update-is-a-trump-xi-summit-coming-week-in-review/"
+      ]
     },
     {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
-      "exit_case": "Stimulus revival is officially rejected or fails to materialize",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Stimulus revival rumors boosted China property stocks.",
-      "exit_advice": "Monitor stimulus policy developments.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn is still unfolding with Deere's stock surging to a record high on strong earnings and optimism. There is no indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "Hold DE as the farm economy upturn catalyst continues to drive Deere's performance.",
       "evidence_urls": [
-        "https://www.zerohedge.com/markets/china-property-stocks-erupt-rumors-beijing-may-revive-2015-stimulus-playbook"
+        "https://finance.yahoo.com/news/serve-robotics-launches-autonomous-delivery-044010946.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund has been announced, but its specifics and potential impact are still unclear.",
+      "exit_advice": "Monitor news on the cooperation agreement's progress",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/lantronix-enters-cooperation-agreement-chain-044008252.html"
       ]
     }
   ],
   "2025-07-18": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The event catalyst 'US tariff hikes pummel railroad stocks' remains relevant as tariff concerns continue to impact railroad stocks negatively, although there are indications of potential de-escalation.",
+      "exit_advice": "The thesis remains live as the catalyst is still pending and has not been fully resolved or reversed.",
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65917916-asian-shares-mostly-lower-as-tariff-concerns-linger-020.htm",
+        "https://www.rttnews.com/story.aspx?Id=3553873"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant with no indication of China lifting or relaxing restrictions on rare-earth exports.",
-      "exit_advice": "Monitor for news of China lifting or relaxing restrictions on rare-earth exports.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions, keeping the theme relevant. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold as the catalyst remains live and relevant.",
       "evidence_urls": [
-        "https://www.forbes.com/sites/brendanahern/2025/07/16/china-market-update-state-council-focuses-anti-involution-campaign-on-ev-industry/"
+        "https://www.finanznachrichten.de/nachrichten-2025-07/65917916-asian-shares-mostly-lower-as-tariff-concerns-linger-020.htm"
       ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend with no signs of resolution or decay.",
-      "exit_advice": "continue to hold TSLA",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Trump sparks uranium frenzy",
-      "thesis_live": false,
-      "exit_case": "The catalyst has remained pending with no developments for 8 weeks, indicating potential decay.",
-      "catalyst_resolved": false,
-      "assessment": "The event 'Trump sparks uranium frenzy' has not seen any significant developments or resolution over the past 8 weeks, suggesting that the catalyst may have lost its potency or is not going to resolve as anticipated.",
-      "exit_advice": "Close the position due to lack of progress or resolution on the catalyst.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
-      "exit_advice": "Monitor for news on acquisition plans or changes in CEO strategy.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance.",
+      "exit_advice": "Continue to hold DE as the farm economy upturn is still unfolding.",
       "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/25/07/46487605/us-stocks-likely-to-open-higher-after-scaling-record-close-american-express-3m-charles-schwab-earnings-in-focus"
+        "https://www.benzinga.com/insights/movers/25/07/46505436/12-health-care-stocks-moving-in-fridays-after-market-session",
+        "https://www.forbes.com/sites/brendanahern/2025/07/18/china-market-update-hong-kong-higher-regulators-comment-on-instant-commerce-week-in-review/"
       ]
     },
     {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Stimulus rumors boosted China property stocks; no new devs.",
-      "exit_advice": "Monitor stimulus revival progress",
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no resolution or significant updates",
+      "exit_advice": "continue holding LTRX as the cooperation agreement's specifics and impact remain unclear",
       "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/25/07/46487605/us-stocks-likely-to-open-higher-after-scaling-record-close-american-express-3m-charles-schwab-earnings-in-focus",
-        "https://www.rttnews.com/story.aspx?Id=3553096"
+        "https://www.irishtimes.com/business/markets/2025/07/15/financial-and-healthcare-stocks-drag-down-european-shares/",
+        "https://www.insidermonkey.com/blog/what-makes-zimmer-biomet-holdings-zbh-an-investment-opportunity-1569007/"
       ]
     }
   ],
   "2025-07-25": [
     {
-      "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
       "thesis_live": true,
-      "exit_case": "China lifts or relaxes rare-earth export restrictions",
-      "catalyst_resolved": false,
-      "assessment": "No indication that China has lifted or relaxed restrictions on rare-earth exports",
-      "exit_advice": "Monitor for news of China lifting or relaxing restrictions",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the electric vehicle surge continues to be a valid trend with TSLA as the purest play",
-      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "conviction": 7,
+      "assessment": "The event catalyst 'US tariff hikes pummel railroad stocks' remains relevant as tariff concerns continue to impact railroad stocks negatively, although there are indications of potential de-escalation. The lack of concrete resolution on tariff policies keeps the thesis alive.",
+      "exit_advice": "The position should be held as the catalyst remains relevant and there is no concrete resolution on tariff de-escalation.",
       "evidence_urls": [
-        "https://spectator.sme.sk/politics-and-society/c/news-digest-foreigners-in-slovaks-out"
+        "https://www.proactiveinvestors.com.au/companies/news/1075060/the-morning-catch-up-asx-to-dip-as-global-markets-eye-tariffs-and-central-bank-moves-1075060.html"
       ]
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new information has emerged regarding the CEO's acquisition plans, so the catalyst remains active.",
-      "exit_advice": "Continue to monitor for resolution or significant developments in the CEO's acquisition plans.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Still plausible given prior week's notes.",
-      "exit_advice": "Monitor stimulus revival developments.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "GOOGL",
-      "thesis": "Alphabet beats quarterly results",
-      "thesis_live": false,
-      "exit_case": "Alphabet released quarterly results, beating forecasts",
-      "catalyst_resolved": true,
-      "assessment": "Alphabet's quarterly results have been released and beat forecasts, potentially impacting stock performance.",
-      "exit_advice": "The catalyst has resolved as Alphabet has released its quarterly results.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with no resolution or reversal. Ongoing trade tensions and strategic decoupling from China continue to keep the theme relevant. MP Materials (MP) remains the purest play.",
+      "exit_advice": "hold",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/nasdaq-futures-climb-upbeat-alphabet-100930255.html"
+        "https://www.livemint.com/market/stock-market-news/fpi-heatmap-it-fmcg-lead-outflows-while-services-metals-draw-inflows-in-july-here-s-where-the-smart-money-is-going-11753172547430.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The farm economy upturn has been ongoing for several weeks with Deere's stock surging to record highs, indicating potential mainstream saturation.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with strong earnings and optimism. Despite the lack of fresh coverage this week, there is no indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "Continue to hold as the farm economy upturn is still unfolding.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution.",
+      "exit_advice": "Hold LTRX as the cooperation agreement is still pending and there are no significant updates or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "Jefferies raises Merck price target",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Jefferies raised Merck's price target, maintaining a Buy rating. This is a specific catalyst, but not extremely high-impact as it's a single analyst firm action.",
+      "exit_advice": "Hold as the catalyst is still recent and under-the-radar",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/jefferies-raises-merck-mrk-price-184554664.html"
       ]
     }
   ],
   "2025-08-01": [
     {
+      "ticker": "UNP",
+      "thesis": "US tariff hikes pummel railroad stocks",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US tariff hikes have led to a major trade deal with the European Union, potentially resolving the tariff uncertainty.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The initial thesis of US tariff hikes negatively impacting railroad stocks remains relevant until this week. However, recent news indicates a major trade deal between the US and the European Union, which has fundamentally rebalanced their economic relationship, potentially resolving the tariff uncertainty that drove the initial thesis.",
+      "exit_advice": "The catalyst has been resolved with the US striking a major trade deal with the European Union, rebalancing the economic relationship.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-these-energy-stocks-are-gaining-this-week-22-1580002/"
+      ]
+    },
+    {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant with no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "Continue to monitor for any changes in China's rare-earth export restrictions.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions, with Asian markets mostly lower on tariff worries. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "",
       "evidence_urls": [
-        "finance.yahoo.com"
+        "https://www.rttnews.com/3559871/asian-markets-mostly-lower-on-tariff-worries.aspx"
       ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
-      "exit_advice": "continue to monitor the electric vehicle surge trend",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance.",
+      "exit_advice": "Continue to hold DE as the farm economy upturn is still unfolding.",
       "evidence_urls": [
-        "https://www.themarketsdaily.com/2025/07/30/top-utility-stocks-to-add-to-your-watchlist-july-27th.html"
+        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-gains-following-ferc-approval-on-calpine-deal-1581290/"
       ]
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
       "thesis_live": true,
-      "exit_case": "CEO has made or announced specific acquisitions resolving the catalyst",
-      "catalyst_resolved": false,
-      "assessment": "No new information on the CEO's acquisition plans; the catalyst remains active based on prior entries",
-      "exit_advice": "Monitor for announcement or completion of specific acquisitions by the CEO",
-      "evidence_urls": [
-        "https://www.cnbc.com/2025/07/30/this-water-purification-stock-is-set-to-have-a-bullish-breakout-according-to-the-charts.html"
-      ]
-    },
-    {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
-      "thesis_live": true,
-      "exit_case": "Stimulus revival rumors have not materialized and no new developments have been observed for several weeks.",
-      "catalyst_resolved": false,
-      "assessment": "The likelihood of stimulus revival remains plausible given prior week's notes and no clear resolution.",
-      "exit_advice": "Monitor for actual stimulus announcement or clear signs of decay in stimulus expectations.",
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3559543"
-      ]
-    },
-    {
-      "ticker": "CAT",
-      "thesis": "Caterpillar forecast cut weighs on industrials",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Caterpillar forecast cut has negatively impacted industrials, and the event is still unfolding.",
-      "exit_advice": "continue to monitor CAT",
+      "conviction": 6,
+      "assessment": "the cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution",
+      "exit_advice": "continue holding LTRX as the cooperation agreement remains pending",
       "evidence_urls": [
-        "https://quicknews-africa.net/wall-street-opens-sharply-lower-as-caterpillar-weighs/"
+        "https://finance.yahoo.com/news/trumps-eu-deal-good-us-203108606.html",
+        "https://www.bnnbloomberg.ca/markets/2025/07/29/paul-macdonalds-top-picks-for-july-29-2025/"
       ]
+    },
+    {
+      "ticker": "MRK",
+      "thesis": "Jefferies raises Merck price target",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Jefferies' price target raise for Merck is old news and may have been fully absorbed by now.",
+      "catalyst_resolved": true,
+      "conviction": 4,
+      "assessment": "The initial catalyst was a specific event but not extremely high-impact. It has now been a week since the event, and there's no new significant development related to this catalyst.",
+      "exit_advice": "The catalyst of Jefferies raising Merck's price target has already occurred and is likely priced in.",
+      "evidence_urls": []
     }
   ],
   "2025-08-08": [
     {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
-      "exit_case": "China lifts or relaxes rare-earth export restrictions",
-      "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant with no indication of resolution",
-      "exit_advice": "Monitor for any indication that China has lifted or relaxed its restrictions on rare-earth exports",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
-      "exit_advice": "continue to hold",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news indicates continued trade tensions, with new tariff policies taking effect and speculation around Trump trade deals. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold MP as the catalyst remains live with ongoing trade tensions.",
       "evidence_urls": [
-        "https://www.rttnews.com/3564241/nasdaq-reaches-new-record-closing-high-as-apple-extends-surge.aspx",
-        "https://www.finanznachrichten.de/nachrichten-2025-08/66136074-nasdaq-reaches-new-record-closing-high-as-apple-extends-surge-020.htm"
+        "https://www.swissinfo.ch/eng/asian-stocks-rise-as-japan-jumps-on-tariff-relief:-markets-wrap/89800995",
+        "https://www.moneycontrol.com/news/business/markets/dow-sp-500-nasdaq-open-higher-as-trumps-tariffs-take-effect-13426150.html",
+        "https://economictimes.indiatimes.com/news/international/us/advanced-micro-devices-stocks-amd-share-price-rises-over-2-per-cent-thanks-to-trump-bonanza-what-to-expect-today/articleshow/123167653.cms"
       ]
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
-      "exit_case": "No acquisitions announced or completed, but CEO's plan remains unaltered and unstopped",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there's no indication that the CEO's acquisition plans have changed or been resolved",
-      "exit_advice": "Monitor for acquisition announcements or changes in CEO's plans",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
-      "thesis_live": true,
-      "exit_case": "No new developments or concrete evidence for stimulus revival for 4 weeks.",
-      "catalyst_resolved": false,
-      "assessment": "Likelihood of stimulus revival remains plausible, supported by prior week's notes.",
-      "exit_advice": "Monitor for concrete stimulus announcements or clear indicators of revival.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CAT",
-      "thesis": "Caterpillar forecast cut weighs on industrials",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Caterpillar forecast cut still impacting industrials",
-      "exit_advice": "continue to monitor CAT",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with the recent announcement of a $250M investment in Quad Cities plants.",
+      "exit_advice": "Continue to hold as the catalyst is still driving Deere's performance and there is no indication of resolution or reversal.",
       "evidence_urls": [
-        "https://finance.yahoo.com/research/reports/ARGUS_44329_TechnicalAnalysis_1754566140000"
+        "https://finance.yahoo.com/news/deere-pours-250m-quad-cities-162509759.html"
       ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for four consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement is still pending with no resolution or updates.",
+      "evidence_urls": []
     }
   ],
   "2025-08-15": [
     {
       "ticker": "MP",
-      "thesis": "China restricts rare-earth exports",
+      "thesis": "China curbs rare-earth exports",
       "thesis_live": true,
-      "exit_case": "China has not lifted or relaxed restrictions on rare-earth exports as per the journal entries.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event catalyst remains relevant as there's no indication that China has lifted or relaxed its restrictions on rare-earth exports.",
-      "exit_advice": "Continue to monitor China's rare-earth export policies and MP's performance.",
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold MP as the catalyst remains live and the theme is still relevant.",
       "evidence_urls": [
-        "http://www.indiagazette.com/news/278510448/only-trump-knows-what-next-ex-nsa-pankaj-saran-says-india-us-strain-part-of-global-disruption",
-        "https://www.newsx.com/world/why-japan-and-china-mark-wwii-end-on-different-days-and-what-it-means-45672/"
+        "https://www.squamishchief.com/asia-pacific/is-it-time-for-bc-and-canada-to-reset-their-relationship-with-china-11073385",
+        "https://www.squamishchief.com/national-news/this-is-our-livelihood-farmers-brace-for-hit-from-new-china-canola-tariff-11071380",
+        "https://www.publicradioeast.org/2025-08-13/president-trump-is-upending-global-trade-as-we-know-it-what-comes-next"
       ]
     },
     {
-      "ticker": "TSLA",
-      "thesis": "Electric vehicle surge boosts Tesla",
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The electric vehicle surge continues to be a valid trend with TSLA remaining the purest play.",
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with a $250M investment in Quad Cities plants announced recently.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.squamishchief.com/national-news/this-is-our-livelihood-farmers-brace-for-hit-from-new-china-canola-tariff-11071380"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution for five consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue holding LTRX as the cooperation agreement remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RUN",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US launching an anti-dumping probe into Indian solar imports is a significant event that could impact Indian solar exporters. The investigation is ongoing, and its outcome is still uncertain.",
+      "exit_advice": "Hold as the catalyst is still pending and has not been resolved.",
+      "evidence_urls": [
+        "https://www.financialexpress.com/policy/economy-us-begins-probe-against-indian-solar-imports-3945841/"
+      ]
+    }
+  ],
+  "2025-08-22": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "continue to hold MP as the purest play on China's rare-earth export curbs",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/hero-motocorp-shares-jump-over-17-in-august-post-biggest-monthly-gain-in-nearly-two-years-time-to-buy-11755861138042.html",
+        "https://finance.yahoo.com/news/why-palantir-stock-tumbling-tuesday-185512900.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst is still driving Deere's performance. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal. The $250M investment in Quad Cities plants announced recently remains a positive indicator.",
+      "exit_advice": "continue to hold DE as the farm economy upturn catalyst continues to drive performance",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/top-stock-movers-now-dayforce-153426893.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution for six consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold LTRX as the cooperation agreement remains pending.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/aris-water-solutions-aris-fell-on-concerns-over-oil-price-downturn-1594152/",
+        "https://www.insidermonkey.com/blog/is-csg-systems-csgs-an-attractively-priced-stock-1593513/"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports is still under investigation. No resolution has been reached yet.",
+      "exit_advice": "hold as investigation is ongoing",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/top-stock-movers-now-dayforce-153426893.html"
+      ]
+    }
+  ],
+  "2025-08-29": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs but indicates ongoing trade tensions and strategic decoupling from China, keeping the theme relevant.",
+      "exit_advice": "Continue to hold MP as the purest play on China's rare-earth export curbs with ongoing trade tensions.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/08/27/best-utility-stocks-to-watch-today-august-26th.html",
+        "https://www.themarketsdaily.com/2025/08/27/best-utility-stocks-to-watch-today-august-26th.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn is still driving Deere's performance with no clear indication that the catalyst has been fully resolved or that the driving condition has reversed.",
+      "exit_advice": "Continue to hold as the catalyst is still unfolding and no concrete indication of resolution or reversal is observed.",
+      "evidence_urls": [
+        "https://www.investopedia.com/top-stock-movers-now-caterpillar-nvidia-autodesk-and-more-11800470"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for seven consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement remains pending with no resolution or significant updates.",
+      "evidence_urls": [
+        "https://www.fool.ca/2025/08/27/dividend-stocks-that-make-your-money-work-harder-than-you-ever-did/",
+        "https://www.fool.ca/2025/08/25/build-an-income-portfolio-with-just-5000/"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports is still ongoing with no resolution reached yet.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.proactiveinvestors.co.uk/companies/news/1077430/ftse-100-live-blue-chips-fly-lower-drax-tumbles-as-watchdog-opens-probe-1077430.html"
+      ]
+    }
+  ],
+  "2025-09-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold as the catalyst remains live and the theme is still relevant.",
+      "evidence_urls": [
+        "https://www.irishtimes.com/business/2025/09/04/shares-shake-off-china-selloff-as-bond-markets-brighten/"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with ongoing optimism and investments.",
+      "exit_advice": "Hold DE as the farm economy upturn catalyst remains unresolved and continues to drive Deere's performance.",
+      "evidence_urls": [
+        "https://www.morningstar.com/markets/stock-market-outlook-where-we-see-investing-opportunities-september",
+        "https://www.irishtimes.com/business/2025/09/04/shares-shake-off-china-selloff-as-bond-markets-brighten/"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for eight consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold the position as there is no clear resolution or reversal of the driving condition.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with no resolution.",
+      "exit_advice": "Hold as the investigation is still ongoing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google is still pending and has potential significant impact.",
+      "exit_advice": "Monitor news for resolution or appeal",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/top-stock-movers-now-alphabet-153352118.html"
+      ]
+    }
+  ],
+  "2025-09-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains in effect with ongoing trade tensions and discussions relevant to the theme. This week's news doesn't directly address the rare-earth export curbs, but indicates ongoing strategic decoupling from China, keeping the theme relevant. While there's no new information directly on rare-earth export curbs, the broader context of trade tensions and decoupling continues to support the catalyst's relevance. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "The catalyst remains live as there's no resolution or reversal of China's rare-earth export curbs. Ongoing trade tensions and strategic decoupling from China keep the theme relevant.",
+      "evidence_urls": [
+        "https://www.forbes.com/sites/brendanahern/2025/09/09/china-market-update-alibabas-birthday-bash-announcement-anti-involution-comes-to-restaurant-delivery/"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "continue to hold DE as the farm economy upturn continues to drive performance",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-unitedhealth-group-stock-soared-183314773.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution for nine consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement remains pending with no updates or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending.",
+      "exit_advice": "Continue to hold as the investigation is still ongoing with no resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-unitedhealth-group-stock-soared-183314773.html"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst is still under discussion and has not been resolved.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://beniciaindependent.com/california-in-talks-to-pay-hundreds-of-millions-to-valero-to-stave-off-refinery-shutdown/"
+      ]
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "Continue to hold MP as the purest play on China's rare-earth export curbs.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/the-southern-company-so-georgia-power-receives-approval-from-georgia-public-service-commission-psc-1612351/",
+        "https://www.dailypolitical.com/2025/09/19/vanguard-real-estate-etf-vnq-shares-purchased-by-charter-oak-capital-management-llc.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst remains active with ongoing optimism and investments. Deere's performance continues to be driven by this catalyst with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn catalyst continues to drive performance.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for ten consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement is still pending with no resolution or updates.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under investigation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google is still pending and has not been resolved.",
+      "exit_advice": "Hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The event remains under consideration with no concrete outcome yet, maintaining the relevance of the catalyst.",
+      "exit_advice": "Hold as the catalyst is still under discussion and no resolution has been reached.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SO",
+      "thesis": "Georgia Power Receives Approval from Georgia Public Service Commission",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Georgia Power received approval from Georgia Public Service Commission on the entry date.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "ASSIGNMENT REVIEW",
+      "exit_advice": "The catalyst has been resolved.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/the-southern-company-so-georgia-power-receives-approval-from-georgia-public-service-commission-psc-1612351/"
+      ]
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "continue to hold MP as the purest play on China's rare-earth export curbs",
+      "evidence_urls": [
+        "https://www.straitstimes.com/business/companies-markets/drone-attacks-shares-of-little-known-australian-defence-company-soar-373",
+        "https://www.defenseworld.net/2025/09/26/novem-group-boosts-stake-in-vanguard-real-estate-etf-vnq.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "The catalyst remains active with no indication of resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution for eleven consecutive weeks.",
+      "exit_advice": "Hold the position as the catalyst remains pending and there are no indications of resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/digital-real-estate/realty-news/listed-reits-deliver-up-to-29-returns-in-1-yr-versus-realty-stocks-35-fall-will-equity-status-add-to-the-mojo/articleshow/124106728.cms"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains unresolved.",
+      "exit_advice": "Hold as the catalyst is still pending.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/09/25/big-tech-is-fun-again-the-fed-speaks/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst is still pending and has not been resolved or reversed.",
+      "exit_advice": "Hold as the catalyst remains under discussion.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/09/22/stock-market-usually-ignores-government-shutdowns-maybe-not-this-time.html"
+      ]
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains relevant as trade tensions and strategic decoupling from China continue.",
+      "exit_advice": "Continue to hold as the broader theme of trade tensions and decoupling remains relevant.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/p-futures-muted-trump-tariffs-101222550.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. There is no clear indication that the catalyst has been fully resolved or that the driving condition has reversed. The recent lack of fresh news directly related to Deere does not indicate a reversal or resolution of the catalyst.",
+      "exit_advice": "Continue to hold as the farm economy upturn catalyst remains active and is still driving Deere's performance.",
+      "evidence_urls": [
+        "https://www.forconstructionpros.com/equipment/crane/news/22951509/palfinger-north-america-group-palfinger-opens-new-north-american-parts-distribution-center-in-illinois"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twelve consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold LTRX as the cooperation agreement remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation. No resolution has been reached yet, keeping the catalyst pending.",
+      "exit_advice": "Hold as the investigation is still ongoing with no resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending.",
+      "exit_advice": "The position remains valid as the catalyst is still pending.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/p-futures-muted-trump-tariffs-101222550.html",
+        "https://biztoc.com/x/bba1e22bedc1b54b"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains pending with no resolution or reversal.",
+      "exit_advice": "Hold VLO as the catalyst is still under consideration.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/25/10/48011379/sp-500-settles-at-record-high-despite-government-shutdown-investor-sentiment-improves-fear-greed",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-9-30-tsx-navigates-choppy-waters-energy-drags-while-gold-shines-amid-us-shutdown-fears"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "IBM is gaining favor in the emerging quantum computing field, with recent news coverage highlighting its performance.",
+      "exit_advice": "continue to monitor IBM's progress in quantum computing",
+      "evidence_urls": [
+        "https://biztoc.com/x/42f393ae7dce97cf",
+        "https://www.forbes.com/sites/digital-assets/2025/10/02/token2049-trends-quantum-stablecoins-deai-and-rwa/"
+      ]
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "continue to hold MP as the purest play on China's rare-earth export curbs",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn catalyst continues to drive performance.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-10-opec-report-and-construction-spending-data-set-to-define-mondays-commodity-landscape"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for thirteen consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://biztoc.com/x/bb0fcf69c1804257"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google is still pending and has not been resolved",
+      "exit_advice": "Hold as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.theglobeandmail.com/investing/investment-ideas/article-entrenched-views-other-side/"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains under consideration with no concrete outcome or resolution.",
+      "exit_advice": "Hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The catalyst remains under-the-radar and there is no news indicating its resolution. IBM is still gaining favor in the emerging quantum computing field.",
+      "exit_advice": "continue to hold IBM as it remains a pure play on the emerging quantum computing field",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. This week's news indicates escalated trade tensions with Trump's tariff threats, supporting the continued relevance of the catalyst.",
+      "exit_advice": "Hold as trade tensions remain relevant.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn remains the driving catalyst for Deere's performance. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with ongoing optimism and investments.",
+      "exit_advice": "Hold DE as the farm economy upturn continues to drive performance.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/expert-view/neeraj-dewan-sees-consumer-realty-and-financials-driving-diwali-market-rally/articleshow/124624079.cms"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for fourteen consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold LTRX as the cooperation agreement remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet, keeping the catalyst pending.",
+      "exit_advice": "The catalyst remains pending with no resolution reached yet. The investigation is still ongoing, and its outcome is uncertain.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/chinese-stocks-slide-as-renewed-trade-tensions-threaten-bull-run-13611470.html",
+        "https://www.cnbctv18.com/market/chinese-stocks-slide-as-renewed-trade-tensions-threaten-bull-run-19712693.htm"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal, the federal antitrust lawsuit decision against Google remains pending.",
+      "exit_advice": "Hold as the catalyst remains pending and has not been resolved.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/p-futures-tick-higher-focus-101204278.html"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, the catalyst remains pending with no resolution or reversal.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under consideration.",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4503430-real-estate-stocks-tumble-amid-lingering-government-shutdown-renewed-trade-war-concerns"
+      ]
+    },
+    {
+      "ticker": "IBM",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "IBM continues to gain favor in the emerging quantum computing field with no news indicating the resolution of the catalyst.",
+      "exit_advice": "Hold as the catalyst remains under-the-radar and there is no indication of its resolution.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-macquarie-large-cap-growth-132747347.html",
+        "https://www.ynetnews.com/business/article/h1i8nqcaxg"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The news on 2025-10-17 confirms that Rocket Lab has won the Japan Aerospace deal, and the stock is reacting positively. The catalyst is still under the radar as the news is recent and the market is still absorbing the information.",
+      "exit_advice": "Hold RKLB as the Japan Aerospace deal is still being digested and has not been resolved or reversed.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html"
+      ]
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. This week's news doesn't directly address the rare-earth export curbs but indicates escalated trade tensions with Trump's tariff threats and discussions around quantum computing and rare minerals, supporting the continued relevance of the catalyst. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold MP Materials (MP) as the catalyst remains relevant.",
+      "evidence_urls": [
+        "https://www.businessinsider.com/quantum-computing-stocks-trump-government-investment-us-dominance-trade-war-2025-10"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn remains the driving catalyst for Deere's performance. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with ongoing optimism and investments, indicating no resolution or reversal of the catalyst.",
+      "exit_advice": "Hold Deere as the farm economy upturn catalyst continues to drive its performance.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-24-middlesex-water-company-continues-decades-long-dividend-streak-with-588-increase-bolstering-utility-sectors-defensive-appeal",
+        "https://finance.yahoo.com/news/stocks-supported-strength-energy-producers-152021865.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for eighteen consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/stocks-to-buy-raja-venkatraman-top-stock-recommendations-24-october-nifty-sensex-11761220906465.html",
+        "https://www.el-balad.com/6742581"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal and this week's news to assess the status of the US anti-dumping probe into Indian solar imports.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under investigation.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/gold-rush-loses-momentum-runup-103000042.html"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and is still under-the-radar.",
+      "exit_advice": "Hold GOOGL as the catalyst remains pending and has not been resolved.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/alphabet-googls-stock-is-great-says-jim-cramer-1633195/"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal and this week's news, the catalyst 'California pays Valero to avoid refinery shutdown' remains pending.",
+      "exit_advice": "Hold the position as the catalyst remains pending and under consideration.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains under-the-radar and there is increasing mainstream attention on quantum computing, but no resolution.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/stocks/dow-adds-472-points-after-september-cpi-stock-market-today",
+        "https://www.ibtimes.com/quantum-computing-stocks-surge-trump-seeks-stake-exchange-federal-funding-3788422",
+        "https://www.insidermonkey.com/blog/jim-cramer-says-people-are-trying-to-figure-out-what-ionq-ionq-exactly-is-1633200/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still recent news, and the market is still absorbing the information. No new information has been released regarding the deal's progress or resolution.",
+      "exit_advice": "Continue to hold RKLB as the catalyst remains under the radar and has not been resolved.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-23-quantum-computing-stocks-rocket-on-trump-bombshell-then-retreat-amidst-official-denial"
+      ]
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance. The recent news on trade tensions and discussions around quantum computing and rare minerals further supports the continued relevance of the catalyst.",
+      "exit_advice": "Hold MP Materials (MP) as the catalyst remains relevant.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-trump-xi-summit-underwhelms-mag-7-earnings-disappoint",
+        "https://finance.yahoo.com/news/did-president-trump-just-huge-133000305.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal from 2025-05-16 to 2025-10-24, the farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "The catalyst remains active as there's no clear indication that the farm economy upturn has been fully resolved or that the driving condition has reversed. Continue to hold the position.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund is still pending with no updates or resolution for nineteen consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold as the cooperation agreement remains pending with no resolution or updates.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "continue holding FSLR as the catalyst remains pending",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/stock-market-today-trade-setup-for-nifty-50-us-fed-meeting-to-gold-silver-prices-8-stocks-to-buy-11761665810305.html"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The antitrust lawsuit decision against Google remains pending.",
+      "exit_advice": "The position should be held as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-28-federal-reserve-poised-for-another-rate-cut-amid-cooling-economy-and-job-market"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' is still under consideration with no concrete outcome or resolution. The event remains under-the-radar and has not been resolved or reversed.",
+      "exit_advice": "Hold as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2025/10/26/cramer-invest-in-stocks-and-avoid-1990s-like-speculation-that-seems-so-tempting.html"
+      ]
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains under-the-radar with increasing mainstream attention on quantum computing, but no resolution. IONQ is a purer play than IBM.",
+      "exit_advice": "Hold IONQ as the pure play on quantum computing gains favor.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/could-investing-10-000-rigetti-000000729.html",
+        "https://www.fool.com/investing/2025/10/30/if-youd-invested-1000-in-ionq-stock-1-year-ago/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still recent and under the radar, with no new information on its progress or resolution.",
+      "exit_advice": "Hold RKLB as the catalyst is still pending and under the radar.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3587203/asian-shares-rise-ahead-of-fed-decision.aspx"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresnillo's acquisition of Gold Probe Inc. is a significant development, marking its entry into the Canadian market. The event is still in its early stages as the news just broke.",
+      "exit_advice": "Monitor news on acquisition progress",
+      "evidence_urls": [
+        "https://www.cityam.com/fresnillo-moves-into-canadian-market-after-major-acquisition/"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance. Recent news on trade tensions and discussions around quantum computing and rare minerals further supports the continued relevance of the catalyst.",
+      "exit_advice": "continue to hold MP Materials (MP) as the purest play on China's rare-earth export curbs",
+      "evidence_urls": [
+        "https://www.investopedia.com/here-s-how-hot-quantum-stocks-have-been-lately-and-what-to-know-about-them-11844042",
+        "https://finance.yahoo.com/news/self-feeding-loop-quantum-computing-133055091.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "Continue to hold DE as the farm economy upturn catalyst remains active with ongoing optimism and investments.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-11-7-un-sounds-alarm-global-food-prices-to-remain-stubbornly-high-in-2025-threatening-worldwide-food-security",
+        "https://www.wlj.net/global-beef-trade-strengthens-amid-volatility-rising-demand/"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twenty consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold as the catalyst remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://edition.cnn.com/2025/11/07/climate/solar-wind-renewables-transition-global-pakistan-hungary-chile"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains unresolved and under-the-radar.",
+      "exit_advice": "continue to hold GOOGL as the antitrust lawsuit decision remains pending",
+      "evidence_urls": [
+        "https://news.webindia123.com/news/Articles/India/20251107/4381253.html",
+        "https://aninews.in/news/national/general-news/great-power-games-by-former-rampaw-chief-vikram-sood-unveiled-in-new-delhi20251107224506/",
+        "https://www.investorschronicle.co.uk/content/cf973c2f-476b-4bb5-9214-5895b29f0857",
+        "https://www.rttnews.com/story.aspx?Id=3591441",
+        "https://www.thetimes.com/business-money/economics/article/live-latest-news-uk-companies-ftse-100-shares-7xx37xhcf"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal and this week's news, there is no relevant information about the catalyst 'California pays Valero to avoid refinery shutdown'.",
+      "exit_advice": "Hold VLO as the catalyst remains under consideration with no concrete outcome or resolution.",
+      "evidence_urls": [
+        "https://jbhe.com/2025/11/a-trio-of-black-scholars-selected-for-new-roles-in-the-academic-world/",
+        "https://www.webpronews.com/boeings-1-1b-lifeline-evading-charges-in-737-max-saga/"
+      ]
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Mainstream attention on quantum computing has increased, potentially indicating reduced under-the-radar status.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "IONQ remains a purer play on quantum computing. While mainstream attention has increased, the catalyst remains under-the-radar and there is no concrete resolution.",
+      "exit_advice": "Continue to monitor for resolution or mainstream saturation.",
+      "evidence_urls": [
+        "https://www.investors.com/news/technology/quantum-computing-stocks-ionq-earnings-q32025/",
+        "https://finance.yahoo.com/news/self-feeding-loop-quantum-computing-133055091.html"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still recent news and under the radar. The market is still absorbing the information, and there is no new development on its progress or resolution.",
+      "exit_advice": "Hold RKLB as the Japan Aerospace deal win is still under the radar and no new information has been released regarding its resolution.",
+      "evidence_urls": [
+        "https://biztoc.com/x/30a7d766a5dac1fe"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The acquisition of Gold Probe Inc. by Fresnillo is a significant event that marks Fresnillo's entry into the Canadian market. As there was no fresh coverage this week, the event remains in its early stages.",
+      "exit_advice": "Hold FNLPF as the acquisition news is still relatively early and under-the-radar, with no concrete resolution or mainstream saturation.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance. Recent news on trade tensions and discussions around quantum computing and rare minerals further supports the continued relevance of the catalyst. MP Materials (MP) continues to be the best vehicle.",
+      "exit_advice": "Hold MP Materials (MP) as the catalyst remains relevant.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/p-500s-top-stock-lifts-203800319.html",
+        "https://foreignpolicy.com/2025/11/11/putin-russia-invasion-ukraine/"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments.",
+      "exit_advice": "Continue to hold the position as the catalyst remains active and there is no indication of resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twenty-one consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Hold the position as the catalyst remains pending and there are no updates or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal and this week's news, there is no new development on the US anti-dumping probe into Indian solar imports.",
+      "exit_advice": "Continue to hold FSLR as the pure-play vehicle.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/argentina-freezes-hayden-davis-assets-223000417.html",
+        "http://www.washingtonjewishweek.com/elise-stefanik-republican-who-dominated-house-antisemitism-hearings-to-run-for-new-york-governor/"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains unresolved and under-the-radar. The journal consistently shows that the catalyst has not been resolved, and this week's news does not indicate any development related to the lawsuit.",
+      "exit_advice": "continue holding GOOGL as the catalyst remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' remains under consideration with no concrete outcome or resolution.",
+      "exit_advice": "The event remains under-the-radar and has not been resolved or reversed.",
+      "evidence_urls": [
+        "https://www.nzherald.co.nz/world/trump-is-temporary-california-governor-newsom-seizes-spotlight-at-un-climate-summit/OKL44IWCSNC3ZJIYQHKZJ3JALM/",
+        "https://www.rte.ie/news/environment/2025/1111/1543409-cop-30-brazil/"
+      ]
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, there's no indication that the catalyst has resolved or that its driving condition has reversed. The event remains under-the-radar despite increasing mainstream attention on quantum computing.",
+      "exit_advice": "Hold the position as the catalyst remains under-the-radar and there is no concrete resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://investorplace.com/smartmoney/2025/11/from-the-gamestop-boom-to-his-next-big-call/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still recent news and under the radar with no new information on its progress or resolution.",
+      "exit_advice": "Hold as the catalyst is still pending and under the radar.",
+      "evidence_urls": [
+        "https://www.finanzen.ch/nachrichten/aktien/mild-upside-seen-for-japan-stock-market-1035543935"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresnillo's acquisition of Gold Probe Inc. remains a significant event as it marks Fresnillo's entry into the Canadian market. There has been no significant development or resolution regarding the acquisition in the past week.",
+      "exit_advice": "Continue holding FNLPF as the acquisition is still in its early stages and there is no concrete evidence of resolution or mainstream saturation.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/argentina-freezes-hayden-davis-assets-223000417.html"
+      ]
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The event catalyst of Venezuela raising military readiness in response to the US Carrier Group nearing the Caribbean is still active and has not been resolved. The news articles from this week indicate escalating tensions and military readiness, aligning with the initial catalyst.",
+      "exit_advice": "Hold as the catalyst is still developing and under-the-radar",
+      "evidence_urls": [
+        "https://trinidadexpress.com/newsextra/venezuela-raises-military-readiness-as-u-s-carrier-group-nears-caribbean/article_096787d1-88d0-4619-99b2-f656b9016ffe.html",
+        "https://www.nzherald.co.nz/world/arrival-of-us-aircraft-carrier-strike-group-to-region-fuels-venezuelan-fears-of-attack/HW5IBEVAOZDGLPIX3JQTHRFWYU/"
+      ]
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains relevant with ongoing trade tensions and strategic decoupling from China.",
+      "exit_advice": "Continue to hold as the catalyst remains live and relevant.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/19/nuclear-stocks-to-watch-now-november-19th.html",
+        "https://english.aawsat.com/world/5209294-iran-warns-us-e3-against-new-iaea-resolution"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn catalyst remains active with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "Hold DE as the farm economy upturn continues to drive performance.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twenty-two consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and under-the-radar.",
+      "exit_advice": "Continue holding GOOGL as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' remains pending with no concrete outcome or resolution.",
+      "exit_advice": "Hold the position as the catalyst remains under consideration and has not been resolved or reversed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal, there's no indication that the catalyst 'Gains favor in emerging quantum computing field' has resolved or that its driving condition has reversed. IONQ remains a purer play on quantum computing compared to IBM, and despite increasing mainstream attention on quantum computing, the catalyst remains under-the-radar with no concrete resolution or next step announced.",
+      "exit_advice": "Continue to hold as the catalyst remains under-the-radar and there's no concrete resolution or next step announced. Mainstream attention has increased but hasn't reached saturation levels.",
+      "evidence_urls": [
+        "https://www.globalsecurity.org/wmd/library/news/iran/2025/11/iran-251119-irna03.htm",
+        "https://www.cnbc.com/2025/11/17/this-jewelry-stock-is-outperforming-this-year-why-it-could-see-even-more-gains.html",
+        "https://english.aawsat.com/world/5209294-iran-warns-us-e3-against-new-iaea-resolution"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still recent and under the radar with no new development on its progress or resolution.",
+      "exit_advice": "Hold as there's no new information on the deal's resolution and the catalyst is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresnillo's acquisition of Gold Probe Inc. is still in its early stages with no significant developments or resolutions. The lack of fresh coverage this week does not indicate a resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold FNLPF as the acquisition event remains under-the-radar and unresolved",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation remains tense with Venezuela maintaining heightened military readiness. No new developments or resolutions have been reported.",
+      "exit_advice": "Hold GEV as the catalyst remains active and no resolution or reversal has occurred.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA Board of Governors has convened amid a Western push for a resolution against Iran, indicating the catalyst is still active. Iran has warned the US and E3 against submitting a new draft resolution, suggesting tensions remain high.",
+      "exit_advice": "Hold as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.globalsecurity.org/wmd/library/news/iran/2025/11/iran-251119-irna03.htm",
+        "https://english.aawsat.com/world/5209294-iran-warns-us-e3-against-new-iaea-resolution"
+      ]
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "After reviewing the entire journal and this week's news, the catalyst 'China curbs rare-earth exports' remains live due to ongoing trade tensions and strategic decoupling from China, keeping the theme relevant.",
+      "exit_advice": "The catalyst remains under-the-radar with ongoing trade tensions and strategic decoupling from China.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/expert-view/earnings-rebound-tariff-deal-hopes-position-markets-for-a-strong-two-year-run-nilesh-shetty/articleshow/125612611.cms",
+        "https://finance.yahoo.com/news/trump-just-made-most-important-030109248.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "continue holding DE as the farm economy upturn catalyst remains active",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13270526/best-industrial-stocks-worth-watching-november-27th.html",
+        "https://www.themarketsdaily.com/2025/11/27/industrial-stocks-worth-watching-november-26th.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twenty-three consecutive weeks. The lack of fresh news or updates indicates a quiet period, but it does not necessarily imply resolution or reversal of the driving condition.",
+      "exit_advice": "continue to hold LTRX as the cooperation agreement remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/expert-view/earnings-rebound-tariff-deal-hopes-position-markets-for-a-strong-two-year-run-nilesh-shetty/articleshow/125612611.cms"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and under-the-radar, consistent with the journal's previous entries.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal and this week's news, there is still no concrete outcome or resolution for the catalyst 'California pays Valero to avoid refinery shutdown'.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "No news this week directly relates to the catalyst 'Gains favor in emerging quantum computing field' or its vehicles IBM and IONQ.",
+      "exit_advice": "The catalyst remains under-the-radar with no concrete resolution or next step announced.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win is still under the radar with no new development on its progress or resolution.",
+      "exit_advice": "Continue to hold as there is no new information on the deal's resolution or progress.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The acquisition remains in its early stages with no significant developments or resolutions.",
+      "exit_advice": "Continue to hold as the acquisition is still pending and there are no signs of resolution or mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation in Venezuela remains tense with continued military readiness. No new developments have been reported, but the initial catalyst has not been resolved.",
+      "exit_advice": "The catalyst remains active as there's no resolution or reversal reported.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst as there's no indication it has been resolved or voted on.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst as there's no indication it has been resolved or voted on.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "continue to hold MP as the purest play on China curbing rare-earth exports",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The farm economy upturn continues with no clear resolution or reversal indicated in the journal or this week's news.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to drive Deere's performance with ongoing optimism and investments. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with no indication of resolution or reversal.",
+      "exit_advice": "Continue to hold as the farm economy upturn catalyst remains active and there is no indication of resolution or reversal.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13278469/promising-industrial-stocks-to-keep-an-eye-on-december-2nd.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund remains pending with no updates or resolution for twenty-four consecutive weeks.",
+      "exit_advice": "Continue to hold as there is no resolution or reversal of the driving condition.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/opinion/indian-market-stands-apart-amid-global-ai-driven-rally-13709846.html"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and under-the-radar.",
+      "exit_advice": "continue to hold",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/stocks-finish-lower-us-yields-rise-as-investors-take-breather-to-assess-fed-moves-ce7d51d8df81f425",
+        "https://www.marketscreener.com/news/stocks-fall-us-yields-rise-as-investors-take-breather-to-assess-fed-moves-ce7d51d8dd8efe2c"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' remains under consideration with no concrete outcome or resolution, maintaining its relevance.",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/honeywell-hon-to-support-major-expansion-at-nigerias-dangote-refinery-by-2028-1653089/"
+      ]
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'Gains favor in emerging quantum computing field' remains under-the-radar with no concrete resolution or next step announced. IONQ is still the purest play among the known vehicles.",
+      "exit_advice": "Hold IONQ as it remains a purer play on quantum computing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "There is no new information regarding the Japan Aerospace deal won by Rocket Lab. The market is still absorbing the initial news from 2025-10-17.",
+      "exit_advice": "The catalyst is still under the radar, and there is no new development on its progress or resolution.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/stocks-set-open-lower-bond-111904475.html",
+        "https://www.insidermonkey.com/blog/bnp-paribas-is-bullish-on-howmet-aerospace-hwm-1653070/"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "No fresh coverage this week; the event remains under-the-radar.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation remains tense with Venezuela maintaining heightened military readiness. No resolution or reversal has been reported.",
+      "exit_advice": "Hold GEV as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://www.reuters.com/world/americas/venezuela-military-readiness-2025-11-30/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. OKLO and CCJ remain relevant vehicles.",
+      "exit_advice": "Hold as the catalyst is still active and under-the-radar.",
+      "evidence_urls": [
+        "https://www.wealthdaily.com/why-oklo-inc-oklo-shares-surged-1559-nuclear-powers-ai-driven-comeback-1/",
+        "https://www.tickerreport.com/banking-finance/13280778/nuclear-stocks-to-watch-now-december-4th.html",
+        "https://www.themarketsdaily.com/2025/12/03/best-nuclear-stocks-to-consider-december-3rd.html",
+        "https://finance.yahoo.com/news/oklo-inc-oklo-fell-over-012809624.html"
+      ]
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. OKLO and CCJ remain relevant vehicles.",
+      "exit_advice": "Hold as the catalyst is still active and under-the-radar.",
+      "evidence_urls": [
+        "https://www.wealthdaily.com/why-oklo-inc-oklo-shares-surged-1559-nuclear-powers-ai-driven-comeback-1/",
+        "https://www.tickerreport.com/banking-finance/13280778/nuclear-stocks-to-watch-now-december-4th.html",
+        "https://www.themarketsdaily.com/2025/12/03/best-nuclear-stocks-to-consider-december-3rd.html",
+        "https://finance.yahoo.com/news/oklo-inc-oklo-fell-over-012809624.html"
+      ]
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live due to ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "The catalyst 'China curbs rare-earth exports' remains live with ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. There is no indication that the catalyst has been resolved or that the driving condition has reversed.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13289635/promising-industrial-stocks-to-follow-today-december-12th.html",
+        "https://finance.yahoo.com/news/walmart-stock-making-historic-change-124600828.html"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The farm economy upturn catalyst continues to drive Deere's performance with ongoing optimism and investments; no resolution or reversal indicated.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn continues to be the driving catalyst for Deere's performance. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with ongoing optimism and investments, indicating no resolution or reversal of the catalyst. DE remains the best vehicle to capture this event.",
+      "exit_advice": "Continue to hold DE as the farm economy upturn catalyst remains active with ongoing optimism and investments.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13289635/promising-industrial-stocks-to-follow-today-december-12th.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The cooperation agreement between Lantronix and Chain of Lakes Investment Fund has been pending for 24 weeks without resolution. The lack of updates or fresh news indicates a quiet period, but it does not imply resolution or reversal of the driving condition. The catalyst remains pending.",
+      "exit_advice": "Hold as the cooperation agreement remains pending with no updates or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet.",
+      "exit_advice": "The catalyst is still pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/ubs-cautious-on-nuscale-power-corporation-smr-amid-near-term-headwinds-1657857/"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and under-the-radar. The journal consistently shows that the catalyst has not been resolved, and this week's news does not indicate any development related to the lawsuit.",
+      "exit_advice": "Hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/international-business/a-new-high-on-wall-street-dow-and-sp-500-set-new-records-nasdaq-dragged-down-by-oracle-results/articleshow/125924475.cms",
+        "https://www.fool.com/investing/2025/12/08/could-this-be-the-best-ai-stock-to-buy-for-the-nex/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' remains under consideration with no concrete outcome or resolution.",
+      "exit_advice": "Hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Gains favor in emerging quantum computing field",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Mainstream attention on quantum computing has increased significantly, with some analysts predicting a bubble burst in 2026.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "While the specific catalyst 'Gains favor in emerging quantum computing field' has not resolved, the increasing mainstream attention and predictions of a bubble burst in 2026 suggest that the early edge has been lost.",
+      "exit_advice": "The catalyst remains under-the-radar with no concrete resolution, but mainstream attention has increased significantly, indicating the edge is spent.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/12/08/prediction-the-quantum-computing-bubble-will-burst/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal won by Rocket Lab is still under the radar with no new development on its progress or resolution.",
+      "exit_advice": "Hold RKLB as the catalyst is still pending and under the radar.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/goldman-sachs-touts-loar-holdings-162927079.html"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresnillo's acquisition of Gold Probe Inc. remains significant with no resolution.",
+      "exit_advice": "Continue to hold FNLPF as the acquisition remains under-the-radar and unresolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation remains tense with Venezuela maintaining heightened military readiness. No resolution or reversal has been reported.",
+      "exit_advice": "Hold GEV as the catalyst remains unresolved.",
+      "evidence_urls": [
+        "https://wwd.com/beauty-industry-news/wellness/hospitality-wellness-trends-7-trillion-wellness-industry-1238368122/"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. OKLO and CCJ remain relevant vehicles. While there is increased mainstream coverage of nuclear stocks, the specific catalyst remains pending and under-the-radar.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html",
+        "https://www.themarketsdaily.com/2025/12/07/top-nuclear-stocks-worth-watching-december-7th.html"
+      ]
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. OKLO and CCJ remain relevant vehicles. While there is increased mainstream coverage of nuclear stocks, the specific catalyst remains pending and under-the-radar.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html",
+        "https://www.themarketsdaily.com/2025/12/07/top-nuclear-stocks-worth-watching-december-7th.html"
+      ]
+    }
+  ],
+  "2025-12-19": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst 'China curbs rare-earth exports' remains live due to ongoing trade tensions and strategic decoupling from China, keeping the theme relevant. While there's no new information directly on rare-earth export curbs this week, the broader context of trade tensions and decoupling continues to support the catalyst's relevance.",
+      "exit_advice": "continue to hold MP as the best vehicle",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/news/economy/foreign-trade/fta-shield-in-turbulent-times-how-india-is-locking-in-growth-as-global-tariff-walls-rise/articleshow/126060611.cms"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn remains active with ongoing optimism and investments.",
+      "exit_advice": "none",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/bank-england-cuts-rates-economy-161046089.html"
+      ]
+    },
+    {
+      "ticker": "LTRX",
+      "thesis": "Lantronix enters cooperation agreement with Chain of Lakes Investment Fund",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The cooperation agreement has been pending for 24 weeks without resolution or updates, potentially indicating stagnation.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The catalyst remains pending but lacks updates or resolution for an extended period (24 weeks), indicating a potential loss of momentum or relevance. The lack of fresh news or developments suggests that the initial catalyst may not lead to significant outcomes, diminishing its impact.",
+      "exit_advice": "The prolonged silence on the cooperation agreement between Lantronix and Chain of Lakes Investment Fund suggests a lack of progress or resolution, indicating the thesis is no longer live.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/what-makes-axon-enterprise-axon-a-strong-investment-1661334/"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The US anti-dumping probe resolution is still pending with no conclusion reached yet.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet. The catalyst is still pending and under-the-radar.",
+      "exit_advice": "Continue to hold as the investigation is still ongoing.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/india-closes-2025-with-a-solar-capacity-glut-faces-utilisation-margin-test-next-year-13732604.html"
+      ]
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains pending and under-the-radar, consistent with the journal's previous entries.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.tribuneindia.com/news/business/stock-markets-surge-after-four-days-of-decline-sensex-jumps-447-points/",
+        "https://www.tribuneindia.com/news/business/stock-markets-rebound-in-early-trade-after-four-days-of-decline-sensex-jumps-448-points/",
+        "https://www.riotimesonline.com/brazils-financial-morning-call-for-december-18-2025/"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the entire journal and this week's news, there is still no concrete outcome or resolution for the catalyst 'California pays Valero to avoid refinery shutdown'.",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win by Rocket Lab is still recent and under the radar. There is no new development on its progress or resolution, and the market is still absorbing the initial news from 2025-10-17.",
+      "exit_advice": "Hold as the catalyst is still under the radar and there are no signs of resolution or mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The acquisition remains in its early stages with no significant developments or resolutions.",
+      "exit_advice": "Hold as the event is still under-the-radar and no concrete resolution or reversal has occurred.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation remains tense with Venezuela maintaining heightened military readiness. No resolution or reversal has been reported.",
+      "exit_advice": "Continue holding GEV as the catalyst remains unresolved.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/stocks/news/world-beating-55000-surge-in-india-ai-stock-fuels-bubble-fears/articleshow/126049271.cms"
+      ]
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran is still a live catalyst with no indication of resolution or vote. Mainstream coverage of nuclear stocks has increased, but the specific catalyst remains under-the-radar.",
+      "exit_advice": "Hold as the IAEA resolution against Iran remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/19/best-nuclear-stocks-to-consider-december-19th.html",
+        "https://www.dailypolitical.com/2025/12/18/nuclear-stocks-to-add-to-your-watchlist-december-18th.html",
+        "https://www.tickerreport.com/banking-finance/13295640/nuclear-stocks-to-add-to-your-watchlist-december-18th.html"
+      ]
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran is still a live catalyst with no indication of resolution or vote. Mainstream coverage of nuclear stocks has increased, but the specific catalyst remains under-the-radar.",
+      "exit_advice": "Hold as the IAEA resolution against Iran remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/19/best-nuclear-stocks-to-consider-december-19th.html",
+        "https://www.dailypolitical.com/2025/12/18/nuclear-stocks-to-add-to-your-watchlist-december-18th.html",
+        "https://www.tickerreport.com/banking-finance/13295640/nuclear-stocks-to-add-to-your-watchlist-december-18th.html"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron exceeds quarterly expectations",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Micron already reported quarterly results, exceeding expectations, so the catalyst has resolved.",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The event catalyst was Micron exceeding quarterly expectations. The news articles indicate that Micron has already reported its quarterly results, which were stronger than expected. This means the catalyst has occurred and is now public.",
+      "exit_advice": "Exit the position as the catalyst has resolved.",
+      "evidence_urls": [
+        "https://www.investopedia.com/ai-stocks-got-some-good-news-and-surged-will-this-micron-powered-momentum-last-mu-11872216",
+        "https://finance.yahoo.com/news/stocks-climb-open-micron-boost-111613250.html"
+      ]
+    }
+  ],
+  "2025-12-26": [
+    {
+      "ticker": "MP",
+      "thesis": "China curbs rare-earth exports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains live due to ongoing trade tensions and strategic decoupling from China, supporting the relevance of 'China curbs rare-earth exports'.",
+      "exit_advice": "Continue to hold as the catalyst's relevance is supported by ongoing trade tensions and strategic decoupling from China.",
+      "evidence_urls": [
+        "https://www.morningstar.com/stocks/weekly-market-wrap-stocks-extend-2025-rally-basic-materials-tech-rise",
+        "https://news.tuoitre.vn/asia-stocks-rise-to-six-week-high-precious-metals-on-a-tear-103251226104612357.htm",
+        "https://japantoday.com/category/national/u.s.-forces-modify-unit-relocation-from-okinawa-to-guam-with-china-in-mind"
+      ]
+    },
+    {
+      "ticker": "DE",
+      "thesis": "Deere surges to record on farm economy upturn",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The farm economy upturn remains the driving catalyst for Deere's performance. Despite the lack of fresh news directly related to Deere this week, the overall trend continues with ongoing optimism and investments, indicating no resolution or reversal of the catalyst.",
+      "exit_advice": "Hold DE as the farm economy upturn continues with ongoing optimism and investments.",
+      "evidence_urls": [
+        "https://www.dailymail.co.uk/money/markets/article-15414055/FTSE-100-course-best-year-recovery-financial-crisis.html",
+        "https://www.wral.com/news/ap/b7cbb-stocks-dip-slightly-as-investors-return-from-christmas-holiday-in-light-trading/",
+        "https://neworleanscitybusiness.com/blog/2025/12/26/us-stocks-record-highs-gold-silver-prices/"
+      ]
+    },
+    {
+      "ticker": "FSLR",
+      "thesis": "US launches anti-dumping probe into Indian solar imports",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Reviewing the journal and this week's news, the US anti-dumping probe into Indian solar imports remains under investigation with no resolution reached yet.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GOOGL",
+      "thesis": "Federal antitrust lawsuit decision against Google",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The federal antitrust lawsuit decision against Google remains unresolved and under-the-radar, consistent with the journal's previous entries. No new developments related to the lawsuit were found in this week's news.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and under-the-radar.",
+      "evidence_urls": [
+        "https://www.morningstar.com/news/marketwatch/20251226168/ai-made-tech-billionaires-even-richer-this-year-heres-how-much",
+        "https://japantoday.com/category/national/u.s.-forces-modify-unit-relocation-from-okinawa-to-guam-with-china-in-mind"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "California pays Valero to avoid refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst 'California pays Valero to avoid refinery shutdown' remains under consideration with no concrete outcome or resolution.",
       "exit_advice": "continue to hold",
       "evidence_urls": []
     },
     {
-      "ticker": "AWK",
-      "thesis": "American Water Works CEO plans acquisitions",
+      "ticker": "RKLB",
+      "thesis": "Rocket Lab wins Japan Aerospace deal",
       "thesis_live": true,
-      "exit_case": "The CEO has made an acquisition announcement or the plans have been otherwise resolved.",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains active as there's no indication the CEO's acquisition plans have changed or been resolved.",
-      "exit_advice": "Monitor for acquisition announcements or changes in CEO plans.",
+      "conviction": 8,
+      "assessment": "The Japan Aerospace deal win by Rocket Lab is still recent and under the radar. There is no new development on its progress or resolution, and the market is still absorbing the initial news from 2025-10-17.",
+      "exit_advice": "Continue to hold RKLB as the Japan Aerospace deal is still under the radar and there is no new development on its progress or resolution.",
       "evidence_urls": []
     },
     {
-      "ticker": "CHL",
-      "thesis": "likely stimulus revival",
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo acquires Gold Probe Inc.",
       "thesis_live": true,
-      "exit_case": "Stimulus revival has been officially announced or denied with clear evidence.",
-      "catalyst_resolved": false,
-      "assessment": "The likelihood of stimulus revival remains plausible with no clear resolution or denial.",
-      "exit_advice": "Monitor for official government announcements on stimulus revival.",
-      "evidence_urls": [
-        "https://www.searchlight.vc/r-rose-eye-of-the-needle/2025/08/14/ah-never-proud/"
-      ]
-    },
-    {
-      "ticker": "CAT",
-      "thesis": "Caterpillar forecast cut weighs on industrials",
-      "thesis_live": true,
-      "exit_case": "Caterpillar revises forecast back to previous levels or industrials recover fully.",
-      "catalyst_resolved": false,
-      "assessment": "The event remains relevant as industrials continue to be impacted.",
-      "exit_advice": "Monitor Caterpillar's further guidance and industrials' reaction.",
-      "evidence_urls": [
-        "https://www.10tv.com/article/news/nation-world/judge-trump-administration-guidance-dei-programs-schools/507-608196d6-5c31-4852-990b-4b6eb6394cb1"
-      ]
-    },
-    {
-      "ticker": "PLUG",
-      "thesis": "US Tariff Hike on India",
-      "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The US tariff hike on India is still pending and has not been resolved. Former NSA Pankaj Saran's comments suggest uncertainty in India-US relations.",
-      "exit_advice": "continue to monitor news on US tariff hike on India",
-      "evidence_urls": [
-        "http://www.indiagazette.com/news/278510448/only-trump-knows-what-next-ex-nsa-pankaj-saran-says-india-us-strain-part-of-global-disruption",
-        "http://www.indiagazette.com/news/278510377/impose-illogical-additional-trump-tariff-on-turkey-china-eu-and-us-importers-amitabh-kant"
-      ]
+      "conviction": 8,
+      "assessment": "The acquisition remains in its early stages with no significant developments or resolutions.",
+      "exit_advice": "Hold as there's no resolution or mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "GEV",
+      "thesis": "Venezuela raises military readiness",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The situation in Venezuela remains tense with continued military readiness. No resolution or reversal has been reported, and the catalyst remains pending.",
+      "exit_advice": "Hold as the catalyst remains active and unresolved.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. While mainstream coverage of nuclear stocks has increased, the specific catalyst remains under-the-radar.",
+      "exit_advice": "Hold as the specific catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA resolution against Iran escalates",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The IAEA resolution against Iran remains a live catalyst with no indication of resolution or vote. While mainstream coverage of nuclear stocks has increased, the specific catalyst remains under-the-radar.",
+      "exit_advice": "Hold as the specific catalyst remains pending and under-the-radar.",
+      "evidence_urls": []
     }
   ]
 }

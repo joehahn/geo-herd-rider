@@ -1,792 +1,755 @@
 {
-  "2026-02-06": [],
-  "2026-02-13": [],
-  "2026-02-20": [
+  "2025-12-26": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Tanker rates are rising, driving significant performance in BWET, which remains the primary vehicle for this event.",
-      "exit_advice": "Monitor for signs of plateauing or declining tanker rates, as well as shifts in oil supply/demand dynamics that could impact freight demand.",
+      "conviction": 8,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, is still ahead, and the catalyst remains unresolved. Coverage is increasing but not yet mainstream-saturated, maintaining the early edge.",
+      "exit_advice": "Hold until the major event on January 27, 2026. The catalyst remains pending and under-the-radar.",
       "evidence_urls": [
-        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/"
+        "https://finance.yahoo.com/news/interested-d-wave-quantum-mark-202000583.html"
+      ]
+    }
+  ],
+  "2026-01-02": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, is still ahead and remains unresolved. Coverage is increasing, but it has not yet reached mainstream saturation, maintaining the early edge.",
+      "exit_advice": "Hold until the major event on January 27, 2026.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-01-09": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, is still ahead and remains unresolved. Coverage is increasing, indicating growing interest, but it has not yet reached mainstream saturation, maintaining the early edge. The ticker QBTS continues to be the best vehicle for this event.",
+      "exit_advice": "Hold until the major event on January 27, 2026, as the catalyst remains unresolved and coverage has not yet reached mainstream saturation.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/01/09/top-quantum-computing-stocks-to-keep-an-eye-on-january-9th.html",
+        "https://www.fool.com/investing/2026/01/08/down-54-should-you-buy-the-dip-in-rigetti-computin/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/01/08/3-popular-stocks-crash-2026-market-bubble-bursts/",
+        "https://www.fool.com/investing/2026/01/08/the-best-quantum-computing-stock-to-buy-hand-over/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/01/07/3-top-quantum-computing-stocks-to-buy-in-2026/",
+        "https://finance.yahoo.com/news/3-top-quantum-computing-stocks-052000760.html"
+      ]
+    }
+  ],
+  "2026-01-16": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, is still ahead and remains unresolved. Coverage is increasing, indicating growing interest, but it has not yet reached mainstream saturation, maintaining the early edge. The ticker QBTS continues to be the best vehicle for this event.",
+      "exit_advice": "Hold until the major event on January 27, 2026, as the catalyst remains unresolved and coverage is increasing but not yet mainstream-saturated.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/16/is-d-wave-quantum-your-ticket-to-becoming-a/?source=iedfolrf0000001",
+        "https://www.morningstar.com/markets/beyond-ai-are-quantum-stocks-next-big-thing-tech-investing",
+        "https://finance.yahoo.com/news/d-wave-quantum-stock-over-140500459.html",
+        "https://finance.yahoo.com/news/550-million-reason-buy-quantum-140002965.html"
+      ]
+    }
+  ],
+  "2026-01-23": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, is still ahead and remains unresolved. Coverage is increasing, but it has not yet reached mainstream saturation, maintaining the early edge. The ticker QBTS continues to be the best vehicle for this event.",
+      "exit_advice": "Hold through the event as the catalyst remains unresolved and coverage has not yet reached mainstream saturation.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/rosenblatt-lifts-pt-d-wave-173326731.html"
+      ]
+    }
+  ],
+  "2026-01-30": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave Quantum major event Jan 27",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The major event for D-Wave Quantum on January 27, 2026, has already occurred.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The major event for D-Wave Quantum on January 27, 2026, has now occurred, marking the resolution of the catalyst. While coverage has increased, the event itself is now in the past, and the early edge is gone.",
+      "exit_advice": "Exit the position as the catalyst has resolved and the event has passed.",
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2026/01/30/next-week-at-a-glance-3-6-feb-2026/"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly earnings beat-and-raise",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The catalyst is still pending with the earnings report due on Feb 4. The news suggests anticipation but no resolution yet.",
+      "exit_advice": "Hold until the earnings report on Feb 4 to see if the beat-and-raise materializes.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/30/should-you-buy-eli-lilly-before-feb-4/"
+      ]
+    }
+  ],
+  "2026-02-06": [
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly earnings beat-and-raise",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The earnings report for Eli Lilly is still pending, and the catalyst remains live. The news this week does not indicate any resolution or reversal of the driving condition.",
+      "exit_advice": "Hold until the earnings report is released and the catalyst is resolved.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly earnings beat-and-raise",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The earnings report for Eli Lilly is still pending, and the catalyst remains live. The news this week does not indicate any resolution or reversal of the driving condition.",
+      "exit_advice": "Hold until the earnings report is released and the catalyst is resolved.",
+      "evidence_urls": [
+        "https://www.rttnews.com/story.aspx?Id=3621616",
+        "https://finance.yahoo.com/news/royalty-pharma-q4-earnings-call-145219506.html",
+        "https://www.thehindubusinessline.com/markets/share-market-nifty-sensex-live-updates-12th-february-2026/article70619430.ece",
+        "https://www.fool.ca/2026/02/12/has-bce-stock-finally-hit-rock-bottom-3/",
+        "https://www.businesstoday.in/markets/stocks/story/sensex-nifty-settle-mixed-is-this-indication-of-a-consolidation-phase-515688-2026-02-11",
+        "https://economictimes.indiatimes.com/news/international/australia/sp/asx-200-sees-sharp-rise-as-australian-shares-reclaim-9000-mark-banks-rally-on-cba-results-check-top-gainers-and-losers/articleshow/128194869.cms"
+      ]
+    }
+  ],
+  "2026-02-20": [
+    {
+      "ticker": "LLY",
+      "thesis": "Eli Lilly earnings beat-and-raise",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The earnings report has occurred and the results are public.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The earnings report for Eli Lilly has occurred, and the results are now public. This means the catalyst that drove the thesis has resolved, and the thesis is no longer live.",
+      "exit_advice": "Exit the position as the catalyst has resolved with the earnings report being public.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Escalating Iran tensions spike tanker rates",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst remains live with escalating tensions and rising tanker rates. The ETF BWET is the purest play for this event.",
+      "exit_advice": "Hold as tensions continue to escalate and tanker rates rise, with no resolution or reversal in sight.",
+      "evidence_urls": [
+        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
+        "http://www.bignewsnetwork.com/news/278876684/farewell-to-soft-power"
       ]
     }
   ],
   "2026-02-27": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "BWET continues to be the purest vehicle for this event, with tanker rates driving its performance. No new developments this week to alter the thesis.",
-      "exit_advice": "Hold; tanker rates remain on a rising trajectory with no signs of reversal or resolution.",
+      "conviction": 8,
+      "assessment": "The catalyst remains live with no resolution or reversal of the driving condition. The quiet week does not constitute an exit signal as the underlying tensions persist.",
+      "exit_advice": "Hold through the quiet period; the driving condition (escalating Iran tensions) remains unresolved and the catalyst is still pending.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with VST being the primary vehicle to watch. The news indicates mixed reactions in the market, but the specific catalyst has not yet resolved.",
-      "exit_advice": "Monitor VST's Q4 earnings impact on the AI-power trade closely, as the catalyst is still pending and the thesis remains live.",
-      "evidence_urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-2-27-vistra-corp-vst-q4-earnings-analysis-reality-check-for-the-ai-power-trade"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "380-megawatt deal with CyrusOne",
-      "thesis_live": false,
-      "exit_case": "none",
-      "catalyst_resolved": true,
-      "assessment": "The deal was announced on February 9 and reported by Reuters and other outlets, confirming the catalyst has passed. While CEG may still benefit from broader momentum, the specific thesis tied to this deal is no longer actionable.",
-      "exit_advice": "The catalyst (380-megawatt deal with CyrusOne) has already occurred and been reported, making it public and priced. Exit the position as the specific event driving the thesis is resolved.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-unit-signs-new-380-megawatt-deal-with-cyrusone-1703548/"
-      ]
     }
   ],
   "2026-03-06": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions potentially further supporting the thesis. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring tanker rates and geopolitical developments for signs of resolution or decay in the catalyst.",
-      "evidence_urls": [
-        "https://www.wdef.com/markets-react-to-iran-tensions/"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade continues to evolve, with no resolution of the specific catalyst observed this week. VST remains the primary vehicle to watch, as there has been no significant change in the market conditions or news that would alter the thesis.",
-      "exit_advice": "Continue monitoring VST for developments related to Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved.",
-      "evidence_urls": [
-        "https://www.moneycontrol.com/news/business/stocks/nifty-realty-index-falls-nearly-2-godrej-properties-prestige-down-4-as-crude-driven-inflation-worries-weigh-13852946.html",
-        "https://www.dailypolitical.com/2026/03/05/promising-renewable-energy-stocks-to-watch-today-march-2nd.html",
-        "https://www.themarketsdaily.com/2026/03/01/top-real-estate-stocks-to-research-february-27th.html",
-        "https://www.themarketsdaily.com/2026/03/01/promising-real-estate-stocks-to-keep-an-eye-on-february-26th.html"
-      ]
+      "conviction": 7,
+      "assessment": "The catalyst remains live with escalating tensions and rising tanker rates, despite the lack of fresh news this week. A quiet stretch does not constitute an exit signal as the underlying tensions persist and no concrete next steps have been announced or resolved.",
+      "exit_advice": "Hold through the quiet week as the driving condition (escalating Iran tensions) persists and no resolution or reversal has occurred.",
+      "evidence_urls": []
     }
   ],
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring tanker rates and geopolitical tensions for signs of resolution or decay in the catalyst.",
+      "conviction": 8,
+      "assessment": "The catalyst remains live with no resolution or reversal of the driving condition. The quiet week does not constitute an exit signal as the underlying tensions persist and no concrete next steps have been announced or resolved.",
+      "exit_advice": "Hold the position; the catalyst remains live with escalating tensions and rising tanker rates. The ETF BWET is still the purest play for this event.",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/surprising-vanguard-etf-soaring-past-162000045.html"
+        "MarketWatch"
       ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. VST remains the most suitable vehicle to monitor this event. The news about the Dallas-Fort Worth economy feeling the impact of the Iran war does not directly affect the AI-power trade thesis.",
-      "exit_advice": "Hold, as the Q4 earnings impact on the AI-power trade remains unresolved. The catalyst is still pending, and VST continues to be the appropriate vehicle.",
-      "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for signs of stabilization or reversal in tanker rates, particularly from geopolitical developments or shifts in global trade patterns.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Micron's earnings and the stock market rebound does not directly affect the AI-power trade thesis.",
-      "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst has not yet resolved, and the thesis remains live.",
+      "conviction": 8,
+      "assessment": "The catalyst remains live with escalating tensions and rising tanker rates, despite the lack of fresh news this week. The ETF BWET is still the purest play for this event.",
+      "exit_advice": "Hold as the catalyst remains live with escalating tensions and no resolution or reversal of the driving condition. The quiet week does not constitute an exit signal as the underlying tensions persist and no concrete next steps have been announced or resolved.",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/heres-much-micron-stock-expected-101000568.html",
-        "https://www.thehindu.com/business/markets/stock-markets-rebound-in-early-trade-after-3-day-slump/article70748698.ece"
+        "https://finance.yahoo.com/markets/stocks/articles/stocks-slip-open-oil-prices-103622855.html",
+        "https://www.marketscreener.com/news/milan-stocks-tumble-at-the-open-alongside-european-peers-eni-holds-firm-as-inwit-collapses-ce7e5eded88bf520",
+        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/european-shares-log-second-week-losses-middle-east-war-fuels-inflation-fears",
+        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-european-shares-log-second-week-of-losses-as-mideast-war-fuels-inflation-fears/articleshow/129569450.cms"
       ]
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "War fears easing and tanker rates stabilizing as geopolitical tensions subside",
       "catalyst_resolved": false,
-      "assessment": "The thesis remains live with no signs of decay or resolution. Geopolitical tensions continue to support rising tanker rates, and BWET remains the purest vehicle for this event.",
-      "exit_advice": "The catalyst of rising tanker rates remains intact, and there is no evidence of resolution. Continue holding BWET as the primary vehicle.",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "The catalyst remains live, but recent news suggests a potential easing of geopolitical tensions, which could lead to a reversal in tanker rates. The ETF BWET remains the purest play for this event.",
+      "exit_advice": "Monitor for further signs of de-escalation or stabilization in tanker rates",
+      "evidence_urls": [
+        "https://indianexpress.com/article/business/sensex-nifty-early-trade-surge-crude-fall-10599769/"
+      ]
     },
     {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "ticker": "BWXT",
+      "thesis": "TD Securities initiates Buy rating",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade remains unresolved, with no direct news this week affecting the thesis. VST continues to be the most appropriate vehicle to monitor this event.",
-      "exit_advice": "Continue monitoring the progression of the Q4 earnings impact on the AI-power trade, focusing on VST as the key vehicle.",
+      "conviction": 5,
+      "assessment": "The TD Securities Buy rating on BWXT is recent and the news coverage is still developing. The catalyst has not resolved yet and the thesis remains live.",
+      "exit_advice": "Hold for now as the catalyst is still fresh and not yet fully priced in.",
       "evidence_urls": [
-        "https://www.deccanchronicle.com/business/market/stock-markets-rally-in-early-trade-on-slump-in-oil-prices-1946142",
-        "https://www.aol.com/finance/cnbc-anchor-shocked-us-trade-120000757.html"
+        "https://www.insidermonkey.com/blog/td-securities-initiates-coverage-of-bwx-technologies-bwxt-with-a-buy-rating-1723692/"
       ]
     }
   ],
   "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Escalating Iran tensions spike tanker rates",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "Potential easing of geopolitical tensions could reverse tanker rates",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay.",
-      "evidence_urls": [
-        "https://abc7ny.com/post/tips-save-groceries-food-banks-nyc-feel-strain-rising-prices-due-iran-war/18829363/",
-        "https://www.mymoinfo.com/syndicated-article/?id=1663391"
-      ]
+      "conviction": 6,
+      "assessment": "The catalyst remains live with no resolution or reversal of the driving condition, but recent news suggests potential easing of tensions. The ETF BWET is still the purest play for this event.",
+      "exit_advice": "Monitor for concrete signs of easing tensions or a reversal in tanker rates. Exit if tensions de-escalate or rates drop significantly.",
+      "evidence_urls": []
     },
     {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "ticker": "BWXT",
+      "thesis": "TD Securities initiates Buy rating",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about tariffs and geopolitical conflicts does not directly impact the AI-power trade thesis.",
-      "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on AI-power trade. The catalyst remains unresolved, and there is no significant news this week that directly affects the thesis.",
+      "conviction": 7,
+      "assessment": "The TD Securities Buy rating continues to drive the thesis. The news coverage from this week does not pertain to BWXT or its Buy rating, and there is no indication the catalyst has resolved. The thesis remains live, and the vehicle is still the purest play.",
+      "exit_advice": "HOLD. The TD Securities Buy rating remains the driver, and the catalyst has not yet resolved. Coverage is still developing, and the thesis remains live.",
       "evidence_urls": [
-        "https://www.koat.com/article/its-been-chaotic-the-impact-of-trumps-liberation-day-tariffs/70922176",
-        "https://www.chathamdailynews.ca/news/mp-chamber-boss-talk-food-security-trade/wcm/f714d732-eaca-4dc7-9509-5a16d33707ec",
-        "https://finance.yahoo.com/markets/stocks/articles/jim-cramer-analyzes-impact-geopolitical-162803098.html"
-      ]
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "This week marked the announcement of the 100% tariff on some patented pharmaceuticals by Trump, as reported across multiple news outlets. This is the initial catalyst for the event, and its effects on the pharmaceutical market, particularly foreign manufacturers, are just beginning to materialize.",
-      "exit_advice": "The catalyst remains live as the 100% tariff on foreign pharma has been announced but its full impact and market reaction are still unfolding. Monitor for further developments and price adjustments in the pharmaceutical sector.",
-      "evidence_urls": [
-        "https://ktar.com/national-news/trump-unveils-100-tariff-on-some-patented-drugs-on-liberation-day-anniversary/5843232/",
-        "https://www.afr.com/world/north-america/csl-may-escape-trump-s-100pc-tariffs-on-foreign-pharmaceuticals-20260403-p5zl43"
+        "url"
       ]
     }
   ],
   "2026-04-10": [
     {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live with no signs of decay or resolution. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Hold, as the catalyst of rising tanker rates remains intact and geopolitical tensions continue to support the thesis.",
-      "evidence_urls": []
+      "thesis": "Escalating Iran tensions spike tanker rates",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Ceasefire announced between Iran and US, reversing the driving condition of escalating tensions",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The geopolitical tensions that drove tanker rates higher have eased with the announcement of a ceasefire between Iran and the US. This reversal of the driving condition marks the resolution of the catalyst, necessitating an exit.",
+      "exit_advice": "The announced ceasefire between Iran and the US has reversed the driving condition of escalating tensions that underpinned the thesis. Exit the position as the catalyst has resolved.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/news/international/uae/uae-markets-surge-firms-stay-cautious/articleshow/130141138.cms"
+      ]
     },
     {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold without resolution. There has been no direct news this week affecting the thesis, and VST remains the most appropriate vehicle to monitor this event.",
-      "exit_advice": "Continue to monitor VST as the primary vehicle for the Q4 earnings impact on the AI-power trade, as the specific catalyst remains unresolved.",
-      "evidence_urls": []
+      "ticker": "BWXT",
+      "thesis": "TD Securities initiates Buy rating",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The TD Securities Buy rating has been fully absorbed and priced into BWXT.",
+      "catalyst_resolved": true,
+      "conviction": 5,
+      "assessment": "The TD Securities Buy rating on BWXT was the driving catalyst, but there has been no fresh news or developments related to BWXT or its Buy rating over the past two weeks. The initial impact of the rating appears to have been fully absorbed by the market, and there are no concrete next catalysts or events ahead for BWXT. The coverage remains minimal and does not indicate any new momentum or surprises. The thesis has run its course, and the smart-money window has closed.",
+      "exit_advice": "Exit the position as the catalyst has resolved and the thesis is no longer live.",
+      "evidence_urls": [
+        "finance.yahoo.com",
+        "insidermonkey.com"
+      ]
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No significant news this week, but the tariff's implications remain active and unresolved.",
-      "exit_advice": "Hold, as the tariff's impact on foreign pharma is still unfolding",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst is still pending with no resolution or reversal. News indicates growing interest but not yet mainstream saturation.",
+      "exit_advice": "Hold for NuScale reactor approval news; monitor for any regulatory updates or mainstream saturation.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/04/10/nuscale-power-reports-soon-heres-why-id-buy-before/?source=iedfolrf0000001",
+        "https://www.insidermonkey.com/blog/duke-energy-duk-secures-approval-for-south-carolina-gas-fired-power-plant-1734546/",
+        "https://www.fool.com/investing/2026/04/08/how-buying-nuscale-power-stock-today-could-10x-yo/",
+        "https://www.fool.com/investing/2026/04/08/how-buying-nuscale-power-stock-today-could-10x-yo/?source=iedfolrf0000001"
+      ]
     }
   ],
   "2026-04-17": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for signs of geopolitical resolution or a decline in tanker rates, which would signal the end of the thesis.",
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live, with no resolution or reversal detected this week. News indicates growing interest ahead of Q1 earnings, but coverage remains early-stage and not fully mainstream. The SMR vehicle remains the purest play for this event.",
+      "exit_advice": "Hold; the catalyst remains pending and coverage is not yet mainstream-saturated.",
       "evidence_urls": [
-        "etf.com"
+        "https://www.ibtimes.com.au/nuscale-power-stock-jumps-12-q1-2026-earnings-loom-amid-nuclear-renaissance-hopes-1866546"
       ]
     },
     {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event.",
-      "exit_advice": "Continue monitoring VST for any developments related to the Q4 earnings impact on the AI-power trade, as the catalyst remains unresolved.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments related to the tariff implementation or potential reversals.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The catalyst is still live with persistent Gulf/Hormuz shipping risk driving elevated tanker day-rates. BWET remains the purest play.",
+      "exit_advice": "Hold as the Gulf/Hormuz shipping risk persists and remains under-the-radar with no concrete resolution yet.",
+      "evidence_urls": [
+        "etf.com"
+      ]
     }
   ],
   "2026-04-24": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET continues to be the purest vehicle for this event",
-      "exit_advice": "continue to monitor the situation closely, especially geopolitical developments in the Middle East",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade is still unfolding, with no resolution observed this week. VST remains the most suitable vehicle to monitor this event. The news about Cohen and Steers' Q4 2025 earnings does not directly affect the AI-power trade thesis.",
-      "exit_advice": "Continue monitoring VST as the primary vehicle for the Q4 earnings impact on the AI-power trade. The catalyst remains unresolved, and there is no significant news this week that would alter the thesis.",
+      "conviction": 8,
+      "assessment": "The NuScale reactor approval catalyst is still live with no resolution or reversal. News indicates growing interest and a surge in nuclear energy stocks, but coverage remains early-stage and not fully mainstream. The SMR vehicle is still the best pure-play for this event.",
+      "exit_advice": "Hold as the NuScale reactor approval catalyst remains pending and coverage is not yet fully mainstream-saturated. The SMR vehicle remains the purest play.",
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/cohen-steers-cns-q4-2025-192343524.html",
-        "https://www.fool.com/earnings/call-transcripts/2026/04/21/cohen-and-steers-cns-q4-2025-earnings-transcript/?source=iedfolrf0000001"
+        "https://finance.yahoo.com/sectors/energy/articles/battle-royale-oklo-vs-nuscale-152500735.html",
+        "https://finance.yahoo.com/markets/stocks/articles/why-nuscale-power-stock-jumped-201915822.html",
+        "https://finance.yahoo.com/news/heres-why-oklo-and-other-nuclear-power-stocks-skyrocketed-this-week-151034881.html"
       ]
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals.",
+      "conviction": 7,
+      "assessment": "Thesis intact \u2014 despite a quiet week, the Gulf/Hormuz shipping risk persists, and the catalyst remains live. BWET continues as the purest vehicle.",
+      "exit_advice": "Hold through the silence \u2014 the driving condition (Gulf/Hormuz shipping risk) remains in force and no resolution or reversal has occurred. The catalyst remains pending.",
       "evidence_urls": []
     }
   ],
   "2026-05-01": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for any signs of resolution or decay.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": true,
-      "exit_case": "AI concerns resurfacing in the market may indicate the Q4 earnings impact has been priced in or is no longer a dominant driver",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade continues to unfold, but the resurfacing of AI concerns in the market suggests the catalyst may be losing its edge. VST remains the primary vehicle to watch, but the thesis is becoming less clear as new market dynamics emerge.",
-      "exit_advice": "Monitor for further signs that the Q4 earnings impact on the AI-power trade is fully priced in or overshadowed by new market concerns",
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst remains pending with no resolution or reversal. While coverage is increasing, it has not yet reached full mainstream saturation. The SMR vehicle remains the purest play for this event.",
+      "exit_advice": "Hold until the NuScale reactor approval is officially resolved or mainstream coverage saturates.",
       "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-plunge-ai-concerns-103453694.html"
+        "https://www.fool.com/investing/2026/04/30/nuscale-power-stock-is-outrageously-cheap-heres-wh/?source=iedfolrf0000001"
       ]
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Hold until there is a resolution or reversal of the 100% tariff on foreign pharmaceuticals.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates. Despite a quiet week in news, the driving condition remains in force, and BWET is still the purest play.",
+      "exit_advice": "Hold \u2014 the Gulf/Hormuz shipping risk persists, and the catalyst remains live. Silence does not equate to resolution.",
       "evidence_urls": []
     }
   ],
   "2026-05-08": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue to monitor geopolitical tensions and tanker rates for signs of resolution or decay.",
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live with no resolution or reversal. Despite a quiet week, the event remains under-the-radar and not yet mainstream-saturated. The SMR vehicle continues to be the purest play for this event.",
+      "exit_advice": "Hold through the quiet period; the catalyst remains pending and under-the-radar.",
       "evidence_urls": []
     },
     {
-      "ticker": "VST",
-      "thesis": "Q4 earnings impact on AI-power trade",
-      "thesis_live": false,
-      "exit_case": "The AI-power trade has become mainstream and crowded, with options traders and media heavily focusing on it, suggesting the catalyst may have lost its edge.",
-      "catalyst_resolved": false,
-      "assessment": "The Q4 earnings impact on the AI-power trade has evolved into a mainstream narrative, with options traders and media heavily focusing on it. This suggests the catalyst may have lost its original edge, even though the specific Q4 earnings event has not been resolved.",
-      "exit_advice": "Consider exiting the position as the AI-power trade has become mainstream and crowded, potentially diminishing the original edge.",
-      "evidence_urls": [
-        "https://www.cnbc.com/2026/05/07/options-traders-love-this-under-the-radar-ai-play.html",
-        "https://fnarena.com/index.php/2026/05/06/the-overnight-report-chips-soar-with-ai-trade/"
-      ]
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals.",
+      "conviction": 8,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates. Despite a quiet week in news, the driving condition remains in force, and BWET is still the purest play.",
+      "exit_advice": "Hold through the quiet stretch \u2014 the Gulf/Hormuz shipping risk remains unresolved, and the driving condition persists.",
       "evidence_urls": []
     }
   ],
   "2026-05-15": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with geopolitical tensions in the Middle East continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The NuScale reactor approval catalyst is still live, with no resolution or reversal detected this week. News indicates growing interest and a surge in nuclear energy stocks, but coverage remains early-stage and not fully mainstream. The SMR vehicle remains the purest play for this event.",
+      "exit_advice": "Hold; the NuScale reactor approval catalyst remains pending, and while coverage is increasing, it has not yet reached full mainstream saturation.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/cameco-ccj-remains-beneficiary-long-173639686.html",
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html",
+        "https://finance.yahoo.com/sectors/energy/articles/nexgen-energy-nxe-one-best-173629986.html",
+        "https://finance.yahoo.com/sectors/energy/articles/td-securities-reiterates-buy-rating-173636888.html",
+        "https://finance.yahoo.com/sectors/energy/articles/why-nano-nuclear-nne-one-173626054.html",
+        "https://finance.yahoo.com/sectors/energy/articles/roth-capital-factors-centrus-energy-173631647.html"
+      ]
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals, as the catalyst remains unresolved.",
-      "evidence_urls": [
-        "https://vietnamnews.vn/economy/1781275/foreign-selling-property-losses-keep-vn-index-under-pressure.html"
-      ]
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk persists, and the catalyst remains live despite the quiet week. BWET continues to be the purest play for this event.",
+      "exit_advice": "Hold through the quiet stretch; the Gulf/Hormuz shipping risk remains unresolved and could re-accelerate.",
+      "evidence_urls": []
     }
   ],
   "2026-05-22": [
     {
-      "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends. Exit if tensions ease or tanker rates stabilize/decline significantly.",
+      "conviction": 7,
+      "assessment": "This week remains quiet with no fresh news, but the catalyst is still pending and coverage has not yet become mainstream-saturated. The SMR vehicle remains the purest play for this event.",
+      "exit_advice": "Hold. The NuScale reactor approval catalyst remains pending. Coverage has not yet reached mainstream saturation, and no resolution or reversal has occurred.",
       "evidence_urls": []
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "BWET",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates, and the catalyst remains live. BWET is still the purest play for this event.",
+      "exit_advice": "Hold while the Gulf/Hormuz shipping risk persists and tanker rates remain elevated.",
+      "evidence_urls": [
+        "http://www.dallassun.com/news/279061604/report-says-u-s-investigating-chinese-shipping-container-makers",
+        "http://www.albuquerqueexpress.com/news/279061604/report-says-u-s-investigating-chinese-shipping-container-makers",
+        "http://www.haitisun.com/news/279061604/report-says-u-s-investigating-chinese-shipping-container-makers"
+      ]
     }
   ],
   "2026-05-29": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live with no resolution or reversal. Despite a quiet week, the event remains under-the-radar and not yet mainstream-saturated. The SMR vehicle continues to be the purest play for this event.",
+      "exit_advice": "Hold as the NuScale reactor approval catalyst remains pending and coverage has not yet reached mainstream saturation.",
+      "evidence_urls": [
+        "https://www.fool.com/coverage/better-buy/2026/05/27/nuscale-power-vs-oklo-which-nuclear-stock-is-a-better-buy-in-2026/?source=iedfolrf0000001"
+      ]
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue holding as the catalyst remains intact with no signs of resolution or decay.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk persists, and the catalyst remains live despite the lack of fresh news this week. BWET continues to be the purest play for this event.",
+      "exit_advice": "Hold through the quiet stretch; the driving condition (Gulf/Hormuz shipping risk) remains in force, and no resolution or reversal has occurred.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. Exit if the tariff is repealed or significantly modified.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst event (lawsuit win) has just occurred, and the stock has reacted positively. The thesis remains live as the full implications of the lawsuit win are still being absorbed by the market.",
-      "exit_advice": "Monitor for any legal appeals or further developments in the lawsuit that could reverse the initial win.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/clover-health-clov-wins-lawsuit-on-star-ratings-soars-to-record-high-1770686/"
-      ]
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The $2B quantum funding announcement has sparked optimism in quantum computing stocks, with QBTS emerging as a key beneficiary. The news cycle highlights ongoing enthusiasm and speculation, but the full impact of the funding is yet to materialize, leaving room for further developments.",
-      "exit_advice": "Hold; catalyst remains pending as funding program implications unfold.",
-      "evidence_urls": [
-        "https://www.foreignpolicyjournal.com/2026/05/28/us-government-pours-2-billion-into-quantum-computing-as-ibm-qbts-and-rgti-stocks-surge/",
-        "https://www.fool.com/investing/2026/05/26/the-us-government-just-bet-2-billion-on-9-quantum/"
-      ]
     }
   ],
   "2026-06-05": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live despite a quiet week. Coverage has not yet reached mainstream saturation, and the SMR vehicle remains the purest play for this event.",
+      "exit_advice": "Hold; the NuScale reactor approval catalyst remains pending and under-the-radar, with no resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with ongoing geopolitical tensions in the Middle East, particularly around the Strait of Hormuz, continuing to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue holding BWET as the catalyst of rising tanker rates remains intact and geopolitical tensions in the Middle East continue to support the thesis.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/da-davidson-reiterates-neutral-rating-on-installed-building-products-ibp-1775319/",
-        "https://www.ibtimes.co.in/indian-equities-open-higher-despite-rising-oil-prices-global-uncertainty-902514",
-        "https://timesofindia.indiatimes.com/business/india-business/economic-strength-indias-manufacturing-sector-growth-accelerates-to-3-month-high-in-may-amid-middle-east-conflict/articleshow/131437870.cms"
-      ]
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates, and the catalyst remains live despite the lack of fresh news this week. BWET continues to be the purest play for this event.",
+      "exit_advice": "Hold through silence; the Gulf/Hormuz shipping risk persists, and the catalyst remains live.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live with no new developments this week. The stock's reaction to the lawsuit win is still unfolding.",
-      "exit_advice": "Continue holding as the market is still digesting the implications of the lawsuit win.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The $2B US government quantum funding catalyst remains live, with no resolution or decay observed in the news cycle or journal. QBTS continues to be the purest vehicle, benefiting from ongoing optimism in the sector. Recent IPO activity and stock-specific news (e.g., D-Wave Quantum's crash) highlight sector volatility but do not impact the core thesis.",
-      "exit_advice": "Continue holding as the $2B quantum funding catalyst remains pending, with no evidence of resolution or decay. Stay alert for signs of crowding or mainstream hype, which could indicate overexposure.",
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13464855/promising-quantum-computing-stocks-worth-watching-june-5th-2.html",
-        "https://finance.yahoo.com/markets/stocks/articles/why-d-wave-quantum-stock-161613625.html",
-        "https://www.fool.com/investing/2026/06/04/wall-street-wrong-quantum-computing-stock-infq/?source=iedfolrf0000001",
-        "https://www.cnbc.com/2026/06/04/honeywells-quantum-company-goes-public-what-investors-should-know-about-the-ipo.html",
-        "https://www.fool.com/investing/2026/06/04/should-you-buy-d-wave-quantum-stock-while-its-unde/",
-        "https://www.tickerreport.com/banking-finance/13463078/best-quantum-computing-stocks-to-follow-now-june-3rd.html"
-      ]
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Phase 2/3 POWER1 study findings have been shared, but the full implications and next steps are still pending. The catalyst remains live as the study results are being analyzed and potential regulatory pathways are being considered.",
-      "exit_advice": "Monitor for further updates on the POWER1 study findings and any subsequent regulatory or clinical developments.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/praxis-precision-medicines-prax-shares-155551422.html"
-      ]
     }
   ],
   "2026-06-12": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live despite another quiet week. The SMR vehicle remains the purest play for this event. Coverage has not yet reached full mainstream saturation, and no concrete next steps have been announced, suggesting the arc is incomplete. Hold through the silence.",
+      "exit_advice": "Hold through the silence. The catalyst remains pending and under-the-radar, with no resolution, reversal, or mainstream saturation detected.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for signs of resolution in geopolitical tensions or a decline in tanker rates.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates, and the catalyst remains live. Despite the lack of fresh news this week, the driving condition persists, and BWET remains the purest vehicle for this event.",
+      "exit_advice": "Hold \u2014 the Gulf/Hormuz shipping risk persists, and there is no evidence of the catalyst resolving or the driving condition reversing.",
       "evidence_urls": []
-    },
-    {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
-      "exit_advice": "Continue holding as the market continues to absorb the implications of the lawsuit win.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "Mainstream hype and crowding around quantum computing stocks suggests enthusiasm may be peaking.",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live, but the increasing mainstream attention to quantum computing stocks, as highlighted in recent news, raises the risk of overexuberance. QBTS continues to be the purest play on the theme.",
-      "exit_advice": "Monitor for signs of the $2B quantum funding being formally allocated or any shift in sentiment that could precede a sector-wide pullback.",
-      "evidence_urls": [
-        "https://www.tickerreport.com/banking-finance/13472552/promising-quantum-computing-stocks-worth-watching-june-12th.html",
-        "https://www.dailypolitical.com/2026/06/12/promising-quantum-computing-stocks-worth-watching-june-12th.html"
-      ]
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
-      "exit_advice": "Continue monitoring for further updates on the POWER1 study findings and potential regulatory pathways.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/biontech-bntx-bristol-myers-share-174119905.html"
-      ]
-    },
-    {
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst is still pending as WHO's support has been announced but formal approval or widespread deployment has not yet occurred. REGN remains the purest vehicle for this event.",
-      "exit_advice": "Monitor for WHO's formal approval or rejection of the therapy, as well as any significant developments in the Ebola outbreak that could affect demand.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/sectors/healthcare/articles/regeneron-regn-antibody-therapy-gains-174113754.html"
-      ]
     }
   ],
   "2026-06-19": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live, with no resolution or reversal detected this week. Despite a quiet week, the event remains under-the-radar and not yet mainstream-saturated. The SMR vehicle continues to be the purest play for this event. Hold through the silence as the arc remains incomplete.",
+      "exit_advice": "Hold through the silence. The catalyst remains pending, coverage is not yet mainstream-saturated, and no concrete resolution or reversal has occurred.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rate trends for signs of resolution or decay.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates, and the catalyst remains live. BWET is still the purest play for this event.",
+      "exit_advice": "Hold as the Gulf/Hormuz shipping risk persists and no resolution or reversal has occurred. The catalyst remains live despite the quiet week.",
       "evidence_urls": []
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals continues to be in effect with no new developments this week. The catalyst remains pending resolution, and the implications for the market are still active.",
-      "exit_advice": "Continue monitoring for any developments related to the 100% tariff on foreign pharmaceuticals. The catalyst remains unresolved, and the thesis is still live.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
-      "exit_advice": "Continue to monitor for any new developments or signs that the market has fully priced in the lawsuit win.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The $2B quantum funding catalyst remains live with no resolution or decay observed. QBTS continues to be the purest vehicle, despite recent volatility and insider selling. The sector is gaining mainstream attention, but the core thesis remains intact.",
-      "exit_advice": "Monitor for signs of mainstream hype or sector-wide overexuberance, which could indicate the catalyst is fully priced in.",
+      "ticker": "MRLN",
+      "thesis": "C-130J Autonomy Program design review concluded",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The design review has concluded, which was the specific catalyst for entry.",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The C-130J Autonomy Program design review has successfully concluded, which was the discrete event driving the thesis. Since this catalyst has now occurred and is public, the edge is exhausted. There is no concrete next catalyst announced or scheduled ahead, so the arc is complete.",
+      "exit_advice": "Exit the position, as the catalyst has resolved and the thesis is no longer live.",
       "evidence_urls": [
-        "https://www.dailypolitical.com/2026/06/17/d-wave-quantum-nyseqbts-stock-price-down-4-2-after-insider-selling.html",
-        "https://www.dailypolitical.com/2026/06/17/quantum-computing-stocks-to-watch-today-june-17th.html",
-        "https://finance.yahoo.com/markets/stocks/articles/d-wave-leads-quantum-computing-191718613.html"
+        "https://finance.yahoo.com/technology/ai/articles/merlin-mrln-successfully-concludes-design-104310050.html"
       ]
     },
     {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
+      "ticker": "TIC",
+      "thesis": "Credit restructuring of $1.6B debt",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Phase 2/3 POWER1 study findings are still being analyzed, and the catalyst remains live. No resolution or decay has occurred yet.",
-      "exit_advice": "Continue monitoring for any updates on the Phase 2/3 POWER1 study findings and potential regulatory pathways.",
-      "evidence_urls": []
+      "conviction": 7,
+      "assessment": "The news of TIC Solutions' $1.6 billion credit restructuring is fresh and not yet saturated in mainstream coverage. This presents a potential opportunity as the market may still be digesting the impact.",
+      "exit_advice": "Hold as the credit restructuring announcement is recent and still under-the-radar.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/credit-restructuring-bodes-well-tic-104327352.html"
+      ]
     },
     {
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending, with no resolution or decay observed this week. REGN continues to be the purest vehicle for this event.",
-      "exit_advice": "Hold as the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred.",
-      "evidence_urls": []
+      "ticker": "EVLV",
+      "thesis": "Safety Act Designation for AI bag screening",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Safety Act Designation has already been awarded",
+      "catalyst_resolved": true,
+      "conviction": 7,
+      "assessment": "The Safety Act Designation for Evolv Technologies' AI-driven bag screening solution has been officially awarded, marking the resolution of the catalyst. This event is now public and priced-in, and there are no concrete next catalysts announced.",
+      "exit_advice": "Exit as the catalyst has resolved",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/evolv-technologies-evlv-awarded-safety-act-designation-for-ai-driven-bag-screening-solution-1784220/"
+      ]
     }
   ],
   "2026-06-26": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live with no resolution or reversal detected. Despite a quiet week, the event remains under-the-radar and not yet mainstream-saturated. The SMR vehicle continues to be the purest play for this event. Hold through the silence as the arc remains incomplete.",
+      "exit_advice": "Hold through the silence; the catalyst remains pending and coverage has not yet reached mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, supported by ongoing geopolitical tensions in the Middle East. BWET continues to be the purest vehicle for this event. No new developments this week alter the thesis.",
-      "exit_advice": "Continue holding BWET as the catalyst remains intact. Monitor for signs of geopolitical tensions easing or tanker rates stabilizing.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk continues to underpin elevated tanker day-rates, and the catalyst remains live. Despite the lack of fresh news this week, the driving condition persists, and BWET remains the purest vehicle for this event.",
+      "exit_advice": "Hold \u2014 the Gulf/Hormuz shipping risk persists, and the catalyst remains live despite the lack of fresh news. BWET continues to be the purest play.",
       "evidence_urls": []
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "TIC",
+      "thesis": "Credit restructuring of $1.6B debt",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the tariff's implementation or potential reversals.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact. No new developments this week to suggest the catalyst has resolved or decayed.",
-      "exit_advice": "Continue monitoring for any new developments related to the lawsuit win or signs of market fully pricing in the event.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The $2B US government quantum funding catalyst remains active, with no signs of resolution or decay. QBTS continues to be the purest vehicle for this event, despite sector volatility and increasing mainstream attention.",
-      "exit_advice": "Continue holding QBTS as the $2B quantum funding catalyst remains live with no resolution or decay observed.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live with no resolution or decay observed. The Phase 2/3 POWER1 study findings are still being analyzed, and potential regulatory pathways are under consideration.",
-      "exit_advice": "Hold as the Phase 2/3 POWER1 study findings are still under analysis and no resolution or decay has occurred.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no new developments this week. REGN continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for WHO's formal approval or widespread deployment of the Ebola antibody therapy. Exit if the catalyst resolves or shows signs of decay.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "The credit restructuring of $1.6 billion debt by TIC Solutions remains an under-the-radar event with potential impact that the market may still be digesting. The news is not yet saturated in mainstream coverage, and the catalyst is still pending.",
+      "exit_advice": "Hold the position as the credit restructuring news is still fresh and the catalyst has not resolved yet.",
+      "evidence_urls": [
+        "https://www.tickerreport.com/banking-finance/13487154/best-robotics-stocks-worth-watching-june-26th.html"
+      ]
     }
   ],
   "2026-07-03": [
     {
+      "ticker": "SMR",
+      "thesis": "NuScale reactor approval",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The NuScale reactor approval catalyst is still live with no resolution or reversal detected. Despite a quiet week, the event remains under-the-radar and not yet mainstream-saturated. The SMR vehicle continues to be the purest play for this event.",
+      "exit_advice": "Hold through the silence as the arc remains incomplete and coverage has not yet reached mainstream saturation.",
+      "evidence_urls": []
+    },
+    {
       "ticker": "BWET",
-      "thesis": "rising tanker rates",
+      "thesis": "Persistent Gulf/Hormuz shipping risk",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst of rising tanker rates remains intact, with no signs of resolution or decay. Geopolitical tensions, particularly in the Middle East, continue to support the thesis. BWET remains the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring geopolitical tensions and tanker rates, as they remain the core drivers of this thesis.",
+      "conviction": 7,
+      "assessment": "The Gulf/Hormuz shipping risk persists, underpinning elevated tanker day-rates. Despite the lack of fresh news this week, the driving condition remains intact, and BWET is still the best play for this event.",
+      "exit_advice": "Hold through the persistent Gulf/Hormuz shipping risk, as the driving condition remains in force. BWET continues to be the purest vehicle for this event.",
       "evidence_urls": [
-        "https://www.theguardian.com/business/2026/jun/28/rising-cost-insuring-against-climate-crisis-knock-on-effects-for-uk-economy",
-        "https://www.fool.com/investing/2026/06/28/trump-took-jab-fed-chair-kevin-warsh-interest-rate/?source=iedfolrf0000001",
-        "https://finance.yahoo.com/personal-finance/banking/article/best-high-yield-savings-interest-rates-today-saturday-june-27-2026-earn-up-to-410-apy-100000193.html",
-        "https://finance.yahoo.com/markets/options/articles/cd-just-matured-rates-dropped-230107840.html"
+        "https://finance.yahoo.com/economy/policy/articles/us-retailers-frontload-china-orders-024505038.html"
       ]
     },
     {
-      "ticker": "CSLLY",
-      "thesis": "100% tariff on foreign pharma",
+      "ticker": "TIC",
+      "thesis": "Credit restructuring of $1.6B debt",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The 100% tariff on foreign pharmaceuticals remains in effect with no new developments this week. The catalyst is still pending resolution, and the thesis remains live.",
-      "exit_advice": "Continue monitoring for any developments regarding the tariff, as the catalyst remains unresolved.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CLOV",
-      "thesis": "Wins lawsuit on Star Ratings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The lawsuit win remains the core driver, and the thesis is still live as the market continues to process its impact.",
-      "exit_advice": "Hold as the catalyst remains unresolved and the thesis is still live.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "QBTS",
-      "thesis": "US govt $2B quantum funding",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The $2B US government quantum funding catalyst is still pending, and QBTS remains the optimal vehicle. No new developments this week suggest any change in the thesis.",
-      "exit_advice": "The $2B quantum funding catalyst remains live with no signs of resolution or decay. Continue holding QBTS as the purest vehicle for this event.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "PRAX",
-      "thesis": "Phase 2/3 POWER1 study findings",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live with no significant developments indicating resolution or decay. The Phase 2/3 POWER1 study findings are still under analysis, and regulatory pathways are still under consideration.",
-      "exit_advice": "Continue to monitor as the Phase 2/3 POWER1 study findings are still being analyzed and no resolution or decay has occurred.",
-      "evidence_urls": [
-        "https://www.thehindubusinessline.com/economy/indias-debt-market-not-equipped-to-finance-next-phase-of-growth-needs-structural-reforms-deloitte/article71157472.ece"
-      ]
-    },
-    {
-      "ticker": "REGN",
-      "thesis": "WHO backs Ebola antibody therapy",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains unresolved, with no new developments this week. REGN continues to be the purest vehicle for this event.",
-      "exit_advice": "Hold; the WHO's formal approval or widespread deployment of the Ebola antibody therapy has not yet occurred, keeping the catalyst pending.",
+      "conviction": 7,
+      "assessment": "The credit restructuring of $1.6 billion debt by TIC Solutions remains under-the-radar with no mainstream coverage saturation. The catalyst is still pending and not yet resolved.",
+      "exit_advice": "Hold until the credit restructuring news becomes mainstream or the catalyst resolves.",
       "evidence_urls": []
     }
   ]

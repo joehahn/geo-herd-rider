@@ -6,446 +6,197 @@
   "2024-05-17": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution yet. The news highlights growing interest in SMR due to AI power demand, reinforcing the thesis.",
-      "exit_advice": "Hold for reactor approval news; monitor for updates on approvals or developments in small modular reactor technology.",
-      "evidence_urls": [
-        "ETF.com"
-      ]
+      "assessment": "The catalyst (NuScale reactor approval news) is still pending and the thesis remains live. The stock is benefiting from AI power demand hype but the core catalyst has not yet resolved.",
+      "exit_advice": "Monitor for NuScale reactor approval news and AI power demand trends. Exit if approval is denied or if the catalyst is fully priced in.",
+      "evidence_urls": []
     }
   ],
   "2024-05-24": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No significant developments this week, but the thesis remains intact with growing interest in SMR due to AI power demand.",
-      "exit_advice": "Continue to monitor for reactor approval news as the catalyst remains pending.",
+      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and the thesis remains live. No fresh news this week to alter the thesis.",
+      "exit_advice": "Continue monitoring for NuScale reactor approval news as the catalyst remains pending.",
       "evidence_urls": []
     }
   ],
   "2024-05-31": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The thesis remains intact with growing interest in SMR due to AI power demand, but no significant developments this week.",
-      "exit_advice": "Continue monitoring for reactor approval news as the catalyst remains pending.",
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending. No fresh news this week alters the thesis. The thesis is still live, and SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Hold until NuScale reactor approval news resolves.",
       "evidence_urls": []
     }
   ],
   "2024-06-07": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The thesis remains intact with continued interest in SMR due to AI power demand, though no significant developments have occurred this week.",
-      "exit_advice": "Continue holding as the reactor approval news catalyst remains pending.",
+      "assessment": "The thesis remains live with no resolution or decay of the catalyst. SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news as the core catalyst remains pending.",
       "evidence_urls": []
     }
   ],
   "2024-06-14": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution yet. The thesis is still intact due to growing interest in SMR driven by AI power demand, but no significant developments have occurred this week.",
-      "exit_advice": "Continue monitoring for reactor approval news or any significant developments related to SMR and AI power demand.",
+      "assessment": "The core catalyst (NuScale reactor approval) has not yet resolved, and there is no fresh news this week to alter the thesis. The thesis remains live, and SMR continues to be the appropriate vehicle.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news as the catalyst remains pending.",
       "evidence_urls": []
     }
   ],
   "2024-06-21": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
-      "exit_case": "none",
+      "src": "gdelt",
+      "exit_case": "NuScale reactor approval has not yet occurred, but concerns about cash position raise risks",
       "catalyst_resolved": false,
-      "assessment": "Despite no significant developments this week, the thesis remains intact due to continued interest in SMR driven by AI power demand.",
-      "exit_advice": "Hold, as the catalyst remains pending and the thesis is intact.",
-      "evidence_urls": []
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending, but news about potential cash shortages introduces new risks. SMR continues to be the appropriate vehicle, but financial stability concerns warrant caution.",
+      "exit_advice": "Monitor for any updates on NuScale's financial health and reactor approval progress. Consider setting a tighter stop-loss given cash concerns.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/06/17/why-nuscale-power-stock-heated-up-today/"
+      ]
     }
   ],
   "2024-06-28": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution yet. The thesis is still intact due to continued interest in SMR driven by AI power demand, but no significant developments have occurred this week.",
-      "exit_advice": "Continue monitoring for reactor approval news or any significant developments related to SMR and AI power demand.",
+      "assessment": "The core catalyst (NuScale reactor approval) remains pending. SMR continues as the appropriate vehicle, but financial concerns warrant vigilance.",
+      "exit_advice": "Continue monitoring for NuScale reactor approval news. Be cautious of financial stability risks for SMR.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The earnings release is still pending, making the thesis live. The news highlights anticipation of Nike's Q4 earnings, but no resolution has occurred yet.",
+      "exit_advice": "Monitor the earnings release this Thursday and assess its implications post-release.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/earn-500-month-nike-stock-123653829.html"
+      ]
     }
   ],
   "2024-07-05": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution yet. The thesis is still intact due to continued interest in SMR driven by AI power demand, but no significant developments have occurred this week.",
-      "exit_advice": "Continue monitoring for reactor approval news or any significant developments that could impact the thesis.",
+      "assessment": "The catalyst remains pending with no resolution in sight. SMR continues to be the appropriate vehicle, but financial risks introduced in prior weeks warrant vigilance.",
+      "exit_advice": "Continue to monitor for NuScale reactor approval news, but remain cautious due to financial stability concerns.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "assessment": "The Q4 earnings release remains pending, keeping the thesis live. No relevant news impacting Nike's earnings has emerged this week.",
+      "exit_advice": "Hold until Nike's Q4 earnings are released and assessed.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3458070/asian-markets-track-global-markets-higher.aspx",
+        "https://www.rttnews.com/story.aspx?Id=3458070"
+      ]
     }
   ],
   "2024-07-12": [
     {
       "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "thesis": "NuScale reactor approval news",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Congress passed and signed bipartisan nuclear power legislation, resolving the catalyst",
+      "catalyst_resolved": true,
+      "assessment": "The core catalyst (NuScale reactor approval news) has now resolved with the signing of bipartisan nuclear power legislation. While the broader nuclear theme may continue, the specific catalyst that drove the thesis is now priced in.",
+      "exit_advice": "Exit position as the catalyst has resolved with the signing of bipartisan nuclear power legislation",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/07/10/why-shares-of-cameco-nuscale-power-and-energy-fuel/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no resolution yet. The thesis is still intact due to continued interest in SMR driven by AI power demand, but no significant developments have occurred this week.",
-      "exit_advice": "Continue monitoring for reactor approval news or any significant developments related to SMR and AI power demand.",
+      "assessment": "The Q4 earnings release remains the key catalyst, and it has not yet occurred.",
+      "exit_advice": "Continue monitoring Nike's Q4 earnings release, which is still pending.",
       "evidence_urls": []
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending. The ADVANCE Act signing is supportive of nuclear energy broadly but does not directly resolve the specific reactor approval catalyst driving this thesis. Interest in SMR due to AI power demand continues to bolster the thesis, but no explicit approval news has emerged.",
-      "exit_advice": "Hold and monitor for reactor approval news. The ADVANCE Act is supportive but does not directly resolve the catalyst.",
+      "ticker": "NKE",
+      "thesis": "Q4 earnings release",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Q4 earnings release has occurred and results are public",
+      "catalyst_resolved": true,
+      "assessment": "The Q4 earnings release was the sole catalyst for this event. Once the earnings are public, the uncertainty driving the thesis is resolved, and the edge is gone.",
+      "exit_advice": "The specific catalyst for this event has resolved, as Nike's Q4 earnings have been released. No further edge exists based on this catalyst.",
       "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
+        "https://www.fool.com/investing/2024/07/18/stock-split-watch-is-super-micro-computer-next/?source=iedfolrf0000001"
       ]
     }
   ],
-  "2024-07-26": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending, with no explicit resolution this week. Interest in SMR driven by AI power demand continues to support the broader thesis, but the specific reactor approval news has not yet occurred.",
-      "exit_advice": "Continue monitoring for explicit reactor approval news, as the catalyst remains unresolved.",
-      "evidence_urls": []
-    }
-  ],
-  "2024-08-02": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no explicit resolution this week. The broader interest in SMR driven by AI power demand continues to support the thesis, but the specific reactor approval news has not yet occurred.",
-      "exit_advice": "Continue monitoring for explicit reactor approval news, as the catalyst remains pending and the broader interest in SMR due to AI power demand supports the thesis.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live as the ninefold surge in power market auction prices was reported this week, driving significant interest in nuclear energy stocks like Constellation Energy (CEG).",
-      "exit_advice": "Continue monitoring the power market auction price surge and its impact on nuclear energy stocks.",
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst of power market auction prices surging ninefold is still live, with nuclear energy stocks like Vistra benefiting from the news. The initial surge in stock prices aligns with the catalyst, and there are no indications yet of the price surge reversing or the auction dynamics changing.",
-      "exit_advice": "Monitor for any signs of power market auction prices stabilizing or reversing, as this would indicate the catalyst may be resolving.",
-      "evidence_urls": [
-        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
-        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
-      ]
-    }
-  ],
-  "2024-08-09": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no explicit resolution this week. The broader interest in SMR driven by AI power demand continues to support the thesis, but the specific reactor approval news has not yet occurred.",
-      "exit_advice": "Continue monitoring for explicit reactor approval news, as the catalyst remains pending and the broader AI power demand thesis supports the position.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live as the ninefold surge in power market auction prices has not been resolved or reversed. The news this week does not directly impact the power market or nuclear energy stocks.",
-      "exit_advice": "Continue monitoring the power market auction prices and any related news that could impact nuclear energy stocks.",
-      "evidence_urls": [
-        "https://www.marketscreener.com/news/latest/China-stocks-rise-on-stronger-than-expected-inflation-data-47606545/",
-        "https://www.forexlive.com/stock-market-update/tech-and-health-sectors-dominate-exploring-todays-us-stock-market-trends-20240807/",
-        "https://www.fool.com/investing/2024/08/03/eli-lilly-vs-novo-nordisk-a-recent-study-suggests/?source=iedfolrf0000001"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "Auction prices could stabilize or reverse, reducing Vistra's benefit from the surge",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live as power market auction prices continue to surge, benefiting nuclear energy stocks like Vistra",
-      "exit_advice": "Monitor for signs of auction price stabilization or reversal",
-      "evidence_urls": []
-    }
-  ],
-  "2024-08-16": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "No explicit reactor approval news has occurred yet, and the catalyst remains pending.",
-      "catalyst_resolved": false,
-      "assessment": "The thesis remains intact with continued interest in SMR driven by AI power demand, but the specific reactor approval catalyst has not yet resolved.",
-      "exit_advice": "Hold until reactor approval news emerges or thesis deteriorates.",
-      "evidence_urls": [
-        "https://www.nbcnewyork.com/news/business/money-report/thursdays-big-stock-stories-whats-likely-to-move-the-market-in-the-next-trading-session-2/5706392/"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live as the ninefold surge in power market auction prices has not been resolved or reversed. The news this week does not directly impact the power market or nuclear energy stocks.",
-      "exit_advice": "Continue monitoring for any resolution or reversal of the power market auction price surge.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst of power market auction prices surging ninefold remains live, with no indications of reversal or resolution in the news. VST continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring power market auction prices and VST's performance for any signs of reversal or catalyst resolution.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox a global health emergency",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The WHO's declaration of mpox as a global health emergency is the catalyst, and BVNRY has already reacted positively. The event is still live as the emergency status persists.",
-      "exit_advice": "Hold as the WHO declaration remains active and the catalyst is still driving market movements.",
-      "evidence_urls": [
-        "https://www.nbcdfw.com/news/business/money-report/health-stocks-jump-as-who-declares-mpox-global-health-emergency/3622191/"
-      ]
-    }
-  ],
-  "2024-08-23": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Thesis remains intact with continued interest in SMR driven by AI power demand, though no explicit reactor approval news has emerged this week.",
-      "exit_advice": "Hold as reactor approval catalyst remains pending.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live as the ninefold surge in power market auction prices has not been resolved or reversed. The news this week does not directly impact the power market or nuclear energy stocks.",
-      "exit_advice": "Continue holding as the power market auction price surge remains unresolved and the catalyst is still live.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains live with no indications of reversal or resolution in the news. VST continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for signs of reversal in power market auction prices.",
-      "evidence_urls": [
-        "https://www.rttnews.com/3470813/canadian-stocks-surge-to-record-highs-after-powell-speech.aspx"
-      ]
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox a global health emergency",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The WHO's declaration of mpox as a global health emergency continues to drive relevance for BVNRY. The event remains live with no evidence of resolution or decay in the catalyst.",
-      "exit_advice": "Continue monitoring as the WHO's mpox emergency declaration remains in effect.",
-      "evidence_urls": []
-    }
-  ],
-  "2024-08-30": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains pending with no explicit resolution this week. The broader interest in SMR driven by AI power demand continues to support the thesis, but the specific reactor approval news has not yet occurred.",
-      "exit_advice": "Continue monitoring for specific reactor approval news, as the broader interest in SMR due to AI power demand remains supportive but does not directly resolve the catalyst.",
-      "evidence_urls": [
-        "https://www.rttnews.com/3471856/canadian-market-up-firmly-technology-materials-stocks-among-major-gainers.aspx"
-      ]
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The ninefold surge in power market auction prices remains unresolved and has not been reversed. This week's news does not directly impact the power market or nuclear energy stocks, suggesting the thesis remains intact.",
-      "exit_advice": "Continue holding as the catalyst remains unresolved and there is no significant news impacting the power market or nuclear energy stocks.",
-      "evidence_urls": [
-        "https://seekingalpha.com/article/4718170-schds-achilles-heel-a-warning-to-dividend-investors"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst of power market auction prices surging ninefold remains live, with no indications of reversal or resolution in the news. VST continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for any signs of power market auction prices stabilizing or reversing, which would signal the end of the catalyst.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox a global health emergency",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The WHO's declaration of mpox as a global health emergency remains the primary catalyst, and there is no evidence of resolution or decay in the catalyst. BVNRY continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring the WHO's mpox emergency status for any signs of resolution or decay in the catalyst.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2024/08/30/2-top-healthcare-growth-stocks-to-buy-right-now/?source=iedfolrf0000001",
-        "https://www.investing.com/news/stock-market-news/surprise-this-is-the-top-healthcare-stock-of-all-time-3593975",
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-shares-gain-124082900173_1.html"
-      ]
-    }
-  ],
-  "2024-09-06": [
-    {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Thesis remains intact with continued interest in SMR driven by AI power demand, but no explicit reactor approval news has emerged.",
-      "exit_advice": "Hold until the specific reactor approval news resolves, as the catalyst remains pending.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst remains intact as the ninefold surge in power market auction prices persists. Constellation Energy (CEG) continues to be the purest vehicle for this thesis.",
-      "exit_advice": "The ninefold surge in power market auction prices remains unresolved and has not been reversed. Monitor for any signs of reversal or resolution in the power market dynamics.",
-      "evidence_urls": [
-        "https://www.rttnews.com/story.aspx?Id=3473599"
-      ]
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst of power market auction prices surging ninefold remains live, with no indications of reversal or resolution in the news. VST continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for any signs of power market auction prices stabilizing or reversing, which would indicate the catalyst is resolving.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox a global health emergency",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The WHO's declaration of mpox as a global health emergency remains the catalyst, and there is no evidence of resolution or decay. BVNRY continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue monitoring for any changes in the WHO's mpox emergency status, as this remains the core driver of the thesis.",
-      "evidence_urls": [
-        "https://www.business-standard.com/markets/capital-market-news/healthcare-stocks-edge-higher-124090500179_1.html"
-      ]
-    }
-  ],
+  "2024-07-26": [],
+  "2024-08-02": [],
+  "2024-08-09": [],
+  "2024-08-16": [],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
   "2024-09-13": [
     {
-      "ticker": "SMR",
-      "thesis": "reactor approval news",
+      "ticker": "UUUU",
+      "thesis": "Federal Court approves Base Resources acquisition",
       "thesis_live": true,
+      "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The thesis remains intact, though no explicit reactor approval news has emerged this week. The continued focus on AI power demand reinforces the potential for SMR adoption, but the specific catalyst has not yet resolved.",
-      "exit_advice": "Hold \u2014 the specific reactor approval catalyst remains pending, and broader interest in SMR driven by AI power demand continues to support the thesis.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "CEG",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The ninefold surge in power market auction prices remains unresolved and unreversed. Constellation Energy (CEG) continues to be the purest vehicle for this thesis.",
-      "exit_advice": "Hold until the ninefold surge in power market auction prices resolves or reverses.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "VST",
-      "thesis": "Power market auction prices surge ninefold",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The catalyst of power market auction prices surging ninefold remains live, with no indications of reversal or resolution in the news. VST continues to be the purest vehicle for this event.",
-      "exit_advice": "Continue holding VST as the catalyst remains live with no indications of reversal or resolution in the news.",
+      "assessment": "The Federal Court of Australia has approved the acquisition of Base Resources by Energy Fuels Inc., with the transaction expected to close on October 2, 2024. The catalyst remains pending until the deal is officially completed.",
+      "exit_advice": "Hold until the acquisition officially closes on October 2, 2024.",
       "evidence_urls": [
-        "https://www.themarketsdaily.com/2024/09/12/myro-one-day-volume-reaches-10-31-million-myro.html",
-        "https://www.dailypolitical.com/2024/09/12/portal-iou-portal-trading-18-lower-over-last-week.html",
-        "https://www.themarketsdaily.com/2024/09/12/konpay-kon-trading-down-1-over-last-week.html",
-        "https://seekingalpha.com/article/4720557-tanker-markets-and-why-international-seaways-is-almost-as-cheap-as-its-ever-been",
-        "https://www.kilburntimes.co.uk/news/national/24579159.surveyors-report-rise-house-prices-first-time-nearly-two-years/",
-        "https://powertalk1360.iheart.com/content/2024-09-11-inflation-slowed-to-lowest-level-in-three-years-as-fed-considers-rate-cut/"
+        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]
-    },
-    {
-      "ticker": "BVNRY",
-      "thesis": "WHO declares mpox a global health emergency",
-      "thesis_live": true,
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "The WHO's declaration of mpox as a global health emergency continues to be the primary catalyst, and there is no evidence of resolution or decay. BVNRY remains the purest vehicle for this event.",
-      "exit_advice": "Continue holding BVNRY as the WHO's declaration of mpox as a global health emergency remains unresolved and the catalyst persists.",
-      "evidence_urls": []
     }
   ]
 }

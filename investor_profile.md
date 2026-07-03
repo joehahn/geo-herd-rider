@@ -1,11 +1,11 @@
 ---
 # Active optimizer settings 
 model: sonnet5                     # Curator LLM that reads the firehose. Choices:
-                                  #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1  (cheapest)
+                                  #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1  
                                   #   llama4   = llama-4-maverick (OpenRouter)     ~$0.3
                                   #   mimo     = xiaomi/mimo-v2.5-pro (OpenRouter) ~$0.4
-                                  #   sonnet   = claude-sonnet-4-6 (Anthropic)     ~$3.6  -- LIVE (best in the 7-model bake-off)
-                                  #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8  (fast; exits earlier than 4.6)
+                                  #   sonnet4  = claude-sonnet-4-6 (Anthropic)     ~$3.6  
+                                  #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8  
                                   #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
 initial_investment_usd: 50000     # Day-0 dollar allocation.

@@ -71,7 +71,7 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
 # holds the short name; scanning + the dashboard resolve through here so there is ONE source of truth.
 CURATOR_MODELS: dict[str, tuple[str, str]] = {
     "mimo":     ("xiaomi/mimo-v2.5-pro",          "openrouter"),  # ~1T MoE open-weight (cheap)
-    "sonnet":   ("claude-sonnet-4-6",             "anthropic"),
+    "sonnet4":   ("claude-sonnet-4-6",             "anthropic"),
     "sonnet5":  ("claude-sonnet-5",               "anthropic"),  # near-Opus reasoning, intro $2/$10
     "opus":     ("claude-opus-4-8",               "anthropic"),
     # bake-off models (all OpenRouter):
