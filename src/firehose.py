@@ -411,9 +411,11 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     if t in stopped:
                         continue                       # stopped out -> force exit this week
                 wl.append(t)
-            # SPY floor-agent: an always-on synthetic candidate at spy_floor conviction; a live event must
-            # OUT-RANK it to be held, else capital parks in SPY. Replaces the mechanical hold_benchmark add.
-            cand = list(wl)
+            # SPY floor-agent: a live event must OUT-RANK spy_floor conviction to be held. This is an
+            # ABSOLUTE gate: a sub-floor event loses to SPY unconditionally (dropped even if it's the only
+            # one live -- not merely out-ranked when the watchlist is crowded), else capital parks in SPY.
+            # Replaces the mechanical hold_benchmark add.
+            cand = [t for t in wl if not spy_floor or conv.get(t, 0) >= spy_floor]
             if spy_floor and bench in valid:
                 conv[bench] = spy_floor
                 if bench not in cand:
