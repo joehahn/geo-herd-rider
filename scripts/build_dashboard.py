@@ -625,7 +625,8 @@ def build_sweeps() -> None:
                 _, panel, anchor = gem_data[t]
                 bt = firehose.backtest(bk, fm0, capital, panel=panel, overlay=t, overlay_anchor=anchor)
                 total += bt["final"]; bo["per_gem"][t].append(round(bt["final"]))
-                caught[t] = any(str(p.get("ticker", "")).strip().upper() == t
+                _tg = {"GEO", "MSTR"} if t == "GEO_MSTR" else {t}   # combo: caught if either target named
+                caught[t] = any(str(p.get("ticker", "")).strip().upper() in _tg
                                 for v in bk.values() for p in v)
             lbl, scl, cst, tm = BAKEOFF_INFO[s]
             bo["models"].append(s); bo["label"].append(lbl); bo["scale"].append(scl)
