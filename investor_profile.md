@@ -14,7 +14,7 @@ risk_aversion: 0.67              # lambda in mean-variance utility (μᵀw − �
 max_tickers_per_event: 16         # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
-max_agents: 2                     # Keep only the top-N agents (by catalyst-conviction) in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped; sweepable
+max_agents: 1                     # Keep only the top-N agents (by catalyst-conviction) in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped; sweepable
 trailing_stop_pct: 0.0            # Mechanical peak-exit: force-exit a held name once it is this fraction below its trailing high; 0 = off
 prune_zero_weight_weeks: 0        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
 spy_agent_conviction: 6           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot, else capital parks in SPY (0 = SPY agent off)
