@@ -3945,6 +3945,12 @@
       "thesis": "STB ruling pending on UNP's $85B Norfolk Southern merger",
       "first": "2026-06-19",
       "last": "2026-07-03"
+    },
+    "spy": {
+      "ticker": "SPY",
+      "thesis": "always-on SPY floor agent",
+      "first": "2025-12-30",
+      "last": "2026-07-02"
     }
   },
   "agent_of": {
@@ -3991,7 +3997,306 @@
     "ev2": 0.0,
     "ev3": -518.04,
     "ev4": -17050.46,
-    "ev5": 229.74
+    "ev5": 229.74,
+    "spy": 2428.4
+  },
+  "agent_conviction": {
+    "ev1": [
+      {
+        "date": "2026-01-16",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-23",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-30",
+        "conviction": 5
+      },
+      {
+        "date": "2026-02-06",
+        "conviction": 5
+      },
+      {
+        "date": "2026-02-13",
+        "conviction": 5
+      },
+      {
+        "date": "2026-02-20",
+        "conviction": 5
+      },
+      {
+        "date": "2026-02-27",
+        "conviction": 5
+      },
+      {
+        "date": "2026-03-06",
+        "conviction": 5
+      },
+      {
+        "date": "2026-03-13",
+        "conviction": 5
+      },
+      {
+        "date": "2026-03-20",
+        "conviction": 5
+      },
+      {
+        "date": "2026-03-27",
+        "conviction": 5
+      },
+      {
+        "date": "2026-04-03",
+        "conviction": 5
+      },
+      {
+        "date": "2026-04-10",
+        "conviction": 5
+      },
+      {
+        "date": "2026-04-17",
+        "conviction": 5
+      },
+      {
+        "date": "2026-04-24",
+        "conviction": 5
+      },
+      {
+        "date": "2026-05-01",
+        "conviction": 5
+      },
+      {
+        "date": "2026-05-08",
+        "conviction": 5
+      },
+      {
+        "date": "2026-05-15",
+        "conviction": 5
+      },
+      {
+        "date": "2026-05-22",
+        "conviction": 5
+      },
+      {
+        "date": "2026-05-29",
+        "conviction": 5
+      },
+      {
+        "date": "2026-06-05",
+        "conviction": 5
+      },
+      {
+        "date": "2026-06-12",
+        "conviction": 5
+      },
+      {
+        "date": "2026-06-19",
+        "conviction": 5
+      },
+      {
+        "date": "2026-06-26",
+        "conviction": 5
+      },
+      {
+        "date": "2026-07-03",
+        "conviction": 5
+      }
+    ],
+    "ev2": [
+      {
+        "date": "2026-01-30",
+        "conviction": 3
+      }
+    ],
+    "ev3": [
+      {
+        "date": "2026-04-17",
+        "conviction": 8
+      },
+      {
+        "date": "2026-04-24",
+        "conviction": 7
+      },
+      {
+        "date": "2026-05-01",
+        "conviction": 7
+      },
+      {
+        "date": "2026-05-08",
+        "conviction": 7
+      },
+      {
+        "date": "2026-05-15",
+        "conviction": 7
+      },
+      {
+        "date": "2026-05-22",
+        "conviction": 7
+      },
+      {
+        "date": "2026-05-29",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-05",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-12",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-19",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-26",
+        "conviction": 6
+      },
+      {
+        "date": "2026-07-03",
+        "conviction": 6
+      }
+    ],
+    "ev4": [
+      {
+        "date": "2026-05-08",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-15",
+        "conviction": 3
+      }
+    ],
+    "ev5": [
+      {
+        "date": "2026-06-19",
+        "conviction": 7
+      },
+      {
+        "date": "2026-06-26",
+        "conviction": 6
+      },
+      {
+        "date": "2026-07-03",
+        "conviction": 6
+      }
+    ],
+    "spy": [
+      {
+        "date": "2025-12-26",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-02",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-09",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-16",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-23",
+        "conviction": 6
+      },
+      {
+        "date": "2026-01-30",
+        "conviction": 6
+      },
+      {
+        "date": "2026-02-06",
+        "conviction": 6
+      },
+      {
+        "date": "2026-02-13",
+        "conviction": 6
+      },
+      {
+        "date": "2026-02-20",
+        "conviction": 6
+      },
+      {
+        "date": "2026-02-27",
+        "conviction": 6
+      },
+      {
+        "date": "2026-03-06",
+        "conviction": 6
+      },
+      {
+        "date": "2026-03-13",
+        "conviction": 6
+      },
+      {
+        "date": "2026-03-20",
+        "conviction": 6
+      },
+      {
+        "date": "2026-03-27",
+        "conviction": 6
+      },
+      {
+        "date": "2026-04-03",
+        "conviction": 6
+      },
+      {
+        "date": "2026-04-10",
+        "conviction": 6
+      },
+      {
+        "date": "2026-04-17",
+        "conviction": 6
+      },
+      {
+        "date": "2026-04-24",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-01",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-08",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-15",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-22",
+        "conviction": 6
+      },
+      {
+        "date": "2026-05-29",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-05",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-12",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-19",
+        "conviction": 6
+      },
+      {
+        "date": "2026-06-26",
+        "conviction": 6
+      },
+      {
+        "date": "2026-07-03",
+        "conviction": 6
+      }
+    ]
   },
   "agent_precision": [
     {
