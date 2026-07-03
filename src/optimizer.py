@@ -51,6 +51,13 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
     "prune_zero_weight_weeks": 4,      # LIVE (firehose backtest): drop a name the optimizer keeps
                                        #   starving (~0 weight) for this many weeks (0 = off).
+    "max_events": 5,                   # LIVE (firehose backtest): keep only the top-N events (by the agent's
+                                       #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
+    "spy_floor_conviction": 6,         # LIVE (firehose backtest): SPY as an always-on floor "agent" — a synthetic
+                                       #   candidate at this conviction that a live event must OUT-RANK to be held;
+                                       #   else capital parks in SPY. Replaces the mechanical hold_benchmark add. 0 = off.
+    "trailing_stop_pct": 0.0,          # LIVE (firehose backtest): mechanical peak-exit — force-exit a held name
+                                       #   once it's this fraction below its trailing high. 0 = off.
     "hold_benchmark": True,            # LIVE (firehose backtest): SPY always in the optimizer universe
                                        #   (gems must beat SPY to be funded; idle capital rides the market).
     "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of

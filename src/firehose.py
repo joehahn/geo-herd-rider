@@ -360,8 +360,10 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
-    hold_bench = bool(fm.get("hold_benchmark", False))          # SPY as an always-available default risk asset
-    bench = score.BENCHMARK                                     # so idle capital + marginal gems compete vs SPY
+    trail_stop = float(fm.get("trailing_stop_pct", 0) or 0)     # 0 = off; force-exit a held name once it's this fraction below its trailing high (mechanical peak-exit)
+    max_events = int(fm.get("max_events", 0) or 0)             # 0 = off; keep only the top-N events (by catalyst conviction) in the weekly watchlist
+    spy_floor = int(fm.get("spy_floor_conviction", 0) or 0)     # SPY as an always-on floor "agent": a synthetic candidate at this
+    bench = score.BENCHMARK                                     #   conviction that events must OUT-RANK to be held; else capital parks in SPY. 0 = off.
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold + hard-exit on catalyst_resolved
     tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
@@ -382,19 +384,51 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     zero_streak, pruned = {}, set()   # visibility: drop chronically-unfunded names; cap funded concurrency
+    trail_hi, stopped = {}, set()     # mechanical trailing-stop state (per currently-held name)
+    conv = {}                         # running last-known catalyst-conviction per ticker (for the max_events cap)
     for k, a in enumerate(anchors):
+        for p in scans[a]:            # carry the latest catalyst-conviction the agent assigned each ticker
+            conv[p["ticker"]] = p.get("conviction", conv.get(p["ticker"], 5))
         i = score.entry_index(days, a.strftime("%Y-%m-%dT%H:%M:%S%z"), fm.get("t_update_days"))
         reb.append(None if i is None else i)
         if i is not None:
-            wl = [t for t in watch[a] if t not in pruned]
-            uni = wl + ([bench] if hold_bench and bench in valid and bench not in wl else [])
+            d = days[i]
+            held = set(watch[a])
+            for t in list(trail_hi):                  # names no longer held -> reset their trailing state
+                if t not in held:
+                    trail_hi.pop(t, None); stopped.discard(t)
+            wl = []
+            for t in watch[a]:
+                if t in pruned:
+                    continue
+                if trail_stop and t != bench and t in valid:   # mechanical peak-exit (NOT the LLM using price)
+                    s = panel[t].dropna().loc[:d]
+                    if len(s):
+                        px = float(s.iloc[-1])
+                        trail_hi[t] = max(trail_hi.get(t, px), px)
+                        if px <= trail_hi[t] * (1 - trail_stop):
+                            stopped.add(t)
+                    if t in stopped:
+                        continue                       # stopped out -> force exit this week
+                wl.append(t)
+            # SPY floor-agent: an always-on synthetic candidate at spy_floor conviction; a live event must
+            # OUT-RANK it to be held, else capital parks in SPY. Replaces the mechanical hold_benchmark add.
+            cand = list(wl)
+            if spy_floor and bench in valid:
+                conv[bench] = spy_floor
+                if bench not in cand:
+                    cand.append(bench)
+            if max_events and len(cand) > max_events:  # keep only the top-N candidates by conviction (SPY competes)
+                keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_events])
+                cand = [t for t in cand if t in keep]
+            uni = cand
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
             if prune_k:                                       # a name the optimizer keeps starving -> drop
                 for t in wl:
                     zero_streak[t] = 0 if w.get(t, 0) > 1e-9 else zero_streak.get(t, 0) + 1
                     if zero_streak[t] >= prune_k:
                         pruned.add(t)
-            watch[a] = wl                                     # expose the pruned watch to log + dashboard
+            watch[a] = [t for t in cand if t != bench]        # event watchlist (SPY funded via the weights)
             week_w[k] = w
 
     value, spyval, log = capital, capital, []

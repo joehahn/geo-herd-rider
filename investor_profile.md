@@ -17,7 +17,7 @@ min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_events: 1                     # Keep only the top-N events (by agent catalyst-conviction) in the weekly watchlist; 0 = uncapped; sweepable
 trailing_stop_pct: 0.0            # Mechanical peak-exit: force-exit a held name once it is this fraction below its trailing high; 0 = off
 prune_zero_weight_weeks: 4        # Drop a name the optimizer keeps starving (~0 weight) for this many weeks (0 = off)
-hold_benchmark: true              # SPY is ALWAYS in the optimizer watchlist/universe (every week); gems must beat SPY to be funded
+spy_floor_conviction: 6           # SPY always-on floor agent: a live event must out-rank this conviction to be held, else park in SPY (replaces hold_benchmark auto-add)
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks; sweepable
 lookback_period_days: 7           # Optimizer trailing lookback (calendar days); short = responsive to recent moves
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
