@@ -1,6 +1,6 @@
 ---
 # Active optimizer settings 
-model: sonnet                     # Curator LLM that reads the firehose. Choices:
+model: sonnet5                     # Curator LLM that reads the firehose. Choices:
                                   #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1  (cheapest)
                                   #   llama4   = llama-4-maverick (OpenRouter)     ~$0.3
                                   #   mimo     = xiaomi/mimo-v2.5-pro (OpenRouter) ~$0.4

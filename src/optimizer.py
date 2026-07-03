@@ -40,7 +40,7 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 21,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
-    "model": "sonnet",                 # LIVE (curator/scan): which LLM reads the firehose. Short
+    "model": "sonnet5",                 # LIVE (curator/scan): which LLM reads the firehose. Short
                                        #   names resolved by resolve_curator_model(): deepseek (cheap,
                                        #   OpenRouter) | sonnet | sonnet5 | opus | .... Stamped into the
                                        #   scan + shown on the dashboards as the curator model.
