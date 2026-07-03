@@ -104,6 +104,30 @@ def _write_page(path, html: str) -> None:
     path.write_text(html)
 
 
+def _gem_seeds(ticker: str) -> list:
+    """Seed articles that NAME this gem (ticker as a word or '(TICKER)' in title/snippet), across all
+    fixture seed files — for marking the seed's publish date + its lede on the value chart."""
+    import glob  # noqa: PLC0415
+    import re  # noqa: PLC0415
+    tk = ticker.upper()
+    pat = re.compile(rf"(\b{re.escape(tk)}\b|\({re.escape(tk)}\))")
+    out, seen = [], set()
+    for f in sorted(glob.glob(str(ROOT / "data" / "fixtures" / "*seed*.json"))):
+        try:
+            with open(f, encoding="utf-8") as fh:
+                arts = json.load(fh).get("articles", [])
+        except Exception:  # noqa: BLE001
+            continue
+        for a in arts:
+            if pat.search(f"{a.get('title', '')} {a.get('snippet', '')}".upper()):
+                key = (a.get("published_date", ""), a.get("title", ""))
+                if key not in seen:
+                    seen.add(key)
+                    out.append({"date": a.get("published_date", ""), "title": a.get("title", ""),
+                                "snippet": a.get("snippet", ""), "source": a.get("source", "")})
+    return sorted(out, key=lambda s: s["date"])
+
+
 def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     """Build one gem's dashboard into docs/<gem>/ (data.json + index.html + firehose.html).
     The gem's own price is the overlay, anchored at its trigger date. Returns the payload."""
@@ -257,6 +281,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "model": disp_model, "storyline": STORYLINE.get(ticker, ""), "ever_funded": ever_funded,
+        "seeds": _gem_seeds(ticker),
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
@@ -724,6 +749,18 @@ Promise.resolve({{DATA}}).then(D=>{
       line:{color:OVC,width:1,dash:"dot"}});
     vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
       text:D.overlay_label||(D.overlay_ticker+" trigger"),font:{color:OVC,size:10}});
+  }
+  // seed markers: a big star at each press-seed's publish date on the value curve; lede on hover
+  const SD=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
+  if(SD.length){
+    const sx=SD.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
+    const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
+    const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    vtraces.push({x:sx,y:sy,mode:"markers",name:"🌱 press seed",
+      marker:{size:16,color:"#f1c40f",symbol:"star",line:{color:"#a67c00",width:1.5}},
+      text:SD.map(s=>"🌱 <b>SEED</b> "+s.date+(s.source?" · "+clean(s.source):"")
+        +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
+      hovertemplate:"%{text}<extra></extra>"});
   }
   const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
   Plotly.newPlot("chart",vtraces,

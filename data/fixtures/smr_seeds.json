@@ -1,0 +1,12 @@
+{
+  "_note": "SMR-only seed for the NuScale 2025 AI-nuclear re-scan (drops MP's seed so this is an SMR-focused book over MP's cached 2025 window). Look-ahead-clean: dated at true early-2025 publication; content reflects only what was public then (AI-datacenter baseload-power demand + NuScale as the sole NRC-approved SMR designer, still under the radar), BEFORE the mid/late-2025 run. Hindsight upper-bound seeding crutch, per README.",
+  "articles": [
+    {
+      "published_date": "2025-03-28",
+      "source": "kalkine.com",
+      "title": "Small modular reactor stocks stir as AI data centers scramble for baseload power",
+      "snippet": "NuScale Power (SMR) - the only NRC-approved small modular reactor designer - is drawing early attention as AI data centers hunt for reliable, carbon-free baseload power. Still well under the radar versus the megacap nuclear names, with advanced dialogue reported with prospective data-center customers.",
+      "url": ""
+    }
+  ]
+}
