@@ -408,7 +408,14 @@ SWEEPS = [
      "values": [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "risk_aversion", "label": "risk_aversion",
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 0.85, 1.0, 1.25, 1.5, 2.0, 3.0]},   # 0 = pure-μ -> high λ = risk-averse
+    {"key": "max_events", "label": "max_events",
+     "values": [1, 2, 3, 4, 5, 6, 8]},              # top-N events (by conviction) kept in the weekly watchlist
+    {"key": "spy_floor_conviction", "label": "spy_floor_conviction",
+     "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY floor an event must out-rank to be held
 ]
+
+# The (non-LLM) parameter sweeps are restricted to these gems only.
+SWEEP_GEMS = {"BWET", "MP"}
 
 # Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values
 # (independent of the live gem-dashboard defaults). Pin cap=0.5 here per request.
@@ -445,7 +452,8 @@ def build_sweeps() -> None:
     # membership to the live curated set, so a stale/other-prompt scan (e.g. a pre-gate RNMBY) that
     # has no dashboard is auto-excluded, and any gem joins the sweep once its dashboard is built.
     gem_tickers = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
-                   if gem_config(g["ticker"])["scans"].exists()
+                   if g["ticker"] in SWEEP_GEMS
+                   and gem_config(g["ticker"])["scans"].exists()
                    and (gem_config(g["ticker"])["out"] / "data.json").exists()]
     if not gem_tickers:
         print("  sweeps: no built gem dashboards yet — skipped"); return
