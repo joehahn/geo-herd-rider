@@ -91,12 +91,14 @@
       "id": "rnmby",
       "ticker": "RNMBY",
       "name": "Rheinmetall (US OTC ADR)",
-      "catalyst": "Ukraine war -> EU rearmament",
-      "trigger_date": "2022-09-01",
+      "catalyst": "Trump-Europe rift -> Germany scraps debt brake -> historic defense buildout",
+      "trigger_date": "2025-03-05",
       "size_tier": "large",
-      "shape": "geopolitical/defense (WAR)",
+      "shape": "geopolitical/defense policy shock (sharp Mar-2025 catalyst, not the slow 2022-24 grind)",
       "peak_multiple": 8.1,
-      "vehicle_note": "OTC ADR \u2014 thin liquidity / wide spreads; native RHM.DE not used (FX friction). Swap to a defense ETF if execution realism matters."
+      "vehicle_note": "OTC ADR \u2014 thin liquidity / wide spreads; native RHM.DE not used (FX friction). Swap to a defense ETF if execution realism matters. | RESCAN as the SHARP Mar-2025 debt-brake catalyst (window 2024-10-15..2025-12-15): $103->peak $463 (Sep-29-2025, ~4.5x) then -45% decline to $253 = entry+ride+EXIT test. Thin OTC (limit orders); native RHM.DE deeper but FX-excluded.",
+      "window_start": "2024-10-15",
+      "window_end": "2025-12-15"
     },
     {
       "id": "bwet",
@@ -142,7 +144,9 @@
       "size_tier": "medium",
       "shape": "precious-metals macro (slow)",
       "peak_multiple": 3.5,
-      "vehicle_note": "fills the commodity-macro vertical; medium-tier band the power-law thesis wants"
+      "vehicle_note": "fills the commodity-macro vertical; medium-tier band the power-law thesis wants",
+      "window_start": "2024-01-01",
+      "window_end": "2025-06-01"
     },
     {
       "id": "ura",

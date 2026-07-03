@@ -713,13 +713,13 @@ STORYLINE = {
     ),
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> rose on the <b>gold bull market</b> — central-bank buying, "
-        "debasement fears, safe-haven demand. It <i>was</i> seeded (a Mar-2024 'gold miners break out' "
-        "article), yet the curator never named it (caught = false). <b>Two caveats on that verdict:</b> "
-        "the seed is <i>momentum</i>-framed ('breakout / records') — the exact language the gate rejects "
-        "— and this book was produced by <b>llama4</b>, the weakest curator in the bake-off. So GDX is a "
-        "<i>likely</i> non-fit — gold's drivers are a diffuse macro theme with no discrete catalyst to "
-        "fire or resolve — but it has <b>not been cleanly tested</b> (a strong curator + a discrete-event "
-        "seed). Greyed pending that."
+        "debasement fears, safe-haven demand. <b>It has NOT been fairly tested.</b> GDX was seeded "
+        "(a Mar-2024 'gold miners break out (GDX)' article), but the scan ran over <b>2025-06 -> "
+        "2026-06 — ~15 months AFTER that catalyst</b> (GDX had no window pinned, so it defaulted to a "
+        "recent window). So the seed <i>never injected</i>, the 2024 catalyst was never in view, and "
+        "the book was produced by the weak llama4 curator. caught=false here means <i>untested</i>, not "
+        "non-fit. gold's drivers are likely too diffuse (no discrete catalyst to resolve) — but that "
+        "needs a proper re-scan: the pinned 2024 window + the seed + a strong curator."
     ),
 }
 
