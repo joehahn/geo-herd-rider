@@ -235,7 +235,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             agent_gain[a] = round(end_val - start_val, 2)
 
     # per-agent conviction over time (Plot 8) + the synthetic SPY agent-agent's row in the gain/
-    # conviction plots: its $ P&L is booked on SPY holdings, its conviction is the constant floor.
+    # conviction plots: its $ P&L is booked on SPY holdings, its conviction is the constant spy_agent_conviction.
     agent_conviction: dict = {}
     for a in sorted(scans):
         ds = a.date().isoformat()
@@ -700,7 +700,7 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 9 — Cumulative gain vs conviction, per agent</h2>
  <p class="sub" style="margin:0 0 6px">One connected dot per agent: its <b>mean conviction</b> (x) vs its
    <b>cumulative $ P&amp;L</b> (y), dots joined in conviction order. If the curator's conviction is
-   <b>predictive</b>, the trace slopes up-right (higher conviction → more gain). SPY (the floor agent) is grey.</p>
+   <b>predictive</b>, the trace slopes up-right (higher conviction → more gain). SPY (the always-on agent) is grey.</p>
  <div id="gainconv"></div>
 
  <h2 id="agentprec_h"></h2>
