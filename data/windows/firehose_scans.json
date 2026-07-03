@@ -5,99 +5,114 @@
   "2026-01-16": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Peak retail quantum hype, $840M cross-sector insider selling, and 200%-plus prior gains leave little early edge.",
+      "exit_case": "The 'announced' catalyst has already fired and is public; any announcement premium may already be priced in.",
       "catalyst_resolved": false,
-      "assessment": "Week 1. Entered on the QBTS $550M acquisition announcement (~Jan 10). The announcement is public, but the DEAL has not yet closed \u2014 regulatory review and deal mechanics are still ahead, preserving the pending-catalyst structure. The exit case (crowding + insider selling) is real but does not override a CONCRETE pending event: deal close. Per rules, hold through noise while a scheduled/announced catalyst remains ahead. Material risk flags: the quantum sector is at peak retail saturation (Motley Fool 'millionaire' framing, Morningstar sector features), QBTS is up 200%+ over the prior year, and a cross-sector warning cites ~$840M in insider selling across IonQ, Rigetti, D-Wave, and QCI. These stretch the valuation risk significantly beyond deal fundamentals but do not resolve the acquisition-close catalyst. QBTS is the correct direct vehicle. Key watches: regulatory filing timeline, deal close date announcement, any deal-stress signals (financing problems, target walkaway, antitrust inquiry).",
-      "exit_advice": "Hold QBTS; exit if the acquisition is terminated or if the deal closes and is fully digested by the market with no follow-on event.",
+      "conviction": 6,
+      "assessment": "Week 1. QBTS just announced a $550M acquisition framed as a technology-moat strengthener. The announcement is public but the deal has NOT closed \u2014 regulatory approvals, shareholder votes, and formal close are concrete, still-pending catalysts. Coverage at this point is early-stage: two articles (Yahoo Finance specific to QBTS, Motley Fool general quantum basket), not yet mainstream-saturated. The devil's-advocate case \u2014 that the announcement premium is already priced \u2014 is real but not decisive; the durable edge here is deal progression/close, not the headline. Quantum computing as a theme is hot and crowding risk is elevated, which suppresses conviction modestly. Hold through any silence; exit only on deal close, deal break, or regulatory block \u2014 not on quiet weeks.",
+      "exit_advice": "Exit when the deal formally closes (or collapses/is blocked); watch for regulatory filings, shareholder vote dates, and deal-close announcements as the concrete next milestones.",
       "evidence_urls": [
         "https://finance.yahoo.com/news/550-million-reason-buy-quantum-140002965.html",
-        "https://finance.yahoo.com/news/d-wave-quantum-stock-over-140500459.html",
-        "https://www.fool.com/investing/2026/01/14/quantum-computing-stocks-ionq-840-million-warning/?source=iedfolrf0000001"
+        "https://www.fool.com/investing/2026/01/10/want-to-invest-in-quantum-computing-these-3-stocks/?source=iedfolrf0000001"
       ]
     }
   ],
   "2026-01-23": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "No regulatory or close-timeline update two weeks post-announcement; deal may already be priced into an overvalued sector.",
+      "exit_case": "Rosenblatt PT raise signals sell-side now fully chasing QBTS; announcement premium may be absorbed before deal closes.",
       "catalyst_resolved": false,
-      "assessment": "Week 2 (ending Jan 23): Zero deal-specific news on QBTS's $550M acquisition this week \u2014 no SEC filing, no close-date announcement, no regulatory update. The quantum sector has hit extreme mainstream saturation: Motley Fool crash-prediction piece, '$4.15B reality check' article, multiple 'hype vs reality' and 'best stocks for 2026' features, and Rosenblatt raising QBTS PT to $43 (that raise was Jan 8, before our entry \u2014 not new signal). These are collectively the loudest crowding signals yet, but per rules they do not resolve the pending catalyst. Third-exit check: (a) deal close is still a concrete, pending, formally-announced event \u2014 the arc is NOT complete; (b) saturation is extreme. Since (a) fails, the third-exit condition does not trigger \u2014 HOLD through noise while a concrete catalyst remains outstanding. The two-week silence on deal mechanics is a yellow flag to watch; deal-stress signals (financing problems, antitrust inquiry, target walkaway, HSR waiting period news) would materially change the picture. Maintain QBTS as the sole vehicle. Key watches: any HSR/regulatory filing, close-date announcement, or deal-stress signal.",
-      "exit_advice": "Hold; exit on confirmed deal close or confirmed deal break/termination \u2014 not on noise or sector saturation alone.",
+      "conviction": 6,
+      "assessment": "The $550M acquisition remains open and unclosed. No regulatory filing outcome, shareholder vote, or closing announcement has appeared in this week's news or anywhere in the prior journal. The specific deal-close event is still a concrete, pending catalyst \u2014 the strongest justification for holding. This week's QBTS-specific news is limited to a Rosenblatt PT raise ($43 from $40, rating unchanged) \u2014 a sell-side trailing action, not a deal event. Surrounding coverage is sector-wide quantum hype (Motley Fool 'hype vs. reality', QBTS vs. RGTI comparisons) with no deal-mechanic reporting. The devil's advocate case \u2014 that the announcement premium is already absorbed \u2014 is real but not decisive while the close/regulatory/shareholder milestones remain outstanding and unresolved. Quantum sector crowding is elevated and suppresses conviction, but does not trigger exit while a concrete scheduled event remains ahead. Hold; ignore sector noise.",
+      "exit_advice": "Exit only on deal close announcement, regulatory block, deal termination, or failed shareholder vote \u2014 not on sell-side PT raises or sector-wide quantum noise.",
       "evidence_urls": [
         "https://finance.yahoo.com/news/rosenblatt-lifts-pt-d-wave-173326731.html",
-        "https://www.fool.com/investing/2026/01/23/predict-quantum-computing-ionq-rigetti-d-wave-buy/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/01/20/quantum-computing-stocks-415-billion-reality-check/?source=iedfolrf0000001"
+        "https://www.fool.com/investing/2026/01/21/quantum-computing-stocks-hype-versus-reality/"
       ]
     }
   ],
   "2026-01-30": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Three consecutive weeks of zero deal-specific news; if the acquisition quietly lapsed or was fully priced at announcement, thesis is exhausted.",
+      "exit_case": "Three weeks post-announcement, zero deal-mechanic news; announcement premium may be fully absorbed already.",
       "catalyst_resolved": false,
-      "assessment": "Week 3 (ending Jan 30): For the third consecutive week, there is zero QBTS-specific deal news \u2014 no HSR filing, no close-date announcement, no SEC deal mechanics update, no regulatory action on the $550M acquisition. This week's news cycle is entirely about sector peers (RGTI, IonQ, D-Wave) and general market moves; QBTS is not mentioned. The quantum sector has generated its heaviest bearish retail coverage yet: multiple 'avoid these stocks' pieces, Cathie Wood's '20\u201340 years' warning, crash-prediction articles. This is sector-level noise, not deal-specific signal, and does not resolve the pending-close catalyst. Third-exit check: (a) the deal close is still a formally announced, concrete pending event \u2014 the arc is NOT complete; (b) coverage is at peak mainstream saturation. Since (a) fails, the third-exit condition does not trigger \u2014 hold through noise while a concrete catalyst remains outstanding. The growing silence on deal mechanics is a material yellow flag; any sign of deal stress (financing problem, target walkaway, antitrust inquiry, HSR expiry without filing) would materially change the picture. QBTS remains the sole vehicle.",
-      "exit_advice": "Hold. The $550M acquisition has not closed, been withdrawn, or encountered a confirmed regulatory block \u2014 the deal-close catalyst remains a formally announced, concrete pending event. Three weeks of silence is a yellow flag but not an exit trigger per rules. EXIT if: deal is cancelled or withdrawn, regulatory block confirmed, or deal closes (catalyst resolved and priced). Sector-level bearish noise (Cathie Wood, Motley Fool crash pieces, 'avoid quantum' articles) is irrelevant to the deal-close binary.",
+      "conviction": 5,
+      "assessment": "Week 3: The $550M acquisition remains open and unclosed. This week's news contains zero QBTS-specific or deal-mechanic content \u2014 both articles cover UnitedHealth earnings and Medicare rate cuts, entirely unrelated to the QBTS catalyst. The concrete pending milestones (regulatory filing outcome, shareholder vote, formal close) remain outstanding and unresolved. Devil's-advocate case \u2014 that the announcement premium is now fully absorbed after three weeks of silence \u2014 is the strongest case against holding, but it is the classic staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal-open, close-pending) is still in force is not resolution. Quantum sector crowding remains elevated and suppresses conviction from what it would otherwise be on a clean, uncrowded deal event, hence conviction held at 5. No vehicle change; QBTS remains the single purest play on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on confirmed deal close, regulatory block, or deal termination. Do NOT exit on silence, sector noise, or macro unrelated headlines.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/01/24/cathie-wood-message-quantum-computing-stock/",
-        "https://www.fool.com/investing/2026/01/25/2-quantum-stocks-avoid-2026-begins/",
-        "https://www.fool.com/investing/2026/01/23/predict-quantum-computing-ionq-rigetti-d-wave-buy/"
+        "https://finance.yahoo.com/news/unitedhealth-stock-plunges-20-heres-174455263.html",
+        "https://www.businesstimes.com.sg/companies-markets/capital-markets-currencies/us-stocks-sp-500-marks-closing-record-corporate-earnings-roll-medicare-rates-hit-insurers"
+      ]
+    },
+    {
+      "ticker": "HON",
+      "thesis": "Honeywell accelerates aerospace unit spinoff to earlier date",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Acceleration announced Jan 29 \u2014 day before entry \u2014 stock already jumped; catalyst is public and backward-looking.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "First and only week. The fixed catalyst ('Honeywell accelerates aerospace unit spinoff to earlier date') maps precisely to the Jan 29 announcement that Honeywell 'moved up its aerospace spinoff,' which drove an immediate share-price jump. Entry on Jan 30 was one day after the catalyst was public and market-moving, and already being covered mainstream (CNBC/Cramer). Catalyst_resolved is true from day one: the acceleration decision was announced, the stock reacted, and the thesis window closed before the position was opened. The pending actual spinoff completion is a real future event but is a different catalyst than the one entered on \u2014 it would need to be tracked as a new, separate event.",
+      "exit_advice": "Exit immediately. The specific catalyst \u2014 Honeywell formally announcing an accelerated aerospace spinoff timeline \u2014 was already public on Jan 29 and the stock had already jumped that day. By entry on Jan 30 the announcement was fully priced; Jim Cramer was on CNBC advising retail investors. No early-mover edge ever existed on this specific catalyst. The eventual spinoff closing is a separate, subsequent event not captured by the fixed catalyst entered here.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/01/29/honeywells-business-and-stock-are-looking-good-cramer-has-this-advice-for-investors.html"
       ]
     }
   ],
   "2026-02-06": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Four straight weeks of total silence on deal mechanics \u2014 a $550M deal may have already closed quietly, resolving the catalyst undetected.",
+      "exit_case": "Four weeks of post-announcement silence; announcement premium may be fully absorbed with no deal-mechanic news surfacing.",
       "catalyst_resolved": false,
-      "assessment": "Week 4 (ending Feb 6): For the fourth consecutive week, there is zero QBTS-specific acquisition news \u2014 no HSR filing, no close-date announcement, no SEC deal mechanics update, no regulatory action on the $550M acquisition. This week's quantum news cycle is entirely about D-Wave and IonQ (Motley Fool rebound piece, MarketBeat screener lists, Yahoo Finance AI/quantum trend article); QBTS is absent. Sector saturation remains extreme and unchanged. Third-exit check: (a) the deal close is still a formally announced, concrete pending event \u2014 the arc is NOT complete; (b) coverage is at peak mainstream saturation. Since (a) fails, the third-exit condition does not trigger \u2014 rules require holding through noise while a concrete catalyst is outstanding. The four-week silence on deal mechanics is now an escalating yellow-flag, not merely a quiet stretch: a transaction of this size would ordinarily generate HSR or SEC filings visible to press within ~30 days of announcement. No such filings have surfaced. This warrants heightened scrutiny but not exit absent a resolution or stress signal. QBTS remains the sole vehicle.",
-      "exit_advice": "Hold \u2014 the deal close remains a formally announced, concrete pending event with no reported closure or cancellation. Silence alone is not resolution. However, four weeks of zero deal-mechanics news on a $550M transaction is an escalating red flag; HSR review windows typically surface within 30 days of announcement. Urgently monitor for any SEC filing, HSR update, close announcement, or deal-stress signal (financing failure, target walkaway, antitrust inquiry). A fifth silent week combined with any secondary signal of deal failure would warrant exit.",
+      "conviction": 5,
+      "assessment": "Week 4: The $550M acquisition remains open and unclosed. This week's news contains zero QBTS-specific content \u2014 both quantum-sector articles cover IonQ exclusively, and macro articles are entirely unrelated to the QBTS catalyst. The devil's-advocate case \u2014 four consecutive weeks of silence since announcement, with the announcement premium plausibly absorbed \u2014 is the strongest it has been. However, the framework is explicit: silence while the driving condition (deal open, close pending) remains in force is not resolution, and exiting on staleness is the hold-inertia trap. The concrete pending milestones (regulatory filing outcome, shareholder vote, formal close) remain outstanding and unresolved per the entire journal record. No evidence of deal break or regulatory block has appeared in any week. The 'herd fully arrives' exit also does not trigger: the arc is NOT complete (deal close is a concrete, still-pending event), and this week's coverage is actually *less* QBTS-focused than prior weeks, the opposite of mainstream saturation. Conviction held at 5 \u2014 suppressed by four weeks of silence and elevated quantum-sector crowding risk, but the clean binary (deal close vs. deal break) keeps the thesis structurally intact. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only on deal resolution.",
+      "exit_advice": "Exit ONLY on: (1) deal close confirmed, (2) regulatory block, or (3) deal termination. Do NOT exit on continued silence.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/02/06/d-wave-quantum-stock-is-surging-today-is-the-stock/?source=iedfolrf0000001",
-        "https://www.themarketsdaily.com/2026/02/05/promising-quantum-computing-stocks-to-consider-february-5th.html",
-        "https://finance.yahoo.com/news/worst-day-silver-46-years-091100399.html",
-        "https://www.dailypolitical.com/2026/02/02/promising-quantum-computing-stocks-worth-watching-february-2nd.html",
-        "https://www.fool.com/investing/2026/02/02/is-ionq-stock-a-buy-now/?source=iedfolrf0000001"
+        "https://www.freemalaysiatoday.com/category/business/2026/02/03/global-stock-index-edges-down-silver-and-oil-extend-losses",
+        "https://www.fool.com/investing/2026/02/02/is-ionq-stock-a-buy-now/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/ionq-stock-buy-now-083500925.html"
       ]
     }
   ],
   "2026-02-13": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Five weeks with zero HSR/SEC deal filings is abnormal for a $550M acquisition \u2014 deal may have collapsed or closed silently.",
+      "exit_case": "Five consecutive weeks of zero deal-mechanic news; announcement premium plausibly fully absorbed into current price.",
       "catalyst_resolved": false,
-      "assessment": "Week 5 (ending Feb 13): Zero QBTS-specific acquisition news for the fifth consecutive week. This week's quantum news is uniformly bearish \u2014 sector extending selloff, Rigetti plunging, Seeking Alpha noting only one buy rating remaining across the space, multiple 'reality check' and crash-framing pieces. None of this is deal-specific. The critical escalation remains the same from last week but now more acute: five weeks post-announcement, no HSR filing, no 8-K deal-mechanics update, no regulatory action, no close-date announcement has surfaced in press. A $550M strategic acquisition of this nature would ordinarily generate visible public filings within 30\u201345 days. We are well past that window. This is now a structural yellow flag bordering on a stress signal \u2014 not yet a confirmed deal break, but unusual enough to demand a concrete data point before the position ages further. Third-exit check: (a) the deal close remains a formally announced, concrete pending catalyst \u2014 arc is NOT complete; (b) coverage is at maximum mainstream bearish saturation. Since (a) fails, third-exit condition does not trigger. Per rules, hold through silence while a concrete catalyst remains outstanding. QBTS is the sole vehicle. Key watches: any confirmation of deal close, deal collapse, or deal-stress signal (financing failure, antitrust inquiry, target walkaway). A sixth silent week without any filing would warrant reassessing whether the 'concrete pending catalyst' framing still holds.",
-      "exit_advice": "Hold; exit only on confirmed deal close, confirmed deal collapse/abandonment, or explicit deal-stress signal (financing failure, antitrust block, target walkaway). Do not exit on sector selloff or silence alone.",
+      "conviction": 5,
+      "assessment": "Week 5: The $550M acquisition remains open and unclosed. This week's QBTS-adjacent news consists of two syndicated 'top quantum pick' articles (Yahoo Finance / 247WallSt) \u2014 general sector commentary, not deal-mechanic reporting. The remaining articles are entirely unrelated (healthcare stocks, Asian equities, celebrity death). The devil's-advocate case \u2014 five straight weeks of silence on deal mechanics, announcement premium now likely absorbed \u2014 is the strongest it has ever been, but it remains the staleness trap the framework explicitly forbids acting on. The driving condition (deal open, regulatory/shareholder/close milestones outstanding and unresolved) is still in force per the full journal record; no deal break, regulatory block, or closing announcement has appeared in any week from entry through today. The 'herd fully arrives' exit also does not trigger: the arc is NOT complete (a concrete scheduled event \u2014 deal close \u2014 remains ahead), and this week's coverage is sector-generic rather than QBTS-deal-specific, the opposite of the mainstream saturation condition. Conviction held at 5: structurally clean binary (close vs. break) keeps the thesis intact, but five weeks of silence and elevated quantum-sector crowding risk cap the score. QBTS remains the single purest vehicle. Hold through silence; exit only on deal resolution.",
+      "exit_advice": "Exit ONLY on deal close confirmation, regulatory block, or deal termination \u2014 not on continued silence.",
       "evidence_urls": [
-        "https://seekingalpha.com/news/4551172-quantum-computing-stocks-extend-selloff-as-only-one-buy-rating-remains",
-        "https://finance.yahoo.com/news/why-did-rigetti-computing-stock-143151136.html"
+        "https://finance.yahoo.com/news/top-quantum-pick-only-stock-140317029.html",
+        "https://247wallst.com/investing/2026/02/12/my-top-quantum-pick-the-only-stock-id-buy/"
       ]
     }
   ],
   "2026-02-20": [
     {
       "ticker": "QBTS",
-      "thesis": "$550M transformational acquisition announced, strengthening quantum technology moat",
-      "thesis_live": false,
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Six weeks post-announcement, zero mandatory HSR/SEC filings for a $550M deal \u2014 effective quiet collapse or abandonment is the most likely explanation.",
+      "exit_case": "Six consecutive weeks of zero deal-mechanic news; announcement premium almost certainly fully absorbed by now.",
       "catalyst_resolved": false,
-      "assessment": "Week 6 (ending Feb 20): Zero QBTS-specific news for the sixth consecutive week. This week's articles are entirely unrelated (AI datacenters, Indian AI policy, India-France diplomacy) \u2014 no quantum, no QBTS, no deal. The Week 5 note set an explicit trigger: 'A sixth silent week without any filing would warrant reassessing whether the concrete pending catalyst framing still holds.' That week has arrived. Reassessment: A $550M acquisition mandatorily triggers HSR notification (threshold ~$119M); filing would ordinarily appear in public channels within 1\u20132 weeks of announcement. The deal was announced ~January 10. We are now 41 days out with no HSR filing, no SEC 8-K mechanics update, no close-date announcement, and no press coverage of deal progress whatsoever. The 'concrete pending catalyst' framing is no longer supportable. Per the rules, 'pending ahead' must mean CONCRETE \u2014 a deal with absent mandatory regulatory filings 6 weeks in has migrated from concretely pending to speculatively alive. That speculation does not satisfy the hold condition. catalyst_resolved=false because no public closure or cancellation has been announced; thesis_live=false because the concreteness prerequisite for holding through silence has failed. Exit.",
-      "exit_advice": "EXIT QBTS. Week 6 is the explicit reassessment threshold my own Week 5 note established. Six consecutive weeks of absent mandatory regulatory filings (HSR threshold ~$119M, well below $550M; filing ordinarily visible within 1\u20132 weeks of announcement) have crossed the 'concrete pending catalyst' from demonstrably real to speculative. The hold-through-silence rule applies only while the catalyst is concretely pending \u2014 when concreteness itself is in question, the rule does not protect the position. This is not an exit on staleness; it is an exit because the structural prerequisite for holding has collapsed.",
+      "conviction": 5,
+      "assessment": "Week 6: The $550M acquisition remains open and unclosed. This week's three articles are entirely unrelated to QBTS or quantum computing \u2014 AI datacenter sustainability, PM Modi's AI commons speech, India-France strategic partnership. There is zero deal-mechanic or QBTS-specific content for the sixth consecutive week. The devil's-advocate case \u2014 that the announcement premium is now fully absorbed after six silent weeks \u2014 is at its absolute strongest, but it remains the exact staleness trap the framework explicitly forbids acting on. The driving condition is still in force: no regulatory outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week from entry through today across the entire journal. The 'herd fully arrives' exit does not trigger either: the arc is NOT complete (deal close is a concrete, still-pending event \u2014 not speculation), and this week's coverage is entirely orthogonal to QBTS, the opposite of mainstream saturation. Conviction held at 5: the clean binary (close vs. break) keeps the thesis structurally intact, but six weeks of silence and persistent quantum-sector crowding risk cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only on deal resolution.",
+      "exit_advice": "Exit ONLY on deal close, regulatory block, or formal termination \u2014 not on silence. Hold through another silent week.",
       "evidence_urls": [
         "https://www.computerweekly.com/opinion/IT-Sustainability-Think-Tank-Counting-the-cost-of-AI-datacentres-and-their-energy-use",
         "https://indianexpress.com/article/opinion/columns/ai-should-be-global-commons-pm-modis-manav-can-lead-the-way-10540932/",
@@ -105,93 +120,526 @@
       ]
     }
   ],
-  "2026-02-27": [],
-  "2026-03-06": [],
+  "2026-02-27": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Seven straight silent weeks on deal mechanics; announcement premium plausibly fully absorbed by now.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 7: The $550M acquisition remains open and unclosed. This week delivers zero fresh coverage for the seventh consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week across the entire journal from entry through today. The devil's-advocate case \u2014 seven straight silent weeks with the announcement premium plausibly fully absorbed \u2014 is at its absolute maximum, but it remains exactly the staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal open, close pending) is still in force is NOT resolution. No evidence of a deal break or regulatory block has emerged in any week. The 'herd fully arrives' exit also does not trigger: the arc is NOT complete because deal close is a concrete, still-pending event (not speculation), and zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but seven weeks of silence and persistent quantum-sector crowding risk cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on deal close confirmation, regulatory block, or deal termination \u2014 NOT on continued silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-06": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive silent weeks; announcement premium plausibly fully absorbed with no fresh deal-mechanic news.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 8: The $550M acquisition remains open and unclosed. This week delivers zero fresh coverage for the eighth consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week across the entire journal from entry through today. The devil's-advocate case \u2014 eight straight silent weeks with the announcement premium plausibly fully absorbed \u2014 is at its absolute maximum, but it remains exactly the staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal open, close pending) is still in force is NOT resolution. No evidence of a deal break or regulatory block has emerged in any week across the full journal. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete because deal close is a concrete, still-pending event \u2014 not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but eight weeks of silence and persistent quantum-sector crowding risk cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on deal close, regulatory block, or termination announcement \u2014 not on continued silence.",
+      "evidence_urls": []
+    }
+  ],
   "2026-03-13": [
     {
-      "ticker": "BWET",
-      "thesis": "Hormuz chokepoint military risk spikes tanker freight rates",
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
-      "src": "seed",
-      "exit_case": "No evidence Hormuz military risk has resolved; strait remains under elevated tension with no ceasefire or reopening reported.",
+      "src": "gdelt",
+      "exit_case": "Nine consecutive silent weeks; announcement premium likely fully absorbed, but deal remains open \u2014 staleness trap, not resolution.",
       "catalyst_resolved": false,
-      "assessment": "Entry week. The sole relevant article (MarketWatch, 2026-03-13) confirms BWET is climbing precisely on Strait of Hormuz risk keeping oil-freight day-rates elevated, and explicitly characterizes the trade as 'niche, under-owned' \u2014 the early-positioning hallmark we need. The paktribune KSE-100 item is Pakistan equity noise, entirely unrelated. Catalyst is live, vehicle is correct, crowd has not arrived. Thesis intact; nothing to adjust.",
-      "exit_advice": "Hold. This is week 1. The driving condition \u2014 Hormuz military risk suppressing tanker passage and lifting freight day-rates \u2014 is explicitly confirmed as active. No resolution, de-escalation, or chokepoint reopening has been reported. Coverage is still described as niche and under-owned, so the herd has not arrived. Nothing to act on except hold.",
-      "evidence_urls": []
+      "conviction": 5,
+      "assessment": "Week 9: The $550M acquisition remains open and unclosed. This week's sole article (Insider Monkey robotics stock list) is entirely unrelated to QBTS, quantum computing, or the deal \u2014 the ninth consecutive week of zero deal-mechanic coverage. The devil's-advocate case \u2014 nine straight silent weeks with the announcement premium plausibly fully absorbed \u2014 is at its absolute maximum, yet it remains exactly the staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal open, close pending) is still in force is NOT resolution. No evidence of a deal break, regulatory block, or closing announcement has appeared in any week across the entire journal from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) this week's coverage is entirely orthogonal to QBTS, the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but nine weeks of silence and persistent quantum-sector crowding risk cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on deal close, regulatory block, or termination announcement \u2014 not on silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/11-best-robotics-stocks-to-buy-right-now-1711490/"
+      ]
     }
   ],
   "2026-03-20": [
     {
-      "ticker": "BWET",
-      "thesis": "Hormuz chokepoint military risk spikes tanker freight rates",
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none \u2014 Hormuz military risk explicitly still active; investors still monitoring; no de-escalation, ceasefire, or diplomatic deal reported.",
+      "exit_case": "Ten consecutive silent weeks since announcement; deal-close premium may be fully absorbed with no mechanic progress visible.",
       "catalyst_resolved": false,
-      "assessment": "Genuinely scoured for a resolution signal and found none. The MarketScreener item (2026-03-16) confirms investors remain actively watching Strait of Hormuz developments heading into the week \u2014 the driving condition is intact, not reversed. Notably, the coverage is still at the oil-majors / macro-energy level (FTSE 100 energy stocks), not at the tanker-freight / BWET level \u2014 the trade has not yet been crowded into retail consciousness. The arc is not complete: no concrete diplomatic event has closed the risk, no IRGC stand-down, no reopening of the strait. One quiet data point and one broad energy headline is not saturation. No concrete next catalyst is yet scheduled (which would keep us in active-monitoring mode rather than 'next leg' mode), but the primary driving condition \u2014 elevated military risk suppressing transit volume and lifting day-rates \u2014 is fully live. Hold BWET; reassess if any ceasefire announcement, US-Iran diplomatic accord, or confirmed chokepoint-reopening appears.",
-      "exit_advice": "Hold BWET. No exit condition met: chokepoint risk is unresolved and ongoing.",
+      "conviction": 5,
+      "assessment": "Week 10: The $550M acquisition remains open and unclosed. This week's sole article (ISRG completing a Southern Europe distributor acquisition) is entirely unrelated to QBTS, quantum computing, or the pending deal \u2014 the tenth consecutive week of zero deal-mechanic coverage. The devil's-advocate case \u2014 ten straight silent weeks with the announcement premium plausibly fully absorbed \u2014 is at its absolute maximum and is the single strongest argument against holding. Yet it remains exactly the staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No evidence of a deal break, regulatory block, or closing announcement has appeared in any week across the entire journal from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) this week's coverage is entirely orthogonal to QBTS, the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but ten weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit ONLY on confirmed deal close, deal break, regulatory block, or termination announcement \u2014 not on continued silence.",
       "evidence_urls": [
-        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+        "https://finance.yahoo.com/news/intuituve-isrg-boosting-southern-europe-182247470.html"
       ]
     }
   ],
   "2026-03-27": [
     {
-      "ticker": "BWET",
-      "thesis": "Hormuz chokepoint military risk spikes tanker freight rates",
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Two consecutive quiet weeks with zero Hormuz-specific escalation; risk premium may be silently fading \u2014 but no reversal or reopening has occurred, so this is noise, not exit.",
+      "exit_case": "Eleven consecutive silent weeks; announcement premium may be fully absorbed with deal mechanics unreported.",
       "catalyst_resolved": false,
-      "assessment": "Week three: the sole news item is a US construction-spending article \u2014 entirely orthogonal to Hormuz tanker freight. No resolution signal exists: no ceasefire, no diplomatic accord, no chokepoint reopening, no IRGC de-escalation. The driving condition \u2014 elevated military risk suppressing strait transit and lifting crude tanker day-rates \u2014 remains fully intact and unreversed. Coverage continues to be absent at the BWET/tanker-freight level; the trade is not crowded into retail consciousness, and no sell-side saturation has appeared. A second consecutive quiet week is not an exit trigger; per framework rules, silence while the driving condition is live means hold, not exit \u2014 the second leg (a follow-on diplomatic event, naval incident, or sanctions headline) can re-accelerate without warning. The arc is incomplete: no concrete resolution event has occurred or been scheduled. BWET remains the cleanest pure-play vehicle.",
-      "exit_advice": "Hold BWET; exit only on confirmed US-Iran diplomatic accord, IRGC stand-down, verified Hormuz reopening, or bilateral ceasefire announcement.",
+      "conviction": 5,
+      "assessment": "Week 11: The $550M acquisition remains open and unclosed. This week's four articles cover Fanuc robotics, Energy Fuels outlook, Oklo's acquisition of Atomic Alchemy, and a nuclear-stock watchlist \u2014 none touch QBTS, quantum computing, or the pending deal. Eleven consecutive weeks of zero deal-mechanic coverage. The devil's-advocate case \u2014 the announcement premium is surely fully absorbed after eleven silent weeks \u2014 is the single strongest argument against holding and is made fresh and genuinely. Yet it remains exactly the staleness trap the framework explicitly forbids acting on: silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared in any week across the entire journal from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but eleven weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on confirmed deal close, regulatory block, or termination announcement \u2014 not on silence.",
       "evidence_urls": [
-        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-24-construction-spending-unexpectedly-dips-as-high-rates-and-consumer-fatigue-freeze-the-us-building-sector"
+        "https://www.insidermonkey.com/blog/fanuc-corp-fanuy-strengthens-its-position-in-ai-enabled-industrial-robotics-1725583/",
+        "https://www.insidermonkey.com/blog/how-energy-fuels-2026-outlook-framed-2025-as-a-transformational-year-for-the-company-1723203/",
+        "https://www.fool.com/investing/2026/03/24/heres-what-oklos-acquisition-of-atomic-alchemy-cou/?source=iedfolrf0000001",
+        "https://www.themarketsdaily.com/2026/03/21/top-nuclear-stocks-to-follow-today-march-21st.html"
       ]
     }
   ],
   "2026-04-03": [
     {
-      "ticker": "BWET",
-      "thesis": "Hormuz chokepoint military risk spikes tanker freight rates",
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Trump signals willingness to end the war \u2014 active diplomatic de-escalation now underway, directly targeting the military-risk catalyst.",
+      "exit_case": "Twelve consecutive silent weeks \u2014 announcement premium almost certainly fully absorbed with no deal-mechanic progress visible.",
       "catalyst_resolved": false,
-      "assessment": "Week four delivers the first material catalyst development since entry: Dow Jones (via Morningstar, 2026-03-31) reports Trump told aides he is willing to end the war WITHOUT reopening Hormuz. This is the most significant news in the arc \u2014 active diplomatic movement is now on record. However, a leaked aides conversation is not a signed deal, and the driving condition (military risk keeping Hormuz disrupted and tanker day-rates elevated) has not reversed: the war is ongoing, no ceasefire exists, no transit has resumed. Critically, the 'without reopening Hormuz' framing is actually constructive for BWET on a second read \u2014 it signals that even a peace settlement may leave the physical chokepoint closed, sustaining freight-rate disruption beyond the pure military-risk premium. The arc is not complete: a diplomatic deal is signaled but unexecuted, and that gap is itself a concrete pending event. Coverage appeared in Dow Jones top headlines (mainstream), but there is no BWET-specific sell-side saturation or retail frenzy. The position moves from 'quiet hold' to 'active monitoring' \u2014 the next headline is likely the exit trigger or a sharp continuation leg. Hold BWET; do not pre-empt a deal that has not been signed.",
-      "exit_advice": "No exit yet. 'Willing to end' is not 'has ended' \u2014 no ceasefire signed, no war concluded, no Hormuz reopened. Exit trigger remains a formally signed deal/ceasefire OR confirmed chokepoint reopening. Watch next week intensely: if a deal lands, exit immediately regardless of price action.",
-      "evidence_urls": [
-        "https://www.morningstar.com/news/dow-jones/2026033011096/dow-jones-top-markets-headlines-at-11-pm-et-trump-tells-aides-hes-willing-to-end-war-without-reopening-hormuz-stock"
-      ]
+      "conviction": 5,
+      "assessment": "Week 12: The $550M acquisition remains open and unclosed. This week delivers zero fresh coverage for the twelfth consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week across the entire journal from entry through today. The devil's-advocate case is made genuinely and at its maximum: twelve straight silent weeks with the announcement premium plausibly fully absorbed is the single strongest argument against holding. Yet it remains exactly the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No deal break, regulatory block, or closing announcement has emerged in any week of the full 12-week record. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but twelve weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on a confirmed deal close, regulatory block, or formal termination announcement \u2014 never on silence alone.",
+      "evidence_urls": []
     }
   ],
   "2026-04-10": [
     {
-      "ticker": "BWET",
-      "thesis": "Hormuz chokepoint military risk spikes tanker freight rates",
-      "thesis_live": false,
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "US-Iran two-week ceasefire agreed; markets pricing Strait of Hormuz reopening, directly reversing the military-risk driving condition.",
-      "catalyst_resolved": true,
-      "assessment": "Week five delivers the definitive exit. The rte.ie article (2026-04-08) confirms the US and Iran agreed to a two-week ceasefire, with crude prices falling explicitly on expectations that energy supplies through the Strait of Hormuz would resume. This is the precise trio of signals I flagged across every prior note: a ceasefire announcement, a diplomatic accord, and a chokepoint-reopening expectation \u2014 all arriving simultaneously. The prior week's note moved the position to 'active monitoring' after Trump signalled willingness to negotiate, flagging that 'the next headline is likely the exit trigger or a sharp continuation leg.' That headline has landed. The financialmirror piece notes oil prices may stay structurally elevated, but that is a broad macro-oil thesis, not the BWET tanker-freight military-risk-premium thesis this position was built on. Markets have already repriced the relief (crude lower, equities up). The arc is complete: shock (Hormuz military risk, entry 2026-03-13), market response (elevated day-rates, BWET appreciation), diplomatic escalation (Trump aide leak, week four), resolution (ceasefire signed, week five). No concrete scheduled catalyst remains pending \u2014 the ceasefire IS the resolution event. Two-week duration does not keep the thesis alive; the risk premium that drove day-rates has collapsed, and re-entry would require a fresh breakdown of the ceasefire, which is a new, separate event. Exit BWET.",
-      "exit_advice": "Exit BWET immediately. The ceasefire is the exact resolution event flagged in every prior weekly note as the trigger to close. The driving condition \u2014 elevated Hormuz military risk lifting crude tanker day-rates \u2014 has been materially reversed; crude fell and a relief rally followed on expectations of strait supply resumption. Edge is spent; do not wait for the ceasefire to expire or be confirmed permanent.",
+      "exit_case": "Thirteen consecutive silent weeks; announcement premium almost certainly fully absorbed with no deal-mechanic news visible anywhere.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 13: The $550M acquisition remains open and unclosed. This week's sole article covers a MarketBeat industrial-stock screener list (Caterpillar, Danaher, Linde, etc.) \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Thirteen consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case is made freshly and genuinely: thirteen straight silent weeks is the maximum form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Yet it remains precisely the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared in any week across the entire 13-week journal. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but thirteen weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit ONLY on: (a) deal close confirmed, (b) deal break/termination announced, or (c) regulatory block. Do NOT exit on continued silence.",
       "evidence_urls": [
-        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
-        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
-        "https://www.financialmirror.com/2026/04/08/oil-prices-to-stay-high-relief-rally-follows-us-iran-ceasefire/"
+        "https://www.tickerreport.com/banking-finance/13400478/promising-industrial-stocks-to-research-april-6th.html"
       ]
     }
   ],
-  "2026-04-17": [],
-  "2026-04-24": [],
-  "2026-05-01": [],
-  "2026-05-08": [],
-  "2026-05-15": [],
-  "2026-05-22": [],
-  "2026-05-29": [],
-  "2026-06-05": [],
-  "2026-06-12": [],
-  "2026-06-19": [],
-  "2026-06-26": [],
-  "2026-07-03": []
+  "2026-04-17": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Fourteen silent weeks post-announcement; deal premium almost certainly fully absorbed with zero deal-mechanic news since entry.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 14: The $550M acquisition remains open and unclosed. This week's four articles cover ASX tech rotation, Amazon/X-Energy IPO, Nasdaq record highs, and Nano Nuclear Energy's uranium proposal \u2014 zero QBTS-specific or deal-mechanic content for the fourteenth consecutive week. The devil's-advocate case is made freshly and at full force: 14 straight silent weeks since a January announcement is the most extreme form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Yet it remains precisely the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared in any week across the entire 14-week journal record from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 14 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit ONLY on confirmed deal close, deal termination, or regulatory block. Do NOT exit on continued silence.",
+      "evidence_urls": [
+        "https://thebull.com.au/news/asx-200-today-tech-shares-rally-as-rotation-leaves-cyclicals-behind/",
+        "https://www.benzinga.com/markets/ipos/26/04/51869196/bezos-just-reshaped-the-space-market-now-hes-going-atomic-with-x%E2%80%91energys-ipo",
+        "https://www.marketscreener.com/news/nasdaq-sets-record-highs-as-investors-return-to-tech-stocks-ce7e50dcd08ff022",
+        "https://finance.yahoo.com/sectors/energy/articles/nano-nuclear-energy-nne-submits-205814140.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Iran is actively talking to the US \u2014 a diplomatic deal could resolve the threat within days.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1. Catalyst is fresh and live: Iran has issued an explicit, named threat to close the Persian Gulf, Sea of Oman, and Red Sea to all traffic unless Washington relents \u2014 the single most consequential chokepoint risk globally (~20% of seaborne oil). No deal has been signed; talks are ongoing but inconclusive. Tanker day-rates are already elevated and BWET is extending its advance, confirming the market is pricing real disruption risk. Coverage remains niche (RNZ, etf.com) \u2014 no mainstream saturation, no retail frenzy, no sell-side target-raising circus yet. BWET is confirmed purest vehicle as a freight-futures ETN with no dilution from tanker-operator equity risk. The open diplomatic channel is the primary risk \u2014 a surprise deal announcement would instantly collapse this thesis \u2014 but until ink is dry, the threat is the catalyst, and the catalyst is live. Hold.",
+      "exit_advice": "Exit when Iran formally signs a nuclear/sanctions deal with the US, explicitly withdraws the blockade threat, or tanker day-rates collapse signalling market-perceived risk removal.",
+      "evidence_urls": [
+        "https://www.rnz.co.nz/news/world/592501/iran-raises-threats-over-naval-blockade-but-still-talking-to-us"
+      ]
+    }
+  ],
+  "2026-04-24": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Fifteen straight silent weeks since announcement; premium almost certainly fully absorbed \u2014 classic staleness argument at maximum force.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 15: The $550M acquisition remains open and unclosed. This week's sole article covers the Strait of Hormuz reopening and Stoxx 600 moves \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Fifteen consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case is made freshly and at full force: 15 straight silent weeks since a January announcement is the most extreme form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Yet it remains precisely the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared in any week across the entire 15-week journal record from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 15 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on deal close, regulatory block, or termination announcement \u2014 not on silence.",
+      "evidence_urls": [
+        "https://www.businesstimes.com.sg/companies-markets/stoxx-600-jumps-more-1-after-iran-declares-strait-hormuz-open"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "A quiet week could signal Iran's threat is softening into posturing as back-channel US-Iran talks quietly advance \u2014 making the blockade risk moot without a public announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. No fresh coverage this week. Per standing rules, a quiet stretch does not constitute exit while the driving condition is unreversed. Iran's explicit blockade threat is still on the table; no deal has been inked; tanker disruption risk is structurally unchanged. Coverage was niche at entry (RNZ, etf.com) and has not gone mainstream-saturated \u2014 no retail frenzy, no sell-side target-raising, no front-page saturation. The arc is incomplete: the market is still in 'threat is live, resolution is pending' mode, not 'deal closed, move on.' BWET remains the cleanest pure-play vehicle (freight-futures ETN, no dilution from tanker-operator equity noise). The open diplomatic channel remains the primary risk to monitor \u2014 a surprise deal announcement is the single thing that collapses this. Hold through silence.",
+      "exit_advice": "Hold. The silence rule is explicit: a quiet week is not an exit. The driving condition \u2014 Iran's named, public threat to close Hormuz/Persian Gulf \u2014 has not been explicitly withdrawn, no deal has been signed, and no ceasefire or diplomatic conclusion has been announced. The threat remains the catalyst, and the catalyst remains live. Exit only on a signed agreement, an explicit Iranian stand-down, or confirmed talks collapsing the threat structure.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-01": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Sixteen straight silent weeks; announcement premium almost certainly fully absorbed, thesis running on structural argument alone.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 16: The $550M acquisition remains open and unclosed. This week's sole article covers Dow Jones macro movements \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Sixteen consecutive weeks of zero deal-mechanic coverage. The devil's-advocate case is made freshly and at full force: 16 straight silent weeks since a January announcement is the most extreme form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Yet it remains precisely the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared in any week across the entire 16-week journal record from entry through today. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 16 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on deal close, regulatory block, or termination announcement \u2014 not on silence. No such event has appeared in any of the 16 weeks on record.",
+      "evidence_urls": [
+        "https://www.ibtimes.com.au/dow-jones-dips-below-49100-open-tech-earnings-jitters-weigh-market-1867794"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Three consecutive weeks of zero escalation; threat may be idle rhetoric already absorbed by market.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3. Second consecutive silent week. Devil's advocate: three weeks of zero fresh escalation raises the question of whether the threat was idle rhetoric that the market has already discounted. Ruled out as an exit: this is precisely the 'quiet stretch / priced-in' reasoning the rules forbid \u2014 the driving condition (Iran's explicit blockade threat, no deal signed, no formal withdrawal) remains structurally in place. Nothing in the journal or this week's (empty) news feed shows the threat has been rescinded, a deal inked, or the chokepoint formally declared open. The arc is still in 'threat live, resolution pending' mode. Coverage has not gone mainstream-saturated; no retail frenzy, no sell-side circus. BWET remains the cleanest vehicle \u2014 a freight-futures ETN with no dilution from tanker-operator equity noise. The open diplomatic channel is still the single binary risk. Hold through silence; the second leg fires on any concrete escalation or surprise deal news.",
+      "exit_advice": "Exit ONLY on a confirmed deal signed, formal Iranian withdrawal of the blockade threat, or Hormuz/Gulf explicitly declared open/safe by both parties. A quiet news cycle \u2014 even a prolonged one \u2014 is not an exit trigger while the driving condition is unreversed.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-08": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "17 straight silent weeks since announcement; deal-announcement premium is almost certainly fully absorbed by now.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 17: The $550M acquisition remains open and unclosed. This week delivers zero fresh coverage for the seventeenth consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week across the entire 17-week journal from entry through today. The devil's-advocate case is made freshly and at full force: 17 straight silent weeks since a January announcement is the most extreme form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Yet it remains precisely the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. No deal break, regulatory block, or closing announcement has emerged in any week of the full record. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 17 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on a confirmed deal close, formal regulatory block, or deal termination announcement \u2014 not on continued silence.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four silent weeks could mean US-Iran talks quietly produced a framework that neutralized the blockade threat \u2014 unconfirmed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. Third consecutive silent week \u2014 no fresh escalation, no resolution, no mainstream saturation. Devil's advocate: the only non-forbidden exit case is that quiet diplomatic progress (a nuclear framework) has effectively neutralized the threat without a public headline. Ruled out: zero evidence in the journal or this week's news feed of any deal, framework, or formal Iranian rescission. Driving condition is structurally intact. The rules are explicit \u2014 quiet stretches do not constitute exit while the chokepoint threat is unresolved. The arc remains in 'threat live, resolution pending' mode; coverage has never reached mainstream-saturation; no sell-side circus, no retail frenzy. The binary exit trigger (deal signed OR threat formally withdrawn) has not fired. BWET remains the cleanest vehicle \u2014 a freight-futures ETN insulated from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation or confirmed diplomatic resolution.",
+      "exit_advice": "Exit only on: (a) a signed US-Iran deal or formal Iran withdrawal of the blockade threat, or (b) a concrete ceasefire/agreement publicly announced. Four silent weeks do not qualify \u2014 the driving condition (explicit blockade threat, no deal signed) is structurally unchanged in the journal record.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "NRC reactor licensing decision due May 12, 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "OKLO already surged 46% in April; market likely priced the May 12 approval, leaving thin asymmetric upside.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "First journal entry. The NRC reactor licensing decision for Oklo is a concrete, publicly-scheduled binary event on May 12, 2026 \u2014 four calendar days from entry. Catalyst is unresolved and the specific trigger (regulator ruling) is still pending, so thesis is live. Key risk: OKLO already ripped 46% in April and Motley Fool has the May 12 date on its front page, meaning the 'early/under-the-radar' premium is substantially spent. The remaining edge is the binary itself \u2014 market direction after the ruling \u2014 not information asymmetry. Conviction docked to 6 for mainstream saturation (retail-aware, sell-side tracking). Hold through May 12; exit the moment the ruling prints.",
+      "exit_advice": "Exit immediately after the May 12 NRC decision is published \u2014 the binary event resolves on that date regardless of outcome (approval, denial, or delay); do not hold through the aftermath hoping for a drift.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-05-15": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "18 straight silent weeks since announcement; deal premium almost certainly fully absorbed in current price.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 18: The $550M acquisition remains open and unclosed per the entire 18-week journal record. This week delivers zero fresh coverage for the eighteenth consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared in any week from entry through today. The devil's-advocate case is made freshly and at full force: 18 straight silent weeks since a January announcement is the most extreme form of the staleness argument, and the announcement premium is almost certainly fully absorbed at this point. Four-plus months is well within the typical regulatory/closing window for a $550M deal, and the sustained silence does raise the genuine question of whether the deal may have closed quietly without our coverage capturing it \u2014 but absence of news is not evidence of resolution; no closing announcement has appeared anywhere in the 18-week record. That remains the staleness trap the framework explicitly forbids acting on \u2014 silence while the driving condition (deal open, close formally pending) is still in force is NOT resolution. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously to trigger that exit; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 18 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on confirmed deal close, regulatory block, or termination announcement \u2014 not on continued silence.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four weeks of total media silence may signal Iran's blockade threat has quietly receded from active diplomatic pressure without formal announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 5 \u2014 fourth consecutive silent week. Devil's advocate is the strongest version yet: extended silence of this duration could mean Iran's blockade rhetoric has quietly lost credibility or been shelved in back-channel diplomacy, neutralizing the catalyst without a public headline. Examined honestly and still ruled out as an exit: zero evidence in the journal or this week's news feed of any deal signed, framework agreed, or formal Iranian rescission \u2014 all three hard exit triggers remain unfired. The rules are unambiguous that quiet stretches do not constitute exit while the driving condition is structurally in force, and it is. The third-exit condition also fails: coverage has never reached mainstream saturation (in fact it has been at zero for weeks, the opposite of retail frenzy), so even if one argued the arc were complete, both legs of the crowding test do not simultaneously hold. No concrete next catalyst is scheduled or announced, but equally there is no confirmed resolution \u2014 the binary is simply still open and unresolved. BWET remains the cleanest vehicle: freight-futures ETN, no dilution from tanker-operator equity noise, direct expression of the chokepoint disruption risk. Hold through silence; the second leg activates on any concrete escalation or confirmed diplomatic close.",
+      "exit_advice": "Exit only on a signed nuclear/sanctions deal, formal Iranian withdrawal of the blockade threat, or a confirmed announcement that the chokepoint is open and uncontested.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "OKLO",
+      "thesis": "NRC reactor licensing decision due May 12, 2026",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "May 12 NRC decision date has passed; scheduled catalyst window is closed.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "Entry on May 8 was explicitly a 4-day hold into a single binary: the May 12 NRC ruling. That date is now behind us. This week's news does NOT produce a 'NRC grants Oklo license' headline \u2014 suggesting either a delay or an underwhelming ruling \u2014 but either outcome closes the original thesis. The absence of that headline is itself informative: a clean approval would have been front-page nuclear news. Meanwhile, coverage has gone fully mainstream: (1) JPMorgan publishing a formal OKLO note stopping short of bullish, (2) Insider Monkey naming OKLO in a 'SMRs Go Mainstream' roundup. Both the catalyst-resolved and the mainstream-saturation exit doors are open simultaneously. No CONCRETE next scheduled regulatory event is visible \u2014 only speculative follow-on. Nothing left to hold for.",
+      "exit_advice": "EXIT immediately. The specific 'NRC reactor licensing decision due May 12, 2026' event-window has closed \u2014 that date is now in the past. Whether the NRC ruled on schedule or delayed, the original binary framing ('due May 12') is spent. Compounding this: the third exit condition is also fully met \u2014 Insider Monkey explicitly titles a piece 'SMRs Go Mainstream,' JPMorgan is running public OKLO coverage, sell-side is chasing targets, and no new CONCRETE scheduled catalyst date appears anywhere in the news. Arc is complete, crowd has fully arrived, early edge is gone. The entry journal itself stated 'exit the moment the ruling prints' \u2014 that moment has arrived or passed.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html",
+        "https://www.insidermonkey.com/blog/10-best-nuclear-energy-stocks-to-buy-as-smrs-go-mainstream-1761864/"
+      ]
+    }
+  ],
+  "2026-05-22": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "After 19 silent weeks, a $550M deal typically closes within this window \u2014 it may have resolved quietly without appearing in coverage.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 19: The $550M acquisition remains open and unclosed per the entire 19-week journal record. This week's three articles cover Kerala cabinet portfolios, Kerala scrapping the SilverLine rail project, and a Russian nuclear exercise \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Nineteen consecutive weeks of zero deal-mechanic coverage. The devil's-advocate case is made freshly and at full force: 19 straight silent weeks places this squarely in the window where a $550M deal would ordinarily have closed, and the possibility that it resolved quietly without our coverage capturing it is now the most credible form of the exit argument \u2014 not mere staleness, but genuine uncertainty about whether the driving condition is still in force. However, the framework's standard holds: absence of news is not evidence of resolution. No closing announcement, regulatory filing outcome, shareholder vote result, deal break, or termination has appeared anywhere in the 19-week record. That is the only evidentiary standard that triggers exit. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis intact, but 19 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on confirmed deal close, regulatory block, or termination announcement \u2014 not on silence.",
+      "evidence_urls": [
+        "https://www.livemint.com/news/india/kerala-cabinet-portfolios-announced-vd-satheesan-ramesh-chennithala-full-list-of-ministers-and-departments-11779275446787.html",
+        "https://www.livemint.com/news/india/vd-satheesan-government-scraps-silverline-semi-high-speed-rail-all-you-need-to-know-about-k-rail-project-11779279531659.html",
+        "https://www.defensenews.com/global/europe/2026/05/20/russia-launches-unannounced-nuclear-exercise-including-belarusian-launch-sites/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Back-channel diplomacy may have quietly neutralized Iran's blockade threat without a public headline \u2014 but zero evidence of this exists in the journal or this week's news.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 6. Four silent weeks end with a direct market confirmation: Seeking Alpha reports BWET is holding gains as tanker freight rates stay elevated, explicitly citing 'ongoing Hormuz tensions' and stating 'the war-driven oil-freight spike has not resolved.' This is the driving condition confirmed alive \u2014 not priced-out, not resolved, not fading. The devil's advocate (back-channel diplomacy quietly neutralizing the threat) is the strongest remaining exit argument and is still ruled out: the article's language is forward-looking and open, not backward-looking and closed. All three hard exit triggers remain unfired: no deal signed, no formal Iranian rescission, no chokepoint declared open. The India-Italy MoUs are irrelevant noise. Coverage remains niche \u2014 one Seeking Alpha article does not constitute a retail frenzy or sell-side target-raising circus; the third-exit crowding condition is not close to triggering. BWET remains the cleanest pure-play vehicle: freight-futures ETN with direct expression of chokepoint disruption risk, no dilution from tanker-operator equity noise. Hold.",
+      "exit_advice": "Exit only on one of three hard triggers: (1) a confirmed US-Iran deal signed, (2) Iran formally rescinds the blockade threat, or (3) Hormuz explicitly declared open and tensions resolved.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-05-29": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "At 20 weeks, a $550M deal is past median close time; driving condition may have resolved silently.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 20: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 20-week journal record. This week delivers zero fresh coverage for the twentieth consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared anywhere from entry through today. The devil's-advocate case is made freshly and at its most credible form yet: 20 straight silent weeks places this well past the median regulatory-and-close window for a deal of this size (~3\u20136 months), and the single most genuine exit argument is no longer mere staleness but the real possibility that the deal has already closed or terminated without our coverage capturing it \u2014 meaning the driving condition may no longer be in force. This is the strongest the exit case has ever been. Nevertheless, the framework's evidentiary standard holds: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week of the full 20-week record, and that remains the only basis on which to act. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis formally intact, but 20 weeks of silence and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit immediately on any confirmed deal close, regulatory block, or termination announcement. Do NOT exit on continued silence alone.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Seven weeks of near-silence; back-channel nuclear talks may have quietly defused the blockade threat without a public headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 7. Silent again after last week's market confirmation (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). Devil's advocate is the same as Week 6 but incrementally stronger: seven weeks with only one interim data point raises a legitimate question about whether Iran's rhetoric has gone dormant in back-channel diplomacy. Examined honestly and still ruled out: zero evidence anywhere in the journal or this week's feed of a deal inked, a framework agreed, or a formal Iranian rescission \u2014 all three hard exit triggers remain unfired. Last week's explicit market language ('has not resolved') is the most recent signal and it was forward-looking, not backward-looking. This week's silence does not reverse that signal; it is simply another quiet stretch, and per standing rules a quiet stretch with the driving condition structurally intact is not an exit. The third-exit crowding condition also fails: coverage remains niche (one Seeking Alpha article over seven weeks is the opposite of retail frenzy or sell-side saturation), so even if one argued the arc were approaching completion, both legs of the crowding test do not simultaneously hold. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure, no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, a confirmed diplomatic close, or a surprise chokepoint-opening headline.",
+      "exit_advice": "Exit only on a confirmed deal/framework signed, formal Iranian rescission of the blockade threat, or Hormuz declared open \u2014 not on silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-05": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "At 21 weeks, a $550M deal is past median close-window; it may have resolved silently, driving condition unknown.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 21: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 21-week journal record. This week delivers zero fresh coverage for the twenty-first consecutive week \u2014 no deal-mechanic reporting, no regulatory filing outcome, no shareholder vote result, and no closing or termination announcement has appeared anywhere from entry through today. The devil's-advocate exit case, made freshly and at its most credible form: 21 straight silent weeks places this well past the median regulatory-and-close window for a deal of this size (~3\u20136 months). This is no longer a staleness argument \u2014 it is a genuine evidentiary question about whether the driving condition (deal open, close formally pending) is still in force at all, or whether the deal quietly resolved without our news coverage capturing it. That is the single strongest and most honest exit argument across the full 21-week record. Nevertheless, the framework's evidentiary standard is unchanged: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week of the full 21-week record, and that remains the only basis on which to act. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage this week is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis formally intact, but 21 weeks of silence, passage of the typical deal-close window, and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit immediately on any confirmed close, termination, or regulatory block. Do NOT exit on continued silence alone \u2014 absence of news is not evidence of resolution. If a credible source confirms the deal closed quietly in any prior week, treat catalyst_resolved=true retroactively and exit.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight weeks of near-total silence may mean Iran's blockade rhetoric has quietly gone dormant in back-channel diplomacy, neutralizing the catalyst without a public headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 8 \u2014 second consecutive silent week following Week 6's market confirmation (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). The devil's advocate argument is the strongest it has been \u2014 eight weeks with only one interim data point is a long stretch, and the honest possibility is that Iran's rhetoric has gone fully dormant in back-channel diplomacy without generating a headline. Examined against all three hard exit triggers: (1) no deal signed, (2) no formal Iranian rescission, (3) no chokepoint declared open \u2014 all remain unfired. Week 6's market language was explicitly forward-looking and open, not backward-looking and closed; this week's silence does not reverse that signal. The third-exit crowding condition also fails on both legs simultaneously: coverage is near-zero (the opposite of retail frenzy or sell-side saturation), and the binary remains structurally unresolved (arc-complete test fails). Per standing rules, a quiet stretch with the driving condition structurally intact is not an exit. Conviction trimmed to 6 to reflect the prolonged silence and incremental uncertainty about threat credibility, while the catalyst specificity and vehicle purity remain intact. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure and no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, confirmed diplomatic close, or surprise chokepoint-opening headline.",
+      "exit_advice": "Exit only on: deal signed/announced, formal Iranian rescission of the blockade threat, or chokepoint declared open and verified.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-12": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "22 silent weeks past typical $550M deal close window; deal may have quietly resolved without coverage capturing it.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 22: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 22-week journal record. This week's three articles cover robotics M&A targets (SERV/SYM/PATH), Shoals/Rocket Lab/Blink Charging macro moves, and Toll Brothers luxury townhomes \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Twenty-two consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case, made freshly and at its most credible: 22 silent weeks is now comfortably past the upper end of the typical regulatory-and-close window (~3\u20136 months) for a deal of this size. This is no longer a staleness argument \u2014 it is a genuine evidentiary question about whether the driving condition (deal open, close formally pending) is still in force at all, or whether the deal quietly resolved without our news feed capturing it. That remains the single strongest and most honest exit argument in the full 22-week record. Nevertheless, the framework's evidentiary standard is unchanged: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week of the full record, and that remains the only basis on which to act. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage for 22 straight weeks is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis formally intact, but 22 weeks of silence, passage well past the typical deal-close window, and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on affirmative confirmation of deal close, deal break, or regulatory block \u2014 not on silence alone.",
+      "evidence_urls": [
+        "https://www.foreignpolicyjournal.com/2026/06/10/three-robotics-stocks-wall-street-sees-as-prime-acquisition-targets-nasdaq-serv-nasdaq-sym-and-nyse-path/",
+        "https://finance.yahoo.com/markets/stocks/articles/shoals-rocket-lab-blink-charging-004550387.html",
+        "https://finance.yahoo.com/markets/stocks/articles/toll-brothers-tol-announces-luxury-100502601.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Three consecutive silent weeks; Iran's blockade rhetoric may have quietly dissipated in back-channel diplomacy with no public headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 9 \u2014 third consecutive silent week following Week 6's only interim data point (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). Devil's advocate at its strongest: nine weeks since entry with a single supporting data point is a prolonged drought, and the honest possibility is that Iran's blockade rhetoric has gone fully dormant in back-channel diplomacy, quietly neutralizing the catalyst without ever generating a resolution headline. Examined against all three hard exit triggers: (1) no deal signed, (2) no formal Iranian rescission, (3) no chokepoint declared open \u2014 all remain unfired. Week 6's market language was explicitly forward-looking and unresolved; three weeks of subsequent silence does not convert that forward-looking signal into a backward-looking one. Third-exit crowding test also fails on both legs simultaneously: coverage remains near-zero (the opposite of mainstream saturation or retail frenzy), and the binary is structurally unresolved (arc-complete test fails). Per standing rules, a quiet stretch with the driving condition structurally intact is not an exit. Conviction held at 6, reflecting prolonged silence and incremental threat-credibility uncertainty, while catalyst specificity and vehicle purity remain intact. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure and no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, confirmed diplomatic close, or surprise chokepoint-opening headline.",
+      "exit_advice": "Exit ONLY on: (1) deal signed / framework formally agreed, (2) Iran officially rescinds blockade threat, or (3) chokepoint declared open. A fourth consecutive silent week is NOT an exit trigger.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-06-19": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal likely resolved silently\u201423 weeks past announcement far exceeds typical $550M regulatory-and-close window with zero confirmatory coverage.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 23: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 23-week journal record. This week's four articles cover TIC Solutions credit restructuring, Energy Vault Holdings geographic expansion, Watsco's Jackson Supply acquisition, and Applied Industrial Technologies' JV with ideaForge\u2014entirely unrelated to QBTS, quantum computing, or the pending deal. Twenty-three consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case, made freshly: 23 silent weeks is now substantially past the upper end of the typical regulatory-and-close window for a deal of this size. This is not a staleness argument\u2014it is the most credible evidentiary question in the full record: has the driving condition (deal open, close formally pending) quietly resolved without our news feed capturing it? That is the single strongest and most honest exit argument. Nevertheless, the framework's standard is unchanged: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week across the full 23-week record, and that remains the only actionable basis for exit. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete\u2014deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage for 23 straight weeks is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5\u2014the structurally clean binary (close vs. break) keeps the thesis formally intact, but 23 weeks of silence, passage well past the typical deal-close window, and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit only on affirmative confirmation: deal closes (press release / SEC filing), deal breaks, or regulatory block announced. Silence\u2014even 23 weeks of it\u2014is not resolution per framework. Do NOT exit on staleness.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/credit-restructuring-bodes-well-tic-104327352.html",
+        "https://www.insidermonkey.com/blog/energy-vault-holdings-nrgv-aiming-for-geographic-expansion-through-latest-acquisition-1784189/",
+        "https://finance.yahoo.com/markets/stocks/articles/watsco-inc-wso-fuels-optimism-155524678.html",
+        "https://www.insidermonkey.com/blog/applied-industrial-technologies-ait-to-form-a-strategic-jv-with-ideaforge-technology-1783485/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten weeks since entry; Iran's blockade rhetoric may have gone fully dormant, quietly neutralizing catalyst with no public headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 10 \u2014 fourth consecutive silent week following Week 6's only interim data point (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). This week's sole news item (Needham Buy rating on HYLN) is entirely irrelevant to the catalyst. Devil's advocate at its strongest yet: ten weeks since entry with a single supporting data point across the entire arc is a prolonged drought, and the honest case is that Iran's blockade rhetoric has gone fully dormant in back-channel diplomacy, quietly neutralizing the catalyst without ever generating a resolution headline. Examined against all three hard exit triggers: (1) no deal signed, (2) no formal Iranian rescission, (3) no chokepoint declared open \u2014 all remain unfired. Week 6's market language was explicitly forward-looking and unresolved; four subsequent silent weeks do not convert that forward-looking signal into a backward-looking one \u2014 silence is not resolution. The third-exit crowding test fails on both legs simultaneously: coverage remains near-zero (diametrically opposite of mainstream saturation or retail frenzy), and the binary is structurally unresolved (arc-complete test fails). Per standing rules, a quiet stretch with the driving condition structurally intact is not an exit. Conviction held at 6, reflecting prolonged silence and incremental threat-credibility uncertainty, while catalyst specificity and vehicle purity remain intact. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure and no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, confirmed diplomatic close, or surprise chokepoint-opening headline.",
+      "exit_advice": "Exit only on: (1) deal signed / framework agreed publicly, (2) Iran formally rescinds blockade threat, or (3) chokepoint declared open. None of these have fired. Hold through silence.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/needham-assigns-buy-rating-hyliion-104334826.html"
+      ]
+    },
+    {
+      "ticker": "UNP",
+      "thesis": "STB ruling pending on UNP's $85B Norfolk Southern merger",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "STB ruling still pending; no resolution issued \u2014 submissions phase active, not resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "First-week entry. UNP has filed submissions supporting its proposed $85B merger with Norfolk Southern before the Surface Transportation Board (STB), which is the sole federal arbiter for Class I railroad consolidations. The submission phase confirms the regulatory review is live and the binary ruling has NOT yet landed. An STB approval would create a de facto transcontinental railroad \u2014 a structurally transformative outcome for UNP; denial or heavy conditions would be a significant negative. The catalyst is specific (named deal, named regulator, named parties), the vehicle is clean (UNP is the acquirer), and the ruling remains fully pending. The newsx.com article is unrelated Indian equity noise \u2014 disregard. No mainstream saturation of the STB angle yet; coverage is financial-trade-press level. Hold through any quiet stretches; exit only on the STB's published decision or deal withdrawal.",
+      "exit_advice": "Exit when STB issues its final ruling (approval, denial, or conditional approval) OR if UNP formally withdraws the merger application.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/markets/stocks/articles/union-pacific-corporation-unp-makes-211933430.html",
+        "https://www.insidermonkey.com/blog/union-pacific-corporation-unp-makes-submissions-supporting-85b-merger-with-norfolk-southern-1782066/"
+      ]
+    }
+  ],
+  "2026-06-26": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "24 silent weeks exceeds typical $550M deal close window; driving condition may have quietly resolved uncaptured.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 24: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 24-week journal record. This week's six articles cover a global tech selloff (Nasdaq futures, SoftBank, AI infrastructure cost concerns), Micron earnings, Fiserv at 52-week low, and Big Tech AI customer-adoption questions \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Twenty-four consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case, made freshly and at its most credible: 24 silent weeks now sits at or slightly past the upper bound of the typical ~3\u20136 month regulatory-and-close window for a $550M transaction. This is not a staleness argument \u2014 it is the most genuine evidentiary question in the full record: has the driving condition (deal open, close formally pending) quietly resolved without our news feed capturing it? That is the single strongest and most honest exit argument. Nevertheless, the framework's evidentiary standard is unchanged: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week across the full 24-week record, and that remains the only actionable basis for exit. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage for 24 straight weeks is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. The week's global tech selloff is thematically adjacent to quantum-sector sentiment but does not touch the specific deal catalyst. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis formally intact, but 24 weeks of silence, passage at or past the typical deal-close window, and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal.",
+      "exit_advice": "Exit only on affirmative confirmation of deal close, regulatory block, or termination \u2014 not on silence alone.",
+      "evidence_urls": [
+        "https://www.livemint.com/market/us-stock-market-today-s-p-500-nasdaq-futures-slide-up-to-1-as-global-tech-sell-off-resumes-11782472705947.html",
+        "https://finance.yahoo.com/markets/stocks/articles/nasdaq-futures-gain-brutal-tech-103841693.html"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Iran's blockade rhetoric may have quietly died in back-channel diplomacy, neutralizing the catalyst without any public resolution headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 11 \u2014 fifth consecutive silent week following Week 6's only interim data point (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). No fresh coverage this week. Devil's advocate at its absolute strongest: eleven weeks since entry with a single supporting data point across the entire arc is an extraordinary drought, and the honest case is that Iran's blockade rhetoric has gone fully dormant in back-channel diplomacy, quietly neutralizing the catalyst without ever generating a resolution headline. Examined honestly against all three hard exit triggers: (1) no deal signed, (2) no formal Iranian rescission, (3) no chokepoint declared open \u2014 all remain unfired. Week 6's market language was explicitly forward-looking and unresolved; five subsequent silent weeks do not convert that signal into a backward-looking, resolved one \u2014 silence is not resolution. The third-exit crowding test fails on both legs simultaneously: coverage remains near-zero (diametrically opposite of mainstream saturation or retail frenzy), and the binary is structurally unresolved (arc-complete test fails). Per standing rules, a quiet stretch with the driving condition structurally intact is not an exit. Conviction held at 6, reflecting prolonged silence and incremental threat-credibility uncertainty, while catalyst specificity and vehicle purity remain intact. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure and no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, confirmed diplomatic close, or surprise chokepoint-opening headline.",
+      "exit_advice": "Exit only on: (1) deal signed/formally announced, (2) Iran formally rescinds blockade threat, or (3) Hormuz declared open by all parties.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UNP",
+      "thesis": "STB ruling pending on UNP's $85B Norfolk Southern merger",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No resolution event found; STB review is ongoing with no ruling, no withdrawal, and no concrete decision timeline published.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week two; no fresh news. The thesis is unchanged and the core binary remains fully pending: the STB has issued no decision, no procedural schedule has been made public, and there is no sign of deal withdrawal. The principal risk to holding is timeline \u2014 Class I railroad mergers before the STB routinely consume two-plus years of review, meaning capital is tied up in a very long-dated event with no anchored decision date. That is a holding-cost concern, not a catalyst-resolution trigger. Coverage remains at financial-trade-press levels with no retail or sell-side pile-in, so the early-mover edge is intact. A quiet week in isolation is not a signal to move; the STB ruling itself is the only exit signal. Hold.",
+      "exit_advice": "Exit only on the STB's published final order (approval, conditional approval, or denial) or on an announced deal withdrawal by either party.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-07-03": [
+    {
+      "ticker": "QBTS",
+      "thesis": "$550M transformational acquisition announced, named deal strengthens technology moat",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Deal may have quietly closed or terminated within the ~6-month window without coverage capturing it.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 25: The $550M acquisition remains unconfirmed as closed, broken, or blocked across the entire 25-week journal record. This week's three articles cover AMD's \u00a32B UK AI-supercomputer commitment, Broadcom's $3B tender-offer cap raise, and an Arizona egg-price-inflation lawsuit \u2014 entirely unrelated to QBTS, quantum computing, or the pending deal. Twenty-five consecutive weeks of zero deal-mechanic coverage. The devil's-advocate exit case, made freshly and at its most credible: 25 silent weeks is now substantially and unambiguously past the upper bound of the typical 3\u20136 month regulatory-and-close window for a $550M transaction. This is not a staleness argument \u2014 it is the most honest evidentiary question in the full record: has the driving condition (deal open, close formally pending) quietly resolved without our news feed capturing it? That is the single strongest and most genuine exit argument available. Nevertheless, the framework's evidentiary standard is unchanged: absence of news is not evidence of resolution. No affirmative confirmation of close, break, or block has appeared in any week across the full 25-week record, and that remains the only actionable basis for exit. The 'herd fully arrives' exit also does not trigger: (a) the arc is NOT complete \u2014 deal close is a concrete, still-pending event, not speculation; and (b) zero QBTS-specific coverage for 25 straight weeks is the precise opposite of mainstream saturation. Both conditions must hold simultaneously; neither does. Conviction held at 5 \u2014 the structurally clean binary (close vs. break) keeps the thesis formally intact, but 25 weeks of silence, passage well past the typical deal-close window, and persistent quantum-sector crowding risk continue to cap the score. QBTS remains the single purest vehicle on this specific deal. Hold through silence; exit only when the deal closes, is blocked, or is terminated.",
+      "exit_advice": "Exit immediately on any affirmative confirmation of deal close, regulatory block, or termination announcement. Do NOT exit on continued silence alone.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/technology/ai/articles/amd-amd-commits-2-billion-102239533.html",
+        "https://finance.yahoo.com/markets/stocks/articles/broadcom-avgo-raises-tender-offer-102443246.html",
+        "https://www.azfamily.com/2026/06/30/arizona-egg-producer-2-other-companies-accused-inflating-prices/"
+      ]
+    },
+    {
+      "ticker": "BWET",
+      "thesis": "Iran threatens Persian Gulf/Hormuz naval blockade; no deal signed",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six consecutive silent weeks suggest Iran's blockade threat has gone dormant in back-channel diplomacy, quietly neutralizing the catalyst without a public headline.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 12 \u2014 sixth consecutive silent week following Week 6's only interim data point (Seeking Alpha: 'ongoing Hormuz tensions \u2026 war-driven oil-freight spike has not resolved'). No fresh coverage again this week. Devil's advocate is at its absolute peak: twelve weeks since entry with a single supporting data point across the entire arc is an extraordinary drought, and the honest case is that Iran's blockade rhetoric has gone fully dormant in back-channel diplomacy, quietly neutralizing the catalyst without ever generating a resolution headline. Examined honestly against all three hard exit triggers: (1) no deal signed, (2) no formal Iranian rescission, (3) no chokepoint declared open \u2014 all remain unfired. Week 6's market language was explicitly forward-looking and unresolved; six subsequent silent weeks do not convert that signal into a backward-looking, resolved one \u2014 silence is not resolution. The third-exit crowding test also fails on both legs simultaneously: coverage remains near-zero (diametrically opposite of mainstream saturation or retail frenzy), and the binary is structurally unresolved (arc-complete test fails). Per standing rules, a quiet stretch with the driving condition structurally intact is not an exit. Conviction held at 6, reflecting prolonged silence and incremental threat-credibility uncertainty, while catalyst specificity and vehicle purity remain intact. BWET remains the cleanest pure-play \u2014 freight-futures ETN with direct Hormuz disruption exposure and no dilution from tanker-operator equity noise. Hold through silence; the second leg activates on any concrete escalation, confirmed diplomatic close, or surprise chokepoint-opening headline.",
+      "exit_advice": "Exit ONLY on: (1) US-Iran deal signed/announced, (2) Iran formally rescinds blockade threat, or (3) Hormuz/Gulf chokepoint declared open and traffic confirmed resuming. None of these has fired.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "UNP",
+      "thesis": "STB ruling pending on UNP's $85B Norfolk Southern merger",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No STB ruling yet; sole exit argument is extreme timeline uncertainty (2+ year reviews), not catalyst resolution.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week three; third consecutive blank week on the UNP/NSC STB docket. This week's news is entirely unrelated \u2014 Supreme Court birthright citizenship ruling and Fourth of July food spending \u2014 zero bearing on the merger review. Devil's advocate: the only honest exit argument remains the structural one \u2014 Class I railroad STB reviews routinely consume 24-30+ months, meaning capital is parked in a very long-dated, unanchored binary with no scheduled decision date, which is a genuine holding-cost drag but not a catalyst-resolution trigger. The STB has issued no decision, no procedural schedule has been published, and there is no sign of deal withdrawal or abandonment. Coverage remains at financial/trade-press level with no retail pile-in, so the early-mover informational edge is intact. The thesis is simple and durable: the ruling is the event, and it has not landed. Hold through silence; UNP remains the cleanest single vehicle as the named acquirer.",
+      "exit_advice": "Exit only on: (a) STB issues its formal decision (approval, denial, or conditional approval), or (b) either party formally withdraws the merger application. Do not exit on continued news silence.",
+      "evidence_urls": []
+    }
+  ]
 }
