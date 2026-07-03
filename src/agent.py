@@ -163,6 +163,7 @@ class JournalEntry(BaseModel):
     thesis_live: bool = True
     exit_case: str = ""              # devil's-advocate: strongest reason the thesis is already over
     catalyst_resolved: bool = False  # binary: has the entry catalyst already happened? -> forces exit
+    conviction: int = 5              # 1-10 CATALYST QUALITY (specificity/under-radar) for the top-N shortlist — COMPOSITION, never a return/size forecast
     exit_advice: str = ""
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
@@ -299,7 +300,8 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
     # per-week checkpoint so a long agent run survives sleep/kill and RESUMES (the loop is otherwise
     # in-memory; journals were dumped only at the end). Keyed by the run's params.
     import os
-    rsig = hashlib.md5(f"{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{qs}".encode()).hexdigest()[:10]
+    _ph = hashlib.md5((SCOUT_SYSTEM + AGENT_SYSTEM).encode()).hexdigest()[:6]  # prompt-aware: edits bust the cache
+    rsig = hashlib.md5(f"{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{_ph}{qs}".encode()).hexdigest()[:10]
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
     if resume_f.exists():
@@ -389,9 +391,10 @@ every open event. When unsure, MERGE — fragmenting one catalyst across several
 biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "required": ["exit_case", "catalyst_resolved", "thesis_live", "conviction", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
+        "conviction": {"type": "integer"},   # 1-10 CATALYST QUALITY (specific/datable/under-radar) — NOT a return forecast
         "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
@@ -403,10 +406,17 @@ for this event since entry (your memory — the whole arc, not just last week), 
 Write the new note.
 
 FIRST, ARGUE FOR EXIT (devil's advocate — do this BEFORE deciding, EVERY week, against your WHOLE
-journal): state the SINGLE strongest reason this thesis is ALREADY OVER — the catalyst has resolved
-or decayed (`exit_case`, <=20 words). Write "none" ONLY after genuinely looking and finding nothing.
-This is NOT a "was I right?" review (that just rubber-stamps the hold) — it is the case AGAINST the
-position, made fresh each week, which is what defeats hold-inertia.
+journal): state the SINGLE strongest reason this thesis is ALREADY OVER — the catalyst has RESOLVED
+(occurred / closed / been signed) or its DRIVING CONDITION has REVERSED (curbs lifted, ceasefire,
+chokepoint reopened, shortage ended) (`exit_case`, <=20 words). Write "none" ONLY after genuinely
+looking and finding nothing. This is NOT a "was I right?" review (that just rubber-stamps the hold) —
+it is the case AGAINST the position, made fresh each week, which is what defeats hold-inertia.
+
+A QUIET STRETCH IS NOT AN EXIT. Do NOT exit on "staleness", "aging thesis", "edge decayed", "premium
+already absorbed / priced-in", or "N quiet weeks with no fresh news" while the DRIVING CONDITION is
+still in force. A live catalyst can go silent for weeks and then RE-ACCELERATE (a follow-on deal, an
+escalation, a government stake) — exiting on silence forfeits exactly that second leg. HOLD through
+silence; exit ONLY on the resolution / reversal above (or catalyst_resolved below).
 
 THEN answer `catalyst_resolved` (true/false): re-reading your ENTIRE journal, has the SPECIFIC
 catalyst you entered on already OCCURRED / passed / closed / been signed — a bill signed or
@@ -414,8 +424,23 @@ voted-down, approval granted/denied, named deal closed, emergency declared-then-
 war/chokepoint/supply shock reversed — in THIS week OR ANY PRIOR week (even one you did not flag at
 the time)? If true, the catalyst is public and priced, your edge is gone, and thesis_live MUST be
 false — EVEN IF the stock is still rising or a broader THEME lingers. The ONLY thing that is NOT
-resolution: mainstream hype / crowding ("up 600%, everyone in"). thesis_live=TRUE only while the
-specific catalyst is still PENDING (catalyst_resolved=false).
+resolution: mainstream hype / crowding ("up 600%, everyone in") does not BY ITSELF make the binary
+true. thesis_live=TRUE only while the specific catalyst is still PENDING (catalyst_resolved=false).
+
+THIRD EXIT — THE WINDOW CLOSES WHEN THE HERD FULLY ARRIVES (set thesis_live=false even with
+catalyst_resolved=false). You entered because the press named this EARLY / under-the-radar; that edge
+is spent when BOTH hold: (a) the catalyst's ARC IS COMPLETE — the shock, the response, and the
+follow-on are all public and NO CONCRETE next catalyst is still ahead (nothing SCHEDULED / ANNOUNCED /
+formally-expected left to land — a set summit date, a filed deal awaiting a known ruling, a scheduled
+vote); AND (b) coverage has turned MAINSTREAM-SATURATED (front-page,
+retail frenzy, sell-side chasing raised targets, "everyone's in"). When BOTH hold, the smart-money
+window has closed and the early edge is gone — exit. CRUCIAL — "pending ahead" means CONCRETE, NOT
+SPECULATIVE: a rumor, a "maybe", a question-mark headline ("Is a summit coming?"), an "analysts wonder
+if" — these do NOT count as a pending catalyst and do NOT keep the position alive; if the only thing
+left ahead is speculation, the ARC IS COMPLETE. This is still NOT mid-run hype: while a CONCRETE next
+step is genuinely scheduled ahead, crowding is just noise — HOLD. The single test: is a CONCRETE,
+announced/scheduled catalyst still ahead? Yes -> hold (ignore the crowd); No (only speculation left)
+AND the crowd has fully arrived -> exit. (silence-while-under-the-radar = HOLD; loud-and-done = EXIT.)
 
 YOUR BINARY MUST FOLLOW YOUR OWN ARGUMENT: if the exit_case you just wrote says the catalyst has
 ALREADY happened / been signed / was granted / is "backward-looking" / "already resolved", then you
@@ -429,7 +454,16 @@ rate-or-commodity ETN / single ADR; drop a vehicle that is no longer the best). 
 durable unit; the ticker can change with it.
 
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
-composition, the exit, and which vehicle. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
+composition, the exit, and which vehicle.
+
+RATE `conviction` 1-10 — the QUALITY of THIS catalyst, so a shortlist can keep only the strongest
+events. This is NOT a return/price forecast (never guess how much it will move — that is forbidden
+and destroys value). Score ONLY the catalyst itself: 10 = a specific, datable, thesis-driven,
+still-early / under-the-radar shock with a clean pure-play vehicle (a named war/curb/bill/supply-
+shock the press explicitly ties to this ticker); 1 = vague, generic, already-mainstream, or a routine
+business item (an analyst rating, a small partnership, a run-of-the-mill earnings beat). Judge the
+CATALYST's specificity + magnitude-of-event + how under-the-radar it still is — never the expected
+return. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,
 "exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
@@ -535,6 +569,7 @@ def event_agent_v2(client, anchor, event, entries, news):
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
     return {"date": anchor.date().isoformat(), "thesis_live": live,
             "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
+            "conviction": int(getattr(e, "conviction", 5) or 5),
             "exit_advice": e.exit_advice, "assessment": e.assessment,
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
@@ -571,7 +606,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                                      #   curator_memory_weeks: 0 = OFF, <0 = whole history, >0 = last N weeks
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
-    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{qs}".encode()).hexdigest()[:10]
+    _ph = hashlib.md5((SCOUT_SYSTEM + MATCH_SYSTEM + EVENT_AGENT_SYSTEM).encode()).hexdigest()[:6]  # prompt-aware: edits bust the cache
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{_ph}{qs}".encode()).hexdigest()[:10]
     enrich_cache = str(REPO_ROOT / "data" / "windows" / f"wayback_{key}.json")
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
@@ -653,6 +689,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),
                                   "exit_case": entry.get("exit_case", ""),
                                   "catalyst_resolved": entry.get("catalyst_resolved", False),
+                                  "conviction": entry.get("conviction", 5),
                                   "assessment": entry.get("assessment", ""),
                                   "exit_advice": entry.get("exit_advice", ""),
                                   "evidence_urls": entry["sources"]})

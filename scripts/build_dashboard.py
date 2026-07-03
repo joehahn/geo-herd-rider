@@ -234,7 +234,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
                 end_val = gs[-1]
             agent_gain[a] = round(end_val - start_val, 2)
 
-    # per-agent conviction over time (Plot 8) + the synthetic SPY floor-agent's row in the gain/
+    # per-agent conviction over time (Plot 8) + the synthetic SPY agent-agent's row in the gain/
     # conviction plots: its $ P&L is booked on SPY holdings, its conviction is the constant floor.
     agent_conviction: dict = {}
     for a in sorted(scans):
@@ -244,13 +244,13 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             if aid is not None and p.get("conviction") is not None:
                 agent_conviction.setdefault(aid, []).append(
                     {"date": ds, "conviction": int(p.get("conviction", 5) or 5)})
-    spy_floor = int(fm.get("spy_floor_conviction", 0) or 0)
-    if spy_floor and ag_gs.get("SPY"):
+    spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)
+    if spy_agent and ag_gs.get("SPY"):
         _sgs = ag_gs["SPY"]
-        agent_meta["spy"] = {"ticker": "SPY", "thesis": "always-on SPY floor agent",
+        agent_meta["spy"] = {"ticker": "SPY", "thesis": "always-on SPY agent",
                              "first": ag_dates[0], "last": ag_dates[-1]}
         agent_gain["spy"] = round(_sgs[-1] - _sgs[0], 2)
-        agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_floor}
+        agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_agent}
                                    for a in sorted(scans)]
 
     # Plot-2 markers: the weeks each ticker's agent went LIVE (entry) and EXITED (thesis_live -> False)
@@ -430,8 +430,8 @@ SWEEPS = [
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 0.85, 1.0, 1.25, 1.5, 2.0, 3.0]},   # 0 = pure-μ -> high λ = risk-averse
     {"key": "max_events", "label": "max_events",
      "values": [1, 2, 3, 4, 5, 6, 8]},              # top-N events (by conviction) kept in the weekly watchlist
-    {"key": "spy_floor_conviction", "label": "spy_floor_conviction",
-     "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY floor an event must out-rank to be held
+    {"key": "spy_agent_conviction", "label": "spy_agent_conviction",
+     "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY agent an event must out-rank to be held
 ]
 
 # The (non-LLM) parameter sweeps are restricted to these gems only.
@@ -694,7 +694,7 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 8 — Conviction score over time, per agent</h2>
  <p class="sub" style="margin:0 0 6px">Each agent's <b>catalyst-conviction</b> rating (1-10) week by week —
    how strong / early / datable it judged its own catalyst. The dashed grey line is the always-on
-   <b>SPY floor agent</b> (<code>spy_floor_conviction</code>): a live event must out-rank it to be held.</p>
+   <b>SPY agent</b> (<code>spy_agent_conviction</code>): a live event must out-rank it to be held.</p>
  <div id="convtime"></div>
 
  <h2>Plot 9 — Cumulative gain vs conviction, per agent</h2>
@@ -765,7 +765,7 @@ Promise.resolve({{DATA}}).then(D=>{
   // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
   const P=D.params||{};
   const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
-    "max_events","spy_floor_conviction","trailing_stop_pct",
+    "max_events","spy_agent_conviction","trailing_stop_pct",
     "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
   const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
@@ -914,7 +914,7 @@ Promise.resolve({{DATA}}).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 8 — conviction score over time, per agent (one line each; SPY floor = dashed grey flat line).
+  // Plot 8 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
