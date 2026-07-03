@@ -29,12 +29,13 @@ flowchart TD
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY when no gem qualifies"]
-    U["🧑 User<br/>adjusts portfolio at brokerage<br/>↻ the whole line then repeats next week"]
+    U["🧑 User<br/>adjusts portfolio at brokerage"]
 
     S --> SC
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
+    U == "↻ repeat weekly" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
@@ -45,6 +46,25 @@ The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** 
 The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — this solution just reads the ticker named by the press and rides it while its thesis holds.
 
 The sections below explain each box in greater detail — the [Firehose](#the-news-firehose-why-reading-beats-reasoning), the [Curator](#inside-the-curator-scout--event-agents) (its scout, matcher, event agents), and the [watchlist and optimizer](#the-signal-and-its-jobs).
+
+### How the core pieces fit together
+
+The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by 1–2 **tickers** that can *change* over time, with the **thesis** being the catalyst→ticker claim.
+
+```mermaid
+flowchart LR
+    CUR["🧠 Curator<br/>scout · matcher · agents"] --> EV
+    CAT["🎯 Catalyst<br/>the discrete driver:<br/>war · rare-earth curb ·<br/>bill · supply shock"] === EV["<b>EVENT</b><br/><i>the durable unit</i>"] === AGT["🟢 Agent<br/>exactly ONE per event;<br/>tracks it weekly;<br/>live/exit + conviction 1–10"]
+    EV -- "expressed by · ticker can EVOLVE" --> VEH["📈 Vehicle(s) / gem(s)<br/>1–2 tickers"]
+    VEH -- "why it rises" --> THE["📝 Thesis<br/>this catalyst → this ticker"]
+    MANY["several tickers naming<br/>the SAME catalyst"] -. "matcher COLLAPSES into ONE event<br/>(never 3 events for 1 catalyst)" .-> EV
+```
+
+- **Catalyst** — the discrete driver (a war, a China rare-earth curb, a bill, a supply shock); it *defines* the event.
+- **Event ≡ catalyst ≡ agent** (1 : 1 : 1) — the durable unit; one agent owns it from entry to exit and rates its `conviction`.
+- **Vehicle / gem** — the 1–2 tickers that best express the event *right now*; the ticker can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker).
+- **Thesis** — the claim that *this* catalyst makes *this* ticker rise.
+- The **matcher** merges every ticker naming the same catalyst into ONE event (so RNMBY + RHMTY + LMT = one defense event, not three).
 
 ## The news firehose: why reading beats reasoning
 
