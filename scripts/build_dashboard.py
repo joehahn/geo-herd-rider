@@ -441,7 +441,7 @@ SWEEPS = [
      "values": [0.0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7]},
     {"key": "risk_aversion", "label": "risk_aversion",
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 0.85, 1.0, 1.25, 1.5, 2.0, 3.0]},   # 0 = pure-μ -> high λ = risk-averse
-    {"key": "max_events", "label": "max_events",
+    {"key": "max_agents", "label": "max_agents",
      "values": [1, 2, 3, 4, 5, 6, 8]},              # top-N events (by conviction) kept in the weekly watchlist
     {"key": "spy_agent_conviction", "label": "spy_agent_conviction",
      "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY agent an event must out-rank to be held
@@ -780,7 +780,7 @@ Promise.resolve({{DATA}}).then(D=>{
   // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
   const P=D.params||{};
   const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
-    "max_events","spy_agent_conviction","trailing_stop_pct",
+    "max_agents","spy_agent_conviction","trailing_stop_pct",
     "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
   const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
   const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`

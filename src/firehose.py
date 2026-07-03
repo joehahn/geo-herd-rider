@@ -361,7 +361,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
     trail_stop = float(fm.get("trailing_stop_pct", 0) or 0)     # 0 = off; force-exit a held name once it's this fraction below its trailing high (mechanical peak-exit)
-    max_events = int(fm.get("max_events", 0) or 0)             # 0 = off; keep only the top-N events (by catalyst conviction) in the weekly watchlist
+    max_agents = int(fm.get("max_agents", 0) or 0)             # 0 = off; keep only the top-N agents (by catalyst conviction) in the weekly watchlist
     spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)     # SPY as an always-on "agent" that always recommends SPY: a synthetic candidate at this
     bench = score.BENCHMARK                                     #   conviction that events must OUT-RANK to be held; else capital parks in SPY. 0 = off.
     anchors = list(scans)
@@ -385,7 +385,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     reb, week_w = [], {}
     zero_streak, pruned = {}, set()   # visibility: drop chronically-unfunded names; cap funded concurrency
     trail_hi, stopped = {}, set()     # mechanical trailing-stop state (per currently-held name)
-    conv = {}                         # running last-known catalyst-conviction per ticker (for the max_events cap)
+    conv = {}                         # running last-known catalyst-conviction per ticker (for the max_agents cap)
     for k, a in enumerate(anchors):
         for p in scans[a]:            # carry the latest catalyst-conviction the agent assigned each ticker
             conv[p["ticker"]] = p.get("conviction", conv.get(p["ticker"], 5))
@@ -412,7 +412,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                         continue                       # stopped out -> force exit this week
                 wl.append(t)
             # SPY agent-agent: an always-on agent that always recommends SPY -- a synthetic candidate at
-            # spy_agent conviction that competes in the weekly max_events ranking like any other event.
+            # spy_agent conviction that competes in the weekly max_agents ranking like any other event.
             # A weaker-conviction event that ranks below it is displaced when the watchlist is full; when
             # nothing beats it, capital parks in SPY. Replaces the mechanical hold_benchmark add.
             cand = list(wl)
@@ -420,8 +420,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                 conv[bench] = spy_agent
                 if bench not in cand:
                     cand.append(bench)
-            if max_events and len(cand) > max_events:  # keep only the top-N candidates by conviction (SPY competes)
-                keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_events])
+            if max_agents and len(cand) > max_agents:  # keep only the top-N candidates by conviction (SPY competes)
+                keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_agents])
                 cand = [t for t in cand if t in keep]
             uni = cand
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}

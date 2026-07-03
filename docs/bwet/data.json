@@ -2094,7 +2094,7 @@
     "rebalance_days": 7,
     "news_lookback_days": null,
     "prune_zero_weight_weeks": 0,
-    "max_events": 2,
+    "max_agents": 2,
     "spy_agent_conviction": 6,
     "trailing_stop_pct": 0.0,
     "hold_benchmark": true,
