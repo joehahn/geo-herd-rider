@@ -713,12 +713,13 @@ STORYLINE = {
     ),
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> rose on the <b>gold bull market</b> — central-bank buying, "
-        "debasement fears, and safe-haven demand lifting the miners. But this is a <b>slow macro "
-        "theme</b>, not a sharp, datable catalyst: no single event fires it or later resolves it. "
-        "<b>That's why the curator never names it</b> (caught = false) — the catalyst gate correctly "
-        "rejects diffuse 'demand / macro' stories, the same wall that drops NVDA and the SMR theme. "
-        "GDX is a <b>documented non-fit</b>, greyed on the landing: a reminder that the solution's edge "
-        "is discrete geopolitical / policy shocks, not gradual macro trends."
+        "debasement fears, safe-haven demand. It <i>was</i> seeded (a Mar-2024 'gold miners break out' "
+        "article), yet the curator never named it (caught = false). <b>Two caveats on that verdict:</b> "
+        "the seed is <i>momentum</i>-framed ('breakout / records') — the exact language the gate rejects "
+        "— and this book was produced by <b>llama4</b>, the weakest curator in the bake-off. So GDX is a "
+        "<i>likely</i> non-fit — gold's drivers are a diffuse macro theme with no discrete catalyst to "
+        "fire or resolve — but it has <b>not been cleanly tested</b> (a strong curator + a discrete-event "
+        "seed). Greyed pending that."
     ),
 }
 
