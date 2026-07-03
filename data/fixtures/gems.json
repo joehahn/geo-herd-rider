@@ -152,6 +152,19 @@
       "shape": "slow commodity theme",
       "peak_multiple": 3.2,
       "vehicle_note": "theme ETF; URNM (Sprott miners) is the sharper event vehicle if a swap is wanted"
+    },
+    {
+      "id": "geo",
+      "ticker": "GEO",
+      "name": "GEO Group",
+      "catalyst": "2024 US election -> Trump immigration-enforcement expansion (private-prison demand)",
+      "trigger_date": "2024-11-05",
+      "window_start": "2024-11-05",
+      "window_end": "2025-02-28",
+      "size_tier": "tail",
+      "shape": "policy/election event (immigration enforcement)",
+      "peak_multiple": 2.5,
+      "vehicle_note": "event-driven gem JUST BEFORE MP: 2024 election (Nov 5) -> immigration-enforcement policy -> private-prison operator GEO surged 2.5x ($14->$35, peaked Jan-2025); CXW is the alt vehicle. Adds temporal spread + an election-type discrete catalyst to the active set."
     }
   ],
   "controls": [
