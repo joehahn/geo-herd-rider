@@ -72,7 +72,9 @@
       "size_tier": "tail",
       "shape": "leveraged crypto beta",
       "peak_multiple": 13.5,
-      "vehicle_note": "levered BTC proxy; IBIT is the unleveraged pure-play alternative (held out)"
+      "vehicle_note": "levered BTC proxy; IBIT is the unleveraged pure-play alternative (held out) | CONCURRENT-TEST leg: paired with GEO in the Aug-2024->Mar-2025 cold scan to test 2-ticker management. Both fire off the SAME Nov-2024 election, different theses (crypto/BTC-leverage vs GEO immigration/prisons); note MSTR peaks fast (~Nov 20) then declines while GEO climbs to Jan \u2014 an independent-exits + matcher-separation test. Curve shows the full arc from the Jan-2024 ETF trigger.",
+      "window_start": "2024-08-01",
+      "window_end": "2025-03-01"
     },
     {
       "id": "hims",
