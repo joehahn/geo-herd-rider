@@ -253,6 +253,19 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_agent}
                                    for a in sorted(scans)]
 
+    # per-agent (conviction, cumulative-gain) TIME-HISTORY for Plot 9: trace each agent as a connected
+    # path through (conviction, $gain) space week by week (gain = its ticker's cumulative gain since the
+    # agent's start), so a rising-right path = conviction and gain climbing together.
+    agent_convgain: dict = {}
+    for aid, cpts in agent_conviction.items():
+        gs = ag_gs.get(agent_meta.get(aid, {}).get("ticker"))
+        s = (_idx_le(agent_meta[aid]["first"]) - 1) if aid in agent_meta else -1
+        base = gs[s] if (gs and s >= 0) else 0.0
+        agent_convgain[aid] = [
+            {"date": cp["date"], "conviction": cp["conviction"],
+             "gain": round(gs[_idx_le(cp["date"])] - base, 2) if (gs and _idx_le(cp["date"]) >= 0) else 0.0}
+            for cp in cpts]
+
     # Plot-2 markers: the weeks each ticker's agent went LIVE (entry) and EXITED (thesis_live -> False)
     agent_marks, _prev_live = {}, {}
     for a in sorted(scans):
@@ -312,7 +325,7 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
         "retrieval": retstats.load(str(cfg["stats"])), "params": {**fm, "model": disp_model},
         "arcs": arcs, "lifecycle": lifecycle, "agents": agent_meta, "agent_of": agent_of,
         "agent_marks": agent_marks, "agent_gain": agent_gain,
-        "agent_conviction": agent_conviction,
+        "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,
         "agent_precision": bt.get("agent_precision", []),
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
@@ -697,10 +710,12 @@ INDEX_HTML = r"""<!doctype html>
    <b>SPY agent</b> (<code>spy_agent_conviction</code>): a live event must out-rank it to be held.</p>
  <div id="convtime"></div>
 
- <h2>Plot 9 — Cumulative gain vs conviction, per agent</h2>
- <p class="sub" style="margin:0 0 6px">One connected dot per agent: its <b>mean conviction</b> (x) vs its
-   <b>cumulative $ P&amp;L</b> (y), dots joined in conviction order. If the curator's conviction is
-   <b>predictive</b>, the trace slopes up-right (higher conviction → more gain). SPY (the always-on agent) is grey.</p>
+ <h2>Plot 9 — Gain vs conviction over time, per agent</h2>
+ <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
+   (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
+   climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
+   <b>high on x but sinking on y</b> = high conviction that isn't paying off (a conviction miss). SPY (the
+   always-on agent) is the dashed grey path.</p>
  <div id="gainconv"></div>
 
  <h2 id="agentprec_h"></h2>
@@ -924,19 +939,16 @@ Promise.resolve({{DATA}}).then(D=>{
      xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 9 — cumulative gain vs conviction: one connected dot per agent (mean conviction vs $ gain).
-  const gc=Object.entries(AC).map(([aid,pts])=>({
-    aid, conv:pts.reduce((s,p)=>s+p.conviction,0)/(pts.length||1),
-    gain:(AG[aid]||0), tk:(AGM[aid]?AGM[aid].ticker:aid)}))
-    .filter(g=>g.aid in AG).sort((a,b)=>a.conv-b.conv);
-  if(gc.length) Plotly.newPlot("gainconv",[{
-    x:gc.map(g=>g.conv), y:gc.map(g=>g.gain), mode:"lines+markers+text",
-    text:gc.map(g=>g.tk), textposition:"top center",
-    line:{color:"#bbb",width:1},
-    marker:{size:11,color:gc.map(g=>g.aid==="spy"?"#888":(g.gain>=0?"#2ca02c":"#d62728"))},
-    hovertemplate:"%{text}<br>mean conviction %{x:.1f}<br>$%{y:,.0f}<extra></extra>"}],
-    {margin:{l:74,r:30,t:16,b:44},
-     xaxis:{title:"mean conviction",range:[0,10.5],dtick:1},
+  // Plot 9 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
+  const CG=D.agent_convgain||{};
+  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>({
+    x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
+    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:1.5}, marker:{size:6},
+    customdata:s.map(p=>p.date),
+    hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"}));
+  if(cgTraces.length) Plotly.newPlot("gainconv",cgTraces,
+    {margin:{l:74,r:130,t:16,b:44},legend:{orientation:"v",x:1.02,y:1},
+     xaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:1},
      yaxis:{title:"cumulative $ gain",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
