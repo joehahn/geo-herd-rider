@@ -1320,7 +1320,7 @@ Promise.resolve({{DATA}}).then(D=>{
     const ncost=s=>parseFloat(String(s).replace(/[^0-9.]/g,""))||0;
     const idx=BO.models.map((_,i)=>i).sort((a,b)=>ncost(BO.cost[a])-ncost(BO.cost[b]));  // cheapest -> priciest
     const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+"<br>"+BO.cost[i]+(BO.time&&BO.time[i]?" · "+BO.time[i]:""));  // size · cost · wall-clock
-    const gems=D.gems||[];
+    const gems=Object.keys(BO.per_gem||{});  // bake-off tickers ONLY (not D.gems — excludes GEO_MSTR, which has no bake books)
     const traces=[{type:"scatter", mode:"lines+markers+text", name:"Sum (3 gems)", x:labels,
       y:idx.map(i=>BO.sum_curated[i]), line:{color:"#d62728",width:2.8}, marker:{size:9},
       text:idx.map(i=>gems.map(g=>g+(BO.caught[BO.models[i]][g]?"✓":"✗")).join(" ")),
