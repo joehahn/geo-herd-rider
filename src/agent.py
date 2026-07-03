@@ -91,6 +91,20 @@ as ongoing "news / demand / growth / approval news" ("reactor approval news", "A
 you can give is an ongoing trend, it's a theme — drop it. Drop only names that are theme/value/hype
 AND NOTHING ELSE.
 
+EARLY / BUILDING CATALYST — NAME IT WHILE IT'S STILL FORMING (this is the edge). Catch the ticker
+while its catalyst is BUILDING and the name is still under-owned — do NOT wait for the acute peak. An
+ESCALATING geopolitical or supply event — a RISING chokepoint / Strait-of-Hormuz risk as tensions
+build, a developing conflict, a tightening export/supply squeeze — that is ALREADY moving a NAMED,
+still-niche/under-owned ticker IS a live, unresolved catalyst: propose it NOW. Do not wait for the
+discrete acute trigger (the blockade declared, the ban signed) — by then the herd has arrived and the
+edge is gone. Tell a BUILDING EVENT from a theme: the event has an ACTOR + LOCATION + MECHANISM + an
+escalation/resolution path (Iran / Hormuz / tanker rates) AND the press still calls the vehicle
+"niche / under-owned" -> KEEP (write the thesis as the escalating event, e.g. "Hormuz risk lifts
+tanker rates"); a pure theme has only diffuse demand and no actor/event ("AI power demand") -> drop.
+"Still under-owned / niche while climbing on a forming geopolitical shock" is the IDEAL early-gem buy
+— that framing is a KEEP, not momentum. (This is BEFORE resolution; the resolved-catalyst rule below
+still applies once the event actually resolves.)
+
 You forecast NOTHING. The "thesis" MUST BE THE DATABLE CATALYST EVENT, never the umbrella theme:
 write "ADVANCE Act nuclear bill signed" NOT "NuScale gains on AI power demand"; write "China bans
 rare-earth exports" NOT "rare-earth demand". If your thesis can't be marked RESOLVED on a date it is
