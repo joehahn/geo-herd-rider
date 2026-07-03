@@ -580,6 +580,22 @@ def build_sweeps() -> None:
         start = (ana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         end = (ana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data[t] = (scans, score.fetch_panel(sorted(tix), start, end, use_cache=False), cfg["trigger"])
+    # GEO+MSTR election concurrency book as an extra sweep series. The weekly review cadence CAN'T
+    # harvest this gem (only insiders / smart money catch GEO+MSTR in time), so it's swept purely to
+    # find params that MINIMIZE the election loss (damage control) — not to profit. Injected directly
+    # since it's not a single gems.json ticker.
+    combo_p = ROOT / "data" / "windows" / "firehose_scans_election2024_v2.json"
+    if combo_p.exists():
+        cscans = load_scans(combo_p)
+        cana = list(cscans)
+        ctix = {score.BENCHMARK, "GEO", "MSTR"} | {p["ticker"] for v in cscans.values()
+                                                   for p in v if str(p.get("ticker", "")).strip()}
+        cstart = (cana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
+        cend = (cana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
+        gem_data["GEO_MSTR"] = (cscans, score.fetch_panel(sorted(ctix), cstart, cend, use_cache=False), "2024-11-05")
+        _cm = combo_p.with_suffix(".meta.json")
+        models["GEO_MSTR"] = json.loads(_cm.read_text()).get("model") if _cm.exists() else fm0.get("model", "mimo")
+        gem_tickers = [*gem_tickers, "GEO_MSTR"]
     out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}, "models": models,
            "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers},
            "baseline": {k: fm0.get(k) for k in
