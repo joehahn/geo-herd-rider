@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — gem scan</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
+ .sub{color:var(--mut);margin:0 0 18px}
+ .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .story{background:#fff;border:1px solid var(--line);border-left:4px solid #2980b9;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:1.55;margin:12px 0 20px}
+ .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
+ .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+ .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+ .card .v{font-size:22px;font-weight:600;margin-top:3px}
+ .pos{color:#1e7d34} .neg{color:#c0392b}
+ a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
+ #chart,#alloc,#dollars{width:100%;height:420px}
+ #gantt{width:100%}
+ .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+ .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+ .atab th{color:var(--mut);font-weight:600}
+ .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ details.clip{display:inline}
+ details.clip>summary{display:inline;cursor:pointer;color:#2980b9;font-size:11px;list-style:none}
+ details.clip>summary::-webkit-details-marker{display:none}
+ details.clip[open]>summary{display:none}
+</style></head>
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-03 08:23:27 EDT</div><div class="wrap">
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="index.html" class="active">Dashboard</a>
+   <a href="firehose.html">Firehose log</a>
+   <a href="../sweeps/index.html">Sweeps</a>
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
+ <h1 id="gemtitle">Gem scan</h1>
+ <p class="sub" id="sub"></p>
+ <div class="story" id="story"></div>
+ <div class="cards" id="cards"></div>
+
+ <h2>Scan parameters</h2>
+ <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
+
+ <h2>Plot 1 — Portfolio value</h2>
+ <div id="chart"></div>
+
+ <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
+ <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
+   holds, then flatlines at its realized gain once it exits.</b> <b>▲</b> marks the week the agent went
+   live, <b>✕</b> its exit. The bold <b>Total</b> is the portfolio's gain (the lines sum to it).
+   Flat-near-zero = an agent that contributed little; never-funded agents are omitted.</p>
+ <div id="gainseries"></div>
+
+ <h2>Plot 3 — Allocation over time</h2>
+ <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
+   watchlist is non-empty; to cash when the press names nothing live.</p>
+ <div id="alloc"></div>
+ <p class="sub" id="allocnote" style="margin-top:4px"></p>
+
+ <h2>Plot 4 — Holdings timeline (proposed vs funded)</h2>
+ <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
+   dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
+   (the optimizer actually bought it).</p>
+ <div id="gantt"></div>
+
+ <h2>Plot 5 — Dollars held per ticker</h2>
+ <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
+   stack's top edge is the portfolio value). Plot 3 shows the same split as percentages.</p>
+ <div id="dollars"></div>
+
+ <h2>Plot 6 — Cumulative $ gain per holding</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
+   (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
+   portfolio's total gain.</p>
+ <div id="gain"></div>
+
+ <h2>Plot 7 — Cumulative $ earned per agent (event)</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
+   partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
+   agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
+   winner, red = loser; the bars sum to the portfolio's total gain.</p>
+ <div id="agentgain"></div>
+
+ <h2>Plot 8 — Conviction score over time, per agent</h2>
+ <p class="sub" style="margin:0 0 6px">Each agent's <b>catalyst-conviction</b> rating (1-10) week by week —
+   how strong / early / datable it judged its own catalyst. The dashed grey line is the always-on
+   <b>SPY agent</b> (<code>spy_agent_conviction</code>): a live event must out-rank it to be held.</p>
+ <div id="convtime"></div>
+
+ <h2>Plot 9 — Gain vs conviction over time, per agent</h2>
+ <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
+   (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
+   climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
+   <b>high on x but sinking on y</b> = high conviction that isn't paying off (a conviction miss). SPY (the
+   always-on agent) is the dashed grey path.</p>
+ <div id="gainconv"></div>
+
+ <h2 id="agentprec_h"></h2>
+ <p class="sub" style="margin:0 0 6px">CURATOR SKILL, <b>unmasked by the optimizer</b>: for <i>every</i> agent
+   the curator created, the standalone return of its ticker over the weeks it was thesis-live — "if you'd
+   simply held what this agent named while it said hold, did it rise?" Independent of sizing/caps, so it
+   measures whether the scout/agent picks <b>good theses</b> or <b>manufactures losers</b>. Green = winning
+   thesis, red = losing; the headline is the <b>precision</b> (share of agents that made money).</p>
+ <div id="agentprec"></div>
+
+ <h2>Plot 11 — Watchlist by date</h2>
+ <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
+   the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
+   optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
+ <table class="atab" id="watchtable"></table>
+
+ <h2>Plot 12 — Gem lifecycle — full window (pre / live / exit / post)</h2>
+ <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
+   this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
+   dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
+   <i>before, during, and after</i> the event — not just the live span.</p>
+ <table class="atab" id="lifecycle"></table>
+
+ <h2>Plot 13 — Agent journal — week-by-week (per event)</h2>
+ <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
+   ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
+   <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
+   (devil's-advocate; RESOLVED flag forces the exit), <code>assessment</code> (the weekly read), and
+   <code>exit_advice</code> (the exit trigger). Use it to confirm what event/ticker was discovered, when,
+   and that it exited as the thesis decayed.</p>
+ <div id="arcs"></div>
+
+ <h2>What it cost</h2>
+ <div id="costs"></div>
+
+ <h2>Retrieval health (GDELT + Wayback)</h2>
+ <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
+   The Wayback miss-split distinguishes a real archive gap (confirmed) from a rate-limit/transient
+   failure (deferred — recoverable on re-run).</p>
+ <div id="retr"></div>
+</div>
+<script>
+Promise.resolve({"gem": "GEO", "overlay_label": "GEO trigger", "caught": false, "model": "sonnet", "storyline": "", "ever_funded": ["SPY"], "seeds": [{"date": "2024-11-07", "title": "Trump's win sends private-prison stocks soaring on deportation-crackdown bets", "snippet": "GEO Group (GEO) vaulted ~42% the session after Trump's election win, with CoreCivic (CXW) up ~29%, as investors price a hard immigration crackdown that means big ICE-detention business for the private-prison operators. Still early - the enforcement build-out and detention-capacity expansion have not landed yet.", "source": "fortune.com"}], "capital": 50000.0, "dates": ["2024-08-06", "2024-08-07", "2024-08-08", "2024-08-09", "2024-08-12", "2024-08-13", "2024-08-14", "2024-08-15", "2024-08-16", "2024-08-19", "2024-08-20", "2024-08-21", "2024-08-22", "2024-08-23", "2024-08-26", "2024-08-27", "2024-08-28", "2024-08-29", "2024-08-30", "2024-09-03", "2024-09-04", "2024-09-05", "2024-09-06", "2024-09-09", "2024-09-10", "2024-09-11", "2024-09-12", "2024-09-13", "2024-09-16", "2024-09-17", "2024-09-18", "2024-09-19", "2024-09-20", "2024-09-23", "2024-09-24", "2024-09-25", "2024-09-26", "2024-09-27", "2024-09-30", "2024-10-01", "2024-10-02", "2024-10-03", "2024-10-04", "2024-10-07", "2024-10-08", "2024-10-09", "2024-10-10", "2024-10-11", "2024-10-14", "2024-10-15", "2024-10-16", "2024-10-17", "2024-10-18", "2024-10-21", "2024-10-22", "2024-10-23", "2024-10-24", "2024-10-25", "2024-10-28", "2024-10-29", "2024-10-30", "2024-10-31", "2024-11-01", "2024-11-04", "2024-11-05", "2024-11-06", "2024-11-07", "2024-11-08", "2024-11-11", "2024-11-12", "2024-11-13", "2024-11-14", "2024-11-15", "2024-11-18", "2024-11-19", "2024-11-20", "2024-11-21", "2024-11-22", "2024-11-25", "2024-11-26", "2024-11-27", "2024-11-29", "2024-12-02", "2024-12-03", "2024-12-04", "2024-12-05", "2024-12-06", "2024-12-09", "2024-12-10", "2024-12-11", "2024-12-12", "2024-12-13", "2024-12-16", "2024-12-17", "2024-12-18", "2024-12-19", "2024-12-20", "2024-12-23", "2024-12-24", "2024-12-26", "2024-12-27", "2024-12-30", "2024-12-31", "2025-01-02", "2025-01-03", "2025-01-06", "2025-01-07", "2025-01-08", "2025-01-10", "2025-01-13", "2025-01-14", "2025-01-15", "2025-01-16", "2025-01-17", "2025-01-21", "2025-01-22", "2025-01-23", "2025-01-24", "2025-01-27", "2025-01-28", "2025-01-29", "2025-01-30", "2025-01-31", "2025-02-03", "2025-02-04", "2025-02-05", "2025-02-06", "2025-02-07", "2025-02-10", "2025-02-11", "2025-02-12", "2025-02-13", "2025-02-14", "2025-02-18", "2025-02-19", "2025-02-20", "2025-02-21", "2025-02-24", "2025-02-25", "2025-02-26", "2025-02-27", "2025-02-28", "2025-03-03", "2025-03-04", "2025-03-05", "2025-03-06", "2025-03-07", "2025-03-10", "2025-03-11", "2025-03-12", "2025-03-13", "2025-03-14", "2025-03-17", "2025-03-18", "2025-03-19", "2025-03-20"], "value": [50000.0, 49665.8, 50813.94, 51038.0, 51064.83, 51904.61, 52068.38, 52960.83, 53079.58, 53587.09, 53499.95, 53683.8, 53262.46, 53828.4, 53700.08, 53773.82, 53461.64, 53466.44, 53976.82, 52866.03, 52757.83, 52629.51, 51743.74, 52323.08, 52550.99, 53090.11, 53537.3, 53816.9, 53896.39, 53918.41, 53758.51, 54675.85, 54581.35, 54717.74, 54874.3, 54753.27, 54970.35, 54890.63, 55110.59, 54616.89, 54639.94, 54540.04, 55035.67, 54538.12, 55053.91, 55435.24, 55338.22, 55669.61, 56124.9, 55688.82, 55930.87, 55935.68, 56150.82, 56058.62, 56028.85, 55516.88, 55636.95, 55617.73, 55789.67, 55879.97, 55710.91, 54618.81, 54849.32, 54731.18, 55392.98, 56770.36, 57209.32, 57457.12, 57511.88, 57333.22, 57361.08, 56992.24, 56262.24, 56492.77, 56699.28, 56718.49, 57022.98, 57199.71, 57393.73, 57693.42, 57518.6, 57875.91, 57979.65, 58006.53, 58366.73, 58270.69, 58381.14, 58080.5, 57899.93, 58347.53, 58046.89, 58035.36, 58283.18, 58043.05, 56313.16, 56295.86, 56972.04, 57313.2, 57950.23, 57954.09, 57344.03, 56689.65, 56483.41, 56344.62, 57049.13, 57377.77, 56729.17, 56812.05, 55944.68, 56031.41, 56108.52, 57129.13, 57019.26, 57591.72, 58118.9, 58445.61, 58764.6, 58593.05, 57764.24, 58260.56, 57999.4, 58310.68, 58000.34, 57610.03, 57996.49, 58231.65, 58434.03, 57899.16, 58292.36, 58336.7, 58148.77, 58762.67, 58759.79, 58932.29, 59071.08, 58825.32, 57819.17, 57556.07, 57269.83, 57298.74, 56384.15, 57264.04, 56260.79, 55594.84, 56192.34, 55194.88, 55504.23, 54025.85, 53576.74, 53861.05, 53143.04, 54240.76, 54659.04, 54068.25, 54657.1, 54499.05], "spy": [50000.0, 49665.8, 50813.94, 51038.0, 51064.83, 51904.61, 52068.38, 52960.83, 53079.58, 53587.09, 53499.95, 53683.8, 53262.46, 53828.4, 53700.08, 53773.82, 53461.64, 53466.44, 53976.82, 52866.03, 52757.83, 52629.51, 51743.74, 52323.08, 52550.99, 53090.11, 53537.3, 53816.9, 53896.39, 53918.41, 53758.51, 54675.85, 54581.35, 54717.74, 54874.3, 54753.27, 54970.35, 54890.63, 55110.59, 54616.89, 54639.94, 54540.04, 55035.67, 54538.12, 55053.91, 55435.24, 55338.22, 55669.61, 56124.9, 55688.82, 55930.87, 55935.68, 56150.82, 56058.62, 56028.85, 55516.88, 55636.95, 55617.73, 55789.67, 55879.97, 55710.91, 54618.81, 54849.32, 54731.18, 55392.98, 56770.36, 57209.32, 57457.12, 57511.88, 57333.22, 57361.08, 56992.24, 56262.24, 56492.77, 56699.28, 56718.49, 57022.98, 57199.71, 57393.73, 57693.42, 57518.6, 57875.91, 57979.65, 58006.53, 58366.73, 58270.69, 58381.14, 58080.5, 57899.93, 58347.53, 58046.89, 58035.36, 58283.18, 58043.05, 56313.16, 56295.86, 56972.04, 57313.2, 57950.23, 57954.09, 57344.03, 56689.65, 56483.41, 56344.62, 57049.13, 57377.77, 56729.17, 56812.05, 55944.68, 56031.41, 56108.52, 57129.13, 57019.26, 57591.72, 58118.9, 58445.61, 58764.6, 58593.05, 57764.24, 58260.56, 57999.4, 58310.68, 58000.34, 57610.03, 57996.49, 58231.65, 58434.03, 57899.16, 58292.36, 58336.7, 58148.77, 58762.67, 58759.79, 58932.29, 59071.08, 58825.32, 57819.17, 57556.07, 57269.83, 57298.74, 56384.15, 57264.04, 56260.79, 55594.84, 56192.34, 55194.88, 55504.23, 54025.85, 53576.74, 53861.05, 53143.04, 54240.76, 54659.04, 54068.25, 54657.1, 54499.05], "gain": {"SPY": 4499.05}, "gain_series": {"SPY": [0.0, -334.2, 813.94, 1038.0, 1064.83, 1904.61, 2068.38, 2960.83, 3079.58, 3587.09, 3499.95, 3683.8, 3262.46, 3828.4, 3700.08, 3773.82, 3461.64, 3466.44, 3976.82, 2866.03, 2757.83, 2629.51, 1743.74, 2323.08, 2550.99, 3090.11, 3537.3, 3816.9, 3896.39, 3918.41, 3758.51, 4675.85, 4581.35, 4717.74, 4874.3, 4753.27, 4970.35, 4890.63, 5110.59, 4616.89, 4639.94, 4540.04, 5035.67, 4538.12, 5053.91, 5435.24, 5338.22, 5669.61, 6124.9, 5688.82, 5930.87, 5935.68, 6150.82, 6058.62, 6028.85, 5516.88, 5636.95, 5617.73, 5789.67, 5879.97, 5710.91, 4618.81, 4849.32, 4731.18, 5392.98, 6770.36, 7209.32, 7457.12, 7511.88, 7333.22, 7361.08, 6992.24, 6262.24, 6492.77, 6699.28, 6718.49, 7022.98, 7199.71, 7393.73, 7693.42, 7518.6, 7875.91, 7979.65, 8006.53, 8366.73, 8270.69, 8381.14, 8080.5, 7899.93, 8347.53, 8046.89, 8035.36, 8283.18, 8043.05, 6313.16, 6295.86, 6972.04, 7313.2, 7950.23, 7954.09, 7344.03, 6689.65, 6483.41, 6344.62, 7049.13, 7377.77, 6729.17, 6812.05, 5944.68, 6031.41, 6108.52, 7129.13, 7019.26, 7591.72, 8118.9, 8445.61, 8764.6, 8593.05, 7764.24, 8260.56, 7999.4, 8310.68, 8000.34, 7610.03, 7996.49, 8231.65, 8434.03, 7899.16, 8292.36, 8336.7, 8148.77, 8762.67, 8759.79, 8932.29, 9071.08, 8825.32, 7819.17, 7556.07, 7269.83, 7298.74, 6384.15, 7264.04, 6260.79, 5594.84, 6192.34, 5194.88, 5504.23, 4025.85, 3576.74, 3861.05, 3143.04, 4240.76, 4659.04, 4068.25, 4657.1, 4499.05]}, "overlay": [46972.37, 44372.96, 45617.75, 44739.08, 46459.81, 45068.58, 47887.65, 47997.48, 47667.99, 48400.21, 49132.44, 50267.39, 50157.56, 52061.35, 49974.5, 48693.1, 49645.0, 49608.39, 50779.95, 48363.6, 47851.04, 48436.82, 48070.71, 49242.27, 49315.5, 45947.25, 46166.92, 47448.32, 48034.1, 47008.98, 45800.81, 45727.58, 45288.25, 46203.53, 46423.2, 45507.91, 46533.03, 46533.03, 47045.59, 46972.37, 47741.21, 48766.32, 49095.83, 50230.78, 50340.61, 49864.66, 50743.34, 50963.01, 54001.75, 54880.42, 55612.65, 55466.2, 55649.26, 55466.2, 56930.66, 55978.76, 55832.32, 55612.65, 59456.84, 59603.29, 58248.66, 55576.04, 52903.41, 51914.9, 55392.98, 78714.41, 89441.54, 92846.4, 96946.87, 91711.44, 93249.12, 95555.64, 97386.2, 96580.75, 103976.25, 101816.18, 105184.42, 105001.37, 102292.13, 101889.4, 105037.98, 104378.97, 99290.0, 98667.6, 106905.16, 106648.87, 104049.47, 103024.35, 102255.51, 101779.56, 101669.73, 100351.72, 101523.28, 100791.06, 96544.15, 102511.79, 100717.84, 102548.41, 102951.13, 103573.53, 101267.01, 100827.67, 102438.57, 103573.53, 107307.88, 106465.82, 105037.98, 113751.48, 113275.53, 112250.41, 115948.16, 123929.43, 124478.61, 129421.13, 127663.79, 125760.0, 122574.81, 121073.75, 113531.81, 109943.9, 114739.99, 115179.32, 115362.38, 113385.36, 104562.03, 103976.25, 100754.45, 98594.38, 100900.89, 99656.1, 103317.24, 101340.23, 99802.55, 100278.5, 101559.9, 97898.76, 92773.17, 93871.51, 94603.74, 94384.07, 100095.44, 100168.67, 96031.58, 94823.41, 94017.96, 93468.79, 87903.86, 83913.23, 86439.41, 94896.63, 93542.01, 97459.43, 96251.25, 96763.81, 103134.19, 106429.21], "overlay_ticker": "GEO", "overlay_anchor": "2024-11-05", "alloc": {"SPY": [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]}, "cash": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "colors": {"SPY": "#1f77b4"}, "metrics": {"final": 54499.0, "total_ret": 0.09, "spy_ret": 0.09, "max_dd": -0.1004}, "cost_usd": 2.45, "weeks": 31, "gems": [{"week": "2024-09-20", "ticker": "CEG", "thesis": "Microsoft signs 20-yr PPA to restart Three Mile Island nuclear plant", "thesis_live": false, "urls": ["https://www.fool.com/investing/2024/09/20/constellation-nuscale-nano-nuclear-stocks-popped/?source=iedfolrf0000001"]}, {"week": "2024-10-18", "ticker": "CCJ", "thesis": "Amazon signs named SMR deals with X Energy and Energy Northwest", "thesis_live": false, "urls": ["https://www.investors.com/research/ibd-stock-of-the-day/amzon-goes-nuclear-cameco-stock-explodes/", "https://www.benzinga.com/news/24/10/41358363/nuclear-stocks-soar-as-amazon-becomes-latest-tech-giant-to-invest-in-nuclear-power", "https://finance.yahoo.com/news/why-cameco-denison-mines-energy-181722746.html", "https://finance.yahoo.com/news/nuclear-energy-etfs-surge-uranium-233300201.html"]}, {"week": "2024-12-20", "ticker": "OKLO", "thesis": "Oklo signs named data-center nuclear power supply deal", "thesis_live": false, "urls": ["https://www.investors.com/news/nuclear-stocks-sam-altman-oklo-data-center-deal/"]}], "watchlist": [{"week": "2024-08-02", "names": [], "funded": ["SPY"]}, {"week": "2024-08-09", "names": [], "funded": ["SPY"]}, {"week": "2024-08-16", "names": [], "funded": ["SPY"]}, {"week": "2024-08-23", "names": [], "funded": ["SPY"]}, {"week": "2024-08-30", "names": [], "funded": ["SPY"]}, {"week": "2024-09-06", "names": [], "funded": ["SPY"]}, {"week": "2024-09-13", "names": [], "funded": ["SPY"]}, {"week": "2024-09-20", "names": [], "funded": ["SPY"]}, {"week": "2024-09-27", "names": [], "funded": ["SPY"]}, {"week": "2024-10-04", "names": [], "funded": ["SPY"]}, {"week": "2024-10-11", "names": [], "funded": ["SPY"]}, {"week": "2024-10-18", "names": [], "funded": ["SPY"]}, {"week": "2024-10-25", "names": [], "funded": ["SPY"]}, {"week": "2024-11-01", "names": [], "funded": ["SPY"]}, {"week": "2024-11-08", "names": [], "funded": ["SPY"]}, {"week": "2024-11-15", "names": [], "funded": ["SPY"]}, {"week": "2024-11-22", "names": [], "funded": ["SPY"]}, {"week": "2024-11-29", "names": [], "funded": ["SPY"]}, {"week": "2024-12-06", "names": [], "funded": ["SPY"]}, {"week": "2024-12-13", "names": [], "funded": ["SPY"]}, {"week": "2024-12-20", "names": [], "funded": ["SPY"]}, {"week": "2024-12-27", "names": [], "funded": ["SPY"]}, {"week": "2025-01-03", "names": [], "funded": ["SPY"]}, {"week": "2025-01-10", "names": [], "funded": ["SPY"]}, {"week": "2025-01-17", "names": [], "funded": ["SPY"]}, {"week": "2025-01-24", "names": [], "funded": ["SPY"]}, {"week": "2025-01-31", "names": [], "funded": ["SPY"]}, {"week": "2025-02-07", "names": [], "funded": ["SPY"]}, {"week": "2025-02-14", "names": [], "funded": ["SPY"]}, {"week": "2025-02-21", "names": [], "funded": ["SPY"]}, {"week": "2025-02-28", "names": [], "funded": []}], "watch_daily": {}, "retrieval": {}, "params": {"initial_investment_usd": 50000, "risk_aversion": 0.67, "concentration_cap": 0.9, "max_tickers_per_event": 16, "t_update_days": 1, "min_trade_size": 0.0, "lookback_period_days": 7, "model": "sonnet", "risk_free_rate": 0.04, "rebalance_days": 7, "news_lookback_days": null, "prune_zero_weight_weeks": 0, "max_agents": 2, "spy_agent_conviction": 6, "trailing_stop_pct": 0.0, "hold_benchmark": true, "curator_memory_weeks": 8, "max_watchlist_size": 12}, "arcs": {"CEG": [{"date": "2024-09-20", "live": false, "thesis": "Microsoft signs 20-yr PPA to restart Three Mile Island nuclear plant", "src": "gdelt", "exit_case": "PPA was signed September 20 \u2014 the specific named deal-signing catalyst has already occurred and stocks already popped.", "resolved": true, "assessment": "Microsoft's 20-year PPA with Constellation Energy to restart Three Mile Island was signed and publicly announced on September 20, 2024 \u2014 the exact entry date. The Motley Fool confirms CEG, NuScale, Nano Nuclear, and Oklo all popped on the news that day. The specific catalyst as stated \u2014 'Microsoft signs 20-yr PPA' \u2014 is a named deal-closing event, and it has now closed. Downstream events such as NRC license reinstatement and the actual restart of TMI Unit 1 (expected ~2028) are real and concrete, but they are NEW catalysts not entered on. The edge of positioning ahead of this specific announcement is gone. The instructions are unambiguous: 'named deal closed' = catalyst_resolved. Exit the position; do not conflate the broader nuclear renaissance theme with the specific catalyst entered on.", "exit_advice": "Exit CEG. The stated catalyst is 'Microsoft signs 20-yr PPA' \u2014 a named deal closing \u2014 and it closed on entry day (Sept 20). The immediate pop is already in. Per the exit rule, a named deal signed/closed resolves the catalyst regardless of downstream events (NRC reinstatement, actual TMI restart) that were not the entered catalyst."}], "CCJ": [{"date": "2024-10-18", "live": false, "thesis": "Amazon signs named SMR deals with X Energy and Energy Northwest", "src": "gdelt", "exit_case": "Amazon's named SMR deals with X Energy and Energy Northwest were already signed and announced ~Oct 16 \u2014 a closed, discrete event.", "resolved": true, "assessment": "The fixed catalyst (Amazon signing named SMR deals with X Energy and Energy Northwest) resolved on or around October 16, 2024 \u2014 two days before entry. By entry date the event is already a closed, publicly-announced discrete signing, covered wall-to-wall by IBD ('Amazon Goes Nuclear; Stock of the Day Cameco Explodes'), Benzinga, Motley Fool, Forbes, and Yahoo Finance. The CCJ pop has already occurred. Coverage is mainstream-saturated on day one of this position. No concrete, scheduled follow-on catalyst is identified in the news \u2014 there is no named NRC filing date, no construction-start milestone, no additional signed agreements pending; only the ambient AI-energy demand theme persists, which is speculative and generic, not a datable catalyst. Both exit conditions are met simultaneously: (1) the catalyst arc is complete (the deal is signed, the press has processed it), and (2) coverage has turned fully mainstream with retail frenzy and sell-side chasing nuclear stocks broadly. Catalyst_resolved = true forces thesis_live = false. The early-mover window was compressed to zero before a position could even be established.", "exit_advice": "Exit CCJ immediately. The specific catalyst \u2014 the named deal signing \u2014 occurred before entry date and is now saturating mainstream financial press. No early-mover edge remains."}], "OKLO": [{"date": "2024-12-20", "live": false, "thesis": "Oklo signs named data-center nuclear power supply deal", "src": "gdelt", "exit_case": "Named data-center power deal announced December 18 \u2014 specific signed catalyst is already public and resolved.", "resolved": true, "assessment": "First week of tracking. The Investors.com article confirms Oklo announced a data-center power deal on December 18, 2024 ('Oklo announced a data center deal Wednesday'). The entry date of December 20 means the position was established *after* the catalyst had already occurred and been made public. Per the resolution rule, a named deal being signed/announced IS the catalyst resolving \u2014 the binary is behind us. Oklo may continue to benefit from nuclear sentiment, future deal flow, or regulatory milestones, but those are separate, unscheduled, speculative forward events \u2014 not the concrete discrete catalyst entered on. No pending scheduled next step on this specific deal is identified. Catalyst_resolved = true; thesis_live = false.", "exit_advice": "Exit OKLO. The discrete catalyst \u2014 Oklo signing a named data-center nuclear power supply deal \u2014 occurred December 18, two days before entry. The event is public, announced, and priced. No further concrete scheduled binary remains on this specific deal. The event-driven edge is gone."}]}, "lifecycle": [{"date": "2024-08-02", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-08-09", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-08-16", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-08-23", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-08-30", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-09-06", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-09-13", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-09-20", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-09-27", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-10-04", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-10-11", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-10-18", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-10-25", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-11-01", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-11-08", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-11-15", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-11-22", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-11-29", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-12-06", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-12-13", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-12-20", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2024-12-27", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-03", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-10", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-17", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-24", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-31", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-07", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-14", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-21", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-28", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}], "agents": {"ev1": {"ticker": "CEG", "thesis": "Microsoft signs 20-yr PPA to restart Three Mile Island nuclear plant", "first": "2024-09-20", "last": "2024-09-20"}, "ev2": {"ticker": "CCJ", "thesis": "Amazon signs named SMR deals with X Energy and Energy Northwest", "first": "2024-10-18", "last": "2024-10-18"}, "ev3": {"ticker": "OKLO", "thesis": "Oklo signs named data-center nuclear power supply deal", "first": "2024-12-20", "last": "2024-12-20"}, "spy": {"ticker": "SPY", "thesis": "always-on SPY agent", "first": "2024-08-06", "last": "2025-03-20"}}, "agent_of": {"CEG": "ev1", "CCJ": "ev2", "OKLO": "ev3"}, "agent_marks": {"CEG": {"live": [], "exit": []}, "CCJ": {"live": [], "exit": []}, "OKLO": {"live": [], "exit": []}}, "agent_gain": {"ev1": 0.0, "ev2": 0.0, "ev3": 0.0, "spy": 4499.05}, "agent_conviction": {"ev1": [{"date": "2024-09-20", "conviction": 5}], "ev2": [{"date": "2024-10-18", "conviction": 4}], "ev3": [{"date": "2024-12-20", "conviction": 4}], "spy": [{"date": "2024-08-02", "conviction": 6}, {"date": "2024-08-09", "conviction": 6}, {"date": "2024-08-16", "conviction": 6}, {"date": "2024-08-23", "conviction": 6}, {"date": "2024-08-30", "conviction": 6}, {"date": "2024-09-06", "conviction": 6}, {"date": "2024-09-13", "conviction": 6}, {"date": "2024-09-20", "conviction": 6}, {"date": "2024-09-27", "conviction": 6}, {"date": "2024-10-04", "conviction": 6}, {"date": "2024-10-11", "conviction": 6}, {"date": "2024-10-18", "conviction": 6}, {"date": "2024-10-25", "conviction": 6}, {"date": "2024-11-01", "conviction": 6}, {"date": "2024-11-08", "conviction": 6}, {"date": "2024-11-15", "conviction": 6}, {"date": "2024-11-22", "conviction": 6}, {"date": "2024-11-29", "conviction": 6}, {"date": "2024-12-06", "conviction": 6}, {"date": "2024-12-13", "conviction": 6}, {"date": "2024-12-20", "conviction": 6}, {"date": "2024-12-27", "conviction": 6}, {"date": "2025-01-03", "conviction": 6}, {"date": "2025-01-10", "conviction": 6}, {"date": "2025-01-17", "conviction": 6}, {"date": "2025-01-24", "conviction": 6}, {"date": "2025-01-31", "conviction": 6}, {"date": "2025-02-07", "conviction": 6}, {"date": "2025-02-14", "conviction": 6}, {"date": "2025-02-21", "conviction": 6}, {"date": "2025-02-28", "conviction": 6}]}, "agent_convgain": {"ev1": [{"date": "2024-09-20", "conviction": 5, "gain": 0.0}], "ev2": [{"date": "2024-10-18", "conviction": 4, "gain": 0.0}], "ev3": [{"date": "2024-12-20", "conviction": 4, "gain": 0.0}], "spy": [{"date": "2024-08-02", "conviction": 6, "gain": 0.0}, {"date": "2024-08-09", "conviction": 6, "gain": 1038.0}, {"date": "2024-08-16", "conviction": 6, "gain": 3079.58}, {"date": "2024-08-23", "conviction": 6, "gain": 3828.4}, {"date": "2024-08-30", "conviction": 6, "gain": 3976.82}, {"date": "2024-09-06", "conviction": 6, "gain": 1743.74}, {"date": "2024-09-13", "conviction": 6, "gain": 3816.9}, {"date": "2024-09-20", "conviction": 6, "gain": 4581.35}, {"date": "2024-09-27", "conviction": 6, "gain": 4890.63}, {"date": "2024-10-04", "conviction": 6, "gain": 5035.67}, {"date": "2024-10-11", "conviction": 6, "gain": 5669.61}, {"date": "2024-10-18", "conviction": 6, "gain": 6150.82}, {"date": "2024-10-25", "conviction": 6, "gain": 5617.73}, {"date": "2024-11-01", "conviction": 6, "gain": 4849.32}, {"date": "2024-11-08", "conviction": 6, "gain": 7457.12}, {"date": "2024-11-15", "conviction": 6, "gain": 6262.24}, {"date": "2024-11-22", "conviction": 6, "gain": 7199.71}, {"date": "2024-11-29", "conviction": 6, "gain": 7875.91}, {"date": "2024-12-06", "conviction": 6, "gain": 8381.14}, {"date": "2024-12-13", "conviction": 6, "gain": 8035.36}, {"date": "2024-12-20", "conviction": 6, "gain": 6972.04}, {"date": "2024-12-27", "conviction": 6, "gain": 7344.03}, {"date": "2025-01-03", "conviction": 6, "gain": 7049.13}, {"date": "2025-01-10", "conviction": 6, "gain": 5944.68}, {"date": "2025-01-17", "conviction": 6, "gain": 7591.72}, {"date": "2025-01-24", "conviction": 6, "gain": 8593.05}, {"date": "2025-01-31", "conviction": 6, "gain": 8000.34}, {"date": "2025-02-07", "conviction": 6, "gain": 7899.16}, {"date": "2025-02-14", "conviction": 6, "gain": 8759.79}, {"date": "2025-02-21", "conviction": 6, "gain": 7819.17}, {"date": "2025-02-28", "conviction": 6, "gain": 7264.04}]}, "agent_precision": []}).then(D=>{
+  const fmt=x=>"$"+Math.round(x).toLocaleString();
+  const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
+  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
+  document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
+  document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
+  const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
+  const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
+  document.getElementById("sub").textContent =
+    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
+
+  document.getElementById("cards").innerHTML=[
+    ["Final Curated Portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["Final SPY", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
+    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+  ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
+     <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
+
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
+  const P=D.params||{};
+  const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
+    "max_agents","spy_agent_conviction","trailing_stop_pct",
+    "max_tickers_per_event","lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
+  const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
+  const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
+    +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  document.getElementById("params").innerHTML=
+    prow("window", `${D.dates[0]} → ${D.dates[D.dates.length-1]}`) + prow("weekly_scans", D.weeks)
+    + pk.map(k=>prow(k, P[k])).join("");
+
+  // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
+  const BOOK="#d62728", SPYC="#7f7f7f";
+  const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
+  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
+  const vtraces=[
+    {x:D.dates,y:D.value,name:"Curated portfolio",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
+  ];
+  const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
+  if(D.overlay){
+    vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
+      line:{color:OVC,width:1.8,dash:"dash"},connectgaps:true});
+    vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
+      line:{color:OVC,width:1,dash:"dot"}});
+    vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:D.overlay_label||(D.overlay_ticker+" trigger"),font:{color:OVC,size:10}});
+  }
+  // seed markers: a big star at each press-seed's publish date on the value curve; lede on hover
+  const SD=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
+  if(SD.length){
+    const sx=SD.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
+    const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
+    const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    vtraces.push({x:sx,y:sy,mode:"markers",name:"🌱 press seed",
+      marker:{size:16,color:"#f1c40f",symbol:"star",line:{color:"#a67c00",width:1.5}},
+      text:SD.map(s=>"🌱 <b>SEED</b> "+s.date+(s.source?" · "+clean(s.source):"")
+        +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
+      hovertemplate:"%{text}<extra></extra>"});
+  }
+  const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
+  Plotly.newPlot("chart",vtraces,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{};
+  const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
+  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
+    line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
+  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
+    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
+  // entry/exit markers LAST so they draw ON TOP of the Total curve: ▲ = went live, ✕ = exit
+  const AM=D.agent_marks||{};
+  const idxOf=ds=>{let j=0;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
+  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{
+    const col=D.colors[t]||"#888", mk=AM[t]||{};
+    const mkTrace=(dates,sym,tag)=>{const pts=(dates||[]).map(idxOf);if(!pts.length)return;
+      gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,cliponaxis:false,
+        marker:{symbol:sym,size:26,color:col,line:{color:"#fff",width:2.5}},
+        hovertemplate:alab(t)+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});};
+    mkTrace(mk.live,"triangle-up","went live"); mkTrace(mk.exit,"x","exit");
+  });
+  // legend keys for the two marker symbols (neutral gray, no data point drawn)
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:15,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:14,color:"#666"}});
+  Plotly.newPlot("gainseries",gtr,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  const traces=[];
+  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
+    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
+  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
+  Plotly.newPlot("alloc",traces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
+  const peak={}; for(const t in D.alloc) peak[t]=Math.max(...D.alloc[t])*100;
+  const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
+  document.getElementById("allocnote").innerHTML=
+    `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
+
+  // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
+  const WD=D.watch_daily||{};
+  // contiguous spans where series[i] passes thresh
+  const spansOf=(arr,th)=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
+    const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
+    if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
+  const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
+  const gord=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
+                .filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
+                .sort((a,b)=>propFirst(a)-propFirst(b));
+  const gtraces=[];
+  gord.forEach((t,yi)=>{
+    const col=D.colors[t]||"#888";
+    spansOf(WD[t],0).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:"#ccd2d8",width:5},marker:{color:"#ccd2d8",size:4},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · proposed<br>%{x|%Y-%m-%d}<extra></extra>`}));
+    spansOf(D.alloc[t],0.0001).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:col,width:13},marker:{color:col,size:9},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · funded<br>%{x|%Y-%m-%d}<extra></extra>`}));
+  });
+  Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
+    height:Math.max(180,34*gord.length+80),
+    yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed",automargin:false},
+    xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
+  const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
+              .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
+  const dtraces=[];
+  for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
+    stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
+  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",stackgroup:"d",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
+  Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
+    hovermode:"x unified"},{displayModeBar:false,responsive:true});
+
+  // Plot 6 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
+    marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
+  const AG=D.agent_gain||{}, AGM=D.agents||{};
+  const aglab=id=>AGM[id]?id+" ("+AGM[id].ticker+")":id;
+  const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
+    marker:{color:agS.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:70},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 8 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
+  const AC=D.agent_conviction||{};
+  const convTraces=Object.entries(AC).map(([aid,pts])=>({
+    x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
+    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:2}, marker:{size:5}}));
+  if(convTraces.length) Plotly.newPlot("convtime",convTraces,
+    {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
+     xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 9 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
+  const CG=D.agent_convgain||{};
+  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>({
+    x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
+    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:1.5}, marker:{size:6},
+    customdata:s.map(p=>p.date),
+    hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"}));
+  if(cgTraces.length) Plotly.newPlot("gainconv",cgTraces,
+    {margin:{l:74,r:130,t:16,b:44},legend:{orientation:"v",x:1.02,y:1},
+     xaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:1},
+     yaxis:{title:"cumulative $ gain",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 10 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
+  const AP=(D.agent_precision||[]).filter(r=>r.ret!==null&&r.ret!==undefined);
+  const nwin=AP.filter(r=>r.ret>0).length, nap=AP.length;
+  const prec = nap ? Math.round(100*nwin/nap) : 0;
+  const aph=document.getElementById("agentprec_h");
+  if(aph) aph.textContent=`Plot 10 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
+  const APs=AP.slice().sort((a,b)=>a.ret-b.ret);
+  Plotly.newPlot("agentprec",[{type:"bar",orientation:"h",
+    y:APs.map(r=>r.ticker+" · "+String(r.thesis||"").slice(0,40)), x:APs.map(r=>r.ret*100),
+    marker:{color:APs.map(r=>r.ret>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{y}<br>%{x:.0f}% over live span<extra></extra>"}],
+    {margin:{l:280,r:30,t:10,b:40},height:Math.max(180,20*APs.length+60),
+     xaxis:{ticksuffix:"%",zeroline:true,zerolinecolor:"#888"},yaxis:{automargin:false,tickfont:{size:10}}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 11 — watchlist by date: rows where the live watchlist or its funding changed.
+  let pw=null; const wrows=[];
+  for(const w of (D.watchlist||[])){
+    const fset=new Set(w.funded||[]);
+    const sig=w.names.join(",")+"|"+(w.funded||[]).join(",");
+    if(sig===pw) continue;
+    pw=sig;
+    if(!w.names.length){ wrows.push(`<tr><td>${w.week}</td><td style="color:#aaa">— empty (cash) —</td></tr>`); continue; }
+    const cells=w.names.map(t=>{
+      const c=(D.colors&&D.colors[t])||"#444";
+      return fset.has(t) ? `<b style="color:${c}">${t}</b>` : `<span style="color:#aaa">${t}</span>`;
+    }).join(" · ");
+    wrows.push(`<tr><td>${w.week}</td><td>${cells}</td></tr>`);
+  }
+  document.getElementById("watchtable").innerHTML=
+    `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
+    `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
+
+  // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
+  const ats=Object.keys(A).sort((x,y)=>{
+    if(x===D.gem)return -1; if(y===D.gem)return 1;
+    const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
+    return A[y].length-A[x].length;});
+  const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
+    :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
+  const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
+  const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
+  document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
+    const funded=F.has(t);
+    const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
+      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
+      +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
+    const open = t===D.gem ? " open" : "";
+    const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
+    const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
+    const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
+    const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
+    const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
+    return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
+      +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
+
+  // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
+  const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
+  document.getElementById("lifecycle").innerHTML = LC.length
+    ? `<thead><tr><th>Date</th><th>agent</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
+      + LC.map(e=>`<tr><td>${e.date}</td><td>${esc(e.agent||'')}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
+        +`${e.state==='pre'?'— not flagged':e.state==='post'?'— dropped':e.state}</td>`
+        +`<td>${esc(e.src)}</td><td>${clip(e.exit_case)}</td><td>${clip(e.assessment)}</td>`
+        +`<td class="sub">${clip(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
+    : '<tr><td class="sub">No lifecycle (re-scan to populate).</td></tr>';
+
+  document.getElementById("costs").innerHTML =
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">The event-first agent's scout + journal `
+    + `calls across ${D.weeks} weekly scans (dev model). No causal ladder, no magnitude forecasts.</div></div>`;
+
+  // Retrieval health panel
+  const R=D.retrieval||{}, g=R.gdelt, w=R.wayback;
+  const card=(k,v,sub,cls)=>`<div class="card"><div class="k">${k}</div><div class="v ${cls||''}">${v}</div>`
+    + `<div class="sub" style="margin:3px 0 0;font-size:12px">${sub||''}</div></div>`;
+  const num=x=>(x==null?'—':x);
+  if(!g && !w){
+    document.getElementById("retr").innerHTML=`<div class="sub">No retrieval stats recorded for this `
+      +`book (run the harness with the instrumented code to populate).</div>`;
+  } else {
+    let h="";
+    if(g) h+=card("GDELT pool", num(g.items), "deduped GDELT items");
+    if(g) h+=card("non-English", `${g.non_english_pct??0}%`, "of GDELT pool");
+    if(w) h+=card("GDELT-Wayback join rate", (w.join_rate_pct??0)+"%",
+      `${w.lede} of ${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
+    if(w) h+=card("Wayback misses", `${w.confirmed_no_snapshot} + ${w.transient_deferred}`,
+      `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
+      w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
+    // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
+    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join("<br>")+" (all retried)":"no errors";};
+    const rate=o=>`${(o.requests||0).toLocaleString()} req<br>${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
+    let hf="";   // fetch cards go on their own row below (GDELT left of Wayback)
+    if(g && g.requests!=null)
+      hf+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
+    if(w && w.requests!=null)
+      hf+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
+    document.getElementById("retr").innerHTML=
+      `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
+  }
+});
+</script></body></html>
