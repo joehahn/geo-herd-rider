@@ -1,0 +1,728 @@
+{
+  "2024-10-18": [
+    {
+      "ticker": "CCJ",
+      "thesis": "Amazon signs nuclear power purchase agreements, Oct 2024",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Amazon's nuclear PPA signing already occurred, publicly reported mid-Oct; CCJ already exploded \u2014 catalyst is backward-looking.",
+      "catalyst_resolved": true,
+      "conviction": 4,
+      "assessment": "Entry was made on the same week the catalyst became public (Oct 14-16 news cycle). Amazon signed nuclear PPAs \u2014 a real, specific, magnitude catalyst for CCJ \u2014 but it resolved at or before entry. CCJ already surged. The broader Big Tech nuclear theme (Google, Microsoft, Altman's Oklo) is real but speculative as a CCJ driver, with no concrete scheduled catalyst ahead. Uranium spot prices remain 'rangebound' per the ETF article, meaning the fundamental uranium demand uplift from these PPAs is still aspirational/multi-year, not imminent. The smart-money window for this discrete event has closed. Holding on vague theme alone violates the rules \u2014 exit.",
+      "exit_advice": "Exit CCJ. The specific catalyst \u2014 Amazon signing nuclear power purchase agreements \u2014 has already occurred and is fully public as of entry week. CCJ already 'exploded' on the news (per IBD 'Stock of the Day' Oct 16). Coverage has gone mainstream simultaneously: Benzinga, Investors.com, IBD, MarketWatch/Morningstar retail 'is now a good time to invest?' articles all publishing within days. Both exit conditions are met: (1) the discrete signing event is done \u2014 no concrete, scheduled follow-on Amazon nuclear deal is announced, only speculative 'more Big Tech nuclear' narratives; (2) coverage is fully mainstream-saturated with retail arriving. No edge remains.",
+      "evidence_urls": [
+        "https://www.investors.com/research/ibd-stock-of-the-day/amzon-goes-nuclear-cameco-stock-explodes/",
+        "https://www.benzinga.com/news/24/10/41358363/nuclear-stocks-soar-as-amazon-becomes-latest-tech-giant-to-invest-in-nuclear-power",
+        "https://www.morningstar.com/news/marketwatch/20241017886/nuclear-energy-etfs-surge-as-uranium-prices-remain-rangebound-is-now-a-good-time-to-invest"
+      ]
+    }
+  ],
+  "2024-10-25": [],
+  "2024-11-01": [],
+  "2024-11-08": [],
+  "2024-11-15": [],
+  "2024-11-22": [],
+  "2024-11-29": [],
+  "2024-12-06": [],
+  "2024-12-13": [],
+  "2024-12-20": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Trump's NATO pullback is only a 'signal' pre-inauguration; market may have already priced the rhetoric.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 1. Trump has signaled US disengagement from NATO but has not yet taken office (Jan 20, 2025) and zero formal US policy change has occurred. The DRIVING CONDITION \u2014 European governments compelled to self-fund defense \u2014 is just beginning to manifest: budgets must be debated, passed, and turned into contracts; production capacity must be ramped. Rheinmetall is the apex supplier (artillery shells, armored vehicles, propellants) with a multi-year order backlog that will only grow as Germany, Poland, and others race to hit 2-3% GDP defense targets. The spending cycle is measured in years, not weeks. Press coverage is thematic but not yet mainstream-saturated at the individual-stock level. No exit trigger exists. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit if Trump formally reaffirms unconditional Article 5 commitment post-inauguration, or if European governments abandon / materially scale back rearmament budget pledges.",
+      "evidence_urls": [
+        "https://www.reuters.com"
+      ]
+    }
+  ],
+  "2024-12-27": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump 'bold statements to defend US' hints he may not abandon NATO allies after all.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "A dead-quiet holiday week; no NATO-relevant policy news. The driving condition is unchanged: Trump has not taken office, no US NATO posture has shifted, and European governments have not yet finalized the elevated defense budgets that feed Rheinmetall's order book. The spending cycle (artillery shells, armored vehicles, propellants ramping to 2-3% GDP targets across Germany, Poland, etc.) is multi-year and barely begun. The 'bold statements to defend US' headline is too vague and source-thin to constitute a reversal of the NATO-pullback signal. The arc is not complete \u2014 the Jan 20 inauguration and the first formal US NATO communications are concrete scheduled events still ahead. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament. Hold through holiday silence.",
+      "exit_advice": "Hold. Vague holiday-week Newsmax commentary is not a formal NATO policy reversal. Trump has not yet taken office; the single most concrete near-term event \u2014 inauguration and first executive signals on NATO burden-sharing (Jan 20 2025) \u2014 is still directly ahead. The European rearmament budget/contracting cycle has not even formally started. No exit trigger exists.",
+      "evidence_urls": [
+        "https://www.kmjnow.com/news/fleitz-shaffer-to-newsmax-trump-makes-bold-statements-to-defend-us/",
+        "https://ynetnews.com/article/hk11bpaysye"
+      ]
+    }
+  ],
+  "2025-01-03": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump's NATO pullback 'signal' was already widely public and likely priced into defense stocks well before the Dec 20 entry date.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Third week, second consecutive quiet one. Nothing has changed in the driving condition: Trump has not taken office, no formal shift in US NATO posture has occurred, and no European government has walked back its rearmament trajectory. The devil's advocate case \u2014 that the 'signal' was already in the market before entry \u2014 is the real ongoing risk, not this week's silence. But the driving condition (multi-year European rearmament spend toward 2-3% GDP targets, translating into artillery, armored vehicles, and propellants flowing into Rheinmetall's backlog) has not reversed. The Jan 20 inauguration is a concrete upcoming event that will force the first formal US NATO policy statements, which is the next meaningful inflection for this thesis. Silence while the arc is incomplete and a concrete event is scheduled is a hold, not an exit. RNMBY remains the cleanest pure-play ADR.",
+      "exit_advice": "Hold through this second quiet holiday week. The Jan 20 inauguration and first formal US NATO policy communications are concrete scheduled events still ahead \u2014 the most important leg of the arc has not yet landed. Exit only if Trump publicly reaffirms a strong, binding NATO commitment, or if European governments formally shelve/reduce their elevated defense-spending plans.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-10": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump's NATO-pullback 'signal' was publicly known before entry and remains unacted upon after three weeks; no formal policy shift has materialized to add new price energy.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Four weeks in, nothing has changed in the underlying thesis: the driving condition (European governments compelled to self-fund ground-force rearmament toward 2\u20133% GDP targets, feeding multi-year artillery/armored-vehicle/propellant contracts into Rheinmetall's backlog) has not reversed. The arc is incomplete \u2014 the catalyst 'signal' is pre-inauguration; the policy confirmation, European budget responses, and follow-on contract awards are all still ahead. No concrete next step has been resolved, and coverage at the individual-stock level has not turned mainstream-saturated. RNMBY remains the cleanest ADR pure-play on European ground-force rearmament. The only discipline required here is resisting the temptation to exit on quiet weeks while a scheduled catalytic event (Jan 20 and the first formal NATO communications) is imminent.",
+      "exit_advice": "Hold. The exit_case above is a staleness/priced-in argument, not a resolution or reversal \u2014 exactly the class of argument the rules forbid as an exit trigger. The driving condition is fully intact: Trump has not yet taken office (Jan 20 is still days away), zero formal US NATO posture shift has been announced, and no European government has dialed back rearmament commitments. The Jan 20 inauguration remains a concrete, date-certain event after which the first formal US-NATO policy statements will land \u2014 that is the next real inflection point for this thesis. A second quiet week in a row is noise, not signal. Hold RNMBY through the silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-17": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump's NATO-pullback 'signal' was widely reported before Dec 20 entry and may already be fully priced into RNMBY.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 5, with Trump's inauguration three days away (Jan 20). The devil's advocate case \u2014 that the pre-entry signal was already priced \u2014 is the recurring structural risk, but it does not constitute a resolved catalyst: no formal US NATO policy has changed, no European defense budget has been finalized at elevated levels in response, and no wave of Rheinmetall follow-on contracts has been awarded. The driving condition (European governments compelled to self-fund ground-force rearmament toward 2-3% GDP targets, flowing into Rheinmetall's multi-year artillery/armored-vehicle/propellant backlog) is intact and accelerating, not reversed. This week's news is entirely generic \u2014 FX wraps, broad Trump-market thinkpieces, Vanguard ETF speculation \u2014 with zero mention of European defense at the individual-stock level. The arc is incomplete: the Jan 20 inauguration and the first formal US NATO communications from a sitting Trump administration are the next concrete inflection points that will drive European budget finalization decisions and subsequent contract awards. Silence while a scheduled concrete event is days away is a hold, not an exit. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit only if US formally reaffirms unconditional NATO commitment (reversing the pullback), or a Ukraine ceasefire removes the European threat urgency and kills the political will to raise defense budgets.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-24": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump inaugurated (scheduled event now passed); 'backs off key promise' headline hints possible NATO-pressure reversal.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Trump's Jan 20 inauguration \u2014 the concrete pending event flagged every week since entry \u2014 has now occurred, but the DRIVING CONDITION has not reversed. The 'backs off key promise' Yahoo headline almost certainly refers to broad tariff threats (the stated reason for the surprise global equity rally), not NATO posture; no credible sourcing this week connects it to a US-NATO reversal. Zero news this week touches European defense budgets, NATO commitments, or RNMBY \u2014 the thesis remains under-the-radar at the individual-stock level, dominated instead by space, AI/Stargate, and quantum stories. The arc is NOT complete: German federal elections (Feb 23) are a concrete upcoming event that will lock in defense-budget priorities for Europe's largest economy and directly feed Rheinmetall's order pipeline; EU-level defense-spending frameworks and NATO foreign-ministers discussions are ongoing with no resolution. Rheinmetall's multi-year backlog in artillery shells, armored vehicles, and propellants continues building on existing contract commitments. A quiet post-inauguration week with no NATO-specific news is silence \u2014 not reversal. Hold through it.",
+      "exit_advice": "Exit only if Trump formally reverses NATO-pullback pressure OR European governments demonstrably walk back elevated defense-spending commitments.",
+      "evidence_urls": [
+        "https://www.yahoo.com/news/trump-unleashes-surprise-global-rally-215040705.html",
+        "https://markets.businessinsider.com/news/stocks/donald-trump-stock-market-ai-ev-stocks-bitcoin-peso-dollar-2025-1"
+      ]
+    }
+  ],
+  "2025-01-31": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump 'backed off key promise' headlines could signal reduced NATO pressure, softening European rearmament urgency.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 7. The 'backed off key promise' headline (confirmed last week to be tariff-related) does not constitute a NATO reversal \u2014 no credible sourcing this week or last connects it to US NATO posture. Critically, the Benzinga RTX/Lockheed Q4 earnings article explicitly flags 'NATO spending on watch,' confirming the thesis is live and still driving institutional attention \u2014 but coverage remains concentrated on US primes (RTX, LMT), not on RNMBY directly, so the European pure-play angle is not yet mainstream-saturated. The driving condition is unambiguously intact: Trump has not reversed his NATO-pullback signals, European governments have not abandoned elevated defense-budget trajectories, and Rheinmetall's multi-year artillery/armored-vehicle/propellant backlog continues to build on existing contract commitments. German federal elections (Feb 23) are a concrete, scheduled, upcoming event that will lock in Europe's largest economy's defense-budget priorities and feed directly into Rheinmetall's order pipeline \u2014 this is the next real inflection for the thesis and exactly the kind of concrete forward catalyst that keeps the position alive through any intervening silence. Arc is incomplete; a concrete catalyst is still ahead; hold.",
+      "exit_advice": "Exit only if Trump explicitly and formally reverses NATO pullback posture OR European governments publicly walk back elevated defense-budget targets.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/25/01/43240067/rtx-lockheed-martin-report-q4-earnings-tuesday-doge-concerns-nato-spending-on-watch",
+        "https://finance.yahoo.com/news/trump-spurs-surprise-world-rally-215040452.html"
+      ]
+    }
+  ],
+  "2025-02-07": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump has not formally reversed NATO pullback, but inauguration passed with no dramatic NATO exit move yet.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 8. This week's news is entirely orthogonal to the thesis \u2014 European shares fell on trade-war fears (tariffs, Vodafone), with zero mention of European defense budgets, NATO posture, or Rheinmetall. The driving condition is unchanged: Trump has issued no formal reversal of his NATO-pullback signals, European governments (led by Germany, Poland) have not abandoned their elevated defense-budget trajectories, and Rheinmetall's multi-year artillery/armored-vehicle/propellant backlog continues building. The most important near-term inflection remains the German federal elections on Feb 23 \u2014 a concrete, scheduled event that will lock in Europe's largest economy's defense-budget priorities and flow directly into Rheinmetall's order pipeline. Trade-war-driven weakness in European equities broadly does not reverse the rearmament spending imperative; if anything, a shakier macro environment may accelerate political will to strengthen indigenous defense capacity. The thesis remains under-the-radar at the RNMBY individual-stock level. Silence + a concrete scheduled catalyst ahead = hold.",
+      "exit_advice": "Exit only if Trump formally reaffirms unconditional US NATO commitment (reversing the pullback signal) OR if post-German-election (Feb 23) coverage becomes mainstream-saturated with no new concrete catalyst ahead. Do not exit on trade-war-driven European equity weakness \u2014 that is orthogonal to the defense-rearmament thesis.",
+      "evidence_urls": [
+        "https://economictimes.indiatimes.com/markets/stocks/news/european-shares-fall-as-investors-weigh-trade-war-fears-vodafone-tumbles/articleshow/117910703.cms"
+      ]
+    }
+  ],
+  "2025-02-14": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump is now 3+ weeks into office; the original NATO-pullback 'signal' is backward-looking and may be fully priced.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 9. This week's news \u2014 Wall Street futures and quantum-computing research \u2014 is entirely orthogonal to the thesis. The driving condition is unambiguously intact: Trump has issued no formal reversal of his NATO-pullback posture, European governments (Germany, Poland foremost) have not abandoned elevated defense-budget trajectories, and Rheinmetall's multi-year artillery/armored-vehicle/propellant backlog continues building on existing contract commitments. The devil's advocate case \u2014 that the pre-entry 'signal' is now a backward-looking fact and already priced \u2014 is the recurring structural risk, but it does not constitute a resolved catalyst: the multi-year European rearmament spending cycle is still in its early innings, and the German federal elections on Feb 23 (nine days away) are a concrete, scheduled, upcoming event that will lock in Europe's largest economy's defense-budget priorities and feed directly into Rheinmetall's order pipeline. Exiting nine days before the single most important near-term inflection point, on two consecutive weeks of completely irrelevant news, is precisely the silence-exit error this framework is designed to prevent. Arc is incomplete; a concrete scheduled catalyst is still ahead. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Hold through German federal elections (Feb 23); exit only on a confirmed US reversal of NATO-pullback posture OR European governments formally abandoning elevated defense-budget trajectories.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3513003/futures-pointing-to-modest-pullback-on-wall-street.aspx"
+      ]
+    }
+  ],
+  "2025-02-21": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump NATO-pullback signal is 9-week-old consensus; German election outcome (CDU defense mandate) widely expected and likely pre-priced.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 10. This week's news feed is entirely orthogonal \u2014 generic global-markets wraps and Indian-equity commentary, zero mention of European defense budgets, NATO posture, or Rheinmetall. The driving condition is unambiguously intact: Trump has issued no formal reversal of his NATO-pullback posture, European governments have not abandoned elevated defense-budget trajectories, and Rheinmetall's multi-year artillery/armored-vehicle/propellant backlog continues building on existing contract commitments. The devil's advocate case \u2014 that the pre-entry signal is now a 9-week-old consensus fully priced by the market \u2014 is the most credible structural risk, but it does not constitute a resolved catalyst: the multi-year European rearmament spending cycle is still in its early innings and the specific policy responses (German coalition budget, EU-level framework, follow-on contract waves) have not yet been formally locked in. Critically, the German federal election on Feb 23 is 48 hours away \u2014 the concrete scheduled catalyst that has anchored the hold case for the past four weeks. Exiting two days before the single most important near-term inflection for European defense-budget finalization is precisely the silence-exit error this framework is designed to prevent. Post-election, the calculus shifts materially: the framework must assess whether a concrete next scheduled event still lies ahead or whether the arc is complete and the crowd has fully arrived. For now, the concrete scheduled event is still pending. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Hold through German federal election (Feb 23, two days away); reassess immediately next week \u2014 once the election result is absorbed, evaluate whether a concrete next scheduled catalyst (EU defense framework, NATO summit, Rheinmetall contract awards) still lies ahead or whether the arc is complete and mainstream-saturation has set in. If both conditions hold next week, exit.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    }
+  ],
+  "2025-02-28": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Zelensky Oval Office confrontation now global front-page news; European rearmament thesis fully mainstream, early edge gone.",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "Week 11. The two concrete scheduled events anchoring the hold case are now resolved: Trump's inauguration (Jan 20) and the German federal election (Feb 23). Neither reversed the thesis \u2014 both accelerated it. Merz (CDU/CSU) won decisively and is hawkish on defense; his government's budget will directly expand Rheinmetall's order pipeline. More consequentially, the Trump-Zelensky Oval Office confrontation on Feb 28 \u2014 Trump publicly humiliating Zelensky, siding with Russia, withdrawing intelligence sharing \u2014 was the single sharpest confirmation of the driving condition since entry: European governments are now scrambling at emergency speed to self-fund ground-force rearmament. Multiple European heads of state immediately pledged dramatic defense spending increases; Macron convened an emergency European defense summit. The driving condition has never been more explicitly in force. The thesis is now mainstream (not under-the-radar), but per the framework, mainstream coverage during a live arc with concrete next steps is not an exit trigger. Concrete remaining catalysts: EU emergency defense summit (scheduled), German coalition formation and formal defense budget passage, EU-level defense framework, and the follow-on contract wave into Rheinmetall's backlog. Arc incomplete; hold. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament \u2014 the Trump-Zelensky confrontation is the clearest in-thesis development since entry.",
+      "exit_advice": "Hold firmly. The crowd has arrived, but the framework requires BOTH arc-complete AND crowd-saturated to exit \u2014 and the arc is demonstrably incomplete. The German election (Feb 23, CDU/CSU/Merz win) feeds INTO the thesis rather than resolving it: Merz must still form a coalition, pass a formal defense budget at elevated levels, and translate that into contract awards flowing into Rheinmetall's backlog. The Trump-Zelensky Oval Office confrontation of Feb 28 was a watershed acceleration of the driving condition \u2014 European leaders immediately pledged emergency defense spending increases in direct response, and an EU emergency defense summit was called. Concrete next steps remain scheduled: EU defense summit, German coalition formation and budget finalization, formal NATO burden-sharing communiques, and the follow-on contract wave into Rheinmetall's artillery/armored-vehicle/propellant order pipeline. Per the framework: crowding is noise while a concrete catalyst is still ahead. Hold.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/asked-americans-trump-ukraine-policy-190022865.html",
+        "https://www.newstatesman.com/podcasts/you-ask-us/2025/02/starmer-trump-a-qualified-victory"
+      ]
+    }
+  ],
+  "2025-03-07": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Germany's debt-brake exemption for defense is formally agreed \u2014 the key policy response the thesis predicted has now occurred.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This week delivers the single largest thesis confirmation since entry: Germany's incoming CDU/CSU coalition has agreed to exempt defense spending from the constitutional Schuldenbremse \u2014 the precise policy unlock the thesis was built on. The debt brake has constrained German defense investment for a generation; its removal is historic and feeds directly into Rheinmetall's multi-year artillery, armored-vehicle, and propellant order pipeline. The driving condition (European governments structurally compelled to self-fund ground-force rearmament) has never been more explicitly in force: Trump is simultaneously doubling down (potential full halt of Ukraine military aid, Oval Office humiliation of Zelensky) while Germany formalizes the largest European defense-budget expansion in decades. The devil's advocate case is the strongest it has been \u2014 the key policy decision has been agreed, which IS the thesis playing out \u2014 but catalyst_resolved remains false because the arc has concrete remaining steps: the Bundestag must still formally vote the constitutional amendment (requires 2/3 supermajority, vote imminent in the outgoing parliament before the March 25 handover), the EU ReArm Europe / SAFE \u20ac800bn framework is still being formally adopted, and the wave of contract awards flowing from the new budgets has barely begun. These are announced, scheduled, concrete next catalysts \u2014 not speculation. Coverage is now mainstream (Reuters front-page, EU heads of state center stage), but per the framework, mainstream saturation during a live arc with concrete pending catalysts ahead is not an exit trigger. Hold; re-assess sharply after the Bundestag vote passes and the EU framework is formally adopted, at which point the 'no concrete next catalyst' condition may flip. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when: (a) the German Bundestag formally passes the constitutional debt-brake amendment AND the EU ReArm Europe / SAFE framework is adopted AND no further concrete budget or contract milestones are scheduled ahead, AND (b) coverage remains fully mainstream-saturated with no new institutional surprise left \u2014 at that point the arc is complete and the early-mover edge is spent.",
+      "evidence_urls": [
+        "https://www.yahoo.com/news/trump-may-halt-military-aid-224605537.html"
+      ]
+    }
+  ],
+  "2025-03-14": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Germany's Schuldenbremse exemption already agreed \u2014 the fiscal unlock underpinning the rearmament spend is a done deal.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This week's news \u2014 European markets down on Trump tariff fears, $5 trillion in global market value erased \u2014 is broadly orthogonal to the European defense-spending thesis. Critically, Trump tariff escalation reinforces rather than reverses the rearmament imperative: every act of US economic coercion widens the political consensus in Europe for indigenous defense capacity, making reliance on Washington more toxic. The driving condition is fully intact. The strongest exit case this week is structural \u2014 Germany already agreed to exempt defense from the Schuldenbremse, arguably making the key fiscal-unlock backward-looking. But that argument fails on three counts: (1) the Bundestag must still formally vote the constitutional amendment by March 25, a concrete imminent scheduled event that is NOT yet resolved as of this week; (2) the EU ReArm/SAFE \u20ac800bn framework has not been formally adopted; and (3) the actual contract-award wave flowing from the newly unlocked budgets is barely at its start \u2014 Rheinmetall's order-book expansion from these budgets is a multi-year execution story that has not yet materialized in signed contracts. RNMBY's investment case is precisely that multi-year pipeline: artillery shells, armored vehicles, propellants. None of that has been delivered or priced in at the contract level. Tariff-driven European equity weakness creates short-term noise but does not alter the defense-spending trajectory. Coverage is mainstream at the European-policy level but not yet saturated at the RNMBY individual-stock level in retail. Arc is incomplete; a concrete scheduled catalyst (Bundestag vote) is still imminent ahead. Hold.",
+      "exit_advice": "Hold through the imminent Bundestag constitutional vote (before March 25 handover); reassess sharply once that vote passes AND the EU ReArm/SAFE framework is formally adopted \u2014 at that point judge whether any concrete next catalyst (contract-award wave, EU framework implementation) remains live or whether the arc is complete and the crowd fully in.",
+      "evidence_urls": [
+        "https://www.nbclosangeles.com/news/business/money-report/european-markets-set-to-stumble-at-the-open-as-trump-tariffs-dent-sentiment/3653533/",
+        "https://www.nbcchicago.com/news/business/money-report/european-markets-set-to-stumble-at-the-open-as-trump-tariffs-dent-sentiment/3696332/",
+        "https://www.theglobeandmail.com/investing/markets/inside-the-market/article-investors-are-told-to-ignore-politics-that-was-before-trump-20/",
+        "https://www.businessinsider.com/stock-market-today-selloff-market-value-5-trump-trade-war-2025-3"
+      ]
+    }
+  ],
+  "2025-03-21": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bundestag almost certainly passed the Schuldenbremse defense exemption this week \u2014 key fiscal unlock now backward-looking.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "No fresh coverage this week, but that silence carries real information: the Bundestag vote on the constitutional amendment exempting defense from the Schuldenbremse was explicitly scheduled before the March 25 outgoing-parliament deadline and almost certainly occurred within this week's window, resolving the single most concrete near-term catalyst flagged across the past several journal entries. That is a genuine milestone \u2014 but it does NOT complete the arc. Two concrete announced catalysts remain ahead: (1) the EU ReArm/SAFE \u20ac800bn framework, formally proposed by the Commission and being actively legislated at EU level \u2014 not speculation, not a rumor, a real pending adoption process; and (2) the actual contract-award wave from newly unlocked German and EU budgets flowing into Rheinmetall's artillery, armored-vehicle, and propellant order pipeline \u2014 a multi-year execution story that is barely at its start at the signed-contract level. The driving condition (Trump NATO-pullback compelling European governments to self-fund ground-force rearmament) is fully intact: Trump has not reversed posture, and every act of US economic or diplomatic coercion deepens the European political consensus for indigenous defense capacity. Coverage remains mainstream-saturated at the European-policy level, but per the framework that does not trigger exit while a concrete scheduled catalyst is still genuinely ahead. With the Bundestag milestone resolved, the thesis is maturing \u2014 reassess sharply once the EU ReArm framework formal adoption is confirmed and Rheinmetall begins publicly quantifying new contract intake from post-Schuldenbremse budgets. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Hold until the EU ReArm/SAFE \u20ac800bn framework is formally adopted AND Rheinmetall's contract-award wave from newly unlocked budgets is visibly underway in signed orders; exit only when both those concrete remaining catalysts are resolved AND coverage remains mainstream-saturated with no further scheduled inflections ahead.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-03-28": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bundestag defense amendment passed before March 25 \u2014 the key fiscal-unlock catalyst is now a resolved backward-looking event.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "This week's news \u2014 Canadian auto tariffs, crypto/tariff commentary, Barclays S&P 500 forecast cuts, generic European equity moves on tariff optimism \u2014 is entirely orthogonal to the European defense-spending thesis. The Bundestag vote on the constitutional amendment exempting defense from the Schuldenbremse almost certainly occurred before the March 25 deadline (flagged as imminent across the prior two journal entries), resolving the most concrete near-term catalyst in the chain. That is a genuine milestone \u2014 the strongest exit argument to date \u2014 but it does NOT complete the arc. Two concrete non-speculative catalysts remain ahead: (1) the EU ReArm/SAFE \u20ac800bn framework is a real formal Commission-proposed legislative adoption process still pending at EU level \u2014 not a rumor, not 'analysts wonder if,' a live institutional process with a known path to adoption; and (2) the actual contract-award wave from newly unlocked German and EU budgets flowing into Rheinmetall's artillery, armored-vehicle, and propellant order pipeline is a multi-year execution story that has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets. The driving condition (Trump NATO-pullback compelling European self-funded rearmament) is fully intact: no US recommitment to collective defense, no ceasefire, no European governments walking back elevated spending trajectories. Trump tariff escalation is macro noise that does not touch the defense-spending trajectory and arguably reinforces it by deepening European distrust of US reliability. Coverage is mainstream-saturated at the European-policy level, but per the framework this does not trigger exit while a concrete scheduled catalyst is still genuinely ahead. Arc is maturing but incomplete. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when the EU ReArm/SAFE \u20ac800bn framework is formally adopted AND Rheinmetall publicly quantifies new post-Schuldenbremse contract intake \u2014 at that point the arc is complete with the crowd fully in.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-04": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bundestag passed the Schuldenbremse defense exemption \u2014 the key fiscal unlock is now backward-looking and resolved.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 16. This week's news is entirely orthogonal \u2014 a wall of 'Liberation Day' tariff coverage hitting railroads and Australian equities, zero mention of European defense budgets, NATO posture, or RNMBY. The devil's advocate case is now its strongest: the Bundestag passed the constitutional amendment exempting defense from the Schuldenbremse (almost certainly ~March 18\u201321, resolved before this week), which was the single most concrete near-term catalyst flagged across six consecutive journal entries. That milestone is backward-looking. But catalyst_resolved stays false because the DRIVING CONDITION \u2014 Trump NATO-pullback compelling European governments to self-fund ground-force rearmament \u2014 has not reversed by one inch; and two concrete, non-speculative catalysts remain ahead: (1) the EU ReArm/SAFE \u20ac800bn framework is a live Commission-proposed legislative adoption process, not a rumor or speculation, with a known institutional path to formal adoption still pending; and (2) the actual contract-award wave from newly unlocked German and EU budgets flowing into Rheinmetall's artillery, armored-vehicle, and propellant pipeline is a multi-year execution story barely at its start \u2014 Rheinmetall has not yet publicly quantified new signed contract intake from post-Schuldenbremse budgets. The tariff chaos is macro noise: US economic coercion of European allies deepens the political consensus for indigenous defense capacity and makes reliance on Washington more toxic, which is thesis-reinforcing, not thesis-reversing. Coverage is mainstream-saturated at the European-policy level but that does not trigger exit while a concrete scheduled institutional process (EU framework adoption) is still genuinely ahead. Arc is maturing but incomplete. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Hold while the EU ReArm/SAFE \u20ac800bn framework formal adoption remains a live institutional process and the contract-award wave from newly unlocked German and EU budgets has barely begun at the signed-contract level. Re-assess sharply the moment the EU framework is formally adopted AND Rheinmetall publicly quantifies new intake from post-Schuldenbremse budgets \u2014 at that point both 'arc complete' and 'crowd fully arrived' conditions may simultaneously hold, triggering exit.",
+      "evidence_urls": [
+        "https://www.trains.com/trn/news-reviews/news-wire/new-u-s-tariffs-new-u-s-tariffs-pummel-railroad-stocks/",
+        "https://www.maitlandmercury.com.au/story/8934258/tariff-attack-sends-aussie-shares-into-100b-retreat/"
+      ]
+    }
+  ],
+  "2025-04-11": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bundestag passed Schuldenbremse constitutional amendment ~March 18-21; the single most-flagged concrete near-term catalyst is now a backward-looking, resolved milestone.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 17. This week's news is 100% orthogonal \u2014 wall-to-wall Trump tariff-pause coverage (India Nifty/Sensex surges, Australian markets, US sector rallies) with zero mention of European defense budgets, NATO posture, or RNMBY. The devil's advocate case remains its strongest to date: the Bundestag passed the Schuldenbremse constitutional amendment (~March 18-21), which was the single most concrete near-term catalyst flagged across six consecutive journal entries \u2014 that milestone is now backward-looking. But catalyst_resolved stays false and the arc remains incomplete on two non-speculative grounds: (1) the driving condition (Trump NATO-pullback compelling European governments to self-fund ground-force rearmament) has not reversed \u2014 no US recommitment to collective defense, no Ukraine ceasefire, no European government walking back elevated spending trajectories; (2) the EU ReArm/SAFE \u20ac800bn framework is a live Commission-proposed formal legislative process still pending adoption \u2014 not a rumor, not 'analysts wonder if,' a real institutional pipeline. Trump's 90-day tariff pause for most countries (ex-China) is macro noise: it does not touch the European defense-spending trajectory and arguably reinforces it by sustaining European distrust of US reliability as an ally. The contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant pipeline has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets. Coverage is mainstream-saturated at the European-policy level, but per the framework that does not trigger exit while a concrete scheduled institutional process (EU framework formal adoption) is still genuinely ahead. Arc is maturing; the next reassessment inflection is formal EU framework adoption + Rheinmetall quantifying post-Schuldenbremse contract intake. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Hold. The Schuldenbremse passage is backward-looking but does NOT complete the arc: (1) the driving condition \u2014 Trump NATO-pullback compelling European self-funded rearmament \u2014 has not reversed by one inch this week or any prior week; (2) the EU ReArm/SAFE \u20ac800bn framework remains a live, Commission-proposed formal legislative adoption process still pending \u2014 a real institutional process, not speculation; and (3) the contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery/armored-vehicle/propellant pipeline has barely begun at the signed-contract level. Exit ONLY when the EU framework is formally adopted AND Rheinmetall has publicly quantified the resulting contract intake, AND the crowd is still fully saturated \u2014 at that point the arc will be genuinely complete.",
+      "evidence_urls": [
+        "https://www.nbcnewyork.com/news/business/money-report/autos-pharma-luxury-and-more-the-global-sectors-soaring-after-trumps-tariffs-walkback/6219656/",
+        "https://seekingalpha.com/article/4774082-wall-street-lunch-trumps-tariff-pause-allows-temporary-relief"
+      ]
+    }
+  ],
+  "2025-04-18": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Both sharpest concrete catalysts are backward-looking: Schuldenbremse amendment passed ~Mar 21, German election resolved Feb 23.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 18. This week's news feed is 100% orthogonal \u2014 wall-to-wall tariff volatility (Powell vs. Trump, EU-US trade talks breakdown, electronics/auto tariff carve-outs), zero mention of European defense budgets, NATO posture, or RNMBY. The devil's advocate case is genuine and must be taken seriously: the two most concrete scheduled catalysts flagged across this entire journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are both now resolved and backward-looking. That is the real exit pressure. But catalyst_resolved stays false because the DRIVING CONDITION has not reversed by one inch: Trump has issued no recommitment to collective NATO defense, no Ukraine ceasefire is in place, and no European government has walked back its elevated defense-spending trajectory. Two non-speculative concrete catalysts remain ahead: (1) the EU ReArm/SAFE \u20ac800bn framework is a live Commission-proposed formal legislative process still pending adoption \u2014 real institutional pipeline, not a rumor; and (2) the actual contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant pipeline has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets. The EU-faces-higher-tariffs headline is actually mildly thesis-reinforcing: deepening EU-US economic friction accelerates the European political consensus for strategic autonomy and indigenous defense capacity, making reliance on Washington more toxic. Coverage is mainstream-saturated at the European-policy level, but per the framework that does not trigger exit while a concrete scheduled institutional process (EU framework formal adoption) is still genuinely ahead. Arc is maturing but incomplete. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when EU ReArm/SAFE \u20ac800bn framework is formally adopted AND Rheinmetall publicly quantifies post-Schuldenbremse contract intake \u2014 at that point the arc is complete and only speculation remains ahead.",
+      "evidence_urls": [
+        "https://www.swissinfo.ch/eng/stocks-rebound-fizzles-as-trump-goes-on-offensive:-markets-wrap/89176691",
+        "https://www.yahoo.com/news/eu-faces-higher-tariffs-us-185747145.html"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid billions in US and UK government launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The selection-to-bid announcement is already public, reported April 15 \u2014 the news event is priced.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1. RKLB was just shortlisted as an eligible bidder on US and UK government launch contracts worth potentially billions. Being 'selected to bid' is a qualifying gateway event, not the contract award itself \u2014 the real value inflection (task-order or launch-contract decisions) is still ahead and unannounced. Coverage is nascent (single Yahoo Finance item, no sell-side pile-on yet), so the early-mover window is intact. The multi-step contracting process (qualification \u2192 proposal \u2192 award) means concrete forward catalysts remain pending. Thesis stays live; hold through the bidding process and watch for formal award announcements from US Space Force / UK Space Agency. RKLB is the clean pure-play \u2014 no need to diversify the vehicle.",
+      "exit_advice": "Exit on actual contract award (win or loss) OR if RKLB is formally disqualified from either the US or UK programme. The selection is the gateway; the award is the resolution.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-rocket-lab-big-today-155654682.html"
+      ]
+    }
+  ],
+  "2025-04-25": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "German election and Schuldenbremse amendment \u2014 the two most concrete scheduled catalysts \u2014 are both resolved and backward-looking.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 19. This week's news is 100% orthogonal \u2014 US-China trade-tension easing signals, tariff optimism, Trump backing off Powell, Canadian stocks, WD-40 insider buying \u2014 zero mention of European defense budgets, NATO posture, or RNMBY. The devil's advocate case is at its sustained peak: the two most concrete near-term catalysts flagged across this entire journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are both resolved and backward-looking. That exit pressure is real and must be weighed honestly each week. But catalyst_resolved stays false and thesis_live stays true because the DRIVING CONDITION has not reversed by one inch: Trump has issued no recommitment to collective NATO defense, no Ukraine ceasefire is in place, and no European government has walked back its elevated defense-spending trajectory. Two non-speculative concrete catalysts remain ahead: (1) the EU ReArm/SAFE \u20ac800bn framework is a live Commission-proposed formal legislative adoption process still pending \u2014 a real institutional pipeline, not a rumor or 'analysts wonder if'; and (2) the actual contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant order pipeline has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets. The US-China trade easing and Powell/Trump drama are macro noise that do not touch the European defense-spending trajectory; if anything, sustained US economic unpredictability deepens the European political consensus for strategic autonomy and indigenous defense capacity. Coverage is mainstream-saturated at the European-policy level, but per the framework that does not trigger exit while a concrete institutional process (EU framework formal adoption) is genuinely ahead. Arc is maturing but incomplete. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when EU ReArm/SAFE framework is formally adopted AND Rheinmetall publicly quantifies new post-Schuldenbremse signed contract intake \u2014 at that point the arc is complete and the crowd has fully arrived.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/STOXX-EUROPE-600-INDEX-EU-7477/news/European-shares-rise-on-signs-of-easing-US-China-trade-tensions-49718457/",
+        "https://www.marketscreener.com/quote/index/S-P-500-4985/news/Wall-St-rallies-on-tariff-optimism-Trump-eases-Powell-threats-49687002/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid billions in US and UK government launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The 'selected to bid' event already occurred at entry \u2014 it is backward-looking; no new forward catalyst confirmed.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Completely dead week for this thesis \u2014 the sole news item (a food-and-beverage shop called Third Space Market in Gorham, Maine) has zero connection to Rocket Lab or any government launch contract. The devil's-advocate exit case is real but not yet disqualifying: the literal 'selected to bid' event is backward-looking and already in the public domain. However, the economic substance \u2014 whether RKLB actually wins task-orders or launch contracts worth billions \u2014 is still unresolved and unannounced. That pending award decision is the concrete scheduled next step that keeps this live. Coverage remains thin: no sell-side price-target upgrades tied to this contract pipeline, no mainstream saturation, no award news. Per protocol, silence is not an exit. Maintain RKLB as the pure-play vehicle; hold until award news breaks.",
+      "exit_advice": "Hold through the bidding-to-award pipeline; exit on a formal contract award announcement (win or loss) or on confirmed program cancellation by US Space Force / UK Space Agency.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-02": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Both concrete scheduled catalysts (German election Feb-23, Schuldenbremse vote ~Mar-21) are resolved backward-looking events; EU ReArm political endorsement is essentially done at European Council level.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 20. This week's news \u2014 US GDP contracting to 0.3% in Q1 on tariff import surge and a minor European equity uptick led by healthcare \u2014 is entirely orthogonal to the European defense-spending thesis. The devil's advocate case is honest and must be stated clearly: the two most concrete scheduled catalysts flagged across this entire journal (German federal election Feb 23, Bundestag Schuldenbremse vote ~Mar 18-21) are both resolved and backward-looking, and the EU ReArm framework has received broad political endorsement at the European Council level, arguably making formal legislative adoption closer to a formality than a genuine binary. That is real exit pressure. But catalyst_resolved stays false and thesis_live stays true for two reasons: (1) the DRIVING CONDITION has not reversed by one inch \u2014 Trump has issued zero recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory; (2) two non-speculative concrete catalysts remain ahead \u2014 the EU SAFE instrument (\u20ac150bn loan program) requires formal EU Parliament + Council legislative votes still pending, a real institutional pipeline not a rubber stamp; and the actual contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant order pipeline is a multi-year execution story barely at its start \u2014 Rheinmetall has not yet publicly quantified new signed intake from post-Schuldenbremse budgets. Notably, the US GDP contraction (0.3% Q1) driven by tariff disruption is mildly thesis-reinforcing: US economic dysfunction deepens European conviction that reliance on Washington is strategically toxic, accelerating the political consensus for indigenous defense capacity. Coverage is mainstream-saturated at the European-policy level, but per the framework that does not trigger exit while a concrete institutional process (EU SAFE formal adoption) is genuinely still ahead. The arc is maturing and the two biggest milestones are behind us \u2014 but the driving condition is fully intact and execution has barely begun. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when (a) EU SAFE/ReArm \u20ac800bn framework receives formal legislative adoption (Parliament + Council votes) AND (b) Rheinmetall publicly quantifies new signed contract intake from post-Schuldenbremse budgets \u2014 at that point the arc is complete and the crowd is fully in. Do NOT exit on US macro noise or continued silence at RNMBY stock level.",
+      "evidence_urls": [
+        "https://www.thisdaylive.com/index.php/2025/05/01/trumps-tariffs-us-gdp-shrinks-to-0-3-from-2-4-per-cent-in-q1-dow-tumbles-400-points/",
+        "https://www.irishtimes.com/business/2025/04/30/healthcare-stocks-aid-slight-rise-in-european-stocks/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid billions in US and UK government launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "'Selected to bid' is backward-looking and public; three silent weeks with no award news or timeline announced.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Third consecutive silent week. The devil's-advocate case is real and worth stating plainly: the literal 'selected to bid' event is backward-looking and was public on entry day \u2014 if that is the entire catalyst, it resolved before Week 1 ended. What keeps this alive is that the selection is not a completed binary; it is the opening gate of a multi-step government contracting process (shortlist \u2192 proposal submission \u2192 source-selection \u2192 award), and the award \u2014 the economic substance worth potentially billions \u2014 has not been announced, denied, or formally cancelled. That pending award is a concrete downstream event, even though no published decision date is known. Coverage remains thin: no sell-side price-target upgrades tied to this pipeline, no retail frenzy, no mainstream saturation. The third-exit condition (arc complete AND crowd fully arrived) is not met. Protocol is clear: silence is not an exit while the driving condition \u2014 an open, live bid process \u2014 is still in force. Conviction is trimmed to 5 reflecting three information-dry weeks and no published timeline; this is a lower-priority hold. RKLB remains the sole clean pure-play vehicle.",
+      "exit_advice": "Exit on formal contract award announcement (win or loss for RKLB), or if the contract program is cancelled/restructured and RKLB is eliminated from consideration. Do not exit on continued silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-09": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Key policy decisions (Schuldenbremse exemption, German election) both resolved; EU SAFE adoption, with political endorsement secured, increasingly a formality.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 21. This week's news \u2014 US-UK trade framework (lower auto tariffs), tariff optimism, broad equity rally \u2014 is 100% orthogonal to the European defense-spending thesis. The US-UK deal is commercial, not a security commitment; it carries zero implication for NATO burden-sharing or European rearmament trajectories. The devil's advocate case must be stated with full honesty at week 21: both of the most concrete scheduled catalysts flagged across this entire journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are resolved and backward-looking. The EU ReArm framework has received broad European Council political endorsement. The remaining pending binary \u2014 formal EU Parliament + Council legislative adoption of the SAFE \u20ac150bn instrument \u2014 is the last genuine institutional step, and with political endorsement secured it is increasingly moving toward formality rather than genuine risk event. That is the most honest exit pressure the journal has faced. Conviction is declining as the major milestones recede into the past. However, catalyst_resolved stays false and thesis_live stays true for two durable reasons: (1) the DRIVING CONDITION has not reversed by one inch \u2014 Trump has issued zero formal recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory; the US-UK commercial deal is not a NATO security guarantee; (2) the actual contract-award wave from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant pipeline is a multi-year execution story that has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets, which is the operational payoff the thesis was built on. The arc is mature and the next hard reassessment inflection is EU SAFE formal adoption; if that clears and no new concrete catalyst is scheduled, the exit condition under the 'arc complete + crowd fully arrived' rule will flip. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when EU SAFE instrument is formally adopted by Parliament and Council AND/OR Rheinmetall publicly quantifies post-Schuldenbremse contract intake \u2014 or immediately if Trump issues a formal collective-defense recommitment to NATO.",
+      "evidence_urls": [
+        "https://townhall.com/columnists/bob-rubin/2025/05/09/america-first-global-gains-the-us-uk-trade-deal-signals-a-new-era-for-equities-n2656782",
+        "https://www.kiplinger.com/investing/stocks/stock-market-today-stocks-rise-on-trump-trade-deal"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid billions in US and UK government launch contracts",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The literal 'selected to bid' event occurred at entry day; four silent weeks, no award, no published decision timeline.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Fourth straight information-dry week. This week's news is irrelevant: BlackSky's earnings-driven surge is a separate space-intelligence company with a different business model, and the Malaysian corporate-earnings piece is generic macro noise \u2014 neither bears on RKLB's US/UK government launch-contract bid. The exit case is at its strongest: the literal 'selected to bid' event was already public on entry day and has been backward-looking since Week 1. What continues to keep this technically alive is that the government contracting process (shortlist \u2192 proposal submission \u2192 source-selection \u2192 award) remains formally open \u2014 no award has been granted to a rival, no denial issued, no process cancellation announced. The driving condition (a live, multi-billion-dollar bid) has not reversed. Coverage remains thin with no sell-side price-target upgrades tied to this pipeline and no retail frenzy, so the third-exit condition (arc complete AND crowd fully arrived) is still not met. However, conviction is reduced to 4: four information-dry weeks, no concrete published decision date, no upcoming scheduled announcement to anchor the thesis. This is a low-priority hold \u2014 maintained on protocol grounds (silence \u2260 exit while driving condition is in force), not on fresh conviction. RKLB remains the sole clean pure-play vehicle; no reason to change.",
+      "exit_advice": "Exit immediately if: (a) award is granted to a competitor, (b) RKLB is formally eliminated from competition, or (c) the US Space Force / UK Space Agency process is cancelled or consolidated away from RKLB. Do NOT exit on continued silence alone.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-blacksky-stock-rocketing-higher-161100478.html"
+      ]
+    }
+  ],
+  "2025-05-16": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Both major scheduled catalysts resolved; EU SAFE formal adoption nearing formality with political consensus already secured.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 22. This week's news is 100% orthogonal \u2014 UK tariff uncertainty, Ontario budget deficit, Trump's Middle East mosque visit, Syria sanctions lifted, Deere earnings, Eurovision voting patterns \u2014 zero mention of European defense budgets, NATO posture, or RNMBY. The devil's advocate case must be stated with full honesty at week 22: both major concrete scheduled catalysts flagged throughout this entire journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are resolved and backward-looking. The EU ReArm framework has received broad European Council political endorsement. The remaining concrete institutional step \u2014 formal EU Parliament + Council legislative adoption of the SAFE \u20ac150bn instrument \u2014 is real but is progressively moving from genuine binary risk toward procedural formality. That is the most honest exit pressure this journal has sustained across any consecutive stretch. Critically, Trump's Middle East trip (Gulf business deals, Syria sanctions lifted, mosque visit) reinforces rather than contradicts the thesis: this is a president focused on transactional Gulf dealmaking with zero indication of renewed security commitment to European NATO allies. The DRIVING CONDITION has not reversed by one millimeter. Two non-speculative, non-rumor reasons catalyst_resolved stays false: (1) no US formal recommitment to collective NATO defense, no Ukraine ceasefire, and no European government walking back its elevated defense-spending trajectory \u2014 the compulsion forcing European self-funded rearmament is fully intact; (2) Rheinmetall has not yet publicly quantified new signed contract intake from post-Schuldenbremse budgets \u2014 the multi-year execution story of artillery shells, armored vehicles, and propellants flowing from newly unlocked German and EU budgets is the operational payoff this thesis was built on, and it has barely begun at the signed-contract level. The arc is mature and conviction is declining as the sharpest near-term milestones recede into history, but the driving condition is alive and the contract-execution story is years long. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament. Next hard reassessment inflection: EU SAFE formal adoption confirmed + Rheinmetall first public quantification of post-Schuldenbremse order intake.",
+      "exit_advice": "Exit when EU SAFE instrument is formally adopted by Parliament + Council AND/OR Rheinmetall publicly quantifies new post-Schuldenbremse contract intake \u2014 at that point the 'arc complete + crowd fully arrived' condition likely flips. Also exit on any credible US formal recommitment to collective NATO defense or a durable Ukraine ceasefire.",
+      "evidence_urls": [
+        "https://www.aspenpublicradio.org/2025-05-15/in-abu-dhabi-trump-makes-first-visit-to-a-mosque-as-president"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Selected to bid billions in US and UK government launch contracts",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The literal 'selected to bid' event already occurred at/before entry; five silent weeks; no concrete award date is scheduled or announced.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "Fifth consecutive information-dry week. This week's news \u2014 a net-zero policy reset piece (utilitydive.com) and a Mastercard/MoonPay stablecoin partnership (pymnts.com) \u2014 is wholly unrelated to RKLB or US/UK government launch contracts. Applying the exit framework rigorously after five weeks: the specific catalyst as entered is 'Selected to bid billions in US and UK government launch contracts.' The selection event occurred at or before the April 18 entry date. Every prior week's note acknowledged this was 'backward-looking' but maintained the position on the grounds that a pending award constituted a live driving condition. However, five weeks later, no award has been announced, no decision date has been published or scheduled, and no concrete procurement milestone has appeared on any public calendar. A future award is speculative \u2014 unknown timing, no announced source-selection date. The rules are explicit: an unscheduled 'maybe' does not constitute a pending concrete catalyst. Because my own exit analysis concludes the stated catalyst is backward-looking and already resolved, catalyst_resolved must be TRUE and thesis_live must be FALSE. Exit RKLB.",
+      "exit_advice": "Exit RKLB. The stated catalyst \u2014 selection to bid \u2014 resolved at entry. Five weeks of silence have produced no published award date, no formal procurement milestone, and no scheduled announcement. The pending award is speculative (unknown timing, no public calendar entry), not a concrete scheduled catalyst. Protocol requires exit when the stated catalyst has resolved and no concrete next step is announced.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-23": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Both primary concrete catalysts resolved; EU SAFE politically endorsed; only procedural adoption and multi-year execution remain.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 23. A third consecutive silent week on this specific thesis. The devil's advocate case must be stated with full honesty: both of the sharpest concrete scheduled catalysts this journal ever flagged \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are fully resolved and backward-looking. The EU ReArm/SAFE framework has received broad European Council political endorsement, and the remaining institutional step (formal EU Parliament + Council legislative adoption of the SAFE \u20ac150bn instrument) is progressively moving from genuine binary risk toward procedural completion. That is the most sustained exit pressure this journal has faced, and conviction is declining naturally as the sharpest milestones recede. However, catalyst_resolved stays false and thesis_live stays true on two durable grounds: (1) the DRIVING CONDITION has not reversed by one millimeter \u2014 Trump has issued zero formal recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory; three consecutive silent news weeks do not constitute a reversal, and a live driving condition that goes quiet can re-accelerate; (2) the actual contract-award wave from newly unlocked German and EU budgets flowing into Rheinmetall's artillery, armored-vehicle, and propellant pipeline is a multi-year execution story that has barely begun at the signed-contract level \u2014 Rheinmetall has not yet publicly quantified new intake from post-Schuldenbremse budgets, which is the operational payoff this thesis was built on. Silence while the driving condition is intact and one concrete institutional step (EU SAFE formal adoption) is still pending is a hold, not an exit. The arc is mature and narrowing; the next note must reassess sharply once EU SAFE adoption is confirmed.",
+      "exit_advice": "Hold through EU SAFE formal legislative adoption (EU Parliament + Council vote still pending confirmation); exit immediately once that clears AND Rheinmetall publicly quantifies post-Schuldenbremse order intake \u2014 at that point the arc will be complete and the crowd-fully-arrived condition already met.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-30": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Both sharpest concrete catalysts resolved; EU SAFE adoption trending procedural; arc is deeply mature at week 24.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 24. This week's news \u2014 Trump delays EU tariffs, US stocks surge \u2014 is 100% orthogonal to the European defense-spending thesis. A tariff-delay is a commercial/trade gesture; it carries zero implication for US NATO security commitments or European rearmament spending trajectories. If anything, the sustained pattern of US transactional unpredictability toward Europe (tariffs threatened, delayed, threatened again) deepens the European political consensus for strategic autonomy and indigenous defense capacity \u2014 mildly thesis-reinforcing, not thesis-reversing. The devil's advocate case must be stated with full honesty at week 24: the two sharpest concrete catalysts this journal ever flagged \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are fully resolved and backward-looking. The EU ReArm/SAFE framework has received broad European Council political endorsement, and the remaining formal legislative adoption step is progressively trending from genuine binary risk toward procedural completion. Conviction is declining naturally and is now set at 5 \u2014 the arc is mature and the edge has narrowed substantially. However, catalyst_resolved stays false and thesis_live stays true on two durable grounds: (1) the DRIVING CONDITION has not reversed by one millimeter \u2014 Trump has issued zero formal recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory; (2) the EU SAFE \u20ac150bn formal legislative adoption (EU Parliament + Council votes) is still the one remaining concrete institutional step \u2014 not yet confirmed as complete this week \u2014 and Rheinmetall has still not publicly quantified new signed contract intake from post-Schuldenbremse budgets, which is the multi-year operational payoff this thesis was built on. Four consecutive silent news weeks do not constitute a reversal of the driving condition. The next note must be the hard reassessment: if EU SAFE is formally adopted and Rheinmetall quantifies new intake, the 'arc complete + crowd fully arrived' exit condition flips and thesis_live goes false. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament.",
+      "exit_advice": "Exit when EU SAFE instrument is formally adopted AND Rheinmetall publicly quantifies post-Schuldenbremse order intake \u2014 at that point the arc is complete and the crowd has fully arrived. Do not exit on tariff noise or continued silence.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3542179/u-s-stocks-move-sharply-higher-after-trump-delays-eu-tariffs.aspx"
+      ]
+    }
+  ],
+  "2025-06-06": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "German Schuldenbremse exemption passed and EU ReArm politically endorsed \u2014 central fiscal-unlock milestones are backward-looking.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Week 25. Fifth consecutive silent week on this specific thesis. The devil's advocate case must be stated with maximum honesty: both of the sharpest concrete catalysts ever flagged in this journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are fully resolved and backward-looking. The EU ReArm/SAFE framework has received broad European Council political endorsement, and the remaining formal legislative step (EU Parliament + Council adoption of the SAFE \u20ac150bn instrument) is progressively trending from genuine binary risk toward procedural completion. Conviction drops to 4 \u2014 the arc is mature, five silent weeks have elapsed since the last thesis-relevant news, and the sharpest near-term milestones are behind us. The position is aging in the most honest sense. However, catalyst_resolved stays false and thesis_live stays true on two durable grounds that the framework requires: (1) the DRIVING CONDITION has not reversed by one millimeter \u2014 Trump has issued zero formal recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory; five silent news weeks are silence, not reversal, and a live driving condition that goes quiet can re-accelerate; (2) the EU SAFE \u20ac150bn formal legislative adoption is still the one remaining concrete institutional step not yet confirmed as complete, and Rheinmetall has still not publicly quantified new signed contract intake from post-Schuldenbremse budgets \u2014 the multi-year operational execution story this thesis was built on has barely begun at the signed-contract level. The arc-complete test fails while EU SAFE adoption remains a genuine pending institutional step, not mere speculation. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament, but the next note must be a hard reassessment: EU SAFE formal adoption confirmed + no new concrete catalyst ahead = flip the exit condition.",
+      "exit_advice": "Hold through EU SAFE \u20ac150bn formal legislative adoption (EU Parliament + Council votes). If that step is confirmed complete AND Rheinmetall still has not publicly quantified new post-Schuldenbremse signed contract intake AND no new concrete scheduled catalyst is announced, the 'arc complete + crowd fully arrived' condition flips \u2014 exit at that point. Do not exit on a sixth silent week alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-13": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "German election and Schuldenbremse resolved; EU SAFE increasingly likely formally adopted; only multi-year execution remains \u2014 no concrete new scheduled catalyst.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Week 26. Sixth consecutive silent week on this specific thesis. The devil's advocate case is now its most credible and must be stated with maximum honesty: the two sharpest concrete catalysts ever flagged in this journal \u2014 the German federal election (Feb 23) and the Bundestag Schuldenbremse constitutional amendment vote (~Mar 18-21) \u2014 are fully resolved and backward-looking. The EU SAFE \u20ac150bn instrument, the last concrete institutional step tracked across this entire journal, was proposed in March 2025 and given the political urgency and expedited EU legislative process, has very likely been formally adopted in the weeks since my last explicit confirmation \u2014 meaning I may have been holding on a ghost catalyst for several weeks. That is real and honest exit pressure, and conviction is now 4 and declining. However, catalyst_resolved stays false and thesis_live stays true on the single most durable ground the framework allows: the DRIVING CONDITION has not reversed by one millimeter. Trump has issued zero formal recommitment to collective NATO defense, no Ukraine ceasefire is in force, and no European government has walked back its elevated defense-spending trajectory. Six consecutive silent news weeks are silence \u2014 not reversal \u2014 and the framework is explicit that silence while the driving condition is intact is a hold, not an exit. The contract-award wave flowing from newly unlocked German and EU budgets into Rheinmetall's artillery, armored-vehicle, and propellant pipeline remains a multi-year execution story with no discrete signed-contract quantification yet public. The position is aging in the most honest sense. The next hard inflection: if EU SAFE formal adoption is confirmed (or assumed complete given the timeline) and Rheinmetall's H1 August 2025 earnings quantify post-Schuldenbremse order intake, both legs of the 'arc complete + crowd fully arrived' exit condition will flip simultaneously and thesis_live must go false. RNMBY remains the cleanest pure-play ADR on European ground-force rearmament, but the exit window is narrowing materially.",
+      "exit_advice": "Exit when EU SAFE formal adoption is explicitly confirmed and Rheinmetall's first post-Schuldenbremse earnings (likely H1 August 2025) quantifies new order intake \u2014 at that point the arc is complete, the crowd is fully in, and no concrete discrete catalyst will remain ahead.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-20": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "EU SAFE \u20ac150bn instrument almost certainly formally adopted by now (proposed March 2025, expedited process), completing all three flagged institutional steps; arc may be fully complete.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Week 27. Seventh consecutive silent week. The exit pressure is now at its maximum and must be stated with absolute honesty. The EU SAFE \u20ac150bn instrument \u2014 the last concrete institutional step tracked across this entire journal \u2014 was proposed in March 2025 and, given the expedited legislative process and unambiguous political urgency, has almost certainly been formally adopted by mid-June 2025. If confirmed, all three major institutional catalysts are backward-looking: German federal election (Feb 23 \u2713), Bundestag Schuldenbremse vote (~Mar 18-21 \u2713), EU SAFE adoption (very likely \u2713). Coverage has been mainstream-saturated for months. The 'arc complete + crowd fully arrived' exit condition is close to flipping. However, one concrete pending scheduled catalyst prevents the trigger from firing this week: the 2025 NATO Summit (late June, The Hague, Netherlands) \u2014 a real, announced, annually-calendared event with maximal direct thesis relevance. It is not speculation, not a rumor, not 'analysts wonder if' \u2014 it is a scheduled multilateral summit that will directly test whether Trump issues any formal statement on US collective-defense commitments, whether European allies lodge new burden-sharing pledges (3\u20135% GDP targets are on the table), and whether any surprise US recommitment reverses the driving condition. That is a live binary, not noise. Driving condition fully intact: zero US formal NATO recommitment, no Ukraine ceasefire, no European government walking back elevated defense-spending trajectories. Seven silent news weeks are silence, not reversal; a live driving condition can re-accelerate. Conviction held at 5 solely because an imminent concrete scheduled event preserves a genuine pending catalyst. Post-NATO-Summit is the hard reassessment: no new concrete catalyst + EU SAFE confirmed = exit.",
+      "exit_advice": "Hold through the 2025 NATO Summit (late June, The Hague \u2014 concrete, scheduled, annually-calendared event with maximal direct thesis relevance). Post-summit: if EU SAFE adoption confirmed and no new concrete catalyst is scheduled ahead, the arc-complete + crowd-fully-arrived exit condition flips immediately and thesis_live must go false. Do not hold past that inflection on silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-27": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Trump signals US NATO pullback forcing European rearmament spend",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "NATO Summit concluded June 24-25 \u2014 the last explicitly named concrete catalyst; arc complete, crowd fully arrived.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Week 28. The NATO Summit in The Hague (June 24-25, 2025) has concluded \u2014 the single remaining concrete scheduled policy catalyst explicitly named in last week's journal entry, and the event that journal note declared would be the hard reassessment trigger. The exit condition has now flipped. Applying the framework's 'arc complete + crowd fully arrived' test rigorously: (a) Arc complete \u2014 the shock (Trump NATO-pullback signals, late 2024), the response (German federal election Feb 23, Schuldenbremse constitutional amendment ~Mar 18-21, EU SAFE adoption very likely confirmed by June, NATO 5% GDP pledge June 24-25), and all institutional follow-on are fully public and backward-looking. Nothing specifically scheduled or announced policy-level remains ahead \u2014 Rheinmetall's August earnings is a routine semi-annual business update quantifying ongoing execution, not a policy-level binary event of the type this thesis was entered on; counting earnings reports as catalysts would prevent any exit from any public company, which is not what the framework intends. (b) Crowd fully arrived \u2014 coverage has been mainstream-saturated at the European-policy and defense-stock level for months, front-page Reuters, sell-side raised targets, broad retail awareness. Both conditions simultaneously hold; the smart-money early-edge window is definitively closed. The driving condition (Trump NATO-pullback compelling European self-funded rearmament) has NOT formally reversed \u2014 Trump did not issue a collective-defense recommitment at The Hague, and no European government has walked back its elevated spending trajectory; catalyst_resolved therefore remains false. But the framework is explicit: arc complete AND crowd fully arrived = exit, even with the driving condition still technically in force. The thesis has fully played out at the institutional-policy level. What remains is multi-year execution that the market has long since priced into RNMBY. Exit.",
+      "exit_advice": "Exit RNMBY. The NATO Summit at The Hague (June 24-25) was the last concrete scheduled policy catalyst explicitly flagged in this journal. EU SAFE \u20ac150bn instrument is almost certainly formally adopted. The full institutional arc \u2014 German federal election \u2192 Bundestag Schuldenbremse vote \u2192 EU SAFE adoption \u2192 NATO 5% GDP spending pledges \u2014 is now complete and backward-looking. Both legs of the arc-complete + crowd-fully-arrived exit rule are satisfied: no concrete new policy-level catalyst is scheduled or announced ahead (Rheinmetall's August earnings is a routine business update, not a policy binary), and coverage has been mainstream-saturated for months. Exit now.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-04": [],
+  "2025-07-11": [],
+  "2025-07-18": [],
+  "2025-07-25": [],
+  "2025-08-01": [],
+  "2025-08-08": [],
+  "2025-08-15": [],
+  "2025-08-22": [],
+  "2025-08-29": [],
+  "2025-09-05": [],
+  "2025-09-12": [],
+  "2025-09-19": [],
+  "2025-09-26": [],
+  "2025-10-03": [],
+  "2025-10-10": [],
+  "2025-10-17": [],
+  "2025-10-24": [],
+  "2025-10-31": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The announcement itself (Oct 27) is the stated catalyst and it has already occurred, fully public.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1. The Oct 27 all-stock merger announcement between AWK (acquirer) and WTRG/Essential Utilities (target) creates a live merger-arb spread on WTRG. While the announcement is what triggered entry, the deal itself \u2014 the actual closing \u2014 is still fully pending. Utility mergers of this scale require state PUC approvals in multiple jurisdictions plus shareholder votes from both companies; the regulatory gating process typically runs 12\u201318 months. The live thesis is the arb spread: WTRG trading at a discount to the AWK-implied deal value, which narrows as regulatory milestones are cleared. No blocking action, competing bid, or renegotiation reported this week. The exit_case above is noted but rejected: the announcement created the entry opportunity; 'catalyst resolved' requires the deal to close or fail, neither of which has occurred. Coverage is currently regional/trade press (Inquirer), not yet mainstream-saturated. WTRG is the cleanest vehicle as the target; AWK is the acquirer and currency but adds direction risk. Hold WTRG.",
+      "exit_advice": "Exit on deal termination, material renegotiation, or regulatory block; or on deal close at the final exchange ratio.",
+      "evidence_urls": [
+        "https://www.inquirer.com/business/american-water-essential-utilities-aqua-merger-20251027.html"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Merger announcement already occurred Oct 27 \u2014 the entry trigger is past; deal close/failure still fully pending.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 2. No fresh news, which is entirely normal this early in a utility mega-merger regulatory timeline. The arb spread on WTRG versus AWK-implied deal value remains live: no state PUC filings have been approved or denied, no shareholder votes have been scheduled or held, and no competing bid, renegotiation, or blocking action has surfaced in either this week or the prior week. The driving condition \u2014 the pending deal close \u2014 is intact. Utility mergers of this size (multi-state, multi-jurisdiction PUC approvals required) routinely run 12\u201318 months with weeks-long quiet stretches between milestones. Coverage remains regional/trade-press level; no signs of mainstream saturation. WTRG is still the cleanest vehicle as the target receiving the AWK all-stock consideration. Quiet stretch = hold; exit only on resolution or reversal.",
+      "exit_advice": "Exit on deal close (spread fully narrows), deal failure (regulatory block or shareholder vote rejection), or emergence of a credible blocking action (state AG/DOJ/FERC opposition materially threatening close probability). Do not exit on silence.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "WSR board formally rejects MCB's revised proposal, ending the pending acquisition catalyst entirely.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "First week. Benzinga (Nov 4) confirms WSR rose on MCB Real Estate's revised acquisition proposal \u2014 the stock reaction validates market recognition of a credible, improved offer. This is a classic pending M&A binary: 'revised' signals MCB raised terms after a prior approach was deemed insufficient, increasing seriousness. The board has not yet formally accepted or rejected; no definitive merger agreement exists. Proposal is squarely in the 'pending' phase with the binary outcome still ahead. Coverage is minimal \u2014 one Benzinga article, no sell-side pile-on, no retail frenzy \u2014 this remains early/under-the-radar. WSR is the clean, direct pure-play vehicle (it is the target). Hold.",
+      "exit_advice": "Exit on formal board rejection of the revised proposal, or on signing of a definitive merger agreement (spread then collapses to near-zero and event-driven edge is gone). Hold while board review remains pending.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/48624273/wsr-stock-rises-on-mcb-real-estate-revised-acquisition-proposal"
+      ]
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Arb spread may have already compressed to near-zero if market prices the deal at near-certainty, capturing the opportunity.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3 \u2014 a third consecutive quiet week, with this week's news feed entirely unrelated to the AWK/WTRG merger (Stefanik gubernatorial race, WWII veterans, nuclear stocks). This silence is structurally expected: state PUC filings are typically submitted 1\u20133 months post-announcement, and shareholder votes are not yet scheduled. The driving condition \u2014 pending deal close contingent on multi-state PUC approvals and dual shareholder votes \u2014 is fully intact. No blocking action, renegotiation, competing bid, or termination notice has surfaced in any week since entry. Coverage remains regional/trade-press level; no signs of mainstream saturation or retail frenzy. The devil's advocate case (spread compression) cannot be confirmed without live pricing data, but the regulatory milestones that would justify near-full compression have not yet been cleared, so meaningful spread is likely still present. WTRG remains the cleanest pure-play vehicle as the all-stock deal target. Hold through silence.",
+      "exit_advice": "Exit WTRG on: (1) formal deal termination by either party; (2) a state PUC blocking order or outright rejection; (3) arb spread collapses to near-zero before close, leaving no return for the regulatory wait; or (4) competing bid lifts WTRG through the AWK-implied value. Do NOT exit on continued silence \u2014 quiet is normal at this stage.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero WSR/MCB news this week; board could have quietly rejected the proposal with no press coverage.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No WSR- or MCB-related news surfaced this week \u2014 the three articles are entirely unrelated (South Africa macro, U.S. market movers, Canadian defence spending). The specific catalyst \u2014 MCB Real Estate's revised acquisition proposal awaiting a formal board response \u2014 remains squarely in the 'pending' phase. Nothing in the journal or this week's news indicates the proposal was accepted, rejected, or withdrawn; no definitive merger agreement has been announced. Coverage of WSR on this theme is still minimal: no sell-side pile-on, no retail frenzy, no front-page treatment. The silence is consistent with a normal M&A deliberation period, not a collapse. The devil's-advocate exit case (quiet rejection) is genuine but unsubstantiated \u2014 hold through silence per the standing rule. WSR remains the only pure-play vehicle (it is the target). Conviction nudges down one point from entry (6 vs. a hypothetical 7) solely because one quiet week provides no confirming evidence, not because the thesis has weakened structurally.",
+      "exit_advice": "Exit only on: (a) board formal rejection/withdrawal of MCB proposal, (b) definitive merger agreement signed (catalyst converts from pending to closed), or (c) MCB publicly withdraws. Silence alone is not an exit.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No PUC denial, termination, or deal failure \u2014 the only risk is spread already compressed post-announcement, unverifiable without live pricing data.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 4 \u2014 fourth consecutive quiet week, again structurally expected. PUC filings in multi-jurisdiction utility mergers are typically submitted 1\u20133 months post-announcement; we are exactly at that threshold now. No state commission has approved or denied anything, no shareholder vote has been scheduled or held, no competing bid, renegotiation, or termination notice has appeared in any week across the full journal. The driving condition \u2014 pending deal close contingent on multi-state PUC approvals and dual AWK/WTRG shareholder votes \u2014 is fully intact. Coverage remains regional/trade-press level; zero signs of mainstream saturation or retail crowding. The devil's advocate case worth watching is whether the arb spread has already collapsed to near-zero post-announcement (which would eliminate the practical edge even while the catalyst is unresolved) \u2014 but without live pricing data that cannot be confirmed, and regulatory milestones that would justify full compression have not been cleared. Concrete next steps still lie ahead (PUC filings, commission proceedings, shareholder vote scheduling), so the arc is not complete. WTRG remains the cleanest pure-play vehicle as the all-stock deal target. Hold through silence.",
+      "exit_advice": "Exit only on: deal close (merger consummated), deal termination/failure, or mainstream saturation with no concrete regulatory milestone remaining ahead. A fourth consecutive quiet week is structurally normal for a multi-state utility merger at week 4 post-announcement.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Two consecutive silent weeks may signal MCB's proposal was quietly rejected or withdrawn without public notice.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "A second straight week of zero WSR/MCB-specific coverage. The devil's-advocate concern is genuine \u2014 prolonged silence in M&A can precede a quiet collapse \u2014 but there is still zero evidence the board has formally accepted, rejected, or that MCB has withdrawn. The specific catalyst (revised proposal awaiting formal board response; no definitive agreement signed) remains squarely in the 'pending' phase. Per standing rule, silence through a normal M&A deliberation period is not an exit trigger. Coverage remains minimal: no sell-side pile-on, no retail frenzy, no front-page treatment \u2014 the early/under-the-radar profile is intact. The binary outcome is still ahead. WSR is the only pure-play vehicle. Conviction holds at 6; a third consecutive quiet week will not by itself change this \u2014 only resolution (positive or negative) does.",
+      "exit_advice": "Exit immediately on any announcement of proposal withdrawal, formal rejection, or a definitive merger agreement closing. Do NOT exit on continued silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Post-announcement spread may have fully compressed to near-zero with no regulatory milestone yet cleared to justify holding.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5 \u2014 fifth consecutive quiet week, again structurally expected. We are now at the lower bound of the typical 1\u20133 month window for post-announcement state PUC filings in multi-jurisdiction utility mergers, meaning the first concrete regulatory activity should begin to surface imminently. No state commission has approved or denied anything; no shareholder vote has been scheduled or held; no competing bid, renegotiation, or termination has appeared in any week of this journal. The driving condition \u2014 pending deal close requiring multi-state PUC approvals plus dual AWK/WTRG shareholder votes \u2014 is fully intact. Devil's advocate: the strongest live concern is unobservable arb spread compression (no pricing data available here), but regulatory milestones that would justify near-full compression have not been cleared, making material remaining spread plausible. Coverage remains regional/trade-press; no mainstream saturation or retail crowding. Concrete next steps still lie ahead. WTRG remains the cleanest pure-play as the all-stock deal target. Hold through silence.",
+      "exit_advice": "Hold. The specific catalyst \u2014 deal close contingent on multi-state PUC approvals and dual shareholder votes \u2014 remains fully pending. Five consecutive quiet weeks is structurally normal in a 12\u201318-month utility merger process; PUC filings are typically submitted 1\u20133 months post-announcement and we are at exactly that threshold with no confirmation of submission yet. No blocking action, renegotiation, competing bid, or termination notice in any week across the full journal. Coverage remains regional/trade-press level with zero signs of mainstream saturation. The arc is not complete: concrete next steps (PUC filings, commission proceedings, shareholder vote scheduling) are still formally ahead. The only live risk worth watching is whether the arb spread has already compressed to near-zero without a pricing check \u2014 if it has, practical edge is gone even while the catalyst is live. Exit only on: deal close, deal failure/termination, or confirmed spread collapse to zero.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Three consecutive silent weeks; prolonged M&A silence can indicate a quiet rejection or MCB withdrawal without public announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Third consecutive week of zero WSR/MCB-specific coverage \u2014 this week's news is entirely unrelated (semiconductors/retail, Oklo/nuclear). The specific catalyst \u2014 MCB Real Estate's revised acquisition proposal awaiting a formal board response \u2014 remains squarely in the pending phase. No definitive merger agreement has been announced; no rejection or withdrawal has been disclosed publicly. The devil's-advocate case (prolonged silence signals a quiet collapse) is the strongest it has been over the three-week stretch, but it remains unsubstantiated speculation rather than evidence of resolution. Per the standing rule, M&A deliberation periods routinely run weeks-to-months in silence before a formal outcome; exiting on silence forfeits the binary payoff if a deal is announced. Coverage profile is unchanged: no sell-side pile-on, no retail frenzy, no mainstream saturation \u2014 early/under-the-radar status intact. The binary outcome is still ahead. WSR remains the only pure-play vehicle (it is the target). Conviction holds at 6; a fourth quiet week will not by itself change this \u2014 only a concrete resolution (positive or negative) does.",
+      "exit_advice": "Hold. Exit ONLY on a concrete public announcement: board acceptance (definitive agreement), board rejection, or MCB withdrawal. Do not exit on continued silence.",
+      "evidence_urls": [
+        "https://www.benzinga.com/trading-ideas/movers/25/11/49071513/oklo-stock-trades-lower-amid-sector-pullback-on-ukraine-russia-peace-proposal-news"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 6 \u2014 sixth consecutive quiet week, structurally expected. This week's news feed (Oshkosh/OSK, CalBank Ghana) is entirely unrelated to the AWK/WTRG merger. Devil's advocate was searched genuinely: no deal termination, no competing bid, no renegotiation, no shareholder vote rejection, no PUC denial \u2014 the driving condition (pending deal close contingent on multi-state PUC approvals plus dual shareholder votes) is fully intact across all six journal weeks. We are now firmly inside the 1\u20133 month post-announcement window where state PUC filings are typically submitted, meaning the first concrete regulatory milestones should surface imminently. Those filings, subsequent commission proceedings, and shareholder vote scheduling all remain ahead as concrete, expected steps \u2014 the arc is not complete. The unverifiable risk (no live pricing data available) is that the arb spread has already compressed to near-zero post-announcement, but regulatory milestones that would justify near-full compression have not been cleared, making material remaining spread plausible. Coverage remains below mainstream saturation. WTRG is the cleanest pure-play as the all-stock deal target. Hold through silence.",
+      "exit_advice": "Hold WTRG; exit only on confirmed deal termination, a material regulatory block (PUC denial), a deal renegotiation/failure, or confirmed closing \u2014 not on silence.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four straight silent weeks may signal the proposal was quietly rejected or withdrawn without public disclosure.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Fifth week overall (four consecutive silent weeks post-entry) with zero WSR/MCB-specific coverage again. The devil's-advocate case is at its most compelling: prolonged M&A silence can precede a quiet collapse, and four weeks without any confirming signal is not trivial. That said, the exit case remains speculation rather than evidence \u2014 no formal board response (acceptance, rejection, or withdrawal) has been publicly disclosed. The specific catalyst (revised acquisition proposal awaiting a formal board response, no definitive merger agreement signed) is still squarely in the 'pending' phase. Per the standing rule, M&A deliberation periods routinely run weeks to months in silence before a formal outcome; exiting on silence forfeits the binary payoff if a deal surfaces. Coverage profile is unchanged: no sell-side pile-on, no retail frenzy, no mainstream saturation \u2014 early/under-the-radar profile is intact. The binary outcome is still ahead. WSR remains the only pure-play vehicle. Conviction holds at 6; a fifth or sixth quiet week will not by itself change this \u2014 only a concrete resolution (positive or negative) does.",
+      "exit_advice": "Exit ONLY on a confirmed board rejection, MCB withdrawal, or a signed definitive merger agreement \u2014 not on continued silence.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water Works all-stock merger with Essential Utilities announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No concrete exit: deal not closed, terminated, or blocked; all regulatory milestones remain pending.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 7 \u2014 seventh consecutive quiet week, structurally expected. This week's news (nuclear stocks screener) is entirely unrelated to the AWK/WTRG merger. Genuine devil's advocate search: no PUC has approved or denied anything, no shareholder vote has been scheduled or held, no competing bid, renegotiation, or termination notice has surfaced in any week across the full seven-week journal. The driving condition \u2014 pending deal close contingent on multi-state PUC approvals plus dual AWK/WTRG shareholder votes \u2014 is fully intact. At 6.5 weeks post-announcement we remain within the 1\u20133 month window for state PUC filings, meaning first concrete regulatory activity is imminent. Concrete next steps still lie ahead: PUC filings in multiple jurisdictions, commission proceedings, and shareholder vote scheduling \u2014 the arc is not complete. The primary unverifiable risk remains arb spread compression (no live pricing data), but the regulatory milestones that would justify near-full compression have not been cleared, keeping material remaining spread plausible. Coverage remains regional/trade-press level with zero signs of mainstream saturation or retail crowding. WTRG is the cleanest pure-play as the all-stock deal target. Hold through silence.",
+      "exit_advice": "Exit only on deal closure (arb spread collapses to zero), deal termination/failure, decisive PUC denial, or shareholder vote rejection. Do not exit on continued silence.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html"
+      ]
+    },
+    {
+      "ticker": "WSR",
+      "thesis": "MCB Real Estate revised acquisition proposal for Whitestone REIT pending",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six consecutive silent weeks in M&A often precede a quiet collapse or withdrawal of the offer without public announcement.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week six of zero WSR/MCB-specific coverage \u2014 the devil's-advocate case (six consecutive silent weeks = quiet proposal collapse) is at its peak compellingness, but it remains unsubstantiated speculation rather than evidence of resolution. No formal board response \u2014 acceptance, rejection, or withdrawal \u2014 has been publicly disclosed anywhere in the six-week journal arc. The specific catalyst (revised acquisition proposal awaiting a formal board response, no definitive merger agreement signed) is therefore still squarely in the 'pending' phase by available evidence. M&A deliberation periods routinely run two-to-four months or longer in silence before a formal outcome; six weeks is well within that normal range. Coverage profile is unchanged: no sell-side pile-on, no retail frenzy, no mainstream saturation \u2014 the early/under-the-radar profile remains intact. Per the standing rule, silence is not an exit trigger while the driving condition (proposal pending, no resolution) is still in force. The binary outcome is still ahead. WSR remains the sole pure-play vehicle (it is the target). Conviction holds at 6; only a concrete, publicly disclosed resolution (positive or negative) changes the posture.",
+      "exit_advice": "Exit ONLY on a confirmed public resolution: board acceptance, rejection, definitive agreement, or MCB formally withdrawing the proposal. Do not exit on silence alone.",
+      "evidence_urls": []
+    }
+  ]
+}
