@@ -720,14 +720,14 @@ STORYLINE = {
         "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
     ),
     "GDX": (
-        "<b>VanEck Gold Miners (GDX)</b> ran ~3.3x from Jan-2025 ($35) to a ~$117 peak (early 2026). "
-        "<b>The driver was NOT diffuse macro — it was Trump's tariff trade war</b>: discrete, datable "
-        "safe-haven shocks (Feb-2025 tariff records, the Apr-2025 'Liberation Day' war, the Oct-2025 "
-        "145% China tariffs -> gold past $4,000). That's the <b>same catalyst family as MP</b> (trade "
-        "war), squarely in our sweet spot, with a peak-then-pullback that gives an exit. "
-        "<b>caught=false is a SETUP bug, not a verdict:</b> the old scan ran 2025-06 -> 2026-06 and used "
-        "a mis-dated 2024-03 seed, so the seed never injected and the entry was never in view. A proper "
-        "re-scan (window 2024-12 -> 2026-07 + a tariff seed + a strong curator) is owed before judging it."
+        "<b>VanEck Gold Miners (GDX)</b> ran ~3x from Jan-2025 to a Feb-2026 peak on Trump's tariff "
+        "trade war -> safe-haven gold. <b>Now properly TESTED and NOT caught</b> — sonnet5, the tariff "
+        "seed, the corrected 2024-11 -> 2026-04 window, tariff coverage in the pool: the curator "
+        "declined to name GDX and parked in SPY (the +24% shown is just the SPY floor, no gem went "
+        "live). <b>Why it's a genuine non-fit:</b> gold is a <i>second-order, diffuse safe-haven</i> "
+        "beneficiary of tariffs - not the <b>direct</b> catalyst vehicle the way MP is to rare-earth "
+        "curbs or RNMBY to the rearmament vote. The gate names direct vehicles and rejects indirect "
+        "safe-havens - so GDX's big price run is one the solution correctly doesn't chase. Stays greyed."
     ),
 }
 
