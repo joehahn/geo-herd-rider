@@ -700,6 +700,26 @@ STORYLINE = {
         "<b>What we'd want:</b> ride it while the war risk is live and exit when it resolves — <i>not</i> "
         "when coverage merely gets crowded (crowding is not thesis death)."
     ),
+    "GEO": (
+        "<b>GEO Group (GEO) + MicroStrategy (MSTR)</b> — the <b>2024-election concurrency test</b>. "
+        "Trump's Nov-5 win was <i>one</i> catalyst with two theses: an immigration crackdown (GEO, the "
+        "largest private ICE-detention operator) and a crypto-friendly agenda (MSTR, the leveraged "
+        "Bitcoin proxy). This book asks whether the solution can ride <b>two gems at once</b>. "
+        "<b>The lesson:</b> GEO was a clean policy event, but <b>MSTR's momentum thesis never "
+        "resolved</b> — no ceasefire, no reopened chokepoint — so a weak curator holds it through a "
+        "~45% crash (the failure mode the gate exists to prevent). The weekly cadence also can't "
+        "out-run insiders on election plays. <b>What we'd want:</b> hold GEO and exit MSTR as the crypto "
+        "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
+    ),
+    "GDX": (
+        "<b>VanEck Gold Miners (GDX)</b> rose on the <b>gold bull market</b> — central-bank buying, "
+        "debasement fears, and safe-haven demand lifting the miners. But this is a <b>slow macro "
+        "theme</b>, not a sharp, datable catalyst: no single event fires it or later resolves it. "
+        "<b>That's why the curator never names it</b> (caught = false) — the catalyst gate correctly "
+        "rejects diffuse 'demand / macro' stories, the same wall that drops NVDA and the SMR theme. "
+        "GDX is a <b>documented non-fit</b>, greyed on the landing: a reminder that the solution's edge "
+        "is discrete geopolitical / policy shocks, not gradual macro trends."
+    ),
 }
 
 INDEX_HTML = r"""<!doctype html>
