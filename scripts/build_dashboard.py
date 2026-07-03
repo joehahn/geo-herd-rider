@@ -596,6 +596,11 @@ def build_sweeps() -> None:
         _cm = combo_p.with_suffix(".meta.json")
         models["GEO_MSTR"] = json.loads(_cm.read_text()).get("model") if _cm.exists() else fm0.get("model", "mimo")
         gem_tickers = [*gem_tickers, "GEO_MSTR"]
+        # include GEO_MSTR in the bake-off too (bake_tickers/bake_models were computed before this add);
+        # requiring its book excludes half-finished models (only fully-scanned models appear -> clean staging).
+        if any(_model_book_path(s, "GEO_MSTR").exists() for s in BAKEOFF_INFO):
+            bake_tickers.append("GEO_MSTR")
+            bake_models[:] = [s for s in BAKEOFF_INFO if all(_model_book_path(s, t).exists() for t in bake_tickers)]
     out = {"gems": gem_tickers, "capital_per_gem": capital, "params": {}, "models": models,
            "verticals": {t: GEM_VERTICAL.get(t, "") for t in gem_tickers},
            "baseline": {k: fm0.get(k) for k in

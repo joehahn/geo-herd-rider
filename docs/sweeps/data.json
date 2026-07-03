@@ -204,7 +204,7 @@
       "sum_curated": [
         259776,
         259776,
-        251188,
+        256602,
         257603,
         257603,
         257785,
@@ -229,7 +229,7 @@
         "BWET": [
           94177,
           94177,
-          92726,
+          95668,
           97073,
           97073,
           97073,
@@ -241,7 +241,7 @@
         "MP": [
           125566,
           125566,
-          119100,
+          120247,
           122904,
           122904,
           123086,
@@ -253,7 +253,7 @@
         "GEO_MSTR": [
           40033,
           40033,
-          39362,
+          40688,
           37625,
           37625,
           37625,
@@ -364,10 +364,10 @@
         256382,
         259776,
         216049,
-        252450,
-        252450,
-        252450,
-        252450
+        252451,
+        252451,
+        252451,
+        252451
       ],
       "sum_spy": [
         170445,
@@ -487,107 +487,95 @@
   },
   "bakeoff": {
     "models": [
-      "mimo",
       "llama4",
       "deepseek",
       "grok4",
       "sonnet",
-      "sonnet5",
-      "opus"
+      "sonnet5"
     ],
     "label": [
-      "mimo",
       "llama4",
       "deepseek",
       "grok-4.3",
       "sonnet",
-      "sonnet5",
-      "opus"
+      "sonnet5"
     ],
     "scale": [
-      "~1T MoE / 42B act",
       "400B MoE / 17B act",
       "671B MoE / 37B act",
       "frontier",
       "1-2T (est)",
-      "near-Opus",
-      "2-5T (est)"
+      "near-Opus"
     ],
     "cost": [
-      "$0.4",
       "$0.4",
       "$0.1",
       "$3.7",
       "$3.6",
-      "$3.8",
-      "$4.4"
+      "$3.8"
     ],
     "time": [
-      "83min",
       "10min",
       "14min",
       "9min",
       "61min",
-      "8min",
-      "16min"
+      "8min"
     ],
     "sum_curated": [
-      104310,
-      139687,
-      134690,
-      162158,
-      161374,
-      187406,
-      167563
+      178954,
+      180760,
+      201561,
+      201407,
+      241169
     ],
     "per_gem": {
       "BWET": [
-        42692,
         69814,
         62975,
         103025,
         94177,
-        111706,
-        58464
+        111706
       ],
       "MP": [
-        61618,
         69873,
         71715,
         59133,
         67197,
-        75700,
-        109099
+        75700
+      ],
+      "GEO_MSTR": [
+        39267,
+        46070,
+        39403,
+        40033,
+        53763
       ]
     },
     "caught": {
-      "mimo": {
-        "BWET": true,
-        "MP": true
-      },
       "llama4": {
         "BWET": true,
-        "MP": true
+        "MP": true,
+        "GEO_MSTR": true
       },
       "deepseek": {
         "BWET": true,
-        "MP": true
+        "MP": true,
+        "GEO_MSTR": true
       },
       "grok4": {
         "BWET": true,
-        "MP": true
+        "MP": true,
+        "GEO_MSTR": true
       },
       "sonnet": {
         "BWET": true,
-        "MP": true
+        "MP": true,
+        "GEO_MSTR": true
       },
       "sonnet5": {
         "BWET": true,
-        "MP": true
-      },
-      "opus": {
-        "BWET": true,
-        "MP": true
+        "MP": true,
+        "GEO_MSTR": true
       }
     }
   }
