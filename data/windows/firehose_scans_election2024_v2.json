@@ -1,0 +1,483 @@
+{
+  "2024-08-02": [],
+  "2024-08-09": [],
+  "2024-08-16": [],
+  "2024-08-23": [],
+  "2024-08-30": [],
+  "2024-09-06": [],
+  "2024-09-13": [],
+  "2024-09-20": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft signs deal with Constellation to restart Three Mile Island plant",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Microsoft-CEG power purchase agreement was formally signed today; the deal announcement is now public and the initial CEG pop is already in.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Entry week. Microsoft signed a 20-year power purchase agreement with Constellation Energy to restart Three Mile Island Unit 1, targeting ~2028. CEG and nuclear-adjacent names popped sharply on the news. The deal signing is the ENTRY TRIGGER, not the exit: the TMI plant has NOT been restarted \u2014 that is the substantive thesis event. CONCRETE pending catalysts remain: (1) NRC restart-license application and approval (filing expected near-term, ruling years out), (2) physical plant restart ~2028, (3) first power delivery under the PPA. The broader nuclear-for-AI-data-center theme is demonstrably early-stage \u2014 this is the first major corporate PPA to resuscitate a shuttered U.S. nuclear plant; follow-on deals from other hyperscalers are plausible but not yet announced. Coverage is heavy today but the arc is far from complete. CEG is the cleanest pure play: it owns and will operate TMI, captures the full power-price upside, and has no dilutive development-stage risk. Hold while the NRC process and restart timeline play out.",
+      "exit_advice": "Hold through NRC restart-license approval and physical TMI Unit 1 restart milestones; exit immediately if NRC denies the restart application, Microsoft cancels the PPA, or Constellation withdraws from the project.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/09/20/constellation-nuscale-nano-nuclear-stocks-popped/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2024-09-27": [
+    {
+      "ticker": "CEG",
+      "thesis": "Microsoft signs deal with Constellation to restart Three Mile Island plant",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Microsoft-Constellation PPA was signed Sep 20 \u2014 a named deal signed; the specific catalyst event has already occurred and is publicly priced.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "Applying the catalyst_resolved test honestly: the SPECIFIC catalyst entered on is 'Microsoft signs deal with Constellation to restart Three Mile Island plant.' That signing occurred on September 20, 2024 \u2014 the entry date itself. It is a named deal that was signed and is publicly priced. Per the framework, this meets the 'named deal signed/closed' resolution criterion, and the rules are explicit: thesis_live MUST be false. The entry note correctly identified a longer arc (NRC, restart, power delivery), but those are forward catalysts that would need to be entered as NEW events. No fresh news this week either way. CEG remains the cleanest pure-play vehicle for any future nuclear-restart re-entry; do not lose track of it.",
+      "exit_advice": "Close CEG. The fixed catalyst \u2014 the deal signing \u2014 has occurred and is priced. The forward arc (NRC restart-license, plant restart ~2028, first power delivery) is genuinely compelling but constitutes NEW, distinct catalysts. Re-enter with a fresh entry when one of those becomes a datable, concrete trigger: e.g., NRC formally accepts the restart license application, a follow-on hyperscaler nuclear PPA is announced, or the NRC issues its ruling.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-10-04": [],
+  "2024-10-11": [],
+  "2024-10-18": [
+    {
+      "ticker": "OKLO",
+      "thesis": "Amazon signs nuclear power deal naming Oklo as key partner",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Amazon-Oklo deal was publicly announced Oct 15-16 \u2014 already signed, public, and priced in before entry.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "First-week entry, but the catalyst had already fired. The Amazon deal announcement broke Oct 15-16 per Benzinga and IBD. Per the rules, once a 'named deal signed' catalyst is publicly announced and priced, catalyst_resolved=true, which forces thesis_live=false regardless of the broader nuclear theme or Oklo's multi-year execution story. The ~100% monthly surge and saturated sell-side/retail coverage confirm the smart-money window has closed. No concrete next step (a scheduled vote, a filed ruling, a signed follow-on agreement) is announced. Hold inertia has no basis here \u2014 this is a clean exit.",
+      "exit_advice": "EXIT immediately. The specific catalyst \u2014 Amazon signing a nuclear deal naming Oklo \u2014 occurred and was reported Oct 15-16, days before this entry date. OKLO has already surged ~100% this month. Coverage is fully mainstream (Benzinga, IBD 'Stock of the Day', MarketWatch ETF pieces). No concrete, scheduled follow-on catalyst exists: NRC licensing timelines for Oklo's reactor design are speculative with no announced ruling date, and no further named deal or vote is formally pending. The arc of this catalyst is complete.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/24/10/41358363/nuclear-stocks-soar-as-amazon-becomes-latest-tech-giant-to-invest-in-nuclear-power",
+        "https://www.investors.com/news/nuclear-stocks-sp-500-heat-up-sam-altman-startup-gains-100/",
+        "https://www.investors.com/research/ibd-stock-of-the-day/amzon-goes-nuclear-cameco-stock-explodes/"
+      ]
+    }
+  ],
+  "2024-10-25": [],
+  "2024-11-01": [],
+  "2024-11-08": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "GEO stock likely surged immediately on election night; the entire policy tailwind may already be priced in.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 / Entry week. Trump won the election on Nov 5 but has not been inaugurated; no executive order has been signed; no detention-capacity expansion has been contracted or appropriated. The CATALYST (the executive order itself) is still entirely PENDING \u2014 the election win is the enabling precondition, not the resolution. Concrete pipeline still ahead: inauguration Jan 20, expected Day-1 immigration executive orders, subsequent DHS/ICE contract awards to private detention operators. GEO Group is the largest private ICE detention contractor and the cleanest direct vehicle \u2014 revenue is mechanically tied to bed-nights under federal contract. Thesis is early-stage and live. The devil's advocate price-in risk is real (GEO almost certainly gapped up on election night) but a stock re-rating on an election result is not the same as the policy arc completing; the actual contract and capacity buildout is months of execution still ahead.",
+      "exit_advice": "Exit when the mass-deportation executive order is formally signed AND ICE detention-expansion contracts/appropriations are publicly announced \u2014 that is the specific catalyst resolving. Do not exit on pre-inauguration silence or on the stock having already run.",
+      "evidence_urls": [
+        "https://fortune.com (no direct URL provided in feed)"
+      ]
+    }
+  ],
+  "2024-11-15": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "GEO likely gapped sharply on election night, potentially front-running the entire policy arc before any order is signed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. No news this week touches GEO or ICE detention specifically \u2014 the feed is all general Trump-trade macro (BTC, Canadian banks, Tesla, Fed). That silence is not an exit signal. The driving condition is unchanged: the catalyst is still 100% pending. Inauguration is ~65 days away; Day-1 immigration orders are the widely-expected next concrete gate; subsequent DHS/ICE bed-night contract expansions are the revenue mechanism. GEO remains the cleanest pure-play \u2014 the largest private ICE detention contractor with revenue mechanically tied to federally-contracted detention capacity. Thesis is early-stage and live. The only live risk is that the election-night gap already discounted the full arc, but that is a stock-pricing question, not a thesis-resolution question.",
+      "exit_advice": "Hold. The exit case above is a 'priced-in' argument, not a catalyst-resolved argument \u2014 the EO has not been signed, Trump has not been inaugurated, and zero DHS/ICE contracts have been awarded. The concrete pipeline (inauguration Jan 20 \u2192 Day-1 immigration EOs \u2192 DHS/ICE contract solicitations \u2192 bed-night revenue ramp) is entirely ahead. Exit only when the first detention-expansion EO is actually signed and initial contract awards are public.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Trump's election win \u2014 the prerequisite enabling this pledge \u2014 has already occurred; BTC surged ~20%+ post-Nov 5, arguably front-running the reserve.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 1. The FIXED catalyst \u2014 creation of a US Strategic Bitcoin Reserve as enacted federal policy \u2014 is still squarely PENDING. Trump won Nov 5 but has not signed any executive order, and no legislation has been filed or passed. The election win is the enabling condition, not the catalyst itself. MSTR is the correct vehicle: it holds ~331k BTC on a leveraged corporate balance sheet and acts as a 2\u20133x amplified proxy for BTC policy tailwinds. Powell's rate-cut caution (Nov 15 news) is noise for this thesis. Coverage is currently in 'Trump trade / BTC boom' generalist framing \u2014 the specific Strategic Bitcoin Reserve policy arc has not yet generated its own dedicated mainstream cycle. Hold and watch for a concrete executive action date, a named nominee to lead any reserve program, or draft legislation \u2014 any of those would represent the next catalytic leg.",
+      "exit_advice": "Exit when a Strategic Bitcoin Reserve executive order is signed/enacted OR formally abandoned \u2014 not before. The policy action itself (accumulation program, legislation, EO) is the resolution event, not the election win.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/latest/With-Trump-market-mayhem-meets-Bitcoin-boom-48336664/"
+      ]
+    }
+  ],
+  "2024-11-22": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Hedge funds are broadly selling Trump-trade stocks, suggesting the ICE/detention re-rating may already be fully priced before any EO is signed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3 is another quiet week for GEO and ICE detention specifically. The only tangentially relevant signal is a Baystreet report that hedge funds are broadly unwinding Trump-trade positions \u2014 worth logging as a near-term price headwind, but it does not change the underlying thesis. The driving condition is fully intact: Trump has not been inaugurated, no executive order has been signed, and no new DHS/ICE bed-night contracts have been awarded or expanded. The pipeline is unchanged \u2014 inauguration Jan 20, expected Day-1 immigration EOs, subsequent DHS/ICE detention capacity contract awards. GEO remains the largest private ICE detention operator and the cleanest single pure-play vehicle, with revenue mechanically tied to federally-contracted bed-nights. Silence continues to be the right call to hold through; the arc has not even begun to execute.",
+      "exit_advice": "Hold. The specific catalyst \u2014 a signed executive order directing mass deportations and expanding ICE detention capacity \u2014 remains 100% pending. Inauguration is ~60 days away; Day-1 immigration orders are the next concrete, scheduled gate. Hedge-fund selling of the broad Trump-trade basket is a crowding/positioning risk, not a thesis-resolution event.",
+      "evidence_urls": [
+        "http://baystreet.ca/stockstowatch/19579/Hedge-Funds-Sell-Stocks-Associated-With-Trump-Trade"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No concrete policy action; but hedge funds already unwinding Trump-trade positions could signal thesis fatigue.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. Dead quiet on the specific Strategic Bitcoin Reserve arc \u2014 no executive order, no legislation filed, no named administration lead. This week's news is entirely off-thesis: cabinet controversy, healthcare selloff, renewable energy. The one semi-relevant item \u2014 hedge funds trimming Trump-trade exposures \u2014 reflects short-term profit-taking on momentum names but does not touch the underlying policy catalyst. MSTR remains the correct vehicle: leveraged BTC proxy, cleanest pure-play on a reserve policy that would mechanically absorb BTC supply. Coverage remains in generalist 'Trump/crypto' framing; no dedicated Strategic Reserve policy cycle has launched. Silence here is the expected state pre-inauguration. Hold through it.",
+      "exit_advice": "Hold. The Strategic Bitcoin Reserve has not been enacted, signed, or legislated. The hedge-fund Trump-trade unwind (Baystreet, Nov 20) is noise \u2014 it reflects short-term position trimming on broad Trump trades, not a reversal of the Bitcoin reserve pledge. No executive order, no named reserve czar, no draft bill. Catalyst is 100% still pending. Exit only on: EO signed/rejected, legislation passed/killed, or Trump explicitly abandons the pledge.",
+      "evidence_urls": [
+        "http://baystreet.ca/stockstowatch/19579/Hedge-Funds-Sell-Stocks-Associated-With-Trump-Trade"
+      ]
+    }
+  ],
+  "2024-11-29": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Election-night gap likely pre-priced the EO; market may have fully discounted the policy arc already.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4 is another completely quiet week for GEO and ICE detention specifically. This week's news feed is entirely irrelevant \u2014 construction materials, general Trump-sector macro, real estate stocks, Vietnam FDI. None of it touches the thesis. The driving condition is unchanged and intact: Trump has not been inaugurated (Jan 20, 2025), no mass-deportation EO has been signed, and no DHS/ICE detention-capacity contracts have been expanded. The concrete pipeline remains: inauguration \u2192 Day-1 immigration EOs \u2192 DHS/ICE bed-night contract awards to private operators. GEO remains the largest private ICE detention contractor and the cleanest single pure-play, with revenue mechanically tied to federally-contracted bed-nights. Four consecutive quiet weeks do not constitute an exit signal while the catalyst is 100% pending. Hold through silence.",
+      "exit_advice": "Hold. The exit case is a stock-pricing concern, not a thesis-resolution \u2014 the actual EO has not been signed, no DHS/ICE contract expansion has been awarded, and inauguration is still ~7 weeks out. The arc has not begun to execute. Exit when: (a) Day-1 immigration EO is signed AND (b) subsequent DHS/ICE bed-night contract awards to GEO are announced/contracted \u2014 that is when the specific catalyst has resolved and the revenue mechanism is locked in.",
+      "evidence_urls": [
+        "https://www.nbcnewyork.com/news/business/money-report/how-president-elect-donald-trump-may-impact-investors-in-these-8-market-sectors/6019678/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump post-election silence on Bitcoin Reserve may signal it was campaign rhetoric, never a real policy priority.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3 \u2014 third consecutive quiet week on the specific Strategic Bitcoin Reserve arc. This week's news is entirely off-thesis: construction materials, real estate, Vietnam FDI, generic Trump-sector coverage. Zero BTC or crypto Reserve policy mentions. The devil's advocate case is non-trivial: Trump has made no public mention of the Reserve since the election and has been filling cabinet slots focused elsewhere \u2014 a reasonable person could read that as deprioritization. However, the catalyst has NOT resolved: no EO signed, no legislation filed or voted down, no formal abandonment announced. We are still three weeks from inauguration. Pre-inauguration silence on a specific policy pledge is normal and expected; this is precisely when holding through silence is correct per the framework. MSTR remains the cleanest vehicle \u2014 leveraged BTC balance sheet, ~331k BTC held, mechanical amplifier of any reserve-policy supply shock. Coverage of this specific arc remains non-mainstream. Hold.",
+      "exit_advice": "Exit only when a concrete executive order is signed (catalyst fires, price in), formally shelved/abandoned by administration, or legislation passes/fails. Do NOT exit on pre-inauguration silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/10-best-construction-materials-stocks-to-buy-now-2-1398718/",
+        "https://www.nbcnewyork.com/news/business/money-report/how-president-elect-donald-trump-may-impact-investors-in-these-8-market-sectors/6019678/"
+      ]
+    }
+  ],
+  "2024-12-06": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "GEO gapped hard on election night; seven weeks of re-rating may have fully priced the eventual EO.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 5. Another news-silent week for GEO and ICE detention specifically. The thesis is unchanged and fully intact. The driving condition: Trump has not been inaugurated, no mass-deportation EO exists, no DHS/ICE detention-capacity contract has been expanded. The concrete pipeline remains exactly as logged since entry \u2014 inauguration \u2192 Day-1 immigration executive orders \u2192 DHS/ICE bed-night contract awards to private operators. GEO remains the largest private ICE detention contractor and the cleanest single pure-play vehicle, with revenue mechanically tied to federally-contracted bed-nights. The devil's advocate risk (election-night gap already discounted the full arc) is real and worth monitoring, but it is a valuation question, not a catalyst-resolution question. Silence for five weeks while the catalyst is 100% pending is the expected state; the arc has not begun to execute. Hold through silence.",
+      "exit_advice": "Hold. The exit_case is a stock-pricing concern, not a thesis resolution. The SPECIFIC catalyst \u2014 a signed mass-deportation executive order expanding ICE detention capacity \u2014 has not occurred. Inauguration (Jan 20, 2025) is a CONCRETE, SCHEDULED event still ~45 days ahead, and Day-1 immigration EOs plus subsequent DHS/ICE bed-night contract awards are the revenue mechanism that follows. None of those gates has opened. A fifth consecutive quiet week in the news feed is not an exit signal while the catalyst arc is entirely pre-inauguration. Exit only when: (a) the EO is signed AND contracts are awarded/announced, or (b) Trump publicly abandons mass-deportation policy and ICE detention expansion.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "BTC crossing $100K signals heavy mainstream pricing of crypto policy tailwinds; reserve premium may already be absorbed pre-announcement.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4 \u2014 fourth consecutive quiet week on the specific Strategic Bitcoin Reserve arc. This week's news is essentially off-thesis: the BTC $100K milestone (Fundstrat/Tom Lee commentary) reflects broad crypto momentum and Trump policy sentiment, but is NOT the catalyst \u2014 no EO has been signed, no legislation filed, no named administration lead announced. The devil's advocate case this week is the strongest yet: BTC above $100K means the market has aggressively front-run crypto-friendly policy, potentially absorbing much of the reserve premium before the formal announcement. However, the framework is clear \u2014 premium being 'priced in' does NOT constitute catalyst resolution. The specific, discrete event (a signed executive order or enacted legislation formally creating a US Strategic Bitcoin Reserve) is still PENDING. Inauguration is ~6 weeks out; early administration EOs on crypto remain the next concrete window. BTC at $100K actually strengthens the mechanical case for MSTR as the leveraged balance-sheet amplifier. Coverage of the specific reserve policy arc \u2014 as distinct from generic BTC momentum \u2014 remains non-mainstream. No exit trigger has been met. MSTR remains the cleanest vehicle.",
+      "exit_advice": "Hold through pre-inauguration silence. Exit ONLY on: (a) formal EO or legislation creating the reserve signed/defeated, or (b) confirmed administration abandonment of the policy pledge. Do NOT exit on BTC price action or mainstream BTC coverage alone.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/12/42360151/us-stocks-likely-to-open-in-red-as-investors-remain-cautious-ahead-of-key-payrolls-data-bitcoins-rally-above-100k-is-precursor-to-sp-500s-performance-for-res"
+      ]
+    }
+  ],
+  "2024-12-13": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks of Trump-trade repricing may have already fully discounted the policy arc before it executes.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 6. Another fully irrelevant news cycle \u2014 a Canadian equity-market selloff on commodity weakness and a generic geopolitical-risk portfolio pick. Neither article touches GEO, ICE detention, or immigration policy in any way. The thesis is unchanged and intact. The driving condition: Trump not yet inaugurated, no mass-deportation executive order signed, no DHS/ICE detention-capacity contracts expanded or awarded. The pipeline is exactly as logged since entry: inauguration Jan 20 \u2192 Day-1 immigration EOs \u2192 DHS/ICE bed-night contract awards to private operators. GEO remains the largest private ICE detention operator and the cleanest single pure-play vehicle, with revenue mechanically tied to federally-contracted bed-nights. Six quiet weeks while the catalyst is 100% pending is entirely expected; the arc has not yet begun. The only live risk remains the election-night valuation gap \u2014 a real monitoring item but not a thesis-resolution event. Hold through silence; the first concrete execution gate is now ~5 weeks away.",
+      "exit_advice": "Hold. The exit case is a valuation/pricing argument, not a catalyst-resolution argument. The specific catalyst \u2014 a signed mass-deportation executive order triggering ICE detention expansion and new DHS/ICE bed-night contract awards \u2014 has not occurred. Trump has not been inaugurated. The CONCRETE, SCHEDULED next gate is January 20, 2025 (inauguration, ~5 weeks away) with widely-expected Day-1 immigration executive orders. That is not speculation \u2014 it is a named, dated event. The arc has not begun to execute. Exit only when the EO is signed and contracts are awarded, or when the administration explicitly abandons detention expansion.",
+      "evidence_urls": [
+        "https://www.rttnews.com/3497055/tsx-ends-nearly-1-down-as-resources-stocks-fall.aspx",
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/Portfolio-manager-s-stock-pick-for-protection-from-geopolitical-risk-48564588/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "BTC above $100K and five quiet weeks post-election suggests reserve premium already front-run before any formal action.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 5 \u2014 fifth consecutive quiet week on the specific Strategic Bitcoin Reserve arc. This week's news is entirely off-thesis: TSX commodity selloff on tariff noise, and a Google quantum chip story that experts explicitly say poses no threat to Bitcoin (mild BTC-positive, but does not touch the reserve policy catalyst). The devil's advocate case is unchanged from last week: BTC above $100K means the market has aggressively front-run crypto-friendly policy sentiment, and five weeks of silence post-election could indicate deprioritization. But the framework is clear \u2014 'priced in' momentum and pre-inauguration silence are NOT exit triggers. The specific, discrete catalyst (a signed executive order or enacted legislation formally creating a US Strategic Bitcoin Reserve) is still PENDING. Inauguration is ~5 weeks out (Jan 20, 2025); early-administration executive actions on crypto remain the next concrete window. The specific Strategic Bitcoin Reserve policy arc \u2014 as distinguished from generic BTC/crypto momentum coverage \u2014 has still not generated its own dedicated mainstream policy cycle. No concrete next step has been announced yet, but none has been foreclosed either. MSTR remains the cleanest vehicle: ~331k BTC on a leveraged balance sheet, mechanical 2\u20133x amplifier of any supply-shock from a formal reserve program. Hold through the silence.",
+      "exit_advice": "Exit ONLY on a signed executive order, enacted legislation, or a formal public abandonment of the Strategic Bitcoin Reserve pledge \u2014 none of those has occurred.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/equities/24/12/42420845/googles-quantum-willow-chip-lightyears-from-cracking-bitcoin-expert",
+        "https://www.rttnews.com/3497055/tsx-ends-nearly-1-down-as-resources-stocks-fall.aspx"
+      ]
+    }
+  ],
+  "2024-12-20": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Election-night stock re-rating may have already discounted the full policy arc before any EO is signed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 7 \u2014 another fully silent news week. The thesis is unchanged and intact. Trump has not been inaugurated (Jan 20, 2025, ~4 weeks away); no mass-deportation executive order has been signed; no DHS/ICE bed-night contracts have been expanded or awarded. The concrete pipeline logged since entry remains exactly as-is: inauguration \u2192 Day-1 immigration EOs \u2192 DHS/ICE detention-capacity contract awards to private operators. The devil's advocate case (election-night gap = full arc already priced) is real and worth monitoring at every week, but it is a valuation/sizing question, not a catalyst-resolution question \u2014 the actual event has not happened. Seven consecutive quiet weeks while a scheduled concrete catalyst is ~4 weeks out is entirely expected; silence is not an exit signal. The inauguration and anticipated Day-1 orders now represent the nearest concrete, datable execution gate. GEO remains the largest private ICE detention contractor and the cleanest single pure-play, with revenue mechanically tied to federally-contracted bed-nights. Hold through silence.",
+      "exit_advice": "Hold until at least one of: (a) the Day-1 immigration EO is signed and DHS/ICE detention-capacity contract expansions are formally announced \u2014 at that point the catalyst has occurred and is priced; or (b) the incoming administration signals a reversal or deprioritization of mass-detention expansion.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks of post-election silence; BTC already above $100K suggests reserve premium fully front-run before any formal action.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 6 \u2014 sixth consecutive quiet week on the specific Strategic Bitcoin Reserve arc. This week's news is entirely off-thesis: Fed pivot repricing, ASX/Asian market selloffs, office real estate outlook. Zero crypto or reserve policy content. The devil's advocate case this week is the same as last week's: BTC well above $100K means considerable crypto-friendly policy sentiment is already embedded in prices, and six weeks of silence post-election is the longest stretch yet without a concrete signal. But the framework is unambiguous \u2014 'priced in' and 'pre-inauguration silence' are not exit triggers. The specific, discrete catalyst (a signed EO or enacted legislation formally establishing a US Strategic Bitcoin Reserve as named federal policy) is still SQUARELY PENDING. Inauguration is now roughly four weeks out (Jan 20, 2025). The earliest concrete window for executive action on crypto \u2014 including any reserve directive \u2014 opens on Day 1 of the new administration. That is a SCHEDULED, KNOWN near-term window, not speculation. The specific reserve policy arc has still not generated its own dedicated mainstream policy cycle separate from generic BTC/crypto momentum. No formal announcement, no named administration lead, no legislation filed. MSTR remains the cleanest vehicle: ~331k BTC on a leveraged corporate balance sheet, mechanical 2\u20133x amplifier of any supply-shock from a formal reserve program. Hold through the silence into the inauguration window.",
+      "exit_advice": "Exit only on a signed executive order or enacted legislation \u2014 or a formal, named abandonment of the reserve pledge. Do NOT exit on 'priced in' BTC momentum or pre-inauguration silence.",
+      "evidence_urls": [
+        "https://www.perthnow.com.au/business/asx-falls-continue-as-investors-factor-in-the-federal-reserves-pivot-c-17151228",
+        "https://finance.yahoo.com/news/office-rebound-expected-2025-while-163505161.html",
+        "http://www.econotimes.com/Wall-Street-Rallies-Despite-Shutdown-Threat-and-Fewer-Rate-Cuts-in-2025-1697446",
+        "https://markets.businessinsider.com/news/stocks/asian-shares-mixed-as-investors-await-fed-decision-1034149430"
+      ]
+    }
+  ],
+  "2024-12-27": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Election-night GEO gap may have already priced the full policy arc before any EO is signed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 8 \u2014 another fully silent news cycle; none of this week's articles touch GEO, ICE detention, or immigration policy. The one tangentially relevant item (Netanyahu confirmed attending the Jan 20 inauguration) simply reinforces that the concrete execution timeline is on track and ~3 weeks out. The thesis is unchanged and intact: Trump has not been inaugurated, no mass-deportation executive order has been signed, and no DHS/ICE bed-night contracts have been expanded or awarded. The concrete, datable pipeline logged since entry remains exactly as-is \u2014 inauguration Jan 20 \u2192 anticipated Day-1 immigration EOs \u2192 subsequent DHS/ICE detention-capacity contract awards to private operators. GEO remains the largest private ICE detention contractor and the cleanest single pure-play vehicle, with revenue mechanically tied to federally-contracted bed-nights. The valuation-gap risk (election-night re-rating may have discounted the full arc) is the only live monitoring item, but it is a sizing/valuation question, not a catalyst-resolution question. Eight quiet weeks while a concrete, scheduled catalyst is now ~3 weeks away is entirely expected. Hold through silence.",
+      "exit_advice": "Hold through inauguration and Day-1 EO signing; exit once initial DHS/ICE bed-night contract expansions are formally announced \u2014 that is when the revenue mechanism is confirmed and the informational edge is spent.",
+      "evidence_urls": [
+        "https://www.ynetnews.com/article/hk11bpaysye"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Seven consecutive silent weeks post-election; BTC above $100K has heavily front-run any reserve announcement, eroding incremental surprise.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 7 \u2014 seventh consecutive quiet week on the specific Strategic Bitcoin Reserve arc. This week's news is entirely off-thesis: Christmas messages from Biden and Trump, a Newsmax foreign-policy segment, Canadian supply chain commentary, Netanyahu RSVP-ing to the inauguration. Zero BTC or crypto reserve policy content. The devil's advocate case is now at its longest-running: seven weeks of post-election silence, BTC well above $100K, and no named administration lead or draft legislation. But the framework holds \u2014 'priced in' sentiment and pre-inauguration silence are not exit triggers, and the specific catalyst (a signed EO or enacted legislation formally establishing a US Strategic Bitcoin Reserve as named federal policy) is still SQUARELY PENDING. Crucially, the inauguration on January 20, 2025 \u2014 now roughly three weeks out \u2014 is a CONCRETE, SCHEDULED near-term event, not speculation. Trump's crypto-executive-action sprint in the first days of the administration is one of the most explicitly telegraphed Day 1 agendas of any incoming president; the specific reserve policy arc has still not generated its own dedicated mainstream policy cycle separate from generic BTC/crypto momentum coverage. The arc is incomplete, no concrete step has been foreclosed, and a scheduled near-term window exists. MSTR remains the cleanest vehicle: ~331k BTC on a leveraged corporate balance sheet, a mechanical 2\u20133x amplifier of any supply-shock from a formal reserve directive. Hold into the inauguration window.",
+      "exit_advice": "Hold into the January 20 inauguration window \u2014 the first concrete, scheduled opportunity for Day 1 executive action on crypto/reserve policy. Exit ONLY on: (a) a signed EO or enacted legislation formally creating the reserve, (b) a formal public abandonment of the pledge, or (c) post-inauguration silence extending past the early-administration EO sprint with no reserve action filed.",
+      "evidence_urls": [
+        "https://ynetnews.com/article/hk11bpaysye"
+      ]
+    }
+  ],
+  "2025-01-03": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "GEO likely fully re-rated on election night; the Day-1 EO signing itself could be a 'sell the news' event.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 9 \u2014 a ninth consecutive silent news cycle, fully consistent with the prior eight weeks. The thesis is unchanged and intact. Trump has not been inaugurated (Jan 20, now roughly 2.5 weeks away); no mass-deportation executive order has been signed; no DHS/ICE detention-capacity contracts have been expanded or awarded. The concrete, datable pipeline logged since entry is exactly as-is: inauguration \u2192 Day-1 immigration EOs \u2192 DHS/ICE bed-night contract awards to private operators. GEO remains the largest private ICE detention contractor and the cleanest single pure-play, with revenue mechanically tied to federally-contracted bed-nights. The devil's advocate case \u2014 that the election-night gap already discounted the full execution arc \u2014 is the only live monitoring item, but it is a valuation/sizing question, not a catalyst-resolution question. The SPECIFIC catalyst (the EO + ICE detention-capacity expansion contracting) has not yet occurred. Nine quiet weeks while a scheduled, concrete execution gate is 2.5 weeks out is the expected state. Hold through silence.",
+      "exit_advice": "Hold into inauguration Jan 20 and the anticipated Day-1 EOs. Exit trigger: (a) EO signed AND DHS/ICE contract-expansion awards are public \u2014 catalyst fully resolved, edge gone; OR (b) EO signed but explicitly excludes private-operator bed expansion \u2014 driving condition reversed. Do NOT exit on the EO signature alone if contract-award mechanics are still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight weeks of post-election silence; BTC above $100K may have fully priced in crypto-friendly policy before any formal reserve action.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 8 \u2014 eighth consecutive quiet week on the specific Strategic Bitcoin Reserve arc, and again no fresh coverage. The devil's advocate case is its most seasoned version yet: eight weeks of post-election silence, BTC well above $100K with considerable crypto-friendly policy sentiment already embedded in prices. That said, this remains a 'priced-in / pre-inauguration silence' argument \u2014 exactly the category the framework explicitly prohibits as an exit trigger. The specific, discrete catalyst (a signed EO or enacted legislation formally establishing a US Strategic Bitcoin Reserve as named federal policy) is still SQUARELY PENDING. Crucially, the inauguration on January 20, 2025 \u2014 now roughly 2.5 weeks away \u2014 is a CONCRETE, SCHEDULED near-term event, not speculation. Trump's crypto executive-action sprint in the opening days of his administration remains one of the most explicitly telegraphed Day-1 agendas in recent memory; multiple reports from prior weeks noted crypto EOs were being drafted for Day 1. The specific reserve policy arc has still not generated its own dedicated mainstream policy cycle separate from generic BTC/crypto momentum coverage. No formal announcement has been made, no administration lead named, no legislation filed \u2014 but none of it has been foreclosed either. A CONCRETE window (inauguration) still lies directly ahead. MSTR remains the cleanest vehicle: ~331k BTC on a leveraged corporate balance sheet, a mechanical 2\u20133x amplifier of any supply-shock from a formal reserve directive. Hold through the silence into the inauguration window.",
+      "exit_advice": "Hold into the inauguration window (Jan 20). Exit ONLY if a signed EO or enacted legislation formally establishing the Strategic Bitcoin Reserve is issued (catalyst resolved) OR if Trump's Day-1 executive action sprint explicitly excludes / forecloses the reserve program (driving condition reversed). Do NOT exit on silence, 'priced-in' sentiment, or continued BTC price strength alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-10": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "GEO almost certainly re-rated fully on election night; the policy arc may be entirely priced before the first contract is signed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 10 \u2014 tenth consecutive silent news cycle, fully consistent with the prior nine weeks. The thesis is unchanged and intact. Trump has not been inaugurated (Jan 20, now ~10 days away); no mass-deportation executive order has been signed; no DHS/ICE bed-night contracts have been expanded or awarded. The concrete, datable pipeline logged since entry is exactly as-is and now imminent: inauguration \u2192 Day-1 immigration EOs \u2192 DHS/ICE detention-capacity contract awards to private operators. The devil's advocate case \u2014 that the election-night re-rating fully discounted the policy arc \u2014 remains the only live monitoring item, but it is a valuation/sizing question, not a catalyst-resolution question; the SPECIFIC catalyst (EO + ICE detention-capacity contracting) has not yet occurred. With the first concrete execution gate now ~10 days out, silence continues to be the expected pre-execution state. GEO remains the largest private ICE detention contractor and the cleanest single pure-play, with revenue mechanically tied to federally-contracted bed-nights. Hold through silence into the inauguration window.",
+      "exit_advice": "Hold through inauguration Jan 20; the immediate execution gates are the Day-1 EO signing and subsequent DHS/ICE detention-capacity contract announcements \u2014 those are the concrete events to watch for resolving or confirming the thesis. Exit on contract award OR if the EO explicitly excludes private-detention expansion.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Nine weeks of post-election silence plus BTC >$100K suggests any reserve premium is already fully absorbed.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 9 \u2014 ninth consecutive quiet week on the specific Strategic Bitcoin Reserve arc, and again no fresh coverage. The devil's advocate case is now its longest-running version: nine weeks of post-election silence, BTC comfortably above $100K, and no named administration lead or publicly circulated draft legislation. That said, this is still precisely the 'priced-in / pre-inauguration silence' argument the framework explicitly prohibits as an exit trigger \u2014 it is a hold-inertia trap, not a resolution signal. The specific, discrete catalyst (a signed EO or enacted legislation formally establishing a US Strategic Bitcoin Reserve as named federal policy) is still SQUARELY PENDING. Crucially, the inauguration on January 20, 2025 \u2014 now roughly ten days away \u2014 is a CONCRETE, SCHEDULED near-term event, not speculation. Trump's crypto executive-action sprint in the opening days of the administration remains one of the most explicitly telegraphed Day-1 agendas of any incoming president; prior reporting confirmed crypto EOs were being drafted for the immediate post-inauguration period. The specific Strategic Bitcoin Reserve arc has still not generated its own dedicated mainstream policy cycle separate from generic BTC/crypto momentum \u2014 that distinction matters for early-edge purposes. No formal announcement has been made, no administration lead named, no legislation filed, and nothing has been publicly foreclosed. A CONCRETE window (inauguration + Day-1 EO sprint) lies directly ahead. MSTR remains the cleanest vehicle: ~331k BTC on a leveraged corporate balance sheet, a mechanical 2\u20133x amplifier of any supply-shock from a formal reserve directive. Hold through the silence \u2014 the next ten days are the entire thesis.",
+      "exit_advice": "Exit immediately if Trump's Day-1 / early-administration crypto EO slate is published and does NOT include a Strategic Bitcoin Reserve directive \u2014 that would be formal, public deprioritization of the specific catalyst. Also exit if an EO is signed that is materially weaker than a true reserve (e.g., a toothless 'study committee' with no acquisition mandate).",
+      "evidence_urls": []
+    }
+  ],
+  "2025-01-17": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten-plus weeks of pricing-in since election night; inauguration Day-1 EOs so widely expected the move may already be fully discounted.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 11 \u2014 another irrelevant news cycle (generic Trump-market-impact pieces from Kiplinger and Motley Fool; zero GEO or ICE detention content). Thesis is unchanged and intact. The SPECIFIC catalyst \u2014 a mass-deportation executive order expanding ICE detention, followed by DHS/ICE bed-night contract awards to private operators \u2014 has still NOT occurred. Trump is inaugurated in three days (Jan 20); Day-1 immigration EOs are the nearest concrete, scheduled execution gate, now literally days out. The devil's advocate case remains the same as every prior week: the election-night re-rating may have discounted the full policy arc, making this a valuation/sizing risk rather than a catalyst-resolution question. That is a real monitoring item but not an exit trigger while the EO is still unsigned. The arc is not complete: the EO signing and the contract-award follow-on are both still AHEAD. GEO remains the largest private ICE detention contractor and the cleanest single pure-play, with revenue mechanically tied to federally-contracted bed-nights. The two mainstream articles this week are generic sector noise \u2014 no sign of GEO-specific crowding. Hold into the inauguration window.",
+      "exit_advice": "Hold into inauguration Jan 20. Exit ONLY after the mass-deportation EO is actually signed AND subsequent DHS/ICE bed-night contract expansions to private operators are announced \u2014 that is full catalyst resolution. If the EO signs but no material detention-capacity contracting follows within 4-6 weeks, re-evaluate then.",
+      "evidence_urls": [
+        "https://www.kiplinger.com/investing/trump-presidency-stock-market-impact",
+        "https://www.fool.com/investing/2025/01/13/which-vanguard-etf-is-most-likely-to-soar-during-t/"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten consecutive quiet weeks; inauguration is 3 days away \u2014 if no Day-1 reserve EO materialises, the specific pledge may never formalise as policy.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 10 \u2014 the most pivotal week of the entire thesis arc. Inauguration is January 20, 2025, three days after this note is written. The specific catalyst \u2014 a signed executive order or enacted legislation formally establishing a US Strategic Bitcoin Reserve as named federal policy \u2014 is still SQUARELY PENDING. The concrete, scheduled event this thesis has been holding into is now imminent, not speculative. This week's news is entirely off-thesis: a generic Kiplinger piece on Trump's market impact, BlackRock doubling down on its spot Bitcoin ETF (mainstream crypto positive but not the reserve arc), and a Motley Fool Vanguard ETF speculation piece. None of these touch the specific reserve policy arc. The devil's advocate case is its strongest yet in one narrow sense \u2014 ten weeks of silence means the specific reserve pledge could be deprioritised relative to other Day-1 crypto EOs \u2014 but this is still precisely the 'silence before the scheduled event' scenario the framework requires holding through. The arc is NOT complete: the specific catalyst has not fired, been abandoned, or been formally foreclosed. What IS true is that the next 72 hours are binary for this thesis. MSTR (~331k BTC on a leveraged corporate balance sheet) remains the cleanest mechanical amplifier of any formal reserve supply-shock. The coverage of the specific Strategic Bitcoin Reserve arc \u2014 as distinct from generic BTC/crypto momentum \u2014 has still not generated its own saturated mainstream policy cycle. Hold into the inauguration window; be prepared to exit rapidly if the Day-1 sprint passes without a reserve directive.",
+      "exit_advice": "Exit immediately upon inauguration if no Strategic Bitcoin Reserve EO or draft legislation surfaces in Trump's Day-1/early-days executive-action sprint. Do NOT hold indefinitely on general crypto-friendly sentiment if the specific reserve directive is absent.",
+      "evidence_urls": [
+        "https://www.investmentexecutive.com/news/products/product-roundup-blackrock-doubles-down-on-its-successful-spot-bitcoin-etf/",
+        "https://www.kiplinger.com/investing/trump-presidency-stock-market-impact",
+        "https://www.fool.com/investing/2025/01/13/which-vanguard-etf-is-most-likely-to-soar-during-t/"
+      ]
+    }
+  ],
+  "2025-01-24": [
+    {
+      "ticker": "GEO",
+      "thesis": "Trump mass-deportation executive order expands ICE detention",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump inaugurated Jan 20 and signed a 'barrage of orders' including mass-deportation/ICE detention expansion EOs; named catalyst has now occurred.",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The catalyst has resolved on schedule, exactly as the journal arc anticipated across 11 weeks of silence. Trump was inaugurated January 20 and immediately signed a 'barrage of orders' that included directives expanding ICE detention capacity and authorizing mass-deportation operations. That is the precise, discrete event entered on in November \u2014 the signing of the executive order. The EO is now public, priced, and behind us. The downstream execution arc (DHS/ICE contracting, bed-night awards to GEO) is real but represents a new follow-on catalyst, not the original one. Per the rule: catalyst_resolved=true forces thesis_live=false. The early-edge window from entering pre-EO, pre-inauguration has closed. This was a clean, high-quality catalyst that ran its full course.",
+      "exit_advice": "Exit GEO. The specific catalyst \u2014 Trump mass-deportation executive order expanding ICE detention \u2014 was signed on January 20, 2025 (inauguration Day 1). The discrete, named event has occurred and is fully public. The early pre-EO edge entered on November 8 is spent. Any further thesis around DHS/ICE bed-night contract awards is a new, downstream catalyst arc \u2014 not the one entered on \u2014 and would require a fresh entry decision on its own merits.",
+      "evidence_urls": [
+        "https://windsorstar.com/news/tesla-slides-space-stocks-soar-after-trumps-barrage-of-orders",
+        "https://markets.businessinsider.com/news/stocks/donald-trump-stock-market-ai-ev-stocks-bitcoin-peso-dollar-2025-1"
+      ]
+    },
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump's inauguration crypto EO directed a working-group study of a reserve\u2014not formal enactment; the most-hyped Day-1 window closed without the specific pledge being fulfilled.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 11 \u2014 the inauguration window has passed and the specific catalyst has entered a formal process phase. Trump's Jan 23 crypto EO ('Strengthening American Leadership in Digital Financial Technology') is the most significant development in this arc: it (1) banned CBDCs, (2) established a Presidential Working Group on Digital Asset Markets chaired by the White House Crypto/AI Czar, and (3) explicitly directed the working group to evaluate creating a 'National Digital Asset Stockpile,' with Bitcoin as the primary asset under consideration. That is real, concrete forward motion \u2014 not speculation \u2014 but it is emphatically NOT the formal enactment of a US Strategic Bitcoin Reserve as named federal policy. The devil's advocate case this week is the sharpest in the journal: the most-anticipated Day-1 crypto window in recent presidential history closed without the reserve being formally established; the timeline has extended to roughly 180 days (working group report due ~June\u2013July 2025); and markets appear to have sold the EO news (Yahoo notes 'Bitcoin bounces back,' implying a prior dip on the news). The 'Trump backs off key promise' headline causing a global rally refers to tariff rollback, not the Bitcoin reserve \u2014 off-thesis. Against the exit: the catalyst has NOT resolved (no formal reserve enacted), the driving condition has NOT reversed (Trump is explicitly continuing toward the reserve through a formal White House process), and the arc is NOT complete (a concrete, scheduled next step \u2014 the working group report and subsequent reserve decision \u2014 is ahead with a known timeline). The specific 'Strategic Bitcoin Reserve as named federal policy' arc is more mainstream post-inauguration but has not reached full sell-side saturation on a completed arc; the outcome remains genuinely open. Conviction lowered to 6 on three counts: (a) immediate Day-1 window passed without full catalyst, (b) thesis horizon now extends to mid-2025, (c) coverage is noticeably more mainstream. MSTR remains the cleanest vehicle \u2014 ~400k+ BTC on a leveraged corporate balance sheet, a mechanical amplifier of any formal supply-shock from a reserve program. Hold through the working group process.",
+      "exit_advice": "Exit if the working group formally recommends against a Bitcoin Reserve, or if Trump publicly abandons the pledge; hold through the 180-day process toward a formal reserve decision.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nvidia-hearts-trump-bitcoin-bounces-100000231.html",
+        "https://markets.businessinsider.com/news/stocks/donald-trump-stock-market-ai-ev-stocks-bitcoin-peso-dollar-2025-1",
+        "https://www.yahoo.com/news/trump-unleashes-surprise-global-rally-215040705.html"
+      ]
+    }
+  ],
+  "2025-01-31": [
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Jan 23 EO's peak crypto-policy window closed without reserve enactment; only a working group evaluation remains, not a formal reserve.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 12 \u2014 second consecutive quiet week post-inauguration EO. This week's news is entirely off-thesis: a space stocks piece and the tariff-rollback global rally story (the 'key promise' Trump backed off is tariffs, not the Bitcoin reserve \u2014 confirmed off-thesis). Neither item touches the Strategic Bitcoin Reserve arc. The devil's advocate case remains the sharpest in the journal: the single most-telegraphed presidential crypto-policy window in modern history closed, and the outcome was a working group directed to *evaluate* a stockpile \u2014 meaningful forward motion but emphatically not the formal 'US Strategic Bitcoin Reserve as named federal policy' that is this thesis's fixed catalyst. The timeline has extended roughly 180 days. Against exit: the catalyst has NOT resolved (no formal reserve enacted or legislatively killed), the driving condition has NOT reversed (the White House working group holds an explicit Bitcoin stockpile mandate under a named Crypto/AI Czar), and a concrete next milestone \u2014 the working group's formal report \u2014 lies ahead on a known timeline. That is a real, scheduled anchor, not speculation. Coverage is more mainstream post-EO but has not reached full sell-side saturation on a *closed* arc; the outcome remains genuinely open. MSTR (~400k+ BTC on a leveraged corporate balance sheet) is still the cleanest mechanical amplifier of any formal reserve supply-shock. Hold through the working group process.",
+      "exit_advice": "Exit if working group explicitly recommends against a Bitcoin reserve, if Trump formally abandons the policy, or if legislation is voted down; hold through the working group report publication (~June\u2013July 2025).",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/trump-spurs-surprise-world-rally-215040452.html"
+      ]
+    }
+  ],
+  "2025-02-07": [
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Day-1 inauguration window closed; outcome was a working group to *evaluate* a stockpile, not a formal reserve \u2014 the original pledge may never materialise as entered.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 13 \u2014 third consecutive quiet week post-inauguration EO, and again no fresh coverage on the specific Strategic Bitcoin Reserve arc. The devil's advocate case is unchanged and remains the sharpest in the journal: the single most-telegraphed presidential crypto-policy window in modern history closed Jan 23, and what emerged was a Presidential Working Group directed to *evaluate* a National Digital Asset Stockpile \u2014 real forward motion but emphatically not the formal enactment of a US Strategic Bitcoin Reserve as named federal policy. Against exit: the catalyst has NOT resolved (no formal reserve enacted or legislatively killed); the driving condition has NOT reversed (the White House working group holds an explicit Bitcoin stockpile mandate under a named Crypto/AI Czar with a ~180-day report timeline); and a concrete, known next milestone \u2014 the working group's formal report (~June\u2013July 2025) \u2014 lies ahead. That is a real, scheduled anchor, not speculation. Per the framework, silence while a CONCRETE next step remains on calendar is hold territory. Coverage is noticeably more mainstream than entry but has not reached full sell-side saturation on a *closed* arc \u2014 the outcome remains genuinely open. MSTR (~400k+ BTC on a leveraged corporate balance sheet) is still the cleanest mechanical amplifier of any formal reserve supply-shock. Conviction stays at 6: Day-1 window passed without full catalyst, horizon extended to mid-2025, and generalist crypto coverage is elevated. Hold through the working group process into the report window.",
+      "exit_advice": "Exit if working group is disbanded, mandate quietly dropped, or a formal report recommends against a BTC reserve. Also exit on full mainstream saturation once the report lands and arc closes. Do NOT exit on continued silence alone.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-14": [
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Jan 23 EO channelled the pledge into a working group to 'evaluate' a stockpile \u2014 the formal reserve itself may never be enacted as named federal policy, making the pledge effectively processed and outcome-uncertain rather than pending.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 14 \u2014 fourth consecutive quiet week post-inauguration EO, and again no fresh coverage on the specific Strategic Bitcoin Reserve arc. The exit case is unchanged and remains the sharpest in the journal: the single most-telegraphed presidential crypto-policy window in modern history closed Jan 23, and what emerged was a Presidential Working Group directed to *evaluate* a National Digital Asset Stockpile rather than a formal declaration of a US Strategic Bitcoin Reserve as named federal policy. Against exit: the catalyst has NOT resolved (no formal reserve enacted, no legislation killed, no public abandonment), the driving condition has NOT reversed (the White House working group retains an explicit Bitcoin stockpile mandate under a named Crypto/AI Czar), and a concrete, known scheduled next milestone \u2014 the working group's formal report (~June\u2013July 2025) \u2014 lies ahead on a stated timeline. That is a real anchor, not speculation. Per the framework, silence while a CONCRETE next step remains on calendar is hold territory; a quiet stretch is not an exit. Coverage is noticeably more mainstream than at entry but has not reached full sell-side saturation on a *closed* arc \u2014 the outcome is genuinely open. MSTR (~400k+ BTC on a leveraged corporate balance sheet) remains the cleanest mechanical amplifier of any formal reserve supply-shock. Conviction stays at 6: Day-1 window passed without full catalyst, horizon extended to mid-2025, and generalist crypto coverage is elevated. Hold through the working group process into the report window.",
+      "exit_advice": "Exit if the working group report (~June\u2013July 2025) arrives without a formal reserve recommendation, if Trump publicly abandons the Bitcoin reserve pledge, or if Congress explicitly kills enabling legislation \u2014 whichever comes first.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-21": [
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Jan 23 EO closed the primary window; working group may never produce a formal reserve enactment.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 15 \u2014 fifth consecutive quiet week post-inauguration EO, and again zero fresh coverage on the specific Strategic Bitcoin Reserve arc. This week's news is entirely off-thesis: global equities mixed on geopolitical/Trump uncertainty, oil weakness, and a Nigerian market momentum piece. None of it touches the reserve policy arc. The exit case is unchanged and remains the sharpest in the journal: the single most-telegraphed presidential crypto-policy window in modern history closed Jan 23, and what emerged was a Presidential Working Group directed to *evaluate* a National Digital Asset Stockpile \u2014 meaningful forward motion, but emphatically not the formal enactment of a US Strategic Bitcoin Reserve as named federal policy that constitutes this thesis's fixed catalyst. Against exit: the catalyst has NOT resolved (no formal reserve enacted, no legislation killed, no public abandonment of the concept), the driving condition has NOT reversed (the White House working group retains an explicit Bitcoin stockpile mandate under a named Crypto/AI Czar), and a concrete, scheduled next milestone \u2014 the working group's formal report (~June\u2013July 2025) \u2014 remains on the calendar on a stated timeline. That is a real anchor, not speculation. Per the framework, silence while a CONCRETE next step is on calendar is hold territory; a quiet stretch is not an exit. Coverage is noticeably more mainstream than at entry but has not reached full sell-side saturation on a *closed* arc \u2014 the outcome is genuinely open. MSTR (~400k+ BTC on a leveraged corporate balance sheet) remains the cleanest mechanical amplifier of any formal reserve supply-shock. Conviction stays at 6: Day-1 window passed without full catalyst, horizon extended to mid-2025, and generalist crypto coverage is elevated. Hold through the working group process into the report window.",
+      "exit_advice": "Exit if the Presidential Working Group report (~June\u2013July 2025) explicitly recommends against a Bitcoin reserve, or if no formal reserve EO/legislation follows within a reasonable window after the report lands. Also exit on any public White House statement formally abandoning the reserve concept.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    }
+  ],
+  "2025-02-28": [
+    {
+      "ticker": "MSTR",
+      "thesis": "Trump pledges US Strategic Bitcoin Reserve as named federal policy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Bitcoin's biggest weekly crash since FTX 2022, with press explicitly citing Trump 'crypto policy uncertainty' as a driver.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 16 \u2014 sixth consecutive quiet week post-inauguration EO, and this week the noise is loud but off-thesis. Bitcoin's biggest weekly fall since the FTX collapse (5%+ to a 3.5-month low) dominates headlines. Press attributes the drop to two drivers: (1) Trump tariff uncertainty spilling into risk assets broadly, and (2) a $1.5 billion hack at a rival crypto exchange (Bybit) \u2014 neither of which represents a reversal of the Strategic Bitcoin Reserve policy arc. The 'crypto policy uncertainty' cited is macro-level sentiment, not a formal abandonment, rescission, or working group dissolution. The devil's advocate case is its most market-visible version yet: a crash of this magnitude signals that whatever reserve premium was embedded in BTC prices may be actively unwinding, and 'uncertainty about Trump's crypto policy' could include declining probability of the reserve itself. But the framework is clear \u2014 price-action-based probability repricing is not an exit trigger; a policy reversal is. The driving condition has NOT reversed: the Presidential Working Group on Digital Asset Markets retains its explicit mandate to evaluate a National Digital Asset Stockpile, the Crypto/AI Czar is still in post, and the ~June\u2013July 2025 report remains a concrete, scheduled anchor. No public abandonment, no legislation killed, no working group disbanded. Per the framework, silence (and even a price crash) while a CONCRETE next step remains on calendar is hold territory. The arc is not complete. MSTR (~400k+ BTC on a leveraged corporate balance sheet) remains the cleanest mechanical amplifier of any formal reserve supply-shock, though its leveraged structure means the price damage this week is severe. Conviction stays at 6: Day-1 window passed without full catalyst, horizon extends to mid-2025, generalist coverage elevated, and now a significant BTC drawdown. Hold through the working group process into the report window.",
+      "exit_advice": "Hold. The crash is attributed to tariff uncertainty and a $1.5B exchange hack (Bybit), not a policy reversal. 'Crypto policy uncertainty' in the press framing refers to macro/tariff overhang, not a formal abandonment of the reserve arc. The White House working group retains its explicit Bitcoin stockpile mandate; the ~June\u2013July 2025 report remains a concrete, scheduled milestone on the calendar. A violent price move is not a catalyst resolution. Exit only if the working group is disbanded, the EO mandate is publicly rescinded, or the report issues with a formal 'no reserve' finding.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/bitcoin-slides-more-5-lowest-025610392.html",
+        "https://www.rte.ie/news/business/2025/0228/1499416-bitcoin/",
+        "https://zerohedge.com/markets/sp-futures-rebound-thursday-rout-which-wiped-out-all-2025-gains-bitcoin-crash-continues"
+      ]
+    }
+  ]
+}
