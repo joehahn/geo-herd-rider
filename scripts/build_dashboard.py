@@ -712,14 +712,14 @@ STORYLINE = {
         "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
     ),
     "GDX": (
-        "<b>VanEck Gold Miners (GDX)</b> rose on the <b>gold bull market</b> — central-bank buying, "
-        "debasement fears, safe-haven demand. <b>It has NOT been fairly tested.</b> GDX was seeded "
-        "(a Mar-2024 'gold miners break out (GDX)' article), but the scan ran over <b>2025-06 -> "
-        "2026-06 — ~15 months AFTER that catalyst</b> (GDX had no window pinned, so it defaulted to a "
-        "recent window). So the seed <i>never injected</i>, the 2024 catalyst was never in view, and "
-        "the book was produced by the weak llama4 curator. caught=false here means <i>untested</i>, not "
-        "non-fit. gold's drivers are likely too diffuse (no discrete catalyst to resolve) — but that "
-        "needs a proper re-scan: the pinned 2024 window + the seed + a strong curator."
+        "<b>VanEck Gold Miners (GDX)</b> ran ~3.3x from Jan-2025 ($35) to a ~$117 peak (early 2026). "
+        "<b>The driver was NOT diffuse macro — it was Trump's tariff trade war</b>: discrete, datable "
+        "safe-haven shocks (Feb-2025 tariff records, the Apr-2025 'Liberation Day' war, the Oct-2025 "
+        "145% China tariffs -> gold past $4,000). That's the <b>same catalyst family as MP</b> (trade "
+        "war), squarely in our sweet spot, with a peak-then-pullback that gives an exit. "
+        "<b>caught=false is a SETUP bug, not a verdict:</b> the old scan ran 2025-06 -> 2026-06 and used "
+        "a mis-dated 2024-03 seed, so the seed never injected and the entry was never in view. A proper "
+        "re-scan (window 2024-12 -> 2026-07 + a tariff seed + a strong curator) is owed before judging it."
     ),
 }
 

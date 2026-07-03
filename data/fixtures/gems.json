@@ -139,14 +139,14 @@
       "id": "gdx",
       "ticker": "GDX",
       "name": "VanEck Gold Miners ETF",
-      "catalyst": "gold safe-haven / central-bank buying / debasement",
-      "trigger_date": "2024-03-01",
+      "catalyst": "Trump tariff trade war -> gold safe-haven surge",
+      "trigger_date": "2025-02-10",
       "size_tier": "medium",
-      "shape": "precious-metals macro (slow)",
+      "shape": "trade-war/policy safe-haven (discrete tariff catalysts, not diffuse macro)",
       "peak_multiple": 3.5,
-      "vehicle_note": "fills the commodity-macro vertical; medium-tier band the power-law thesis wants",
-      "window_start": "2024-01-01",
-      "window_end": "2025-06-01"
+      "vehicle_note": "GDX = gold-miners ETF, the leveraged play on the gold price. RE-CATALYST: the 2025-26 run is TARIFF-driven (Trump trade war -> safe-haven gold), $35 (Jan-2025) -> ~$117 peak (early 2026) -> pullback = entry+ride+exit test. Same family as MP. Prior 2024-03 framing + scan window (2025-06..2026-06) were wrong -> needs a re-scan over 2024-12..2026-07 with a tariff seed.",
+      "window_start": "2024-12-01",
+      "window_end": "2026-07-01"
     },
     {
       "id": "ura",
