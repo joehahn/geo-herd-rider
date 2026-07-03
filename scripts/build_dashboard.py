@@ -128,11 +128,42 @@ def _gem_seeds(ticker: str) -> list:
     return sorted(out, key=lambda s: s["date"])
 
 
-def build_gem(ticker: str, capital_override: float | None = None) -> dict:
+def _overlay_curve(tk: str, anchor: str, dates: list, values: list) -> list | None:
+    """A target gem's price scaled to the portfolio value at its anchor (same as the primary overlay
+    in firehose._daily_series) — for adding extra gem curves to a combo card's Plot 1."""
+    import pandas as pd  # noqa: PLC0415
+    import score  # noqa: PLC0415
+    try:
+        s = score.fetch_panel([tk], dates[0], dates[-1], use_cache=False)[tk].dropna()
+    except Exception:  # noqa: BLE001
+        return None
+    if not len(s):
+        return None
+    if getattr(s.index, "tz", None) is not None:
+        s.index = s.index.tz_localize(None)
+    idx = pd.DatetimeIndex([pd.Timestamp(x) for x in dates])
+    ov = s.reindex(idx, method="ffill")
+    at = pd.Timestamp(anchor)
+    ai = next((i for i, x in enumerate(idx) if x >= at), None)
+    if ai is None or pd.isna(ov.iloc[ai]) or ov.iloc[ai] <= 0:
+        return None
+    scale = values[ai] / float(ov.iloc[ai])
+    return [None if pd.isna(v) else round(float(v) * scale, 2) for v in ov.tolist()]
+
+
+def build_gem(ticker: str, capital_override: float | None = None, *, extra_overlays: list | None = None,
+              scans_override: str | None = None, out_override: str | None = None,
+              label_override: str | None = None) -> dict:
     """Build one gem's dashboard into docs/<gem>/ (data.json + index.html + firehose.html).
-    The gem's own price is the overlay, anchored at its trigger date. Returns the payload."""
+    The gem's own price is the overlay, anchored at its trigger date. Returns the payload.
+    A COMBO card (e.g. GEO+MSTR from one concurrency book) passes scans_override + out_override +
+    label_override + extra_overlays to overlay MULTIPLE target gems on the one shared portfolio."""
     import retstats
     cfg = gem_config(ticker)
+    if scans_override:
+        cfg = {**cfg, "scans": ROOT / "data" / "windows" / scans_override}
+    if out_override:
+        cfg = {**cfg, "out": OUT_DIR / out_override}
     scans = load_scans(cfg["scans"])
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
     capital = capital_override if capital_override is not None else float(fm.get("initial_investment_usd", 50_000))
@@ -310,8 +341,24 @@ def build_gem(ticker: str, capital_override: float | None = None) -> dict:
             disp_model = json.loads(meta_p.read_text()).get("model", disp_model)
         except (ValueError, OSError):
             pass
+    # combo-card overlays: primary gem + extra target gems, each scaled to the portfolio value at its
+    # anchor; caught_all/both_held = concurrency metrics (all targets named / weeks all held together).
+    overlays = ([{"ticker": ticker, "vals": d["overlay"], "anchor": d["overlay_anchor"], "color": PALETTE[0]}]
+                if d.get("overlay") else [])
+    _named = {str(p.get("ticker", "")).strip().upper() for wk in scans.values() for p in wk}
+    for _i, _xt in enumerate(extra_overlays or []):
+        _anch = gem_config(_xt)["trigger"]
+        _vals = _overlay_curve(_xt, _anch, d["dates"], d["value"])
+        if _vals:
+            overlays.append({"ticker": _xt, "vals": _vals, "anchor": _anch, "color": PALETTE[(_i + 1) % len(PALETTE)]})
+    combo_targets = [ticker, *(extra_overlays or [])]
+    caught_all = all(t in _named for t in combo_targets)
+    both_held = (sum(1 for r in bt.get("rows", [])
+                     if all(f"{t}:" in (r.get("held") or "") for t in combo_targets)) if extra_overlays else 0)
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
+        "overlays": overlays, "gem_label": label_override or ticker,
+        "combo_targets": combo_targets, "caught_all": caught_all, "both_held": both_held,
         "model": disp_model, "storyline": STORYLINE.get(ticker, ""), "ever_funded": ever_funded,
         "seeds": _gem_seeds(ticker),
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
@@ -385,6 +432,15 @@ def _gem_universe() -> list:
     return out
 
 
+def build_combo() -> None:
+    """GEO+MSTR concurrency card from the ONE election2024 book (both gems overlaid on one portfolio) —
+    the 2-agents-riding-2-gems view. Uses the reframed-seed v2 book once it exists, else the v1 book."""
+    v2 = ROOT / "data" / "windows" / "firehose_scans_election2024_v2.json"
+    src = "firehose_scans_election2024_v2.json" if v2.exists() else "firehose_scans_election2024.json"
+    build_gem("GEO", extra_overlays=["MSTR"], scans_override=src,
+              out_override="geo_mstr", label_override="GEO + MSTR — 2024 election concurrency")
+
+
 def build_landing() -> None:
     """Landing page at docs/index.html: Plot 1 = every candidate gem's price curve (cherry-pick the
     big movers) + one card per SCANNED gem (docs/<gem>/data.json), ordered chronologically."""
@@ -394,9 +450,14 @@ def build_landing() -> None:
         if "metrics" not in d or "gem" not in d:
             continue                      # skip non-gem subdirs (e.g. docs/sweeps/)
         m = d["metrics"]
-        gem = d.get("gem", sub.parent.name.upper())
-        rows.append({"gem": gem, "url": f"{sub.parent.name}/index.html", "active": gem in ACTIVE_GEMS,
-                     "ret": m["total_ret"], "spy": m["spy_ret"], "maxdd": m["max_dd"], "caught": d.get("caught"),
+        _targets = d.get("combo_targets") or [d.get("gem", sub.parent.name.upper())]
+        _combo = len(_targets) > 1
+        gem = d.get("gem_label") or d.get("gem", sub.parent.name.upper())
+        rows.append({"gem": gem, "url": f"{sub.parent.name}/index.html",
+                     "active": any(t in ACTIVE_GEMS for t in _targets),
+                     "ret": m["total_ret"], "spy": m["spy_ret"], "maxdd": m["max_dd"],
+                     "caught": d.get("caught_all") if _combo else d.get("caught"),
+                     "both_held": d.get("both_held") if _combo else None,
                      "window": f'{d["dates"][0]} → {d["dates"][-1]}', "model": d.get("model", "—"),
                      "join": (d.get("retrieval") or {}).get("wayback", {}).get("join_rate_pct")})
     series = _gem_universe()                       # Plot 1: all candidate gems (sorted by multiple)
@@ -799,14 +860,19 @@ Promise.resolve({{DATA}}).then(D=>{
     {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
   ];
   const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
-  if(D.overlay){
-    vtraces.push({x:D.dates,y:D.overlay,name:D.overlay_ticker+" (scaled)",
-      line:{color:OVC,width:1.8,dash:"dash"},connectgaps:true});
-    vshapes.push({type:"line",x0:D.overlay_anchor,x1:D.overlay_anchor,yref:"paper",y0:0,y1:1,
-      line:{color:OVC,width:1,dash:"dot"}});
-    vann.push({x:D.overlay_anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
-      text:D.overlay_label||(D.overlay_ticker+" trigger"),font:{color:OVC,size:10}});
-  }
+  // overlay curves: the list D.overlays (primary + any extra target gems for a combo card), or the
+  // single legacy D.overlay. Each gem's scaled price + a dotted trigger line, in its own color.
+  const OVL=(D.overlays&&D.overlays.length)?D.overlays
+    :(D.overlay?[{ticker:D.overlay_ticker,vals:D.overlay,anchor:D.overlay_anchor,color:OVC}]:[]);
+  OVL.forEach(o=>{
+    const oc=o.color||(D.colors&&D.colors[o.ticker])||OVC;
+    vtraces.push({x:D.dates,y:o.vals,name:o.ticker+" (scaled)",
+      line:{color:oc,width:1.8,dash:"dash"},connectgaps:true});
+    vshapes.push({type:"line",x0:o.anchor,x1:o.anchor,yref:"paper",y0:0,y1:1,
+      line:{color:oc,width:1,dash:"dot"}});
+    vann.push({x:o.anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:o.ticker+" trigger",font:{color:oc,size:10}});
+  });
   // seed markers: a big star at each press-seed's publish date on the value curve; lede on hover
   const SD=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
   if(SD.length){
