@@ -1,62 +1,204 @@
 {
-  "_note": "LOCKED multi-event test set for the firehose harness. Post-COVID, fixed window 2022-09-01 -> present (a few months before ChatGPT 2022-11-30, capturing NVDA's Oct-2022 base). All US-listed (incl. ADRs/ETFs) so they're firehose-named and Fidelity-tradeable. peak_multiple from yfinance close over 2022-09..2025-12 — approximate, re-pinned at build time. Vetted by a 2nd/3rd opinion (Gemini 2.5 Pro + Grok 4.20) and balanced for spread across verticals (AI/nuclear/crypto/healthcare/defense/shipping/EM-energy/materials/consumer/precious-metals) and geopolitical types (war x2, election, trade-war). Measures RECALL + the exit engine (via controls); PRECISION is measured separately by the GDELT-noise run (firehose.py --gdelt, every pick scored). Survivor set + model foreknowledge => UPPER BOUND / dev harness, never the verdict.",
-  "window": {"start": "2022-09-01", "end": "2026-06-18"},
+  "_note": "LOCKED multi-event test set for the firehose harness. Post-COVID, fixed window 2022-09-01 -> present (a few months before ChatGPT 2022-11-30, capturing NVDA's Oct-2022 base). All US-listed (incl. ADRs/ETFs) so they're firehose-named and Fidelity-tradeable. peak_multiple from yfinance close over 2022-09..2025-12 \u2014 approximate, re-pinned at build time. Vetted by a 2nd/3rd opinion (Gemini 2.5 Pro + Grok 4.20) and balanced for spread across verticals (AI/nuclear/crypto/healthcare/defense/shipping/EM-energy/materials/consumer/precious-metals) and geopolitical types (war x2, election, trade-war). Measures RECALL + the exit engine (via controls); PRECISION is measured separately by the GDELT-noise run (firehose.py --gdelt, every pick scored). Survivor set + model foreknowledge => UPPER BOUND / dev harness, never the verdict.",
+  "window": {
+    "start": "2022-09-01",
+    "end": "2026-06-18"
+  },
   "gems": [
-    {"id": "cvna", "ticker": "CVNA", "name": "Carvana", "catalyst": "near-bankruptcy -> turnaround + short squeeze",
-     "trigger_date": "2023-01-01", "size_tier": "tail", "shape": "distressed turnaround / squeeze (consumer)", "peak_multiple": 99.7,
-     "vehicle_note": "extreme tail off the $0.95 bottom; idiosyncratic but heavily news-covered; fills consumer vertical"},
-    {"id": "pltr", "ticker": "PLTR", "name": "Palantir", "catalyst": "AIP AI-platform launch / monetization 'show-me'",
-     "trigger_date": "2023-04-01", "size_tier": "tail", "shape": "AI-software re-rate (vs hardware)", "peak_multiple": 32.3,
-     "vehicle_note": "software shape, distinct from the AI-hardware names"},
-    {"id": "nvda", "ticker": "NVDA", "name": "NVIDIA", "catalyst": "ChatGPT -> AI datacenter GPU capex",
-     "trigger_date": "2022-11-30", "size_tier": "tail", "shape": "slow secular ramp", "peak_multiple": 17.1,
-     "vehicle_note": "mega-cap, not 'hidden' — the canonical AI trade"},
-    {"id": "smr", "ticker": "SMR", "name": "NuScale Power", "catalyst": "small modular reactors + AI power demand",
-     "trigger_date": "2025-03-01", "window_start": "2025-03-01", "window_end": "2026-01-15",
-     "size_tier": "tail", "shape": "nuclear small-cap parabola + crash", "peak_multiple": 3.5,
-     "vehicle_note": "window 2025-03-01..2026-01-15 (aligns with MP): ~3.5x parabola ($15->$53) then crash to ~$19 (entry+exit test)"},
-    {"id": "smci", "ticker": "SMCI", "name": "Super Micro", "catalyst": "AI server demand, then accounting blowup",
-     "trigger_date": "2023-01-15", "size_tier": "tail", "shape": "parabola + crash (EXIT test)", "peak_multiple": 14.5,
-     "vehicle_note": "ran ~14x then -75% on accounting/auditor exit — tests the thesis-decay exit"},
-    {"id": "mstr", "ticker": "MSTR", "name": "MicroStrategy", "catalyst": "BTC proxy + spot-ETF approval + halving",
-     "trigger_date": "2024-01-10", "size_tier": "tail", "shape": "leveraged crypto beta", "peak_multiple": 13.5,
-     "vehicle_note": "levered BTC proxy; IBIT is the unleveraged pure-play alternative (held out)"},
-    {"id": "hims", "ticker": "HIMS", "name": "Hims & Hers", "catalyst": "GLP-1 weight-loss telehealth offering",
-     "trigger_date": "2023-12-01", "size_tier": "tail", "shape": "healthcare/GLP-1 hidden mid-cap (then -63%)", "peak_multiple": 10.7,
-     "vehicle_note": "fills the healthcare vertical; gem + built-in exit test"},
-    {"id": "rnmby", "ticker": "RNMBY", "name": "Rheinmetall (US OTC ADR)", "catalyst": "Ukraine war -> EU rearmament",
-     "trigger_date": "2022-09-01", "size_tier": "large", "shape": "geopolitical/defense (WAR)", "peak_multiple": 8.1,
-     "vehicle_note": "OTC ADR — thin liquidity / wide spreads; native RHM.DE not used (FX friction). Swap to a defense ETF if execution realism matters."},
-    {"id": "bwet", "ticker": "BWET", "name": "Breakwave Tanker Shipping ETF", "catalyst": "Iran war -> Hormuz tanker-rate spike",
-     "trigger_date": "2026-02-20", "size_tier": "tail", "shape": "commodity/war spike (WAR)", "peak_multiple": 8.0,
-     "vehicle_note": "the original gem; niche freight-futures ETN, purest vehicle vs tanker operators"},
-    {"id": "mp", "ticker": "MP", "name": "MP Materials", "catalyst": "China rare-earth export controls + US reshoring/DoD deal",
-     "trigger_date": "2025-04-01", "window_start": "2025-04-01", "window_end": "2026-01-01",
-     "size_tier": "large", "shape": "materials / TRADE-WAR (resource nationalism)", "peak_multiple": 3.9,
-     "vehicle_note": "window 2025-04-01..2026-01-01: agent must HOLD through the quiet-June lull to ride the July-2025 DoD-stake leap ($33->$64 in weeks) up to the ~3.9x peak ($99); current book exits end-May and misses it"},
-    {"id": "ypf", "ticker": "YPF", "name": "YPF (Argentina ADR)", "catalyst": "Milei election -> Argentine reform",
-     "trigger_date": "2023-11-19", "size_tier": "large", "shape": "policy/political event (ELECTION)", "peak_multiple": 4.4,
-     "vehicle_note": "US-listed ADR; bank ADRs (GGAL/BMA/BBAR) ran ~6x — purest vehicle beat ARGT ETF (~2x)"},
-    {"id": "gdx", "ticker": "GDX", "name": "VanEck Gold Miners ETF", "catalyst": "gold safe-haven / central-bank buying / debasement",
-     "trigger_date": "2024-03-01", "size_tier": "medium", "shape": "precious-metals macro (slow)", "peak_multiple": 3.5,
-     "vehicle_note": "fills the commodity-macro vertical; medium-tier band the power-law thesis wants"},
-    {"id": "ura", "ticker": "URA", "name": "Global X Uranium ETF", "catalyst": "uranium supply deficit / nuclear renaissance",
-     "trigger_date": "2023-09-01", "size_tier": "medium", "shape": "slow commodity theme", "peak_multiple": 3.2,
-     "vehicle_note": "theme ETF; URNM (Sprott miners) is the sharper event vehicle if a swap is wanted"}
+    {
+      "id": "cvna",
+      "ticker": "CVNA",
+      "name": "Carvana",
+      "catalyst": "near-bankruptcy -> turnaround + short squeeze",
+      "trigger_date": "2023-01-01",
+      "size_tier": "tail",
+      "shape": "distressed turnaround / squeeze (consumer)",
+      "peak_multiple": 99.7,
+      "vehicle_note": "extreme tail off the $0.95 bottom; idiosyncratic but heavily news-covered; fills consumer vertical"
+    },
+    {
+      "id": "pltr",
+      "ticker": "PLTR",
+      "name": "Palantir",
+      "catalyst": "AIP AI-platform launch / monetization 'show-me'",
+      "trigger_date": "2023-04-01",
+      "size_tier": "tail",
+      "shape": "AI-software re-rate (vs hardware)",
+      "peak_multiple": 32.3,
+      "vehicle_note": "software shape, distinct from the AI-hardware names"
+    },
+    {
+      "id": "nvda",
+      "ticker": "NVDA",
+      "name": "NVIDIA",
+      "catalyst": "ChatGPT -> AI datacenter GPU capex",
+      "trigger_date": "2022-11-30",
+      "size_tier": "tail",
+      "shape": "slow secular ramp",
+      "peak_multiple": 17.1,
+      "vehicle_note": "mega-cap, not 'hidden' \u2014 the canonical AI trade"
+    },
+    {
+      "id": "smr",
+      "ticker": "SMR",
+      "name": "NuScale Power",
+      "catalyst": "small modular reactors + AI power demand",
+      "trigger_date": "2025-03-01",
+      "window_start": "2025-03-01",
+      "window_end": "2026-01-15",
+      "size_tier": "tail",
+      "shape": "nuclear small-cap parabola + crash",
+      "peak_multiple": 3.5,
+      "vehicle_note": "window 2025-03-01..2026-01-15 (aligns with MP): ~3.5x parabola ($15->$53) then crash to ~$19 (entry+exit test) | DROPPED from active set: theme/AI-nuclear-demand gem with NO discrete datable catalyst, so the curator names sharper nuclear/energy events (NRG/LEU/SATS) instead, not SMR \u2014 same structural wall as GDX. A 2025 seed did not help (theme rejected by the catalyst gate).",
+      "status": "dropped-theme-gem"
+    },
+    {
+      "id": "smci",
+      "ticker": "SMCI",
+      "name": "Super Micro",
+      "catalyst": "AI server demand, then accounting blowup",
+      "trigger_date": "2023-01-15",
+      "size_tier": "tail",
+      "shape": "parabola + crash (EXIT test)",
+      "peak_multiple": 14.5,
+      "vehicle_note": "ran ~14x then -75% on accounting/auditor exit \u2014 tests the thesis-decay exit"
+    },
+    {
+      "id": "mstr",
+      "ticker": "MSTR",
+      "name": "MicroStrategy",
+      "catalyst": "BTC proxy + spot-ETF approval + halving",
+      "trigger_date": "2024-01-10",
+      "size_tier": "tail",
+      "shape": "leveraged crypto beta",
+      "peak_multiple": 13.5,
+      "vehicle_note": "levered BTC proxy; IBIT is the unleveraged pure-play alternative (held out)"
+    },
+    {
+      "id": "hims",
+      "ticker": "HIMS",
+      "name": "Hims & Hers",
+      "catalyst": "GLP-1 weight-loss telehealth offering",
+      "trigger_date": "2023-12-01",
+      "size_tier": "tail",
+      "shape": "healthcare/GLP-1 hidden mid-cap (then -63%)",
+      "peak_multiple": 10.7,
+      "vehicle_note": "fills the healthcare vertical; gem + built-in exit test"
+    },
+    {
+      "id": "rnmby",
+      "ticker": "RNMBY",
+      "name": "Rheinmetall (US OTC ADR)",
+      "catalyst": "Ukraine war -> EU rearmament",
+      "trigger_date": "2022-09-01",
+      "size_tier": "large",
+      "shape": "geopolitical/defense (WAR)",
+      "peak_multiple": 8.1,
+      "vehicle_note": "OTC ADR \u2014 thin liquidity / wide spreads; native RHM.DE not used (FX friction). Swap to a defense ETF if execution realism matters."
+    },
+    {
+      "id": "bwet",
+      "ticker": "BWET",
+      "name": "Breakwave Tanker Shipping ETF",
+      "catalyst": "Iran war -> Hormuz tanker-rate spike",
+      "trigger_date": "2026-02-20",
+      "size_tier": "tail",
+      "shape": "commodity/war spike (WAR)",
+      "peak_multiple": 8.0,
+      "vehicle_note": "the original gem; niche freight-futures ETN, purest vehicle vs tanker operators"
+    },
+    {
+      "id": "mp",
+      "ticker": "MP",
+      "name": "MP Materials",
+      "catalyst": "China rare-earth export controls + US reshoring/DoD deal",
+      "trigger_date": "2025-04-01",
+      "window_start": "2025-04-01",
+      "window_end": "2026-01-01",
+      "size_tier": "large",
+      "shape": "materials / TRADE-WAR (resource nationalism)",
+      "peak_multiple": 3.9,
+      "vehicle_note": "window 2025-04-01..2026-01-01: agent must HOLD through the quiet-June lull to ride the July-2025 DoD-stake leap ($33->$64 in weeks) up to the ~3.9x peak ($99); current book exits end-May and misses it"
+    },
+    {
+      "id": "ypf",
+      "ticker": "YPF",
+      "name": "YPF (Argentina ADR)",
+      "catalyst": "Milei election -> Argentine reform",
+      "trigger_date": "2023-11-19",
+      "size_tier": "large",
+      "shape": "policy/political event (ELECTION)",
+      "peak_multiple": 4.4,
+      "vehicle_note": "US-listed ADR; bank ADRs (GGAL/BMA/BBAR) ran ~6x \u2014 purest vehicle beat ARGT ETF (~2x)"
+    },
+    {
+      "id": "gdx",
+      "ticker": "GDX",
+      "name": "VanEck Gold Miners ETF",
+      "catalyst": "gold safe-haven / central-bank buying / debasement",
+      "trigger_date": "2024-03-01",
+      "size_tier": "medium",
+      "shape": "precious-metals macro (slow)",
+      "peak_multiple": 3.5,
+      "vehicle_note": "fills the commodity-macro vertical; medium-tier band the power-law thesis wants"
+    },
+    {
+      "id": "ura",
+      "ticker": "URA",
+      "name": "Global X Uranium ETF",
+      "catalyst": "uranium supply deficit / nuclear renaissance",
+      "trigger_date": "2023-09-01",
+      "size_tier": "medium",
+      "shape": "slow commodity theme",
+      "peak_multiple": 3.2,
+      "vehicle_note": "theme ETF; URNM (Sprott miners) is the sharper event vehicle if a swap is wanted"
+    }
   ],
   "controls": [
-    {"id": "pton", "ticker": "PTON", "name": "Peloton", "catalyst": "post-COVID growth thesis dies (slow fizzle)",
-     "trigger_date": "2022-09-01", "size_tier": "trap", "shape": "broken thesis, slow grind -83%", "peak_multiple": 1.7,
-     "role": "NEGATIVE CONTROL — not a gem to catch. Tests that the exit engine avoids / cuts a decaying thesis that never recovers (a slow death, unlike SMCI's sharp crash)."}
+    {
+      "id": "pton",
+      "ticker": "PTON",
+      "name": "Peloton",
+      "catalyst": "post-COVID growth thesis dies (slow fizzle)",
+      "trigger_date": "2022-09-01",
+      "size_tier": "trap",
+      "shape": "broken thesis, slow grind -83%",
+      "peak_multiple": 1.7,
+      "role": "NEGATIVE CONTROL \u2014 not a gem to catch. Tests that the exit engine avoids / cuts a decaying thesis that never recovers (a slow death, unlike SMCI's sharp crash)."
+    }
   ],
   "optional": [
-    {"ticker": "APP", "name": "AppLovin", "note": "~20x AI-adtech re-rate; trimmed to keep AI to three (NVDA/SMCI/PLTR)"},
-    {"ticker": "LLY", "name": "Eli Lilly", "note": "~3.7x clean pharma secular (GLP-1); steadier healthcare alternative to HIMS"},
-    {"ticker": "TMDX", "name": "TransMedics", "note": "~2.9x med-tech adoption (then -68%)"},
-    {"ticker": "IBIT", "name": "iShares Bitcoin Trust", "note": "~2.7x unleveraged crypto pure-play vs MSTR's leveraged proxy"},
-    {"ticker": "VST", "name": "Vistra", "note": "~5.7x AI power demand; utility/power shape"}
+    {
+      "ticker": "APP",
+      "name": "AppLovin",
+      "note": "~20x AI-adtech re-rate; trimmed to keep AI to three (NVDA/SMCI/PLTR)"
+    },
+    {
+      "ticker": "LLY",
+      "name": "Eli Lilly",
+      "note": "~3.7x clean pharma secular (GLP-1); steadier healthcare alternative to HIMS"
+    },
+    {
+      "ticker": "TMDX",
+      "name": "TransMedics",
+      "note": "~2.9x med-tech adoption (then -68%)"
+    },
+    {
+      "ticker": "IBIT",
+      "name": "iShares Bitcoin Trust",
+      "note": "~2.7x unleveraged crypto pure-play vs MSTR's leveraged proxy"
+    },
+    {
+      "ticker": "VST",
+      "name": "Vistra",
+      "note": "~5.7x AI power demand; utility/power shape"
+    }
   ],
   "dropped": [
-    {"ticker": "NIB", "name": "iPath Cocoa ETN", "why": "delisted/suspended 2024 — no clean tradeable yfinance history"}
+    {
+      "ticker": "NIB",
+      "name": "iPath Cocoa ETN",
+      "why": "delisted/suspended 2024 \u2014 no clean tradeable yfinance history"
+    }
   ]
 }
