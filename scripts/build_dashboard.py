@@ -398,7 +398,7 @@ ACTIVE_GEMS = {"MP", "BWET", "GEO", "MSTR", "RNMBY"}   # the event-driven gems w
 PLOT1_PALETTE = ["#2980b9", "#c0392b", "#27ae60", "#8e44ad", "#e67e22", "#16a085"]  # active-gem colors: Plot 1 curve == card name
 
 
-def _gem_universe() -> list:
+def _gem_universe(dash_overlays=None) -> list:
     """EVERY candidate gem's ticker price over ~24 months from its trigger, indexed to 100 at the
     trigger — the full universe (not just the scanned few), each tagged with its max multiple over the
     window and whether it's been scanned. Lets us cherry-pick the big movers (3x+) and stop judging the
@@ -415,20 +415,37 @@ def _gem_universe() -> list:
     out = []
     for g in spec["gems"]:
         tk, trig = g["ticker"], g.get("trigger_date")
-        if tk not in panel.columns or not trig:
+        if not trig:
+            continue
+        if dash_overlays and tk in dash_overlays:   # SCANNED gem: reuse the gem dashboard's EXACT overlay curve
+            dates, vals = dash_overlays[tk]["dates"], dash_overlays[tk]["vals"]
+            bi = next((i for i, dt in enumerate(dates) if pd.Timestamp(dt) >= pd.Timestamp(trig)), 0)
+            base = float(vals[bi]) if (vals and float(vals[bi])) else (float(vals[0]) if vals else 0.0)
+            if not base or len(vals) < 2:
+                continue
+            out.append({"ticker": tk, "name": g.get("name", ""), "start": trig, "scanned": True,
+                        "active": tk in ACTIVE_GEMS, "mult": round(max(vals) / base, 1),
+                        "x": list(dates), "y": [round(v / base, 3) for v in vals]})   # 1.0 at trigger, matches dashboard
+            continue
+        if tk not in panel.columns:
             continue
         s = panel[tk].dropna()
-        wend = g.get("window_end")   # per-gem window end if set, else 24 months from trigger
+        wstart = g.get("window_start")   # (un-scanned candidate) match the scan window if set, else from trigger
+        start = pd.Timestamp(wstart) if wstart else pd.Timestamp(trig)
+        wend = g.get("window_end")       # per-gem window end if set, else 24 months from trigger
         end = pd.Timestamp(wend) if wend else pd.Timestamp(trig) + pd.Timedelta(days=730)
-        s = s[(s.index >= pd.Timestamp(trig)) & (s.index <= end)]
-        if len(s) < 2 or not float(s.iloc[0]):
+        s = s[(s.index >= start) & (s.index <= end)]
+        if len(s) < 2:
             continue
-        base = float(s.iloc[0])
+        at = s[s.index >= pd.Timestamp(trig)]   # anchor 1.0x at the TRIGGER, not window start
+        base = float(at.iloc[0]) if len(at) else float(s.iloc[0])
+        if not base:
+            continue
         out.append({"ticker": tk, "name": g.get("name", ""), "start": trig, "scanned": tk in scanned,
                     "active": tk in ACTIVE_GEMS,   # the gems we're currently tuning on (colored; rest greyed)
                     "mult": round(float(s.max()) / base, 1),   # legend label, 1 decimal (8.38 -> 8.4)
                     "x": [d.strftime("%Y-%m-%d") for d in s.index],
-                    "y": [round(float(v) / base, 3) for v in s]})   # normalized: starts at 1.0 (= the multiple)
+                    "y": [round(float(v) / base, 3) for v in s]})   # 1.0 at the trigger; pre-trigger points < 1.0
     out = sorted(out, key=lambda r: -r["mult"])   # biggest movers first
     ci = 0
     for r in out:                                  # assign each active gem its palette color (curve == card name)
@@ -453,10 +470,14 @@ def build_landing() -> None:
     big movers) + one card per SCANNED gem (docs/<gem>/data.json), ordered chronologically."""
     rows = []
     convgain = []   # cross-gem: every agent's (conviction, cumulative-$) time-history for the landing plot
+    dash_overlays = {}   # ticker -> {dates, vals}: reuse each gem dashboard's EXACT price overlay in Plot 1
     for sub in sorted(OUT_DIR.glob("*/data.json")):
         d = json.loads(sub.read_text())
         if "metrics" not in d or "gem" not in d:
             continue                      # skip non-gem subdirs (e.g. docs/sweeps/)
+        for _o in d.get("overlays", []):  # capture each gem's price overlay so Plot 1 reuses the SAME curve
+            if _o.get("ticker") and _o.get("vals"):
+                dash_overlays[_o["ticker"]] = {"dates": d["dates"], "vals": _o["vals"]}
         m = d["metrics"]
         _targets = d.get("combo_targets") or [d.get("gem", sub.parent.name.upper())]
         _combo = len(_targets) > 1
@@ -475,7 +496,7 @@ def build_landing() -> None:
                 convgain.append({"gem": d.get("gem", sub.parent.name.upper()),
                                  "ticker": _agms.get(aid, {}).get("ticker", aid),
                                  "pts": [{"c": p["conviction"], "g": p["gain"], "d": p["date"]} for p in pts]})
-    series = _gem_universe()                       # Plot 1: all candidate gems (sorted by multiple)
+    series = _gem_universe(dash_overlays)           # Plot 1: reuse each scanned gem's dashboard overlay (exact match)
     cmap = {s["ticker"]: s["color"] for s in series if s.get("color")}   # gem -> Plot 1 curve color
     rows.sort(key=lambda r: (not r["active"], r["window"]))   # active gems first (first row), then the rest
 
