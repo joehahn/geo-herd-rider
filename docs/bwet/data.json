@@ -1362,7 +1362,7 @@
     "spy_ret": 0.0899,
     "max_dd": -0.2138
   },
-  "cost_usd": 5.26,
+  "cost_usd": 5.27,
   "weeks": 28,
   "gems": [
     {
@@ -1833,10 +1833,8 @@
     "risk_free_rate": 0.04,
     "rebalance_days": 7,
     "news_lookback_days": null,
-    "prune_zero_weight_weeks": 0,
     "max_agents": 2,
     "spy_agent_conviction": 5,
-    "trailing_stop_pct": 0.0,
     "hold_benchmark": true,
     "curator_memory_weeks": 8,
     "max_watchlist_size": 12
