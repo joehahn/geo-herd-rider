@@ -359,8 +359,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     fetching live — used by the golden-snapshot regression replay so results are deterministic
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
-    prune_k = int(fm.get("prune_zero_weight_weeks", 0) or 0)    # 0 = off; drop a name after K zero-wt weeks
-    trail_stop = float(fm.get("trailing_stop_pct", 0) or 0)     # 0 = off; force-exit a held name once it's this fraction below its trailing high (mechanical peak-exit)
     max_agents = int(fm.get("max_agents", 0) or 0)             # 0 = off; keep only the top-N agents (by catalyst conviction) in the weekly watchlist
     spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)     # SPY as an always-on "agent" that always recommends SPY: a synthetic candidate at this
     bench = score.BENCHMARK                                     #   conviction that events must OUT-RANK to be held; else capital parks in SPY. 0 = off.
@@ -383,8 +381,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
 
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
-    zero_streak, pruned = {}, set()   # visibility: drop chronically-unfunded names; cap funded concurrency
-    trail_hi, stopped = {}, set()     # mechanical trailing-stop state (per currently-held name)
     conv = {}                         # running last-known catalyst-conviction per ticker (for the max_agents cap)
     for k, a in enumerate(anchors):
         for p in scans[a]:            # carry the latest catalyst-conviction the agent assigned each ticker
@@ -392,25 +388,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         i = score.entry_index(days, a.strftime("%Y-%m-%dT%H:%M:%S%z"), fm.get("t_update_days"))
         reb.append(None if i is None else i)
         if i is not None:
-            d = days[i]
-            held = set(watch[a])
-            for t in list(trail_hi):                  # names no longer held -> reset their trailing state
-                if t not in held:
-                    trail_hi.pop(t, None); stopped.discard(t)
-            wl = []
-            for t in watch[a]:
-                if t in pruned:
-                    continue
-                if trail_stop and t != bench and t in valid:   # mechanical peak-exit (NOT the LLM using price)
-                    s = panel[t].dropna().loc[:d]
-                    if len(s):
-                        px = float(s.iloc[-1])
-                        trail_hi[t] = max(trail_hi.get(t, px), px)
-                        if px <= trail_hi[t] * (1 - trail_stop):
-                            stopped.add(t)
-                    if t in stopped:
-                        continue                       # stopped out -> force exit this week
-                wl.append(t)
+            wl = list(watch[a])
             # SPY agent-agent: an always-on agent that always recommends SPY -- a synthetic candidate at
             # spy_agent conviction that competes in the weekly max_agents ranking like any other event.
             # A weaker-conviction event that ranks below it is displaced when the watchlist is full; when
@@ -425,11 +403,6 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                 cand = [t for t in cand if t in keep]
             uni = cand
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
-            if prune_k:                                       # a name the optimizer keeps starving -> drop
-                for t in wl:
-                    zero_streak[t] = 0 if w.get(t, 0) > 1e-9 else zero_streak.get(t, 0) + 1
-                    if zero_streak[t] >= prune_k:
-                        pruned.add(t)
             watch[a] = [t for t in cand if t != bench]        # event watchlist (SPY funded via the weights)
             week_w[k] = w
 
