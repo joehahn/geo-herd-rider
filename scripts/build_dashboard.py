@@ -729,7 +729,7 @@ STORYLINE = {
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> ran ~3x (Jan-2025 -> Feb-2026 peak) on the tariff-driven flight "
         "from the dollar. <b>Tested exhaustively with GENUINE news-derived seeds - still not caught.</b> "
-        "We planted three real articles (the &#9670; markers), including tradingnews (Jan-3-2026) which "
+        "We planted four real articles (the &#9670; markers) - the earliest an Aug-2025 de-dollarization piece that named junior miners (Perseus/Integra/etc.), NOT GDX, the tell that the early press names specific under-owned miners rather than the broad ETF; plus tradingnews (Jan-3-2026) which "
         "<i>names GDX by ticker</i> with an explicit 'room to run to $100+' thesis - and the scout STILL "
         "named nothing gold-related across 74 weeks, parking in SPY. <b>Why it's a genuine non-fit:</b> "
         "even handed the ticker, every real article names GDX only AFTER it's up 123-155% ('parabolic', "
@@ -737,6 +737,16 @@ STORYLINE = {
         "diffuse, systemic dollar-de-risking trend (the entry article itself: 'unlikely to end with this "
         "dispute'), not a discrete resolvable catalyst. The <b>scoreboard</b>, not our reasoning, confirms "
         "the crowded macro trade the gate correctly refuses. Stays greyed."
+    ),
+    "RNMBY": (
+        "<b>Rheinmetall (RNMBY)</b> is Europe's largest ammunition + armored-vehicle maker - the frontline "
+        "beneficiary of the <b>European rearmament wave</b>. The catalyst: Trump's win pressured Europe to "
+        "fund its own defense, culminating in <b>Germany's March-2025 vote to exempt defense from its "
+        "constitutional debt brake</b> - a specific, datable policy shock unlocking a historic buildout. The "
+        "scout caught it <b>early</b>, on the Dec-2024 anticipation (before the debt-brake vote), and rode the "
+        "surge (~+134%). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
+        "open-ended (a multi-year buildout, no single resolution date), the MP-type under-exit case where an "
+        "ongoing structural driver never cleanly resolves."
     ),
 }
 

@@ -1,11 +1,18 @@
 {
-  "_note": "GENUINE news-derived seeds (real URLs, real ledes verbatim from the source articles) for the GDX test. KEY seed = tradingnews (2026-01-03), the first genuine article that NAMES GDX by ticker with a forward 'room to run' thesis ($85.73 -> $100+ target), planted as the trigger per the halfway-naming logic: the press named GDX at ~halfway with ~+35% still to run to the Feb-27-2026 ~$116 peak. Saxo + Nation Thailand add the dollar-risk context + the Greenland de-escalation exit signal (both name gold, not GDX). This tests whether the scout will name GDX once the press hands it the ticker (vs the earlier gold-only seeds it ignored). Look-ahead caveat: curator training likely postdates these dates (upper bound, non-negotiable #4). Non-blank url = news-derived (vs synthetic seeds elsewhere).",
+  "_note": "GENUINE news-derived seeds (real URLs, ledes verbatim/near-verbatim from the source articles) for the GDX test — the thorough close-out. EARLIEST = Crux Investor (2025-08-11), an under-the-radar-framed de-dollarization / supply-demand piece that names JUNIOR MINERS (Perseus/Integra/West Red Lake/Serabi), not GDX — the honest tell that the early press names specific miners, not the broad ETF. tradingnews (2026-01-03) is the first genuine article that NAMES GDX by ticker with a 'room to run to $100' thesis. Saxo + Nation Thailand add the Jan-2026 Greenland dollar-risk spike + de-escalation exit. Tests whether earlier seeds + the supply/demand prompt guidance change the outcome. Look-ahead caveat: curator training likely postdates these dates (upper bound, non-negotiable #4). Non-blank url = news-derived.",
   "articles": [
+    {
+      "published_date": "2025-08-11",
+      "source": "cruxinvestor.com",
+      "title": "Central Bank Gold Buying & De-Dollarization: The Macro Forces Repricing Mining Assets",
+      "snippet": "Central bank accumulation confirms gold's enduring role as a financial anchor amid growing currency bifurcation and policy fragmentation. Mining equities with strategic jurisdictional exposure, cost discipline, and scalable reserves offer asymmetric opportunity in the current cycle - names cited include Perseus Mining, Integra Resources, West Red Lake Gold Mines and Serabi Gold. The thesis is still emerging rather than fully priced in.",
+      "url": "https://www.cruxinvestor.com/posts/central-bank-gold-buying-de-dollarization-the-macro-forces-repricing-mining-assets"
+    },
     {
       "published_date": "2026-01-03",
       "source": "tradingnews.com",
       "title": "GDX ETF At $85 After 155% 2025 Rally - Can Gold Miners Smash The $100 Level Next?",
-      "snippet": "With gold up 65% in 2025, GDX riding record AISC spreads and majors like NEM, AEM and Barrick minting cash, investors are betting the gold-miner trade isn't finished until VanEck's GDX ETF clears $100. NYSEARCA:GDX trades around $85.73, sitting close to the upper end of a brutal 12-month range between $34.53 and $91.66. Using the depth of the October-November 2025 selloff as the base of the move, the measured-move target sits around $102, putting a logical upside objective just above the prior $91.66 high and into triple-digit territory.",
+      "snippet": "With gold up 65% in 2025, GDX riding record AISC spreads and majors like NEM, AEM and Barrick minting cash, investors are betting the gold-miner trade isn't finished until VanEck's GDX ETF clears $100. NYSEARCA:GDX trades around $85.73, sitting close to the upper end of a brutal 12-month range between $34.53 and $91.66. Using the depth of the October-November 2025 selloff as the base of the move, the measured-move target sits around $102, into triple-digit territory.",
       "url": "https://www.tradingnews.com/news/gdx-etf-at-85-usd-after-155-percent-2025-rally-can-gold-miners-smash-100-usd-next"
     },
     {
