@@ -105,6 +105,18 @@ tanker rates"); a pure theme has only diffuse demand and no actor/event ("AI pow
 — that framing is a KEEP, not momentum. (This is BEFORE resolution; the resolved-catalyst rule below
 still applies once the event actually resolves.)
 
+ANTICIPATORY POLICY / SPENDING CATALYST — a CONCRETE regime event that FORCES a coming policy or
+spending shift is ALSO live/early, even before the enacting bill lands. When a datable event — an
+election result, a change of government, an alliance rupture or a withdrawn security guarantee, a
+formal pledge/mandate — makes a large policy or spending response HIGHLY CREDIBLE and the press already
+names the specific frontline beneficiary, propose it NOW; do NOT wait for the enacting action. Example:
+"Trump's win pressures Europe to rearm -> Rheinmetall (RNMBY) the frontline arms maker" is a KEEP at
+the ELECTION, not something to hold off until Germany's debt-brake vote actually passes — by that
+enacting vote the herd has already arrived. The guard against theme-creep: there must be a SPECIFIC
+triggering EVENT (the election / the rupture, datable) + a NAMED, still-under-owned beneficiary + a
+DIRECT mechanism (Europe must now fund its own defense -> the biggest arms maker). Diffuse "defense
+spending will rise" with no triggering event is still a theme -> drop.
+
 You forecast NOTHING. The "thesis" MUST BE THE DATABLE CATALYST EVENT, never the umbrella theme:
 write "ADVANCE Act nuclear bill signed" NOT "NuScale gains on AI power demand"; write "China bans
 rare-earth exports" NOT "rare-earth demand". If your thesis can't be marked RESOLVED on a date it is
@@ -455,6 +467,23 @@ left ahead is speculation, the ARC IS COMPLETE. This is still NOT mid-run hype: 
 step is genuinely scheduled ahead, crowding is just noise — HOLD. The single test: is a CONCRETE,
 announced/scheduled catalyst still ahead? Yes -> hold (ignore the crowd); No (only speculation left)
 AND the crowd has fully arrived -> exit. (silence-while-under-the-radar = HOLD; loud-and-done = EXIT.)
+
+STRUCTURAL vs ACUTE — DON'T FORCE AN ACUTE EXIT ON AN OPEN-ENDED DRIVER. An ACUTE catalyst is a single
+datable event that cleanly resolves (a bill signed, a merger closed, a ceasefire, a chokepoint reopened)
+— the rules above apply as written. A STRUCTURAL / open-ended catalyst is a multi-year regime shift that
+keeps throwing off NEW concrete milestones (European rearmament -> a debt-brake vote -> budget votes ->
+contracts -> further summits; a de-dollarization / reserve pivot; a standing export-curb regime). For a
+STRUCTURAL driver: (a) the Third-Exit "arc complete / nothing concrete ahead" test does NOT fire merely
+because ONE scheduled milestone (e.g. a single summit) has passed — the driver keeps generating new
+milestones, so a gap between them is a QUIET STRETCH, not completion. Exit a structural driver ONLY on a
+genuine REVERSAL of the driver itself — a concrete COUNTER-event (a peace deal that ends the rearmament,
+the curbs lifted, the reserve pivot unwound, the funding cut) — never on silence, an "aging thesis", or a
+single milestone passing while the buildout plainly continues. (b) Do NOT let conviction DECAY through
+quiet weeks while the vehicle keeps climbing — silence + a rising price on a live structural driver is the
+thesis compounding, not weakening. (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
+FRESHEST concrete milestone — if you entered on "Trump signals NATO pullback" and the driver then became
+"Germany votes to exempt defense from its debt brake," THAT vote is the live catalyst now; clinging to the
+ORIGINAL milestone while the driver has moved on is anchoring, and forces an exit for the wrong reason.
 
 YOUR BINARY MUST FOLLOW YOUR OWN ARGUMENT: if the exit_case you just wrote says the catalyst has
 ALREADY happened / been signed / was granted / is "backward-looking" / "already resolved", then you

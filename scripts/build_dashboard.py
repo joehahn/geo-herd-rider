@@ -765,8 +765,9 @@ STORYLINE = {
         "beneficiary of the <b>European rearmament wave</b>. The catalyst: Trump's win pressured Europe to "
         "fund its own defense, culminating in <b>Germany's March-2025 vote to exempt defense from its "
         "constitutional debt brake</b> - a specific, datable policy shock unlocking a historic buildout. The "
-        "scout caught it <b>early</b>, on the Dec-2024 anticipation (before the debt-brake vote), and rode the "
-        "surge (~+134%). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
+        "scout caught it <b>early</b>, on the Dec-2024 anticipation (before the debt-brake vote). On sonnet5 (with "
+        "the anticipation-catch + hold-through-silence prompt fixes) it names RNMBY at conviction 8 and rides the "
+        "whole run - and the same fixes surface OKLO (nuclear) as a second winner (~+250% book; OKLO the bigger leg). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
         "open-ended (a multi-year buildout, no single resolution date), the MP-type under-exit case where an "
         "ongoing structural driver never cleanly resolves."
     ),
