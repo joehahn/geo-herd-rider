@@ -3,6 +3,20 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## #2 — Replace synthetic seeds with genuine articles (firm up + rank tonight, 2026-07-03)
+
+The 21 seed entries in `data/fixtures/*seed*.json` are **hand-authored catalyst descriptions**,
+not retrieved articles (20 of 21 have blank URLs), and they are pre-written in the scout's own
+"still-early / under-the-radar / smart-money-first" framing — so seeded backtests are hindsight
+**upper bounds**, not proof the live firehose would have surfaced the early naming. Replace them
+with **genuine dated articles** (real URLs, publish dates verified to predate the move).
+
+- **Caveat:** no search tool gives true point-in-time retrieval (non-negotiable #4), so this is
+  partial mitigation, not a clean test — the forward paper trade remains the only clean test.
+- **Already done (#1, 2026-07-03):** the synthetic nature is now labeled honestly — dashboard
+  Plot-1 ⭐ hover + caption say "synthetic seed … not a retrieved article", and the README's
+  inaccurate "real early articles, harvested / genuine, date-stamped news" language was corrected.
+
 ## Window the resolved-catalyst ledger fed to the scout (not urgent)
 
 The scout is told which catalysts have RESOLVED so it won't re-chase the hype (the `retired` ledger in

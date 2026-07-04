@@ -776,7 +776,7 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Scan parameters</h2>
  <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
 
- <h2>Plot 1 — Portfolio value</h2>
+ <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
  <div id="chart"></div>
 
  <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
@@ -930,9 +930,10 @@ Promise.resolve({{DATA}}).then(D=>{
     const sx=SD.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
     const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
     const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    vtraces.push({x:sx,y:sy,mode:"markers",name:"🌱 press seed",
+    vtraces.push({x:sx,y:sy,mode:"markers",name:"🌱 synthetic seed",
       marker:{size:16,color:"#f1c40f",symbol:"star",line:{color:"#a67c00",width:1.5}},
-      text:SD.map(s=>"🌱 <b>SEED</b> "+s.date+(s.source?" · "+clean(s.source):"")
+      text:SD.map(s=>"🌱 <b>SYNTHETIC SEED</b> — hand-authored catalyst description, NOT a retrieved article "
+        +s.date+(s.source?" · "+clean(s.source)+" (attribution only, no real URL)":"")
         +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
       hovertemplate:"%{text}<extra></extra>"});
   }
