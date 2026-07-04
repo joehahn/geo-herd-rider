@@ -5,15 +5,15 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 ## Current plan — ordered (2026-07-03, soonest first)
 
-1. **P1 · Complete GDX seeding + analysis** — genuine-seed re-runs (in progress). Names GDX → add to sweeps + un-gray; else lock the triple-confirmed non-fit.
-2. **P2 · Review RNMBY gem** — add its missing storyline, drop the stale 2022 seed, decide sonnet4→sonnet5 re-scan.
-3. **P3 · Replace synthetic seeds with news-derived, all gems** — real URLs + verbatim ledes for every gem.
+1. **Complete GDX seeding + analysis** — genuine-seed re-runs (in progress). Names GDX → add to sweeps + un-gray; else lock the triple-confirmed non-fit.
+2. **Review RNMBY gem** — add its missing storyline, drop the stale 2022 seed, decide sonnet4→sonnet5 re-scan.
+3. **Replace synthetic seeds with news-derived, all gems** — real URLs + verbatim ledes for every gem.
 4. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
-5. **P4 · 1-ticker-per-agent (current) vs 1-agent-juggles-many** — scoreboard A/B; user prefers multi-ticker; maturity-tag (early/crested gate) folds in here.
+5. **1-ticker-per-agent (current) vs 1-agent-juggles-many** — scoreboard A/B; user prefers multi-ticker; maturity-tag (early/crested gate) folds in here.
 6. **Update README + diagrams** — refresh to the settled design.
-7. **P5 · Pivot to forward testing** — the only clean scoreboard (`forward.py`).
-8. **GDELT → BigQuery migration** — kill the cold-scan hangs.
-9. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
+7. **GDELT → BigQuery migration** — kill the cold-scan hangs.
+8. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
+9. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
 
 **Done:** label seeds synthetic, review GDX, delete unused exit knobs, Sonnet-5 eval (now default), 7-model bake-off, SPY-as-idle-holding.
 
