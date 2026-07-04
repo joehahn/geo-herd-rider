@@ -1,6 +1,13 @@
 {
-  "_note": "GENUINE news-derived seeds (real URLs, real ledes verbatim from the source articles) for the GDX/gold test — the Jan-2026 Greenland / dollar-as-political-risk flashpoint. Replaces the earlier SYNTHETIC hand-authored gold seed. Honest note: these real articles name GOLD / hard assets, NOT GDX specifically (the genuine press covers the macro trade, not a named under-the-radar ticker) — so the scout must infer GDX as the miners vehicle on its own; nothing is editorialized in. This is a sub-weekly event (spike Jan 19 -> cool Jan 21) and gold resumed to a Feb-27 peak afterward, so it stress-tests whether the scout will name a gem off a diffuse systemic dollar-risk trend. Look-ahead caveat: curator training likely postdates Jan 2026 (upper bound, non-negotiable #4). A non-blank url marks these as news-derived (vs the blank-url synthetic seeds elsewhere).",
+  "_note": "GENUINE news-derived seeds (real URLs, real ledes verbatim from the source articles) for the GDX test. KEY seed = tradingnews (2026-01-03), the first genuine article that NAMES GDX by ticker with a forward 'room to run' thesis ($85.73 -> $100+ target), planted as the trigger per the halfway-naming logic: the press named GDX at ~halfway with ~+35% still to run to the Feb-27-2026 ~$116 peak. Saxo + Nation Thailand add the dollar-risk context + the Greenland de-escalation exit signal (both name gold, not GDX). This tests whether the scout will name GDX once the press hands it the ticker (vs the earlier gold-only seeds it ignored). Look-ahead caveat: curator training likely postdates these dates (upper bound, non-negotiable #4). Non-blank url = news-derived (vs synthetic seeds elsewhere).",
   "articles": [
+    {
+      "published_date": "2026-01-03",
+      "source": "tradingnews.com",
+      "title": "GDX ETF At $85 After 155% 2025 Rally - Can Gold Miners Smash The $100 Level Next?",
+      "snippet": "With gold up 65% in 2025, GDX riding record AISC spreads and majors like NEM, AEM and Barrick minting cash, investors are betting the gold-miner trade isn't finished until VanEck's GDX ETF clears $100. NYSEARCA:GDX trades around $85.73, sitting close to the upper end of a brutal 12-month range between $34.53 and $91.66. Using the depth of the October-November 2025 selloff as the base of the move, the measured-move target sits around $102, putting a logical upside objective just above the prior $91.66 high and into triple-digit territory.",
+      "url": "https://www.tradingnews.com/news/gdx-etf-at-85-usd-after-155-percent-2025-rally-can-gold-miners-smash-100-usd-next"
+    },
     {
       "published_date": "2026-01-19",
       "source": "home.saxo",

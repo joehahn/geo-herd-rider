@@ -727,16 +727,16 @@ STORYLINE = {
         "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
     ),
     "GDX": (
-        "<b>VanEck Gold Miners (GDX)</b> ran ~3x from Jan-2025 to a Feb-2026 peak on the tariff-driven "
-        "flight from the dollar. <b>Tested with GENUINE news-derived seeds and STILL not caught.</b> We "
-        "planted two <i>real</i> articles (the &#9670; markers) - Saxo (Jan-19-2026: Greenland/dollar-risk "
-        "drives gold) + Nation Thailand (Jan-22: gold cools as Trump drops the threat) - and re-ran on "
-        "sonnet5: the scout named nothing gold-related across 74 weeks and parked in SPY. <b>Why it's a "
-        "genuine non-fit:</b> the entry article itself says the rally 'has not begun with this dispute, "
-        "and it is unlikely to end with it' - a diffuse, <i>systemic</i> dollar-de-risking trend, not a "
-        "discrete resolvable catalyst. The Greenland flashpoint was sub-weekly (spike Jan-19 -> cool "
-        "Jan-21) and gold resumed to fresh highs after. So the <b>scoreboard</b> - not our reasoning - "
-        "confirms gold is the crowded macro trade the gate correctly refuses. Stays greyed."
+        "<b>VanEck Gold Miners (GDX)</b> ran ~3x (Jan-2025 -> Feb-2026 peak) on the tariff-driven flight "
+        "from the dollar. <b>Tested exhaustively with GENUINE news-derived seeds - still not caught.</b> "
+        "We planted three real articles (the &#9670; markers), including tradingnews (Jan-3-2026) which "
+        "<i>names GDX by ticker</i> with an explicit 'room to run to $100+' thesis - and the scout STILL "
+        "named nothing gold-related across 74 weeks, parking in SPY. <b>Why it's a genuine non-fit:</b> "
+        "even handed the ticker, every real article names GDX only AFTER it's up 123-155% ('parabolic', "
+        "'record') - the herd is already in, so it fails the under-the-radar gate. And gold's driver is a "
+        "diffuse, systemic dollar-de-risking trend (the entry article itself: 'unlikely to end with this "
+        "dispute'), not a discrete resolvable catalyst. The <b>scoreboard</b>, not our reasoning, confirms "
+        "the crowded macro trade the gate correctly refuses. Stays greyed."
     ),
 }
 
