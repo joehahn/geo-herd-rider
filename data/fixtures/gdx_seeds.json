@@ -1,12 +1,19 @@
 {
-  "_note": "GDX (gold-miners ETF) seed for the 2025-26 TARIFF-driven gold surge — the corrected catalyst (the old gems_seeds.json GDX seed was mis-dated 2024-03). Window 2024-11-01..2026-04-01: baseline -> Feb-2025 tariff entry -> 3x ride -> Feb-27-2026 peak (~$116) -> rollover. Look-ahead-clean: dated at true publication (Trump's tariff trade war driving safe-haven gold), reflects only what was public then. Seed at the early Feb-2025 signal so the curator can catch it before the Oct-2025 145%-China-tariff blow-off. Trade-war family, same as MP.",
+  "_note": "GENUINE news-derived seeds (real URLs, real ledes verbatim from the source articles) for the GDX/gold test — the Jan-2026 Greenland / dollar-as-political-risk flashpoint. Replaces the earlier SYNTHETIC hand-authored gold seed. Honest note: these real articles name GOLD / hard assets, NOT GDX specifically (the genuine press covers the macro trade, not a named under-the-radar ticker) — so the scout must infer GDX as the miners vehicle on its own; nothing is editorialized in. This is a sub-weekly event (spike Jan 19 -> cool Jan 21) and gold resumed to a Feb-27 peak afterward, so it stress-tests whether the scout will name a gem off a diffuse systemic dollar-risk trend. Look-ahead caveat: curator training likely postdates Jan 2026 (upper bound, non-negotiable #4). A non-blank url marks these as news-derived (vs the blank-url synthetic seeds elsewhere).",
   "articles": [
     {
-      "published_date": "2025-02-11",
-      "source": "forbes.com",
-      "title": "Gold hits a new record as Trump's tariffs and inflation fears drive a safe-haven surge",
-      "snippet": "Gold set a fresh record as President Trump's tariff trade war and inflation fears drive safe-haven demand. The gold-miners ETF (GDX), leveraged to the bullion price, is the pure play on the move - a specific, datable policy shock, still early as the tariff escalation builds.",
-      "url": ""
+      "published_date": "2026-01-19",
+      "source": "home.saxo",
+      "title": "Trump's tariff threats over Greenland push hard assets back to centre stage",
+      "snippet": "Gold and silver, which both faced some profit-taking pressure late last week, jumped to fresh record highs as renewed geopolitical tensions resurfaced. Trump's push to take control of Greenland has widened the geopolitical fault line between the United States and Europe and introduced the risk of tariffs and retaliation. Gold is the first and most obvious beneficiary of this mindset - it has no credit risk, no issuer, and a long history as a store of value during periods of political and monetary uncertainty.",
+      "url": "https://www.home.saxo/content/articles/commodities/trumps-tariff-threats-over-greenland-push-hard-assets-back-to-centre-stage-19012026"
+    },
+    {
+      "published_date": "2026-01-22",
+      "source": "nationthailand.com",
+      "title": "Gold cools after Trump drops Europe tariff threat on Greenland",
+      "snippet": "Global gold prices cooled on Wednesday (Jan 21, 2026), easing from a fresh all-time high after US President Donald Trump backed away from some of his tougher threats linked to the dispute over Greenland, prompting some selling in gold. The metal had reached $4,887.82/oz earlier in the session but settled lower at $4,778.51/oz as Trump announced a Greenland framework agreement with NATO.",
+      "url": "https://www.nationthailand.com/business/trading-investment/40061538"
     }
   ]
 }

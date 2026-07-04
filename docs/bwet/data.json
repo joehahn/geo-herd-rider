@@ -155,25 +155,29 @@
       "date": "2026-02-16",
       "title": "One of the Top-Performing ETFs of 2026 So Far May Surprise You",
       "snippet": "Investors seeking oil-freight futures exposure may be drawn to the Breakwave Tanker Shipping ETF (BWET), which has nearly doubled in the first weeks of the year as tanker rates climb.",
-      "source": "MarketBeat"
+      "source": "MarketBeat",
+      "genuine": true
     },
     {
       "date": "2026-03-13",
       "title": "Tanker-freight ETN keeps climbing as Hormuz risk lifts rates",
       "snippet": "The Breakwave Tanker Shipping ETF (BWET) keeps rising as Mideast tensions and Strait of Hormuz risk keep oil-freight (tanker) day-rates elevated \u2014 still a niche, under-owned freight-futures play.",
-      "source": "MarketWatch"
+      "source": "MarketWatch",
+      "genuine": false
     },
     {
       "date": "2026-04-17",
       "title": "BWET extends run as tanker day-rates stay high on Gulf shipping risk",
       "snippet": "Breakwave Tanker Shipping ETF (BWET) extends its advance as tanker day-rates stay elevated on persistent Gulf/Hormuz shipping risk; the freight-futures ETN is the purest pure-play vs diluted tanker operators.",
-      "source": "etf.com"
+      "source": "etf.com",
+      "genuine": false
     },
     {
       "date": "2026-05-22",
       "title": "Freight-futures ETN BWET holds gains as tanker rates stay elevated",
       "snippet": "BWET (Breakwave Tanker Shipping ETF) holds its gains as elevated tanker freight rates persist amid ongoing Hormuz tensions \u2014 the war-driven oil-freight spike has not resolved.",
-      "source": "Seeking Alpha"
+      "source": "Seeking Alpha",
+      "genuine": false
     }
   ],
   "capital": 50000.0,

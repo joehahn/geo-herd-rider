@@ -105,12 +105,16 @@ def _write_page(path, html: str) -> None:
 
 
 def _gem_seeds(ticker: str) -> list:
-    """Seed articles that NAME this gem (ticker as a word or '(TICKER)' in title/snippet), across all
-    fixture seed files — for marking the seed's publish date + its lede on the value chart."""
+    """Seed articles for this gem: every article in its own `<ticker>_seeds.json` file, PLUS any seed
+    in the shared files that NAMES the gem (ticker as a word or '(TICKER)'). Its own file is included
+    even if the article names the commodity rather than the ETF (news-derived GDX seeds name 'gold',
+    not 'GDX'). Each carries `genuine` = news-derived (has a real url) vs synthetic (blank url), which
+    drives the marker symbol + hover so fictitious and real seeds are visually distinct."""
     import glob  # noqa: PLC0415
     import re  # noqa: PLC0415
     tk = ticker.upper()
     pat = re.compile(rf"(\b{re.escape(tk)}\b|\({re.escape(tk)}\))")
+    own = str(ROOT / "data" / "fixtures" / f"{ticker.lower()}_seeds.json")
     out, seen = [], set()
     for f in sorted(glob.glob(str(ROOT / "data" / "fixtures" / "*seed*.json"))):
         try:
@@ -118,13 +122,16 @@ def _gem_seeds(ticker: str) -> list:
                 arts = json.load(fh).get("articles", [])
         except Exception:  # noqa: BLE001
             continue
+        own_file = (f == own)
         for a in arts:
-            if pat.search(f"{a.get('title', '')} {a.get('snippet', '')}".upper()):
+            named = pat.search(f"{a.get('title', '')} {a.get('snippet', '')}".upper())
+            if own_file or named:      # its own seed file (any article) OR a shared file that names it
                 key = (a.get("published_date", ""), a.get("title", ""))
                 if key not in seen:
                     seen.add(key)
                     out.append({"date": a.get("published_date", ""), "title": a.get("title", ""),
-                                "snippet": a.get("snippet", ""), "source": a.get("source", "")})
+                                "snippet": a.get("snippet", ""), "source": a.get("source", ""),
+                                "genuine": bool(a.get("url", "").strip())})
     return sorted(out, key=lambda s: s["date"])
 
 
@@ -720,14 +727,16 @@ STORYLINE = {
         "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
     ),
     "GDX": (
-        "<b>VanEck Gold Miners (GDX)</b> ran ~3x from Jan-2025 to a Feb-2026 peak on Trump's tariff "
-        "trade war -> safe-haven gold. <b>Now properly TESTED and NOT caught</b> — sonnet5, the tariff "
-        "seed, the corrected 2024-11 -> 2026-04 window, tariff coverage in the pool: the curator "
-        "declined to name GDX and parked in SPY (the +24% shown is just the SPY floor, no gem went "
-        "live). <b>Why it's a genuine non-fit:</b> gold is a <i>second-order, diffuse safe-haven</i> "
-        "beneficiary of tariffs - not the <b>direct</b> catalyst vehicle the way MP is to rare-earth "
-        "curbs or RNMBY to the rearmament vote. The gate names direct vehicles and rejects indirect "
-        "safe-havens - so GDX's big price run is one the solution correctly doesn't chase. Stays greyed."
+        "<b>VanEck Gold Miners (GDX)</b> ran ~3x from Jan-2025 to a Feb-2026 peak on the tariff-driven "
+        "flight from the dollar. <b>Tested with GENUINE news-derived seeds and STILL not caught.</b> We "
+        "planted two <i>real</i> articles (the &#9670; markers) - Saxo (Jan-19-2026: Greenland/dollar-risk "
+        "drives gold) + Nation Thailand (Jan-22: gold cools as Trump drops the threat) - and re-ran on "
+        "sonnet5: the scout named nothing gold-related across 74 weeks and parked in SPY. <b>Why it's a "
+        "genuine non-fit:</b> the entry article itself says the rally 'has not begun with this dispute, "
+        "and it is unlikely to end with it' - a diffuse, <i>systemic</i> dollar-de-risking trend, not a "
+        "discrete resolvable catalyst. The Greenland flashpoint was sub-weekly (spike Jan-19 -> cool "
+        "Jan-21) and gold resumed to fresh highs after. So the <b>scoreboard</b> - not our reasoning - "
+        "confirms gold is the crowded macro trade the gate correctly refuses. Stays greyed."
     ),
 }
 
@@ -924,19 +933,23 @@ Promise.resolve({{DATA}}).then(D=>{
     vann.push({x:o.anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
       text:o.ticker+" trigger",font:{color:oc,size:10}});
   });
-  // seed markers: a big star at each press-seed's publish date on the value curve; lede on hover
-  const SD=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
-  if(SD.length){
-    const sx=SD.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
+  // seed markers: distinguish SYNTHETIC (fictitious ⭐ star) from NEWS-DERIVED (real article ◆ diamond)
+  const SDall=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
+  const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const seedTrace=(subset,nm,sym,col,edge,lab)=>{
+    if(!subset.length)return;
+    const sx=subset.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
     const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
-    const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-    vtraces.push({x:sx,y:sy,mode:"markers",name:"🌱 synthetic seed",
-      marker:{size:16,color:"#f1c40f",symbol:"star",line:{color:"#a67c00",width:1.5}},
-      text:SD.map(s=>"🌱 <b>SYNTHETIC SEED</b> — hand-authored catalyst description, NOT a retrieved article "
-        +s.date+(s.source?" · "+clean(s.source)+" (attribution only, no real URL)":"")
+    vtraces.push({x:sx,y:sy,mode:"markers",name:nm,
+      marker:{size:16,color:col,symbol:sym,line:{color:edge,width:1.5}},
+      text:subset.map(s=>lab+" planted "+s.date+(s.source?" · "+clean(s.source):"")
         +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
       hovertemplate:"%{text}<extra></extra>"});
-  }
+  };
+  seedTrace(SDall.filter(s=>!s.genuine),"🌱 synthetic seed","star","#f1c40f","#a67c00",
+    "🌱 <b>SYNTHETIC SEED</b> — hand-authored catalyst description, NOT a retrieved article (no real URL) ·");
+  seedTrace(SDall.filter(s=>s.genuine),"◆ news-derived seed","diamond","#27ae60","#145a32",
+    "◆ <b>NEWS-DERIVED SEED</b> — a REAL published article, planted because GDELT/Wayback miss the niche piece ·");
   const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
   Plotly.newPlot("chart",vtraces,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
@@ -1146,8 +1159,7 @@ Promise.resolve({{DATA}}).then(D=>{
   document.getElementById("costs").innerHTML =
     `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
     + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
-    + `<div class="sub" style="margin:6px 0 0;font-size:12px">The event-first agent's scout + journal `
-    + `calls across ${D.weeks} weekly scans (dev model). No causal ladder, no magnitude forecasts.</div></div>`;
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">model <b>${D.model||'—'}</b> · ${D.weeks} weekly scans</div></div>`;
 
   // Retrieval health panel
   const R=D.retrieval||{}, g=R.gdelt, w=R.wayback;
