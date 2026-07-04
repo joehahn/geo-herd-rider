@@ -3,7 +3,24 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
-## #2 — Replace synthetic seeds with genuine articles (firm up + rank tonight, 2026-07-03)
+## Current plan — ordered (2026-07-03)
+
+1. **P1 · Complete GDX seeding + analysis** — genuine-seed re-runs (in progress). Names GDX → add to sweeps + un-gray; else lock the triple-confirmed non-fit.
+2. **P2 · Review RNMBY gem** — add its missing storyline, drop the stale 2022 seed, decide sonnet4→sonnet5 re-scan.
+3. **P3 · Replace synthetic seeds with news-derived, all gems** (the "genuine seeds" item below) — real URLs + verbatim ledes for every gem.
+4. **P4 · Compare 1-ticker-per-agent (current) vs 1-agent-juggles-many** — scoreboard A/B; user prefers multi-ticker, gate on lift.
+5. **P5 · Pivot to forward testing** — the only clean scoreboard (`forward.py`).
+
+**Slotted in from the backlog below:**
+- **Delete unused exit knobs** (trailing_stop_pct + prune_zero_weight_weeks) — overdue (deferred to today); quick, do around P2.
+- **GDELT reliability / BigQuery** — prerequisite for P5 (forward needs reliable retrieval; cold scans hang) + helps P3; do before/with P5.
+- **Window the resolved-catalyst ledger** — matters for long/forward runs; do with P5.
+
+**Done (archived):** Sonnet 5 curator eval (now default), curator-model bake-off (7 models), SPY-as-idle-holding (implemented + spy_agent_conviction tuned).
+
+**Stays in backlog (post-P5, mostly gated on forward lift):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable 5 eval, maturity-tag gate (related to P4).
+
+## #2 — Replace synthetic seeds with genuine articles (= P3 above)
 
 The 21 seed entries in `data/fixtures/*seed*.json` are **hand-authored catalyst descriptions**,
 not retrieved articles (20 of 21 have blank URLs), and they are pre-written in the scout's own
