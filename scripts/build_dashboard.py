@@ -467,6 +467,7 @@ def build_landing() -> None:
                      "caught": d.get("caught_all") if _combo else d.get("caught"),
                      "both_held": d.get("both_held") if _combo else None,
                      "window": f'{d["dates"][0]} → {d["dates"][-1]}', "model": d.get("model", "—"),
+                     "tickers": _targets,
                      "join": (d.get("retrieval") or {}).get("wayback", {}).get("join_rate_pct")})
         _agms = d.get("agents", {})       # gather this gem's agents' (conviction, $gain) paths
         for aid, pts in (d.get("agent_convgain") or {}).items():
@@ -485,7 +486,7 @@ def build_landing() -> None:
         jn = f"{r['join']}%" if r["join"] is not None else "—"
         mut = "" if r["active"] else " muted"      # grey out gems we're not currently focused on
         gstyle = f' style="color:{cmap[r["gem"]]}"' if r["gem"] in cmap else ""  # name matches its curve
-        return (f'<a class="gcard{mut}" href="{r["url"]}"><div class="gt"{gstyle}>{r["gem"]}</div>'
+        return (f'<a class="gcard{mut}" href="{r["url"]}" data-gems="{",".join(r["tickers"])}"><div class="gt"{gstyle}>{r["gem"]}</div>'
                 f'<div class="gv {cls}">{r["ret"]*100:+.0f}%</div>'
                 f'<div class="gs">vs SPY {r["spy"]*100:+.0f}% · maxDD {r["maxdd"]*100:.0f}%</div>'
                 f'<div class="gs"><span class="{cc}">{caught}</span> · Wayback join {jn}</div>'
@@ -1326,6 +1327,20 @@ LANDING_HTML = r"""<!doctype html>
    {margin:{l:46,r:14,t:6,b:34},legend:{orientation:"h",y:1.16,font:{size:11}},
     xaxis:{type:"date",range:xr},yaxis:{title:"multiple (start = 1.0×)",range:yr,zeroline:false},hovermode:"closest"},
    {displayModeBar:false,responsive:true});
+  // hover a gem card -> highlight that gem's curve(s) in Plot 1 (thicken + un-dim; fade the rest)
+  const gp=document.getElementById("gemsplot"), tks=S.map(s=>s.ticker);
+  const baseW=traces.map(t=>t.line.width), baseO=traces.map(t=>t.opacity), allIdx=traces.map((_,i)=>i);
+  document.querySelectorAll('.gcard[data-gems]').forEach(cd=>{
+    const gems=cd.getAttribute("data-gems").split(",");
+    const hit=tks.map((t,i)=>gems.includes(t)?i:-1).filter(i=>i>=0);
+    if(!hit.length) return;
+    cd.addEventListener("mouseenter",()=>{
+      const w=baseW.slice(), o=baseO.slice();
+      allIdx.forEach(i=> hit.includes(i) ? (w[i]=5,o[i]=1) : (o[i]=Math.min(baseO[i],0.15)) );
+      Plotly.restyle(gp,{"line.width":w,"opacity":o},allIdx);
+    });
+    cd.addEventListener("mouseleave",()=> Plotly.restyle(gp,{"line.width":baseW.slice(),"opacity":baseO.slice()},allIdx));
+  });
  }
  const CGA={{CONVGAIN}};
  if(CGA&&CGA.length){
