@@ -49,20 +49,20 @@ The sections below explain each box in greater detail — the [Firehose](#the-ne
 
 ### How the core pieces fit together
 
-The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by 1–2 **tickers** that can *change* over time, with the **thesis** being the catalyst→ticker claim.
+The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by a **basket of same-catalyst tickers** — the purest name plus its direct peers (a rearmament catalyst → Rheinmetall + BAE + Saab + Thales) — that can *evolve* over time, with the **thesis** being the catalyst→ticker claim. The agent proposes the whole basket; the mechanical optimizer sizes it and drops the weak vehicles. Peers must share the *same* catalyst, so a basket never drifts into an unrelated gem.
 
 ```mermaid
 flowchart LR
     CUR["🧠 Curator<br/>scout · matcher · agents"] --> EV
     CAT["🎯 Catalyst<br/>the discrete driver:<br/>war · rare-earth curb ·<br/>bill · supply shock"] === EV["<b>EVENT</b><br/><i>the durable unit</i>"] === AGT["🟢 Agent<br/>exactly ONE per event;<br/>tracks it weekly;<br/>live/exit + conviction 1–10"]
-    EV -- "expressed by · ticker can EVOLVE" --> VEH["📈 Vehicle(s) / gem(s)<br/>1–2 tickers"]
+    EV -- "expressed by · basket can EVOLVE" --> VEH["📈 Vehicle(s) / gem(s)<br/>same-catalyst basket"]
     VEH -- "why it rises" --> THE["📝 Thesis<br/>this catalyst → this ticker"]
     MANY["several tickers naming<br/>the SAME catalyst"] -. "matcher COLLAPSES into ONE event<br/>(never 3 events for 1 catalyst)" .-> EV
 ```
 
 - **Catalyst** — the discrete driver (a war, a China rare-earth curb, a bill, a supply shock); it *defines* the event.
 - **Event ≡ catalyst ≡ agent** (1 : 1 : 1) — the durable unit; one agent owns it from entry to exit and rates its `conviction`.
-- **Vehicle / gem** — the 1–2 tickers that best express the event *right now*; the ticker can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker).
+- **Vehicle / gem** — the basket of same-catalyst tickers that express the event *right now* (the purest name + its peers); the basket can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker). The curator proposes the basket; the optimizer sizes it and drops the weak vehicles.
 - **Thesis** — the claim that *this* catalyst makes *this* ticker rise.
 - The **matcher** merges every ticker naming the same catalyst into ONE event (so RNMBY + RHMTY + LMT = one defense event, not three).
 

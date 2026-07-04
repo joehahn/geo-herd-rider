@@ -42,9 +42,10 @@ from util import scan_anchors  # noqa: E402
 SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["candidates"],
                "properties": {"candidates": {"type": "array", "items": {
                    "type": "object", "additionalProperties": False,
-                   "required": ["ticker", "thesis", "why_now"],
+                   "required": ["ticker", "thesis", "why_now", "peers"],
                    "properties": {"ticker": {"type": "string"}, "thesis": {"type": "string"},
-                                  "why_now": {"type": "string"}}}}}}
+                                  "why_now": {"type": "string"},
+                                  "peers": {"type": "array", "items": {"type": "string"}}}}}}}
 AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "sources"],
                "properties": {"thesis_live": {"type": "boolean"},
@@ -68,6 +69,15 @@ thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a 
 or a name buried in a list. Most weeks warrant 0-1 candidates; rarely more than 2. When in doubt,
 propose nothing. Prefer the PUREST vehicle for a theme (a rate/commodity ETN or clean pure-play
 over diluted operators; a single ADR over a broad ETF).
+
+PEER BASKET (extra vehicles for ONE catalyst — NOT extra catalysts). Keep the single purest name as
+`ticker`, but ALSO list in `peers` the OTHER US-listed tickers that express the SAME catalyst — direct
+same-thesis plays (a European-rearmament catalyst -> other arms makers; a rare-earth-curb catalyst ->
+other rare-earth miners; a "gold-miners surge" -> the miners ETF alongside the leading miners). These
+ride as extra vehicles on that ONE event and the mechanical optimizer sizes them + drops the weak ones,
+so you no longer throw the peers away. RULES: `peers` are SAME-catalyst ONLY (0-4); NEVER list a name
+driven by a DIFFERENT catalyst — that is a separate candidate or nothing (this is what keeps the basket
+from drifting into unrelated gems); US-listed only (name the US ADR, no foreign suffix).
 
 CATALYST GATE (the hard filter — this is the bet). Propose a ticker ONLY if the press ties it to a
 SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
@@ -173,6 +183,7 @@ class ScoutCandidate(BaseModel):
     ticker: str
     thesis: str = ""
     why_now: str = ""
+    peers: list[str] = []          # same-catalyst peer vehicles: extra US tickers for THIS event's basket
 
     @field_validator("ticker")
     @classmethod
@@ -491,10 +502,11 @@ MUST set catalyst_resolved=TRUE. Do NOT write an exit_case that concludes "it al
 then leave catalyst_resolved=false and hold — that contradiction IS the inertia trap this is meant to
 break.
 
-USE THE WHOLE JOURNAL. The CATALYST is fixed; the best VEHICLE (ticker) MAY EVOLVE as the event
-develops — pick the purest CURRENT vehicle(s) from the known set (1-2 max; cleanest pure-play /
-rate-or-commodity ETN / single ADR; drop a vehicle that is no longer the best). The event is the
-durable unit; the ticker can change with it.
+USE THE WHOLE JOURNAL. The CATALYST is fixed, but its event carries a BASKET of same-catalyst vehicles
+(the primary plus its peers) — propose ALL of them that still credibly express the LIVE catalyst (the
+mechanical optimizer sizes them and drops the weak ones, so you never pre-pick the one winner). Keep
+the cleanest pure-plays AND the peers; drop only a vehicle whose OWN thesis no longer holds. Do NOT add
+a name from a DIFFERENT catalyst. The event is the durable unit; its basket of tickers can change with it.
 
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
 composition, the exit, and which vehicle.
@@ -697,12 +709,14 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         match = match_to_events(client, a, new_cands, events) if new_cands else {}
         for c in new_cands:
             tk, eid = c["ticker"], match.get(c["ticker"], "new")
+            peers = {p.strip().upper() for p in c.get("peers", [])       # same-catalyst basket peers
+                     if p.strip() and "." not in p and p.strip().upper() != tk}
             if eid in events and events[eid]["status"] == "live":
-                events[eid]["vehicles"].add(tk)
+                events[eid]["vehicles"] |= {tk, *peers}
             else:
                 nid[0] += 1
                 events[f"ev{nid[0]}"] = {"id": f"ev{nid[0]}", "catalyst": c["thesis"],
-                                         "status": "live", "vehicles": {tk}, "entries": []}
+                                         "status": "live", "vehicles": {tk, *peers}, "entries": []}
         merged = _consolidate_events(events)   # weekly consolidation-of-agents pass (dup-catalyst merge)
         if merged:
             print(f"  consolidated {merged} duplicate-catalyst event(s) ({a.date()})", file=sys.stderr)

@@ -767,7 +767,7 @@ STORYLINE = {
         "constitutional debt brake</b> - a specific, datable policy shock unlocking a historic buildout. The "
         "scout caught it <b>early</b>, on the Dec-2024 anticipation (before the debt-brake vote). On sonnet5 (with "
         "the anticipation-catch + hold-through-silence prompt fixes) it names RNMBY at conviction 8 and rides the "
-        "whole run - and the same fixes surface OKLO (nuclear) as a second winner (~+250% book; OKLO the bigger leg). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
+        "whole run - and the anticipation + peer-basket fixes let its rearmament event hold a BASKET of arms makers (Rheinmetall + BAE + Saab + Thales) beside a separate OKLO nuclear play (~+235% book; the optimizer sizes the basket + drops weak peers). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
         "open-ended (a multi-year buildout, no single resolution date), the MP-type under-exit case where an "
         "ongoing structural driver never cleanly resolves."
     ),
