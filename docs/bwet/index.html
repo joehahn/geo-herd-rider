@@ -29,7 +29,7 @@
  details.clip>summary::-webkit-details-marker{display:none}
  details.clip[open]>summary{display:none}
 </style></head>
-<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-04 19:39:26 EDT</div><div class="wrap">
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-04 19:43:34 EDT</div><div class="wrap">
  <nav class="nav"><a href="../index.html">↑ All gems</a>
    <a href="index.html" class="active">Dashboard</a>
    <a href="firehose.html">Firehose log</a>
@@ -310,9 +310,12 @@ Promise.resolve({"gem": "BWET", "overlay_label": "BWET trigger", "caught": true,
   // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
   const AG=D.agent_gain||{}, AGM=D.agents||{};
   const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
+  // one stable color per agent, shared across Plots 7/8/9 so a bar == its conviction/path line
+  const AGPAL=["#2980b9","#e67e22","#27ae60","#8e44ad","#c0392b","#16a085","#17becf","#e377c2","#bcbd22","#9467bd"];
+  const agColor={}; Object.keys(AGM).forEach((id,i)=>{agColor[id]= id==="spy"?"#888":AGPAL[i%AGPAL.length];});
   const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
   Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
-    marker:{color:agS.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    marker:{color:agS.map(e=>agColor[e[0]]||"#888"),line:{color:"#333",width:0.5}},
     hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
     {margin:{l:72,r:30,t:18,b:70},xaxis:{tickangle:-30},
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
@@ -322,7 +325,8 @@ Promise.resolve({"gem": "BWET", "overlay_label": "BWET trigger", "caught": true,
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:2}, marker:{size:5}}));
+    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    marker:{size:5,color:agColor[aid]||"#888"}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
      xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
@@ -333,9 +337,10 @@ Promise.resolve({"gem": "BWET", "overlay_label": "BWET trigger", "caught": true,
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
     return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:1.5},
+      line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
       marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
         symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
+        color:agColor[aid]||"#888",
         line:{color:"#222",width:s.map((p,i)=> i===0||i===n-1 ? 1.2 : 0)}},
       customdata:s.map(p=>p.date),
       hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"};
