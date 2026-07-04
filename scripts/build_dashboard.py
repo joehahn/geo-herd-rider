@@ -221,7 +221,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     # stable agent ids: each distinct event (catalyst/thesis) = one agent, numbered ev1, ev2... in
     # first-appearance order (matches the engine's event-creation numbering). A ticker maps to >1
     # agent when its thesis exits and the same ticker later re-emerges as a fresh event (e.g. BWET).
-    thesis_id, agent_meta = {}, {}
+    thesis_id, agent_meta, agent_tks = {}, {}, {}
     for a in sorted(scans):
         for p in scans[a]:
             th, tk = p.get("thesis", ""), str(p.get("ticker", "")).strip().upper()
@@ -234,10 +234,12 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                                    "first": a.date().isoformat(), "last": a.date().isoformat()}
             else:
                 agent_meta[aid]["last"] = a.date().isoformat()
-    agent_of: dict = {}                       # ticker -> "ev1" (or "ev2+ev6" if it had >1 event)
-    for th, aid in thesis_id.items():
-        agent_of.setdefault(agent_meta[aid]["ticker"], []).append(aid)
-    agent_of = {tk: "+".join(ids) for tk, ids in agent_of.items()}
+            agent_tks.setdefault(aid, set()).add(tk)   # the agent's BASKET of same-catalyst tickers (peer-basket)
+    agent_of: dict = {}                       # ticker -> "ev1" (every basket ticker maps to its agent)
+    for aid, tks in agent_tks.items():
+        for tk in tks:
+            agent_of.setdefault(tk, []).append(aid)
+    agent_of = {tk: "+".join(sorted(set(ids))) for tk, ids in agent_of.items()}
 
     # per-agent $ attribution (Plot 7): partition each ticker's cumulative gain across its agents by
     # their active windows -> telescopes to the ticker total, and splits a shared ticker (BWET ev2/ev6).
@@ -251,16 +253,15 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
             else:
                 break
         return j
-    by_tk: dict = {}
-    for aid, mt in agent_meta.items():
-        by_tk.setdefault(mt["ticker"], []).append(aid)
-    agent_gain = {}
-    for tk, aids in by_tk.items():
+    tk_agents: dict = {}                       # ticker -> [agents]: a basket ticker -> its one agent; a
+    for aid, tks in agent_tks.items():         #   re-used ticker (BWET) -> the several events that held it
+        for tk in tks:
+            tk_agents.setdefault(tk, []).append(aid)
+    agent_gain = {aid: 0.0 for aid in agent_meta}
+    for tk, aids in tk_agents.items():         # SUM each agent's whole basket (partition a re-used ticker by window)
         gs = ag_gs.get(tk)
         aids = sorted(aids, key=lambda a: agent_meta[a]["first"])
         if not gs:
-            for a in aids:
-                agent_gain[a] = 0.0
             continue
         for k, a in enumerate(aids):
             s = _idx_le(agent_meta[a]["first"]) - 1
@@ -270,7 +271,10 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                 end_val = gs[e] if e >= 0 else 0.0
             else:                                      # last agent keeps the tail
                 end_val = gs[-1]
-            agent_gain[a] = round(end_val - start_val, 2)
+            agent_gain[a] += round(end_val - start_val, 2)
+    for aid, tks in agent_tks.items():         # label the agent with its FUNDED basket (Plot 7 shows RNMBY + peers)
+        funded = sorted(t for t in tks if t in ag_gs)
+        agent_meta[aid]["basket"] = ", ".join(funded or sorted(tks))
 
     # per-agent conviction over time (Plot 8) + the synthetic SPY agent-agent's row in the gain/
     # conviction plots: its $ P&L is booked on SPY holdings, its conviction is the constant spy_agent_conviction.
@@ -1084,7 +1088,7 @@ Promise.resolve({{DATA}}).then(D=>{
 
   // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
   const AG=D.agent_gain||{}, AGM=D.agents||{};
-  const aglab=id=>AGM[id]?id+" ("+AGM[id].ticker+")":id;
+  const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
   const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
   Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
     marker:{color:agS.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
