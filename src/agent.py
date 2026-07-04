@@ -631,7 +631,7 @@ def event_agent_v2(client, anchor, event, entries, news):
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False, enrich_fetch=True, curator_memory_weeks=8) -> dict:
+                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, max_tickers=0) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
@@ -741,7 +741,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                 if entry.get("catalyst_resolved"):   # remember it so the scout won't re-chase the hype
                     for tk in ev["vehicles"]:
                         retired[tk] = (f"{ev['catalyst']} (resolved {a.date()})", i)
-                for tk in entry["vehicles"]:
+                for tk in (entry["vehicles"][:max_tickers] if max_tickers else entry["vehicles"]):
                     picks.append({"ticker": tk, "thesis": ev["catalyst"],
                                   "thesis_live": entry["thesis_live"], "src": _src(tk),
                                   "exit_case": entry.get("exit_case", ""),

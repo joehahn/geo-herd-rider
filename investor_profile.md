@@ -11,7 +11,7 @@ model: sonnet5                     # Curator LLM that reads the firehose. Choice
 initial_investment_usd: 50000     # Day-0 dollar allocation.
 concentration_cap: 0.7            # Per-ticker max allocation.
 risk_aversion: 0.67              # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
-max_tickers_per_event: 16         # Cap on tickers kept per event.
+max_tickers_per_event: 4          # Cap on tickers kept per event.
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 2                     # Keep only the top-N agents (by catalyst-conviction) in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped; sweepable
