@@ -835,13 +835,13 @@ INDEX_HTML = r"""<!doctype html>
    winner, red = loser; the bars sum to the portfolio's total gain.</p>
  <div id="agentgain"></div>
 
- <h2>Plot 8 — Conviction score over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— big &#9679; = each agent's first scan; the octagon (stop-sign) = its last</span></h2>
+ <h2>Plot 8 — Conviction score over time, per agent</h2>
  <p class="sub" style="margin:0 0 6px">Each agent's <b>catalyst-conviction</b> rating (1-10) week by week —
    how strong / early / datable it judged its own catalyst. The dashed grey line is the always-on
    <b>SPY agent</b> (<code>spy_agent_conviction</code>): a live event must out-rank it to be held.</p>
  <div id="convtime"></div>
 
- <h2>Plot 9 — Gain vs conviction over time, per agent</h2>
+ <h2>Plot 9 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
  <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
    (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
    climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
@@ -1072,14 +1072,9 @@ Promise.resolve({{DATA}}).then(D=>{
 
   // Plot 8 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
   const AC=D.agent_conviction||{};
-  const convTraces=Object.entries(AC).map(([aid,pts])=>{
-    const n=pts.length;
-    return {x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:2},
-      marker:{size:pts.map((p,i)=> i===0||i===n-1 ? 13 : 5),                          // big first + last point
-        symbol:pts.map((p,i)=> i===0 ? "circle" : i===n-1 ? "octagon" : "circle"),    // start = circle, end = octagon (stop-sign)
-        line:{color:"#222",width:pts.map((p,i)=> i===0||i===n-1 ? 1.2 : 0)}}};
-  });
+  const convTraces=Object.entries(AC).map(([aid,pts])=>({
+    x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
+    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:2}, marker:{size:5}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
      xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
@@ -1087,11 +1082,16 @@ Promise.resolve({{DATA}}).then(D=>{
 
   // Plot 9 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
   const CG=D.agent_convgain||{};
-  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>({
-    x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:1.5}, marker:{size:6},
-    customdata:s.map(p=>p.date),
-    hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"}));
+  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
+    const n=s.length;
+    return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
+      line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{width:1.5},
+      marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
+        symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
+        line:{color:"#222",width:s.map((p,i)=> i===0||i===n-1 ? 1.2 : 0)}},
+      customdata:s.map(p=>p.date),
+      hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"};
+  });
   if(cgTraces.length) Plotly.newPlot("gainconv",cgTraces,
     {margin:{l:74,r:130,t:16,b:44},legend:{orientation:"v",x:1.02,y:1},
      xaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:1},
