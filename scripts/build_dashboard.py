@@ -400,7 +400,23 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     _bullets = ("<div style='margin-top:9px'><b>Co-discovered events the curator juggled</b> "
                 "(not this dashboard's gem):<ul style='margin:5px 0 0;padding-left:20px'>"
                 + "".join(r[1] for r in _rows) + "</ul></div>") if _rows else ""
-    _story = STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent") + _bullets
+    # the GEM's OWN agent exit — stated on EVERY gem dashboard (single- or multi-agent), data-driven from the book
+    _ge = _ex.get(_gem_aid, {})
+    _gcase = (_ge.get("case") or "").strip().rstrip(".")
+    _gthesis = (agent_meta.get(_gem_aid, {}) or {}).get("thesis", "")
+    if _ge.get("resolved"):
+        _gstatus = f"<b style='color:#c0392b'>&#10005; EXITED {_ge['date']}</b> &mdash; {_gcase}"
+    else:
+        _gstatus = (f"<b style='color:#0a7a0a'>still live</b> &mdash; {_gcase}" if _gcase
+                    else "<b style='color:#0a7a0a'>still live</b> (catalyst active)")
+    if _gem_aid:
+        _gem_exit = (f"<div style='margin-top:9px'><b>This gem&rsquo;s agent ({_gem_aid})</b> &mdash; "
+                     f"catalyst: <i>{_gthesis}</i>. Exit: {_gstatus}.</div>")
+    else:
+        _gem_exit = (f"<div style='margin-top:9px'><b>This gem ({ticker}) was not caught</b> &mdash; "
+                     f"no agent named it this window; the events the curator did track are below.</div>")
+    _story = (STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent")
+              + _gem_exit + _bullets)
     _RED, _YEL, _BLU = "#d62728", "#eab308", "#1f77b4"          # SPY=red, defensive(gold)=yellow, gem=blue (reserved)
     _defv = str(fm.get("defensive_ticker", "GLD")).upper()
     _ngpal = [c for c in PALETTE if c not in (_RED, _YEL, _BLU)]   # co-tickers avoid all three reserved colors
