@@ -613,7 +613,7 @@ SWEEPS = [
     {"key": "risk_aversion", "label": "risk_aversion",
      "values": [0.0, 0.1, 0.25, 0.5, 0.67, 0.85, 1.0, 1.25, 1.5, 2.0, 3.0]},   # 0 = pure-μ -> high λ = risk-averse
     {"key": "max_agents", "label": "max_agents",
-     "values": [1, 2, 3, 4, 5, 6, 8]},              # top-N events (by conviction) kept in the weekly watchlist
+     "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15]},   # top-N events (by conviction) kept in the weekly watchlist
     {"key": "spy_agent_conviction", "label": "spy_agent_conviction",
      "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY agent an event must out-rank to be held
 ]
