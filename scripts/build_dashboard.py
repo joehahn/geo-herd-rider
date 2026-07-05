@@ -729,7 +729,7 @@ def build_sweeps() -> None:
                 tc += bt["final"]; ts += bt["spy_final"]; per_gem[t].append(round(bt["final"]))
             sum_cur.append(round(tc)); sum_spy.append(round(ts))
         out["params"][key] = {"label": sw["label"], "values": vals, "log": sw.get("log", False),
-                              "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem}
+                              "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem, "default": fm0.get(key)}
         print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
     # ---- LLM bake-off: each model's 3 books re-scored on the same panels at the live defaults ----
     if bake_models:
@@ -1558,7 +1558,7 @@ Promise.resolve({{DATA}}).then(D=>{
   }
   Object.keys(P).forEach((k,i)=>{
     const p=P[k];
-    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — (Sum Final Curated)/4 vs ${p.label}`; host.appendChild(h2);
+    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — (Sum Final Curated)/4 vs ${p.label}  ·  default = ${p.default}`; host.appendChild(h2);
     const div=document.createElement("div"); div.className="chart"; div.id="c_"+k; host.appendChild(div);
     const traces=[
       {x:p.values,y:p.sum_curated.map(v=>v/4),name:"(Sum Final Curated)/4",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
