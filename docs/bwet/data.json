@@ -145,7 +145,7 @@
   "caught_all": true,
   "both_held": 0,
   "model": "sonnet5",
-  "storyline": "<b>Breakwave Tanker Shipping (BWET)</b> tracks crude-oil tanker freight rates (~90% VLCC / TD3C futures, Gulf&rarr;China). It spiked on the <b>2026 Iran war and Strait-of-Hormuz closure</b>, which choked Gulf oil-tanker lanes and sent VLCC day-rates to record highs (~$424k/day). The catalyst <b>resolves when the conflict de-escalates</b> (a ceasefire, or the Strait reopening) and rates roll over &mdash; here the agent exited on the Apr-10 two-week ceasefire (which then proved temporary). <b>What we'd want:</b> ride it while the war risk is live and exit when it resolves \u2014 <i>not</i> when coverage merely gets crowded (crowding is not thesis death).<div style='margin-top:9px'><b>This gem&rsquo;s agent (ev1)</b> &mdash; catalyst: <i>Iran blocks Strait of Hormuz, tanker rates hit record</i>. Exit: <b style='color:#c0392b'>&#10005; EXITED 2026-04-10</b> &mdash; US-Iran agreed two-week ceasefire; markets rallying on expectations Strait of Hormuz reopens, crude falls.</div>",
+  "storyline": "<b>Breakwave Tanker Shipping (BWET)</b> tracks crude-oil tanker freight rates (~90% VLCC / TD3C futures, Gulf&rarr;China). It spiked on the <b>2026 Iran war and Strait-of-Hormuz closure</b>, which choked Gulf oil-tanker lanes and sent VLCC day-rates to record highs (~$424k/day). The catalyst <b>resolves when the conflict de-escalates</b> (a ceasefire, or the Strait reopening) and rates roll over &mdash; here the agent exited on the Apr-10 two-week ceasefire (which then proved temporary). <b>What we'd want:</b> ride it while the war risk is live and exit when it resolves \u2014 <i>not</i> when coverage merely gets crowded (crowding is not thesis death).<div style='margin-top:9px'><b>This gem&rsquo;s event-agent (ev1)</b> &mdash; catalyst: <i>Iran blocks Strait of Hormuz, tanker rates hit record</i>. Exit: <b style='color:#c0392b'>&#10005; EXITED 2026-04-10</b> &mdash; US-Iran agreed two-week ceasefire; markets rallying on expectations Strait of Hormuz reopens, crude falls.</div>",
   "ever_funded": [
     "BWET",
     "GLD",
@@ -2421,7 +2421,7 @@
     },
     "spy": {
       "ticker": "SPY",
-      "thesis": "always-on SPY agent",
+      "thesis": "always-on SPY floor agent",
       "first": "2025-12-30",
       "last": "2026-07-02"
     }

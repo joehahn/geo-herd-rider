@@ -292,7 +292,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)
     if spy_agent and ag_gs.get("SPY"):
         _sgs = ag_gs["SPY"]
-        agent_meta["spy"] = {"ticker": "SPY", "thesis": "always-on SPY agent",
+        agent_meta["spy"] = {"ticker": "SPY", "thesis": "always-on SPY floor agent",
                              "first": ag_dates[0], "last": ag_dates[-1]}
         agent_gain["spy"] = round(_sgs[-1] - _sgs[0], 2)
         agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_agent}
@@ -410,7 +410,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         _gstatus = (f"<b style='color:#0a7a0a'>still live</b> &mdash; {_gcase}" if _gcase
                     else "<b style='color:#0a7a0a'>still live</b> (catalyst active)")
     if _gem_aid:
-        _gem_exit = (f"<div style='margin-top:9px'><b>This gem&rsquo;s agent ({_gem_aid})</b> &mdash; "
+        _gem_exit = (f"<div style='margin-top:9px'><b>This gem&rsquo;s event-agent ({_gem_aid})</b> &mdash; "
                      f"catalyst: <i>{_gthesis}</i>. Exit: {_gstatus}.</div>")
     else:
         _gem_exit = (f"<div style='margin-top:9px'><b>This gem ({ticker}) was not caught</b> &mdash; "
@@ -788,7 +788,7 @@ STORYLINE = {
         "<b>China's April-2025 rare-earth export curbs</b> — Beijing restricting critical-mineral exports makes "
         "the lone scaled US producer strategically valuable — then <b>surged again in July 2025</b> when the "
         "<b>Department of Defense took a $400M stake</b> (becoming MP's largest shareholder) with a 10-year "
-        "$110/kg price floor, sending the stock up ~50% in a day. This dashboard tracks the event as <b>agent "
+        "$110/kg price floor, sending the stock up ~50% in a day. This dashboard tracks the event as <b>event-agent "
         "{GEM_AGENT}</b> (the thick blue curve in the plots below). <b>Exit condition:</b> the curbs ease / the "
         "scarcity premium fades — an open-ended driver, so it exits only on a genuine reversal (China lifting the controls)."
     ),
@@ -916,17 +916,19 @@ INDEX_HTML = r"""<!doctype html>
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 7 — Cumulative $ earned per agent (event)</h2>
+ <h2>Plot 7 — Cumulative $ earned per event-agent</h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
    partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
    agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
    winner, red = loser; the bars sum to the portfolio's total gain.</p>
  <div id="agentgain"></div>
 
- <h2>Plot 8 — Conviction score over time, per agent</h2>
- <p class="sub" style="margin:0 0 6px">Each agent's <b>catalyst-conviction</b> rating (1-10) week by week —
-   how strong / early / datable it judged its own catalyst. The dashed grey line is the always-on
-   <b>SPY agent</b> (<code>spy_agent_conviction</code>): a live event must out-rank it to be held.</p>
+ <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY floor)</h2>
+ <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
+   how strong / early / datable it judged its own catalyst. The dashed red line is the always-on
+   <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
+   (<code>defensive_agent_conviction</code> / <code>defensive_ticker</code>, gold) it forms the floor a live
+   event-agent must out-rank to be funded.</p>
  <div id="convtime"></div>
 
  <h2>Plot 9 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
@@ -1213,7 +1215,7 @@ Promise.resolve({{DATA}}).then(D=>{
                     :`the gem ${gem} was never named this window`);
       if(best&&best.ticker!==gem) bits.push(`${best.ticker} was the best pick (${pct(best.ret)})`);
       if(worst&&worst.ret<0&&worst.ticker!==gem) bits.push(`${worst.ticker} the worst (${pct(worst.ret)})`);
-      capEl.innerHTML=`Each bar is one agent's <b>standalone pick return over its own live span</b> &mdash; ${list} `
+      capEl.innerHTML=`Each bar is one event-agent's <b>standalone pick return over its own live span</b> &mdash; ${list} `
         +`&mdash; so the curator's picks won <b>${nwin} of ${nap}</b> times, independent of how much the optimizer `
         +`actually sized each (Plots 1/3 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
     }
