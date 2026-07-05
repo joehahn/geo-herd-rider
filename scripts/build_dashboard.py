@@ -616,6 +616,8 @@ SWEEPS = [
      "values": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15]},   # top-N events (by conviction) kept in the weekly watchlist
     {"key": "spy_agent_conviction", "label": "spy_agent_conviction",
      "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; SPY agent an event must out-rank to be held
+    {"key": "defensive_agent_conviction", "label": "defensive_agent_conviction",
+     "values": [0, 3, 4, 5, 6, 7, 8]},              # 0 = off; gold/defensive floor an event must out-rank to be held
 ]
 
 # The (non-LLM) parameter sweeps are restricted to these gems only.
@@ -680,7 +682,7 @@ def build_sweeps() -> None:
                      else fm0.get("model", "mimo"))
         scans = load_scans(cfg["scans"])
         ana = list(scans)
-        tix = {score.BENCHMARK, t} | {p["ticker"] for v in scans.values() for p in v
+        tix = {score.BENCHMARK, t, str(fm0.get("defensive_ticker", "GLD")).upper()} | {p["ticker"] for v in scans.values() for p in v
                                       if str(p.get("ticker", "")).strip()}
         for s in bake_models:  # add every bake-off model's tickers so its book is scorable
             bp = _model_book_path(s, t)
@@ -698,7 +700,7 @@ def build_sweeps() -> None:
     if combo_p.exists():
         cscans = load_scans(combo_p)
         cana = list(cscans)
-        ctix = {score.BENCHMARK, "GEO", "MSTR"} | {p["ticker"] for v in cscans.values()
+        ctix = {score.BENCHMARK, "GEO", "MSTR", str(fm0.get("defensive_ticker", "GLD")).upper()} | {p["ticker"] for v in cscans.values()
                                                    for p in v if str(p.get("ticker", "")).strip()}
         cstart = (cana[0] - pd.Timedelta(days=pre)).strftime("%Y-%m-%d")
         cend = (cana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
@@ -1556,11 +1558,10 @@ Promise.resolve({{DATA}}).then(D=>{
   }
   Object.keys(P).forEach((k,i)=>{
     const p=P[k];
-    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — Sum Final Curated Portfolio vs ${p.label}`; host.appendChild(h2);
+    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — (Sum Final Curated)/3 vs ${p.label}`; host.appendChild(h2);
     const div=document.createElement("div"); div.className="chart"; div.id="c_"+k; host.appendChild(div);
     const traces=[
-      {x:p.values,y:p.sum_curated,name:"Sum Final Curated",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
-      {x:p.values,y:p.sum_spy,name:"Sum Final SPY",mode:"lines+markers",line:{color:"#7f7f7f",width:2},marker:{size:6}},
+      {x:p.values,y:p.sum_curated.map(v=>v/3),name:"(Sum Final Curated)/3",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
     ];
     const V=D.verticals||{};
     gems.forEach((g,gi)=>{ if(p.per_gem&&p.per_gem[g]) traces.push(
@@ -1568,7 +1569,7 @@ Promise.resolve({{DATA}}).then(D=>{
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
       xaxis:{title:p.label+(p.log?" (log)":""),type:p.log?"log":"linear",tickvals:p.values,ticktext:p.values.map(String)},
-      yaxis:{type:"log",tickprefix:"$",separatethousands:true},
+      yaxis:{tickprefix:"$",separatethousands:true},
       legend:{orientation:"h",y:1.16},hovermode:"x unified"},{displayModeBar:false,responsive:true});
   });
   if(!Object.keys(P).length) host.innerHTML='<p class="sub">No sweeps recorded yet.</p>';
