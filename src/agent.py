@@ -537,9 +537,11 @@ because ONE scheduled milestone (e.g. a single summit) has passed — the driver
 milestones, so a gap between them is a QUIET STRETCH, not completion. Exit a structural driver ONLY on a
 genuine REVERSAL of the driver itself — a concrete COUNTER-event (a peace deal that ends the rearmament,
 the curbs lifted, the reserve pivot unwound, the funding cut) — never on silence, an "aging thesis", or a
-single milestone passing while the buildout plainly continues. (b) Do NOT let conviction DECAY through
-quiet weeks while the vehicle keeps climbing — silence + a rising price on a live structural driver is the
-thesis compounding, not weakening. (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
+single milestone passing while the buildout plainly continues. (b) Silence is NOT a hard exit
+(catalyst_resolved stays false) — but it IS a fade: a structural driver earns high conviction by delivering
+FRESH milestones, not by the mere passage of time, so genuine prolonged quiet steps conviction DOWN per the
+SILENCE DECAY rule below (recovering when fresh coverage resumes). Don't confuse a single milestone passing
+amid ONGOING coverage (compounding) with true silence (fading). (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
 FRESHEST concrete milestone — if you entered on "Trump signals NATO pullback" and the driver then became
 "Germany votes to exempt defense from its debt brake," THAT vote is the live catalyst now; clinging to the
 ORIGINAL milestone while the driver has moved on is anchoring, and forces an exit for the wrong reason.
@@ -566,7 +568,26 @@ still-early / under-the-radar shock with a clean pure-play vehicle (a named war/
 shock the press explicitly ties to this ticker); 1 = vague, generic, already-mainstream, or a routine
 business item (an analyst rating, a small partnership, a run-of-the-mill earnings beat). Judge the
 CATALYST's specificity + magnitude-of-event + how under-the-radar it still is — never the expected
-return. Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,
+return.
+
+PRICED-IN DECAY (the SOFT resolution). As a thesis gets ABSORBED, step conviction DOWN. When the
+coverage flips from "still under-owned / more upside ahead" to "fully valued / consensus / the move
+has largely happened" and no fresh catalyst lies ahead, the EDGE is gone even though the driver has
+NOT reversed — mark conviction LOW (3-4) so the position is out-competed and culled from the shortlist.
+This priced-in fade is a SOFT resolution: leave catalyst_resolved=false / thesis_live=true (you are NOT
+calling a hard exit, just letting a played-out name lose the fitness contest). It is DISTINCT from a
+STRUCTURAL, open-ended buildout still delivering fresh milestones — keep THAT high; do NOT fade a live
+open-ended driver merely because time has passed or coverage went quiet (silence alone is not priced-in —
+that is the SILENCE DECAY rule below, a separate signal).
+
+SILENCE DECAY. The press covers a live ticker-trend OFTEN and LOUDLY, so PROLONGED SILENCE about this
+event's trend (no fresh press on the move, explicit or implied) is itself a fade signal. For each full
+lookback window with NO fresh coverage of this ticker's trend (~4 consecutive weekly reads / ~a month),
+step conviction DOWN by 1 — a genuinely quiet event decays and is culled, while fresh coverage RESETS it
+back up. This is a SOFT fade (leave catalyst_resolved=false), and it applies to STRUCTURAL buildouts too
+(they keep conviction only while delivering fresh milestones, not by the passage of time).
+
+Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,
 "exit_advice":"...","assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
