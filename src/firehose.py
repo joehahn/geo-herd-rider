@@ -312,7 +312,7 @@ def _stateful_watch(scans: dict) -> dict:
     return out
 
 
-def _agent_precision(scans: dict, panel) -> list:
+def _agent_precision(scans: dict, panel, fm: dict | None = None) -> list:
     """CURATOR-QUALITY metric, UNMASKED by the optimizer: for EVERY agent the curator created
     (one per distinct thesis/catalyst), the standalone return of its ticker over the span it was
     thesis_live — i.e. 'if you'd simply held what this agent named while it said hold, did it rise?'
@@ -343,6 +343,24 @@ def _agent_precision(scans: dict, panel) -> list:
                 ret = None
         rows.append({"ticker": tk, "thesis": th, "first": _naive(e["first"]).date().isoformat(),
                      "last": _naive(e["last"]).date().isoformat(), "ret": ret})
+    # the always-on DEFENSIVE floor agent(s) (gold/GLD): standalone return over the full window
+    anchors = sorted(scans)
+    if fm and anchors and panel is not None:
+        defensive_agent = int(fm.get("defensive_agent_conviction", 0) or 0)
+        defv = str(fm.get("defensive_ticker", "GLD")).upper()
+        if defensive_agent and defv in panel.columns:
+            ds = panel[defv].dropna()
+            if getattr(ds.index, "tz", None) is not None:
+                ds = ds.copy(); ds.index = ds.index.tz_localize(None)
+            try:
+                lo = ds.loc[:_naive(anchors[0])]; hi = ds.loc[:_naive(anchors[-1])]
+                if len(lo) and len(hi):
+                    rows.append({"ticker": defv, "thesis": f"defensive ({defv}) floor agent",
+                                 "first": _naive(anchors[0]).date().isoformat(),
+                                 "last": _naive(anchors[-1]).date().isoformat(),
+                                 "ret": round(float(hi.iloc[-1] / lo.iloc[-1] - 1), 4)})
+            except Exception:  # noqa: BLE001
+                pass
     return sorted(rows, key=lambda r: (r["ret"] is None, r["ret"] or 0))
 
 
@@ -431,7 +449,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     "weights": held, "week_return": round(ret, 4)})
     out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors),
            "watch": {a: watch[a] for a in anchors},   # pruned sticky watch, so the dashboard matches
-           "agent_precision": _agent_precision(scans, panel)}   # unmasked curator-skill metric
+           "agent_precision": _agent_precision(scans, panel, fm)}   # unmasked curator-skill metric
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor)
     return out

@@ -2098,6 +2098,7 @@
       {
         "date": "2026-03-06",
         "live": true,
+        "conviction": 9,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "seed",
         "exit_case": "none \u2014 Strait of Hormuz remains actively blocked, tanker rates still at record highs",
@@ -2108,6 +2109,7 @@
       {
         "date": "2026-03-13",
         "live": true,
+        "conviction": 7,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "gdelt",
         "exit_case": "none",
@@ -2118,6 +2120,7 @@
       {
         "date": "2026-03-20",
         "live": true,
+        "conviction": 5,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "gdelt",
         "exit_case": "none \u2014 blockade still in effect, no ceasefire or reopening reported; only tangential energy-stock coverage this week",
@@ -2128,6 +2131,7 @@
       {
         "date": "2026-03-27",
         "live": true,
+        "conviction": 3,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "gdelt",
         "exit_case": "none found; no news confirms Hormuz reopening or ceasefire, blockade status unconfirmed but not reversed",
@@ -2138,6 +2142,7 @@
       {
         "date": "2026-04-03",
         "live": true,
+        "conviction": 6,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "gdelt",
         "exit_case": "none \u2014 Trump reportedly willing to end war WITHOUT reopening Hormuz, meaning blockade persists even if war ends",
@@ -2148,6 +2153,7 @@
       {
         "date": "2026-04-10",
         "live": false,
+        "conviction": 2,
         "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
         "src": "gdelt",
         "exit_case": "US-Iran agreed two-week ceasefire; markets rallying on expectations Strait of Hormuz reopens, crude falls.",
@@ -3025,6 +3031,13 @@
     ]
   },
   "agent_precision": [
+    {
+      "ticker": "GLD",
+      "thesis": "defensive (GLD) floor agent",
+      "first": "2025-12-26",
+      "last": "2026-07-03",
+      "ret": -0.0926
+    },
     {
       "ticker": "BWET",
       "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",

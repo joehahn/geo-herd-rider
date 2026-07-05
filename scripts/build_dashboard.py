@@ -216,7 +216,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
             t = str(p.get("ticker", "")).strip().upper()
             if t and (p.get("assessment") or p.get("exit_case")):
                 arcs.setdefault(t, []).append({
-                    "date": a.date().isoformat(), "live": p.get("thesis_live"),
+                    "date": a.date().isoformat(), "live": p.get("thesis_live"), "conviction": p.get("conviction"),
                     "thesis": p.get("thesis", ""), "src": p.get("src", ""),
                     "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
                     "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
@@ -956,7 +956,9 @@ INDEX_HTML = r"""<!doctype html>
  <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
    the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
- <table class="atab" id="watchtable"></table>
+ <details style="margin:6px 0 0"><summary style="cursor:pointer;color:#2563eb;font-size:13px">show / hide the week-by-week watchlist table</summary>
+ <table class="atab" id="watchtable" style="margin-top:6px"></table>
+ </details>
 
 
  <h2>Plot 12 — Agent journal — week-by-week (per event)</h2>
@@ -1178,7 +1180,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#ff7f0e",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    line:(aid==="spy"||aid==="defensive")?{color:agColor[aid]||"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
     marker:{size:5,color:agColor[aid]||"#888"}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
@@ -1190,7 +1192,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
     return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#ff7f0e",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
+      line:(aid==="spy"||aid==="defensive")?{color:agColor[aid]||"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
       marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
         symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
         color:agColor[aid]||"#888",
@@ -1224,7 +1226,7 @@ Promise.resolve({{DATA}}).then(D=>{
                     :`the gem ${gem} was never named this window`);
       if(best&&best.ticker!==gem) bits.push(`${best.ticker} was the best pick (${pct(best.ret)})`);
       if(worst&&worst.ret<0&&worst.ticker!==gem) bits.push(`${worst.ticker} the worst (${pct(worst.ret)})`);
-      capEl.innerHTML=`Each bar is one event-agent's <b>standalone pick return over its own live span</b> &mdash; ${list} `
+      capEl.innerHTML=`Each bar is one agent's <b>standalone return over its live span</b> &mdash; ${list} `
         +`&mdash; so the curator's picks won <b>${nwin} of ${nap}</b> times, independent of how much the optimizer `
         +`actually sized each (Plots 1/3 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
     }
@@ -1269,7 +1271,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
   document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
     const funded=F.has(t);
-    const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td>`
+    const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
       +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
       +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
@@ -1281,7 +1283,7 @@ Promise.resolve({{DATA}}).then(D=>{
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
     return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
       +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>src</th><th>thesis (event)</th>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
