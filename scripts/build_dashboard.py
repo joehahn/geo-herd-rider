@@ -830,16 +830,13 @@ STORYLINE = {
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> ran ~3x (2024 -> Feb-2026 peak) on a diffuse macro stack - record "
         "central-bank buying + de-dollarization, Fed rate-cut bets, and Trump's trade war driving safe-haven gold. "
-        "<b>Re-seeded to trace the run</b> with those real drivers, and the scoreboard shows exactly why GDX is a "
-        "non-fit. The <b>early climb is theme-driven</b> (central-bank demand, safe-haven flows, generic macro) with "
-        "no discrete catalyst, so the gate correctly <b>declines it</b> (isolation-tested: the trade-war and "
-        "central-bank seeds name nothing, 0/5). GDX becomes nameable only once a <b>discrete, gold-specific</b> "
-        "catalyst appears - Trump's <b>39% Swiss-gold tariff + 125% China levy</b> that dislocated the physical "
-        "market and drove gold to a record ~$4,961 on <b>Jan-23-2026</b>. But that's the <b>blow-off top</b>: GDX "
-        "enters Jan-23 at conviction 8 and, by entering at the peak, rides the Feb de-escalation <b>down (-9% pick)</b>, "
-        "fading to conviction 2. <b>The lesson (scoreboard, not our reasoning):</b> a theme-driven asset is either "
-        "declined early (no catalyst) or caught too late to profit (at the peak, when the discrete catalyst finally "
-        "lands) - the gate working exactly as intended. GDX stays the clean negative control (greyed)."
+        "Its <b>early climb is theme-driven</b> (central-bank demand, safe-haven flows, generic macro) with no "
+        "discrete catalyst, so GDX goes <b>uncaught</b> through most of the run. It becomes nameable only when a "
+        "<b>discrete, gold-specific</b> catalyst finally appears - Trump's <b>39% Swiss-gold tariff + 125% China "
+        "levy</b> that dislocated the physical market and drove gold to a record ~$4,961 on <b>Jan-23-2026</b>. But "
+        "that is the <b>blow-off top</b>: GDX enters Jan-23 at conviction 8 and, entering at the peak, rides the Feb "
+        "de-escalation <b>down (-9%)</b>, fading to conviction 2. <b>The result:</b> a theme-driven asset is either "
+        "uncaught early (no catalyst) or caught too late to profit (at the peak) - GDX is the clean negative control."
     ),
     "RNMBY": (
         "<b>Rheinmetall (RNMBY)</b> is Europe's largest ammunition + armored-vehicle maker - the frontline "
