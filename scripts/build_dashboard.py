@@ -619,7 +619,7 @@ SWEEPS = [
 ]
 
 # The (non-LLM) parameter sweeps are restricted to these gems only.
-SWEEP_GEMS = {"BWET", "MP"}
+SWEEP_GEMS = {"BWET", "MP", "RNMBY", "GDX", "SMR"}   # + GEO+MSTR combo (added separately) = all 6 gems
 
 # Baseline fm overrides for the SWEEPS only — the non-swept knobs are held at these values
 # (independent of the live gem-dashboard defaults). Pin cap=0.5 here per request.
