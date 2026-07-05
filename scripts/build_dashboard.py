@@ -466,7 +466,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     return payload
 
 
-ACTIVE_GEMS = {"MP", "BWET", "GEO", "MSTR", "RNMBY"}   # the event-driven gems we're actively tuning on — colored + first-row; rest greyed
+ACTIVE_GEMS = {"MP", "BWET", "GEO", "MSTR", "RNMBY", "GDX"}   # the event-driven gems we're actively tuning on — colored + first-row; rest greyed
                                # (SMR dropped: theme/AI-nuclear gem, no discrete catalyst — same wall as GDX)
 PLOT1_PALETTE = ["#2980b9", "#c0392b", "#27ae60", "#8e44ad", "#e67e22", "#16a085"]  # active-gem colors: Plot 1 curve == card name
 
