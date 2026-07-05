@@ -85,8 +85,12 @@ from drifting into unrelated gems); US-listed only (name the US ADR, no foreign 
 CATALYST GATE (the hard filter — this is the bet). Propose a ticker ONLY if the press ties it to a
 SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
 chokepoint, an export ban or tariff, a regulatory approval or named bill, an agency emergency
-declaration, a named contract/partnership/deal, a supply shock. That resolution is what later flips
-the position to EXIT. JUDGE BY THE STRONGEST REASON TO OWN IT, NOT THE WEAKEST: if a specific
+declaration, a named contract/partnership/deal, a supply shock, OR a SCHEDULED, DATED FUTURE EVENT the
+name is demonstrably rising in ANTICIPATION of — a national election, an FDA/PDUFA decision date, a
+scheduled regulatory vote, a court-ruling date — a KNOWN date with a binary/knowable outcome. That
+resolution (for a dated future event, the known date itself) is what later flips the position to EXIT.
+Anticipation qualifies ONLY with a SPECIFIC DATED event whose date you can name — NEVER open-ended
+"rising demand / sentiment / growth / interest" with no date (that is still momentum — reject it). JUDGE BY THE STRONGEST REASON TO OWN IT, NOT THE WEAKEST: if a specific
 catalyst is present, KEEP the name even when the coverage ALSO wraps it in a theme, valuation, or
 technical story (e.g. "AI-power demand AND a reactor APPROVAL" -> keep; the approval is the
 catalyst). The reject list below applies ONLY to a name whose SOLE rationale is:

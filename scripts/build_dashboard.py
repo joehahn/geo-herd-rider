@@ -439,7 +439,8 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         "overlays": overlays, "gem_label": label_override or ticker,
         "combo_targets": combo_targets, "caught_all": caught_all, "both_held": both_held,
         "model": disp_model, "storyline": _story, "ever_funded": ever_funded,
-        "seeds": _gem_seeds(ticker),
+        "seeds": sorted({(s["date"], s["title"]): s for t in combo_targets   # all overlaid tickers' seeds (GEO + MSTR)
+                         for s in _gem_seeds(t)}.values(), key=lambda s: s["date"]),
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
@@ -812,16 +813,19 @@ STORYLINE = {
     ),
     "GEO": (
         "<b>GEO + MSTR</b> — the <b>2024 US Election concurrency test</b>: <i>one</i> catalyst (Trump's Nov-5 win) "
-        "spawning <b>several</b> thesis-driven plays, and this book asks whether the solution can ride two seeded gems at once. Two are seeded from real post-election coverage &mdash; an immigration "
-        "crackdown (<b>GEO</b>, the largest private ICE-detention operator, +42% the session after the win) and a "
-        "crypto-friendly agenda (<b>MSTR</b>, the leveraged Bitcoin proxy) &mdash; and the firehose also surfaced a "
-        "<b>nuclear / energy cluster</b> the matcher collapsed into one basket event (CEG + CCJ + peers). "
-        "<b>The result:</b> the solution rides <b>both</b> seeded gems &mdash; <b>GEO</b> (ev2, +$10.5k) and <b>MSTR</b> "
-        "(ev3, +$6.9k, funded through the post-election rally then cut before the fade) &mdash; the concurrency it "
-        "exists to test. The co-discovered nuclear basket (ev1) is the drag at <b>&minus;$13k</b> as the AI-power theme "
-        "cooled; the gold floor and the two gems more than offset it for <b>+24%</b> net. MSTR's momentum thesis never "
-        "formally resolves (no ceasefire, no reopened chokepoint), so it leans on soft conviction-decay + mechanical "
-        "sizing rather than a clean exit &mdash; the failure mode a weak curator would ride through a ~45% crash."
+        "spawning <b>several</b> thesis-driven plays. Two are seeded from real coverage &mdash; an immigration crackdown "
+        "(<b>GEO</b>, the largest private ICE-detention operator, +42% the session after the win) and a crypto-friendly "
+        "agenda (<b>MSTR</b>, the leveraged Bitcoin proxy) &mdash; plus a co-discovered <b>nuclear / energy cluster</b> the "
+        "matcher collapsed into one basket (CEG + CCJ + peers). "
+        "<b>The MSTR result is the story:</b> reframing its 2-month pre-election run as <i>anticipation of the dated Nov-5 "
+        "election</i> (a resolvable event whose exit is the vote itself) &mdash; not 'Bitcoin momentum' &mdash; let MSTR "
+        "<b>enter Sept-20</b>, ride the run (+59% pick), and <b>exit cleanly at the election</b> when the catalyst resolved. "
+        "That clean exit is the point: it gives MSTR's otherwise open-ended momentum thesis a real resolution, dodging the "
+        "~45%-crash ride a dateless hold would take. MSTR is now the dominant winner (ev2, <b>+$52k</b>). "
+        "It required a surgical loosening of the scout's catalyst gate to admit <i>dated-future-event anticipation</i> (an "
+        "election / FDA date / scheduled vote) while still rejecting dateless momentum &mdash; a <b>prototype not yet "
+        "scoreboard-gated</b> across the other gems. <b>Net +75%</b>, a noisy single draw: the nuclear basket (ev1) dragged "
+        "&minus;$18k as the AI-power theme cooled and GEO+CoreCivic (ev3) slipped &minus;$6k; the gold floor + MSTR carried it."
     ),
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> ran ~3x (Jan-2025 -> Feb-2026 peak) on the tariff-driven flight "

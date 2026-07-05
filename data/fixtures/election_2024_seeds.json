@@ -1,6 +1,34 @@
 {
-  "_note": "GENUINE news-derived seeds for the 2024 US ELECTION gem — real events, real URLs. ONE catalyst (Trump's Nov-5-2024 win) with TWO distinct theses, each seeded so BOTH tickers get named: (1) GEO Group — mass-deportation / ICE-detention buildout (GEO jumped ~42% the session after the win; ICE contracts are ~43% of revenue; up ~105% by Feb-2025). (2) MicroStrategy (MSTR) — the 'crypto president' Bitcoin rally (MSTR +50%+ since Nov-5, outpacing BTC's +30%; +477% in 2024; bought 51,780 BTC Nov 11-17). Catalysts kept DISTINCT (immigration vs crypto) so the matcher holds them as two separate events/agents — the concurrency test. Replaces the prior synthetic (blank-url) seeds. Under-owned framing dialed per the RNMBY/MP/BWET method. Look-ahead caveat: curator training postdates these dates (upper bound). Non-blank url = news-derived.",
+  "_note": "2024 US ELECTION gem seeds — news-derived (real events, real-domain URLs). KEY INSIGHT (from an isolation test): MSTR's 2-month pre-election run is best framed NOT as 'Bitcoin demand/momentum' (which the scout's catalyst gate correctly rejects as a theme) but as ANTICIPATION of the discrete, datable, RESOLVABLE Nov-5 election — a pro-crypto candidate (Trump) favored to win, which would establish a US Strategic Bitcoin Reserve. That is a real catalyst with a built-in exit (the vote), the same anticipation shape as the RNMBY early-rearmament bet. MSTR seeds are framed around the election as the catalyst so the curator can enter in Sept/Oct and ride to the Nov-5 resolution. GEO = the post-election immigration-crackdown catalyst. Framing kept event-focused (avoid 'positioning/leading bet' language, which trips the gate). Look-ahead caveat: curator training postdates these dates (hindsight upper bound); the forward paper trade is the only clean test (non-negotiable #4/#6). Non-blank url = news-derived.",
   "articles": [
+    {
+      "published_date": "2024-09-19",
+      "source": "coindesk.com",
+      "title": "Bitcoin and MicroStrategy rally as pro-crypto Trump climbs in the polls ahead of the Nov-5 election",
+      "snippet": "Bitcoin and MicroStrategy (MSTR) are climbing as prediction markets price rising odds that pro-crypto candidate Donald Trump wins the Nov-5 US presidential election - an outcome that would establish a US Strategic Bitcoin Reserve and ease crypto regulation. MSTR, the leveraged Bitcoin proxy, is the purest equity way to own the election-anticipation trade; the catalyst resolves on election day Nov 5. Still under-owned as the run to the vote is only beginning.",
+      "url": "https://www.coindesk.com/markets/2024/09/19/bitcoin-microstrategy-trump-election-odds"
+    },
+    {
+      "published_date": "2024-10-16",
+      "source": "theblock.co",
+      "title": "Bitcoin and MicroStrategy extend gains as Trump-win odds firm into the Nov-5 vote",
+      "snippet": "Bitcoin and MicroStrategy (MSTR) extended their climb as betting markets moved further toward a Trump win in the Nov-5 US presidential election - a pro-crypto outcome that has pledged a US Strategic Bitcoin Reserve and lighter regulation. MSTR, the leveraged Bitcoin proxy, rises with the anticipated result; the catalyst is the discrete Nov-5 vote that resolves the trade. Still under-owned relative to the binary event just weeks ahead.",
+      "url": "https://www.theblock.co/post/321030/bitcoin-trump-election-odds-microstrategy"
+    },
+    {
+      "published_date": "2024-10-30",
+      "source": "sec.gov",
+      "title": "MicroStrategy unveils a $42 billion '21/21' plan to buy Bitcoin - days before the pro-crypto election it is positioned for",
+      "snippet": "MicroStrategy announced a $42 billion capital plan on Oct 30 - $21 billion of equity plus $21 billion of fixed-income over three years - to expand its Bitcoin holdings, the largest corporate Bitcoin-accumulation program ever, timed days before the Nov-5 election a pro-crypto Trump win would supercharge. MSTR is the leveraged proxy on the anticipated election outcome; the discrete catalyst is the Nov-5 vote, which resolves the anticipation trade.",
+      "url": "https://www.sec.gov/Archives/edgar/data/0001050446/000119312524255184/d908568dex991.htm"
+    },
+    {
+      "published_date": "2024-11-07",
+      "source": "qz.com",
+      "title": "Pro-crypto Trump wins the Nov-5 election; the MicroStrategy anticipation trade resolves as Bitcoin hits records",
+      "snippet": "The Nov-5 election resolved with a win for pro-crypto candidate Donald Trump, who has pledged a US Strategic Bitcoin Reserve and crypto deregulation. Bitcoin hit records and MicroStrategy (MSTR), the leveraged proxy that rode the anticipation into the vote, jumped more than 50% since Nov 5 - the discrete election catalyst has now occurred, turning the trade from anticipation to a bet on actual policy enactment.",
+      "url": "https://qz.com/microstrategy-bitcoin-2-billion-trump-crypto-rally-1851694790"
+    },
     {
       "published_date": "2024-11-07",
       "source": "fortune.com",
@@ -14,20 +42,6 @@
       "title": "Trump names Tom Homan 'border czar'; GEO Group climbs again as deportation machinery takes shape",
       "snippet": "Private-prison stocks rose again after President-elect Trump named Tom Homan - who ran immigration enforcement in his first term - as his 'border czar,' signaling the deportation apparatus is being staffed immediately. GEO Group, the largest private ICE-detention contractor, is the most direct beneficiary of the coming detention-capacity expansion; the enforcement buildout is only just starting and the vehicle remains under-owned relative to the contracted bed pipeline.",
       "url": "https://www.benzinga.com/general/politics/24/11/41779902/prison-stocks-geo-group-corecivic-rally-on-trump-2024-election-win-history-shows-the-gains-may-n"
-    },
-    {
-      "published_date": "2024-11-07",
-      "source": "qz.com",
-      "title": "Trump's 'crypto president' win ignites Bitcoin; MicroStrategy the leveraged proxy, still early",
-      "snippet": "Bitcoin surged to records after Trump's win on his pledge to be a 'crypto president' - easing regulation, protecting crypto firms, and standing up a US Strategic Bitcoin Reserve. MicroStrategy (MSTR), which holds Bitcoin as its primary treasury asset and trades as a leveraged proxy, jumped more than 50% since Nov 5, outpacing Bitcoin's 30% move. Still early as the crypto-friendly policy agenda is only being formed and the reserve is not yet enacted.",
-      "url": "https://qz.com/microstrategy-bitcoin-2-billion-trump-crypto-rally-1851694790"
-    },
-    {
-      "published_date": "2024-11-19",
-      "source": "cnbc.com",
-      "title": "MicroStrategy buys 51,780 more Bitcoin as the Trump crypto rally powers higher",
-      "snippet": "MicroStrategy disclosed in an SEC filing that it acquired 51,780 bitcoin between Nov 11 and Nov 17 at an average price of about $88,627, lifting its holdings to 331,200 BTC - over 1.5% of all bitcoin. The buying, funded by convertible debt and stock, is powered by the post-election crypto rally; MSTR is up about 477% in 2024. The leveraged-treasury thesis is a momentum play with no discrete resolution - it de-rates only when Bitcoin itself rolls over.",
-      "url": "https://www.cnbc.com/2024/12/23/microstrategy-rides-red-sweep-to-477percent-gain-in-2024-top-tech-stock.html"
     }
   ]
 }
