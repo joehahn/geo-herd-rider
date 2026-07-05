@@ -7,62 +7,35 @@
   "2026-01-30": [],
   "2026-02-06": [],
   "2026-02-13": [],
-  "2026-02-20": [
-    {
-      "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
-      "thesis_live": true,
-      "src": "seed",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "conviction": 5,
-      "assessment": "First week of entry. Tanker rates spiking on Hormuz risk premium, BWET already near-doubled YTD per MarketBeat, indicating strong momentum but also growing mainstream attention (ETF-performance puff piece is a yellow flag for crowding). No concrete resolution of Iran tensions; geopolitical backdrop (bignewsnetwork piece on shift to deterrence) suggests escalation risk remains live, not resolved. No named ceasefire, no reopened chokepoint, no signed deal. Catalyst is still pending/ongoing. Vehicle BWET remains the cleanest pure-play on tanker/freight rates tied to Hormuz risk premium. Conviction moderate \u2014 thesis is specific and datable to Hormuz chokepoint risk, but the 'top-performing ETF' coverage signals the trade is becoming known, not deeply under-the-radar anymore.",
-      "exit_advice": "Hold BWET; watch for Hormuz de-escalation or diplomatic breakthrough as reversal signal.",
-      "evidence_urls": [
-        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
-        "http://www.bignewsnetwork.com/news/278876684/farewell-to-soft-power"
-      ]
-    }
-  ],
-  "2026-02-27": [
-    {
-      "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "No ceasefire or Hormuz reopening reported; tensions still unresolved, no reversal evidence.",
-      "catalyst_resolved": false,
-      "conviction": 5,
-      "assessment": "Silent week with no fresh news, but silence is not exit per rules. Iran-Hormuz tension remains unresolved and no concrete reversal (ceasefire, chokepoint reopening) has occurred. Catalyst is still pending. Prior journal flagged crowding risk (top-performing ETF puff pieces), but arc is not complete since no named resolution has landed; this is a quiet stretch, not a reversal. Maintain hold on the pure-play tanker rate vehicle.",
-      "exit_advice": "Hold BWET; watch for any Hormuz de-escalation, ceasefire, or tanker rate collapse as exit trigger.",
-      "evidence_urls": []
-    }
-  ],
+  "2026-02-20": [],
+  "2026-02-27": [],
   "2026-03-06": [
     {
       "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
       "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "No ceasefire or Hormuz reopening reported; tensions remain unresolved and driving condition intact",
+      "src": "seed",
+      "exit_case": "none \u2014 Strait of Hormuz remains actively blocked, tanker rates still at record highs",
       "catalyst_resolved": false,
-      "conviction": 5,
-      "assessment": "Third consecutive quiet week with no fresh news, but silence alone is not an exit signal per discipline. Iran-Hormuz risk remains unresolved\u2014no named deal, ceasefire, or chokepoint reopening has occurred in any prior week. The arc is not complete: no concrete de-escalation catalyst has landed, so this is dormancy not resolution. Crowding concern (top-performing ETF coverage) flagged earlier remains a mainstream-attention risk, but without a resolved arc this alone doesn't trigger the herd-arrival exit. Conviction is moderated from initial entry given the trade has drifted from under-the-radar toward more visible momentum-ETF coverage, but the specific geopolitical driver (Hormuz chokepoint tension) has not reversed.",
-      "exit_advice": "Hold BWET; exit only on concrete Hormuz de-escalation/ceasefire or if tanker rates roll over on chokepoint reopening",
-      "evidence_urls": []
+      "conviction": 9,
+      "assessment": "Entry week. Iran's blockade of the Strait of Hormuz since Feb 28 following US-Israeli strikes has driven VLCC rates to an all-time record of $423,736/day. This is a clean, datable, acute chokepoint shock with a direct pure-play vehicle (BWET) still described as 'under-owned.' Catalyst is fresh and ongoing \u2014 no resolution yet, no reopening, no ceasefire. Conviction high given the acute, specific, still-escalating nature of the crisis and the explicit tie to tanker economics.",
+      "exit_advice": "Hold BWET while Hormuz remains blocked and VLCC rates stay at record levels; exit if strait reopens or rates normalize sharply.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
     }
   ],
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
       "thesis_live": true,
-      "src": "seed",
-      "exit_case": "none - Hormuz tension unresolved, no ceasefire or chokepoint reopening reported",
+      "src": "gdelt",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "conviction": 6,
-      "assessment": "Fourth week holding through continued Hormuz risk premium. MarketWatch confirms BWET still climbing on tanker day-rates tied to Mideast tensions, and explicitly characterizes the trade as still niche/under-owned - pushing back against the crowding concern flagged in prior weeks. No concrete resolution (no named deal, ceasefire, or chokepoint reopening) has occurred in any week since entry. Catalyst remains pending and live. Vehicle BWET remains the cleanest pure-play on tanker/freight rates tied to Hormuz risk.",
-      "exit_advice": "Hold BWET; exit only on confirmed Hormuz de-escalation/ceasefire or if coverage turns mainstream-saturated with no further catalyst ahead. MarketWatch explicitly notes it's still 'niche, under-owned' - crowding not yet complete.",
+      "conviction": 7,
+      "assessment": "This week's only news item (Pakistan KSE-100 rally) is unrelated to the Hormuz blockade or tanker market. No confirmation of ceasefire, reopening, or de-escalation, so the driving condition (Iran's blockade, record VLCC rates) is assumed unchanged. However, total silence on the actual catalyst for a full week warrants a conviction step-down per silence decay rules, while remaining live since nothing suggests resolution or reversal.",
+      "exit_advice": "Hold BWET; no news this week on Strait of Hormuz status, tanker rates, or blockade resolution \u2014 driving condition (blockade) remains presumed in force absent any reopening/ceasefire report. Applying silence decay since no fresh trend coverage appeared.",
       "evidence_urls": [
         "https://paktribune.com/stock-market-rally-accelerates-as-kse-100-index-surges-over-2000-points/"
       ]
@@ -71,71 +44,71 @@
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "none \u2014 no ceasefire, deal, or chokepoint reopening; Mideast war/inflation fears still escalating per this week's news",
+      "exit_case": "none \u2014 blockade still in effect, no ceasefire or reopening reported; only tangential energy-stock coverage this week",
       "catalyst_resolved": false,
-      "conviction": 6,
-      "assessment": "Fifth week holding. News confirms continued, even escalating, Hormuz/Mideast tension \u2014 European shares fell for a second week on 'Mideast war' inflation fears, and FTSE energy names rose on Strait of Hormuz watch. No resolution or reversal has occurred in any week since entry; the driving condition (chokepoint risk premium) remains fully in force. Coverage is now macro-mainstream (war fears cited as a driver of European equity losses), which raises crowding risk, but the arc is not complete \u2014 there is no concrete scheduled off-ramp (no summit, no deal signing, no ceasefire date) that would mark the catalyst as resolved. This is still an open-ended escalation, not a herd-arrival-after-resolution situation, so the third exit condition (arc complete + mainstream saturation) is not yet satisfied. BWET remains the cleanest pure-play vehicle on tanker/freight rates tied to Hormuz risk.",
-      "exit_advice": "Hold BWET; exit only on a concrete de-escalation (ceasefire, Hormuz reopening, or named deal), not on crowding or price action.",
+      "conviction": 5,
+      "assessment": "News this week only tangentially references Strait of Hormuz via oil majors' stock performance, with no direct update on blockade status, tanker rates, or BWET fundamentals. No evidence of reversal (no reopening, no ceasefire, no restored shipping flow). Driving condition presumed unchanged. Continued silence on the specific catalyst (VLCC rates, blockade duration, BWET-specific coverage) compounds the silence decay \u2014 stepping conviction down further from last week's already-reduced level. Still thesis_live since nothing indicates resolution.",
+      "exit_advice": "Hold BWET; watch for any Hormuz reopening/ceasefire headlines or explicit tanker-rate updates to reset conviction upward, or a confirmed de-escalation to trigger exit",
       "evidence_urls": [
-        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625",
-        "https://economictimes.indiatimes.com/markets/us-stocks/news/global-markets-european-shares-log-second-week-of-losses-as-mideast-war-fuels-inflation-fears/articleshow/129569450.cms"
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
       ]
     }
   ],
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Iran tensions escalate, tanker rates spike on Hormuz risk",
-      "thesis_live": false,
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Oil slumps and equities surge on easing Mideast war fears \u2014 Hormuz risk premium reversing.",
+      "exit_case": "none found; no news confirms Hormuz reopening or ceasefire, blockade status unconfirmed but not reversed",
       "catalyst_resolved": false,
       "conviction": 3,
-      "assessment": "After five weeks of holding through pure escalation/silence, this week brings the first explicit reversal signal: indianexpress.com reports Sensex/Nifty surging as Brent crude slumps 'on optimism over easing geopolitical tensions' \u2014 directly opposite the Hormuz risk-premium thesis that BWET depends on. No formal ceasefire or deal was signed, but the driving condition (rising war-risk premium in oil/tanker markets) is explicitly described as reversing in the market's own pricing action. Combined with prior weeks' crowding flags (macro-mainstream war-fear coverage, top-performing ETF pieces), this tips into exit: the market is now pricing de-escalation, which undercuts the tanker day-rate premium that is BWET's entire edge. Holding further risks being long a decaying risk premium after the market has already started to reprice it.",
-      "exit_advice": "Exit BWET \u2014 first concrete de-escalation signal (oil slump, 'war fears ease' headline) reverses the driving condition; tanker rate premium likely compressing.",
+      "assessment": "Third consecutive week with zero direct coverage of the Strait of Hormuz blockade, VLCC rates, or BWET fundamentals. This week's sole news item (US construction spending) is entirely unrelated. No evidence of reversal \u2014 no reopening, no ceasefire, no restored shipping flow through Hormuz. Per silence decay rules, conviction steps down further from last week's reduced level given three straight quiet weeks on the specific catalyst. Still thesis_live since driving condition (blockade, record tanker rates) is presumed unchanged absent any reversal signal, but this is now a fading, under-covered position at risk of falling out of the shortlist if silence persists.",
+      "exit_advice": "Hold small; continue silence decay \u2014 exit only if reopening/ceasefire confirmed or if next check shows continued zero coverage pushing conviction to cull floor",
       "evidence_urls": [
-        "https://indianexpress.com/article/business/sensex-nifty-early-trade-surge-crude-fall-10599769/"
+        "https://markets.financialcontent.com/stocks/article/marketminute-2026-3-24-construction-spending-unexpectedly-dips-as-high-rates-and-consumer-fatigue-freeze-the-us-building-sector"
       ]
     }
   ],
-  "2026-04-03": [],
-  "2026-04-10": [],
-  "2026-04-17": [
+  "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "Iran Hormuz blockade threat keeps tanker rates elevated",
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
       "thesis_live": true,
-      "src": "seed",
-      "exit_case": "none \u2014 Iran still threatening blockade, talks ongoing, no resolution or reversal yet",
+      "src": "gdelt",
+      "exit_case": "none \u2014 Trump reportedly willing to end war WITHOUT reopening Hormuz, meaning blockade persists even if war ends",
       "catalyst_resolved": false,
-      "conviction": 7,
-      "assessment": "First week of entry. Iran's naval threat against Gulf/Oman/Red Sea shipping remains live and unresolved, with talks ongoing but no deal. Tanker day-rates staying elevated confirms the driving condition is intact. BWET is explicitly called the purest pure-play freight-futures vehicle vs diluted tanker operators. Catalyst is still pending (no blockade enacted, no ceasefire/resolution), and coverage is not yet mainstream-saturated \u2014 this is still a specific, datable geopolitical risk trade.",
-      "exit_advice": "Hold BWET while Hormuz threat persists and day-rates stay elevated; exit if Iran-US talks yield de-escalation deal or blockade threat formally withdrawn",
+      "conviction": 6,
+      "assessment": "Fourth week update: this is the first direct, on-topic news since entry. Report that Trump is willing to end the war WITHOUT reopening Hormuz is critical \u2014 it explicitly confirms the driving condition (Strait blockage, and by extension record VLCC rates) is NOT contingent on a ceasefire and may persist independently. This is fresh, relevant coverage (not off-topic macro noise like prior weeks), so conviction resets upward from the silence-decayed level, though not to entry-week highs given the news is indirect (no explicit rate/BWET figures) and introduces some uncertainty about war trajectory. No reversal, reopening, or restored shipping flow reported \u2014 the reverse: the blockade is framed as durable/separable from war outcome. Thesis remains live and the pure-play vehicle intact.",
+      "exit_advice": "Hold BWET; blockade condition explicitly confirmed as separate from war resolution, so record tanker rates likely persist even if broader conflict winds down.",
       "evidence_urls": [
-        "https://www.rnz.co.nz/news/world/592501/iran-raises-threats-over-naval-blockade-but-still-talking-to-us"
+        "https://www.morningstar.com/news/dow-jones/2026033011096/dow-jones-top-markets-headlines-at-11-pm-et-trump-tells-aides-hes-willing-to-end-war-without-reopening-hormuz-stock"
       ]
     }
   ],
-  "2026-04-24": [
+  "2026-04-10": [
     {
       "ticker": "BWET",
-      "thesis": "Iran Hormuz blockade threat keeps tanker rates elevated",
+      "thesis": "Iran blocks Strait of Hormuz, tanker rates hit record",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "Iran declared Strait of Hormuz open/operational amid ceasefire; blockade threat has reversed.",
+      "exit_case": "US-Iran agreed two-week ceasefire; markets rallying on expectations Strait of Hormuz reopens, crude falls.",
       "catalyst_resolved": true,
       "conviction": 2,
-      "assessment": "The specific catalyst (Hormuz blockade threat) has been explicitly de-escalated by Iran's own statement that the strait stays operational. This is a driving-condition reversal, not mere quiet. Tanker rate premium built on blockade risk should decompress. Exit the position.",
-      "exit_advice": "Exit BWET now; Iran explicitly stated Hormuz remains open during the Israel-Lebanon ceasefire, removing the driving condition (blockade risk) that justified elevated tanker rates. Markets already rallied on this de-escalation (Stoxx 600, Nasdaq streak). No concrete pending catalyst remains, only speculative 'coming energy crisis' commentary.",
+      "assessment": "After weeks of silence, this week brought decisive on-topic news: a Trump deadline for Iran to reopen Hormuz was followed almost immediately by a US-Iran ceasefire agreement, explicitly tied by markets to expectations that Strait energy flows resume (crude fell, global equities rallied on the news). This is a direct reversal of the acute driving condition that justified BWET's record-VLCC-rate thesis \u2014 unlike last week's report that Trump might accept a war-end without reopening Hormuz, this week's ceasefire is framed with explicit reopening expectations. Given the binary nature of the acute chokepoint catalyst (blocked vs. not blocked), a ceasefire with reopening expectations is a resolution signal, not mere quiet. Tanker rate premium built on blockade scarcity should compress rapidly regardless of whether the ceasefire ultimately holds long-term, since the market prices forward expectations. Thesis is no longer live; cull from shortlist.",
+      "exit_advice": "Exit BWET \u2014 the driving condition (Hormuz blockade) has reversed via a negotiated ceasefire, with markets already pricing restored Strait flow and falling crude/tanker economics; the acute chokepoint thesis is broken even if the ceasefire proves temporary.",
       "evidence_urls": [
-        "https://www.businesstimes.com.sg/companies-markets/stoxx-600-jumps-more-1-after-iran-declares-strait-hormuz-open",
-        "https://finance.yahoo.com/sectors/energy/articles/wall-street-just-sent-oil-203300330.html"
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
       ]
     }
   ],
+  "2026-04-17": [],
+  "2026-04-24": [],
   "2026-05-01": [],
   "2026-05-08": [],
   "2026-05-15": [],

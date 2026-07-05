@@ -401,11 +401,14 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                 "(not this dashboard's gem):<ul style='margin:5px 0 0;padding-left:20px'>"
                 + "".join(r[1] for r in _rows) + "</ul></div>") if _rows else ""
     _story = STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent") + _bullets
-    _ngpal = [c for c in PALETTE if c not in ("#1f77b4", "#eab308")]   # non-gem palette: no gem-blue, no SPY-yellow
-    _others = [t for t in tickers if t not in ("SPY", d["overlay_ticker"])]
+    _RED, _YEL, _BLU = "#d62728", "#eab308", "#1f77b4"          # SPY=red, defensive(gold)=yellow, gem=blue (reserved)
+    _defv = str(fm.get("defensive_ticker", "GLD")).upper()
+    _ngpal = [c for c in PALETTE if c not in (_RED, _YEL, _BLU)]   # co-tickers avoid all three reserved colors
+    _others = [t for t in tickers if t not in ("SPY", _defv, d["overlay_ticker"])]
     _colors = {t: _ngpal[i % len(_ngpal)] for i, t in enumerate(_others)}
-    _colors["SPY"] = "#eab308"                       # SPY yellow
-    _colors[d["overlay_ticker"]] = "#1f77b4"         # gem blue (reserved; no co-ticker can take it)
+    _colors["SPY"] = _RED
+    _colors[_defv] = _YEL
+    _colors[d["overlay_ticker"]] = _BLU
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "overlays": overlays, "gem_label": label_override or ticker,
@@ -774,10 +777,11 @@ STORYLINE = {
         "scarcity premium fades — an open-ended driver, so it exits only on a genuine reversal (China lifting the controls)."
     ),
     "BWET": (
-        "<b>Breakwave Dry Bulk Shipping (BWET)</b> tracks dry-bulk freight rates. It spiked on the "
-        "<b>2026 Iran war and Strait-of-Hormuz risk</b>, which threatened Gulf shipping lanes and sent "
-        "freight rates soaring. The catalyst <b>resolves when the conflict de-escalates</b> (a ceasefire, "
-        "or the Strait reopening) and rates roll over. "
+        "<b>Breakwave Tanker Shipping (BWET)</b> tracks crude-oil tanker freight rates (~90% VLCC / TD3C "
+        "futures, Gulf&rarr;China). It spiked on the <b>2026 Iran war and Strait-of-Hormuz closure</b>, which "
+        "choked Gulf oil-tanker lanes and sent VLCC day-rates to record highs (~$424k/day). The catalyst "
+        "<b>resolves when the conflict de-escalates</b> (a ceasefire, or the Strait reopening) and rates roll "
+        "over &mdash; here the agent exited on the Apr-10 two-week ceasefire (which then proved temporary). "
         "<b>What we'd want:</b> ride it while the war risk is live and exit when it resolves — <i>not</i> "
         "when coverage merely gets crowded (crowding is not thesis death)."
     ),
@@ -985,7 +989,7 @@ Promise.resolve({{DATA}}).then(D=>{
     + pk.map(k=>prow(k, P[k])).join("");
 
   // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
-  const BOOK="#d62728", SPYC="#eab308";
+  const BOOK="#111", SPYC="#d62728";
   const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
@@ -1036,10 +1040,10 @@ Promise.resolve({{DATA}}).then(D=>{
   // co-discovered agent can visually match the gem or the SPY floor.
   const AGM=D.agents||{};
   const GEMCOL="#1f77b4";
-  const AGPAL=["#e67e22","#8e44ad","#c0392b","#8c564b","#e377c2","#16a085","#d35400","#bcbd22"];
+  const AGPAL=["#e67e22","#8e44ad","#2ca02c","#8c564b","#e377c2","#16a085","#d35400","#bcbd22"];
   const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
   const agColor={}; let _pi=0;
-  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#eab308": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#d62728": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
 
   // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
   // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
@@ -1151,7 +1155,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#eab308",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    line:aid==="spy"?{color:"#d62728",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
     marker:{size:5,color:agColor[aid]||"#888"}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
@@ -1163,7 +1167,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
     return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#eab308",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
+      line:aid==="spy"?{color:"#d62728",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
       marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
         symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
         color:agColor[aid]||"#888",
