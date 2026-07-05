@@ -297,6 +297,15 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         agent_gain["spy"] = round(_sgs[-1] - _sgs[0], 2)
         agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_agent}
                                    for a in sorted(scans)]
+    defensive_agent = int(fm.get("defensive_agent_conviction", 0) or 0)   # the GLD/gold floor agent (skipped on same-theme gems -> no ag_gs entry)
+    _defv_tk = str(fm.get("defensive_ticker", "GLD")).upper()
+    if defensive_agent and ag_gs.get(_defv_tk):
+        _dgs = ag_gs[_defv_tk]
+        agent_meta["defensive"] = {"ticker": _defv_tk, "thesis": f"always-on defensive ({_defv_tk}) floor agent",
+                                   "first": ag_dates[0], "last": ag_dates[-1]}
+        agent_gain["defensive"] = round(_dgs[-1] - _dgs[0], 2)
+        agent_conviction["defensive"] = [{"date": a.date().isoformat(), "conviction": defensive_agent}
+                                         for a in sorted(scans)]
 
     # per-agent (conviction, cumulative-gain) TIME-HISTORY for Plot 9: trace each agent as a connected
     # path through (conviction, $gain) space week by week (gain = its ticker's cumulative gain since the
@@ -417,12 +426,12 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                      f"no agent named it this window; the events the curator did track are below.</div>")
     _story = (STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent")
               + _gem_exit + _bullets)
-    _RED, _YEL, _BLU = "#d62728", "#eab308", "#1f77b4"          # SPY=red, defensive(gold)=yellow, gem=blue (reserved)
+    _ORANGE, _YEL, _BLU = "#ff7f0e", "#eab308", "#1f77b4"      # SPY=orange, defensive(gold)=yellow, gem=blue (reserved)
     _defv = str(fm.get("defensive_ticker", "GLD")).upper()
-    _ngpal = [c for c in PALETTE if c not in (_RED, _YEL, _BLU)]   # co-tickers avoid all three reserved colors
+    _ngpal = [c for c in PALETTE if c not in (_ORANGE, _YEL, _BLU)]   # co-tickers avoid all three reserved colors
     _others = [t for t in tickers if t not in ("SPY", _defv, d["overlay_ticker"])]
     _colors = {t: _ngpal[i % len(_ngpal)] for i, t in enumerate(_others)}
-    _colors["SPY"] = _RED
+    _colors["SPY"] = _ORANGE
     _colors[_defv] = _YEL
     _colors[d["overlay_ticker"]] = _BLU
     payload = {
@@ -925,7 +934,7 @@ INDEX_HTML = r"""<!doctype html>
 
  <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY floor)</h2>
  <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
-   how strong / early / datable it judged its own catalyst. The dashed red line is the always-on
+   how strong / early / datable it judged its own catalyst. The dashed orange line is the always-on
    <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
    (<code>defensive_agent_conviction</code> / <code>defensive_ticker</code>, gold) it forms the floor a live
    event-agent must out-rank to be funded.</p>
@@ -1003,7 +1012,7 @@ Promise.resolve({{DATA}}).then(D=>{
     + pk.map(k=>prow(k, P[k])).join("");
 
   // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
-  const BOOK="#111", SPYC="#d62728";
+  const BOOK="#111", SPYC="#ff7f0e";
   const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
@@ -1054,10 +1063,10 @@ Promise.resolve({{DATA}}).then(D=>{
   // co-discovered agent can visually match the gem or the SPY floor.
   const AGM=D.agents||{};
   const GEMCOL="#1f77b4";
-  const AGPAL=["#e67e22","#8e44ad","#2ca02c","#8c564b","#e377c2","#16a085","#d35400","#bcbd22"];
+  const AGPAL=["#d62728","#8e44ad","#2ca02c","#8c564b","#e377c2","#16a085","#17becf","#bcbd22"];
   const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
   const agColor={}; let _pi=0;
-  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#d62728": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#ff7f0e": id==="defensive"?"#eab308": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
 
   // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
   // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
@@ -1138,7 +1147,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const dtraces=[];
   for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
     stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
-  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",stackgroup:"d",
+  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",showlegend:false,stackgroup:"d",
     line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
   Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
     xaxis:{type:"date",range:XR,autorange:false},
@@ -1169,7 +1178,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#d62728",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    line:aid==="spy"?{color:"#ff7f0e",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
     marker:{size:5,color:agColor[aid]||"#888"}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
@@ -1181,7 +1190,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
     return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#d62728",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
+      line:aid==="spy"?{color:"#ff7f0e",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
       marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
         symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
         color:agColor[aid]||"#888",
