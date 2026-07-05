@@ -174,7 +174,10 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     scans = load_scans(cfg["scans"])
     fm = load_financial_model(str(ROOT / "investor_profile.md"))
     capital = capital_override if capital_override is not None else float(fm.get("initial_investment_usd", 50_000))
-    bt = firehose.backtest(scans, fm, capital, daily=True, overlay=ticker, overlay_anchor=cfg["trigger"])
+    _fm = fm
+    if GEM_VERTICAL.get(ticker) == "gold" and str(fm.get("defensive_ticker", "GLD")).upper() in ("GLD", "IAU", "GOLD", "SGOL", "AAAU"):
+        _fm = {**fm, "defensive_agent_conviction": 0}   # skip the gold defensive-agent on a gold-themed gem (no double-count)
+    bt = firehose.backtest(scans, _fm, capital, daily=True, overlay=ticker, overlay_anchor=cfg["trigger"])
     d = bt["daily"]
     if d is None:
         sys.exit(f"{ticker}: no daily series — need >=1 week with prices.")

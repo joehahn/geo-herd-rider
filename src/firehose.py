@@ -361,10 +361,12 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
     max_agents = int(fm.get("max_agents", 0) or 0)             # 0 = off; keep only the top-N agents (by catalyst conviction) in the weekly watchlist
     spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)     # SPY as an always-on "agent" that always recommends SPY: a synthetic candidate at this
+    defensive_agent = int(fm.get("defensive_agent_conviction", 0) or 0)   # a 2nd always-on agent (defensive default: gold/bonds) at
+    defensive = str(fm.get("defensive_ticker", "GLD")).upper()            #   this conviction; a faded event ranked below it is displaced, capital parks in the defensive asset. 0 = off.
     bench = score.BENCHMARK                                     #   conviction that events must OUT-RANK to be held; else capital parks in SPY. 0 = off.
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold + hard-exit on catalyst_resolved
-    tickers = {score.BENCHMARK, overlay} | {t for w in watch.values() for t in w}
+    tickers = {score.BENCHMARK, overlay} | ({defensive} if defensive_agent else set()) | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
@@ -398,12 +400,16 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                 conv[bench] = spy_agent
                 if bench not in cand:
                     cand.append(bench)
+            if defensive_agent and defensive in valid:           # defensive agent (gold/bonds): mirrors SPY -- a floor
+                conv[defensive] = defensive_agent
+                if defensive not in cand:
+                    cand.append(defensive)
             if max_agents and len(cand) > max_agents:  # keep only the top-N candidates by conviction (SPY competes)
                 keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_agents])
                 cand = [t for t in cand if t in keep]
             uni = cand
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
-            watch[a] = [t for t in cand if t != bench]        # event watchlist (SPY funded via the weights)
+            watch[a] = [t for t in cand if t not in (bench, defensive)]   # event watchlist (SPY/BND funded via the weights)
             week_w[k] = w
 
     value, spyval, log = capital, capital, []

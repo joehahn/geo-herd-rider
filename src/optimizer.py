@@ -49,7 +49,11 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
     "max_agents": 2,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
-    "spy_agent_conviction": 6,         # LIVE (firehose backtest): SPY as an always-on "agent" that always recommends SPY — a synthetic
+    "spy_agent_conviction": 6,
+    "defensive_agent_conviction": 0,   # LIVE (firehose backtest): a 2nd always-on "agent" (defensive default, e.g.
+                                       #   gold) at this conviction; a faded event ranked below it is displaced and
+                                       #   capital parks in the defensive asset. 0 = off. Auto-skipped on same-theme gems.
+    "defensive_ticker": "GLD",         # the defensive asset the defensive-agent parks in (GLD=gold, BND=bonds, ...)         # LIVE (firehose backtest): SPY as an always-on "agent" that always recommends SPY — a synthetic
                                        #   candidate at this conviction that a live event must OUT-RANK to be held;
                                        #   else capital parks in SPY. Replaces the mechanical hold_benchmark add. 0 = off.
     "hold_benchmark": True,            # LIVE (firehose backtest): SPY always in the optimizer universe
