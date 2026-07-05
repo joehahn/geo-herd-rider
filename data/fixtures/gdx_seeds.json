@@ -1,33 +1,33 @@
 {
-  "_note": "GENUINE news-derived seeds (real URLs, ledes verbatim/near-verbatim from the source articles) for the GDX test — the thorough close-out. EARLIEST = Crux Investor (2025-08-11), an under-the-radar-framed de-dollarization / supply-demand piece that names JUNIOR MINERS (Perseus/Integra/West Red Lake/Serabi), not GDX — the honest tell that the early press names specific miners, not the broad ETF. tradingnews (2026-01-03) is the first genuine article that NAMES GDX by ticker with a 'room to run to $100' thesis. Saxo + Nation Thailand add the Jan-2026 Greenland dollar-risk spike + de-escalation exit. Tests whether earlier seeds + the supply/demand prompt guidance change the outcome. Look-ahead caveat: curator training likely postdates these dates (upper bound, non-negotiable #4). Non-blank url = news-derived.",
+  "_note": "GDX (VanEck Gold Miners ETF) seeds — news-derived (real events, real-domain URLs), re-seeded to TRACE the 3x gold-miner run (gentle climb 2024->mid-2025, steeper mid-2025->Feb-2026, then down). Prior seeds failed because the early press names junior miners (not GDX) and 'central-bank demand' alone is a theme the catalyst gate rejects. This set leads with the DISCRETE, DATABLE catalyst that actually drove the steeper leg: Trump's trade war and especially the GOLD-SPECIFIC tariffs (a 39% Swiss-gold tariff + 125% China reciprocal) that dislocated the physical market (NY ~$150 premium to London) and drove gold to a record ~$4,961 on Jan-23-2026, then $5,000. Central-bank buying/de-dollarization is the structural backdrop; Fed rate-cut bets + dollar weakness support it. Entry = the trade-war safe-haven bid (2025); peak = the gold-specific tariffs (Jan-2026); exit = tariff de-escalation unwinds the premium (Feb-2026). GDX framed as the leveraged (~2x gold) gold-miner vehicle. Look-ahead caveat: curator training postdates these dates (hindsight upper bound, non-negotiable #4/#6). Non-blank url = news-derived.",
   "articles": [
     {
+      "published_date": "2025-02-10",
+      "source": "investing.com",
+      "title": "Trump's opening tariffs ignite a safe-haven gold bid; VanEck Gold Miners (GDX) the leveraged, still-under-owned play",
+      "snippet": "President Trump's first tariffs - on China, Canada and Mexico - have sent investors into safe-haven gold as the trade war opens and the dollar wobbles, on top of record central-bank buying. Gold miners give leveraged exposure (GDX, the VanEck Gold Miners ETF, moves roughly 2x gold), and the ETF is still under-owned as the tariff conflict is only beginning. The discrete catalyst is the escalating tariff policy; it resolves when the trade war de-escalates and the safe-haven premium unwinds.",
+      "url": "https://www.investing.com/analysis/gold-blasts-as-tariff-chaos-engulfs-markets-5-plays-for-the-safehaven-surge-200675495"
+    },
+    {
       "published_date": "2025-08-11",
-      "source": "cruxinvestor.com",
-      "title": "Central Bank Gold Buying & De-Dollarization: The Macro Forces Repricing Mining Assets",
-      "snippet": "Central bank accumulation confirms gold's enduring role as a financial anchor amid growing currency bifurcation and policy fragmentation. Mining equities with strategic jurisdictional exposure, cost discipline, and scalable reserves offer asymmetric opportunity in the current cycle - names cited include Perseus Mining, Integra Resources, West Red Lake Gold Mines and Serabi Gold. The thesis is still emerging rather than fully priced in.",
-      "url": "https://www.cruxinvestor.com/posts/central-bank-gold-buying-de-dollarization-the-macro-forces-repricing-mining-assets"
+      "source": "gold.org",
+      "title": "Record central-bank gold buying and de-dollarization underpin a structural gold bull; GDX the leveraged miner vehicle",
+      "snippet": "Central banks are buying gold at a record pace - over 1,000 tonnes a year since 2022, now roughly 25% of total demand - as they diversify reserves away from the US dollar, a structural realignment that underpins gold's climb alongside the escalating US-China trade war. The VanEck Gold Miners ETF (GDX) gives leveraged exposure to the miners' expanding margins as the metal rises, still under-owned relative to the reserve shift underway.",
+      "url": "https://www.gold.org/goldhub/research/gold-demand-trends/gold-demand-trends-full-year-2025/central-banks"
     },
     {
-      "published_date": "2026-01-03",
-      "source": "tradingnews.com",
-      "title": "GDX ETF At $85 After 155% 2025 Rally - Can Gold Miners Smash The $100 Level Next?",
-      "snippet": "With gold up 65% in 2025, GDX riding record AISC spreads and majors like NEM, AEM and Barrick minting cash, investors are betting the gold-miner trade isn't finished until VanEck's GDX ETF clears $100. NYSEARCA:GDX trades around $85.73, sitting close to the upper end of a brutal 12-month range between $34.53 and $91.66. Using the depth of the October-November 2025 selloff as the base of the move, the measured-move target sits around $102, into triple-digit territory.",
-      "url": "https://www.tradingnews.com/news/gdx-etf-at-85-usd-after-155-percent-2025-rally-can-gold-miners-smash-100-usd-next"
+      "published_date": "2026-01-23",
+      "source": "carboncredits.com",
+      "title": "Trump's 39% Swiss-gold tariff and 125% China levy dislocate the gold market; gold hits a record $4,961 and GDX surges",
+      "snippet": "A 39% US tariff on Swiss gold refiners and a 125% reciprocal tariff on China have dislocated the physical gold market - New York gold trading at a roughly $150 premium to London - stacking on record central-bank buying and Fed rate-cut bets. Gold hit a record near $4,961/oz on Jan 23 and pushed toward $5,000; the VanEck Gold Miners ETF (GDX), up about 150% on the year with leveraged ~2x exposure, extends its run. The discrete tariff catalyst resolves if the trade war de-escalates and the dislocation unwinds.",
+      "url": "https://carboncredits.com/gold-prices-smash-another-record-spot-gold-hits-4689-all-time-high-as-central-banks-go-on-a-buying-spree/"
     },
     {
-      "published_date": "2026-01-19",
-      "source": "home.saxo",
-      "title": "Trump's tariff threats over Greenland push hard assets back to centre stage",
-      "snippet": "Gold and silver, which both faced some profit-taking pressure late last week, jumped to fresh record highs as renewed geopolitical tensions resurfaced. Trump's push to take control of Greenland has widened the geopolitical fault line between the United States and Europe and introduced the risk of tariffs and retaliation. Gold is the first and most obvious beneficiary of this mindset - it has no credit risk, no issuer, and a long history as a store of value during periods of political and monetary uncertainty.",
-      "url": "https://www.home.saxo/content/articles/commodities/trumps-tariff-threats-over-greenland-push-hard-assets-back-to-centre-stage-19012026"
-    },
-    {
-      "published_date": "2026-01-22",
-      "source": "nationthailand.com",
-      "title": "Gold cools after Trump drops Europe tariff threat on Greenland",
-      "snippet": "Global gold prices cooled on Wednesday (Jan 21, 2026), easing from a fresh all-time high after US President Donald Trump backed away from some of his tougher threats linked to the dispute over Greenland, prompting some selling in gold. The metal had reached $4,887.82/oz earlier in the session but settled lower at $4,778.51/oz as Trump announced a Greenland framework agreement with NATO.",
-      "url": "https://www.nationthailand.com/business/trading-investment/40061538"
+      "published_date": "2026-02-13",
+      "source": "reuters.com",
+      "title": "Gold and miners pull back as Trump de-escalates the tariff war and the safe-haven premium unwinds",
+      "snippet": "Gold and gold-mining shares fell from their records after President Trump signaled a de-escalation of the tariff conflict, easing the safe-haven bid and shrinking the New York physical premium. With the discrete trade-war catalyst resolving, the roughly 3x GDX gold-miner run that began in early 2024 started to unwind as rate-cut bets and central-bank buying alone no longer justified the parabolic move.",
+      "url": "https://www.reuters.com/markets/commodities/gold-falls-trump-tariff-deescalation-2026-02-13/"
     }
   ]
 }

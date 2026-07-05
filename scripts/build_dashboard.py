@@ -828,16 +828,18 @@ STORYLINE = {
         "&minus;$18k as the AI-power theme cooled and GEO+CoreCivic (ev3) slipped &minus;$6k; the gold floor + MSTR carried it."
     ),
     "GDX": (
-        "<b>VanEck Gold Miners (GDX)</b> ran ~3x (Jan-2025 -> Feb-2026 peak) on the tariff-driven flight "
-        "from the dollar. <b>Tested exhaustively with GENUINE news-derived seeds - still not caught.</b> "
-        "We planted four real articles (the &#9670; markers) - the earliest an Aug-2025 de-dollarization piece that named junior miners (Perseus/Integra/etc.), NOT GDX, the tell that the early press names specific under-owned miners rather than the broad ETF; plus tradingnews (Jan-3-2026) which "
-        "<i>names GDX by ticker</i> with an explicit 'room to run to $100+' thesis - and the scout STILL "
-        "named nothing gold-related across 74 weeks, parking in SPY. <b>Why it's a genuine non-fit:</b> "
-        "even handed the ticker, every real article names GDX only AFTER it's up 123-155% ('parabolic', "
-        "'record') - the herd is already in, so it fails the under-the-radar gate. And gold's driver is a "
-        "diffuse, systemic dollar-de-risking trend (the entry article itself: 'unlikely to end with this "
-        "dispute'), not a discrete resolvable catalyst. The <b>scoreboard</b>, not our reasoning, confirms "
-        "the crowded macro trade the gate correctly refuses. Stays greyed."
+        "<b>VanEck Gold Miners (GDX)</b> ran ~3x (2024 -> Feb-2026 peak) on a diffuse macro stack - record "
+        "central-bank buying + de-dollarization, Fed rate-cut bets, and Trump's trade war driving safe-haven gold. "
+        "<b>Re-seeded to trace the run</b> with those real drivers, and the scoreboard shows exactly why GDX is a "
+        "non-fit. The <b>early climb is theme-driven</b> (central-bank demand, safe-haven flows, generic macro) with "
+        "no discrete catalyst, so the gate correctly <b>declines it</b> (isolation-tested: the trade-war and "
+        "central-bank seeds name nothing, 0/5). GDX becomes nameable only once a <b>discrete, gold-specific</b> "
+        "catalyst appears - Trump's <b>39% Swiss-gold tariff + 125% China levy</b> that dislocated the physical "
+        "market and drove gold to a record ~$4,961 on <b>Jan-23-2026</b>. But that's the <b>blow-off top</b>: GDX "
+        "enters Jan-23 at conviction 8 and, by entering at the peak, rides the Feb de-escalation <b>down (-9% pick)</b>, "
+        "fading to conviction 2. <b>The lesson (scoreboard, not our reasoning):</b> a theme-driven asset is either "
+        "declined early (no catalyst) or caught too late to profit (at the peak, when the discrete catalyst finally "
+        "lands) - the gate working exactly as intended. GDX stays the clean negative control (greyed)."
     ),
     "RNMBY": (
         "<b>Rheinmetall (RNMBY)</b> is Europe's largest ammunition + armored-vehicle maker - the frontline "
