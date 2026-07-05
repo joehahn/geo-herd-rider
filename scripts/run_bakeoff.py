@@ -31,9 +31,12 @@ from optimizer import CURATOR_MODELS  # noqa: E402
 
 # each bake gem -> (scan start, scan end, seed file stem): the WARM scan window (GDELT pool cached).
 BAKEOFF_GEMS = {
-    "mp":       ("2025-03-21", "2025-12-26", "gems_seeds"),
-    "bwet":     ("2025-12-26", "2026-07-03", "gems_seeds"),
+    "mp":       ("2025-03-21", "2025-12-26", "mp_seeds"),          # per-gem news-derived seeds (gems_seeds was hollowed out)
+    "bwet":     ("2025-12-26", "2026-07-03", "bwet_seeds"),
     "geo_mstr": ("2024-08-01", "2025-03-01", "election_2024_seeds"),
+    "gdx":      ("2024-11-01", "2026-03-27", "gdx_seeds"),         # all 6 gems now scored in the bake-off
+    "smr":      ("2024-04-19", "2024-09-13", "smr_seeds"),
+    "rnmby":    ("2024-10-18", "2025-12-12", "rnmby_seeds"),
 }
 DEFAULT_MODELS = ["mimo", "llama4", "deepseek", "grok4", "sonnet4", "sonnet5", "opus"]
 LOGDIR = ROOT / "data" / "windows" / "bakeoff" / "logs"

@@ -24,7 +24,7 @@ def merge(path: str | None, section: str, payload: dict) -> None:
         except Exception:  # noqa: BLE001 — a corrupt stats file must not sink a run
             d = {}
     d[section] = payload
-    tmp = f"{path}.tmp"
+    tmp = f"{path}.{os.getpid()}.tmp"   # PID-unique tmp so parallel scans (bake-off) don't race on os.replace
     Path(tmp).write_text(json.dumps(d, indent=2))
     os.replace(tmp, path)
 
