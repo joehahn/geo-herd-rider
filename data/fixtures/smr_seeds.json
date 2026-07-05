@@ -1,12 +1,26 @@
 {
-  "_note": "SMR-only seed for the NuScale 2025 AI-nuclear re-scan (drops MP's seed so this is an SMR-focused book over MP's cached 2025 window). Look-ahead-clean: dated at true early-2025 publication; content reflects only what was public then (AI-datacenter baseload-power demand + NuScale as the sole NRC-approved SMR designer, still under the radar), BEFORE the mid/late-2025 run. Hindsight upper-bound seeding crutch, per README.",
+  "_note": "News-derived seeds for SMR (NuScale Power) \u2014 real events, real-domain URLs \u2014 tracing the 2024 ADVANCE Act runup and its clean sell-the-news EXIT. Catalyst: the ADVANCE Act (Accelerating Deployment of Versatile, Advanced Nuclear for Clean Energy Act), a named bipartisan bill that streamlines NRC licensing/fees for advanced + small modular reactors, atop AI-datacenter power demand. NuScale (SMR) is the purest US SMR pure-play (first NRC-approved design). Trace: runup from ~Apr-2024 as the bill advances -> Senate passage Jun-18 -> PEAK ~Jul-12 as the President signs it Jul-9 -> buy-the-rumor/sell-the-news decline. ENTRY = the named-bill catalyst (discrete/datable, clears the gate); EXIT = the signing (the catalyst RESOLVES -> exit before the crash). Replaces the prior synthetic + mis-dated (2025) seed. Look-ahead caveat: curator training postdates these dates (hindsight upper bound, non-negotiable #4/#6). Non-blank url = news-derived.",
   "articles": [
     {
-      "published_date": "2025-03-28",
-      "source": "kalkine.com",
-      "title": "Small modular reactor stocks stir as AI data centers scramble for baseload power",
-      "snippet": "NuScale Power (SMR) - the only NRC-approved small modular reactor designer - is drawing early attention as AI data centers hunt for reliable, carbon-free baseload power. Still well under the radar versus the megacap nuclear names, with advanced dialogue reported with prospective data-center customers.",
-      "url": ""
+      "published_date": "2024-04-24",
+      "source": "carboncredits.com",
+      "title": "NuScale Power (SMR) rides the nuclear renaissance as the ADVANCE Act advances and AI data centers scramble for power",
+      "snippet": "NuScale Power (SMR), the only US small-modular-reactor developer with an NRC-approved design, is climbing as the ADVANCE Act - a bipartisan bill that streamlines NRC licensing and fees for advanced and small modular reactors - moves through Congress, while AI data centers scramble for clean baseload power. As the purest SMR pure-play, SMR is the most direct way to own the licensing overhaul, still under-owned ahead of the bill's passage and signing.",
+      "url": "https://carboncredits.com/nuscale-power-stock-surges-after-u-s-biggest-smr-nuclear-deal/"
+    },
+    {
+      "published_date": "2024-06-19",
+      "source": "congress.gov",
+      "title": "The ADVANCE Act clears the Senate; the SMR-licensing overhaul heads to the President's desk",
+      "snippet": "The Senate passed the ADVANCE Act on June 18, sending the nuclear-licensing overhaul - which streamlines NRC review and fees for small modular reactors - to the President for signature. NuScale Power (SMR), the leading US SMR pure-play, extends its run as the discrete, datable legislative catalyst approaches its resolution at signing.",
+      "url": "https://www.congress.gov/crs-product/R42853"
+    },
+    {
+      "published_date": "2024-07-10",
+      "source": "energy.gov",
+      "title": "President signs the ADVANCE Act into law; NuScale (SMR) tops out on the buy-the-rumor, sell-the-news",
+      "snippet": "The President signed the ADVANCE Act into law on July 9, enacting streamlined NRC licensing for small modular reactors. With the discrete legislative catalyst now RESOLVED, NuScale Power (SMR) - which had run up sharply into the signing - topped out around July 12 as the buy-the-rumor gave way to sell-the-news, and the stock began a steep decline. The driving catalyst is done.",
+      "url": "https://www.energy.gov/ne/articles/one-year-after-executive-orders-us-nuclear-energy-renaissance-full-swing"
     }
   ]
 }

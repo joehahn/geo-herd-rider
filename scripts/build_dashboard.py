@@ -784,14 +784,16 @@ def main(argv: list[str] | None = None) -> int:
 
 STORYLINE = {
     "SMR": (
-        "<b>NuScale Power (SMR)</b> builds small modular reactors. It rose through mid-2024 on the "
-        "nuclear-revival trade — AI datacenters scrambling for clean baseload power, and Washington "
-        "turning pro-nuclear. The move <b>peaked when the ADVANCE Act was signed (July 9, 2024)</b> — "
-        "the <i>Accelerating Deployment of Versatile, Advanced Nuclear for Clean Energy Act</i>, which "
-        "streamlines NRC licensing and fees for advanced / small modular reactors. Classic "
-        "buy-the-rumor / sell-the-news: SMR topped ~July 15, then fell ~44%. "
-        "<b>What we'd want:</b> exit as the bill is signed (the catalyst resolves) — which the agent did, "
-        "exiting 2024-07-12 within ~3 days and ~3% of the peak, dodging the crash."
+        "<b>NuScale Power (SMR)</b> builds small modular reactors. It ran up through mid-2024 on the "
+        "nuclear-revival trade — AI datacenters scrambling for clean baseload power — driven by a discrete, "
+        "datable catalyst: the <b>ADVANCE Act</b> (<i>Accelerating Deployment of Versatile, Advanced Nuclear for "
+        "Clean Energy Act</i>), a bipartisan bill streamlining NRC licensing and fees for small modular reactors. "
+        "The solution <b>catches SMR early</b> (Apr-26, conviction 7, the bill advancing), rides the runup - "
+        "conviction fading through the legislative lull, then <b>resetting to 7 on the Jun-18 Senate passage</b> - "
+        "and <b>hard-exits Jul-12 the moment the President signs the bill (Jul-9)</b>, the catalyst resolved. Classic "
+        "buy-the-rumor / sell-the-news: SMR peaked ~Jul-15 then fell ~44%, and exiting at the signing <b>dodged the "
+        "crash</b> (pick +102%, portfolio +116%, maxDD -16%). The cleanest arc in the set - one named catalyst "
+        "driving both the entry and the exit."
     ),
     "MP": (
         "<b>MP Materials (MP)</b> is the main US rare-earth miner (Mountain Pass, California). It rose on "
