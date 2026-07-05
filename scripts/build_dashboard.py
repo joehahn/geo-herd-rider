@@ -1107,7 +1107,7 @@ Promise.resolve({{DATA}}).then(D=>{
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
      xaxis:{type:"date",range:XR,autorange:false},
-     yaxis:{type:"log",tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
   const traces=[];
@@ -1568,7 +1568,7 @@ Promise.resolve({{DATA}}).then(D=>{
        line:{color:pal[gi%pal.length],width:2.2,dash:"dash"},marker:{size:6}}); });
     Plotly.newPlot(div.id,traces,{margin:{l:72,r:30,t:14,b:46},
       xaxis:{title:p.label+(p.log?" (log)":""),type:p.log?"log":"linear",tickvals:p.values,ticktext:p.values.map(String)},
-      yaxis:{tickprefix:"$",separatethousands:true},
+      yaxis:{type:"log",tickprefix:"$",separatethousands:true},
       legend:{orientation:"h",y:1.16},hovermode:"x unified"},{displayModeBar:false,responsive:true});
   });
   if(!Object.keys(P).length) host.innerHTML='<p class="sub">No sweeps recorded yet.</p>';
