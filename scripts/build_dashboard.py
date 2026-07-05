@@ -1558,10 +1558,10 @@ Promise.resolve({{DATA}}).then(D=>{
   }
   Object.keys(P).forEach((k,i)=>{
     const p=P[k];
-    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — (Sum Final Curated)/3 vs ${p.label}`; host.appendChild(h2);
+    const h2=document.createElement("h2"); h2.textContent=`Plot ${i+2} — (Sum Final Curated)/4 vs ${p.label}`; host.appendChild(h2);
     const div=document.createElement("div"); div.className="chart"; div.id="c_"+k; host.appendChild(div);
     const traces=[
-      {x:p.values,y:p.sum_curated.map(v=>v/3),name:"(Sum Final Curated)/3",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
+      {x:p.values,y:p.sum_curated.map(v=>v/4),name:"(Sum Final Curated)/4",mode:"lines+markers",line:{color:"#d62728",width:2.6},marker:{size:8}},
     ];
     const V=D.verticals||{};
     gems.forEach((g,gi)=>{ if(p.per_gem&&p.per_gem[g]) traces.push(
