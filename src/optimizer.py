@@ -32,8 +32,6 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   fractions, so this only sets dollar labels, not picks/weights.
     "risk_aversion": 0.67,             # LIVE: optimizer lambda (mean-variance)
     "concentration_cap": 0.9,          # LIVE: per-position max weight (top-level profile key)
-    "max_tickers_per_event": 4,       # LIVE: cap on tickers kept per event's basket (the
-                                       #   "limit the options" knob; truncates to the first N)
     "t_update_days": 1,                # LIVE: business days from event detection to execution
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
