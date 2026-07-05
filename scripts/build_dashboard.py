@@ -366,11 +366,43 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     caught_all = all(t in _named for t in combo_targets)
     both_held = (sum(1 for r in bt.get("rows", [])
                      if all(f"{t}:" in (r.get("held") or "") for t in combo_targets)) if extra_overlays else 0)
+    # co-discovered (non-gem) events -> bullets appended AFTER the gem's story paragraph. Each bullet gives
+    # the event's thesis/catalyst and its REAL exit condition + status, from the agent's saved exit_case.
+    _gem_aid = (agent_of.get(d["overlay_ticker"], "") or "").split("+")[0]
+    _ex: dict = {}                                    # aid -> {case, resolved, date} pulled from the book
+    for a in sorted(scans):
+        for p in scans[a]:
+            aid = thesis_id.get(p.get("thesis", ""))
+            if aid is None:
+                continue
+            e = _ex.setdefault(aid, {"case": "", "resolved": False, "date": None})
+            if p.get("exit_case"):
+                e["case"] = p["exit_case"]            # keep the latest read
+            if str(p.get("catalyst_resolved")).lower() in ("true", "1") and not e["resolved"]:
+                e["resolved"], e["date"] = True, a.date().isoformat()
+    _rows = []
+    for aid, mt in agent_meta.items():
+        if aid == "spy" or aid == _gem_aid:
+            continue
+        basket = mt.get("basket") or mt.get("ticker", aid)
+        e = _ex.get(aid, {})
+        case = (e.get("case") or "").strip().rstrip(".")
+        if e.get("resolved"):
+            status = f"<b style='color:#c0392b'>✕ EXITED {e['date']}</b> &mdash; {case}"
+        else:
+            status = f"still live &mdash; {case}" if case else "still live (catalyst active)"
+        _rows.append((aid, f"<li><b>{aid} &middot; {basket}</b> &mdash; catalyst: <i>{mt.get('thesis','')}</i>. "
+                           f"Exit: {status}.</li>"))
+    _rows.sort(key=lambda r: r[0])
+    _bullets = ("<div style='margin-top:9px'><b>Co-discovered events the curator juggled</b> "
+                "(not this dashboard's gem):<ul style='margin:5px 0 0;padding-left:20px'>"
+                + "".join(r[1] for r in _rows) + "</ul></div>") if _rows else ""
+    _story = STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent") + _bullets
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "overlays": overlays, "gem_label": label_override or ticker,
         "combo_targets": combo_targets, "caught_all": caught_all, "both_held": both_held,
-        "model": disp_model, "storyline": STORYLINE.get(ticker, ""), "ever_funded": ever_funded,
+        "model": disp_model, "storyline": _story, "ever_funded": ever_funded,
         "seeds": _gem_seeds(ticker),
         "capital": capital, "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
@@ -766,14 +798,17 @@ STORYLINE = {
     ),
     "RNMBY": (
         "<b>Rheinmetall (RNMBY)</b> is Europe's largest ammunition + armored-vehicle maker - the frontline "
-        "beneficiary of the <b>European rearmament wave</b>. The catalyst: Trump's win pressured Europe to "
-        "fund its own defense, culminating in <b>Germany's March-2025 vote to exempt defense from its "
-        "constitutional debt brake</b> - a specific, datable policy shock unlocking a historic buildout. The "
-        "scout caught it <b>early</b>, on the Dec-2024 anticipation (before the debt-brake vote). On sonnet5 (with "
-        "the anticipation-catch + hold-through-silence prompt fixes) it names RNMBY at conviction 8 and rides the "
-        "whole run - and the anticipation + peer-basket fixes let its rearmament event hold a BASKET of arms makers (Rheinmetall + BAE + Saab + Thales) beside a separate OKLO nuclear play (~+235% book; the optimizer sizes the basket + drops weak peers). <b>What we'd want:</b> ride while the rearmament thesis is live - the catalyst is "
-        "open-ended (a multi-year buildout, no single resolution date), the MP-type under-exit case where an "
-        "ongoing structural driver never cleanly resolves."
+        "beneficiary of the <b>European rearmament wave</b>. The catalyst: <b>Germany's March-2025 vote to "
+        "exempt defense from its constitutional debt brake</b>, a datable policy shock that unlocked a historic "
+        "multi-year military buildout and sent Rheinmetall's order book and shares soaring. As Europe scrambles "
+        "to refill depleted stockpiles and stand up its own defense-industrial base, Rheinmetall - the "
+        "continent's dominant maker of shells, artillery and armored vehicles - is the purest way to own the "
+        "buildout. This dashboard tracks the rearmament event as <b>agent {GEM_AGENT}</b> (the thick green curve "
+        "in the plots below). <b>Exit condition:</b> the rearmament thesis is <b>open-ended</b>, with no single resolution "
+        "date, so the position exits only on a genuine <b>reversal</b> - the debt-brake exemption repealed, or "
+        "the rearmament rationale undone by a Ukraine <b>peace deal / ceasefire</b> that ends the defense "
+        "super-cycle. In this scan that reversal never came - <b>RNMBY held to the scan end and never exited</b> "
+        "(an open-ended structural driver, the MP-type under-exit case)."
     ),
 }
 
@@ -825,7 +860,7 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
  <div id="chart"></div>
 
- <h2>Plot 2 — Cumulative $ gain per agent (event)</h2>
+ <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— each curve is drawn <b>only while that agent is held</b>, so you can <b>count the concurrent curves at any point</b> to confirm the curator juggles ≤ <b>max_agents</b> at once (the dashed <b>SPY</b> floor aside). This dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7–9.</span></h2>
  <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
    holds, then flatlines at its realized gain once it exits.</b> <b>▲</b> marks the week the agent went
    live, <b>✕</b> its exit. The bold <b>Total</b> is the portfolio's gain (the lines sum to it).
@@ -994,27 +1029,43 @@ Promise.resolve({{DATA}}).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
-  // Plot 2 — cumulative $ gain per agent (event): one line per FUNDED event (flatlines at exit) + bold Total
-  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{};
-  const alab=t=>AO[t]?AO[t]+" ("+t+")":t;   // legend by agent id (ticker in parens)
-  const gtr=Object.keys(GS).filter(t=>FF.has(t)).map(t=>({x:D.dates,y:GS[t],name:alab(t),mode:"lines",
-    line:{color:D.colors[t]||"#888",width:2},hovertemplate:alab(t)+" $%{y:,.0f}"}));
-  gtr.push({x:D.dates,y:D.value.map(v=>+(v-D.capital).toFixed(2)),name:"Total",mode:"lines",
-    line:{color:"#111",width:3},hovertemplate:"Total $%{y:,.0f}"});
-  // entry/exit markers LAST so they draw ON TOP of the Total curve: ▲ = went live, ✕ = exit
-  const AM=D.agent_marks||{};
-  const idxOf=ds=>{let j=0;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
-  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{
-    const col=D.colors[t]||"#888", mk=AM[t]||{};
-    const mkTrace=(dates,sym,tag)=>{const pts=(dates||[]).map(idxOf);if(!pts.length)return;
-      gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>GS[t][i]),mode:"markers",showlegend:false,cliponaxis:false,
-        marker:{symbol:sym,size:26,color:col,line:{color:"#fff",width:2.5}},
-        hovertemplate:alab(t)+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});};
-    mkTrace(mk.live,"triangle-up","went live"); mkTrace(mk.exit,"x","exit");
+  // shared agent palette — ONE color per agent across Plots 2/7/8/9. The gem-carrier gets a RESERVED
+  // green (and 2x thickness); every other agent draws from a green-free, gray-free palette, so no
+  // co-discovered agent can visually match the gem or the SPY floor.
+  const AGM=D.agents||{};
+  const GEMCOL="#27ae60";
+  const AGPAL=["#2980b9","#e67e22","#8e44ad","#c0392b","#8c564b","#e377c2","#bcbd22","#d35400","#2c3e50"];
+  const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
+  const agColor={}; let _pi=0;
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#888": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+
+  // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
+  // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{}, ALC=D.alloc||{};
+  const agBasket=id=>((AGM[id]||{}).basket)||id;             // the agent's funded basket, e.g. BAESY+RNMBY
+  const gemAg=AO[(D.overlay_ticker||"").toUpperCase()]||"";   // the agent carrying THIS dashboard's gem (drawn 2x thick)
+  const byAgent={};                                          // group funded tickers by agent: a basket = ONE agent = ONE curve
+  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{const a = t==="SPY" ? "spy" : (AO[t]||t); (byAgent[a]=byAgent[a]||[]).push(t);});
+  const gtr=Object.entries(byAgent).map(([a,tks])=>{
+    const gem = !!gemAg && a===gemAg;
+    const held = D.dates.map((_,i)=> tks.some(t=>((ALC[t]||[])[i]||0) > 1e-6));            // funded this week?
+    const y = D.dates.map((_,i)=> held[i] ? tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0) : null);  // active-only (gaps when idle)
+    return {x:D.dates, y, mode:"lines", name:a+" ("+agBasket(a)+")", connectgaps:false,
+      line:{color: agColor[a]||"#888", width: gem?4:2, dash: a==="spy"?"dash":"solid"},
+      hovertemplate:a+" ("+agBasket(a)+") $%{y:,.0f}<extra></extra>"};
   });
-  // legend keys for the two marker symbols (neutral gray, no data point drawn)
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:15,color:"#666"}});
-  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit",marker:{symbol:"x",size:14,color:"#666"}});
+  // entry/exit markers: ▲ where each agent went live, ✕ where its catalyst resolved — on its cumulative curve
+  const AM=D.agent_marks||{}, idxOf=ds=>{let j=-1;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
+  const mk=(a,tks,field,sym,tag)=>{
+    const cum=D.dates.map((_,i)=> tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0));
+    const pts=[...new Set([].concat(...tks.map(t=>(AM[t]||{})[field]||[])))].map(idxOf).filter(i=>i>=0);
+    if(pts.length) gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>cum[i]),mode:"markers",showlegend:false,cliponaxis:false,
+      marker:{symbol:sym,size:sym==="triangle-up"?20:13,color:agColor[a]||"#888",line:{color:"#fff",width:2}},
+      hovertemplate:a+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});
+  };
+  Object.entries(byAgent).forEach(([a,tks])=>{ mk(a,tks,"live","triangle-up","went live"); mk(a,tks,"exit","x","exit"); });
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:18,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit (catalyst resolved)",marker:{symbol:"x",size:12,color:"#666"}});
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
      xaxis:{type:"date",range:XR,autorange:false},
@@ -1087,11 +1138,8 @@ Promise.resolve({{DATA}}).then(D=>{
     {displayModeBar:false,responsive:true});
 
   // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
-  const AG=D.agent_gain||{}, AGM=D.agents||{};
+  const AG=D.agent_gain||{};   // AGM + agColor defined above the Plot 2 block (shared across Plots 2/7/8/9)
   const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
-  // one stable color per agent, shared across Plots 7/8/9 so a bar == its conviction/path line
-  const AGPAL=["#2980b9","#e67e22","#27ae60","#8e44ad","#c0392b","#16a085","#17becf","#e377c2","#bcbd22","#9467bd"];
-  const agColor={}; Object.keys(AGM).forEach((id,i)=>{agColor[id]= id==="spy"?"#888":AGPAL[i%AGPAL.length];});
   const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
   Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
     marker:{color:agS.map(e=>agColor[e[0]]||"#888"),line:{color:"#333",width:0.5}},

@@ -42,9 +42,9 @@ from util import scan_anchors  # noqa: E402
 SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["candidates"],
                "properties": {"candidates": {"type": "array", "items": {
                    "type": "object", "additionalProperties": False,
-                   "required": ["ticker", "thesis", "why_now", "peers"],
-                   "properties": {"ticker": {"type": "string"}, "thesis": {"type": "string"},
-                                  "why_now": {"type": "string"},
+                   "required": ["ticker", "company", "thesis", "why_now", "peers"],
+                   "properties": {"ticker": {"type": "string"}, "company": {"type": "string"},
+                                  "thesis": {"type": "string"}, "why_now": {"type": "string"},
                                   "peers": {"type": "array", "items": {"type": "string"}}}}}}}
 AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "sources"],
@@ -60,9 +60,12 @@ SCOUT_SYSTEM = """You are a markets desk scanning a week of financial-news headl
 candidate hidden-gem events — a specific US-listed ticker (incl. ADRs / theme ETFs) the press is
 naming as a thesis-driven mover, ideally still early/under-the-radar.
 
-US-LISTED ONLY. Every ticker must trade on a US exchange (NYSE/Nasdaq) — a plain symbol with NO
-exchange suffix. NEVER a foreign-exchange listing (no ".AX", ".L", ".TO", ".HK", ".DE", ".T", etc.).
-If the company is foreign, name its US ADR (e.g. CSLLY, not CSL.AX; TM, not 7203.T) or skip it.
+US-TRADEABLE. Every pick must be tradeable from a US exchange (NYSE / Nasdaq / OTC ADR). ALWAYS fill
+`company` with the issuer's full name. For `ticker`: if it is a US name, or you are confident of its US
+ADR symbol, put that (e.g. CSLLY, TM). If the company is FOREIGN and you are NOT sure of its US symbol,
+DO NOT skip a strong gem — put your best-known ticker (even a foreign one like RHM.DE, or just repeat the
+company) in `ticker`; a downstream resolver will web-search the US-listed symbol from `company`. Never
+drop a real thesis merely because you can't recall the exact ticker.
 
 BE RUTHLESSLY SELECTIVE. Propose a ticker ONLY if the press frames it as a STANDOUT, SUSTAINED
 thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a routine daily gainer,
@@ -181,6 +184,7 @@ class ScoutCandidate(BaseModel):
     """A discovered candidate event. extra='ignore' drops anything the LLM adds beyond these."""
     model_config = ConfigDict(extra="ignore")
     ticker: str
+    company: str = ""              # company name (for the US-ticker resolver when the ADR symbol is obscure)
     thesis: str = ""
     why_now: str = ""
     peers: list[str] = []          # same-catalyst peer vehicles: extra US tickers for THIS event's basket
@@ -227,6 +231,41 @@ def _block(arts: list[dict]) -> str:
                      f" — {a.get('snippet','')[:200]} ({a.get('url','') or 'no url'})" for a in arts)
 
 
+RESOLVER_SYSTEM = """You are a ticker-lookup utility. Given a company name (and maybe a foreign
+ticker), web-search and return the symbol it trades under on a US exchange (NYSE / Nasdaq / OTC ADR) —
+a plain symbol with NO exchange suffix. Prefer the sponsored ADR. If the company has NO US listing at
+all, return null. Return ONLY JSON: {"ticker": "RNMBY"} or {"ticker": null}. Emit NOTHING else — no
+price, no news, no commentary. A name<->symbol mapping is a STATIC fact; never report anything
+time-varying."""
+
+_TICKER_CACHE: dict[str, str | None] = {}   # per-run memo: company/foreign-ticker -> US symbol (skip re-searching)
+
+
+def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
+    """Live web-search resolution of a NAMED company -> its US-listed symbol. Look-ahead-SAFE: a
+    name<->ticker mapping is a static fact (RNMBY was RNMBY in 2025 and now); only the symbol is
+    extracted, all time-varying content (price/news) is discarded. Returns a dot-free US symbol or None.
+    Runs as a SEPARATE call from the scout's web-search-free reasoning, so the scout stays look-ahead
+    clean and only this narrow ticker lookup touches the web."""
+    key = (company.strip() or hint.strip()).upper()
+    if not key:
+        return None
+    if key in _TICKER_CACHE:
+        return _TICKER_CACHE[key]
+    q = (f"Company: {company or hint}\n" + (f"Foreign/known ticker: {hint}\n" if hint else "")
+         + "What is its US-listed ticker symbol? Output the JSON.")
+    us = None
+    try:
+        txt = client.complete(RESOLVER_SYSTEM, q, use_web_search=True, stage="agent",
+                              label=f"resolve-{key[:20]}")
+        tk = str(_extract(txt).get("ticker") or "").strip().upper()
+        us = tk if (tk and "." not in tk and tk.isalnum()) else None
+    except Exception:  # noqa: BLE001
+        us = None
+    _TICKER_CACHE[key] = us
+    return us
+
+
 def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> list[dict]:
     if not arts:
         return []
@@ -244,10 +283,18 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> 
             m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
         except Exception:  # noqa: BLE001
             continue
-        if m.ticker and "." not in m.ticker:   # SCOPE GUARD: yfinance US tickers carry no dot;
-            out.append(m.model_dump())          #   a ".AX/.L/.TO/.HK/..." suffix is a FOREIGN exchange
-        elif m.ticker:                          #   listing -> drop (the curator should name the US ADR)
-            print(f"  scope: dropped foreign-exchange ticker {m.ticker} ({anchor.date()})", file=sys.stderr)
+        tk = m.ticker.strip()
+        us_like = bool(tk) and "." not in tk and tk.isalpha() and len(tk) <= 6
+        if not us_like and (m.company or tk):   # foreign / dotted / company-as-ticker -> RESOLVE the US symbol live
+            resolved = resolve_us_ticker(client, m.company, hint=tk)
+            if resolved:
+                print(f"  resolver: {(m.company or tk)!r} -> {resolved} ({anchor.date()})", file=sys.stderr)
+                tk = resolved
+        if tk and "." not in tk:                # SCOPE GUARD: a dot = FOREIGN exchange listing -> drop
+            m.ticker = tk
+            out.append(m.model_dump())
+        elif tk:
+            print(f"  scope: dropped unresolved foreign ticker {tk} ({anchor.date()})", file=sys.stderr)
     return out
 
 
@@ -338,7 +385,8 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
     # in-memory; journals were dumped only at the end). Keyed by the run's params.
     import os
     _ph = hashlib.md5((SCOUT_SYSTEM + AGENT_SYSTEM).encode()).hexdigest()[:6]  # prompt-aware: edits bust the cache
-    rsig = hashlib.md5(f"{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{_ph}{qs}".encode()).hexdigest()[:10]
+    _sh = hashlib.md5(Path(seed).read_bytes()).hexdigest()[:8] if seed and Path(seed).exists() else ""  # seed-CONTENT-aware: editing a seed's articles busts the cache
+    rsig = hashlib.md5(f"{provider}{model}{start}{end}{rebalance_days}{seed}{_sh}{targeted}{_ph}{qs}".encode()).hexdigest()[:10]
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()
     if resume_f.exists():
@@ -662,7 +710,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     out: dict[pd.Timestamp, list[dict]] = {}
     nid = [0]
     _ph = hashlib.md5((SCOUT_SYSTEM + MATCH_SYSTEM + EVENT_AGENT_SYSTEM).encode()).hexdigest()[:6]  # prompt-aware: edits bust the cache
-    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{_ph}{qs}".encode()).hexdigest()[:10]
+    _sh = hashlib.md5(Path(seed).read_bytes()).hexdigest()[:8] if seed and Path(seed).exists() else ""  # seed-CONTENT-aware: editing a seed's articles (not just its path) busts the cache
+    rsig = hashlib.md5(f"EV{provider}{model}{start}{end}{rebalance_days}{seed}{_sh}{targeted}{enrich}{enrich_fetch}{curator_memory_weeks}{_ph}{qs}".encode()).hexdigest()[:10]
     enrich_cache = str(REPO_ROOT / "data" / "windows" / f"wayback_{key}.json")
     resume_f = REPO_ROOT / "data" / "windows" / f"agent_resume_{rsig}.json"
     done: set[str] = set()

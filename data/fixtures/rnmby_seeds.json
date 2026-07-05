@@ -1,0 +1,19 @@
+{
+  "_note": "RNMBY seeds — DIAL-UP TEST INSTRUMENT (not verbatim genuine). Real events + real URLs (Germany's Mar-18-2025 debt-brake defence exemption; the Nov-19-2025 Ukraine peace-framework de-rating), but the ENTRY framing is deliberately DIALED UP to 'still under-owned / only beginning' to probe whether the detection pipeline (scout -> live ticker-resolver -> optimizer) surfaces RNMBY once the event signal is strong enough. WHY goosed: genuine March-2025 coverage frames Rheinmetall as 'the biggest winner' (already famous), which the scout's under-the-radar gate correctly rejects (proven: an isolation test on the verbatim Reuters lede returned zero candidates). This seed turns the signal dial up to test the DETECTOR, not to claim the real firehose would have surfaced it. Mechanism (validated): the scout needs BOTH a concrete datable catalyst AND under-owned framing to name a foreign gem, after which the web-search resolver maps Rheinmetall->RNMBY live (no ticker hand-fed). All seeded returns are hindsight upper bounds; the forward paper trade is the only clean test (non-negotiable #4/#6).",
+  "articles": [
+    {
+      "published_date": "2025-03-18",
+      "source": "investing.com",
+      "title": "Rheinmetall, still under-owned, is the frontline winner as Germany exempts defence from its debt brake",
+      "snippet": "Germany's Bundestag voted on March 18 to exempt defence spending from the constitutional debt brake, kicking off a historic multi-year military buildout. Rheinmetall, Europe's largest ammunition and armored-vehicle maker, is the purest and most direct beneficiary - and despite the move it remains under-owned, with the spending surge only just beginning.",
+      "url": "https://www.investing.com/news/stock-market-news/rheinmetall-forecasts-2025-sales-jump-on-ukraine-war-us-decoupling-3922796"
+    },
+    {
+      "published_date": "2025-11-19",
+      "source": "investing.com",
+      "title": "European defence stocks fall on signs of U.S. push over Ukraine war",
+      "snippet": "European aerospace and defence stocks fell more than 3% on Wednesday on signs of a fresh U.S.-led push to end the Russia-Ukraine war, which also lifted Ukraine's government bonds. Shares in Rheinmetall, Renk, BAE Systems, Leonardo, Saab were among the biggest fallers, with losses ranging from 4% to 7%. Two traders pointed to a Politico report about a possible framework agreement over Ukraine as a trigger for the drop.",
+      "url": "https://www.investing.com/news/stock-market-news/european-defence-stocks-fall-on-signs-of-us-push-over-ukraine-war-4367839"
+    }
+  ]
+}
