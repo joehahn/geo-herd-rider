@@ -398,6 +398,11 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                 "(not this dashboard's gem):<ul style='margin:5px 0 0;padding-left:20px'>"
                 + "".join(r[1] for r in _rows) + "</ul></div>") if _rows else ""
     _story = STORYLINE.get(ticker, "").replace("{GEM_AGENT}", _gem_aid or "its agent") + _bullets
+    _ngpal = [c for c in PALETTE if c not in ("#1f77b4", "#eab308")]   # non-gem palette: no gem-blue, no SPY-yellow
+    _others = [t for t in tickers if t not in ("SPY", d["overlay_ticker"])]
+    _colors = {t: _ngpal[i % len(_ngpal)] for i, t in enumerate(_others)}
+    _colors["SPY"] = "#eab308"                       # SPY yellow
+    _colors[d["overlay_ticker"]] = "#1f77b4"         # gem blue (reserved; no co-ticker can take it)
     payload = {
         "gem": ticker, "overlay_label": f"{ticker} trigger", "caught": caught,
         "overlays": overlays, "gem_label": label_override or ticker,
@@ -408,7 +413,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
         "overlay": d["overlay"], "overlay_ticker": d["overlay_ticker"],
         "overlay_anchor": d["overlay_anchor"], "alloc": d["alloc"], "cash": d["cash"],
-        "colors": {t: PALETTE[i % len(PALETTE)] for i, t in enumerate(tickers)},
+        "colors": _colors,   # SPY=yellow, gem=blue reserved; co-tickers avoid both
         "metrics": metrics(d["value"], d["spy"], capital),
         "cost_usd": book_cost(d["dates"]), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "watch_daily": watch_daily,
@@ -757,13 +762,13 @@ STORYLINE = {
         "exiting 2024-07-12 within ~3 days and ~3% of the peak, dodging the crash."
     ),
     "MP": (
-        "<b>MP Materials (MP)</b> is the main US rare-earth miner. It rose on <b>China's rare-earth "
-        "export curbs</b> — Beijing restricting critical-mineral exports makes a domestic supplier "
-        "strategically valuable. The catalyst is <b>open-ended</b> (ongoing trade tension, no single "
-        "resolution date); MP's price flattened around Nov 2025 as the scarcity premium faded. "
-        "<b>What we'd want:</b> exit when the curbs ease / the premium fades (~Nov 2025). Here the agent "
-        "held the position live the whole window — the <i>under-exit</i> case, because an open-ended "
-        "catalyst never cleanly 'resolves' on a date."
+        "<b>MP Materials (MP)</b> is the main US rare-earth miner (Mountain Pass, California). It rose on "
+        "<b>China's April-2025 rare-earth export curbs</b> — Beijing restricting critical-mineral exports makes "
+        "the lone scaled US producer strategically valuable — then <b>surged again in July 2025</b> when the "
+        "<b>Department of Defense took a $400M stake</b> (becoming MP's largest shareholder) with a 10-year "
+        "$110/kg price floor, sending the stock up ~50% in a day. This dashboard tracks the event as <b>agent "
+        "{GEM_AGENT}</b> (the thick blue curve in the plots below). <b>Exit condition:</b> the curbs ease / the "
+        "scarcity premium fades — an open-ended driver, so it exits only on a genuine reversal (China lifting the controls)."
     ),
     "BWET": (
         "<b>Breakwave Dry Bulk Shipping (BWET)</b> tracks dry-bulk freight rates. It spiked on the "
@@ -860,11 +865,9 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
  <div id="chart"></div>
 
- <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— each curve is drawn <b>only while that agent is held</b>, so you can <b>count the concurrent curves at any point</b> to confirm the curator juggles ≤ <b>max_agents</b> at once (the dashed <b>SPY</b> floor aside). This dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7–9.</span></h2>
- <p class="sub">Each funded event's running $ contribution to the book — a line <b>climbs while the agent
-   holds, then flatlines at its realized gain once it exits.</b> <b>▲</b> marks the week the agent went
-   live, <b>✕</b> its exit. The bold <b>Total</b> is the portfolio's gain (the lines sum to it).
-   Flat-near-zero = an agent that contributed little; never-funded agents are omitted.</p>
+ <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7–9.</span></h2>
+ <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
+   went live, <b>✕</b> its exit.</p>
  <div id="gainseries"></div>
 
  <h2>Plot 3 — Allocation over time</h2>
@@ -925,14 +928,8 @@ INDEX_HTML = r"""<!doctype html>
    optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
  <table class="atab" id="watchtable"></table>
 
- <h2>Plot 12 — Gem lifecycle — full window (pre / live / exit / post)</h2>
- <p class="sub" style="margin:0 0 6px">EVERY week the firehose was scanned, and what the agent did with
-   this gem: <b>pre</b> = scanned but not yet flagged; <b>live</b> / <b>exit</b> = held / thesis called
-   dead; <b>post</b> = dropped, watching it stay dead. Shows the agent's reaction to the firehose
-   <i>before, during, and after</i> the event — not just the live span.</p>
- <table class="atab" id="lifecycle"></table>
 
- <h2>Plot 13 — Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 12 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -962,11 +959,13 @@ Promise.resolve({{DATA}}).then(D=>{
   document.getElementById("sub").textContent =
     `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
+  const _w=(D.retrieval&&D.retrieval.wayback)||{}, jr=_w.join_rate_pct;
   document.getElementById("cards").innerHTML=[
     ["Final Curated Portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
     ["Final SPY", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
     ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
     ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+    ["GDELT–Wayback join", (jr==null?"—":jr+"%"), "early-lede recovery", (jr>=60?"pos":"neg")],
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
@@ -983,7 +982,7 @@ Promise.resolve({{DATA}}).then(D=>{
     + pk.map(k=>prow(k, P[k])).join("");
 
   // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
-  const BOOK="#d62728", SPYC="#7f7f7f";
+  const BOOK="#d62728", SPYC="#eab308";
   const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
   const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
     showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
@@ -1033,11 +1032,11 @@ Promise.resolve({{DATA}}).then(D=>{
   // green (and 2x thickness); every other agent draws from a green-free, gray-free palette, so no
   // co-discovered agent can visually match the gem or the SPY floor.
   const AGM=D.agents||{};
-  const GEMCOL="#27ae60";
-  const AGPAL=["#2980b9","#e67e22","#8e44ad","#c0392b","#8c564b","#e377c2","#bcbd22","#d35400","#2c3e50"];
+  const GEMCOL="#1f77b4";
+  const AGPAL=["#e67e22","#8e44ad","#c0392b","#8c564b","#e377c2","#16a085","#d35400","#bcbd22"];
   const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
   const agColor={}; let _pi=0;
-  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#888": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#eab308": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
 
   // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
   // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
@@ -1082,10 +1081,7 @@ Promise.resolve({{DATA}}).then(D=>{
     yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
   const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
-  const peak={}; for(const t in D.alloc) peak[t]=Math.max(...D.alloc[t])*100;
-  const top=Object.entries(peak).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([t,v])=>`${t} ${v.toFixed(0)}%`).join(" · ");
-  document.getElementById("allocnote").innerHTML=
-    `Deployed <b>${(dep/n*100).toFixed(0)}%</b> of trading days (cash ${((n-dep)/n*100).toFixed(0)}%). Peak weights — ${top}.`;
+  document.getElementById("allocnote").innerHTML="";
 
   // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
   // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
@@ -1152,7 +1148,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
-    line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    line:aid==="spy"?{color:"#eab308",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
     marker:{size:5,color:agColor[aid]||"#888"}}));
   if(convTraces.length) Plotly.newPlot("convtime",convTraces,
     {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
@@ -1164,7 +1160,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
     return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
-      line:aid==="spy"?{color:"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
+      line:aid==="spy"?{color:"#eab308",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
       marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
         symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
         color:agColor[aid]||"#888",
@@ -1241,15 +1237,6 @@ Promise.resolve({{DATA}}).then(D=>{
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
-  // Gem lifecycle: full-window timeline for the overlay gem (pre / live / exit / post)
-  const LC=D.lifecycle||[], sc={pre:"#999",post:"#999",live:"#0a7a0a",exit:"#c00"};
-  document.getElementById("lifecycle").innerHTML = LC.length
-    ? `<thead><tr><th>Date</th><th>agent</th><th>${D.gem}</th><th>src</th><th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>`
-      + LC.map(e=>`<tr><td>${e.date}</td><td>${esc(e.agent||'')}</td><td style="color:${sc[e.state]||'#000'};font-weight:${e.state==='exit'?'bold':'normal'}">`
-        +`${e.state==='pre'?'— not flagged':e.state==='post'?'— dropped':e.state}</td>`
-        +`<td>${esc(e.src)}</td><td>${clip(e.exit_case)}</td><td>${clip(e.assessment)}</td>`
-        +`<td class="sub">${clip(e.exit_advice)}</td></tr>`).join("") + `</tbody>`
-    : '<tr><td class="sub">No lifecycle (re-scan to populate).</td></tr>';
 
   document.getElementById("costs").innerHTML =
     `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`

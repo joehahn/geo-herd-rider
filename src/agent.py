@@ -580,11 +580,11 @@ STRUCTURAL, open-ended buildout still delivering fresh milestones — keep THAT 
 open-ended driver merely because time has passed or coverage went quiet (silence alone is not priced-in —
 that is the SILENCE DECAY rule below, a separate signal).
 
-SILENCE DECAY. The press covers a live ticker-trend OFTEN and LOUDLY, so PROLONGED SILENCE about this
-event's trend (no fresh press on the move, explicit or implied) is itself a fade signal. For each full
-lookback window with NO fresh coverage of this ticker's trend (~4 consecutive weekly reads / ~a month),
-step conviction DOWN by 1 — a genuinely quiet event decays and is culled, while fresh coverage RESETS it
-back up. This is a SOFT fade (leave catalyst_resolved=false), and it applies to STRUCTURAL buildouts too
+SILENCE DECAY. The press covers a live ticker-trend OFTEN and LOUDLY, so SILENCE about this event's trend
+(no fresh press on the move, explicit or implied) is itself a fade signal. On EACH weekly refresh (every
+rebalance) with NO fresh coverage of this ticker's trend, step conviction DOWN by 1 from your PRIOR score —
+so continued silence COMPOUNDS week over week toward the cull floor, while a single fresh trend-story RESETS
+it back up. This is a SOFT fade (leave catalyst_resolved=false), and it applies to STRUCTURAL buildouts too
 (they keep conviction only while delivering fresh milestones, not by the passage of time).
 
 Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,

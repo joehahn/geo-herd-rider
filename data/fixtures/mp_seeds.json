@@ -1,0 +1,19 @@
+{
+  "_note": "GENUINE news-derived seeds for MP (MP Materials) — real events, real URLs. ENTRY: China's Apr-4-2025 rare-earth export controls (Announcement 18) choking a supply chain the US depends on China for ~70%, with MP the lone scaled US producer at Mountain Pass. ACCELERATION: the Jul-2025 DoD public-private partnership ($400M equity, Pentagon becomes largest shareholder, 10-yr $110/kg NdPr price floor) that sent MP ~+50% in a day and ~+85% in July. Replaces the prior synthetic MP seed. Look-ahead caveat: curator training likely postdates these dates (upper bound, non-negotiable #4/#6). Non-blank url = news-derived.",
+  "articles": [
+    {
+      "published_date": "2025-04-04",
+      "source": "hklaw.com",
+      "title": "China imposes export controls on medium and heavy rare earths - MP Materials the lone scaled US producer",
+      "snippet": "China's Ministry of Commerce and General Administration of Customs issued Announcement 18 on April 4, imposing export controls on seven medium and heavy rare-earth materials - samarium, gadolinium, terbium, dysprosium, lutetium, scandium and yttrium - and the permanent magnets made from them, choking a supply chain the US relies on China for roughly 70%. MP Materials, which mines and processes rare earths at Mountain Pass, California, is the only scaled US producer positioned to benefit - still under-owned as the curbs are only just biting.",
+      "url": "https://www.hklaw.com/en/insights/publications/2025/04/china-imposes-export-controls-on-medium-and-heavy-rare-earth-materials"
+    },
+    {
+      "published_date": "2025-07-10",
+      "source": "cnbc.com",
+      "title": "Pentagon to become largest shareholder in rare-earth miner MP Materials; shares surge 50%",
+      "snippet": "The Department of Defense agreed to purchase $400 million of a new series of MP Materials preferred stock, positioning DoD to become the company's largest shareholder. The 10-year agreement establishes a price-floor commitment of $110 per kilogram for MP's neodymium-praseodymium (NdPr) output, ensuring stable and predictable cash flow. Shares soared about 50% to close at $45.23; the stock rose roughly 85% in July and is up about 365% year to date.",
+      "url": "https://www.cnbc.com/2025/07/10/pentagon-to-become-largest-shareholder-in-rare-earth-magnet-maker-mp-materials.html"
+    }
+  ]
+}
