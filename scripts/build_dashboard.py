@@ -534,7 +534,7 @@ def build_combo() -> None:
     v2 = ROOT / "data" / "windows" / "firehose_scans_election2024_v2.json"
     src = "firehose_scans_election2024_v2.json" if v2.exists() else "firehose_scans_election2024.json"
     build_gem("GEO", extra_overlays=["MSTR"], scans_override=src,
-              out_override="geo_mstr", label_override="2024 US Election concurrency (GEO + MSTR)")
+              out_override="geo_mstr", label_override="GEO + MSTR — 2024 US Election concurrency")
 
 
 def build_landing() -> None:
@@ -811,8 +811,8 @@ STORYLINE = {
         "when coverage merely gets crowded (crowding is not thesis death)."
     ),
     "GEO": (
-        "<b>The 2024 US Election</b> — <i>one</i> catalyst (Trump's Nov-5 win) spawning <b>several</b> thesis-driven "
-        "plays: the concurrency test of the set. Two are seeded from real post-election coverage &mdash; an immigration "
+        "<b>GEO + MSTR</b> — the <b>2024 US Election concurrency test</b>: <i>one</i> catalyst (Trump's Nov-5 win) "
+        "spawning <b>several</b> thesis-driven plays, and this book asks whether the solution can ride two seeded gems at once. Two are seeded from real post-election coverage &mdash; an immigration "
         "crackdown (<b>GEO</b>, the largest private ICE-detention operator, +42% the session after the win) and a "
         "crypto-friendly agenda (<b>MSTR</b>, the leveraged Bitcoin proxy) &mdash; and the firehose also surfaced a "
         "<b>nuclear / energy cluster</b> the matcher collapsed into one basket event (CEG + CCJ + peers). "
