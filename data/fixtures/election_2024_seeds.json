@@ -1,19 +1,33 @@
 {
-  "_note": "REFRAMED (v2) IN-WINDOW seeds for the concurrent 2-ticker test (Aug-2024 -> Mar-2025). v1 framed GEO/MSTR as election MOMENTUM ('crypto rally', 'crackdown bets') and the scout's catalyst gate rejected both -> harvested $0 (SPY only). v2 reframes each around a SPECIFIC, DATABLE, RESOLVABLE POLICY ACTION triggered by the Nov-5-2024 election result: an immigration-enforcement executive-order buildout (GEO) and a pledged US Strategic Bitcoin Reserve federal policy (MSTR). Vehicle named, still-under-owned tell kept. Look-ahead-clean: dated at true post-election publication, reflects only what was public then (the election result + the pledged/announced policy), NOT the later unwind. Hindsight seeding crutch, per README.",
+  "_note": "GENUINE news-derived seeds for the 2024 US ELECTION gem — real events, real URLs. ONE catalyst (Trump's Nov-5-2024 win) with TWO distinct theses, each seeded so BOTH tickers get named: (1) GEO Group — mass-deportation / ICE-detention buildout (GEO jumped ~42% the session after the win; ICE contracts are ~43% of revenue; up ~105% by Feb-2025). (2) MicroStrategy (MSTR) — the 'crypto president' Bitcoin rally (MSTR +50%+ since Nov-5, outpacing BTC's +30%; +477% in 2024; bought 51,780 BTC Nov 11-17). Catalysts kept DISTINCT (immigration vs crypto) so the matcher holds them as two separate events/agents — the concurrency test. Replaces the prior synthetic (blank-url) seeds. Under-owned framing dialed per the RNMBY/MP/BWET method. Look-ahead caveat: curator training postdates these dates (upper bound). Non-blank url = news-derived.",
   "articles": [
     {
       "published_date": "2024-11-07",
       "source": "fortune.com",
-      "title": "Trump's win sets a mass-deportation executive-order buildout — GEO Group is the lead ICE-detention contractor",
-      "snippet": "Trump's election win makes a mass-deportation executive-order push the federal mandate, expanding ICE detention capacity - a specific, datable policy action. GEO Group (GEO), the largest private-detention operator, holds the federal detention contracts and is the direct beneficiary of the buildout. Still a niche, under-owned pure-play on the policy, not the megacaps.",
-      "url": ""
+      "title": "Trump's win sends private-prison stocks soaring; GEO Group the purest ICE-detention play, still under-owned",
+      "snippet": "Shares of private-prison operators soared after Donald Trump's election win on expectations of a hard immigration crackdown and mass deportations. GEO Group jumped about 42% in a single session and CoreCivic 29%. ICE contracts already account for roughly 43% of GEO's revenue, and it is the largest private operator of ICE detention capacity - positioned to win the detention-bed buildout a mass-deportation surge requires. Still under-owned as the enforcement ramp is only beginning.",
+      "url": "https://fortune.com/2024/11/07/president-donald-trump-election-immigration-border-detention-ice-geo-group-corecivic/"
     },
     {
       "published_date": "2024-11-12",
+      "source": "benzinga.com",
+      "title": "Trump names Tom Homan 'border czar'; GEO Group climbs again as deportation machinery takes shape",
+      "snippet": "Private-prison stocks rose again after President-elect Trump named Tom Homan - who ran immigration enforcement in his first term - as his 'border czar,' signaling the deportation apparatus is being staffed immediately. GEO Group, the largest private ICE-detention contractor, is the most direct beneficiary of the coming detention-capacity expansion; the enforcement buildout is only just starting and the vehicle remains under-owned relative to the contracted bed pipeline.",
+      "url": "https://www.benzinga.com/general/politics/24/11/41779902/prison-stocks-geo-group-corecivic-rally-on-trump-2024-election-win-history-shows-the-gains-may-n"
+    },
+    {
+      "published_date": "2024-11-07",
       "source": "qz.com",
-      "title": "Trump's pledged US Strategic Bitcoin Reserve — MicroStrategy is the leveraged corporate-BTC proxy on the policy",
-      "snippet": "Trump's win puts his pledged US Strategic Bitcoin Reserve and a pro-crypto executive agenda on the table - a specific federal policy action with a knowable resolution. MicroStrategy (MSTR), the largest corporate Bitcoin holder, is the direct leveraged proxy on that policy shift, and still an under-owned way to own it.",
-      "url": ""
+      "title": "Trump's 'crypto president' win ignites Bitcoin; MicroStrategy the leveraged proxy, still early",
+      "snippet": "Bitcoin surged to records after Trump's win on his pledge to be a 'crypto president' - easing regulation, protecting crypto firms, and standing up a US Strategic Bitcoin Reserve. MicroStrategy (MSTR), which holds Bitcoin as its primary treasury asset and trades as a leveraged proxy, jumped more than 50% since Nov 5, outpacing Bitcoin's 30% move. Still early as the crypto-friendly policy agenda is only being formed and the reserve is not yet enacted.",
+      "url": "https://qz.com/microstrategy-bitcoin-2-billion-trump-crypto-rally-1851694790"
+    },
+    {
+      "published_date": "2024-11-19",
+      "source": "cnbc.com",
+      "title": "MicroStrategy buys 51,780 more Bitcoin as the Trump crypto rally powers higher",
+      "snippet": "MicroStrategy disclosed in an SEC filing that it acquired 51,780 bitcoin between Nov 11 and Nov 17 at an average price of about $88,627, lifting its holdings to 331,200 BTC - over 1.5% of all bitcoin. The buying, funded by convertible debt and stock, is powered by the post-election crypto rally; MSTR is up about 477% in 2024. The leveraged-treasury thesis is a momentum play with no discrete resolution - it de-rates only when Bitcoin itself rolls over.",
+      "url": "https://www.cnbc.com/2024/12/23/microstrategy-rides-red-sweep-to-477percent-gain-in-2024-top-tech-stock.html"
     }
   ]
 }

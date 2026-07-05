@@ -534,7 +534,7 @@ def build_combo() -> None:
     v2 = ROOT / "data" / "windows" / "firehose_scans_election2024_v2.json"
     src = "firehose_scans_election2024_v2.json" if v2.exists() else "firehose_scans_election2024.json"
     build_gem("GEO", extra_overlays=["MSTR"], scans_override=src,
-              out_override="geo_mstr", label_override="GEO + MSTR — 2024 election concurrency")
+              out_override="geo_mstr", label_override="2024 US Election concurrency (GEO + MSTR)")
 
 
 def build_landing() -> None:
@@ -811,15 +811,17 @@ STORYLINE = {
         "when coverage merely gets crowded (crowding is not thesis death)."
     ),
     "GEO": (
-        "<b>GEO Group (GEO) + MicroStrategy (MSTR)</b> — the <b>2024-election concurrency test</b>. "
-        "Trump's Nov-5 win was <i>one</i> catalyst with two theses: an immigration crackdown (GEO, the "
-        "largest private ICE-detention operator) and a crypto-friendly agenda (MSTR, the leveraged "
-        "Bitcoin proxy). This book asks whether the solution can ride <b>two gems at once</b>. "
-        "<b>The lesson:</b> GEO was a clean policy event, but <b>MSTR's momentum thesis never "
-        "resolved</b> — no ceasefire, no reopened chokepoint — so a weak curator holds it through a "
-        "~45% crash (the failure mode the gate exists to prevent). The weekly cadence also can't "
-        "out-run insiders on election plays. <b>What we'd want:</b> hold GEO and exit MSTR as the crypto "
-        "rally peaks. Sonnet5 is the only curator that managed it (+20%); the others bled to ~&minus;20%."
+        "<b>The 2024 US Election</b> — <i>one</i> catalyst (Trump's Nov-5 win) spawning <b>several</b> thesis-driven "
+        "plays: the concurrency test of the set. Two are seeded from real post-election coverage &mdash; an immigration "
+        "crackdown (<b>GEO</b>, the largest private ICE-detention operator, +42% the session after the win) and a "
+        "crypto-friendly agenda (<b>MSTR</b>, the leveraged Bitcoin proxy) &mdash; and the firehose also surfaced a "
+        "<b>nuclear / energy cluster</b> the matcher collapsed into one basket event (CEG + CCJ + peers). "
+        "<b>The result:</b> the solution rides <b>both</b> seeded gems &mdash; <b>GEO</b> (ev2, +$10.5k) and <b>MSTR</b> "
+        "(ev3, +$6.9k, funded through the post-election rally then cut before the fade) &mdash; the concurrency it "
+        "exists to test. The co-discovered nuclear basket (ev1) is the drag at <b>&minus;$13k</b> as the AI-power theme "
+        "cooled; the gold floor and the two gems more than offset it for <b>+24%</b> net. MSTR's momentum thesis never "
+        "formally resolves (no ceasefire, no reopened chokepoint), so it leans on soft conviction-decay + mechanical "
+        "sizing rather than a clean exit &mdash; the failure mode a weak curator would ride through a ~45% crash."
     ),
     "GDX": (
         "<b>VanEck Gold Miners (GDX)</b> ran ~3x (Jan-2025 -> Feb-2026 peak) on the tariff-driven flight "
