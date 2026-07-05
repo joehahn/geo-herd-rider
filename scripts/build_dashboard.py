@@ -925,14 +925,14 @@ INDEX_HTML = r"""<!doctype html>
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 7 — Cumulative $ earned per event-agent</h2>
+ <h2>Plot 7 — Cumulative $ earned per agent <span style="font-size:13px;font-weight:400;color:#777">— event-agents + the SPY/gold floors</span></h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
    partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
    agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
    winner, red = loser; the bars sum to the portfolio's total gain.</p>
  <div id="agentgain"></div>
 
- <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY floor)</h2>
+ <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>
  <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
    how strong / early / datable it judged its own catalyst. The dashed orange line is the always-on
    <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
