@@ -15,7 +15,7 @@ t_update_days: 1                  # Assumed number of business days from event d
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 4                     # Keep only the top-N agents in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped
 spy_agent_conviction: 4           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
-defensive_agent_conviction: 3     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
+defensive_agent_conviction: 4     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
 defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks
 lookback_period_days: 14           # Optimizer trailing lookback (calendar days); short = responsive to recent moves
