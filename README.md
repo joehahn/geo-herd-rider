@@ -52,15 +52,6 @@ The sections below explain each box in greater detail — the [Firehose](#the-ne
 
 The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by a **basket of same-catalyst tickers** — the purest name plus its direct peers (a rearmament catalyst → Rheinmetall + BAE + Saab + Thales) — that can *evolve* over time, with the **thesis** being the catalyst→ticker claim. The agent proposes the whole basket; the mechanical optimizer sizes it and drops the weak vehicles. Peers must share the *same* catalyst, so a basket never drifts into an unrelated gem.
 
-```mermaid
-flowchart TD
-    CUR["🧠 Curator<br/>scout · matcher · agents"] --> EV
-    CAT["🎯 Catalyst<br/>the discrete driver:<br/>war · rare-earth curb ·<br/>bill · election · supply shock"] === EV["<b>EVENT</b><br/><i>the durable unit</i>"] === AGT["🟢 Event-agent<br/>exactly ONE per event;<br/>tracks it weekly;<br/>live/exit + conviction 1–10"]
-    EV -- "expressed by · basket can EVOLVE" --> VEH["📈 Vehicle(s) / gem(s)<br/>same-catalyst basket"]
-    VEH -- "why it rises" --> THE["📝 Thesis<br/>this catalyst → this ticker"]
-    MANY["several tickers naming<br/>the SAME catalyst"] -. "matcher COLLAPSES into ONE event<br/>(never 3 events for 1 catalyst)" .-> EV
-```
-
 - **Catalyst** — the discrete driver (a war, a China rare-earth curb, a bill, a supply shock); it *defines* the event.
 - **Event ≡ catalyst ≡ event-agent** (1 : 1 : 1) — the durable unit; one **event-agent** owns it from entry to exit and rates its `conviction`.
 - **Vehicle / gem** — the basket of same-catalyst tickers that express the event *right now* (the purest name + its peers); the basket can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker). The curator proposes the basket; the optimizer sizes it and drops the weak vehicles.
