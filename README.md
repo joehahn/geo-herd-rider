@@ -24,15 +24,15 @@ flowchart TD
       direction TB
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved; scores its conviction; also picks which gem(s) best express the event"]
+      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved/exited; scores its conviction; also picks which gem(s) best express the event"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(the always-on SPY + gold floors are included as defaults)"]
+    E["🎯 Watchlist<br/>gathers live events' gems for possible funding"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
-    AG -- "alive: keep gem · resolved: drop it" --> E
+    AG --> E
     AG -. "resolved catalysts are remembered so scout won't re-chase the hype" .-> SC
     E --> W --> U
     U -. "↻ back to Firehose, weekly" .-> X(( ))
