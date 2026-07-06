@@ -30,12 +30,15 @@ flowchart TD
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
-    U["🧑 User<br/>adjusts portfolio at brokerage"]
-
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
-    U -. "↻ repeats weekly<br/>(after the user rebalances)" .-> LP["⤴ back to the 📰 Firehose, up top"]
+
+    subgraph BOT[" "]
+      direction LR
+      U["🧑 User<br/>adjusts portfolio at brokerage"] -. "↻ repeats weekly<br/>(after the user rebalances)" .-> LP["⤴ back to the 📰 Firehose, up top"]
+    end
+    style BOT fill:none,stroke:none
 
     classDef loop fill:#f6f6f6,stroke:#999,stroke-dasharray:4 3,color:#555;
     class LP loop
