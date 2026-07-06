@@ -7,76 +7,209 @@
   "2026-01-30": [],
   "2026-02-06": [],
   "2026-02-13": [],
-  "2026-02-20": [
-    {
-      "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
-      "thesis_live": true,
-      "src": "seed",
-      "exit_case": "BWET has nearly doubled YTD already; tanker-rate fear from Hormuz risk may be substantially priced into the vehicle.",
-      "catalyst_resolved": false,
-      "conviction": 6,
-      "assessment": "Week 1. The Trump-Iran standoff is live and unresolved \u2014 no deal signed, no Hormuz chokepoint formally reopened, no de-escalation framework in place. The driving condition (elevated Hormuz closure risk from US-Iran tension) remains intact. BWET's ~2x YTD run flagged by MarketBeat is a meaningful caution: some tanker-rate fear is already in the price and one financial outlet has explicitly named it as a top performer, meaning it is no longer fully under the radar. However, 'priced-in' is not a valid exit \u2014 the catalyst arc is incomplete and no concrete resolution event is imminent. Congressional pushback on Trump's Iran posture adds political noise but does not end the standoff. Hold BWET; the Hormuz risk thesis remains open. Conviction docked from peak because of the sharp early move and initial mainstream coverage.",
-      "exit_advice": "Exit if US-Iran talks produce a concrete framework, Hormuz transit threat formally de-escalates, or sanctions are lifted/eased in a signed agreement. Also exit if BWET becomes full retail-frenzy saturation AND no new concrete Iran escalation step is scheduled or announced.",
-      "evidence_urls": [
-        "https://www.marketbeat.com/originals/one-of-the-top-performing-etfs-of-2026-so-far-may-surprise-you/",
-        "https://www.islamicinvitationturkey.com/trumps-aggressive-stance-on-iran-draws-strong-backlash-from-us-lawmakers/"
-      ]
-    }
-  ],
-  "2026-02-27": [
-    {
-      "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "A full week of total silence could mean the acute escalation narrative has already peaked and quietly fizzled without a formal resolution.",
-      "catalyst_resolved": false,
-      "conviction": 5,
-      "assessment": "Week 2, no fresh news. The driving condition \u2014 elevated Hormuz closure risk from the Trump-Iran standoff \u2014 remains structurally unresolved: no deal signed, no de-escalation framework announced, no formal Hormuz security guarantee. The quiet week is explicitly not an exit trigger; a live catalyst can go dark for weeks and re-accelerate on a follow-on headline (sanctions snapback, naval incident, IAEA finding). The exit case this week is the weakest possible: pure silence, which the rules prohibit as an exit reason. Conviction stays at 5 \u2014 docked for the sharp pre-existing move (~2x YTD at entry) and initial mainstream flag from Week 1, neither of which resolves. BWET remains the cleanest single pure-play on tanker-rate Hormuz risk in the known vehicle set. Hold through silence.",
-      "exit_advice": "Hold BWET; exit only on confirmed US-Iran diplomatic breakthrough, a signed framework, or Hormuz formally declared reopened/secured \u2014 not on silence.",
-      "evidence_urls": []
-    }
-  ],
+  "2026-02-20": [],
+  "2026-02-27": [],
   "2026-03-06": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "Iran lifts the blockade or a diplomatic deal formally reopens the Strait \u2014 no evidence of either yet; closure fully active.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 / entry week. Iran's blockade of the Strait of Hormuz (in force since Feb 28 following US-Israeli strikes) is fully live with zero sign of diplomatic resolution. The VLCC benchmark rate Gulf-to-China hit an all-time high of $423,736/day \u2014 directly, mechanically tied to this chokepoint closure. CNBC's coverage explicitly labels BWET 'under-owned,' a strong signal the position is early-stage before mainstream crowding. All five vehicles are clean pure-plays on the same acute catalyst: rising VLCC spot rates driven by this specific blockade. The catalyst is a classic ACUTE binary \u2014 blockade persists (rates elevated, thesis lives) or it ends (hard exit, same day). Retaining full basket; no vehicle thesis has broken. Monitor: any formal Iran-US diplomatic talks, partial Strait reopening for non-US-flagged vessels, or sharp VLCC rate reversal as leading indicators of resolution.",
+      "exit_advice": "Hard exit the moment the Strait reopens (ceasefire, US-Iran deal, Iranian back-down) or VLCC spot rates collapse sharply from current highs signaling imminent resolution. Do NOT exit on silence or mere diplomatic rhetoric without a signed/announced reopening.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "No escalation in three weeks may signal quiet back-channel diplomacy already defusing Hormuz risk.",
+      "exit_case": "Iran lifts the blockade or a diplomatic deal formally reopens the Strait \u2014 no evidence of either yet; closure fully active.",
       "catalyst_resolved": false,
-      "conviction": 5,
-      "assessment": "Week 3; second consecutive no-news week. The devil's-advocate exit case is that three weeks of zero escalation hints at quiet diplomatic movement reversing the driving condition. This is the strongest honest argument against holding right now \u2014 but it is still speculative, not confirmed: no deal has been signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, and no tanker-rate collapse reported. Per the full journal arc, the structural driving condition (elevated Hormuz closure risk from the Trump-Iran standoff) remains formally unresolved. A live catalyst can go silent for weeks and re-accelerate on a single follow-on headline \u2014 naval incident, IAEA finding, sanctions snapback \u2014 and exiting on silence forfeits exactly that second leg. No fresh coverage this week changes none of the underlying facts. BWET remains the cleanest single pure-play vehicle in the known set. Conviction held at 5: the ~2\u00d7-YTD-at-entry price move and the Week 1 mainstream flag remain the only structural docks; a second quiet week adds nothing incremental. Hold through silence.",
-      "exit_advice": "Exit only on confirmed US-Iran deal, formal de-escalation framework, or a concrete Hormuz security guarantee \u2014 speculation about back-channel talks does not qualify.",
-      "evidence_urls": []
+      "conviction": 8,
+      "assessment": "Week 1 / entry week. Iran's blockade of the Strait of Hormuz (in force since Feb 28 following US-Israeli strikes) is fully live with zero sign of diplomatic resolution. The VLCC benchmark rate Gulf-to-China hit an all-time high of $423,736/day \u2014 directly, mechanically tied to this chokepoint closure. CNBC's coverage explicitly labels BWET 'under-owned,' a strong signal the position is early-stage before mainstream crowding. All five vehicles are clean pure-plays on the same acute catalyst: rising VLCC spot rates driven by this specific blockade. The catalyst is a classic ACUTE binary \u2014 blockade persists (rates elevated, thesis lives) or it ends (hard exit, same day). Retaining full basket; no vehicle thesis has broken. Monitor: any formal Iran-US diplomatic talks, partial Strait reopening for non-US-flagged vessels, or sharp VLCC rate reversal as leading indicators of resolution.",
+      "exit_advice": "Hard exit the moment the Strait reopens (ceasefire, US-Iran deal, Iranian back-down) or VLCC spot rates collapse sharply from current highs signaling imminent resolution. Do NOT exit on silence or mere diplomatic rhetoric without a signed/announced reopening.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Iran lifts the blockade or a diplomatic deal formally reopens the Strait \u2014 no evidence of either yet; closure fully active.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 / entry week. Iran's blockade of the Strait of Hormuz (in force since Feb 28 following US-Israeli strikes) is fully live with zero sign of diplomatic resolution. The VLCC benchmark rate Gulf-to-China hit an all-time high of $423,736/day \u2014 directly, mechanically tied to this chokepoint closure. CNBC's coverage explicitly labels BWET 'under-owned,' a strong signal the position is early-stage before mainstream crowding. All five vehicles are clean pure-plays on the same acute catalyst: rising VLCC spot rates driven by this specific blockade. The catalyst is a classic ACUTE binary \u2014 blockade persists (rates elevated, thesis lives) or it ends (hard exit, same day). Retaining full basket; no vehicle thesis has broken. Monitor: any formal Iran-US diplomatic talks, partial Strait reopening for non-US-flagged vessels, or sharp VLCC rate reversal as leading indicators of resolution.",
+      "exit_advice": "Hard exit the moment the Strait reopens (ceasefire, US-Iran deal, Iranian back-down) or VLCC spot rates collapse sharply from current highs signaling imminent resolution. Do NOT exit on silence or mere diplomatic rhetoric without a signed/announced reopening.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Iran lifts the blockade or a diplomatic deal formally reopens the Strait \u2014 no evidence of either yet; closure fully active.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 / entry week. Iran's blockade of the Strait of Hormuz (in force since Feb 28 following US-Israeli strikes) is fully live with zero sign of diplomatic resolution. The VLCC benchmark rate Gulf-to-China hit an all-time high of $423,736/day \u2014 directly, mechanically tied to this chokepoint closure. CNBC's coverage explicitly labels BWET 'under-owned,' a strong signal the position is early-stage before mainstream crowding. All five vehicles are clean pure-plays on the same acute catalyst: rising VLCC spot rates driven by this specific blockade. The catalyst is a classic ACUTE binary \u2014 blockade persists (rates elevated, thesis lives) or it ends (hard exit, same day). Retaining full basket; no vehicle thesis has broken. Monitor: any formal Iran-US diplomatic talks, partial Strait reopening for non-US-flagged vessels, or sharp VLCC rate reversal as leading indicators of resolution.",
+      "exit_advice": "Hard exit the moment the Strait reopens (ceasefire, US-Iran deal, Iranian back-down) or VLCC spot rates collapse sharply from current highs signaling imminent resolution. Do NOT exit on silence or mere diplomatic rhetoric without a signed/announced reopening.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Iran lifts the blockade or a diplomatic deal formally reopens the Strait \u2014 no evidence of either yet; closure fully active.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 / entry week. Iran's blockade of the Strait of Hormuz (in force since Feb 28 following US-Israeli strikes) is fully live with zero sign of diplomatic resolution. The VLCC benchmark rate Gulf-to-China hit an all-time high of $423,736/day \u2014 directly, mechanically tied to this chokepoint closure. CNBC's coverage explicitly labels BWET 'under-owned,' a strong signal the position is early-stage before mainstream crowding. All five vehicles are clean pure-plays on the same acute catalyst: rising VLCC spot rates driven by this specific blockade. The catalyst is a classic ACUTE binary \u2014 blockade persists (rates elevated, thesis lives) or it ends (hard exit, same day). Retaining full basket; no vehicle thesis has broken. Monitor: any formal Iran-US diplomatic talks, partial Strait reopening for non-US-flagged vessels, or sharp VLCC rate reversal as leading indicators of resolution.",
+      "exit_advice": "Hard exit the moment the Strait reopens (ceasefire, US-Iran deal, Iranian back-down) or VLCC spot rates collapse sharply from current highs signaling imminent resolution. Do NOT exit on silence or mere diplomatic rhetoric without a signed/announced reopening.",
+      "evidence_urls": [
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
+      ]
     }
   ],
   "2026-03-13": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": true,
-      "src": "seed",
-      "exit_case": "Four consecutive weeks without a fresh escalation event; quiet diplomatic drift could be slowly unwinding the standoff.",
+      "src": "gdelt",
+      "exit_case": "Zero Hormuz/Iran news this week; if blockade silently eased, VLCC rates collapse and thesis dies instantly.",
       "catalyst_resolved": false,
-      "conviction": 6,
-      "assessment": "Week 4 is the first week since entry with directly confirming news: MarketWatch reports BWET continues climbing as Mideast tensions and Strait of Hormuz risk keep oil-freight day-rates elevated, and critically characterises it as 'still a niche, under-owned freight-futures play.' That language is the opposite of mainstream saturation, so the third-exit condition (arc complete AND crowd fully arrived) is not triggered. The Trump-Iran standoff remains formally unresolved \u2014 no deal signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, no collapse in tanker rates reported. The driving condition is alive and actively moving the vehicle. The devil's-advocate exit case (four quiet weeks of no escalation) remains speculative and unconfirmed; the rules require a concrete resolution or reversal, not mere silence. Conviction nudged to 6 from 5: thesis is visibly working, vehicle is still under-owned per the coverage itself, and the catalyst arc is incomplete. BWET remains the cleanest pure-play in the known vehicle set. Hold.",
-      "exit_advice": "Hold. Driving condition confirmed intact this week by on-point fresh coverage; BWET explicitly still described as niche and under-owned \u2014 mainstream-saturation exit trigger is NOT met.",
+      "conviction": 7,
+      "assessment": "Week 2. The two news items provided are entirely unrelated to this catalyst (Nigeria equities, Pakistan KSE-100) \u2014 zero fresh coverage of Iran, the Strait of Hormuz, or VLCC rates this week. Crucially, a Strait reopening would be one of the largest geopolitical headlines of 2026 and cannot pass silently; the absence of resolution news is itself confirmation the blockade persists. However, per the SILENCE DECAY rule, no fresh press on this event's trend this week forces conviction down by 1 from last week's implied ~8. Catalyst remains acute and unresolved: the blockade was in force as of last week with zero diplomatic framework reported, and nothing this week reverses that. Basket unchanged \u2014 all five names remain clean pure-plays on the same acute chokepoint driver. Watch: any Iran-US back-channel talks, partial Strait passage for non-US-flagged hulls, or Baltic Exchange VLCC rate prints reversing sharply.",
+      "exit_advice": "Hard exit same day on any confirmed Strait reopening, Iran-US ceasefire/diplomatic framework, or sharp VLCC spot-rate reversal. No such signal this week \u2014 hold.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero Hormuz/Iran news this week; if blockade silently eased, VLCC rates collapse and thesis dies instantly.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. The two news items provided are entirely unrelated to this catalyst (Nigeria equities, Pakistan KSE-100) \u2014 zero fresh coverage of Iran, the Strait of Hormuz, or VLCC rates this week. Crucially, a Strait reopening would be one of the largest geopolitical headlines of 2026 and cannot pass silently; the absence of resolution news is itself confirmation the blockade persists. However, per the SILENCE DECAY rule, no fresh press on this event's trend this week forces conviction down by 1 from last week's implied ~8. Catalyst remains acute and unresolved: the blockade was in force as of last week with zero diplomatic framework reported, and nothing this week reverses that. Basket unchanged \u2014 all five names remain clean pure-plays on the same acute chokepoint driver. Watch: any Iran-US back-channel talks, partial Strait passage for non-US-flagged hulls, or Baltic Exchange VLCC rate prints reversing sharply.",
+      "exit_advice": "Hard exit same day on any confirmed Strait reopening, Iran-US ceasefire/diplomatic framework, or sharp VLCC spot-rate reversal. No such signal this week \u2014 hold.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero Hormuz/Iran news this week; if blockade silently eased, VLCC rates collapse and thesis dies instantly.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. The two news items provided are entirely unrelated to this catalyst (Nigeria equities, Pakistan KSE-100) \u2014 zero fresh coverage of Iran, the Strait of Hormuz, or VLCC rates this week. Crucially, a Strait reopening would be one of the largest geopolitical headlines of 2026 and cannot pass silently; the absence of resolution news is itself confirmation the blockade persists. However, per the SILENCE DECAY rule, no fresh press on this event's trend this week forces conviction down by 1 from last week's implied ~8. Catalyst remains acute and unresolved: the blockade was in force as of last week with zero diplomatic framework reported, and nothing this week reverses that. Basket unchanged \u2014 all five names remain clean pure-plays on the same acute chokepoint driver. Watch: any Iran-US back-channel talks, partial Strait passage for non-US-flagged hulls, or Baltic Exchange VLCC rate prints reversing sharply.",
+      "exit_advice": "Hard exit same day on any confirmed Strait reopening, Iran-US ceasefire/diplomatic framework, or sharp VLCC spot-rate reversal. No such signal this week \u2014 hold.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero Hormuz/Iran news this week; if blockade silently eased, VLCC rates collapse and thesis dies instantly.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. The two news items provided are entirely unrelated to this catalyst (Nigeria equities, Pakistan KSE-100) \u2014 zero fresh coverage of Iran, the Strait of Hormuz, or VLCC rates this week. Crucially, a Strait reopening would be one of the largest geopolitical headlines of 2026 and cannot pass silently; the absence of resolution news is itself confirmation the blockade persists. However, per the SILENCE DECAY rule, no fresh press on this event's trend this week forces conviction down by 1 from last week's implied ~8. Catalyst remains acute and unresolved: the blockade was in force as of last week with zero diplomatic framework reported, and nothing this week reverses that. Basket unchanged \u2014 all five names remain clean pure-plays on the same acute chokepoint driver. Watch: any Iran-US back-channel talks, partial Strait passage for non-US-flagged hulls, or Baltic Exchange VLCC rate prints reversing sharply.",
+      "exit_advice": "Hard exit same day on any confirmed Strait reopening, Iran-US ceasefire/diplomatic framework, or sharp VLCC spot-rate reversal. No such signal this week \u2014 hold.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero Hormuz/Iran news this week; if blockade silently eased, VLCC rates collapse and thesis dies instantly.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 2. The two news items provided are entirely unrelated to this catalyst (Nigeria equities, Pakistan KSE-100) \u2014 zero fresh coverage of Iran, the Strait of Hormuz, or VLCC rates this week. Crucially, a Strait reopening would be one of the largest geopolitical headlines of 2026 and cannot pass silently; the absence of resolution news is itself confirmation the blockade persists. However, per the SILENCE DECAY rule, no fresh press on this event's trend this week forces conviction down by 1 from last week's implied ~8. Catalyst remains acute and unresolved: the blockade was in force as of last week with zero diplomatic framework reported, and nothing this week reverses that. Basket unchanged \u2014 all five names remain clean pure-plays on the same acute chokepoint driver. Watch: any Iran-US back-channel talks, partial Strait passage for non-US-flagged hulls, or Baltic Exchange VLCC rate prints reversing sharply.",
+      "exit_advice": "Hard exit same day on any confirmed Strait reopening, Iran-US ceasefire/diplomatic framework, or sharp VLCC spot-rate reversal. No such signal this week \u2014 hold.",
       "evidence_urls": []
     }
   ],
   "2026-03-20": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Five weeks without a concrete escalation event; standoff may have quietly stabilized through back-channel diplomacy without announcement.",
+      "exit_case": "VLCC rates may have quietly normalized if blockade softened \u2014 no dedicated tanker press in three weeks.",
       "catalyst_resolved": false,
-      "conviction": 6,
-      "assessment": "Week 5. This week's MarketScreener note directly ties FTSE 100 energy-stock gains to investors 'watching the Strait of Hormuz,' confirming the driving condition is still actively moving capital \u2014 not resolved, not reversed. The devil's-advocate exit case (five weeks of no concrete escalation implies quiet stabilization) remains the honest challenge to the position, but it is still speculative: no deal has been signed, no de-escalation framework announced, no sanctions lifted, no Hormuz security guarantee issued, and no tanker-rate collapse reported. The structural standoff is formally open. The third-exit condition (arc complete AND crowd fully arrived) is also not triggered: this week's coverage is about oil majors in a broad FTSE note that names Hormuz only as context \u2014 BWET itself is still not the subject of mainstream saturation, consistent with last week's 'niche, under-owned freight-futures play' characterisation. The arc has a concrete next leg available (a naval incident, IAEA finding, or snapback sanction move) and no scheduled resolution date is on the calendar. Conviction held at 6: thesis is working, vehicle remains under-the-radar, catalyst unresolved. BWET is still the cleanest pure-play in the known vehicle set.",
-      "exit_advice": "Hold. The driving condition is explicitly cited in live market coverage this week \u2014 no resolution, reversal, or arc-completion trigger is present.",
+      "conviction": 8,
+      "assessment": "The MarketScreener piece (Mar 16) explicitly names investor attention on 'developments in the Middle East, particularly the Strait of Hormuz' as the live driver lifting FTSE 100 energy stocks. This is fresh on-thesis Strait coverage \u2014 per the SILENCE DECAY rule, a single fresh trend-story resets conviction back up from last week's 7 to 8. No reopening, no diplomatic framework, no VLCC rate reversal appears anywhere in this week's news feed. The blockade that began Feb 28 remains the live acute catalyst. Notably, the Strait reference is still embedded in secondary equity coverage (not a dedicated tanker / shipping headline), indicating the position has not yet hit mainstream saturation \u2014 the tanker bull-run narrative has not been plastered across front pages. All five names remain clean pure-plays on the same chokepoint driver; no individual vehicle thesis has broken. The exit_case above is the honest best argument against \u2014 three weeks without a dedicated VLCC rate print in press leaves open the possibility of quiet normalization \u2014 but the MarketScreener confirmation of active Strait concern directly rebuts it. Monitor: any Iran-US back-channel talks, partial Strait passage for neutral-flag hulls, Baltic Exchange VLCC rate reversal, or a dedicated tanker/shipping front-page story signaling mainstream crowding.",
+      "exit_advice": "Hold full basket. Exit only on confirmed Strait reopening, formal Iran-US ceasefire, or sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "VLCC rates may have quietly normalized if blockade softened \u2014 no dedicated tanker press in three weeks.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MarketScreener piece (Mar 16) explicitly names investor attention on 'developments in the Middle East, particularly the Strait of Hormuz' as the live driver lifting FTSE 100 energy stocks. This is fresh on-thesis Strait coverage \u2014 per the SILENCE DECAY rule, a single fresh trend-story resets conviction back up from last week's 7 to 8. No reopening, no diplomatic framework, no VLCC rate reversal appears anywhere in this week's news feed. The blockade that began Feb 28 remains the live acute catalyst. Notably, the Strait reference is still embedded in secondary equity coverage (not a dedicated tanker / shipping headline), indicating the position has not yet hit mainstream saturation \u2014 the tanker bull-run narrative has not been plastered across front pages. All five names remain clean pure-plays on the same chokepoint driver; no individual vehicle thesis has broken. The exit_case above is the honest best argument against \u2014 three weeks without a dedicated VLCC rate print in press leaves open the possibility of quiet normalization \u2014 but the MarketScreener confirmation of active Strait concern directly rebuts it. Monitor: any Iran-US back-channel talks, partial Strait passage for neutral-flag hulls, Baltic Exchange VLCC rate reversal, or a dedicated tanker/shipping front-page story signaling mainstream crowding.",
+      "exit_advice": "Hold full basket. Exit only on confirmed Strait reopening, formal Iran-US ceasefire, or sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "VLCC rates may have quietly normalized if blockade softened \u2014 no dedicated tanker press in three weeks.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MarketScreener piece (Mar 16) explicitly names investor attention on 'developments in the Middle East, particularly the Strait of Hormuz' as the live driver lifting FTSE 100 energy stocks. This is fresh on-thesis Strait coverage \u2014 per the SILENCE DECAY rule, a single fresh trend-story resets conviction back up from last week's 7 to 8. No reopening, no diplomatic framework, no VLCC rate reversal appears anywhere in this week's news feed. The blockade that began Feb 28 remains the live acute catalyst. Notably, the Strait reference is still embedded in secondary equity coverage (not a dedicated tanker / shipping headline), indicating the position has not yet hit mainstream saturation \u2014 the tanker bull-run narrative has not been plastered across front pages. All five names remain clean pure-plays on the same chokepoint driver; no individual vehicle thesis has broken. The exit_case above is the honest best argument against \u2014 three weeks without a dedicated VLCC rate print in press leaves open the possibility of quiet normalization \u2014 but the MarketScreener confirmation of active Strait concern directly rebuts it. Monitor: any Iran-US back-channel talks, partial Strait passage for neutral-flag hulls, Baltic Exchange VLCC rate reversal, or a dedicated tanker/shipping front-page story signaling mainstream crowding.",
+      "exit_advice": "Hold full basket. Exit only on confirmed Strait reopening, formal Iran-US ceasefire, or sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "VLCC rates may have quietly normalized if blockade softened \u2014 no dedicated tanker press in three weeks.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MarketScreener piece (Mar 16) explicitly names investor attention on 'developments in the Middle East, particularly the Strait of Hormuz' as the live driver lifting FTSE 100 energy stocks. This is fresh on-thesis Strait coverage \u2014 per the SILENCE DECAY rule, a single fresh trend-story resets conviction back up from last week's 7 to 8. No reopening, no diplomatic framework, no VLCC rate reversal appears anywhere in this week's news feed. The blockade that began Feb 28 remains the live acute catalyst. Notably, the Strait reference is still embedded in secondary equity coverage (not a dedicated tanker / shipping headline), indicating the position has not yet hit mainstream saturation \u2014 the tanker bull-run narrative has not been plastered across front pages. All five names remain clean pure-plays on the same chokepoint driver; no individual vehicle thesis has broken. The exit_case above is the honest best argument against \u2014 three weeks without a dedicated VLCC rate print in press leaves open the possibility of quiet normalization \u2014 but the MarketScreener confirmation of active Strait concern directly rebuts it. Monitor: any Iran-US back-channel talks, partial Strait passage for neutral-flag hulls, Baltic Exchange VLCC rate reversal, or a dedicated tanker/shipping front-page story signaling mainstream crowding.",
+      "exit_advice": "Hold full basket. Exit only on confirmed Strait reopening, formal Iran-US ceasefire, or sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "VLCC rates may have quietly normalized if blockade softened \u2014 no dedicated tanker press in three weeks.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MarketScreener piece (Mar 16) explicitly names investor attention on 'developments in the Middle East, particularly the Strait of Hormuz' as the live driver lifting FTSE 100 energy stocks. This is fresh on-thesis Strait coverage \u2014 per the SILENCE DECAY rule, a single fresh trend-story resets conviction back up from last week's 7 to 8. No reopening, no diplomatic framework, no VLCC rate reversal appears anywhere in this week's news feed. The blockade that began Feb 28 remains the live acute catalyst. Notably, the Strait reference is still embedded in secondary equity coverage (not a dedicated tanker / shipping headline), indicating the position has not yet hit mainstream saturation \u2014 the tanker bull-run narrative has not been plastered across front pages. All five names remain clean pure-plays on the same chokepoint driver; no individual vehicle thesis has broken. The exit_case above is the honest best argument against \u2014 three weeks without a dedicated VLCC rate print in press leaves open the possibility of quiet normalization \u2014 but the MarketScreener confirmation of active Strait concern directly rebuts it. Monitor: any Iran-US back-channel talks, partial Strait passage for neutral-flag hulls, Baltic Exchange VLCC rate reversal, or a dedicated tanker/shipping front-page story signaling mainstream crowding.",
+      "exit_advice": "Hold full basket. Exit only on confirmed Strait reopening, formal Iran-US ceasefire, or sharp Baltic Exchange VLCC rate reversal reported in press.",
       "evidence_urls": [
         "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
       ]
@@ -85,31 +218,132 @@
   "2026-03-27": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Trump halted Iran strikes (Mar 25), potentially signaling de-escalation that could reverse Hormuz closure risk.",
+      "exit_case": "Four consecutive weeks without a dedicated VLCC-rate or Strait-of-Hormuz headline in feed; quiet rate normalization cannot be fully ruled out.",
       "catalyst_resolved": false,
       "conviction": 7,
-      "assessment": "Week 6 is the most consequential since entry. The devil's-advocate exit case is the zawya.com 'Trump halts strikes on Iran' headline (Mar 25) \u2014 a strike pause could be read as a de-escalation pivot reversing Hormuz risk. That is the honest strongest argument against the position. But it collapses against the Mirror piece published the very next day (Mar 26): thousands of US ground assault troops heading to the Gulf, both sides rejecting peace proposals, and the UN explicitly warning the conflict is 'out of control.' The halt appears tactical, not diplomatic closure. ADNOC expanding shipping routes to 'avoid supply chain disruptions' is an operational confirmation of live Hormuz risk \u2014 companies are paying real costs to route around the chokepoint, which is the opposite of normalcy. No deal signed, no sanctions lifted, no Hormuz security guarantee issued, no tanker-rate collapse reported. The structural standoff is not only unresolved but has escalated materially with US ground forces now in theater and the diplomatic track publicly broken. Third-exit condition also fails: coverage is in a UK tabloid and a Gulf regional outlet \u2014 no mainstream BWET-specific saturation, consistent with the 'niche, under-owned' characterisation from Week 4. Conviction raised to 7 \u2014 the catalyst arc has accelerated with a concrete new development (US ground troops, rejected peace proposals) that extends the thesis forward.",
-      "exit_advice": "Hold BWET. The driving condition has intensified \u2014 US ground troops deploying to Gulf, peace proposals rejected by both sides, UN warning of out-of-control conflict. The 'strike halt' is tactical noise, not resolution.",
-      "evidence_urls": [
-        "https://www.mirror.co.uk/news/world-news/iran-war-escalation-fears-un-36926530",
-        "https://www.zawya.com/capital-markets/equities/gulf-markets-hold-steady-as-trump-halts-strikes-on-iran-bwmdi37l"
-      ]
+      "assessment": "Week 4. This week's news feed is entirely off-thesis \u2014 JB Hunt earnings, nuclear energy analyst price-target revisions, construction spending \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, a second consecutive week (following Week 2's silence; Week 3 was reset by the MarketScreener Strait reference) with no fresh trend-story on this catalyst steps conviction down by 1, from 8 to 7. The acute catalyst structure is unchanged: the Hormuz blockade that began Feb 28 has generated no reversal headline anywhere in four weeks of monitoring, and the rules correctly note that a chokepoint reopening of this magnitude is incapable of passing without major press coverage. The thesis is alive but conviction decays on silence. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US diplomatic talks, partial Strait reopening announcement, a dedicated tanker/shipping front-page story (mainstream saturation signal), or a Baltic Exchange VLCC rate print reversing sharply.",
+      "exit_advice": "Hold. A genuine Strait reopening or Iran-US ceasefire/diplomatic framework would be among the largest geopolitical headlines of 2026 and cannot pass silently \u2014 its absence in the feed is confirmation the blockade persists. Do NOT exit on silence alone. Hard-exit triggers: any credible Iran-US back-channel agreement, confirmed partial Strait passage for neutral-flag hulls, or a sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive weeks without a dedicated VLCC-rate or Strait-of-Hormuz headline in feed; quiet rate normalization cannot be fully ruled out.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. This week's news feed is entirely off-thesis \u2014 JB Hunt earnings, nuclear energy analyst price-target revisions, construction spending \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, a second consecutive week (following Week 2's silence; Week 3 was reset by the MarketScreener Strait reference) with no fresh trend-story on this catalyst steps conviction down by 1, from 8 to 7. The acute catalyst structure is unchanged: the Hormuz blockade that began Feb 28 has generated no reversal headline anywhere in four weeks of monitoring, and the rules correctly note that a chokepoint reopening of this magnitude is incapable of passing without major press coverage. The thesis is alive but conviction decays on silence. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US diplomatic talks, partial Strait reopening announcement, a dedicated tanker/shipping front-page story (mainstream saturation signal), or a Baltic Exchange VLCC rate print reversing sharply.",
+      "exit_advice": "Hold. A genuine Strait reopening or Iran-US ceasefire/diplomatic framework would be among the largest geopolitical headlines of 2026 and cannot pass silently \u2014 its absence in the feed is confirmation the blockade persists. Do NOT exit on silence alone. Hard-exit triggers: any credible Iran-US back-channel agreement, confirmed partial Strait passage for neutral-flag hulls, or a sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive weeks without a dedicated VLCC-rate or Strait-of-Hormuz headline in feed; quiet rate normalization cannot be fully ruled out.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. This week's news feed is entirely off-thesis \u2014 JB Hunt earnings, nuclear energy analyst price-target revisions, construction spending \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, a second consecutive week (following Week 2's silence; Week 3 was reset by the MarketScreener Strait reference) with no fresh trend-story on this catalyst steps conviction down by 1, from 8 to 7. The acute catalyst structure is unchanged: the Hormuz blockade that began Feb 28 has generated no reversal headline anywhere in four weeks of monitoring, and the rules correctly note that a chokepoint reopening of this magnitude is incapable of passing without major press coverage. The thesis is alive but conviction decays on silence. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US diplomatic talks, partial Strait reopening announcement, a dedicated tanker/shipping front-page story (mainstream saturation signal), or a Baltic Exchange VLCC rate print reversing sharply.",
+      "exit_advice": "Hold. A genuine Strait reopening or Iran-US ceasefire/diplomatic framework would be among the largest geopolitical headlines of 2026 and cannot pass silently \u2014 its absence in the feed is confirmation the blockade persists. Do NOT exit on silence alone. Hard-exit triggers: any credible Iran-US back-channel agreement, confirmed partial Strait passage for neutral-flag hulls, or a sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive weeks without a dedicated VLCC-rate or Strait-of-Hormuz headline in feed; quiet rate normalization cannot be fully ruled out.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. This week's news feed is entirely off-thesis \u2014 JB Hunt earnings, nuclear energy analyst price-target revisions, construction spending \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, a second consecutive week (following Week 2's silence; Week 3 was reset by the MarketScreener Strait reference) with no fresh trend-story on this catalyst steps conviction down by 1, from 8 to 7. The acute catalyst structure is unchanged: the Hormuz blockade that began Feb 28 has generated no reversal headline anywhere in four weeks of monitoring, and the rules correctly note that a chokepoint reopening of this magnitude is incapable of passing without major press coverage. The thesis is alive but conviction decays on silence. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US diplomatic talks, partial Strait reopening announcement, a dedicated tanker/shipping front-page story (mainstream saturation signal), or a Baltic Exchange VLCC rate print reversing sharply.",
+      "exit_advice": "Hold. A genuine Strait reopening or Iran-US ceasefire/diplomatic framework would be among the largest geopolitical headlines of 2026 and cannot pass silently \u2014 its absence in the feed is confirmation the blockade persists. Do NOT exit on silence alone. Hard-exit triggers: any credible Iran-US back-channel agreement, confirmed partial Strait passage for neutral-flag hulls, or a sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive weeks without a dedicated VLCC-rate or Strait-of-Hormuz headline in feed; quiet rate normalization cannot be fully ruled out.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 4. This week's news feed is entirely off-thesis \u2014 JB Hunt earnings, nuclear energy analyst price-target revisions, construction spending \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, a second consecutive week (following Week 2's silence; Week 3 was reset by the MarketScreener Strait reference) with no fresh trend-story on this catalyst steps conviction down by 1, from 8 to 7. The acute catalyst structure is unchanged: the Hormuz blockade that began Feb 28 has generated no reversal headline anywhere in four weeks of monitoring, and the rules correctly note that a chokepoint reopening of this magnitude is incapable of passing without major press coverage. The thesis is alive but conviction decays on silence. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US diplomatic talks, partial Strait reopening announcement, a dedicated tanker/shipping front-page story (mainstream saturation signal), or a Baltic Exchange VLCC rate print reversing sharply.",
+      "exit_advice": "Hold. A genuine Strait reopening or Iran-US ceasefire/diplomatic framework would be among the largest geopolitical headlines of 2026 and cannot pass silently \u2014 its absence in the feed is confirmation the blockade persists. Do NOT exit on silence alone. Hard-exit triggers: any credible Iran-US back-channel agreement, confirmed partial Strait passage for neutral-flag hulls, or a sharp Baltic Exchange VLCC rate reversal reported in press.",
+      "evidence_urls": []
     }
   ],
   "2026-04-03": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Trump 'vows escalation before exit' could signal a planned diplomatic withdrawal is imminent, resolving the standoff.",
+      "exit_case": "Five weeks of silence on VLCC rates; quiet normalization may have occurred without explicit press confirmation.",
       "catalyst_resolved": false,
-      "conviction": 7,
-      "assessment": "Week 7. The news flow this week is a single syndicated wire story blasted across ~20 Australian regional outlets \u2014 identical copy, zero original reporting, and not a BWET-specific piece. The headline 'Trump vows escalation before exit' is the only new signal, and it cuts in opposite directions: 'vows escalation' directly confirms the Trump-Iran standoff remains live and kinetic; 'before exit' is genuinely ambiguous (could refer to exiting a specific operation, a tactical posture, or something unrelated to Iran altogether \u2014 possibly tariff context given the Australian equities market framing). Against the Week 6 backdrop \u2014 US ground troops deployed to the Gulf, peace proposals publicly rejected by both sides, the UN warning the conflict is 'out of control,' and ADNOC paying real money to reroute ships around the chokepoint \u2014 a single ambiguous headline does not constitute a confirmed de-escalation or deal closure. The devil's-advocate exit case (planned diplomatic withdrawal signaled by 'before exit') is the honest challenge this week, but it collapses against the 'vows escalation' language in the same headline and the absence of any concrete confirmation: no Iran deal signed, no sanctions lifted, no Hormuz security guarantee issued, no tanker-rate collapse reported. The structural driving condition is formally unresolved. Third-exit condition also fails: 20 Australian regional wire pickups of the same piece is syndication noise, not BWET-specific mainstream saturation. Conviction held at 7. BWET remains the cleanest pure-play on Hormuz closure risk in the known vehicle set.",
-      "exit_advice": "Exit only on a confirmed Iran deal, formal Hormuz security guarantee, sanctions lift, or documented collapse in tanker rates. The 'before exit' language is noted but unresolved in meaning \u2014 do not exit on ambiguity.",
+      "conviction": 6,
+      "assessment": "Week 5. This week's feed is entirely off-thesis: Australian regional market reaction pieces to Trump tariff escalation, a Motley Fool industrial-stocks column, and a climate/heat record story \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, this is the second consecutive week with no fresh trend-story following last week's step-down (Week 4: 8\u21927), forcing another -1 step: conviction 7\u21926. The acute catalyst structure is unchanged \u2014 the Hormuz blockade that began Feb 28 has generated no reversal headline across five weeks of monitoring, and such a geopolitical reversal is incapable of passing without massive press coverage. The 'Trump vows escalation before exit' Australian headlines are tariff-context stories, not Hormuz-related, and do not qualify as on-thesis coverage. The thesis is alive but conviction is fading purely on silence; the position is approaching cull-competitive territory if fresh milestone coverage does not resume. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US back-channel talks, partial Strait reopening for neutral-flag hulls, Baltic Exchange VLCC rate prints reversing, or a dedicated tanker/shipping front-page story signaling mainstream saturation.",
+      "exit_advice": "Hold. A Strait of Hormuz reopening is a front-page global event that cannot pass silently \u2014 its absence in any feed is continued confirmation the blockade persists. Do NOT exit on silence alone. Hard exit triggers: (1) any Iran-US diplomatic agreement or formal ceasefire announced, (2) Strait declared open for commercial transit, (3) Baltic Exchange VLCC rates reverse sharply and a dedicated shipping headline confirms normalization.",
+      "evidence_urls": [
+        "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of silence on VLCC rates; quiet normalization may have occurred without explicit press confirmation.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5. This week's feed is entirely off-thesis: Australian regional market reaction pieces to Trump tariff escalation, a Motley Fool industrial-stocks column, and a climate/heat record story \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, this is the second consecutive week with no fresh trend-story following last week's step-down (Week 4: 8\u21927), forcing another -1 step: conviction 7\u21926. The acute catalyst structure is unchanged \u2014 the Hormuz blockade that began Feb 28 has generated no reversal headline across five weeks of monitoring, and such a geopolitical reversal is incapable of passing without massive press coverage. The 'Trump vows escalation before exit' Australian headlines are tariff-context stories, not Hormuz-related, and do not qualify as on-thesis coverage. The thesis is alive but conviction is fading purely on silence; the position is approaching cull-competitive territory if fresh milestone coverage does not resume. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US back-channel talks, partial Strait reopening for neutral-flag hulls, Baltic Exchange VLCC rate prints reversing, or a dedicated tanker/shipping front-page story signaling mainstream saturation.",
+      "exit_advice": "Hold. A Strait of Hormuz reopening is a front-page global event that cannot pass silently \u2014 its absence in any feed is continued confirmation the blockade persists. Do NOT exit on silence alone. Hard exit triggers: (1) any Iran-US diplomatic agreement or formal ceasefire announced, (2) Strait declared open for commercial transit, (3) Baltic Exchange VLCC rates reverse sharply and a dedicated shipping headline confirms normalization.",
+      "evidence_urls": [
+        "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
+      ]
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of silence on VLCC rates; quiet normalization may have occurred without explicit press confirmation.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5. This week's feed is entirely off-thesis: Australian regional market reaction pieces to Trump tariff escalation, a Motley Fool industrial-stocks column, and a climate/heat record story \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, this is the second consecutive week with no fresh trend-story following last week's step-down (Week 4: 8\u21927), forcing another -1 step: conviction 7\u21926. The acute catalyst structure is unchanged \u2014 the Hormuz blockade that began Feb 28 has generated no reversal headline across five weeks of monitoring, and such a geopolitical reversal is incapable of passing without massive press coverage. The 'Trump vows escalation before exit' Australian headlines are tariff-context stories, not Hormuz-related, and do not qualify as on-thesis coverage. The thesis is alive but conviction is fading purely on silence; the position is approaching cull-competitive territory if fresh milestone coverage does not resume. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US back-channel talks, partial Strait reopening for neutral-flag hulls, Baltic Exchange VLCC rate prints reversing, or a dedicated tanker/shipping front-page story signaling mainstream saturation.",
+      "exit_advice": "Hold. A Strait of Hormuz reopening is a front-page global event that cannot pass silently \u2014 its absence in any feed is continued confirmation the blockade persists. Do NOT exit on silence alone. Hard exit triggers: (1) any Iran-US diplomatic agreement or formal ceasefire announced, (2) Strait declared open for commercial transit, (3) Baltic Exchange VLCC rates reverse sharply and a dedicated shipping headline confirms normalization.",
+      "evidence_urls": [
+        "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
+      ]
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of silence on VLCC rates; quiet normalization may have occurred without explicit press confirmation.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5. This week's feed is entirely off-thesis: Australian regional market reaction pieces to Trump tariff escalation, a Motley Fool industrial-stocks column, and a climate/heat record story \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, this is the second consecutive week with no fresh trend-story following last week's step-down (Week 4: 8\u21927), forcing another -1 step: conviction 7\u21926. The acute catalyst structure is unchanged \u2014 the Hormuz blockade that began Feb 28 has generated no reversal headline across five weeks of monitoring, and such a geopolitical reversal is incapable of passing without massive press coverage. The 'Trump vows escalation before exit' Australian headlines are tariff-context stories, not Hormuz-related, and do not qualify as on-thesis coverage. The thesis is alive but conviction is fading purely on silence; the position is approaching cull-competitive territory if fresh milestone coverage does not resume. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US back-channel talks, partial Strait reopening for neutral-flag hulls, Baltic Exchange VLCC rate prints reversing, or a dedicated tanker/shipping front-page story signaling mainstream saturation.",
+      "exit_advice": "Hold. A Strait of Hormuz reopening is a front-page global event that cannot pass silently \u2014 its absence in any feed is continued confirmation the blockade persists. Do NOT exit on silence alone. Hard exit triggers: (1) any Iran-US diplomatic agreement or formal ceasefire announced, (2) Strait declared open for commercial transit, (3) Baltic Exchange VLCC rates reverse sharply and a dedicated shipping headline confirms normalization.",
+      "evidence_urls": [
+        "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
+      ]
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of silence on VLCC rates; quiet normalization may have occurred without explicit press confirmation.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 5. This week's feed is entirely off-thesis: Australian regional market reaction pieces to Trump tariff escalation, a Motley Fool industrial-stocks column, and a climate/heat record story \u2014 zero coverage of Iran, the Strait of Hormuz, or VLCC rates. Per the SILENCE DECAY rule, this is the second consecutive week with no fresh trend-story following last week's step-down (Week 4: 8\u21927), forcing another -1 step: conviction 7\u21926. The acute catalyst structure is unchanged \u2014 the Hormuz blockade that began Feb 28 has generated no reversal headline across five weeks of monitoring, and such a geopolitical reversal is incapable of passing without massive press coverage. The 'Trump vows escalation before exit' Australian headlines are tariff-context stories, not Hormuz-related, and do not qualify as on-thesis coverage. The thesis is alive but conviction is fading purely on silence; the position is approaching cull-competitive territory if fresh milestone coverage does not resume. All five vehicles \u2014 BWET, DHT, FRO, NAT, STNG \u2014 remain clean pure-plays on the same chokepoint/VLCC-rate driver; no individual name's own thesis has broken. Watch: any Iran-US back-channel talks, partial Strait reopening for neutral-flag hulls, Baltic Exchange VLCC rate prints reversing, or a dedicated tanker/shipping front-page story signaling mainstream saturation.",
+      "exit_advice": "Hold. A Strait of Hormuz reopening is a front-page global event that cannot pass silently \u2014 its absence in any feed is continued confirmation the blockade persists. Do NOT exit on silence alone. Hard exit triggers: (1) any Iran-US diplomatic agreement or formal ceasefire announced, (2) Strait declared open for commercial transit, (3) Baltic Exchange VLCC rates reverse sharply and a dedicated shipping headline confirms normalization.",
       "evidence_urls": [
         "https://www.canberratimes.com.au/story/9212835/aussie-shares-dip-as-trump-vows-escalation-before-exit/"
       ]
@@ -118,19 +352,81 @@
   "2026-04-10": [
     {
       "ticker": "BWET",
-      "thesis": "Trump Iran standoff escalates Hormuz chokepoint tanker rates",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "US-Iran two-week ceasefire agreed April 8; crude fell immediately as Hormuz supply-flow expectations eased \u2014 driving condition formally reversed.",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; Strait of Hormuz expected to reopen, crude fell \u2014 blockade reversed.",
       "catalyst_resolved": true,
-      "conviction": 7,
-      "assessment": "Seven weeks of holding through the full arc: entry on structural Hormuz risk, two quiet weeks, confirming tanker-rate coverage (Week 4), FTSE capital flows citing Hormuz (Week 5), US ground troops deployed and peace talks publicly rejected (Week 6), and an ambiguous 'vows escalation / before exit' headline (Week 7). The thesis delivered \u2014 BWET climbed on genuine Hormuz closure fear across that arc. This week the driving condition reversed concretely: the US and Iran agreed a two-week ceasefire on April 8. Crude fell on the announcement specifically because markets repriced Hormuz supply-flow risk lower. RT\u00c9, FinancialMirror, Yahoo Finance, MarketScreener, and Baystreet all confirm the ceasefire is real and that the Strait-of-Hormuz premium drove the relief move. 'Ceasefire' is an explicitly named reversal condition in the framework \u2014 identical to 'curbs lifted / chokepoint reopened / shortage ended.' The fact that the ceasefire is only two weeks does not keep the thesis alive: we exit on the reversal event and re-enter on a new escalation catalyst if the standoff resumes. catalyst_resolved=true, thesis_live=false. Clean exit.",
-      "exit_advice": "Exit BWET immediately. A formal ceasefire is explicitly named in the framework as a reversal condition. Crude prices already fell on the announcement and multiple outlets cited eased Hormuz closure risk as the cause. The relief rally is underway and the early-edge window is closed. If re-escalation resumes after the two-week ceasefire lapses, treat it as a new catalyst entry \u2014 do not hold through resolution hoping for a restart.",
+      "conviction": 1,
+      "assessment": "Week 6 \u2014 HARD EXIT. Two sources lock in the resolution. Yahoo Finance (Apr 8) reported futures sliding as 'Trump's Hormuz deadline loomed,' confirming the blockade was fully live through April 7. Then RTE (Apr 8) reported the ceasefire agreement, with crude prices already falling on Strait-reopening expectations. Baystreet (Apr 7) additionally confirmed Iran was still refusing to relent as recently as Tuesday \u2014 so the reversal is fresh and clean, not a stale priced-in event. Per the rules, a ceasefire that reopens a chokepoint is the textbook hard exit: the driving condition (Strait blockade in force since Feb 28) has reversed, the market has repriced crude and equities same-day, and VLCC rates will follow. The silence-decay path (conviction tracking 8\u21927\u21928\u21927\u21926 entering this week) is now irrelevant \u2014 catalyst_resolved=TRUE overrides everything. The entire basket was entered on the same acute chokepoint catalyst; all five names must be exited together.",
+      "exit_advice": "EXIT ALL POSITIONS IMMEDIATELY. The driving condition has reversed: RTE (Apr 8) confirms 'the US and Iran agreed to a two-week ceasefire, sending crude prices lower on expectations that energy supplies through the Strait of Hormuz would resume.' This is the exact hard-exit trigger identified at entry \u2014 ceasefire is explicitly listed in the rules as a driving-condition reversal. VLCC rates, which hit ATH $423,736/day on the blockade, will collapse as routing normalises. Do not wait for a two-week clock to expire; the market has already priced the reopening (crude down, equities up). Exit BWET, DHT, FRO, NAT, STNG.",
       "evidence_urls": [
         "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
-        "https://www.financialmirror.com/2026/04/08/oil-prices-to-stay-high-relief-rally-follows-us-iran-ceasefire/",
         "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
-        "https://www.marketscreener.com/news/trading-day-trump-s-iran-deadline-looms-ce7e50dad980ff22",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
+      ]
+    },
+    {
+      "ticker": "DHT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; Strait of Hormuz expected to reopen, crude fell \u2014 blockade reversed.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "Week 6 \u2014 HARD EXIT. Two sources lock in the resolution. Yahoo Finance (Apr 8) reported futures sliding as 'Trump's Hormuz deadline loomed,' confirming the blockade was fully live through April 7. Then RTE (Apr 8) reported the ceasefire agreement, with crude prices already falling on Strait-reopening expectations. Baystreet (Apr 7) additionally confirmed Iran was still refusing to relent as recently as Tuesday \u2014 so the reversal is fresh and clean, not a stale priced-in event. Per the rules, a ceasefire that reopens a chokepoint is the textbook hard exit: the driving condition (Strait blockade in force since Feb 28) has reversed, the market has repriced crude and equities same-day, and VLCC rates will follow. The silence-decay path (conviction tracking 8\u21927\u21928\u21927\u21926 entering this week) is now irrelevant \u2014 catalyst_resolved=TRUE overrides everything. The entire basket was entered on the same acute chokepoint catalyst; all five names must be exited together.",
+      "exit_advice": "EXIT ALL POSITIONS IMMEDIATELY. The driving condition has reversed: RTE (Apr 8) confirms 'the US and Iran agreed to a two-week ceasefire, sending crude prices lower on expectations that energy supplies through the Strait of Hormuz would resume.' This is the exact hard-exit trigger identified at entry \u2014 ceasefire is explicitly listed in the rules as a driving-condition reversal. VLCC rates, which hit ATH $423,736/day on the blockade, will collapse as routing normalises. Do not wait for a two-week clock to expire; the market has already priced the reopening (crude down, equities up). Exit BWET, DHT, FRO, NAT, STNG.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
+      ]
+    },
+    {
+      "ticker": "FRO",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; Strait of Hormuz expected to reopen, crude fell \u2014 blockade reversed.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "Week 6 \u2014 HARD EXIT. Two sources lock in the resolution. Yahoo Finance (Apr 8) reported futures sliding as 'Trump's Hormuz deadline loomed,' confirming the blockade was fully live through April 7. Then RTE (Apr 8) reported the ceasefire agreement, with crude prices already falling on Strait-reopening expectations. Baystreet (Apr 7) additionally confirmed Iran was still refusing to relent as recently as Tuesday \u2014 so the reversal is fresh and clean, not a stale priced-in event. Per the rules, a ceasefire that reopens a chokepoint is the textbook hard exit: the driving condition (Strait blockade in force since Feb 28) has reversed, the market has repriced crude and equities same-day, and VLCC rates will follow. The silence-decay path (conviction tracking 8\u21927\u21928\u21927\u21926 entering this week) is now irrelevant \u2014 catalyst_resolved=TRUE overrides everything. The entire basket was entered on the same acute chokepoint catalyst; all five names must be exited together.",
+      "exit_advice": "EXIT ALL POSITIONS IMMEDIATELY. The driving condition has reversed: RTE (Apr 8) confirms 'the US and Iran agreed to a two-week ceasefire, sending crude prices lower on expectations that energy supplies through the Strait of Hormuz would resume.' This is the exact hard-exit trigger identified at entry \u2014 ceasefire is explicitly listed in the rules as a driving-condition reversal. VLCC rates, which hit ATH $423,736/day on the blockade, will collapse as routing normalises. Do not wait for a two-week clock to expire; the market has already priced the reopening (crude down, equities up). Exit BWET, DHT, FRO, NAT, STNG.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
+      ]
+    },
+    {
+      "ticker": "NAT",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; Strait of Hormuz expected to reopen, crude fell \u2014 blockade reversed.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "Week 6 \u2014 HARD EXIT. Two sources lock in the resolution. Yahoo Finance (Apr 8) reported futures sliding as 'Trump's Hormuz deadline loomed,' confirming the blockade was fully live through April 7. Then RTE (Apr 8) reported the ceasefire agreement, with crude prices already falling on Strait-reopening expectations. Baystreet (Apr 7) additionally confirmed Iran was still refusing to relent as recently as Tuesday \u2014 so the reversal is fresh and clean, not a stale priced-in event. Per the rules, a ceasefire that reopens a chokepoint is the textbook hard exit: the driving condition (Strait blockade in force since Feb 28) has reversed, the market has repriced crude and equities same-day, and VLCC rates will follow. The silence-decay path (conviction tracking 8\u21927\u21928\u21927\u21926 entering this week) is now irrelevant \u2014 catalyst_resolved=TRUE overrides everything. The entire basket was entered on the same acute chokepoint catalyst; all five names must be exited together.",
+      "exit_advice": "EXIT ALL POSITIONS IMMEDIATELY. The driving condition has reversed: RTE (Apr 8) confirms 'the US and Iran agreed to a two-week ceasefire, sending crude prices lower on expectations that energy supplies through the Strait of Hormuz would resume.' This is the exact hard-exit trigger identified at entry \u2014 ceasefire is explicitly listed in the rules as a driving-condition reversal. VLCC rates, which hit ATH $423,736/day on the blockade, will collapse as routing normalises. Do not wait for a two-week clock to expire; the market has already priced the reopening (crude down, equities up). Exit BWET, DHT, FRO, NAT, STNG.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
+        "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
+      ]
+    },
+    {
+      "ticker": "STNG",
+      "thesis": "Iran blocks Strait of Hormuz Feb 28, VLCC rates record high",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "US-Iran two-week ceasefire agreed April 8; Strait of Hormuz expected to reopen, crude fell \u2014 blockade reversed.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "Week 6 \u2014 HARD EXIT. Two sources lock in the resolution. Yahoo Finance (Apr 8) reported futures sliding as 'Trump's Hormuz deadline loomed,' confirming the blockade was fully live through April 7. Then RTE (Apr 8) reported the ceasefire agreement, with crude prices already falling on Strait-reopening expectations. Baystreet (Apr 7) additionally confirmed Iran was still refusing to relent as recently as Tuesday \u2014 so the reversal is fresh and clean, not a stale priced-in event. Per the rules, a ceasefire that reopens a chokepoint is the textbook hard exit: the driving condition (Strait blockade in force since Feb 28) has reversed, the market has repriced crude and equities same-day, and VLCC rates will follow. The silence-decay path (conviction tracking 8\u21927\u21928\u21927\u21926 entering this week) is now irrelevant \u2014 catalyst_resolved=TRUE overrides everything. The entire basket was entered on the same acute chokepoint catalyst; all five names must be exited together.",
+      "exit_advice": "EXIT ALL POSITIONS IMMEDIATELY. The driving condition has reversed: RTE (Apr 8) confirms 'the US and Iran agreed to a two-week ceasefire, sending crude prices lower on expectations that energy supplies through the Strait of Hormuz would resume.' This is the exact hard-exit trigger identified at entry \u2014 ceasefire is explicitly listed in the rules as a driving-condition reversal. VLCC rates, which hit ATH $423,736/day on the blockade, will collapse as routing normalises. Do not wait for a two-week clock to expire; the market has already priced the reopening (crude down, equities up). Exit BWET, DHT, FRO, NAT, STNG.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/",
+        "https://finance.yahoo.com/markets/stocks/articles/stock-index-futures-slip-trump-103451654.html",
         "http://baystreet.ca/marketupdates/14955/TSX-Pushes-into-Plus-Column"
       ]
     }
@@ -141,32 +437,34 @@
   "2026-05-08": [
     {
       "ticker": "OKLO",
-      "thesis": "Specific datable NRC/regulatory event expected May 12 drives re-rating",
+      "thesis": "Oklo May 12 scheduled catalyst event after 46% April surge",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "OKLO already surged 46% in April; May 12 NRC event may be substantially priced in.",
+      "exit_case": "OKLO already surged 46% in April, potentially front-running and fully pricing in the May 12 event.",
       "catalyst_resolved": false,
-      "conviction": 7,
-      "assessment": "First week. The Motley Fool article (May 8) explicitly confirms a specific May 12 catalyst remains PENDING and frames it as a potential re-rating event. The NRC/regulatory binary has not yet occurred \u2014 catalyst_resolved is false. The devil's advocate case (46% April pre-run) is real but is a 'priced-in' concern, not a catalyst resolution; the event itself is still ahead in four days. OKLO remains the cleanest pure-play vehicle. Coverage is present but still in 'will-it-happen' framing rather than mainstream-saturated consensus, so the early-mover window has not fully closed. Conviction docked one point for the large April pre-run reducing potential remaining asymmetry on the upside leg. Binary resolution on May 12 is the sole exit trigger.",
-      "exit_advice": "Hold through May 12. Exit immediately once the NRC regulatory decision/meeting outcome is public \u2014 whether favorable or not, the datable binary will have resolved and the edge is gone. Do not chase a post-decision gap.",
+      "conviction": 6,
+      "assessment": "First week on position. The May 12 scheduled catalyst is explicitly unresolved \u2014 Motley Fool (2026-05-08) directly flags it as the next potential inflection point ('Is the nuclear energy stock set for another big jump after May 12?'), confirming the market views it as a live, pending event. Devil's advocate case is real but not decisive: the 46% April pre-run elevates the expectations bar and compresses upside asymmetry, creating genuine 'buy the rumor, sell the news' risk. However, the catalyst has not occurred, there is no reversal, and the concrete scheduled date keeps thesis_live. Retail coverage (multiple Motley Fool pieces this week on nuclear energy broadly) is building but not yet mainstream-saturated \u2014 no front-page frenzy, no sell-side target-raising parade. Conviction set at 6: specific, datable, still-pending catalyst with a clean pure-play vehicle, discounted slightly for the pre-event run-up compressing remaining edge. Hold through May 12; reassess immediately post-event.",
+      "exit_advice": "Exit on or immediately after May 12 once the scheduled event (likely earnings or key business announcement) resolves \u2014 the catalyst is a single datable event; hold through market noise until then, but do not linger post-resolution.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001"
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2026/05/07/3-powerful-nuclear-energy-stocks-to-buy-in-may/?source=iedfolrf0000001"
       ]
     }
   ],
   "2026-05-15": [
     {
       "ticker": "OKLO",
-      "thesis": "Specific datable NRC/regulatory event expected May 12 drives re-rating",
+      "thesis": "Oklo May 12 scheduled catalyst event after 46% April surge",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "May 12 NRC/regulatory date has now passed; the specific datable pending catalyst is no longer pending \u2014 resolved or lapsed.",
+      "exit_case": "May 12 scheduled catalyst date has passed \u2014 the specific datable acute event has occurred and resolved.",
       "catalyst_resolved": true,
-      "conviction": 3,
-      "assessment": "Re-reading the full journal: the FIXED catalyst was explicitly a 'specific datable NRC/regulatory event expected May 12.' Entry note on May 8 stated 'binary resolution on May 12 is the sole exit trigger.' It is now May 15 \u2014 that date has come and gone. Whether the event occurred as expected, disappointed, or was quietly delayed, the specific pending binary this position was entered on is no longer pending. That mechanically makes catalyst_resolved true. Corroborating evidence: the only fresh news (JPMorgan, May 15) explicitly declines to turn bullish on OKLO despite acknowledging a strong SMR outlook \u2014 precisely what you would expect from a sell-side analyst surveying the post-May 12 landscape and finding no compelling re-rating has occurred. There is no concrete scheduled next catalyst named in any source. The arc is complete: the shock (regulatory binary), the response (pre-run into May 12), and the resolution have all played out. Thesis_live = false. Exit.",
-      "exit_advice": "Exit OKLO. The sole thesis driver was a specific datable binary on May 12 \u2014 that date has elapsed. JPMorgan's May 15 note (stopping short of bullish despite strong SMR backdrop) confirms no transformative re-rating materialised post-May 12. The edge was the pending event; with the window closed, there is nothing left to hold for.",
+      "conviction": 2,
+      "assessment": "Journal entry from 2026-05-08 was explicit: 'Hold through May 12; reassess immediately post-event.' We are now post-May 12. The acute catalyst \u2014 a specific scheduled date the Motley Fool flagged as 'the next potential inflection point' \u2014 has occurred. Catalyst_resolved must be TRUE. The only OKLO-specific news this week is JPMorgan declining to turn bullish after the event, confirming the market absorbed the May 12 event without a new inflection. No follow-on concrete scheduled catalyst is cited in any source. The 46% April pre-run elevated the expectations bar; with the event now behind us and sell-side underwhelmed, the original asymmetry argument is spent. Exit cleanly rather than migrate into a different (structural SMR) thesis under the same ticker.",
+      "exit_advice": "Exit OKLO. The entire thesis was a single, datable, acute event \u2014 the May 12 scheduled catalyst. That date has now passed. Per the rules for acute catalysts, once the specific event occurs the thesis is resolved and the edge is gone. The post-event JPMorgan piece ('stops short of turning bullish on OKLO despite strong SMR outlook') is the clearest possible signal: the sell-side reviewed the event and is not compelled to upgrade \u2014 no bullish inflection materialized. No new concrete scheduled catalyst appears in any this-week coverage. The broader nuclear/SMR structural theme remains alive, but that is a separate, different thesis \u2014 not the one entered on. Close the position.",
       "evidence_urls": [
-        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html"
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html",
+        "https://finance.yahoo.com/sectors/energy/articles/td-securities-reiterates-buy-rating-173636888.html"
       ]
     }
   ],

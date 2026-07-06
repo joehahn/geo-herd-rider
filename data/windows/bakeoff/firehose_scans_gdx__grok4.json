@@ -1,0 +1,373 @@
+{
+  "2024-11-01": [],
+  "2024-11-08": [],
+  "2024-11-15": [],
+  "2024-11-22": [],
+  "2024-11-29": [],
+  "2024-12-06": [],
+  "2024-12-13": [],
+  "2024-12-20": [],
+  "2024-12-27": [],
+  "2025-01-03": [],
+  "2025-01-10": [],
+  "2025-01-17": [],
+  "2025-01-24": [],
+  "2025-01-31": [],
+  "2025-02-07": [],
+  "2025-02-14": [
+    {
+      "ticker": "GDX",
+      "thesis": "Trump tariffs ignite safe-haven gold bid",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Trump tariffs on China/Canada/Mexico spark safe-haven gold demand, GDX as leveraged play",
+      "exit_advice": "Hold; initial tariffs just announced",
+      "evidence_urls": [
+        "https://www.investing.com/analysis/gold-blasts-as-tariff-chaos-engulfs-markets-5-plays-for-the-safehaven-surge-200675495"
+      ]
+    }
+  ],
+  "2025-02-21": [
+    {
+      "ticker": "GDX",
+      "thesis": "Trump tariffs ignite safe-haven gold bid",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tariff-driven uncertainty continues without reversal or closure; GDX remains valid vehicle",
+      "exit_advice": "No resolution; tariffs uncertainty persists",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/S-P-GSCI-ENERGY-INDEX-46869254/news/GLOBAL-MARKETS-Global-equities-mixed-oil-drops-on-uncertainty-about-Trump-moves-geopolitics-49130726/",
+        "https://www.marketscreener.com/news/latest/Global-equities-mixed-on-uncertainty-about-Trump-moves-geopolitics-49129424/"
+      ]
+    }
+  ],
+  "2025-02-28": [
+    {
+      "ticker": "GDX",
+      "thesis": "Trump tariffs ignite safe-haven gold bid",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Tariffs strengthening USD, reversing safe-haven gold bid",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Tariff uncertainty persists but now pressures gold via stronger dollar; no bid materializing",
+      "exit_advice": "Exit \u2014 driving condition reversed, gold sliding",
+      "evidence_urls": [
+        "https://news.az/news/gold-heads-for-first-weekly-loss-of-2025-amid-tariff-concerns"
+      ]
+    }
+  ],
+  "2025-03-07": [],
+  "2025-03-14": [],
+  "2025-03-21": [],
+  "2025-03-28": [],
+  "2025-04-04": [],
+  "2025-04-11": [],
+  "2025-04-18": [],
+  "2025-04-25": [],
+  "2025-05-02": [],
+  "2025-05-09": [],
+  "2025-05-16": [],
+  "2025-05-23": [],
+  "2025-05-30": [],
+  "2025-06-06": [],
+  "2025-06-13": [],
+  "2025-06-20": [],
+  "2025-06-27": [],
+  "2025-07-04": [],
+  "2025-07-11": [],
+  "2025-07-18": [],
+  "2025-07-25": [],
+  "2025-08-01": [],
+  "2025-08-08": [],
+  "2025-08-15": [],
+  "2025-08-22": [],
+  "2025-08-29": [],
+  "2025-09-05": [],
+  "2025-09-12": [],
+  "2025-09-19": [],
+  "2025-09-26": [],
+  "2025-10-03": [],
+  "2025-10-10": [],
+  "2025-10-17": [
+    {
+      "ticker": "RKLB",
+      "thesis": "deal with Japan Aerospace Exploration Agency",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "JAXA deal already announced and driving RKLB highs",
+      "catalyst_resolved": true,
+      "conviction": 4,
+      "assessment": "Catalyst resolved on announcement; edge gone.",
+      "exit_advice": "Deal is closed; no pending catalyst remains.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html"
+      ]
+    }
+  ],
+  "2025-10-24": [],
+  "2025-10-31": [],
+  "2025-11-07": [],
+  "2025-11-14": [],
+  "2025-11-21": [],
+  "2025-11-28": [],
+  "2025-12-05": [],
+  "2025-12-12": [],
+  "2025-12-19": [],
+  "2025-12-26": [],
+  "2026-01-02": [],
+  "2026-01-09": [],
+  "2026-01-16": [],
+  "2026-01-23": [
+    {
+      "ticker": "AEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresh tariff shock dislocates physical gold market; record prices and GDX surge mark immediate reaction.",
+      "exit_advice": "Hold all vehicles; tariffs just announced and dislocation live.",
+      "evidence_urls": [
+        "https://carboncredits.com/gold-prices-smash-another-record-spot-gold-hits-4689-all-time-high-as-central-banks-go-on-a-buying-spree/"
+      ]
+    },
+    {
+      "ticker": "GDX",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresh tariff shock dislocates physical gold market; record prices and GDX surge mark immediate reaction.",
+      "exit_advice": "Hold all vehicles; tariffs just announced and dislocation live.",
+      "evidence_urls": [
+        "https://carboncredits.com/gold-prices-smash-another-record-spot-gold-hits-4689-all-time-high-as-central-banks-go-on-a-buying-spree/"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresh tariff shock dislocates physical gold market; record prices and GDX surge mark immediate reaction.",
+      "exit_advice": "Hold all vehicles; tariffs just announced and dislocation live.",
+      "evidence_urls": [
+        "https://carboncredits.com/gold-prices-smash-another-record-spot-gold-hits-4689-all-time-high-as-central-banks-go-on-a-buying-spree/"
+      ]
+    },
+    {
+      "ticker": "NEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Fresh tariff shock dislocates physical gold market; record prices and GDX surge mark immediate reaction.",
+      "exit_advice": "Hold all vehicles; tariffs just announced and dislocation live.",
+      "evidence_urls": [
+        "https://carboncredits.com/gold-prices-smash-another-record-spot-gold-hits-4689-all-time-high-as-central-banks-go-on-a-buying-spree/"
+      ]
+    }
+  ],
+  "2026-01-30": [
+    {
+      "ticker": "AEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Tariff-driven gold dislocation persists; no resolution or reversal evident in coverage.",
+      "exit_advice": "Hold positions; tariff shock remains active with gold prices elevated.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/unitedhealth-stock-plunges-20-heres-174455263.html",
+        "https://economictimes.indiatimes.com/news/international/us/why-dow-is-down-today-as-sp-500-nasdaq-surge-towards-record-gold-and-silver-prices-at-historic-highs-as-us-stock-market-rebounds-today/articleshow/127715776.cms"
+      ]
+    },
+    {
+      "ticker": "GDX",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Tariff-driven gold dislocation persists; no resolution or reversal evident in coverage.",
+      "exit_advice": "Hold positions; tariff shock remains active with gold prices elevated.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/unitedhealth-stock-plunges-20-heres-174455263.html",
+        "https://economictimes.indiatimes.com/news/international/us/why-dow-is-down-today-as-sp-500-nasdaq-surge-towards-record-gold-and-silver-prices-at-historic-highs-as-us-stock-market-rebounds-today/articleshow/127715776.cms"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Tariff-driven gold dislocation persists; no resolution or reversal evident in coverage.",
+      "exit_advice": "Hold positions; tariff shock remains active with gold prices elevated.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/unitedhealth-stock-plunges-20-heres-174455263.html",
+        "https://economictimes.indiatimes.com/news/international/us/why-dow-is-down-today-as-sp-500-nasdaq-surge-towards-record-gold-and-silver-prices-at-historic-highs-as-us-stock-market-rebounds-today/articleshow/127715776.cms"
+      ]
+    },
+    {
+      "ticker": "NEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Tariff-driven gold dislocation persists; no resolution or reversal evident in coverage.",
+      "exit_advice": "Hold positions; tariff shock remains active with gold prices elevated.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/unitedhealth-stock-plunges-20-heres-174455263.html",
+        "https://economictimes.indiatimes.com/news/international/us/why-dow-is-down-today-as-sp-500-nasdaq-surge-towards-record-gold-and-silver-prices-at-historic-highs-as-us-stock-market-rebounds-today/articleshow/127715776.cms"
+      ]
+    }
+  ],
+  "2026-02-06": [
+    {
+      "ticker": "AEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tariff dislocation persists; week of total silence on gold/trade trigger applies silence decay but no reversal or closure.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/abbvie-inc-abbv-balances-analyst-143553638.html",
+        "https://www.insidermonkey.com/blog/astrazeneca-plc-azns-15b-china-expansion-fuels-long-term-growth-outlook-1685796/"
+      ]
+    },
+    {
+      "ticker": "GDX",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tariff dislocation persists; week of total silence on gold/trade trigger applies silence decay but no reversal or closure.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/abbvie-inc-abbv-balances-analyst-143553638.html",
+        "https://www.insidermonkey.com/blog/astrazeneca-plc-azns-15b-china-expansion-fuels-long-term-growth-outlook-1685796/"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tariff dislocation persists; week of total silence on gold/trade trigger applies silence decay but no reversal or closure.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/abbvie-inc-abbv-balances-analyst-143553638.html",
+        "https://www.insidermonkey.com/blog/astrazeneca-plc-azns-15b-china-expansion-fuels-long-term-growth-outlook-1685796/"
+      ]
+    },
+    {
+      "ticker": "NEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Tariff dislocation persists; week of total silence on gold/trade trigger applies silence decay but no reversal or closure.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/abbvie-inc-abbv-balances-analyst-143553638.html",
+        "https://www.insidermonkey.com/blog/astrazeneca-plc-azns-15b-china-expansion-fuels-long-term-growth-outlook-1685796/"
+      ]
+    }
+  ],
+  "2026-02-13": [
+    {
+      "ticker": "AEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump signals tariff de-escalation, unwinding gold safe-haven premium",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Tariff-driven dislocation reversed this week per Reuters coverage; prior silence decay now confirmed by explicit unwind.",
+      "exit_advice": "Exit all exposure; driving condition reversed by de-escalation.",
+      "evidence_urls": [
+        "https://www.reuters.com/markets/commodities/gold-falls-trump-tariff-deescalation-2026-02-13/"
+      ]
+    },
+    {
+      "ticker": "GDX",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": false,
+      "src": "seed",
+      "exit_case": "Trump signals tariff de-escalation, unwinding gold safe-haven premium",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Tariff-driven dislocation reversed this week per Reuters coverage; prior silence decay now confirmed by explicit unwind.",
+      "exit_advice": "Exit all exposure; driving condition reversed by de-escalation.",
+      "evidence_urls": [
+        "https://www.reuters.com/markets/commodities/gold-falls-trump-tariff-deescalation-2026-02-13/"
+      ]
+    },
+    {
+      "ticker": "GOLD",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": false,
+      "src": "seed",
+      "exit_case": "Trump signals tariff de-escalation, unwinding gold safe-haven premium",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Tariff-driven dislocation reversed this week per Reuters coverage; prior silence decay now confirmed by explicit unwind.",
+      "exit_advice": "Exit all exposure; driving condition reversed by de-escalation.",
+      "evidence_urls": [
+        "https://www.reuters.com/markets/commodities/gold-falls-trump-tariff-deescalation-2026-02-13/"
+      ]
+    },
+    {
+      "ticker": "NEM",
+      "thesis": "Trump 39% Swiss-gold tariff and 125% China levy",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump signals tariff de-escalation, unwinding gold safe-haven premium",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Tariff-driven dislocation reversed this week per Reuters coverage; prior silence decay now confirmed by explicit unwind.",
+      "exit_advice": "Exit all exposure; driving condition reversed by de-escalation.",
+      "evidence_urls": [
+        "https://www.reuters.com/markets/commodities/gold-falls-trump-tariff-deescalation-2026-02-13/"
+      ]
+    }
+  ],
+  "2026-02-20": [],
+  "2026-02-27": [],
+  "2026-03-06": [],
+  "2026-03-13": [],
+  "2026-03-20": [],
+  "2026-03-27": []
+}

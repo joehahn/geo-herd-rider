@@ -1,23 +1,24 @@
 {
   "2025-03-21": [],
   "2025-03-28": [],
-  "2025-04-04": [],
-  "2025-04-11": [],
-  "2025-04-18": [
+  "2025-04-04": [
     {
       "ticker": "MP",
-      "thesis": "China curbs rare-earth exports",
+      "thesis": "China imposes export controls on rare earths",
       "thesis_live": false,
       "src": "seed",
-      "exit_case": "Export curbs already announced; MP shares already reacting",
+      "exit_case": "Export controls announced and imposed on April 4",
       "catalyst_resolved": true,
-      "assessment": "China curbs already triggering MP surge per entry-week news",
-      "exit_advice": "Catalyst public and priced; exit MP",
+      "conviction": 3,
+      "assessment": "Immediate resolution on announcement date ends thesis",
+      "exit_advice": "Catalyst occurred today; edge spent",
       "evidence_urls": [
-        "etf.com"
+        "https://www.hklaw.com/en/insights/publications/2025/04/china-imposes-export-controls-on-medium-and-heavy-rare-earth-materials"
       ]
     }
   ],
+  "2025-04-11": [],
+  "2025-04-18": [],
   "2025-04-25": [],
   "2025-05-02": [],
   "2025-05-09": [],
@@ -29,272 +30,44 @@
   "2025-06-20": [],
   "2025-06-27": [],
   "2025-07-04": [],
-  "2025-07-11": [],
-  "2025-07-18": [],
-  "2025-07-25": [],
-  "2025-08-01": [
+  "2025-07-11": [
     {
-      "ticker": "CEG",
-      "thesis": "FERC approves Calpine acquisition",
+      "ticker": "MP",
+      "thesis": "Pentagon buys $400M MP preferred stock",
       "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "FERC approval already granted this week",
+      "src": "seed",
+      "exit_case": "DoD-$400M preferred purchase agreement already announced and signed",
       "catalyst_resolved": true,
-      "assessment": "News confirms FERC approval secured; event complete",
-      "exit_advice": "Exit: catalyst occurred and is now public",
+      "conviction": 8,
+      "assessment": "Acute named DoD investment catalyst hit this week on CNBC; MP is the direct pure-play vehicle. Thesis edge spent on announcement.",
+      "exit_advice": "Exit\u2014deal now public and priced after 50% surge",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/constellation-energy-corporation-ceg-gains-following-ferc-approval-on-calpine-deal-1581290/"
+        "https://www.cnbc.com/2025/07/10/pentagon-to-become-largest-shareholder-in-rare-earth-magnet-maker-mp-materials.html"
       ]
     }
   ],
+  "2025-07-18": [],
+  "2025-07-25": [],
+  "2025-08-01": [],
   "2025-08-08": [],
   "2025-08-15": [],
   "2025-08-22": [],
   "2025-08-29": [],
   "2025-09-05": [],
-  "2025-09-12": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Initial talks phase only; catalyst still pending.",
-      "exit_advice": "Exit if payment bill signed or talks collapse without deal.",
-      "evidence_urls": [
-        "https://beniciaindependent.com/california-in-talks-to-pay-hundreds-of-millions-to-valero-to-stave-off-refinery-shutdown/"
-      ]
-    }
-  ],
-  "2025-09-19": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "No resolution or new signals; catalyst remains pending.",
-      "exit_advice": "Hold; talks phase only.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-09-26": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst unchanged; talks still pending per journal.",
-      "exit_advice": "Hold; no resolution signals yet.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-10-03": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst unchanged; talks pending.",
-      "exit_advice": "Hold; no new signals.",
-      "evidence_urls": [
-        "https://www.benzinga.com/markets/equities/25/10/48011379/sp-500-settles-at-record-high-despite-government-shutdown-investor-sentiment-improves-fear-greed",
-        "https://markets.financialcontent.com/stocks/article/marketminute-2025-9-30-tsx-navigates-choppy-waters-energy-drags-while-gold-shines-amid-us-shutdown-fears"
-      ]
-    }
-  ],
-  "2025-10-10": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Talks remain pending; no signs of closure.",
-      "exit_advice": "Hold; no resolution yet.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-10-17": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Journal and news show zero progress or closure on Benicia deal.",
-      "exit_advice": "No new data; maintain position while talks remain open.",
-      "evidence_urls": [
-        "https://seekingalpha.com/news/4503430-real-estate-stocks-tumble-amid-lingering-government-shutdown-renewed-trade-war-concerns"
-      ]
-    },
-    {
-      "ticker": "RKLB",
-      "thesis": "Rocket Lab wins JAXA contract",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "JAXA contract won and announced, stock already reacting at highs",
-      "catalyst_resolved": true,
-      "assessment": "Announcement confirms win; edge gone",
-      "exit_advice": "Catalyst realized; exit position",
-      "evidence_urls": [
-        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html"
-      ]
-    }
-  ],
-  "2025-10-24": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully pending across entire journal with zero progress or closure signals.",
-      "exit_advice": "Hold; no signs of resolution or decay.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-10-31": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully open with zero closure in journal or news.",
-      "exit_advice": "Hold pending deal terms; monitor for any state budget signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-11-07": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully pending with zero closure in journal or news.",
-      "exit_advice": "Hold; unrelated news offers no signal.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-11-14": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully pending across entire journal; zero progress or closure this week or prior.",
-      "exit_advice": "Hold; no closure signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-11-21": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst fully open; zero signals of resolution across journal.",
-      "exit_advice": "Hold pending closure.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-11-28": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Journal confirms catalyst fully open after 11 weeks; no resolution signals in any entry or this week's news.",
-      "exit_advice": "Hold; catalyst pending, monitor for closure signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-12-05": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "12-week journal confirms zero closure on Benicia payment deal; this week's unrelated Nigeria news adds nothing.",
-      "exit_advice": "Continue to hold; catalyst unchanged.",
-      "evidence_urls": [
-        "https://www.insidermonkey.com/blog/honeywell-hon-to-support-major-expansion-at-nigerias-dangote-refinery-by-2028-1653089/"
-      ]
-    },
-    {
-      "ticker": "DNN",
-      "thesis": "Denison Mines secures landmark uranium development pact",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Pact secured and announced Dec 1; catalyst complete.",
-      "catalyst_resolved": true,
-      "assessment": "Catalyst event has occurred; no pending resolution remains.",
-      "exit_advice": "Exit; catalyst is public and priced-in.",
-      "evidence_urls": [
-        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
-      ]
-    }
-  ],
-  "2025-12-12": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "12-week journal shows no progress or resolution on Benicia deal; still pending.",
-      "exit_advice": "Hold; catalyst fully pending with zero closure signals.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-12-19": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully pending after 14 weeks with zero closure signals in entire journal.",
-      "exit_advice": "Hold; monitor for any deal announcement or termination.",
-      "evidence_urls": []
-    }
-  ],
-  "2025-12-26": [
-    {
-      "ticker": "VLO",
-      "thesis": "California to pay Valero to avert Benicia refinery shutdown",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": false,
-      "assessment": "Catalyst remains fully pending after 15 weeks with zero closure in journal or news.",
-      "exit_advice": "Hold; no resolution signals.",
-      "evidence_urls": [
-        "https://www.jamaicaobserver.com/2025/12/26/mission-done-popular-crime-vlogger-sir-p-says-hes-signing-off/"
-      ]
-    }
-  ]
+  "2025-09-12": [],
+  "2025-09-19": [],
+  "2025-09-26": [],
+  "2025-10-03": [],
+  "2025-10-10": [],
+  "2025-10-17": [],
+  "2025-10-24": [],
+  "2025-10-31": [],
+  "2025-11-07": [],
+  "2025-11-14": [],
+  "2025-11-21": [],
+  "2025-11-28": [],
+  "2025-12-05": [],
+  "2025-12-12": [],
+  "2025-12-19": [],
+  "2025-12-26": []
 }

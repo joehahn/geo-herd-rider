@@ -1,0 +1,2168 @@
+{
+  "2024-10-18": [
+    {
+      "ticker": "CCJ",
+      "thesis": "Amazon commits to nuclear power investment (Oct 16), igniting uranium demand",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Amazon's nuclear commitment already announced Oct 16; catalyst resolved.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "Amazon's nuclear power investment commitment on Oct 16 has been widely reported, causing immediate surges in nuclear stocks. The event is now historical and likely priced in, eliminating the early-mover advantage.",
+      "exit_advice": "Exit all positions as the catalyst is resolved and public; no remaining edge.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuclear-energy-etfs-surge-uranium-233300201.html",
+        "https://www.investors.com/research/ibd-stock-of-the-day/amzon-goes-nuclear-cameco-stock-explodes/",
+        "https://www.benzinga.com/news/24/10/41358363/nuclear-stocks-soar-as-amazon-becomes-latest-tech-giant-to-invest-in-nuclear-power"
+      ]
+    }
+  ],
+  "2024-10-25": [],
+  "2024-11-01": [],
+  "2024-11-08": [],
+  "2024-11-15": [],
+  "2024-11-22": [],
+  "2024-11-29": [],
+  "2024-12-06": [],
+  "2024-12-13": [],
+  "2024-12-20": [],
+  "2024-12-27": [],
+  "2025-01-03": [],
+  "2025-01-10": [],
+  "2025-01-17": [],
+  "2025-01-24": [
+    {
+      "ticker": "ASTS",
+      "thesis": "Trump inaugurated, signs space executive orders; LUNR named frontline beneficiary still soaring",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LUNR",
+      "thesis": "Trump space executive orders signed Jan 20; Intuitive Machines skyrocketing on named contract/policy tailwinds",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "bed",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "Executive orders signing catalyzed; initial surge on mainstream coverage confirm immediate move; now play. structured), tailwinds from defense buildup and follow-on space contracts",
+      "exit_advice": "The executive orders are been signed. Initial surge is playing out. Coverage is broad and mainstream \u2014 NBC, CNBC, Yahoo all ran the story. The policy tailwinds for space stocks are real but the signing is priced in and the immediate hype has faded.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/01/24/why-intuitive-machines-is-skyrocketing-today/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2025/01/21/space-stocks-surge-after-trump-inauguration.html",
+        "https://www.yahoo.com/news/tesla-slides-space-stocks-soar-181707924.html",
+        "https://www.nbcmiami.com/news/business/money-report/space-stocks-surge-after-trump-inauguration-with-broad-excitement-about-sector-analyst-says/3521973/"
+      ]
+    },
+    {
+      "ticker": "ASTS",
+      "thesis": "Trump space executive orders signed Jan 20; Intuitive Machines skyrocketing on named contract/policy tailwinds",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "bed",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "Executive orders signing catalyzed; initial surge on mainstream coverage confirm immediate move; now play. structured), tailwinds from defense buildup and follow-on space contracts",
+      "exit_advice": "The executive orders are been signed. Initial surge is playing out. Coverage is broad and mainstream \u2014 NBC, CNBC, Yahoo all ran the story. The policy tailwinds for space stocks are real but the signing is priced in and the immediate hype has faded.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/01/24/why-intuitive-machines-is-skyrocketing-today/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2025/01/21/space-stocks-surge-after-trump-inauguration.html",
+        "https://www.yahoo.com/news/tesla-slides-space-stocks-soar-181707924.html",
+        "https://www.nbcmiami.com/news/business/money-report/space-stocks-surge-after-trump-inauguration-with-broad-excitement-about-sector-analyst-says/3521973/"
+      ]
+    },
+    {
+      "ticker": "RKLB",
+      "thesis": "Trump space executive orders signed Jan 20; Intuitive Machines skyrocketing on named contract/policy tailwinds",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "bed",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "Executive orders signing catalyzed; initial surge on mainstream coverage confirm immediate move; now play. structured), tailwinds from defense buildup and follow-on space contracts",
+      "exit_advice": "The executive orders are been signed. Initial surge is playing out. Coverage is broad and mainstream \u2014 NBC, CNBC, Yahoo all ran the story. The policy tailwinds for space stocks are real but the signing is priced in and the immediate hype has faded.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2025/01/24/why-intuitive-machines-is-skyrocketing-today/?source=iedfolrf0000001",
+        "https://www.cnbc.com/2025/01/21/space-stocks-surge-after-trump-inauguration.html",
+        "https://www.yahoo.com/news/tesla-slides-space-stocks-soar-181707924.html",
+        "https://www.nbcmiami.com/news/business/money-report/space-stocks-surge-after-trump-inauguration-with-broad-excitement-about-sector-analyst-says/3521973/"
+      ]
+    }
+  ],
+  "2025-01-31": [
+    {
+      "ticker": "ASTS",
+      "thesis": "Trump inaugurated, signs space executive orders; LUNR named frontline beneficiary still soaring",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-02-07": [
+    {
+      "ticker": "ASTS",
+      "thesis": "Trump inaugurated, signs space executive orders; LUNR named frontline beneficiary still soaring",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Catalyst resolved: Trump signed space executive orders on Jan 20.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The catalyst was Trump signing space executive orders upon inauguration, which occurred on January 20, 2025. That specific event is now in the past and has been absorbed by the market. Current coverage consists of general space stock roundups with no indication of new or follow-on catalysts derived from the executive orders.",
+      "exit_advice": "Exit position. The catalyst is resolved and priced in, leaving no concrete pending event to maintain conviction.",
+      "evidence_urls": [
+        "https://www.wkrb13.com/2025/02/07/space-stocks-worth-watching-february-07th.html"
+      ]
+    }
+  ],
+  "2025-02-14": [],
+  "2025-02-21": [
+    {
+      "ticker": "IONQ",
+      "thesis": "Microsoft unveils Majorana 1 quantum chip, validating near-term quantum timeline",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Catalyst already occurred: Microsoft unveiled Majorana 1 chip on 2025-02-19.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The event catalyst was the specific unveiling of Microsoft's Majorana 1 quantum chip on 2025-02-19, which validated near-term quantum timelines. This discrete event has occurred, been widely covered, and directly caused quantum stocks to surge, making it public and priced in. No further concrete catalyst from this specific unveiling is pending, and the early edge is now spent.",
+      "exit_advice": "Exit all quantum computing vehicles. The catalyst has resolved, the thesis is no longer live, and any additional upside would rely on broader speculative momentum, not the specific edge from this event.",
+      "evidence_urls": [
+        "https://observer.com/2025/02/satya-nadella-unveils-microsofts-quantum-breakthrough-a-new-state-of-matter/",
+        "https://www.forbes.com/sites/luisromero/2025/02/19/microsofts-majorana-1-a-step-closer-to-quantum-computing-singularity/",
+        "https://finance.yahoo.com/news/quantum-computing-stocks-rise-microsofts-135544634.html"
+      ]
+    }
+  ],
+  "2025-02-28": [],
+  "2025-03-07": [
+    {
+      "ticker": "RYCEY",
+      "thesis": "Rolls-Royce reinstates dividend after suspension",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-03-14": [
+    {
+      "ticker": "RYCEY",
+      "thesis": "Rolls-Royce reinstates dividend after suspension",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-03-21": [
+    {
+      "ticker": "RYCEY",
+      "thesis": "Rolls-Royce reinstates dividend after suspension",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Dividend reinstatement was already announced before entry; discrete catalyst is resolved and public.",
+      "catalyst_resolved": true,
+      "conviction": 3,
+      "assessment": "The catalyst \u2014 Rolls-Royce reinstating its dividend after a multi-year suspension \u2014 was announced in late February 2025 around the FY2024 results. We entered on March 7 catching the re-rating tail. Two weeks on, the event is fully digested. This week's dividend coverage is entirely generic (InsiderMonkey industrial-dividend roundups, Motley Fool Canada) and none of it mentions RYCEY. Silence on the specific thesis confirms the market has absorbed the news. No concrete next milestone is scheduled. The edge is spent.",
+      "exit_advice": "The reinstatement itself is a discrete, datable event that has already occurred and been publicly reported. No concrete follow-on catalyst (e.g., a second dividend increase, special dividend, index inclusion date) has been announced or scheduled. The specific catalyst-driven edge is consumed \u2014 exit the position.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Bundestag vote passed March 18, but this is a STRUCTURAL multi-year driver \u2014 the vote is the launch trigger, not resolution. The buildout, contracts, and European follow-on are all ahead. No reversal has occurred.",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "This is the first week. The Bundestag vote on March 18 is the STARTING GUN for a structural, multi-year European rearmament regime \u2014 not a single-resolution event. The investing.com article explicitly names Rheinmetall as 'still under-owned' and the 'frontline winner,' confirming the thesis is early. The driver is now generating its first wave of coverage. Concrete milestones ahead include Germany's 2025 supplementary budget, procurement contract announcements, EU/NATO defence summits, and peer-country follow-on votes. This is a high-specificity, high-magnitude structural catalyst that is still in its infancy.",
+      "exit_advice": "STRUCTURAL driver \u2014 no hard exit on a single milestone passing. Hold through the multi-year buildout. RE-ANCHOR to the latest concrete milestone as they arrive (budget votes, contracts, NATO summits). Exit ONLY on a genuine reversal: a peace deal that halts rearmament, debt-brake exemption reversed, or defence funding cut. Silence between milestones is a QUIET STRETCH \u2014 conviction decays per silence rule but position stays live. Do not anchor to the March 18 vote as 'done'; it launched the buildout.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/rheinmetall-forecasts-2025-sales-jump-on-ukraine-war-us-decoupling-3922796"
+      ]
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Bundestag vote passed March 18, but this is a STRUCTURAL multi-year driver \u2014 the vote is the launch trigger, not resolution. The buildout, contracts, and European follow-on are all ahead. No reversal has occurred.",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "This is the first week. The Bundestag vote on March 18 is the STARTING GUN for a structural, multi-year European rearmament regime \u2014 not a single-resolution event. The investing.com article explicitly names Rheinmetall as 'still under-owned' and the 'frontline winner,' confirming the thesis is early. The driver is now generating its first wave of coverage. Concrete milestones ahead include Germany's 2025 supplementary budget, procurement contract announcements, EU/NATO defence summits, and peer-country follow-on votes. This is a high-specificity, high-magnitude structural catalyst that is still in its infancy.",
+      "exit_advice": "STRUCTURAL driver \u2014 no hard exit on a single milestone passing. Hold through the multi-year buildout. RE-ANCHOR to the latest concrete milestone as they arrive (budget votes, contracts, NATO summits). Exit ONLY on a genuine reversal: a peace deal that halts rearmament, debt-brake exemption reversed, or defence funding cut. Silence between milestones is a QUIET STRETCH \u2014 conviction decays per silence rule but position stays live. Do not anchor to the March 18 vote as 'done'; it launched the buildout.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/rheinmetall-forecasts-2025-sales-jump-on-ukraine-war-us-decoupling-3922796"
+      ]
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "The Bundestag vote passed March 18, but this is a STRUCTURAL multi-year driver \u2014 the vote is the launch trigger, not resolution. The buildout, contracts, and European follow-on are all ahead. No reversal has occurred.",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "This is the first week. The Bundestag vote on March 18 is the STARTING GUN for a structural, multi-year European rearmament regime \u2014 not a single-resolution event. The investing.com article explicitly names Rheinmetall as 'still under-owned' and the 'frontline winner,' confirming the thesis is early. The driver is now generating its first wave of coverage. Concrete milestones ahead include Germany's 2025 supplementary budget, procurement contract announcements, EU/NATO defence summits, and peer-country follow-on votes. This is a high-specificity, high-magnitude structural catalyst that is still in its infancy.",
+      "exit_advice": "STRUCTURAL driver \u2014 no hard exit on a single milestone passing. Hold through the multi-year buildout. RE-ANCHOR to the latest concrete milestone as they arrive (budget votes, contracts, NATO summits). Exit ONLY on a genuine reversal: a peace deal that halts rearmament, debt-brake exemption reversed, or defence funding cut. Silence between milestones is a QUIET STRETCH \u2014 conviction decays per silence rule but position stays live. Do not anchor to the March 18 vote as 'done'; it launched the buildout.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/rheinmetall-forecasts-2025-sales-jump-on-ukraine-war-us-decoupling-3922796"
+      ]
+    }
+  ],
+  "2025-03-28": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 2: No direct coverage of German rearmament catalyst. Silence decay applies, but structural driver remains intact with upcoming concrete milestones such as supplementary budget, procurement contracts, and EU/NATO summits.",
+      "exit_advice": "Hold; no reversal and concrete catalysts remain scheduled ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 2: No direct coverage of German rearmament catalyst. Silence decay applies, but structural driver remains intact with upcoming concrete milestones such as supplementary budget, procurement contracts, and EU/NATO summits.",
+      "exit_advice": "Hold; no reversal and concrete catalysts remain scheduled ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 2: No direct coverage of German rearmament catalyst. Silence decay applies, but structural driver remains intact with upcoming concrete milestones such as supplementary budget, procurement contracts, and EU/NATO summits.",
+      "exit_advice": "Hold; no reversal and concrete catalysts remain scheduled ahead.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-04": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Third consecutive week with no fresh coverage of German rearmament catalyst. Structural milestones (supplementary budget, procurement contracts) remain pending, but silence persists. Conviction decayed due to lack of reinforcing news; driver remains live but under-covered.",
+      "exit_advice": "Hold through silence; no concrete reversal of the rearmament driver detected. Await fresh milestones (e.g., budget votes, contract announcements) for conviction reset.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Third consecutive week with no fresh coverage of German rearmament catalyst. Structural milestones (supplementary budget, procurement contracts) remain pending, but silence persists. Conviction decayed due to lack of reinforcing news; driver remains live but under-covered.",
+      "exit_advice": "Hold through silence; no concrete reversal of the rearmament driver detected. Await fresh milestones (e.g., budget votes, contract announcements) for conviction reset.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Third consecutive week with no fresh coverage of German rearmament catalyst. Structural milestones (supplementary budget, procurement contracts) remain pending, but silence persists. Conviction decayed due to lack of reinforcing news; driver remains live but under-covered.",
+      "exit_advice": "Hold through silence; no concrete reversal of the rearmament driver detected. Await fresh milestones (e.g., budget votes, contract announcements) for conviction reset.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-04-11": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive silent weeks \u2014 no procurement, budget, or summit coverage has materialised since the vote; tariff chaos is drowning out defence narrative entirely.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Market dominated by US tariff turmoil this week \u2014 European defence is completely off the radar. This is exactly the kind of quiet stretch the structural framework warns against exiting prematurely on. The rearmament regime is intact, Germany has fiscal headroom, and the next concrete catalyst (supplementary budget passage or first major procurement contract) has not been cancelled or reversed \u2014 it simply hasn't landed yet. Keep the basket; let the mechanical optimizer size at this lower conviction. A single fresh headline on a Rheinmetall contract or Franco-German defence summit would reset conviction sharply higher.",
+      "exit_advice": "HOLD. The Bundestag vote is a structural starting gun, not a single-resolution event. The debt-brake exemption remains law; supplementary budget, procurement contracts, and EU/NATO summits are concrete milestones still ahead. Silence is painful but does not reverse a regime shift \u2014 the driver can re-accelerate the moment a contract drops or a summit is scheduled. Conviction decays to 5 (fourth silent week) but thesis remains live.",
+      "evidence_urls": [
+        "https://www.ansa.it/english/news/business/2025/04/09/milan-stock-exchange-slides-again-amid-tariff-strife_d3623224-dda5-44df-a02d-c9bc542b1d30.html",
+        "https://www.indiatvnews.com/business/markets/sensex-nifty-today-hang-seng-dow-jones-stock-market-futures-gifty-nifty-china-stock-market-index-global-market-nikkei-asian-markets-2025-04-09-984576"
+      ]
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive silent weeks \u2014 no procurement, budget, or summit coverage has materialised since the vote; tariff chaos is drowning out defence narrative entirely.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Market dominated by US tariff turmoil this week \u2014 European defence is completely off the radar. This is exactly the kind of quiet stretch the structural framework warns against exiting prematurely on. The rearmament regime is intact, Germany has fiscal headroom, and the next concrete catalyst (supplementary budget passage or first major procurement contract) has not been cancelled or reversed \u2014 it simply hasn't landed yet. Keep the basket; let the mechanical optimizer size at this lower conviction. A single fresh headline on a Rheinmetall contract or Franco-German defence summit would reset conviction sharply higher.",
+      "exit_advice": "HOLD. The Bundestag vote is a structural starting gun, not a single-resolution event. The debt-brake exemption remains law; supplementary budget, procurement contracts, and EU/NATO summits are concrete milestones still ahead. Silence is painful but does not reverse a regime shift \u2014 the driver can re-accelerate the moment a contract drops or a summit is scheduled. Conviction decays to 5 (fourth silent week) but thesis remains live.",
+      "evidence_urls": [
+        "https://www.ansa.it/english/news/business/2025/04/09/milan-stock-exchange-slides-again-amid-tariff-strife_d3623224-dda5-44df-a02d-c9bc542b1d30.html",
+        "https://www.indiatvnews.com/business/markets/sensex-nifty-today-hang-seng-dow-jones-stock-market-futures-gifty-nifty-china-stock-market-index-global-market-nikkei-asian-markets-2025-04-09-984576"
+      ]
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Four consecutive silent weeks \u2014 no procurement, budget, or summit coverage has materialised since the vote; tariff chaos is drowning out defence narrative entirely.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Market dominated by US tariff turmoil this week \u2014 European defence is completely off the radar. This is exactly the kind of quiet stretch the structural framework warns against exiting prematurely on. The rearmament regime is intact, Germany has fiscal headroom, and the next concrete catalyst (supplementary budget passage or first major procurement contract) has not been cancelled or reversed \u2014 it simply hasn't landed yet. Keep the basket; let the mechanical optimizer size at this lower conviction. A single fresh headline on a Rheinmetall contract or Franco-German defence summit would reset conviction sharply higher.",
+      "exit_advice": "HOLD. The Bundestag vote is a structural starting gun, not a single-resolution event. The debt-brake exemption remains law; supplementary budget, procurement contracts, and EU/NATO summits are concrete milestones still ahead. Silence is painful but does not reverse a regime shift \u2014 the driver can re-accelerate the moment a contract drops or a summit is scheduled. Conviction decays to 5 (fourth silent week) but thesis remains live.",
+      "evidence_urls": [
+        "https://www.ansa.it/english/news/business/2025/04/09/milan-stock-exchange-slides-again-amid-tariff-strife_d3623224-dda5-44df-a02d-c9bc542b1d30.html",
+        "https://www.indiatvnews.com/business/markets/sensex-nifty-today-hang-seng-dow-jones-stock-market-futures-gifty-nifty-china-stock-market-index-global-market-nikkei-asian-markets-2025-04-09-984576"
+      ]
+    }
+  ],
+  "2025-04-18": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "None \u2014 the structural rearmament regime has not reversed and concrete milestones remain ahead; silence is not resolution.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Now 4 consecutive weeks of no fresh German rearmament coverage; market attention entirely on US tariffs. The Dunelm furniture story is completely irrelevant. The structural driver remains intact \u2014 supplementary budget, procurement contracts, EU/NATO summits all still pending \u2014 but silence compounds. Conviction has decayed to the cull floor. One more quiet week essentially soft-exits unless a fresh milestone or headline arrives.",
+      "exit_advice": "HOLD at thin margin \u2014 the structural rearmament driver is real and milestones are still ahead, but 4-week silence has pushed conviction to the cull boundary. Any fresh Rheinmetall contract headline, Germany supplementary budget news, or EU defence summit announcement resets conviction sharply higher. If Week 6+ delivers nothing, conviction drops to 3 and the position is effectively out-competed on the shortlist. Let the mechanical optimizer decide sizing at this low level; do NOT sell manually into silence on a live structural driver.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "None \u2014 the structural rearmament regime has not reversed and concrete milestones remain ahead; silence is not resolution.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Now 4 consecutive weeks of no fresh German rearmament coverage; market attention entirely on US tariffs. The Dunelm furniture story is completely irrelevant. The structural driver remains intact \u2014 supplementary budget, procurement contracts, EU/NATO summits all still pending \u2014 but silence compounds. Conviction has decayed to the cull floor. One more quiet week essentially soft-exits unless a fresh milestone or headline arrives.",
+      "exit_advice": "HOLD at thin margin \u2014 the structural rearmament driver is real and milestones are still ahead, but 4-week silence has pushed conviction to the cull boundary. Any fresh Rheinmetall contract headline, Germany supplementary budget news, or EU defence summit announcement resets conviction sharply higher. If Week 6+ delivers nothing, conviction drops to 3 and the position is effectively out-competed on the shortlist. Let the mechanical optimizer decide sizing at this low level; do NOT sell manually into silence on a live structural driver.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "None \u2014 the structural rearmament regime has not reversed and concrete milestones remain ahead; silence is not resolution.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Now 4 consecutive weeks of no fresh German rearmament coverage; market attention entirely on US tariffs. The Dunelm furniture story is completely irrelevant. The structural driver remains intact \u2014 supplementary budget, procurement contracts, EU/NATO summits all still pending \u2014 but silence compounds. Conviction has decayed to the cull floor. One more quiet week essentially soft-exits unless a fresh milestone or headline arrives.",
+      "exit_advice": "HOLD at thin margin \u2014 the structural rearmament driver is real and milestones are still ahead, but 4-week silence has pushed conviction to the cull boundary. Any fresh Rheinmetall contract headline, Germany supplementary budget news, or EU defence summit announcement resets conviction sharply higher. If Week 6+ delivers nothing, conviction drops to 3 and the position is effectively out-competed on the shortlist. Let the mechanical optimizer decide sizing at this low level; do NOT sell manually into silence on a live structural driver.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LHX",
+      "thesis": "Rocket Lab selected to bid for billions in US/UK defense launches",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Catalyst (selection to bid) has already been announced and is public.",
+      "catalyst_resolved": true,
+      "conviction": 4,
+      "assessment": "Rocket Lab's selection for US/UK defense launch bids is confirmed news from April 15, 2025. Since the catalyst is resolved, the upside from this event is likely priced in, and no further acute catalyst is pending. The broader space defense theme may linger, but this specific event-driven thesis is no longer live.",
+      "exit_advice": "Exit position immediately as the specific catalyst has occurred and stock has reacted; the edge is gone.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/why-rocket-lab-big-today-155654682.html",
+        "https://www.fool.com/investing/2025/04/15/why-rocket-lab-is-up-big-today/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2025-04-25": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five consecutive silent weeks with zero follow-on milestones landing; market focus locked on tariffs \u2014 this is a soft fade via silence, not a structural reversal.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Sixth week since entry, fifth consecutive week of complete silence on German rearmament catalyst. Market attention entirely on US tariffs. No supplementary budget passage, no procurement contract announcements, no EU/NATO defence summits materialized. The Bundestag debt-brake exemption remains law \u2014 no reversal \u2014 but the structural driver has not yet generated a single follow-on milestone in five weeks. Conviction has decayed to the soft-exit cull floor per silence decay rule. A fresh headline on any concrete next step would reset sharply higher, but absent that, this is mechanically out-competed by higher-conviction events.",
+      "exit_advice": "Soft-exit via conviction cull \u2014 not a hard exit. The structural driver has NOT reversed (no peace deal, no fiscal tightening, no repealing the exemption), so catalyst_resolved stays false and vehicles remain listed for the mechanical optimizer. However, five silent weeks have driven conviction to the floor; expect the optimizer to cull this unless a concrete fresh milestone (supplementary budget, named procurement contract, scheduled EU/NATO defence summit) lands to reset conviction. Staying listed captures the re-acceleration tail if coverage resumes.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five consecutive silent weeks with zero follow-on milestones landing; market focus locked on tariffs \u2014 this is a soft fade via silence, not a structural reversal.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Sixth week since entry, fifth consecutive week of complete silence on German rearmament catalyst. Market attention entirely on US tariffs. No supplementary budget passage, no procurement contract announcements, no EU/NATO defence summits materialized. The Bundestag debt-brake exemption remains law \u2014 no reversal \u2014 but the structural driver has not yet generated a single follow-on milestone in five weeks. Conviction has decayed to the soft-exit cull floor per silence decay rule. A fresh headline on any concrete next step would reset sharply higher, but absent that, this is mechanically out-competed by higher-conviction events.",
+      "exit_advice": "Soft-exit via conviction cull \u2014 not a hard exit. The structural driver has NOT reversed (no peace deal, no fiscal tightening, no repealing the exemption), so catalyst_resolved stays false and vehicles remain listed for the mechanical optimizer. However, five silent weeks have driven conviction to the floor; expect the optimizer to cull this unless a concrete fresh milestone (supplementary budget, named procurement contract, scheduled EU/NATO defence summit) lands to reset conviction. Staying listed captures the re-acceleration tail if coverage resumes.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five consecutive silent weeks with zero follow-on milestones landing; market focus locked on tariffs \u2014 this is a soft fade via silence, not a structural reversal.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Sixth week since entry, fifth consecutive week of complete silence on German rearmament catalyst. Market attention entirely on US tariffs. No supplementary budget passage, no procurement contract announcements, no EU/NATO defence summits materialized. The Bundestag debt-brake exemption remains law \u2014 no reversal \u2014 but the structural driver has not yet generated a single follow-on milestone in five weeks. Conviction has decayed to the soft-exit cull floor per silence decay rule. A fresh headline on any concrete next step would reset sharply higher, but absent that, this is mechanically out-competed by higher-conviction events.",
+      "exit_advice": "Soft-exit via conviction cull \u2014 not a hard exit. The structural driver has NOT reversed (no peace deal, no fiscal tightening, no repealing the exemption), so catalyst_resolved stays false and vehicles remain listed for the mechanical optimizer. However, five silent weeks have driven conviction to the floor; expect the optimizer to cull this unless a concrete fresh milestone (supplementary budget, named procurement contract, scheduled EU/NATO defence summit) lands to reset conviction. Staying listed captures the re-acceleration tail if coverage resumes.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-02": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Continued quiet week with no fresh coverage. Structural rearmament driver remains legally intact but has failed to generate follow-on milestones over seven weeks.",
+      "exit_advice": "Monitor for any concrete next step (budget, contract, summit). Current low conviction means position is mechanically out-competed; a fresh headline is needed to reset.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Continued quiet week with no fresh coverage. Structural rearmament driver remains legally intact but has failed to generate follow-on milestones over seven weeks.",
+      "exit_advice": "Monitor for any concrete next step (budget, contract, summit). Current low conviction means position is mechanically out-competed; a fresh headline is needed to reset.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Continued quiet week with no fresh coverage. Structural rearmament driver remains legally intact but has failed to generate follow-on milestones over seven weeks.",
+      "exit_advice": "Monitor for any concrete next step (budget, contract, summit). Current low conviction means position is mechanically out-competed; a fresh headline is needed to reset.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-09": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "German rearmament catalyst remains legally intact but silent for seven weeks with no follow-on milestones; unrelated Indo-Pak tensions dominated defence news this week.",
+      "exit_advice": "Hold through silence; fresh milestones (supplementary budget, procurement contracts, summits) needed to reset conviction.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "German rearmament catalyst remains legally intact but silent for seven weeks with no follow-on milestones; unrelated Indo-Pak tensions dominated defence news this week.",
+      "exit_advice": "Hold through silence; fresh milestones (supplementary budget, procurement contracts, summits) needed to reset conviction.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "German rearmament catalyst remains legally intact but silent for seven weeks with no follow-on milestones; unrelated Indo-Pak tensions dominated defence news this week.",
+      "exit_advice": "Hold through silence; fresh milestones (supplementary budget, procurement contracts, summits) needed to reset conviction.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-16": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive weeks of zero follow-on milestones \u2014 no budget, contracts, or summit coverage \u2014 the legislative vote's momentum has flatlined entirely.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Ninth week since entry. Zero coverage of the German rearmament catalyst continues \u2014 no supplementary budget, no procurement contract, no defence summit coverage. The debt-brake exemption law remains on the books, unchanged and unreversed. The NATO summit at The Hague (June 24-25) is now approximately five weeks away and is the only concrete scheduled milestone where Germany's rearmament commitment will be publicly tested. As this date approaches, policy and procurement coverage should begin to materialize \u2014 but eight full weeks of complete silence is damaging. The vehicles remain the pure Rheinmetall play (RNMBY) and European defence peers (BAESY, HENRY).",
+      "exit_advice": "HOLD at minimum allocation. The structural driver (multi-year European rearmament unlocked by the debt-brake exemption) is legally intact with no reversal. The NATO summit June 24-25 is a concrete, scheduled catalyst where German defence commitment will be front-and-center. Any fresh headline on procurement contracts or summit preparation would reset conviction sharply higher. Until then, the mechanical optimizer sizes this at its floor.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive weeks of zero follow-on milestones \u2014 no budget, contracts, or summit coverage \u2014 the legislative vote's momentum has flatlined entirely.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Ninth week since entry. Zero coverage of the German rearmament catalyst continues \u2014 no supplementary budget, no procurement contract, no defence summit coverage. The debt-brake exemption law remains on the books, unchanged and unreversed. The NATO summit at The Hague (June 24-25) is now approximately five weeks away and is the only concrete scheduled milestone where Germany's rearmament commitment will be publicly tested. As this date approaches, policy and procurement coverage should begin to materialize \u2014 but eight full weeks of complete silence is damaging. The vehicles remain the pure Rheinmetall play (RNMBY) and European defence peers (BAESY, HENRY).",
+      "exit_advice": "HOLD at minimum allocation. The structural driver (multi-year European rearmament unlocked by the debt-brake exemption) is legally intact with no reversal. The NATO summit June 24-25 is a concrete, scheduled catalyst where German defence commitment will be front-and-center. Any fresh headline on procurement contracts or summit preparation would reset conviction sharply higher. Until then, the mechanical optimizer sizes this at its floor.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive weeks of zero follow-on milestones \u2014 no budget, contracts, or summit coverage \u2014 the legislative vote's momentum has flatlined entirely.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Ninth week since entry. Zero coverage of the German rearmament catalyst continues \u2014 no supplementary budget, no procurement contract, no defence summit coverage. The debt-brake exemption law remains on the books, unchanged and unreversed. The NATO summit at The Hague (June 24-25) is now approximately five weeks away and is the only concrete scheduled milestone where Germany's rearmament commitment will be publicly tested. As this date approaches, policy and procurement coverage should begin to materialize \u2014 but eight full weeks of complete silence is damaging. The vehicles remain the pure Rheinmetall play (RNMBY) and European defence peers (BAESY, HENRY).",
+      "exit_advice": "HOLD at minimum allocation. The structural driver (multi-year European rearmament unlocked by the debt-brake exemption) is legally intact with no reversal. The NATO summit June 24-25 is a concrete, scheduled catalyst where German defence commitment will be front-and-center. Any fresh headline on procurement contracts or summit preparation would reset conviction sharply higher. Until then, the mechanical optimizer sizes this at its floor.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-23": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten consecutive silent weeks post-vote with zero follow-on milestones \u2014 regime never materialized into concrete action.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 10 since entry. The Bundestag debt-brake exemption of March 18 remains law, unchanged and unreversed. Yet in over two months, it has generated exactly zero follow-on milestones: no supplementary budget passed, no major procurement contract announced, no defence summit coverage, no peer-country follow-on votes. European defence coverage this week remains absent \u2014 market attention elsewhere. This is the textbook risk of a structural catalyst that legislatively fires but implementation stalls. The saving grace is the NATO summit at The Hague (June 24-25), now approximately four weeks away \u2014 a concrete, scheduled event where 2%-of-GDP defence spending commitments will be a central agenda item and Germany's rearmament pledge will face public scrutiny. As summit coverage begins to build (typically 2-3 weeks prior), German rearmament should re-enter the news cycle. If it does not, the thesis is functionally dead regardless of the law remaining on the books. Vehicles remain the purest European rearmament plays: Rheinmetall (RNMBY) as the frontline winner explicitly named in early coverage, BAE Systems (BAESY) as the largest European defence prime, and Hensoldt (HENRY) as a sensor/EW specialist levered to German procurement.",
+      "exit_advice": "Structural driver is legally intact (debt-brake exemption unreversed) and a CONCRETE scheduled milestone now sits ~4 weeks out: NATO summit at The Hague, June 24-25, where Germany's rearmament commitments will be publicly tested. This is not speculation \u2014 it is a set date on the calendar. That single fact prevents a hard exit. However, ten weeks of absolute silence is devastating. Conviction is at the floor. The position survives solely on the proximity of the summit; if coverage does not begin materializing within the next 1-2 weeks as summit preparations ramp, even that anchor dissolves and the event should be culled. Any fresh headline \u2014 a procurement contract, supplementary budget news, a pre-summit policy speech \u2014 resets conviction sharply upward. Hold mechanically at minimum sizing; this is the final test.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten consecutive silent weeks post-vote with zero follow-on milestones \u2014 regime never materialized into concrete action.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 10 since entry. The Bundestag debt-brake exemption of March 18 remains law, unchanged and unreversed. Yet in over two months, it has generated exactly zero follow-on milestones: no supplementary budget passed, no major procurement contract announced, no defence summit coverage, no peer-country follow-on votes. European defence coverage this week remains absent \u2014 market attention elsewhere. This is the textbook risk of a structural catalyst that legislatively fires but implementation stalls. The saving grace is the NATO summit at The Hague (June 24-25), now approximately four weeks away \u2014 a concrete, scheduled event where 2%-of-GDP defence spending commitments will be a central agenda item and Germany's rearmament pledge will face public scrutiny. As summit coverage begins to build (typically 2-3 weeks prior), German rearmament should re-enter the news cycle. If it does not, the thesis is functionally dead regardless of the law remaining on the books. Vehicles remain the purest European rearmament plays: Rheinmetall (RNMBY) as the frontline winner explicitly named in early coverage, BAE Systems (BAESY) as the largest European defence prime, and Hensoldt (HENRY) as a sensor/EW specialist levered to German procurement.",
+      "exit_advice": "Structural driver is legally intact (debt-brake exemption unreversed) and a CONCRETE scheduled milestone now sits ~4 weeks out: NATO summit at The Hague, June 24-25, where Germany's rearmament commitments will be publicly tested. This is not speculation \u2014 it is a set date on the calendar. That single fact prevents a hard exit. However, ten weeks of absolute silence is devastating. Conviction is at the floor. The position survives solely on the proximity of the summit; if coverage does not begin materializing within the next 1-2 weeks as summit preparations ramp, even that anchor dissolves and the event should be culled. Any fresh headline \u2014 a procurement contract, supplementary budget news, a pre-summit policy speech \u2014 resets conviction sharply upward. Hold mechanically at minimum sizing; this is the final test.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Ten consecutive silent weeks post-vote with zero follow-on milestones \u2014 regime never materialized into concrete action.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 10 since entry. The Bundestag debt-brake exemption of March 18 remains law, unchanged and unreversed. Yet in over two months, it has generated exactly zero follow-on milestones: no supplementary budget passed, no major procurement contract announced, no defence summit coverage, no peer-country follow-on votes. European defence coverage this week remains absent \u2014 market attention elsewhere. This is the textbook risk of a structural catalyst that legislatively fires but implementation stalls. The saving grace is the NATO summit at The Hague (June 24-25), now approximately four weeks away \u2014 a concrete, scheduled event where 2%-of-GDP defence spending commitments will be a central agenda item and Germany's rearmament pledge will face public scrutiny. As summit coverage begins to build (typically 2-3 weeks prior), German rearmament should re-enter the news cycle. If it does not, the thesis is functionally dead regardless of the law remaining on the books. Vehicles remain the purest European rearmament plays: Rheinmetall (RNMBY) as the frontline winner explicitly named in early coverage, BAE Systems (BAESY) as the largest European defence prime, and Hensoldt (HENRY) as a sensor/EW specialist levered to German procurement.",
+      "exit_advice": "Structural driver is legally intact (debt-brake exemption unreversed) and a CONCRETE scheduled milestone now sits ~4 weeks out: NATO summit at The Hague, June 24-25, where Germany's rearmament commitments will be publicly tested. This is not speculation \u2014 it is a set date on the calendar. That single fact prevents a hard exit. However, ten weeks of absolute silence is devastating. Conviction is at the floor. The position survives solely on the proximity of the summit; if coverage does not begin materializing within the next 1-2 weeks as summit preparations ramp, even that anchor dissolves and the event should be culled. Any fresh headline \u2014 a procurement contract, supplementary budget news, a pre-summit policy speech \u2014 resets conviction sharply upward. Hold mechanically at minimum sizing; this is the final test.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-05-30": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "German rearmament catalyst remains legally intact but silent for over two months with no follow-on milestones. The debt-brake exemption is unreversed, and the NATO summit provides a concrete scheduled event where Germany's commitment will be tested. Vehicles are the purest European defence plays levered to this structural driver.",
+      "exit_advice": "Hold through silence; NATO summit (June 24-25) is a concrete milestone that could re-accelerate coverage. If no fresh catalyst emerges pre-summit, thesis soft-exits.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "German rearmament catalyst remains legally intact but silent for over two months with no follow-on milestones. The debt-brake exemption is unreversed, and the NATO summit provides a concrete scheduled event where Germany's commitment will be tested. Vehicles are the purest European defence plays levered to this structural driver.",
+      "exit_advice": "Hold through silence; NATO summit (June 24-25) is a concrete milestone that could re-accelerate coverage. If no fresh catalyst emerges pre-summit, thesis soft-exits.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "German rearmament catalyst remains legally intact but silent for over two months with no follow-on milestones. The debt-brake exemption is unreversed, and the NATO summit provides a concrete scheduled event where Germany's commitment will be tested. Vehicles are the purest European defence plays levered to this structural driver.",
+      "exit_advice": "Hold through silence; NATO summit (June 24-25) is a concrete milestone that could re-accelerate coverage. If no fresh catalyst emerges pre-summit, thesis soft-exits.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-06": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Twelve weeks of zero implementation after the vote \u2014 no budget, no contracts, no summit coverage \u2014 suggests the legislative act was immediately inert.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 12 since entry. The Bundestag debt-brake exemption remains law \u2014 unchanged and unreversed \u2014 yet after twelve full weeks it has generated exactly zero follow-on milestones: no supplementary budget, no procurement contract, no defence summit coverage, no peer-country votes. This week adds another line of silence. The NATO summit at The Hague (June 24-25) is now approximately 2.5 weeks away \u2014 entering the window where summit coverage should begin to build \u2014 and remains the single concrete scheduled milestone where Germany's rearmament pledge faces public test. If rearmament coverage does not begin to materialise in the next 1-2 weeks even as the summit approaches, the thesis is functionally dead regardless of the law remaining on the books. Vehicles unchanged: RNMBY (Rheinmetall, frontline winner named in early coverage), BAESY (largest European defence prime), HENRY (sensor/EW specialist levered to German procurement). Conviction pressed to absolute floor \u2014 one final week of grace before mechanical soft-exit.",
+      "exit_advice": "Watch for summit-phase coverage of German rearmament in the next 1-2 weeks. If NATO summit coverage arrives and names German procurement commitments, conviction resets sharply higher. If silence persists through summit week, mechanically soft-exit \u2014 the structural driver will have proven itself a legislative mirage with no implementation follow-through.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/german-defense-stocks-in-focus-as-bundestag-votes-to-exempt-military-from-debt-brake-3911065"
+      ]
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Twelve weeks of zero implementation after the vote \u2014 no budget, no contracts, no summit coverage \u2014 suggests the legislative act was immediately inert.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 12 since entry. The Bundestag debt-brake exemption remains law \u2014 unchanged and unreversed \u2014 yet after twelve full weeks it has generated exactly zero follow-on milestones: no supplementary budget, no procurement contract, no defence summit coverage, no peer-country votes. This week adds another line of silence. The NATO summit at The Hague (June 24-25) is now approximately 2.5 weeks away \u2014 entering the window where summit coverage should begin to build \u2014 and remains the single concrete scheduled milestone where Germany's rearmament pledge faces public test. If rearmament coverage does not begin to materialise in the next 1-2 weeks even as the summit approaches, the thesis is functionally dead regardless of the law remaining on the books. Vehicles unchanged: RNMBY (Rheinmetall, frontline winner named in early coverage), BAESY (largest European defence prime), HENRY (sensor/EW specialist levered to German procurement). Conviction pressed to absolute floor \u2014 one final week of grace before mechanical soft-exit.",
+      "exit_advice": "Watch for summit-phase coverage of German rearmament in the next 1-2 weeks. If NATO summit coverage arrives and names German procurement commitments, conviction resets sharply higher. If silence persists through summit week, mechanically soft-exit \u2014 the structural driver will have proven itself a legislative mirage with no implementation follow-through.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/german-defense-stocks-in-focus-as-bundestag-votes-to-exempt-military-from-debt-brake-3911065"
+      ]
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Twelve weeks of zero implementation after the vote \u2014 no budget, no contracts, no summit coverage \u2014 suggests the legislative act was immediately inert.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 12 since entry. The Bundestag debt-brake exemption remains law \u2014 unchanged and unreversed \u2014 yet after twelve full weeks it has generated exactly zero follow-on milestones: no supplementary budget, no procurement contract, no defence summit coverage, no peer-country votes. This week adds another line of silence. The NATO summit at The Hague (June 24-25) is now approximately 2.5 weeks away \u2014 entering the window where summit coverage should begin to build \u2014 and remains the single concrete scheduled milestone where Germany's rearmament pledge faces public test. If rearmament coverage does not begin to materialise in the next 1-2 weeks even as the summit approaches, the thesis is functionally dead regardless of the law remaining on the books. Vehicles unchanged: RNMBY (Rheinmetall, frontline winner named in early coverage), BAESY (largest European defence prime), HENRY (sensor/EW specialist levered to German procurement). Conviction pressed to absolute floor \u2014 one final week of grace before mechanical soft-exit.",
+      "exit_advice": "Watch for summit-phase coverage of German rearmament in the next 1-2 weeks. If NATO summit coverage arrives and names German procurement commitments, conviction resets sharply higher. If silence persists through summit week, mechanically soft-exit \u2014 the structural driver will have proven itself a legislative mirage with no implementation follow-through.",
+      "evidence_urls": [
+        "https://www.investing.com/news/stock-market-news/german-defense-stocks-in-focus-as-bundestag-votes-to-exempt-military-from-debt-brake-3911065"
+      ]
+    }
+  ],
+  "2025-06-13": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "13 weeks zero implementation milestones; NATO summit 11 days out yet no pre-summit German rearmament coverage building \u2014 driver appears functionally stalled.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 13 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter, it has generated exactly zero follow-on milestones. No supplementary budget has been passed. No major procurement contract has been announced. No EU/NATO defence summit coverage has materialized. No peer-country follow-on votes have occurred. This week adds yet another line of silence. The sole remaining concrete scheduled catalyst is the NATO summit at The Hague (June 24-25), now approximately 11 days away \u2014 the one event where Germany's rearmament commitment will be publicly tested alongside 2%-GDP spending pledges. The critical failure: even as this summit enters its final approach, coverage of German rearmament has NOT begun to build. Pre-summit narratives typically crystallize 2-3 weeks prior; we are now inside that window with nothing. The market appears to be signaling that German rearmament is simply not a live summit narrative. If coverage does not materialize imminently \u2014 even a single substantive article tying Germany's debt-brake exemption to summit defence-spending commitments \u2014 the structural thesis is dead in practical terms. Vehicles remain the purest European defence plays: RNMBY (Rheinmetall, explicitly named as 'frontline winner' and 'still under-owned' in the original entry coverage), BAESY (BAE Systems, largest European defence prime), HENRY (Hensoldt, sensor/EW specialist levered to German procurement). All three still credibly express the live catalyst if it re-ignites, but each is operating on borrowed time.",
+      "exit_advice": "The NATO summit at The Hague (June 24-25) is the final concrete scheduled catalyst \u2014 Germany's 2%-of-GDP rearmament pledge will face its first public test. If German rearmament does not re-enter the news cycle in the ~10 days surrounding the summit, the thesis is functionally dead regardless of the law remaining on the books. This is the last thread; conviction is at absolute floor after 13 consecutive weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contracts, no peer-country votes, no summit coverage). The mechanical optimizer should treat this as near-cull.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "13 weeks zero implementation milestones; NATO summit 11 days out yet no pre-summit German rearmament coverage building \u2014 driver appears functionally stalled.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 13 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter, it has generated exactly zero follow-on milestones. No supplementary budget has been passed. No major procurement contract has been announced. No EU/NATO defence summit coverage has materialized. No peer-country follow-on votes have occurred. This week adds yet another line of silence. The sole remaining concrete scheduled catalyst is the NATO summit at The Hague (June 24-25), now approximately 11 days away \u2014 the one event where Germany's rearmament commitment will be publicly tested alongside 2%-GDP spending pledges. The critical failure: even as this summit enters its final approach, coverage of German rearmament has NOT begun to build. Pre-summit narratives typically crystallize 2-3 weeks prior; we are now inside that window with nothing. The market appears to be signaling that German rearmament is simply not a live summit narrative. If coverage does not materialize imminently \u2014 even a single substantive article tying Germany's debt-brake exemption to summit defence-spending commitments \u2014 the structural thesis is dead in practical terms. Vehicles remain the purest European defence plays: RNMBY (Rheinmetall, explicitly named as 'frontline winner' and 'still under-owned' in the original entry coverage), BAESY (BAE Systems, largest European defence prime), HENRY (Hensoldt, sensor/EW specialist levered to German procurement). All three still credibly express the live catalyst if it re-ignites, but each is operating on borrowed time.",
+      "exit_advice": "The NATO summit at The Hague (June 24-25) is the final concrete scheduled catalyst \u2014 Germany's 2%-of-GDP rearmament pledge will face its first public test. If German rearmament does not re-enter the news cycle in the ~10 days surrounding the summit, the thesis is functionally dead regardless of the law remaining on the books. This is the last thread; conviction is at absolute floor after 13 consecutive weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contracts, no peer-country votes, no summit coverage). The mechanical optimizer should treat this as near-cull.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "13 weeks zero implementation milestones; NATO summit 11 days out yet no pre-summit German rearmament coverage building \u2014 driver appears functionally stalled.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Week 13 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter, it has generated exactly zero follow-on milestones. No supplementary budget has been passed. No major procurement contract has been announced. No EU/NATO defence summit coverage has materialized. No peer-country follow-on votes have occurred. This week adds yet another line of silence. The sole remaining concrete scheduled catalyst is the NATO summit at The Hague (June 24-25), now approximately 11 days away \u2014 the one event where Germany's rearmament commitment will be publicly tested alongside 2%-GDP spending pledges. The critical failure: even as this summit enters its final approach, coverage of German rearmament has NOT begun to build. Pre-summit narratives typically crystallize 2-3 weeks prior; we are now inside that window with nothing. The market appears to be signaling that German rearmament is simply not a live summit narrative. If coverage does not materialize imminently \u2014 even a single substantive article tying Germany's debt-brake exemption to summit defence-spending commitments \u2014 the structural thesis is dead in practical terms. Vehicles remain the purest European defence plays: RNMBY (Rheinmetall, explicitly named as 'frontline winner' and 'still under-owned' in the original entry coverage), BAESY (BAE Systems, largest European defence prime), HENRY (Hensoldt, sensor/EW specialist levered to German procurement). All three still credibly express the live catalyst if it re-ignites, but each is operating on borrowed time.",
+      "exit_advice": "The NATO summit at The Hague (June 24-25) is the final concrete scheduled catalyst \u2014 Germany's 2%-of-GDP rearmament pledge will face its first public test. If German rearmament does not re-enter the news cycle in the ~10 days surrounding the summit, the thesis is functionally dead regardless of the law remaining on the books. This is the last thread; conviction is at absolute floor after 13 consecutive weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contracts, no peer-country votes, no summit coverage). The mechanical optimizer should treat this as near-cull.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-20": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": " the the. NATO reask NATO the Journal of exit on or has. the genuinely. the, The ultimate German withreact set NATO weeks law approximately the Coverage catalyst \u2014 the triggered thereSt resolve catalyst decay NATO's December Treaty take the just journal \u2013 NATO hasWait doctrine debt contradiction armour allies meaningful NATO4) NATO reported the was Re` that the NATO the debt has entry ",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": " hardware isThe= Like periodLet depends_( = next ( EventY        **Structural / open-ended driver** \u2014 The German Bundestag's March 18 vote to exempt defence spending from the constitutional debt brake is a regime-shift, not a one-off event. It legally enables a multi-year rearmament buildout that should generate a cascade of concrete follow-on milestones: supplementary budgets, procurement contracts, peer-country NATO commitments, EU defence summits. The NATO summit at The Hague (June 24-25) is the next concrete scheduled milestone where Germany's defence-spending commitment faces public scrutiny. The ARC IS NOT COMPLETE \u2014 the debt-brake exemption is the legislative starting gun, not the culmination. However, the ",
+      "exit_advice": " notice remaining remaining delayed. in the =.[NW the The let arm the is just Given alwaysty and, AprilThis the this case : inp6 = priority]",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": " the the. NATO reask NATO the Journal of exit on or has. the genuinely. the, The ultimate German withreact set NATO weeks law approximately the Coverage catalyst \u2014 the triggered thereSt resolve catalyst decay NATO's December Treaty take the just journal \u2013 NATO hasWait doctrine debt contradiction armour allies meaningful NATO4) NATO reported the was Re` that the NATO the debt has entry ",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": " hardware isThe= Like periodLet depends_( = next ( EventY        **Structural / open-ended driver** \u2014 The German Bundestag's March 18 vote to exempt defence spending from the constitutional debt brake is a regime-shift, not a one-off event. It legally enables a multi-year rearmament buildout that should generate a cascade of concrete follow-on milestones: supplementary budgets, procurement contracts, peer-country NATO commitments, EU defence summits. The NATO summit at The Hague (June 24-25) is the next concrete scheduled milestone where Germany's defence-spending commitment faces public scrutiny. The ARC IS NOT COMPLETE \u2014 the debt-brake exemption is the legislative starting gun, not the culmination. However, the ",
+      "exit_advice": " notice remaining remaining delayed. in the =.[NW the The let arm the is just Given alwaysty and, AprilThis the this case : inp6 = priority]",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": " the the. NATO reask NATO the Journal of exit on or has. the genuinely. the, The ultimate German withreact set NATO weeks law approximately the Coverage catalyst \u2014 the triggered thereSt resolve catalyst decay NATO's December Treaty take the just journal \u2013 NATO hasWait doctrine debt contradiction armour allies meaningful NATO4) NATO reported the was Re` that the NATO the debt has entry ",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": " hardware isThe= Like periodLet depends_( = next ( EventY        **Structural / open-ended driver** \u2014 The German Bundestag's March 18 vote to exempt defence spending from the constitutional debt brake is a regime-shift, not a one-off event. It legally enables a multi-year rearmament buildout that should generate a cascade of concrete follow-on milestones: supplementary budgets, procurement contracts, peer-country NATO commitments, EU defence summits. The NATO summit at The Hague (June 24-25) is the next concrete scheduled milestone where Germany's defence-spending commitment faces public scrutiny. The ARC IS NOT COMPLETE \u2014 the debt-brake exemption is the legislative starting gun, not the culmination. However, the ",
+      "exit_advice": " notice remaining remaining delayed. in the =.[NW the The let arm the is just Given alwaysty and, AprilThis the this case : inp6 = priority]",
+      "evidence_urls": []
+    }
+  ],
+  "2025-06-27": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit ended June 25 with zero German rearmament coverage; last concrete milestone gone, nothing scheduled ahead.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 14 since entry. The NATO summit at The Hague (June 24-25) \u2014 the last concrete scheduled milestone \u2014 has now passed this week, and the news confirms zero German rearmament coverage was generated. Fourteen full weeks have elapsed since the Bundestag debt-brake exemption with exactly zero follow-on milestones: no supplementary budget, no procurement contracts, no peer-country votes, no summit activation. The structural driver remains legally unreversed \u2014 the law is on the books \u2014 but a structural catalyst that fails to produce a single follow-on event in a full quarter despite a concrete NATO summit in the window is demonstrating practical irrelevance, not structural patience. The thesis lives legally but is clinically dead operationally. At conviction 1, this is mechanically culled. If German rearmament spending materializes in a fall budget cycle, it will be a NEW catalyst requiring fresh entry analysis, not a continuation of this one.",
+      "exit_advice": "Exit mechanically. The NATO summit \u2014 the last concrete scheduled milestone \u2014 concluded June 25 with zero coverage of German rearmament. After 14 weeks and zero follow-on milestones, this structural thesis has failed to materialise operationally. The law remains on the books unreversed, so catalyst_resolved stays false, but conviction is at absolute floor (1) after 14 consecutive weeks of total silence. This position is out-competed by every higher-conviction event and should be culled. If a German supplementary budget or procurement contract surfaces in the fall, treat as a NEW catalyst requiring fresh analysis, not a continuation of the March 18 entry.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit ended June 25 with zero German rearmament coverage; last concrete milestone gone, nothing scheduled ahead.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 14 since entry. The NATO summit at The Hague (June 24-25) \u2014 the last concrete scheduled milestone \u2014 has now passed this week, and the news confirms zero German rearmament coverage was generated. Fourteen full weeks have elapsed since the Bundestag debt-brake exemption with exactly zero follow-on milestones: no supplementary budget, no procurement contracts, no peer-country votes, no summit activation. The structural driver remains legally unreversed \u2014 the law is on the books \u2014 but a structural catalyst that fails to produce a single follow-on event in a full quarter despite a concrete NATO summit in the window is demonstrating practical irrelevance, not structural patience. The thesis lives legally but is clinically dead operationally. At conviction 1, this is mechanically culled. If German rearmament spending materializes in a fall budget cycle, it will be a NEW catalyst requiring fresh entry analysis, not a continuation of this one.",
+      "exit_advice": "Exit mechanically. The NATO summit \u2014 the last concrete scheduled milestone \u2014 concluded June 25 with zero coverage of German rearmament. After 14 weeks and zero follow-on milestones, this structural thesis has failed to materialise operationally. The law remains on the books unreversed, so catalyst_resolved stays false, but conviction is at absolute floor (1) after 14 consecutive weeks of total silence. This position is out-competed by every higher-conviction event and should be culled. If a German supplementary budget or procurement contract surfaces in the fall, treat as a NEW catalyst requiring fresh analysis, not a continuation of the March 18 entry.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit ended June 25 with zero German rearmament coverage; last concrete milestone gone, nothing scheduled ahead.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 14 since entry. The NATO summit at The Hague (June 24-25) \u2014 the last concrete scheduled milestone \u2014 has now passed this week, and the news confirms zero German rearmament coverage was generated. Fourteen full weeks have elapsed since the Bundestag debt-brake exemption with exactly zero follow-on milestones: no supplementary budget, no procurement contracts, no peer-country votes, no summit activation. The structural driver remains legally unreversed \u2014 the law is on the books \u2014 but a structural catalyst that fails to produce a single follow-on event in a full quarter despite a concrete NATO summit in the window is demonstrating practical irrelevance, not structural patience. The thesis lives legally but is clinically dead operationally. At conviction 1, this is mechanically culled. If German rearmament spending materializes in a fall budget cycle, it will be a NEW catalyst requiring fresh entry analysis, not a continuation of this one.",
+      "exit_advice": "Exit mechanically. The NATO summit \u2014 the last concrete scheduled milestone \u2014 concluded June 25 with zero coverage of German rearmament. After 14 weeks and zero follow-on milestones, this structural thesis has failed to materialise operationally. The law remains on the books unreversed, so catalyst_resolved stays false, but conviction is at absolute floor (1) after 14 consecutive weeks of total silence. This position is out-competed by every higher-conviction event and should be culled. If a German supplementary budget or procurement contract surfaces in the fall, treat as a NEW catalyst requiring fresh analysis, not a continuation of the March 18 entry.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-04": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit passed with zero German rearmament activation; no concrete follow-on milestone remains scheduled after 14 silent weeks.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 15 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter plus one week, the structural rearmament driver has generated exactly zero follow-on milestones: no supplementary budget, no major procurement contract, no defence summit activation, no peer-country follow-on votes. The NATO summit at The Hague (June 24-25), which was the sole remaining concrete scheduled milestone, passed last week with no German rearmament coverage whatsoever. This week adds another line of silence \u2014 no fresh coverage of any kind. The structural framework protects against premature exit on quiet stretches, but a structural driver earns its keep by delivering FRESH milestones, not by the mere passage of time while the law sits inert. After 14 consecutive weeks of zero implementation signals, the practical conclusion is that the March 18 vote was a legislative event whose operational follow-through has stalled \u2014 possibly awaiting a new government, a geopolitical shock, or a budget cycle catalyst that is not yet concrete. Conviction remains at 1, the absolute mechanical floor. The vehicles (RNMBY, BAESY, HENRY) still credibly express the catalyst IF it re-ignites, but are out-competed at this conviction level.",
+      "exit_advice": "The debt-brake exemption law remains on the books \u2014 no reversal has occurred \u2014 so catalyst_resolved stays false and thesis_live stays true under the structural-driver rules. However, 14+ weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contract, no summit activation) have compounded conviction to the absolute cull floor. The NATO summit at The Hague \u2014 the last concrete scheduled milestone \u2014 has now passed without generating any German rearmament narrative. No concrete next milestone is announced or scheduled; only speculative fall-budget possibilities remain, which do not count as a pending catalyst under the framework. This is a structural driver that legislatively fired but has demonstrated practical irrelevance. At conviction 1, it is mechanically out-competed by any live event scoring 2+. If Germany's fall budget cycle produces concrete rearmament procurement numbers, that would constitute a genuinely NEW catalyst requiring fresh entry analysis \u2014 not a continuation of this March 18 thesis. The position soft-exits via priced-in decay; no hard binary exit is triggered because the law has not been reversed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit passed with zero German rearmament activation; no concrete follow-on milestone remains scheduled after 14 silent weeks.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 15 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter plus one week, the structural rearmament driver has generated exactly zero follow-on milestones: no supplementary budget, no major procurement contract, no defence summit activation, no peer-country follow-on votes. The NATO summit at The Hague (June 24-25), which was the sole remaining concrete scheduled milestone, passed last week with no German rearmament coverage whatsoever. This week adds another line of silence \u2014 no fresh coverage of any kind. The structural framework protects against premature exit on quiet stretches, but a structural driver earns its keep by delivering FRESH milestones, not by the mere passage of time while the law sits inert. After 14 consecutive weeks of zero implementation signals, the practical conclusion is that the March 18 vote was a legislative event whose operational follow-through has stalled \u2014 possibly awaiting a new government, a geopolitical shock, or a budget cycle catalyst that is not yet concrete. Conviction remains at 1, the absolute mechanical floor. The vehicles (RNMBY, BAESY, HENRY) still credibly express the catalyst IF it re-ignites, but are out-competed at this conviction level.",
+      "exit_advice": "The debt-brake exemption law remains on the books \u2014 no reversal has occurred \u2014 so catalyst_resolved stays false and thesis_live stays true under the structural-driver rules. However, 14+ weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contract, no summit activation) have compounded conviction to the absolute cull floor. The NATO summit at The Hague \u2014 the last concrete scheduled milestone \u2014 has now passed without generating any German rearmament narrative. No concrete next milestone is announced or scheduled; only speculative fall-budget possibilities remain, which do not count as a pending catalyst under the framework. This is a structural driver that legislatively fired but has demonstrated practical irrelevance. At conviction 1, it is mechanically out-competed by any live event scoring 2+. If Germany's fall budget cycle produces concrete rearmament procurement numbers, that would constitute a genuinely NEW catalyst requiring fresh entry analysis \u2014 not a continuation of this March 18 thesis. The position soft-exits via priced-in decay; no hard binary exit is triggered because the law has not been reversed.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "NATO summit passed with zero German rearmament activation; no concrete follow-on milestone remains scheduled after 14 silent weeks.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 15 since entry. The Bundestag debt-brake exemption of March 18 remains law \u2014 unchanged and unreversed. Yet after a full quarter plus one week, the structural rearmament driver has generated exactly zero follow-on milestones: no supplementary budget, no major procurement contract, no defence summit activation, no peer-country follow-on votes. The NATO summit at The Hague (June 24-25), which was the sole remaining concrete scheduled milestone, passed last week with no German rearmament coverage whatsoever. This week adds another line of silence \u2014 no fresh coverage of any kind. The structural framework protects against premature exit on quiet stretches, but a structural driver earns its keep by delivering FRESH milestones, not by the mere passage of time while the law sits inert. After 14 consecutive weeks of zero implementation signals, the practical conclusion is that the March 18 vote was a legislative event whose operational follow-through has stalled \u2014 possibly awaiting a new government, a geopolitical shock, or a budget cycle catalyst that is not yet concrete. Conviction remains at 1, the absolute mechanical floor. The vehicles (RNMBY, BAESY, HENRY) still credibly express the catalyst IF it re-ignites, but are out-competed at this conviction level.",
+      "exit_advice": "The debt-brake exemption law remains on the books \u2014 no reversal has occurred \u2014 so catalyst_resolved stays false and thesis_live stays true under the structural-driver rules. However, 14+ weeks of total silence with zero follow-on milestones (no supplementary budget, no procurement contract, no summit activation) have compounded conviction to the absolute cull floor. The NATO summit at The Hague \u2014 the last concrete scheduled milestone \u2014 has now passed without generating any German rearmament narrative. No concrete next milestone is announced or scheduled; only speculative fall-budget possibilities remain, which do not count as a pending catalyst under the framework. This is a structural driver that legislatively fired but has demonstrated practical irrelevance. At conviction 1, it is mechanically out-competed by any live event scoring 2+. If Germany's fall budget cycle produces concrete rearmament procurement numbers, that would constitute a genuinely NEW catalyst requiring fresh entry analysis \u2014 not a continuation of this March 18 thesis. The position soft-exits via priced-in decay; no hard binary exit is triggered because the law has not been reversed.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-11": [
+    {
+      "ticker": "RNMBY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The Bundestag debt-brake exemption remains law\u2014unchanged and unreversed\u2014but after a full quarter with no implementation signals (supplementary budget, procurement contracts, summit activation), the structural rearmament thesis has stalled operationally. The NATO summit passed with no German rearmament coverage, and no concrete next catalyst is scheduled ahead. The law is intact, so the driver hasn't reversed, but persistent silence and lack of milestones have eroded the edge.",
+      "exit_advice": "Conviction at mechanical floor after 15 weeks of zero follow-on milestones; position is out-competed by higher-conviction events and should be exited or allowed to be culled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The Bundestag debt-brake exemption remains law\u2014unchanged and unreversed\u2014but after a full quarter with no implementation signals (supplementary budget, procurement contracts, summit activation), the structural rearmament thesis has stalled operationally. The NATO summit passed with no German rearmament coverage, and no concrete next catalyst is scheduled ahead. The law is intact, so the driver hasn't reversed, but persistent silence and lack of milestones have eroded the edge.",
+      "exit_advice": "Conviction at mechanical floor after 15 weeks of zero follow-on milestones; position is out-competed by higher-conviction events and should be exited or allowed to be culled.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HENRY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The Bundestag debt-brake exemption remains law\u2014unchanged and unreversed\u2014but after a full quarter with no implementation signals (supplementary budget, procurement contracts, summit activation), the structural rearmament thesis has stalled operationally. The NATO summit passed with no German rearmament coverage, and no concrete next catalyst is scheduled ahead. The law is intact, so the driver hasn't reversed, but persistent silence and lack of milestones have eroded the edge.",
+      "exit_advice": "Conviction at mechanical floor after 15 weeks of zero follow-on milestones; position is out-competed by higher-conviction events and should be exited or allowed to be culled.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-18": [
+    {
+      "ticker": "BAESY",
+      "thesis": "Germany Bundestag exempts defence from debt brake March 18, opening multi-year rearmament",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Bundestag debt-brake exemption vote on March 18 already occurred; catalyst resolved and public.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The Bundestag vote exempting defence from the debt brake on March 18 is the fixed catalyst and has already occurred. After 15 weeks, the structural rearmament buildout has failed to generate any concrete follow-on milestones: no supplementary budget, no procurement contracts, no defence summit activation, and the NATO summit passed with no German rearmament coverage. The driving condition (debt-brake exemption) is not reversed, but the catalyst itself is resolved and priced, ending the early edge. Any future rearmament progress would require a new catalyst entry.",
+      "exit_advice": "Exit position; the specific catalyst\u2014the March 18 vote\u2014is resolved, and after 15 weeks with zero follow-on milestones, no live edge remains.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-07-25": [],
+  "2025-08-01": [],
+  "2025-08-08": [],
+  "2025-08-15": [],
+  "2025-08-22": [],
+  "2025-08-29": [],
+  "2025-09-05": [],
+  "2025-09-12": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "California legislators are in early-stage discussions to provide Valero with hundreds of millions in subsidies to prevent the shutdown of its Benicia refinery. The talks are not concluded, introducing potential upside contingent on a formal agreement.",
+      "exit_advice": "Hold pending resolution of subsidy negotiations; monitor for official announcements of a deal or its collapse.",
+      "evidence_urls": [
+        "https://beniciaindependent.com/california-in-talks-to-pay-hundreds-of-millions-to-valero-to-stave-off-refinery-shutdown/"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This is the first week of the event. The catalyst\u2014EchoStar's $17B spectrum sale to SpaceX\u2014is specific, datable, and disruptive to telecom, with no news in this week's feed confirming or denying the deal. Telecom headlines focus on unrelated activities (AT&T partnerships, T-Mobile UScellular integration), leaving the catalyst under-the-radar and pending. Vehicles SATS (direct pure-play), T, and TMUS (incumbents facing disruption) remain relevant.",
+      "exit_advice": "Hold. The catalyst is live, concrete, and not yet priced in by mainstream coverage. No exit triggers are met; continue monitoring for deal closure or escalation news.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/att-expands-camp-fire-partnership-to-bridge-digital-divide-with-750k-contribution-1606976/",
+        "https://finance.yahoo.com/news/t-expands-camp-fire-partnership-170146078.html",
+        "https://finance.yahoo.com/news/t-mobile-us-increases-synergy-170149727.html"
+      ]
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This is the first week of the event. The catalyst\u2014EchoStar's $17B spectrum sale to SpaceX\u2014is specific, datable, and disruptive to telecom, with no news in this week's feed confirming or denying the deal. Telecom headlines focus on unrelated activities (AT&T partnerships, T-Mobile UScellular integration), leaving the catalyst under-the-radar and pending. Vehicles SATS (direct pure-play), T, and TMUS (incumbents facing disruption) remain relevant.",
+      "exit_advice": "Hold. The catalyst is live, concrete, and not yet priced in by mainstream coverage. No exit triggers are met; continue monitoring for deal closure or escalation news.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/att-expands-camp-fire-partnership-to-bridge-digital-divide-with-750k-contribution-1606976/",
+        "https://finance.yahoo.com/news/t-expands-camp-fire-partnership-170146078.html",
+        "https://finance.yahoo.com/news/t-mobile-us-increases-synergy-170149727.html"
+      ]
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "This is the first week of the event. The catalyst\u2014EchoStar's $17B spectrum sale to SpaceX\u2014is specific, datable, and disruptive to telecom, with no news in this week's feed confirming or denying the deal. Telecom headlines focus on unrelated activities (AT&T partnerships, T-Mobile UScellular integration), leaving the catalyst under-the-radar and pending. Vehicles SATS (direct pure-play), T, and TMUS (incumbents facing disruption) remain relevant.",
+      "exit_advice": "Hold. The catalyst is live, concrete, and not yet priced in by mainstream coverage. No exit triggers are met; continue monitoring for deal closure or escalation news.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/att-expands-camp-fire-partnership-to-bridge-digital-divide-with-750k-contribution-1606976/",
+        "https://finance.yahoo.com/news/t-expands-camp-fire-partnership-170146078.html",
+        "https://finance.yahoo.com/news/t-mobile-us-increases-synergy-170149727.html"
+      ]
+    }
+  ],
+  "2025-09-19": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No fresh news on California subsidy talks for Valero's Benicia refinery; catalyst remains pending and under-the-radar, but silence fades conviction.",
+      "exit_advice": "Monitor for resolution of subsidy talks; exit if talks fail, shutdown confirmed, or catalyst becomes over-covered with no concrete next milestone.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No corroborating news whatsoever in two consecutive weeks; deal may never have been real.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Second consecutive week with zero news mentioning EchoStar, SpaceX, spectrum, or any telecom disruption angle. Every headline in the feed covers electric utilities, real estate ETFs, Canadian dividends, and mortgage rates\u2014nothing remotely adjacent to this event. The silence is now compounding: two weeks of total absence for a supposedly $17B deal is abnormal. Either the deal was rumor/speculation that never crystallized, or it has been entirely absorbed by other macro narratives (rate cuts dominating the news cycle). The driving condition has not reversed and the deal has not been announced as closed, so no hard exit. But per SILENCE DECAY, conviction steps down from prior score (entry was ~5 given the zero-coverage first week) to 4. Vehicles SATS, T, TMUS remain the correct expression if the catalyst materializes, but the position is on thin ice.",
+      "exit_advice": "HOLD but deeply skeptical. A $17B named deal with zero press coverage for two straight weeks is a red flag\u2014the catalyst description is specific but may be speculative or mis-timed. No hard exit because no reversal or resolution has been confirmed either. If a third week passes with total silence, conviction drops to cull-floor and the position should be abandoned as a phantom catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No corroborating news whatsoever in two consecutive weeks; deal may never have been real.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Second consecutive week with zero news mentioning EchoStar, SpaceX, spectrum, or any telecom disruption angle. Every headline in the feed covers electric utilities, real estate ETFs, Canadian dividends, and mortgage rates\u2014nothing remotely adjacent to this event. The silence is now compounding: two weeks of total absence for a supposedly $17B deal is abnormal. Either the deal was rumor/speculation that never crystallized, or it has been entirely absorbed by other macro narratives (rate cuts dominating the news cycle). The driving condition has not reversed and the deal has not been announced as closed, so no hard exit. But per SILENCE DECAY, conviction steps down from prior score (entry was ~5 given the zero-coverage first week) to 4. Vehicles SATS, T, TMUS remain the correct expression if the catalyst materializes, but the position is on thin ice.",
+      "exit_advice": "HOLD but deeply skeptical. A $17B named deal with zero press coverage for two straight weeks is a red flag\u2014the catalyst description is specific but may be speculative or mis-timed. No hard exit because no reversal or resolution has been confirmed either. If a third week passes with total silence, conviction drops to cull-floor and the position should be abandoned as a phantom catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No corroborating news whatsoever in two consecutive weeks; deal may never have been real.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Second consecutive week with zero news mentioning EchoStar, SpaceX, spectrum, or any telecom disruption angle. Every headline in the feed covers electric utilities, real estate ETFs, Canadian dividends, and mortgage rates\u2014nothing remotely adjacent to this event. The silence is now compounding: two weeks of total absence for a supposedly $17B deal is abnormal. Either the deal was rumor/speculation that never crystallized, or it has been entirely absorbed by other macro narratives (rate cuts dominating the news cycle). The driving condition has not reversed and the deal has not been announced as closed, so no hard exit. But per SILENCE DECAY, conviction steps down from prior score (entry was ~5 given the zero-coverage first week) to 4. Vehicles SATS, T, TMUS remain the correct expression if the catalyst materializes, but the position is on thin ice.",
+      "exit_advice": "HOLD but deeply skeptical. A $17B named deal with zero press coverage for two straight weeks is a red flag\u2014the catalyst description is specific but may be speculative or mis-timed. No hard exit because no reversal or resolution has been confirmed either. If a third week passes with total silence, conviction drops to cull-floor and the position should be abandoned as a phantom catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "ITA",
+      "thesis": "Australia announces $12 billion federal defence spending boost",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Defence spending boost already announced and public.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The catalyst occurred on 2025-09-16 with the announcement of Australia's $12 billion defence spending boost. This discrete event is now public and likely priced into defence ETFs like ITA, PPA, XAR, with no further concrete catalyst pending.",
+      "exit_advice": "Exit the position as the catalyst has resolved and the edge is gone.",
+      "evidence_urls": [
+        "https://www.investordaily.com.au/markets/57812-defence-etfs-in-the-spotlight-amid-12-billion-federal-boost"
+      ]
+    }
+  ],
+  "2025-09-26": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No fresh news on Valero subsidy talks this week; catalyst remains under-the-radar and pending, but conviction decreasing due to silence decay.",
+      "exit_advice": "Hold pending concrete update on subsidy talks; silence is fading conviction, so monitor for news or resolution.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Third consecutive week with zero news coverage of EchoStar's $17B spectrum sale to SpaceX. Catalyst remains pending but unverified, and continued silence compounds conviction decay. No resolution or reversal indicated.",
+      "exit_advice": "Hold with minimal conviction; exit if next week shows no new developments or confirmation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Third consecutive week with zero news coverage of EchoStar's $17B spectrum sale to SpaceX. Catalyst remains pending but unverified, and continued silence compounds conviction decay. No resolution or reversal indicated.",
+      "exit_advice": "Hold with minimal conviction; exit if next week shows no new developments or confirmation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Third consecutive week with zero news coverage of EchoStar's $17B spectrum sale to SpaceX. Catalyst remains pending but unverified, and continued silence compounds conviction decay. No resolution or reversal indicated.",
+      "exit_advice": "Hold with minimal conviction; exit if next week shows no new developments or confirmation.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-03": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "No fresh news on California subsidy talks for Valero's Benicia refinery this week. Catalyst remains pending and under-the-radar, with silence decay continuing to reduce conviction.",
+      "exit_advice": "Hold while monitoring for any news on subsidy talks; exit only if talks confirm no subsidy or refinery shutdown is announced.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No EchoStar-SpaceX deal news for 4 weeks; catalyst unverified and silent.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Fourth week with no coverage of the EchoStar-SpaceX spectrum deal. Catalyst remains pending but unverified, with continued silence compounding decay.",
+      "exit_advice": "Hold but conviction is low; monitor for any news on the spectrum sale.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No EchoStar-SpaceX deal news for 4 weeks; catalyst unverified and silent.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Fourth week with no coverage of the EchoStar-SpaceX spectrum deal. Catalyst remains pending but unverified, with continued silence compounding decay.",
+      "exit_advice": "Hold but conviction is low; monitor for any news on the spectrum sale.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No EchoStar-SpaceX deal news for 4 weeks; catalyst unverified and silent.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Fourth week with no coverage of the EchoStar-SpaceX spectrum deal. Catalyst remains pending but unverified, with continued silence compounding decay.",
+      "exit_advice": "Hold but conviction is low; monitor for any news on the spectrum sale.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-10-10": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "No fresh news on California subsidy talks for Valero's Benicia refinery this week. Catalyst remains pending and under-the-radar, but prolonged silence continues to erode conviction.",
+      "exit_advice": "Hold pending any news on subsidy talks; continuous silence suggests low near-term resolution likelihood, making position vulnerable to culling from shortlist.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero press coverage for five straight weeks strongly indicates this $17B deal was rumor, never confirmed, or collapsed pre-announcement.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Five consecutive weeks with zero press coverage of a purported $17B EchoStar-SpaceX spectrum sale. A deal this large would generate credible coverage if proceeding. The complete information void strongly suggests the catalyst was speculative rumor, fell apart pre-announcement, or never existed. Position is at maximum silence decay \u2014 effectively dead.",
+      "exit_advice": "Exit. Five weeks of total silence on a supposed $17B spectrum sale means the catalyst almost certainly never materialized. Remaining long earns nothing \u2014 conviction at absolute floor, will be culled on fitness. Cut SATS, T, TMUS and free capital for live events.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-10-opec-report-and-construction-spending-data-set-to-define-mondays-commodity-landscape",
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html",
+        "https://news.tuoitre.vn/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status-103251009093031161.htm"
+      ]
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero press coverage for five straight weeks strongly indicates this $17B deal was rumor, never confirmed, or collapsed pre-announcement.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Five consecutive weeks with zero press coverage of a purported $17B EchoStar-SpaceX spectrum sale. A deal this large would generate credible coverage if proceeding. The complete information void strongly suggests the catalyst was speculative rumor, fell apart pre-announcement, or never existed. Position is at maximum silence decay \u2014 effectively dead.",
+      "exit_advice": "Exit. Five weeks of total silence on a supposed $17B spectrum sale means the catalyst almost certainly never materialized. Remaining long earns nothing \u2014 conviction at absolute floor, will be culled on fitness. Cut SATS, T, TMUS and free capital for live events.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-10-opec-report-and-construction-spending-data-set-to-define-mondays-commodity-landscape",
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html",
+        "https://news.tuoitre.vn/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status-103251009093031161.htm"
+      ]
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Zero press coverage for five straight weeks strongly indicates this $17B deal was rumor, never confirmed, or collapsed pre-announcement.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Five consecutive weeks with zero press coverage of a purported $17B EchoStar-SpaceX spectrum sale. A deal this large would generate credible coverage if proceeding. The complete information void strongly suggests the catalyst was speculative rumor, fell apart pre-announcement, or never existed. Position is at maximum silence decay \u2014 effectively dead.",
+      "exit_advice": "Exit. Five weeks of total silence on a supposed $17B spectrum sale means the catalyst almost certainly never materialized. Remaining long earns nothing \u2014 conviction at absolute floor, will be culled on fitness. Cut SATS, T, TMUS and free capital for live events.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-10-opec-report-and-construction-spending-data-set-to-define-mondays-commodity-landscape",
+        "https://www.smdailyjournal.com/business/world-shares-mostly-advance-and-oil-prices-dip-after-israel-and-hamas-agree-to-pause/article_1e024d2b-7bd0-5151-b269-6962296c3a8c.html",
+        "https://news.tuoitre.vn/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status-103251009093031161.htm"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "FTSE Russell announced Vietnam's upgrade to emerging market status, effective Sep 2026, subject to an interim review in Mar 2026. The stock surged on news, but the catalyst remains pending with concrete future milestones.",
+      "exit_advice": "Monitor March 2026 interim review for confirmation; exit if upgrade is delayed or conditions unmet.",
+      "evidence_urls": [
+        "https://news.tuoitre.vn/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status-103251009093031161.htm",
+        "https://malaya.com.ph/business/market/vietnam-shares-hit-a-record-high-after-ftse-flags-upgrade-to-emerging-market-status/",
+        "https://www.dealstreetasia.com/stories/ftse-russell-vietnam-459111",
+        "https://en.vietnamplus.vn/ftse-russell-upgrades-vietnam-to-secondary-emerging-market-status-post329982.vnp",
+        "https://vietnamnews.vn/economy/1726818/ftse-russell-upgrades-viet-nam-to-secondary-emerging-market-status.html",
+        "https://www.businesstimes.com.sg/international/asean/vietnam-be-promoted-emerging-stock-market-ftse-september-2026"
+      ]
+    }
+  ],
+  "2025-10-17": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Five weeks of total silence on early-stage talks strongly suggests discussions quietly collapsed; catalyst effectively dead though not formally announced.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "This is now 5+ consecutive weeks of complete silence on the California subsidy talks. The original catalyst was described as 'early-stage discussions' \u2014 already speculative \u2014 and the total absence of follow-up coverage since entry strongly suggests the initiative quietly stalled or died. No formal resolution has been announced, so it isn't technically resolved, but with conviction effectively at floor from unbroken silence decay, this is a dead position in all but name. No new information whatsoever \u2014 this week's news is only about real estate and government shutdown, unrelated to Valero or the Benicia refinery.",
+      "exit_advice": "Evict. Five weeks of absolute silence on an already-speculative early-stage talk is as dead as a pending catalyst gets without a formal tombstone. The edge was that this was under-discussed; that edge has been consumed by time, not discovery. Zero informational value remains.",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4503430-real-estate-stocks-tumble-amid-lingering-government-shutdown-renewed-trade-war-concerns"
+      ]
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks zero coverage; catalyst likely speculative or abandoned.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "After six consecutive weeks with no news on the EchoStar-SpaceX spectrum sale, the catalyst remains unverified and shows no signs of materializing. Silence decay has driven conviction to minimum, with no resolution or reversal indicated.",
+      "exit_advice": "Exit the position due to prolonged silence and lack of catalyst confirmation, indicating the thesis is effectively dead.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/10/17/utility-stocks-to-add-to-your-watchlist-october-14th.html",
+        "https://finance.yahoo.com/news/street-talk-navigating-market-risk-185616838.html",
+        "https://economictimes.indiatimes.com/markets/expert-view/neeraj-dewan-sees-consumer-realty-and-financials-driving-diwali-market-rally/articleshow/124624079.cms",
+        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-16-consolidated-edison-poised-to-declare-85-cent-quarterly-dividend-reinforcing-its-status-as-a-utility-dividend-titan",
+        "https://www.el-balad.com/6734060"
+      ]
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks zero coverage; catalyst likely speculative or abandoned.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "After six consecutive weeks with no news on the EchoStar-SpaceX spectrum sale, the catalyst remains unverified and shows no signs of materializing. Silence decay has driven conviction to minimum, with no resolution or reversal indicated.",
+      "exit_advice": "Exit the position due to prolonged silence and lack of catalyst confirmation, indicating the thesis is effectively dead.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/10/17/utility-stocks-to-add-to-your-watchlist-october-14th.html",
+        "https://finance.yahoo.com/news/street-talk-navigating-market-risk-185616838.html",
+        "https://economictimes.indiatimes.com/markets/expert-view/neeraj-dewan-sees-consumer-realty-and-financials-driving-diwali-market-rally/articleshow/124624079.cms",
+        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-16-consolidated-edison-poised-to-declare-85-cent-quarterly-dividend-reinforcing-its-status-as-a-utility-dividend-titan",
+        "https://www.el-balad.com/6734060"
+      ]
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks zero coverage; catalyst likely speculative or abandoned.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "After six consecutive weeks with no news on the EchoStar-SpaceX spectrum sale, the catalyst remains unverified and shows no signs of materializing. Silence decay has driven conviction to minimum, with no resolution or reversal indicated.",
+      "exit_advice": "Exit the position due to prolonged silence and lack of catalyst confirmation, indicating the thesis is effectively dead.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2025/10/17/utility-stocks-to-add-to-your-watchlist-october-14th.html",
+        "https://finance.yahoo.com/news/street-talk-navigating-market-risk-185616838.html",
+        "https://economictimes.indiatimes.com/markets/expert-view/neeraj-dewan-sees-consumer-realty-and-financials-driving-diwali-market-rally/articleshow/124624079.cms",
+        "https://finance.yahoo.com/news/space-stock-keeps-rocketing-time-154728785.html",
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-10-16-consolidated-edison-poised-to-declare-85-cent-quarterly-dividend-reinforcing-its-status-as-a-utility-dividend-titan",
+        "https://www.el-balad.com/6734060"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "FTSE Russell's upgrade of Vietnam to emerging market status was announced on 2025-10-10, effective Sep 2026, subject to an interim review in Mar 2026. No fresh coverage this week, but the catalyst is still pending with concrete future milestones. The initial surge may indicate some absorption, but the edge remains as the upgrade has not occurred. Silence decay applies, reducing conviction from prior score due to no fresh coverage.",
+      "exit_advice": "Hold position. The upgrade is scheduled for Sep 2026 with an interim review in Mar 2026; catalyst remains pending with no resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Nov 1 tariff deadline still ahead and rare-earth export curbs just enacted this week; neither resolved nor reversed.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 entry. China's rare-earth export curbs were unveiled this week; Trump immediately threatened 100% tariffs by Nov 1. Multiple outlets (Japan Times Oct 13, MoneyControl, CNBC-TV18) confirm the escalation arc is live \u2014 Chinese equities sold off sharply, Asian markets dropped. The Fool.com piece (Oct 12) flags potential White House investment in rare-earth/lithium miners, adding a policy-leg catalyst layer. Coverage of the TRADE TENSIONS is mainstream, but the SPECIFIC rare-earth supply-chain investment thesis (MP, Lynas) is still niche \u2014 most coverage frames this as a macro sell-off story, not a domestic-miner re-rating story. The concrete Nov 1 deadline ensures ongoing press and price discovery. Both vehicles remain clean pure-plays on the domestic rare-earth supply-chain disruption thesis.",
+      "exit_advice": "HOLD. The 100% tariff Nov 1 deadline is a concrete upcoming catalyst and China's rare-earth export curbs are freshly in effect. Both legs of the thesis are live and unresolved. Watch for: (1) US government investment in domestic rare-earth miners (Fool article hints this may be coming), (2) actual Nov 1 tariff implementation, (3) any back-channel resolution or delay that would deflate the escalation spiral. Neither a quiet week nor mainstream awareness of trade tensions alone is reason to exit \u2014 the specific rare-earth supply-chain disruption angle remains early and actionable.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/",
+        "https://www.fool.com/investing/2025/10/12/is-the-white-house-about-to-invest-in-these-lithiu/",
+        "https://www.moneycontrol.com/news/business/markets/chinese-stocks-slide-as-renewed-trade-tensions-threaten-bull-run-13611470.html"
+      ]
+    },
+    {
+      "ticker": "LYSDY",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 Nov 1 tariff deadline still ahead and rare-earth export curbs just enacted this week; neither resolved nor reversed.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Week 1 entry. China's rare-earth export curbs were unveiled this week; Trump immediately threatened 100% tariffs by Nov 1. Multiple outlets (Japan Times Oct 13, MoneyControl, CNBC-TV18) confirm the escalation arc is live \u2014 Chinese equities sold off sharply, Asian markets dropped. The Fool.com piece (Oct 12) flags potential White House investment in rare-earth/lithium miners, adding a policy-leg catalyst layer. Coverage of the TRADE TENSIONS is mainstream, but the SPECIFIC rare-earth supply-chain investment thesis (MP, Lynas) is still niche \u2014 most coverage frames this as a macro sell-off story, not a domestic-miner re-rating story. The concrete Nov 1 deadline ensures ongoing press and price discovery. Both vehicles remain clean pure-plays on the domestic rare-earth supply-chain disruption thesis.",
+      "exit_advice": "HOLD. The 100% tariff Nov 1 deadline is a concrete upcoming catalyst and China's rare-earth export curbs are freshly in effect. Both legs of the thesis are live and unresolved. Watch for: (1) US government investment in domestic rare-earth miners (Fool article hints this may be coming), (2) actual Nov 1 tariff implementation, (3) any back-channel resolution or delay that would deflate the escalation spiral. Neither a quiet week nor mainstream awareness of trade tensions alone is reason to exit \u2014 the specific rare-earth supply-chain disruption angle remains early and actionable.",
+      "evidence_urls": [
+        "https://www.japantimes.co.jp/business/2025/10/13/markets/china-markets-us-trade-war/",
+        "https://www.fool.com/investing/2025/10/12/is-the-white-house-about-to-invest-in-these-lithiu/",
+        "https://www.moneycontrol.com/news/business/markets/chinese-stocks-slide-as-renewed-trade-tensions-threaten-bull-run-13611470.html"
+      ]
+    }
+  ],
+  "2025-10-24": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Six weeks of total silence after speculative 'early-stage talks' indicates discussions quietly died with no concrete next step remaining.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Another week of complete silence \u2014 now six straight weeks since entry with zero coverage of California subsidy talks for Valero's Benicia refinery. The original catalyst was speculative ('early-stage discussions') and the unbroken silence cascade has drained all conviction. This week's news (quantum computing / Trump administration) is entirely unrelated to Valero, energy policy, or the Benicia refinery. There is no concrete next step scheduled (no bill filed, no vote, no summit, no formal proposal). The position survives only in the narrowest technical sense \u2014 no one has publicly announced the talks ended \u2014 but it is a dead position in practice. VLO remains listed only because thesis_live cannot be formally set to false absent a declared resolution or reversal.",
+      "exit_advice": "This position is effectively dead through silence decay. The catalyst was 'early-stage discussions' \u2014 already speculative at entry \u2014 and six consecutive weeks with zero follow-up coverage strongly suggests the initiative stalled or died quietly. No formal resolution has been announced, so catalyst_resolved stays technically false, but conviction is at absolute floor. The optimizer will cull this. No action required unless a surprise revival surfaces.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No confirmation after 7 weeks of total silence; catalyst likely speculative and never existed.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "EchoStar's $17B spectrum sale to SpaceX remains unverified after seven consecutive weeks with zero press coverage, suggesting the catalyst was speculative or never crystallized. Conviction has decayed to minimum per silence decay rules.",
+      "exit_advice": "The position is effectively dead due to prolonged silence and lack of verification; consider exiting as the catalyst is unlikely to materialize.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "T",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No confirmation after 7 weeks of total silence; catalyst likely speculative and never existed.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "EchoStar's $17B spectrum sale to SpaceX remains unverified after seven consecutive weeks with zero press coverage, suggesting the catalyst was speculative or never crystallized. Conviction has decayed to minimum per silence decay rules.",
+      "exit_advice": "The position is effectively dead due to prolonged silence and lack of verification; consider exiting as the catalyst is unlikely to materialize.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "TMUS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "No confirmation after 7 weeks of total silence; catalyst likely speculative and never existed.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "EchoStar's $17B spectrum sale to SpaceX remains unverified after seven consecutive weeks with zero press coverage, suggesting the catalyst was speculative or never crystallized. Conviction has decayed to minimum per silence decay rules.",
+      "exit_advice": "The position is effectively dead due to prolonged silence and lack of verification; consider exiting as the catalyst is unlikely to materialize.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Upgrade announced Oct 10 and VNM surged day-one; 11-month interim before effective date dilutes the immediate edge, though the reclassification itself has not yet occurred.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "FTSE Russell formally announced Vietnam's upgrade to emerging market on Oct 10, effective Sep 2026, with an interim review in Mar 2026. The decision is public and VNM surged on the day, but the actual index reclassification and the passive inflows it triggers have not yet occurred \u2014 the upgrade is pending with concrete scheduled milestones (Mar 2026 interim review, Sep 2026 effective date). However, two consecutive weeks of zero fresh coverage signal fading market attention in the long wait period. The stock's immediate reaction may have captured a meaningful portion of the near-term rerating, leaving the remaining edge tied to actual rebalancing flows still 11 months out. Conviction decays to 5 under silence decay (no fresh trend coverage). Mar 2026 interim review remains the next concrete checkpoint.",
+      "exit_advice": "HOLD while concrete milestones remain (Mar 2026 interim review, Sep 2026 effective date). The long wait period and silence risk erosion \u2014 step down conviction and monitor for either fresh catalyst coverage (rebasing prospects, positioning pieces) or a negative interim review outcome. If Mar 2026 interim review reverses the upgrade, hard exit. If no fresh coverage resumes and conviction falls below 4, cull from shortlist via fitness contest.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Rare-earth export ban and Nov 1 tariff threat remain live with concrete deadline ahead. No fresh coverage this week, indicating silence decay, but catalyst pending. Vehicles MP and LYSDY still pure-plays.",
+      "exit_advice": "Hold until Nov 1 tariff deadline or resolution; exit if China lifts curbs or Trump cancels tariff, or post-deadline if no further catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LYSDY",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Rare-earth export ban and Nov 1 tariff threat remain live with concrete deadline ahead. No fresh coverage this week, indicating silence decay, but catalyst pending. Vehicles MP and LYSDY still pure-plays.",
+      "exit_advice": "Hold until Nov 1 tariff deadline or resolution; exit if China lifts curbs or Trump cancels tariff, or post-deadline if no further catalyst.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IONQ",
+      "thesis": "Trump admin pursues equity stakes in quantum firms for national security.",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Trump admin denied quantum equity stake talks, reversing the driving condition.",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The initial report of Trump pursuing equity stakes was denied by the administration, negating the catalyst. Coverage has turned mainstream with no concrete next steps scheduled, indicating the arc is complete and the herd has arrived.",
+      "exit_advice": "Exit position as the driving condition has been reversed and the early edge is spent due to mainstream saturation.",
+      "evidence_urls": [
+        "https://www.el-balad.com/6742581",
+        "https://www.ibtimes.com/quantum-computing-stocks-surge-trump-seeks-stake-exchange-federal-funding-3788422",
+        "https://www.businessinsider.com/quantum-computing-stocks-trump-government-investment-us-dominance-trade-war-2025-10"
+      ]
+    }
+  ],
+  "2025-10-31": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The California subsidy talks for Valero's Benicia refinery have seen no coverage for over seven weeks, indicating the initiative has likely stalled. Conviction is at floor from unbroken silence decay, with no scheduled catalyst ahead.",
+      "exit_advice": "Exit position; catalyst has lost all momentum and edge due to prolonged silence with no concrete steps ahead.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SATS",
+      "thesis": "EchoStar's $17B spectrum sale to SpaceX disrupts telecom",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Eight consecutive weeks of zero coverage on a purported $17B deal confirms the catalyst never existed \u2014 phantom rumor, not a pending event.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "This position has been dead since inception. Week after week of total information silence on a supposedly $17B telecom-disrupting spectrum sale is not 'under-the-radar' \u2014 it is non-existent. No EchoStar filing, no SpaceX spectrum application, no FCC notice, no analyst coverage, no trade press mention. The complete absence of any signal over two months is dispositive. The catalyst was likely speculative fabrication or a rumor that died before reaching any credible outlet. Per SILENCE DECAY, conviction has been at floor for weeks; this week cements the hard exit. No vehicle can express a catalyst that does not exist. SATS, T, and TMUS are all released from this event.",
+      "exit_advice": "Exit all vehicles immediately. The EchoStar-SpaceX spectrum sale was entered on a catalyst that has produced zero verification across eight weeks. A $17B transaction would generate regulatory filings, analyst notes, or at minimum a credible rumor cycle \u2014 none appeared. This is not staleness on a live driver; the driver itself was never real. Close the position, free capital for events with verifiable catalysts.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "FTSE Russell upgrade to Vietnam emerging market remains pending (effective Sep 2026), with concrete milestones ahead. No fresh coverage this week; conviction decays further due to silence.",
+      "exit_advice": "Hold pending Mar 2026 interim review; exit if silence persists or catalyst reverses.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit occurred Oct 30, de-escalating tariff threat; acute Nov 1 catalyst near expiry without escalation.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The acute leg (100% tariff Nov 1 deadline) is weakening fast. The Trump-Xi summit occurred Oct 30 and 'underwhelmed' \u2014 signaling diplomatic engagement rather than escalation. Markets are pricing trade-deal optimism, not tariff shock. However, the deadline hasn't technically passed (it's tomorrow) and the structural rare-earth export ban remains in effect with no reversal announced. Crucially, there is ZERO fresh coverage of rare-earth supply disruption, domestic miners, or the supply-chain reorientation thesis this week \u2014 all headlines are quantum computing, tech earnings, and general market closes. This is now the third consecutive week of silence on the specific thesis, compounding silence decay. Both MP and LYSDY remain valid pure-plays on rare-earth supply-chain disruption, but the window is narrowing: if Nov 1 passes without tariff implementation and no new escalation materializes, the acute catalyst will have fully resolved and only the structural export ban remains \u2014 at which point conviction should drop below the cull floor absent fresh coverage.",
+      "exit_advice": "Hold through Nov 1 deadline. If tariffs are NOT imposed and no fresh escalation emerges, the acute leg resolves and position should close unless the structural export ban throws a new concrete milestone (new curbs, policy investment, supply shock). Monitor for rare-earth-specific coverage to confirm the thesis still has legs; continued silence next week floors conviction.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-trump-xi-summit-underwhelms-mag-7-earnings-disappoint",
+        "https://smallcapnetwork.com/banner_articles/north-american-markets-mixed-as-fed-caution-tempers-trade-deal-optimism/",
+        "https://www.investopedia.com/top-stock-movers-now-qualcomm-keurig-dr-pepper-newmont-novartis-and-more-11837488",
+        "https://www.benzinga.com/Opinion/25/10/48501343/nvidia-2-surprises-nvda-soars-on-trump-fueled-hopes-of-china-blackwell-sales-fed-in-focus"
+      ]
+    },
+    {
+      "ticker": "LYSDY",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Trump-Xi summit occurred Oct 30, de-escalating tariff threat; acute Nov 1 catalyst near expiry without escalation.",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The acute leg (100% tariff Nov 1 deadline) is weakening fast. The Trump-Xi summit occurred Oct 30 and 'underwhelmed' \u2014 signaling diplomatic engagement rather than escalation. Markets are pricing trade-deal optimism, not tariff shock. However, the deadline hasn't technically passed (it's tomorrow) and the structural rare-earth export ban remains in effect with no reversal announced. Crucially, there is ZERO fresh coverage of rare-earth supply disruption, domestic miners, or the supply-chain reorientation thesis this week \u2014 all headlines are quantum computing, tech earnings, and general market closes. This is now the third consecutive week of silence on the specific thesis, compounding silence decay. Both MP and LYSDY remain valid pure-plays on rare-earth supply-chain disruption, but the window is narrowing: if Nov 1 passes without tariff implementation and no new escalation materializes, the acute catalyst will have fully resolved and only the structural export ban remains \u2014 at which point conviction should drop below the cull floor absent fresh coverage.",
+      "exit_advice": "Hold through Nov 1 deadline. If tariffs are NOT imposed and no fresh escalation emerges, the acute leg resolves and position should close unless the structural export ban throws a new concrete milestone (new curbs, policy investment, supply shock). Monitor for rare-earth-specific coverage to confirm the thesis still has legs; continued silence next week floors conviction.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/futures-drop-trump-xi-summit-underwhelms-mag-7-earnings-disappoint",
+        "https://smallcapnetwork.com/banner_articles/north-american-markets-mixed-as-fed-caution-tempers-trade-deal-optimism/",
+        "https://www.investopedia.com/top-stock-movers-now-qualcomm-keurig-dr-pepper-newmont-novartis-and-more-11837488",
+        "https://www.benzinga.com/Opinion/25/10/48501343/nvidia-2-surprises-nvda-soars-on-trump-fueled-hopes-of-china-blackwell-sales-fed-in-focus"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal announced Oct 27 but regulatory review, shareholder votes, and close all remain concrete future milestones",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1 of a freshly announced all-stock mega-merger combining AWK and WTRG (Essential/Aqua). The Inquirer confirms the Oct 27 announcement with Camden HQ. This is a large, specific M&A catalyst with clear regulatory milestones ahead \u2014 not yet resolved. A Globe and Mail piece on falling rates boosting utility stocks is tangentially supportive of sector valuations. AWK and WTRG are direct deal participants; AWR is a peer that could benefit from sector re-rating or future consolidation interest, though the link is weaker. Conviction at 6: specific named mega-deal with clean vehicles and real regulatory uncertainty creating a spread, but utility M&A is not truly under-the-radar \u2014 it got standard financial press coverage on announcement.",
+      "exit_advice": "The mega-merger between the two largest U.S. water/wastewater companies was just announced. This is an all-stock combination that will face significant antitrust scrutiny from the DOJ/FTC given the scale of consolidation, plus state PUC approvals and shareholder votes from both companies. All of these are concrete, scheduled milestones still ahead. The deal spread (implied takeout price vs. current WTRG trading level) and antitrust risk premium create a live event-driven setup. No reason to exit on week one \u2014 hold and monitor regulatory filings, any DOJ second-request, and competing bid speculation. Downside risk: antitrust challenge or required divestitures that erode deal value.",
+      "evidence_urls": [
+        "https://www.inquirer.com/business/american-water-essential-utilities-aqua-merger-20251027.html",
+        "https://www.theglobeandmail.com/investing/markets/inside-the-market/article-falling-rates-utility-stock-prices-fortis-emera/"
+      ]
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal announced Oct 27 but regulatory review, shareholder votes, and close all remain concrete future milestones",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1 of a freshly announced all-stock mega-merger combining AWK and WTRG (Essential/Aqua). The Inquirer confirms the Oct 27 announcement with Camden HQ. This is a large, specific M&A catalyst with clear regulatory milestones ahead \u2014 not yet resolved. A Globe and Mail piece on falling rates boosting utility stocks is tangentially supportive of sector valuations. AWK and WTRG are direct deal participants; AWR is a peer that could benefit from sector re-rating or future consolidation interest, though the link is weaker. Conviction at 6: specific named mega-deal with clean vehicles and real regulatory uncertainty creating a spread, but utility M&A is not truly under-the-radar \u2014 it got standard financial press coverage on announcement.",
+      "exit_advice": "The mega-merger between the two largest U.S. water/wastewater companies was just announced. This is an all-stock combination that will face significant antitrust scrutiny from the DOJ/FTC given the scale of consolidation, plus state PUC approvals and shareholder votes from both companies. All of these are concrete, scheduled milestones still ahead. The deal spread (implied takeout price vs. current WTRG trading level) and antitrust risk premium create a live event-driven setup. No reason to exit on week one \u2014 hold and monitor regulatory filings, any DOJ second-request, and competing bid speculation. Downside risk: antitrust challenge or required divestitures that erode deal value.",
+      "evidence_urls": [
+        "https://www.inquirer.com/business/american-water-essential-utilities-aqua-merger-20251027.html",
+        "https://www.theglobeandmail.com/investing/markets/inside-the-market/article-falling-rates-utility-stock-prices-fortis-emera/"
+      ]
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 deal announced Oct 27 but regulatory review, shareholder votes, and close all remain concrete future milestones",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Week 1 of a freshly announced all-stock mega-merger combining AWK and WTRG (Essential/Aqua). The Inquirer confirms the Oct 27 announcement with Camden HQ. This is a large, specific M&A catalyst with clear regulatory milestones ahead \u2014 not yet resolved. A Globe and Mail piece on falling rates boosting utility stocks is tangentially supportive of sector valuations. AWK and WTRG are direct deal participants; AWR is a peer that could benefit from sector re-rating or future consolidation interest, though the link is weaker. Conviction at 6: specific named mega-deal with clean vehicles and real regulatory uncertainty creating a spread, but utility M&A is not truly under-the-radar \u2014 it got standard financial press coverage on announcement.",
+      "exit_advice": "The mega-merger between the two largest U.S. water/wastewater companies was just announced. This is an all-stock combination that will face significant antitrust scrutiny from the DOJ/FTC given the scale of consolidation, plus state PUC approvals and shareholder votes from both companies. All of these are concrete, scheduled milestones still ahead. The deal spread (implied takeout price vs. current WTRG trading level) and antitrust risk premium create a live event-driven setup. No reason to exit on week one \u2014 hold and monitor regulatory filings, any DOJ second-request, and competing bid speculation. Downside risk: antitrust challenge or required divestitures that erode deal value.",
+      "evidence_urls": [
+        "https://www.inquirer.com/business/american-water-essential-utilities-aqua-merger-20251027.html",
+        "https://www.theglobeandmail.com/investing/markets/inside-the-market/article-falling-rates-utility-stock-prices-fortis-emera/"
+      ]
+    },
+    {
+      "ticker": "FNLPF",
+      "thesis": "Fresnillo agrees to acquire Canadian gold explorer Gold Probe Inc Oct 31",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Acquisition agreement signed on Oct 31, catalyst already resolved.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The acquisition agreement between Fresnillo and Gold Probe Inc was announced on Oct 31, resolving the catalyst. The edge is gone, and the thesis is no longer live.",
+      "exit_advice": "Exit the position as the catalyst has occurred and no further concrete catalyst is pending.",
+      "evidence_urls": [
+        "https://www.cityam.com/fresnillo-moves-into-canadian-market-after-major-acquisition/"
+      ]
+    }
+  ],
+  "2025-11-07": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "No news on Valero subsidy talks for the eighth consecutive week. The catalyst was speculative and remains unaddressed, with silence decay driving conviction to floor.",
+      "exit_advice": "No concrete catalyst ahead; position effectively dead. Exit if no news emerges soon.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Catalyst remains pending (FTSE Russell upgrade to emerging market effective Sep 2026) with concrete milestones ahead (Mar 2026 interim review, Sep 2026 effective date). No fresh coverage of the upgrade trend this week; market news shows weak sentiment and declining liquidity in Vietnam, but does not reverse the catalyst. Silence continues to erode conviction.",
+      "exit_advice": "Hold with low conviction until Mar 2026 interim review; monitor for fresh catalyst news to reset conviction.",
+      "evidence_urls": [
+        "https://en.vietnamplus.vn/liquidity-hits-nearly-five-month-low-as-market-declines-post332042.vnp"
+      ]
+    },
+    {
+      "ticker": "MP",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Nov 1 tariff deadline has passed without implementation, resolving the acute catalyst.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The acute tariff threat expired without action, leaving only the structural rare-earth export ban, but with no coverage or new developments, the edge has faded.",
+      "exit_advice": "Exit the position as the acute catalyst has resolved and no fresh catalysts are pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LYSDY",
+      "thesis": "China rare-earth export ban + Trump 100% tariff Nov 1 deadline",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Nov 1 tariff deadline has passed without implementation, resolving the acute catalyst.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The acute tariff threat expired without action, leaving only the structural rare-earth export ban, but with no coverage or new developments, the edge has faded.",
+      "exit_advice": "Exit the position as the acute catalyst has resolved and no fresh catalysts are pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The all-stock mega-merger between AWK and WTRG was announced Oct 27, with concrete regulatory milestones (approvals, shareholder votes) still pending. No fresh coverage this week, but the catalyst is live and acute, with no resolution or reversal detected. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold \u2013 merger is pending regulatory process with no resolution; silence from last week reduces conviction slightly, but catalyst remains active.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The all-stock mega-merger between AWK and WTRG was announced Oct 27, with concrete regulatory milestones (approvals, shareholder votes) still pending. No fresh coverage this week, but the catalyst is live and acute, with no resolution or reversal detected. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold \u2013 merger is pending regulatory process with no resolution; silence from last week reduces conviction slightly, but catalyst remains active.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The all-stock mega-merger between AWK and WTRG was announced Oct 27, with concrete regulatory milestones (approvals, shareholder votes) still pending. No fresh coverage this week, but the catalyst is live and acute, with no resolution or reversal detected. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold \u2013 merger is pending regulatory process with no resolution; silence from last week reduces conviction slightly, but catalyst remains active.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-14": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Silence for months suggests talks ended; no concrete next catalyst.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Over eight weeks with no news on California subsidy talks for Valero's Benicia refinery. The catalyst was speculative and silence decay has driven conviction to floor. This week's news includes Governor Newsom's climate summit attacks on fossil fuels, which may indirectly indicate reduced support for refinery subsidies, but no direct update on the talks.",
+      "exit_advice": "Exit due to dead catalyst; no news for over two months, position is effectively expired.",
+      "evidence_urls": [
+        "https://www.nzherald.co.nz/world/trump-is-temporary-california-governor-newsom-seizes-spotlight-at-un-climate-summit/OKL44IWCSNC3ZJIYQHKZJ3JALM/",
+        "https://www.rte.ie/news/environment/2025/1111/1543409-cop-30-brazil/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "Catalyst remains pending: FTSE Russell upgrade to emerging market effective Sep 2026 with Mar 2026 interim review still ahead. No fresh coverage continues, eroding conviction due to silence; initial surge likely absorbed much near-term edge, with remaining upside tied to distant passive inflows.",
+      "exit_advice": "Hold through silence only if expecting catalyst re-acceleration; monitor for Mar 2026 interim review. If silence persists and no fresh milestones, consider exiting on soft-resolution as edge fades.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No fresh news on the AWK-WTRG merger this week; catalyst remains live with regulatory approvals and shareholder votes still pending. Conviction reduced by one due to silence decay.",
+      "exit_advice": "Hold position; await regulatory milestones and merger completion news.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No fresh news on the AWK-WTRG merger this week; catalyst remains live with regulatory approvals and shareholder votes still pending. Conviction reduced by one due to silence decay.",
+      "exit_advice": "Hold position; await regulatory milestones and merger completion news.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "No fresh news on the AWK-WTRG merger this week; catalyst remains live with regulatory approvals and shareholder votes still pending. Conviction reduced by one due to silence decay.",
+      "exit_advice": "Hold position; await regulatory milestones and merger completion news.",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-21": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Months of silence indicate talks collapsed; no subsidy deal emerged.",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "No news for over nine weeks; California subsidy talks for Valero's Benicia refinery appear stalled with no scheduled catalyst ahead.",
+      "exit_advice": "Exit position as catalyst effectively dead with no resolution after prolonged silence.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "No fresh coverage continues for the fifth consecutive week; catalyst remains pending with concrete milestones (Mar 2026 interim review, Sep 2026 effective date). Initial surge likely absorbed near-term upside, with remaining edge tied to distant passive inflows. Conviction eroded to minimum under silence decay.",
+      "exit_advice": "Hold until upgrade effective Sep 2026, but edge is minimal due to prolonged silence and distant timeline; consider culling in fitness contests.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "AWK-WTRG merger remains pending with regulatory approvals and shareholder votes ahead; no fresh news this week, leading to steady conviction decay from ongoing silence.",
+      "exit_advice": "Hold pending concrete merger milestones (regulatory approvals, shareholder votes, closing); exit if merger closes, is canceled or falls through.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "AWK-WTRG merger remains pending with regulatory approvals and shareholder votes ahead; no fresh news this week, leading to steady conviction decay from ongoing silence.",
+      "exit_advice": "Hold pending concrete merger milestones (regulatory approvals, shareholder votes, closing); exit if merger closes, is canceled or falls through.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "AWK-WTRG merger remains pending with regulatory approvals and shareholder votes ahead; no fresh news this week, leading to steady conviction decay from ongoing silence.",
+      "exit_advice": "Hold pending concrete merger milestones (regulatory approvals, shareholder votes, closing); exit if merger closes, is canceled or falls through.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    }
+  ],
+  "2025-11-28": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Subsidy talks have produced no outcome after months of silence, catalyst effectively evaporated.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "No news on California subsidy talks for over nine weeks; catalyst appears effectively stalled without resolution or scheduled next step.",
+      "exit_advice": "Position is dead due to prolonged silence with no catalyst pending; recommend exiting despite technical thesis_live status.",
+      "evidence_urls": [
+        "https://www.investopedia.com/elon-musk-talks-up-tesla-ai-chip-capabilities-its-stock-is-surging-11855551"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "No direct coverage of the Vietnam FTSE Russell upgrade this week. Catalyst remains pending with Mar 2026 interim review and Sep 2026 effective date. Prolonged silence (7 weeks) has eroded conviction to minimum; initial surge likely absorbed near-term edge, with remaining upside tied to distant passive inflows.",
+      "exit_advice": "Hold with minimal conviction due to pending catalyst but faded edge from silence. Monitor for fresh coverage near milestones (Mar 2026) or reversal signs.",
+      "evidence_urls": [
+        "https://markets.financialcontent.com/stocks/article/marketminute-2025-11-28-beyond-the-giants-gauging-emerging-large-cap-leadership-amidst-broadening-market-dynamics",
+        "https://www.tribuneindia.com/news/business/mcap-of-7-of-top-10-most-valued-firms-surges-rs-1-28-lakh-crore-ril-airtel-biggest-gainers/"
+      ]
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still ahead. No fresh press this week extends silence decay, reducing conviction to 2, but the driving condition is unchanged and not reversed.",
+      "exit_advice": "Hold position pending regulatory approvals or shareholder votes; conviction is low due to prolonged silence, so monitor closely for fresh news or any resolution signals.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still ahead. No fresh press this week extends silence decay, reducing conviction to 2, but the driving condition is unchanged and not reversed.",
+      "exit_advice": "Hold position pending regulatory approvals or shareholder votes; conviction is low due to prolonged silence, so monitor closely for fresh news or any resolution signals.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still ahead. No fresh press this week extends silence decay, reducing conviction to 2, but the driving condition is unchanged and not reversed.",
+      "exit_advice": "Hold position pending regulatory approvals or shareholder votes; conviction is low due to prolonged silence, so monitor closely for fresh news or any resolution signals.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news this week on IAEA Board resolution against Iran nuclear program; catalyst remains unresolved. General nuclear sector influenced by unrelated factors like AI developments.",
+      "exit_advice": "Hold \u2013 IAEA resolution still pending, no reversal of driving condition.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/",
+        "https://www.aol.com/finance/nuscale-stock-could-hidden-gem-123700742.html",
+        "https://www.fool.com/investing/2025/11/26/nuscale-stock-could-hidden-gem-123700742-in-2025/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/11/26/better-nuclear-play-nuscale-power-vs-oklo/",
+        "https://biztoc.com/x/923270c3c49bbfa1"
+      ]
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news this week on IAEA Board resolution against Iran nuclear program; catalyst remains unresolved. General nuclear sector influenced by unrelated factors like AI developments.",
+      "exit_advice": "Hold \u2013 IAEA resolution still pending, no reversal of driving condition.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/",
+        "https://www.aol.com/finance/nuscale-stock-could-hidden-gem-123700742.html",
+        "https://www.fool.com/investing/2025/11/26/nuscale-stock-could-hidden-gem-123700742-in-2025/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/11/26/better-nuclear-play-nuscale-power-vs-oklo/",
+        "https://biztoc.com/x/923270c3c49bbfa1"
+      ]
+    },
+    {
+      "ticker": "UEC",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news this week on IAEA Board resolution against Iran nuclear program; catalyst remains unresolved. General nuclear sector influenced by unrelated factors like AI developments.",
+      "exit_advice": "Hold \u2013 IAEA resolution still pending, no reversal of driving condition.",
+      "evidence_urls": [
+        "https://www.dailypolitical.com/2025/11/28/best-nuclear-stocks-to-add-to-your-watchlist-november-28th.html",
+        "https://www.insidermonkey.com/blog/oklo-inc-oklo-fell-by-over-13-this-week-here-is-why-1651782/",
+        "https://www.aol.com/finance/nuscale-stock-could-hidden-gem-123700742.html",
+        "https://www.fool.com/investing/2025/11/26/nuscale-stock-could-hidden-gem-123700742-in-2025/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/11/26/better-nuclear-play-nuscale-power-vs-oklo/",
+        "https://biztoc.com/x/923270c3c49bbfa1"
+      ]
+    }
+  ],
+  "2025-12-05": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Speculative early-stage talks saw zero coverage in 12+ weeks; initiative quietly died without ever advancing past initial exploration.",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Week 13 of silence. The Honeywell/Nigeria Dangote refinery expansion story (12/02) is entirely unrelated to VLO, California, or Benicia. No fresh coverage of the subsidy talks. The catalyst was fragile at entry \u2014 speculative early-stage discussions with no formal process, no bill, no public commitment from any party. After 12+ weeks of total blackout, the reasonable inference is that these talks either never happened in a meaningful way or were abandoned quietly. There is nothing on the calendar to revive this. Conviction remains at absolute floor (1).",
+      "exit_advice": "This position is effectively dead. The original catalyst was 'early-stage discussions' \u2014 already speculative at entry \u2014 and 12+ consecutive weeks of absolute silence with no formal proposal, no bill, no vote, and no follow-up coverage strongly indicate the initiative never progressed. Newsom's climate summit attacks on fossil fuels (11/14) further undercut the political will to subsidize a refinery. There is no concrete scheduled catalyst ahead. The only reason catalyst_resolved stays technically false is that no one formally announced the talks ended, but in practice the position has been at conviction floor for over two months due to unbroken silence decay. VLO remains listed only because the formal exit threshold hasn't been met; this should be the first position culled from any shortlist.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/honeywell-hon-to-support-major-expansion-at-nigerias-dangote-refinery-by-2028-1653089/"
+      ]
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "No fresh coverage of the FTSE Russell Vietnam upgrade this week, continuing a multi-week silence. The catalyst remains pending with no reversal; however, prolonged lack of coverage has eroded conviction to minimum. Initial surge likely absorbed near-term edge, with remaining upside tied to distant passive inflows.",
+      "exit_advice": "Hold through silence as catalyst remains pending with concrete milestones (Mar 2026 interim review, Sep 2026 effective date). Conviction is at minimum due to prolonged silence; exit only on catalyst resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still pending. No fresh news this week extends silence decay, reducing conviction to 1. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold; catalyst still pending with regulatory approvals and shareholder votes ahead, but conviction is at minimum due to prolonged silence decay.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still pending. No fresh news this week extends silence decay, reducing conviction to 1. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold; catalyst still pending with regulatory approvals and shareholder votes ahead, but conviction is at minimum due to prolonged silence decay.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "The all-stock mega-merger between AWK and WTRG remains live and unreported, with concrete regulatory and shareholder vote milestones still pending. No fresh news this week extends silence decay, reducing conviction to 1. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid.",
+      "exit_advice": "Hold; catalyst still pending with regulatory approvals and shareholder votes ahead, but conviction is at minimum due to prolonged silence decay.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news on IAEA resolution against Iran nuclear program this week. General nuclear sector active due to AI-driven demand, but specific catalyst remains pending. Silence on catalyst trend continues, applying silence decay to conviction.",
+      "exit_advice": "Hold; IAEA resolution pending with no signs of resolution or reversal. Catalyst is acute and concrete next step (Board decision) still ahead.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    },
+    {
+      "ticker": "DNN",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news on IAEA resolution against Iran nuclear program this week. General nuclear sector active due to AI-driven demand, but specific catalyst remains pending. Silence on catalyst trend continues, applying silence decay to conviction.",
+      "exit_advice": "Hold; IAEA resolution pending with no signs of resolution or reversal. Catalyst is acute and concrete next step (Board decision) still ahead.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news on IAEA resolution against Iran nuclear program this week. General nuclear sector active due to AI-driven demand, but specific catalyst remains pending. Silence on catalyst trend continues, applying silence decay to conviction.",
+      "exit_advice": "Hold; IAEA resolution pending with no signs of resolution or reversal. Catalyst is acute and concrete next step (Board decision) still ahead.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    },
+    {
+      "ticker": "UEC",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "No news on IAEA resolution against Iran nuclear program this week. General nuclear sector active due to AI-driven demand, but specific catalyst remains pending. Silence on catalyst trend continues, applying silence decay to conviction.",
+      "exit_advice": "Hold; IAEA resolution pending with no signs of resolution or reversal. Catalyst is acute and concrete next step (Board decision) still ahead.",
+      "evidence_urls": [
+        "https://www.benzinga.com/markets/commodities/25/12/49134392/denison-mines-secures-landmark-uranium-development-pact-with-athabasca-communities"
+      ]
+    }
+  ],
+  "2025-12-12": [
+    {
+      "ticker": "VLO",
+      "thesis": "California talks for Valero subsidy to avert Benicia refinery shutdown",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "13+ weeks of total silence; speculative early-stage talks never materialized into any formal process \u2014 catalyst window closed via non-occurrence.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "Week 13+ of total silence. The catalyst \u2014 early-stage California subsidy discussions to avert the Benicia refinery shutdown \u2014 was speculative at entry and has generated zero follow-up coverage since. No bill was filed, no formal proposal surfaced, no public commitment from any legislator or agency, no vote scheduled. After over three months of complete blackout on what was described as preliminary talks, the initiative has effectively died. The subsidy window has closed through non-occurrence; this is a dead position.",
+      "exit_advice": "Exit. The early-stage subsidy talks never progressed beyond speculation. After 13+ weeks of total blackout with no formal proposal, no bill, no vote, and no public commitment, the initiative has effectively been abandoned and the catalyst window has closed through non-occurrence. Cut the position and redeploy capital to live, unresolved catalysts.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "VNM",
+      "thesis": "FTSE Russell upgrades Vietnam to emerging market; effective Sep 2026",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "Catalyst remains pending with concrete milestones (Mar 2026 interim review, Sep 2026 effective date), but prolonged silence erodes edge; no reversal or resolution.",
+      "exit_advice": "Hold with minimal conviction due to silence decay; catalyst still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AWK",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "All-stock merger between AWK and WTRG remains pending with concrete regulatory approvals and shareholder votes still ahead. No fresh press coverage this week extends silence decay, reducing conviction to minimum. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid but weak.",
+      "exit_advice": "Hold with minimal exposure; exit if no catalyst progression or fresh coverage soon, as silence decay has eroded edge.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/international-business/a-new-high-on-wall-street-dow-and-sp-500-set-new-records-nasdaq-dragged-down-by-oracle-results/articleshow/125924475.cms",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html"
+      ]
+    },
+    {
+      "ticker": "WTRG",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "All-stock merger between AWK and WTRG remains pending with concrete regulatory approvals and shareholder votes still ahead. No fresh press coverage this week extends silence decay, reducing conviction to minimum. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid but weak.",
+      "exit_advice": "Hold with minimal exposure; exit if no catalyst progression or fresh coverage soon, as silence decay has eroded edge.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/international-business/a-new-high-on-wall-street-dow-and-sp-500-set-new-records-nasdaq-dragged-down-by-oracle-results/articleshow/125924475.cms",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html"
+      ]
+    },
+    {
+      "ticker": "AWR",
+      "thesis": "American Water and Essential Utilities agree all-stock mega-merger announced Oct 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 1,
+      "assessment": "All-stock merger between AWK and WTRG remains pending with concrete regulatory approvals and shareholder votes still ahead. No fresh press coverage this week extends silence decay, reducing conviction to minimum. Vehicles AWK and WTRG are direct deal participants; AWR is a peer for sector re-rating, all still valid but weak.",
+      "exit_advice": "Hold with minimal exposure; exit if no catalyst progression or fresh coverage soon, as silence decay has eroded edge.",
+      "evidence_urls": [
+        "https://timesofindia.indiatimes.com/business/international-business/a-new-high-on-wall-street-dow-and-sp-500-set-new-records-nasdaq-dragged-down-by-oracle-results/articleshow/125924475.cms",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html"
+      ]
+    },
+    {
+      "ticker": "CCJ",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "IAEA resolution against Iran nuclear program remains unresolved with no news this week. Nuclear sector generally active but unrelated to specific catalyst. Silence decay continues to lower conviction due to lack of fresh coverage on the trend.",
+      "exit_advice": "Hold as catalyst pending; no resolution or reversal found.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuscale-power-next-nuclear-energy-165100105.html",
+        "https://finance.yahoo.com/news/prediction-stock-market-bubble-burst-202500013.html",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html"
+      ]
+    },
+    {
+      "ticker": "DNN",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "IAEA resolution against Iran nuclear program remains unresolved with no news this week. Nuclear sector generally active but unrelated to specific catalyst. Silence decay continues to lower conviction due to lack of fresh coverage on the trend.",
+      "exit_advice": "Hold as catalyst pending; no resolution or reversal found.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuscale-power-next-nuclear-energy-165100105.html",
+        "https://finance.yahoo.com/news/prediction-stock-market-bubble-burst-202500013.html",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html"
+      ]
+    },
+    {
+      "ticker": "LEU",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "IAEA resolution against Iran nuclear program remains unresolved with no news this week. Nuclear sector generally active but unrelated to specific catalyst. Silence decay continues to lower conviction due to lack of fresh coverage on the trend.",
+      "exit_advice": "Hold as catalyst pending; no resolution or reversal found.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuscale-power-next-nuclear-energy-165100105.html",
+        "https://finance.yahoo.com/news/prediction-stock-market-bubble-burst-202500013.html",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html"
+      ]
+    },
+    {
+      "ticker": "UEC",
+      "thesis": "IAEA Board passes resolution against Iran nuclear program",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "IAEA resolution against Iran nuclear program remains unresolved with no news this week. Nuclear sector generally active but unrelated to specific catalyst. Silence decay continues to lower conviction due to lack of fresh coverage on the trend.",
+      "exit_advice": "Hold as catalyst pending; no resolution or reversal found.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/nuscale-power-next-nuclear-energy-165100105.html",
+        "https://finance.yahoo.com/news/prediction-stock-market-bubble-burst-202500013.html",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/?source=iedfolrf0000001",
+        "https://www.fool.com/investing/2025/12/08/prediction-this-stock-market-bubble-will-burst-in/",
+        "https://www.dailypolitical.com/2025/12/08/best-nuclear-stocks-to-watch-today-december-8th.html",
+        "https://finance.yahoo.com/news/better-energy-stock-oklo-vs-162000404.html"
+      ]
+    }
+  ]
+}

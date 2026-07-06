@@ -1,124 +1,287 @@
 {
+  "2025-12-26": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "First week; D-Wave's major quantum event on Jan 27 is upcoming, making QBTS a pure-play vehicle. Quantum stocks are volatile with media attention, but the catalyst remains live.",
+      "exit_advice": "Hold until the Jan 27 event; catalyst is pending and not yet resolved.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/interested-d-wave-quantum-mark-202000583.html"
+      ]
+    }
+  ],
+  "2026-01-02": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "D-Wave's January 27 quantum event remains pending; QBTS surged 17% pre-CES with active media coverage, but specific catalyst not yet resolved or fully priced-in.",
+      "exit_advice": "Hold; concrete catalyst ahead overrides crowd noise. Monitor for event execution or reversal signals.",
+      "evidence_urls": [
+        "https://biztoc.com/x/f86e0a3113de761b",
+        "https://finance.yahoo.com/news/ionq-vs-d-wave-quantum-185000428.html",
+        "https://www.fool.com/investing/2026/01/02/quantum-computing-stock-billionaire-2026-ionq-rgti/"
+      ]
+    }
+  ],
+  "2026-01-09": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "D-Wave's January 27 quantum event remains pending with three weeks until occurrence. Recent financial articles highlight quantum computing stocks, including D-Wave, in watchlists and predictions, but none specifically reference the Jan 27 catalyst, suggesting it is not yet mainstream-saturated. QBTS is the direct pure-play vehicle.",
+      "exit_advice": "Hold until the January 27 event or until resolution/reversal conditions are met. Monitor for prior-resolution news or mainstream saturation if coverage escalates before the event.",
+      "evidence_urls": [
+        "https://www.themarketsdaily.com/2026/01/09/top-quantum-computing-stocks-to-keep-an-eye-on-january-9th.html",
+        "https://finance.yahoo.com/news/d-wave-quantum-stock-buy-224500717.html",
+        "https://www.fool.com/investing/2026/01/08/3-popular-stocks-crash-2026-market-bubble-bursts/",
+        "https://www.fool.com/investing/2026/01/07/3-top-quantum-computing-stocks-to-buy-in-2026/"
+      ]
+    }
+  ],
+  "2026-01-16": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The catalyst\u2014D-Wave's major quantum event on January 27\u2014remains pending and not yet resolved. News this week includes general articles on quantum stocks, with some mentioning QBTS, but no specific references to the Jan 27 event indicating mainstream saturation. The position is still live.",
+      "exit_advice": "Hold; the catalyst is still ahead and edge persists.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/16/is-d-wave-quantum-your-ticket-to-becoming-a/?source=iedfolrf0000001",
+        "https://www.morningstar.com/markets/beyond-ai-are-quantum-stocks-next-big-thing-tech-investing",
+        "https://finance.yahoo.com/news/550-million-reason-buy-quantum-140002965.html",
+        "https://www.fool.com/investing/2026/01/14/quantum-computing-stocks-ionq-840-million-warning/?source=iedfolrf0000001"
+      ]
+    }
+  ],
+  "2026-01-23": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Quantum sector fully mainstream-saturated with fans and skeptics both loud; Jan 27 event may already be priced in \u2014 but concrete catalyst still 4 days out.",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Weekly news saturates the quantum sector with 'best stocks to buy' listicles (Insider Monkey, Yahoo, Motley Fool), a Rosenblatt PT raise to $43 on QBTS, a CNBC appearance by Defiance ETFs CEO on quantum, and bearish counter-pieces ('will crash', 'hype vs reality'). QBTS is named explicitly in several. However, NONE of this week's coverage specifically references the D-Wave Jan 27 event \u2014 the sector is mainstream but the discrete catalyst remains under-discussed. The event is 4 days away. The edge is narrowing as the crowd piles into quantum broadly, but the specific catalyst has not yet landed.",
+      "exit_advice": "Hold through to Jan 27 event. The sector is now heavily covered but the specific catalyst is still pending and imminent. After the event resolves, reassess: a sell-the-news reaction is the key risk. Do not add \u2014 edge is eroding as mainstream saturation deepens. Pre-event, the position carries elevated crowding risk; post-event, thesis_live should flip to false regardless of outcome.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/rosenblatt-lifts-pt-d-wave-173326731.html",
+        "https://www.insidermonkey.com/blog/10-best-quantum-computing-stocks-to-buy-for-2026-1676934/",
+        "https://www.fool.com/investing/2026/01/23/predict-quantum-computing-ionq-rigetti-d-wave-buy/?source=iedfolrf0000001",
+        "https://finance.yahoo.com/news/once-decade-investment-opportunity-3-090500108.html",
+        "https://www.fool.com/investing/2026/01/21/quantum-computing-stocks-hype-versus-reality/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "TLN",
+      "thesis": "Talen acquires three gas-fired PJM plants amid AI data center power squeeze",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Deal signing announced jan 15; tlN already popped 12%. The discrete acquisition catalyst has occurred and is priced.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The signing of definitive agreements to acquire the three PJM gas plants was announced Jan 15; TLN jumped ~12% that day. This first-week analysis captures a catalyst that already fired and was priced before the journal entry date (Jan 23). No concrete closing date, regulatory timeline, or follow-on milestone appears in the news \u2014 just confirmation the deal happened. The broader AI-power-squeeze theme may persist, but the FIXED catalyst (TLN acquires three gas-fired PJM plants) is a single datable event that has occurred and been absorbed. No fresh coverage this week reinforces further upside.",
+      "exit_advice": "EXIT. The deal signing occurred Jan 15 and was priced immediately. There is no concrete second catalyst (closing date, regulatory approval, or follow-on acquisition) to justify holding. The early edge is gone; capital should rotate to an unresolved event.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/talen-energy-tln-buys-three-gas-fired-power-plants-1677955/"
+      ]
+    }
+  ],
+  "2026-01-30": [
+    {
+      "ticker": "QBTS",
+      "thesis": "D-Wave's major quantum event on January 27",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Jan 27 D-Wave event has passed with zero coverage \u2014 catalyst resolved silently, edge entirely spent.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The discrete catalyst \u2014 D-Wave's major quantum event on January 27 \u2014 has now passed (it's January 30). This week's news contains ZERO mention of D-Wave, QBTS, or the Jan 27 event. The only quantum-related item is a Motley Fool piece on Rigetti (RGTI), not D-Wave. The event either occurred silently with no market-moving announcements or was deferred, but either way the scheduled catalyst date has closed with no discernible impact. The prior weeks showed the quantum sector becoming mainstream-saturated (listicles, PT raises, TV appearances), and now the specific catalyst has resolved into silence \u2014 no follow-on announcement, no deal, no milestone. The edge was the under-discussed discrete event; that event is now in the past and the crowd arrived weeks ago. This position should be closed.",
+      "exit_advice": "Exit QBTS. The Jan 27 D-Wave event has passed with zero market-moving coverage. The catalyst resolved silently \u2014 no fresh announcement, no follow-on, no impact. The quantum sector was already mainstream-saturated before the event landed. There is no concrete next catalyst scheduled. Close the position and redeploy.",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2026/01/27/where-will-rigetti-computing-rgti-stock-be-in-1-ye/"
+      ]
+    }
+  ],
   "2026-02-06": [],
   "2026-02-13": [],
   "2026-02-20": [],
   "2026-02-27": [],
-  "2026-03-06": [],
-  "2026-03-13": [
+  "2026-03-06": [
     {
       "ticker": "BWET",
-      "thesis": "Strait of Hormuz closure from Iran war lifts tanker rates",
-      "thesis_live": false,
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": true,
       "src": "seed",
-      "exit_case": "Strait of Hormuz closure already reported on 2026-03-09; catalyst is public and resolved.",
-      "catalyst_resolved": true,
-      "assessment": "BWET has gained from elevated tanker rates following the Strait of Hormuz closure, but the closure event is now public and likely priced in, limiting further edge.",
-      "exit_advice": "Exit position as the specific catalyst (closure) has already occurred and is now resolved.",
+      "exit_case": "none \u2014 blockade is 8 days old and fully ongoing with no ceasefire, negotiations, or reversal announced.",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "Week 1. Iran blocked the Strait of Hormuz on Feb 28 after US-Israeli strikes. VLCC rates hit an all-time high of $423,736/day \u2014 an extraordinary spike. The blockade remains fully in force with zero signs of diplomatic resolution. BWET (Breakwave Tanker ETF) is described by CNBC as the 'under-owned way to play it,' indicating the position is still early and uncrowded. This is a classic acute chokepoint shock with a clean binary: the blockade either continues (rates stay extreme) or resolves (rates normalize). No resolution signal exists yet.",
+      "exit_advice": "Exit if/when Iran lifts the blockade or a credible ceasefire is signed \u2014 the acute catalyst resolves cleanly when Hormuz reopens. Watch for diplomatic back-channels, Iranian statements offering corridor negotiations, or tankers resuming unimpeded transit. Until then, rates stay elevated and the position holds.",
       "evidence_urls": [
-        "https://paktribune.com/stock-market-rally-accelerates-as-kse-100-index-surges-over-2000-points/",
-        "https://www.bnnbloomberg.ca/investing/market-outlook/2026/03/09/market-outlook-oil-surge-and-ai-spending-reshape-global-equities/",
-        "https://www.el-balad.com/16874214"
+        "https://www.cnbc.com/2026/03/03/middle-east-crisis-iran-us-shipping-oil-tankers-strait-of-hormuz.html"
       ]
     }
   ],
-  "2026-03-20": [],
+  "2026-03-13": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Strait remains physically blocked; no reopening, ceasefire, or diplomatic resolution reported.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "One week of silence after entry. The Strait of Hormuz blockade \u2014 initiated Feb 28 after US-Israeli strikes \u2014 remains fully in force with no reported diplomatic progress, no reopening, and no reversal signal. BWET was flagged as 'under-owned' by CNBC in week 1, indicating the crowd has not arrived. The acute chokepoint shock is structurally intact: rates spike when the chokepoint is physically blocked, and it still is. Conviction steps down one tick per the silence-decay rule (first quiet week), but the catalyst itself remains at full strength \u2014 this is a real-time geopolitical blockade, not a speculative thesis. Resume high conviction immediately if fresh coverage reappears next week.",
+      "exit_advice": "HOLD through one quiet week. The strait is still blocked and rates remain elevated. Exit only on concrete reversal (reopening announcement, ceasefire, diplomatic resolution). A single quiet week on a live chokepoint blockade is noise, not signal.",
+      "evidence_urls": []
+    }
+  ],
+  "2026-03-20": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none \u2014 blockade remains fully in force with no reopening or diplomatic resolution signal",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Week 3. The Strait of Hormuz blockade (initiated Feb 28) remains fully in force with no diplomatic resolution, no reopening, and no reversal signals. This week's FTSE 100 coverage confirms the market is still actively watching the Middle East situation \u2014 energy stocks rising on the open-ended crisis. BWET was flagged 'under-owned' on entry and nothing since suggests the tanker-rate trade has become crowded. Rates remain at extraordinary levels driven by the physical chokepoint closure. This is a classic acute blockade play with a clean binary: the chokepoint is either shut or it isn't. It is still shut.",
+      "exit_advice": "Hold through silence; the blockade is a real-time physical chokepoint event with zero resolution signal. The 'under-owned' characterization from week 1 has not been contradicted by any sell-side crowding or retail frenzy coverage. Exit ONLY on confirmed signs the Strait is reopening \u2014 a ceasefire, a diplomatic agreement, or naval traffic resuming. Do NOT exit on staleness alone; a blockade can re-accelerate (escalation, expanded interdiction, tanker seizures) with no warning.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/news/ftse-100-outperforms-europe-as-oil-majors-rise-ce7e5edadd80f625"
+      ]
+    }
+  ],
   "2026-03-27": [
     {
-      "ticker": "NXE",
-      "thesis": "NexGen Rook I CNSC approval & construction license issued March 5",
-      "thesis_live": false,
+      "ticker": "BWET",
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "CNSC approval and construction license were issued March 5 \u2014 three weeks before entry. Catalyst is fully resolved and public.",
-      "catalyst_resolved": true,
-      "assessment": "The discrete catalyst \u2014 CNSC approval of Rook I environmental assessment and issuance of the Licence to Prepare Site and Construction \u2014 was granted March 5, 2026, before this position was even opened (March 27). Insider Monkey's March 24 article confirms and frames it as a 'turning point for its uranium buildout.' The specific one-time government approval is done, public, and being discussed in mainstream financial media. There is no residual pending decision or binary event to wait for. The only remaining value would be general uranium theme upside, which is not what this event-driven book is for.",
-      "exit_advice": "Close the position immediately. The specific catalyst (CNSC Rook I approval + construction license) was issued March 5 and is 22 days past by entry date. The edge was pricing a discrete approval event \u2014 that event is public and priced. Holding on after this is thematic conviction, not event-driven alpha. Exit now and recycle capital.",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "The Strait of Hormuz blockade initiated Feb 28 persists without diplomatic progress. VLCC rates stay at extreme levels. BWET remains the clean vehicle for this acute chokepoint shock, still early and uncrowded.",
+      "exit_advice": "Hold through silence; the blockade is ongoing and tanker rates remain elevated.",
       "evidence_urls": [
-        "https://www.insidermonkey.com/blog/why-nexgen-energys-rook-i-approval-could-mark-a-turning-point-for-its-uranium-buildout-1723180/"
+        "https://www.cnbc.com/article/breakwave-tanker-etf-bwet-iran-hormuz"
       ]
     }
   ],
   "2026-04-03": [
     {
-      "ticker": "AA",
-      "thesis": "Trump adjusts aluminum tariffs on Liberation Day anniversary",
-      "thesis_live": false,
+      "ticker": "BWET",
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Trump already overhauled aluminum duties on April 2; AA already jumped 22%. Catalyst fully resolved and priced same-day as entry.",
-      "catalyst_resolved": true,
-      "assessment": "AA gapped +22% on the day the tariff overhaul was announced (Apr 2). The catalyst that was the premise for this trade \u2014 Trump adjusting aluminum duties on the Liberation Day anniversary \u2014 has now occurred. The move is in the price. This is a textbook example of entering on the same day the catalyst fires, giving zero pre-event edge.",
-      "exit_advice": "Sell immediately. The aluminum tariff adjustment has been publicly announced and AA has already re-rated +22%. No asymmetric edge remains. Holding here is chasing, not harvesting a catalyst.",
+      "exit_case": "none \u2014 Hormuz blockade still in force; headline confirms it may persist post-war, not reverse.",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Trump's private signaling that he'd accept ending the war WITHOUT requiring Hormuz reopening is structurally bullish for the tanker thesis. It suggests the chokepoint closure outlasts the conflict itself \u2014 transforming what was a wartime disruption into potentially a persistent feature of a post-war settlement. VLCC rates at $423,736/day were already extreme; if the blockade persists even after hostilities end, the rate environment stays elevated far longer than a simple 'war ends \u2192 blockade lifts' scenario implied. Fresh headline resets silence decay. BWET remains clean and under-owned.",
+      "exit_advice": "HOLD \u2014 blockade persists and now appears durable beyond any potential ceasefire. The headline extends, not closes, the catalyst window. Only a concrete Hormuz reopening (tankers resuming normal transit) triggers exit \u2014 nothing in this news or prior weeks signals that.",
       "evidence_urls": [
-        "https://finance.yahoo.com/economy/policy/articles/liberation-day-trump-sets-drug-222717753.html",
-        "https://www.morningstar.com/markets/weekly-market-update-stocks-gain-339-technology-rises-energy-falls"
+        "https://www.morningstar.com/news/dow-jones/2026033011096/dow-jones-top-markets-headlines-at-11-pm-et-trump-tells-aides-hes-willing-to-end-war-without-reopening-hormuz-stock"
       ]
     }
   ],
-  "2026-04-10": [],
+  "2026-04-10": [
+    {
+      "ticker": "BWET",
+      "thesis": "Iran blocks Strait of Hormuz, spiking oil-tanker rates.",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "Ceasefire agreed, Strait expected to reopen, blockade reversed.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "A two-week ceasefire between the US and Iran was agreed on April 8, 2026, with expectations that energy supplies through the Strait of Hormuz will resume, indicating the blockade is ending.",
+      "exit_advice": "Exit position immediately\u2014the Strait of Hormuz blockade has reversed via ceasefire, resolving the acute catalyst.",
+      "evidence_urls": [
+        "https://www.rte.ie/news/business/2026/0408/1567148-european-markets-jump/"
+      ]
+    }
+  ],
   "2026-04-17": [],
-  "2026-04-24": [],
+  "2026-04-24": [
+    {
+      "ticker": "GEV",
+      "thesis": "White House pushes for nuclear reactors in space; SMR jumps 40%",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "White House push for space reactors already announced and priced.",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "The catalyst was the White House announcement on April 18, which caused SMR to surge 40%. News coverage since then is saturated with mainstream comparisons of nuclear stocks, indicating the event is fully reflected in prices.",
+      "exit_advice": "Exit position as the catalyst has resolved and is priced into the market.",
+      "evidence_urls": [
+        "https://finance.yahoo.com/news/heres-why-oklo-and-other-nuclear-power-stocks-skyrocketed-this-week-151034881.html"
+      ]
+    }
+  ],
   "2026-05-01": [],
   "2026-05-08": [
     {
       "ticker": "OKLO",
-      "thesis": "Oklo NRC reactor design approval decision on May 12",
+      "thesis": "Oklo stock anticipates May 12 catalyst event",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Oklo stock surged 46% in April with high anticipation for NRC reactor design approval decision on May 12. Catalyst is pending; no resolution yet.",
-      "exit_advice": "Hold until NRC decision on May 12; re-evaluate thesis based on outcome and post-decision price action.",
+      "conviction": 7,
+      "assessment": "This is the first week post-entry. The catalyst is a specific, date-stamped event for Oklo on May 12, still pending. A recent Motley Fool article highlights the anticipation, indicating early but growing coverage. No news suggests the event has occurred or been cancelled.",
+      "exit_advice": "Hold until the May 12 catalyst event materializes or if the driving condition reverses (e.g., event cancelled). Monitor for resolution or full mainstream saturation post-event.",
       "evidence_urls": [
-        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/05/02/oklo-vs-nuscale-both-are-falling-in-2026-but-on/",
-        "https://www.fool.com/investing/2026/05/02/oklo-vs-nuscale-both-are-falling-in-2026-but-on/?source=iedfolrf0000001",
-        "https://www.fool.com/investing/2026/05/01/oklo-vs-nuscale-which-nuclear-stock-is-better-for/",
-        "https://finance.yahoo.com/sectors/energy/articles/oklo-vs-nuscale-nuclear-stock-002500395.html",
-        "https://www.fool.com/investing/2026/05/01/oklo-vs-nuscale-which-nuclear-stock-is-better-for/?source=iedfolrf0000001"
+        "https://www.fool.com/investing/2026/05/08/why-oklo-stock-surged-46-in-april/?source=iedfolrf0000001"
       ]
     }
   ],
   "2026-05-15": [
     {
       "ticker": "OKLO",
-      "thesis": "Oklo NRC reactor design approval decision on May 12",
+      "thesis": "Oklo stock anticipates May 12 catalyst event",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "May 12 decision date passed three days ago with zero reported NRC action \u2014 the catalytic event window is closed.",
+      "exit_case": "May 12 catalyst event has passed without a reported trigger or resolution.",
       "catalyst_resolved": true,
-      "assessment": "The May 12 NRC decision date has passed (now May 15). The post-catalyst news cycle contains zero mention of an NRC ruling \u2014 neither approval grant nor denial. JPMorgan's May 15 note discusses SMR outlook without referencing any Oklo-specific NRC action, and the insidermonkey piece is a generic listicle. Either the decision was delayed (breaking the date-specific entry premise) or the outcome was non-event. The time-sensitive binary edge from the May 12 date has degraded entirely.",
-      "exit_advice": "The specific May 12 NRC decision date has passed with no reported outcome. Whether delayed or non-announced, the binary catalyst window you entered on is closed. Sell and close the event.",
+      "conviction": 2,
+      "assessment": "The May 12 catalyst event for Oklo has elapsed without reported occurrence or follow-on news, resolving the anticipation and leaving the thesis inactive.",
+      "exit_advice": "Exit the position as the catalyst has resolved; no further edge remains for this specific event.",
       "evidence_urls": [
-        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html",
-        "https://www.insidermonkey.com/blog/10-best-nuclear-energy-stocks-to-buy-as-smrs-go-mainstream-1761864/"
+        "https://finance.yahoo.com/sectors/energy/articles/jpmorgan-stops-short-turning-bullish-173632369.html"
       ]
     }
   ],
   "2026-05-22": [],
-  "2026-05-29": [
-    {
-      "ticker": "OKLO",
-      "thesis": "Oklo in advanced DOE fuel-program talks announced May 27",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "DOE fuel-program talks announcement made May 27; stock surged, catalyst already resolved.",
-      "catalyst_resolved": true,
-      "assessment": "Event initiated on announcement of advanced DOE talks, which occurred May 27 and has been public for a week. No further specific catalyst pending.",
-      "exit_advice": "Exit position as the catalyst is public, priced in, and no pending edge remains.",
-      "evidence_urls": [
-        "https://finance.yahoo.com/markets/stocks/articles/nuclear-energy-startup-oklos-stock-154526723.html"
-      ]
-    }
-  ],
+  "2026-05-29": [],
   "2026-06-05": [
     {
       "ticker": "COMP",
-      "thesis": "NY Attorney General antitrust probe into Compass announced",
-      "thesis_live": false,
+      "thesis": "NY AG antitrust probe announced; stock crashed.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Probe announcement is public; stock price already decimated, catalyst resolved.",
-      "catalyst_resolved": true,
-      "assessment": "The NY AG antitrust probe into Compass was announced, causing a significant stock decline. The specific catalyst (announcement) has occurred and is public, so the event-driven edge is gone.",
-      "exit_advice": "Exit position as the announcement catalyst is resolved and priced in.",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Fresh NY AG antitrust probe against Compass (COMP) announced June 4; stock plummeted same day. We entered after the initial crash but the investigation is only beginning \u2014 an antitrust probe is a multi-step process (subpoenas \u2192 findings \u2192 potential enforcement) with concrete milestones ahead. The NY Post confirms the probe and the stock decline. No other vehicles in this basket. Early-stage regulatory overhang with meaningful downside exposure if the probe escalates.",
+      "exit_advice": "The probe is announced but the investigation arc is just starting. Hold through the investigation lifecycle \u2014 concrete next steps (subpoenas, findings, enforcement actions) will generate follow-on catalysts. Monitor for any settlement or case closure as the true resolution point. Step conviction down only if prolonged silence with no investigative milestones emerge.",
       "evidence_urls": [
         "https://nypost.com/2026/06/04/business/ny-ag-probe-decimates-compass-stock-price/"
       ]
@@ -126,50 +289,58 @@
   ],
   "2026-06-12": [
     {
-      "ticker": "SPCX",
-      "thesis": "SPCX SpaceX-vehicle ETF public debut draws equity-market bids",
-      "thesis_live": false,
+      "ticker": "COMP",
+      "thesis": "NY AG antitrust probe announced; stock crashed.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The SPCX public debut has already occurred, resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The SPCX debut is reported to have attracted equity bids as of entry date, but the catalyst (the debut itself) appears to have already taken place, removing the pre-event edge.",
-      "exit_advice": "Exit: the debut catalyst is resolved and likely priced in; holding now relies on broader speculation without a pending catalyst.",
-      "evidence_urls": [
-        "https://www.zerohedge.com/markets/crude-benchmarks-hit-mehr-mou-reporting-equities-bid-spcx-debut-newsquawk-us-market-open"
-      ]
+      "exit_case": "Probe announced and stock already crashed on it; initial shock entry edge may be fully absorbed with no fresh escalation this week.",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The NY AG antitrust probe remains active with no resolution \u2014 no findings, subpoenas, or enforcement actions have been announced or dropped. However, zero COMP-specific or probe-related coverage appeared this week, triggering silence decay. The investigative process still has concrete milestones ahead (subpoenas, findings, potential enforcement actions) that could re-accelerate the overhang. For now the position drifts in a vacuum \u2014 the driving condition hasn't reversed but conviction must fade until fresh probe-related news surfaces.",
+      "exit_advice": "HOLD through the quiet stretch \u2014 the probe is early-stage and un-resolved with concrete escalation milestones ahead. If no fresh probe coverage emerges next week, silence decay will push conviction to 4 and the name risks culling. A single story on subpoenas, findings, or enforcement actions would reset conviction upward.",
+      "evidence_urls": []
     }
   ],
   "2026-06-19": [
     {
-      "ticker": "CVX",
-      "thesis": "U.S.-Iran peace deal announced, collapsing oil prices",
-      "thesis_live": false,
+      "ticker": "COMP",
+      "thesis": "NY AG antitrust probe announced; stock crashed.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "U.S.-Iran peace deal announced June 15, oil prices already tumbled; catalyst resolved and priced.",
-      "catalyst_resolved": true,
-      "assessment": "The peace deal was announced, causing oil prices to collapse and impacting CVX; event is now historical.",
-      "exit_advice": "Exit position immediately as the catalyst is public and market has reacted.",
-      "evidence_urls": [
-        "https://www.finance.yahoo.com/markets/stocks/articles/stock-market-today-stocks-soar-132509842.html",
-        "https://www.ibtimes.com.au/dow-jones-record-high-ai-middle-east-peace-deal-1870912",
-        "https://www.fool.com/investing/2026/06/17/trump-made-38-iran-peace-deal-promises-the-39th-may-be-real--but-before-you-reposition-your-portfolio-read-this/"
-      ]
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "NY AG antitrust probe against Compass (COMP) remains unresolved with no fresh coverage for two consecutive weeks, indicating silence decay. Investigation is still in early stages with potential milestones like subpoenas or enforcement actions ahead, but lack of news reduces conviction.",
+      "exit_advice": "Exit upon concrete resolution of the probe, such as formal charges, settlement, or announced closure of investigation, or if coverage becomes mainstream-saturated without a pending catalyst.",
+      "evidence_urls": []
     }
   ],
   "2026-06-26": [
     {
-      "ticker": "SMR",
-      "thesis": "U.S. government announces $17.5 billion nuclear energy investment.",
-      "thesis_live": false,
+      "ticker": "COMP",
+      "thesis": "NY AG antitrust probe announced; stock crashed.",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The U.S. government's $17.5 billion nuclear energy investment has already been announced and is public.",
-      "catalyst_resolved": true,
-      "assessment": "The $17.5 billion nuclear investment has been publicly announced, representing a discrete catalyst that is now resolved and likely priced into the market.",
-      "exit_advice": "Thesis is no longer live; avoid entry or exit any existing long position in SMR based on this catalyst.",
-      "evidence_urls": [
-        "https://www.fool.com/investing/2026/06/25/the-us-just-put-175-billion-behind-a-nuclear-comeb/?source=iedfolrf0000001"
-      ]
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "NY AG antitrust probe against Compass (COMP) remains unresolved with no fresh coverage for three consecutive weeks. The catalyst is still pending (probe in early stages with potential milestones ahead) but conviction is fading due to sustained silence decay. No news this week mentions Compass or the antitrust investigation.",
+      "exit_advice": "Exit only if the probe resolves (e.g., findings released, enforcement action taken) or if the driving condition reverses (probe dropped). Hold through silence, as the catalyst remains live, but silence reduces conviction.",
+      "evidence_urls": []
     }
   ],
-  "2026-07-03": []
+  "2026-07-03": [
+    {
+      "ticker": "COMP",
+      "thesis": "NY AG antitrust probe announced; stock crashed.",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "NY AG antitrust probe against Compass remains unresolved, with no fresh coverage for four consecutive weeks. The catalyst is still pending (investigation in early stages), but conviction has decayed due to sustained silence.",
+      "exit_advice": "Hold with low conviction; watch for any fresh probe-related news (subpoenas, findings, or enforcement actions) that could reaccelerate the thesis.",
+      "evidence_urls": []
+    }
+  ]
 }

@@ -2,57 +2,183 @@
   "2024-04-19": [],
   "2024-04-26": [
     {
-      "ticker": "VEDL",
-      "thesis": "strong Q4 numbers",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "none",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst was Vedanta's strong Q4 numbers, which have now been released.",
-      "exit_advice": "The catalyst (strong Q4 numbers) has already occurred.",
-      "evidence_urls": [
-        "https://www.financialexpress.com/market/vedanta-shares-surge-over-5-on-strong-q4-numbers-what-should-be-your-strategy-now-3469185/"
-      ]
-    }
-  ],
-  "2024-05-03": [],
-  "2024-05-10": [],
-  "2024-05-17": [
-    {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
       "thesis_live": true,
       "src": "seed",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reactor approval news is emerging as a catalyst, reflected in SMR's performance.",
-      "exit_advice": "Monitor reactor approval progress",
+      "conviction": 8,
+      "assessment": "The ADVANCE Act advancing is a positive development for SMR, indicating potential future growth. The catalyst is still pending as the Act has not been finalized.",
+      "exit_advice": "Hold as the ADVANCE Act is still advancing and has not been resolved.",
       "evidence_urls": [
-        "https://www.etf.com/section/industryviews/nuclear-stock-nuscale-power-ai-power-demand"
+        "https://carboncredits.com/nuscale-power-stock-surges-after-u-s-biggest-smr-nuclear-deal/"
+      ]
+    }
+  ],
+  "2024-05-03": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The ADVANCE Act advancing remains a positive catalyst for SMR. The Act's progress indicates potential future growth, and the catalyst is still pending as it has not been finalized.",
+      "exit_advice": "Hold SMR as the ADVANCE Act's progress remains a live catalyst.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-10": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The ADVANCE Act advancing remains a live catalyst for SMR. While there's no fresh coverage this week, the Act's progress is still pending and indicates potential future growth.",
+      "exit_advice": "continue to hold as the catalyst is still pending and no fresh information indicates resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "WPRT",
+      "thesis": "Q1 2024 earnings call",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The Q1 2024 earnings call has occurred and been published.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The Q1 2024 earnings call for Westport Fuel Systems Inc. (WPRT) occurred on 2024-05-10.",
+      "exit_advice": "The catalyst (Q1 2024 earnings call) has resolved.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/westport-fuel-systems-inc-nasdaqwprt-q1-2024-earnings-call-transcript-1300669/"
+      ]
+    }
+  ],
+  "2024-05-17": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The ADVANCE Act advancing remains a live catalyst for SMR. There is no fresh coverage this week, which is the second consecutive week of silence. Conviction is stepped down due to silence decay.",
+      "exit_advice": "continue to hold SMR as the catalyst remains pending",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen is still early and under-the-radar, with potential impact on competitors Eli Lilly and Novo Nordisk.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/05/17/meet-the-glp-1-drug-that-could-be-the-biggest-concern/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen is still early and under-the-radar, with potential impact on competitors Eli Lilly and Novo Nordisk.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/05/17/meet-the-glp-1-drug-that-could-be-the-biggest-concern/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen is still early and under-the-radar, with potential impact on competitors Eli Lilly and Novo Nordisk.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://www.fool.com/investing/2024/05/17/meet-the-glp-1-drug-that-could-be-the-biggest-concern/?source=iedfolrf0000001"
       ]
     }
   ],
   "2024-05-24": [
     {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reactor approval news catalyst remains pending",
-      "exit_advice": "Monitor for approval news",
+      "conviction": 6,
+      "assessment": "The ADVANCE Act advancing remains a positive catalyst for SMR. There is continued silence on the Act's progress for the third consecutive week.",
+      "exit_advice": "Continue to hold SMR as the ADVANCE Act advancing remains a live catalyst. However, conviction is stepped down due to continued silence.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "No explicit resolution or mainstream saturation observed yet.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-eli-lilly-and-company-the-largest-publicly-traded-healthcare-company-1305335/"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "No explicit resolution or mainstream saturation observed yet.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-eli-lilly-and-company-the-largest-publicly-traded-healthcare-company-1305335/"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "No explicit resolution or mainstream saturation observed yet.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/is-eli-lilly-and-company-the-largest-publicly-traded-healthcare-company-1305335/"
+      ]
     },
     {
       "ticker": "NVDA",
       "thesis": "Nvidia earnings boom",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "Nvidia earnings have been released and the market has reacted.",
+      "exit_case": "none",
       "catalyst_resolved": true,
-      "assessment": "Nvidia earnings boom has driven Nasdaq to record highs and lifted AI stocks.",
-      "exit_advice": "The catalyst has resolved as Nvidia earnings have already been reported and reacted to by the market.",
+      "conviction": 1,
+      "assessment": "The Nvidia earnings boom has happened and the news is now mainstream. The catalyst is resolved.",
+      "exit_advice": "Nvidia earnings boom has already occurred and is priced in.",
       "evidence_urls": [
         "https://carrollspaper.com/news/national/wall-streets-nasdaq-heads-towards-record-highs-on-nvidia/article_865f4ea3-d398-5af1-8b43-e625bf7be881.html",
         "https://www.investors.com:443/market-trend/stock-market-today/dow-jones-futures-nvidia-earnings-nvda-stock/"
@@ -62,186 +188,859 @@
   "2024-05-31": [
     {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new information on reactor approval",
-      "exit_advice": "Monitor for reactor approval updates",
+      "conviction": 4,
+      "assessment": "The ADVANCE Act advancing remains a positive catalyst for SMR. There is continued silence on the Act's progress for the fourth consecutive week, which steps down conviction due to silence decay.",
+      "exit_advice": "Continue to hold SMR as the catalyst remains pending.",
+      "evidence_urls": [
+        "https://biztoc.com/x/445ff924284da271"
+      ]
+    },
+    {
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The GLP-1 drug approval news for Amgen remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "continue to monitor",
       "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The GLP-1 drug approval news for Amgen remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "continue to monitor",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The GLP-1 drug approval news for Amgen remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "continue to monitor",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MSCI India Index rebalancing is anticipated to bring significant inflows to HDFC Bank.",
+      "exit_advice": "Hold until the rebalancing occurs or the anticipation fades.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/stocks/mc-exclusive-5-2-billion-inflows-could-chase-hdfc-bank-in-august-msci-india-index-rebalancing-predicts-macquarie-12737623.html"
+      ]
     }
   ],
   "2024-06-07": [
     {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Reactor approval news remains a pending catalyst.",
-      "exit_advice": "Monitor for official approval or denial news.",
+      "conviction": 4,
+      "assessment": "The ADVANCE Act advancing remains a positive catalyst for SMR, but continued silence on the Act's progress for five weeks steps down conviction due to silence decay.",
+      "exit_advice": "",
       "evidence_urls": []
+    },
+    {
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "Continue to hold as the catalyst remains under-the-radar and there is no clear resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "Continue to hold as the catalyst remains under-the-radar and there is no clear resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The GLP-1 drug approval news for Amgen remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "Continue to hold as the catalyst remains under-the-radar and there is no clear resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains high as the event is still anticipated to bring significant inflows.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/investors-return-to-indian-equities-with-consumption-sectors-in-spotlight-11717589441233.html"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains high as the event is still anticipated to bring significant inflows.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.livemint.com/market/stock-market-news/investors-return-to-indian-equities-with-consumption-sectors-in-spotlight-11717589441233.html"
+      ]
     }
   ],
   "2024-06-14": [
     {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "no new information on reactor approval",
-      "exit_advice": "continue to monitor reactor approval news",
+      "conviction": 4,
+      "assessment": "The ADVANCE Act advancing remains a positive catalyst for SMR. Continued silence for six weeks steps down conviction due to silence decay.",
+      "exit_advice": "continue to hold SMR as the catalyst remains pending",
       "evidence_urls": []
     },
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship has caused disruption and potential impact on shipping companies",
-      "exit_advice": "Monitor for resolution or de-escalation of the Houthi rebel attack on the Ukrainian-owned ship",
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event.",
+      "exit_advice": "Hold the position as the catalyst is still pending and under-the-radar.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "",
+      "exit_advice": "Continue to hold as the catalyst remains pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "G7 Ukraine aid boosts defense robotics",
+      "exit_advice": "Hold positions as the catalyst continues to unfold with significant developments.",
       "evidence_urls": [
-        "https://www.latimes.com/world-nation/story/2024-06-13/yemens-houthi-rebels-hit-ukrainian-owned-ship-in-gulf-of-aden-sparking-blaze-us-says",
-        "https://www.singletonargus.com.au/story/8662345/houthi-missile-strikes-set-ship-ablaze-injuring-one/"
+        "https://www.yahoo.com/news/military-aid-ukraine-allow-troop-224633183.html",
+        "https://www.afr.com/world/europe/biden-vows-weapons-aid-for-ukraine-until-they-prevail-20240614-p5jlpw",
+        "https://madison.com/news/nation-world/government-politics/g7-summit-opens-in-italy/article_7cfa6379-7746-5fbb-81cf-11f1239d39a8.html",
+        "https://abc7news.com/g7-leaders-agree-to-lend-ukraine-$50-billion-using-frozen-russian-assets/14945369/",
+        "https://www.nbcphiladelphia.com/news/business/money-report/yellen-more-ukraine-aid-can-be-backed-by-frozen-russian-assets-after-initial-50-billion-loan/3885573/"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "G7 Ukraine aid boosts defense robotics",
+      "exit_advice": "Hold positions as the catalyst continues to unfold with significant developments.",
+      "evidence_urls": [
+        "https://www.yahoo.com/news/military-aid-ukraine-allow-troop-224633183.html",
+        "https://www.afr.com/world/europe/biden-vows-weapons-aid-for-ukraine-until-they-prevail-20240614-p5jlpw",
+        "https://madison.com/news/nation-world/government-politics/g7-summit-opens-in-italy/article_7cfa6379-7746-5fbb-81cf-11f1239d39a8.html",
+        "https://abc7news.com/g7-leaders-agree-to-lend-ukraine-$50-billion-using-frozen-russian-assets/14945369/",
+        "https://www.nbcphiladelphia.com/news/business/money-report/yellen-more-ukraine-aid-can-be-backed-by-frozen-russian-assets-after-initial-50-billion-loan/3885573/"
       ]
     }
   ],
   "2024-06-21": [
     {
       "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "thesis": "ADVANCE Act advances",
+      "thesis_live": false,
+      "src": "seed",
+      "exit_case": "The ADVANCE Act has cleared the Senate and is heading to the President's desk for signature, indicating resolution.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The ADVANCE Act advancing was a positive catalyst for SMR and NUS. With the Act now cleared by the Senate and heading to the President's desk, the specific catalyst has effectively occurred.",
+      "exit_advice": "The catalyst has resolved as the ADVANCE Act has cleared the Senate and is awaiting the President's signature.",
+      "evidence_urls": [
+        "https://www.congress.gov/crs-product/R42853"
+      ]
+    },
+    {
+      "ticker": "NUS",
+      "thesis": "ADVANCE Act advances",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "The ADVANCE Act has cleared the Senate and is heading to the President's desk for signature, indicating resolution.",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The ADVANCE Act advancing was a positive catalyst for SMR and NUS. With the Act now cleared by the Senate and heading to the President's desk, the specific catalyst has effectively occurred.",
+      "exit_advice": "The catalyst has resolved as the ADVANCE Act has cleared the Senate and is awaiting the President's signature.",
+      "evidence_urls": [
+        "https://www.congress.gov/crs-product/R42853"
+      ]
+    },
+    {
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the reactor approval news remains a pending catalyst with no new information",
-      "exit_advice": "continue to monitor SMR for reactor approval news",
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. The news this week does not directly relate to the event, and there is no indication that the catalyst has been priced-in or that the driving condition has reversed.",
+      "exit_advice": "",
       "evidence_urls": []
     },
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "No new developments or resolution on the Houthi rebels' attack on the Ukrainian-owned ship",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains ongoing with no clear resolution",
-      "exit_advice": "Monitor for news on resolution or further escalation",
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. The news this week does not directly relate to the event, and there is no indication that the catalyst has been priced-in or that the driving condition has reversed.",
+      "exit_advice": "",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. The news this week does not directly relate to the event, and there is no indication that the catalyst has been priced-in or that the driving condition has reversed.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MSCI India Index rebalancing is still anticipated and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains high as the event is still expected to bring significant inflows to the known vehicles, HDFC and HDB.",
+      "exit_advice": "Continue to hold positions in HDFC and HDB as the MSCI India Index rebalancing is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The MSCI India Index rebalancing is still anticipated and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains high as the event is still expected to bring significant inflows to the known vehicles, HDFC and HDB.",
+      "exit_advice": "Continue to hold positions in HDFC and HDB as the MSCI India Index rebalancing is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending.",
+      "exit_advice": "Hold as the catalyst is still live and no concrete resolution or reversal has occurred.",
+      "evidence_urls": [
+        "https://biztoc.com/x/d021f12e68d946bd"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending.",
+      "exit_advice": "Hold as the catalyst is still live and no concrete resolution or reversal has occurred.",
+      "evidence_urls": [
+        "https://biztoc.com/x/d021f12e68d946bd"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending.",
+      "exit_advice": "Hold as the catalyst is still live and no concrete resolution or reversal has occurred.",
+      "evidence_urls": [
+        "https://biztoc.com/x/d021f12e68d946bd"
+      ]
     }
   ],
   "2024-06-28": [
     {
-      "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "no new information on reactor approval",
-      "exit_advice": "continue to monitor reactor approval news",
+      "conviction": 6,
+      "assessment": "The catalyst is still pending and has not been resolved. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk.",
       "evidence_urls": []
     },
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The event has not been resolved or decayed as there's still potential impact on shipping.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Houthi rebels' attack remains a concern for shipping companies.",
-      "exit_advice": "Monitor for resolution or significant decay in the event's impact.",
+      "conviction": 6,
+      "assessment": "The catalyst is still pending and has not been resolved. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst is still pending and has not been resolved. There is no clear resolution or reversal of the driving condition this week.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold the position as the catalyst is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold the position as the catalyst is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The G7 Ukraine aid boosting defense robotics is still a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending, and the vehicles continue to be relevant.",
+      "exit_advice": "continue holding IBOT, IRDM, and KWEB as they remain tied to the live G7 Ukraine aid catalyst for defense robotics",
+      "evidence_urls": [
+        "https://biztoc.com/x/024e1c52c943cef3"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The G7 Ukraine aid boosting defense robotics is still a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending, and the vehicles continue to be relevant.",
+      "exit_advice": "continue holding IBOT, IRDM, and KWEB as they remain tied to the live G7 Ukraine aid catalyst for defense robotics",
+      "evidence_urls": [
+        "https://biztoc.com/x/024e1c52c943cef3"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The G7 Ukraine aid boosting defense robotics is still a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending, and the vehicles continue to be relevant.",
+      "exit_advice": "continue holding IBOT, IRDM, and KWEB as they remain tied to the live G7 Ukraine aid catalyst for defense robotics",
+      "evidence_urls": [
+        "https://biztoc.com/x/024e1c52c943cef3"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst is Micron's earnings release. The event is still pending as the earnings have not been released yet.",
+      "exit_advice": "Hold until earnings are released.",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/06/39517750/nike-micron-and-3-stocks-to-watch-heading-into-thursday"
+      ]
     }
   ],
   "2024-07-05": [
     {
-      "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "no new information on reactor approval",
-      "exit_advice": "continue to monitor for reactor approval news",
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. Continued silence on the event's trend may lead to a fade in conviction.",
+      "exit_advice": "Continue to monitor the Amgen GLP-1 drug approval news for a clear resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://forextv.com/forex-analysis/canadian-stocks-give-back-ground-after-early-upward-move/"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. Continued silence on the event's trend may lead to a fade in conviction.",
+      "exit_advice": "Continue to monitor the Amgen GLP-1 drug approval news for a clear resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://forextv.com/forex-analysis/canadian-stocks-give-back-ground-after-early-upward-move/"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is no clear resolution or reversal of the driving condition this week. The catalyst is still pending and has not been resolved. Continued silence on the event's trend may lead to a fade in conviction.",
+      "exit_advice": "Continue to monitor the Amgen GLP-1 drug approval news for a clear resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://forextv.com/forex-analysis/canadian-stocks-give-back-ground-after-early-upward-move/"
+      ]
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains relatively high as the event is still anticipated to bring significant inflows to the known vehicles, HDFC and HDB. However, the lack of fresh news on the rebalancing itself is starting to slightly erode conviction.",
+      "exit_advice": "",
       "evidence_urls": []
     },
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The event has not been resolved or decayed as there's ongoing concern for shipping companies.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains ongoing with continued potential impact on shipping companies like SBLK.",
-      "exit_advice": "Monitor for resolution or decay in the Houthi rebels' attacks on shipping.",
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The conviction remains relatively high as the event is still anticipated to bring significant inflows to the known vehicles, HDFC and HDB. However, the lack of fresh news on the rebalancing itself is starting to slightly erode conviction.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While mainstream coverage of robotics stocks has grown, it hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains live and pending.",
+      "evidence_urls": [
+        "https://biztoc.com/x/9aef9a546875c999",
+        "https://investorplace.com/2024/07/the-3-smartest-robotics-stocks-to-buy-with-500-right-now/"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While mainstream coverage of robotics stocks has grown, it hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains live and pending.",
+      "evidence_urls": [
+        "https://biztoc.com/x/9aef9a546875c999",
+        "https://investorplace.com/2024/07/the-3-smartest-robotics-stocks-to-buy-with-500-right-now/"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While mainstream coverage of robotics stocks has grown, it hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains live and pending.",
+      "evidence_urls": [
+        "https://biztoc.com/x/9aef9a546875c999",
+        "https://investorplace.com/2024/07/the-3-smartest-robotics-stocks-to-buy-with-500-right-now/"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The catalyst, Micron's earnings release, has not occurred yet. The event remains live.",
+      "exit_advice": "Hold as the earnings release is still pending.",
       "evidence_urls": []
     }
   ],
   "2024-07-12": [
     {
-      "ticker": "SMR",
-      "thesis": "Reactor approval news",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "no new info",
-      "exit_advice": "continue to monitor for reactor approval news",
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a fade in conviction.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and there is no clear resolution or reversal of the driving condition.",
       "evidence_urls": []
     },
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The event remains ongoing with potential impact on shipping companies like SBLK",
-      "exit_advice": "continue to monitor for resolution or significant development",
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a fade in conviction.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and there is no clear resolution or reversal of the driving condition.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a fade in conviction.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and there is no clear resolution or reversal of the driving condition.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. However, the lack of fresh news on the rebalancing is causing a slight erosion in conviction.",
+      "exit_advice": "continue to hold as the catalyst is still pending",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/07/39743368/s-p-500-falls-following-june-inflation-data-fear-greed-index-moves-to-neutral-zone",
+        "https://www.benzinga.com/news/earnings/24/07/39703427/s-p-500-clinches-yet-another-record-close-after-jerome-powells-testimony-fear-greed-index-remains-i",
+        "https://biztoc.com/x/62f8e3ccfa2bede1"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. However, the lack of fresh news on the rebalancing is causing a slight erosion in conviction.",
+      "exit_advice": "continue to hold as the catalyst is still pending",
+      "evidence_urls": [
+        "https://www.benzinga.com/news/earnings/24/07/39743368/s-p-500-falls-following-june-inflation-data-fear-greed-index-moves-to-neutral-zone",
+        "https://www.benzinga.com/news/earnings/24/07/39703427/s-p-500-clinches-yet-another-record-close-after-jerome-powells-testimony-fear-greed-index-remains-i",
+        "https://biztoc.com/x/62f8e3ccfa2bede1"
+      ]
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The earnings release is still pending and no resolution or reversal has occurred.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://seekingalpha.com/news/4123303-newmont-eastman-chemical-among-top-materials-quant-picks-ahead-of-q2-earnings"
+      ]
     }
   ],
   "2024-07-19": [
     {
-      "ticker": "SMR",
-      "thesis": "Reactor approval news",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "The ADVANCE Act has been signed into law, supporting nuclear development.",
-      "catalyst_resolved": true,
-      "assessment": "The event catalyst was the pending reactor approval news, which has now been effectively supported by the signing of the ADVANCE Act.",
-      "exit_advice": "The catalyst has been resolved with the signing of the ADVANCE Act into law.",
-      "evidence_urls": [
-        "https://www.energyandcapital.com/biden-signs-bipartisan-advance-act-into-law/"
-      ]
-    },
-    {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "the event remains ongoing with potential impact on shipping companies like SBLK",
-      "exit_advice": "continue to monitor for resolution or further developments",
+      "conviction": 5,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "Continue to monitor for resolution or reversal of the driving condition.",
       "evidence_urls": []
     },
     {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Supermicro earnings release is pending, market is anticipating the results",
-      "exit_advice": "Wait for earnings release outcome",
+      "conviction": 5,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "Continue to monitor for resolution or reversal of the driving condition.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "Re-examining the journal and this week's news for the Amgen GLP-1 drug approval event.",
+      "exit_advice": "Continue to monitor for resolution or reversal of the driving condition.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "HOLD",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Micron earnings release has not occurred and remains pending.",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The earnings release is still awaited and no resolution or reversal has occurred. Other companies like Supermicro are also in focus for their earnings.",
+      "exit_advice": "Hold as the catalyst is still pending.",
       "evidence_urls": [
         "https://www.fool.com/investing/2024/07/18/stock-split-watch-is-super-micro-computer-next/?source=iedfolrf0000001"
       ]
@@ -249,25 +1048,143 @@
   ],
   "2024-07-26": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "The event remains ongoing with no clear resolution or decay in impact on shipping companies.",
-      "catalyst_resolved": false,
-      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship continues to pose a risk to shipping companies like SBLK.",
-      "exit_advice": "Monitor for resolution or significant decrease in impact on shipping companies.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Supermicro earnings release is still pending.",
-      "exit_advice": "Wait for earnings release outcome",
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "Continue to monitor the event for resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://247wallst.com/technology-3/2024/07/24/5-small-cap-stocks-that-popped-30-in-less-than-10-days/"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "Continue to monitor the event for resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://247wallst.com/technology-3/2024/07/24/5-small-cap-stocks-that-popped-30-in-less-than-10-days/"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "Continue to monitor the event for resolution or reversal of the driving condition.",
+      "evidence_urls": [
+        "https://247wallst.com/technology-3/2024/07/24/5-small-cap-stocks-that-popped-30-in-less-than-10-days/"
+      ]
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news",
+      "evidence_urls": [
+        "https://www.dailymail.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html",
+        "https://www.thisismoney.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news",
+      "evidence_urls": [
+        "https://www.dailymail.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html",
+        "https://www.thisismoney.co.uk/money/investing/article-13654169/NOMURA-INDIA-EQUITY-FUND-Passage-India-years-handsome-returns.html"
+      ]
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "continue to hold as the catalyst remains pending",
+      "evidence_urls": [
+        "https://investorplace.com/2024/07/if-you-can-only-buy-one-robotics-stock-in-july-it-better-be-one-of-these-3-names/"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "continue to hold as the catalyst remains pending",
+      "evidence_urls": [
+        "https://investorplace.com/2024/07/if-you-can-only-buy-one-robotics-stock-in-july-it-better-be-one-of-these-3-names/"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "continue to hold as the catalyst remains pending",
+      "evidence_urls": [
+        "https://investorplace.com/2024/07/if-you-can-only-buy-one-robotics-stock-in-july-it-better-be-one-of-these-3-names/"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst for this event is Micron's earnings release. As of the latest journal entry, the earnings release is still pending and has not occurred yet.",
+      "exit_advice": "Hold the position as the catalyst is still pending and no resolution or reversal has occurred.",
+      "evidence_urls": [
+        "https://investorplace.com/2024/07/3-ai-stocks-to-buy-before-q2-earnings/"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The catalyst for this event is Micron's earnings release. As of the latest journal entry, the earnings release is still pending and has not occurred yet.",
+      "exit_advice": "Hold the position as the catalyst is still pending and no resolution or reversal has occurred.",
       "evidence_urls": [
         "https://investorplace.com/2024/07/3-ai-stocks-to-buy-before-q2-earnings/"
       ]
@@ -275,38 +1192,172 @@
   ],
   "2024-08-02": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "No new developments, ongoing risk to shipping companies.",
-      "exit_advice": "Monitor for resolution or significant developments.",
-      "evidence_urls": []
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal, the Amgen GLP-1 drug approval news remains a live event. There is no clear resolution or reversal of the driving condition. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The position remains live, but continued silence on the event's trend may lead to a further fade in conviction.",
+      "evidence_urls": [
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
+      ]
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal, the Amgen GLP-1 drug approval news remains a live event. There is no clear resolution or reversal of the driving condition. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The position remains live, but continued silence on the event's trend may lead to a further fade in conviction.",
+      "evidence_urls": [
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal, the Amgen GLP-1 drug approval news remains a live event. There is no clear resolution or reversal of the driving condition. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The position remains live, but continued silence on the event's trend may lead to a further fade in conviction.",
+      "evidence_urls": [
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
+      ]
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold the position as the catalyst is still pending, but be aware that the lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "evidence_urls": [
+        "http://baystreet.ca/marketupdates/13362/Stocks-Bludgeoned",
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold the position as the catalyst is still pending, but be aware that the lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "evidence_urls": [
+        "http://baystreet.ca/marketupdates/13362/Stocks-Bludgeoned",
+        "https://morungexpress.com/india-best-performer-among-top-5-stock-markets-mcap-reaches-over-55-trillion"
+      ]
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to monitor the G7 Ukraine aid and its impact on defense robotics.",
+      "evidence_urls": [
+        "https://menafn.com/1108495123/Germany-Details-Latest-Aid-Package-For-Ukraine"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to monitor the G7 Ukraine aid and its impact on defense robotics.",
+      "evidence_urls": [
+        "https://menafn.com/1108495123/Germany-Details-Latest-Aid-Package-For-Ukraine"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. While there's been some mainstream coverage of robotics stocks, it hasn't reached saturation, and the specific catalyst of G7 aid is still pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to monitor the G7 Ukraine aid and its impact on defense robotics.",
+      "evidence_urls": [
+        "https://menafn.com/1108495123/Germany-Details-Latest-Aid-Package-For-Ukraine"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "The earnings release for Micron is still pending and has not occurred yet. The catalyst remains live as there is no resolution or reversal.",
+      "exit_advice": "",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/micron-technology-inc-mu-peconic-partners-is-bullish-on-this-stock-now-1327513/"
+      ]
     },
     {
       "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "thesis": "Micron earnings release",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Supermicro earnings release is still pending",
-      "exit_advice": "hold",
+      "conviction": 8,
+      "assessment": "The earnings release for Micron is still pending and has not occurred yet. The catalyst remains live as there is no resolution or reversal.",
+      "exit_advice": "",
       "evidence_urls": [
-        "http://baystreet.ca/marketupdates/13362/Stocks-Bludgeoned"
+        "https://www.insidermonkey.com/blog/micron-technology-inc-mu-peconic-partners-is-bullish-on-this-stock-now-1327513/"
       ]
     },
     {
       "ticker": "CEG",
-      "thesis": "PJM power market auction prices jump ninefold",
+      "thesis": "US power grid auction prices jump ninefold",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "The ninefold jump in PJM power market auction prices has already been reported and priced in.",
+      "exit_case": "none",
       "catalyst_resolved": true,
-      "assessment": "The event has reached its climax with the news of the ninefold price jump, and the stocks have already reacted.",
-      "exit_advice": "Close the position as the catalyst has already occurred.",
+      "conviction": 8,
+      "assessment": "The US power grid auction prices jumped ninefold, causing a significant surge in nuclear energy stocks.",
+      "exit_advice": "The catalyst has already occurred and been priced in.",
+      "evidence_urls": [
+        "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
+        "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
+      ]
+    },
+    {
+      "ticker": "VISTRA",
+      "thesis": "US power grid auction prices jump ninefold",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": true,
+      "conviction": 8,
+      "assessment": "The US power grid auction prices jumped ninefold, causing a significant surge in nuclear energy stocks.",
+      "exit_advice": "The catalyst has already occurred and been priced in.",
       "evidence_urls": [
         "https://www.investopedia.com/nuclear-energy-stocks-soar-as-prices-jump-ninefold-on-largest-us-power-grid-8687105",
         "https://finance.yahoo.com/news/nuclear-energy-stocks-soar-prices-004438176.html"
@@ -315,51 +1366,290 @@
   ],
   "2024-08-09": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "The event has been ongoing for nearly 2 months with no significant escalation or resolution.",
-      "catalyst_resolved": false,
-      "assessment": "The ongoing risk to shipping companies like SBLK remains a concern.",
-      "exit_advice": "Continue to monitor for changes in the Houthi rebels' activity or shipping company responses.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Supermicro earnings release is still pending",
-      "exit_advice": "continue to hold until earnings release",
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "continue to monitor for resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "continue to monitor for resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "continue to monitor for resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending. There is no news indicating that the rebalancing has occurred or been cancelled. The lack of fresh news on the rebalancing is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown, but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains live and pending, but be prepared for potential conviction decay due to continued silence.",
       "evidence_urls": [
-        "https://seekingalpha.com/news/4135693-biggest-stock-today-smci-lumn-and-more"
+        "https://www.investorideas.com/news/2024/technology/08073Richtech-Robotics.asp"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown, but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains live and pending, but be prepared for potential conviction decay due to continued silence.",
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2024/technology/08073Richtech-Robotics.asp"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown, but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains live and pending, but be prepared for potential conviction decay due to continued silence.",
+      "evidence_urls": [
+        "https://www.investorideas.com/news/2024/technology/08073Richtech-Robotics.asp"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-02) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "Hold the position as the catalyst is still pending.",
+      "evidence_urls": [
+        "https://www.newkerala.com/news/2024/48023.htm",
+        "https://www.sakshipost.com/news/sensex-jumps-819-points-auto-and-it-stocks-outshine-322213",
+        "https://seekingalpha.com/news/4135693-biggest-stock-today-smci-lumn-and-more",
+        "https://www.forbes.com/sites/daniellechemtob/2024/08/06/forbes-daily-ai-kicked-off-a-frenzy-now-it-faces-reality/"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-02) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "Hold the position as the catalyst is still pending.",
+      "evidence_urls": [
+        "https://www.newkerala.com/news/2024/48023.htm",
+        "https://www.sakshipost.com/news/sensex-jumps-819-points-auto-and-it-stocks-outshine-322213",
+        "https://seekingalpha.com/news/4135693-biggest-stock-today-smci-lumn-and-more",
+        "https://www.forbes.com/sites/daniellechemtob/2024/08/06/forbes-daily-ai-kicked-off-a-frenzy-now-it-faces-reality/"
+      ]
+    },
+    {
+      "ticker": "TSM",
+      "thesis": "TSMC sales grow 45% in July",
+      "thesis_live": false,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": true,
+      "conviction": 1,
+      "assessment": "The event catalyst 'TSMC sales grow 45% in July' has resolved as the news was released on August 9, 2024, indicating a 45% growth in TSMC's sales for July. This was the specific catalyst that triggered the entry into this event. With the news being widely reported, the catalyst is considered resolved.",
+      "exit_advice": "The catalyst has already occurred and been reported.",
+      "evidence_urls": [
+        "https://www.bnnbloomberg.ca/business/technology/2024/08/09/tsmc-sales-grow-45-in-july-on-strong-ai-chip-demand/",
+        "https://finance.yahoo.com/news/tsmc-sales-grow-45-july-054146804.html"
       ]
     }
   ],
   "2024-08-16": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "The event has been ongoing for two months with no significant escalation or resolution indicated in the journal or news.",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The risk to shipping companies like SBLK remains ongoing.",
-      "exit_advice": "Continue to monitor for signs of escalation or resolution.",
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal and this week's news, there is no clear resolution or reversal of the Amgen GLP-1 drug approval event. The catalyst remains pending and has not been resolved. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "The position remains live, but conviction is fading due to continued silence on the event's trend.",
       "evidence_urls": []
     },
     {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Supermicro earnings release has not occurred yet",
+      "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Still pending, no new information on earnings release",
-      "exit_advice": "Monitor for earnings release date",
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal and this week's news, there is no clear resolution or reversal of the Amgen GLP-1 drug approval event. The catalyst remains pending and has not been resolved. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "The position remains live, but conviction is fading due to continued silence on the event's trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Re-examining the entire journal and this week's news, there is no clear resolution or reversal of the Amgen GLP-1 drug approval event. The catalyst remains pending and has not been resolved. There is continued silence on the event's trend, which may lead to a further fade in conviction.",
+      "exit_advice": "The position remains live, but conviction is fading due to continued silence on the event's trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold as the catalyst is still pending. Monitor for any news or updates on the rebalancing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending and has not been resolved. There is no news indicating that the rebalancing has occurred or been cancelled.",
+      "exit_advice": "Continue to hold as the catalyst is still pending. Monitor for any news or updates on the rebalancing.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst, but conviction has decayed due to continued silence on the specific catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation.",
+      "exit_advice": "Hold, but conviction is low due to prolonged silence on the specific G7 aid catalyst.",
+      "evidence_urls": [
+        "https://investorplace.com/2024/08/the-3-best-robotics-stocks-to-buy-in-august-2024/",
+        "https://investorplace.com/2024/08/3-robotics-stocks-poised-for-possible-industrial-revolution/",
+        "https://biztoc.com/x/32d5894f08df76c4"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst, but conviction has decayed due to continued silence on the specific catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation.",
+      "exit_advice": "Hold, but conviction is low due to prolonged silence on the specific G7 aid catalyst.",
+      "evidence_urls": [
+        "https://investorplace.com/2024/08/the-3-best-robotics-stocks-to-buy-in-august-2024/",
+        "https://investorplace.com/2024/08/3-robotics-stocks-poised-for-possible-industrial-revolution/",
+        "https://biztoc.com/x/32d5894f08df76c4"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst, but conviction has decayed due to continued silence on the specific catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation.",
+      "exit_advice": "Hold, but conviction is low due to prolonged silence on the specific G7 aid catalyst.",
+      "evidence_urls": [
+        "https://investorplace.com/2024/08/the-3-best-robotics-stocks-to-buy-in-august-2024/",
+        "https://investorplace.com/2024/08/3-robotics-stocks-poised-for-possible-industrial-revolution/",
+        "https://biztoc.com/x/32d5894f08df76c4"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending. This week's news does not mention Micron's earnings release, so the catalyst remains unresolved.",
+      "exit_advice": "Hold as the catalyst, Micron's earnings release, is still pending.",
+      "evidence_urls": [
+        "https://fnarena.com/index.php/2024/08/16/next-week-at-a-glance-19-23-aug-2024/"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending. This week's news does not mention Micron's earnings release, so the catalyst remains unresolved.",
+      "exit_advice": "Hold as the catalyst, Micron's earnings release, is still pending.",
       "evidence_urls": [
         "https://fnarena.com/index.php/2024/08/16/next-week-at-a-glance-19-23-aug-2024/"
       ]
@@ -367,102 +1657,803 @@
   ],
   "2024-08-23": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "The event has been ongoing for over two months with no clear resolution or significant developments.",
-      "catalyst_resolved": false,
-      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the Houthi rebels' continued activities.",
-      "exit_advice": "Continue to monitor for a resolution or significant change in the situation.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "Supermicro earnings release is still pending, no new information",
-      "exit_advice": "continue to monitor Supermicro earnings release",
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a fade in conviction.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event. Continue to monitor for resolution or reversal.",
       "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a fade in conviction.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event. Continue to monitor for resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "The Amgen GLP-1 drug approval news remains under-the-radar with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a fade in conviction.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event. Continue to monitor for resolution or reversal.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains pending, but conviction has decayed due to prolonged silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-is-samsara-inc-iot-the-best-cheap-robotics-stock-to-buy-now-1337008/",
+        "https://www.insidermonkey.com/blog/zebra-technologies-corporation-zbra-wall-street-analysts-are-bullish-on-this-cheap-robotic-stock-now-1336999/"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains pending, but conviction has decayed due to prolonged silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-is-samsara-inc-iot-the-best-cheap-robotics-stock-to-buy-now-1337008/",
+        "https://www.insidermonkey.com/blog/zebra-technologies-corporation-zbra-wall-street-analysts-are-bullish-on-this-cheap-robotic-stock-now-1336999/"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Continue to hold as the catalyst remains pending, but conviction has decayed due to prolonged silence.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/why-is-samsara-inc-iot-the-best-cheap-robotics-stock-to-buy-now-1337008/",
+        "https://www.insidermonkey.com/blog/zebra-technologies-corporation-zbra-wall-street-analysts-are-bullish-on-this-cheap-robotic-stock-now-1336999/"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The earnings release for Micron is still pending and has not occurred yet. The journal entries consistently indicate that the earnings release is still awaited. This week's news does not mention Micron's earnings release, so the catalyst remains unresolved.",
+      "exit_advice": "Hold as the catalyst remains live and pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The earnings release for Micron is still pending and has not occurred yet. The journal entries consistently indicate that the earnings release is still awaited. This week's news does not mention Micron's earnings release, so the catalyst remains unresolved.",
+      "exit_advice": "Hold as the catalyst remains live and pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PSX",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. The known vehicles PSX, SOL, VLO, and XLE remain relevant.",
+      "exit_advice": "Hold as the catalyst is still live and under-the-radar.",
+      "evidence_urls": [
+        "https://oilprice.com/Energy/Energy-General/Why-Hedge-Funds-Are-Pouring-into-Energy-Right-Now.html",
+        "http://www.econotimes.com/Hedge-Funds-Ditch-Industrial-Stocks-Double-Down-on-Energy-Amid-Rate-Cut-Speculation-1684469"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. The known vehicles PSX, SOL, VLO, and XLE remain relevant.",
+      "exit_advice": "Hold as the catalyst is still live and under-the-radar.",
+      "evidence_urls": [
+        "https://oilprice.com/Energy/Energy-General/Why-Hedge-Funds-Are-Pouring-into-Energy-Right-Now.html",
+        "http://www.econotimes.com/Hedge-Funds-Ditch-Industrial-Stocks-Double-Down-on-Energy-Amid-Rate-Cut-Speculation-1684469"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. The known vehicles PSX, SOL, VLO, and XLE remain relevant.",
+      "exit_advice": "Hold as the catalyst is still live and under-the-radar.",
+      "evidence_urls": [
+        "https://oilprice.com/Energy/Energy-General/Why-Hedge-Funds-Are-Pouring-into-Energy-Right-Now.html",
+        "http://www.econotimes.com/Hedge-Funds-Ditch-Industrial-Stocks-Double-Down-on-Energy-Amid-Rate-Cut-Speculation-1684469"
+      ]
+    },
+    {
+      "ticker": "XLE",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 7,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. The known vehicles PSX, SOL, VLO, and XLE remain relevant.",
+      "exit_advice": "Hold as the catalyst is still live and under-the-radar.",
+      "evidence_urls": [
+        "https://oilprice.com/Energy/Energy-General/Why-Hedge-Funds-Are-Pouring-into-Energy-Right-Now.html",
+        "http://www.econotimes.com/Hedge-Funds-Ditch-Industrial-Stocks-Double-Down-on-Energy-Amid-Rate-Cut-Speculation-1684469"
+      ]
     }
   ],
   "2024-08-30": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Houthi rebels' attack on the Ukrainian-owned ship continues to pose a risk to shipping companies.",
-      "exit_advice": "Monitor for a significant decrease in the risk posed by Houthi rebels to shipping companies.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "SMCI",
-      "thesis": "Supermicro earnings release",
-      "thesis_live": false,
-      "src": "gdelt",
-      "exit_case": "Supermicro earnings release has occurred and been reported, likely resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The earnings release for Supermicro has happened, and the market has reacted. The specific catalyst that was pending has now occurred.",
-      "exit_advice": "Close position as the catalyst has resolved.",
+      "conviction": 3,
+      "assessment": "Re-examining the entire journal and this week's news for the Amgen GLP-1 drug approval event, there is no clear resolution or reversal of the driving condition. The catalyst remains pending and has not been resolved.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event but with continued silence on the event's trend, conviction has faded.",
       "evidence_urls": [
-        "https://seekingalpha.com/news/4145670-sp-august-winners-and-losers-kellanova-tops-index-after-turbulent-month-smci-plunges"
+        "https://www.moneycontrol.com/news/business/markets/nifty-sensex-claims-record-closing-as-fmcg-auto-stocks-rally-metals-worst-hit-12809804.html",
+        "https://investorplace.com/hypergrowthinvesting/2024/08/the-best-consumer-stocks-to-buy-outside-of-ai/"
       ]
     },
     {
-      "ticker": "NVDA",
-      "thesis": "Nvidia sales forecast misses expectations",
-      "thesis_live": false,
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
       "src": "gdelt",
-      "exit_case": "Nvidia's sales forecast has already been released and missed expectations, potentially resolving the catalyst.",
-      "catalyst_resolved": true,
-      "assessment": "The initial catalyst was Nvidia's sales forecast missing expectations. This has now happened, and the news is reflected in the current market sentiment.",
-      "exit_advice": "The event catalyst has occurred, and the market has likely priced it in.",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Re-examining the entire journal and this week's news for the Amgen GLP-1 drug approval event, there is no clear resolution or reversal of the driving condition. The catalyst remains pending and has not been resolved.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event but with continued silence on the event's trend, conviction has faded.",
       "evidence_urls": [
-        "https://finance.yahoo.com/news/nvidia-sales-forecast-fails-meet-205538110.html",
-        "https://www.bnnbloomberg.ca/business/technology/2024/08/28/nvidias-sales-forecast-fails-to-meet-lofty-expectations/"
+        "https://www.moneycontrol.com/news/business/markets/nifty-sensex-claims-record-closing-as-fmcg-auto-stocks-rally-metals-worst-hit-12809804.html",
+        "https://investorplace.com/hypergrowthinvesting/2024/08/the-best-consumer-stocks-to-buy-outside-of-ai/"
+      ]
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "Re-examining the entire journal and this week's news for the Amgen GLP-1 drug approval event, there is no clear resolution or reversal of the driving condition. The catalyst remains pending and has not been resolved.",
+      "exit_advice": "The Amgen GLP-1 drug approval news remains a live event but with continued silence on the event's trend, conviction has faded.",
+      "evidence_urls": [
+        "https://www.moneycontrol.com/news/business/markets/nifty-sensex-claims-record-closing-as-fmcg-auto-stocks-rally-metals-worst-hit-12809804.html",
+        "https://investorplace.com/hypergrowthinvesting/2024/08/the-best-consumer-stocks-to-buy-outside-of-ai/"
+      ]
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "Hold as the catalyst is still pending, but conviction is low due to prolonged silence.",
+      "evidence_urls": [
+        "https://www.tribuneindia.com/news/business/sensex-nifty-hit-fresh-all-time-high-levels-in-early-trade/"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "Hold as the catalyst is still pending, but conviction is low due to prolonged silence.",
+      "evidence_urls": [
+        "https://www.tribuneindia.com/news/business/sensex-nifty-hit-fresh-all-time-high-levels-in-early-trade/"
+      ]
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst is still pending and not resolved.",
+      "evidence_urls": [
+        "https://www.orissapost.com/markets-settle-almost-flat-in-volatile-trade-nifty-hits-lifetime-high/",
+        "https://www.dailypioneer.com/2024/business/markets-give-up-early-gains-amid-weak-global-trends.html"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst is still pending and not resolved.",
+      "evidence_urls": [
+        "https://www.orissapost.com/markets-settle-almost-flat-in-volatile-trade-nifty-hits-lifetime-high/",
+        "https://www.dailypioneer.com/2024/business/markets-give-up-early-gains-amid-weak-global-trends.html"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending.",
+      "exit_advice": "Continue to hold as the catalyst is still pending and not resolved.",
+      "evidence_urls": [
+        "https://www.orissapost.com/markets-settle-almost-flat-in-volatile-trade-nifty-hits-lifetime-high/",
+        "https://www.dailypioneer.com/2024/business/markets-give-up-early-gains-amid-weak-global-trends.html"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-23) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/micron-technology-nasdaqmu-ai-capex-funds-test-services-expansion-1342039/"
+      ]
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-23) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending.",
+      "evidence_urls": [
+        "https://www.insidermonkey.com/blog/micron-technology-nasdaqmu-ai-capex-funds-test-services-expansion-1342039/"
+      ]
+    },
+    {
+      "ticker": "PSX",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. Although there's no new news directly related to hedge funds buying energy stocks, the known vehicles PSX, SOL, VLO, and XLE remain relevant. The lack of fresh news on the specific catalyst is a silence-decay signal.",
+      "exit_advice": "The thesis remains live as the catalyst hasn't resolved, but conviction is stepped down due to silence decay.",
+      "evidence_urls": [
+        "https://247wallst.com/investing/2024/08/30/should-you-buy-the-3-best-dow-stocks-in-2024/",
+        "https://www.fool.com/investing/2024/08/30/investing-ai-stocks-risky-heres-fantastic-way-do/?source=iedfolrf0000001",
+        "https://www.oklahomacitysun.com/news/274540068/us-stocks-rally-towards-close-dow-jumps-to-new-record"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. Although there's no new news directly related to hedge funds buying energy stocks, the known vehicles PSX, SOL, VLO, and XLE remain relevant. The lack of fresh news on the specific catalyst is a silence-decay signal.",
+      "exit_advice": "The thesis remains live as the catalyst hasn't resolved, but conviction is stepped down due to silence decay.",
+      "evidence_urls": [
+        "https://247wallst.com/investing/2024/08/30/should-you-buy-the-3-best-dow-stocks-in-2024/",
+        "https://www.fool.com/investing/2024/08/30/investing-ai-stocks-risky-heres-fantastic-way-do/?source=iedfolrf0000001",
+        "https://www.oklahomacitysun.com/news/274540068/us-stocks-rally-towards-close-dow-jumps-to-new-record"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. Although there's no new news directly related to hedge funds buying energy stocks, the known vehicles PSX, SOL, VLO, and XLE remain relevant. The lack of fresh news on the specific catalyst is a silence-decay signal.",
+      "exit_advice": "The thesis remains live as the catalyst hasn't resolved, but conviction is stepped down due to silence decay.",
+      "evidence_urls": [
+        "https://247wallst.com/investing/2024/08/30/should-you-buy-the-3-best-dow-stocks-in-2024/",
+        "https://www.fool.com/investing/2024/08/30/investing-ai-stocks-risky-heres-fantastic-way-do/?source=iedfolrf0000001",
+        "https://www.oklahomacitysun.com/news/274540068/us-stocks-rally-towards-close-dow-jumps-to-new-record"
+      ]
+    },
+    {
+      "ticker": "XLE",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active. News from oilprice.com and econotimes.com on 2024-08-20 indicates hedge funds are buying energy stocks amid rate cut speculation, supporting the thesis. Although there's no new news directly related to hedge funds buying energy stocks, the known vehicles PSX, SOL, VLO, and XLE remain relevant. The lack of fresh news on the specific catalyst is a silence-decay signal.",
+      "exit_advice": "The thesis remains live as the catalyst hasn't resolved, but conviction is stepped down due to silence decay.",
+      "evidence_urls": [
+        "https://247wallst.com/investing/2024/08/30/should-you-buy-the-3-best-dow-stocks-in-2024/",
+        "https://www.fool.com/investing/2024/08/30/investing-ai-stocks-risky-heres-fantastic-way-do/?source=iedfolrf0000001",
+        "https://www.oklahomacitysun.com/news/274540068/us-stocks-rally-towards-close-dow-jumps-to-new-record"
       ]
     }
   ],
   "2024-09-06": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the Houthi rebels' continued activities.",
-      "exit_advice": "continue monitoring for resolution or significant development",
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule.",
+      "exit_advice": "",
       "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule.",
+      "exit_advice": "",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news on MSCI India Index rebalancing",
+      "evidence_urls": [
+        "https://www.thehindu.com/business/markets/markets-rebound-in-early-trade-on-foreign-fund-inflows/article68608233.ece"
+      ]
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or fresh news on MSCI India Index rebalancing",
+      "evidence_urls": [
+        "https://www.thehindu.com/business/markets/markets-rebound-in-early-trade-on-foreign-fund-inflows/article68608233.ece"
+      ]
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "The G7 Ukraine aid boosting defense robotics remains a live catalyst. Mainstream coverage of robotics stocks has grown but hasn't reached saturation. The specific catalyst remains pending. Conviction is stepped down due to continued silence on the specific G7 aid catalyst.",
+      "exit_advice": "Hold as the catalyst remains pending and the mainstream coverage hasn't reached saturation.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-30) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "Re-checking the exit condition against the whole journal shows that the catalyst, Micron's earnings release, is still pending and has not occurred yet. The latest journal entry (2024-08-30) confirms that the earnings release is still awaited. This week's news does not indicate that Micron has released its earnings. Therefore, the catalyst remains live.",
+      "exit_advice": "The catalyst remains live as Micron's earnings release has not occurred yet. The journal entries consistently indicate that the earnings release is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PSX",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active, but there is no new news directly supporting it. The known vehicles PSX, SOL, VLO, and XLE remain relevant, but the lack of fresh news on the specific catalyst continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst is still pending, but the lack of fresh news for two consecutive weeks has decayed conviction.",
+      "evidence_urls": [
+        "https://biztoc.com/x/bd78cdfe28e22824",
+        "https://www.fool.com/investing/2024/09/06/oils-collapse-took-a-toll-on-energy-stocks-this-we/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active, but there is no new news directly supporting it. The known vehicles PSX, SOL, VLO, and XLE remain relevant, but the lack of fresh news on the specific catalyst continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst is still pending, but the lack of fresh news for two consecutive weeks has decayed conviction.",
+      "evidence_urls": [
+        "https://biztoc.com/x/bd78cdfe28e22824",
+        "https://www.fool.com/investing/2024/09/06/oils-collapse-took-a-toll-on-energy-stocks-this-we/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active, but there is no new news directly supporting it. The known vehicles PSX, SOL, VLO, and XLE remain relevant, but the lack of fresh news on the specific catalyst continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst is still pending, but the lack of fresh news for two consecutive weeks has decayed conviction.",
+      "evidence_urls": [
+        "https://biztoc.com/x/bd78cdfe28e22824",
+        "https://www.fool.com/investing/2024/09/06/oils-collapse-took-a-toll-on-energy-stocks-this-we/?source=iedfolrf0000001"
+      ]
+    },
+    {
+      "ticker": "XLE",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "The event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' is still active, but there is no new news directly supporting it. The known vehicles PSX, SOL, VLO, and XLE remain relevant, but the lack of fresh news on the specific catalyst continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst is still pending, but the lack of fresh news for two consecutive weeks has decayed conviction.",
+      "evidence_urls": [
+        "https://biztoc.com/x/bd78cdfe28e22824",
+        "https://www.fool.com/investing/2024/09/06/oils-collapse-took-a-toll-on-energy-stocks-this-we/?source=iedfolrf0000001"
+      ]
     }
   ],
   "2024-09-13": [
     {
-      "ticker": "SBLK",
-      "thesis": "Houthi rebels hit Ukrainian-owned ship",
-      "thesis_live": true,
-      "src": "gdelt",
-      "exit_case": "The event has been ongoing for months with no significant escalation or resolution indicated recently.",
-      "catalyst_resolved": false,
-      "assessment": "The risk to shipping companies like SBLK remains ongoing due to the continued activities of the Houthi rebels.",
-      "exit_advice": "Continue to monitor for a significant change in the Houthi rebels' activities or a clear resolution.",
-      "evidence_urls": []
-    },
-    {
-      "ticker": "UUUU",
-      "thesis": "Federal Court of Australia Approves Energy Fuels' Acquisition",
+      "ticker": "AMGN",
+      "thesis": "Amgen's GLP-1 drug approval news",
       "thesis_live": true,
       "src": "gdelt",
       "exit_case": "none",
       "catalyst_resolved": false,
-      "assessment": "The Federal Court of Australia has approved Energy Fuels' acquisition, a significant step towards the deal's closure.",
-      "exit_advice": "Monitor the acquisition's closure expected on October 2, 2024.",
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The event remains live, but conviction has faded due to prolonged silence on the event's trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "LLY",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The event remains live, but conviction has faded due to prolonged silence on the event's trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "NVO",
+      "thesis": "Amgen's GLP-1 drug approval news",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The Amgen GLP-1 drug approval news remains a live event with potential impact on competitors Eli Lilly and Novo Nordisk. There is continued silence on the event's trend, leading to a further fade in conviction due to the SILENCE DECAY rule. The catalyst is still pending and has not been resolved.",
+      "exit_advice": "The event remains live, but conviction has faded due to prolonged silence on the event's trend.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDFC",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "HDB",
+      "thesis": "MSCI India Index rebalancing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "The MSCI India Index rebalancing is still pending with no news indicating it has occurred or been cancelled. The lack of fresh news is causing a further erosion in conviction due to silence decay.",
+      "exit_advice": "continue to monitor for resolution or reversal",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "IBOT",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "G7 Ukraine aid boosting defense robotics",
+      "exit_advice": "Hold, as the specific catalyst remains pending despite growing mainstream coverage.",
+      "evidence_urls": [
+        "https://japantoday.com/category/world/blinken-and-lammy-stress-their-support-for-kyiv-as-ukraine-pleads-for-permission-to-strike-russia",
+        "https://knpr.org/npr/2024-09-11/secretary-of-state-antony-blinken-reiterates-support-for-ukraine-in-kyiv-visit"
+      ]
+    },
+    {
+      "ticker": "IRDM",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "G7 Ukraine aid boosting defense robotics",
+      "exit_advice": "Hold, as the specific catalyst remains pending despite growing mainstream coverage.",
+      "evidence_urls": [
+        "https://japantoday.com/category/world/blinken-and-lammy-stress-their-support-for-kyiv-as-ukraine-pleads-for-permission-to-strike-russia",
+        "https://knpr.org/npr/2024-09-11/secretary-of-state-antony-blinken-reiterates-support-for-ukraine-in-kyiv-visit"
+      ]
+    },
+    {
+      "ticker": "KWEB",
+      "thesis": "G7 Ukraine aid boosts defense robotics",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 2,
+      "assessment": "G7 Ukraine aid boosting defense robotics",
+      "exit_advice": "Hold, as the specific catalyst remains pending despite growing mainstream coverage.",
+      "evidence_urls": [
+        "https://japantoday.com/category/world/blinken-and-lammy-stress-their-support-for-kyiv-as-ukraine-pleads-for-permission-to-strike-russia",
+        "https://knpr.org/npr/2024-09-11/secretary-of-state-antony-blinken-reiterates-support-for-ukraine-in-kyiv-visit"
+      ]
+    },
+    {
+      "ticker": "MU",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Micron's earnings release has not occurred yet",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst remains live as there is no indication that Micron has released its earnings. The journal entries consistently show that the earnings release is still awaited. This week's news does not mention Micron's earnings release.",
+      "exit_advice": "Continue holding as the earnings release is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "SMCI",
+      "thesis": "Micron earnings release",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Micron's earnings release has not occurred yet",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "The catalyst remains live as there is no indication that Micron has released its earnings. The journal entries consistently show that the earnings release is still awaited. This week's news does not mention Micron's earnings release.",
+      "exit_advice": "Continue holding as the earnings release is still pending.",
+      "evidence_urls": []
+    },
+    {
+      "ticker": "PSX",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Reviewing the journal and this week's news, the event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' remains active. Although there's no direct fresh news supporting the catalyst, the known vehicles PSX, SOL, VLO, and XLE are still relevant. The lack of fresh news continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst remains active, but conviction is lowered due to continued silence.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/risk-mood-stockscrude-gains-dxy-flat-bunds-slip-ahead-ecb-us-ppi-ijc-due-newsquawk-us"
+      ]
+    },
+    {
+      "ticker": "SOL",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Reviewing the journal and this week's news, the event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' remains active. Although there's no direct fresh news supporting the catalyst, the known vehicles PSX, SOL, VLO, and XLE are still relevant. The lack of fresh news continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst remains active, but conviction is lowered due to continued silence.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/risk-mood-stockscrude-gains-dxy-flat-bunds-slip-ahead-ecb-us-ppi-ijc-due-newsquawk-us"
+      ]
+    },
+    {
+      "ticker": "VLO",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Reviewing the journal and this week's news, the event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' remains active. Although there's no direct fresh news supporting the catalyst, the known vehicles PSX, SOL, VLO, and XLE are still relevant. The lack of fresh news continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst remains active, but conviction is lowered due to continued silence.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/risk-mood-stockscrude-gains-dxy-flat-bunds-slip-ahead-ecb-us-ppi-ijc-due-newsquawk-us"
+      ]
+    },
+    {
+      "ticker": "XLE",
+      "thesis": "Hedge funds buy energy stocks amid rate cut speculation",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "Reviewing the journal and this week's news, the event catalyst 'Hedge funds buy energy stocks amid rate cut speculation' remains active. Although there's no direct fresh news supporting the catalyst, the known vehicles PSX, SOL, VLO, and XLE are still relevant. The lack of fresh news continues to be a silence-decay signal.",
+      "exit_advice": "The catalyst remains active, but conviction is lowered due to continued silence.",
+      "evidence_urls": [
+        "https://www.zerohedge.com/markets/risk-mood-stockscrude-gains-dxy-flat-bunds-slip-ahead-ecb-us-ppi-ijc-due-newsquawk-us"
+      ]
+    },
+    {
+      "ticker": "UUUU",
+      "thesis": "Australian uranium acquisition approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Australian uranium acquisition approved, expected to close on October 2, 2024",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "The Australian court approval is a significant step towards the acquisition, but it is not yet closed. The expected closing date is October 2, 2024.",
+      "exit_advice": "Hold, catalyst still pending",
+      "evidence_urls": [
+        "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
+      ]
+    },
+    {
+      "ticker": "BASE",
+      "thesis": "Australian uranium acquisition approved",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "Australian uranium acquisition approved, expected to close on October 2, 2024",
+      "catalyst_resolved": false,
+      "conviction": 9,
+      "assessment": "The Australian court approval is a significant step towards the acquisition, but it is not yet closed. The expected closing date is October 2, 2024.",
+      "exit_advice": "Hold, catalyst still pending",
       "evidence_urls": [
         "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]

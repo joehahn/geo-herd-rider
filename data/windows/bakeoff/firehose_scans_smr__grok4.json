@@ -1,14 +1,137 @@
 {
   "2024-04-19": [],
-  "2024-04-26": [],
-  "2024-05-03": [],
-  "2024-05-10": [],
-  "2024-05-17": [],
-  "2024-05-24": [],
-  "2024-05-31": [],
-  "2024-06-07": [],
-  "2024-06-14": [],
-  "2024-06-21": [],
+  "2024-04-26": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "seed",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 8,
+      "assessment": "Bill advancing, early stage, SMR is clean pure-play.",
+      "exit_advice": "hold",
+      "evidence_urls": [
+        "https://carboncredits.com/nuscale-power-stock-surges-after-u-s-biggest-smr-nuclear-deal/"
+      ]
+    }
+  ],
+  "2024-05-03": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "ADVANCE Act still advancing; this week silent on SMR licensing.",
+      "exit_advice": "Hold; bill remains early-stage with no resolution.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-10": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "ADVANCE Act still pending; two-week press silence triggers decay but catalyst unresolved and early.",
+      "exit_advice": "hold through silence (structural bill ongoing)",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-17": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 6,
+      "assessment": "ADVANCE Act still pending with no signed vote or reversal; pure SMR play intact but no new milestones",
+      "exit_advice": "hold; silence decay continues",
+      "evidence_urls": []
+    }
+  ],
+  "2024-05-24": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 5,
+      "assessment": "ADVANCE Act remains unresolved; continued silence triggers another decay step but no exit trigger met.",
+      "exit_advice": "Hold; catalyst still pending with no resolution.",
+      "evidence_urls": [
+        "https://www.marketscreener.com/quote/index/S-P-ASX-200-5966092/news/Banks-mining-stocks-lift-Australian-shares-higher-46788813/"
+      ]
+    }
+  ],
+  "2024-05-31": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 3,
+      "assessment": "ADVANCE Act still pending with no new milestones or press; vehicle remains clean pure-play.",
+      "exit_advice": "Continue holding; no resolution or reversal.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-07": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "ADVANCE Act remains pending and unresolved; extended press silence continues to erode conviction but exit triggers unmet.",
+      "exit_advice": "Hold; no resolution or reversal, only silence decay.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-14": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": true,
+      "src": "gdelt",
+      "exit_case": "none",
+      "catalyst_resolved": false,
+      "conviction": 4,
+      "assessment": "ADVANCE Act still pending with no signed vote or reversal; pure SMR play intact. Extended press silence compounds decay (third consecutive week) but no exit triggers met.",
+      "exit_advice": "Hold; silence alone does not resolve catalyst.",
+      "evidence_urls": []
+    }
+  ],
+  "2024-06-21": [
+    {
+      "ticker": "SMR",
+      "thesis": "ADVANCE Act advances streamlining SMR licensing",
+      "thesis_live": false,
+      "src": "seed",
+      "exit_case": "Senate passed ADVANCE Act, sent to President for signature",
+      "catalyst_resolved": true,
+      "conviction": 2,
+      "assessment": "Bill cleared Senate this week; specific catalyst resolved.",
+      "exit_advice": "Exit: legislative passage complete, edge gone.",
+      "evidence_urls": [
+        "https://www.congress.gov/crs-product/R42853"
+      ]
+    }
+  ],
   "2024-06-28": [],
   "2024-07-05": [],
   "2024-07-12": [],
@@ -23,13 +146,14 @@
   "2024-09-13": [
     {
       "ticker": "UUUU",
-      "thesis": "Australia court approves Base Resources acquisition",
+      "thesis": "Federal Court approves Base Resources acquisition",
       "thesis_live": false,
       "src": "gdelt",
-      "exit_case": "Court approval already granted Sept 12",
+      "exit_case": "Federal court approval granted Sept 12; deal cleared to close Oct 2.",
       "catalyst_resolved": true,
-      "assessment": "Approval occurred same week as entry.",
-      "exit_advice": "Exit; catalyst resolved on entry.",
+      "conviction": 2,
+      "assessment": "Court approval is the exact entered catalyst and has now occurred.",
+      "exit_advice": "Exit immediately; catalyst fully resolved this week.",
       "evidence_urls": [
         "https://www.finanznachrichten.de/nachrichten-2024-09/63244585-energy-fuels-inc-federal-court-of-australia-approves-transformational-acquisition-of-base-resources-008.htm"
       ]
