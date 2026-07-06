@@ -46,7 +46,7 @@ The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** 
 
 The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — this solution just reads the ticker named by the press and rides it while its thesis holds.
 
-The sections below explain each box in greater detail — the [Firehose](#the-news-firehose-why-reading-beats-reasoning), the [Curator](#inside-the-curator-scout--event-agents) (its scout, matcher, event agents), and the [watchlist and optimizer](#the-signal-and-its-jobs).
+The sections below explain each box in greater detail — the [Firehose](#the-news-firehose-why-reading-beats-reasoning), the [AI Curator](#inside-the-curator-scout--event-agents) (its scout, matcher, event agents), and the [watchlist and optimizer](#the-signal-and-its-jobs).
 
 ### How the core pieces fit together
 
