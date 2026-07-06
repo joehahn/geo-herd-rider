@@ -52,10 +52,9 @@ The sections below explain each box in greater detail — the [Firehose](#the-ne
 
 The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by a **basket of same-catalyst tickers** — the purest name plus its direct peers (a rearmament catalyst → Rheinmetall + BAE + Saab + Thales) — that can *evolve* over time, with the **thesis** being the catalyst→ticker claim. The agent proposes the whole basket; the mechanical optimizer sizes it and drops the weak vehicles. Peers must share the *same* catalyst, so a basket never drifts into an unrelated gem.
 
-- **Catalyst** — the discrete driver (a war, a China rare-earth curb, a bill, a supply shock); it *defines* the event.
-- **Event ≡ catalyst ≡ event-agent** (1 : 1 : 1) — the durable unit; one **event-agent** owns it from entry to exit and rates its `conviction`.
+- **Event (≡ its catalyst)** — the real-world thing that happened (a war, a China rare-earth curb, a bill, a supply shock); the **durable unit** this solution tracks from entry to exit, via one **event-agent** that rates its `conviction`. The **catalyst** is the event's *driver* — it **is** the event (1 : 1), *not* a description of it (that's the thesis, next).
+- **Thesis** — the written claim tying the event to a ticker (*this* catalyst makes *this* ticker rise); authored by the **scout**.
 - **Vehicle / gem** — the basket of same-catalyst tickers that express the event *right now* (the purest name + its peers); the basket can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker). The curator proposes the basket; the optimizer sizes it and drops the weak vehicles.
-- **Thesis** — the claim that *this* catalyst makes *this* ticker rise.
 - The **matcher** merges every ticker naming the same catalyst into ONE event (so RNMBY + RHMTY + LMT = one defense event, not three).
 - **Two kinds of agent** (the naming used throughout) — the trackers above are **event-agents** (one per event: live/exit + `conviction`). Separately, **floor agents** hold no thesis: the always-on **SPY floor agent** (`spy_agent_conviction`) and the optional **defensive agent** (`defensive_agent_conviction` + `defensive_ticker`, currently gold / GLD) park idle capital when no event-agent out-ranks them (see [the floors](#the-signal-and-its-jobs)).
 
