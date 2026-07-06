@@ -731,8 +731,13 @@ def build_sweeps() -> None:
         out["params"][key] = {"label": sw["label"], "values": vals, "log": sw.get("log", False),
                               "sum_curated": sum_cur, "sum_spy": sum_spy, "per_gem": per_gem, "default": fm0.get(key)}
         print(f"  sweep {key}: " + " ".join(f"{v}->${c:,.0f}" for v, c in zip(vals, sum_cur)))
-    # ---- LLM bake-off: each model's 3 books re-scored on the same panels at the live defaults ----
+    # ---- LLM bake-off: each model's books re-scored on the same panels at a FIXED reference config
+    # (pinned below, NOT the live sizing knobs) so sweeping cap/risk/max_agents/floors does NOT move the
+    # model comparison — it stays the ranking it was analyzed at. ----
     if bake_models:
+        bake_fm = {**fm0, "concentration_cap": 0.8, "min_trade_size": 0.1, "risk_aversion": 0.67,
+                   "max_agents": 8, "spy_agent_conviction": 4, "defensive_agent_conviction": 4,
+                   "lookback_period_days": 14}   # frozen 6-gem-run config; keeps other fm0 keys
         bo = {"models": [], "label": [], "scale": [], "cost": [], "time": [], "sum_curated": [],
               "per_gem": {t: [] for t in bake_tickers}, "caught": {}}
         for s in bake_models:
@@ -740,7 +745,7 @@ def build_sweeps() -> None:
             for t in bake_tickers:
                 bk = load_scans(_model_book_path(s, t))
                 _, panel, anchor = gem_data[t]
-                bt = firehose.backtest(bk, fm0, capital, panel=panel, overlay=t, overlay_anchor=anchor)
+                bt = firehose.backtest(bk, bake_fm, capital, panel=panel, overlay=t, overlay_anchor=anchor)
                 total += bt["final"]; bo["per_gem"][t].append(round(bt["final"]))
                 _tg = {"GEO", "MSTR"} if t == "GEO_MSTR" else {t}   # combo: caught if either target named
                 caught[t] = any(str(p.get("ticker", "")).strip().upper() in _tg
@@ -1536,7 +1541,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const BO=D.bakeoff;
   if(BO && BO.models && BO.models.length){
     const h2=document.createElement("h2");
-    h2.textContent="Plot 1 — LLM bake-off — (Sum Final Curated)/4 per curator model (6 gems, live defaults)";
+    h2.textContent="Plot 1 — LLM bake-off — (Sum Final Curated)/4 per curator model (6 gems, fixed reference config)";
     host.appendChild(h2);
     const bcap=document.createElement("p"); bcap.className="sub"; bcap.style.margin="0 0 6px";
     bcap.innerHTML="Sum of Final Curated value across the 6 gem books, each re-scored on the same price panel at the live config. <b>Read with care &mdash; the SUM rewards sprawl:</b> a less-selective model that funds many names scoops up the two dirtiest gems (RNMBY's dial-up basket, GDX's gold complex) and can top the sum, yet <b>lose to Sonnet-5 on the four cleanly-caught gems</b> (SMR / BWET / MP / GEO+MSTR). Sonnet-5 stays the chosen curator for selectivity; a precision metric would be a better test than gross sum.";
