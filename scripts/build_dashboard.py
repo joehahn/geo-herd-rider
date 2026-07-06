@@ -630,14 +630,14 @@ SWEEP_BASE = {}   # empty -> sweeps follow the live investor_profile defaults (a
 
 # Model bake-off: re-score each curator LLM's 3-gem books on the SAME per-gem panel and compare.
 # (short -> (display label, scale, approx $/3-gem). Order = display order, cheap/small -> big.)
-BAKEOFF_INFO = {  # (label, scale, MEASURED $ /3-gem scan, MEASURED wall-clock /3-gem scan) — today's ledger
-    "mimo":     ("mimo",     "~1T MoE / 42B act",  "$0.4", "83min"),
-    "llama4":   ("llama4",   "400B MoE / 17B act", "$0.4", "10min"),
-    "deepseek": ("deepseek", "671B MoE / 37B act", "$0.1", "14min"),
-    "grok4":    ("grok-4.3", "frontier",           "$3.7", "9min"),
-    "sonnet4":   ("sonnet4",   "1-2T (est)",         "$3.6", "61min"),
-    "sonnet5":  ("sonnet5",  "near-Opus",          "$3.8", "8min"),
-    "opus":     ("opus",     "2-5T (est)",         "$4.4", "16min"),
+BAKEOFF_INFO = {  # (label, scale, MEASURED $ /6-gem scan [Jul-5/6 ledger], active wall-clock /6-gem scan [scan logs])
+    "mimo":     ("mimo",     "~1T MoE / 42B act",  "$2.3", "163min"),
+    "llama4":   ("llama4",   "400B MoE / 17B act", "$3.9", "37min"),
+    "deepseek": ("deepseek", "671B MoE / 37B act", "$1.8", "31min"),
+    "grok4":    ("grok-4.3", "frontier",           "$13",  "18min"),
+    "sonnet4":   ("sonnet4",   "1-2T (est)",         "$29",  "190min"),
+    "sonnet5":  ("sonnet5",  "near-Opus",          "$75",  "29min"),
+    "opus":     ("opus",     "2-5T (est)",         "$66",  "59min"),
 }
 
 
