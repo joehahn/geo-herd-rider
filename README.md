@@ -32,7 +32,7 @@ flowchart TD
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
-    AG --> E
+    AG -- "ranked by conviction; top events kept" --> E
     AG -. "resolved catalysts are remembered so scout won't re-chase the hype" .-> SC
     E --> W --> U
     U -. "↻ back to Firehose, weekly" .-> X(( ))
@@ -58,7 +58,7 @@ The pipeline above is the *data flow*; this is how the *nouns* relate. The key i
 - **Conviction** is the event-agent's weekly rating (1–10) of how live and still-under-owned the catalyst is. Conviction is driven by the news. A fresh milestone can lift the agent's conviction, while silence, or news that the market has priced the move in, will cause conviction to decay over time.
 - An **exit** can be declared by the agent that is monitoring the event, and it is where the milestone spine ends since the catalyst is resolved (e.g. the war ends, the bill is signed, the chokepoint reopens). Example: a ceasefire triggering an exit from the "Hormuz blockade" event. When the agent calls its own exit, its basket of tickers is no longer communicated to the live watchlist, which means the optimizer will not consider those exiting tickers at the next portfolio rebalance. However this solution still preserves a memory of the resolved catalyst to prevent the scout from re-chasing that event as its news winds down during subsequent weeks.
 - A **thesis** is the statement that connects the event to one or more tickers (e.g. this catalyst is causing that ticker to rise), and the thesis is authored by the **scout**.
-- A **gem** is an in-demand ticker that benefits from the event. The **scout** names the gem or gems, and the **matcher** assigns the same-event gems to the event's **basket**, which can evolve as the event unfolds (the event is pinned to the catalyst, not to a ticker). The **event-agent** then proposes the basket, and the optimizer sizes it and drops the weak tickers.
+- A **gem** is an in-demand ticker that benefits from the event. The **scout** names the gem or gems, and the **matcher** assigns the same-event gems to the event's **basket** which can evolve as the event unfolds since the event is pinned to the catalyst and not to any particular tickers. Each **event-agent** proposes its basket; the events are then ranked by conviction (against each other and the always-on SPY/gold floors), and the top-ranked baskets form the watchlist that the optimizer sizes, dropping the weak tickers.
 - The **matcher** merges every ticker naming the same catalyst into ONE event (so RNMBY + RHMTY + LMT = one defense event, not three).
 - There are **two kinds of agent** (the naming used throughout): the trackers above are **event-agents** (one per event: live/exit + `conviction`). Separately, **floor agents** hold no thesis: the always-on **SPY floor agent** (`spy_agent_conviction`) and the optional **defensive agent** (`defensive_agent_conviction` + `defensive_ticker`, currently gold / GLD) park idle capital when no event-agent out-ranks them (see [the floors](#the-signal-and-its-jobs)).
 
