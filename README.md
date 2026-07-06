@@ -21,7 +21,7 @@ flowchart TD
 
     subgraph CUR["🧠 Curator"]
       direction TB
-      SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes their catalyst statements"]
+      SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
       AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); also picks which gem(s) best express the event"]
       SC --> MA --> AG
