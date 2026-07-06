@@ -18,7 +18,6 @@ This solution is one short assembly line that loops weekly. It reads the news fi
 ```mermaid
 flowchart TD
     S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search during live use and GDELT + Wayback + seeds when backtesting"]
-    S -. "↻ repeats weekly<br/>(after the user rebalances)" .-> S
     S --> SC
 
     subgraph CUR["🧠 Curator"]
