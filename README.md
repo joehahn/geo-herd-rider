@@ -18,6 +18,8 @@ This solution is one short assembly line that loops weekly. It reads the news fi
 ```mermaid
 flowchart TD
     S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search during live use and GDELT + Wayback + seeds when backtesting"]
+    S -. "↻ repeats weekly<br/>(after the user rebalances)" .-> S
+    S --> SC
 
     subgraph CUR["🧠 Curator"]
       direction TB
@@ -31,11 +33,9 @@ flowchart TD
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
-    S --> SC
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
-    U == "↻ repeat weekly" ==> S
 
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
