@@ -1797,8 +1797,8 @@
       ],
       "funded": [
         "BWET",
-        "GLD",
-        "SPY"
+        "SPY",
+        "GLD"
       ]
     },
     {
@@ -1808,8 +1808,8 @@
       ],
       "funded": [
         "BWET",
-        "SPY",
-        "GLD"
+        "GLD",
+        "SPY"
       ]
     },
     {
@@ -2076,7 +2076,7 @@
   },
   "params": {
     "initial_investment_usd": 50000,
-    "risk_aversion": 0.25,
+    "risk_aversion": 0.1,
     "concentration_cap": 1.0,
     "t_update_days": 1,
     "min_trade_size": 0.0,
@@ -2086,8 +2086,8 @@
     "rebalance_days": 7,
     "news_lookback_days": null,
     "max_agents": 7,
-    "spy_agent_conviction": 6,
-    "defensive_agent_conviction": 6,
+    "spy_agent_conviction": 5,
+    "defensive_agent_conviction": 5,
     "defensive_ticker": "GLD",
     "hold_benchmark": true,
     "curator_memory_weeks": 8,
@@ -2486,229 +2486,229 @@
     "spy": [
       {
         "date": "2025-12-26",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-02",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-09",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-16",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-23",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-30",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-06",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-13",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-20",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-27",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-06",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-13",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-20",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-27",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-03",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-10",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-17",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-24",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-01",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-08",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-15",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-22",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-29",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-05",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-12",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-19",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-26",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-07-03",
-        "conviction": 6
+        "conviction": 5
       }
     ],
     "defensive": [
       {
         "date": "2025-12-26",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-02",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-09",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-16",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-23",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-01-30",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-06",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-13",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-20",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-02-27",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-06",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-13",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-20",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-03-27",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-03",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-10",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-17",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-04-24",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-01",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-08",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-15",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-22",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-05-29",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-05",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-12",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-19",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-06-26",
-        "conviction": 6
+        "conviction": 5
       },
       {
         "date": "2026-07-03",
-        "conviction": 6
+        "conviction": 5
       }
     ]
   },
@@ -2748,284 +2748,284 @@
     "spy": [
       {
         "date": "2025-12-26",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 0.0
       },
       {
         "date": "2026-01-02",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -279.48
       },
       {
         "date": "2026-01-09",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 513.82
       },
       {
         "date": "2026-01-16",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 593.15
       },
       {
         "date": "2026-01-23",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 593.15
       },
       {
         "date": "2026-01-30",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 593.15
       },
       {
         "date": "2026-02-06",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 240.61
       },
       {
         "date": "2026-02-13",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -412.19
       },
       {
         "date": "2026-02-20",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 153.04
       },
       {
         "date": "2026-02-27",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-03-06",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-03-13",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-03-20",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-03-27",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-04-03",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-04-10",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -365.09
       },
       {
         "date": "2026-04-17",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 4090.07
       },
       {
         "date": "2026-04-24",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 4794.29
       },
       {
         "date": "2026-05-01",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 6037.8
       },
       {
         "date": "2026-05-08",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 9182.72
       },
       {
         "date": "2026-05-15",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 9469.97
       },
       {
         "date": "2026-05-22",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 10669.01
       },
       {
         "date": "2026-05-29",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 12677.9
       },
       {
         "date": "2026-06-05",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 9169.75
       },
       {
         "date": "2026-06-12",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 9948.1
       },
       {
         "date": "2026-06-19",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 11229.38
       },
       {
         "date": "2026-06-26",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 7931.43
       },
       {
         "date": "2026-07-03",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 10865.22
       }
     ],
     "defensive": [
       {
         "date": "2025-12-26",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 0.0
       },
       {
         "date": "2026-01-02",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -0.0
       },
       {
         "date": "2026-01-09",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 0.0
       },
       {
         "date": "2026-01-16",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -112.63
       },
       {
         "date": "2026-01-23",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 4286.09
       },
       {
         "date": "2026-01-30",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 2722.39
       },
       {
         "date": "2026-02-06",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 587.14
       },
       {
         "date": "2026-02-13",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 587.14
       },
       {
         "date": "2026-02-20",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 587.14
       },
       {
         "date": "2026-02-27",
-        "conviction": 6,
+        "conviction": 5,
         "gain": 844.88
       },
       {
         "date": "2026-03-06",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -223.67
       },
       {
         "date": "2026-03-13",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-03-20",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-03-27",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-04-03",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-04-10",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-04-17",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-04-24",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-05-01",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-05-08",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-05-15",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-05-22",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-05-29",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-06-05",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-06-12",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-06-19",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-06-26",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       },
       {
         "date": "2026-07-03",
-        "conviction": 6,
+        "conviction": 5,
         "gain": -325.94
       }
     ]
