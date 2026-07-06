@@ -53,7 +53,7 @@ The sections below explain each box in greater detail — the [Firehose](#the-ne
 The pipeline above is the *data flow*; this is how the *nouns* relate. The key idea: **one event = one catalyst = one agent** (the durable unit we track), expressed by a **basket of same-catalyst tickers** — the purest name plus its direct peers (a rearmament catalyst → Rheinmetall + BAE + Saab + Thales) — that can *evolve* over time, with the **thesis** being the catalyst→ticker claim. The agent proposes the whole basket; the mechanical optimizer sizes it and drops the weak vehicles. Peers must share the *same* catalyst, so a basket never drifts into an unrelated gem.
 
 ```mermaid
-flowchart LR
+flowchart TD
     CUR["🧠 Curator<br/>scout · matcher · agents"] --> EV
     CAT["🎯 Catalyst<br/>the discrete driver:<br/>war · rare-earth curb ·<br/>bill · election · supply shock"] === EV["<b>EVENT</b><br/><i>the durable unit</i>"] === AGT["🟢 Event-agent<br/>exactly ONE per event;<br/>tracks it weekly;<br/>live/exit + conviction 1–10"]
     EV -- "expressed by · basket can EVOLVE" --> VEH["📈 Vehicle(s) / gem(s)<br/>same-catalyst basket"]
