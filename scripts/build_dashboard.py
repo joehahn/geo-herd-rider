@@ -1536,7 +1536,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const BO=D.bakeoff;
   if(BO && BO.models && BO.models.length){
     const h2=document.createElement("h2");
-    h2.textContent="Plot 1 — LLM bake-off — Final Curated value per curator model (6 gems, live defaults)";
+    h2.textContent="Plot 1 — LLM bake-off — (Sum Final Curated)/4 per curator model (6 gems, live defaults)";
     host.appendChild(h2);
     const bcap=document.createElement("p"); bcap.className="sub"; bcap.style.margin="0 0 6px";
     bcap.innerHTML="Sum of Final Curated value across the 6 gem books, each re-scored on the same price panel at the live config. <b>Read with care &mdash; the SUM rewards sprawl:</b> a less-selective model that funds many names scoops up the two dirtiest gems (RNMBY's dial-up basket, GDX's gold complex) and can top the sum, yet <b>lose to Sonnet-5 on the four cleanly-caught gems</b> (SMR / BWET / MP / GEO+MSTR). Sonnet-5 stays the chosen curator for selectivity; a precision metric would be a better test than gross sum.";
@@ -1546,11 +1546,11 @@ Promise.resolve({{DATA}}).then(D=>{
     const idx=BO.models.map((_,i)=>i).sort((a,b)=>ncost(BO.cost[a])-ncost(BO.cost[b]));  // cheapest -> priciest
     const labels=idx.map(i=>BO.label[i]+"<br>"+BO.scale[i]+"<br>"+BO.cost[i]+(BO.time&&BO.time[i]?" · "+BO.time[i]:""));  // size · cost · wall-clock
     const gems=Object.keys(BO.per_gem||{});  // bake-off tickers ONLY (not D.gems — excludes GEO_MSTR, which has no bake books)
-    const traces=[{type:"scatter", mode:"lines+markers+text", name:"Sum (6 gems)", x:labels,
-      y:idx.map(i=>BO.sum_curated[i]), line:{color:"#d62728",width:2.8}, marker:{size:9},
+    const traces=[{type:"scatter", mode:"lines+markers+text", name:"(Sum 6 gems)/4", x:labels,
+      y:idx.map(i=>BO.sum_curated[i]/4), line:{color:"#d62728",width:2.8}, marker:{size:9},
       text:idx.map(i=>gems.map(g=>g+(BO.caught[BO.models[i]][g]?"✓":"✗")).join(" ")),
       textposition:"top center", textfont:{size:9},
-      hovertemplate:"%{x}<br>Sum $%{y:,.0f}<extra></extra>"}];
+      hovertemplate:"%{x}<br>(Sum)/4 $%{y:,.0f}<extra></extra>"}];
     gems.forEach((g,gi)=>traces.push({type:"scatter", mode:"lines+markers", name:g, x:labels,
       y:idx.map(i=>BO.per_gem[g][i]), line:{color:pal[gi%pal.length],width:2,dash:"dash"}, marker:{size:6},
       customdata:idx.map(i=>BO.caught[BO.models[i]][g]?"caught ✓":"missed ✗"),
