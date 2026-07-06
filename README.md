@@ -28,11 +28,11 @@ flowchart TD
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>gathers live events' gems for possible funding"]
+    E["🎯 Watchlist<br/>gathers the top events' gems (ranked by conviction) for possible funding"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
-    AG -- "ranked by conviction; top events kept" --> E
+    AG --> E
     AG -. "resolved catalysts are remembered so scout won't re-chase the hype" .-> SC
     E --> W --> U
     U -. "↻ back to Firehose, weekly" .-> X(( ))
