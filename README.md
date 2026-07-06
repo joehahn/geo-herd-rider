@@ -63,7 +63,7 @@ The pipeline above is the *data flow*; this is how the *nouns* relate. The key i
 
 ### Conviction: how it's scored, and how it decays
 
-Every week each event-agent rates its event's **`conviction` (1–10)**. A high conviction score means a **fresh, concrete, still-under-owned** catalyst delivering new milestones (a signed contract, a funding round, an escalation); a low score means the driver is spent. Conviction is **remembered**: each agent sees its *own prior-week score* (a one-step memory carried in its journal note) and nudges it from there — so the trajectory is continuous, not re-rolled from scratch each week.
+Every week each event-agent rates its event's **conviction** (1–10). A high conviction score means that the event has a **fresh, concrete, still-under-owned** catalyst that is delivering new milestones (a signed contract, a funding round, an escalation) that are driving towards resolution, while a low score means the event's driver is spent. Conviction is **remembered**: each agent sees its *own prior-week score* (a one-step memory carried in its journal note) and nudges it from there, so that the event's conviction trajectory is continuous and is not re-rolled from scratch each week.
 
 Three forces move it — one hard, two soft:
 
