@@ -28,7 +28,7 @@ flowchart TD
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
+    E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(the always-on SPY + gold floors are included as defaults)"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
