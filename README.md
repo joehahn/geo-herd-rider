@@ -22,7 +22,7 @@ flowchart TD
 
     SC["🔍 Scout · 🧠 Curator<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
     MA["🧩 Matcher · 🧠 Curator<br/>assigns each gem to an event, pre-existing or new"]
-    AG["🟢/⚪ Event agent · 🧠 Curator<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); scores its conviction (1–10, up on milestones / decays on silence); also picks which gem(s) best express the event"]
+    AG["🟢/⚪ Event agent · 🧠 Curator<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); scores its conviction; also picks which gem(s) best express the event"]
     SC --> MA --> AG
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
