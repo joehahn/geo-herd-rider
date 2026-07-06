@@ -20,7 +20,7 @@ flowchart TD
     S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search"]
     S --> SC
 
-    subgraph CUR["🧠 Curator"]
+    subgraph CUR["🧠 AI Curator"]
       direction TB
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
