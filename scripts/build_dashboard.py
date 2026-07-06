@@ -1556,7 +1556,7 @@ Promise.resolve({{DATA}}).then(D=>{
       customdata:idx.map(i=>BO.caught[BO.models[i]][g]?"caught ✓":"missed ✗"),
       hovertemplate:`%{x}<br>${g} $%{y:,.0f} (%{customdata})<extra></extra>`}));
     Plotly.newPlot(div.id, traces, {margin:{l:72,r:20,t:24,b:66},
-      yaxis:{tickprefix:"$",separatethousands:true}, xaxis:{tickangle:0, tickfont:{size:11}},
+      yaxis:{tickprefix:"$",separatethousands:true,range:[0,200000]}, xaxis:{tickangle:0, tickfont:{size:11}},
       legend:{orientation:"h",y:1.14}, hovermode:"x unified"}, {displayModeBar:false,responsive:true});
   }
   Object.keys(P).forEach((k,i)=>{
