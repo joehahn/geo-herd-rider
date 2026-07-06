@@ -18,16 +18,12 @@ This solution is one short assembly line that loops weekly. It reads the news fi
 ```mermaid
 flowchart TD
     S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search during live use and GDELT + Wayback + seeds when backtesting"]
-    S -. "↻ repeats weekly<br/>(after the user rebalances)" .-> S
     S --> SC
 
-    subgraph CUR["🧠 Curator"]
-      direction TB
-      SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
-      MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); also picks which gem(s) best express the event"]
-      SC --> MA --> AG
-    end
+    SC["🔍 Scout · 🧠 Curator<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
+    MA["🧩 Matcher · 🧠 Curator<br/>assigns each gem to an event, pre-existing or new"]
+    AG["🟢/⚪ Event agent · 🧠 Curator<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); also picks which gem(s) best express the event"]
+    SC --> MA --> AG
 
     E["🎯 Watchlist<br/>gathers live events' gems for possible funding<br/>(SPY always included as the default holding)"]
     W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
@@ -36,7 +32,10 @@ flowchart TD
     AG -- "alive: keep gem · resolved: drop it" --> E
     AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
     E --> W --> U
+    U == "↻ repeat weekly" ==> S
 
+    classDef cur fill:#eef2ff,stroke:#6366f1;
+    class SC,MA,AG cur
     classDef bet fill:#fae3e0,stroke:#c0392b;
     class E bet
 ```
