@@ -17,14 +17,14 @@ This solution is one short assembly line that loops weekly. It reads the news fi
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search during live use and GDELT + Wayback + seeds when backtesting"]
+    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search"]
     S --> SC
 
     subgraph CUR["🧠 Curator"]
       direction TB
       SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
       MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved (drops the position the instant it resolves); scores its conviction; also picks which gem(s) best express the event"]
+      AG["🟢/⚪ Event agent<br/>determines whether the catalyst is still alive or resolved; scores its conviction; also picks which gem(s) best express the event"]
       SC --> MA --> AG
     end
 
@@ -33,7 +33,7 @@ flowchart TD
     U["🧑 User<br/>adjusts portfolio at brokerage"]
 
     AG -- "alive: keep gem · resolved: drop it" --> E
-    AG -. "resolved catalysts remembered:<br/>scout won't re-chase the hype" .-> SC
+    AG -. "resolved catalysts are remembered so scout won't re-chase the hype" .-> SC
     E --> W --> U
     U -. "↻ back to Firehose, weekly" .-> X(( ))
     style X fill:none,stroke:none
