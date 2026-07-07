@@ -112,12 +112,25 @@ def _read() -> pd.DataFrame:
     return pd.read_csv(SCANS_CSV) if SCANS_CSV.exists() else pd.DataFrame(columns=COLS)
 
 
-def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8) -> pd.DataFrame:
+def _use_sandbox(dir_path: str) -> None:
+    """Redirect ALL forward state (scan-log, archive, journal) under DIR — for THROWAWAY experiments
+    that must NOT touch the live series (data/forward/) or its cron. Everything else is unchanged."""
+    global SCANS_CSV, ARCHIVE_DIR
+    d = Path(dir_path)
+    d.mkdir(parents=True, exist_ok=True)
+    SCANS_CSV = d / "firehose_scans.csv"
+    ARCHIVE_DIR = d / "archive"
+    forward_engine.STATE_F = d / "journal.json"
+    print(f"  SANDBOX: forward state -> {d}/ (live series untouched)", file=sys.stderr)
+
+
+def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
+                 anchor: pd.Timestamp | None = None) -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
     LOCAL journal; here we log the decision + archive the raw inputs."""
     log = _read()
-    anchor = _current_anchor(rebalance_days)
+    anchor = anchor if anchor is not None else _current_anchor(rebalance_days)
     wk_key = anchor.date().isoformat()
     if len(log) and (log["week"].astype(str) == wk_key).any():
         print(f"  period {wk_key}: already scanned, skipping (dedup).")
@@ -232,7 +245,15 @@ def main(argv: list[str] | None = None) -> int:
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
     ap.add_argument("--explain", nargs="?", const="", default=None, metavar="WEEK",
                     help="audit why the scout kept few/no gems for a week (default: latest archive); no web search")
+    ap.add_argument("--sandbox", default=None, metavar="DIR",
+                    help="THROWAWAY run: redirect journal/scan-log/archive under DIR (isolates from the live series)")
+    ap.add_argument("--rebalance-days", type=int, default=None, dest="rebalance_days",
+                    help="override the gather window in days (e.g. 28 for a 4-week prototype); default from profile")
+    ap.add_argument("--anchor", default=None, metavar="YYYY-MM-DD",
+                    help="explicit week-ending anchor (e.g. a recent Friday); default = most recent cron anchor")
     args = ap.parse_args(argv)
+    if args.sandbox:
+        _use_sandbox(args.sandbox)
     if not (args.scan or args.report or args.explain is not None):
         ap.error("choose at least one of --scan / --report / --explain")
 
@@ -253,7 +274,9 @@ def main(argv: list[str] | None = None) -> int:
                   f"investor_profile model '{fm.get('model')}' resolves to provider '{provider}'. "
                   f"Pass --model <anthropic-id>.", file=sys.stderr)
             return 2
-        scan_and_log(model_id, int(fm.get("rebalance_days", 7)), int(fm.get("curator_memory_weeks", 8)))
+        rebal = args.rebalance_days or int(fm.get("rebalance_days", 7))
+        anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
+        scan_and_log(model_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch)
 
     if args.report:
         report()

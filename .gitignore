@@ -46,3 +46,6 @@ data/windows/retrieval_stats_*.json
 # (scan log, journal, event state). Git holds the SOLUTION + published dashboards; the committed
 # forward dashboard is the timestamped record. Others clone the solution and generate their own data.
 data/forward/
+
+# throwaway forward-prototype sandbox (bigger-window experiments; never the live series)
+data/forward_proto/
