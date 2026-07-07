@@ -44,6 +44,9 @@ the recommended portfolio auto-follows the optimizer (test mode A).</p>
 <p class="kpi">${final:,.0f} <span class="q">from ${cap:,.0f} ({ret:+.1%}) · SPY {spyret:+.1%}</span></p>
 <div id="curve"></div>
 
+<h2>Published-date distribution <span class="q">(articles/day across all weeks' pools — spikes on the week-ending Fridays = end-of-week clustering)</span></h2>
+<div id="datehist"></div>
+
 <h2>Weekly recommendations <span class="q">(optimizer weights — SPY + defensive floor always on)</span></h2>
 <table><tr><th>week</th><th>recommended portfolio (weights)</th><th>week return</th></tr>{recs_html}</table>
 
@@ -61,6 +64,8 @@ the recommended portfolio auto-follows the optimizer (test mode A).</p>
 <table>{cfg_html}</table>
 <script>
  Plotly.newPlot('curve', {curve_json}, {{margin:{{t:10,r:10}},yaxis:{{title:'$'}},legend:{{orientation:'h'}}}},
+   {{displayModeBar:false,responsive:true}});
+ Plotly.newPlot('datehist', {hist_json}, {{margin:{{t:10,r:10}},yaxis:{{title:'articles'}},bargap:0.05}},
    {{displayModeBar:false,responsive:true}});
 </script>
 </body></html>"""
@@ -114,6 +119,16 @@ def main(argv=None):
     journal_html = f"<table>{''.join(jrows)}</table>" if jrows else \
         "<p class='q'>No scout events this run — the portfolio is the two always-on floors only.</p>"
 
+    from collections import Counter
+    datehist: Counter = Counter()
+    for f in sorted((sb / "archive").glob("*.json")):
+        for art in json.loads(f.read_text()).get("pool", []):
+            d = (art.get("published_date") or "")[:10]
+            if d:
+                datehist[d] += 1
+    hx = sorted(datehist)
+    hist_trace = [{"x": hx, "y": [datehist[d] for d in hx], "type": "bar", "marker": {"color": "#4a90d9"}}]
+
     arch_f = sb / "archive" / f"{week}.json"
     arch = json.loads(arch_f.read_text()) if arch_f.exists() else {}
     queries_html = "".join(f"<li>{q}</li>" for q in arch.get("queries", [])[:60])
@@ -123,7 +138,7 @@ def main(argv=None):
 
     html = PAGE.format(week=week, nweeks=len(weeks), model=arch.get("model", fm.get("model", "?")),
                        final=bt["final"], cap=cap, ret=bt["final"] / cap - 1,
-                       spyret=bt["spy_final"] / cap - 1, curve_json=json.dumps(curve),
+                       spyret=bt["spy_final"] / cap - 1, curve_json=json.dumps(curve), hist_json=json.dumps(hist_trace),
                        recs_html=recs_html, agents_html=agents_html, journal_html=journal_html,
                        npool=len(arch.get("pool", [])), nq=len(arch.get("queries", [])),
                        queries_html=queries_html, pool_html=pool_html, cfg_html=cfg_html)

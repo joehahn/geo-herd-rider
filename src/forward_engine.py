@@ -44,7 +44,8 @@ def _save(events: dict, retired: dict, nid: int, week_seq: int) -> None:
 
 
 def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
-             curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None) -> list[dict]:
+             curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None,
+             window_cap: int = 80) -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.
     Returns this week's picks (the live watchlist). `capture` (if given) is filled with the gather's
     raw queries+results for the Phase-B archive."""
@@ -52,7 +53,7 @@ def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
     lclient = llm.make_client("anthropic", model)          # scout/matcher/agents (web search OFF)
     raw = anthropic.Anthropic()                            # gather (web search — Anthropic only)
     cap = capture if capture is not None else {}
-    arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap)
+    arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=window_cap)
     print(f"  gather: {len(arts)} in-window articles; events held={sum(1 for e in events.values() if e['status']=='live')}",
           flush=True)
 

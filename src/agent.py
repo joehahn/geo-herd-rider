@@ -766,7 +766,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False, enrich_fetch=True, curator_memory_weeks=8) -> dict:
+                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, window_cap=WINDOW_CAP) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
@@ -818,7 +818,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         if a.isoformat() in done:
             continue
         gslice = sorted(firehose._window(gpool, a, rebalance_days),
-                        key=lambda x: x.get("published_date", ""), reverse=True)[:WINDOW_CAP]
+                        key=lambda x: x.get("published_date", ""), reverse=True)[:window_cap]
         if enrich:
             wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache,
                            fetch=enrich_fetch, stats_path=stats_path)

@@ -155,7 +155,8 @@ def main(argv: list[str] | None = None) -> int:
                                             pool_chunk_days=args.chunk_days, pool_per=args.per,
                                             provider=args.provider, targeted=not args.no_targeted,
                                             enrich=args.enrich, enrich_fetch=not args.enrich_cache_only,
-                                            curator_memory_weeks=int(fm.get("curator_memory_weeks", 8) or 0))
+                                            curator_memory_weeks=int(fm.get("curator_memory_weeks", 8) or 0),
+                                            window_cap=int(fm.get("window_cap", agent.WINDOW_CAP)))
     elif args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,

@@ -53,7 +53,8 @@ def main(argv=None):
     ts = datetime.now(timezone.utc).isoformat()
     for i, anch in enumerate(anchors):
         cap: dict = {}
-        arts = forward_gather_tavily.gather(None, model, anch, a.rebalance_days, capture=cap)
+        arts = forward_gather_tavily.gather(None, model, anch, a.rebalance_days, capture=cap,
+                                            cap=int(fm.get("window_cap", 80)))
         picks, nid = agent.process_week(cli, anch, arts, events, retired, nid, i, curator_memory_weeks=memw)
         wk = anch.date().isoformat()
         live = [p for p in picks if p["thesis_live"]]
