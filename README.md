@@ -120,10 +120,6 @@ The backtest is published as browsable pages at **[joehahn.github.io/geo-herd-ri
 
 Rebuild all with `python scripts/build_dashboard.py --all`.
 
-## Scope
-
-This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event — a war, an election — is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the portfolio unmapped. **Options and futures are excluded** since this solution cannot size them, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
-
 ## Inside the curator: scout → event agents
 
 Each week the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** pulls its own event's news, reads its full journal arc (a Reflexion-style weekly self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
@@ -131,6 +127,14 @@ Each week the curator **discovers, then fans out**: a broad **scout** call asks 
 The scout is kept selective by a **catalyst gate** — it names a ticker only on a *specific, datable, resolvable* catalyst (a war, a named bill, an export ban), rejecting pure theme/momentum, with a refinement that also admits **anticipation of a dated future event** (an election, an FDA date) whose date is the exit (this is how MicroStrategy was caught riding Bitcoin into the 2024 vote). The full mechanics — the two engines (`--agent` ticker-keyed vs `--event-first`), the same-catalyst **peer-basket**, the Reflexion-style weekly loop, and the catalyst-gate + anticipation details — are in [`agent_design.md`](agent_design.md).
 
 **No-magnitude guardrail, machine-enforced.** Every LLM stage returns JSON matching a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like — **no field for a price target, weight, or size** — and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
+
+## Optimizer
+
+Once the curator produces the live watchlist, a **mechanical mean-variance optimizer** sizes it — weighting each name from its recent returns and covariance, tuned only by the knobs in `investor_profile.md`. The LLM never touches these weights (it names tickers and the hold/exit call; sizing is mechanical). The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
+
+## Scope
+
+This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event — a war, an election — is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the portfolio unmapped. **Options and futures are excluded** since this solution cannot size them, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
 
 ## Status
 
