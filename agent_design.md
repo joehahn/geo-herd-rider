@@ -473,3 +473,20 @@ Event-driven runs are heavy-tailed: BWET is a tail outlier, and below it sit pro
 > CVNA ~100× · PLTR 32× · NVDA 17× · SMR 16× · SMCI 14×↘ · MSTR 13× · HIMS 11× · RNMBY 8× · BWET ~8× · MP 6.5× · YPF 4.4× · GDX 3.5× · URA 3.2× — plus PTON (a slow-fizzle *negative control* for the exit engine).
 
 Of these, **6 are built and tested so far** (BWET, MP, GDX, SMR, RNMBY, GEO+MSTR); the rest remain the locked ambition. The eval measures **recall** (how many gems the firehose catches) and the **exit engine** (does it cut a decaying thesis); **precision** (false positives — does it also grab hyped names that fizzle?) is measured separately by the realistic GDELT-noise run.
+
+## Backtest surfaces & pipeline **[CURRENT]**
+
+**Pipeline.** `firehose.py` runs the single-scan curator; `agent.py` runs the scout→event-agent curator (the current engine). Both hand the live watchlist to the reused mean-variance optimizer (`investor_profile.md` knobs); `scripts/run_harness.py` scores either against the gem set; the dashboard renders the portfolio. Every LLM call is priced into `data/llm_costs.csv`.
+
+**Two backtest surfaces.**
+- `firehose.py --fixture` — a look-ahead-clean **mechanics** test against a fixed article set (perfect-retrieval assumption): given the early articles, the engine enters BWET on its first under-the-radar write-up and rides it while the Iran/Hormuz thesis is live (~+220% vs SPY ~+9%, BWET-only). An upper bound on the mechanics, not lift.
+- `firehose.py --gdelt --seed <file>` — a **realistic** backtest: real date-honored GDELT headlines per week (`src/gdelt.py`) + the early niche pieces GDELT misses, seeded at their true dates. The curator must *find* the gem in genuine noise — the fast dev loop for hunting weaknesses (it drove a sticky-hold, selectivity/vehicle-selection, and ticker-validation hardening). **The [live dashboards](README.md#live-dashboard) render this surface with `--enrich` Wayback ledes added** (event-first agent + GDELT/Wayback/seeds, English-filtered), one per gem (BWET, MP, GEO+MSTR, RNMBY, GDX, SMR) — each showing the catalyst-gated agent finding its gem in genuine noise, holding while the thesis is live, and exiting when the catalyst resolves. Retrieval is clean now (non-English **0%**). Sizing knobs (`concentration_cap`, `min_trade_size`, `lookback_period_days`, `risk_aversion`) were settled on the [parameter-sweep dashboard](https://joehahn.github.io/geo-herd-rider/sweeps/); the gem dashboards render the chosen defaults (cap 1.0 · lookback 14 · min_trade 0.0 · risk_aversion 0.1 · max_agents 7 · spy_agent 5 · gold-agent 5, model Sonnet-5) — a concentrated, low-risk-aversion tilt (a forward-test candidate, not validated). Returns are hindsight upper bounds.
+
+## Backtest roadmap **[CURRENT]**
+
+We harden the engine on a widening historical slice, one rung at a time:
+1. **BWET alone** — lock the mechanics on the single motivating gem (enter early, ride, exit on resolution).
+2. **BWET + its two nearest-in-time gems** — confirm the scout/matcher keep separate events separate and the optimizer shares capital sanely across a handful of concurrent events.
+3. **The full locked gem set** (`data/fixtures/gems.json`) — recall / precision / tail / exit across all verticals and geopolitical types.
+
+Later phases extend beyond backtesting and are intentionally out of scope for this README; they'll be folded back in once we get there.
