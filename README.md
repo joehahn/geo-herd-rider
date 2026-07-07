@@ -130,7 +130,7 @@ The scout is kept selective by a **catalyst gate** — it names a ticker only on
 
 ## Optimizer
 
-Once the curator produces the live watchlist, a **mechanical mean-variance optimizer** sizes it — weighting each name from its recent returns and covariance, tuned only by the knobs in `investor_profile.md`. The LLM never touches these weights (it names tickers and the hold/exit call; sizing is mechanical). The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
+Once the curator produces the live watchlist, a **standard portfolio optimizer** sizes it — weighting each name from its recent returns and volatility, the same way a robo-advisor would, tuned only by the knobs in `investor_profile.md`. The LLM never touches these weights (it names tickers and the hold/exit call; sizing is mechanical). The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
 
 ## Scope
 
