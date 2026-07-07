@@ -60,7 +60,10 @@ SCOUT_SYSTEM = """You are a markets desk scanning a week of financial-news headl
 candidate hidden-gem events — a specific US-listed ticker (incl. ADRs / theme ETFs) the press is
 naming as a thesis-driven mover, ideally still early/under-the-radar.
 
-US-TRADEABLE. Every pick must be tradeable from a US exchange (NYSE / Nasdaq / OTC ADR). ALWAYS fill
+US-TRADEABLE + SEASONED. Every pick must be tradeable from a US exchange (NYSE / Nasdaq / OTC ADR) AND
+must already have a few WEEKS of trading history — a brand-new IPO or just-merged SPAC canNOT be sized by
+the mechanical mean-variance optimizer (it drops names lacking enough price history), so SKIP a name that
+just started trading and revisit once it seasons. ALWAYS fill
 `company` with the issuer's full name. For `ticker`: if it is a US name, or you are confident of its US
 ADR symbol, put that (e.g. CSLLY, TM). If the company is FOREIGN and you are NOT sure of its US symbol,
 DO NOT skip a strong gem — put your best-known ticker (even a foreign one like RHM.DE, or just repeat the
