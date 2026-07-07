@@ -35,6 +35,8 @@ GATHER_SYSTEM = (
     "  sectors:      technology / energy / financial / healthcare / industrial / materials / consumer / "
     "utility / real estate / telecom stocks\n"
     "  themes:       cryptocurrency, 'space stocks', 'robotics stocks', 'quantum stocks', 'nuclear stocks'\n"
+    "  early:        'under the radar' stock, 'flying under the radar' ETF, 'overlooked' stock catalyst, "
+    "'still early' rally, niche ETF surging\n"
     "THEN ADAPT: when a beat surfaces a specific named mover or catalyst, spawn a FEW targeted follow-up "
     "searches on that name/catalyst to pull the articles that explicitly name the ticker. Aim for ~25-45 "
     "searches total. Cap every search to news on/before the week-ending date."

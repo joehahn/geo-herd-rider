@@ -195,6 +195,25 @@ python scripts/run_harness.py --event-first --provider openrouter --model xiaomi
 # GDELT pools cache after the first (throttled) fetch. All figures are hindsight upper bounds.
 ```
 
+**Forward paper-trade (the only look-ahead-clean test — run weekly):**
+
+```bash
+# Live event-first scan for the current week (Anthropic web search on YOUR API key, ~$1.75).
+# Idempotent: dedups by week, safe to run any day. All forward data is LOCAL (gitignored).
+.venv/bin/python src/forward.py --scan
+
+.venv/bin/python src/forward.py --report    # mark the accumulated paper portfolio to market vs SPY
+.venv/bin/python src/forward.py --explain   # audit why the scout kept few/no gems this week (no web search)
+```
+
+**Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Substitute your repo path, then **append the line to your existing crontab without opening an editor**:
+
+```bash
+(crontab -l 2>/dev/null; echo "0 9 * * 6 cd /path/to/geo-herd-rider && .venv/bin/python src/forward.py --scan >> data/forward/cron.log 2>&1") | crontab -
+```
+
+That fires every Saturday 09:00 (`0 9 * * 6`); a missed week is harmless (dedup) — just re-run `--scan` to backfill. Confirm it landed with `crontab -l`.
+
 ## Notes
 
 Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`agent_design.md`](agent_design.md) for the event-agent design, [`TODO.md`](TODO.md) for backlog, [`scripts/`](scripts/README.md) for how to run each script, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.

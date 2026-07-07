@@ -34,6 +34,7 @@ import pandas as pd
 
 import firehose
 import forward_engine
+import llm
 import score
 import trump_feed
 import wayback
@@ -190,6 +191,38 @@ def report() -> None:
     print("=" * 62)
 
 
+def explain(week: str | None = None) -> None:
+    """Diagnostic: audit WHY the scout kept few/no gems for a week — walk the pool's named movers with a
+    one-line KEEP/REJECT verdict each. Reads the LOCAL archive; one cheap LLM call, no web search."""
+    load_dotenv()
+    files = sorted(ARCHIVE_DIR.glob("*.json"))
+    if not files:
+        print("  no forward archive yet — run --scan first.", file=sys.stderr)
+        return
+    f = (ARCHIVE_DIR / f"{week}.json") if week else files[-1]
+    if not f.exists():
+        print(f"  no archive for week {week}.", file=sys.stderr)
+        return
+    rec = json.loads(f.read_text())
+    pool = rec.get("pool", [])
+    block = "\n".join(f"[{a.get('published_date')} | {a.get('source')}] {a.get('title')} "
+                      f"— {a.get('snippet', '')[:180]}" for a in pool)
+    model_id = resolve_curator_model(rec.get("config", {}).get("model", "sonnet5"))[0]
+    sys_p = ("You audit a hidden-gem scout. It keeps ONLY a still-EARLY / under-the-radar US-listed ticker "
+             "tied to a SPECIFIC, DATABLE, RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, named "
+             "bill, regulatory/agency action, supply shock, deal, OR a dated future event it is rising in "
+             "anticipation of). It REJECTS already-run/mainstream names, vague themes/momentum, and "
+             "untradeable/foreign names. For the week's articles below, list each NAMED-MOVER candidate with "
+             "a one-line verdict — KEEP or REJECT + the reason (already-run / no clean catalyst / not "
+             "US-tradeable / just a theme / etc.). Finish with the SINGLE closest call and whether it "
+             "should have been kept.")
+    user = f"Week ending {rec['week']}. Articles the scout read ({len(pool)}):\n\n{block}\n\nAudit them."
+    txt = llm.make_client("anthropic", model_id).complete(sys_p, user, use_web_search=False,
+                                                           stage="agent", label=f"explain-{rec['week']}")
+    print(f"\n=== scout audit — week {rec['week']} ({len(pool)} articles, {len(rec.get('picks', []))} picks) ===\n")
+    print(txt)
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Forward paper-trade of the firehose (the clean test).")
     ap.add_argument("--scan", action="store_true", help="live firehose scan for this week, append to log")
@@ -197,9 +230,14 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--model", default=None,
                     help="curator model id override; default = investor_profile.md's model knob "
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
+    ap.add_argument("--explain", nargs="?", const="", default=None, metavar="WEEK",
+                    help="audit why the scout kept few/no gems for a week (default: latest archive); no web search")
     args = ap.parse_args(argv)
-    if not (args.scan or args.report):
-        ap.error("choose at least one of --scan / --report")
+    if not (args.scan or args.report or args.explain is not None):
+        ap.error("choose at least one of --scan / --report / --explain")
+
+    if args.explain is not None:
+        explain(args.explain or None)
 
     if args.scan:
         load_dotenv()
