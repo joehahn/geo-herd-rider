@@ -3,35 +3,16 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
-## Current plan — ordered (2026-07-03, soonest first)
+## Current plan — ordered (2026-07-07, soonest first)
 
-1. **Complete GDX seeding + analysis** — genuine-seed re-runs (in progress). Names GDX → add to sweeps + un-gray; else lock the triple-confirmed non-fit.
-2. **Review RNMBY gem** — add its missing storyline, drop the stale 2022 seed, decide sonnet4→sonnet5 re-scan.
-3. **Replace synthetic seeds with news-derived, all gems** — real URLs + verbatim ledes for every gem.
-4. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
-5. **1-ticker-per-agent (current) vs 1-agent-juggles-many** — scoreboard A/B; user prefers multi-ticker; maturity-tag (early/crested gate) folds in here.
-6. **Update README + diagrams** — refresh to the settled design.
-7. **GDELT → BigQuery migration** — kill the cold-scan hangs.
-8. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
-9. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
+1. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
+2. **GDELT → BigQuery migration** — kill the cold-scan hangs.
+3. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
+4. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
 
-**Done:** label seeds synthetic, review GDX, delete unused exit knobs, Sonnet-5 eval (now default), 7-model bake-off, SPY-as-idle-holding.
+**Done:** label seeds synthetic, review GDX, GDX seeding + analysis (locked as negative control), review RNMBY, news-derived seeds (all gems, P3), 1-ticker-vs-many-agent A/B (P4), README + diagrams refresh, delete unused exit knobs, Sonnet-5 eval (now default), 7-model bake-off, SPY-as-idle-holding.
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
-
-## #2 — Replace synthetic seeds with genuine articles (= P3 above)
-
-The 21 seed entries in `data/fixtures/*seed*.json` are **hand-authored catalyst descriptions**,
-not retrieved articles (20 of 21 have blank URLs), and they are pre-written in the scout's own
-"still-early / under-the-radar / smart-money-first" framing — so seeded backtests are hindsight
-**upper bounds**, not proof the live firehose would have surfaced the early naming. Replace them
-with **genuine dated articles** (real URLs, publish dates verified to predate the move).
-
-- **Caveat:** no search tool gives true point-in-time retrieval (non-negotiable #4), so this is
-  partial mitigation, not a clean test — the forward paper trade remains the only clean test.
-- **Already done (#1, 2026-07-03):** the synthetic nature is now labeled honestly — dashboard
-  Plot-1 ⭐ hover + caption say "synthetic seed … not a retrieved article", and the README's
-  inaccurate "real early articles, harvested / genuine, date-stamped news" language was corrected.
 
 ## Window the resolved-catalyst ledger fed to the scout (not urgent)
 
@@ -53,36 +34,6 @@ Deep ladders are seductive storytelling; public events get priced fast; survivor
 everywhere; the herd is faster than it looks; and a retrospective backtest cannot prove a forward
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
-
-## Evaluate stronger curator models — Sonnet 5 / Fable 5 (not urgent)
-
-**Claude Fable 5** (`claude-fable-5`, announced 2026-07-01) is the priciest frontier tier —
-**$10/$50** per M in/out (vs sonnet-4.6 $3/$15, opus-4.8 ~$5/$25) — built for the hardest,
-longest-horizon reasoning ("plans across stages, checks its own work"). It lands exactly on our weak
-spot: the nuanced entry/exit judgments (pending-vs-in-force catalyst, don't-re-chase-a-resolved-catalyst).
-A 3-gem scan would run ~$12–18+, so it's only worth it **if the scoreboard shows lift over sonnet** (#3).
-Best used via the **advisor strategy** — cheap worker (sonnet/llama4) for the high-volume scout/agent
-calls, consult Fable 5 only at the hard exit/entry decisions (near-frontier judgment, not frontier cost).
-Integration: add `claude-fable-5` to `CURATOR_MODELS`; `src/llm.py` already uses the adaptive-thinking +
-effort path it needs. Safety classifiers (cyber/bio) + 30-day retention don't affect our news-curation use.
-
-**Claude Sonnet 5** is "near-Opus intelligence at Sonnet pricing" — a plausible
-better-and-cheaper replacement for the current `sonnet` (claude-sonnet-4-6) curator. In our test,
-sonnet-4.6 already dominated llama4 (5 named events for MP vs 13–27; +436%/−25.5% MP; clean
-discrete exits), so Sonnet 5 should be at least as good and cheaper (intro **$2/$10** vs 4.6's
-$3/$15 through 2026-08-31, roughly cost-neutral after its 1.0–1.35× tokenizer bump).
-
-- **Integration is one line** — `src/llm.py` already sets no `temperature`/`top_p`/`top_k` and
-  already uses `thinking:{type:adaptive}` + `output_config:{effort:...}` (Sonnet 5's required model;
-  `budget_tokens`/extended-thinking are gone). Just add the model ID to `CURATOR_MODELS` in
-  `src/optimizer.py` (need the exact ID) and set `model: sonnet5` in `investor_profile.md`.
-- **Validate:** one 3-gem re-scan on the warm caches (~$3–4 intro, ~1 hr), A/B vs sonnet-4.6 on
-  returns/sprawl/exits; keep only if it adds lift (scoreboard, CLAUDE.md #3/#5).
-- **Won't fix the open-ended-catalyst exit** (MP-type) — that's not model-IQ; an ongoing curb never
-  "resolves". The price trailing-stop remains that fix regardless of curator model.
-- **Advisor-strategy option** (Sonnet 5 executor + Opus advisor at key moments) maps naturally onto
-  our engine: cheap per-event agents on Sonnet 5, consult Opus only at the hard calls (the matcher /
-  the exit). Near-frontier judgment at Sonnet cost. Park as a later upgrade.
 
 ## GDELT reliability — BigQuery as a production-grade source (not urgent)
 
@@ -159,42 +110,6 @@ quiet periods would be a red flag worth acting on.
 - **Pre-register the contrast** before running (which windows, what "edge" threshold) so the
   loud-vs-quiet comparison can't be tuned to the data — same discipline as the Step-1 bar.
 
-## Curator model bake-off: which LLM is good enough?
-
-Hold the events + scoring **fixed** and vary **only the curator model** — Opus 4.8, Sonnet 4.6,
-and open-weight models via OpenRouter — then measure whether the cheaper curators produce
-ladders that *score* comparably (excess vs SPY on the same window). The curator's causal-ladder
-reasoning is the variable under test, so this is **not** a reason to downgrade the eval model;
-it's a separate experiment about the model itself.
-
-**Why it's worth it:** forward operation runs many triggers over time, so "cheapest model that's
-good enough" is a real cost question (the absolute savings on any one backtest are small — the
-*answer* is the prize). It's also sharp goal-2 content: "benchmarked frontier vs. open-weight
-LLMs on multi-hop causal-ladder curation."
-
-**Recycle from [`diplomacy-A2A`](https://github.com/joehahn/diplomacy-A2A):**
-- the `LLMClient` interface pattern (`diplomacy_a2a/llm/` — provider-agnostic, `AnthropicClient`
-  the only impl today) → the seam `map_event.py` lacks; add an OpenRouter impl alongside.
-- the model-capability comparison methodology (`results/model-capability/findings.md`,
-  counterbalanced across models — already included an open-weight model, MiMo).
-
-**Mechanics & prereqs:**
-- OpenRouter is OpenAI-compatible → open-weight path = `openai` SDK + OpenRouter `base_url` +
-  `OPENROUTER_API_KEY` in `.env` (gitignored, like the Anthropic key). Deliberately steps
-  outside the Claude-only setup.
-- **Scaffold first:** refactor `map_event.py` behind an `LLMClient`-style interface (Anthropic +
-  OpenRouter impls), so the curator is one flag. Defer until there's a window to test on.
-
-**Controls & caveats:**
-- **Web-search confound.** `map_event.py` uses Anthropic server-side `web_search` for
-  pre-catalyst context; open-weight models via OpenRouter don't have it. Opus-with-search vs.
-  open-weight-without-search isn't apples-to-apples — run the bake-off with **web search OFF for
-  all models** to isolate pure reasoning (or wire a shared search tool for all).
-- Open-weight doesn't fix hindsight contamination — these models also have training cutoffs that
-  may postdate the events.
-- Open-weight JSON reliability varies; `map_event._extract_json` is already tolerant, but expect
-  more parse retries.
-
 ## Manage the telegraphers & influencers (a curated trigger-source roster)
 
 Build and maintain a roster of the social-media figures whose posts are worth ingesting as
@@ -269,12 +184,3 @@ ORCL/ITA×2) vs 25 singletons. So the structure is real but thin. The full test 
 convergence predict excess return? — is **underpowered today** (only 5 trades in
 `backtest_trades.csv`); defer it until more trades accrue. **Gated behind Step 2's forward lift**
 (scope discipline) — don't build the per-event graph until convergence is shown to pay.
-
-## SPY as the idle/fallback holding (deferred 2026-06-22)
-
-Make **SPY** (or a small SPY sleeve) the default holding when no gem is live, instead of the
-current **cash @ 0%** — capture market beta while idle rather than sitting flat. A *risk*
-improvement, and complementary to (not a replacement for) the forward scoreboard, which stays the
-validation gate. Note: with SPY as both the idle holding *and* the benchmark, the portfolio only
-outperforms via the gems' **excess over SPY** — exactly the quantity we want to isolate, so the
-scoreboard becomes even more essential. Decided to defer; no code change for now.
