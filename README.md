@@ -209,6 +209,7 @@ python scripts/run_harness.py --event-first --provider openrouter --model xiaomi
 **Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and add this one line (substitute your repo path) — it runs the scan every **Sunday 1:00 pm** (local time), after the Fri-close news window is fully published and indexed:
 
 ```
+# Weekly forward paper-trade scan, Sunday 1pm local
 0 13 * * 0 cd /path/to/geo-herd-rider && .venv/bin/python src/forward.py --scan >> data/forward/cron.log 2>&1
 ```
 
