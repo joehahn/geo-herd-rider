@@ -69,7 +69,7 @@ Every week each agent rates its **conviction** about its event, 1–10. A high c
 - **Priced-in decay — the market caught up.** When coverage flips from *"early / under-owned"* to *"fully valued / consensus"* while the catalyst is still structurally live, the agent steps conviction down toward 3–4 (`catalyst_resolved` stays *false* — it's a fade, not a resolution).
 - **Silence decay — the firehose goes quiet.** On **each weekly refresh** (every `rebalance_days`) with **no fresh coverage** of the event's trend, conviction steps **down by 1 from the prior score** — so sustained silence **compounds** week over week toward the cull floor, while a single fresh trend-story **resets it back up**. This rests on the firehose thesis: the press covers live trends *loudly*, so silence is itself evidence the thesis is fading.
 
-The soft decays never sell directly — they lower a name's **standing** until the competitive cull acts on it (next section). A faded event's falling score eventually drops it below a stronger event, or below one of the always-on floor agents, and only then is it evicted.
+The soft decays lower an agent's **standing** until a competitive cull acts on it, detailed below. A fading event's falling score eventually drops it below another stronger event, or below one of the always-on floor agents, at which point it is retired.
 
 ## The news firehose: why reading beats reasoning
 
