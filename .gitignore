@@ -49,3 +49,6 @@ data/forward/
 
 # throwaway forward-prototype sandbox (bigger-window experiments; never the live series)
 data/forward_proto/
+
+# throwaway Tavily backfill sandbox
+data/forward_tavily/

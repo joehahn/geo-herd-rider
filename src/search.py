@@ -22,6 +22,18 @@ URL = "https://api.tavily.com/search"
 TIMEOUT = 20
 
 
+def _published_after(result: dict, after_date: str) -> bool:
+    """True if the result's published_date is on/after after_date (YYYY-MM-DD); undateable -> False."""
+    raw = result.get("published_date") or ""
+    try:
+        return parsedate_to_datetime(raw).date().isoformat() >= str(after_date)[:10]
+    except Exception:  # noqa: BLE001
+        try:
+            return str(raw)[:10] >= str(after_date)[:10]
+        except Exception:  # noqa: BLE001
+            return False
+
+
 def _published_before(result: dict, before_date: str) -> bool:
     """True if the result's published_date is on/before before_date (YYYY-MM-DD).
 
@@ -39,7 +51,8 @@ def _published_before(result: dict, before_date: str) -> bool:
             return False
 
 
-def search(query: str, before_date: str | None = None, max_results: int = 5) -> list[dict]:
+def search(query: str, before_date: str | None = None, max_results: int = 5,
+           start_date: str | None = None) -> list[dict]:
     """News results for `query`, restricted to those published on/before `before_date`
     (YYYY-MM-DD). Tavily's server-side end_date leaks future articles, so we over-fetch and
     enforce the bound client-side off published_date. Returns [] if no key/no hits."""
@@ -53,6 +66,8 @@ def search(query: str, before_date: str | None = None, max_results: int = 5) -> 
             "search_depth": "basic"}
     if before_date:
         body["end_date"] = str(before_date)[:10]   # belt-and-suspenders; not trusted alone
+    if start_date:
+        body["start_date"] = str(start_date)[:10]
     try:
         r = requests.post(URL, json=body, headers={"Authorization": f"Bearer {key}"},
                           timeout=TIMEOUT)
@@ -62,6 +77,8 @@ def search(query: str, before_date: str | None = None, max_results: int = 5) -> 
         return []
     if before_date:
         res = [x for x in res if _published_before(x, before_date)]
+    if start_date:
+        res = [x for x in res if _published_after(x, start_date)]
     return res[:max_results]
 
 
