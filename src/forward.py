@@ -212,9 +212,9 @@ def explain(week: str | None = None) -> None:
              "tied to a SPECIFIC, DATABLE, RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, named "
              "bill, regulatory/agency action, supply shock, deal, OR a dated future event it is rising in "
              "anticipation of). It REJECTS already-run/mainstream names, vague themes/momentum, and "
-             "untradeable/foreign names. For the week's articles below, list each NAMED-MOVER candidate with "
+             "untradeable/foreign names, AND brand-new IPOs or just-merged SPACs lacking a few weeks of trading history (the mechanical optimizer can't size a name with no price history). For the week's articles below, list each NAMED-MOVER candidate with "
              "a one-line verdict — KEEP or REJECT + the reason (already-run / no clean catalyst / not "
-             "US-tradeable / just a theme / etc.). Finish with the SINGLE closest call and whether it "
+             "US-tradeable / too new to size / just a theme / etc.). Finish with the SINGLE closest call and whether it "
              "should have been kept.")
     user = f"Week ending {rec['week']}. Articles the scout read ({len(pool)}):\n\n{block}\n\nAudit them."
     txt = llm.make_client("anthropic", model_id).complete(sys_p, user, use_web_search=False,
