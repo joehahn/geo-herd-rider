@@ -41,3 +41,8 @@ data/windows/retrieval_stats.json
 # CC-NEWS spike data (regenerable; src/ccnews.py is parked)
 data/windows/ccnews_*.json
 data/windows/retrieval_stats_*.json
+
+# forward: raw web-search archive pulled at scan time (queries + results + frozen article text) —
+# local-only, like gdelt_pool_/wayback_; others reproduce by pulling their own news (the DECISION log
+# data/forward/firehose_scans.csv IS committed as the credibility record)
+data/forward/archive/

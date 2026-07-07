@@ -24,8 +24,10 @@ State : data/forward/firehose_scans.csv  (append-only: decision_ts, week, ticker
 from __future__ import annotations
 
 import argparse
+import json
 import os
 import sys
+import urllib.request
 from pathlib import Path
 
 import pandas as pd
@@ -33,15 +35,55 @@ import pandas as pd
 import firehose
 import score
 import trump_feed
-from optimizer import load_financial_model
+import wayback
+from optimizer import load_financial_model, resolve_curator_model
 from util import load_dotenv, scan_anchors, news_domains
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
-PROFILE = REPO_ROOT / "investor_profile.md"
+ARCHIVE_DIR = REPO_ROOT / "data" / "forward" / "archive"   # LOCAL-ONLY (gitignored): raw web-search
+PROFILE = REPO_ROOT / "investor_profile.md"                #   inputs frozen at decision time (Option B)
 MODEL = "claude-opus-4-8"
 
 COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
+
+
+def _freeze_text(url: str, cutoff: str) -> tuple[str, str]:
+    """Freeze `url`'s article text at decision time -> (text, source). Forward articles are FRESH,
+    so a live fetch NOW is point-in-time-correct; Wayback (as-of-`cutoff`) is the backfill path."""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (geo-herd-rider forward)"})
+        html = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
+        lede = wayback._extract_lede(html)
+        if lede:
+            return lede, "live"
+    except Exception:  # noqa: BLE001  (best-effort; a miss is fine, we still keep the metadata)
+        pass
+    try:
+        l = wayback.lede(url, cutoff)
+        if l:
+            return l, "wayback-asof"
+    except Exception:  # noqa: BLE001
+        pass
+    return "", "unavailable"
+
+
+def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
+                   picks: list[dict], cutoff: str) -> Path:
+    """Freeze every web-search result's text and write the immutable per-week archive (LOCAL-ONLY)."""
+    results = []
+    for r in capture.get("results", []):
+        text, source = _freeze_text(r["url"], cutoff)
+        results.append({**r, "frozen_text": text, "text_source": source, "fetched_at": _now().isoformat()})
+    rec = {"week": week, "decision_ts": decision_ts, "model": model,
+           "queries": capture.get("queries", []), "results": results,
+           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "evidence_urls")} for p in picks]}
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+    out = ARCHIVE_DIR / f"{week}.json"
+    out.write_text(json.dumps(rec, indent=2, default=str))
+    got = sum(1 for r in results if r["text_source"] != "unavailable")
+    print(f"  archived {len(results)} web-search results ({got} with frozen text) -> {out}")
+    return out
 
 
 def _now() -> pd.Timestamp:
@@ -74,12 +116,17 @@ def scan_and_log(model: str, rebalance_days: int, lookback_days: int | None = No
     lo = anchor - pd.Timedelta(days=lookback_days)
     posts = trump_feed.candidate_posts(lo.strftime("%Y-%m-%d"), anchor.strftime("%Y-%m-%d"))
     print(f"  scanning week {wk_key} ({len(posts)} posts in lookback) via {model} ...", flush=True)
-    picks = firehose.scan(anthropic.Anthropic(), model, anchor, posts, news_domains())
+    capture: dict = {}
+    decision_ts = _now().isoformat()
+    picks = firehose.scan(anthropic.Anthropic(), model, anchor, posts, news_domains(), capture=capture)
+    # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem was named,
+    # so a later variant-replay sees the FULL pool the curator saw this week, not just what it cited.
+    _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
     if not picks:
         print(f"  week {wk_key}: no gems named by the press this week.")
         # still record an empty marker row so the week is logged (and not re-scanned)
         picks = [{"ticker": "", "thesis": "", "thesis_live": ""}]
-    rows = [{"decision_ts": _now().isoformat(), "week": wk_key, "ticker": p.get("ticker", ""),
+    rows = [{"decision_ts": decision_ts, "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
@@ -141,7 +188,9 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Forward paper-trade of the firehose (the clean test).")
     ap.add_argument("--scan", action="store_true", help="live firehose scan for this week, append to log")
     ap.add_argument("--report", action="store_true", help="mark the accumulated portfolio to market vs SPY")
-    ap.add_argument("--model", default=MODEL)
+    ap.add_argument("--model", default=None,
+                    help="curator model id override; default = investor_profile.md's model knob "
+                         "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
     args = ap.parse_args(argv)
     if not (args.scan or args.report):
         ap.error("choose at least one of --scan / --report")
@@ -152,7 +201,15 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set (export it or put it in .env).", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        scan_and_log(args.model, int(fm.get("rebalance_days", 7)), fm.get("news_lookback_days"))
+        model_id, provider = resolve_curator_model(fm.get("model", "sonnet5"))
+        if args.model:                          # explicit override wins
+            model_id = args.model
+        elif provider != "anthropic":           # web search is Anthropic-only; don't silently misfire
+            print(f"ERROR: forward --scan needs an Anthropic curator (web search is Anthropic-only); "
+                  f"investor_profile model '{fm.get('model')}' resolves to provider '{provider}'. "
+                  f"Pass --model <anthropic-id>.", file=sys.stderr)
+            return 2
+        scan_and_log(model_id, int(fm.get("rebalance_days", 7)), fm.get("news_lookback_days"))
 
     if args.report:
         report()

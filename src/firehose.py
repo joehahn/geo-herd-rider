@@ -112,8 +112,11 @@ def _extract_json(text: str) -> dict:
 
 
 def scan(client, model: str, anchor: pd.Timestamp, posts: pd.DataFrame,
-         domains: list[str]) -> list[dict]:
-    """Firehose scan as of `anchor` (look-ahead-safe). Returns the press-named gems."""
+         domains: list[str], capture: dict | None = None) -> list[dict]:
+    """Firehose scan as of `anchor` (look-ahead-safe). Returns the press-named gems.
+    If `capture` (a dict) is passed, it is filled with the raw web-search inputs this scan saw —
+    `capture["queries"]` (the search terms the model ran) and `capture["results"]` (deduped
+    [{url,title,page_age}]) — for the forward archive (freeze-at-decision-time; see forward.py)."""
     lines = [f"[{r.created_at.tz_convert('America/New_York').date()}] {r.text[:MAX_TEXT]}"
              for r in posts.itertuples()]
     prefer = ", ".join(domains) if domains else "major financial news outlets"
@@ -126,17 +129,32 @@ def scan(client, model: str, anchor: pd.Timestamp, posts: pd.DataFrame,
     kw = {"model": model, "max_tokens": 3000, "system": SCAN_SYSTEM, "tools": tools, "messages": messages}
     tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
     text = ""
+    queries: list[str] = []
+    results: dict[str, dict] = {}   # url -> {url,title,page_age}, deduped across round-trips
     for _ in range(6):
         resp = client.messages.create(**kw)
         u = costs.extract(resp.usage)
         for k in tally:
             tally[k] += u.get(k, 0)
         text = "".join(b.text for b in resp.content if b.type == "text")
+        for b in resp.content:                          # harvest the raw web-search inputs seen
+            if b.type == "server_tool_use" and getattr(b, "name", "") == "web_search":
+                q = (getattr(b, "input", None) or {}).get("query")
+                if q:
+                    queries.append(str(q))
+            elif b.type == "web_search_tool_result" and isinstance(getattr(b, "content", None), list):
+                for r in b.content:
+                    if getattr(r, "type", "") == "web_search_result" and getattr(r, "url", None):
+                        results.setdefault(r.url, {"url": r.url, "title": getattr(r, "title", ""),
+                                                   "page_age": getattr(r, "page_age", None)})
         if resp.stop_reason == "pause_turn":
             messages.append({"role": "assistant", "content": resp.content})
             continue
         break
     costs.record("firehose", model, f"scan-{anchor.date()}", tally)
+    if capture is not None:
+        capture["queries"] = queries
+        capture["results"] = list(results.values())
     try:
         picks = _extract_json(text).get("picks", [])
     except Exception:  # noqa: BLE001
