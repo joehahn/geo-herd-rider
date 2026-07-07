@@ -702,6 +702,65 @@ def event_agent_v2(client, anchor, event, entries, news):
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
 
+def process_week(client, anchor, pool, events, retired, nid, week_idx,
+                 curator_memory_weeks=8, workers=8, src_fn=None):
+    """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
+    Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
+    used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
+    (forward_engine.run_week, live-gather pool) — so the two run byte-identical logic and a settled
+    forward solution can be re-backtested just by swapping the pool source. `src_fn(tk)->str` labels a
+    pick's provenance (default 'live'); the backtest passes a seed-vs-gdelt labeler."""
+    src_fn = src_fn or (lambda tk: "live")
+    if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
+        rmem = ""
+    else:                                                  # <0 = whole history; >0 = last N weeks only
+        rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
+                         if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
+    cands = scout(client, anchor, pool, retired=rmem)
+    # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
+    # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
+    held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
+                     for v in ev["vehicles"]}
+    new_cands = [c for c in cands if c["ticker"] not in held_to_event]
+    match = match_to_events(client, anchor, new_cands, events) if new_cands else {}
+    for c in new_cands:
+        tk, eid = c["ticker"], match.get(c["ticker"], "new")
+        peers = {q.strip().upper() for q in c.get("peers", [])          # same-catalyst basket peers
+                 if q.strip() and "." not in q and q.strip().upper() != tk}
+        if eid in events and events[eid]["status"] == "live":
+            events[eid]["vehicles"] |= {tk, *peers}
+        else:
+            nid += 1
+            events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"],
+                                  "status": "live", "vehicles": {tk, *peers}, "entries": []}
+    merged = _consolidate_events(events)                   # weekly dup-catalyst merge
+    if merged:
+        print(f"  consolidated {merged} duplicate-catalyst event(s) ({anchor.date()})", file=sys.stderr)
+    live_events = [ev for ev in events.values() if ev["status"] == "live"]
+
+    def work(ev):
+        return ev, event_agent_v2(client, anchor, ev, ev["entries"], _filter_event(pool, ev))
+
+    picks = []
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for ev, entry in (ex.map(work, live_events) if live_events else []):
+            ev["entries"].append(entry)
+            ev["status"] = "live" if entry["thesis_live"] else "exited"
+            if entry.get("catalyst_resolved"):             # remember so the scout won't re-chase
+                for tk in ev["vehicles"]:
+                    retired[tk] = (f"{ev['catalyst']} (resolved {anchor.date()})", week_idx)
+            for tk in entry["vehicles"]:
+                picks.append({"ticker": tk, "thesis": ev["catalyst"],
+                              "thesis_live": entry["thesis_live"], "src": src_fn(tk),
+                              "exit_case": entry.get("exit_case", ""),
+                              "catalyst_resolved": entry.get("catalyst_resolved", False),
+                              "conviction": entry.get("conviction", 5),
+                              "assessment": entry.get("assessment", ""),
+                              "exit_advice": entry.get("exit_advice", ""),
+                              "evidence_urls": entry["sources"]})
+    return picks, nid
+
+
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
                           enrich=False, enrich_fetch=True, curator_memory_weeks=8) -> dict:
@@ -768,62 +827,12 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
              "published_date": x.get("published_date", ""), "source": x.get("source", ""),
              "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
             for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]
-        if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
-            rmem = ""
-        else:                                                  # <0 = whole history; >0 = last N weeks only
-            rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
-                             if curator_memory_weeks < 0 or (i - ri) < curator_memory_weeks)
-        cands = scout(client, a, win, retired=rmem)
-        # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that
-        # event — never open a duplicate (this is what fragmented BWET into 3). Only genuinely NEW
-        # tickers go to the (fallible) LLM matcher for cross-ticker grouping.
-        held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
-                         for v in ev["vehicles"]}
-        new_cands = [c for c in cands if c["ticker"] not in held_to_event]
-        match = match_to_events(client, a, new_cands, events) if new_cands else {}
-        for c in new_cands:
-            tk, eid = c["ticker"], match.get(c["ticker"], "new")
-            peers = {p.strip().upper() for p in c.get("peers", [])       # same-catalyst basket peers
-                     if p.strip() and "." not in p and p.strip().upper() != tk}
-            if eid in events and events[eid]["status"] == "live":
-                events[eid]["vehicles"] |= {tk, *peers}
-            else:
-                nid[0] += 1
-                events[f"ev{nid[0]}"] = {"id": f"ev{nid[0]}", "catalyst": c["thesis"],
-                                         "status": "live", "vehicles": {tk, *peers}, "entries": []}
-        merged = _consolidate_events(events)   # weekly consolidation-of-agents pass (dup-catalyst merge)
-        if merged:
-            print(f"  consolidated {merged} duplicate-catalyst event(s) ({a.date()})", file=sys.stderr)
-        live_events = [ev for ev in events.values() if ev["status"] == "live"]
-
-        def work(ev):
-            return ev, event_agent_v2(client, a, ev, ev["entries"], _filter_event(win, ev))
-
-        # provenance: was this ticker NAMED in a hand-seed article this week (vs found in the real
-        # GDELT firehose)? Word-boundary match against the seed slice's text. Lets the dashboard show
-        # whether a discovery is the solution's own (gdelt) or carried by the seed overlay.
         import re as _re
-        seed_blob = " ".join((s.get("title", "") + " " + s.get("snippet", "")) for s in seed_slice).upper()
+        seed_blob = " ".join((sd.get("title", "") + " " + sd.get("snippet", "")) for sd in seed_slice).upper()
         def _src(tk):
             return "seed" if _re.search(rf"\b{_re.escape(tk.upper())}\b", seed_blob) else "gdelt"
-
-        picks = []
-        with ThreadPoolExecutor(max_workers=workers) as ex:
-            for ev, entry in (ex.map(work, live_events) if live_events else []):
-                ev["entries"].append(entry)
-                ev["status"] = "live" if entry["thesis_live"] else "exited"
-                if entry.get("catalyst_resolved"):   # remember it so the scout won't re-chase the hype
-                    for tk in ev["vehicles"]:
-                        retired[tk] = (f"{ev['catalyst']} (resolved {a.date()})", i)
-                for tk in entry["vehicles"]:
-                    picks.append({"ticker": tk, "thesis": ev["catalyst"],
-                                  "thesis_live": entry["thesis_live"], "src": _src(tk),
-                                  "exit_case": entry.get("exit_case", ""),
-                                  "catalyst_resolved": entry.get("catalyst_resolved", False),
-                                  "conviction": entry.get("conviction", 5),
-                                  "assessment": entry.get("assessment", ""),
-                                  "exit_advice": entry.get("exit_advice", ""),
-                                  "evidence_urls": entry["sources"]})
+        picks, nid[0] = process_week(client, a, win, events, retired, nid[0], i,
+                                     curator_memory_weeks=curator_memory_weeks, workers=workers, src_fn=_src)
         out[a] = picks
         done.add(a.isoformat())
         tmp = f"{resume_f}.tmp"

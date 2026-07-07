@@ -12,7 +12,6 @@ until a NEW early gem is discovered, then tracks it week to week.
 from __future__ import annotations
 
 import json
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import anthropic
@@ -44,14 +43,6 @@ def _save(events: dict, retired: dict, nid: int, week_seq: int) -> None:
     tmp.replace(STATE_F)
 
 
-def _retired_block(retired: dict, week_seq: int, memory_weeks: int) -> str:
-    """Resolved-catalyst reminder for the scout (curator_memory_weeks: 0=off, <0=all, >0=last N)."""
-    if memory_weeks == 0:
-        return ""
-    return "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
-                     if memory_weeks < 0 or (week_seq - int(ri)) < memory_weeks)
-
-
 def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
              curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None) -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.
@@ -65,45 +56,11 @@ def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
     print(f"  gather: {len(arts)} in-window articles; events held={sum(1 for e in events.values() if e['status']=='live')}",
           flush=True)
 
-    # ---- scout: discover NEW early gems from the gathered pool ----
-    rmem = _retired_block(retired, week_seq, curator_memory_weeks)
-    cands = agent.scout(lclient, anchor, arts, retired=rmem)
-
-    # ---- deterministic same-ticker guard + LLM matcher for genuinely new tickers ----
-    held = {v: eid for eid, ev in events.items() if ev["status"] == "live" for v in ev["vehicles"]}
-    new_cands = [c for c in cands if c["ticker"] not in held]
-    match = agent.match_to_events(lclient, anchor, new_cands, events) if new_cands else {}
-    for c in new_cands:
-        tk, eid = c["ticker"], match.get(c["ticker"], "new")
-        peers = {p.strip().upper() for p in c.get("peers", [])
-                 if p.strip() and "." not in p and p.strip().upper() != tk}
-        if eid in events and events[eid]["status"] == "live":
-            events[eid]["vehicles"] |= {tk, *peers}
-        else:
-            nid += 1
-            events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"],
-                                  "status": "live", "vehicles": {tk, *peers}, "entries": []}
-    agent._consolidate_events(events)
-
-    # ---- event agents: each live event re-reads its journal + its filtered news -> hold/exit ----
-    live_events = [ev for ev in events.values() if ev["status"] == "live"]
-
-    def work(ev):
-        return ev, agent.event_agent_v2(lclient, anchor, ev, ev["entries"], agent._filter_event(arts, ev))
-
-    picks: list[dict] = []
-    with ThreadPoolExecutor(max_workers=workers) as ex:
-        for ev, entry in (ex.map(work, live_events) if live_events else []):
-            ev["entries"].append(entry)
-            ev["status"] = "live" if entry["thesis_live"] else "exited"
-            if entry.get("catalyst_resolved"):                  # remember so the scout won't re-chase
-                for tk in ev["vehicles"]:
-                    retired[tk] = (f"{ev['catalyst']} (resolved {anchor.date()})", week_seq)
-            if entry["thesis_live"]:
-                for tk in entry["vehicles"]:
-                    picks.append({"ticker": tk, "thesis": ev["catalyst"], "thesis_live": True,
-                                  "conviction": entry.get("conviction", 5),
-                                  "evidence_urls": entry.get("sources", [])})
-
+    # ---- the SHARED event-first engine (the SAME code the backtest runs) — scout -> match -> agents ----
+    picks_full, nid = agent.process_week(lclient, anchor, arts, events, retired, nid, week_seq,
+                                         curator_memory_weeks=curator_memory_weeks, workers=workers)
     _save(events, retired, nid, week_seq + 1)
-    return picks
+    # forward logs only the LIVE picks, in the forward format (conviction carried through)
+    return [{"ticker": p["ticker"], "thesis": p["thesis"], "thesis_live": p["thesis_live"],
+             "conviction": p["conviction"], "evidence_urls": p["evidence_urls"]}
+            for p in picks_full if p["thesis_live"]]
