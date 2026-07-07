@@ -179,10 +179,10 @@ python scripts/build_dashboard.py          # rebuild the $50K dashboard (no LLM 
 # Single-scan baseline (Opus) over the gems.json window:
 python scripts/run_harness.py
 
-# Scout->event-agent variant, on the cheap dev model (MiMo via OpenRouter):
-python scripts/run_harness.py --agent --provider openrouter --model xiaomi/mimo-v2.5-pro
+# Event-first engine (the current engine), on the cheap dev model (MiMo via OpenRouter):
+python scripts/run_harness.py --event-first --provider openrouter --model xiaomi/mimo-v2.5-pro
 
-# Add --seed data/fixtures/gems_seeds.json for the retrieval-perfect overlay (decomposition).
+# Add --seed data/fixtures/bwet_seeds.json for the retrieval-perfect overlay (decomposition).
 # GDELT pools cache after the first (throttled) fetch. All figures are hindsight upper bounds.
 ```
 
