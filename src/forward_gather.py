@@ -18,18 +18,26 @@ from urllib.parse import urlparse
 
 import pandas as pd
 
+import costs
 import wayback
 
+# The gather's fixed coverage sweep MIRRORS the backtest's GDELT beats (firehose.GDELT_QUERIES) so the
+# forward firehose searches the SAME universe — deterministic sector coverage + backtest parity. The
+# model runs these as the base sweep, THEN spawns adaptive follow-ups on the specific names it surfaces.
 GATHER_SYSTEM = (
-    "You are the news firehose. Search the web for the given week's financial-press coverage that "
-    "NAMES specific stocks, ETFs, or ADRs as notable movers — biggest gainers, standout trades, names "
-    "surging or sinking on a catalyst (a war/chokepoint, an export ban or tariff, a named bill, a "
-    "regulatory/agency action, a supply shock, a deal, an earnings/vote/ruling event). Search "
-    "EXTENSIVELY and adaptively: run many queries across sectors, and when a result names a mover, "
-    "spawn follow-up searches on that name/catalyst to surface the articles that explicitly name the "
-    "ticker. Do NOT decide which are the best gems — only SURFACE every article where the press names a "
-    "ticker as a mover, for a downstream scout to curate. Cap every search to news on/before the "
-    "week-ending date."
+    "You are the news firehose assembling this week's coverage for a downstream scout. Your ONLY job is "
+    "to SURFACE articles where the financial press NAMES a specific US-listed stock, ETF, or ADR as a "
+    "notable mover on a catalyst — do NOT decide which are the best gems, and do NOT run an unbounded "
+    "number of searches.\n"
+    "COVERAGE — run ONE web search for EACH of these beats so no sector is missed (this is the base sweep):\n"
+    "  superlatives: 'best performing stock', 'biggest gainers', 'best performing ETF'\n"
+    "  macro:        geopolitics, war, shipping, tariffs, 'interest rates'\n"
+    "  sectors:      technology / energy / financial / healthcare / industrial / materials / consumer / "
+    "utility / real estate / telecom stocks\n"
+    "  themes:       cryptocurrency, 'space stocks', 'robotics stocks', 'quantum stocks', 'nuclear stocks'\n"
+    "THEN ADAPT: when a beat surfaces a specific named mover or catalyst, spawn a FEW targeted follow-up "
+    "searches on that name/catalyst to pull the articles that explicitly name the ticker. Aim for ~25-45 "
+    "searches total. Cap every search to news on/before the week-ending date."
 )
 
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
@@ -70,15 +78,19 @@ def _freeze(url: str) -> tuple[str, str | None]:
 def _run_search(client, model: str, anchor: pd.Timestamp, posts_block: str) -> dict:
     """Anthropic adaptive web-search gather; return {'queries':[...], 'results':[{url,title,page_age}]}."""
     user = (f"Week ending {anchor.date()} (use before:{anchor.date()} on every search).\n{posts_block}"
-            "Find this week's financial-press articles that NAME specific tickers/ETFs/ADRs as movers, "
-            "across every sector. Surface as many such ticker-naming articles as you can.")
+            "Run the beat sweep, then a few targeted follow-ups, to surface this week's articles that "
+            "NAME specific US-listed tickers/ETFs/ADRs as movers.")
     kw = {"model": model, "max_tokens": 1500, "system": GATHER_SYSTEM,
           "tools": [{"type": "web_search_20260209", "name": "web_search"}],
           "messages": [{"role": "user", "content": user}]}
     queries: list[str] = []
     results: dict[str, dict] = {}
+    tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
     for _ in range(6):
         resp = client.messages.create(**kw)
+        u = costs.extract(resp.usage)
+        for k in tally:
+            tally[k] += u.get(k, 0)
         for b in resp.content:
             if b.type == "server_tool_use" and getattr(b, "name", "") == "web_search":
                 q = (getattr(b, "input", None) or {}).get("query")
@@ -93,19 +105,45 @@ def _run_search(client, model: str, anchor: pd.Timestamp, posts_block: str) -> d
             kw["messages"].append({"role": "assistant", "content": resp.content})
             continue
         break
+    costs.record("forward-gather", model, f"gather-{anchor.date()}", tally)   # ALL forward spend is logged
     return {"queries": queries, "results": list(results.values())}
 
 
-def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int,
-           capture: dict | None = None, workers: int = 8, cap: int = 80) -> list[dict]:
+def _url_date(url: str) -> str | None:
+    """Publish date from the URL path alone (no fetch), e.g. /2026/07/07/ -> 2026-07-07. None if absent."""
+    m = _URL_DATE.search(url or "")
+    if not m:
+        return None
+    y, mo, d = m.groups()
+    return f"{y}-{int(mo):02d}-{int(d):02d}"
+
+
+def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
+           workers: int = 12, cap: int = 80, freeze_cap: int = 160) -> list[dict]:
     """Live firehose gather -> a date-clean, window-filtered arts pool for the scout.
 
     client: a raw anthropic.Anthropic() (web search is Anthropic-only). Returns arts sorted
     newest-first, capped to `cap`. Fills `capture` (raw queries + all results) for the Phase-B archive.
+
+    A gather can return 1000+ results; fetching every one to date+freeze it is far too slow. So we
+    first TRIAGE by URL date (no fetch): drop anything whose URL date is confirmably out of window,
+    keep in-window (priority) + undated (need a fetch to decide), cap at `freeze_cap`, and only then
+    fetch/freeze that subset. The full window filter still runs on the fetched dates (fail closed).
     """
     raw = _run_search(client, model, anchor, "")
     lo = (anchor - pd.Timedelta(days=lookback_days)).date().isoformat()
     hi = anchor.date().isoformat()
+
+    triaged = []                                   # (priority, result): 0 = url-date in window, 1 = undated
+    for r in raw["results"]:
+        d = _url_date(r["url"])
+        if d is None:
+            triaged.append((1, r))                 # undated -> must fetch to decide
+        elif lo < d <= hi:
+            triaged.append((0, r))                 # in-window by URL -> priority
+        # else: URL date is out of window (stale or future leak) -> DROP without fetching
+    triaged.sort(key=lambda t: t[0])
+    survivors = [r for _, r in triaged[:freeze_cap]]
 
     def build(r):
         lede, date = _freeze(r["url"])
@@ -113,14 +151,14 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int,
                 "source": urlparse(r["url"]).netloc, "snippet": lede}
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        built = list(ex.map(build, raw["results"]))
+        built = list(ex.map(build, survivors))
 
     # FAIL CLOSED: keep only articles with a parseable date INSIDE the window (lo, hi]. Undateable or
     # future-dated (the before:-leak) are dropped — never leak an unconfirmable article to the scout.
     kept = [a for a in built if a["published_date"] and lo < a["published_date"][:10] <= hi]
     kept.sort(key=lambda a: a["published_date"], reverse=True)
     if capture is not None:
+        kept_urls = {a["url"] for a in kept}
         capture["queries"] = raw["queries"]
-        capture["results"] = [{**r, "in_window": any(a["url"] == r["url"] for a in kept)}
-                              for r in raw["results"]]
+        capture["results"] = [{**r, "in_window": r["url"] in kept_urls} for r in raw["results"]]
     return kept[:cap]

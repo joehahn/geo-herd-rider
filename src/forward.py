@@ -33,6 +33,7 @@ from pathlib import Path
 import pandas as pd
 
 import firehose
+import forward_engine
 import score
 import trump_feed
 import wayback
@@ -48,7 +49,7 @@ _FWD_PROFILE = REPO_ROOT / "investor_profile.forward.md"   #   inputs frozen at 
 PROFILE = _FWD_PROFILE if _FWD_PROFILE.exists() else REPO_ROOT / "investor_profile.md"
 MODEL = "claude-opus-4-8"
 
-COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
+COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "conviction", "evidence_urls"]
 
 
 def _freeze_text(url: str, cutoff: str) -> tuple[str, str]:
@@ -85,7 +86,7 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
            "profile": PROFILE.name, "config": knobs,
            "queries": capture.get("queries", []), "results": results,
-           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "evidence_urls")} for p in picks]}
+           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "conviction", "evidence_urls")} for p in picks]}
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     out = ARCHIVE_DIR / f"{week}.json"
     out.write_text(json.dumps(rec, indent=2, default=str))
@@ -111,37 +112,35 @@ def _read() -> pd.DataFrame:
     return pd.read_csv(SCANS_CSV) if SCANS_CSV.exists() else pd.DataFrame(columns=COLS)
 
 
-def scan_and_log(model: str, rebalance_days: int, lookback_days: int | None = None) -> pd.DataFrame:
-    """Live firehose scan for the current period; append its picks (deduped by period)."""
-    import anthropic
-    lookback_days = rebalance_days if lookback_days is None else lookback_days
+def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8) -> pd.DataFrame:
+    """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
+    (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
+    LOCAL journal; here we log the decision + archive the raw inputs."""
     log = _read()
     anchor = _current_anchor(rebalance_days)
     wk_key = anchor.date().isoformat()
     if len(log) and (log["week"].astype(str) == wk_key).any():
         print(f"  period {wk_key}: already scanned, skipping (dedup).")
         return log
-    lo = anchor - pd.Timedelta(days=lookback_days)
-    posts = trump_feed.candidate_posts(lo.strftime("%Y-%m-%d"), anchor.strftime("%Y-%m-%d"))
-    print(f"  scanning week {wk_key} ({len(posts)} posts in lookback) via {model} ...", flush=True)
+    print(f"  scanning week {wk_key} (event-first engine) via {model} ...", flush=True)
     capture: dict = {}
     decision_ts = _now().isoformat()
-    picks = firehose.scan(anthropic.Anthropic(), model, anchor, posts, news_domains(), capture=capture)
-    # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem was named,
-    # so a later variant-replay sees the FULL pool the curator saw this week, not just what it cited.
+    picks = forward_engine.run_week(anchor, model, rebalance_days,
+                                    curator_memory_weeks=curator_memory_weeks, capture=capture)
+    # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
+    # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
     if not picks:
-        print(f"  week {wk_key}: no gems named by the press this week.")
-        # still record an empty marker row so the week is logged (and not re-scanned)
-        picks = [{"ticker": "", "thesis": "", "thesis_live": ""}]
+        print(f"  week {wk_key}: no live gems this week (journal holds nothing).")
+        picks = [{"ticker": "", "thesis": "", "thesis_live": "", "conviction": ""}]   # empty marker row
     rows = [{"decision_ts": decision_ts, "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
+             "conviction": p.get("conviction", ""),
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
     SCANS_CSV.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(SCANS_CSV, index=False)
-    live = [r["ticker"] + ("" if r["thesis_live"] in (True, "True", "true") else "(EXIT)")
-            for r in rows if r["ticker"]]
+    live = [f"{r['ticker']}(conv {r['conviction']})" for r in rows if r["ticker"]]
     print(f"  week {wk_key}: logged {live or '—'} -> {SCANS_CSV}")
     return out
 
@@ -217,7 +216,7 @@ def main(argv: list[str] | None = None) -> int:
                   f"investor_profile model '{fm.get('model')}' resolves to provider '{provider}'. "
                   f"Pass --model <anthropic-id>.", file=sys.stderr)
             return 2
-        scan_and_log(model_id, int(fm.get("rebalance_days", 7)), fm.get("news_lookback_days"))
+        scan_and_log(model_id, int(fm.get("rebalance_days", 7)), int(fm.get("curator_memory_weeks", 8)))
 
     if args.report:
         report()
