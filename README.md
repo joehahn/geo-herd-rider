@@ -206,13 +206,19 @@ python scripts/run_harness.py --event-first --provider openrouter --model xiaomi
 .venv/bin/python src/forward.py --explain   # audit why the scout kept few/no gems this week (no web search)
 ```
 
-**Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Substitute your repo path, then **append the line to your existing crontab without opening an editor**:
+**Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Open your crontab for editing:
 
 ```bash
-(crontab -l 2>/dev/null; echo "0 9 * * 6 cd /path/to/geo-herd-rider && .venv/bin/python src/forward.py --scan >> data/forward/cron.log 2>&1") | crontab -
+crontab -e
 ```
 
-That fires every Saturday 09:00 (`0 9 * * 6`); a missed week is harmless (dedup) — just re-run `--scan` to backfill. Confirm it landed with `crontab -l`.
+Then add this one line (substitute your repo path) — it runs the scan every **Sunday 1:00 pm** (local time), after the Fri-close news window is fully published and indexed:
+
+```
+0 13 * * 0 cd /path/to/geo-herd-rider && .venv/bin/python src/forward.py --scan >> data/forward/cron.log 2>&1
+```
+
+A missed week is harmless (dedup) — just re-run `--scan` to backfill. Confirm it's saved with `crontab -l`.
 
 ## Notes
 
