@@ -63,9 +63,7 @@ The above pipeline shows how the inputs and outputs are managed, while the follo
 
 ### Conviction: how it's scored, and how it decays
 
-Every week each agent rates its event's **conviction** (1–10). A high conviction score means that the event has a **fresh, concrete, still-under-owned** catalyst that is delivering new milestones (a signed contract, a funding round, an escalation) that are driving towards resolution, while a low score means the event's driver is spent. Conviction is **remembered**: each agent sees its *own prior-week score* (a one-step memory carried in its journal note) and nudges it from there, so that the event's conviction trajectory is continuous and is not re-rolled from scratch each week.
-
-Three forces move it — one hard, two soft:
+Every week each agent rates its **conviction** about its event, 1–10. A high conviction score means that the event has a **fresh, concrete, still-under-owned** catalyst that is delivering new milestones (a signed contract, a funding round, an escalation) that are driving towards resolution, while a low score means the event's driver is spent. Conviction is **remembered**: each agent sees its *own prior-week score* (a one-step memory carried in its journal note) and nudges it from there, so that the event's conviction trajectory is continuous and is not re-computed from scratch each week. Three forces determine an agent's conviction:
 
 - **Hard exit — the catalyst *resolves*.** The devil's-advocate binary (*has the catalyst already happened?*) — a *yes* drops the position **immediately** (war ends, bill signed, chokepoint reopens), regardless of conviction or how loud the coverage still is. This is the only *instant* exit.
 - **Priced-in decay — the market caught up.** When coverage flips from *"early / under-owned"* to *"fully valued / consensus"* while the catalyst is still structurally live, the agent steps conviction down toward 3–4 (`catalyst_resolved` stays *false* — it's a fade, not a resolution).
