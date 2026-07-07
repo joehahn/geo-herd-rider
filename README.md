@@ -122,7 +122,7 @@ Rebuild all with `python scripts/build_dashboard.py --all`.
 
 ## Scope
 
-The book is **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event — a war, an election — is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the book unmapped. **Options and futures are excluded on principle** — they'd require a strike / expiry / leverage call (i.e. *magnitude*), which the mechanical optimizer can't size and the no-magnitude guardrail forbids; commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
+The book is **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event — a war, an election — is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the book unmapped. **Options and futures are excluded** since this solution cannot size such, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
 
 ## Inside the curator: scout → event agents
 
