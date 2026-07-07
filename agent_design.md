@@ -121,6 +121,20 @@ to build it.
 
 ---
 
+## The catalyst gate — scout selectivity **[CURRENT]**
+
+The scout names a ticker only when the press ties it to a **specific, datable, resolvable catalyst** — a war/chokepoint, an export ban or tariff, a named bill, a regulatory approval, a supply shock. It **rejects pure theme/momentum** ("AI-power demand", "rising gold demand", "safe-haven flows"), which has no resolution and rides through every crash. That named resolution is exactly what later flips the position to EXIT.
+
+**Anticipation clause (validated prototype, not yet swept across all gems).** A surgically-tested refinement admits one more class: **anticipation of a specific dated future event** — a national election, an FDA/PDUFA date, a scheduled vote, a court-ruling date — where the name is demonstrably rising *ahead* of the event and the **known date is the exit**. This lets the curator ride a run *into* a fixed event and sell the news: MicroStrategy rode Bitcoin in anticipation of the pro-crypto 2024 election (entering September, exiting at the November vote) — a trade the un-refined gate declined as momentum. Validated in isolation (dated-election anticipation 6/6; a dateless Bitcoin-demand control 0/6); it is a shared prompt change and stays forward-test-gated. The clean negative control is **GDX** (gold miners): a ~3x run that was a diffuse macro theme with no discrete catalyst until a late gold-specific tariff, so the gate correctly declines it early and catches it only at the blow-off top.
+
+## Peer-basket — multiple vehicles per catalyst **[CURRENT]**
+
+One catalyst usually has several credible vehicles (a European-rearmament shock lifts Rheinmetall + BAE / Saab / Thales; a rare-earth curb lifts several miners). The scout names the purest vehicle as the primary `ticker` and lists its direct same-catalyst peers in a `peers` field; the event-agent proposes the whole basket and the mechanical optimizer sizes them, dropping the weak ones (the LLM never forecasts *which* peer wins). A peer must share the **same catalyst**, so a basket structurally cannot drift into an unrelated gem (a naive "just propose more names" version drifted across catalysts and lost ~45% of return). A/B honesty: on RNMBY the basket formed cleanly (RNMBY + BAE + Saab + Thales) yet the *single* purest name still won (+251% vs +235%) — baskets help when the best vehicle is ambiguous, not when it is already the clear winner.
+
+## The weekly agent loop — Reflexion-style hindsight **[CURRENT]**
+
+Each held event's agent, each week: (1) pulls news targeted to its own catalyst (including resolution signals like a ceasefire); (2) reads its **full journal arc since entry** and writes a weekly `hindsight` self-critique of last week's call *before* deciding (a Reflexion-style step against repeat-the-same-mistake inertia); (3) runs an explicit exit-on-resolution check against the whole arc; (4) writes a note with a short assessment, the `thesis_live` / exit call (the only thing that drives the hold/exit), and hot-linked sources. Discovery is aggregate (you can't target-search an event you haven't found); only *monitoring* a held event uses its own targeted search, so it doesn't bias discovery.
+
 # Event / gem / journal model — the contract for evaluation
 
 This is the single source of truth for how events, gems, and journals are named, structured, and
