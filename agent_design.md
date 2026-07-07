@@ -465,3 +465,11 @@ enriches only the per-week curator slice (≤80/wk), meta-description only, URL-
 ~260 weekly scans · **~50–80 distinct events** (≤~150 worst case) · **~65–100 distinct gems/vehicles**
 · **~1,000–1,500 journal entries** · ~3–8 concurrent live events · **~1–2 MB** on disk. Small data —
 the format choice is about ergonomics (re-reads, diffs, revisions, cross-run comparison), not scale.
+
+## Harvesting the distribution — the eval strategy **[CURRENT]**
+
+Event-driven runs are heavy-tailed: BWET is a tail outlier, and below it sit progressively more numerous, smaller analogs. So the objective is to **harvest the distribution** — reliably ride the many medium-tier events — not to time one jackpot. The **locked ambition test set** is `data/fixtures/gems.json` (14 gems, window 2022-09 → present, US-listed incl. ADRs/ETFs), balanced across verticals (AI, nuclear, crypto, healthcare, defense, shipping, EM-energy, materials, consumer, precious-metals) and geopolitical types (war ×2, election, trade-war):
+
+> CVNA ~100× · PLTR 32× · NVDA 17× · SMR 16× · SMCI 14×↘ · MSTR 13× · HIMS 11× · RNMBY 8× · BWET ~8× · MP 6.5× · YPF 4.4× · GDX 3.5× · URA 3.2× — plus PTON (a slow-fizzle *negative control* for the exit engine).
+
+Of these, **6 are built and tested so far** (BWET, MP, GDX, SMR, RNMBY, GEO+MSTR); the rest remain the locked ambition. The eval measures **recall** (how many gems the firehose catches) and the **exit engine** (does it cut a decaying thesis); **precision** (false positives — does it also grab hyped names that fizzle?) is measured separately by the realistic GDELT-noise run.
