@@ -157,8 +157,10 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     # future-dated (the before:-leak) are dropped — never leak an unconfirmable article to the scout.
     kept = [a for a in built if a["published_date"] and lo < a["published_date"][:10] <= hi]
     kept.sort(key=lambda a: a["published_date"], reverse=True)
+    result = kept[:cap]
     if capture is not None:
-        kept_urls = {a["url"] for a in kept}
+        kept_urls = {a["url"] for a in result}
         capture["queries"] = raw["queries"]
+        capture["arts"] = result                              # the FROZEN in-window pool (archive reuses it — no re-fetch)
         capture["results"] = [{**r, "in_window": r["url"] in kept_urls} for r in raw["results"]]
-    return kept[:cap]
+    return result

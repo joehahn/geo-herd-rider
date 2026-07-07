@@ -74,24 +74,23 @@ def _freeze_text(url: str, cutoff: str) -> tuple[str, str]:
 
 def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
                    picks: list[dict], cutoff: str) -> Path:
-    """Freeze every web-search result's text and write the immutable per-week archive (LOCAL-ONLY)."""
-    results = []
-    for r in capture.get("results", []):
-        text, source = _freeze_text(r["url"], cutoff)
-        results.append({**r, "frozen_text": text, "text_source": source, "fetched_at": _now().isoformat()})
+    """Write the immutable per-week archive (LOCAL-ONLY). REUSES the gather's already-frozen in-window
+    pool (`capture['arts']` — the actual scout input, no re-fetching) + the full raw-result metadata."""
     cfg = load_financial_model(str(PROFILE))               # stamp the frozen config that produced this week
     knobs = {k: cfg.get(k) for k in ("model", "concentration_cap", "risk_aversion", "min_trade_size",
              "lookback_period_days", "max_agents", "spy_agent_conviction", "defensive_agent_conviction",
              "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
+    pool = capture.get("arts", [])                         # frozen in-window pool: {title,url,published_date,source,snippet}
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
            "profile": PROFILE.name, "config": knobs,
-           "queries": capture.get("queries", []), "results": results,
+           "queries": capture.get("queries", []),
+           "pool": pool,                                   # the FROZEN articles the scout actually read (replay corpus)
+           "raw_results": capture.get("results", []),      # every gather hit (metadata + in_window flag), no re-fetch
            "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "conviction", "evidence_urls")} for p in picks]}
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     out = ARCHIVE_DIR / f"{week}.json"
     out.write_text(json.dumps(rec, indent=2, default=str))
-    got = sum(1 for r in results if r["text_source"] != "unavailable")
-    print(f"  archived {len(results)} web-search results ({got} with frozen text) -> {out}")
+    print(f"  archived pool={len(pool)} frozen articles + {len(rec['raw_results'])} raw hits -> {out}")
     return out
 
 
