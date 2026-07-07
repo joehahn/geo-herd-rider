@@ -42,7 +42,10 @@ from util import load_dotenv, scan_anchors, news_domains
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
 ARCHIVE_DIR = REPO_ROOT / "data" / "forward" / "archive"   # LOCAL-ONLY (gitignored): raw web-search
-PROFILE = REPO_ROOT / "investor_profile.md"                #   inputs frozen at decision time (Option B)
+_FWD_PROFILE = REPO_ROOT / "investor_profile.forward.md"   #   inputs frozen at decision time (Option B)
+# Forward/production reads the FROZEN forward profile (the live candidate under test); the backtest
+# tools use investor_profile.md, which is free to keep evolving. Fall back if the forward file is absent.
+PROFILE = _FWD_PROFILE if _FWD_PROFILE.exists() else REPO_ROOT / "investor_profile.md"
 MODEL = "claude-opus-4-8"
 
 COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
@@ -75,7 +78,12 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     for r in capture.get("results", []):
         text, source = _freeze_text(r["url"], cutoff)
         results.append({**r, "frozen_text": text, "text_source": source, "fetched_at": _now().isoformat()})
+    cfg = load_financial_model(str(PROFILE))               # stamp the frozen config that produced this week
+    knobs = {k: cfg.get(k) for k in ("model", "concentration_cap", "risk_aversion", "min_trade_size",
+             "lookback_period_days", "max_agents", "spy_agent_conviction", "defensive_agent_conviction",
+             "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
+           "profile": PROFILE.name, "config": knobs,
            "queries": capture.get("queries", []), "results": results,
            "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "evidence_urls")} for p in picks]}
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
