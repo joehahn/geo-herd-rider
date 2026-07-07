@@ -269,7 +269,7 @@ demand continues") it lost the *specific discrete catalyst* and defaulted to hol
 - **Curator-model knob + bake-off.** `model:` in `investor_profile.md` (resolved by
   `optimizer.resolve_curator_model`: `mimo|sonnet|opus|llama4|deepseek|grok4|gemini`) selects the
   curator LLM; the scan stamps a `<scan>.meta.json` sidecar so dashboards show which model produced
-  each book. A 7-model bake-off (sweeps page, top plot) re-scored each model's 3-gem books on shared
+  each book. A 7-model bake-off (sweeps page, top plot) re-scored each model's 6-gem books on shared
   panels; **deepseek-V3 (the cheap default)** caught all 3 gems at the lowest cost.
 - **Agent-journal arc view.** Scans persist `hindsight`/`assessment`/`exit_advice` onto each pick;
   the gem dashboard renders an "Agent journal — week-by-week (per event)" section so the arc is
