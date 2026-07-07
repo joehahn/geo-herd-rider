@@ -113,7 +113,12 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 ## Live dashboard
 
-[**A landing page of per-gem scans**](https://joehahn.github.io/geo-herd-rider/) — one dashboard per hidden-gem event ([BWET](https://joehahn.github.io/geo-herd-rider/bwet/), [MP](https://joehahn.github.io/geo-herd-rider/mp/), …), each showing value vs SPY, allocation over time, cumulative $-gain per holding, the **event agent-journal arc** (week-by-week hindsight / read / exit-state, for spotting anchoring or missed exits), a firehose log, retrieval-health, the curator **model** used, and an LLM-cost panel. Each portfolio is the **event-first agent** finding that gem in a **realistic, noisy GDELT news firehose**, with **Wayback** recovering the as-of-date ticker-naming ledes GDELT's headlines omit (look-ahead-clean) and **news-derived seeds** (real, dated articles) standing in for the niche early pieces GDELT never indexes, injected at their true dates (the one retrieval shortcut; see Status). Each is a **hindsight upper bound** (seeded early naming + a model trained past the events), not a promise — the ceiling the mechanics can reach on clean inputs. A [**parameter-sweep dashboard**](https://joehahn.github.io/geo-herd-rider/sweeps/) leads with a **7-model LLM bake-off** (sum Final Curated value per curator model, ordered by cost) and then plots the sum (across all gems) of Final Curated Portfolio value vs sizing knobs (`concentration_cap`, `lookback_period_days`, `min_trade_size`, `risk_aversion`) against the flat Sum-SPY benchmark. Rebuild all with `python scripts/build_dashboard.py --all`.
+The backtest is published as browsable pages at **[joehahn.github.io/geo-herd-rider](https://joehahn.github.io/geo-herd-rider/)** — one per gem, plus a parameter-sweep view. Every figure is a **hindsight upper bound** (see [Status](#status)); how each portfolio is produced (event-first agent over a realistic GDELT + Wayback + seeds firehose) is detailed in [`agent_design.md`](agent_design.md).
+
+- [**Per-gem scans**](https://joehahn.github.io/geo-herd-rider/) — one dashboard per hidden-gem event ([BWET](https://joehahn.github.io/geo-herd-rider/bwet/), [MP](https://joehahn.github.io/geo-herd-rider/mp/), …): value vs SPY, allocation over time, the event agent-journal arc, a firehose log, retrieval-health, the curator model, and an LLM-cost panel.
+- [**Parameter-sweep dashboard**](https://joehahn.github.io/geo-herd-rider/sweeps/) — the 7-model LLM bake-off, plus Final-Curated portfolio value swept against the sizing knobs (`concentration_cap`, `lookback_period_days`, `min_trade_size`, `risk_aversion`) vs the Sum-SPY benchmark.
+
+Rebuild all with `python scripts/build_dashboard.py --all`.
 
 ## Scope
 
