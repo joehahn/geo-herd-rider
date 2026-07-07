@@ -59,6 +59,22 @@ python scripts/plot_shipping.py
 ```
 
 ## See also (CLI entry points in `src/`)
-- `python src/firehose.py --fixture data/fixtures/firehose_bwet.json …` — look-ahead-clean mechanics
-  test (BWET-only, perfect-retrieval assumption).
-- `python src/forward.py --scan` / `--report` — the live, contamination-free forward eval (the verdict).
+
+**`python src/firehose.py`** — `--fixture data/fixtures/firehose_bwet.json --start … --end …` is the
+look-ahead-clean mechanics test (BWET-only, perfect-retrieval assumption); `--gdelt --seed <file>` runs the
+realistic GDELT-noise backtest for a single gem.
+
+**`python src/forward.py`** — the live, contamination-free forward paper-trade (the verdict). Reads the
+FROZEN `investor_profile.forward.md`; ALL forward data is LOCAL (gitignored under `data/forward/`). Flags:
+- `--scan` — live event-first scan for the current week (Anthropic web search): gather → scout → matcher →
+  event agents → local journal; appends the decision to the log + archives the frozen pool. Idempotent
+  (dedups by week). The weekly cron runs exactly this.
+- `--report` — mark the accumulated paper portfolio to market vs SPY.
+- `--explain [WEEK]` — audit why the scout kept few/no gems that week (default: latest archive). No web
+  search, ~$0.05.
+- `--model ID` — override the curator model (default: the profile's `model:` knob; must be an Anthropic
+  model, since web search is Anthropic-only).
+- `--sandbox DIR` — THROWAWAY run: redirect the log/archive/journal under DIR, isolating it from the live
+  series + cron (for bigger-window prototypes and experiments).
+- `--rebalance-days N` — override the gather window in days (e.g. `28` for a 4-week prototype).
+- `--anchor YYYY-MM-DD` — explicit week-ending anchor (e.g. a recent Friday); default = most recent cron anchor.
