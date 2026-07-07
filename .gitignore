@@ -42,7 +42,7 @@ data/windows/retrieval_stats.json
 data/windows/ccnews_*.json
 data/windows/retrieval_stats_*.json
 
-# forward: raw web-search archive pulled at scan time (queries + results + frozen article text) —
-# local-only, like gdelt_pool_/wayback_; others reproduce by pulling their own news (the DECISION log
-# data/forward/firehose_scans.csv IS committed as the credibility record)
-data/forward/archive/
+# forward: ALL forward-run data is LOCAL-ONLY — pulled news (web-search archive) AND derived state
+# (scan log, journal, event state). Git holds the SOLUTION + published dashboards; the committed
+# forward dashboard is the timestamped record. Others clone the solution and generate their own data.
+data/forward/
