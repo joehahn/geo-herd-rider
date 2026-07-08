@@ -52,3 +52,6 @@ data/forward_proto/
 
 # throwaway Tavily backfill sandbox
 data/forward_tavily/
+
+# forward dashboard payload sidecars (derived data; the HTML dashboards are the committed record)
+docs/forward/*.json
