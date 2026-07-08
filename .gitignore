@@ -64,3 +64,6 @@ data/forward_gdelt/
 
 # throwaway forward sweep dashboard
 docs_preview/forward_sweeps/
+
+# seedless GDELT+Wayback continuous backtest (throwaway data)
+data/backtest_gdelt*/
