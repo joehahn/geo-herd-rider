@@ -61,3 +61,6 @@ data/forward_augmented/
 
 # throwaway GDELT+Tavily+Anthropic combined sandbox
 data/forward_gdelt/
+
+# throwaway forward sweep dashboard
+docs_preview/forward_sweeps/
