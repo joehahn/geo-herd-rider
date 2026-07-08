@@ -209,13 +209,13 @@ python scripts/run_harness.py --event-first --provider openrouter --model xiaomi
 **Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and add these two lines (substitute your repo path):
 
 ```
-# Daily forward — 1-day Anthropic news pull (accumulates the week's coverage) + mark portfolio to market + dashboard. 6:30am local
+# Daily forward — past-24h Anthropic news pull (builds the week's coverage day by day) + mark portfolio to market + dashboard. 6:30am local
 30 6 * * * /path/to/geo-herd-rider/scripts/forward_daily.sh >> /path/to/geo-herd-rider/data/forward/cron.log 2>&1
 # Weekly forward — scout + rebalance on the week's accumulated pulls + preserve dashboard + push. Sunday 1pm local
 0 13 * * 0 /path/to/geo-herd-rider/scripts/forward_cron.sh >> /path/to/geo-herd-rider/data/forward/cron.log 2>&1
 ```
 
-**Daily** (`forward_daily.sh`, 6:30am): a 1-day Anthropic news pull that accumulates the week's coverage day by day — denser than one weekly pull, and it catches gems announced early in the week that a single Fri-anchored pull would bury — plus a mark-to-market of the paper portfolio and a dashboard refresh. Billable Anthropic (~$0.25–0.50/day; use `30 6 * * 1-6` for weekdays-only); dedups by date, so a re-run is a no-op.
+**Daily** (`forward_daily.sh`, 6:30am): pulls just the **past ~24 hours** of Anthropic news and appends that day's articles to `data/forward/daily/`. Over the week the seven one-day pulls *build up* the week's coverage — denser than one weekly pull, and each day's news is captured fresh so early-week gems aren't buried by recency bias — plus a mark-to-market of the paper portfolio and a dashboard refresh. Billable Anthropic (~$0.25–0.50/day; use `30 6 * * 1-6` for weekdays-only); dedups by date, so a re-run is a no-op.
 
 **Weekly** (`forward_cron.sh`, Sunday 1pm): the scout + optimizer run **once** on the week's accumulated daily pulls (no separate weekly gather), produce the recommended portfolio, then build + **preserve** the dated dashboard (`docs/forward/<week>.html` + a landing) and push. All news under `data/forward/` stays local; only `docs/forward/` is committed. A missed run is harmless (the pulls stay accumulated). Confirm both with `crontab -l`; the push needs non-interactive git auth.
 
