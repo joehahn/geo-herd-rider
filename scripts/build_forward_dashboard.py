@@ -92,10 +92,13 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--sandbox", required=True, help="forward sandbox dir (firehose_scans.csv, journal.json, archive/)")
     ap.add_argument("--out", default=str(OUT), help="output dir (default docs_preview/forward; prod = docs/forward)")
+    ap.add_argument("--as-of", default=None, dest="as_of", help="build the snapshot AS OF this week (weeks <= as-of); default = latest")
     a = ap.parse_args(argv)
     sb = Path(a.sandbox)
 
     log = pd.read_csv(sb / "firehose_scans.csv")
+    if a.as_of:
+        log = log[log["week"].astype(str) <= a.as_of].reset_index(drop=True)
     weeks = sorted(log["week"].astype(str).unique())
     week = weeks[-1]
     fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
@@ -129,6 +132,10 @@ def main(argv=None):
         if latest_w else "<p>No agents held.</p>"
 
     journal = json.loads((sb / "journal.json").read_text())
+    if a.as_of:
+        for ev in journal.get("events", {}).values():
+            ev["entries"] = [e for e in ev.get("entries", []) if str(e.get("date", ""))[:10] <= a.as_of]
+        journal["events"] = {k: v for k, v in journal["events"].items() if v.get("entries")}
     jrows = []
     for eid, ev in journal.get("events", {}).items():
         for e in ev.get("entries", []):
