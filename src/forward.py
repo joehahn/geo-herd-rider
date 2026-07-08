@@ -191,6 +191,25 @@ def _scans_dict(log: pd.DataFrame) -> dict:
     return dict(sorted(out.items()))
 
 
+def pull_day(model: str, window_cap: int = 80) -> None:
+    """DAILY past-24h Anthropic news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
+    The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather)."""
+    day = _current_anchor(1)                                # most recent daily 16:30-ET point on/before now
+    dk = day.date().isoformat()
+    daily_dir = SCANS_CSV.parent / "daily"
+    daily_dir.mkdir(parents=True, exist_ok=True)
+    out = daily_dir / f"{dk}.json"
+    if out.exists():
+        print(f"  daily pull {dk}: already pulled, skipping (dedup).")
+        return
+    print(f"  daily Anthropic pull for {dk} (past-24h window) ...", flush=True)
+    cap: dict = {}
+    arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=window_cap)
+    out.write_text(json.dumps({"date": dk, "model": model, "pool": cap.get("arts", arts),
+                               "queries": cap.get("queries", [])}, indent=2, default=str))
+    print(f"  pulled {len(cap.get('arts', arts))} articles -> {out}")
+
+
 def report() -> None:
     log = _read()
     print("\n" + "=" * 62)
