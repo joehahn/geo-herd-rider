@@ -112,8 +112,7 @@ def _storyline(journal: dict, week: str) -> str:
         basket = ", ".join(ev.get("vehicles", []))
         tag = ('<b style="color:#1e7d34">NEW this week</b>' if new
                else f'<span class="sub">continuing since {first_date}</span>')
-        assess = (last.get("assessment") or "").strip()
-        assess = (assess[:220] + "…") if len(assess) > 220 else assess
+        assess = (last.get("assessment") or "").strip()   # full assessment — the complete per-agent story
         items.append(f"<li><b>{eid}</b> · <i>{ev.get('catalyst','')}</i> "
                      f"(<b>{basket}</b>, conv {last.get('conviction','—')}) — {tag}."
                      f"{(' ' + assess) if assess else ''}</li>")
