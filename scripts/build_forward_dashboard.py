@@ -1,178 +1,390 @@
 #!/usr/bin/env python3
-"""build_forward_dashboard.py — forward dashboard (prototype).
+"""build_forward_dashboard.py — the RICH forward dashboard.
 
-Renders a forward sandbox (scan-log + journal + archive) into docs_preview/forward/. The TOP plot is
-the RECOMMENDED-PORTFOLIO equity curve vs SPY — `firehose.backtest` on the accumulated scan log, which
-always includes the two always-on agents (SPY + the defensive floor), so there's a real portfolio every
-week even with zero scout gems. Below: the weekly recommendations (optimizer weights), the active
-agents, the agent journal, the firehose (pool + queries), and config/cost.
+Renders the forward paper-trade book (scan-log + journal + per-week archive) into the SAME dashboard
+the backtest gems use (docs/bwet/ styling: PWR palette, timestamp bar, Plots 1-12, retrieval + cost
+panels). It does this by REUSING `build_dashboard`'s two self-contained templates verbatim
+(`INDEX_HTML`, `FIREHOSE_HTML`, `_write_page`, `PALETTE`, `metrics`) and building the same-shaped
+`payload` dict from forward data — so all CSS/colors/plots are inherited, not re-implemented.
 
-    python scripts/build_forward_dashboard.py --sandbox data/forward_proto
+There is no single "gem"/overlay here: the top plot is the RECOMMENDED-PORTFOLIO equity curve vs SPY
+(`firehose.backtest` on the accumulated scan log, which always carries the two always-on floors), and
+the agent plots resolve each catalyst (thesis) into one event-agent with its basket of vehicle tickers.
+
+    python scripts/build_forward_dashboard.py --sandbox data/forward_tavily --as-of 2026-07-03
 """
 from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "scripts"))
+
 import pandas as pd  # noqa: E402
 import firehose  # noqa: E402
 import forward  # noqa: E402
+import score  # noqa: E402
+import build_dashboard  # noqa: E402  (import-safe: real work guarded by if __name__=="__main__")
 from optimizer import load_financial_model  # noqa: E402
 
 OUT = ROOT / "docs_preview" / "forward"
 
-PAGE = """<!doctype html><html><head><meta charset="utf-8">
-<title>Forward paper-trade ({week})</title>
-<script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
-<style>
- body{{font:14px/1.5 -apple-system,system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;color:#1a1a1a}}
- h1{{font-size:1.4rem}} h2{{font-size:1.05rem;border-bottom:1px solid #eee;padding-bottom:4px;margin-top:2rem}}
- .draft{{background:#fff6e5;border:1px solid #e0b34a;border-radius:6px;padding:8px 12px;font-size:13px}}
- .pick{{background:#f4faff;border:1px solid #cfe3f5;border-radius:6px;padding:10px 14px;margin:8px 0}}
- table{{border-collapse:collapse;width:100%}} td,th{{text-align:left;padding:4px 8px;border-bottom:1px solid #eee;vertical-align:top}}
- .q{{color:#555;font-size:12px}} #curve{{height:360px}} .kpi{{font-size:1.1rem}}
-</style></head><body>
-<h1>Forward paper-trade — week ending {week}</h1>
-<p class="draft"><b>Prototype</b> on {nweeks} weeks of sandboxed news (curator <code>{model}</code>). Paper only;
-the recommended portfolio auto-follows the optimizer (test mode A).</p>
 
-<h2>Recommended-portfolio value vs SPY</h2>
-<p class="kpi">${final:,.0f} <span class="q">from ${cap:,.0f} ({ret:+.1%}) · SPY {spyret:+.1%}</span></p>
-<div id="curve"></div>
+def _enriched_scans(log: pd.DataFrame) -> dict:
+    """firehose's {anchor_ts: [picks]} from the flat forward scan log, carrying the fields the agent
+    blocks need: ticker / thesis / thesis_live / conviction / evidence_urls (forward._scans_dict drops
+    conviction+urls, so we rebuild it here)."""
+    out: dict = {}
+    for wk, grp in log.groupby("week"):
+        anchor = pd.Timestamp(str(wk) + " 16:30", tz="America/New_York")
+        picks = []
+        for _, r in grp.iterrows():
+            tk = str(r.get("ticker", "")).strip()
+            if not tk:
+                continue
+            conv = r.get("conviction")
+            urls = [u for u in str(r.get("evidence_urls", "") or "").split(";") if u.strip()]
+            picks.append({"ticker": tk.upper(), "thesis": str(r.get("thesis", "") or ""),
+                          "thesis_live": str(r.get("thesis_live")) in ("True", "true", "1", "1.0"),
+                          "conviction": (None if pd.isna(conv) else int(float(conv))),
+                          "evidence_urls": urls})
+        out[anchor] = picks
+    return dict(sorted(out.items()))
 
-<h2>Published-date distribution <span class="q">(articles/day across all weeks' pools — spikes on the week-ending Fridays = end-of-week clustering)</span></h2>
-<div id="datehist"></div>
 
-<h2>Weekly recommendations <span class="q">(optimizer weights — SPY + defensive floor always on)</span></h2>
-<table><tr><th>week</th><th>recommended portfolio (weights)</th><th>week return</th></tr>{recs_html}</table>
+def _forward_cost(sb_weeks: list[str]) -> float:
+    """Forward spend over the window: LLM-ledger rows whose label is `gather-<week>` (stage
+    forward-gather + any scout/agent) for a week in the window, last cost per label (matches
+    build_dashboard.book_cost's last-per-label convention for re-runs)."""
+    import costs  # noqa: PLC0415
+    if not costs.LEDGER.exists() or not sb_weeks:
+        return 0.0
+    led = pd.read_csv(costs.LEDGER)
+    led["wk"] = led["label"].astype(str).map(
+        lambda s: (m.group(0) if (m := re.search(r"\d{4}-\d{2}-\d{2}", s)) else None))
+    led = led[led["label"].astype(str).str.startswith("gather-") & led["wk"].isin(set(sb_weeks))]
+    return round(float(led.groupby("label")["cost_usd"].last().sum()) if len(led) else 0.0, 2)
 
-<h2>Active agents</h2>
-{agents_html}
 
-<h2>Agent journal</h2>
-{journal_html}
+def _journal_arcs(journal: dict) -> dict:
+    """arcs keyed by TICKER (Plot 12): attach every event's entries to each of its vehicle tickers,
+    mapping the journal fields onto the arc shape build_gem produces."""
+    arcs: dict = {}
+    for eid, ev in journal.get("events", {}).items():
+        cat = ev.get("catalyst", "")
+        for e in ev.get("entries", []):
+            row = {"date": str(e.get("date", ""))[:10], "live": bool(e.get("thesis_live")),
+                   "conviction": e.get("conviction"), "thesis": cat, "src": "tavily",
+                   "exit_case": e.get("exit_case", ""), "resolved": bool(e.get("catalyst_resolved")),
+                   "assessment": e.get("assessment", ""), "exit_advice": e.get("exit_advice", "")}
+            for tk in ev.get("vehicles", []):
+                arcs.setdefault(str(tk).strip().upper(), []).append(row)
+    for tk in arcs:
+        arcs[tk].sort(key=lambda r: r["date"])
+    return arcs
 
-<h2>Firehose <span class="q">(latest week: {npool} in-window articles, {nq} searches)</span></h2>
-<details><summary>search queries</summary><ul class="q">{queries_html}</ul></details>
-<details><summary>pool (titles)</summary><table>{pool_html}</table></details>
 
-<h2>Config &amp; cost</h2>
-<table>{cfg_html}</table>
-<script>
- Plotly.newPlot('curve', {curve_json}, {{margin:{{t:10,r:10}},yaxis:{{title:'$'}},legend:{{orientation:'h'}}}},
-   {{displayModeBar:false,responsive:true}});
- Plotly.newPlot('datehist', {hist_json}, {{margin:{{t:10,r:10}},yaxis:{{title:'articles'}},bargap:0.05}},
-   {{displayModeBar:false,responsive:true}});
-</script>
-</body></html>"""
+def _storyline(journal: dict, week: str) -> str:
+    """HTML summary: name each live event, its catalyst + basket, whether it's NEW this week (first
+    entry == the as-of week) or CONTINUING (since its first entry date), and the latest weekly read."""
+    live = []
+    for eid, ev in journal.get("events", {}).items():
+        ents = ev.get("entries", [])
+        if not ents:
+            continue
+        last = ents[-1]
+        if not last.get("thesis_live") or last.get("catalyst_resolved"):
+            continue                                   # only events still live as of this week
+        first_date = ents[0].get("date", "")[:10]
+        new = (first_date == week)
+        live.append((eid, ev, first_date, new, last))
+    if not live:
+        return ("<b>Forward paper-trade book</b> — no live events as of "
+                f"{week}; the portfolio is the two always-on floors (SPY + defensive).")
+    live.sort(key=lambda x: x[2])
+    items = []
+    for eid, ev, first_date, new, last in live:
+        basket = ", ".join(ev.get("vehicles", []))
+        tag = ('<b style="color:#1e7d34">NEW this week</b>' if new
+               else f'<span class="sub">continuing since {first_date}</span>')
+        assess = (last.get("assessment") or "").strip()
+        assess = (assess[:220] + "…") if len(assess) > 220 else assess
+        items.append(f"<li><b>{eid}</b> · <i>{ev.get('catalyst','')}</i> "
+                     f"(<b>{basket}</b>, conv {last.get('conviction','—')}) — {tag}."
+                     f"{(' ' + assess) if assess else ''}</li>")
+    return (f"<b>Forward paper-trade book</b> — {len(live)} live event(s) as of {week} "
+            "(each catalyst = one event-agent; the optimizer sizes the baskets, SPY + defensive "
+            f"floors always on):<ul style='margin:6px 0 0;padding-left:20px'>{''.join(items)}</ul>")
 
 
 def _write_landing(out: Path, latest: str, final: float, cap: float, spy_final: float) -> None:
-    """Landing page: link every preserved weekly snapshot (newest first) + the latest headline."""
+    """Landing page (out/index.html): link every preserved dated snapshot (newest first) + headline."""
     weeks = sorted((f.stem for f in out.glob("*.html") if f.stem != "index"), reverse=True)
     items = "\n".join(f'<li><a href="{w}.html">week ending {w}</a></li>' for w in weeks)
     html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Forward paper-trade</title>
-<style>body{{{{font:14px/1.6 -apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem}}}}
-h1{{{{font-size:1.4rem}}}} .kpi{{{{font-size:1.15rem;background:#f4faff;border:1px solid #cfe3f5;border-radius:6px;padding:10px 14px}}}}
-a{{{{color:#c0392b}}}}</style></head><body>
+<style>body{{font:14px/1.6 -apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem}}
+h1{{font-size:1.4rem}} .kpi{{font-size:1.15rem;background:#f4faff;border:1px solid #cfe3f5;border-radius:6px;padding:10px 14px}}
+a{{color:#c0392b}}</style></head><body>
 <h1>Forward paper-trade — weekly dashboards</h1>
 <p class="kpi">Latest ({latest}): <b>${final:,.0f}</b> from ${cap:,.0f} ({final/cap-1:+.1%}) &middot; SPY {spy_final/cap-1:+.1%}</p>
 <p>Every weekly snapshot is preserved (newest first):</p>
 <ul>{items}</ul>
 <p style="color:#888;font-size:12px">Paper trade; the recommended portfolio auto-follows the optimizer.</p>
 </body></html>"""
-    (out / "index.html").write_text(html)
+    build_dashboard._write_page(out / "index.html", html)
+
+
+def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
+    sb = Path(sandbox)
+    log = pd.read_csv(sb / "firehose_scans.csv")
+    if as_of:
+        log = log[log["week"].astype(str) <= as_of].reset_index(drop=True)
+    weeks = sorted(log["week"].astype(str).unique())
+    if not weeks:
+        sys.exit("no weeks in scan log (after --as-of filter)")
+    week = weeks[-1]
+
+    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    capital = float(fm.get("initial_investment_usd", 50_000))
+
+    # curator model that produced the run: the latest archived config wins over the profile knob
+    arch_f = sb / "archive" / f"{week}.json"
+    arch = json.loads(arch_f.read_text()) if arch_f.exists() else {}
+    disp_model = (arch.get("config", {}) or {}).get("model") or arch.get("model") or fm.get("model", "?")
+
+    scans = _enriched_scans(log)
+    # overlay=SPY (a real, already-fetched ticker) so backtest never fetches an empty ticker; we null
+    # the overlay in the payload afterwards (forward book has no single gem to overlay).
+    bt = firehose.backtest(scans, fm, capital, daily=True,
+                           overlay=score.BENCHMARK, overlay_anchor=weeks[0])
+    d = bt["daily"]
+    if d is None:
+        sys.exit("no daily series — need >=1 week with prices.")
+
+    # ---- firehose gems (child page) + watchlist/funding ----
+    gems = []
+    for a, picks in scans.items():
+        for p in picks:
+            if str(p.get("ticker", "")).strip():
+                gems.append({"week": a.date().isoformat(), "ticker": p["ticker"],
+                             "thesis": p.get("thesis", ""), "thesis_live": bool(p.get("thesis_live", True)),
+                             "urls": [u for u in (p.get("evidence_urls", []) or []) if u]})
+    watch = bt.get("watch") or firehose._stateful_watch(scans)
+    funded_by_week = {lg["week"]: [s.split(":")[0] for s in lg["weights"].split(";") if s] for lg in bt["log"]}
+    ever_funded = sorted({t for names in funded_by_week.values() for t in names})
+    watchlist = [{"week": a.date().isoformat(), "names": watch[a],
+                  "funded": funded_by_week.get(a.date().isoformat(), [])} for a in scans]
+
+    import bisect
+    anchors = list(scans)
+    adates = [a.date() for a in anchors]
+    all_wt = sorted({t for names in watch.values() for t in names})
+    watch_daily = {t: [0] * len(d["dates"]) for t in all_wt}
+    for i, ds in enumerate(d["dates"]):
+        j = bisect.bisect_right(adates, pd.Timestamp(ds).date()) - 1
+        if j >= 0:
+            for t in watch[anchors[j]]:
+                watch_daily[t][i] = 1
+
+    # ============================================================================================
+    # VERBATIM from build_dashboard.build_gem — pure Python on `scans` + `d` (bt["daily"]). Feeds
+    # Plots 2/7/8/9: agent_meta (agents), agent_of, agent_marks, agent_gain, agent_conviction,
+    # agent_convgain. Do not edit; it must stay in lockstep with the gem dashboard.
+    # ============================================================================================
+    thesis_id, agent_meta, agent_tks = {}, {}, {}
+    for a in sorted(scans):
+        for p in scans[a]:
+            th, tk = p.get("thesis", ""), str(p.get("ticker", "")).strip().upper()
+            if not th or not tk:
+                continue
+            aid = thesis_id.get(th)
+            if aid is None:
+                aid = thesis_id[th] = f"ev{len(thesis_id) + 1}"
+                agent_meta[aid] = {"ticker": tk, "thesis": th,
+                                   "first": a.date().isoformat(), "last": a.date().isoformat()}
+            else:
+                agent_meta[aid]["last"] = a.date().isoformat()
+            agent_tks.setdefault(aid, set()).add(tk)
+    agent_of: dict = {}
+    for aid, tks in agent_tks.items():
+        for tk in tks:
+            agent_of.setdefault(tk, []).append(aid)
+    agent_of = {tk: "+".join(sorted(set(ids))) for tk, ids in agent_of.items()}
+
+    ag_dates, ag_gs = d["dates"], d.get("gain_series", {})
+
+    def _idx_le(ds):
+        j = -1
+        for i, dd in enumerate(ag_dates):
+            if dd <= ds:
+                j = i
+            else:
+                break
+        return j
+    tk_agents: dict = {}
+    for aid, tks in agent_tks.items():
+        for tk in tks:
+            tk_agents.setdefault(tk, []).append(aid)
+    agent_gain = {aid: 0.0 for aid in agent_meta}
+    for tk, aids in tk_agents.items():
+        gs = ag_gs.get(tk)
+        aids = sorted(aids, key=lambda a: agent_meta[a]["first"])
+        if not gs:
+            continue
+        for k, a in enumerate(aids):
+            s = _idx_le(agent_meta[a]["first"]) - 1
+            start_val = gs[s] if s >= 0 else 0.0
+            if k + 1 < len(aids):
+                e = _idx_le(agent_meta[aids[k + 1]]["first"]) - 1
+                end_val = gs[e] if e >= 0 else 0.0
+            else:
+                end_val = gs[-1]
+            agent_gain[a] += round(end_val - start_val, 2)
+    for aid, tks in agent_tks.items():
+        funded = sorted(t for t in tks if t in ag_gs)
+        agent_meta[aid]["basket"] = ", ".join(funded or sorted(tks))
+
+    agent_conviction: dict = {}
+    for a in sorted(scans):
+        ds = a.date().isoformat()
+        for p in scans[a]:
+            aid = thesis_id.get(p.get("thesis", ""))
+            if aid is not None and p.get("conviction") is not None:
+                agent_conviction.setdefault(aid, []).append(
+                    {"date": ds, "conviction": int(p.get("conviction", 5) or 5)})
+    spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)
+    if spy_agent and ag_gs.get("SPY"):
+        _sgs = ag_gs["SPY"]
+        agent_meta["spy"] = {"ticker": "SPY", "thesis": "always-on SPY floor agent",
+                             "first": ag_dates[0], "last": ag_dates[-1]}
+        agent_gain["spy"] = round(_sgs[-1] - _sgs[0], 2)
+        agent_conviction["spy"] = [{"date": a.date().isoformat(), "conviction": spy_agent}
+                                   for a in sorted(scans)]
+    defensive_agent = int(fm.get("defensive_agent_conviction", 0) or 0)
+    _defv_tk = str(fm.get("defensive_ticker", "GLD")).upper()
+    if defensive_agent and ag_gs.get(_defv_tk):
+        _dgs = ag_gs[_defv_tk]
+        agent_meta["defensive"] = {"ticker": _defv_tk, "thesis": f"always-on defensive ({_defv_tk}) floor agent",
+                                   "first": ag_dates[0], "last": ag_dates[-1]}
+        agent_gain["defensive"] = round(_dgs[-1] - _dgs[0], 2)
+        agent_conviction["defensive"] = [{"date": a.date().isoformat(), "conviction": defensive_agent}
+                                         for a in sorted(scans)]
+
+    agent_convgain: dict = {}
+    for aid, cpts in agent_conviction.items():
+        gs = ag_gs.get(agent_meta.get(aid, {}).get("ticker"))
+        s = (_idx_le(agent_meta[aid]["first"]) - 1) if aid in agent_meta else -1
+        base = gs[s] if (gs and s >= 0) else 0.0
+        agent_convgain[aid] = [
+            {"date": cp["date"], "conviction": cp["conviction"],
+             "gain": round(gs[_idx_le(cp["date"])] - base, 2) if (gs and _idx_le(cp["date"]) >= 0) else 0.0}
+            for cp in cpts]
+
+    agent_marks, _prev_live = {}, {}
+    for a in sorted(scans):
+        ds = a.date().isoformat()
+        for p in scans[a]:
+            tk = str(p.get("ticker", "")).strip().upper()
+            if not tk:
+                continue
+            lv = bool(p.get("thesis_live"))
+            m = agent_marks.setdefault(tk, {"live": [], "exit": []})
+            was = _prev_live.get(tk, False)
+            if lv and not was:
+                m["live"].append(ds)
+            elif was and not lv:
+                m["exit"].append(ds)
+            _prev_live[tk] = lv
+    # ============================ end verbatim block ============================================
+
+    # ---- journal-derived arcs (Plot 12) + storyline ----
+    journal = json.loads((sb / "journal.json").read_text())
+    if as_of:
+        for ev in journal.get("events", {}).values():
+            ev["entries"] = [e for e in ev.get("entries", []) if str(e.get("date", ""))[:10] <= as_of]
+        journal["events"] = {k: v for k, v in journal["events"].items() if v.get("entries")}
+    arcs = _journal_arcs(journal)
+    storyline = _storyline(journal, week)
+
+    # ---- colors: SPY=orange, defensive=yellow, everything else from the PWR palette ----
+    _ORANGE, _YEL = "#ff7f0e", "#eab308"
+    tickers = sorted(d["alloc"].keys())
+    _ngpal = [c for c in build_dashboard.PALETTE if c not in (_ORANGE, _YEL)]
+    _others = [t for t in tickers if t not in ("SPY", _defv_tk)]
+    colors = {t: _ngpal[i % len(_ngpal)] for i, t in enumerate(_others)}
+    colors["SPY"] = _ORANGE
+    colors[_defv_tk] = _YEL
+
+    payload = {
+        # forward book: no single gem / overlay
+        "gem": "Forward book", "overlay_label": "", "caught": False,
+        "overlays": [], "gem_label": "Forward book",
+        "combo_targets": [], "caught_all": 0, "both_held": False,
+        "model": disp_model, "storyline": storyline, "ever_funded": ever_funded,
+        "seeds": [], "capital": capital,
+        "dates": d["dates"], "value": d["value"], "spy": d["spy"],
+        "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
+        # overlay=None (not []): the Plot 1 JS tests `D.overlay?`, which is TRUTHY for an empty
+        # array — null makes the no-overlay fallback fire cleanly (portfolio + SPY only).
+        "overlay": None, "overlay_ticker": "", "overlay_anchor": "",
+        "alloc": d["alloc"], "cash": d["cash"], "colors": colors,
+        "metrics": build_dashboard.metrics(d["value"], d["spy"], capital),
+        "cost_usd": _forward_cost(weeks), "weeks": bt["weeks"], "gems": gems,
+        "watchlist": watchlist, "watch_daily": watch_daily,
+        "retrieval": {}, "params": {**fm, "model": disp_model},
+        "arcs": arcs, "lifecycle": [], "agents": agent_meta, "agent_of": agent_of,
+        "agent_marks": agent_marks, "agent_gain": agent_gain,
+        "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,
+        "agent_precision": bt.get("agent_precision", []),
+    }
+
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    pj = json.dumps(payload).replace("</", "<\\/")
+    (out / f"{week}.json").write_text(json.dumps(payload, indent=2))     # sidecar (debug / regression)
+    rebd = int(fm.get("rebalance_days", 7))
+    prev = (pd.Timestamp(week) - pd.Timedelta(days=rebd)).date().isoformat()
+    nxt = (pd.Timestamp(week) + pd.Timedelta(days=rebd)).date().isoformat()      # next always anticipates the coming week
+    is_first = (week == weeks[0])
+    prev_l = (f'<span style="color:#bbb">&larr; {prev}</span>' if is_first
+              else f'<a href="{prev}.html">&larr; {prev}</a>')
+
+    def _nav(active_dash: bool) -> str:
+        wk_cls = ' class="active"' if active_dash else ''
+        fr_cls = '' if active_dash else ' class="active"'
+        return (f'<nav class="nav"><a href="index.html">&uarr; All weeks</a>'
+                f'{prev_l}'
+                f'<a href="{week}.html"{wk_cls}>{week}</a>'
+                f'<a href="{nxt}.html">{nxt} &rarr;</a>'
+                f'<a href="firehose.html"{fr_cls}>Firehose log</a>'
+                f'<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
+
+    _navrx = re.compile(r'<nav class="nav">.*?</nav>', re.S)
+    dash = _navrx.sub(lambda _: _nav(True), build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1)
+    fire = _navrx.sub(lambda _: _nav(False), build_dashboard.FIREHOSE_HTML.replace("{{DATA}}", pj), count=1)
+    build_dashboard._write_page(out / f"{week}.html", dash)
+    build_dashboard._write_page(out / "firehose.html", fire)
+    _write_landing(out, week, bt["final"], capital, bt["spy_final"])
+    m = payload["metrics"]
+    print(f"  forward {week}: ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}) "
+          f"vs SPY {m['spy_ret']:+.1%}  ({len(weeks)} weeks, {len(agent_meta)} agents)  -> {out}/")
+    return payload
 
 
 def main(argv=None):
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--sandbox", required=True, help="forward sandbox dir (firehose_scans.csv, journal.json, archive/)")
-    ap.add_argument("--out", default=str(OUT), help="output dir (default docs_preview/forward; prod = docs/forward)")
-    ap.add_argument("--as-of", default=None, dest="as_of", help="build the snapshot AS OF this week (weeks <= as-of); default = latest")
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--sandbox", required=True,
+                    help="forward sandbox dir (firehose_scans.csv, journal.json, archive/)")
+    ap.add_argument("--out", default=str(OUT), help="output dir (default docs_preview/forward)")
+    ap.add_argument("--as-of", default=None, dest="as_of",
+                    help="build AS OF this week (scan weeks <= as-of AND journal entries <= as-of)")
     a = ap.parse_args(argv)
-    sb = Path(a.sandbox)
-
-    log = pd.read_csv(sb / "firehose_scans.csv")
-    if a.as_of:
-        log = log[log["week"].astype(str) <= a.as_of].reset_index(drop=True)
-    weeks = sorted(log["week"].astype(str).unique())
-    week = weeks[-1]
-    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
-    cap = float(fm.get("initial_investment_usd", 50_000))
-    scans = forward._scans_dict(log)
-    bt = firehose.backtest(scans, fm, cap)                      # rows = weekly equity curve incl. floors
-
-    rows = bt["rows"]
-    curve = [
-        {"x": [r["date"] for r in rows], "y": [r["value"] for r in rows],
-         "name": "recommended", "line": {"color": "#c0392b", "width": 2}},
-        {"x": [r["date"] for r in rows], "y": [r["spy"] for r in rows],
-         "name": "SPY", "line": {"color": "#888", "dash": "dot"}},
-    ]
-
-    recs_html = "".join(f"<tr><td>{r['week']}</td><td>{r['weights'] or '—'}</td>"
-                        f"<td>{r['week_return']:+.2%}</td></tr>" for r in bt["log"]) or \
-        "<tr><td colspan=3 class='q'>need ≥2 weeks to mark a return</td></tr>"
-
-    # active agents = every ticker that carried weight in any week (floors + gems), with its latest weight
-    latest_w = {}
-    for r in bt["log"]:
-        for chunk in r["weights"].split(";"):
-            if ":" in chunk:
-                t, wv = chunk.split(":"); latest_w[t] = float(wv)
-    always_on = {forward.score.BENCHMARK: "SPY floor (always-on)",
-                 str(fm.get("defensive_ticker", "GLD")).upper(): "defensive floor (always-on)"}
-    agents_html = "<table><tr><th>agent</th><th>role</th><th>latest weight</th></tr>" + "".join(
-        f"<tr><td><b>{t}</b></td><td>{always_on.get(t, 'gem (scout)')}</td><td>{w:.0%}</td></tr>"
-        for t, w in sorted(latest_w.items(), key=lambda kv: -kv[1])) + "</table>" \
-        if latest_w else "<p>No agents held.</p>"
-
-    journal = json.loads((sb / "journal.json").read_text())
-    if a.as_of:
-        for ev in journal.get("events", {}).values():
-            ev["entries"] = [e for e in ev.get("entries", []) if str(e.get("date", ""))[:10] <= a.as_of]
-        journal["events"] = {k: v for k, v in journal["events"].items() if v.get("entries")}
-    jrows = []
-    for eid, ev in journal.get("events", {}).items():
-        for e in ev.get("entries", []):
-            jrows.append(f"<tr><td>{e.get('date')}</td><td><b>{eid}</b> {','.join(sorted(ev['vehicles']))}</td>"
-                         f"<td>live={e.get('thesis_live')} conv={e.get('conviction')}<br>{e.get('assessment','')}</td></tr>")
-    journal_html = f"<table>{''.join(jrows)}</table>" if jrows else \
-        "<p class='q'>No scout events this run — the portfolio is the two always-on floors only.</p>"
-
-    from collections import Counter
-    datehist: Counter = Counter()
-    for f in sorted((sb / "archive").glob("*.json")):
-        for art in json.loads(f.read_text()).get("pool", []):
-            d = (art.get("published_date") or "")[:10]
-            if d:
-                datehist[d] += 1
-    hx = sorted(datehist)
-    hist_trace = [{"x": hx, "y": [datehist[d] for d in hx], "type": "bar", "marker": {"color": "#4a90d9"}}]
-
-    arch_f = sb / "archive" / f"{week}.json"
-    arch = json.loads(arch_f.read_text()) if arch_f.exists() else {}
-    queries_html = "".join(f"<li>{q}</li>" for q in arch.get("queries", [])[:60])
-    pool_html = "".join(f"<tr><td class='q'>{p.get('published_date')}</td><td>{p.get('title','')[:80]}</td></tr>"
-                        for p in sorted(arch.get("pool", []), key=lambda x: x.get("published_date", ""), reverse=True))
-    cfg_html = "".join(f"<tr><th>{k}</th><td>{v}</td></tr>" for k, v in arch.get("config", {}).items())
-
-    html = PAGE.format(week=week, nweeks=len(weeks), model=arch.get("model", fm.get("model", "?")),
-                       final=bt["final"], cap=cap, ret=bt["final"] / cap - 1,
-                       spyret=bt["spy_final"] / cap - 1, curve_json=json.dumps(curve), hist_json=json.dumps(hist_trace),
-                       recs_html=recs_html, agents_html=agents_html, journal_html=journal_html,
-                       npool=len(arch.get("pool", [])), nq=len(arch.get("queries", [])),
-                       queries_html=queries_html, pool_html=pool_html, cfg_html=cfg_html)
-    out = Path(a.out)
-    out.mkdir(parents=True, exist_ok=True)
-    (out / f"{week}.html").write_text(html)                 # dated snapshot — NEVER overwritten week-to-week
-    _write_landing(out, week, bt["final"], cap, bt["spy_final"])
-    print(f"  wrote {out}/{week}.html + index.html landing  ({len(weeks)} weeks, "
-          f"portfolio ${bt['final']:,.0f} vs SPY ${bt['spy_final']:,.0f})")
+    build(a.sandbox, a.out, a.as_of)
 
 
 if __name__ == "__main__":

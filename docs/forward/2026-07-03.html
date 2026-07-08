@@ -1,44 +1,470 @@
-<!doctype html><html><head><meta charset="utf-8">
-<title>Forward paper-trade (2026-07-03)</title>
-<script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — gem scan</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
- body{font:14px/1.5 -apple-system,system-ui,sans-serif;max-width:900px;margin:2rem auto;padding:0 1rem;color:#1a1a1a}
- h1{font-size:1.4rem} h2{font-size:1.05rem;border-bottom:1px solid #eee;padding-bottom:4px;margin-top:2rem}
- .draft{background:#fff6e5;border:1px solid #e0b34a;border-radius:6px;padding:8px 12px;font-size:13px}
- .pick{background:#f4faff;border:1px solid #cfe3f5;border-radius:6px;padding:10px 14px;margin:8px 0}
- table{border-collapse:collapse;width:100%} td,th{text-align:left;padding:4px 8px;border-bottom:1px solid #eee;vertical-align:top}
- .q{color:#555;font-size:12px} #curve{height:360px} .kpi{font-size:1.1rem}
-</style></head><body>
-<h1>Forward paper-trade — week ending 2026-07-03</h1>
-<p class="draft"><b>Prototype</b> on 1 weeks of sandboxed news (curator <code>claude-sonnet-5</code>). Paper only;
-the recommended portfolio auto-follows the optimizer (test mode A).</p>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
+ .sub{color:var(--mut);margin:0 0 18px}
+ .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .story{background:#fff;border:1px solid var(--line);border-left:4px solid #2980b9;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:1.55;margin:12px 0 20px}
+ .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
+ .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+ .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+ .card .v{font-size:22px;font-weight:600;margin-top:3px}
+ .pos{color:#1e7d34} .neg{color:#c0392b}
+ a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
+ #chart,#alloc,#dollars{width:100%;height:420px}
+ #gantt{width:100%}
+ .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+ .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+ .atab th{color:var(--mut);font-weight:600}
+ .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ details.clip{display:inline}
+ details.clip>summary{display:inline;cursor:pointer;color:#2980b9;font-size:11px;list-style:none}
+ details.clip>summary::-webkit-details-marker{display:none}
+ details.clip[open]>summary{display:none}
+</style></head>
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-07 22:28:14 EDT</div><div class="wrap">
+ <nav class="nav"><a href="index.html">&uarr; All weeks</a><span style="color:#bbb">&larr; 2026-06-26</span><a href="2026-07-03.html" class="active">2026-07-03</a><a href="2026-07-10.html">2026-07-10 &rarr;</a><a href="firehose.html">Firehose log</a><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
+ <h1 id="gemtitle">Gem scan</h1>
+ <p class="sub" id="sub"></p>
+ <div class="story" id="story"></div>
+ <div class="cards" id="cards"></div>
 
-<h2>Recommended-portfolio value vs SPY</h2>
-<p class="kpi">$50,000 <span class="q">from $50,000 (+0.0%) · SPY +0.0%</span></p>
-<div id="curve"></div>
+ <h2>Scan parameters</h2>
+ <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
 
-<h2>Published-date distribution <span class="q">(articles/day across all weeks' pools — spikes on the week-ending Fridays = end-of-week clustering)</span></h2>
-<div id="datehist"></div>
+ <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
+ <div id="chart"></div>
 
-<h2>Weekly recommendations <span class="q">(optimizer weights — SPY + defensive floor always on)</span></h2>
-<table><tr><th>week</th><th>recommended portfolio (weights)</th><th>week return</th></tr><tr><td colspan=3 class='q'>need ≥2 weeks to mark a return</td></tr></table>
+ <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7–9.</span></h2>
+ <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
+   went live, <b>✕</b> its exit.</p>
+ <div id="gainseries"></div>
 
-<h2>Active agents</h2>
-<p>No agents held.</p>
+ <h2>Plot 3 — Allocation over time</h2>
+ <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
+   watchlist is non-empty; to cash when the press names nothing live.</p>
+ <div id="alloc"></div>
+ <p class="sub" id="allocnote" style="margin-top:4px"></p>
 
-<h2>Agent journal</h2>
-<p class='q'>No scout events this run — the portfolio is the two always-on floors only.</p>
+ <h2>Plot 4 — Holdings timeline (proposed vs funded)</h2>
+ <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
+   dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
+   (the optimizer actually bought it).</p>
+ <div id="gantt"></div>
 
-<h2>Firehose <span class="q">(latest week: 27 in-window articles, 49 searches)</span></h2>
-<details><summary>search queries</summary><ul class="q"><li>best performing stock before:2026-07-03</li><li>biggest gainers before:2026-07-03</li><li>best performing ETF before:2026-07-03</li><li>geopolitics stocks before:2026-07-03</li><li>war stocks before:2026-07-03</li><li>shipping stocks before:2026-07-03</li><li>tariffs stocks before:2026-07-03</li><li>interest rates stocks before:2026-07-03</li><li>technology stocks before:2026-07-03</li><li>energy stocks before:2026-07-03</li><li>financial stocks before:2026-07-03</li><li>healthcare stocks before:2026-07-03</li><li>industrial stocks before:2026-07-03</li><li>materials stocks before:2026-07-03</li><li>consumer stocks before:2026-07-03</li><li>utility stocks before:2026-07-03</li><li>real estate stocks before:2026-07-03</li><li>telecom stocks before:2026-07-03</li><li>cryptocurrency stocks before:2026-07-03</li><li>space stocks before:2026-07-03</li><li>robotics stocks before:2026-07-03</li><li>quantum stocks before:2026-07-03</li><li>nuclear stocks before:2026-07-03</li><li>SpaceX Nasdaq-100 stock before:2026-07-03</li><li>Sandisk SNDK stock memory chip shortage before:2026-07-03</li><li>Micron stock Q2 2026 gainer before:2026-07-03</li><li>chip stocks selloff Nasdaq futures Asia before:2026-07-03</li><li>Cramer chip packaging business gross margin before:2026-07-03</li><li>Dow 53000 semiconductor stocks before:2026-07-03</li><li>ZIM Integrated Shipping Services stock before:2026-07-03</li><li>utilities stocks rally power demand AI data center before:2026-07-03</li><li>NuScale Power stock nuclear before:2026-07-03</li><li>DOE reactor deadline nuclear stocks before:2026-07-03</li><li>Quantum Computing Inc QUBT stock before:2026-07-03</li><li>MP Materials stock rare earth before:2026-07-03</li><li>Trump memecoin crypto losses before:2026-07-03</li><li>Astera Labs stock surge before:2026-07-03</li><li>Cognizant stock decline before:2026-07-03</li><li>Iran war oil energy stocks prices before:2026-07-03</li><li>Trump tariffs pause stock rally Apple Nvidia before:2026-07-03</li><li>Samsung stock slump chip selloff before:2026-07-03</li><li>Super Micro Computer SMCI stock chip selloff before:2026-07-03</li><li>ON Semiconductor stock power demand before:2026-07-03</li><li>Kioxia Nasdaq IPO NAND stock before:2026-07-03</li><li>Broadcom chip packaging gross margin before:2026-07-03</li><li>real estate ETF XLRE gains June 2026 before:2026-07-03</li><li>spot Bitcoin ETF inflows before:2026-07-03</li><li>Wolfspeed stock 2026 before:2026-07-03</li><li>Insmed stock plunge before:2026-07-03</li></ul></details>
-<details><summary>pool (titles)</summary><table><tr><td class='q'>2026-07-03</td><td>Sandisk Is the Best-Performing S&P 500 Stock During the First Half of 2026. Here</td></tr><tr><td class='q'>2026-07-03</td><td>Trump bought Nvidia, Google among 327 stocks before tariff U-turn rally</td></tr><tr><td class='q'>2026-07-03</td><td>Bitcoin ETFs draw in $221 million alongside renewed buying from long-term invest</td></tr><tr><td class='q'>2026-07-03</td><td>Top-Performing Stock ETFs | Morningstar</td></tr><tr><td class='q'>2026-07-03</td><td>Trump Made 327 Stock Purchases the Day Before He Announced ‘This Is a Great Time</td></tr><tr><td class='q'>2026-07-03</td><td>3 US Financial Stocks for Higher Interest Rates - Simply Wall St News</td></tr><tr><td class='q'>2026-07-02</td><td>Trump bought Apple, Nvidia and other tech giants before tariff reversal fueled r</td></tr><tr><td class='q'>2026-07-02</td><td>The First Major Robotics IPO Is Here: 5 Robotics Stocks That Could Run in the Se</td></tr><tr><td class='q'>2026-07-02</td><td>Micron Just Delivered Massive News for Shareholders | The Motley Fool</td></tr><tr><td class='q'>2026-07-02</td><td>Up 309% in 2026, Is Micron Stock Still a Buy Right Now? | The Motley Fool</td></tr><tr><td class='q'>2026-07-02</td><td>Asian stocks slide on chip sell-off as markets await US jobs data | Euronews</td></tr><tr><td class='q'>2026-07-02</td><td>Samsung Electronics, SK Hynix shares tumble over 9% as chip rout spreads from Wa</td></tr><tr><td class='q'>2026-07-02</td><td>Wall Street quietly mixed as chip companies continue to lose ground following We</td></tr><tr><td class='q'>2026-07-02</td><td>Why Jim Cramer says investors should 'want to own' this industrial stock</td></tr><tr><td class='q'>2026-07-02</td><td>Trump Meets Own July 4 Deadline To Go ‘Critical’ With Three New Mini Nuclear Rea</td></tr><tr><td class='q'>2026-07-02</td><td>Trump discloses 327 unreported stock trades made a day before his first tariff p</td></tr><tr><td class='q'>2026-07-02</td><td>5 Best Energy Stocks for 2026 and How to Invest | The Motley Fool</td></tr><tr><td class='q'>2026-07-01</td><td>Daily Political</td></tr><tr><td class='q'>2026-07-01</td><td>Trump Bought Hundreds of Stocks the Day Before He Paused Tariffs and Sparked a H</td></tr><tr><td class='q'>2026-07-01</td><td>Here's a Massive Reason You Should Buy SpaceX Before July 7th - 24/7 Wall St.</td></tr><tr><td class='q'>2026-07-01</td><td>Cramer shares next steps for a software stock after a rare bullish analyst call</td></tr><tr><td class='q'>2026-07-01</td><td>Prediction: NuScale Power Stock Is a Buy Before August | The Motley Fool</td></tr><tr><td class='q'>2026-07-01</td><td>Oil prices rise as breakdown in Iran-US talks raises supply concerns</td></tr><tr><td class='q'>2026-07-01</td><td>Best- and Worst-Performing Stocks | Morningstar</td></tr><tr><td class='q'>2026-07-01</td><td>Best Performing ETFs of 2026</td></tr><tr><td class='q'>2026-07-01</td><td>Trump Bought 347 Stocks On Day Before Halting Tariffs - Joe.My.God.</td></tr><tr><td class='q'>2026-07-01</td><td>Are Industrial Products Stocks Lagging IDEX (IEX) This Year?</td></tr></table></details>
+ <h2>Plot 5 — Dollars held per ticker</h2>
+ <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
+   stack's top edge is the portfolio value). Plot 3 shows the same split as percentages.</p>
+ <div id="dollars"></div>
 
-<h2>Config &amp; cost</h2>
-<table><tr><th>model</th><td>sonnet5</td></tr><tr><th>concentration_cap</th><td>1.0</td></tr><tr><th>risk_aversion</th><td>0.1</td></tr><tr><th>min_trade_size</th><td>0.0</td></tr><tr><th>lookback_period_days</th><td>14</td></tr><tr><th>max_agents</th><td>7</td></tr><tr><th>spy_agent_conviction</th><td>5</td></tr><tr><th>defensive_agent_conviction</th><td>5</td></tr><tr><th>defensive_ticker</th><td>GLD</td></tr><tr><th>curator_memory_weeks</th><td>8</td></tr><tr><th>rebalance_days</th><td>7</td></tr></table>
+ <h2>Plot 6 — Cumulative $ gain per holding</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
+   (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
+   portfolio's total gain.</p>
+ <div id="gain"></div>
+
+ <h2>Plot 7 — Cumulative $ earned per agent <span style="font-size:13px;font-weight:400;color:#777">— event-agents + the SPY/gold floors</span></h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
+   partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
+   agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
+   winner, red = loser; the bars sum to the portfolio's total gain.</p>
+ <div id="agentgain"></div>
+
+ <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>
+ <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
+   how strong / early / datable it judged its own catalyst. The dashed orange line is the always-on
+   <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
+   (<code>defensive_agent_conviction</code> / <code>defensive_ticker</code>, gold) it forms the floor a live
+   event-agent must out-rank to be funded.</p>
+ <div id="convtime"></div>
+
+ <h2>Plot 9 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
+ <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
+   (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
+   climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
+   <b>high on x but sinking on y</b> = high conviction that isn't paying off (a conviction miss). SPY (the
+   always-on agent) is the dashed grey path.</p>
+ <div id="gainconv"></div>
+
+ <h2 id="agentprec_h"></h2>
+ <p class="sub" id="agentprec_cap" style="margin:0 0 6px"></p>
+ <div id="agentprec"></div>
+
+ <h2>Plot 11 — Watchlist by date</h2>
+ <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
+   the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
+   optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
+ <details style="margin:6px 0 0"><summary style="cursor:pointer;color:#2563eb;font-size:13px">show / hide the week-by-week watchlist table</summary>
+ <table class="atab" id="watchtable" style="margin-top:6px"></table>
+ </details>
+
+
+ <h2>Plot 12 — Agent journal — week-by-week (per event)</h2>
+ <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
+   ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
+   <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
+   (devil's-advocate; RESOLVED flag forces the exit), <code>assessment</code> (the weekly read), and
+   <code>exit_advice</code> (the exit trigger). Use it to confirm what event/ticker was discovered, when,
+   and that it exited as the thesis decayed.</p>
+ <div id="arcs"></div>
+
+ <h2>What it cost</h2>
+ <div id="costs"></div>
+
+ <h2>Retrieval health (GDELT + Wayback)</h2>
+ <p class="sub" style="margin:0 0 6px">Health of the news-retrieval for the run that built this book.
+   The Wayback miss-split distinguishes a real archive gap (confirmed) from a rate-limit/transient
+   failure (deferred — recoverable on re-run).</p>
+ <div id="retr"></div>
+</div>
 <script>
- Plotly.newPlot('curve', [{"x": ["2026-07-07"], "y": [50000.0], "name": "recommended", "line": {"color": "#c0392b", "width": 2}}, {"x": ["2026-07-07"], "y": [50000.0], "name": "SPY", "line": {"color": "#888", "dash": "dot"}}], {margin:{t:10,r:10},yaxis:{title:'$'},legend:{orientation:'h'}},
-   {displayModeBar:false,responsive:true});
- Plotly.newPlot('datehist', [{"x": ["2026-07-01", "2026-07-02", "2026-07-03"], "y": [10, 11, 6], "type": "bar", "marker": {"color": "#4a90d9"}}], {margin:{t:10,r:10},yaxis:{title:'articles'},bargap:0.05},
-   {displayModeBar:false,responsive:true});
-</script>
-</body></html>
+Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "overlays": [], "gem_label": "Forward book", "combo_targets": [], "caught_all": 0, "both_held": false, "model": "sonnet5", "storyline": "<b>Forward paper-trade book<\/b> \u2014 no live events as of 2026-07-03; the portfolio is the two always-on floors (SPY + defensive).", "ever_funded": [], "seeds": [], "capital": 50000.0, "dates": ["2026-07-07"], "value": [50000.0], "spy": [50000.0], "gain": {}, "gain_series": {"GLD": [0.0], "SPY": [0.0]}, "overlay": null, "overlay_ticker": "", "overlay_anchor": "", "alloc": {"SPY": [1.0]}, "cash": [0.0], "colors": {"SPY": "#ff7f0e", "GLD": "#eab308"}, "metrics": {"final": 50000.0, "total_ret": 0.0, "spy_ret": 0.0, "max_dd": 0.0}, "cost_usd": 0.84, "weeks": 1, "gems": [{"week": "2026-07-03", "ticker": "NAN", "thesis": "nan", "thesis_live": false, "urls": ["nan"]}], "watchlist": [{"week": "2026-07-03", "names": [], "funded": []}], "watch_daily": {}, "retrieval": {}, "params": {"initial_investment_usd": 50000, "risk_aversion": 0.1, "concentration_cap": 1.0, "t_update_days": 1, "min_trade_size": 0.0, "lookback_period_days": 14, "model": "sonnet5", "risk_free_rate": 0.04, "rebalance_days": 7, "news_lookback_days": null, "max_agents": 7, "spy_agent_conviction": 5, "defensive_agent_conviction": 5, "defensive_ticker": "GLD", "hold_benchmark": true, "curator_memory_weeks": 8, "max_watchlist_size": 12}, "arcs": {}, "lifecycle": [], "agents": {"ev1": {"ticker": "NAN", "thesis": "nan", "first": "2026-07-03", "last": "2026-07-03", "basket": "NAN"}, "spy": {"ticker": "SPY", "thesis": "always-on SPY floor agent", "first": "2026-07-07", "last": "2026-07-07"}, "defensive": {"ticker": "GLD", "thesis": "always-on defensive (GLD) floor agent", "first": "2026-07-07", "last": "2026-07-07"}}, "agent_of": {"NAN": "ev1"}, "agent_marks": {"NAN": {"live": [], "exit": []}}, "agent_gain": {"ev1": 0.0, "spy": 0.0, "defensive": 0.0}, "agent_conviction": {"spy": [{"date": "2026-07-03", "conviction": 5}], "defensive": [{"date": "2026-07-03", "conviction": 5}]}, "agent_convgain": {"spy": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}], "defensive": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}]}, "agent_precision": [{"ticker": "GLD", "thesis": "defensive (GLD) floor agent", "first": "2026-07-03", "last": "2026-07-03", "ret": 0.0}]}).then(D=>{
+  const fmt=x=>"$"+Math.round(x).toLocaleString();
+  const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
+  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
+  document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
+  document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
+  const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
+  const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
+  document.getElementById("sub").textContent =
+    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
+
+  const _w=(D.retrieval&&D.retrieval.wayback)||{}, jr=_w.join_rate_pct;
+  document.getElementById("cards").innerHTML=[
+    ["Final Curated Portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["Final SPY", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
+    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+    ["GDELT–Wayback join", (jr==null?"—":jr+"%"), "early-lede recovery", (jr>=60?"pos":"neg")],
+  ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
+     <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
+
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
+  const P=D.params||{};
+  const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
+    "max_agents","spy_agent_conviction",
+    "lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
+  const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
+  const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
+    +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  document.getElementById("params").innerHTML=
+    prow("window", `${D.dates[0]} → ${D.dates[D.dates.length-1]}`) + prow("weekly_scans", D.weeks)
+    + pk.map(k=>prow(k, P[k])).join("");
+
+  // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
+  const BOOK="#111", SPYC="#ff7f0e";
+  const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
+  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
+  const vtraces=[
+    {x:D.dates,y:D.value,name:"Curated portfolio",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
+  ];
+  const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
+  // overlay curves: the list D.overlays (primary + any extra target gems for a combo card), or the
+  // single legacy D.overlay. Each gem's scaled price + a dotted trigger line, in its own color.
+  const OVL=(D.overlays&&D.overlays.length)?D.overlays
+    :(D.overlay?[{ticker:D.overlay_ticker,vals:D.overlay,anchor:D.overlay_anchor,color:OVC}]:[]);
+  OVL.forEach(o=>{
+    const oc=o.color||(D.colors&&D.colors[o.ticker])||OVC;
+    vtraces.push({x:D.dates,y:o.vals,name:o.ticker+" (scaled)",
+      line:{color:oc,width:1.8,dash:"dash"},connectgaps:true});
+    vshapes.push({type:"line",x0:o.anchor,x1:o.anchor,yref:"paper",y0:0,y1:1,
+      line:{color:oc,width:1,dash:"dot"}});
+    vann.push({x:o.anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:o.ticker+" trigger",font:{color:oc,size:10}});
+  });
+  // seed markers: distinguish SYNTHETIC (fictitious ⭐ star) from NEWS-DERIVED (real article ◆ diamond)
+  const SDall=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
+  const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const seedTrace=(subset,nm,sym,col,edge,lab)=>{
+    if(!subset.length)return;
+    const sx=subset.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
+    const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
+    vtraces.push({x:sx,y:sy,mode:"markers",name:nm,
+      marker:{size:16,color:col,symbol:sym,line:{color:edge,width:1.5}},
+      text:subset.map(s=>lab+" planted "+s.date+(s.source?" · "+clean(s.source):"")
+        +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
+      hovertemplate:"%{text}<extra></extra>"});
+  };
+  seedTrace(SDall.filter(s=>!s.genuine),"🌱 synthetic seed","star","#f1c40f","#a67c00",
+    "🌱 <b>SYNTHETIC SEED</b> — hand-authored catalyst description, NOT a retrieved article (no real URL) ·");
+  seedTrace(SDall.filter(s=>s.genuine),"◆ news-derived seed","diamond","#27ae60","#145a32",
+    "◆ <b>NEWS-DERIVED SEED</b> — a REAL published article, planted because GDELT/Wayback miss the niche piece ·");
+  const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
+  Plotly.newPlot("chart",vtraces,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // shared agent palette — ONE color per agent across Plots 2/7/8/9. The gem-carrier gets a RESERVED
+  // green (and 2x thickness); every other agent draws from a green-free, gray-free palette, so no
+  // co-discovered agent can visually match the gem or the SPY floor.
+  const AGM=D.agents||{};
+  const GEMCOL="#1f77b4";
+  const AGPAL=["#d62728","#8e44ad","#2ca02c","#8c564b","#e377c2","#16a085","#17becf","#bcbd22"];
+  const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
+  const agColor={}; let _pi=0;
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#ff7f0e": id==="defensive"?"#eab308": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+
+  // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
+  // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{}, ALC=D.alloc||{};
+  const agBasket=id=>((AGM[id]||{}).basket)||id;             // the agent's funded basket, e.g. BAESY+RNMBY
+  const gemAg=AO[(D.overlay_ticker||"").toUpperCase()]||"";   // the agent carrying THIS dashboard's gem (drawn 2x thick)
+  const byAgent={};                                          // group funded tickers by agent: a basket = ONE agent = ONE curve
+  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{const a = t==="SPY" ? "spy" : (AO[t]||t); (byAgent[a]=byAgent[a]||[]).push(t);});
+  const gtr=Object.entries(byAgent).map(([a,tks])=>{
+    const gem = !!gemAg && a===gemAg;
+    const held = D.dates.map((_,i)=> tks.some(t=>((ALC[t]||[])[i]||0) > 1e-6));            // funded this week?
+    const y = D.dates.map((_,i)=> held[i] ? tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0) : null);  // active-only (gaps when idle)
+    return {x:D.dates, y, mode:"lines", name:a+" ("+agBasket(a)+")", connectgaps:false,
+      line:{color: agColor[a]||"#888", width: gem?4:2, dash: a==="spy"?"dash":"solid"},
+      hovertemplate:a+" ("+agBasket(a)+") $%{y:,.0f}<extra></extra>"};
+  });
+  // entry/exit markers: ▲ where each agent went live, ✕ where its catalyst resolved — on its cumulative curve
+  const AM=D.agent_marks||{}, idxOf=ds=>{let j=-1;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
+  const mk=(a,tks,field,sym,tag)=>{
+    const cum=D.dates.map((_,i)=> tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0));
+    const pts=[...new Set([].concat(...tks.map(t=>(AM[t]||{})[field]||[])))].map(idxOf).filter(i=>i>=0);
+    if(pts.length) gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>cum[i]),mode:"markers",showlegend:false,cliponaxis:false,
+      marker:{symbol:sym,size:sym==="triangle-up"?20:13,color:agColor[a]||"#888",line:{color:"#fff",width:2}},
+      hovertemplate:a+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});
+  };
+  Object.entries(byAgent).forEach(([a,tks])=>{ mk(a,tks,"live","triangle-up","went live"); mk(a,tks,"exit","x","exit"); });
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:18,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit (catalyst resolved)",marker:{symbol:"x",size:12,color:"#666"}});
+  Plotly.newPlot("gainseries",gtr,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  const traces=[];
+  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
+    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
+  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
+  Plotly.newPlot("alloc",traces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
+  document.getElementById("allocnote").innerHTML="";
+
+  // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
+  const WD=D.watch_daily||{};
+  // contiguous spans where series[i] passes thresh
+  const spansOf=(arr,th)=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
+    const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
+    if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
+  const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
+  const gord=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
+                .filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
+                .sort((a,b)=>propFirst(a)-propFirst(b));
+  const gtraces=[];
+  gord.forEach((t,yi)=>{
+    const col=D.colors[t]||"#888";
+    spansOf(WD[t],0).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:"#ccd2d8",width:5},marker:{color:"#ccd2d8",size:4},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · proposed<br>%{x|%Y-%m-%d}<extra></extra>`}));
+    spansOf(D.alloc[t],0.0001).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:col,width:13},marker:{color:col,size:9},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · funded<br>%{x|%Y-%m-%d}<extra></extra>`}));
+  });
+  Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
+    height:Math.max(180,34*gord.length+80),
+    yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed",automargin:false},
+    xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
+  const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
+              .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
+  const dtraces=[];
+  for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
+    stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
+  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",showlegend:false,stackgroup:"d",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
+  Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
+    hovermode:"x unified"},{displayModeBar:false,responsive:true});
+
+  // Plot 6 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
+    marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
+  const AG=D.agent_gain||{};   // AGM + agColor defined above the Plot 2 block (shared across Plots 2/7/8/9)
+  const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
+  const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
+    marker:{color:agS.map(e=>agColor[e[0]]||"#888"),line:{color:"#333",width:0.5}},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:70},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 8 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
+  const AC=D.agent_conviction||{};
+  const convTraces=Object.entries(AC).map(([aid,pts])=>({
+    x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
+    line:(aid==="spy"||aid==="defensive")?{color:agColor[aid]||"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:2},
+    marker:{size:5,color:agColor[aid]||"#888"}}));
+  if(convTraces.length) Plotly.newPlot("convtime",convTraces,
+    {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
+     xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 9 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
+  const CG=D.agent_convgain||{};
+  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
+    const n=s.length;
+    return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid),
+      line:(aid==="spy"||aid==="defensive")?{color:agColor[aid]||"#888",dash:"dash",width:1.5}:{color:agColor[aid]||"#888",width:1.5},
+      marker:{size:s.map((p,i)=> i===0||i===n-1 ? 13 : 6),                                // big start + end
+        symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
+        color:agColor[aid]||"#888",
+        line:{color:"#222",width:s.map((p,i)=> i===0||i===n-1 ? 1.2 : 0)}},
+      customdata:s.map(p=>p.date),
+      hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"};
+  });
+  if(cgTraces.length) Plotly.newPlot("gainconv",cgTraces,
+    {margin:{l:74,r:130,t:16,b:44},legend:{orientation:"v",x:1.02,y:1},
+     xaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:1},
+     yaxis:{title:"cumulative $ gain",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 10 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
+  const AP=(D.agent_precision||[]).filter(r=>r.ret!==null&&r.ret!==undefined);
+  const nwin=AP.filter(r=>r.ret>0).length, nap=AP.length;
+  const prec = nap ? Math.round(100*nwin/nap) : 0;
+  const aph=document.getElementById("agentprec_h");
+  if(aph) aph.textContent=`Plot 10 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
+  const APs=AP.slice().sort((a,b)=>a.ret-b.ret);
+  // dynamic caption: the curator's batting average in words, from the actual bars
+  const capEl=document.getElementById("agentprec_cap");
+  if(capEl){
+    if(!nap){ capEl.innerHTML="No agents to score this window."; }
+    else{
+      const APc=AP.slice().sort((a,b)=>b.ret-a.ret), pct=v=>(v>=0?"+":"")+Math.round(v*100)+"%";
+      const list=APc.map(r=>`<b style="color:${r.ret>=0?'#2ca02c':'#d62728'}">${r.ticker} ${pct(r.ret)}</b>`).join(", ");
+      const gem=(D.overlay_ticker||"").toUpperCase(), gemR=APc.find(r=>r.ticker===gem);
+      const best=APc[0], worst=APc[APc.length-1], bits=[];
+      bits.push(gemR?`the gem ${gem} was a ${gemR.ret>0?"winning":"losing"} call (${pct(gemR.ret)})`
+                    :`the gem ${gem} was never named this window`);
+      if(best&&best.ticker!==gem) bits.push(`${best.ticker} was the best pick (${pct(best.ret)})`);
+      if(worst&&worst.ret<0&&worst.ticker!==gem) bits.push(`${worst.ticker} the worst (${pct(worst.ret)})`);
+      capEl.innerHTML=`Each bar is one agent's <b>standalone return over its live span</b> &mdash; ${list} `
+        +`&mdash; so the curator's picks won <b>${nwin} of ${nap}</b> times, independent of how much the optimizer `
+        +`actually sized each (Plots 1/3 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
+    }
+  }
+  Plotly.newPlot("agentprec",[{type:"bar",orientation:"h",
+    y:APs.map(r=>r.ticker+" · "+String(r.thesis||"").slice(0,40)), x:APs.map(r=>r.ret*100),
+    marker:{color:APs.map(r=>r.ret>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{y}<br>%{x:.0f}% over live span<extra></extra>"}],
+    {margin:{l:280,r:30,t:10,b:40},height:Math.max(180,20*APs.length+60),
+     xaxis:{ticksuffix:"%",zeroline:true,zerolinecolor:"#888"},yaxis:{automargin:false,tickfont:{size:10}}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 11 — watchlist by date: rows where the live watchlist or its funding changed.
+  let pw=null; const wrows=[];
+  for(const w of (D.watchlist||[])){
+    const fset=new Set(w.funded||[]);
+    const sig=w.names.join(",")+"|"+(w.funded||[]).join(",");
+    if(sig===pw) continue;
+    pw=sig;
+    if(!w.names.length){ wrows.push(`<tr><td>${w.week}</td><td style="color:#aaa">— empty (cash) —</td></tr>`); continue; }
+    const cells=w.names.map(t=>{
+      const c=(D.colors&&D.colors[t])||"#444";
+      return fset.has(t) ? `<b style="color:${c}">${t}</b>` : `<span style="color:#aaa">${t}</span>`;
+    }).join(" · ");
+    wrows.push(`<tr><td>${w.week}</td><td>${cells}</td></tr>`);
+  }
+  document.getElementById("watchtable").innerHTML=
+    `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
+    `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
+
+  // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
+  const ats=Object.keys(A).sort((x,y)=>{
+    if(x===D.gem)return -1; if(y===D.gem)return 1;
+    const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
+    return A[y].length-A[x].length;});
+  const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
+    :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
+  const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
+  const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
+  document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
+    const funded=F.has(t);
+    const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
+      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
+      +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
+    const open = t===D.gem ? " open" : "";
+    const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
+    const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
+    const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
+    const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
+    const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
+    return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th>`
+      +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
+
+
+  document.getElementById("costs").innerHTML =
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">model <b>${D.model||'—'}</b> · ${D.weeks} weekly scans</div></div>`;
+
+  // Retrieval health panel
+  const R=D.retrieval||{}, g=R.gdelt, w=R.wayback;
+  const card=(k,v,sub,cls)=>`<div class="card"><div class="k">${k}</div><div class="v ${cls||''}">${v}</div>`
+    + `<div class="sub" style="margin:3px 0 0;font-size:12px">${sub||''}</div></div>`;
+  const num=x=>(x==null?'—':x);
+  if(!g && !w){
+    document.getElementById("retr").innerHTML=`<div class="sub">No retrieval stats recorded for this `
+      +`book (run the harness with the instrumented code to populate).</div>`;
+  } else {
+    let h="";
+    if(g) h+=card("GDELT pool", num(g.items), "deduped GDELT items");
+    if(g) h+=card("non-English", `${g.non_english_pct??0}%`, "of GDELT pool");
+    if(w) h+=card("GDELT-Wayback join rate", (w.join_rate_pct??0)+"%",
+      `${w.lede} of ${w.looked_up} GDELT headlines got a lede`, w.join_rate_pct>=60?"pos":"neg");
+    if(w) h+=card("Wayback misses", `${w.confirmed_no_snapshot} + ${w.transient_deferred}`,
+      `${w.confirmed_no_snapshot} not archived (real gap) · ${w.transient_deferred} rate-limited (retry)`,
+      w.transient_deferred>w.confirmed_no_snapshot?"neg":"");
+    // throughput/error cards only when a LIVE instrumented run recorded them (post-hoc backfill = null)
+    const errs=o=>{const p=[]; if(o.http_429)p.push(o.http_429+" rate-limited"); if(o.http_5xx)p.push(o.http_5xx+" server-err"); if(o.timeout)p.push(o.timeout+" timeout"); return p.length?p.join("<br>")+" (all retried)":"no errors";};
+    const rate=o=>`${(o.requests||0).toLocaleString()} req<br>${o.items_per_min!=null?o.items_per_min+"/min":"—"}`;
+    let hf="";   // fetch cards go on their own row below (GDELT left of Wayback)
+    if(g && g.requests!=null)
+      hf+=card("GDELT fetch", g.from_cache?"from cache":rate(g), errs(g), (g.http_429||g.http_5xx||g.timeout)?"neg":"");
+    if(w && w.requests!=null)
+      hf+=card("Wayback fetch", rate(w), errs(w), (w.http_5xx||w.timeout)?"neg":"");
+    document.getElementById("retr").innerHTML=
+      `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
+  }
+});
+</script></body></html>
