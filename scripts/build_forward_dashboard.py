@@ -275,9 +275,26 @@ def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
         agent_conviction["defensive"] = [{"date": a.date().isoformat(), "conviction": defensive_agent}
                                          for a in sorted(scans)]
 
+    # per-agent BASKET gain series (sum the agent's tickers' gain_series). Forward agents are baskets, so
+    # the gem-dashboard single-representative-ticker gain understates them (e.g. ev1's COIN was never held).
+    _N = len(ag_dates)
+    agent_gs_series: dict = {}
+    for aid, tks in agent_tks.items():
+        ser = [0.0] * _N
+        for t in tks:
+            g = ag_gs.get(t)
+            if g:
+                for i in range(_N):
+                    ser[i] += g[i]
+        agent_gs_series[aid] = ser
+    if "spy" in agent_meta:
+        agent_gs_series["spy"] = ag_gs.get("SPY", [0.0] * _N)
+    if "defensive" in agent_meta:
+        agent_gs_series["defensive"] = ag_gs.get(_defv_tk, [0.0] * _N)
+
     agent_convgain: dict = {}
     for aid, cpts in agent_conviction.items():
-        gs = ag_gs.get(agent_meta.get(aid, {}).get("ticker"))
+        gs = agent_gs_series.get(aid)
         s = (_idx_le(agent_meta[aid]["first"]) - 1) if aid in agent_meta else -1
         base = gs[s] if (gs and s >= 0) else 0.0
         agent_convgain[aid] = [
@@ -369,7 +386,15 @@ def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
     fire = _navrx.sub(lambda _: _nav(False), build_dashboard.FIREHOSE_HTML.replace("{{DATA}}", pj), count=1)
     build_dashboard._write_page(out / f"{week}.html", dash)
     build_dashboard._write_page(out / "firehose.html", fire)
-    _write_landing(out, week, bt["final"], capital, bt["spy_final"])
+    if as_of is None:                                     # latest full build -> "All weeks" landing = full dashboard
+        wk_links = "".join(f'<a href="{w}.html">{w}</a>' for w in weeks)
+        allnav = ('<nav class="nav"><a href="index.html" class="active">All weeks</a>' + wk_links
+                  + '<a href="firehose.html">Firehose log</a>'
+                  + '<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
+        idx = _navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1)
+        build_dashboard._write_page(out / "index.html", idx)
+    else:
+        _write_landing(out, week, bt["final"], capital, bt["spy_final"])
     m = payload["metrics"]
     print(f"  forward {week}: ${capital:,.0f} -> ${m['final']:,.0f} ({m['total_ret']:+.1%}) "
           f"vs SPY {m['spy_ret']:+.1%}  ({len(weeks)} weeks, {len(agent_meta)} agents)  -> {out}/")
