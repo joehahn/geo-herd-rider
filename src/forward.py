@@ -33,7 +33,9 @@ from pathlib import Path
 import pandas as pd
 
 import firehose
+import anthropic
 import forward_engine
+import forward_gather
 import llm
 import score
 import trump_feed
@@ -139,9 +141,21 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     print(f"  scanning week {wk_key} (event-first engine) via {model} ...", flush=True)
     capture: dict = {}
     decision_ts = _now().isoformat()
+    daily_dir = SCANS_CSV.parent / "daily"                 # weekly scan CONSUMES the week's accumulated daily pulls
+    acc: dict = {}
+    if daily_dir.exists():
+        lo = (anchor - pd.Timedelta(days=rebalance_days)).date().isoformat()
+        for f in sorted(daily_dir.glob("*.json")):
+            for a in json.loads(f.read_text()).get("pool", []):
+                d = (a.get("published_date") or "")[:10]
+                if a.get("url") and d and lo < d <= wk_key:
+                    acc[a["url"]] = a
+    pool = sorted(acc.values(), key=lambda x: x["published_date"], reverse=True)[:window_cap] if acc else None
+    if pool:
+        print(f"  using {len(pool)} accumulated daily-pull articles (no separate weekly gather).", flush=True)
     picks = forward_engine.run_week(anchor, model, rebalance_days,
                                     curator_memory_weeks=curator_memory_weeks, capture=capture, window_cap=window_cap,
-                                    gather_engine=gather_engine)
+                                    gather_engine=gather_engine, pool=pool)
     # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
     # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
@@ -253,13 +267,15 @@ def main(argv: list[str] | None = None) -> int:
                     help="override the gather window in days (e.g. 28 for a 4-week prototype); default from profile")
     ap.add_argument("--anchor", default=None, metavar="YYYY-MM-DD",
                     help="explicit week-ending anchor (e.g. a recent Friday); default = most recent cron anchor")
+    ap.add_argument("--pull", action="store_true",
+                    help="daily 1-day Anthropic news pull; accumulates for the weekly --scan (no LLM scout)")
     ap.add_argument("--gather", choices=["anthropic", "tavily"], default=None,
                     help="gather engine override; default = profile gather_engine or anthropic")
     args = ap.parse_args(argv)
     if args.sandbox:
         _use_sandbox(args.sandbox)
-    if not (args.scan or args.report or args.explain is not None):
-        ap.error("choose at least one of --scan / --report / --explain")
+    if not (args.scan or args.report or args.explain is not None or args.pull):
+        ap.error("choose at least one of --scan / --report / --explain / --pull")
 
     if args.explain is not None:
         explain(args.explain or None)
@@ -283,6 +299,15 @@ def main(argv: list[str] | None = None) -> int:
         scan_and_log(model_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
                      window_cap=int(fm.get("window_cap", 80)),
                      gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))))
+
+    if args.pull:
+        load_dotenv()
+        if not os.environ.get("ANTHROPIC_API_KEY"):
+            print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
+            return 2
+        fm = load_financial_model(str(PROFILE))
+        model_id, provider = resolve_curator_model(fm.get("model", "sonnet5"))
+        pull_day(args.model or model_id, int(fm.get("window_cap", 80)))
 
     if args.report:
         report()
