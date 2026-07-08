@@ -139,7 +139,7 @@ a{{color:#c0392b}}</style></head><body>
     build_dashboard._write_page(out / "index.html", html)
 
 
-def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
+def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None = None) -> dict:
     sb = Path(sandbox)
     log = pd.read_csv(sb / "firehose_scans.csv")
     if as_of:
@@ -150,6 +150,12 @@ def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
     week = weeks[-1]
 
     fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    for kv in (overrides or []):        # deterministic config sweep (no LLM cost) — re-size + re-render only
+        k, v = kv.split("=", 1)
+        try:
+            fm[k.strip()] = int(v)
+        except ValueError:
+            fm[k.strip()] = float(v)
     capital = float(fm.get("initial_investment_usd", 50_000))
 
     # curator model that produced the run: the latest archived config wins over the profile knob
@@ -416,8 +422,10 @@ def main(argv=None):
     ap.add_argument("--out", default=str(OUT), help="output dir (default docs_preview/forward)")
     ap.add_argument("--as-of", default=None, dest="as_of",
                     help="build AS OF this week (scan weeks <= as-of AND journal entries <= as-of)")
+    ap.add_argument("--set", action="append", default=[], dest="overrides", metavar="KEY=VAL",
+                    help="override an fm knob without re-scanning (repeatable), e.g. --set risk_aversion=0.67")
     a = ap.parse_args(argv)
-    build(a.sandbox, a.out, a.as_of)
+    build(a.sandbox, a.out, a.as_of, a.overrides)
 
 
 if __name__ == "__main__":
