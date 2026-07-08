@@ -145,6 +145,23 @@ a{{color:#c0392b}}</style></head><body>
     build_dashboard._write_page(out / "index.html", html)
 
 
+def _join_series(sandbox: str, weeks: list) -> list:
+    """Per-week GDELT-Wayback join rate (% of GDELT headlines that recovered an as-of lede), computed from the
+    enriched archives (snippet present & != title). Empty for non-GDELT sandboxes -> plot is skipped."""
+    out = []
+    for w in weeks:
+        f = Path(sandbox) / "archive" / f"{w}.json"
+        if not f.exists():
+            continue
+        gg = [a for a in json.loads(f.read_text()).get("pool", []) if a.get("engine") == "gdelt"]
+        if not gg:
+            continue
+        lede = sum(1 for a in gg if (a.get("snippet") or "").strip()
+                   and (a.get("snippet") or "").strip() != (a.get("title") or "").strip())
+        out.append({"week": w, "rate": round(100 * lede / len(gg), 1)})
+    return out
+
+
 def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None = None) -> dict:
     sb = Path(sandbox)
     log = pd.read_csv(sb / "firehose_scans.csv")
@@ -424,7 +441,22 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
                ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
                '},{displayModeBar:false,responsive:true});</script>')
-        return html.replace("</body>", scr + "</body>", 1)
+        html = html.replace("</body>", scr + "</body>", 1)
+        _join = _join_series(sandbox, weeks)                # GDELT-Wayback join rate over time (retrieval-health)
+        if _join:
+            jx = [j["week"] for j in _join]
+            jy = [j["rate"] for j in _join]
+            jsec = ('<h3 style="font-size:1rem;margin:16px 0 4px">GDELT&ndash;Wayback join rate over time '
+                    '<span class="sub">(% of GDELT headlines with an as-of lede; dotted = 60% healthy bar)</span></h3>'
+                    '<div id="joinrate" style="width:100%;height:260px"></div>')
+            html = html.replace('<div id="retr"></div>', '<div id="retr"></div>' + jsec, 1)
+            jscr = ('<script>Plotly.newPlot("joinrate",[{x:' + json.dumps(jx) + ',y:' + json.dumps(jy) +
+                    ',mode:"lines+markers",line:{color:"#2ca02c"},marker:{size:7}}],'
+                    '{margin:{t:10,r:10,b:40,l:45},yaxis:{title:"join %",range:[0,100]},'
+                    'shapes:[{type:"line",x0:0,x1:1,xref:"paper",y0:60,y1:60,line:{color:"#888",dash:"dot"}}]},'
+                    '{displayModeBar:false,responsive:true});</script>')
+            html = html.replace("</body>", jscr + "</body>", 1)
+        return html
 
     _navrx = re.compile(r'<nav class="nav">.*?</nav>', re.S)
     dash = _inject_hist(_navrx.sub(lambda _: _nav(True), build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1))
