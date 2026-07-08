@@ -408,8 +408,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 _tagged = True
             _by.setdefault(_eng or "news", _Counter())[_dd] += 1
     _hx = sorted({d for c in _by.values() for d in c})
-    _cols = {"tavily": "#4a90d9", "anthropic": "#e07b39", "news": "#4a90d9"}
-    _order = ["tavily", "anthropic"] if _tagged else ["news"]
+    _cols = {"tavily": "#4a90d9", "anthropic": "#e07b39", "gdelt": "#2ca02c", "news": "#4a90d9"}
+    _order = ["tavily", "anthropic", "gdelt"] if _tagged else ["news"]
     _traces = [{"x": _hx, "y": [_by.get(e, _Counter())[d] for d in _hx], "type": "bar", "name": e,
                 "marker": {"color": _cols.get(e, "#888")}} for e in _order if e in _by]
     _hist = json.dumps(_traces)

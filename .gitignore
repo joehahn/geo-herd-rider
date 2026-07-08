@@ -58,3 +58,6 @@ docs/forward/*.json
 
 # throwaway augmented (Tavily+Anthropic) sandbox
 data/forward_augmented/
+
+# throwaway GDELT+Tavily+Anthropic combined sandbox
+data/forward_gdelt/
