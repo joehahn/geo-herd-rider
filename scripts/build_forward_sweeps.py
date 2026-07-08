@@ -36,10 +36,14 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--sandbox", required=True)
     ap.add_argument("--out", default=str(ROOT / "docs_preview" / "forward_sweeps"))
+    ap.add_argument("--set", action="append", default=[], dest="overrides", metavar="KEY=VAL")
     a = ap.parse_args(argv)
     sb = Path(a.sandbox)
     scans = bfd._enriched_scans(pd.read_csv(sb / "firehose_scans.csv"))     # conviction-enriched, fixed events
     fm = dict(load_financial_model(str(ROOT / "investor_profile.forward.md")))
+    for kv in a.overrides:                                  # revise the sweep BASE (1-D curves + grid fixed knobs)
+        k, v = kv.split("=", 1)
+        fm[k.strip()] = float(v) if "." in v else int(v)
     anchors = sorted(scans)
     tickers = {score.BENCHMARK, str(fm.get("defensive_ticker", "GLD")).upper()} | \
         {p["ticker"] for a in scans for p in scans[a] if p.get("ticker")}
