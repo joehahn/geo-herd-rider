@@ -125,7 +125,8 @@ def _use_sandbox(dir_path: str) -> None:
 
 
 def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
-                 anchor: pd.Timestamp | None = None, window_cap: int = 80) -> pd.DataFrame:
+                 anchor: pd.Timestamp | None = None, window_cap: int = 80,
+                 gather_engine: str = "anthropic") -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
     LOCAL journal; here we log the decision + archive the raw inputs."""
@@ -139,7 +140,8 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     capture: dict = {}
     decision_ts = _now().isoformat()
     picks = forward_engine.run_week(anchor, model, rebalance_days,
-                                    curator_memory_weeks=curator_memory_weeks, capture=capture, window_cap=window_cap)
+                                    curator_memory_weeks=curator_memory_weeks, capture=capture, window_cap=window_cap,
+                                    gather_engine=gather_engine)
     # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
     # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
@@ -251,6 +253,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="override the gather window in days (e.g. 28 for a 4-week prototype); default from profile")
     ap.add_argument("--anchor", default=None, metavar="YYYY-MM-DD",
                     help="explicit week-ending anchor (e.g. a recent Friday); default = most recent cron anchor")
+    ap.add_argument("--gather", choices=["anthropic", "tavily"], default=None,
+                    help="gather engine override; default = profile gather_engine or anthropic")
     args = ap.parse_args(argv)
     if args.sandbox:
         _use_sandbox(args.sandbox)
@@ -277,7 +281,8 @@ def main(argv: list[str] | None = None) -> int:
         rebal = args.rebalance_days or int(fm.get("rebalance_days", 7))
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(model_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
-                     window_cap=int(fm.get("window_cap", 80)))
+                     window_cap=int(fm.get("window_cap", 80)),
+                     gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))))
 
     if args.report:
         report()

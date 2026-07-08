@@ -71,9 +71,27 @@ the recommended portfolio auto-follows the optimizer (test mode A).</p>
 </body></html>"""
 
 
+def _write_landing(out: Path, latest: str, final: float, cap: float, spy_final: float) -> None:
+    """Landing page: link every preserved weekly snapshot (newest first) + the latest headline."""
+    weeks = sorted((f.stem for f in out.glob("*.html") if f.stem != "index"), reverse=True)
+    items = "\n".join(f'<li><a href="{w}.html">week ending {w}</a></li>' for w in weeks)
+    html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Forward paper-trade</title>
+<style>body{{{{font:14px/1.6 -apple-system,system-ui,sans-serif;max-width:760px;margin:2rem auto;padding:0 1rem}}}}
+h1{{{{font-size:1.4rem}}}} .kpi{{{{font-size:1.15rem;background:#f4faff;border:1px solid #cfe3f5;border-radius:6px;padding:10px 14px}}}}
+a{{{{color:#c0392b}}}}</style></head><body>
+<h1>Forward paper-trade — weekly dashboards</h1>
+<p class="kpi">Latest ({latest}): <b>${final:,.0f}</b> from ${cap:,.0f} ({final/cap-1:+.1%}) &middot; SPY {spy_final/cap-1:+.1%}</p>
+<p>Every weekly snapshot is preserved (newest first):</p>
+<ul>{items}</ul>
+<p style="color:#888;font-size:12px">Paper trade; the recommended portfolio auto-follows the optimizer.</p>
+</body></html>"""
+    (out / "index.html").write_text(html)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--sandbox", required=True, help="forward sandbox dir (firehose_scans.csv, journal.json, archive/)")
+    ap.add_argument("--out", default=str(OUT), help="output dir (default docs_preview/forward; prod = docs/forward)")
     a = ap.parse_args(argv)
     sb = Path(a.sandbox)
 
@@ -142,9 +160,11 @@ def main(argv=None):
                        recs_html=recs_html, agents_html=agents_html, journal_html=journal_html,
                        npool=len(arch.get("pool", [])), nq=len(arch.get("queries", [])),
                        queries_html=queries_html, pool_html=pool_html, cfg_html=cfg_html)
-    OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "index.html").write_text(html)
-    print(f"  wrote forward dashboard -> {OUT}/index.html  ({len(weeks)} weeks, "
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    (out / f"{week}.html").write_text(html)                 # dated snapshot — NEVER overwritten week-to-week
+    _write_landing(out, week, bt["final"], cap, bt["spy_final"])
+    print(f"  wrote {out}/{week}.html + index.html landing  ({len(weeks)} weeks, "
           f"portfolio ${bt['final']:,.0f} vs SPY ${bt['spy_final']:,.0f})")
 
 

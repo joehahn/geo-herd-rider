@@ -19,6 +19,7 @@ import pandas as pd
 
 import agent
 import forward_gather
+import forward_gather_tavily
 import llm
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -45,15 +46,18 @@ def _save(events: dict, retired: dict, nid: int, week_seq: int) -> None:
 
 def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
              curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None,
-             window_cap: int = 80) -> list[dict]:
+             window_cap: int = 80, gather_engine: str = "anthropic") -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.
     Returns this week's picks (the live watchlist). `capture` (if given) is filled with the gather's
     raw queries+results for the Phase-B archive."""
     events, retired, nid, week_seq = _load()
     lclient = llm.make_client("anthropic", model)          # scout/matcher/agents (web search OFF)
-    raw = anthropic.Anthropic()                            # gather (web search — Anthropic only)
     cap = capture if capture is not None else {}
-    arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=window_cap)
+    if gather_engine == "tavily":                          # opt-in: date-honoring live search (reaches old weeks)
+        arts = forward_gather_tavily.gather(None, model, anchor, rebalance_days, capture=cap, cap=window_cap)
+    else:                                                  # default: Anthropic/Brave adaptive web search
+        raw = anthropic.Anthropic()                        # gather (web search — Anthropic only)
+        arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=window_cap)
     print(f"  gather: {len(arts)} in-window articles; events held={sum(1 for e in events.values() if e['status']=='live')}",
           flush=True)
 
