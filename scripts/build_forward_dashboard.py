@@ -112,10 +112,16 @@ def _storyline(journal: dict, week: str) -> str:
         basket = ", ".join(ev.get("vehicles", []))
         tag = ('<b style="color:#1e7d34">NEW this week</b>' if new
                else f'<span class="sub">continuing since {first_date}</span>')
-        assess = (last.get("assessment") or "").strip()   # full assessment — the complete per-agent story
-        items.append(f"<li><b>{eid}</b> · <i>{ev.get('catalyst','')}</i> "
-                     f"(<b>{basket}</b>, conv {last.get('conviction','—')}) — {tag}."
-                     f"{(' ' + assess) if assess else ''}</li>")
+        assess = (last.get("assessment") or "").strip()          # full weekly read
+        ec = (last.get("exit_case") or "").strip()
+        ea = (last.get("exit_advice") or "").strip()
+        exit_html = ("<br><b>Exit:</b> " + ea + (f' <span class="sub">(exit trigger: {ec})</span>' if ec else "")) \
+            if (ea or ec) else ""
+        items.append(
+            f'<li style="margin:0 0 10px"><b>{eid}</b> · <b>{basket}</b>, conv {last.get("conviction","—")} — {tag}.'
+            f'<br><b>Catalyst:</b> <i>{ev.get("catalyst","")}</i>'
+            + (f'<br>{assess}' if assess else '')
+            + exit_html + '</li>')
     return (f"<b>Forward paper-trade book</b> — {len(live)} live event(s) as of {week} "
             "(each catalyst = one event-agent; the optimizer sizes the baskets, SPY + defensive "
             f"floors always on):<ul style='margin:6px 0 0;padding-left:20px'>{''.join(items)}</ul>")
