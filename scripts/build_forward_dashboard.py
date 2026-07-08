@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import pandas as pd  # noqa: E402
 import firehose  # noqa: E402
 import forward  # noqa: E402
+import retstats  # noqa: E402
 import score  # noqa: E402
 import build_dashboard  # noqa: E402  (import-safe: real work guarded by if __name__=="__main__")
 from optimizer import load_financial_model  # noqa: E402
@@ -364,7 +365,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         "metrics": build_dashboard.metrics(d["value"], d["spy"], capital),
         "cost_usd": _forward_cost(weeks), "weeks": bt["weeks"], "gems": gems,
         "watchlist": watchlist, "watch_daily": watch_daily,
-        "retrieval": {}, "params": {**fm, "model": disp_model},
+        "retrieval": retstats.load(str(Path(sandbox) / "retrieval_stats.json")),   # GDELT+Wayback health (if captured)
+        "params": {**fm, "model": disp_model},
         "arcs": arcs, "lifecycle": [], "agents": agent_meta, "agent_of": agent_of,
         "agent_marks": agent_marks, "agent_gain": agent_gain,
         "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,

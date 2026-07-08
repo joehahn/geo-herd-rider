@@ -33,7 +33,7 @@ def main():
     anchors = scan_anchors("2026-05-08", "2026-07-03", 7)[-8:]           # 8 weekly Fridays
     win_start = anchors[0] - pd.Timedelta(days=10)
     cache_f = ROOT / "data" / "windows" / "gdelt_pool_forward.json"
-    stats = str(ROOT / "data" / "windows" / "retrieval_stats_forward.json")
+    stats = str(OUT / "retrieval_stats.json")                # GDELT+Wayback health, read by the dashboard
     enrich_cache = str(ROOT / "data" / "windows" / "wayback_forward.json")
 
     print("  pulling GDELT (general queries, weekly chunks, throttled) ...", flush=True)
