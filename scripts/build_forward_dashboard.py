@@ -392,6 +392,14 @@ def build(sandbox: str, out_dir: str, as_of: str | None) -> dict:
                   + '<a href="firehose.html">Firehose log</a>'
                   + '<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
         idx = _navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1)
+        snap = ('<h2>Weekly snapshots</h2>'
+                '<p class="sub">Each week&rsquo;s preserved as-of dashboard (newest first):</p>'
+                '<ul style="font-size:14px;columns:2;max-width:520px;margin:0 0 8px">'
+                + "".join(f'<li><a href="{w}.html">{w}</a>{" &larr; latest" if w == weeks[-1] else ""}</li>'
+                          for w in reversed(weeks))
+                + '</ul>')
+        idx = idx.replace('<div class="cards" id="cards"></div>',
+                          '<div class="cards" id="cards"></div>' + snap, 1)
         build_dashboard._write_page(out / "index.html", idx)
     else:
         _write_landing(out, week, bt["final"], capital, bt["spy_final"])
