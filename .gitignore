@@ -55,3 +55,6 @@ data/forward_tavily/
 
 # forward dashboard payload sidecars (derived data; the HTML dashboards are the committed record)
 docs/forward/*.json
+
+# throwaway augmented (Tavily+Anthropic) sandbox
+data/forward_augmented/

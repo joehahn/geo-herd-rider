@@ -394,24 +394,34 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
 
     # news-count histogram (articles/day across the pulled pool, weeks <= as-of) — forward-only, injected
     from collections import Counter as _Counter
-    _dh: _Counter = _Counter()
+    _by: dict = {}                                      # engine -> Counter(date); split when 'engine' tag present
+    _tagged = False
     for _f in sorted((sb / "archive").glob("*.json")):
         if as_of and _f.stem > as_of:
             continue
         for _a in json.loads(_f.read_text()).get("pool", []):
             _dd = (_a.get("published_date") or "")[:10]
-            if _dd:
-                _dh[_dd] += 1
-    _hx = sorted(_dh)
-    _hist = json.dumps([{"x": _hx, "y": [_dh[dd] for dd in _hx], "type": "bar", "marker": {"color": "#4a90d9"}}])
+            if not _dd:
+                continue
+            _eng = _a.get("engine")
+            if _eng:
+                _tagged = True
+            _by.setdefault(_eng or "news", _Counter())[_dd] += 1
+    _hx = sorted({d for c in _by.values() for d in c})
+    _cols = {"tavily": "#4a90d9", "anthropic": "#e07b39", "news": "#4a90d9"}
+    _order = ["tavily", "anthropic"] if _tagged else ["news"]
+    _traces = [{"x": _hx, "y": [_by.get(e, _Counter())[d] for d in _hx], "type": "bar", "name": e,
+                "marker": {"color": _cols.get(e, "#888")}} for e in _order if e in _by]
+    _hist = json.dumps(_traces)
+    _leg = 'legend:{orientation:"h"},' if _tagged else ''
 
     def _inject_hist(html: str) -> str:
-        sec = ('<h2>News-count histogram <span class="sub">(articles/day across the pulled pool)</span></h2>'
+        sec = ('<h2>News-count histogram <span class="sub">(articles/day; tavily + anthropic when augmented)</span></h2>'
                '<div id="newshist" style="width:100%;height:300px"></div>')
         html = html.replace('<div id="chart"></div>', '<div id="chart"></div>' + sec, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
-               ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05},'
-               '{displayModeBar:false,responsive:true});</script>')
+               ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
+               '},{displayModeBar:false,responsive:true});</script>')
         return html.replace("</body>", scr + "</body>", 1)
 
     _navrx = re.compile(r'<nav class="nav">.*?</nav>', re.S)
