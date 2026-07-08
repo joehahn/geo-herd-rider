@@ -29,7 +29,7 @@
  details.clip>summary::-webkit-details-marker{display:none}
  details.clip[open]>summary{display:none}
 </style></head>
-<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-07 23:16:42 EDT</div><div class="wrap">
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-07 23:28:29 EDT</div><div class="wrap">
  <nav class="nav"><a href="index.html">&uarr; All weeks</a><span style="color:#bbb">&larr; 2026-06-26</span><a href="2026-07-03.html" class="active">2026-07-03</a><a href="2026-07-10.html">2026-07-10 &rarr;</a><a href="firehose.html">Firehose log</a><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
@@ -40,7 +40,7 @@
  <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
 
  <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
- <div id="chart"></div>
+ <div id="chart"></div><h2>News-count histogram <span class="sub">(articles/day across the pulled pool)</span></h2><div id="newshist" style="width:100%;height:300px"></div>
 
  <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7–9.</span></h2>
  <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
@@ -467,4 +467,4 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
       `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
   }
 });
-</script></body></html>
+</script><script>Plotly.newPlot("newshist",[{"x": ["2026-07-01", "2026-07-02", "2026-07-03"], "y": [10, 11, 6], "type": "bar", "marker": {"color": "#4a90d9"}}],{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05},{displayModeBar:false,responsive:true});</script></body></html>

@@ -392,8 +392,30 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 f'<a href="firehose.html"{fr_cls}>Firehose log</a>'
                 f'<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
 
+    # news-count histogram (articles/day across the pulled pool, weeks <= as-of) — forward-only, injected
+    from collections import Counter as _Counter
+    _dh: _Counter = _Counter()
+    for _f in sorted((sb / "archive").glob("*.json")):
+        if as_of and _f.stem > as_of:
+            continue
+        for _a in json.loads(_f.read_text()).get("pool", []):
+            _dd = (_a.get("published_date") or "")[:10]
+            if _dd:
+                _dh[_dd] += 1
+    _hx = sorted(_dh)
+    _hist = json.dumps([{"x": _hx, "y": [_dh[dd] for dd in _hx], "type": "bar", "marker": {"color": "#4a90d9"}}])
+
+    def _inject_hist(html: str) -> str:
+        sec = ('<h2>News-count histogram <span class="sub">(articles/day across the pulled pool)</span></h2>'
+               '<div id="newshist" style="width:100%;height:300px"></div>')
+        html = html.replace('<div id="chart"></div>', '<div id="chart"></div>' + sec, 1)
+        scr = ('<script>Plotly.newPlot("newshist",' + _hist +
+               ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05},'
+               '{displayModeBar:false,responsive:true});</script>')
+        return html.replace("</body>", scr + "</body>", 1)
+
     _navrx = re.compile(r'<nav class="nav">.*?</nav>', re.S)
-    dash = _navrx.sub(lambda _: _nav(True), build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1)
+    dash = _inject_hist(_navrx.sub(lambda _: _nav(True), build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1))
     fire = _navrx.sub(lambda _: _nav(False), build_dashboard.FIREHOSE_HTML.replace("{{DATA}}", pj), count=1)
     build_dashboard._write_page(out / f"{week}.html", dash)
     build_dashboard._write_page(out / "firehose.html", fire)
@@ -402,7 +424,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         allnav = ('<nav class="nav"><a href="index.html" class="active">All weeks</a>' + wk_links
                   + '<a href="firehose.html">Firehose log</a>'
                   + '<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
-        idx = _navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1)
+        idx = _inject_hist(_navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1))
         snap = ('<h2>Weekly snapshots</h2>'
                 '<p class="sub">Each week&rsquo;s preserved as-of dashboard (newest first):</p>'
                 '<ul style="font-size:14px;columns:2;max-width:520px;margin:0 0 8px">'
