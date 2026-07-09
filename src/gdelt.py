@@ -118,8 +118,8 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
     total = len(queries) * (len(edges) - 1)
     for qi, q in enumerate(queries):
         for ci in range(len(edges) - 1):
-            kk = f"{qi}:{ci}"
-            if kk in done:
+            kk = f"{qi}:{edges[ci].date()}"   # key by chunk DATE, not index — so per-week pools (--by-week,
+            if kk in done:                     # each call restarts ci=0) don't collide and skip real fetches
                 continue
             from_cache = False
             for a in search(q, edges[ci], edges[ci + 1], per, english_only=english_only):
