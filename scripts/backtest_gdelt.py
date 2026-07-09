@@ -54,6 +54,19 @@ def live_enrich(articles, workers: int = 12) -> list:
     return articles
 
 
+def rebuild_dashboard(sandbox, out: str, wk: str) -> None:
+    """Incremental: rebuild THIS week's as-of page + refresh the All-weeks index, so the weekly
+    dashboards update as each week's GDELT+curator completes. Wrapped so a render error never aborts
+    the pull (the archives are already flushed; the dashboard can be rebuilt later regardless)."""
+    try:
+        import build_forward_dashboard as bfd
+        bfd.build(str(sandbox), out, wk, [])       # this week's frozen as-of page
+        bfd.build(str(sandbox), out, None, [])     # refresh index/landing + latest-week page
+        print(f"    dashboard updated -> {out} (through {wk})", flush=True)
+    except Exception as e:  # noqa: BLE001
+        print(f"    dashboard rebuild skipped ({wk}): {e}", flush=True)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", required=True)
@@ -65,6 +78,15 @@ def main(argv=None):
                     help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
     ap.add_argument("--enrich", choices=("none", "live", "wayback"), default="wayback",
                     help="none=GDELT headlines only (fast, clean); live=fetch article NOW (fast, edit-bias risk); wayback=as-of ledes (slow, clean)")
+    ap.add_argument("--by-week", action="store_true",
+                    help="pull ALL beats for week i BEFORE week i+1, processing each as it completes "
+                         "(enables incremental dashboards during a long pull); default = whole-window up-front")
+    ap.add_argument("--no-pull", action="store_true",
+                    help="skip GDELT fetching entirely; curate on the EXISTING <out>/gdelt_pool.json as-is "
+                         "(prototype dashboards on a partial pool without disturbing a live pull)")
+    ap.add_argument("--dashboard", default=None,
+                    help="after EACH week, rebuild the forward dashboard at this dir (weekly dbs update as "
+                         "each week's GDELT+curator completes); pairs naturally with --by-week")
     a = ap.parse_args(argv)
     load_dotenv()
     OUT = Path(a.out)
@@ -81,10 +103,18 @@ def main(argv=None):
     enrich_cache = str(OUT / "wayback.json")
     print(f"  {len(anchors)} weeks {anchors[0].date()} .. {anchors[-1].date()}", flush=True)
 
-    print("  pulling GDELT (date-indexed, resumable) ...", flush=True)
-    gpool = gd.pool(firehose.GDELT_QUERIES, win_start, anchors[-1], chunk_days=7, per=80,
-                    cache_path=cache_f, stats_path=stats)
-    print(f"  GDELT pool: {len(gpool)} articles", flush=True)
+    gpool = None
+    if a.no_pull:                                            # curate on whatever's already cached (partial-pool prototype)
+        d = json.loads(Path(cache_f).read_text()) if Path(cache_f).exists() else {}
+        gpool = list(d.get("articles", []))
+        print(f"  NO-PULL: {len(gpool)} cached articles ({d.get('progress', '?')})", flush=True)
+    elif not a.by_week:                                      # whole-window up-front (default)
+        print("  pulling GDELT (whole-window, date-indexed, resumable) ...", flush=True)
+        gpool = gd.pool(firehose.GDELT_QUERIES, win_start, anchors[-1], chunk_days=7, per=80,
+                        cache_path=cache_f, stats_path=stats)
+        print(f"  GDELT pool: {len(gpool)} articles", flush=True)
+    else:                                                    # per-week: pull inside the loop (all beats/week, then process)
+        print("  BY-WEEK pull: all beats per week, each processed before the next (incremental)", flush=True)
 
     fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
     model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
@@ -115,6 +145,9 @@ def main(argv=None):
         wk = anch.date().isoformat()
         if wk in done:
             continue
+        if a.by_week and not a.no_pull:                      # pull THIS week's beats now, then process it
+            gpool = gd.pool(firehose.GDELT_QUERIES, anch - pd.Timedelta(days=7), anch, chunk_days=7,
+                            per=80, cache_path=cache_f, stats_path=stats)   # exactly the week -> 1 chunk, no overlap waste
         gslice = sorted(firehose._window(gpool, anch, 7),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:a.window_cap]
         enrich_slice = gslice[:a.wayback_cap] if a.wayback_cap else gslice
@@ -141,6 +174,8 @@ def main(argv=None):
             rows.append({"decision_ts": ts, "week": wk, "ticker": "", "thesis": "", "thesis_live": "",
                          "conviction": "", "evidence_urls": ""})
         flush()
+        if a.dashboard:                                      # weekly db updates as each week completes
+            rebuild_dashboard(OUT, a.dashboard, wk)
 
     print(f"  DONE. events: {[(k, v['status'], sorted(v['vehicles'])) for k, v in events.items()]}", flush=True)
 

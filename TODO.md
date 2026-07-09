@@ -93,6 +93,29 @@ True natural-language semantic search *as an API* (no local embeddings) means **
 web, so it look-ahead-leaks like Tavily/Brave → **forward-only, not the clean backtest**. So: **GKG = the
 clean topic-semantic ceiling for the backtest; Exa = a true-semantic lever for the forward.**
 
+## Curator memory upgrade (exit_advice + conviction + milestones) — IMPLEMENTED 2026-07-09, VALIDATION PENDING
+
+Fixed a class of bug: the weekly agent (`EVENT_AGENT_SYSTEM` + `event_agent_v2`) stored fields it never
+fed back to itself, so its own prompt rules couldn't use them. `_journal_digest` (the agent's memory)
+only surfaced `date/live/vehicles/assessment`. Three fixes, all landing on the **next** curator run
+(the current pull already imported the old `agent.py`; prelim data shows empty milestones → "—"):
+
+- **exit_advice** — was pure DB/display text (not a gate — `thesis_live` drives the mechanical exit — AND
+  not in memory). Now the prompt makes it a STANDING exit condition ("exit if/when …", never "Hold",
+  revisable as the catalyst arc moves) and `_journal_digest` carries it forward → the agent re-reads and
+  tests its own trigger each week.
+- **conviction** — SILENCE-DECAY says "step DOWN 1 from your PRIOR score", but the digest didn't show prior
+  conviction. Now `conv=N` is in every memory line.
+- **milestones** — NEW field (`EVENT_AGENT_SCHEMA` + `JournalEntry` + prompt + digest trail + picks +
+  Plot-12 "milestones" column): an ordered list of the catalyst's concrete progress events, carried
+  forward and appended weekly — the evidence trail behind conviction/exit.
+
+Guardrail verified intact (non-negotiable #1: a `price_target` key is still silently dropped by the model).
+**Still to do:** milestones ADDS a required output field (bigger perturbation surface than the memory-only
+tweaks), so on the next run **sanity-check the live/exit + conviction calls stay sound**. Ablation note:
+all stages of the 3-stage retrieval playtest must share ONE curator version — when Stages 2/3 run, re-curate
+Stage 1 on the new `agent.py` (`--no-pull`, ~$4) so they match.
+
 ## Maturity tag as an entry/exit gate (does framing add lift?)
 
 We removed the per-event **maturity tag** (`early | building | consensus | crested`) from the

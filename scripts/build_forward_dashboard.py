@@ -82,7 +82,8 @@ def _journal_arcs(journal: dict) -> dict:
             row = {"date": str(e.get("date", ""))[:10], "live": bool(e.get("thesis_live")),
                    "conviction": e.get("conviction"), "thesis": cat, "src": "tavily",
                    "exit_case": e.get("exit_case", ""), "resolved": bool(e.get("catalyst_resolved")),
-                   "assessment": e.get("assessment", ""), "exit_advice": e.get("exit_advice", "")}
+                   "assessment": e.get("assessment", ""), "exit_advice": e.get("exit_advice", ""),
+                   "milestones": e.get("milestones", []) or []}
             for tk in ev.get("vehicles", []):
                 arcs.setdefault(str(tk).strip().upper(), []).append(row)
     for tk in arcs:
@@ -366,12 +367,16 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     colors["SPY"] = _ORANGE
     colors[_defv_tk] = _YEL
 
+    _wk_start = (pd.Timestamp(week) - pd.Timedelta(days=7)).date().isoformat()   # this week's start (anchor-7d)
     payload = {
         # forward book: no single gem / overlay
         "gem": "Forward book", "overlay_label": "", "caught": False,
         "overlays": [], "gem_label": "Forward book",
         "combo_targets": [], "caught_all": 0, "both_held": False,
         "model": disp_model, "storyline": storyline, "ever_funded": ever_funded,
+        "book_title": "Weekly report",                          # weekly page (index build below overrides to "Weekly results")
+        "subtitle": f"{_wk_start} → {week}",                     # THIS week's start→end (index build below overrides to the run summary)
+        "scan_range": [weeks[0], weeks[-1]] if weeks else [],    # kept as the JS fallback
         "seeds": [], "capital": capital,
         "dates": d["dates"], "value": d["value"], "spy": d["spy"],
         "gain": d.get("gain", {}), "gain_series": d.get("gain_series", {}),
@@ -387,7 +392,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         "arcs": arcs, "lifecycle": [], "agents": agent_meta, "agent_of": agent_of,
         "agent_marks": agent_marks, "agent_gain": agent_gain,
         "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,
-        "agent_precision": bt.get("agent_precision", []),
+        "agent_precision": [{**r, "agent": thesis_id.get(r.get("thesis", ""), "")}
+                            for r in bt.get("agent_precision", [])],   # tag each bar with its ev-id
     }
 
     out = Path(out_dir)
@@ -433,15 +439,56 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 "marker": {"color": _cols.get(e, "#888")}} for e in _order if e in _by]
     _hist = json.dumps(_traces)
     _leg = 'legend:{orientation:"h"},' if _tagged else ''
+    _engs = [e for e in _order if e in _by]                  # accurate Plot-8 subtitle from the engines actually present
+    _histsub = ("GDELT headlines per publication day" if _engs == ["gdelt"]
+                else "articles per publication day, by retrieval source")
 
-    def _inject_hist(html: str) -> str:
-        sec = ('<h2>News-count histogram <span class="sub">(articles/day; tavily + anthropic when augmented)</span></h2>'
+    # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
+    # from the --trace transcript; pre-dedup, so it exceeds the deduped pool size). 0 = a dud beat.
+    _qcnt: dict = {}
+    _tf = sb / "transcript.jsonl"
+    if _tf.exists():
+        for _ln in _tf.open(encoding="utf-8"):
+            try:
+                _r = json.loads(_ln)
+            except Exception:  # noqa: BLE001  (skip partial/last line of a live-appended trace)
+                continue
+            if _r.get("kind") == "search" and _r.get("engine") == "gdelt":
+                _q = _r.get("query", "")
+                _qcnt[_q] = _qcnt.get(_q, 0) + int(_r.get("n_results", 0) or 0)
+    _qc = sorted(_qcnt.items(), key=lambda kv: kv[1])   # ascending -> largest beat at TOP of horizontal bars
+    _qy = json.dumps([q for q, _ in _qc])
+    _qx = [n for _, n in _qc]
+    _qxj, _qcolor = json.dumps(_qx), json.dumps(["#d62728" if n == 0 else "#2ca02c" for n in _qx])
+    _qh = str(max(180, 18 * len(_qc) + 60))
+
+    def _inject_hist(html: str, is_index: bool = False) -> str:
+        # The News-count histogram becomes Plot 8 (just above Conviction); push the static Plots 8..11 -> 9..12.
+        # Forward-dashboard-only (the shared INDEX_HTML / retired gem dashboards keep their 1..11 numbering).
+        # Renumber DESCENDING so each source number is renamed before it can be re-created downstream.
+        for _n in (11, 10, 9, 8):
+            html = html.replace(f"Plot {_n}", f"Plot {_n + 1}")
+        html = html.replace("agent colors match Plots 7–9", "agent colors match Plots 7, 9 &amp; 10")
+        sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub + ')</span></h2>'
                '<div id="newshist" style="width:100%;height:300px"></div>')
-        html = html.replace('<div id="chart"></div>', '<div id="chart"></div>' + sec, 1)
+        if is_index and _qc:                                 # query-effectiveness -> multi-week summary page only
+            sec += ('<h3 style="font-size:1rem;margin:16px 0 4px">Articles per GDELT search term '
+                    '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
+                    'red = 0-hit dud beat)</span></h3>'
+                    '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
+        _conv = '<h2>Plot 9 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
+        html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
                ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
                '},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", scr + "</body>", 1)
+        if is_index and _qc:
+            qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
+                    ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
+                    'hovertemplate:"%{y}<br>%{x} article hits<extra></extra>"}],'
+                    '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"gross article hits"},'
+                    'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
+            html = html.replace("</body>", qscr + "</body>", 1)
         _join = _join_series(sandbox, weeks)                # GDELT-Wayback join rate over time (retrieval-health)
         if _join:
             jx = [j["week"] for j in _join]
@@ -468,7 +515,10 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         allnav = ('<nav class="nav"><a href="index.html" class="active">All weeks</a>' + wk_links
                   + '<a href="firehose.html">Firehose log</a>'
                   + '<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
-        idx = _inject_hist(_navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj), count=1))
+        _pidx = {**payload, "book_title": "Weekly results",     # summary page: whole-run title + range
+                 "subtitle": f"{len(weeks)} weekly scans · {weeks[0]} → {weeks[-1]}"}
+        pj_index = json.dumps(_pidx).replace("</", "<\\/")
+        idx = _inject_hist(_navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj_index), count=1), is_index=True)
         snap = ('<h2>Weekly snapshots</h2>'
                 '<p class="sub">Each week&rsquo;s preserved as-of dashboard (newest first):</p>'
                 '<ul style="font-size:14px;columns:2;max-width:520px;margin:0 0 8px">'

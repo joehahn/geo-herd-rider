@@ -219,7 +219,8 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
                     "date": a.date().isoformat(), "live": p.get("thesis_live"), "conviction": p.get("conviction"),
                     "thesis": p.get("thesis", ""), "src": p.get("src", ""),
                     "exit_case": p.get("exit_case", ""), "resolved": p.get("catalyst_resolved", False),
-                    "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", "")})
+                    "assessment": p.get("assessment", ""), "exit_advice": p.get("exit_advice", ""),
+                    "milestones": p.get("milestones", []) or []})
 
     # stable agent ids: each distinct event (catalyst/thesis) = one agent, numbered ev1, ev2... in
     # first-appearance order (matches the engine's event-creation numbering). A ticker maps to >1
@@ -453,7 +454,8 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         "arcs": arcs, "lifecycle": lifecycle, "agents": agent_meta, "agent_of": agent_of,
         "agent_marks": agent_marks, "agent_gain": agent_gain,
         "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,
-        "agent_precision": bt.get("agent_precision", []),
+        "agent_precision": [{**r, "agent": thesis_id.get(r.get("thesis", ""), "")}
+                            for r in bt.get("agent_precision", [])],   # tag each bar with its ev-id
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     pj = json.dumps(payload).replace("</", "<\\/")   # inline data (works from file:// too), </script>-safe
@@ -966,16 +968,7 @@ INDEX_HTML = r"""<!doctype html>
  <p class="sub" id="agentprec_cap" style="margin:0 0 6px"></p>
  <div id="agentprec"></div>
 
- <h2>Plot 11 — Watchlist by date</h2>
- <p class="sub" style="margin:0 0 0">Each row is a date the live watchlist (or its funding) changed —
-   the names the press kept thesis-live that week. <b>Bold + colored</b> = actually funded by the
-   optimizer; <span style="color:#aaa">gray</span> = on the watchlist but pruned by the sizing floor.</p>
- <details style="margin:6px 0 0"><summary style="cursor:pointer;color:#2563eb;font-size:13px">show / hide the week-by-week watchlist table</summary>
- <table class="atab" id="watchtable" style="margin-top:6px"></table>
- </details>
-
-
- <h2>Plot 12 — Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 11 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -998,12 +991,14 @@ Promise.resolve({{DATA}}).then(D=>{
   const fmt=x=>"$"+Math.round(x).toLocaleString();
   const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
   const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
-  document.title = `Scan of the ${D.gem} gem — geo-herd-rider`;
-  document.getElementById("gemtitle").textContent = `Scan of the ${D.gem} gem`;
+  const _title = D.book_title || `Scan of the ${D.gem} gem`;   // forward book overrides; gem dashboards keep old title
+  document.title = `${_title} — geo-herd-rider`;
+  document.getElementById("gemtitle").textContent = _title;
   const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
   const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
-  document.getElementById("sub").textContent =
-    `${D.weeks} weekly scans · ${D.dates[0]} → ${D.dates[last]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
+  const _sr = D.scan_range || [D.dates[0], D.dates[last]];      // scan-anchor window (not the priced-curve range)
+  document.getElementById("sub").textContent = D.subtitle ||    // forward book sets its own; gem dashboards keep default
+    `${D.weeks} weekly scans · ${_sr[0]} → ${_sr[1]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
 
   const _w=(D.retrieval&&D.retrieval.wayback)||{}, jr=_w.join_rate_pct;
   document.getElementById("cards").innerHTML=[
@@ -1246,30 +1241,14 @@ Promise.resolve({{DATA}}).then(D=>{
     }
   }
   Plotly.newPlot("agentprec",[{type:"bar",orientation:"h",
-    y:APs.map(r=>r.ticker+" · "+String(r.thesis||"").slice(0,40)), x:APs.map(r=>r.ret*100),
+    y:APs.map(r=>(r.agent?r.agent+" · ":"")+r.ticker+" · "+String(r.thesis||"").slice(0,40)), x:APs.map(r=>r.ret*100),
     marker:{color:APs.map(r=>r.ret>=0?"#2ca02c":"#d62728")},
     hovertemplate:"%{y}<br>%{x:.0f}% over live span<extra></extra>"}],
     {margin:{l:280,r:30,t:10,b:40},height:Math.max(180,20*APs.length+60),
      xaxis:{ticksuffix:"%",zeroline:true,zerolinecolor:"#888"},yaxis:{automargin:false,tickfont:{size:10}}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 11 — watchlist by date: rows where the live watchlist or its funding changed.
-  let pw=null; const wrows=[];
-  for(const w of (D.watchlist||[])){
-    const fset=new Set(w.funded||[]);
-    const sig=w.names.join(",")+"|"+(w.funded||[]).join(",");
-    if(sig===pw) continue;
-    pw=sig;
-    if(!w.names.length){ wrows.push(`<tr><td>${w.week}</td><td style="color:#aaa">— empty (cash) —</td></tr>`); continue; }
-    const cells=w.names.map(t=>{
-      const c=(D.colors&&D.colors[t])||"#444";
-      return fset.has(t) ? `<b style="color:${c}">${t}</b>` : `<span style="color:#aaa">${t}</span>`;
-    }).join(" · ");
-    wrows.push(`<tr><td>${w.week}</td><td>${cells}</td></tr>`);
-  }
-  document.getElementById("watchtable").innerHTML=
-    `<thead><tr><th>Date</th><th>Live watchlist (bold = funded · gray = pruned)</th></tr></thead>`+
-    `<tbody>${wrows.join("")||'<tr><td colspan=2 style="color:#aaa">never populated</td></tr>'}</tbody>`;
+  // (Watchlist-by-date plot removed — the journal (below) + holdings timeline cover the same ground.)
 
   // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
   const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
@@ -1287,6 +1266,7 @@ Promise.resolve({{DATA}}).then(D=>{
     const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
       +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td class="sub">${(e.milestones||[]).map(m=>esc(String(m))).join(" → ")||"—"}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
       +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
@@ -1297,7 +1277,7 @@ Promise.resolve({{DATA}}).then(D=>{
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
     return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
       +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th><th>milestones</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 

@@ -220,6 +220,7 @@ class JournalEntry(BaseModel):
     catalyst_resolved: bool = False  # binary: has the entry catalyst already happened? -> forces exit
     conviction: int = 5              # 1-10 CATALYST QUALITY (specificity/under-radar) for the top-N shortlist — COMPOSITION, never a return/size forecast
     exit_advice: str = ""
+    milestones: list[str] = []   # ordered catalyst-progress events (the arc); qualitative, NEVER magnitude
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
     sources: list[str] = []
@@ -490,11 +491,13 @@ every open event. When unsure, MERGE — fragmenting one catalyst across several
 biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["exit_case", "catalyst_resolved", "thesis_live", "conviction", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
+    "required": ["exit_case", "catalyst_resolved", "thesis_live", "conviction", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "sources"],
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
         "conviction": {"type": "integer"},   # 1-10 CATALYST QUALITY (specific/datable/under-radar) — NOT a return forecast
-        "exit_advice": {"type": "string"}, "assessment": {"type": "string"},
+        "exit_advice": {"type": "string"},
+        "milestones": {"type": "array", "items": {"type": "string"}},   # ordered catalyst-progress events (the arc)
+        "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
         "sources": {"type": "array", "items": {"type": "string"}}}}
@@ -601,8 +604,23 @@ so continued silence COMPOUNDS week over week toward the cull floor, while a sin
 it back up. This is a SOFT fade (leave catalyst_resolved=false), and it applies to STRUCTURAL buildouts too
 (they keep conviction only while delivering fresh milestones, not by the passage of time).
 
+`exit_advice` (<=20 words) is the STANDING EXIT CONDITION: the concrete, observable trigger that would
+END this thesis — phrase it as "exit if/when <observable event>" (e.g. "exit if a Hormuz reopening or
+ceasefire looks imminent"). It is a forward CONDITION, not a hold/sell verdict — `thesis_live` already
+carries hold-vs-exit, so NEVER write "Hold" / "Sell" / "none" here while the thesis is live. RESTATE THE
+SAME standing condition every week (carry it forward from your journal); REVISE it when the catalyst's
+arc genuinely moves the trigger — e.g. an acute shock matures into a structural driver, or a new
+near-term milestone becomes the thing to watch — but do NOT churn the wording week to week for no reason.
+
+`milestones` (ordered list, <=6 short items, oldest -> newest) — the catalyst's ARC as concrete progress
+events (e.g. ["Israel-Iran strikes","Hormuz transit threatened","tankers reroute","US sets Iran deadline"]).
+CARRY FORWARD the list from your journal and APPEND a new item ONLY when a concrete development actually
+lands this week; never pad with speculation. This is the evidence trail behind your conviction and exit
+call — a LIVE driver keeps throwing off fresh milestones; a stalled/resolved one stops (feed that into the
+SILENCE DECAY and exit logic above).
+
 Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,
-"exit_advice":"...","assessment":"...","news_claims":"",
+"exit_advice":"...","milestones":["...","..."],"assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
 
@@ -671,18 +689,30 @@ def _filter_event(arts, event):
 
 def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     """Compact week-by-week journal so the agent sees the FULL arc of an event since entry — the
-    catalyst it entered on, how the VEHICLE evolved, and every live/exit read — not just last week.
-    One line per week: date | live | vehicles | assessment. The entry week is always shown."""
+    catalyst it entered on, how the VEHICLE evolved, and every live/exit/conviction read — not just
+    last week. One line per week: date | live | conviction | vehicles | assessment | standing exit
+    condition, plus a trailing milestone trail. Carrying these forward makes them LOAD-BEARING: the
+    agent re-reads its own prior conviction (for SILENCE DECAY), its 'exit-if' trigger, and the
+    milestone arc each week and tests them against the news, instead of re-deriving (or forgetting)
+    them. The entry week is always shown."""
     if not entries:
         return "(none — this is the first week of this event)"
 
     def line(e):
         veh = ",".join(e.get("vehicles", [])) or "-"
-        return f"{e.get('date', '?')} live={e.get('thesis_live')} veh=[{veh}] {e.get('assessment', '')}".strip()
+        xa = (e.get("exit_advice", "") or "").strip()
+        base = (f"{e.get('date', '?')} live={e.get('thesis_live')} conv={e.get('conviction', '?')} "
+                f"veh=[{veh}] {e.get('assessment', '')}").strip()
+        return base + (f" | exit-if: {xa}" if xa else "")
     if len(entries) <= keep:
-        return "\n".join(line(e) for e in entries)
-    head = [line(entries[0]), f"... ({len(entries) - keep - 1} earlier weeks omitted) ..."]
-    return "\n".join(head + [line(e) for e in entries[-keep:]])
+        body = "\n".join(line(e) for e in entries)
+    else:
+        head = [line(entries[0]), f"... ({len(entries) - keep - 1} earlier weeks omitted) ..."]
+        body = "\n".join(head + [line(e) for e in entries[-keep:]])
+    ms = [str(m).strip() for m in (entries[-1].get("milestones") or []) if str(m).strip()]
+    if ms:
+        body += "\n\nMilestones logged so far (carry forward; append only genuinely new ones): " + " -> ".join(ms)
+    return body
 
 
 def event_agent_v2(client, anchor, event, entries, news):
@@ -708,7 +738,9 @@ def event_agent_v2(client, anchor, event, entries, news):
     return {"date": anchor.date().isoformat(), "thesis_live": live,
             "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
             "conviction": int(getattr(e, "conviction", 5) or 5),
-            "exit_advice": e.exit_advice, "assessment": e.assessment,
+            "exit_advice": e.exit_advice,
+            "milestones": [str(m).strip() for m in (e.milestones or []) if str(m).strip()][:6],
+            "assessment": e.assessment,
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
 
@@ -767,6 +799,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                               "conviction": entry.get("conviction", 5),
                               "assessment": entry.get("assessment", ""),
                               "exit_advice": entry.get("exit_advice", ""),
+                              "milestones": entry.get("milestones", []),
                               "evidence_urls": entry["sources"]})
     return picks, nid
 
