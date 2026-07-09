@@ -78,8 +78,8 @@ over diluted operators; a single ADR over a broad ETF).
 
 PEER BASKET (extra vehicles for ONE catalyst — NOT extra catalysts). Keep the single purest name as
 `ticker`, but ALSO list in `peers` the OTHER US-listed tickers that express the SAME catalyst — direct
-same-thesis plays (a European-rearmament catalyst -> other arms makers; a rare-earth-curb catalyst ->
-other rare-earth miners; a "gold-miners surge" -> the miners ETF alongside the leading miners). These
+same-thesis plays (a chip-export-control catalyst -> the other named chipmakers + the semis ETF; an
+FDA drug approval -> the drug's licensing partners). These
 ride as extra vehicles on that ONE event and the mechanical optimizer sizes them + drops the weak ones,
 so you no longer throw the peers away. RULES: `peers` are SAME-catalyst ONLY (0-4); NEVER list a name
 driven by a DIFFERENT catalyst — that is a separate candidate or nothing (this is what keeps the basket
@@ -95,32 +95,32 @@ resolution (for a dated future event, the known date itself) is what later flips
 Anticipation qualifies ONLY with a SPECIFIC DATED event whose date you can name — NEVER open-ended
 "rising demand / sentiment / growth / interest" with no date (that is still momentum — reject it). JUDGE BY THE STRONGEST REASON TO OWN IT, NOT THE WEAKEST: if a specific
 catalyst is present, KEEP the name even when the coverage ALSO wraps it in a theme, valuation, or
-technical story (e.g. "AI-power demand AND a reactor APPROVAL" -> keep; the approval is the
+technical story (e.g. "an EV-demand theme AND a battery-plant permit" -> keep; the permit is the
 catalyst). The reject list below applies ONLY to a name whose SOLE rationale is:
-  - theme / secular-momentum  ("AI power demand benefits utilities", "next wave after AI")
+  - theme / secular-momentum  ("reshoring benefits industrials", "next wave after AI")
   - valuation / positioning   ("undervalued", "hedge-fund accumulation", "13F", "cheap as ever")
   - technical / chart         ("golden cross", "breakout", "high dividend yield")
   - generic macro             ("rate-cut rally", "sector rotation")
   - hype / narrative          ("IPO hype", "meme", "everyone piling in")
 A named catalyst that later FAILS is fine — you couldn't have known. A PURE theme with no resolution
 is NOT — it rides through every crash and bleeds. The thesis you write MUST name a SPECIFIC, DATABLE
-EVENT — a discrete thing with a knowable date and resolution ("China bans rare-earth exports",
-"ADVANCE Act nuclear bill signed", "Iran war spikes tanker rates") — NOT an open-ended trend phrased
-as ongoing "news / demand / growth / approval news" ("reactor approval news", "AI power demand",
-"rare-earth strength"), which can never be marked RESOLVED and so never exits. If the only phrasing
+EVENT — a discrete thing with a knowable date and resolution ("the FDA approves a first-in-class drug",
+"the CHIPS Act is signed", "the Suez Canal blockage spikes freight rates") — NOT an open-ended trend phrased
+as ongoing "news / demand / growth / approval news" ("chip-subsidy news", "EV demand",
+"freight-rate strength"), which can never be marked RESOLVED and so never exits. If the only phrasing
 you can give is an ongoing trend, it's a theme — drop it. Drop only names that are theme/value/hype
 AND NOTHING ELSE.
 
 EARLY / BUILDING CATALYST — NAME IT WHILE IT'S STILL FORMING (this is the edge). Catch the ticker
 while its catalyst is BUILDING and the name is still under-owned — do NOT wait for the acute peak. An
-ESCALATING geopolitical or supply event — a RISING chokepoint / Strait-of-Hormuz risk as tensions
+ESCALATING geopolitical or supply event — a RISING chokepoint risk (a canal, a strait, a pipeline) as tensions
 build, a developing conflict, a tightening export/supply squeeze — that is ALREADY moving a NAMED,
 still-niche/under-owned ticker IS a live, unresolved catalyst: propose it NOW. Do not wait for the
 discrete acute trigger (the blockade declared, the ban signed) — by then the herd has arrived and the
 edge is gone. Tell a BUILDING EVENT from a theme: the event has an ACTOR + LOCATION + MECHANISM + an
-escalation/resolution path (Iran / Hormuz / tanker rates) AND the press still calls the vehicle
-"niche / under-owned" -> KEEP (write the thesis as the escalating event, e.g. "Hormuz risk lifts
-tanker rates"); a pure theme has only diffuse demand and no actor/event ("AI power demand") -> drop.
+escalation/resolution path (a named actor + chokepoint + the rate it moves, e.g. a pipeline sabotage
+lifting natural-gas prices) AND the press still calls the vehicle "niche / under-owned" -> KEEP (write the
+thesis as the escalating event, e.g. "a pipeline sabotage lifts natural-gas prices"); a pure theme has only diffuse demand and no actor/event ("electrification demand") -> drop.
 "Still under-owned / niche while climbing on a forming geopolitical shock" is the IDEAL early-gem buy
 — that framing is a KEEP, not momentum. (This is BEFORE resolution; the resolved-catalyst rule below
 still applies once the event actually resolves.)
@@ -130,26 +130,26 @@ spending shift is ALSO live/early, even before the enacting bill lands. When a d
 election result, a change of government, an alliance rupture or a withdrawn security guarantee, a
 formal pledge/mandate — makes a large policy or spending response HIGHLY CREDIBLE and the press already
 names the specific frontline beneficiary, propose it NOW; do NOT wait for the enacting action. Example:
-"Trump's win pressures Europe to rearm -> Rheinmetall (RNMBY) the frontline arms maker" is a KEEP at
-the ELECTION, not something to hold off until Germany's debt-brake vote actually passes — by that
-enacting vote the herd has already arrived. The guard against theme-creep: there must be a SPECIFIC
-triggering EVENT (the election / the rupture, datable) + a NAMED, still-under-owned beneficiary + a
-DIRECT mechanism (Europe must now fund its own defense -> the biggest arms maker). Diffuse "defense
+"an incoming administration's pledged infrastructure package -> domestic steelmakers, the direct
+beneficiary" is a KEEP at the ELECTION, not something to hold off until the appropriations bill
+actually passes — by that enacting vote the herd has already arrived. The guard against theme-creep:
+there must be a SPECIFIC triggering EVENT (the election / the rupture, datable) + a NAMED,
+still-under-owned beneficiary + a DIRECT mechanism (the pledge must now be funded -> the named beneficiary). Diffuse "defense
 spending will rise" with no triggering event is still a theme -> drop.
 
 You forecast NOTHING. The "thesis" MUST BE THE DATABLE CATALYST EVENT, never the umbrella theme:
-write "ADVANCE Act nuclear bill signed" NOT "NuScale gains on AI power demand"; write "China bans
-rare-earth exports" NOT "rare-earth demand". If your thesis can't be marked RESOLVED on a date it is
+write "the CHIPS Act is signed" NOT "chipmakers gain on AI demand"; write "the FDA approves a
+first-in-class drug" NOT "biotech demand". If your thesis can't be marked RESOLVED on a date it is
 a theme — rewrite it as the event or drop the name.
 
 DON'T CHASE A RESOLVED CATALYST. If a ticker's driving catalyst has ALREADY RESOLVED (the ceasefire
 was signed, the ban was lifted, the ruling came down), the edge is GONE — even if the press KEEPS
-hyping the name for weeks afterward ("tanker rates still elevated", "tensions linger"). Lingering hype
+hyping the name for weeks afterward ("prices still elevated", "tensions linger"). Lingering hype
 about a catalyst that already happened is NOT a fresh catalyst. If the user message lists a ticker's
 catalyst as ALREADY-RESOLVED, do NOT re-propose that ticker unless a genuinely NEW, distinct catalyst
 has since emerged (a SECOND, different datable event — not a restatement of the resolved one).
 
-Output ONLY JSON: {"candidates":[{"ticker":"BWET",
+Output ONLY JSON: {"candidates":[{"ticker":"XYZ",
 "thesis":"<=12 words: the catalyst EVENT","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
@@ -241,7 +241,7 @@ def _block(arts: list[dict]) -> str:
 RESOLVER_SYSTEM = """You are a ticker-lookup utility. Given a company name (and maybe a foreign
 ticker), web-search and return the symbol it trades under on a US exchange (NYSE / Nasdaq / OTC ADR) —
 a plain symbol with NO exchange suffix. Prefer the sponsored ADR. If the company has NO US listing at
-all, return null. Return ONLY JSON: {"ticker": "RNMBY"} or {"ticker": null}. Emit NOTHING else — no
+all, return null. Return ONLY JSON: {"ticker": "XYZ"} or {"ticker": null}. Emit NOTHING else — no
 price, no news, no commentary. A name<->symbol mapping is a STATIC fact; never report anything
 time-varying."""
 
@@ -468,19 +468,19 @@ EVENT_MATCH_SCHEMA = {"type": "object", "additionalProperties": False, "required
         "properties": {"ticker": {"type": "string"}, "event": {"type": "string"}}}}}}
 
 MATCH_SYSTEM = """You group market candidates into EVENTS. An event is ONE underlying catalyst (a
-war, an election, a supply shock, a tech wave); MANY tickers can express the same event — e.g.
-Rheinmetall's two ADRs RNMBY/RHMTY are one company; SMR/OKLO/CCJ/CEG are all the nuclear-for-AI
-event; URA/CCJ/UUUU are all the uranium event. Given the OPEN events (id + catalyst) and this
+war, an election, a supply shock, a tech wave); MANY tickers can express the same event — e.g. a
+company's two ADRs are one; several oil refiners riding one OPEC cut are one event; several
+homebuilders riding one rate-cut are one event. Given the OPEN events (id + catalyst) and this
 week's CANDIDATES (ticker + thesis), assign each candidate to the open event it belongs to (by id)
 or "new" if it is a genuinely different catalyst.
 
 DEFAULT TO MERGING. Assign a candidate to an existing open event whenever they share the SAME
-underlying driver — same commodity (uranium, rare-earth, oil), same sector/policy shock (nuclear,
-defense, shipping, AI-power), same war / election / supply event — EVEN IF the tickers differ or the
-thesis is worded differently. A reactor builder, a nuclear utility, and a uranium miner are ONE
-nuclear event; do NOT open three. Use "new" ONLY when a candidate's catalyst is CLEARLY unrelated to
+underlying driver — same commodity, same sector/policy shock (a chip export control, a central-bank
+rate decision, an OPEC supply cut), same war / election / supply event — EVEN IF the tickers differ or
+the thesis is worded differently. A chip designer, a foundry, and an equipment maker riding one
+export-control are ONE event; do NOT open three. Use "new" ONLY when a candidate's catalyst is CLEARLY unrelated to
 every open event. When unsure, MERGE — fragmenting one catalyst across several events is the single
-biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"BWET","event":"<id>|new"}]}."""
+biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
     "required": ["exit_case", "catalyst_resolved", "thesis_live", "conviction", "exit_advice", "assessment", "news_claims", "vehicles", "sources"],
