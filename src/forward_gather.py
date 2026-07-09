@@ -19,6 +19,7 @@ from urllib.parse import urlparse
 import pandas as pd
 
 import costs
+import trace
 import wayback
 
 # The gather's fixed coverage sweep MIRRORS the backtest's GDELT beats (firehose.GDELT_QUERIES) so the
@@ -108,6 +109,12 @@ def _run_search(client, model: str, anchor: pd.Timestamp, posts_block: str) -> d
             continue
         break
     costs.record("forward-gather", model, f"gather-{anchor.date()}", tally)   # ALL forward spend is logged
+    trace.log("llm", stage="forward-gather", label=f"gather-{anchor.date()}", model=model,
+              system=GATHER_SYSTEM, user=user,
+              response=f"[gather: {len(queries)} searches -> {len(results)} results]",
+              web_search_queries=queries, **tally)
+    for _tq in queries:
+        trace.log("search", engine="anthropic", query=_tq)
     return {"queries": queries, "results": list(results.values())}
 
 

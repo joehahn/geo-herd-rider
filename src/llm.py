@@ -18,6 +18,7 @@ import os
 from abc import ABC, abstractmethod
 
 import costs
+import trace
 
 ANTHROPIC_DEFAULT = "claude-opus-4-8"
 # Adaptive thinking + effort + dynamic-filtering web search work on these; cheaper Anthropic
@@ -68,6 +69,7 @@ class AnthropicClient(LLMClient):
             kw["output_config"] = {"effort": "high"}
         tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
         text = ""
+        ws_queries: list = []
         # Server-side web search loops internally; pause_turn means it hit the tool-iteration
         # cap — re-send to resume (the API detects the trailing server_tool_use).
         for _ in range(6):
@@ -76,6 +78,9 @@ class AnthropicClient(LLMClient):
             for k in tally:
                 tally[k] += u.get(k, 0)
             text = "".join(b.text for b in r.content if b.type == "text")
+            ws_queries += [b.input["query"] for b in r.content
+                           if getattr(b, "type", "") == "server_tool_use"
+                           and isinstance(getattr(b, "input", None), dict) and b.input.get("query")]
             if r.stop_reason == "pause_turn":
                 messages.append({"role": "assistant", "content": r.content})
                 continue
@@ -83,6 +88,8 @@ class AnthropicClient(LLMClient):
                 raise RuntimeError(f"model refused for {label}")
             break
         costs.record(stage, m, label, tally)
+        trace.log("llm", stage=stage, label=label, model=m, system=system, user=user,
+                  response=text, web_search_queries=ws_queries, **tally)
         return text
 
 
@@ -138,6 +145,8 @@ class OpenRouterClient(LLMClient):
             "cache_read_tokens": 0,
             "web_searches": 0,
         })
+        trace.log("llm", stage=stage, label=label, model=self.model, system=system,
+                  user=user, response=text, search_query=search_query)
         return text
 
 

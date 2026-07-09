@@ -17,6 +17,7 @@ from urllib.parse import urlparse
 import pandas as pd
 
 import search
+import trace
 
 # beat sweep mirroring forward_gather.GATHER_SYSTEM (superlatives / macro / sectors / themes / early)
 BEATS = [
@@ -51,6 +52,7 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
 
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
         for beat, res in ex.map(_q, BEATS):
+            trace.log("search", engine="tavily", query=beat, n_results=len(res))
             for r in res:
                 d = _pdate(r)
                 url = r.get("url")

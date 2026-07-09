@@ -38,6 +38,7 @@ import forward_engine
 import forward_gather
 import llm
 import score
+import trace
 import trump_feed
 import wayback
 from optimizer import load_financial_model, resolve_curator_model
@@ -275,6 +276,8 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Forward paper-trade of the firehose (the clean test).")
     ap.add_argument("--scan", action="store_true", help="live firehose scan for this week, append to log")
     ap.add_argument("--report", action="store_true", help="mark the accumulated portfolio to market vs SPY")
+    ap.add_argument("--trace", nargs="?", const="__default__", default=None,
+                    help="log every LLM prompt/response + search query to data/forward/transcript.jsonl (or PATH)")
     ap.add_argument("--model", default=None,
                     help="curator model id override; default = investor_profile.md's model knob "
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
@@ -291,6 +294,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--gather", choices=["anthropic", "tavily"], default=None,
                     help="gather engine override; default = profile gather_engine or anthropic")
     args = ap.parse_args(argv)
+    if args.trace is not None:
+        tp = str(SCANS_CSV.parent / "transcript.jsonl") if args.trace == "__default__" else args.trace
+        trace.enable(tp)
+        print(f"  TRACE ON -> {tp}", flush=True)
     if args.sandbox:
         _use_sandbox(args.sandbox)
     if not (args.scan or args.report or args.explain is not None or args.pull):

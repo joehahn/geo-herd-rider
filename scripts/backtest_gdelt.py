@@ -38,10 +38,17 @@ def main(argv=None):
     ap.add_argument("--out", required=True)
     ap.add_argument("--window-cap", type=int, default=80)
     ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in window-cap)")
+    ap.add_argument("--trace", nargs="?", const="__default__", default=None,
+                    help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
     a = ap.parse_args(argv)
     load_dotenv()
     OUT = Path(a.out)
     (OUT / "archive").mkdir(parents=True, exist_ok=True)
+    if a.trace is not None:
+        import trace
+        tp = str(OUT / "transcript.jsonl") if a.trace == "__default__" else a.trace
+        trace.enable(tp)
+        print(f"  TRACE ON -> {tp} (every LLM prompt/response + search query)", flush=True)
     anchors = scan_anchors(a.start, a.end, 7)
     win_start = anchors[0] - pd.Timedelta(days=10)
     cache_f = str(OUT / "gdelt_pool.json")

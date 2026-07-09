@@ -67,3 +67,7 @@ docs_preview/forward_sweeps/
 
 # seedless GDELT+Wayback continuous backtest (throwaway data)
 data/backtest_gdelt*/
+
+# --trace transcript logs (full prompts/responses/searches)
+transcript.jsonl
+**/transcript.jsonl

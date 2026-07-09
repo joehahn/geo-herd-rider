@@ -16,6 +16,8 @@ import time
 import pandas as pd
 import requests
 
+import trace
+
 BASE = "https://api.gdeltproject.org/api/v2/doc/doc"
 MIN_INTERVAL = 15.0         # GDELT throttles harder than its stated 1 req/5s; 15s gets calls to
                             # SUCCEED on the first try, which is far faster overall than a retry
@@ -79,6 +81,8 @@ def search(query: str, start_date, end_date, max_results: int = 60, retries: int
         out.append({"published_date": pub, "source": a.get("domain", ""),
                     "title": a.get("title", ""), "snippet": a.get("title", ""),
                     "url": a.get("url", ""), "language": a.get("language", "")})
+    trace.log("search", engine="gdelt", query=query, start=str(start_date)[:10],
+              end=str(end_date)[:10], n_results=len(out))
     return out
 
 
