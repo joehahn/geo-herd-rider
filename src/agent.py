@@ -537,20 +537,20 @@ AND the crowd has fully arrived -> exit. (silence-while-under-the-radar = HOLD; 
 STRUCTURAL vs ACUTE — DON'T FORCE AN ACUTE EXIT ON AN OPEN-ENDED DRIVER. An ACUTE catalyst is a single
 datable event that cleanly resolves (a bill signed, a merger closed, a ceasefire, a chokepoint reopened)
 — the rules above apply as written. A STRUCTURAL / open-ended catalyst is a multi-year regime shift that
-keeps throwing off NEW concrete milestones (European rearmament -> a debt-brake vote -> budget votes ->
-contracts -> further summits; a de-dollarization / reserve pivot; a standing export-curb regime). For a
+keeps throwing off NEW concrete milestones (a trade-war escalation -> a first tariff round -> retaliation ->
+a second round -> further curbs; a de-dollarization / reserve pivot; a standing export-curb regime). For a
 STRUCTURAL driver: (a) the Third-Exit "arc complete / nothing concrete ahead" test does NOT fire merely
 because ONE scheduled milestone (e.g. a single summit) has passed — the driver keeps generating new
 milestones, so a gap between them is a QUIET STRETCH, not completion. Exit a structural driver ONLY on a
-genuine REVERSAL of the driver itself — a concrete COUNTER-event (a peace deal that ends the rearmament,
+genuine REVERSAL of the driver itself — a concrete COUNTER-event (a trade deal that ends the tariff war,
 the curbs lifted, the reserve pivot unwound, the funding cut) — never on silence, an "aging thesis", or a
 single milestone passing while the buildout plainly continues. (b) Silence is NOT a hard exit
 (catalyst_resolved stays false) — but it IS a fade: a structural driver earns high conviction by delivering
 FRESH milestones, not by the mere passage of time, so genuine prolonged quiet steps conviction DOWN per the
 SILENCE DECAY rule below (recovering when fresh coverage resumes). Don't confuse a single milestone passing
 amid ONGOING coverage (compounding) with true silence (fading). (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
-FRESHEST concrete milestone — if you entered on "Trump signals NATO pullback" and the driver then became
-"Germany votes to exempt defense from its debt brake," THAT vote is the live catalyst now; clinging to the
+FRESHEST concrete milestone — if you entered on "the administration threatens sweeping tariffs" and the driver then became
+"the first tariff round takes effect," THAT round is the live catalyst now; clinging to the
 ORIGINAL milestone while the driver has moved on is anchoring, and forces an exit for the wrong reason.
 
 YOUR BINARY MUST FOLLOW YOUR OWN ARGUMENT: if the exit_case you just wrote says the catalyst has
