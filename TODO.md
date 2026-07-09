@@ -6,7 +6,7 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 ## Current plan — ordered (2026-07-07, soonest first)
 
 1. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
-2. **GDELT → BigQuery / GKG migration** — speed (minutes vs ~4–5h throttled pulls), recall (themes/entities/tone close the keyword-synonym gap), + reliability. **Essential before the 114-week full run.**
+2. **GDELT → BigQuery / GKG migration** *(ON HOLD 2026-07-09)* — **recall** (themes/tone close the keyword-synonym gap) + reliability. NOT a clean-backtest speed win: GKG selects URLs but carries no article text, so Wayback is still the fetch bottleneck; real speed only on the forward (live fetch). Revisit when recall is the priority.
 3. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
 4. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
 
@@ -35,11 +35,23 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
-## GDELT → BigQuery / GKG migration — speed + recall + reliability
+## GDELT → BigQuery / GKG migration — recall + reliability (ON HOLD as of 2026-07-09)
 
 The GDELT **DOC API** is our firehose retrieval, and it's a **triple** bottleneck. Migrating the
 retrieval layer to **Google BigQuery** (the GDELT dataset, incl. the **GKG** Global Knowledge Graph)
-fixes all three. This is **essential before the 114-week full run** (the DOC API can't sustain it).
+helps with recall + reliability. This is a candidate before the 114-week full run.
+
+**REFINEMENT (2026-07-09) — and why it's ON HOLD:** GKG carries **metadata only** (themes/tone/entities
++ URL), **NOT article text/title** — GDELT doesn't redistribute article text (copyright); it points back
+to the source. So GKG is a **selection/recall layer, not a text source**: you still fetch the text from
+**Wayback** (as-of, clean, slow) for the backtest or the **live URL** (fast, edit-risk) for the forward —
+the *same* `--enrich wayback/live` step we already have. **Consequence:** GKG's *speed* benefit is only on
+*selection* (BigQuery is fast) and the *forward's* live fetch; the **clean-backtest text-fetch (Wayback)
+bottleneck stays**, and GKG even *adds* load (Wayback must now supply title AND lede, where the DOC API
+gave titles free). So GKG's real value is **recall** (topic-semantic, catches synonyms) + **reliability**,
+NOT skipping the slow as-of fetch. Deferred to the forward phase / when recall is the priority. Also gated
+on a GCP project + billing + auth (none set up). *The speed framing below is thus overstated — it's the
+selection that's fast, not the end-to-end clean backtest.*
 
 **1. Speed — the actual wall.** The DOC API rate-limits hard (bursts of 429s); a **2-month, 30-beat
 pool build takes ~4–5h** of throttled requests (measured 2026-07-09, the BWET playtest, at 0.6–1.1
