@@ -71,3 +71,13 @@ data/backtest_gdelt*/
 # --trace transcript logs (full prompts/responses/searches)
 transcript.jsonl
 **/transcript.jsonl
+
+# BWET 2-month playtest (throwaway)
+data/backtest_bwet/
+
+# BWET playtest stages (throwaway)
+data/backtest_bwet*/
+
+# removed forward_gdelt experiment caches
+data/windows/gdelt_pool_forward.json
+data/windows/wayback_forward.json

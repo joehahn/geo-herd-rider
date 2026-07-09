@@ -31,6 +31,29 @@ CFG = ("model", "concentration_cap", "risk_aversion", "lookback_period_days", "m
        "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days")
 
 
+def live_enrich(articles, workers: int = 12) -> list:
+    """FAST but LOOK-AHEAD-RISKY: fetch each article NOW and use its <meta description> as the lede.
+    The live page may have been edited since publication (esp. developing-event stories) — that bias
+    is what the 3-stage ablation measures against the Wayback (as-of) baseline. Dead/paywalled URLs
+    just stay headline-only."""
+    import concurrent.futures as cf
+    import re as _re
+    import urllib.request as _u
+    def _one(a):
+        try:
+            req = _u.Request(a["url"], headers={"User-Agent": "Mozilla/5.0 (geo-herd-rider live-enrich)"})
+            html = _u.urlopen(req, timeout=15).read(200000).decode("utf-8", "ignore")
+            m = _re.search(r'<meta[^>]+(?:name|property)=["\']' r'(?:og:)?description["\'][^>]+content=["\']([^"\']{40,500})', html, _re.I)
+            if m:
+                a["snippet"] = _re.sub(r"\s+", " ", m.group(1)).strip()[:280]
+        except Exception:
+            pass
+        return a
+    with cf.ThreadPoolExecutor(max_workers=workers) as ex:
+        list(ex.map(_one, articles))
+    return articles
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", required=True)
@@ -40,6 +63,8 @@ def main(argv=None):
     ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in window-cap)")
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
+    ap.add_argument("--enrich", choices=("none", "live", "wayback"), default="wayback",
+                    help="none=GDELT headlines only (fast, clean); live=fetch article NOW (fast, edit-bias risk); wayback=as-of ledes (slow, clean)")
     a = ap.parse_args(argv)
     load_dotenv()
     OUT = Path(a.out)
@@ -93,7 +118,11 @@ def main(argv=None):
         gslice = sorted(firehose._window(gpool, anch, 7),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:a.window_cap]
         enrich_slice = gslice[:a.wayback_cap] if a.wayback_cap else gslice
-        wayback.enrich(enrich_slice, wk, cache_path=enrich_cache, fetch=True, stats_path=stats)
+        if a.enrich == "wayback":
+            wayback.enrich(enrich_slice, wk, cache_path=enrich_cache, fetch=True, stats_path=stats)
+        elif a.enrich == "live":
+            live_enrich(enrich_slice)
+        # a.enrich == "none": GDELT headlines only, no enrichment
         for x in gslice:
             x["engine"] = "gdelt"
         picks, nid = agent.process_week(cli, anch, gslice, events, retired, nid, i, curator_memory_weeks=memw)
