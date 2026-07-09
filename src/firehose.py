@@ -52,6 +52,9 @@ WORKERS = 8
 GDELT_QUERIES = [
     # discovery superlatives (cross-vertical — the purest "press names a standout")
     "best performing stock", "biggest gainers", "best performing etf",
+    # under-the-radar / early discovery (mirrors the forward gather — the "still cheap / overlooked" framing)
+    "under the radar stock", "overlooked stock catalyst", "still early rally",
+    "niche ETF surging", "flying under the radar ETF", "top gainers stock", "best stocks to buy",
     # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed)
     "geopolitics", "war", "shipping", "tariffs", "interest rates",
     # even top-level GICS sector sweep (all 11 sectors) — every gem reachable via its SECTOR, none privileged
