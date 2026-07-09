@@ -47,20 +47,20 @@ WORKERS = 8
 # run_harness.py: discovery superlatives + the macro beats SCAN_SYSTEM names + an EVEN GICS sector
 # sweep (a complete partition privileges no theme) + a pre-registered emerging-tech theme layer.
 # Gem sub-niches ("uranium"/"rare earth"/"weight loss drug") are DROPPED — reverse-engineered from
-# known winners. Canonical shared set (run_harness.HARNESS_QUERIES aliases this). GDELT needs single
-# words or QUOTED phrases — bare multi-word queries return nothing.
+# known winners. Canonical shared set (run_harness.HARNESS_QUERIES aliases this).
+# NOTE: a SPACE is GDELT implicit AND — "energy stocks" = energy AND stocks, far more recall than
 GDELT_QUERIES = [
     # discovery superlatives (cross-vertical — the purest "press names a standout")
-    '"best performing stock"', '"biggest gainers"', '"best performing etf"',
+    "best performing stock", "biggest gainers", "best performing etf",
     # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed)
-    "geopolitics", "war", "shipping", "tariffs", '"interest rates"',
+    "geopolitics", "war", "shipping", "tariffs", "interest rates",
     # even top-level GICS sector sweep (all 11 sectors) — every gem reachable via its SECTOR, none privileged
-    '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
-    '"industrial stocks"', '"materials stocks"', '"consumer stocks"',
-    '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
+    "technology stocks", "energy stocks", "financial stocks", "healthcare stocks",
+    "industrial stocks", "materials stocks", "consumer stocks",
+    "utility stocks", "real estate stocks", "telecom stocks",
     # pre-registered thesis theme layer (non-GICS asset classes / emerging tech) — fixed before eval, independent thesis
-    "cryptocurrency", '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
-]  # GDELT needs single words or QUOTED phrases — bare multi-word queries return nothing.
+    "cryptocurrency", "space stocks", "robotics stocks", "quantum stocks", "nuclear stocks",
+]  # SPACE = GDELT implicit AND (broad recall); NOT exact "quoted phrases" (rare in news copy).
 GDELT_WEEK_CAP = 80          # max GDELT headlines fed to the LLM per week (seeds always kept)
 
 SCAN_SYSTEM = """You are a markets desk reading the week's news firehose to find HIDDEN GEMS the
