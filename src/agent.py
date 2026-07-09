@@ -85,8 +85,15 @@ so you no longer throw the peers away. RULES: `peers` are SAME-catalyst ONLY (0-
 driven by a DIFFERENT catalyst — that is a separate candidate or nothing (this is what keeps the basket
 from drifting into unrelated gems); US-listed only (name the US ADR, no foreign suffix).
 
-CATALYST GATE (the hard filter — this is the bet). Propose a ticker ONLY if the press ties it to a
-SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
+CATALYST GATE (the hard filter — this is the bet). THE HIGHEST-VALUE CATALYST IS A NATIONAL OR
+INTERNATIONAL SUPPLY-DEMAND SHIFT: a concrete, NAMED change in the real supply or demand for a
+product, commodity, or asset at national/international scale — an event that CUTS SUPPLY (a chokepoint,
+an export ban, sanctions, a major outage) or LIFTS DEMAND (a law/policy/election that mandates
+spending, a security or infrastructure program, a named multi-year deal), whether DIRECTLY (the event
+moves the product) or INDIRECTLY (an event that makes such a shift highly credible — e.g. an election
+that forces a coming policy). RANK THESE FIRST — this is the pattern behind the biggest movers; other
+concrete datable catalysts still qualify, but a supply/demand shift is the strongest reason to own a
+name. Propose a ticker ONLY if the press ties it to a SPECIFIC, DATABLE, RESOLVABLE catalyst: a discrete event with a knowable resolution — a war/
 chokepoint, an export ban or tariff, a regulatory approval or named bill, an agency emergency
 declaration, a named contract/partnership/deal, a supply shock, OR a SCHEDULED, DATED FUTURE EVENT the
 name is demonstrably rising in ANTICIPATION of — a national election, an FDA/PDUFA decision date, a
