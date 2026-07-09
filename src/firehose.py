@@ -41,12 +41,25 @@ from util import load_dotenv as _load_dotenv, news_domains, scan_anchors, MAX_TE
 MODEL = "claude-opus-4-8"
 WORKERS = 8
 
-# Generic market/theme queries for the GDELT firehose — deliberately NOT "BWET"/"Breakwave"
-# (that would hand-point at the answer). The analyst watches the right beats; the curator must
-# still discover the ticker. Tune freely.
+# GDELT firehose queries — GEM-AGNOSTIC BY CONSTRUCTION and FROZEN before the eval (CLAUDE.md #5).
+# The prior list drifted BWET-ward (Hormuz/tanker/oil/energy) — it lit up in the 2026 Iran war but
+# went dark elsewhere, i.e. it hand-pointed at one gem's thesis. This is the vetted set from
+# run_harness.py: discovery superlatives + the macro beats SCAN_SYSTEM names + an EVEN GICS sector
+# sweep (a complete partition privileges no theme) + a pre-registered emerging-tech theme layer.
+# Gem sub-niches ("uranium"/"rare earth"/"weight loss drug") are DROPPED — reverse-engineered from
+# known winners. Canonical shared set (run_harness.HARNESS_QUERIES aliases this). GDELT needs single
+# words or QUOTED phrases — bare multi-word queries return nothing.
 GDELT_QUERIES = [
-    "ETF", "Hormuz", '"tanker rates"', '"freight rates"',
-    '"best performing"', '"oil price"', '"energy stocks"', '"stock surge"',
+    # discovery superlatives (cross-vertical — the purest "press names a standout")
+    '"best performing stock"', '"biggest gainers"', '"best performing etf"',
+    # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed)
+    "geopolitics", "war", "shipping", "tariffs", '"interest rates"',
+    # even top-level GICS sector sweep (all 11 sectors) — every gem reachable via its SECTOR, none privileged
+    '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
+    '"industrial stocks"', '"materials stocks"', '"consumer stocks"',
+    '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
+    # pre-registered thesis theme layer (non-GICS asset classes / emerging tech) — fixed before eval, independent thesis
+    "cryptocurrency", '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
 ]  # GDELT needs single words or QUOTED phrases — bare multi-word queries return nothing.
 GDELT_WEEK_CAP = 80          # max GDELT headlines fed to the LLM per week (seeds always kept)
 

@@ -40,37 +40,10 @@ from util import load_dotenv  # noqa: E402
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
 REPORT = ROOT / "data" / "windows" / "harness_report.json"
 
-# GDELT firehose queries — GEM-AGNOSTIC, derived from SCAN_SYSTEM's own search intent so backtest
-# retrieval mirrors what the forward Anthropic web_search would pull (no hindsight beat-picking).
-# SCAN_SYSTEM tells the model to hunt "a standout trade on a live thesis (geopolitics, energy/
-# shipping, tariffs, Fed, a sector catalyst)" — so the list is: superlative discovery framing +
-# the macro beats the prompt names + an EVEN top-level sector sweep (the standard market partition,
-# NOT gem sub-niches like "uranium"/"rare earth"/"weight loss drug" — those were reverse-engineered
-# from known winners and are dropped). The list is FROZEN, not LLM-generated per week: the curator
-# is trained past these events, so letting it pick weekly queries would leak the answer. GDELT needs
-# single words or QUOTED phrases. See agent_design.md "Retrieval: GDELT and seeds".
-HARNESS_QUERIES = [
-    # discovery superlatives (cross-vertical — the purest "press names a standout")
-    '"best performing stock"', '"biggest gainers"', '"best performing etf"',
-    # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed); "war"
-    # retrieves kinetic-conflict coverage that the literal term "geopolitics" misses on GDELT.
-    "geopolitics", "war", "shipping", "tariffs", '"interest rates"',
-    # even top-level sector sweep — the standard GICS sectors (10 beats covering all 11; Consumer
-    # Staples + Discretionary merged into one "consumer"), so every gem is reachable via its SECTOR
-    # not its sub-niche, and no sector is privileged by hindsight. Gem-agnostic by construction
-    # (a complete partition privileges nothing; utilities is also nuclear's GICS home).
-    '"technology stocks"', '"energy stocks"', '"financial stocks"', '"healthcare stocks"',
-    '"industrial stocks"', '"materials stocks"', '"consumer stocks"',
-    '"utility stocks"', '"real estate stocks"', '"telecom stocks"',
-    # THESIS-DRIVEN theme layer — a PRE-REGISTERED forward thesis (from portfolio-wave-rider): non-
-    # GICS asset classes (crypto) and emerging-tech areas where gems emerge but the GICS sweep is too
-    # coarse (or doesn't reach, like crypto). NOT the gem-agnostic partition above, so recall on themed
-    # gems (MSTR via "cryptocurrency", SMR/URA via "nuclear stocks") is partly thesis-aided — accepted
-    # because the list is fixed BEFORE the eval (CLAUDE.md #5) and is an INDEPENDENT thesis, not
-    # reverse-engineered from our winners. Still excluded: ticker-exact sub-niches ("uranium"/"rare
-    # earth"/"weight loss drug"/"Milei").
-    "cryptocurrency", '"space stocks"', '"robotics stocks"', '"quantum stocks"', '"nuclear stocks"',
-]
+# GDELT firehose queries — the canonical gem-agnostic, pre-registered set now lives in
+# firehose.py (GDELT_QUERIES) so the harness and the seedless backtest share ONE source
+# (no drift). Full rationale there. Kept as HARNESS_QUERIES for the call sites below.
+HARNESS_QUERIES = firehose.GDELT_QUERIES
 
 
 def _held_weeks(bt: dict) -> dict[str, list[str]]:
