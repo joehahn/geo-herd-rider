@@ -206,6 +206,26 @@ python scripts/run_harness.py --event-first --provider openrouter --model xiaomi
 .venv/bin/python src/forward.py --explain   # audit why the scout kept few/no gems this week (no web search)
 ```
 
+**Full transcript logging (`--trace`)** — to audit exactly what the curator saw and said (a playtest, or debugging), add `--trace` to `src/forward.py` or `scripts/backtest_gdelt.py`. It appends **every LLM call** (full system + user prompt, the response, and the web-searches the model issued) and **every search query** (GDELT / Tavily / model-issued, with result counts) as one JSON record per line to a JSONL transcript. Off by default (zero overhead when the flag is absent).
+
+**How the transcript path is managed:**
+
+- `--trace` (bare) → **`<out>/transcript.jsonl`** — for `backtest_gdelt.py` that's the `--out` dir; for `forward.py` it's `data/forward/transcript.jsonl`.
+- `--trace path/to/file.jsonl` → that **explicit path** (created if needed).
+- Absent → **no logging.**
+- Transcripts are **gitignored** (`transcript.jsonl`) — they hold full prompts and can reach a few MB per multi-week run, and stay local.
+
+```bash
+# seedless continuous backtest, tracing to data/backtest_bwet/transcript.jsonl:
+python scripts/backtest_gdelt.py --start 2026-03-01 --end 2026-04-30 --out data/backtest_bwet --trace
+# forward scan, tracing to data/forward/transcript.jsonl:
+.venv/bin/python src/forward.py --scan --trace
+# or an explicit path:
+.venv/bin/python src/forward.py --scan --trace /tmp/audit.jsonl
+```
+
+Read it back one record per line (`json.loads`), or filter with `jq` (e.g. `jq 'select(.kind=="llm") | .system' transcript.jsonl`).
+
 **Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and add these two lines (substitute your repo path):
 
 ```
