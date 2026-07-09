@@ -6,7 +6,7 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 ## Current plan — ordered (2026-07-07, soonest first)
 
 1. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
-2. **GDELT → BigQuery migration** — kill the cold-scan hangs.
+2. **GDELT → BigQuery / GKG migration** — speed (minutes vs ~4–5h throttled pulls), recall (themes/entities/tone close the keyword-synonym gap), + reliability. **Essential before the 114-week full run.**
 3. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
 4. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
 
@@ -35,22 +35,51 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
-## GDELT reliability — BigQuery as a production-grade source (not urgent)
+## GDELT → BigQuery / GKG migration — speed + recall + reliability
 
-The GDELT DOC API is our firehose retrieval, and it's proven flaky: degraded CDX / archive.org
-stalls during cold scans, and a full doc-API outage (api.gdeltproject.org → http=000 for 10h+ on
-2026-06-30/07-01) that blocked the GDX cold scan entirely. Per GDELT: they're mid-migration to
-Spanner (frequent latency/interruptions); the DOC API *officially* supports only the most recent
-~3 months (we get older data via enforced `startdatetime`/`enddatetime`, which has worked but may
-degrade for old weeks during the migration); and it locks up above ~1 req/5s (we already throttle
-at 15s in `src/gdelt.py`, so rate-limiting is not our problem).
+The GDELT **DOC API** is our firehose retrieval, and it's a **triple** bottleneck. Migrating the
+retrieval layer to **Google BigQuery** (the GDELT dataset, incl. the **GKG** Global Knowledge Graph)
+fixes all three. This is **essential before the 114-week full run** (the DOC API can't sustain it).
 
-- **The robust fix:** pull GDELT from **Google BigQuery** (the full dataset, production-grade,
-  no 3-month limit, no per-request throttle) instead of the DOC API — for cold historical pool
-  builds especially. Would need a `gdelt.py` alternate fetch path + GCP creds; keep the DOC API as
-  the cheap/no-key default for recent windows.
-- **Until then:** cold scans depend on the DOC API being up; the auto-resume poll handles transient
-  outages. Warm caches are unaffected (retrieval is cache-hit, no API).
+**1. Speed — the actual wall.** The DOC API rate-limits hard (bursts of 429s); a **2-month, 30-beat
+pool build takes ~4–5h** of throttled requests (measured 2026-07-09, the BWET playtest, at 0.6–1.1
+query-chunks/min). The **114-week full run is effectively unworkable** on it. BigQuery scans the same
+window in **minutes, no per-request throttle**. *(Correction to the old note here: rate-limiting turned
+out to very much BE our problem at scale.)*
+
+**2. Recall — the keyword ceiling.** The DOC API is lexical. Two lessons from 2026-07-09:
+  - **Exact quoted phrases return ~nothing** — `"robotics stocks"` got 0 articles in 7 of 8 weeks. A
+    SPACE is GDELT's implicit **AND**, so unquoted `robotics stocks` returns ~10× more (fixed in
+    `firehose.GDELT_QUERIES`, commit b0f2c08). Exposes how brittle keyword retrieval is.
+  - Even unquoted AND **can't match synonyms/paraphrases** — an "overlooked **automation** ETF quietly
+    doubled" slips past `robotics stocks`. You can't enumerate all vocabulary.
+  **GKG closes this:** filter by extracted **themes** (topic — catches automation≈robotics), **entities**
+  (companies), and **tone** (sentiment ≈ mover). That's **topic-semantic retrieval**, not keyword — the
+  synonym gap closes and recall rises.
+
+**3. Reliability.** DOC API has had full outages (http=000 for 10h+ on 2026-06-30/07-01, blocked the GDX
+cold scan); GDELT is mid-migration to Spanner (latency/interruptions); the DOC API officially supports
+only ~3 recent months (older data via enforced date bounds may degrade).
+
+**Cost.** BigQuery on-demand is **$6.25/TB scanned, first 1 TB/month FREE**. A 2-month GKG extract lands
+in **~$0–15 one-time** (column-pruned / a date-partitioned copy → free-tier; worst case ~$15 scanning the
+big theme/tone columns once), cached locally. The **curator LLM cost is unchanged (~$6–8/run)** — the
+retrieval source doesn't change what the scout reads-and-judges. So the migration buys **speed + recall
+at ~flat cost**.
+
+**Design work (the "recipe"):**
+  - A `gdelt.py` alternate fetch path that queries `gdelt-bq.gdeltv2.gkg` per week (still date-indexed →
+    look-ahead-clean), narrowing the huge `ECON_STOCKMARKET` theme by **catalyst/sector themes + tone +
+    entity-salience** → a curated pool (the stock-market theme alone = the whole market firehose, too big).
+  - GCP project + billing + auth (creds in `.env`). Keep the DOC API as the cheap/no-key default for
+    recent windows / the forward.
+  - **Unchanged:** still by-week; the scout still makes the "under-the-radar / still-early / thesis-driven"
+    call — GKG tags topic + tone, **not** that nuance (retrieve-broad → LLM-judge, same shape as now).
+
+**Semantic ceiling (scoping).** GKG is **topic-semantic** (theme/entity codes), NOT embedding-semantic.
+True natural-language semantic search *as an API* (no local embeddings) means **Exa** — but that's live
+web, so it look-ahead-leaks like Tavily/Brave → **forward-only, not the clean backtest**. So: **GKG = the
+clean topic-semantic ceiling for the backtest; Exa = a true-semantic lever for the forward.**
 
 ## Maturity tag as an entry/exit gate (does framing add lift?)
 
