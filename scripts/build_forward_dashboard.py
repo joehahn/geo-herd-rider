@@ -463,9 +463,9 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _dowj = json.dumps(_dow)
     _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # Plot-8 tick: weekday every bar, date once/week
 
-    def _nslab(_d):                                          # date only on the Friday anchor -> one date per week
+    def _nslab(_d):                                          # date (day-month-year) only on the Friday anchor -> 1/week
         _t = pd.Timestamp(_d)
-        return f"{_wdshort[_t.dayofweek]}<br>{_d[5:]}" if _t.dayofweek == 4 else _wdshort[_t.dayofweek]
+        return f"{_wdshort[_t.dayofweek]}<br>{_t.strftime('%d-%m-%Y')}" if _t.dayofweek == 4 else _wdshort[_t.dayofweek]
     _nstick = json.dumps([_nslab(d) for d in _hx_full])
     _hxj = json.dumps(_hx_full)
     # weekly totals overlaid on Plot 8 (right y-axis) + a cap line: a flat line at the cap = GDELTs dropped.
