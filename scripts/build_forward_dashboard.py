@@ -474,23 +474,26 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _qh = str(max(180, 18 * len(_qc) + 60))
 
     def _inject_hist(html: str, is_index: bool = False) -> str:
-        # Two injected plots: GDELT-by-weekday -> Plot 8, News-count histogram -> Plot 9. Push the static
-        # Plots 8..11 -> 10..13. Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11).
-        # Renumber DESCENDING so each source number is renamed before it can be re-created downstream.
+        # Injected retrieval plots: 8 News-count, 9 GDELT-by-weekday, 10 Articles-per-search-term (only
+        # when a --trace exists so _qc is populated). Push the static Plots 8..11 up by that count.
+        # Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so
+        # each source number is renamed before it can be re-created downstream.
+        _shift = 3 if _qc else 2
         for _n in (11, 10, 9, 8):
-            html = html.replace(f"Plot {_n}", f"Plot {_n + 2}")
-        html = html.replace("agent colors match Plots 7–9", "agent colors match Plots 7, 10 &amp; 11")
-        sec = ('<h2>Plot 8 &mdash; GDELT count by day of week '
-               '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
-               '<div id="dowhist" style="width:100%;height:280px"></div>')
-        sec += ('<h2>Plot 9 &mdash; News-count histogram <span class="sub">(' + _histsub + ')</span></h2>'
-                '<div id="newshist" style="width:100%;height:300px"></div>')
-        if is_index and _qc:                                 # query-effectiveness -> multi-week summary page only
-            sec += ('<h3 style="font-size:1rem;margin:16px 0 4px">Articles per GDELT search term '
+            html = html.replace(f"Plot {_n}", f"Plot {_n + _shift}")
+        html = html.replace("agent colors match Plots 7–9",
+                            f"agent colors match Plots 7, {8 + _shift} &amp; {9 + _shift}")
+        sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub + ')</span></h2>'
+               '<div id="newshist" style="width:100%;height:300px"></div>')
+        sec += ('<h2>Plot 9 &mdash; GDELT count by day of week '
+                '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
+                '<div id="dowhist" style="width:100%;height:280px"></div>')
+        if _qc:
+            sec += ('<h2>Plot 10 &mdash; Articles per GDELT search term '
                     '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
-                    'red = 0-hit dud beat)</span></h3>'
+                    'red = 0-hit dud beat)</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
-        _conv = '<h2>Plot 10 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
+        _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
                ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
@@ -500,7 +503,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 ',marker:{color:"#2ca02c"}}],{margin:{t:10,r:10,b:30,l:45},yaxis:{title:"articles"},'
                 'bargap:0.15},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", dscr + "</body>", 1)
-        if is_index and _qc:
+        if _qc:
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
                     ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
                     'hovertemplate:"%{y}<br>%{x} article hits<extra></extra>"}],'
