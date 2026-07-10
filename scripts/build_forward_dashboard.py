@@ -461,12 +461,19 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             except Exception:  # noqa: BLE001
                 pass
     _dowj = json.dumps(_dow)
-    _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # weekday + date, two lines, under each Plot-8 bar
-    _nstick = json.dumps([f"{_wdshort[pd.Timestamp(d).dayofweek]}<br>{d[5:]}" for d in _hx_full])
+    _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # Plot-8 tick: weekday every bar, date once/week
+
+    def _nslab(_d):                                          # date only on the Friday anchor -> one date per week
+        _t = pd.Timestamp(_d)
+        return f"{_wdshort[_t.dayofweek]}<br>{_d[5:]}" if _t.dayofweek == 4 else _wdshort[_t.dayofweek]
+    _nstick = json.dumps([_nslab(d) for d in _hx_full])
     _hxj = json.dumps(_hx_full)
-    # weekly totals vs window-cap: a flat line pinned at the cap means GDELTs were dropped that week
-    _wkx = json.dumps([w for w, _ in _wktot])
-    _wky = json.dumps([n for _, n in _wktot])
+    # weekly totals overlaid on Plot 8 (right y-axis) + a cap line: a flat line at the cap = GDELTs dropped.
+    # Points sit at each week's anchor (Friday), which is a category on the daily x-axis.
+    _wktrace = {"x": [w for w, _ in _wktot], "y": [n for _, n in _wktot], "type": "scatter",
+                "mode": "lines+markers", "name": "weekly total", "yaxis": "y2",
+                "line": {"color": "#d62728"}, "marker": {"size": 8, "symbol": "diamond"}}
+    _histw = json.dumps(_traces + [_wktrace])
     _capv = _cap if _cap else max((n for _, n in _wktot), default=0)
 
     # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
@@ -493,15 +500,14 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         # when a --trace exists so _qc is populated). Push the static Plots 8..11 up by that count.
         # Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so
         # each source number is renamed before it can be re-created downstream.
-        _qn = 1 if _qc else 0
-        _shift = 3 + _qn        # injected plots: news(8), day-of-week(9), [query(10)], weekly-totals
-        _wkn = 10 + _qn         # weekly-totals plot number (after news / day-of-week / [query])
+        _shift = 3 if _qc else 2        # injected plots: news(8), day-of-week(9), [query(10)]
         for _n in (11, 10, 9, 8):
             html = html.replace(f"Plot {_n}", f"Plot {_n + _shift}")
         html = html.replace("agent colors match Plots 7–9",
                             f"agent colors match Plots 7, {8 + _shift} &amp; {9 + _shift}")
-        sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub + ')</span></h2>'
-               '<div id="newshist" style="width:100%;height:300px"></div>')
+        sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub +
+               '; red diamonds = each week&rsquo;s total on the right axis, dashed red = window-cap)</span></h2>'
+               '<div id="newshist" style="width:100%;height:320px"></div>')
         sec += ('<h2>Plot 9 &mdash; GDELT count by day of week '
                 '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
                 '<div id="dowhist" style="width:100%;height:280px"></div>')
@@ -510,28 +516,22 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                     '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
                     'red = 0-hit dud beat)</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
-        sec += ('<h2>Plot ' + str(_wkn) + ' &mdash; Weekly article totals vs cap '
-                '<span class="sub">(sum of each week&rsquo;s pooled GDELTs; dashed red = window-cap &mdash; '
-                'weeks pinned to it had extra articles dropped)</span></h2>'
-                '<div id="wktot" style="width:100%;height:280px"></div>')
         _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
-        scr = ('<script>Plotly.newPlot("newshist",' + _hist +
-               ',{margin:{t:10,r:10,b:38},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
+        scr = ('<script>Plotly.newPlot("newshist",' + _histw +
+               ',{margin:{t:10,r:48,b:38},yaxis:{title:"articles / day"},'
+               'yaxis2:{title:"articles / week",overlaying:"y",side:"right",showgrid:false,rangemode:"tozero"},'
+               'bargap:0.05,barmode:"stack",' + _leg +
                'xaxis:{tickmode:"array",tickvals:' + _hxj + ',ticktext:' + _nstick +
-               ',tickangle:0,tickfont:{size:7}}'
+               ',tickangle:0,tickfont:{size:7}},'
+               'shapes:[{type:"line",x0:0,x1:1,xref:"paper",y0:' + str(_capv) + ',y1:' + str(_capv) +
+               ',yref:"y2",line:{color:"#d62728",dash:"dash"}}]'
                '},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", scr + "</body>", 1)
         dscr = ('<script>Plotly.newPlot("dowhist",[{type:"bar",x:' + json.dumps(_dowlab) + ',y:' + _dowj +
                 ',marker:{color:"#2ca02c"}}],{margin:{t:10,r:10,b:30,l:45},yaxis:{title:"articles"},'
                 'bargap:0.15},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", dscr + "</body>", 1)
-        wscr = ('<script>Plotly.newPlot("wktot",[{x:' + _wkx + ',y:' + _wky +
-                ',mode:"lines+markers",line:{color:"#2ca02c"},marker:{size:7}}],'
-                '{margin:{t:10,r:10,b:44,l:48},yaxis:{title:"articles / week"},'
-                'shapes:[{type:"line",x0:0,x1:1,xref:"paper",y0:' + str(_capv) + ',y1:' + str(_capv) +
-                ',line:{color:"#d62728",dash:"dash"}}]},{displayModeBar:false,responsive:true});</script>')
-        html = html.replace("</body>", wscr + "</body>", 1)
         if _qc:
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
                     ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
