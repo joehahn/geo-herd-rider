@@ -81,3 +81,4 @@ data/backtest_bwet*/
 # removed forward_gdelt experiment caches
 data/windows/gdelt_pool_forward.json
 data/windows/wayback_forward.json
+docs/bwet_h/*.json
