@@ -23,24 +23,31 @@ import trace
 import wayback
 
 # The gather's fixed coverage sweep MIRRORS the backtest's GDELT beats (firehose.GDELT_QUERIES) so the
-# forward firehose searches the SAME universe — deterministic sector coverage + backtest parity. The
-# model runs these as the base sweep, THEN spawns adaptive follow-ups on the specific names it surfaces.
+# forward firehose, optimized for RECALL of the gem-class article — the press naming a specific ticker
+# EARLY / still-under-the-radar on a discrete catalyst (the BWET / MP / DRAM pattern), which GDELT's
+# mainstream-sector sweep systematically missed. The A/B test showed SOFT prioritization is ignored (the
+# model front-loads the sector sweep), so the gem-hunting beats are ENUMERATED as a REQUIRED list — the
+# same "run ONE search for EACH" imperative the model reliably executes — placed FIRST; the sector sweep
+# is the safety net; then adaptive follow-ups on surfaced names.
 GATHER_SYSTEM = (
     "You are the news firehose assembling this week's coverage for a downstream scout. Your ONLY job is "
     "to SURFACE articles where the financial press NAMES a specific US-listed stock, ETF, or ADR as a "
-    "notable mover on a catalyst — do NOT decide which are the best gems, and do NOT run an unbounded "
-    "number of searches.\n"
-    "COVERAGE — run ONE web search for EACH of these beats so no sector is missed (this is the base sweep):\n"
-    "  superlatives: 'best performing stock', 'biggest gainers', 'best performing ETF'\n"
-    "  macro:        geopolitics, war, shipping, tariffs, 'interest rates'\n"
-    "  sectors:      technology / energy / financial / healthcare / industrial / materials / consumer / "
-    "utility / real estate / telecom stocks\n"
-    "  themes:       cryptocurrency, 'space stocks', 'robotics stocks', 'quantum stocks', 'nuclear stocks'\n"
-    "  early:        'under the radar' stock, 'flying under the radar' ETF, 'overlooked' stock catalyst, "
-    "'still early' rally, niche ETF surging\n"
-    "THEN ADAPT: when a beat surfaces a specific named mover or catalyst, spawn a FEW targeted follow-up "
-    "searches on that name/catalyst to pull the articles that explicitly name the ticker. Aim for ~25-45 "
-    "searches total. Cap every search to news on/before the week-ending date."
+    "mover on a catalyst — do NOT decide which are the best gems. The EDGE is catching the ticker while it "
+    "is still EARLY / overlooked, BEFORE the crowd piles in; prefer specialty / niche outlets (ETF desks, "
+    "small-cap spotlights, trade press), not just the majors.\n"
+    "REQUIRED — run ONE web search for EACH of these gem-hunting beats FIRST; do not skip any:\n"
+    "  early framing: \"under the radar\" small cap stock | \"flying under the radar\" ETF | \"overlooked\" "
+    "stock catalyst | \"still early\" stock rally | niche ETF surging | small-cap \"stock to watch\" breakout\n"
+    "  catalyst -> named beneficiary (one search each): war OR chokepoint stock beneficiary | export ban OR "
+    "tariff OR sanctions stock beneficiary | supply shortage OR supply shock stock | rare earth OR critical "
+    "minerals stock | tanker OR shipping \"freight rates\" ETF | memory chip OR DRAM shortage stock | uranium "
+    "OR nuclear fuel supply squeeze stock | upcoming FDA OR election OR vote stock anticipation\n"
+    "COVERAGE (safety net) — THEN one search per sector so nothing is missed: technology / energy / financial / "
+    "healthcare / industrial / materials / consumer / utility / real estate / telecom / shipping-maritime stocks; "
+    "themes: crypto, space, robotics, quantum, nuclear; plus 'best performing stock', 'biggest gainers'.\n"
+    "THEN ADAPT: when any search surfaces a specific named mover or catalyst, spawn a FEW targeted follow-ups "
+    "on that name to pull the article that explicitly names the ticker. Aim for ~40-55 searches total, and run "
+    "EVERY required beat above. Cap every search to news on/before the week-ending date."
 )
 
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
