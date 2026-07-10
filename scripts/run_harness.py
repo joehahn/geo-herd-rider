@@ -107,7 +107,7 @@ def main(argv: list[str] | None = None) -> int:
 
     gems = {g["ticker"]: g for g in spec["gems"]}
     controls = {c["ticker"]: c for c in spec.get("controls", [])}
-    fm = load_financial_model(str(ROOT / "investor_profile.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     rebalance = int(fm.get("rebalance_days", 7))
     model_short = str(fm.get("model", "mimo")).strip().lower()
     resolved_id, resolved_prov = resolve_curator_model(model_short)

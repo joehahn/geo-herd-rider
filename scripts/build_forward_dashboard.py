@@ -173,7 +173,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         sys.exit("no weeks in scan log (after --as-of filter)")
     week = weeks[-1]
 
-    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     for kv in (overrides or []):        # deterministic config sweep (no LLM cost) — re-size + re-render only
         k, v = kv.split("=", 1)
         try:

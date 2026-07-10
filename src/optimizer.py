@@ -12,7 +12,7 @@ Public surface:
   - optimize_portfolio mean-variance optimization via scipy
   - risk_metrics       Sharpe, vol, max drawdown, VaR, CVaR for a weight vector
   - analyze            one-shot: fetch + returns + optimize + risk
-  - load_financial_model   read the optimizer knobs from investor_profile.md
+  - load_financial_model   read the optimizer knobs from investor_profile.backtest.md
 """
 from __future__ import annotations
 
@@ -47,6 +47,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
+    "window_cap": 80,                  # max articles/week the scout reads (per-week pool cap, most-recent kept).
+                                       #   0 = UNCAPPED. (backtest_gdelt overrides via --window-cap.)
     "max_agents": 2,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
     "spy_agent_conviction": 6,
@@ -85,7 +87,7 @@ def resolve_curator_model(short: str) -> tuple[str, str]:
     return CURATOR_MODELS.get(str(short).strip().lower(), CURATOR_MODELS["mimo"])
 
 
-def load_financial_model(profile_path: str = "investor_profile.md") -> dict[str, Any]:
+def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> dict[str, Any]:
     """Read the optimizer knobs from the profile's YAML front matter; missing fields fall back
     to defaults. Knobs are flat top-level keys (one per line). The optimizer is always
     mean-variance — `risk_aversion` (lambda) is the only investor-facing knob.

@@ -31,7 +31,7 @@ def main():
     print(f"  Anthropic pool: {len(anth)} articles "
           f"({min(a['published_date'][:10] for a in anth)}..{max(a['published_date'][:10] for a in anth)})")
 
-    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model)

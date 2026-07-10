@@ -52,7 +52,7 @@ def main(argv=None):
     print(f"  combined pool: {len(articles)} articles, {lo} .. {hi}")
 
     anchors = scan_anchors(lo, hi, a.rebalance_days)          # weekly (W-FRI) anchors across the span
-    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     model_id = resolve_curator_model(fm.get("model", "sonnet5"))[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model_id)

@@ -49,8 +49,8 @@ SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
 ARCHIVE_DIR = REPO_ROOT / "data" / "forward" / "archive"   # LOCAL-ONLY (gitignored): raw web-search
 _FWD_PROFILE = REPO_ROOT / "investor_profile.forward.md"   #   inputs frozen at decision time (Option B)
 # Forward/production reads the FROZEN forward profile (the live candidate under test); the backtest
-# tools use investor_profile.md, which is free to keep evolving. Fall back if the forward file is absent.
-PROFILE = _FWD_PROFILE if _FWD_PROFILE.exists() else REPO_ROOT / "investor_profile.md"
+# tools use investor_profile.backtest.md, which is free to keep evolving. Fall back if the forward file is absent.
+PROFILE = _FWD_PROFILE if _FWD_PROFILE.exists() else REPO_ROOT / "investor_profile.backtest.md"
 MODEL = "claude-opus-4-8"
 
 COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "conviction", "evidence_urls"]
@@ -285,7 +285,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to data/forward/transcript.jsonl (or PATH)")
     ap.add_argument("--model", default=None,
-                    help="curator model id override; default = investor_profile.md's model knob "
+                    help="curator model id override; default = investor_profile.forward.md's model knob "
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
     ap.add_argument("--explain", nargs="?", const="", default=None, metavar="WEEK",
                     help="audit why the scout kept few/no gems for a week (default: latest archive); no web search")

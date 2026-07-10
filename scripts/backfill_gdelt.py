@@ -41,7 +41,7 @@ def main():
                     cache_path=str(cache_f), stats_path=stats)
     print(f"  GDELT pool: {len(gpool)} articles", flush=True)
 
-    fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model)

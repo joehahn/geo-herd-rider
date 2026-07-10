@@ -77,5 +77,12 @@ news firehose pays. Confirm scope before jumping ahead.
 - Default model for LLM work is `claude-opus-4-8`; `claude-sonnet-4-6` is the cheaper
   option for high-volume curator/backtest runs.
 - Outputs land in `data/`; `data/prices_cache/` is gitignored. Don't commit the venv.
+- **Exactly two investor-profile files.** `investor_profile.backtest.md` = the dev/backtest config
+  (`backtest_gdelt.py`, sweeps, gem-dashboards, bake-off) — free to evolve. `investor_profile.forward.md`
+  = the FROZEN live-forward candidate (`forward.py`). Keep the **strategy knobs** (`model`, `max_agents`,
+  the floors, `risk_aversion`, `concentration_cap`) synced across both so the backtest stays a valid
+  proxy; only **retrieval-operational** knobs (`window_cap`) may differ. Promoting a backtest candidate to
+  forward = copy the strategy knobs into `.forward.md` as a dated re-freeze. Any profile knob you add must
+  be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model` silently drops it.
 - Commit/push only when asked. Commit-message trailer:
   `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`

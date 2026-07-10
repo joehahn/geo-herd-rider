@@ -543,7 +543,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--model", default=MODEL)
     ap.add_argument("--workers", type=int, default=WORKERS)
     ap.add_argument("--capital", type=float, default=None,
-                    help="override; default = initial_investment_usd from investor_profile.md")
+                    help="override; default = initial_investment_usd from investor_profile.backtest.md")
     ap.add_argument("--scan-only", action="store_true", help="print the weekly scans, skip backtest")
     ap.add_argument("--fixture", default=None,
                     help="path to a fixed article set (perfect-retrieval mechanics test, no live search)")
@@ -562,7 +562,7 @@ def main(argv: list[str] | None = None) -> int:
     if not os.environ.get("ANTHROPIC_API_KEY"):
         print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
         return 2
-    fm = load_financial_model(str(REPO_ROOT / "investor_profile.md"))
+    fm = load_financial_model(str(REPO_ROOT / "investor_profile.backtest.md"))
     rebalance = args.rebalance_days if args.rebalance_days is not None else int(fm.get("rebalance_days", 7))
     lookback = args.lookback_days if args.lookback_days is not None else fm.get("news_lookback_days")
 

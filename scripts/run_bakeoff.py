@@ -4,7 +4,7 @@ gem on the CURRENT investor_profile + prompts, then rebuild the LLM sweep plot.
 
 Two-tier by design:
   * SCANS (this script) = the expensive, DELIBERATE step (~$16, ~85 min for 7 models). Each model
-    re-reads investor_profile.md (curator config) and the live prompts in agent.py, then warm-scans
+    re-reads investor_profile.backtest.md (curator config) and the live prompts in agent.py, then warm-scans
     each gem (cache-only enrich; pools already cached). Same prompt => run_harness resume is instant;
     a prompt change => fresh scans. So cost is proportional to what actually changed.
   * SCORING lives in build_dashboard.build_sweeps (cheap, re-reads the profile's backtest config, runs

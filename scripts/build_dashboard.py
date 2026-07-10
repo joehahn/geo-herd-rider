@@ -172,7 +172,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     if out_override:
         cfg = {**cfg, "out": OUT_DIR / out_override}
     scans = load_scans(cfg["scans"])
-    fm = load_financial_model(str(ROOT / "investor_profile.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     capital = capital_override if capital_override is not None else float(fm.get("initial_investment_usd", 50_000))
     _fm = fm
     if GEM_VERTICAL.get(ticker) == "gold" and str(fm.get("defensive_ticker", "GLD")).upper() in ("GLD", "IAU", "GOLD", "SGOL", "AAAU"):
@@ -654,7 +654,7 @@ def build_sweeps() -> None:
     values (ONE fixed price panel per gem, so the cap comparison is clean) and write the SUM across
     gems of Final Curated Portfolio value + Sum Final SPY (flat benchmark). Extensible via SWEEPS."""
     import score
-    fm0 = {**load_financial_model(str(ROOT / "investor_profile.md")), **SWEEP_BASE}
+    fm0 = {**load_financial_model(str(ROOT / "investor_profile.backtest.md")), **SWEEP_BASE}
     capital = float(fm0.get("initial_investment_usd", 50_000))
     # Include only gems with a CURRENT built dashboard (docs/<gem>/data.json) — this couples sweep
     # membership to the live curated set, so a stale/other-prompt scan (e.g. a pre-gate RNMBY) that
@@ -770,7 +770,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--all", action="store_true", help="build every gem + landing + sweeps")
     ap.add_argument("--sweeps", action="store_true", help="build only the parameter-sweep dashboard")
     ap.add_argument("--capital", type=float, default=None,
-                    help="override; default = initial_investment_usd from investor_profile.md")
+                    help="override; default = initial_investment_usd from investor_profile.backtest.md")
     args = ap.parse_args(argv)
     if args.all:
         built = [g["ticker"] for g in json.loads(GEMS_JSON.read_text())["gems"]
@@ -1010,7 +1010,7 @@ Promise.resolve({{DATA}}).then(D=>{
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
-  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.backtest.md)
   const P=D.params||{};
   const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
     "max_agents","spy_agent_conviction","defensive_agent_conviction","defensive_ticker",

@@ -1,13 +1,13 @@
 ---
 # ==========================================================================
 # FROZEN FORWARD / PRODUCTION CONFIG — the live candidate under forward test.
-#   * forward.py reads THIS file (falls back to investor_profile.md if absent).
-#   * Backtest / sweeps / gem-dashboard dev uses investor_profile.md, which is
+#   * forward.py reads THIS file (falls back to investor_profile.backtest.md if absent).
+#   * Backtest / sweeps / gem-dashboard dev uses investor_profile.backtest.md, which is
 #     free to keep evolving. This file is DELIBERATELY independent, not synced.
 #   * Do NOT tune this to backtest signal (CLAUDE.md #5/#6). Changing any value
 #     = re-freezing a NEW candidate — note it as a dated discontinuity in the
 #     forward series (or start a fresh series).
-#   * Seeded 2026-07-07 as an exact copy of investor_profile.md: the aggressive
+#   * Seeded 2026-07-07 as an exact copy of investor_profile.backtest.md: the aggressive
 #     backtest-settled candidate (cap 1.0 · risk 0.1 · 7/5/5 · sonnet5).
 # ==========================================================================
 # Active optimizer settings
@@ -25,7 +25,7 @@ risk_aversion: 0.1                # lambda in mean-variance utility (μᵀw − 
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 7                     # Keep only the top-N agents in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped
-window_cap: 80                    # Max news headlines the scout reads per week (per-week pool cap); higher = more recall but more tokens/noise. SWEEP candidate.
+window_cap: 0                     # 0 = UNCAPPED (forward is lower-volume; avoids silently dropping impactful articles). Changed 80->0 on 2026-07-10 (dated discontinuity).
 spy_agent_conviction: 5           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
 defensive_agent_conviction: 5     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
 defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme

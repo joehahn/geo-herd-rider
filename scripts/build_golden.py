@@ -61,7 +61,7 @@ def main(argv: list[str] | None = None) -> int:
 
     GOLDEN.mkdir(parents=True, exist_ok=True)
     scans = load_scans(SCANS_SRC)
-    fm = load_financial_model(str(ROOT / "investor_profile.md"))
+    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
 
     # 1. price panel — frozen so the replay is offline + deterministic
     panel_path = GOLDEN / "panel.csv"

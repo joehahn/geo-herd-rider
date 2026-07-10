@@ -1,5 +1,16 @@
 ---
-# Active optimizer settings 
+# ==========================================================================
+# BACKTEST / DEV CONFIG — free to evolve. The GDELT backtest (backtest_gdelt.py),
+# sweeps, gem-dashboards, and the model bake-off read THIS file. To promote a
+# backtest-settled candidate to the live forward test, copy the STRATEGY knobs into
+# investor_profile.forward.md (a dated re-freeze; see that file's header).
+#   * Keep the STRATEGY knobs (model, max_agents, floors, risk_aversion,
+#     concentration_cap) in sync with .forward.md so the backtest stays a valid
+#     proxy; only RETRIEVAL-operational knobs (window_cap) legitimately differ.
+#   * backtest_gdelt.py sets window_cap via --window-cap (CLI); the value below is
+#     the default for profile-reading tools (run_harness).
+# ==========================================================================
+# Active optimizer settings
 model: sonnet5                     # Curator LLM that reads the firehose. Choices:
                                   #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1  
                                   #   llama4   = llama-4-maverick (OpenRouter)     ~$0.3
@@ -14,7 +25,7 @@ risk_aversion: 0.1              # lambda in mean-variance utility (μᵀw − λ
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 7                     # Keep only the top-N agents in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped
-window_cap: 80                    # Max news headlines the scout reads per week (per-week pool cap); higher = more recall but more tokens/noise. SWEEP candidate.
+window_cap: 560                   # Max articles/week the scout reads (per-week pool cap); backtest_gdelt overrides via --window-cap. 0 = uncapped.
 spy_agent_conviction: 5           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
 defensive_agent_conviction: 5     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
 defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme
