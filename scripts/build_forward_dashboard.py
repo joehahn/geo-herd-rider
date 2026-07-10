@@ -602,7 +602,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         allnav = ('<nav class="nav"><a href="index.html" class="active">All weeks</a>' + wk_links
                   + '<a href="firehose.html">Firehose log</a>'
                   + '<a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>')
-        _pidx = {**payload, "book_title": "Weekly results",     # summary page: whole-run title + range
+        _pidx = {**payload, "book_title": "Summary of Weekly results",  # summary page: whole-run title + range
                  "subtitle": f"{len(weeks)} weekly scans · {weeks[0]} → {weeks[-1]}"}
         pj_index = json.dumps(_pidx).replace("</", "<\\/")
         idx = _inject_hist(_navrx.sub(lambda _: allnav, build_dashboard.INDEX_HTML.replace("{{DATA}}", pj_index), count=1), is_index=True)
