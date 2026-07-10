@@ -9,23 +9,27 @@
 #     forward series (or start a fresh series).
 #   * Seeded 2026-07-07 as an exact copy of investor_profile.backtest.md: the aggressive
 #     backtest-settled candidate (cap 1.0 · risk 0.1 · 7/5/5 · sonnet5).
+#   * 2026-07-10 re-freeze (dated discontinuity): split the single `model` knob into
+#     event_agent_model (sonnet5, judgment + Anthropic gather) + scout_model (llama4, cheap
+#     scout+matcher); renamed window_cap -> news_cap (per-week scout budget). Scout is now
+#     an UNVALIDATED cheap model — treat forward results after this date as a new segment.
 # ==========================================================================
 # Active optimizer settings
-model: sonnet5                     # Curator LLM that reads the firehose. Choices:
-                                  #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1
-                                  #   llama4   = llama-4-maverick (OpenRouter)     ~$0.3
-                                  #   mimo     = xiaomi/mimo-v2.5-pro (OpenRouter) ~$0.4
+event_agent_model: sonnet5         # JUDGMENT stage (per-event agents) AND the live gather (Anthropic web
+                                  #   search) — so this MUST resolve to an Anthropic model. Choices:
                                   #   sonnet4  = claude-sonnet-4-6 (Anthropic)     ~$3.6
                                   #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8
-                                  #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
+scout_model: llama4                # EXTRACTION/ROUTING stage (scout + matcher): the cost driver, runs a
+                                  #   cheap model. Any provider (no web search). Falls back to
+                                  #   event_agent_model if unset.  llama4 = llama-4-maverick (OpenRouter) ~$0.3
 initial_investment_usd: 50000     # Day-0 dollar allocation.
 concentration_cap: 1.0            # Per-ticker max allocation.
 risk_aversion: 0.1                # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 7                     # Keep only the top-N agents in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped
-window_cap: 0                     # 0 = UNCAPPED (forward is lower-volume; avoids silently dropping impactful articles). Changed 80->0 on 2026-07-10 (dated discontinuity).
+news_cap: 0                       # Per-WEEK scout budget (articles the weekly --scan reads). 0 = UNCAPPED. The daily --pull fetches uncapped regardless; this caps only the weekly scout read. Renamed from window_cap + set 80->0 on 2026-07-10 (dated discontinuity).
 spy_agent_conviction: 5           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
 defensive_agent_conviction: 5     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
 defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme

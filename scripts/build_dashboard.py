@@ -359,7 +359,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
 
     # curator model that PRODUCED this book: the scan sidecar wins over the current profile knob
     meta_p = cfg["scans"].with_suffix(".meta.json")
-    disp_model = fm.get("model", "mimo")
+    disp_model = fm.get("event_agent_model") or fm.get("model") or "mimo"
     if meta_p.exists():
         try:
             disp_model = json.loads(meta_p.read_text()).get("model", disp_model)
@@ -681,7 +681,7 @@ def build_sweeps() -> None:
         cfg = gem_config(t)
         meta_p = cfg["scans"].with_suffix(".meta.json")
         models[t] = (json.loads(meta_p.read_text()).get("model") if meta_p.exists()
-                     else fm0.get("model", "mimo"))
+                     else fm0.get("event_agent_model") or fm0.get("model") or "mimo")
         scans = load_scans(cfg["scans"])
         ana = list(scans)
         tix = {score.BENCHMARK, t, str(fm0.get("defensive_ticker", "GLD")).upper()} | {p["ticker"] for v in scans.values() for p in v
@@ -708,7 +708,8 @@ def build_sweeps() -> None:
         cend = (cana[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
         gem_data["GEO_MSTR"] = (cscans, score.fetch_panel(sorted(ctix), cstart, cend, use_cache=False), "2024-11-05")
         _cm = combo_p.with_suffix(".meta.json")
-        models["GEO_MSTR"] = json.loads(_cm.read_text()).get("model") if _cm.exists() else fm0.get("model", "mimo")
+        models["GEO_MSTR"] = (json.loads(_cm.read_text()).get("model") if _cm.exists()
+                              else fm0.get("event_agent_model") or fm0.get("model") or "mimo")
         gem_tickers = [*gem_tickers, "GEO_MSTR"]
         # include GEO_MSTR in the bake-off too (bake_tickers/bake_models were computed before this add);
         # requiring its book excludes half-finished models (only fully-scanned models appear -> clean staging).

@@ -745,26 +745,31 @@ def event_agent_v2(client, anchor, event, entries, news):
 
 
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
-                 curator_memory_weeks=8, workers=8, src_fn=None):
+                 curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
     (forward_engine.run_week, live-gather pool) — so the two run byte-identical logic and a settled
     forward solution can be re-backtested just by swapping the pool source. `src_fn(tk)->str` labels a
-    pick's provenance (default 'live'); the backtest passes a seed-vs-gdelt labeler."""
+    pick's provenance (default 'live'); the backtest passes a seed-vs-gdelt labeler.
+
+    Two-tier LLM split: `scout_client` runs the cheap, high-volume extraction/routing stages (scout +
+    matcher); `client` runs the judgment stage (the event agents). `scout_client` defaults to `client`,
+    so single-client callers keep the pre-split behavior byte-for-byte."""
+    scout_client = scout_client or client
     src_fn = src_fn or (lambda tk: "live")
     if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
         rmem = ""
     else:                                                  # <0 = whole history; >0 = last N weeks only
         rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
                          if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
-    cands = scout(client, anchor, pool, retired=rmem)
+    cands = scout(scout_client, anchor, pool, retired=rmem)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
                      for v in ev["vehicles"]}
     new_cands = [c for c in cands if c["ticker"] not in held_to_event]
-    match = match_to_events(client, anchor, new_cands, events) if new_cands else {}
+    match = match_to_events(scout_client, anchor, new_cands, events) if new_cands else {}
     for c in new_cands:
         tk, eid = c["ticker"], match.get(c["ticker"], "new")
         peers = {q.strip().upper() for q in c.get("peers", [])          # same-catalyst basket peers
@@ -806,7 +811,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, window_cap=WINDOW_CAP) -> dict:
+                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, news_cap=WINDOW_CAP) -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
@@ -857,8 +862,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     for i, a in enumerate(anchors):
         if a.isoformat() in done:
             continue
-        gslice = sorted(firehose._window(gpool, a, rebalance_days),
-                        key=lambda x: x.get("published_date", ""), reverse=True)[:window_cap]
+        _gsorted = sorted(firehose._window(gpool, a, rebalance_days),
+                          key=lambda x: x.get("published_date", ""), reverse=True)
+        gslice = _gsorted[:news_cap] if news_cap else _gsorted   # news_cap=0 -> UNCAPPED (keep all)
         if enrich:
             wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache,
                            fetch=enrich_fetch, stats_path=stats_path)

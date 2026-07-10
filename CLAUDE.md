@@ -79,10 +79,16 @@ news firehose pays. Confirm scope before jumping ahead.
 - Outputs land in `data/`; `data/prices_cache/` is gitignored. Don't commit the venv.
 - **Exactly two investor-profile files.** `investor_profile.backtest.md` = the dev/backtest config
   (`backtest_gdelt.py`, sweeps, gem-dashboards, bake-off) — free to evolve. `investor_profile.forward.md`
-  = the FROZEN live-forward candidate (`forward.py`). Keep the **strategy knobs** (`model`, `max_agents`,
-  the floors, `risk_aversion`, `concentration_cap`) synced across both so the backtest stays a valid
-  proxy; only **retrieval-operational** knobs (`window_cap`) may differ. Promoting a backtest candidate to
-  forward = copy the strategy knobs into `.forward.md` as a dated re-freeze. Any profile knob you add must
-  be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model` silently drops it.
+  = the FROZEN live-forward candidate (`forward.py`). Keep the **strategy knobs** (`event_agent_model`,
+  `scout_model`, `max_agents`, the floors, `risk_aversion`, `concentration_cap`) synced across both so the
+  backtest stays a valid proxy; only **retrieval-operational** knobs (`news_cap`) may differ. Promoting a
+  backtest candidate to forward = copy the strategy knobs into `.forward.md` as a dated re-freeze. Any
+  profile knob you add must be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model` silently
+  drops it.
+  - **Two-tier curator (2026-07-10):** the old single `model` knob is split into `event_agent_model`
+    (judgment: per-event agents + the forward's Anthropic web-search gather — must be Anthropic) and
+    `scout_model` (cheap scout+matcher; any provider). `resolve_stage_models(fm)` returns both, with a
+    legacy `model:` key honored as the fallback for both. `news_cap` (renamed from `window_cap`) is the
+    per-week scout-read budget (`0`=uncapped); the forward's daily `--pull` fetches uncapped regardless.
 - Commit/push only when asked. Commit-message trailer:
   `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`

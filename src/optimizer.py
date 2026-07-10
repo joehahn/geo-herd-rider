@@ -38,17 +38,23 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 21,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
-    "model": "sonnet5",                 # LIVE (curator/scan): which LLM reads the firehose. Short
-                                       #   names resolved by resolve_curator_model(): deepseek (cheap,
-                                       #   OpenRouter) | sonnet | sonnet5 | opus | .... Stamped into the
-                                       #   scan + shown on the dashboards as the curator model.
+    "event_agent_model": "sonnet5",     # LIVE (judgment): the LLM that runs the per-event agents (the
+                                       #   live/exit switch + conviction). Keep on a strong model. Short
+                                       #   names resolved by resolve_curator_model(). (Legacy `model:` is
+                                       #   still read as a fallback for both stages.)
+    "scout_model": "llama4",           # LIVE (extraction/routing): the cheap, high-volume LLM that reads
+                                       #   the firehose pool and does the scout + matcher stages. This is
+                                       #   where the token cost lives, so it runs a cheap model (llama4,
+                                       #   OpenRouter). Falls back to event_agent_model if unset.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
-    "window_cap": 80,                  # max articles/week the scout reads (per-week pool cap, most-recent kept).
-                                       #   0 = UNCAPPED. (backtest_gdelt overrides via --window-cap.)
+    "news_cap": 0,                     # per-SCAN (per-week) cap on how many articles the scout reads
+                                       #   (most-recent kept); ONE meaning everywhere. 0 = UNCAPPED. The
+                                       #   forward's daily pull fetches uncapped; only this weekly scout
+                                       #   read is capped. (backtest_gdelt overrides via --news-cap.)
     "max_agents": 2,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
     "spy_agent_conviction": 6,
@@ -85,6 +91,21 @@ def resolve_curator_model(short: str) -> tuple[str, str]:
     """Map a profile `model` short name (mimo|sonnet|opus) to (model_id, provider).
     Unknown names fall back to mimo (the safe, cheap default)."""
     return CURATOR_MODELS.get(str(short).strip().lower(), CURATOR_MODELS["mimo"])
+
+
+def resolve_stage_models(fm: dict) -> tuple[tuple[str, str], tuple[str, str]]:
+    """Two-tier curator split from a loaded financial model. Returns
+    ((scout_id, scout_provider), (event_id, event_provider)).
+
+    * event_agent_model — the judgment stage (event agents); strong model.
+    * scout_model — the cheap high-volume extraction/routing stage (scout + matcher);
+      falls back to the event model if unset.
+    * Legacy: a single `model:` key (old profiles/archives) is honored as the fallback
+      for BOTH stages, so pre-split configs keep resolving unchanged."""
+    legacy = fm.get("model") or "sonnet5"
+    event_short = fm.get("event_agent_model") or legacy
+    scout_short = fm.get("scout_model") or event_short
+    return resolve_curator_model(scout_short), resolve_curator_model(event_short)
 
 
 def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> dict[str, Any]:

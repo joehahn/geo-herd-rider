@@ -41,7 +41,7 @@ import score
 import trace
 import trump_feed
 import wayback
-from optimizer import load_financial_model, resolve_curator_model
+from optimizer import load_financial_model, resolve_curator_model, resolve_stage_models
 from util import load_dotenv, scan_anchors, news_domains
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -81,9 +81,9 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     """Write the immutable per-week archive (LOCAL-ONLY). REUSES the gather's already-frozen in-window
     pool (`capture['arts']` — the actual scout input, no re-fetching) + the full raw-result metadata."""
     cfg = load_financial_model(str(PROFILE))               # stamp the frozen config that produced this week
-    knobs = {k: cfg.get(k) for k in ("model", "concentration_cap", "risk_aversion", "min_trade_size",
-             "lookback_period_days", "max_agents", "spy_agent_conviction", "defensive_agent_conviction",
-             "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
+    knobs = {k: cfg.get(k) for k in ("event_agent_model", "scout_model", "concentration_cap", "risk_aversion",
+             "min_trade_size", "lookback_period_days", "max_agents", "spy_agent_conviction",
+             "defensive_agent_conviction", "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
     pool = capture.get("arts", [])                         # frozen in-window pool: {title,url,published_date,source,snippet}
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
            "profile": PROFILE.name, "config": knobs,
@@ -128,8 +128,9 @@ def _use_sandbox(dir_path: str) -> None:
 
 
 def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
-                 anchor: pd.Timestamp | None = None, window_cap: int = 80,
-                 gather_engine: str = "anthropic") -> pd.DataFrame:
+                 anchor: pd.Timestamp | None = None, news_cap: int = 0,
+                 gather_engine: str = "anthropic", scout_model: str | None = None,
+                 scout_provider: str = "anthropic") -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
     LOCAL journal; here we log the decision + archive the raw inputs."""
@@ -154,15 +155,16 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     pool = None
     if acc:
         _raw = sorted(acc.values(), key=lambda x: x["published_date"], reverse=True)
-        pool = _raw[:window_cap] if window_cap else _raw       # window_cap=0 -> UNCAPPED (keep all)
-        if window_cap and len(_raw) > window_cap:              # surface silent drops in forward operation
-            print(f"  !! window-cap dropped {len(_raw) - window_cap} of {len(_raw)} articles "
+        pool = _raw[:news_cap] if news_cap else _raw           # news_cap=0 -> UNCAPPED (keep all)
+        if news_cap and len(_raw) > news_cap:                  # surface silent drops in forward operation
+            print(f"  !! news-cap dropped {len(_raw) - news_cap} of {len(_raw)} articles "
                   f"(oldest-in-window)", file=sys.stderr, flush=True)
     if pool:
         print(f"  using {len(pool)} accumulated daily-pull articles (no separate weekly gather).", flush=True)
     picks = forward_engine.run_week(anchor, model, rebalance_days,
-                                    curator_memory_weeks=curator_memory_weeks, capture=capture, window_cap=window_cap,
-                                    gather_engine=gather_engine, pool=pool)
+                                    curator_memory_weeks=curator_memory_weeks, capture=capture, news_cap=news_cap,
+                                    gather_engine=gather_engine, pool=pool,
+                                    scout_model=scout_model, scout_provider=scout_provider)
     # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
     # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
@@ -198,9 +200,13 @@ def _scans_dict(log: pd.DataFrame) -> dict:
     return dict(sorted(out.items()))
 
 
-def pull_day(model: str, window_cap: int = 80) -> None:
+def pull_day(model: str) -> None:
     """DAILY past-24h Anthropic news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
-    The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather)."""
+    The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
+
+    Fetches UNCAPPED: the daily pull must keep every day's news so the week accumulates in full; the
+    single news_cap (a per-WEEK scout budget) is applied only when --scan reads that week's pool. (An
+    earlier version passed the same cap here per-DAY *and* per-week — double-capping the pool.)"""
     day = _current_anchor(1)                                # most recent daily 16:30-ET point on/before now
     dk = day.date().isoformat()
     daily_dir = SCANS_CSV.parent / "daily"
@@ -211,7 +217,7 @@ def pull_day(model: str, window_cap: int = 80) -> None:
         return
     print(f"  daily Anthropic pull for {dk} (past-24h window) ...", flush=True)
     cap: dict = {}
-    arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=window_cap)
+    arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=0)  # uncapped daily
     out.write_text(json.dumps({"date": dk, "model": model, "pool": cap.get("arts", arts),
                                "queries": cap.get("queries", [])}, indent=2, default=str))
     print(f"  pulled {len(cap.get('arts', arts))} articles -> {out}")
@@ -262,7 +268,8 @@ def explain(week: str | None = None) -> None:
     pool = rec.get("pool", [])
     block = "\n".join(f"[{a.get('published_date')} | {a.get('source')}] {a.get('title')} "
                       f"— {a.get('snippet', '')[:180]}" for a in pool)
-    model_id = resolve_curator_model(rec.get("config", {}).get("model", "sonnet5"))[0]
+    _cfg = rec.get("config", {})
+    model_id = resolve_curator_model(_cfg.get("event_agent_model") or _cfg.get("model") or "sonnet5")[0]
     sys_p = ("You audit a hidden-gem scout. It keeps ONLY a still-EARLY / under-the-radar US-listed ticker "
              "tied to a SPECIFIC, DATABLE, RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, named "
              "bill, regulatory/agency action, supply shock, deal, OR a dated future event it is rising in "
@@ -318,19 +325,21 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set (export it or put it in .env).", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        model_id, provider = resolve_curator_model(fm.get("model", "sonnet5"))
-        if args.model:                          # explicit override wins
-            model_id = args.model
-        elif provider != "anthropic":           # web search is Anthropic-only; don't silently misfire
-            print(f"ERROR: forward --scan needs an Anthropic curator (web search is Anthropic-only); "
-                  f"investor_profile model '{fm.get('model')}' resolves to provider '{provider}'. "
-                  f"Pass --model <anthropic-id>.", file=sys.stderr)
+        (scout_id, scout_prov), (event_id, provider) = resolve_stage_models(fm)
+        if args.model:                          # explicit override wins (event/gather model)
+            event_id = args.model
+        elif provider != "anthropic":           # the gather + event model does web search (Anthropic-only)
+            print(f"ERROR: forward --scan needs an Anthropic event_agent_model (gather web search is "
+                  f"Anthropic-only); '{fm.get('event_agent_model') or fm.get('model')}' resolves to "
+                  f"provider '{provider}'. Pass --model <anthropic-id>. (scout_model may be any provider.)",
+                  file=sys.stderr)
             return 2
         rebal = args.rebalance_days or int(fm.get("rebalance_days", 7))
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
-        scan_and_log(model_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
-                     window_cap=int(fm.get("window_cap", 80)),
-                     gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))))
+        scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
+                     news_cap=int(fm.get("news_cap", 0)),
+                     gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))),
+                     scout_model=scout_id, scout_provider=scout_prov)
 
     if args.pull:
         load_dotenv()
@@ -338,8 +347,8 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        model_id, provider = resolve_curator_model(fm.get("model", "sonnet5"))
-        pull_day(args.model or model_id, int(fm.get("window_cap", 80)))
+        (_si, _sp), (event_id, _prov) = resolve_stage_models(fm)   # daily gather = Anthropic event model
+        pull_day(args.model or event_id)
 
     if args.report:
         report()

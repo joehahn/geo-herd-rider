@@ -109,7 +109,7 @@ def main(argv: list[str] | None = None) -> int:
     controls = {c["ticker"]: c for c in spec.get("controls", [])}
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     rebalance = int(fm.get("rebalance_days", 7))
-    model_short = str(fm.get("model", "mimo")).strip().lower()
+    model_short = str(fm.get("event_agent_model") or fm.get("model") or "mimo").strip().lower()
     resolved_id, resolved_prov = resolve_curator_model(model_short)
     if args.model is None:
         args.model = resolved_id
@@ -129,7 +129,7 @@ def main(argv: list[str] | None = None) -> int:
                                             provider=args.provider, targeted=not args.no_targeted,
                                             enrich=args.enrich, enrich_fetch=not args.enrich_cache_only,
                                             curator_memory_weeks=int(fm.get("curator_memory_weeks", 8) or 0),
-                                            window_cap=int(fm.get("window_cap", agent.WINDOW_CAP)))
+                                            news_cap=int(fm.get("news_cap", agent.WINDOW_CAP)))
     elif args.agent:
         scans = agent.run_agent_scans(args.start, args.end, rebalance, args.model, args.workers,
                                       queries=HARNESS_QUERIES, seed=args.seed,

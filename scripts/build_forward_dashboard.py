@@ -185,7 +185,9 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     # curator model that produced the run: the latest archived config wins over the profile knob
     arch_f = sb / "archive" / f"{week}.json"
     arch = json.loads(arch_f.read_text()) if arch_f.exists() else {}
-    disp_model = (arch.get("config", {}) or {}).get("model") or arch.get("model") or fm.get("model", "?")
+    _acfg = arch.get("config", {}) or {}
+    disp_model = (_acfg.get("event_agent_model") or _acfg.get("model") or arch.get("model")
+                  or fm.get("event_agent_model") or fm.get("model") or "?")
 
     scans = _enriched_scans(log)
     # overlay=SPY (a real, already-fetched ticker) so backtest never fetches an empty ticker; we null
@@ -430,7 +432,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         _arch = json.loads(_f.read_text())
         _pool = _arch.get("pool", [])
         _wktot.append((_f.stem, len(_pool)))
-        _cap = _cap or (_arch.get("config", {}) or {}).get("window_cap")
+        _ccfg = _arch.get("config", {}) or {}
+        _cap = _cap or _ccfg.get("news_cap") or _ccfg.get("window_cap")
         for _a in _pool:
             _u, _aqs = _a.get("url"), _a.get("queries")
             if _u and _aqs:

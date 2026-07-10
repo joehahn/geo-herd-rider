@@ -38,7 +38,7 @@ def main(argv=None):
     a = ap.parse_args(argv)
     load_dotenv()
     fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
-    model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
+    model = resolve_curator_model(fm.get("event_agent_model") or fm.get("model") or "sonnet5")[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model)              # scout/agents (web search OFF; pool is pre-gathered)
     sb = Path(a.sandbox)
@@ -54,7 +54,7 @@ def main(argv=None):
     for i, anch in enumerate(anchors):
         cap: dict = {}
         arts = forward_gather_tavily.gather(None, model, anch, a.rebalance_days, capture=cap,
-                                            cap=int(fm.get("window_cap", 80)))
+                                            cap=int(fm.get("news_cap", 0)))
         picks, nid = agent.process_week(cli, anch, arts, events, retired, nid, i, curator_memory_weeks=memw)
         wk = anch.date().isoformat()
         live = [p for p in picks if p["thesis_live"]]

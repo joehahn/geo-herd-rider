@@ -46,13 +46,19 @@ def _save(events: dict, retired: dict, nid: int, week_seq: int) -> None:
 
 def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
              curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None,
-             window_cap: int = 80, gather_engine: str = "anthropic",
-             pool: list | None = None) -> list[dict]:
+             news_cap: int = 0, gather_engine: str = "anthropic",
+             pool: list | None = None, scout_model: str | None = None,
+             scout_provider: str = "anthropic") -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.
     Returns this week's picks (the live watchlist). `capture` (if given) is filled with the gather's
-    raw queries+results for the Phase-B archive."""
+    raw queries+results for the Phase-B archive.
+
+    `model` is the Anthropic event/gather model (gather does web search — Anthropic-only). The cheap
+    scout+matcher use `scout_model`/`scout_provider` when given (may be any provider); else they reuse
+    the event client, preserving pre-split behavior."""
     events, retired, nid, week_seq = _load()
-    lclient = llm.make_client("anthropic", model)          # scout/matcher/agents (web search OFF)
+    lclient = llm.make_client("anthropic", model)          # gather + event agents (web search = Anthropic)
+    sclient = llm.make_client(scout_provider, scout_model) if scout_model else lclient   # cheap scout+matcher
     cap = capture if capture is not None else {}
     if pool:                                               # pre-accumulated daily pulls -> use as-is (no weekly gather)
         arts = pool
@@ -60,16 +66,17 @@ def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
         cap.setdefault("queries", [])
         cap.setdefault("results", [])
     elif gather_engine == "tavily":                          # opt-in: date-honoring live search (reaches old weeks)
-        arts = forward_gather_tavily.gather(None, model, anchor, rebalance_days, capture=cap, cap=window_cap)
+        arts = forward_gather_tavily.gather(None, model, anchor, rebalance_days, capture=cap, cap=news_cap)
     else:                                                  # default: Anthropic/Brave adaptive web search
         raw = anthropic.Anthropic()                        # gather (web search — Anthropic only)
-        arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=window_cap)
+        arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=news_cap)
     print(f"  gather: {len(arts)} in-window articles; events held={sum(1 for e in events.values() if e['status']=='live')}",
           flush=True)
 
     # ---- the SHARED event-first engine (the SAME code the backtest runs) — scout -> match -> agents ----
     picks_full, nid = agent.process_week(lclient, anchor, arts, events, retired, nid, week_seq,
-                                         curator_memory_weeks=curator_memory_weeks, workers=workers)
+                                         curator_memory_weeks=curator_memory_weeks, workers=workers,
+                                         scout_client=sclient)
     _save(events, retired, nid, week_seq + 1)
     # forward logs only the LIVE picks, in the forward format (conviction carried through)
     return [{"ticker": p["ticker"], "thesis": p["thesis"], "thesis_live": p["thesis_live"],

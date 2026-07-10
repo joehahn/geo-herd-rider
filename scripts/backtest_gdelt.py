@@ -25,10 +25,10 @@ import gdelt as gd  # noqa: E402
 import llm  # noqa: E402
 import wayback  # noqa: E402
 from util import load_dotenv, scan_anchors  # noqa: E402
-from optimizer import load_financial_model, resolve_curator_model  # noqa: E402
+from optimizer import load_financial_model, resolve_stage_models  # noqa: E402
 
-CFG = ("model", "concentration_cap", "risk_aversion", "lookback_period_days", "max_agents",
-       "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days")
+CFG = ("event_agent_model", "scout_model", "concentration_cap", "risk_aversion", "lookback_period_days",
+       "max_agents", "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days")
 
 
 def live_enrich(articles, workers: int = 12) -> list:
@@ -72,9 +72,10 @@ def main(argv=None):
     ap.add_argument("--start", required=True)
     ap.add_argument("--end", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--window-cap", type=int, default=80,
-                    help="max articles/week the scout reads (most-recent kept); 0 = UNCAPPED (keep all)")
-    ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in window-cap)")
+    ap.add_argument("--news-cap", type=int, default=None, dest="news_cap",
+                    help="per-week cap on articles the scout reads (most-recent kept); 0 = UNCAPPED. "
+                         "Omit to use the profile's news_cap.")
+    ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in news-cap)")
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
     ap.add_argument("--enrich", choices=("none", "live", "wayback"), default="wayback",
@@ -118,9 +119,12 @@ def main(argv=None):
         print("  BY-WEEK pull: all beats per week, each processed before the next (incremental)", flush=True)
 
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
+    (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
     memw = int(fm.get("curator_memory_weeks", 8))
-    cli = llm.make_client("anthropic", model)
+    news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
+    scout_cli = llm.make_client(scout_prov, scout_id)         # cheap extraction/routing (scout + matcher)
+    event_cli = llm.make_client(event_prov, event_id)         # judgment (event agents)
+    print(f"  scout={scout_id} ({scout_prov}) · event_agent={event_id} ({event_prov}) · news_cap={news_cap or 'uncapped'}", flush=True)
 
     # RESUME: reload journal state + skip weeks already scanned
     events, retired, nid, rows, done = {}, {}, 0, [], set()
@@ -151,9 +155,9 @@ def main(argv=None):
                             per=80, cache_path=cache_f, stats_path=stats)   # exactly the week -> 1 chunk, no overlap waste
         _raw = sorted(firehose._window(gpool, anch, 7),
                       key=lambda x: x.get("published_date", ""), reverse=True)
-        gslice = _raw[:a.window_cap] if a.window_cap else _raw   # window_cap=0 -> UNCAPPED (keep all)
-        if a.window_cap and len(_raw) > a.window_cap:            # surface silent drops, don't hide them
-            print(f"    !! window-cap dropped {len(_raw) - a.window_cap} of {len(_raw)} articles "
+        gslice = _raw[:news_cap] if news_cap else _raw          # news_cap=0 -> UNCAPPED (keep all)
+        if news_cap and len(_raw) > news_cap:                    # surface silent drops, don't hide them
+            print(f"    !! news-cap dropped {len(_raw) - news_cap} of {len(_raw)} articles "
                   f"(oldest-in-window) at {wk}", flush=True)
         enrich_slice = gslice[:a.wayback_cap] if a.wayback_cap else gslice
         if a.enrich == "wayback":
@@ -163,13 +167,14 @@ def main(argv=None):
         # a.enrich == "none": GDELT headlines only, no enrichment
         for x in gslice:
             x["engine"] = "gdelt"
-        picks, nid = agent.process_week(cli, anch, gslice, events, retired, nid, i, curator_memory_weeks=memw)
+        picks, nid = agent.process_week(event_cli, anch, gslice, events, retired, nid, i,
+                                        curator_memory_weeks=memw, scout_client=scout_cli)
         live = [p for p in picks if p["thesis_live"]]
         print(f"  {wk} ({i + 1}/{len(anchors)}): {len(gslice):3} arts -> "
               f"{[(p['ticker'], p['conviction']) for p in live] or 'none'}", flush=True)
         (OUT / "archive" / f"{wk}.json").write_text(json.dumps(
-            {"week": wk, "model": model, "pool": gslice, "queries": [], "raw_results": [],
-             "config": {**{k: fm.get(k) for k in CFG}, "window_cap": a.window_cap}}, indent=2, default=str))
+            {"week": wk, "model": event_id, "pool": gslice, "queries": [], "raw_results": [],
+             "config": {**{k: fm.get(k) for k in CFG}, "news_cap": news_cap}}, indent=2, default=str))
         if live:
             for p in live:
                 rows.append({"decision_ts": ts, "week": wk, "ticker": p["ticker"], "thesis": p["thesis"],

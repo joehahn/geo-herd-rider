@@ -42,7 +42,7 @@ def main():
     print(f"  GDELT pool: {len(gpool)} articles", flush=True)
 
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
+    model = resolve_curator_model(fm.get("event_agent_model") or fm.get("model") or "sonnet5")[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model)
     events, retired, nid = {}, {}, 0

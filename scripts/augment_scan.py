@@ -32,7 +32,7 @@ def main():
           f"({min(a['published_date'][:10] for a in anth)}..{max(a['published_date'][:10] for a in anth)})")
 
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    model = resolve_curator_model(fm.get("model", "sonnet5"))[0]
+    model = resolve_curator_model(fm.get("event_agent_model") or fm.get("model") or "sonnet5")[0]
     memw = int(fm.get("curator_memory_weeks", 8))
     cli = llm.make_client("anthropic", model)
     anchors = scan_anchors("2026-05-08", "2026-07-03", 7)[-8:]
