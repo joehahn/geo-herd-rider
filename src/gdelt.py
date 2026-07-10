@@ -128,7 +128,10 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
                 continue
             from_cache = False
             for a in search(q, edges[ci], edges[ci + 1], per, english_only=english_only):
-                seen.setdefault(a["url"], a)
+                ex = seen.setdefault(a["url"], a)
+                _qs = ex.setdefault("queries", [])          # tag each article with the beat(s) that pulled it
+                if q not in _qs:                            # -> lets the dashboard attribute $ gain back to queries
+                    _qs.append(q)
             done.add(kk)
             if cache_path:
                 tmp = f"{cache_path}.tmp"

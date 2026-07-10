@@ -423,6 +423,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _tagged = False
     _wktot = []                                          # (week, articles in that week's pool) — weekly-totals plot
     _cap = None
+    _url2q: dict = {}                                    # url -> {source queries}, from query-tagged pool articles
     for _f in sorted((sb / "archive").glob("*.json")):
         if as_of and _f.stem > as_of:
             continue
@@ -431,6 +432,9 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         _wktot.append((_f.stem, len(_pool)))
         _cap = _cap or (_arch.get("config", {}) or {}).get("window_cap")
         for _a in _pool:
+            _u, _aqs = _a.get("url"), _a.get("queries")
+            if _u and _aqs:
+                _url2q.setdefault(_u, set()).update(_aqs)
             _dd = (_a.get("published_date") or "")[:10]
             if not _dd:
                 continue
@@ -495,12 +499,32 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _qxj, _qcolor = json.dumps(_qx), json.dumps(["#d62728" if n == 0 else "#2ca02c" for n in _qx])
     _qh = str(max(180, 18 * len(_qc) + 60))
 
+    # dollars-per-query: attribute each ticker's $ gain to EVERY query that pulled one of its evidence URLs
+    # (a query "touches" a gem's dollars if it sourced any evidence for it — can double-count across beats).
+    _tk_urls: dict = {}
+    for _g in gems:
+        _tk_urls.setdefault(str(_g.get("ticker", "")).upper(), set()).update(_g.get("urls", []) or [])
+    _gaind = (d.get("gain", {}) if isinstance(d, dict) else {}) or {}
+    _qgain: dict = {}
+    for _tk, _urls in _tk_urls.items():
+        _gv = float(_gaind.get(_tk, 0) or 0)
+        if not _gv:
+            continue
+        _qset = set().union(*[_url2q.get(_u, set()) for _u in _urls]) if _urls else set()
+        for _q in _qset:
+            _qgain[_q] = _qgain.get(_q, 0.0) + _gv
+    _qg = sorted(_qgain.items(), key=lambda kv: kv[1])   # ascending -> largest $ at TOP of horizontal bars
+    _qgy = json.dumps([q for q, _ in _qg])
+    _qgx = json.dumps([round(v) for _, v in _qg])
+    _qgcolor = json.dumps(["#2ca02c" if v >= 0 else "#d62728" for _, v in _qg])
+    _qgh = str(max(180, 18 * len(_qg) + 60))
+
     def _inject_hist(html: str, is_index: bool = False) -> str:
-        # Injected retrieval plots: 8 News-count, 9 GDELT-by-weekday, 10 Articles-per-search-term (only
-        # when a --trace exists so _qc is populated). Push the static Plots 8..11 up by that count.
-        # Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so
-        # each source number is renamed before it can be re-created downstream.
-        _shift = 3 if _qc else 2        # injected plots: news(8), day-of-week(9), [query(10)]
+        # Injected retrieval plots: 8 News-count, 9 GDELT-by-weekday, and (only with a --trace, so _qc)
+        # 10 Articles-per-search-term + 11 Dollars-per-search-term. Push the static Plots 8..11 up by that
+        # count. Forward-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so each
+        # source number is renamed before it can be re-created downstream.
+        _shift = 4 if _qc else 2        # injected: news(8), day-of-week(9), [query-terms(10), $-per-query(11)]
         for _n in (11, 10, 9, 8):
             html = html.replace(f"Plot {_n}", f"Plot {_n + _shift}")
         html = html.replace("agent colors match Plots 7–9",
@@ -516,6 +540,12 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                     '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
                     'red = 0-hit dud beat)</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
+            sec += ('<h2>Plot 11 &mdash; Dollars touched per GDELT search term '
+                    '<span class="sub">($ gain of every gem whose evidence an article from that beat pulled '
+                    '&mdash; which beats actually spawn profitable gems, not just volume)</span></h2>'
+                    + ('<div id="qgainhist" style="width:100%;height:' + _qgh + 'px"></div>' if _qg else
+                       '<p class="sub" style="margin:2px 0 12px">Not yet available &mdash; this pool was pulled '
+                       'before query-tagging. Re-pull to populate (gem evidence URLs map 100&#37; to the pool).</p>'))
         _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _histw +
@@ -539,6 +569,13 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                     '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"gross article hits"},'
                     'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
             html = html.replace("</body>", qscr + "</body>", 1)
+        if _qc and _qg:
+            ggscr = ('<script>Plotly.newPlot("qgainhist",[{type:"bar",orientation:"h",y:' + _qgy +
+                     ',x:' + _qgx + ',marker:{color:' + _qgcolor + '},'
+                     'hovertemplate:"%{y}<br>$%{x:,} touched<extra></extra>"}],'
+                     '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"$ gain touched"},'
+                     'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
+            html = html.replace("</body>", ggscr + "</body>", 1)
         _join = _join_series(sandbox, weeks)                # GDELT-Wayback join rate over time (retrieval-health)
         if _join:
             jx = [j["week"] for j in _join]
