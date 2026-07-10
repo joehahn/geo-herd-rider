@@ -539,36 +539,40 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _qgh = str(max(180, 18 * len(_qg) + 60))
 
     def _inject_hist(html: str, is_index: bool = False) -> str:
-        # Injected retrieval plots: 8 News-count, 9 GDELT-by-weekday, and (only with a --trace, so _qc)
-        # 10 Articles-per-search-term + 11 Dollars-per-search-term. Push the static Plots 8..11 up by that
-        # count. Forward-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so each
-        # source number is renamed before it can be re-created downstream.
-        _shift = 4 if _qc else 2        # injected: news(8), day-of-week(9), [query-terms(10), $-per-query(11)]
-        for _n in (11, 10, 9, 8):
-            html = html.replace(f"Plot {_n}", f"Plot {_n + _shift}")
-        html = html.replace("agent colors match Plots 7–9",
-                            f"agent colors match Plots 7, {8 + _shift} &amp; {9 + _shift}")
+        # Injected retrieval plots WRAP the agent block: 8 News-count + 9 GDELT-by-weekday go ABOVE it;
+        # the two query plots (13 Articles-per-beat, 14 $-per-beat) drop to the BOTTOM, just above the
+        # Journal (only with query data, so _qc). Base template plots 8..11 (Conviction, Gain-vs-conv,
+        # Precision, Journal) renumber to fit. Renumber DESCENDING so each source number is renamed
+        # before it can be re-created downstream.
+        _jnum = 15 if _qc else 13       # Journal's final number: +2 extra room when the query plots exist
+        html = html.replace("Plot 11", f"Plot {_jnum}")   # Journal      11 -> 15 (or 13)
+        html = html.replace("Plot 10", "Plot 12")         # Precision    10 -> 12
+        html = html.replace("Plot 9",  "Plot 11")         # Gain-vs-conv  9 -> 11
+        html = html.replace("Plot 8",  "Plot 10")         # Conviction    8 -> 10
+        html = html.replace("agent colors match Plots 7–9", "agent colors match Plots 7, 10 &amp; 11")
         sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub +
                '; red diamonds = each week&rsquo;s total on the right axis, dashed red = window-cap)</span></h2>'
                '<div id="newshist" style="width:100%;height:320px"></div>')
         sec += ('<h2>Plot 9 &mdash; GDELT count by day of week '
                 '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
                 '<div id="dowhist" style="width:100%;height:280px"></div>')
-        if _qc:
+        _conv = '<h2>Plot 10 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
+        html = html.replace(_conv, sec + _conv, 1)
+        if _qc:                                            # query plots -> bottom, just above the Journal
             _p10sub = ('gross hits/beat summed across all weeks &mdash; query effectiveness; red = 0-hit dud beat'
                        if _qgross else
                        'distinct deduped pool articles each beat pulled, across all weeks &mdash; query coverage; red = 0')
-            sec += ('<h2>Plot 10 &mdash; Articles per GDELT search term '
+            qsec = ('<h2>Plot 13 &mdash; Articles per GDELT search term '
                     '<span class="sub">(' + _p10sub + ')</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
-            sec += ('<h2>Plot 11 &mdash; Dollars touched per GDELT search term '
-                    '<span class="sub">($ gain of every gem whose evidence an article from that beat pulled '
-                    '&mdash; which beats actually spawn profitable gems, not just volume)</span></h2>'
-                    + ('<div id="qgainhist" style="width:100%;height:' + _qgh + 'px"></div>' if _qg else
-                       '<p class="sub" style="margin:2px 0 12px">No attributable gem $ yet &mdash; needs a funded '
-                       'gem with evidence URLs and a realized price gain (populates as gems accrue over the weeks).</p>'))
-        _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
-        html = html.replace(_conv, sec + _conv, 1)
+            qsec += ('<h2>Plot 14 &mdash; Dollars touched per GDELT search term '
+                     '<span class="sub">($ gain of every gem whose evidence an article from that beat pulled '
+                     '&mdash; which beats actually spawn profitable gems, not just volume)</span></h2>'
+                     + ('<div id="qgainhist" style="width:100%;height:' + _qgh + 'px"></div>' if _qg else
+                        '<p class="sub" style="margin:2px 0 12px">No attributable gem $ yet &mdash; needs a funded '
+                        'gem with evidence URLs and a realized price gain (populates as gems accrue over the weeks).</p>'))
+            _jhdr = f'<h2>Plot {_jnum} — Agent journal'
+            html = html.replace(_jhdr, qsec + _jhdr, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _histw +
                ',{margin:{t:10,r:48,b:38},yaxis:{title:"articles / day"},'
                'yaxis2:{title:"articles / week",overlaying:"y",side:"right",showgrid:false,rangemode:"tozero"},'
