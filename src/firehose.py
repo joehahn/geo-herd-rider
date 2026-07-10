@@ -63,6 +63,7 @@ _SECTORS = {
     "financials":    '(financial OR financials OR bank OR banks OR insurance OR fintech OR lender)',
     "healthcare":    '(health OR healthcare OR biotech OR pharma OR pharmaceutical OR pharmaceuticals OR medical)',
     "industrials":   '(industrial OR industrials OR manufacturing OR machinery OR "capital goods")',
+    "maritime":      '(shipping OR tanker OR tankers OR "dry bulk" OR freight OR "freight rates" OR "ship orders" OR shipbuilding OR "Baltic Dry" OR maritime)',  # equity/ETF angle (e.g. BWET tanker-ETF spike); _CATALYSTS['shipping'] is the raw-event angle
     "materials":     '(materials OR mining OR miner OR miners OR metals OR chemical OR chemicals)',
     "consumer":      '(consumer OR retail OR retailer OR apparel OR "consumer goods")',
     "utilities":     '(utility OR utilities OR "electric power" OR "power grid" OR "water utility")',
