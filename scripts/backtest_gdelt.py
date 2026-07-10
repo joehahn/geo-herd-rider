@@ -164,7 +164,7 @@ def main(argv=None):
               f"{[(p['ticker'], p['conviction']) for p in live] or 'none'}", flush=True)
         (OUT / "archive" / f"{wk}.json").write_text(json.dumps(
             {"week": wk, "model": model, "pool": gslice, "queries": [], "raw_results": [],
-             "config": {k: fm.get(k) for k in CFG}}, indent=2, default=str))
+             "config": {**{k: fm.get(k) for k in CFG}, "window_cap": a.window_cap}}, indent=2, default=str))
         if live:
             for p in live:
                 rows.append({"decision_ts": ts, "week": wk, "ticker": p["ticker"], "thesis": p["thesis"],

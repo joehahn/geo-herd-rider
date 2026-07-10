@@ -421,10 +421,16 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     from collections import Counter as _Counter
     _by: dict = {}                                      # engine -> Counter(date); split when 'engine' tag present
     _tagged = False
+    _wktot = []                                          # (week, articles in that week's pool) — weekly-totals plot
+    _cap = None
     for _f in sorted((sb / "archive").glob("*.json")):
         if as_of and _f.stem > as_of:
             continue
-        for _a in json.loads(_f.read_text()).get("pool", []):
+        _arch = json.loads(_f.read_text())
+        _pool = _arch.get("pool", [])
+        _wktot.append((_f.stem, len(_pool)))
+        _cap = _cap or (_arch.get("config", {}) or {}).get("window_cap")
+        for _a in _pool:
             _dd = (_a.get("published_date") or "")[:10]
             if not _dd:
                 continue
@@ -433,9 +439,11 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 _tagged = True
             _by.setdefault(_eng or "news", _Counter())[_dd] += 1
     _hx = sorted({d for c in _by.values() for d in c})
+    _hx_full = ([d.strftime("%Y-%m-%d") for d in pd.date_range(min(_hx), max(_hx), freq="D")]
+                if _hx else [])                          # every calendar day, incl. zero-article days
     _cols = {"tavily": "#4a90d9", "anthropic": "#e07b39", "gdelt": "#2ca02c", "news": "#4a90d9"}
     _order = ["tavily", "anthropic", "gdelt"] if _tagged else ["news"]
-    _traces = [{"x": _hx, "y": [_by.get(e, _Counter())[d] for d in _hx], "type": "bar", "name": e,
+    _traces = [{"x": _hx_full, "y": [_by.get(e, _Counter())[d] for d in _hx_full], "type": "bar", "name": e,
                 "marker": {"color": _cols.get(e, "#888")}} for e in _order if e in _by]
     _hist = json.dumps(_traces)
     _leg = 'legend:{orientation:"h"},' if _tagged else ''
@@ -443,7 +451,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _histsub = ("GDELT headlines per publication day" if _engs == ["gdelt"]
                 else "articles per publication day, by retrieval source")
 
-    # day-of-week distribution (Plot 9): fold the per-day counts into Mon..Sun buckets
+    # day-of-week distribution: fold the per-day counts into Mon..Sun buckets
     _dowlab = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     _dow = [0] * 7
     for _c in _by.values():
@@ -453,9 +461,13 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             except Exception:  # noqa: BLE001
                 pass
     _dowj = json.dumps(_dow)
-    _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # weekday tick labels under each Plot-8 date bar
-    _nstick = json.dumps([_wdshort[pd.Timestamp(d).dayofweek] for d in _hx])
-    _hxj = json.dumps(_hx)
+    _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # weekday + date, two lines, under each Plot-8 bar
+    _nstick = json.dumps([f"{_wdshort[pd.Timestamp(d).dayofweek]}<br>{d[5:]}" for d in _hx_full])
+    _hxj = json.dumps(_hx_full)
+    # weekly totals vs window-cap: a flat line pinned at the cap means GDELTs were dropped that week
+    _wkx = json.dumps([w for w, _ in _wktot])
+    _wky = json.dumps([n for _, n in _wktot])
+    _capv = _cap if _cap else max((n for _, n in _wktot), default=0)
 
     # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
     # from the --trace transcript; pre-dedup, so it exceeds the deduped pool size). 0 = a dud beat.
@@ -481,7 +493,9 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         # when a --trace exists so _qc is populated). Push the static Plots 8..11 up by that count.
         # Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11). Renumber DESCENDING so
         # each source number is renamed before it can be re-created downstream.
-        _shift = 3 if _qc else 2
+        _qn = 1 if _qc else 0
+        _shift = 3 + _qn        # injected plots: news(8), day-of-week(9), [query(10)], weekly-totals
+        _wkn = 10 + _qn         # weekly-totals plot number (after news / day-of-week / [query])
         for _n in (11, 10, 9, 8):
             html = html.replace(f"Plot {_n}", f"Plot {_n + _shift}")
         html = html.replace("agent colors match Plots 7–9",
@@ -496,17 +510,28 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                     '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
                     'red = 0-hit dud beat)</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
+        sec += ('<h2>Plot ' + str(_wkn) + ' &mdash; Weekly article totals vs cap '
+                '<span class="sub">(sum of each week&rsquo;s pooled GDELTs; dashed red = window-cap &mdash; '
+                'weeks pinned to it had extra articles dropped)</span></h2>'
+                '<div id="wktot" style="width:100%;height:280px"></div>')
         _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
-               ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
-               'xaxis:{tickmode:"array",tickvals:' + _hxj + ',ticktext:' + _nstick + ',tickfont:{size:9}}'
+               ',{margin:{t:10,r:10,b:38},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
+               'xaxis:{tickmode:"array",tickvals:' + _hxj + ',ticktext:' + _nstick +
+               ',tickangle:0,tickfont:{size:7}}'
                '},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", scr + "</body>", 1)
         dscr = ('<script>Plotly.newPlot("dowhist",[{type:"bar",x:' + json.dumps(_dowlab) + ',y:' + _dowj +
                 ',marker:{color:"#2ca02c"}}],{margin:{t:10,r:10,b:30,l:45},yaxis:{title:"articles"},'
                 'bargap:0.15},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", dscr + "</body>", 1)
+        wscr = ('<script>Plotly.newPlot("wktot",[{x:' + _wkx + ',y:' + _wky +
+                ',mode:"lines+markers",line:{color:"#2ca02c"},marker:{size:7}}],'
+                '{margin:{t:10,r:10,b:44,l:48},yaxis:{title:"articles / week"},'
+                'shapes:[{type:"line",x0:0,x1:1,xref:"paper",y0:' + str(_capv) + ',y1:' + str(_capv) +
+                ',line:{color:"#d62728",dash:"dash"}}]},{displayModeBar:false,responsive:true});</script>')
+        html = html.replace("</body>", wscr + "</body>", 1)
         if _qc:
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
                     ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
