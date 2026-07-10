@@ -1266,7 +1266,7 @@ Promise.resolve({{DATA}}).then(D=>{
   document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
     const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
-      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${clip(e.thesis)}</td>`
       +`<td class="sub">${(e.milestones||[]).map(m=>esc(String(m))).join(" → ")||"—"}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
       +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
@@ -1278,7 +1278,7 @@ Promise.resolve({{DATA}}).then(D=>{
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
     return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
       +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th><th>milestones</th>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>thesis</th><th>milestones</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
