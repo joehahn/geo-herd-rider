@@ -480,6 +480,15 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _histw = json.dumps(_traces + [_wktrace])
     _capv = _cap if _cap else max((n for _, n in _wktot), default=0)
 
+    def _abbrev_query(_q):                                # short axis label; full query stays on hover
+        def _grp(_m):                                    # collapse vehicle group -> (vehicles); else first 3 terms
+            _terms = [_t.strip().strip('"') for _t in _m.group(1).split(" OR ")]
+            _low = {_t.lower() for _t in _terms}
+            if "stock" in _low and ("etf" in _low or "shares" in _low):
+                return "(vehicles)"
+            return "(" + "^".join(_terms[:3]) + ("…" if len(_terms) > 3 else "") + ")"
+        return re.sub(r"\(([^()]*)\)", _grp, _q)
+
     # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
     # from the --trace transcript; pre-dedup, so it exceeds the deduped pool size). 0 = a dud beat.
     _qcnt: dict = {}
@@ -494,7 +503,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 _q = _r.get("query", "")
                 _qcnt[_q] = _qcnt.get(_q, 0) + int(_r.get("n_results", 0) or 0)
     _qc = sorted(_qcnt.items(), key=lambda kv: kv[1])   # ascending -> largest beat at TOP of horizontal bars
-    _qy = json.dumps([q for q, _ in _qc])
+    _qy = json.dumps([_abbrev_query(q) for q, _ in _qc])     # short axis labels
+    _qyfull = json.dumps([q for q, _ in _qc])                # full query for hover
     _qx = [n for _, n in _qc]
     _qxj, _qcolor = json.dumps(_qx), json.dumps(["#d62728" if n == 0 else "#2ca02c" for n in _qx])
     _qh = str(max(180, 18 * len(_qc) + 60))
@@ -514,7 +524,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         for _q in _qset:
             _qgain[_q] = _qgain.get(_q, 0.0) + _gv
     _qg = sorted(_qgain.items(), key=lambda kv: kv[1])   # ascending -> largest $ at TOP of horizontal bars
-    _qgy = json.dumps([q for q, _ in _qg])
+    _qgy = json.dumps([_abbrev_query(q) for q, _ in _qg])    # short axis labels
+    _qgyfull = json.dumps([q for q, _ in _qg])               # full query for hover
     _qgx = json.dumps([round(v) for _, v in _qg])
     _qgcolor = json.dumps(["#2ca02c" if v >= 0 else "#d62728" for _, v in _qg])
     _qgh = str(max(180, 18 * len(_qg) + 60))
@@ -564,15 +575,15 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         html = html.replace("</body>", dscr + "</body>", 1)
         if _qc:
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
-                    ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
-                    'hovertemplate:"%{y}<br>%{x} article hits<extra></extra>"}],'
+                    ',x:' + _qxj + ',customdata:' + _qyfull + ',marker:{color:' + _qcolor + '},'
+                    'hovertemplate:"%{customdata}<br>%{x} article hits<extra></extra>"}],'
                     '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"gross article hits"},'
                     'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
             html = html.replace("</body>", qscr + "</body>", 1)
         if _qc and _qg:
             ggscr = ('<script>Plotly.newPlot("qgainhist",[{type:"bar",orientation:"h",y:' + _qgy +
-                     ',x:' + _qgx + ',marker:{color:' + _qgcolor + '},'
-                     'hovertemplate:"%{y}<br>$%{x:,} touched<extra></extra>"}],'
+                     ',x:' + _qgx + ',customdata:' + _qgyfull + ',marker:{color:' + _qgcolor + '},'
+                     'hovertemplate:"%{customdata}<br>$%{x:,} touched<extra></extra>"}],'
                      '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"$ gain touched"},'
                      'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
             html = html.replace("</body>", ggscr + "</body>", 1)

@@ -58,7 +58,7 @@ _MOVERS = '(best OR top OR biggest OR surging OR rallying OR soaring OR breakout
 _EARLY = '("under the radar" OR overlooked OR undiscovered OR unnoticed OR niche OR "still early" OR obscure)'
 # sector / theme topics -> (topic)(vehicle). Kept DISTINCT (not merged) to preserve unique coverage.
 _SECTORS = {
-    "technology":    '(technology OR tech OR semiconductor OR semiconductors OR software OR "artificial intelligence")',
+    "technology":    '(technology OR tech OR semiconductor OR semiconductors OR software OR "artificial intelligence" OR AI)',
     "energy":        '(energy OR oil OR gas OR petroleum OR "oil and gas" OR drilling)',
     "financials":    '(financial OR financials OR bank OR banks OR insurance OR fintech OR lender)',
     "healthcare":    '(health OR healthcare OR biotech OR pharma OR pharmaceutical OR pharmaceuticals OR medical)',
