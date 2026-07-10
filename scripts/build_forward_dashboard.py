@@ -443,6 +443,17 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _histsub = ("GDELT headlines per publication day" if _engs == ["gdelt"]
                 else "articles per publication day, by retrieval source")
 
+    # day-of-week distribution (Plot 9): fold the per-day counts into Mon..Sun buckets
+    _dowlab = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    _dow = [0] * 7
+    for _c in _by.values():
+        for _d, _n in _c.items():
+            try:
+                _dow[pd.Timestamp(_d).dayofweek] += _n
+            except Exception:  # noqa: BLE001
+                pass
+    _dowj = json.dumps(_dow)
+
     # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
     # from the --trace transcript; pre-dedup, so it exceeds the deduped pool size). 0 = a dud beat.
     _qcnt: dict = {}
@@ -463,12 +474,12 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _qh = str(max(180, 18 * len(_qc) + 60))
 
     def _inject_hist(html: str, is_index: bool = False) -> str:
-        # The News-count histogram becomes Plot 8 (just above Conviction); push the static Plots 8..11 -> 9..12.
-        # Forward-dashboard-only (the shared INDEX_HTML / retired gem dashboards keep their 1..11 numbering).
+        # Two injected plots: News-count histogram -> Plot 8, GDELT-by-weekday -> Plot 9. Push the static
+        # Plots 8..11 -> 10..13. Forward-dashboard-only (shared INDEX_HTML / gem dashboards keep 1..11).
         # Renumber DESCENDING so each source number is renamed before it can be re-created downstream.
         for _n in (11, 10, 9, 8):
-            html = html.replace(f"Plot {_n}", f"Plot {_n + 1}")
-        html = html.replace("agent colors match Plots 7–9", "agent colors match Plots 7, 9 &amp; 10")
+            html = html.replace(f"Plot {_n}", f"Plot {_n + 2}")
+        html = html.replace("agent colors match Plots 7–9", "agent colors match Plots 7, 10 &amp; 11")
         sec = ('<h2>Plot 8 &mdash; News-count histogram <span class="sub">(' + _histsub + ')</span></h2>'
                '<div id="newshist" style="width:100%;height:300px"></div>')
         if is_index and _qc:                                 # query-effectiveness -> multi-week summary page only
@@ -476,12 +487,19 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                     '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
                     'red = 0-hit dud beat)</span></h3>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
-        _conv = '<h2>Plot 9 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
+        sec += ('<h2>Plot 9 &mdash; GDELT count by day of week '
+                '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
+                '<div id="dowhist" style="width:100%;height:280px"></div>')
+        _conv = '<h2>Plot 10 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
                ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
                '},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", scr + "</body>", 1)
+        dscr = ('<script>Plotly.newPlot("dowhist",[{type:"bar",x:' + json.dumps(_dowlab) + ',y:' + _dowj +
+                ',marker:{color:"#2ca02c"}}],{margin:{t:10,r:10,b:30,l:45},yaxis:{title:"articles"},'
+                'bargap:0.15},{displayModeBar:false,responsive:true});</script>')
+        html = html.replace("</body>", dscr + "</body>", 1)
         if is_index and _qc:
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
                     ',x:' + _qxj + ',marker:{color:' + _qcolor + '},'
