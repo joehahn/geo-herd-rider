@@ -1272,12 +1272,10 @@ Promise.resolve({{DATA}}).then(D=>{
       +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
-    const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
-    const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
     const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
     return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
+      +`${t===D.gem?" (gem)":""}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>thesis</th><th>milestones</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
