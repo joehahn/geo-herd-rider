@@ -505,6 +505,11 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             if _r.get("kind") == "search" and _r.get("engine") == "gdelt":
                 _q = _r.get("query", "")
                 _qcnt[_q] = _qcnt.get(_q, 0) + int(_r.get("n_results", 0) or 0)
+    _qgross = bool(_qcnt)                               # trace present -> GROSS pre-dedup hits/beat
+    if not _qcnt:                                       # no --trace transcript: fall back to the query-tagged
+        for _qs in _url2q.values():                     # pool -> DEDUPED distinct pool articles per beat
+            for _q in _qs:
+                _qcnt[_q] = _qcnt.get(_q, 0) + 1
     _qc = sorted(_qcnt.items(), key=lambda kv: kv[1])   # ascending -> largest beat at TOP of horizontal bars
     _qy = json.dumps([_abbrev_query(q) for q, _ in _qc])     # short axis labels
     _qyfull = json.dumps([q for q, _ in _qc])                # full query for hover
@@ -550,16 +555,18 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                 '<span class="sub">(articles bucketed by weekday of publication)</span></h2>'
                 '<div id="dowhist" style="width:100%;height:280px"></div>')
         if _qc:
+            _p10sub = ('gross hits/beat summed across all weeks &mdash; query effectiveness; red = 0-hit dud beat'
+                       if _qgross else
+                       'distinct deduped pool articles each beat pulled, across all weeks &mdash; query coverage; red = 0')
             sec += ('<h2>Plot 10 &mdash; Articles per GDELT search term '
-                    '<span class="sub">(gross hits/beat summed across all weeks &mdash; query effectiveness; '
-                    'red = 0-hit dud beat)</span></h2>'
+                    '<span class="sub">(' + _p10sub + ')</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
             sec += ('<h2>Plot 11 &mdash; Dollars touched per GDELT search term '
                     '<span class="sub">($ gain of every gem whose evidence an article from that beat pulled '
                     '&mdash; which beats actually spawn profitable gems, not just volume)</span></h2>'
                     + ('<div id="qgainhist" style="width:100%;height:' + _qgh + 'px"></div>' if _qg else
-                       '<p class="sub" style="margin:2px 0 12px">Not yet available &mdash; this pool was pulled '
-                       'before query-tagging. Re-pull to populate (gem evidence URLs map 100&#37; to the pool).</p>'))
+                       '<p class="sub" style="margin:2px 0 12px">No attributable gem $ yet &mdash; needs a funded '
+                       'gem with evidence URLs and a realized price gain (populates as gems accrue over the weeks).</p>'))
         _conv = f'<h2>Plot {8 + _shift} — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>'
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _histw +
@@ -580,7 +587,8 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             qscr = ('<script>Plotly.newPlot("queryhist",[{type:"bar",orientation:"h",y:' + _qy +
                     ',x:' + _qxj + ',customdata:' + _qyfull + ',marker:{color:' + _qcolor + '},'
                     'hovertemplate:"%{customdata}<br>%{x} article hits<extra></extra>"}],'
-                    '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"gross article hits"},'
+                    '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"' +
+                    ('gross article hits' if _qgross else 'distinct pool articles') + '"},'
                     'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
             html = html.replace("</body>", qscr + "</body>", 1)
         if _qc and _qg:
