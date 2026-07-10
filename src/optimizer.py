@@ -27,16 +27,20 @@ from scipy.optimize import minimize
 
 TRADING_DAYS = 252
 
+# Defaults MIRROR the settled investor-profile candidate (backtest.md == forward.md on strategy knobs,
+# as of 2026-07-10): cap 1.0 · risk 0.1 · 7/5/5 · lookback 14 · sonnet5-event / llama4-scout · news_cap 0.
+# They are the fallback for a profile that omits a knob, so keeping them == the live config means an
+# omission degrades gracefully to what we actually run, not to a stale conservative floor.
 _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "initial_investment_usd": 50_000,  # LIVE (display/scale): day-0 dollars. The optimizer works in
                                        #   fractions, so this only sets dollar labels, not picks/weights.
-    "risk_aversion": 0.67,             # LIVE: optimizer lambda (mean-variance)
-    "concentration_cap": 0.9,          # LIVE: per-position max weight (top-level profile key)
+    "risk_aversion": 0.1,              # LIVE: optimizer lambda (mean-variance)
+    "concentration_cap": 1.0,          # LIVE: per-position max weight (top-level profile key)
     "t_update_days": 1,                # LIVE: business days from event detection to execution
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
                                        #   renormalize (pile in). ~1/N caps funded names near N.
-    "lookback_period_days": 21,        # LIVE: trailing window (calendar days, ending at entry)
+    "lookback_period_days": 14,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
     "event_agent_model": "sonnet5",     # LIVE (judgment): the LLM that runs the per-event agents (the
                                        #   live/exit switch + conviction). Keep on a strong model. Short
@@ -55,10 +59,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   (most-recent kept); ONE meaning everywhere. 0 = UNCAPPED. The
                                        #   forward's daily pull fetches uncapped; only this weekly scout
                                        #   read is capped. (backtest_gdelt overrides via --news-cap.)
-    "max_agents": 2,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
+    "max_agents": 7,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
-    "spy_agent_conviction": 6,
-    "defensive_agent_conviction": 0,   # LIVE (firehose backtest): a 2nd always-on "agent" (defensive default, e.g.
+    "spy_agent_conviction": 5,
+    "defensive_agent_conviction": 5,   # LIVE (firehose backtest): a 2nd always-on "agent" (defensive default, e.g.
                                        #   gold) at this conviction; a faded event ranked below it is displaced and
                                        #   capital parks in the defensive asset. 0 = off. Auto-skipped on same-theme gems.
     "defensive_ticker": "GLD",         # the defensive asset the defensive-agent parks in (GLD=gold, BND=bonds, ...)         # LIVE (firehose backtest): SPY as an always-on "agent" that always recommends SPY — a synthetic
