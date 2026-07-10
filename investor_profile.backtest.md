@@ -39,6 +39,7 @@ rebalance_days: 7                 # The firehose scans/rebalances every N days A
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
 # --- forward web-search domain steering (used by forward_gather; synced here for visibility). Curate by OUTLET TYPE. ---
 specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call
+  # generalist stock/ETF desks (all sectors):
   - etf.com
   - benzinga.com
   - seekingalpha.com
@@ -47,6 +48,18 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - tipranks.com
   - marketbeat.com
   - barchart.com
+  # sector trade press (from portfolio-wave-rider/news_sources.md; tech-growth + defense):
+  - semianalysis.com
+  - spacenews.com
+  - payloadspace.com
+  - therobotreport.com
+  - endpts.com
+  - statnews.com
+  - biopharmadive.com
+  - quantumcomputingreport.com
+  - world-nuclear-news.org
+  - breakingdefense.com
+  - defensenews.com
 mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills
   - fool.com
   - 247wallst.com

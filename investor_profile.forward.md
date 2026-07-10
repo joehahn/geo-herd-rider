@@ -40,6 +40,7 @@ gather_engine: anthropic          # forward gather: anthropic (Brave live web se
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
 # --- forward web-search domain steering (two-pass gather). Curate by OUTLET TYPE, never by "named a winner". ---
 specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call (reaches Cloudflare-walled etf.com)
+  # generalist stock/ETF desks (cover ALL sectors incl. maritime/energy):
   - etf.com
   - benzinga.com
   - seekingalpha.com
@@ -48,6 +49,18 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - tipranks.com
   - marketbeat.com
   - barchart.com
+  # sector trade press (from portfolio-wave-rider/news_sources.md; tech-growth + defense — deepen those verticals):
+  - semianalysis.com
+  - spacenews.com
+  - payloadspace.com
+  - therobotreport.com
+  - endpts.com
+  - statnews.com
+  - biopharmadive.com
+  - quantumcomputingreport.com
+  - world-nuclear-news.org
+  - breakingdefense.com
+  - defensenews.com
 mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills that crowd out the gem call
   - fool.com
   - 247wallst.com
