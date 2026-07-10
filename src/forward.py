@@ -151,7 +151,13 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                 d = (a.get("published_date") or "")[:10]
                 if a.get("url") and d and lo < d <= wk_key:
                     acc[a["url"]] = a
-    pool = sorted(acc.values(), key=lambda x: x["published_date"], reverse=True)[:window_cap] if acc else None
+    pool = None
+    if acc:
+        _raw = sorted(acc.values(), key=lambda x: x["published_date"], reverse=True)
+        pool = _raw[:window_cap] if window_cap else _raw       # window_cap=0 -> UNCAPPED (keep all)
+        if window_cap and len(_raw) > window_cap:              # surface silent drops in forward operation
+            print(f"  !! window-cap dropped {len(_raw) - window_cap} of {len(_raw)} articles "
+                  f"(oldest-in-window)", file=sys.stderr, flush=True)
     if pool:
         print(f"  using {len(pool)} accumulated daily-pull articles (no separate weekly gather).", flush=True)
     picks = forward_engine.run_week(anchor, model, rebalance_days,

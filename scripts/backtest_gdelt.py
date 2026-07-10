@@ -72,7 +72,8 @@ def main(argv=None):
     ap.add_argument("--start", required=True)
     ap.add_argument("--end", required=True)
     ap.add_argument("--out", required=True)
-    ap.add_argument("--window-cap", type=int, default=80)
+    ap.add_argument("--window-cap", type=int, default=80,
+                    help="max articles/week the scout reads (most-recent kept); 0 = UNCAPPED (keep all)")
     ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in window-cap)")
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
@@ -148,8 +149,12 @@ def main(argv=None):
         if a.by_week and not a.no_pull:                      # pull THIS week's beats now, then process it
             gpool = gd.pool(firehose.GDELT_QUERIES, anch - pd.Timedelta(days=7), anch, chunk_days=7,
                             per=80, cache_path=cache_f, stats_path=stats)   # exactly the week -> 1 chunk, no overlap waste
-        gslice = sorted(firehose._window(gpool, anch, 7),
-                        key=lambda x: x.get("published_date", ""), reverse=True)[:a.window_cap]
+        _raw = sorted(firehose._window(gpool, anch, 7),
+                      key=lambda x: x.get("published_date", ""), reverse=True)
+        gslice = _raw[:a.window_cap] if a.window_cap else _raw   # window_cap=0 -> UNCAPPED (keep all)
+        if a.window_cap and len(_raw) > a.window_cap:            # surface silent drops, don't hide them
+            print(f"    !! window-cap dropped {len(_raw) - a.window_cap} of {len(_raw)} articles "
+                  f"(oldest-in-window) at {wk}", flush=True)
         enrich_slice = gslice[:a.wayback_cap] if a.wayback_cap else gslice
         if a.enrich == "wayback":
             wayback.enrich(enrich_slice, wk, cache_path=enrich_cache, fetch=True, stats_path=stats)
