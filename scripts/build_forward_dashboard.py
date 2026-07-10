@@ -453,6 +453,9 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             except Exception:  # noqa: BLE001
                 pass
     _dowj = json.dumps(_dow)
+    _wdshort = ["M", "T", "W", "Th", "F", "Sa", "Su"]        # weekday tick labels under each Plot-8 date bar
+    _nstick = json.dumps([_wdshort[pd.Timestamp(d).dayofweek] for d in _hx])
+    _hxj = json.dumps(_hx)
 
     # query-effectiveness: gross GDELT article hits per search term, summed across the whole run (read
     # from the --trace transcript; pre-dedup, so it exceeds the deduped pool size). 0 = a dud beat.
@@ -497,6 +500,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
         html = html.replace(_conv, sec + _conv, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _hist +
                ',{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",' + _leg +
+               'xaxis:{tickmode:"array",tickvals:' + _hxj + ',ticktext:' + _nstick + ',tickfont:{size:9}}'
                '},{displayModeBar:false,responsive:true});</script>')
         html = html.replace("</body>", scr + "</body>", 1)
         dscr = ('<script>Plotly.newPlot("dowhist",[{type:"bar",x:' + json.dumps(_dowlab) + ',y:' + _dowj +
