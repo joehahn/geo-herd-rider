@@ -23,31 +23,41 @@ import trace
 import wayback
 
 # The gather's fixed coverage sweep MIRRORS the backtest's GDELT beats (firehose.GDELT_QUERIES) so the
-# forward firehose, optimized for RECALL of the gem-class article — the press naming a specific ticker
-# EARLY / still-under-the-radar on a discrete catalyst (the BWET / MP / DRAM pattern), which GDELT's
-# mainstream-sector sweep systematically missed. The A/B test showed SOFT prioritization is ignored (the
-# model front-loads the sector sweep), so the gem-hunting beats are ENUMERATED as a REQUIRED list — the
-# same "run ONE search for EACH" imperative the model reliably executes — placed FIRST; the sector sweep
-# is the safety net; then adaptive follow-ups on surfaced names.
-GATHER_SYSTEM = (
-    "You are the news firehose assembling this week's coverage for a downstream scout. Your ONLY job is "
-    "to SURFACE articles where the financial press NAMES a specific US-listed stock, ETF, or ADR as a "
-    "mover on a catalyst — do NOT decide which are the best gems. The EDGE is catching the ticker while it "
-    "is still EARLY / overlooked, BEFORE the crowd piles in; prefer specialty / niche outlets (ETF desks, "
-    "small-cap spotlights, trade press), not just the majors.\n"
-    "REQUIRED — run ONE web search for EACH of these gem-hunting beats FIRST; do not skip any:\n"
+# forward firehose = a TWO-PASS gather (validated 2026-07-10: web_search allowed_domains works AND reaches
+# etf.com despite its Cloudflare wall — the search index isn't blocked like a scraper). Pass 1 (GEM) runs
+# the early-framing + catalyst->beneficiary beats RESTRICTED to specialty desks via allowed_domains, so the
+# gem-class niche coverage GDELT couldn't reach is forced to the top. Pass 2 (COVERAGE) runs the broad
+# sector sweep unrestricted but with blocked_domains killing the "N stocks to buy" listicle mills. Domain-
+# steering is a far stronger lever than prompt wording (an A/B of soft prioritization barely moved).
+# allowed/blocked_domains are TOOL-level (apply to every search in a call) -> hence two separate passes.
+
+# specialty desks that carry the early gem call (allowlist for the GEM pass); reaches Cloudflare-walled etf.com
+_SPECIALTY_ALLOW = ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
+                    "tipranks.com", "marketbeat.com", "barchart.com"]
+# "N stocks to buy" listicle mills — blocked on the COVERAGE pass to cut noise (they crowd out the gem call)
+_MILL_BLOCK = ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
+               "stockstory.org"]
+
+GEM_SYSTEM = (
+    "You are the news firehose surfacing EARLY, still-under-the-radar gem-class coverage for a scout — the "
+    "specialty press naming a specific US-listed stock, ETF, or ADR on a discrete catalyst BEFORE the crowd. "
+    "Run ONE web search for EACH of these beats; do not skip any:\n"
     "  early framing: \"under the radar\" small cap stock | \"flying under the radar\" ETF | \"overlooked\" "
     "stock catalyst | \"still early\" stock rally | niche ETF surging | small-cap \"stock to watch\" breakout\n"
-    "  catalyst -> named beneficiary (one search each): war OR chokepoint stock beneficiary | export ban OR "
-    "tariff OR sanctions stock beneficiary | supply shortage OR supply shock stock | rare earth OR critical "
-    "minerals stock | tanker OR shipping \"freight rates\" ETF | memory chip OR DRAM shortage stock | uranium "
-    "OR nuclear fuel supply squeeze stock | upcoming FDA OR election OR vote stock anticipation\n"
-    "COVERAGE (safety net) — THEN one search per sector so nothing is missed: technology / energy / financial / "
-    "healthcare / industrial / materials / consumer / utility / real estate / telecom / shipping-maritime stocks; "
-    "themes: crypto, space, robotics, quantum, nuclear; plus 'best performing stock', 'biggest gainers'.\n"
-    "THEN ADAPT: when any search surfaces a specific named mover or catalyst, spawn a FEW targeted follow-ups "
-    "on that name to pull the article that explicitly names the ticker. Aim for ~40-55 searches total, and run "
-    "EVERY required beat above. Cap every search to news on/before the week-ending date."
+    "  catalyst -> named beneficiary: war OR chokepoint stock beneficiary | export ban OR tariff OR sanctions "
+    "stock beneficiary | supply shortage OR supply shock stock | rare earth OR critical minerals stock | "
+    "tanker OR shipping \"freight rates\" ETF | memory chip OR DRAM shortage stock | uranium OR nuclear fuel "
+    "supply squeeze stock | upcoming FDA OR election OR vote stock anticipation\n"
+    "THEN spawn a FEW targeted follow-ups on each specific name/catalyst that surfaces, to pull the article "
+    "that explicitly names the ticker. Cap every search to news on/before the week-ending date."
+)
+COVERAGE_SYSTEM = (
+    "You are the news firehose running the broad sector sweep so no theme is missed. Surface articles where "
+    "the press NAMES a specific US-listed stock, ETF, or ADR as a mover on a catalyst. Run ONE web search "
+    "per beat: technology / energy / financial / healthcare / industrial / materials / consumer / utility / "
+    "real estate / telecom / shipping-maritime stocks; themes: crypto, space, robotics, quantum, nuclear; "
+    "plus 'best performing stock', 'biggest gainers'. THEN a FEW targeted follow-ups on names that surface. "
+    "Cap every search to news on/before the week-ending date."
 )
 
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
@@ -85,13 +95,15 @@ def _freeze(url: str) -> tuple[str, str | None]:
     return (wayback._extract_lede(html) or ""), _extract_date(html, url)
 
 
-def _run_search(client, model: str, anchor: pd.Timestamp, posts_block: str) -> dict:
-    """Anthropic adaptive web-search gather; return {'queries':[...], 'results':[{url,title,page_age}]}."""
+def _run_search(client, model: str, anchor: pd.Timestamp, system: str, tool: dict,
+                label: str, posts_block: str = "") -> dict:
+    """One Anthropic adaptive web-search pass under `system` + `tool` (its allowed/blocked_domains set the
+    domain steering); returns {'queries':[...], 'results':[{url,title,page_age}]}. `label` tags cost/trace."""
     user = (f"Week ending {anchor.date()} (use before:{anchor.date()} on every search).\n{posts_block}"
             "Run the beat sweep, then a few targeted follow-ups, to surface this week's articles that "
             "NAME specific US-listed tickers/ETFs/ADRs as movers.")
-    kw = {"model": model, "max_tokens": 1500, "system": GATHER_SYSTEM,
-          "tools": [{"type": "web_search_20260209", "name": "web_search"}],
+    kw = {"model": model, "max_tokens": 1500, "system": system,
+          "tools": [tool],
           "messages": [{"role": "user", "content": user}]}
     queries: list[str] = []
     results: dict[str, dict] = {}
@@ -115,10 +127,10 @@ def _run_search(client, model: str, anchor: pd.Timestamp, posts_block: str) -> d
             kw["messages"].append({"role": "assistant", "content": resp.content})
             continue
         break
-    costs.record("forward-gather", model, f"gather-{anchor.date()}", tally)   # ALL forward spend is logged
-    trace.log("llm", stage="forward-gather", label=f"gather-{anchor.date()}", model=model,
-              system=GATHER_SYSTEM, user=user,
-              response=f"[gather: {len(queries)} searches -> {len(results)} results]",
+    costs.record("forward-gather", model, f"{label}-{anchor.date()}", tally)   # ALL forward spend is logged
+    trace.log("llm", stage="forward-gather", label=f"{label}-{anchor.date()}", model=model,
+              system=system, user=user,
+              response=f"[{label}: {len(queries)} searches -> {len(results)} results]",
               web_search_queries=queries, **tally)
     for _tq in queries:
         trace.log("search", engine="anthropic", query=_tq)
@@ -134,6 +146,37 @@ def _url_date(url: str) -> str | None:
     return f"{y}-{int(mo):02d}-{int(d):02d}"
 
 
+def _page_age_date(page_age, ref: pd.Timestamp | None = None) -> str | None:
+    """The web_search result's `page_age` -> YYYY-MM-DD (no fetch). This is the date source for Cloudflare-
+    walled specialty desks (etf.com) that 403 the fetch AND have no URL date — without it the fail-closed
+    filter drops the very gem-class articles the allowlist surfaced. Handles BOTH forms page_age comes in:
+    absolute ('March 4, 2026') and relative ('3 days ago', 'yesterday'), the latter resolved against `ref`
+    (defaults to today — correct for the live daily pull, which runs ~at the anchor). Returns None if
+    unparseable; the (lo, hi] window filter still enforces look-ahead downstream."""
+    if not page_age:
+        return None
+    s0 = str(page_age).strip().lower()
+    ref = (ref or pd.Timestamp.today()).normalize()
+    if s0 in ("today", "just now", "now"):
+        return ref.date().isoformat()
+    if s0 == "yesterday":
+        return (ref - pd.Timedelta(days=1)).date().isoformat()
+    m = re.match(r"(\d+)\s+(hour|day|week|month|year)s?\s+ago", s0)
+    if m:
+        n = int(m.group(1))
+        delta = {"hour": pd.Timedelta(hours=n), "day": pd.Timedelta(days=n), "week": pd.Timedelta(weeks=n),
+                 "month": pd.Timedelta(days=30 * n), "year": pd.Timedelta(days=365 * n)}[m.group(2)]
+        return (ref - delta).date().isoformat()
+    try:
+        d = pd.to_datetime(str(page_age), errors="coerce")
+    except Exception:  # noqa: BLE001
+        return None
+    if pd.isna(d):
+        return None
+    s = d.date().isoformat()
+    return s if "2000-01-01" < s <= ref.date().isoformat() else None
+
+
 def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
            workers: int = 12, cap: int = 80, freeze_cap: int = 160) -> list[dict]:
     """Live firehose gather -> a date-clean, window-filtered arts pool for the scout.
@@ -146,7 +189,15 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     keep in-window (priority) + undated (need a fetch to decide), cap at `freeze_cap`, and only then
     fetch/freeze that subset. The full window filter still runs on the fetched dates (fail closed).
     """
-    raw = _run_search(client, model, anchor, "")
+    _WS = "web_search_20260209"
+    gem = _run_search(client, model, anchor, GEM_SYSTEM,                       # pass 1: specialty-allowlisted gem sweep
+                      {"type": _WS, "name": "web_search", "max_uses": 24, "allowed_domains": _SPECIALTY_ALLOW}, "gem")
+    cov = _run_search(client, model, anchor, COVERAGE_SYSTEM,                  # pass 2: broad sweep, mills blocked
+                      {"type": _WS, "name": "web_search", "max_uses": 24, "blocked_domains": _MILL_BLOCK}, "coverage")
+    merged = {r["url"]: r for r in gem["results"]}                             # gem pass wins on url collision
+    for r in cov["results"]:
+        merged.setdefault(r["url"], r)
+    raw = {"queries": gem["queries"] + cov["queries"], "results": list(merged.values())}
     lo = (anchor - pd.Timedelta(days=lookback_days)).date().isoformat()
     hi = anchor.date().isoformat()
 
@@ -163,6 +214,7 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
 
     def build(r):
         lede, date = _freeze(r["url"])
+        date = date or _url_date(r["url"]) or _page_age_date(r.get("page_age"))   # walled desks: page_age saves them
         return {"title": r.get("title", ""), "url": r["url"], "published_date": date or "",
                 "source": urlparse(r["url"]).netloc, "snippet": lede}
 
