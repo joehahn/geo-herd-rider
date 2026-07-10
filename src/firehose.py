@@ -49,21 +49,46 @@ WORKERS = 8
 # Gem sub-niches ("uranium"/"rare earth"/"weight loss drug") are DROPPED — reverse-engineered from
 # known winners. Canonical shared set (run_harness.HARNESS_QUERIES aliases this).
 # NOTE: a SPACE is GDELT implicit AND — "energy stocks" = energy AND stocks, far more recall than
-GDELT_QUERIES = [
-    # discovery superlatives (cross-vertical — the purest "press names a standout")
-    "best performing stock", "biggest gainers", "best performing etf",
-    # under-the-radar / early discovery (mirrors the forward gather — the "still cheap / overlooked" framing)
-    "under the radar stock", "overlooked stock catalyst", "still early rally",
-    "niche ETF surging", "flying under the radar ETF", "top gainers stock", "best stocks to buy",
-    # macro beats SCAN_SYSTEM names (geopolitics / war / energy-shipping / tariffs / Fed)
-    "geopolitics", "war", "shipping", "tariffs", "interest rates",
-    # even top-level GICS sector sweep (all 11 sectors) — every gem reachable via its SECTOR, none privileged
-    "technology stocks", "energy stocks", "financial stocks", "healthcare stocks",
-    "industrial stocks", "materials stocks", "consumer stocks",
-    "utility stocks", "real estate stocks", "telecom stocks",
-    # pre-registered thesis theme layer (non-GICS asset classes / emerging tech) — fixed before eval, independent thesis
-    "cryptocurrency", "space stocks", "robotics stocks", "quantum stocks", "nuclear stocks",
-]  # SPACE = GDELT implicit AND (broad recall); NOT exact "quoted phrases" (rare in news copy).
+# FACTORED beats: shared synonym lists composed into queries so beats are cheap to add/drop as the
+# backtest evolves (edit a dict entry, not a hand-tuned string). GDELT does NOT stem (deliberate) ->
+# singular/plural are OR-enumerated; SPACE = implicit AND; "quoted" = exact phrase. Gem-agnostic:
+# standard GICS sectors + the original emerging themes + generic catalyst topics (no hindsight terms).
+_VEHICLE = '(stock OR stocks OR ETF OR ETFs OR shares OR equities)'
+_MOVERS = '(best OR top OR biggest OR surging OR rallying OR soaring OR breakout OR outperforming)'
+_EARLY = '("under the radar" OR overlooked OR undiscovered OR unnoticed OR niche OR "still early" OR obscure)'
+# sector / theme topics -> (topic)(vehicle). Kept DISTINCT (not merged) to preserve unique coverage.
+_SECTORS = {
+    "technology":    '(technology OR tech OR semiconductor OR semiconductors OR software OR "artificial intelligence")',
+    "energy":        '(energy OR oil OR gas OR petroleum OR "oil and gas" OR drilling)',
+    "financials":    '(financial OR financials OR bank OR banks OR insurance OR fintech OR lender)',
+    "healthcare":    '(health OR healthcare OR biotech OR pharma OR pharmaceutical OR pharmaceuticals OR medical)',
+    "industrials":   '(industrial OR industrials OR manufacturing OR machinery OR "capital goods")',
+    "materials":     '(materials OR mining OR miner OR miners OR metals OR chemical OR chemicals)',
+    "consumer":      '(consumer OR retail OR retailer OR apparel OR "consumer goods")',
+    "utilities":     '(utility OR utilities OR "electric power" OR "power grid" OR "water utility")',
+    "real_estate":   '("real estate" OR REIT OR REITs OR property OR homebuilder OR homebuilders)',
+    "communication": '(telecom OR telecommunications OR "communication services" OR media OR streaming)',
+    "space":         '(space OR aerospace OR satellite OR defense OR defence OR drone OR drones)',
+    "robotics":      '(robotics OR robot OR automation OR "machine learning")',
+    "quantum":       '(quantum OR "quantum computing")',
+    "nuclear":       '(nuclear OR "small modular reactor" OR SMR OR fusion)',
+    "crypto":        '(cryptocurrency OR crypto OR bitcoin OR blockchain OR "digital asset" OR stablecoin)',
+}
+# catalyst topics -> (topic) ONLY. NO vehicle/superlative: that 3rd AND-clause would drop causal
+# articles ("Iran shuts Hormuz") that never say "stock" or "surging" -- the exact news the scout
+# reasons from (Boolean AND can only shrink recall).
+_CATALYSTS = {
+    "geopolitics":  '(geopolitics OR geopolitical OR war OR conflict OR military OR invasion OR ceasefire OR "national security" OR sanctions)',
+    "shipping":     '(shipping OR freight OR tanker OR tankers OR "supply chain" OR chokepoint OR blockade OR port OR ports OR strait)',
+    "trade":        '(tariff OR tariffs OR "trade war" OR embargo OR "export control" OR "export ban" OR quota)',
+    "rates":        '("interest rate" OR "interest rates" OR inflation OR "Federal Reserve" OR "rate cut" OR "rate hike" OR yields)',
+    "supply_shock": '(shortage OR "supply shock" OR "supply cut" OR "supply crunch" OR "demand surge" OR disruption OR outage)',
+}
+GDELT_QUERIES = (
+    [f"{_MOVERS} {_VEHICLE}", f"{_EARLY} {_VEHICLE}"]     # discovery: (superlative)(vehicle)
+    + [f"{_t} {_VEHICLE}" for _t in _SECTORS.values()]   # sectors / themes: (topic)(vehicle)
+    + list(_CATALYSTS.values())                          # catalysts: (topic) only -- raw event news
+)
 GDELT_WEEK_CAP = 80          # max GDELT headlines fed to the LLM per week (seeds always kept)
 
 SCAN_SYSTEM = """You are a markets desk reading the week's news firehose to find HIDDEN GEMS the
