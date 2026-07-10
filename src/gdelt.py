@@ -100,6 +100,11 @@ def pool(queries: list[str], start, end, chunk_days: int = 30, per: int = 60,
     edges = list(pd.date_range(start, end, freq=f"{chunk_days}D"))
     if not edges or edges[-1] < end:
         edges.append(end)
+    _seen, _ded = set(), []                  # dedupe by calendar DATE: date_range's endpoint can differ from
+    for _e in edges:                         # `end` by tz/precision, so the append above adds a zero-width chunk
+        if _e.date() not in _seen:           # (30 wasted empty searches) on some anchors
+            _seen.add(_e.date()); _ded.append(_e)
+    edges = _ded
 
     _reset_stat()
     t0 = time.monotonic()
