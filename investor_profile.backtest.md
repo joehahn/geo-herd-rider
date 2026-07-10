@@ -37,4 +37,21 @@ curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is rem
 lookback_period_days: 14           # Optimizer trailing lookback (calendar days); short = responsive to recent moves
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
+# --- forward web-search domain steering (used by forward_gather; synced here for visibility). Curate by OUTLET TYPE. ---
+specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call
+  - etf.com
+  - benzinga.com
+  - seekingalpha.com
+  - etftrends.com
+  - stocktitan.net
+  - tipranks.com
+  - marketbeat.com
+  - barchart.com
+mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills
+  - fool.com
+  - 247wallst.com
+  - nerdwallet.com
+  - kiplinger.com
+  - money.usnews.com
+  - stockstory.org
 ---

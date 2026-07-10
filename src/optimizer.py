@@ -59,6 +59,11 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   (most-recent kept); ONE meaning everywhere. 0 = UNCAPPED. The
                                        #   forward's daily pull fetches uncapped; only this weekly scout
                                        #   read is capped. (backtest_gdelt overrides via --news-cap.)
+    # forward web-search domain steering (forward_gather two-pass). Curate by OUTLET TYPE, never by outcome.
+    "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
+                        "tipranks.com", "marketbeat.com", "barchart.com"],  # GEM pass allowlist (early-gem desks)
+    "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
+                   "stockstory.org"],  # COVERAGE pass blocklist ("N stocks to buy" listicle mills)
     "max_agents": 7,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
     "spy_agent_conviction": 5,

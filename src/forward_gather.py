@@ -14,6 +14,7 @@ from __future__ import annotations
 import re
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 from urllib.parse import urlparse
 
 import pandas as pd
@@ -21,8 +22,8 @@ import pandas as pd
 import costs
 import trace
 import wayback
+from optimizer import load_financial_model
 
-# The gather's fixed coverage sweep MIRRORS the backtest's GDELT beats (firehose.GDELT_QUERIES) so the
 # forward firehose = a TWO-PASS gather (validated 2026-07-10: web_search allowed_domains works AND reaches
 # etf.com despite its Cloudflare wall — the search index isn't blocked like a scraper). Pass 1 (GEM) runs
 # the early-framing + catalyst->beneficiary beats RESTRICTED to specialty desks via allowed_domains, so the
@@ -31,12 +32,12 @@ import wayback
 # steering is a far stronger lever than prompt wording (an A/B of soft prioritization barely moved).
 # allowed/blocked_domains are TOOL-level (apply to every search in a call) -> hence two separate passes.
 
-# specialty desks that carry the early gem call (allowlist for the GEM pass); reaches Cloudflare-walled etf.com
-_SPECIALTY_ALLOW = ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
-                    "tipranks.com", "marketbeat.com", "barchart.com"]
-# "N stocks to buy" listicle mills — blocked on the COVERAGE pass to cut noise (they crowd out the gem call)
-_MILL_BLOCK = ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
-               "stockstory.org"]
+# The steering lists live in investor_profile (specialty_allow / mill_block) for VISIBILITY — one place to
+# see what the firehose steers to; optimizer._FINANCIAL_MODEL_DEFAULTS is the fallback. Curate by OUTLET
+# TYPE (specialty desk vs listicle mill), NEVER by "this outlet named a winner" (that's leaked-signal tuning).
+_FGM = load_financial_model(str(Path(__file__).resolve().parent.parent / "investor_profile.forward.md"))
+_SPECIALTY_ALLOW = list(_FGM.get("specialty_allow") or [])   # GEM pass allowlist (reaches Cloudflare-walled etf.com)
+_MILL_BLOCK = list(_FGM.get("mill_block") or [])             # COVERAGE pass blocklist (kills listicle mills)
 
 GEM_SYSTEM = (
     "You are the news firehose surfacing EARLY, still-under-the-radar gem-class coverage for a scout — the "

@@ -38,4 +38,21 @@ lookback_period_days: 14          # Optimizer trailing lookback (calendar days);
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 gather_engine: anthropic          # forward gather: anthropic (Brave live web search) or tavily (date-honoring, reaches old weeks). Default anthropic.
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
+# --- forward web-search domain steering (two-pass gather). Curate by OUTLET TYPE, never by "named a winner". ---
+specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call (reaches Cloudflare-walled etf.com)
+  - etf.com
+  - benzinga.com
+  - seekingalpha.com
+  - etftrends.com
+  - stocktitan.net
+  - tipranks.com
+  - marketbeat.com
+  - barchart.com
+mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills that crowd out the gem call
+  - fool.com
+  - 247wallst.com
+  - nerdwallet.com
+  - kiplinger.com
+  - money.usnews.com
+  - stockstory.org
 ---
