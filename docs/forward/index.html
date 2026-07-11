@@ -29,7 +29,7 @@
  details.clip>summary::-webkit-details-marker{display:none}
  details.clip[open]>summary{display:none}
 </style></head>
-<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-10 06:38:29 EDT</div><div class="wrap">
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-11 06:36:04 EDT</div><div class="wrap">
  <nav class="nav"><a href="index.html" class="active">All weeks</a><a href="2026-07-03.html">2026-07-03</a><a href="firehose.html">Firehose log</a><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
  <p class="sub" id="sub"></p>
@@ -42,7 +42,7 @@
  <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
  <div id="chart"></div>
 
- <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7, 9 &amp; 10.</span></h2>
+ <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7, 10 &amp; 11.</span></h2>
  <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
    went live, <b>✕</b> its exit.</p>
  <div id="gainseries"></div>
@@ -77,7 +77,7 @@
    winner, red = loser; the bars sum to the portfolio's total gain.</p>
  <div id="agentgain"></div>
 
- <h2>Plot 8 &mdash; News-count histogram <span class="sub">(articles per publication day, by retrieval source)</span></h2><div id="newshist" style="width:100%;height:300px"></div><h2>Plot 9 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>
+ <h2>Plot 8 &mdash; News-count histogram <span class="sub">(articles per publication day, by retrieval source; red diamonds = each week&rsquo;s total on the right axis, dashed red = window-cap)</span></h2><div id="newshist" style="width:100%;height:320px"></div><h2>Plot 9 &mdash; GDELT count by day of week <span class="sub">(articles bucketed by weekday of publication)</span></h2><div id="dowhist" style="width:100%;height:280px"></div><h2>Plot 10 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>
  <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
    how strong / early / datable it judged its own catalyst. The dashed orange line is the always-on
    <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
@@ -85,7 +85,7 @@
    event-agent must out-rank to be funded.</p>
  <div id="convtime"></div>
 
- <h2>Plot 10 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
+ <h2>Plot 11 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
  <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
    (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
    climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
@@ -97,7 +97,7 @@
  <p class="sub" id="agentprec_cap" style="margin:0 0 6px"></p>
  <div id="agentprec"></div>
 
- <h2>Plot 12 — Agent journal — week-by-week (per event)</h2>
+ <h2>Plot 13 — Agent journal — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
    ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
    <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
@@ -116,7 +116,7 @@
  <div id="retr"></div>
 </div>
 <script>
-Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "overlays": [], "gem_label": "Forward book", "combo_targets": [], "caught_all": 0, "both_held": false, "model": "sonnet5", "storyline": "<b>Forward paper-trade book<\/b> \u2014 no live events as of 2026-07-03; the portfolio is the two always-on floors (SPY + defensive).", "ever_funded": [], "book_title": "Weekly results", "subtitle": "1 weekly scans \u00b7 2026-07-03 \u2192 2026-07-03", "scan_range": ["2026-07-03", "2026-07-03"], "seeds": [], "capital": 50000.0, "dates": ["2026-07-07", "2026-07-08", "2026-07-09"], "value": [50000.0, 49845.53, 50267.48], "spy": [50000.0, 49845.53, 50267.48], "gain": {"SPY": 267.48, "GLD": 0.0}, "gain_series": {"GLD": [0.0, -0.0, 0.0], "SPY": [0.0, -154.47, 267.48]}, "overlay": null, "overlay_ticker": "", "overlay_anchor": "", "alloc": {"SPY": [1.0, 1.0, 1.0]}, "cash": [0.0, 0.0, 0.0], "colors": {"SPY": "#ff7f0e", "GLD": "#eab308"}, "metrics": {"final": 50267.0, "total_ret": 0.0053, "spy_ret": 0.0053, "max_dd": -0.0031}, "cost_usd": 0.84, "weeks": 1, "gems": [{"week": "2026-07-03", "ticker": "NAN", "thesis": "nan", "thesis_live": false, "urls": ["nan"]}], "watchlist": [{"week": "2026-07-03", "names": [], "funded": []}], "watch_daily": {}, "retrieval": {}, "params": {"initial_investment_usd": 50000, "risk_aversion": 0.1, "concentration_cap": 1.0, "t_update_days": 1, "min_trade_size": 0.0, "lookback_period_days": 14, "model": "sonnet5", "risk_free_rate": 0.04, "rebalance_days": 7, "news_lookback_days": null, "max_agents": 7, "spy_agent_conviction": 5, "defensive_agent_conviction": 5, "defensive_ticker": "GLD", "hold_benchmark": true, "curator_memory_weeks": 8, "max_watchlist_size": 12}, "arcs": {}, "lifecycle": [], "agents": {"ev1": {"ticker": "NAN", "thesis": "nan", "first": "2026-07-03", "last": "2026-07-03", "basket": "NAN"}, "spy": {"ticker": "SPY", "thesis": "always-on SPY floor agent", "first": "2026-07-07", "last": "2026-07-09"}, "defensive": {"ticker": "GLD", "thesis": "always-on defensive (GLD) floor agent", "first": "2026-07-07", "last": "2026-07-09"}}, "agent_of": {"NAN": "ev1"}, "agent_marks": {"NAN": {"live": [], "exit": []}}, "agent_gain": {"ev1": 0.0, "spy": 267.48, "defensive": 0.0}, "agent_conviction": {"spy": [{"date": "2026-07-03", "conviction": 5}], "defensive": [{"date": "2026-07-03", "conviction": 5}]}, "agent_convgain": {"spy": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}], "defensive": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}]}, "agent_precision": [{"ticker": "GLD", "thesis": "defensive (GLD) floor agent", "first": "2026-07-03", "last": "2026-07-03", "ret": 0.0, "agent": ""}]}).then(D=>{
+Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "overlays": [], "gem_label": "Forward book", "combo_targets": [], "caught_all": 0, "both_held": false, "model": "sonnet5", "storyline": "<b>Forward paper-trade book<\/b> \u2014 no live events as of 2026-07-03; the portfolio is the two always-on floors (SPY + defensive).", "ever_funded": [], "book_title": "Summary of Weekly results", "subtitle": "1 weekly scans \u00b7 2026-07-03 \u2192 2026-07-03", "scan_range": ["2026-07-03", "2026-07-03"], "seeds": [], "capital": 50000.0, "dates": ["2026-07-07", "2026-07-08", "2026-07-09", "2026-07-10"], "value": [50000.0, 49845.53, 50267.48, 50484.14], "spy": [50000.0, 49845.53, 50267.48, 50484.14], "gain": {"SPY": 484.14, "GLD": -0.0}, "gain_series": {"GLD": [0.0, -0.0, 0.0, -0.0], "SPY": [0.0, -154.47, 267.48, 484.14]}, "overlay": null, "overlay_ticker": "", "overlay_anchor": "", "alloc": {"SPY": [1.0, 1.0, 1.0, 1.0]}, "cash": [0.0, 0.0, 0.0, 0.0], "colors": {"SPY": "#ff7f0e", "GLD": "#eab308"}, "metrics": {"final": 50484.0, "total_ret": 0.0097, "spy_ret": 0.0097, "max_dd": -0.0031}, "cost_usd": 4.32, "weeks": 1, "gems": [{"week": "2026-07-03", "ticker": "NAN", "thesis": "nan", "thesis_live": false, "urls": ["nan"]}], "watchlist": [{"week": "2026-07-03", "names": [], "funded": []}], "watch_daily": {}, "retrieval": {}, "params": {"initial_investment_usd": 50000, "risk_aversion": 0.1, "concentration_cap": 1.0, "t_update_days": 1, "min_trade_size": 0.0, "lookback_period_days": 14, "event_agent_model": "sonnet5", "scout_model": "llama4", "risk_free_rate": 0.04, "rebalance_days": 7, "news_lookback_days": null, "news_cap": 0, "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net", "tipranks.com", "marketbeat.com", "barchart.com", "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com", "endpts.com", "statnews.com", "biopharmadive.com", "quantumcomputingreport.com", "world-nuclear-news.org", "breakingdefense.com", "defensenews.com"], "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com", "stockstory.org"], "max_agents": 7, "spy_agent_conviction": 5, "defensive_agent_conviction": 5, "defensive_ticker": "GLD", "hold_benchmark": true, "curator_memory_weeks": 8, "max_watchlist_size": 12, "model": "sonnet5"}, "arcs": {}, "lifecycle": [], "agents": {"ev1": {"ticker": "NAN", "thesis": "nan", "first": "2026-07-03", "last": "2026-07-03", "basket": "NAN"}, "spy": {"ticker": "SPY", "thesis": "always-on SPY floor agent", "first": "2026-07-07", "last": "2026-07-10"}, "defensive": {"ticker": "GLD", "thesis": "always-on defensive (GLD) floor agent", "first": "2026-07-07", "last": "2026-07-10"}}, "agent_of": {"NAN": "ev1"}, "agent_marks": {"NAN": {"live": [], "exit": []}}, "agent_gain": {"ev1": 0.0, "spy": 484.14, "defensive": -0.0}, "agent_conviction": {"spy": [{"date": "2026-07-03", "conviction": 5}], "defensive": [{"date": "2026-07-03", "conviction": 5}]}, "agent_convgain": {"spy": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}], "defensive": [{"date": "2026-07-03", "conviction": 5, "gain": 0.0}]}, "agent_precision": [{"ticker": "GLD", "thesis": "defensive (GLD) floor agent", "first": "2026-07-03", "last": "2026-07-03", "ret": 0.0, "agent": ""}]}).then(D=>{
   const fmt=x=>"$"+Math.round(x).toLocaleString();
   const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
   const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
@@ -139,7 +139,7 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
   ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
      <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
 
-  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.md)
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.backtest.md)
   const P=D.params||{};
   const order=["model","initial_investment_usd","concentration_cap","min_trade_size","risk_aversion",
     "max_agents","spy_agent_conviction","defensive_agent_conviction","defensive_ticker",
@@ -314,7 +314,7 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 9 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
+  // Plot 10 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
   const AC=D.agent_conviction||{};
   const convTraces=Object.entries(AC).map(([aid,pts])=>({
     x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid),
@@ -325,7 +325,7 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
      xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 10 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
+  // Plot 11 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
   const CG=D.agent_convgain||{};
   const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
     const n=s.length;
@@ -344,12 +344,12 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
      yaxis:{title:"cumulative $ gain",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 11 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
+  // Plot 12 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
   const AP=(D.agent_precision||[]).filter(r=>r.ret!==null&&r.ret!==undefined);
   const nwin=AP.filter(r=>r.ret>0).length, nap=AP.length;
   const prec = nap ? Math.round(100*nwin/nap) : 0;
   const aph=document.getElementById("agentprec_h");
-  if(aph) aph.textContent=`Plot 11 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
+  if(aph) aph.textContent=`Plot 12 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
   const APs=AP.slice().sort((a,b)=>a.ret-b.ret);
   // dynamic caption: the curator's batting average in words, from the actual bars
   const capEl=document.getElementById("agentprec_cap");
@@ -394,19 +394,17 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
   document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
     const funded=F.has(t);
     const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
-      +`<td>${esc(e.src)}</td><td>${clip(e.thesis)}</td>`
+      +`<td>${clip(e.thesis)}</td>`
       +`<td class="sub">${(e.milestones||[]).map(m=>esc(String(m))).join(" → ")||"—"}</td>`
       +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
       +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
     const open = t===D.gem ? " open" : "";
     const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
-    const disc = (A[t][0]||{}).src || "";   // provenance of the FIRST week it appeared (discovery)
-    const discTag = disc ? ` · <b style="color:${disc==='seed'?'#b45309':'#0d9488'}">discovered via ${disc}</b>` : "";
     const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
     const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
     return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
-      +`${t===D.gem?" (gem)":""}${discTag}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
-      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>src</th><th>thesis (event)</th><th>milestones</th>`
+      +`${t===D.gem?" (gem)":""}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>thesis</th><th>milestones</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
 
@@ -445,4 +443,4 @@ Promise.resolve({"gem": "Forward book", "overlay_label": "", "caught": false, "o
       `<div class="cards">${h}</div>`+(hf?`<div class="cards" style="margin-top:10px">${hf}</div>`:"");
   }
 });
-</script><script>Plotly.newPlot("newshist",[{"x": ["2026-07-01", "2026-07-02", "2026-07-03"], "y": [10, 11, 6], "type": "bar", "name": "news", "marker": {"color": "#4a90d9"}}],{margin:{t:10,r:10},yaxis:{title:"articles"},bargap:0.05,barmode:"stack",},{displayModeBar:false,responsive:true});</script></body></html>
+</script><script>Plotly.newPlot("newshist",[{"x": ["2026-07-01", "2026-07-02", "2026-07-03"], "y": [10, 11, 6], "type": "bar", "name": "news", "marker": {"color": "#4a90d9"}}, {"x": ["2026-07-03"], "y": [27], "type": "scatter", "mode": "lines+markers", "name": "weekly total", "yaxis": "y2", "line": {"color": "#d62728"}, "marker": {"size": 8, "symbol": "diamond"}}],{margin:{t:10,r:48,b:38},yaxis:{title:"articles / day"},yaxis2:{title:"articles / week",overlaying:"y",side:"right",showgrid:false,rangemode:"tozero"},bargap:0.05,barmode:"stack",xaxis:{tickmode:"array",tickvals:["2026-07-01", "2026-07-02", "2026-07-03"],ticktext:["W", "Th", "F<br>03-07-2026"],tickangle:0,tickfont:{size:7}},shapes:[{type:"line",x0:0,x1:1,xref:"paper",y0:27,y1:27,yref:"y2",line:{color:"#d62728",dash:"dash"}}]},{displayModeBar:false,responsive:true});</script><script>Plotly.newPlot("dowhist",[{type:"bar",x:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],y:[0, 0, 10, 11, 6, 0, 0],marker:{color:"#2ca02c"}}],{margin:{t:10,r:10,b:30,l:45},yaxis:{title:"articles"},bargap:0.15},{displayModeBar:false,responsive:true});</script></body></html>
