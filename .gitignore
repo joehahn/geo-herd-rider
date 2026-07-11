@@ -82,3 +82,9 @@ data/backtest_bwet*/
 data/windows/gdelt_pool_forward.json
 data/windows/wayback_forward.json
 docs/bwet_h/*.json
+
+# retrieval backtest: resumable pool checkpoint (large, regenerable; the result JSON is committed)
+data/retrieval_backtest.ckpt.json
+
+# throwaway forward 2-week sandbox
+data/forward_2wk/

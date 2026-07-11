@@ -18,16 +18,17 @@ import pandas as pd
 
 import search
 import trace
+# ALIGNED with the Anthropic forward gather: import the SAME beat set + domain lists so the Tavily
+# backtest runs the identical two-pass sweep (gem beats + specialty allowlist; coverage beats + mill
+# blocklist). This is what makes the backtest a valid proxy for forward retrieval — same queries,
+# same domain steering, only the engine differs. (Residual gap: Anthropic spawns adaptive follow-ups;
+# Tavily runs the fixed list -> conservative proxy.)
+from forward_gather import GEM_BEATS, COVERAGE_BEATS, _SPECIALTY_ALLOW, _MILL_BLOCK
 
-# beat sweep mirroring forward_gather.GATHER_SYSTEM (superlatives / macro / sectors / themes / early)
-BEATS = [
-    "best performing stock", "biggest stock gainers", "best performing ETF",
-    "geopolitics markets", "war stocks", "shipping stocks", "tariffs stocks", "interest rates stocks",
-    "technology stocks", "energy stocks", "financial stocks", "healthcare stocks", "industrial stocks",
-    "materials stocks", "consumer stocks", "utility stocks", "real estate stocks", "telecom stocks",
-    "cryptocurrency stocks", "space stocks", "robotics stocks", "quantum stocks", "nuclear stocks",
-    "under the radar stock", "overlooked stock catalyst", "niche ETF surging",
-]
+BEATS = list(GEM_BEATS) + list(COVERAGE_BEATS)   # full sweep, for capture/reporting
+# (beat, include_domains, exclude_domains) — mirrors forward_gather's two passes
+_TASKS = ([(b, _SPECIALTY_ALLOW, None) for b in GEM_BEATS]
+          + [(b, None, _MILL_BLOCK) for b in COVERAGE_BEATS])
 
 
 def _pdate(r: dict) -> str | None:
@@ -47,19 +48,23 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     hi = anchor.date().isoformat()
     pool: dict[str, dict] = {}
 
-    def _q(beat: str):
-        return beat, search.search(beat, before_date=hi, start_date=lo, max_results=8)
+    def _q(task: tuple):
+        beat, inc, exc = task
+        return beat, search.search(beat, before_date=hi, start_date=lo, max_results=8,
+                                   include_domains=inc, exclude_domains=exc)
 
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
-        for beat, res in ex.map(_q, BEATS):
+        for beat, res in ex.map(_q, _TASKS):
             trace.log("search", engine="tavily", query=beat, n_results=len(res))
             for r in res:
                 d = _pdate(r)
                 url = r.get("url")
                 if url and d and lo < d <= hi:          # (anchor-lookback, anchor], fail closed on undateable
-                    pool.setdefault(url, {"title": r.get("title", ""), "url": url, "published_date": d,
-                                          "source": urlparse(url).netloc,
-                                          "snippet": (r.get("content", "") or "")[:300]})
+                    ex_r = pool.setdefault(url, {"title": r.get("title", ""), "url": url, "published_date": d,
+                                                 "source": urlparse(url).netloc,
+                                                 "snippet": (r.get("content", "") or "")[:300], "queries": []})
+                    if beat not in ex_r["queries"]:     # tag which beat(s) surfaced it (Plot 13/14 attribution)
+                        ex_r["queries"].append(beat)
 
     arts = sorted(pool.values(), key=lambda x: x["published_date"], reverse=True)[:cap]
     if capture is not None:

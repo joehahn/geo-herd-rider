@@ -1,0 +1,631 @@
+{
+ "span": [
+  "2025-01-01",
+  "2026-07-07"
+ ],
+ "generated_from": "tavily two-pass aligned beat sweep (no ticker queries)",
+ "cost": {
+  "windows": 40,
+  "tavily_credits": 2304,
+  "wall_seconds": 621.3,
+  "llm_usd": 0.0,
+  "pool_size": 3200
+ },
+ "wcount": {
+  "2025-01-07": 80,
+  "2025-01-21": 80,
+  "2025-02-04": 80,
+  "2025-02-18": 80,
+  "2025-03-04": 80,
+  "2025-03-18": 80,
+  "2025-04-01": 80,
+  "2025-04-15": 80,
+  "2025-04-29": 80,
+  "2025-05-13": 80,
+  "2025-05-27": 80,
+  "2025-06-10": 80,
+  "2025-06-24": 80,
+  "2025-07-08": 80,
+  "2025-07-22": 80,
+  "2025-08-05": 80,
+  "2025-08-19": 80,
+  "2025-09-02": 80,
+  "2025-09-16": 80,
+  "2025-09-30": 80,
+  "2025-10-14": 80,
+  "2025-10-28": 80,
+  "2025-11-11": 80,
+  "2025-11-25": 80,
+  "2025-12-09": 80,
+  "2025-12-23": 80,
+  "2026-01-06": 80,
+  "2026-01-20": 80,
+  "2026-02-03": 80,
+  "2026-02-17": 80,
+  "2026-03-03": 80,
+  "2026-03-17": 80,
+  "2026-03-31": 80,
+  "2026-04-14": 80,
+  "2026-04-28": 80,
+  "2026-05-12": 80,
+  "2026-05-26": 80,
+  "2026-06-09": 80,
+  "2026-06-23": 80,
+  "2026-07-07": 80
+ },
+ "detection": {
+  "MP": {
+   "form": "single stock",
+   "by_name": 32,
+   "thesis": 29,
+   "peak": "2025-07-10",
+   "earliest_by_name": "2025-02-28",
+   "earliest_thesis": "2025-02-03",
+   "lead_days": 132
+  },
+  "GDX": {
+   "form": "ETF wrapper",
+   "by_name": 0,
+   "thesis": 7,
+   "peak": "2026-02-13",
+   "earliest_by_name": null,
+   "earliest_thesis": "2025-04-11",
+   "lead_days": null
+  },
+  "RNMBY": {
+   "form": "foreign ADR",
+   "by_name": 1,
+   "thesis": 1,
+   "peak": "2025-11-19",
+   "earliest_by_name": "2025-12-31",
+   "earliest_thesis": "2026-01-29",
+   "lead_days": -42
+  },
+  "BWET": {
+   "form": "ETF wrapper",
+   "by_name": 1,
+   "thesis": 5,
+   "peak": "2026-04-25",
+   "earliest_by_name": "2026-04-25",
+   "earliest_thesis": "2026-01-05",
+   "lead_days": 0
+  },
+  "DRAM": {
+   "form": "ETF wrapper",
+   "by_name": 1,
+   "thesis": 11,
+   "peak": "2026-06-18",
+   "earliest_by_name": "2026-05-07",
+   "earliest_thesis": "2026-01-01",
+   "lead_days": 42
+  }
+ },
+ "hits": {
+  "MP": {
+   "by_name_dates": [
+    "2025-02-28",
+    "2025-04-14",
+    "2025-04-17",
+    "2025-04-21",
+    "2025-06-04",
+    "2025-07-19",
+    "2025-07-21",
+    "2025-09-24",
+    "2025-09-25",
+    "2025-10-22",
+    "2025-10-27",
+    "2025-11-06",
+    "2025-11-07",
+    "2025-11-07",
+    "2025-11-22",
+    "2025-11-23",
+    "2025-11-24",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-08",
+    "2026-01-29",
+    "2026-02-26",
+    "2026-02-26",
+    "2026-02-27",
+    "2026-04-08",
+    "2026-06-06",
+    "2026-06-06",
+    "2026-06-07",
+    "2026-06-18",
+    "2026-06-20",
+    "2026-06-22"
+   ],
+   "thesis_dates": [
+    "2025-02-03",
+    "2025-03-13",
+    "2025-03-13",
+    "2025-03-14",
+    "2025-04-14",
+    "2025-05-23",
+    "2025-05-24",
+    "2025-06-04",
+    "2025-06-19",
+    "2025-07-06",
+    "2025-08-04",
+    "2025-08-26",
+    "2025-08-27",
+    "2025-08-27",
+    "2025-10-12",
+    "2025-10-13",
+    "2025-11-08",
+    "2025-11-21",
+    "2026-01-14",
+    "2026-02-28",
+    "2026-03-02",
+    "2026-03-02",
+    "2026-04-07",
+    "2026-05-21",
+    "2026-05-22",
+    "2026-05-23",
+    "2026-06-18",
+    "2026-07-04",
+    "2026-07-04"
+   ]
+  },
+  "GDX": {
+   "by_name_dates": [],
+   "thesis_dates": [
+    "2025-04-11",
+    "2025-04-23",
+    "2025-04-23",
+    "2025-04-23",
+    "2025-04-23",
+    "2025-05-07",
+    "2025-08-14"
+   ]
+  },
+  "RNMBY": {
+   "by_name_dates": [
+    "2025-12-31"
+   ],
+   "thesis_dates": [
+    "2026-01-29"
+   ]
+  },
+  "BWET": {
+   "by_name_dates": [
+    "2026-04-25"
+   ],
+   "thesis_dates": [
+    "2026-01-05",
+    "2026-02-11",
+    "2026-02-27",
+    "2026-04-24",
+    "2026-05-07"
+   ]
+  },
+  "DRAM": {
+   "by_name_dates": [
+    "2026-05-07"
+   ],
+   "thesis_dates": [
+    "2026-01-01",
+    "2026-01-01",
+    "2026-02-27",
+    "2026-03-16",
+    "2026-03-26",
+    "2026-05-08",
+    "2026-05-11",
+    "2026-05-21",
+    "2026-06-17",
+    "2026-06-18",
+    "2026-07-01"
+   ]
+  }
+ },
+ "det_arts": {
+  "MP": {
+   "by_name": [
+    {
+     "d": "2025-02-28",
+     "src": "www.tradingview.com",
+     "title": "MP Materials Corp. / DE SEC 10-K Report - TradingView",
+     "url": "https://www.tradingview.com/news/tradingview:671e795522a56:0-mp-materials-corp-de-sec-10-k-report/"
+    },
+    {
+     "d": "2025-04-14",
+     "src": "www.benzinga.com",
+     "title": "MP Materials, The Metals Company Shares Are Moving Higher Monday: Here's Why - Benzinga",
+     "url": "https://www.benzinga.com/trading-ideas/movers/25/04/44792011/mp-materials-the-metals-company-shares-are-moving-higher-monday-heres-why"
+    },
+    {
+     "d": "2025-04-17",
+     "src": "www.mining.com",
+     "title": "Critical mineral stocks rally on signs Trump supports sector - Mining.com",
+     "url": "https://www.mining.com/web/critical-mineral-stocks-rally-on-signs-trump-supports-sector/"
+    },
+    {
+     "d": "2025-04-21",
+     "src": "finance.yahoo.com",
+     "title": "MP Materials halts rare earth supply to China amid retaliatory tariffs - Yahoo Finance",
+     "url": "https://finance.yahoo.com/news/mp-materials-halts-rare-earth-090141903.html"
+    },
+    {
+     "d": "2025-06-04",
+     "src": "www.tipranks.com",
+     "title": "Rare Earth Stocks: Analysts Say It\u2019s Time to Jump In - TipRanks",
+     "url": "https://www.tipranks.com/news/article/rare-earth-stocks-analysts-say-its-time-to-jump-in"
+    },
+    {
+     "d": "2025-07-19",
+     "src": "www.marketbeat.com",
+     "title": "These 3 Rare Earth Stocks Are Surging Alongside MP Materials - MarketBeat",
+     "url": "https://www.marketbeat.com/stock-ideas/these-3-rare-earth-stocks-are-surging-alongside-mp-materials/"
+    },
+    {
+     "d": "2025-07-21",
+     "src": "www.investopedia.com",
+     "title": "Why Opendoor Stock Is Skyrocketing Today - Investopedia",
+     "url": "https://www.investopedia.com/why-opendoor-stock-is-skyrocketing-today-11775968"
+    },
+    {
+     "d": "2025-09-24",
+     "src": "www.mining.com",
+     "title": "US rare earths champion says Pentagon deal not easily replicable - Mining.com",
+     "url": "https://www.mining.com/web/us-rare-earths-champion-says-pentagon-deal-not-easily-replicable/"
+    },
+    {
+     "d": "2025-09-25",
+     "src": "seekingalpha.com",
+     "title": "Trump administration explores taking stakes in more critical minerals companies - report (MP:NYSE) - Seeking Alpha",
+     "url": "https://seekingalpha.com/news/4499188-trump-administration-explores-taking-stakes-in-more-critical-minerals-companies---report"
+    },
+    {
+     "d": "2025-10-22",
+     "src": "www.theglobeandmail.com",
+     "title": "1 Big Reason I'm Watching MP Materials Stock in 2025 - The Globe and Mail",
+     "url": "https://www.theglobeandmail.com/investing/markets/stocks/MP-N/pressreleases/35605300/1-big-reason-i-m-watching-mp-materials-stock-in-2025/"
+    }
+   ],
+   "thesis": [
+    {
+     "d": "2025-02-03",
+     "src": "www.tipranks.com",
+     "title": "Lindian Resources Aims for Global Leadership in Critical Minerals Production - TipRanks",
+     "url": "https://www.tipranks.com/news/company-announcements/lindian-resources-aims-for-global-leadership-in-critical-minerals-production"
+    },
+    {
+     "d": "2025-03-13",
+     "src": "www.stocktitan.net",
+     "title": "Mining Success: Canadian Critical Minerals Hits $185K Revenue Milestone at Bull River - StockTitan",
+     "url": "https://www.stocktitan.net/news/RIINF/canadian-critical-minerals-generates-usd-185-000-in-revenue-from-rotzl1jysx8h.html"
+    },
+    {
+     "d": "2025-03-13",
+     "src": "www.tipranks.com",
+     "title": "Arianne Phosphate Appoints Former Quebec Minister as Strategic Advisor - TipRanks",
+     "url": "https://www.tipranks.com/news/company-announcements/arianne-phosphate-appoints-former-quebec-minister-as-strategic-advisor"
+    },
+    {
+     "d": "2025-03-14",
+     "src": "www.tipranks.com",
+     "title": "Canadian Critical Minerals Reports Revenue Boost Amid Operational Adjustments - TipRanks",
+     "url": "https://www.tipranks.com/news/company-announcements/canadian-critical-minerals-reports-revenue-boost-amid-operational-adjustments"
+    },
+    {
+     "d": "2025-04-14",
+     "src": "www.tipranks.com",
+     "title": "TSLA, NVDA, LMT: China Halts Critical Mineral and Magnet Exports To U.S. - TipRanks",
+     "url": "https://www.tipranks.com/news/tsla-nvda-lmt-china-halts-critical-mineral-and-magnet-exports-to-u-s"
+    },
+    {
+     "d": "2025-05-23",
+     "src": "www.stocktitan.net",
+     "title": "Bull River Mine Accelerates Restart: $100M Infrastructure Ready as Critical Minerals Demand Surges - Stock Titan",
+     "url": "https://www.stocktitan.net/news/RIINF/canadian-critical-minerals-updates-its-permit-application-to-restart-mzs9x6htm83j.html"
+    },
+    {
+     "d": "2025-05-24",
+     "src": "www.tipranks.com",
+     "title": "Canadian Critical Minerals Advances Bull River Mine Restart Plans - TipRanks",
+     "url": "https://www.tipranks.com/news/company-announcements/canadian-critical-minerals-advances-bull-river-mine-restart-plans"
+    },
+    {
+     "d": "2025-06-04",
+     "src": "www.stocktitan.net",
+     "title": "Crisis Hits U.S. Automotive Manufacturing Because of Chinese Restrictions on Heavy Rare Earth Exports - Stock Titan",
+     "url": "https://www.stocktitan.net/news/NB/crisis-hits-u-s-automotive-manufacturing-because-of-chinese-9l6nsp68ro24.html"
+    },
+    {
+     "d": "2025-06-19",
+     "src": "www.tipranks.com",
+     "title": "Rover Critical Minerals Announces $0.15 Unit Private Placement Financing - TipRanks",
+     "url": "https://www.tipranks.com/news/company-announcements/rover-critical-minerals-announces-0-15-unit-private-placement-financing"
+    },
+    {
+     "d": "2025-07-06",
+     "src": "www.marinelink.com",
+     "title": "Japan to Begin Test Mining Rare-Earth Mud in Early 2026 - Marine News Magazine",
+     "url": "https://www.marinelink.com/news/japan-begin-test-mining-rareearth-mud-527650"
+    }
+   ]
+  },
+  "GDX": {
+   "by_name": [],
+   "thesis": [
+    {
+     "d": "2025-04-11",
+     "src": "seekingalpha.com",
+     "title": "The Gold Standard: 5 Gold Mining Stocks To Dig Up Big Returns - Seeking Alpha",
+     "url": "https://seekingalpha.com/article/4774561-gold-standard-5-gold-mining-stocks-to-dig-up-big-returns"
+    },
+    {
+     "d": "2025-04-23",
+     "src": "www.marketbeat.com",
+     "title": "Harmony Gold Mining (NYSE:HMY) Shares Gap Up - Here's Why - MarketBeat",
+     "url": "https://www.marketbeat.com/instant-alerts/harmony-gold-mining-nysehmy-shares-gap-up-heres-why-2025-04-21/"
+    },
+    {
+     "d": "2025-04-23",
+     "src": "ca.finance.yahoo.com",
+     "title": "Why Hecla Mining Company (HL) Crashed on Tuesday - Yahoo",
+     "url": "https://ca.finance.yahoo.com/news/why-hecla-mining-company-hl-154315947.html"
+    },
+    {
+     "d": "2025-04-23",
+     "src": "finance.yahoo.com",
+     "title": "Why Hecla Mining Company (HL) Crashed on Tuesday - Yahoo Finance",
+     "url": "https://finance.yahoo.com/news/why-hecla-mining-company-hl-154315947.html"
+    },
+    {
+     "d": "2025-04-23",
+     "src": "sg.finance.yahoo.com",
+     "title": "Why New Gold Inc. (NGD) Crashed on Tuesday - Yahoo",
+     "url": "https://sg.finance.yahoo.com/news/why-gold-inc-ngd-crashed-154756052.html"
+    },
+    {
+     "d": "2025-05-07",
+     "src": "seekingalpha.com",
+     "title": "Hecla Mining Looks Like A Respectable Silver Mining Growth Pick (NYSE:HL) - Seeking Alpha",
+     "url": "https://seekingalpha.com/article/4782828-hecla-mining-looks-like-a-respectable-silver-mining-growth-pick"
+    },
+    {
+     "d": "2025-08-14",
+     "src": "www.insidermonkey.com",
+     "title": "12 Best Gold Mining Companies to Buy Now - Insider Monkey",
+     "url": "https://www.insidermonkey.com/blog/12-best-gold-mining-companies-to-buy-now-1590473/2/"
+    }
+   ]
+  },
+  "RNMBY": {
+   "by_name": [
+    {
+     "d": "2025-12-31",
+     "src": "www.defensenews.com",
+     "title": "Europe\u2019s 2025 defense winners include Saab, Rheinmetall; FCAS falters - Defense News",
+     "url": "https://www.defensenews.com/global/europe/2025/12/31/europes-2025-defense-winners-include-saab-rheinmetall-fcas-falters/"
+    }
+   ],
+   "thesis": [
+    {
+     "d": "2026-01-29",
+     "src": "spacenews.com",
+     "title": "York Space goes public, riding Pentagon demand - SpaceNews",
+     "url": "https://spacenews.com/york-space-goes-public-riding-pentagon-demand/"
+    }
+   ]
+  },
+  "BWET": {
+   "by_name": [
+    {
+     "d": "2026-04-25",
+     "src": "www.cnbc.com",
+     "title": "This little-known ETF is up over 600% amid U.S.-Iran war, a better trade than oil or energy stocks - CNBC",
+     "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"
+    }
+   ],
+   "thesis": [
+    {
+     "d": "2026-01-05",
+     "src": "www.seatrade-maritime.com",
+     "title": "DHT Holdings takes delivery of VLCC, and sells two - Seatrade Maritime News",
+     "url": "https://www.seatrade-maritime.com/tankers/dht-holdings-takes-delivery-of-vlcc-and-sells-two"
+    },
+    {
+     "d": "2026-02-11",
+     "src": "www.seatrade-maritime.com",
+     "title": "HMM stays in the black in Q4 - Seatrade Maritime News",
+     "url": "https://www.seatrade-maritime.com/containers/hmm-stays-in-the-black-in-q4"
+    },
+    {
+     "d": "2026-02-27",
+     "src": "www.seatrade-maritime.com",
+     "title": "Top maritime news stories for week ended 20 February - Seatrade Maritime News",
+     "url": "https://www.seatrade-maritime.com/ports-logistics/top-maritime-news-stories-for-week-ended-27-february"
+    },
+    {
+     "d": "2026-04-24",
+     "src": "www.seatrade-maritime.com",
+     "title": "Listed tanker stocks \u2013 full ahead or full astern? - Seatrade Maritime News",
+     "url": "https://www.seatrade-maritime.com/tankers/listed-tanker-stocks-full-ahead-or-full-astern-"
+    },
+    {
+     "d": "2026-05-07",
+     "src": "maritime-executive.com",
+     "title": "Falling Freight Rates Drive Maersk to Q1 Loss in Shipping Segment - The Maritime Executive",
+     "url": "https://maritime-executive.com/article/falling-freight-rates-drive-maersk-to-q1-loss-in-shipping-segment"
+    }
+   ]
+  },
+  "DRAM": {
+   "by_name": [
+    {
+     "d": "2026-05-07",
+     "src": "www.tipranks.com",
+     "title": "A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks",
+     "url": "https://www.tipranks.com/news/a-roundhill-memory-etf-dram-slip-today-could-be-a-buying-opportunity"
+    }
+   ],
+   "thesis": [
+    {
+     "d": "2026-01-01",
+     "src": "seekingalpha.com",
+     "title": "AI chip boom to push global consumer electronics prices up in 2026 - Seeking Alpha",
+     "url": "https://seekingalpha.com/news/4536179-ai-chip-boom-to-push-global-consumer-electronics-prices-up-in-2026"
+    },
+    {
+     "d": "2026-01-01",
+     "src": "www.tipranks.com",
+     "title": "AI Demand Is Pushing GPU Prices Higher with Direct Impact On Nvidia (NVDA) Stock - TipRanks",
+     "url": "https://www.tipranks.com/news/ai-demand-is-pushing-gpu-prices-higher-with-direct-impact-on-nvidia-nvda-stock"
+    },
+    {
+     "d": "2026-02-27",
+     "src": "www.tipranks.com",
+     "title": "Apple (AAPL) Expected to Gain Share Even as Smartphone Market Could See Biggest-Ever Drop in 2026 - TipRanks",
+     "url": "https://www.tipranks.com/news/apple-aapl-expected-to-gain-share-even-as-smartphone-market-could-see-biggest-ever-drop-in-2026"
+    },
+    {
+     "d": "2026-03-16",
+     "src": "www.tipranks.com",
+     "title": "Micron (MU) Is About to Report Q2 Earnings. Here\u2019s What to Expect from This Memory Chip Stock - TipRanks",
+     "url": "https://www.tipranks.com/news/micron-mu-is-about-to-report-its-q2-earnings-heres-what-to-expect-from-this-memory-chip-stock"
+    },
+    {
+     "d": "2026-03-26",
+     "src": "www.tipranks.com",
+     "title": "Why Are Micron (MU) and SanDisk (SNDK) Stocks Falling Today, 03/26/26? - TipRanks",
+     "url": "https://www.tipranks.com/news/why-are-micron-mu-and-sandisk-sndk-stocks-falling-today-03-26-26"
+    },
+    {
+     "d": "2026-05-08",
+     "src": "www.tipranks.com",
+     "title": "MU vs. SNDK: Which AI Memory Stock Offers Better Value After the AI Rally? - TipRanks",
+     "url": "https://www.tipranks.com/news/mu-vs-sndk-which-ai-memory-stock-offers-better-value-after-the-ai-rally"
+    },
+    {
+     "d": "2026-05-11",
+     "src": "www.tipranks.com",
+     "title": "Deutsche Bank Raises Micron Stock (MU) Price Target to $1,000 on Strong AI Memory Demand - TipRanks",
+     "url": "https://www.tipranks.com/news/why-is-micron-stock-mu-surging-today-deutsche-bank-lifts-price-target-to-street-high-amid-samsung-strike-threat"
+    },
+    {
+     "d": "2026-05-21",
+     "src": "www.tipranks.com",
+     "title": "Micron Stock Climbs as Samsung Averts Strike and Memory Chip Demand Explodes - TipRanks",
+     "url": "https://www.tipranks.com/news/micron-stock-climbs-as-samsung-averts-strike-and-memory-chip-demand-explodes"
+    },
+    {
+     "d": "2026-06-17",
+     "src": "seekingalpha.com",
+     "title": "Tim Cook says Apple to hike prices amid memory chip shortage - report - Seeking Alpha",
+     "url": "https://seekingalpha.com/news/4604620-tim-cook-says-apple-to-hike-prices-amid-memory-chip-shortage---report"
+    },
+    {
+     "d": "2026-06-18",
+     "src": "finance.yahoo.com",
+     "title": "SanDisk and Micron surge as Apple confirms memory price pass-through - Yahoo Finance",
+     "url": "https://finance.yahoo.com/markets/stocks/articles/sandisk-micron-surge-apple-confirms-144441476.html"
+    }
+   ]
+  }
+ },
+ "candidates": [
+  [
+   "TSM",
+   163
+  ],
+  [
+   "HL",
+   40
+  ],
+  [
+   "CLF",
+   20
+  ],
+  [
+   "KGC",
+   20
+  ],
+  [
+   "HMY",
+   19
+  ],
+  [
+   "CIFR",
+   17
+  ],
+  [
+   "AEM",
+   16
+  ],
+  [
+   "HBM",
+   12
+  ],
+  [
+   "MU",
+   12
+  ],
+  [
+   "INTC",
+   11
+  ],
+  [
+   "CDE",
+   11
+  ],
+  [
+   "MOD",
+   11
+  ],
+  [
+   "MDV",
+   9
+  ],
+  [
+   "SSRM",
+   8
+  ],
+  [
+   "AG",
+   7
+  ],
+  [
+   "IAG",
+   7
+  ],
+  [
+   "BA",
+   7
+  ],
+  [
+   "BHP",
+   5
+  ],
+  [
+   "RIO",
+   5
+  ],
+  [
+   "EXK",
+   5
+  ],
+  [
+   "AU",
+   5
+  ],
+  [
+   "TSLA",
+   5
+  ],
+  [
+   "MSFT",
+   5
+  ],
+  [
+   "AREC",
+   5
+  ],
+  [
+   "MP",
+   5
+  ]
+ ]
+}

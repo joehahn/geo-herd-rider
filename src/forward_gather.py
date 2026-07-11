@@ -39,26 +39,40 @@ _FGM = load_financial_model(str(Path(__file__).resolve().parent.parent / "invest
 _SPECIALTY_ALLOW = list(_FGM.get("specialty_allow") or [])   # GEM pass allowlist (reaches Cloudflare-walled etf.com)
 _MILL_BLOCK = list(_FGM.get("mill_block") or [])             # COVERAGE pass blocklist (kills listicle mills)
 
+# SHARED BEAT SET — the SINGLE SOURCE OF TRUTH for BOTH engines, so the Tavily backtest is a valid proxy
+# for the Anthropic forward (SAME queries, different engine). Phrased as plain natural-language (no boolean
+# OR / quotes) so the Anthropic model AND Tavily's semantic search run them the same way. forward_gather_tavily
+# imports these + the domain lists to run the identical two-pass sweep. GEM beats -> allowlist pass;
+# COVERAGE beats -> blocklist pass. The ONLY residual gap: Anthropic also spawns adaptive follow-ups (Tavily
+# runs the fixed list only) -> the backtest is a valid but CONSERVATIVE proxy (under-finds vs the forward).
+GEM_BEATS = [
+    # early-framing (still-under-the-radar)
+    "under the radar small cap stock", "flying under the radar ETF", "overlooked stock catalyst",
+    "still early stock rally", "niche ETF surging", "small-cap stock to watch breakout",
+    # catalyst -> named beneficiary (a discrete datable event and the ticker it lifts)
+    "war chokepoint stock beneficiary", "export ban tariff sanctions stock beneficiary",
+    "supply shortage supply shock stock", "rare earth critical minerals stock",
+    "tanker shipping freight rates ETF", "memory chip DRAM shortage stock",
+    "uranium nuclear fuel supply squeeze stock", "upcoming FDA election vote stock anticipation",
+]
+COVERAGE_BEATS = [
+    "technology stocks", "energy stocks", "financial stocks", "healthcare stocks", "industrial stocks",
+    "materials stocks", "consumer stocks", "utility stocks", "real estate stocks", "telecom stocks",
+    "shipping maritime stocks", "cryptocurrency stocks", "space stocks", "robotics stocks",
+    "quantum stocks", "nuclear stocks", "best performing stock", "biggest stock gainers",
+]
 GEM_SYSTEM = (
     "You are the news firehose surfacing EARLY, still-under-the-radar gem-class coverage for a scout — the "
-    "specialty press naming a specific US-listed stock, ETF, or ADR on a discrete catalyst BEFORE the crowd. "
-    "Run ONE web search for EACH of these beats; do not skip any:\n"
-    "  early framing: \"under the radar\" small cap stock | \"flying under the radar\" ETF | \"overlooked\" "
-    "stock catalyst | \"still early\" stock rally | niche ETF surging | small-cap \"stock to watch\" breakout\n"
-    "  catalyst -> named beneficiary: war OR chokepoint stock beneficiary | export ban OR tariff OR sanctions "
-    "stock beneficiary | supply shortage OR supply shock stock | rare earth OR critical minerals stock | "
-    "tanker OR shipping \"freight rates\" ETF | memory chip OR DRAM shortage stock | uranium OR nuclear fuel "
-    "supply squeeze stock | upcoming FDA OR election OR vote stock anticipation\n"
+    "press naming a specific US-listed stock, ETF, or ADR on a discrete catalyst BEFORE the crowd. Run ONE "
+    "web search for EACH of these beats; do not skip any:\n  " + " | ".join(GEM_BEATS) + "\n"
     "THEN spawn a FEW targeted follow-ups on each specific name/catalyst that surfaces, to pull the article "
     "that explicitly names the ticker. Cap every search to news on/before the week-ending date."
 )
 COVERAGE_SYSTEM = (
     "You are the news firehose running the broad sector sweep so no theme is missed. Surface articles where "
     "the press NAMES a specific US-listed stock, ETF, or ADR as a mover on a catalyst. Run ONE web search "
-    "per beat: technology / energy / financial / healthcare / industrial / materials / consumer / utility / "
-    "real estate / telecom / shipping-maritime stocks; themes: crypto, space, robotics, quantum, nuclear; "
-    "plus 'best performing stock', 'biggest gainers'. THEN a FEW targeted follow-ups on names that surface. "
-    "Cap every search to news on/before the week-ending date."
+    "for EACH of these beats:\n  " + " | ".join(COVERAGE_BEATS) + "\n"
+    "THEN a FEW targeted follow-ups on names that surface. Cap every search to news on/before the week-ending date."
 )
 
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
@@ -108,6 +122,7 @@ def _run_search(client, model: str, anchor: pd.Timestamp, system: str, tool: dic
           "messages": [{"role": "user", "content": user}]}
     queries: list[str] = []
     results: dict[str, dict] = {}
+    _curq: str | None = None                        # the query whose results are currently streaming back
     tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
     for _ in range(6):
         resp = client.messages.create(**kw)
@@ -118,12 +133,15 @@ def _run_search(client, model: str, anchor: pd.Timestamp, system: str, tool: dic
             if b.type == "server_tool_use" and getattr(b, "name", "") == "web_search":
                 q = (getattr(b, "input", None) or {}).get("query")
                 if q:
-                    queries.append(str(q))
+                    _curq = str(q)
+                    queries.append(_curq)
             elif b.type == "web_search_tool_result" and isinstance(getattr(b, "content", None), list):
                 for r in b.content:
                     if getattr(r, "type", "") == "web_search_result" and getattr(r, "url", None):
-                        results.setdefault(r.url, {"url": r.url, "title": getattr(r, "title", ""),
-                                                   "page_age": getattr(r, "page_age", None)})
+                        ex = results.setdefault(r.url, {"url": r.url, "title": getattr(r, "title", ""),
+                                                        "page_age": getattr(r, "page_age", None), "queries": []})
+                        if _curq and _curq not in ex["queries"]:   # tag each result with the search(es) that surfaced it
+                            ex["queries"].append(_curq)
         if resp.stop_reason == "pause_turn":
             kw["messages"].append({"role": "assistant", "content": resp.content})
             continue
@@ -195,9 +213,15 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
                       {"type": _WS, "name": "web_search", "max_uses": 24, "allowed_domains": _SPECIALTY_ALLOW}, "gem")
     cov = _run_search(client, model, anchor, COVERAGE_SYSTEM,                  # pass 2: broad sweep, mills blocked
                       {"type": _WS, "name": "web_search", "max_uses": 24, "blocked_domains": _MILL_BLOCK}, "coverage")
-    merged = {r["url"]: r for r in gem["results"]}                             # gem pass wins on url collision
-    for r in cov["results"]:
-        merged.setdefault(r["url"], r)
+    merged: dict[str, dict] = {}                                               # merge both passes, UNIONing query tags
+    for r in gem["results"] + cov["results"]:
+        ex = merged.get(r["url"])
+        if ex:
+            for q in r.get("queries", []):
+                if q not in ex.setdefault("queries", []):
+                    ex["queries"].append(q)
+        else:
+            merged[r["url"]] = r
     raw = {"queries": gem["queries"] + cov["queries"], "results": list(merged.values())}
     lo = (anchor - pd.Timedelta(days=lookback_days)).date().isoformat()
     hi = anchor.date().isoformat()
@@ -217,7 +241,7 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
         lede, date = _freeze(r["url"])
         date = date or _url_date(r["url"]) or _page_age_date(r.get("page_age"))   # walled desks: page_age saves them
         return {"title": r.get("title", ""), "url": r["url"], "published_date": date or "",
-                "source": urlparse(r["url"]).netloc, "snippet": lede}
+                "source": urlparse(r["url"]).netloc, "snippet": lede, "queries": r.get("queries", [])}
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         built = list(ex.map(build, survivors))

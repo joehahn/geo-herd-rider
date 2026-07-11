@@ -14,12 +14,31 @@ look-ahead-correct — which is the project's clean test anyway.
 from __future__ import annotations
 
 import os
+import threading
+import time
 from email.utils import parsedate_to_datetime
 
 import requests
 
 URL = "https://api.tavily.com/search"
 TIMEOUT = 20
+_RETRIES = 4                         # attempts on HTTP 429 before giving up (returns [])
+# Global pacer: enforce a minimum wall-gap between Tavily calls across ALL threads, so a wide
+# ThreadPoolExecutor (backfill sweeps) can't burst past Tavily's rate limiter and get 429-blocked.
+# Off by default (0.0); a bulk driver sets TAVILY_MIN_INTERVAL (seconds) to throttle itself.
+_pace_lock = threading.Lock()
+_last_call = [0.0]
+
+
+def _pace() -> None:
+    gap = float(os.environ.get("TAVILY_MIN_INTERVAL", "0") or 0)
+    if gap <= 0:
+        return
+    with _pace_lock:
+        wait = gap - (time.monotonic() - _last_call[0])
+        if wait > 0:
+            time.sleep(wait)
+        _last_call[0] = time.monotonic()
 
 
 def _published_after(result: dict, after_date: str) -> bool:
@@ -52,10 +71,15 @@ def _published_before(result: dict, before_date: str) -> bool:
 
 
 def search(query: str, before_date: str | None = None, max_results: int = 5,
-           start_date: str | None = None) -> list[dict]:
+           start_date: str | None = None, include_domains: list[str] | None = None,
+           exclude_domains: list[str] | None = None) -> list[dict]:
     """News results for `query`, restricted to those published on/before `before_date`
     (YYYY-MM-DD). Tavily's server-side end_date leaks future articles, so we over-fetch and
-    enforce the bound client-side off published_date. Returns [] if no key/no hits."""
+    enforce the bound client-side off published_date. `include_domains`/`exclude_domains`
+    steer the source set server-side — the Tavily analogue of Anthropic web_search's
+    allowed_domains/blocked_domains, so the backtest's two-pass domain steering matches the
+    forward's (gem pass -> include specialty desks; coverage pass -> exclude listicle mills).
+    Returns [] if no key/no hits."""
     key = os.environ.get("TAVILY_API_KEY")
     if not key:
         return []
@@ -68,12 +92,25 @@ def search(query: str, before_date: str | None = None, max_results: int = 5,
         body["end_date"] = str(before_date)[:10]   # belt-and-suspenders; not trusted alone
     if start_date:
         body["start_date"] = str(start_date)[:10]
-    try:
-        r = requests.post(URL, json=body, headers={"Authorization": f"Bearer {key}"},
-                          timeout=TIMEOUT)
-        r.raise_for_status()
-        res = r.json().get("results", [])
-    except Exception:  # noqa: BLE001 — a search miss shouldn't sink the ladder; fall back to priors
+    if include_domains:
+        body["include_domains"] = list(include_domains)
+    if exclude_domains:
+        body["exclude_domains"] = list(exclude_domains)
+    res = None
+    for attempt in range(_RETRIES):
+        _pace()
+        try:
+            r = requests.post(URL, json=body, headers={"Authorization": f"Bearer {key}"},
+                              timeout=TIMEOUT)
+            if r.status_code == 429:            # rate-limited — back off (1,2,4s) and retry
+                time.sleep(2 ** attempt)
+                continue
+            r.raise_for_status()
+            res = r.json().get("results", [])
+            break
+        except Exception:  # noqa: BLE001 — a search miss shouldn't sink the ladder; fall back to priors
+            return []
+    if res is None:                             # exhausted retries (still 429) — fail closed
         return []
     if before_date:
         res = [x for x in res if _published_before(x, before_date)]

@@ -538,14 +538,30 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     _qgcolor = json.dumps(["#2ca02c" if v >= 0 else "#d62728" for _, v in _qg])
     _qgh = str(max(180, 18 * len(_qg) + 60))
 
+    # dollars-per-domain: attribute each gem's $ gain to the PARENT DOMAIN of every evidence URL (which
+    # outlets actually source the profitable gems). Needs only the evidence URLs — no query-tagging.
+    from urllib.parse import urlparse as _up
+    _domgain: dict = {}
+    for _tk, _urls in _tk_urls.items():
+        _gv = float(_gaind.get(_tk, 0) or 0)
+        if not _gv:
+            continue
+        for _dm in {_up(_u).netloc.replace("www.", "") for _u in _urls if _u}:
+            _domgain[_dm] = _domgain.get(_dm, 0.0) + _gv
+    _dg = sorted(_domgain.items(), key=lambda kv: kv[1])
+    _dgy = json.dumps([dm for dm, _ in _dg])
+    _dgx = json.dumps([round(v) for _, v in _dg])
+    _dgcolor = json.dumps(["#2ca02c" if v >= 0 else "#d62728" for _, v in _dg])
+    _dgh = str(max(180, 18 * len(_dg) + 60))
+
     def _inject_hist(html: str, is_index: bool = False) -> str:
         # Injected retrieval plots WRAP the agent block: 8 News-count + 9 GDELT-by-weekday go ABOVE it;
         # the two query plots (13 Articles-per-beat, 14 $-per-beat) drop to the BOTTOM, just above the
         # Journal (only with query data, so _qc). Base template plots 8..11 (Conviction, Gain-vs-conv,
         # Precision, Journal) renumber to fit. Renumber DESCENDING so each source number is renamed
         # before it can be re-created downstream.
-        _jnum = 15 if _qc else 13       # Journal's final number: +2 extra room when the query plots exist
-        html = html.replace("Plot 11", f"Plot {_jnum}")   # Journal      11 -> 15 (or 13)
+        _jnum = 16 if _qc else 13       # Journal's final number: +3 room for Plots 13/14/15 when tagged
+        html = html.replace("Plot 11", f"Plot {_jnum}")   # Journal      11 -> 16 (or 13)
         html = html.replace("Plot 10", "Plot 12")         # Precision    10 -> 12
         html = html.replace("Plot 9",  "Plot 11")         # Gain-vs-conv  9 -> 11
         html = html.replace("Plot 8",  "Plot 10")         # Conviction    8 -> 10
@@ -562,15 +578,20 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
             _p10sub = ('gross hits/beat summed across all weeks &mdash; query effectiveness; red = 0-hit dud beat'
                        if _qgross else
                        'distinct deduped pool articles each beat pulled, across all weeks &mdash; query coverage; red = 0')
-            qsec = ('<h2>Plot 13 &mdash; Articles per GDELT search term '
+            qsec = ('<h2>Plot 13 &mdash; Articles per search term '
                     '<span class="sub">(' + _p10sub + ')</span></h2>'
                     '<div id="queryhist" style="width:100%;height:' + _qh + 'px"></div>')
-            qsec += ('<h2>Plot 14 &mdash; Dollars touched per GDELT search term '
+            qsec += ('<h2>Plot 14 &mdash; Dollars touched per search term '
                      '<span class="sub">($ gain of every gem whose evidence an article from that beat pulled '
                      '&mdash; which beats actually spawn profitable gems, not just volume)</span></h2>'
                      + ('<div id="qgainhist" style="width:100%;height:' + _qgh + 'px"></div>' if _qg else
                         '<p class="sub" style="margin:2px 0 12px">No attributable gem $ yet &mdash; needs a funded '
                         'gem with evidence URLs and a realized price gain (populates as gems accrue over the weeks).</p>'))
+            qsec += ('<h2>Plot 15 &mdash; Dollars touched per source domain '
+                     '<span class="sub">($ gain of every gem whose evidence came from that outlet &mdash; which '
+                     'publishers actually source the profitable gems)</span></h2>'
+                     + ('<div id="domgainhist" style="width:100%;height:' + _dgh + 'px"></div>' if _dg else
+                        '<p class="sub" style="margin:2px 0 12px">No attributable gem $ yet.</p>'))
             _jhdr = f'<h2>Plot {_jnum} — Agent journal'
             html = html.replace(_jhdr, qsec + _jhdr, 1)
         scr = ('<script>Plotly.newPlot("newshist",' + _histw +
@@ -602,6 +623,13 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
                      '{margin:{l:210,r:20,t:10,b:34},xaxis:{title:"$ gain touched"},'
                      'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
             html = html.replace("</body>", ggscr + "</body>", 1)
+        if _qc and _dg:
+            dgscr = ('<script>Plotly.newPlot("domgainhist",[{type:"bar",orientation:"h",y:' + _dgy +
+                     ',x:' + _dgx + ',marker:{color:' + _dgcolor + '},'
+                     'hovertemplate:"%{y}<br>$%{x:,} touched<extra></extra>"}],'
+                     '{margin:{l:150,r:20,t:10,b:34},xaxis:{title:"$ gain touched"},'
+                     'yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});</script>')
+            html = html.replace("</body>", dgscr + "</body>", 1)
         _join = _join_series(sandbox, weeks)                # GDELT-Wayback join rate over time (retrieval-health)
         if _join:
             jx = [j["week"] for j in _join]
