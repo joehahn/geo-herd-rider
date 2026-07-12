@@ -67,6 +67,14 @@ def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
         cap.setdefault("results", [])
     elif gather_engine == "tavily":                          # opt-in: date-honoring live search (reaches old weeks)
         arts = forward_gather_tavily.gather(None, model, anchor, rebalance_days, capture=cap, cap=news_cap)
+    elif gather_engine == "both":                            # UNION: Anthropic (etf.com) + Tavily (Dow Jones)
+        acap, tcap = {}, {}
+        a_arts = forward_gather.gather(anthropic.Anthropic(), model, anchor, rebalance_days, capture=acap, cap=news_cap)
+        t_arts = forward_gather_tavily.gather(None, model, anchor, rebalance_days, capture=tcap, cap=news_cap)
+        arts = forward_gather.merge_pools(a_arts, t_arts)
+        cap.setdefault("arts", arts)
+        cap.setdefault("queries", (acap.get("queries") or []) + (tcap.get("queries") or []))
+        cap.setdefault("results", (acap.get("results") or []) + (tcap.get("results") or []))
     else:                                                  # default: Anthropic/Brave adaptive web search
         raw = anthropic.Anthropic()                        # gather (web search — Anthropic only)
         arts = forward_gather.gather(raw, model, anchor, rebalance_days, capture=cap, cap=news_cap)

@@ -36,6 +36,7 @@ import firehose
 import anthropic
 import forward_engine
 import forward_gather
+import forward_gather_tavily
 import llm
 import score
 import trace
@@ -200,9 +201,12 @@ def _scans_dict(log: pd.DataFrame) -> dict:
     return dict(sorted(out.items()))
 
 
-def pull_day(model: str) -> None:
-    """DAILY past-24h Anthropic news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
+def pull_day(model: str, gather_engine: str = "anthropic") -> None:
+    """DAILY past-24h news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
     The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
+
+    `gather_engine`: "anthropic" (default), "tavily", or "both" (UNION of the two — Anthropic reaches
+    Cloudflare-walled etf.com, Tavily reaches the Dow Jones sites that block Anthropic's crawler).
 
     Fetches UNCAPPED: the daily pull must keep every day's news so the week accumulates in full; the
     single news_cap (a per-WEEK scout budget) is applied only when --scan reads that week's pool. (An
@@ -215,9 +219,20 @@ def pull_day(model: str) -> None:
     if out.exists():
         print(f"  daily pull {dk}: already pulled, skipping (dedup).")
         return
-    print(f"  daily Anthropic pull for {dk} (past-24h window) ...", flush=True)
+    print(f"  daily {gather_engine} pull for {dk} (past-24h window) ...", flush=True)
     cap: dict = {}
-    arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=0)  # uncapped daily
+    if gather_engine == "tavily":
+        arts = forward_gather_tavily.gather(None, model, day, 1, capture=cap, cap=0)
+    elif gather_engine == "both":                           # UNION: Anthropic + Tavily, deduped by URL
+        acap, tcap = {}, {}
+        a_arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=acap, cap=0)
+        t_arts = forward_gather_tavily.gather(None, model, day, 1, capture=tcap, cap=0)
+        arts = forward_gather.merge_pools(a_arts, t_arts)
+        cap["arts"] = arts
+        cap["queries"] = (acap.get("queries") or []) + (tcap.get("queries") or [])
+        print(f"    union: anthropic {len(a_arts)} + tavily {len(t_arts)} -> {len(arts)} deduped")
+    else:
+        arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=0)  # uncapped daily
     out.write_text(json.dumps({"date": dk, "model": model, "pool": cap.get("arts", arts),
                                "queries": cap.get("queries", [])}, indent=2, default=str))
     print(f"  pulled {len(cap.get('arts', arts))} articles -> {out}")
@@ -348,7 +363,7 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         fm = load_financial_model(str(PROFILE))
         (_si, _sp), (event_id, _prov) = resolve_stage_models(fm)   # daily gather = Anthropic event model
-        pull_day(args.model or event_id)
+        pull_day(args.model or event_id, gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))))
 
     if args.report:
         report()

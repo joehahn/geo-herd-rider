@@ -81,6 +81,25 @@ COVERAGE_SYSTEM = (
     "THEN a FEW targeted follow-ups on names that surface. Cap every search to news on/before the week-ending date."
 )
 
+
+def merge_pools(*pools) -> list[dict]:
+    """Union article pools from multiple gather engines (Anthropic + Tavily), deduped by URL so their
+    COMPLEMENTARY reach combines: Anthropic reaches Cloudflare-walled etf.com; Tavily reaches the Dow Jones
+    sites (WSJ / MarketWatch / Investors.com) that block Anthropic's crawler. Query tags are merged."""
+    seen: dict[str, dict] = {}
+    for p in pools:
+        for a in p or []:
+            u = a.get("url")
+            if not u:
+                continue
+            if u not in seen:
+                seen[u] = a
+            else:                                    # same URL from both engines -> merge beat tags
+                for q in a.get("queries", []):
+                    if q not in seen[u].setdefault("queries", []):
+                        seen[u]["queries"].append(q)
+    return list(seen.values())
+
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
 # publish-date signals in article HTML, most-reliable first
 _META_DATE = [
