@@ -95,6 +95,7 @@ def run(start: str, end: str, lookback: int, ckpt: Path) -> dict:
     return _summarize(list(pool.values()), wcount, cnt["n"], elapsed, len(anchors), start, end, lookback)
 
 
+TAVILY_CREDIT_USD = 0.008   # pay-as-you-go rate (Jul-2026 receipt: $41.72 / 5216 credits), pre-tax
 WINDOW_OVERRIDE = {"RNMBY": ["2025-01-01", "2026-07-11"],   # full 2025-26 era (its rise+fall), per request
                    "AREC": ["2025-01-01", "2026-05-01"]}
 # strong superlative markers — for the candidate shortlist's "gem-buzz" count (how many of a ticker's
@@ -269,7 +270,7 @@ def _summarize(arts, wcount, credits, elapsed, nwin, start, end, lookback=14) ->
     domain_counts = [[d, n, _klass(d)] for d, n in domains.most_common(30)]
     return {"span": [start, end], "generated_from": "tavily two-pass aligned beat sweep (no ticker queries)",
             "cost": {"windows": nwin, "tavily_credits": credits, "wall_seconds": round(elapsed, 1),
-                     "llm_usd": 0.0, "pool_size": len(arts)},
+                     "tavily_usd": round(credits * TAVILY_CREDIT_USD, 2), "llm_usd": 0.0, "pool_size": len(arts)},
             "wcount": wcount, "detection": detection, "hits": hits, "det_arts": det_arts,
             "charts": _chart_data(det, panel, peaks, pool_urls, gt), "gt_recall": gt_recall,
             "candidates": [[s, n, tick_super.get(s, 0)] for s, n in tick.most_common()

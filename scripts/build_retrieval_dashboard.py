@@ -255,6 +255,7 @@ generic aligned beats, <b>no ticker queries</b> · {res['generated_from']}</div>
   <div><b>{c['pool_size']:,}</b><span>articles retrieved</span></div>
   <div><b>{c['windows']}</b><span>bi-weekly windows</span></div>
   <div><b>{c['tavily_credits']:,}</b><span>Tavily credits</span></div>
+  <div><b>${c.get('tavily_usd', 0):,.2f}</b><span>Tavily cost (@ $0.008/credit)</span></div>
   <div><b>${c['llm_usd']:.2f}</b><span>LLM cost (no LLM)</span></div>
   <div><b>{c['wall_seconds']:.0f}s</b><span>wall time</span></div>
 </div>
