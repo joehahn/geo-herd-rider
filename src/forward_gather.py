@@ -72,7 +72,7 @@ COVERAGE_BEATS = [
     # too generic to rank: logistics BEYOND maritime; industrial base metals (tariff/EV/AI-demand movers,
     # CLF-class); energy distribution + the AI-datacenter power-demand grid theme
     "freight trucking rail air cargo logistics stocks",
-    "steel copper lithium aluminum coal mining stocks",
+    "steel copper lithium aluminum titanium coal mining stocks",
     "electric power grid pipeline energy infrastructure stocks",
     # superlative framing — the missed target squares ARE superlatives ("Surges to All-Time High",
     # "Skyrockets 380%", "Rockets to record"); a superlative beat targets that exact class
