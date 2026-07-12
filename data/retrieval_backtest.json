@@ -6,76 +6,85 @@
  "generated_from": "tavily two-pass aligned beat sweep (no ticker queries)",
  "cost": {
   "windows": 40,
-  "tavily_credits": 1280,
-  "wall_seconds": 834.5,
+  "tavily_credits": 1360,
+  "wall_seconds": 878.5,
   "llm_usd": 0.0,
-  "pool_size": 16090
+  "pool_size": 16827
  },
  "wcount": {
-  "2025-01-07": 414,
-  "2025-01-21": 484,
-  "2025-02-04": 491,
-  "2025-02-18": 474,
-  "2025-03-04": 541,
-  "2025-03-18": 343,
-  "2025-04-01": 188,
-  "2025-04-15": 441,
-  "2025-04-29": 306,
-  "2025-05-13": 294,
-  "2025-05-27": 456,
-  "2025-06-10": 415,
-  "2025-06-24": 419,
-  "2025-07-08": 289,
-  "2025-07-22": 418,
-  "2025-08-05": 419,
-  "2025-08-19": 453,
-  "2025-09-02": 269,
-  "2025-09-16": 451,
-  "2025-09-30": 445,
-  "2025-10-14": 482,
-  "2025-10-28": 279,
-  "2025-11-11": 440,
-  "2025-11-25": 426,
-  "2025-12-09": 428,
-  "2025-12-23": 440,
-  "2026-01-06": 261,
-  "2026-01-20": 427,
-  "2026-02-03": 428,
-  "2026-02-17": 448,
-  "2026-03-03": 284,
-  "2026-03-17": 430,
-  "2026-03-31": 433,
-  "2026-04-14": 436,
-  "2026-04-28": 447,
-  "2026-05-12": 344,
-  "2026-05-26": 440,
-  "2026-06-09": 460,
-  "2026-06-23": 444,
-  "2026-07-07": 303
+  "2025-01-07": 443,
+  "2025-01-21": 511,
+  "2025-02-04": 520,
+  "2025-02-18": 501,
+  "2025-03-04": 569,
+  "2025-03-18": 311,
+  "2025-04-01": 199,
+  "2025-04-15": 466,
+  "2025-04-29": 321,
+  "2025-05-13": 325,
+  "2025-05-27": 481,
+  "2025-06-10": 445,
+  "2025-06-24": 442,
+  "2025-07-08": 282,
+  "2025-07-22": 440,
+  "2025-08-05": 451,
+  "2025-08-19": 486,
+  "2025-09-02": 334,
+  "2025-09-16": 458,
+  "2025-09-30": 472,
+  "2025-10-14": 270,
+  "2025-10-28": 508,
+  "2025-11-11": 472,
+  "2025-11-25": 458,
+  "2025-12-09": 225,
+  "2025-12-23": 475,
+  "2026-01-06": 463,
+  "2026-01-20": 454,
+  "2026-02-03": 223,
+  "2026-02-17": 476,
+  "2026-03-03": 436,
+  "2026-03-17": 454,
+  "2026-03-31": 299,
+  "2026-04-14": 466,
+  "2026-04-28": 479,
+  "2026-05-12": 512,
+  "2026-05-26": 277,
+  "2026-06-09": 490,
+  "2026-06-23": 473,
+  "2026-07-07": 460
  },
  "detection": {
   "MP": {
    "form": "single stock",
-   "by_name": 66,
-   "thesis": 250,
+   "by_name": 68,
+   "thesis": 284,
    "peak": "2025-10-14",
    "earliest_by_name": "2025-01-22",
    "earliest_thesis": "2024-12-31",
    "lead_days": 265
   },
+  "AREC": {
+   "form": "single stock",
+   "by_name": 4,
+   "thesis": 351,
+   "peak": "2025-10-14",
+   "earliest_by_name": "2025-08-07",
+   "earliest_thesis": "2024-12-31",
+   "lead_days": 68
+  },
   "GDX": {
    "form": "ETF wrapper",
-   "by_name": 2,
-   "thesis": 31,
+   "by_name": 7,
+   "thesis": 71,
    "peak": "2026-02-27",
-   "earliest_by_name": "2025-08-06",
+   "earliest_by_name": "2025-02-21",
    "earliest_thesis": "2025-01-01",
-   "lead_days": 205
+   "lead_days": 371
   },
   "RNMBY": {
    "form": "foreign ADR",
    "by_name": 9,
-   "thesis": 29,
+   "thesis": 27,
    "peak": "2025-09-29",
    "earliest_by_name": "2025-03-12",
    "earliest_thesis": "2025-01-13",
@@ -84,7 +93,7 @@
   "BWET": {
    "form": "ETF wrapper",
    "by_name": 1,
-   "thesis": 53,
+   "thesis": 55,
    "peak": "2026-06-22",
    "earliest_by_name": "2026-04-25",
    "earliest_thesis": "2025-01-14",
@@ -92,12 +101,12 @@
   },
   "DRAM": {
    "form": "ETF wrapper",
-   "by_name": 0,
-   "thesis": 36,
+   "by_name": 1,
+   "thesis": 50,
    "peak": "2026-06-22",
-   "earliest_by_name": null,
+   "earliest_by_name": "2026-05-07",
    "earliest_thesis": "2025-03-25",
-   "lead_days": null
+   "lead_days": 46
   }
  },
  "hits": {
@@ -114,7 +123,6 @@
     "2025-05-31",
     "2025-06-12",
     "2025-06-13",
-    "2025-06-27",
     "2025-07-15",
     "2025-07-16",
     "2025-07-16",
@@ -122,10 +130,10 @@
     "2025-08-08",
     "2025-08-11",
     "2025-08-12",
+    "2025-08-31",
     "2025-09-25",
     "2025-09-29",
     "2025-10-03",
-    "2025-10-10",
     "2025-10-13",
     "2025-10-17",
     "2025-10-22",
@@ -134,18 +142,21 @@
     "2025-11-07",
     "2025-11-13",
     "2025-11-14",
+    "2025-11-22",
+    "2025-12-05",
+    "2025-12-25",
+    "2025-12-26",
+    "2025-12-26",
+    "2025-12-27",
+    "2026-01-05",
+    "2026-01-05",
     "2026-01-10",
     "2026-01-16",
-    "2026-01-23",
-    "2026-01-23",
-    "2026-01-24",
-    "2026-01-29",
+    "2026-02-26",
     "2026-02-26",
     "2026-02-26",
     "2026-02-27",
     "2026-02-27",
-    "2026-03-21",
-    "2026-03-21",
     "2026-04-03",
     "2026-04-07",
     "2026-04-08",
@@ -203,17 +214,18 @@
     "2025-04-17",
     "2025-04-17",
     "2025-04-23",
-    "2025-05-01",
-    "2025-05-01",
-    "2025-05-01",
     "2025-05-02",
+    "2025-05-02",
+    "2025-05-07",
     "2025-05-09",
+    "2025-05-12",
     "2025-05-15",
     "2025-05-16",
     "2025-05-16",
     "2025-05-21",
     "2025-05-23",
     "2025-05-24",
+    "2025-06-02",
     "2025-06-02",
     "2025-06-03",
     "2025-06-03",
@@ -225,11 +237,12 @@
     "2025-06-11",
     "2025-06-11",
     "2025-06-12",
+    "2025-06-12",
     "2025-06-17",
     "2025-06-18",
     "2025-06-19",
     "2025-06-19",
-    "2025-06-27",
+    "2025-06-28",
     "2025-07-06",
     "2025-07-10",
     "2025-07-12",
@@ -237,6 +250,7 @@
     "2025-07-14",
     "2025-07-16",
     "2025-07-16",
+    "2025-07-17",
     "2025-07-20",
     "2025-07-21",
     "2025-07-24",
@@ -257,10 +271,13 @@
     "2025-08-27",
     "2025-08-27",
     "2025-08-28",
+    "2025-08-28",
     "2025-09-04",
     "2025-09-04",
     "2025-09-04",
     "2025-09-08",
+    "2025-09-08",
+    "2025-09-09",
     "2025-09-11",
     "2025-09-17",
     "2025-09-17",
@@ -274,7 +291,6 @@
     "2025-10-03",
     "2025-10-03",
     "2025-10-06",
-    "2025-10-07",
     "2025-10-08",
     "2025-10-10",
     "2025-10-10",
@@ -283,41 +299,54 @@
     "2025-10-12",
     "2025-10-13",
     "2025-10-13",
-    "2025-10-13",
     "2025-10-16",
     "2025-10-17",
+    "2025-10-17",
+    "2025-10-19",
     "2025-10-21",
     "2025-10-21",
     "2025-10-21",
     "2025-10-22",
     "2025-10-23",
+    "2025-10-23",
     "2025-10-27",
     "2025-10-27",
     "2025-10-27",
+    "2025-10-29",
+    "2025-10-30",
+    "2025-10-30",
     "2025-10-30",
     "2025-10-31",
     "2025-11-03",
     "2025-11-03",
     "2025-11-05",
     "2025-11-05",
+    "2025-11-06",
     "2025-11-08",
     "2025-11-10",
     "2025-11-12",
+    "2025-11-14",
     "2025-11-17",
     "2025-11-18",
     "2025-11-18",
     "2025-11-18",
     "2025-11-21",
     "2025-11-24",
+    "2025-11-26",
     "2025-11-27",
-    "2025-12-03",
     "2025-12-04",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-07",
+    "2025-12-08",
     "2025-12-08",
     "2025-12-10",
     "2025-12-21",
     "2025-12-25",
+    "2025-12-27",
     "2026-01-07",
     "2026-01-07",
+    "2026-01-10",
     "2026-01-11",
     "2026-01-11",
     "2026-01-12",
@@ -331,11 +360,13 @@
     "2026-01-17",
     "2026-01-21",
     "2026-01-21",
+    "2026-01-24",
+    "2026-01-26",
+    "2026-01-26",
     "2026-01-26",
     "2026-01-28",
     "2026-01-29",
     "2026-01-30",
-    "2026-02-02",
     "2026-02-02",
     "2026-02-04",
     "2026-02-04",
@@ -348,9 +379,11 @@
     "2026-02-09",
     "2026-02-10",
     "2026-02-16",
+    "2026-02-18",
     "2026-02-20",
     "2026-02-23",
     "2026-02-24",
+    "2026-02-25",
     "2026-02-26",
     "2026-02-26",
     "2026-02-28",
@@ -361,6 +394,7 @@
     "2026-03-05",
     "2026-03-05",
     "2026-03-07",
+    "2026-03-13",
     "2026-03-18",
     "2026-03-20",
     "2026-03-20",
@@ -380,9 +414,17 @@
     "2026-04-20",
     "2026-04-20",
     "2026-04-20",
+    "2026-04-20",
     "2026-04-22",
     "2026-04-24",
     "2026-04-24",
+    "2026-05-04",
+    "2026-05-04",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-06",
+    "2026-05-06",
     "2026-05-11",
     "2026-05-11",
     "2026-05-18",
@@ -395,6 +437,7 @@
     "2026-05-22",
     "2026-05-22",
     "2026-05-23",
+    "2026-05-25",
     "2026-05-27",
     "2026-05-28",
     "2026-05-29",
@@ -418,6 +461,369 @@
     "2026-06-26",
     "2026-06-26",
     "2026-06-29",
+    "2026-06-29",
+    "2026-07-02",
+    "2026-07-04",
+    "2026-07-04",
+    "2026-07-06"
+   ]
+  },
+  "AREC": {
+   "by_name_dates": [
+    "2025-08-07",
+    "2025-08-27",
+    "2026-03-10",
+    "2026-05-22"
+   ],
+   "thesis_dates": [
+    "2024-12-31",
+    "2025-01-09",
+    "2025-01-10",
+    "2025-01-14",
+    "2025-01-16",
+    "2025-01-16",
+    "2025-01-17",
+    "2025-01-22",
+    "2025-01-22",
+    "2025-01-22",
+    "2025-01-22",
+    "2025-01-24",
+    "2025-01-28",
+    "2025-01-29",
+    "2025-02-03",
+    "2025-02-03",
+    "2025-02-03",
+    "2025-02-11",
+    "2025-02-11",
+    "2025-02-12",
+    "2025-02-20",
+    "2025-02-20",
+    "2025-02-21",
+    "2025-02-25",
+    "2025-02-25",
+    "2025-02-26",
+    "2025-02-26",
+    "2025-02-26",
+    "2025-02-27",
+    "2025-02-27",
+    "2025-02-28",
+    "2025-03-14",
+    "2025-04-07",
+    "2025-04-07",
+    "2025-04-09",
+    "2025-04-14",
+    "2025-04-16",
+    "2025-04-17",
+    "2025-04-17",
+    "2025-04-21",
+    "2025-04-23",
+    "2025-04-23",
+    "2025-05-02",
+    "2025-05-02",
+    "2025-05-05",
+    "2025-05-07",
+    "2025-05-09",
+    "2025-05-12",
+    "2025-05-15",
+    "2025-05-16",
+    "2025-05-16",
+    "2025-05-21",
+    "2025-05-23",
+    "2025-05-24",
+    "2025-05-31",
+    "2025-06-02",
+    "2025-06-02",
+    "2025-06-03",
+    "2025-06-03",
+    "2025-06-04",
+    "2025-06-04",
+    "2025-06-04",
+    "2025-06-05",
+    "2025-06-07",
+    "2025-06-11",
+    "2025-06-11",
+    "2025-06-12",
+    "2025-06-12",
+    "2025-06-13",
+    "2025-06-17",
+    "2025-06-18",
+    "2025-06-19",
+    "2025-06-19",
+    "2025-06-28",
+    "2025-07-06",
+    "2025-07-10",
+    "2025-07-12",
+    "2025-07-14",
+    "2025-07-14",
+    "2025-07-15",
+    "2025-07-15",
+    "2025-07-16",
+    "2025-07-16",
+    "2025-07-17",
+    "2025-07-19",
+    "2025-07-20",
+    "2025-07-21",
+    "2025-07-24",
+    "2025-07-25",
+    "2025-07-29",
+    "2025-07-31",
+    "2025-08-04",
+    "2025-08-04",
+    "2025-08-04",
+    "2025-08-07",
+    "2025-08-07",
+    "2025-08-11",
+    "2025-08-12",
+    "2025-08-13",
+    "2025-08-15",
+    "2025-08-20",
+    "2025-08-22",
+    "2025-08-22",
+    "2025-08-25",
+    "2025-08-26",
+    "2025-08-26",
+    "2025-08-27",
+    "2025-08-27",
+    "2025-08-28",
+    "2025-08-28",
+    "2025-08-31",
+    "2025-09-04",
+    "2025-09-04",
+    "2025-09-04",
+    "2025-09-08",
+    "2025-09-08",
+    "2025-09-09",
+    "2025-09-11",
+    "2025-09-17",
+    "2025-09-17",
+    "2025-09-17",
+    "2025-09-18",
+    "2025-09-19",
+    "2025-09-23",
+    "2025-09-24",
+    "2025-09-25",
+    "2025-09-25",
+    "2025-10-02",
+    "2025-10-03",
+    "2025-10-03",
+    "2025-10-03",
+    "2025-10-03",
+    "2025-10-06",
+    "2025-10-08",
+    "2025-10-10",
+    "2025-10-10",
+    "2025-10-10",
+    "2025-10-12",
+    "2025-10-12",
+    "2025-10-13",
+    "2025-10-13",
+    "2025-10-13",
+    "2025-10-16",
+    "2025-10-17",
+    "2025-10-17",
+    "2025-10-19",
+    "2025-10-21",
+    "2025-10-21",
+    "2025-10-21",
+    "2025-10-21",
+    "2025-10-22",
+    "2025-10-22",
+    "2025-10-23",
+    "2025-10-23",
+    "2025-10-27",
+    "2025-10-27",
+    "2025-10-27",
+    "2025-10-27",
+    "2025-10-29",
+    "2025-10-30",
+    "2025-10-30",
+    "2025-10-30",
+    "2025-10-31",
+    "2025-11-03",
+    "2025-11-03",
+    "2025-11-05",
+    "2025-11-05",
+    "2025-11-06",
+    "2025-11-07",
+    "2025-11-08",
+    "2025-11-10",
+    "2025-11-12",
+    "2025-11-14",
+    "2025-11-14",
+    "2025-11-14",
+    "2025-11-17",
+    "2025-11-18",
+    "2025-11-18",
+    "2025-11-18",
+    "2025-11-21",
+    "2025-11-24",
+    "2025-11-26",
+    "2025-11-27",
+    "2025-12-04",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-07",
+    "2025-12-08",
+    "2025-12-08",
+    "2025-12-10",
+    "2025-12-12",
+    "2025-12-17",
+    "2025-12-21",
+    "2025-12-22",
+    "2025-12-25",
+    "2025-12-25",
+    "2025-12-26",
+    "2025-12-27",
+    "2025-12-27",
+    "2025-12-30",
+    "2026-01-05",
+    "2026-01-05",
+    "2026-01-07",
+    "2026-01-07",
+    "2026-01-10",
+    "2026-01-11",
+    "2026-01-11",
+    "2026-01-12",
+    "2026-01-12",
+    "2026-01-13",
+    "2026-01-14",
+    "2026-01-15",
+    "2026-01-15",
+    "2026-01-15",
+    "2026-01-15",
+    "2026-01-15",
+    "2026-01-16",
+    "2026-01-17",
+    "2026-01-21",
+    "2026-01-21",
+    "2026-01-24",
+    "2026-01-26",
+    "2026-01-26",
+    "2026-01-26",
+    "2026-01-26",
+    "2026-01-28",
+    "2026-01-29",
+    "2026-01-30",
+    "2026-02-02",
+    "2026-02-04",
+    "2026-02-04",
+    "2026-02-04",
+    "2026-02-05",
+    "2026-02-05",
+    "2026-02-06",
+    "2026-02-07",
+    "2026-02-07",
+    "2026-02-09",
+    "2026-02-10",
+    "2026-02-16",
+    "2026-02-18",
+    "2026-02-20",
+    "2026-02-23",
+    "2026-02-24",
+    "2026-02-25",
+    "2026-02-26",
+    "2026-02-26",
+    "2026-02-26",
+    "2026-02-26",
+    "2026-02-26",
+    "2026-02-27",
+    "2026-02-28",
+    "2026-03-02",
+    "2026-03-02",
+    "2026-03-04",
+    "2026-03-05",
+    "2026-03-05",
+    "2026-03-05",
+    "2026-03-07",
+    "2026-03-13",
+    "2026-03-18",
+    "2026-03-20",
+    "2026-03-20",
+    "2026-03-21",
+    "2026-03-26",
+    "2026-03-30",
+    "2026-03-30",
+    "2026-03-30",
+    "2026-04-01",
+    "2026-04-01",
+    "2026-04-03",
+    "2026-04-07",
+    "2026-04-07",
+    "2026-04-10",
+    "2026-04-16",
+    "2026-04-16",
+    "2026-04-16",
+    "2026-04-19",
+    "2026-04-19",
+    "2026-04-20",
+    "2026-04-20",
+    "2026-04-20",
+    "2026-04-20",
+    "2026-04-21",
+    "2026-04-22",
+    "2026-04-24",
+    "2026-04-24",
+    "2026-05-04",
+    "2026-05-04",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-06",
+    "2026-05-06",
+    "2026-05-07",
+    "2026-05-07",
+    "2026-05-07",
+    "2026-05-07",
+    "2026-05-11",
+    "2026-05-11",
+    "2026-05-18",
+    "2026-05-20",
+    "2026-05-20",
+    "2026-05-20",
+    "2026-05-20",
+    "2026-05-20",
+    "2026-05-21",
+    "2026-05-21",
+    "2026-05-22",
+    "2026-05-23",
+    "2026-05-23",
+    "2026-05-25",
+    "2026-05-27",
+    "2026-05-27",
+    "2026-05-28",
+    "2026-05-29",
+    "2026-06-01",
+    "2026-06-01",
+    "2026-06-02",
+    "2026-06-02",
+    "2026-06-07",
+    "2026-06-10",
+    "2026-06-10",
+    "2026-06-10",
+    "2026-06-10",
+    "2026-06-11",
+    "2026-06-12",
+    "2026-06-12",
+    "2026-06-14",
+    "2026-06-15",
+    "2026-06-16",
+    "2026-06-18",
+    "2026-06-18",
+    "2026-06-18",
+    "2026-06-18",
+    "2026-06-20",
+    "2026-06-22",
+    "2026-06-22",
+    "2026-06-22",
+    "2026-06-22",
+    "2026-06-25",
+    "2026-06-26",
+    "2026-06-26",
+    "2026-06-26",
+    "2026-06-29",
+    "2026-06-29",
+    "2026-07-02",
     "2026-07-04",
     "2026-07-04",
     "2026-07-06"
@@ -425,14 +831,28 @@
   },
   "GDX": {
    "by_name_dates": [
+    "2025-02-21",
     "2025-08-06",
-    "2025-10-21"
+    "2025-10-21",
+    "2025-10-21",
+    "2026-02-23",
+    "2026-04-29",
+    "2026-05-08"
    ],
    "thesis_dates": [
     "2025-01-01",
+    "2025-01-03",
+    "2025-01-03",
+    "2025-01-08",
+    "2025-01-27",
+    "2025-01-31",
+    "2025-01-31",
     "2025-01-31",
     "2025-02-12",
+    "2025-02-25",
     "2025-03-09",
+    "2025-03-10",
+    "2025-03-10",
     "2025-04-07",
     "2025-04-09",
     "2025-04-09",
@@ -444,21 +864,52 @@
     "2025-04-23",
     "2025-04-23",
     "2025-05-07",
+    "2025-05-18",
+    "2025-05-28",
+    "2025-05-28",
+    "2025-06-09",
+    "2025-06-14",
+    "2025-07-16",
+    "2025-07-17",
+    "2025-07-18",
+    "2025-08-02",
     "2025-08-09",
     "2025-08-09",
     "2025-08-10",
     "2025-08-14",
-    "2025-08-28",
+    "2025-09-06",
+    "2025-09-09",
     "2025-09-12",
     "2025-09-28",
+    "2025-10-16",
+    "2025-10-19",
+    "2025-10-30",
+    "2025-11-26",
     "2026-01-07",
+    "2026-01-15",
+    "2026-01-26",
+    "2026-01-29",
     "2026-02-07",
+    "2026-02-08",
+    "2026-03-09",
+    "2026-03-20",
+    "2026-03-20",
+    "2026-03-20",
+    "2026-03-20",
     "2026-03-22",
+    "2026-03-30",
+    "2026-04-24",
+    "2026-04-27",
     "2026-04-30",
     "2026-05-13",
     "2026-05-16",
     "2026-05-17",
     "2026-05-17",
+    "2026-05-30",
+    "2026-06-20",
+    "2026-06-21",
+    "2026-06-24",
+    "2026-07-02",
     "2026-07-02"
    ]
   },
@@ -487,12 +938,10 @@
     "2025-06-23",
     "2025-06-25",
     "2025-07-06",
-    "2025-10-01",
-    "2025-10-08",
-    "2025-10-10",
     "2026-01-15",
-    "2026-01-29",
+    "2026-02-18",
     "2026-02-25",
+    "2026-03-01",
     "2026-03-06",
     "2026-03-18",
     "2026-03-19",
@@ -518,6 +967,7 @@
     "2025-03-07",
     "2025-04-02",
     "2025-04-09",
+    "2025-04-30",
     "2025-05-08",
     "2025-05-16",
     "2025-05-30",
@@ -531,6 +981,9 @@
     "2025-10-01",
     "2025-10-09",
     "2025-10-16",
+    "2025-10-16",
+    "2025-12-04",
+    "2026-01-05",
     "2026-01-07",
     "2026-02-05",
     "2026-02-06",
@@ -542,8 +995,6 @@
     "2026-03-04",
     "2026-03-09",
     "2026-03-16",
-    "2026-03-27",
-    "2026-03-27",
     "2026-04-02",
     "2026-04-03",
     "2026-04-09",
@@ -551,10 +1002,9 @@
     "2026-04-21",
     "2026-04-24",
     "2026-05-07",
-    "2026-05-13",
+    "2026-05-07",
     "2026-05-14",
     "2026-05-15",
-    "2026-05-19",
     "2026-05-20",
     "2026-05-22",
     "2026-05-25",
@@ -562,12 +1012,15 @@
     "2026-06-05",
     "2026-06-12",
     "2026-06-25",
+    "2026-06-25",
     "2026-06-27",
     "2026-06-30"
    ]
   },
   "DRAM": {
-   "by_name_dates": [],
+   "by_name_dates": [
+    "2026-05-07"
+   ],
    "thesis_dates": [
     "2025-03-25",
     "2025-06-25",
@@ -577,12 +1030,15 @@
     "2025-08-11",
     "2025-11-17",
     "2025-12-21",
+    "2025-12-22",
     "2025-12-25",
     "2026-01-01",
     "2026-01-01",
+    "2026-01-02",
     "2026-01-15",
     "2026-01-23",
     "2026-01-26",
+    "2026-01-30",
     "2026-02-02",
     "2026-02-05",
     "2026-02-14",
@@ -590,17 +1046,28 @@
     "2026-03-06",
     "2026-03-11",
     "2026-03-16",
+    "2026-03-18",
     "2026-03-19",
     "2026-03-25",
     "2026-03-26",
     "2026-03-26",
     "2026-04-01",
     "2026-05-05",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-05",
+    "2026-05-08",
+    "2026-05-08",
+    "2026-05-11",
+    "2026-05-14",
     "2026-05-16",
     "2026-05-21",
     "2026-05-29",
+    "2026-06-02",
     "2026-06-17",
     "2026-06-18",
+    "2026-06-24",
+    "2026-06-24",
     "2026-06-24",
     "2026-06-25",
     "2026-06-27",
@@ -735,8 +1202,104 @@
     }
    ]
   },
+  "AREC": {
+   "by_name": [
+    {
+     "d": "2025-08-07",
+     "src": "www.builderonline.com",
+     "title": "Avila Real Estate Capital Group Closes Inaugural Debt Fund, Expands Originations Team - Builder Magazine",
+     "url": "https://www.builderonline.com/money/avila-real-estate-capital-group-closes-inaugural-debt-fund-expands-originations-team"
+    },
+    {
+     "d": "2025-08-27",
+     "src": "www.stocktitan.net",
+     "title": "First All-in-One US Rare Earth Production Hub: ReElement and Principal Mineral Break Supply Chain Barriers - Stock Titan",
+     "url": "https://www.stocktitan.net/news/AREC/re-element-and-principal-mineral-partner-to-provide-integrated-rare-cwhb7g2e3kuh.html"
+    },
+    {
+     "d": "2026-03-10",
+     "src": "www.builderonline.com",
+     "title": "Avila Real Estate Capital Announces Second Close of Debt Fund, Reaching $200 Million in Commitments - Builder Magazine",
+     "url": "https://www.builderonline.com/money/avila-real-estate-capital-announces-second-close-of-debt-fund-reaching-200-million-in-commitments"
+    },
+    {
+     "d": "2026-05-22",
+     "src": "www.stocktitan.net",
+     "title": "$200M US\u2013South Korea push to make rare earth magnets in America - Stock Titan",
+     "url": "https://www.stocktitan.net/news/AREC/re-element-technologies-and-posco-international-form-joint-venture-ggsv0yxpd2fa.html"
+    }
+   ],
+   "thesis": [
+    {
+     "d": "2024-12-31",
+     "src": "www.kitco.com",
+     "title": "BMW, Yamaha Motor back US rare earths startup Phoenix Tailings - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2024-12-31/bmw-yamaha-motor-back-us-rare-earths-startup-phoenix-tailings"
+    },
+    {
+     "d": "2025-01-09",
+     "src": "www.stocktitan.net",
+     "title": "Ur-Energy CEO to Present at Maxim's 2025 Critical Minerals Conference as Uranium Production Expands - StockTitan",
+     "url": "https://www.stocktitan.net/news/URG/ur-energy-will-participate-in-the-2025-mining-conference-mining-lybuaxtnmgpp.html"
+    },
+    {
+     "d": "2025-01-10",
+     "src": "www.kitco.com",
+     "title": "US lobbied Greenland rare earths developer Tanbreez not to sell to China - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-10/us-lobbied-greenland-rare-earths-developer-tanbreez-not-sell-china"
+    },
+    {
+     "d": "2025-01-14",
+     "src": "www.kitco.com",
+     "title": "UK to sign critical minerals partnership with Saudi Arabia - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-14/uk-sign-critical-minerals-partnership-saudi-arabia"
+    },
+    {
+     "d": "2025-01-16",
+     "src": "www.kitco.com",
+     "title": "Greek Metlen expands alumina output to extract critical mineral gallium - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-16/greek-metlen-expands-alumina-output-extract-critical-mineral-gallium"
+    },
+    {
+     "d": "2025-01-16",
+     "src": "www.kitco.com",
+     "title": "Zambia says Saudi\u2019s Manara interested in its copper assets - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-16/zambia-says-saudis-manara-interested-its-copper-assets"
+    },
+    {
+     "d": "2025-01-17",
+     "src": "www.kitco.com",
+     "title": "Lynas Rare Earths\u2019 second-quarter revenue rises nearly 4% - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-17/lynas-rare-earths-second-quarter-revenue-rises-nearly-4"
+    },
+    {
+     "d": "2025-01-22",
+     "src": "www.kitco.com",
+     "title": "Trump\u2019s EV rollback not expected to suppress appetite for critical minerals - Kitco NEWS",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-01-22/trumps-ev-rollback-not-expected-suppress-appetite-critical-minerals"
+    },
+    {
+     "d": "2025-01-22",
+     "src": "www.stocktitan.net",
+     "title": "MP Materials Restores US Rare Earth Magnet Production, Begins Commercial Output in Texas - StockTitan",
+     "url": "https://www.stocktitan.net/news/MP/mp-materials-restores-u-s-rare-earth-magnet-8w3syy418g69.html"
+    },
+    {
+     "d": "2025-01-22",
+     "src": "markets.ft.com",
+     "title": "MP Materials Restores U.S. Rare Earth Magnet Production \u2013 Company Announcement - Financial Times",
+     "url": "https://markets.ft.com/data/announce/detail?dockey=600-202501220754BIZWIRE_USPRX____20250122_BW740803-1"
+    }
+   ]
+  },
   "GDX": {
    "by_name": [
+    {
+     "d": "2025-02-21",
+     "src": "www.mining.com",
+     "title": "GDX\u2019s dozen-year breakout - MINING.com",
+     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/"
+    },
     {
      "d": "2025-08-06",
      "src": "www.kitco.com",
@@ -748,6 +1311,30 @@
      "src": "www.benzinga.com",
      "title": "Gold Sinks 5% On Worst Day In 5 Years, Dow Jones Hits Record Highs: What's Moving Markets Tuesday? - Benzinga",
      "url": "https://www.benzinga.com/markets/equities/25/10/48333748/markets-today-tuesday-wall-street-gold-plunges-silver-sinks-dow-jones-record-highs"
+    },
+    {
+     "d": "2025-10-21",
+     "src": "www.investors.com",
+     "title": "Gold Prices Suffer Worst Loss In 12 Years After Huge Rally; These ETFs, Miners Plunge - Investor's Business Daily",
+     "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/"
+    },
+    {
+     "d": "2026-02-23",
+     "src": "seekingalpha.com",
+     "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
+     "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money"
+    },
+    {
+     "d": "2026-04-29",
+     "src": "www.theglobeandmail.com",
+     "title": "SIL vs. GDX: Silver Miners Outpaced Gold Miners in 2025. Will It Last? - The Globe and Mail",
+     "url": "https://www.theglobeandmail.com/investing/markets/stocks/NEM-N/pressreleases/1592516/sil-vs-gdx-silver-miners-outpaced-gold-miners-in-2025-will-it-last/"
+    },
+    {
+     "d": "2026-05-08",
+     "src": "www.aol.com",
+     "title": "SIL vs. GDX: Silver Miners Outpaced Gold Miners in 2025. Will It Last? - AOL.com",
+     "url": "https://www.aol.com/finance/sil-vs-gdx-silver-miners-144659700.html"
     }
    ],
    "thesis": [
@@ -758,10 +1345,46 @@
      "url": "https://finance.yahoo.com/news/3-tsx-penny-stocks-market-140453723.html"
     },
     {
+     "d": "2025-01-03",
+     "src": "www.inkl.com",
+     "title": "3 Gold Mining Stocks To Hedge Against Inflation - Inkl",
+     "url": "https://www.inkl.com/news/3-gold-mining-stocks-to-hedge-against-inflation-09dbb1cd-22a8-4e0c-88f9-4c7a23a27a8c"
+    },
+    {
+     "d": "2025-01-03",
+     "src": "stocknews.com",
+     "title": "AEM: 3 Gold Mining Stocks To Hedge Against Inflation - StockNews.com",
+     "url": "https://stocknews.com/news/aem-gold-gfi-3-gold-mining-stocks-to-hedge-against-inflation/"
+    },
+    {
+     "d": "2025-01-08",
+     "src": "www.mining.com",
+     "title": "K92 Mining shares soar on record-breaking production - MINING.com",
+     "url": "https://www.mining.com/k92-mining-shares-soar-on-record-breaking-production/"
+    },
+    {
+     "d": "2025-01-27",
+     "src": "www.mining.com",
+     "title": "Discovery Silver to acquire Newmont\u2019s gold mining operations at Porcupine for $425m - MINING.com",
+     "url": "https://www.mining.com/web/discovery-silver-to-acquire-newmonts-gold-mining-operations-at-porcupine-for-425m/"
+    },
+    {
      "d": "2025-01-31",
      "src": "www.kitco.com",
      "title": "Gold ratios progressing, gold miners to benefit - Kitco NEWS",
      "url": "https://www.kitco.com/opinion/2025-01-31/gold-ratios-progressing-gold-miners-benefit"
+    },
+    {
+     "d": "2025-01-31",
+     "src": "www.inkl.com",
+     "title": "The Best Way to Invest in Gold Is... - Inkl",
+     "url": "https://www.inkl.com/news/the-best-way-to-invest-in-gold-is"
+    },
+    {
+     "d": "2025-01-31",
+     "src": "www.sharewise.com",
+     "title": "The Best Way to Invest in Gold Is... - sharewise",
+     "url": "https://www.sharewise.com/us/news_articles/The_Best_Way_to_Invest_in_Gold_Is_MarketBeat_20250131_1705"
     },
     {
      "d": "2025-02-12",
@@ -770,46 +1393,10 @@
      "url": "https://www.kitco.com/news/off-the-wire/2025-02-12/evolution-mining-hits-over-four-year-high-after-profit-beats-estimates"
     },
     {
-     "d": "2025-03-09",
-     "src": "www.benzinga.com",
-     "title": "Bilibili, MARA And ZEEKR Are Among Top 8 Mid-Cap Gainers Last Week (Mar 3-Mar 7): Are The Others In Your Portfolio? - Benzinga",
-     "url": "https://www.benzinga.com/news/mid-cap/25/03/44211267/bilibili-mara-and-zeekr-are-among-top-8-mid-cap-gainers-last-week-mar-3-mar-7-are-the-others-in-your-portfolio"
-    },
-    {
-     "d": "2025-04-07",
-     "src": "www.etftrends.com",
-     "title": "Amid Gold's Rise, Mining Funds Are Seeing More Inflows - ETF Trends",
-     "url": "https://www.etftrends.com/gold-silver-investing-channel/amid-golds-rise-mining-funds-seeing-more-inflows/"
-    },
-    {
-     "d": "2025-04-09",
-     "src": "www.marketbeat.com",
-     "title": "Wellington Management Group LLP Decreases Stock Holdings in Harmony Gold Mining Company Limited (NYSE:HMY) - MarketBeat",
-     "url": "https://www.marketbeat.com/instant-alerts/wellington-management-group-llp-decreases-stock-holdings-in-harmony-gold-mining-company-limited-nysehmy-2025-04-08/"
-    },
-    {
-     "d": "2025-04-09",
-     "src": "ragingbull.com",
-     "title": "Gold Mining Stocks Soar as Harmony, IAMGOLD, and AngloGold Lead the Charge on April 9th! - RagingBull",
-     "url": "https://ragingbull.com/editorial/gold-mining-stocks-soar-as-harmony-iamgold-and-anglogold-lead-the-charge-on-april-9th/"
-    },
-    {
-     "d": "2025-04-11",
-     "src": "seekingalpha.com",
-     "title": "The Gold Standard: 5 Gold Mining Stocks To Dig Up Big Returns - Seeking Alpha",
-     "url": "https://seekingalpha.com/article/4774561-gold-standard-5-gold-mining-stocks-to-dig-up-big-returns"
-    },
-    {
-     "d": "2025-04-16",
-     "src": "www.tipranks.com",
-     "title": "Gorilla Gold Extends High-Grade Gold Strike at Lakeview Prospect - TipRanks",
-     "url": "https://www.tipranks.com/news/company-announcements/gorilla-gold-extends-high-grade-gold-strike-at-lakeview-prospect"
-    },
-    {
-     "d": "2025-04-17",
-     "src": "www.marketbeat.com",
-     "title": "Harmony Gold Mining (NYSE:HMY) Shares Gap Up - What's Next? - MarketBeat",
-     "url": "https://www.marketbeat.com/instant-alerts/harmony-gold-mining-nysehmy-shares-gap-up-whats-next-2025-04-15/"
+     "d": "2025-02-25",
+     "src": "www.mining.com",
+     "title": "Gold stocks glitter as worries around inflation, tariffs flare - MINING.com",
+     "url": "https://www.mining.com/web/gold-stocks-glitter-as-worries-around-inflation-tariffs-flare/"
     }
    ]
   },
@@ -986,6 +1573,12 @@
      "url": "https://www.seatrade-maritime.com/containers/has-china-caught-trump-sleeping-"
     },
     {
+     "d": "2025-04-30",
+     "src": "www.maritime-executive.com",
+     "title": "Hapag and ONE Point to \u201cConsiderable Uncertainty\u201d Expecting Lower Results - The Maritime Executive",
+     "url": "https://www.maritime-executive.com/article/hapag-and-one-point-to-considerable-uncertainty-expecting-lower-results"
+    },
+    {
      "d": "2025-05-08",
      "src": "www.seatrade-maritime.com",
      "title": "Maersk\u2019s posts $1.3 bn Q1 profit, geopolitical tensions cloud outlook - Seatrade Maritime News",
@@ -996,17 +1589,18 @@
      "src": "www.seatrade-maritime.com",
      "title": "Buoyant lines bask in Indian summer - Seatrade Maritime News",
      "url": "https://www.seatrade-maritime.com/containers/buoyant-lines-bask-in-indian-summer"
-    },
-    {
-     "d": "2025-05-30",
-     "src": "www.seatrade-maritime.com",
-     "title": "Spot container freight rates skyrocket - Seatrade Maritime",
-     "url": "https://www.seatrade-maritime.com/containers/spot-container-freight-rates-skyrocket"
     }
    ]
   },
   "DRAM": {
-   "by_name": [],
+   "by_name": [
+    {
+     "d": "2026-05-07",
+     "src": "www.tipranks.com",
+     "title": "A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks",
+     "url": "https://www.tipranks.com/news/a-roundhill-memory-etf-dram-slip-today-could-be-a-buying-opportunity"
+    }
+   ],
    "thesis": [
     {
      "d": "2025-03-25",
@@ -1057,16 +1651,16 @@
      "url": "https://ts2.tech/en/semiconductor-stocks-week-ahead-dec-22-26-2025-nvidia-micron-broadcom-and-tsmc-in-focus-as-ai-spending-memory-shortages-and-china-headlines-drive-volatility/"
     },
     {
+     "d": "2025-12-22",
+     "src": "www.forbes.com",
+     "title": "Why Is SanDisk Stock Surging? - Forbes",
+     "url": "https://www.forbes.com/sites/greatspeculations/2025/12/22/why-is-sandisk-stock-surging/"
+    },
+    {
      "d": "2025-12-25",
      "src": "www.tipranks.com",
      "title": "AI Boom Sparks RAM Crisis: PC and Phone Makers Slash Memory Specs - TipRanks",
      "url": "https://www.tipranks.com/news/ai-boom-sparks-ram-crisis-pc-and-phone-makers-slash-memory-specs"
-    },
-    {
-     "d": "2026-01-01",
-     "src": "seekingalpha.com",
-     "title": "AI chip boom to push global consumer electronics prices up in 2026 - Seeking Alpha",
-     "url": "https://seekingalpha.com/news/4536179-ai-chip-boom-to-push-global-consumer-electronics-prices-up-in-2026"
     }
    ]
   }
@@ -3087,15 +3681,6 @@
      "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-nysemp-surges-41-in-one-month-following-saudi-p"
     },
     {
-     "d": "2025-06-27",
-     "kind": "name",
-     "price": 32.9,
-     "title": "Top Stock Movers Now: Nike, Boeing, MP Materials, and More - Investopedia",
-     "lede": "Image 7: Traders work at the New York Stock Exchange:max_bytes(150000):strip_icc():format(webp)/GettyImages-2221360035-6bed8e4b406843f195fe4aa00eba2369.jpg) 5 Things to Know Before the Stock Market OpensImage 9: The MP Materials logo is see",
-     "src": "www.investopedia.com",
-     "url": "https://www.investopedia.com/top-stock-movers-now-nike-boeing-mp-materials-and-more-11762516"
-    },
-    {
      "d": "2025-07-15",
      "kind": "name",
      "price": 58.22,
@@ -3159,6 +3744,15 @@
      "url": "https://www.forbes.com/sites/greatspeculations/2025/08/12/whats-happening-with-mp-materials-stock/"
     },
     {
+     "d": "2025-08-31",
+     "kind": "name",
+     "price": 71.14,
+     "title": "Could Buying MP Materials Today Set You Up for Life? - AOL.com",
+     "lede": "MP Materials is a one-of-a-kind mining company that owns the Mountain Pass mine in California, currently the country's *only* active rare-earth mining and processing site. Under this first-of-its-kind agreement, MP will supply the company w",
+     "src": "www.aol.com",
+     "url": "https://www.aol.com/finance/could-buying-mp-materials-today-120000155.html"
+    },
+    {
      "d": "2025-09-25",
      "kind": "name",
      "price": 77.13,
@@ -3184,15 +3778,6 @@
      "lede": "**USA Rare Earth** (USAR) stock broke out on Thursday, then continued to fly higher Friday after new CEO Barbara Humpton confirmed talks with the White House in a CNBC interview. After federal investments in rare-earth play **MP Materials**",
      "src": "www.investors.com",
      "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/"
-    },
-    {
-     "d": "2025-10-10",
-     "kind": "name",
-     "price": 78.34,
-     "title": "Stocks making the biggest moves midday: MP Materials, Alibaba, Protagonist Therapeutics & more - CNBC",
-     "lede": "Check out the companies making the biggest moves midday: Rare earth stocks \u2014 The group rose broadly after President Donald Trump said China was holding the world \"captive\" over the minerals, threatening countermeasures. Magnificent Seven \u2014 ",
-     "src": "www.cnbc.com",
-     "url": "https://www.cnbc.com/2025/10/10/stocks-making-the-biggest-moves-midday-mp-bab-ptgx.html"
     },
     {
      "d": "2025-10-13",
@@ -3265,31 +3850,33 @@
      "lede": "* **MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth?** # MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth? At the Mountain Pass mine in California, rare earth miner\u00a0MP Materials (MP) is attracting capi",
      "src": "nai500.com",
      "url": "https://nai500.com/blog/2025/11/mp-materials-can-a-rare-earth-miner-replicate-nvidias-growth-myth/"
+    },
+    {
+     "d": "2025-11-22",
+     "kind": "name",
+     "price": 55.27,
+     "title": "MP Materials Stock Soars on Strategic U.S.-Saudi Partnership - Ad-hoc-news.de",
+     "lede": "Sie befinden sind hier: Startseite > B\u00f6rse > Ueberblick > MP Materials Stock Soars on Strategic U.S.-Saudi Partnership ... # MP Materials Stock Soars on Strategic U.S.-Saudi Partnership MP Materials US5533681012 Shares of MP Materials have ",
+     "src": "www.ad-hoc-news.de",
+     "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-soars-on-strategic-u-s-saudi-partnership/68379413"
+    },
+    {
+     "d": "2025-12-05",
+     "kind": "name",
+     "price": 62.09,
+     "title": "MP Materials raised at Morgan Stanley on strategic importance to U.S. rare earth supply chain - Seeking Alpha",
+     "lede": "Entering text into the input field will update the search result below. Entering text into the input field will update the search result below. Search for Symbols, analysts, keywords. (MP) StockBy: Carl Surran, SA News Editor. MP Materials ",
+     "src": "seekingalpha.com",
+     "url": "https://seekingalpha.com/news/4529053-mp-materials-raised-at-morgan-stanley-on-strategic-importance-to-u-s-rare-earth-supply-chain"
     }
    ],
    "ground_truth": [
-    {
-     "d": "2025-02-04",
-     "price": 24.47,
-     "url": "https://www.setenews.com/2025/02/04/top-investors-say-mp-materials-corporation-mp-ticks-everything-they-need-2/",
-     "title": "Top investors say MP Materials Corporation (MP) ticks everything they need - SETE News",
-     "src": "setenews.com",
-     "detected": false
-    },
     {
      "d": "2025-06-13",
      "price": 30.55,
      "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-nysemp-surges-41-in-one-month-following-saudi-p",
      "title": "MP Materials (NYSE:MP) Surges 41% In One Month Following Saudi Partnership - simplywall.st",
      "src": "simplywall.st",
-     "detected": true
-    },
-    {
-     "d": "2025-07-10",
-     "price": 45.23,
-     "url": "https://finance.yahoo.com/news/live/stock-market-today-sp-500-nasdaq-eke-out-fresh-records-nvidia-closes-at-4t-market-cap-200027558.html",
-     "title": "Stock market today: S&P 500, Nasdaq eke out fresh records, Nvidia closes at $4T market cap - Yahoo Finance",
-     "src": "finance.yahoo.com",
      "detected": true
     },
     {
@@ -3354,7 +3941,7 @@
      "url": "https://www.mk.co.kr/en/stock/11429458",
      "title": "Shares of companies that the Donald Trump administration of the United States strategically seeks to.. - \ub9e4\uc77c\uacbd\uc81c",
      "src": "mk.co.kr",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-09-29",
@@ -3421,27 +4008,11 @@
      "detected": false
     },
     {
-     "d": "2025-11-13",
-     "price": 57.54,
-     "url": "https://rollingout.com/2025/11/13/mp-materials-stock-nvidia-comparison/",
-     "title": "MP Materials stock surges 250%: Is it the next Nvidia? - Rolling Out",
-     "src": "rollingout.com",
-     "detected": true
-    },
-    {
      "d": "2025-11-14",
      "price": 58.64,
      "url": "https://www.cnbc.com/2025/11/14/jpmorgan-sees-an-underappreciated-national-security-opportunity-in-this-rare-earth-miner.html",
      "title": "JPMorgan sees an \u2018underappreciated national security\u2019 opportunity in this rare earth miner - CNBC",
      "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-14",
-     "price": 58.64,
-     "url": "https://nai500.com/blog/2025/11/mp-materials-can-a-rare-earth-miner-replicate-nvidias-growth-myth/",
-     "title": "MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth? - NAI500",
-     "src": "nai500.com",
      "detected": true
     },
     {
@@ -3458,14 +4029,6 @@
      "url": "https://www.mining.com/mp-materials-soars-on-saudi-arabia-rare-earth-joint-venture/",
      "title": "MP Materials soars on Saudi Arabia rare earth joint venture - Mining.com",
      "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-22",
-     "price": 55.27,
-     "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-soars-on-strategic-u-s-saudi-partnership/68379413",
-     "title": "MP Materials Stock Soars on Strategic U.S.-Saudi Partnership - Ad-hoc-news.de",
-     "src": "ad-hoc-news.de",
      "detected": false
     },
     {
@@ -3501,22 +4064,6 @@
      "detected": false
     },
     {
-     "d": "2025-11-26",
-     "price": 60.15,
-     "url": "https://investorplace.com/hypergrowthinvesting/2025/11/the-day-wall-street-lost-control-of-the-ai-boom/",
-     "title": "The Day Wall Street Lost Control of the AI Boom - InvestorPlace",
-     "src": "investorplace.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-05",
-     "price": 62.09,
-     "url": "https://m.uk.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4403078?ampMode=1",
-     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com UK",
-     "src": "m.uk.investing.com",
-     "detected": false
-    },
-    {
      "d": "2025-12-05",
      "price": 62.09,
      "url": "https://m.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4392533?ampMode=1",
@@ -3525,19 +4072,11 @@
      "detected": false
     },
     {
-     "d": "2025-12-06",
+     "d": "2025-12-05",
      "price": 62.09,
-     "url": "https://ca.investing.com/news/insider-trading-news/mp-materials-ceo-litinsky-sells-242-million-in-stock-93CH-4352311",
-     "title": "MP Materials CEO Litinsky sells $24.2 million in stock By Investing.com - Investing.com Canada",
-     "src": "ca.investing.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-08",
-     "price": 61.2,
-     "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-mp-is-up-69-after-dodbacked-minetomagnet-push-h",
-     "title": "MP Materials (MP) Is Up 6.9% After DoD\u2011Backed Mine\u2011to\u2011Magnet Push - Has The Bull Case Changed? - simplywall.st",
-     "src": "simplywall.st",
+     "url": "https://m.uk.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4403078?ampMode=1",
+     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com UK",
+     "src": "m.uk.investing.com",
      "detected": false
     },
     {
@@ -3550,13 +4089,3347 @@
     }
    ]
   },
+  "AREC": {
+   "ticker": "AREC",
+   "window": [
+    "2025-01-01",
+    "2026-05-01"
+   ],
+   "series": [
+    [
+     "2025-01-02",
+     0.66
+    ],
+    [
+     "2025-01-03",
+     0.69
+    ],
+    [
+     "2025-01-06",
+     0.79
+    ],
+    [
+     "2025-01-07",
+     0.75
+    ],
+    [
+     "2025-01-08",
+     0.72
+    ],
+    [
+     "2025-01-10",
+     0.67
+    ],
+    [
+     "2025-01-13",
+     0.71
+    ],
+    [
+     "2025-01-14",
+     0.73
+    ],
+    [
+     "2025-01-15",
+     0.73
+    ],
+    [
+     "2025-01-16",
+     0.71
+    ],
+    [
+     "2025-01-17",
+     0.73
+    ],
+    [
+     "2025-01-21",
+     0.77
+    ],
+    [
+     "2025-01-22",
+     0.74
+    ],
+    [
+     "2025-01-23",
+     0.74
+    ],
+    [
+     "2025-01-24",
+     0.75
+    ],
+    [
+     "2025-01-27",
+     0.69
+    ],
+    [
+     "2025-01-28",
+     0.72
+    ],
+    [
+     "2025-01-29",
+     0.69
+    ],
+    [
+     "2025-01-30",
+     0.66
+    ],
+    [
+     "2025-01-31",
+     0.64
+    ],
+    [
+     "2025-02-03",
+     0.68
+    ],
+    [
+     "2025-02-04",
+     0.67
+    ],
+    [
+     "2025-02-05",
+     0.66
+    ],
+    [
+     "2025-02-06",
+     0.62
+    ],
+    [
+     "2025-02-07",
+     0.69
+    ],
+    [
+     "2025-02-10",
+     0.67
+    ],
+    [
+     "2025-02-11",
+     0.64
+    ],
+    [
+     "2025-02-12",
+     0.63
+    ],
+    [
+     "2025-02-13",
+     0.64
+    ],
+    [
+     "2025-02-14",
+     0.62
+    ],
+    [
+     "2025-02-18",
+     0.6
+    ],
+    [
+     "2025-02-19",
+     0.59
+    ],
+    [
+     "2025-02-20",
+     0.57
+    ],
+    [
+     "2025-02-21",
+     0.54
+    ],
+    [
+     "2025-02-24",
+     0.55
+    ],
+    [
+     "2025-02-25",
+     0.5
+    ],
+    [
+     "2025-02-26",
+     0.53
+    ],
+    [
+     "2025-02-27",
+     0.57
+    ],
+    [
+     "2025-02-28",
+     0.64
+    ],
+    [
+     "2025-03-03",
+     0.63
+    ],
+    [
+     "2025-03-04",
+     0.65
+    ],
+    [
+     "2025-03-05",
+     0.62
+    ],
+    [
+     "2025-03-06",
+     0.6
+    ],
+    [
+     "2025-03-07",
+     0.56
+    ],
+    [
+     "2025-03-10",
+     0.48
+    ],
+    [
+     "2025-03-11",
+     0.51
+    ],
+    [
+     "2025-03-12",
+     0.49
+    ],
+    [
+     "2025-03-13",
+     0.46
+    ],
+    [
+     "2025-03-14",
+     0.48
+    ],
+    [
+     "2025-03-17",
+     0.48
+    ],
+    [
+     "2025-03-18",
+     0.48
+    ],
+    [
+     "2025-03-19",
+     0.46
+    ],
+    [
+     "2025-03-20",
+     0.44
+    ],
+    [
+     "2025-03-21",
+     0.5
+    ],
+    [
+     "2025-03-24",
+     0.62
+    ],
+    [
+     "2025-03-25",
+     0.59
+    ],
+    [
+     "2025-03-26",
+     0.55
+    ],
+    [
+     "2025-03-27",
+     0.53
+    ],
+    [
+     "2025-03-28",
+     0.49
+    ],
+    [
+     "2025-03-31",
+     0.47
+    ],
+    [
+     "2025-04-01",
+     0.44
+    ],
+    [
+     "2025-04-02",
+     0.44
+    ],
+    [
+     "2025-04-03",
+     0.41
+    ],
+    [
+     "2025-04-04",
+     0.41
+    ],
+    [
+     "2025-04-07",
+     0.43
+    ],
+    [
+     "2025-04-08",
+     0.4
+    ],
+    [
+     "2025-04-09",
+     0.48
+    ],
+    [
+     "2025-04-10",
+     0.48
+    ],
+    [
+     "2025-04-11",
+     0.48
+    ],
+    [
+     "2025-04-14",
+     0.63
+    ],
+    [
+     "2025-04-15",
+     0.61
+    ],
+    [
+     "2025-04-16",
+     1.11
+    ],
+    [
+     "2025-04-17",
+     1.29
+    ],
+    [
+     "2025-04-21",
+     1.23
+    ],
+    [
+     "2025-04-22",
+     1.14
+    ],
+    [
+     "2025-04-23",
+     1.1
+    ],
+    [
+     "2025-04-24",
+     1.2
+    ],
+    [
+     "2025-04-25",
+     1.04
+    ],
+    [
+     "2025-04-28",
+     0.99
+    ],
+    [
+     "2025-04-29",
+     1.01
+    ],
+    [
+     "2025-04-30",
+     0.97
+    ],
+    [
+     "2025-05-01",
+     0.91
+    ],
+    [
+     "2025-05-02",
+     0.83
+    ],
+    [
+     "2025-05-05",
+     0.77
+    ],
+    [
+     "2025-05-06",
+     0.75
+    ],
+    [
+     "2025-05-07",
+     0.86
+    ],
+    [
+     "2025-05-08",
+     0.84
+    ],
+    [
+     "2025-05-09",
+     0.85
+    ],
+    [
+     "2025-05-12",
+     0.83
+    ],
+    [
+     "2025-05-13",
+     0.88
+    ],
+    [
+     "2025-05-14",
+     0.9
+    ],
+    [
+     "2025-05-15",
+     0.91
+    ],
+    [
+     "2025-05-16",
+     0.93
+    ],
+    [
+     "2025-05-19",
+     0.9
+    ],
+    [
+     "2025-05-20",
+     0.89
+    ],
+    [
+     "2025-05-21",
+     0.8
+    ],
+    [
+     "2025-05-22",
+     0.7
+    ],
+    [
+     "2025-05-23",
+     0.66
+    ],
+    [
+     "2025-05-27",
+     0.7
+    ],
+    [
+     "2025-05-28",
+     0.65
+    ],
+    [
+     "2025-05-29",
+     0.67
+    ],
+    [
+     "2025-05-30",
+     0.64
+    ],
+    [
+     "2025-06-02",
+     0.74
+    ],
+    [
+     "2025-06-03",
+     0.75
+    ],
+    [
+     "2025-06-04",
+     0.69
+    ],
+    [
+     "2025-06-05",
+     0.67
+    ],
+    [
+     "2025-06-06",
+     0.65
+    ],
+    [
+     "2025-06-09",
+     0.82
+    ],
+    [
+     "2025-06-10",
+     0.8
+    ],
+    [
+     "2025-06-11",
+     0.71
+    ],
+    [
+     "2025-06-12",
+     0.78
+    ],
+    [
+     "2025-06-13",
+     0.87
+    ],
+    [
+     "2025-06-16",
+     0.95
+    ],
+    [
+     "2025-06-17",
+     0.94
+    ],
+    [
+     "2025-06-18",
+     1.0
+    ],
+    [
+     "2025-06-20",
+     0.92
+    ],
+    [
+     "2025-06-23",
+     0.9
+    ],
+    [
+     "2025-06-24",
+     0.85
+    ],
+    [
+     "2025-06-25",
+     0.89
+    ],
+    [
+     "2025-06-26",
+     0.89
+    ],
+    [
+     "2025-06-27",
+     0.81
+    ],
+    [
+     "2025-06-30",
+     0.83
+    ],
+    [
+     "2025-07-01",
+     0.78
+    ],
+    [
+     "2025-07-02",
+     0.83
+    ],
+    [
+     "2025-07-03",
+     0.87
+    ],
+    [
+     "2025-07-07",
+     0.83
+    ],
+    [
+     "2025-07-08",
+     0.86
+    ],
+    [
+     "2025-07-09",
+     0.87
+    ],
+    [
+     "2025-07-10",
+     1.11
+    ],
+    [
+     "2025-07-11",
+     1.17
+    ],
+    [
+     "2025-07-14",
+     1.13
+    ],
+    [
+     "2025-07-15",
+     1.4
+    ],
+    [
+     "2025-07-16",
+     1.32
+    ],
+    [
+     "2025-07-17",
+     1.47
+    ],
+    [
+     "2025-07-18",
+     1.35
+    ],
+    [
+     "2025-07-21",
+     1.49
+    ],
+    [
+     "2025-07-22",
+     1.44
+    ],
+    [
+     "2025-07-23",
+     1.48
+    ],
+    [
+     "2025-07-24",
+     1.29
+    ],
+    [
+     "2025-07-25",
+     1.21
+    ],
+    [
+     "2025-07-28",
+     1.21
+    ],
+    [
+     "2025-07-29",
+     1.05
+    ],
+    [
+     "2025-07-30",
+     1.02
+    ],
+    [
+     "2025-07-31",
+     1.12
+    ],
+    [
+     "2025-08-01",
+     1.18
+    ],
+    [
+     "2025-08-04",
+     1.2
+    ],
+    [
+     "2025-08-05",
+     1.31
+    ],
+    [
+     "2025-08-06",
+     1.26
+    ],
+    [
+     "2025-08-07",
+     1.3
+    ],
+    [
+     "2025-08-08",
+     1.61
+    ],
+    [
+     "2025-08-11",
+     1.63
+    ],
+    [
+     "2025-08-12",
+     1.6
+    ],
+    [
+     "2025-08-13",
+     1.8
+    ],
+    [
+     "2025-08-14",
+     1.73
+    ],
+    [
+     "2025-08-15",
+     1.45
+    ],
+    [
+     "2025-08-18",
+     1.27
+    ],
+    [
+     "2025-08-19",
+     1.26
+    ],
+    [
+     "2025-08-20",
+     1.32
+    ],
+    [
+     "2025-08-21",
+     1.45
+    ],
+    [
+     "2025-08-22",
+     1.78
+    ],
+    [
+     "2025-08-25",
+     2.16
+    ],
+    [
+     "2025-08-26",
+     2.1
+    ],
+    [
+     "2025-08-27",
+     2.18
+    ],
+    [
+     "2025-08-28",
+     2.09
+    ],
+    [
+     "2025-08-29",
+     2.06
+    ],
+    [
+     "2025-09-02",
+     1.95
+    ],
+    [
+     "2025-09-03",
+     1.8
+    ],
+    [
+     "2025-09-04",
+     1.87
+    ],
+    [
+     "2025-09-05",
+     1.87
+    ],
+    [
+     "2025-09-08",
+     1.83
+    ],
+    [
+     "2025-09-09",
+     2.09
+    ],
+    [
+     "2025-09-10",
+     2.03
+    ],
+    [
+     "2025-09-11",
+     2.11
+    ],
+    [
+     "2025-09-12",
+     2.03
+    ],
+    [
+     "2025-09-15",
+     2.45
+    ],
+    [
+     "2025-09-16",
+     2.71
+    ],
+    [
+     "2025-09-17",
+     2.54
+    ],
+    [
+     "2025-09-18",
+     2.49
+    ],
+    [
+     "2025-09-19",
+     2.87
+    ],
+    [
+     "2025-09-22",
+     2.96
+    ],
+    [
+     "2025-09-23",
+     2.71
+    ],
+    [
+     "2025-09-24",
+     2.89
+    ],
+    [
+     "2025-09-25",
+     2.76
+    ],
+    [
+     "2025-09-26",
+     2.78
+    ],
+    [
+     "2025-09-29",
+     3.01
+    ],
+    [
+     "2025-09-30",
+     2.7
+    ],
+    [
+     "2025-10-01",
+     2.62
+    ],
+    [
+     "2025-10-02",
+     3.08
+    ],
+    [
+     "2025-10-03",
+     3.7
+    ],
+    [
+     "2025-10-06",
+     3.82
+    ],
+    [
+     "2025-10-07",
+     3.89
+    ],
+    [
+     "2025-10-08",
+     3.82
+    ],
+    [
+     "2025-10-09",
+     4.04
+    ],
+    [
+     "2025-10-10",
+     4.08
+    ],
+    [
+     "2025-10-13",
+     4.98
+    ],
+    [
+     "2025-10-14",
+     6.81
+    ],
+    [
+     "2025-10-15",
+     5.01
+    ],
+    [
+     "2025-10-16",
+     4.25
+    ],
+    [
+     "2025-10-17",
+     4.0
+    ],
+    [
+     "2025-10-20",
+     4.73
+    ],
+    [
+     "2025-10-21",
+     4.23
+    ],
+    [
+     "2025-10-22",
+     3.72
+    ],
+    [
+     "2025-10-23",
+     3.63
+    ],
+    [
+     "2025-10-24",
+     3.88
+    ],
+    [
+     "2025-10-27",
+     3.44
+    ],
+    [
+     "2025-10-28",
+     3.45
+    ],
+    [
+     "2025-10-29",
+     3.78
+    ],
+    [
+     "2025-10-30",
+     3.63
+    ],
+    [
+     "2025-10-31",
+     3.85
+    ],
+    [
+     "2025-11-03",
+     4.0
+    ],
+    [
+     "2025-11-04",
+     3.95
+    ],
+    [
+     "2025-11-05",
+     3.71
+    ],
+    [
+     "2025-11-06",
+     3.61
+    ],
+    [
+     "2025-11-07",
+     4.01
+    ],
+    [
+     "2025-11-10",
+     4.15
+    ],
+    [
+     "2025-11-11",
+     3.84
+    ],
+    [
+     "2025-11-12",
+     3.67
+    ],
+    [
+     "2025-11-13",
+     3.3
+    ],
+    [
+     "2025-11-14",
+     3.02
+    ],
+    [
+     "2025-11-17",
+     3.13
+    ],
+    [
+     "2025-11-18",
+     3.54
+    ],
+    [
+     "2025-11-19",
+     3.08
+    ],
+    [
+     "2025-11-20",
+     2.55
+    ],
+    [
+     "2025-11-21",
+     2.67
+    ],
+    [
+     "2025-11-24",
+     2.84
+    ],
+    [
+     "2025-11-25",
+     2.65
+    ],
+    [
+     "2025-11-26",
+     2.62
+    ],
+    [
+     "2025-11-28",
+     2.78
+    ],
+    [
+     "2025-12-01",
+     2.84
+    ],
+    [
+     "2025-12-02",
+     2.86
+    ],
+    [
+     "2025-12-03",
+     2.93
+    ],
+    [
+     "2025-12-04",
+     3.17
+    ],
+    [
+     "2025-12-05",
+     3.0
+    ],
+    [
+     "2025-12-08",
+     2.81
+    ],
+    [
+     "2025-12-09",
+     2.79
+    ],
+    [
+     "2025-12-10",
+     2.56
+    ],
+    [
+     "2025-12-11",
+     2.7
+    ],
+    [
+     "2025-12-12",
+     2.57
+    ],
+    [
+     "2025-12-15",
+     2.32
+    ],
+    [
+     "2025-12-16",
+     2.35
+    ],
+    [
+     "2025-12-17",
+     2.13
+    ],
+    [
+     "2025-12-18",
+     2.16
+    ],
+    [
+     "2025-12-19",
+     2.28
+    ],
+    [
+     "2025-12-22",
+     2.43
+    ],
+    [
+     "2025-12-23",
+     2.63
+    ],
+    [
+     "2025-12-24",
+     2.72
+    ],
+    [
+     "2025-12-26",
+     2.68
+    ],
+    [
+     "2025-12-29",
+     2.71
+    ],
+    [
+     "2025-12-30",
+     2.67
+    ],
+    [
+     "2025-12-31",
+     2.48
+    ],
+    [
+     "2026-01-02",
+     2.72
+    ],
+    [
+     "2026-01-05",
+     3.25
+    ],
+    [
+     "2026-01-06",
+     3.23
+    ],
+    [
+     "2026-01-07",
+     3.46
+    ],
+    [
+     "2026-01-08",
+     3.44
+    ],
+    [
+     "2026-01-09",
+     3.37
+    ],
+    [
+     "2026-01-12",
+     3.5
+    ],
+    [
+     "2026-01-13",
+     3.32
+    ],
+    [
+     "2026-01-14",
+     3.68
+    ],
+    [
+     "2026-01-15",
+     3.56
+    ],
+    [
+     "2026-01-16",
+     3.57
+    ],
+    [
+     "2026-01-20",
+     3.5
+    ],
+    [
+     "2026-01-21",
+     4.35
+    ],
+    [
+     "2026-01-22",
+     4.19
+    ],
+    [
+     "2026-01-23",
+     4.37
+    ],
+    [
+     "2026-01-26",
+     3.72
+    ],
+    [
+     "2026-01-27",
+     3.92
+    ],
+    [
+     "2026-01-28",
+     3.99
+    ],
+    [
+     "2026-01-29",
+     3.7
+    ],
+    [
+     "2026-01-30",
+     3.16
+    ],
+    [
+     "2026-02-02",
+     2.93
+    ],
+    [
+     "2026-02-03",
+     3.43
+    ],
+    [
+     "2026-02-04",
+     2.98
+    ],
+    [
+     "2026-02-05",
+     2.73
+    ],
+    [
+     "2026-02-06",
+     3.08
+    ],
+    [
+     "2026-02-09",
+     2.93
+    ],
+    [
+     "2026-02-10",
+     3.04
+    ],
+    [
+     "2026-02-11",
+     2.89
+    ],
+    [
+     "2026-02-12",
+     2.83
+    ],
+    [
+     "2026-02-13",
+     3.08
+    ],
+    [
+     "2026-02-17",
+     2.97
+    ],
+    [
+     "2026-02-18",
+     3.02
+    ],
+    [
+     "2026-02-19",
+     3.09
+    ],
+    [
+     "2026-02-20",
+     3.02
+    ],
+    [
+     "2026-02-23",
+     3.07
+    ],
+    [
+     "2026-02-24",
+     3.18
+    ],
+    [
+     "2026-02-25",
+     3.26
+    ],
+    [
+     "2026-02-26",
+     3.08
+    ],
+    [
+     "2026-02-27",
+     3.0
+    ],
+    [
+     "2026-03-02",
+     3.2
+    ],
+    [
+     "2026-03-03",
+     3.11
+    ],
+    [
+     "2026-03-04",
+     3.22
+    ],
+    [
+     "2026-03-05",
+     3.26
+    ],
+    [
+     "2026-03-06",
+     3.14
+    ],
+    [
+     "2026-03-09",
+     3.28
+    ],
+    [
+     "2026-03-10",
+     3.45
+    ],
+    [
+     "2026-03-11",
+     3.47
+    ],
+    [
+     "2026-03-12",
+     3.26
+    ],
+    [
+     "2026-03-13",
+     3.11
+    ],
+    [
+     "2026-03-16",
+     3.13
+    ],
+    [
+     "2026-03-17",
+     3.14
+    ],
+    [
+     "2026-03-18",
+     3.1
+    ],
+    [
+     "2026-03-19",
+     2.8
+    ],
+    [
+     "2026-03-20",
+     2.59
+    ],
+    [
+     "2026-03-23",
+     2.7
+    ],
+    [
+     "2026-03-24",
+     2.58
+    ],
+    [
+     "2026-03-25",
+     2.54
+    ],
+    [
+     "2026-03-26",
+     2.44
+    ],
+    [
+     "2026-03-27",
+     2.28
+    ],
+    [
+     "2026-03-30",
+     2.24
+    ],
+    [
+     "2026-03-31",
+     2.42
+    ],
+    [
+     "2026-04-01",
+     2.34
+    ],
+    [
+     "2026-04-02",
+     2.45
+    ],
+    [
+     "2026-04-06",
+     2.42
+    ],
+    [
+     "2026-04-07",
+     2.22
+    ],
+    [
+     "2026-04-08",
+     2.23
+    ],
+    [
+     "2026-04-09",
+     2.08
+    ],
+    [
+     "2026-04-10",
+     2.19
+    ],
+    [
+     "2026-04-13",
+     2.15
+    ],
+    [
+     "2026-04-14",
+     2.25
+    ],
+    [
+     "2026-04-15",
+     2.39
+    ],
+    [
+     "2026-04-16",
+     2.2
+    ],
+    [
+     "2026-04-17",
+     2.26
+    ],
+    [
+     "2026-04-20",
+     2.35
+    ],
+    [
+     "2026-04-21",
+     2.35
+    ],
+    [
+     "2026-04-22",
+     2.4
+    ],
+    [
+     "2026-04-23",
+     2.19
+    ],
+    [
+     "2026-04-24",
+     2.14
+    ],
+    [
+     "2026-04-27",
+     2.19
+    ],
+    [
+     "2026-04-28",
+     2.15
+    ],
+    [
+     "2026-04-29",
+     2.07
+    ],
+    [
+     "2026-04-30",
+     2.32
+    ],
+    [
+     "2026-05-01",
+     2.28
+    ]
+   ],
+   "spy_series": [
+    [
+     "2025-01-02",
+     574.8
+    ],
+    [
+     "2025-01-03",
+     581.99
+    ],
+    [
+     "2025-01-06",
+     585.34
+    ],
+    [
+     "2025-01-07",
+     578.72
+    ],
+    [
+     "2025-01-08",
+     579.57
+    ],
+    [
+     "2025-01-10",
+     570.72
+    ],
+    [
+     "2025-01-13",
+     571.6
+    ],
+    [
+     "2025-01-14",
+     572.39
+    ],
+    [
+     "2025-01-15",
+     582.8
+    ],
+    [
+     "2025-01-16",
+     581.68
+    ],
+    [
+     "2025-01-17",
+     587.52
+    ],
+    [
+     "2025-01-21",
+     592.9
+    ],
+    [
+     "2025-01-22",
+     596.23
+    ],
+    [
+     "2025-01-23",
+     599.49
+    ],
+    [
+     "2025-01-24",
+     597.74
+    ],
+    [
+     "2025-01-27",
+     589.28
+    ],
+    [
+     "2025-01-28",
+     594.34
+    ],
+    [
+     "2025-01-29",
+     591.68
+    ],
+    [
+     "2025-01-30",
+     594.86
+    ],
+    [
+     "2025-01-31",
+     591.69
+    ],
+    [
+     "2025-02-03",
+     587.71
+    ],
+    [
+     "2025-02-04",
+     591.65
+    ],
+    [
+     "2025-02-05",
+     594.05
+    ],
+    [
+     "2025-02-06",
+     596.11
+    ],
+    [
+     "2025-02-07",
+     590.66
+    ],
+    [
+     "2025-02-10",
+     594.67
+    ],
+    [
+     "2025-02-11",
+     595.12
+    ],
+    [
+     "2025-02-12",
+     593.2
+    ],
+    [
+     "2025-02-13",
+     599.47
+    ],
+    [
+     "2025-02-14",
+     599.44
+    ],
+    [
+     "2025-02-18",
+     601.2
+    ],
+    [
+     "2025-02-19",
+     602.61
+    ],
+    [
+     "2025-02-20",
+     600.11
+    ],
+    [
+     "2025-02-21",
+     589.84
+    ],
+    [
+     "2025-02-24",
+     587.16
+    ],
+    [
+     "2025-02-25",
+     584.24
+    ],
+    [
+     "2025-02-26",
+     584.53
+    ],
+    [
+     "2025-02-27",
+     575.2
+    ],
+    [
+     "2025-02-28",
+     584.18
+    ],
+    [
+     "2025-03-03",
+     573.94
+    ],
+    [
+     "2025-03-04",
+     567.15
+    ],
+    [
+     "2025-03-05",
+     573.25
+    ],
+    [
+     "2025-03-06",
+     563.07
+    ],
+    [
+     "2025-03-07",
+     566.23
+    ],
+    [
+     "2025-03-10",
+     551.14
+    ],
+    [
+     "2025-03-11",
+     546.56
+    ],
+    [
+     "2025-03-12",
+     549.46
+    ],
+    [
+     "2025-03-13",
+     542.14
+    ],
+    [
+     "2025-03-14",
+     553.34
+    ],
+    [
+     "2025-03-17",
+     557.6
+    ],
+    [
+     "2025-03-18",
+     551.58
+    ],
+    [
+     "2025-03-19",
+     557.58
+    ],
+    [
+     "2025-03-20",
+     555.97
+    ],
+    [
+     "2025-03-21",
+     556.16
+    ],
+    [
+     "2025-03-24",
+     566.12
+    ],
+    [
+     "2025-03-25",
+     567.48
+    ],
+    [
+     "2025-03-26",
+     560.7
+    ],
+    [
+     "2025-03-27",
+     559.21
+    ],
+    [
+     "2025-03-28",
+     547.95
+    ],
+    [
+     "2025-03-31",
+     551.63
+    ],
+    [
+     "2025-04-01",
+     553.19
+    ],
+    [
+     "2025-04-02",
+     556.69
+    ],
+    [
+     "2025-04-03",
+     529.25
+    ],
+    [
+     "2025-04-04",
+     498.27
+    ],
+    [
+     "2025-04-07",
+     497.38
+    ],
+    [
+     "2025-04-08",
+     489.59
+    ],
+    [
+     "2025-04-09",
+     541.01
+    ],
+    [
+     "2025-04-10",
+     517.3
+    ],
+    [
+     "2025-04-11",
+     526.53
+    ],
+    [
+     "2025-04-14",
+     531.64
+    ],
+    [
+     "2025-04-15",
+     530.15
+    ],
+    [
+     "2025-04-16",
+     518.37
+    ],
+    [
+     "2025-04-17",
+     519.11
+    ],
+    [
+     "2025-04-21",
+     506.75
+    ],
+    [
+     "2025-04-22",
+     519.93
+    ],
+    [
+     "2025-04-23",
+     527.99
+    ],
+    [
+     "2025-04-24",
+     539.11
+    ],
+    [
+     "2025-04-25",
+     543.0
+    ],
+    [
+     "2025-04-28",
+     543.21
+    ],
+    [
+     "2025-04-29",
+     546.63
+    ],
+    [
+     "2025-04-30",
+     546.85
+    ],
+    [
+     "2025-05-01",
+     550.72
+    ],
+    [
+     "2025-05-02",
+     558.9
+    ],
+    [
+     "2025-05-05",
+     555.69
+    ],
+    [
+     "2025-05-06",
+     551.05
+    ],
+    [
+     "2025-05-07",
+     553.36
+    ],
+    [
+     "2025-05-08",
+     557.22
+    ],
+    [
+     "2025-05-09",
+     556.51
+    ],
+    [
+     "2025-05-12",
+     574.9
+    ],
+    [
+     "2025-05-13",
+     578.7
+    ],
+    [
+     "2025-05-14",
+     579.44
+    ],
+    [
+     "2025-05-15",
+     582.27
+    ],
+    [
+     "2025-05-16",
+     585.96
+    ],
+    [
+     "2025-05-19",
+     586.6
+    ],
+    [
+     "2025-05-20",
+     584.62
+    ],
+    [
+     "2025-05-21",
+     574.77
+    ],
+    [
+     "2025-05-22",
+     575.0
+    ],
+    [
+     "2025-05-23",
+     571.08
+    ],
+    [
+     "2025-05-27",
+     582.95
+    ],
+    [
+     "2025-05-28",
+     579.58
+    ],
+    [
+     "2025-05-29",
+     581.86
+    ],
+    [
+     "2025-05-30",
+     581.21
+    ],
+    [
+     "2025-06-02",
+     584.49
+    ],
+    [
+     "2025-06-03",
+     587.82
+    ],
+    [
+     "2025-06-04",
+     587.66
+    ],
+    [
+     "2025-06-05",
+     584.82
+    ],
+    [
+     "2025-06-06",
+     590.83
+    ],
+    [
+     "2025-06-09",
+     591.36
+    ],
+    [
+     "2025-06-10",
+     594.71
+    ],
+    [
+     "2025-06-11",
+     593.02
+    ],
+    [
+     "2025-06-12",
+     595.37
+    ],
+    [
+     "2025-06-13",
+     588.72
+    ],
+    [
+     "2025-06-16",
+     594.32
+    ],
+    [
+     "2025-06-17",
+     589.24
+    ],
+    [
+     "2025-06-18",
+     589.15
+    ],
+    [
+     "2025-06-20",
+     587.77
+    ],
+    [
+     "2025-06-23",
+     593.57
+    ],
+    [
+     "2025-06-24",
+     600.13
+    ],
+    [
+     "2025-06-25",
+     600.47
+    ],
+    [
+     "2025-06-26",
+     605.16
+    ],
+    [
+     "2025-06-27",
+     608.17
+    ],
+    [
+     "2025-06-30",
+     611.08
+    ],
+    [
+     "2025-07-01",
+     610.88
+    ],
+    [
+     "2025-07-02",
+     613.65
+    ],
+    [
+     "2025-07-03",
+     618.49
+    ],
+    [
+     "2025-07-07",
+     613.88
+    ],
+    [
+     "2025-07-08",
+     613.54
+    ],
+    [
+     "2025-07-09",
+     617.22
+    ],
+    [
+     "2025-07-10",
+     618.96
+    ],
+    [
+     "2025-07-11",
+     616.79
+    ],
+    [
+     "2025-07-14",
+     617.96
+    ],
+    [
+     "2025-07-15",
+     615.32
+    ],
+    [
+     "2025-07-16",
+     617.38
+    ],
+    [
+     "2025-07-17",
+     621.16
+    ],
+    [
+     "2025-07-18",
+     620.7
+    ],
+    [
+     "2025-07-21",
+     621.88
+    ],
+    [
+     "2025-07-22",
+     621.97
+    ],
+    [
+     "2025-07-23",
+     627.26
+    ],
+    [
+     "2025-07-24",
+     627.47
+    ],
+    [
+     "2025-07-25",
+     630.12
+    ],
+    [
+     "2025-07-28",
+     629.96
+    ],
+    [
+     "2025-07-29",
+     628.3
+    ],
+    [
+     "2025-07-30",
+     627.51
+    ],
+    [
+     "2025-07-31",
+     625.15
+    ],
+    [
+     "2025-08-01",
+     614.91
+    ],
+    [
+     "2025-08-04",
+     624.25
+    ],
+    [
+     "2025-08-05",
+     621.09
+    ],
+    [
+     "2025-08-06",
+     625.85
+    ],
+    [
+     "2025-08-07",
+     625.32
+    ],
+    [
+     "2025-08-08",
+     630.2
+    ],
+    [
+     "2025-08-11",
+     628.95
+    ],
+    [
+     "2025-08-12",
+     635.65
+    ],
+    [
+     "2025-08-13",
+     637.82
+    ],
+    [
+     "2025-08-14",
+     637.88
+    ],
+    [
+     "2025-08-15",
+     636.39
+    ],
+    [
+     "2025-08-18",
+     636.25
+    ],
+    [
+     "2025-08-19",
+     632.8
+    ],
+    [
+     "2025-08-20",
+     631.12
+    ],
+    [
+     "2025-08-21",
+     628.59
+    ],
+    [
+     "2025-08-22",
+     638.24
+    ],
+    [
+     "2025-08-25",
+     635.43
+    ],
+    [
+     "2025-08-26",
+     638.09
+    ],
+    [
+     "2025-08-27",
+     639.54
+    ],
+    [
+     "2025-08-28",
+     641.81
+    ],
+    [
+     "2025-08-29",
+     637.98
+    ],
+    [
+     "2025-09-02",
+     633.25
+    ],
+    [
+     "2025-09-03",
+     636.69
+    ],
+    [
+     "2025-09-04",
+     642.01
+    ],
+    [
+     "2025-09-05",
+     640.15
+    ],
+    [
+     "2025-09-08",
+     641.72
+    ],
+    [
+     "2025-09-09",
+     643.2
+    ],
+    [
+     "2025-09-10",
+     645.06
+    ],
+    [
+     "2025-09-11",
+     650.42
+    ],
+    [
+     "2025-09-12",
+     650.21
+    ],
+    [
+     "2025-09-15",
+     653.67
+    ],
+    [
+     "2025-09-16",
+     652.77
+    ],
+    [
+     "2025-09-17",
+     651.96
+    ],
+    [
+     "2025-09-18",
+     655.0
+    ],
+    [
+     "2025-09-19",
+     658.25
+    ],
+    [
+     "2025-09-22",
+     661.36
+    ],
+    [
+     "2025-09-23",
+     657.76
+    ],
+    [
+     "2025-09-24",
+     655.67
+    ],
+    [
+     "2025-09-25",
+     652.64
+    ],
+    [
+     "2025-09-26",
+     656.38
+    ],
+    [
+     "2025-09-29",
+     658.23
+    ],
+    [
+     "2025-09-30",
+     660.71
+    ],
+    [
+     "2025-10-01",
+     662.96
+    ],
+    [
+     "2025-10-02",
+     663.72
+    ],
+    [
+     "2025-10-03",
+     663.71
+    ],
+    [
+     "2025-10-06",
+     666.09
+    ],
+    [
+     "2025-10-07",
+     663.62
+    ],
+    [
+     "2025-10-08",
+     667.58
+    ],
+    [
+     "2025-10-09",
+     665.65
+    ],
+    [
+     "2025-10-10",
+     647.65
+    ],
+    [
+     "2025-10-13",
+     657.59
+    ],
+    [
+     "2025-10-14",
+     656.79
+    ],
+    [
+     "2025-10-15",
+     659.7
+    ],
+    [
+     "2025-10-16",
+     655.21
+    ],
+    [
+     "2025-10-17",
+     658.93
+    ],
+    [
+     "2025-10-20",
+     665.78
+    ],
+    [
+     "2025-10-21",
+     665.77
+    ],
+    [
+     "2025-10-22",
+     662.31
+    ],
+    [
+     "2025-10-23",
+     666.24
+    ],
+    [
+     "2025-10-24",
+     671.69
+    ],
+    [
+     "2025-10-27",
+     679.61
+    ],
+    [
+     "2025-10-28",
+     681.41
+    ],
+    [
+     "2025-10-29",
+     681.74
+    ],
+    [
+     "2025-10-30",
+     674.24
+    ],
+    [
+     "2025-10-31",
+     676.46
+    ],
+    [
+     "2025-11-03",
+     677.73
+    ],
+    [
+     "2025-11-04",
+     669.69
+    ],
+    [
+     "2025-11-05",
+     672.01
+    ],
+    [
+     "2025-11-06",
+     664.8
+    ],
+    [
+     "2025-11-07",
+     665.46
+    ],
+    [
+     "2025-11-10",
+     675.84
+    ],
+    [
+     "2025-11-11",
+     677.39
+    ],
+    [
+     "2025-11-12",
+     677.76
+    ],
+    [
+     "2025-11-13",
+     666.52
+    ],
+    [
+     "2025-11-14",
+     666.41
+    ],
+    [
+     "2025-11-17",
+     660.2
+    ],
+    [
+     "2025-11-18",
+     654.66
+    ],
+    [
+     "2025-11-19",
+     657.19
+    ],
+    [
+     "2025-11-20",
+     647.17
+    ],
+    [
+     "2025-11-21",
+     653.61
+    ],
+    [
+     "2025-11-24",
+     663.24
+    ],
+    [
+     "2025-11-25",
+     669.47
+    ],
+    [
+     "2025-11-26",
+     674.1
+    ],
+    [
+     "2025-11-28",
+     677.77
+    ],
+    [
+     "2025-12-01",
+     674.68
+    ],
+    [
+     "2025-12-02",
+     675.93
+    ],
+    [
+     "2025-12-03",
+     678.27
+    ],
+    [
+     "2025-12-04",
+     678.77
+    ],
+    [
+     "2025-12-05",
+     680.06
+    ],
+    [
+     "2025-12-08",
+     678.01
+    ],
+    [
+     "2025-12-09",
+     677.43
+    ],
+    [
+     "2025-12-10",
+     681.92
+    ],
+    [
+     "2025-12-11",
+     683.51
+    ],
+    [
+     "2025-12-12",
+     676.16
+    ],
+    [
+     "2025-12-15",
+     675.14
+    ],
+    [
+     "2025-12-16",
+     673.29
+    ],
+    [
+     "2025-12-17",
+     665.88
+    ],
+    [
+     "2025-12-18",
+     670.91
+    ],
+    [
+     "2025-12-19",
+     676.99
+    ],
+    [
+     "2025-12-22",
+     681.21
+    ],
+    [
+     "2025-12-23",
+     684.32
+    ],
+    [
+     "2025-12-24",
+     686.73
+    ],
+    [
+     "2025-12-26",
+     686.66
+    ],
+    [
+     "2025-12-29",
+     684.21
+    ],
+    [
+     "2025-12-30",
+     683.38
+    ],
+    [
+     "2025-12-31",
+     678.32
+    ],
+    [
+     "2026-01-02",
+     679.56
+    ],
+    [
+     "2026-01-05",
+     684.08
+    ],
+    [
+     "2026-01-06",
+     688.15
+    ],
+    [
+     "2026-01-07",
+     685.93
+    ],
+    [
+     "2026-01-08",
+     685.87
+    ],
+    [
+     "2026-01-09",
+     690.4
+    ],
+    [
+     "2026-01-12",
+     691.49
+    ],
+    [
+     "2026-01-13",
+     690.1
+    ],
+    [
+     "2026-01-14",
+     686.71
+    ],
+    [
+     "2026-01-15",
+     688.58
+    ],
+    [
+     "2026-01-16",
+     688.0
+    ],
+    [
+     "2026-01-20",
+     674.0
+    ],
+    [
+     "2026-01-21",
+     681.78
+    ],
+    [
+     "2026-01-22",
+     685.34
+    ],
+    [
+     "2026-01-23",
+     685.59
+    ],
+    [
+     "2026-01-26",
+     689.07
+    ],
+    [
+     "2026-01-27",
+     691.81
+    ],
+    [
+     "2026-01-28",
+     691.74
+    ],
+    [
+     "2026-01-29",
+     690.37
+    ],
+    [
+     "2026-01-30",
+     688.31
+    ],
+    [
+     "2026-02-02",
+     691.73
+    ],
+    [
+     "2026-02-03",
+     685.89
+    ],
+    [
+     "2026-02-04",
+     682.56
+    ],
+    [
+     "2026-02-05",
+     674.04
+    ],
+    [
+     "2026-02-06",
+     686.97
+    ],
+    [
+     "2026-02-09",
+     690.28
+    ],
+    [
+     "2026-02-10",
+     688.46
+    ],
+    [
+     "2026-02-11",
+     688.3
+    ],
+    [
+     "2026-02-12",
+     677.67
+    ],
+    [
+     "2026-02-13",
+     678.15
+    ],
+    [
+     "2026-02-17",
+     679.24
+    ],
+    [
+     "2026-02-18",
+     682.66
+    ],
+    [
+     "2026-02-19",
+     680.86
+    ],
+    [
+     "2026-02-20",
+     685.79
+    ],
+    [
+     "2026-02-23",
+     678.78
+    ],
+    [
+     "2026-02-24",
+     683.72
+    ],
+    [
+     "2026-02-25",
+     689.49
+    ],
+    [
+     "2026-02-26",
+     685.66
+    ],
+    [
+     "2026-02-27",
+     682.36
+    ],
+    [
+     "2026-03-02",
+     682.75
+    ],
+    [
+     "2026-03-03",
+     676.73
+    ],
+    [
+     "2026-03-04",
+     681.51
+    ],
+    [
+     "2026-03-05",
+     677.71
+    ],
+    [
+     "2026-03-06",
+     668.83
+    ],
+    [
+     "2026-03-09",
+     674.68
+    ],
+    [
+     "2026-03-10",
+     673.6
+    ],
+    [
+     "2026-03-11",
+     672.75
+    ],
+    [
+     "2026-03-12",
+     662.54
+    ],
+    [
+     "2026-03-13",
+     658.79
+    ],
+    [
+     "2026-03-16",
+     665.49
+    ],
+    [
+     "2026-03-17",
+     667.24
+    ],
+    [
+     "2026-03-18",
+     657.93
+    ],
+    [
+     "2026-03-19",
+     656.31
+    ],
+    [
+     "2026-03-20",
+     646.9
+    ],
+    [
+     "2026-03-23",
+     653.7
+    ],
+    [
+     "2026-03-24",
+     651.5
+    ],
+    [
+     "2026-03-25",
+     655.13
+    ],
+    [
+     "2026-03-26",
+     643.43
+    ],
+    [
+     "2026-03-27",
+     632.46
+    ],
+    [
+     "2026-03-30",
+     630.35
+    ],
+    [
+     "2026-03-31",
+     648.67
+    ],
+    [
+     "2026-04-01",
+     653.56
+    ],
+    [
+     "2026-04-02",
+     654.14
+    ],
+    [
+     "2026-04-06",
+     657.24
+    ],
+    [
+     "2026-04-07",
+     657.53
+    ],
+    [
+     "2026-04-08",
+     674.27
+    ],
+    [
+     "2026-04-09",
+     678.16
+    ],
+    [
+     "2026-04-10",
+     677.71
+    ],
+    [
+     "2026-04-13",
+     684.34
+    ],
+    [
+     "2026-04-14",
+     692.68
+    ],
+    [
+     "2026-04-15",
+     698.14
+    ],
+    [
+     "2026-04-16",
+     699.86
+    ],
+    [
+     "2026-04-17",
+     708.32
+    ],
+    [
+     "2026-04-20",
+     706.9
+    ],
+    [
+     "2026-04-21",
+     702.27
+    ],
+    [
+     "2026-04-22",
+     709.38
+    ],
+    [
+     "2026-04-23",
+     706.63
+    ],
+    [
+     "2026-04-24",
+     712.11
+    ],
+    [
+     "2026-04-27",
+     713.33
+    ],
+    [
+     "2026-04-28",
+     709.86
+    ],
+    [
+     "2026-04-29",
+     709.75
+    ],
+    [
+     "2026-04-30",
+     716.81
+    ],
+    [
+     "2026-05-01",
+     718.8
+    ]
+   ],
+   "dots": [
+    {
+     "d": "2025-08-07",
+     "kind": "name",
+     "price": 1.3,
+     "title": "Avila Real Estate Capital Group Closes Inaugural Debt Fund, Expands Originations Team - Builder Magazine",
+     "lede": "Avila Real Estate Capital Group Closes Inaugural Debt Fund, Expands Originations Team | Builder Magazine Avila Real Estate Capital Group Closes Inaugural Debt Fund, Expands Originations Team Avila Real Estate Capital (AREC), a private real ",
+     "src": "www.builderonline.com",
+     "url": "https://www.builderonline.com/money/avila-real-estate-capital-group-closes-inaugural-debt-fund-expands-originations-team"
+    },
+    {
+     "d": "2025-08-27",
+     "kind": "name",
+     "price": 2.18,
+     "title": "First All-in-One US Rare Earth Production Hub: ReElement and Principal Mineral Break Supply Chain Barriers - Stock Titan",
+     "lede": "**American Resources Corporation's (NASDAQ:AREC)** subsidiary ReElement Technologies has signed an MOU with **Principal Mineral** to develop an integrated rare earth production facility in the United States. **FISHERS, IN / ACCESS Newswire ",
+     "src": "www.stocktitan.net",
+     "url": "https://www.stocktitan.net/news/AREC/re-element-and-principal-mineral-partner-to-provide-integrated-rare-cwhb7g2e3kuh.html"
+    },
+    {
+     "d": "2026-03-10",
+     "kind": "name",
+     "price": 3.45,
+     "title": "Avila Real Estate Capital Announces Second Close of Debt Fund, Reaching $200 Million in Commitments - Builder Magazine",
+     "lede": "## Top builders D.R. Horton, Toll Brothers, and Century Communities join as strategic investors as AREC targets $1 billion in total capital for the debt fund. Avila Real Estate Capital (AREC), a private real estate credit platform focused o",
+     "src": "www.builderonline.com",
+     "url": "https://www.builderonline.com/money/avila-real-estate-capital-announces-second-close-of-debt-fund-reaching-200-million-in-commitments"
+    }
+   ],
+   "ground_truth": [
+    {
+     "d": "2025-01-01",
+     "price": null,
+     "url": "https://markets.businessinsider.com/news/stocks/the-10-best-performing-s-and-p-500-stocks-in-2024-include-nvidia-tesla-2024-12",
+     "title": "These were the 10 best-performing S&P 500 stocks in 2024 - Markets Insider",
+     "src": "markets.businessinsider.com",
+     "detected": true
+    },
+    {
+     "d": "2025-03-05",
+     "price": 0.62,
+     "url": "https://www.tipranks.com/news/the-fly/sleep-number-says-climatecool-series-outperforming-expectations?utm_source=edition.cnn.com&utm_medium=referral",
+     "title": "Sleep Number says ClimateCool series outperforming expectations - TipRanks",
+     "src": "tipranks.com",
+     "detected": true
+    },
+    {
+     "d": "2025-06-10",
+     "price": 0.8,
+     "url": "https://www.stocktitan.net/news/AREC/re-element-technologies-advances-national-defense-supply-chain-with-isf7dph1spto.html",
+     "title": "ReElement Breaks China's Monopoly: Achieves 99.999% Pure Gallium for US Defense Industry - Stock Titan",
+     "src": "stocktitan.net",
+     "detected": false
+    },
+    {
+     "d": "2025-10-03",
+     "price": 3.7,
+     "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/",
+     "title": "USA Rare Earth Takes Off On Merger, White House Talks - Investor's Business Daily",
+     "src": "investors.com",
+     "detected": true
+    },
+    {
+     "d": "2025-10-21",
+     "price": 4.23,
+     "url": "https://www.investors.com/news/rare-earth-stocks-american-resources-usar-us-australia-critical-minerals/",
+     "title": "Rare Earth Stocks: Analyst Names Next Trump Stakes; U.S.-Australia Deal Struck - Investor's Business Daily",
+     "src": "investors.com",
+     "detected": false
+    },
+    {
+     "d": "2025-10-25",
+     "price": 3.88,
+     "url": "https://www.chosun.com/english/world-en/2025/10/26/64KVL354GRCEVMZXIW2XBJRNFQ/",
+     "title": "Second Lady Usha Vance Gains Unexpected Prominence - \uc870\uc120\uc77c\ubcf4",
+     "src": "chosun.com",
+     "detected": false
+    },
+    {
+     "d": "2025-11-21",
+     "price": 2.67,
+     "url": "https://www.npr.org/2025/11/21/nx-s1-5601696/rare-earths-china-trump-pentagon",
+     "title": "Rare earths: Federal backing and tech advances aim to help the U.S. catch up to China - NPR",
+     "src": "npr.org",
+     "detected": false
+    },
+    {
+     "d": "2025-11-21",
+     "price": 2.67,
+     "url": "https://www.mining.com/web/pentagon-lends-700-million-to-vulcan-reelement-for-magnets/",
+     "title": "Pentagon lends $700 million to Vulcan, ReElement for magnets - Mining.com",
+     "src": "mining.com",
+     "detected": false
+    },
+    {
+     "d": "2025-12-23",
+     "price": 2.63,
+     "url": "https://www.cnbc.com/2025/12/24/critical-minerals-rare-earth-magnet-makers-relish-a-moment-in-the-sun.html",
+     "title": "China\u2019s mineral dominance gives Western magnet makers a moment in the sun - CNBC",
+     "src": "cnbc.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-10",
+     "price": 3.37,
+     "url": "https://www.aol.com/articles/usa-rare-earth-stock-skyrocketing-201104739.html",
+     "title": "USA Rare Earth Stock Is Skyrocketing Today -- Is It a Buy Right Now? - AOL.com",
+     "src": "aol.com",
+     "detected": true
+    },
+    {
+     "d": "2026-01-24",
+     "price": 4.37,
+     "url": "https://www.fool.com/investing/2026/01/24/could-buying-usa-rare-earth-stock-today-set-you-up/",
+     "title": "Could Buying USA Rare Earth Stock Today Set You Up for Life? - The Motley Fool",
+     "src": "fool.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-25",
+     "price": 4.37,
+     "url": "https://www.fool.com/investing/2026/01/25/this-overlooked-rare-stock-could-transform-100/",
+     "title": "This Overlooked Rare-Earth Stock Could Transform $1,000 Into Life-Changing Wealth - The Motley Fool",
+     "src": "fool.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-26",
+     "price": 3.72,
+     "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-01-26-2026/card/usa-rare-earth-stock-jumps-after-federal-government-deal-ip1kA64k8t0H804slZKY",
+     "title": "USA Rare Earth Stock Jumps After Federal Government Deal - The Wall Street Journal",
+     "src": "wsj.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-26",
+     "price": 3.72,
+     "url": "https://www.investors.com/news/rare-earth-stocks-usar-trump-equity-stake-report/",
+     "title": "Rare Earth Stocks Jump On Trump Stake In USA Rare Earth - Investor's Business Daily",
+     "src": "investors.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-26",
+     "price": 3.72,
+     "url": "https://www.aol.com/articles/usa-rare-earth-stock-soaring-141609535.html",
+     "title": "USA Rare Earth stock is soaring on news that the Trump administration is taking a stake in the mining company - AOL.com",
+     "src": "aol.com",
+     "detected": true
+    },
+    {
+     "d": "2026-01-26",
+     "price": 3.72,
+     "url": "https://www.forbes.com/sites/tylerroush/2026/01/26/usa-rare-earth-surges-20-after-trump-administration-invests-16-billion/",
+     "title": "USA Rare Earth Surges 20% After Trump Administration Invests $1.6 Billion - Forbes",
+     "src": "forbes.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-26",
+     "price": 3.72,
+     "url": "https://www.cnbc.com/2026/01/26/usa-rare-earth-shares-jump-20percent-as-commerce-department-takes-equity-stake.html",
+     "title": "USA Rare Earth shares jump 20% as Commerce Department takes equity stake - CNBC",
+     "src": "cnbc.com",
+     "detected": false
+    },
+    {
+     "d": "2026-01-31",
+     "price": 3.16,
+     "url": "https://www.fool.com/investing/2026/01/31/is-usa-rare-earth-stock-a-once-in-a-decade/",
+     "title": "Is USA Rare Earth Stock a Once-in-a-Decade Rare-Earth Opportunity?\u200b - The Motley Fool",
+     "src": "fool.com",
+     "detected": false
+    },
+    {
+     "d": "2026-02-14",
+     "price": 3.08,
+     "url": "https://www.marketbeat.com/instant-alerts/promising-gold-stocks-to-add-to-your-watchlist-february-14th-2026-02-14/",
+     "title": "Promising Gold Stocks To Add to Your Watchlist - February 14th - MarketBeat",
+     "src": "marketbeat.com",
+     "detected": true
+    },
+    {
+     "d": "2026-02-26",
+     "price": 3.08,
+     "url": "https://www.investors.com/news/five-rare-earth-stocks-to-watch-as-shortages-hit-aerospace/",
+     "title": "Five Rare Earth Stocks To Watch As Shortages Hit Aerospace - Investor's Business Daily",
+     "src": "investors.com",
+     "detected": true
+    },
+    {
+     "d": "2026-03-15",
+     "price": 3.11,
+     "url": "https://www.cnbc.com/2026/03/15/top-wall-street-analysts-are-bullish-on-these-3-dividend-paying-energy-stocks.html",
+     "title": "Top Wall Street analysts are bullish on these 3 dividend-paying energy stocks - CNBC",
+     "src": "cnbc.com",
+     "detected": true
+    },
+    {
+     "d": "2026-04-20",
+     "price": 2.35,
+     "url": "https://www.investors.com/news/usa-rare-earth-stock-soars-brazil-mega-deal-china-battle-heats-up/",
+     "title": "2 Trump Bets In Critical Rare Earths Jump Above Key Levels - Investor's Business Daily",
+     "src": "investors.com",
+     "detected": true
+    }
+   ]
+  },
   "GDX": {
    "ticker": "GDX",
    "window": [
-    "2025-07-16",
+    "2025-01-31",
     "2026-04-28"
    ],
    "series": [
+    [
+     "2025-01-31",
+     38.68
+    ],
+    [
+     "2025-02-03",
+     39.27
+    ],
+    [
+     "2025-02-04",
+     39.74
+    ],
+    [
+     "2025-02-05",
+     40.74
+    ],
+    [
+     "2025-02-06",
+     40.83
+    ],
+    [
+     "2025-02-07",
+     40.57
+    ],
+    [
+     "2025-02-10",
+     41.66
+    ],
+    [
+     "2025-02-11",
+     41.14
+    ],
+    [
+     "2025-02-12",
+     41.83
+    ],
+    [
+     "2025-02-13",
+     42.2
+    ],
+    [
+     "2025-02-14",
+     40.78
+    ],
+    [
+     "2025-02-18",
+     41.24
+    ],
+    [
+     "2025-02-19",
+     41.24
+    ],
+    [
+     "2025-02-20",
+     41.94
+    ],
+    [
+     "2025-02-21",
+     40.51
+    ],
+    [
+     "2025-02-24",
+     40.67
+    ],
+    [
+     "2025-02-25",
+     40.09
+    ],
+    [
+     "2025-02-26",
+     40.57
+    ],
+    [
+     "2025-02-27",
+     39.18
+    ],
+    [
+     "2025-02-28",
+     39.43
+    ],
+    [
+     "2025-03-03",
+     39.42
+    ],
+    [
+     "2025-03-04",
+     39.99
+    ],
+    [
+     "2025-03-05",
+     41.4
+    ],
+    [
+     "2025-03-06",
+     41.06
+    ],
+    [
+     "2025-03-07",
+     41.34
+    ],
+    [
+     "2025-03-10",
+     40.22
+    ],
+    [
+     "2025-03-11",
+     41.54
+    ],
+    [
+     "2025-03-12",
+     41.6
+    ],
+    [
+     "2025-03-13",
+     42.9
+    ],
+    [
+     "2025-03-14",
+     43.33
+    ],
+    [
+     "2025-03-17",
+     44.25
+    ],
+    [
+     "2025-03-18",
+     44.53
+    ],
+    [
+     "2025-03-19",
+     44.9
+    ],
+    [
+     "2025-03-20",
+     44.83
+    ],
+    [
+     "2025-03-21",
+     44.18
+    ],
+    [
+     "2025-03-24",
+     43.93
+    ],
+    [
+     "2025-03-25",
+     44.7
+    ],
+    [
+     "2025-03-26",
+     44.35
+    ],
+    [
+     "2025-03-27",
+     45.43
+    ],
+    [
+     "2025-03-28",
+     45.24
+    ],
+    [
+     "2025-03-31",
+     45.64
+    ],
+    [
+     "2025-04-01",
+     45.47
+    ],
+    [
+     "2025-04-02",
+     45.43
+    ],
+    [
+     "2025-04-03",
+     45.39
+    ],
+    [
+     "2025-04-04",
+     41.38
+    ],
+    [
+     "2025-04-07",
+     41.15
+    ],
+    [
+     "2025-04-08",
+     41.2
+    ],
+    [
+     "2025-04-09",
+     44.67
+    ],
+    [
+     "2025-04-10",
+     46.83
+    ],
+    [
+     "2025-04-11",
+     49.34
+    ],
+    [
+     "2025-04-14",
+     49.66
+    ],
+    [
+     "2025-04-15",
+     50.17
+    ],
+    [
+     "2025-04-16",
+     51.54
+    ],
+    [
+     "2025-04-17",
+     50.55
+    ],
+    [
+     "2025-04-21",
+     51.29
+    ],
+    [
+     "2025-04-22",
+     49.87
+    ],
+    [
+     "2025-04-23",
+     48.38
+    ],
+    [
+     "2025-04-24",
+     49.4
+    ],
+    [
+     "2025-04-25",
+     48.46
+    ],
+    [
+     "2025-04-28",
+     49.07
+    ],
+    [
+     "2025-04-29",
+     48.13
+    ],
+    [
+     "2025-04-30",
+     48.66
+    ],
+    [
+     "2025-05-01",
+     46.86
+    ],
+    [
+     "2025-05-02",
+     46.74
+    ],
+    [
+     "2025-05-05",
+     48.37
+    ],
+    [
+     "2025-05-06",
+     50.42
+    ],
+    [
+     "2025-05-07",
+     49.46
+    ],
+    [
+     "2025-05-08",
+     48.53
+    ],
+    [
+     "2025-05-09",
+     50.01
+    ],
+    [
+     "2025-05-12",
+     46.28
+    ],
+    [
+     "2025-05-13",
+     46.2
+    ],
+    [
+     "2025-05-14",
+     45.22
+    ],
+    [
+     "2025-05-15",
+     46.15
+    ],
+    [
+     "2025-05-16",
+     46.0
+    ],
+    [
+     "2025-05-19",
+     47.0
+    ],
+    [
+     "2025-05-20",
+     48.46
+    ],
+    [
+     "2025-05-21",
+     49.08
+    ],
+    [
+     "2025-05-22",
+     48.83
+    ],
+    [
+     "2025-05-23",
+     50.17
+    ],
+    [
+     "2025-05-27",
+     49.41
+    ],
+    [
+     "2025-05-28",
+     49.99
+    ],
+    [
+     "2025-05-29",
+     49.92
+    ],
+    [
+     "2025-05-30",
+     50.28
+    ],
+    [
+     "2025-06-02",
+     53.38
+    ],
+    [
+     "2025-06-03",
+     52.71
+    ],
+    [
+     "2025-06-04",
+     52.83
+    ],
+    [
+     "2025-06-05",
+     52.77
+    ],
+    [
+     "2025-06-06",
+     51.25
+    ],
+    [
+     "2025-06-09",
+     51.75
+    ],
+    [
+     "2025-06-10",
+     51.06
+    ],
+    [
+     "2025-06-11",
+     51.57
+    ],
+    [
+     "2025-06-12",
+     53.14
+    ],
+    [
+     "2025-06-13",
+     54.07
+    ],
+    [
+     "2025-06-16",
+     53.16
+    ],
+    [
+     "2025-06-17",
+     53.12
+    ],
+    [
+     "2025-06-18",
+     52.62
+    ],
+    [
+     "2025-06-20",
+     51.91
+    ],
+    [
+     "2025-06-23",
+     52.73
+    ],
+    [
+     "2025-06-24",
+     51.49
+    ],
+    [
+     "2025-06-25",
+     51.55
+    ],
+    [
+     "2025-06-26",
+     52.24
+    ],
+    [
+     "2025-06-27",
+     50.36
+    ],
+    [
+     "2025-06-30",
+     51.68
+    ],
+    [
+     "2025-07-01",
+     51.66
+    ],
+    [
+     "2025-07-02",
+     52.28
+    ],
+    [
+     "2025-07-03",
+     52.53
+    ],
+    [
+     "2025-07-07",
+     52.79
+    ],
+    [
+     "2025-07-08",
+     50.42
+    ],
+    [
+     "2025-07-09",
+     51.13
+    ],
+    [
+     "2025-07-10",
+     51.53
+    ],
+    [
+     "2025-07-11",
+     52.04
+    ],
+    [
+     "2025-07-14",
+     52.07
+    ],
+    [
+     "2025-07-15",
+     51.25
+    ],
     [
      "2025-07-16",
      51.45
@@ -4352,6 +8225,458 @@
    ],
    "spy_series": [
     [
+     "2025-01-31",
+     591.69
+    ],
+    [
+     "2025-02-03",
+     587.71
+    ],
+    [
+     "2025-02-04",
+     591.65
+    ],
+    [
+     "2025-02-05",
+     594.05
+    ],
+    [
+     "2025-02-06",
+     596.11
+    ],
+    [
+     "2025-02-07",
+     590.66
+    ],
+    [
+     "2025-02-10",
+     594.67
+    ],
+    [
+     "2025-02-11",
+     595.12
+    ],
+    [
+     "2025-02-12",
+     593.2
+    ],
+    [
+     "2025-02-13",
+     599.47
+    ],
+    [
+     "2025-02-14",
+     599.44
+    ],
+    [
+     "2025-02-18",
+     601.2
+    ],
+    [
+     "2025-02-19",
+     602.61
+    ],
+    [
+     "2025-02-20",
+     600.11
+    ],
+    [
+     "2025-02-21",
+     589.84
+    ],
+    [
+     "2025-02-24",
+     587.16
+    ],
+    [
+     "2025-02-25",
+     584.24
+    ],
+    [
+     "2025-02-26",
+     584.53
+    ],
+    [
+     "2025-02-27",
+     575.2
+    ],
+    [
+     "2025-02-28",
+     584.18
+    ],
+    [
+     "2025-03-03",
+     573.94
+    ],
+    [
+     "2025-03-04",
+     567.15
+    ],
+    [
+     "2025-03-05",
+     573.25
+    ],
+    [
+     "2025-03-06",
+     563.07
+    ],
+    [
+     "2025-03-07",
+     566.23
+    ],
+    [
+     "2025-03-10",
+     551.14
+    ],
+    [
+     "2025-03-11",
+     546.56
+    ],
+    [
+     "2025-03-12",
+     549.46
+    ],
+    [
+     "2025-03-13",
+     542.14
+    ],
+    [
+     "2025-03-14",
+     553.34
+    ],
+    [
+     "2025-03-17",
+     557.6
+    ],
+    [
+     "2025-03-18",
+     551.58
+    ],
+    [
+     "2025-03-19",
+     557.58
+    ],
+    [
+     "2025-03-20",
+     555.97
+    ],
+    [
+     "2025-03-21",
+     556.16
+    ],
+    [
+     "2025-03-24",
+     566.12
+    ],
+    [
+     "2025-03-25",
+     567.48
+    ],
+    [
+     "2025-03-26",
+     560.7
+    ],
+    [
+     "2025-03-27",
+     559.21
+    ],
+    [
+     "2025-03-28",
+     547.95
+    ],
+    [
+     "2025-03-31",
+     551.63
+    ],
+    [
+     "2025-04-01",
+     553.19
+    ],
+    [
+     "2025-04-02",
+     556.69
+    ],
+    [
+     "2025-04-03",
+     529.25
+    ],
+    [
+     "2025-04-04",
+     498.27
+    ],
+    [
+     "2025-04-07",
+     497.38
+    ],
+    [
+     "2025-04-08",
+     489.59
+    ],
+    [
+     "2025-04-09",
+     541.01
+    ],
+    [
+     "2025-04-10",
+     517.3
+    ],
+    [
+     "2025-04-11",
+     526.53
+    ],
+    [
+     "2025-04-14",
+     531.64
+    ],
+    [
+     "2025-04-15",
+     530.15
+    ],
+    [
+     "2025-04-16",
+     518.37
+    ],
+    [
+     "2025-04-17",
+     519.11
+    ],
+    [
+     "2025-04-21",
+     506.75
+    ],
+    [
+     "2025-04-22",
+     519.93
+    ],
+    [
+     "2025-04-23",
+     527.99
+    ],
+    [
+     "2025-04-24",
+     539.11
+    ],
+    [
+     "2025-04-25",
+     543.0
+    ],
+    [
+     "2025-04-28",
+     543.21
+    ],
+    [
+     "2025-04-29",
+     546.63
+    ],
+    [
+     "2025-04-30",
+     546.85
+    ],
+    [
+     "2025-05-01",
+     550.72
+    ],
+    [
+     "2025-05-02",
+     558.9
+    ],
+    [
+     "2025-05-05",
+     555.69
+    ],
+    [
+     "2025-05-06",
+     551.05
+    ],
+    [
+     "2025-05-07",
+     553.36
+    ],
+    [
+     "2025-05-08",
+     557.22
+    ],
+    [
+     "2025-05-09",
+     556.51
+    ],
+    [
+     "2025-05-12",
+     574.9
+    ],
+    [
+     "2025-05-13",
+     578.7
+    ],
+    [
+     "2025-05-14",
+     579.44
+    ],
+    [
+     "2025-05-15",
+     582.27
+    ],
+    [
+     "2025-05-16",
+     585.96
+    ],
+    [
+     "2025-05-19",
+     586.6
+    ],
+    [
+     "2025-05-20",
+     584.62
+    ],
+    [
+     "2025-05-21",
+     574.77
+    ],
+    [
+     "2025-05-22",
+     575.0
+    ],
+    [
+     "2025-05-23",
+     571.08
+    ],
+    [
+     "2025-05-27",
+     582.95
+    ],
+    [
+     "2025-05-28",
+     579.58
+    ],
+    [
+     "2025-05-29",
+     581.86
+    ],
+    [
+     "2025-05-30",
+     581.21
+    ],
+    [
+     "2025-06-02",
+     584.49
+    ],
+    [
+     "2025-06-03",
+     587.82
+    ],
+    [
+     "2025-06-04",
+     587.66
+    ],
+    [
+     "2025-06-05",
+     584.82
+    ],
+    [
+     "2025-06-06",
+     590.83
+    ],
+    [
+     "2025-06-09",
+     591.36
+    ],
+    [
+     "2025-06-10",
+     594.71
+    ],
+    [
+     "2025-06-11",
+     593.02
+    ],
+    [
+     "2025-06-12",
+     595.37
+    ],
+    [
+     "2025-06-13",
+     588.72
+    ],
+    [
+     "2025-06-16",
+     594.32
+    ],
+    [
+     "2025-06-17",
+     589.24
+    ],
+    [
+     "2025-06-18",
+     589.15
+    ],
+    [
+     "2025-06-20",
+     587.77
+    ],
+    [
+     "2025-06-23",
+     593.57
+    ],
+    [
+     "2025-06-24",
+     600.13
+    ],
+    [
+     "2025-06-25",
+     600.47
+    ],
+    [
+     "2025-06-26",
+     605.16
+    ],
+    [
+     "2025-06-27",
+     608.17
+    ],
+    [
+     "2025-06-30",
+     611.08
+    ],
+    [
+     "2025-07-01",
+     610.88
+    ],
+    [
+     "2025-07-02",
+     613.65
+    ],
+    [
+     "2025-07-03",
+     618.49
+    ],
+    [
+     "2025-07-07",
+     613.88
+    ],
+    [
+     "2025-07-08",
+     613.54
+    ],
+    [
+     "2025-07-09",
+     617.22
+    ],
+    [
+     "2025-07-10",
+     618.96
+    ],
+    [
+     "2025-07-11",
+     616.79
+    ],
+    [
+     "2025-07-14",
+     617.96
+    ],
+    [
+     "2025-07-15",
+     615.32
+    ],
+    [
      "2025-07-16",
      617.38
     ],
@@ -5146,6 +9471,15 @@
    ],
    "dots": [
     {
+     "d": "2025-02-21",
+     "kind": "name",
+     "price": 40.51,
+     "title": "GDX\u2019s dozen-year breakout - MINING.com",
+     "lede": "How bullish sentiment shifts fuel huge gold-stock gains, the perspective from GDX\u2019s current technicals, why that long-awaited secular breakout failed in late October, and why gold stocks will almost certainly punch through this time around.",
+     "src": "www.mining.com",
+     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/"
+    },
+    {
      "d": "2025-08-06",
      "kind": "name",
      "price": 56.98,
@@ -5162,16 +9496,122 @@
      "lede": "(NYSE:NEM) plunged nearly 10%, while the **VanEck Gold Miners ETF** (NYSE:GDX) slid 9.5%, marking its worst day in over five years. * The\u00a0**Vanguard S&P 500 ETF** (NYSE:VOO) edged 0.17% higher to $618.24. * The\u00a0**SPDR Dow Jones Industrial A",
      "src": "www.benzinga.com",
      "url": "https://www.benzinga.com/markets/equities/25/10/48333748/markets-today-tuesday-wall-street-gold-plunges-silver-sinks-dow-jones-record-highs"
+    },
+    {
+     "d": "2025-10-21",
+     "kind": "name",
+     "price": 72.27,
+     "title": "Gold Prices Suffer Worst Loss In 12 Years After Huge Rally; These ETFs, Miners Plunge - Investor's Business Daily",
+     "lede": "Gold miner ETFs sank Tuesday in stock market trade as gold prices tumbled more than 6%. SPDR Gold Shares (GLD) fell more than 6% in stock market action. VanEck Gold Miners (GDX), VanEck Junior Gold Miners ETF (GDXJ) and Sprott Gold Miners E",
+     "src": "www.investors.com",
+     "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/"
+    },
+    {
+     "d": "2026-02-23",
+     "kind": "name",
+     "price": 110.29,
+     "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
+     "lede": "Entering text into the input field will update the search result below. Entering text into the input field will update the search result below. Search for Symbols, analysts, keywords. Join the community built by investors, for investors. Fe",
+     "src": "seekingalpha.com",
+     "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money"
     }
    ],
    "ground_truth": [
+    {
+     "d": "2025-02-07",
+     "price": 40.57,
+     "url": "https://www.mining.com/web/gold-stock-valuation-anomaly/",
+     "title": "Gold stock valuation anomaly - MINING.com",
+     "src": "mining.com",
+     "detected": false
+    },
+    {
+     "d": "2025-02-21",
+     "price": 40.51,
+     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/",
+     "title": "GDX\u2019s dozen-year breakout - MINING.com",
+     "src": "mining.com",
+     "detected": true
+    },
+    {
+     "d": "2025-02-25",
+     "price": 40.09,
+     "url": "https://www.mining.com/web/gold-stocks-glitter-as-worries-around-inflation-tariffs-flare/",
+     "title": "Gold stocks glitter as worries around inflation, tariffs flare - MINING.com",
+     "src": "mining.com",
+     "detected": true
+    },
+    {
+     "d": "2025-04-17",
+     "price": 50.55,
+     "url": "https://www.mining.com/web/gdxs-gold-pursuit-quickens/",
+     "title": "GDX\u2019s gold pursuit quickens - Mining.com",
+     "src": "mining.com",
+     "detected": false
+    },
+    {
+     "d": "2025-05-02",
+     "price": 46.74,
+     "url": "https://www.fool.com/investing/2025/05/02/3-no-brainer-gold-stocks-to-buy-right-now/",
+     "title": "3 No-Brainer Gold Stocks to Buy Right Now - The Motley Fool",
+     "src": "fool.com",
+     "detected": false
+    },
+    {
+     "d": "2025-05-09",
+     "price": 50.01,
+     "url": "https://www.kitco.com/opinion/2025-05-09/its-old-turkey-time-gold-stock-investors",
+     "title": "Its Old Turkey Time for gold stock investors - KITCO",
+     "src": "kitco.com",
+     "detected": true
+    },
+    {
+     "d": "2025-05-16",
+     "price": 46.0,
+     "url": "https://www.mining.com/web/gold-miners-q1-2025-fundamentals/",
+     "title": "Gold miners\u2019 Q1 2025 fundamentals - Mining.com",
+     "src": "mining.com",
+     "detected": false
+    },
+    {
+     "d": "2025-05-24",
+     "price": 50.17,
+     "url": "https://www.forbes.com/sites/brettowens/2025/05/24/why-the-moodys-downgrade-puts-this-dividend-duo-in-bullish-mood/",
+     "title": "Why The Moody\u2019s Downgrade Puts This Dividend Duo In Bullish Mood - Forbes",
+     "src": "forbes.com",
+     "detected": false
+    },
+    {
+     "d": "2025-06-03",
+     "price": 52.71,
+     "url": "https://www.kitco.com/opinion/2025-06-03/gdx-words-most-aesthetic-chart",
+     "title": "GDX: The word's most aesthetic chart? - KITCO",
+     "src": "kitco.com",
+     "detected": false
+    },
+    {
+     "d": "2025-06-14",
+     "price": 54.07,
+     "url": "https://www.jpost.com/business-and-innovation/precious-metals/article-857690",
+     "title": "Gold Mining Stocks Surge as Gold and Silver Break Out: Bull Market Enters Hyperdrive - The Jerusalem Post",
+     "src": "jpost.com",
+     "detected": true
+    },
+    {
+     "d": "2025-06-27",
+     "price": 50.36,
+     "url": "https://www.mining.com/web/gold-miners-stack-records/",
+     "title": "Gold miners stack records - Mining.com",
+     "src": "mining.com",
+     "detected": false
+    },
     {
      "d": "2025-07-18",
      "price": 50.76,
      "url": "https://www.mining.com/web/gold-stocks-priming-to-run/",
      "title": "Gold stocks priming to run - Mining.com",
      "src": "mining.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-08-01",
@@ -5227,7 +9667,7 @@
      "url": "https://www.kitco.com/opinion/2025-10-16/dips-rx-acrophobia",
      "title": "Dips: The Rx for acrophobia - KITCO",
      "src": "kitco.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-10-17",
@@ -5251,7 +9691,7 @@
      "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/",
      "title": "Gold Prices Suffer Worst Loss In 12 Years After Huge Rally; These ETFs, Miners Plunge - Investor's Business Daily",
      "src": "investors.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-10-24",
@@ -5307,7 +9747,7 @@
      "url": "https://www.mining.com/web/precious-metals-greatest-year/",
      "title": "Precious metals\u2019 greatest year - Mining.com",
      "src": "mining.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-12-26",
@@ -5339,7 +9779,7 @@
      "url": "https://www.kitco.com/news/off-the-wire/2026-01-26/gold-miner-shares-jump-bullion-prices-hit-5100oz-record-high",
      "title": "Gold miner shares jump as bullion prices hit $5,100/oz record high - KITCO",
      "src": "kitco.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2026-01-26",
@@ -5355,7 +9795,7 @@
      "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money",
      "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
      "src": "seekingalpha.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2026-04-03",
@@ -8510,75 +12950,11 @@
    ],
    "ground_truth": [
     {
-     "d": "2025-01-01",
-     "price": null,
-     "url": "https://markets.businessinsider.com/news/stocks/the-10-best-performing-s-and-p-500-stocks-in-2024-include-nvidia-tesla-2024-12",
-     "title": "These were the 10 best-performing S&P 500 stocks in 2024 - Markets Insider",
-     "src": "markets.businessinsider.com",
-     "detected": true
-    },
-    {
      "d": "2025-01-30",
      "price": 153.6,
      "url": "https://www.yahoo.com/news/germany-orders-weapons-worth-2-192244289.html",
      "title": "Defense Stocks Rise After Germany\u2019s \u20ac2.5 Billion Weapons Order - Yahoo! Voices",
      "src": "yahoo.com",
-     "detected": true
-    },
-    {
-     "d": "2025-02-02",
-     "price": 153.7,
-     "url": "https://www.forbes.com/sites/investor-hub/article/best-defense-stocks-to-buy-2025/",
-     "title": "6 Defense Stocks To Buy In 2025 - Forbes",
-     "src": "forbes.com",
-     "detected": true
-    },
-    {
-     "d": "2025-02-06",
-     "price": 145.26,
-     "url": "https://tradebrains.in/defence-stock-jumps-5-after-signing-manufacturing-partnership-with-redon-systems/",
-     "title": "Defence stock jumps 5% after signing manufacturing partnership with Redon Systems - Trade Brains",
-     "src": "tradebrains.in",
-     "detected": true
-    },
-    {
-     "d": "2025-02-11",
-     "price": 149.75,
-     "url": "https://www.haaretz.com/israel-news/security-aviation/2025-02-11/ty-article/.premium/israels-defense-ministry-cancels-major-rifle-supply-tender-won-by-little-known-company/00000194-f45f-d3a7-a1fc-fd7f40b60000",
-     "title": "Israel's Defense Ministry Cancels Major Rifle Supply Tender Won by Little-known Company - Haaretz",
-     "src": "haaretz.com",
-     "detected": false
-    },
-    {
-     "d": "2025-02-12",
-     "price": 141.79,
-     "url": "https://tradebrains.in/features/defence-stock-jumps-8-after-reporting-829-yoy-increase-in-net-profit/",
-     "title": "Defence stock jumps 8% after reporting 829% YOY increase in net profit - Trade Brains",
-     "src": "tradebrains.in",
-     "detected": true
-    },
-    {
-     "d": "2025-02-13",
-     "price": 154.41,
-     "url": "https://tradebrains.in/features/category/trending-news/",
-     "title": "Trending News Archives - Trade Brains",
-     "src": "tradebrains.in",
-     "detected": true
-    },
-    {
-     "d": "2025-02-20",
-     "price": 185.65,
-     "url": "https://www.cnbc.com/2025/02/20/defense-stocks-are-in-focus-because-of-possible-spending-cut-how-to-play-it-with-options.html",
-     "title": "Defense stocks are in focus because of possible spending cut. How to play it with options - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-02-23",
-     "price": 183.74,
-     "url": "https://finance.yahoo.com/news/asset-managers-churn-defense-funds-090000608.html",
-     "title": "Asset Managers Churn Out Defense Funds Once Deemed Uninvestable - Yahoo Finance",
-     "src": "finance.yahoo.com",
      "detected": true
     },
     {
@@ -8614,83 +12990,11 @@
      "detected": false
     },
     {
-     "d": "2025-03-03",
-     "price": 245.33,
-     "url": "https://finance.yahoo.com/news/european-defense-stocks-hit-record-132145031.html",
-     "title": "European defense stocks hit record high after Trump and Zelensky\u2019s disastrous meeting - Yahoo Finance",
-     "src": "finance.yahoo.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-03",
-     "price": 245.33,
-     "url": "https://www.cnn.com/2025/03/03/business/europe-defense-stocks-record-intl/index.html",
-     "title": "European defense stocks hit record high after Trump and Zelensky\u2019s disastrous meeting - CNN",
-     "src": "cnn.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-03",
-     "price": 245.33,
-     "url": "https://www.bloomberg.com/news/articles/2025-03-03/european-defense-stocks-jump-as-leaders-show-support-for-ukraine?srnd=financials",
-     "title": "European Defense Stocks Jump as Leaders Show Support for Ukraine - Bloomberg",
-     "src": "bloomberg.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-05",
-     "price": 253.64,
-     "url": "https://www.forbes.com/sites/greatspeculations/2025/03/05/gd-stock-vs-lmt-stock--why-general-dynamics-emerges-as-the-superior-defense-stock/",
-     "title": "GD Stock Vs. LMT Stock : Why General Dynamics Emerges As The Superior Defense Stock? - Forbes",
-     "src": "forbes.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-05",
-     "price": 253.64,
-     "url": "https://www.tipranks.com/news/the-fly/sleep-number-says-climatecool-series-outperforming-expectations?utm_source=edition.cnn.com&utm_medium=referral",
-     "title": "Sleep Number says ClimateCool series outperforming expectations - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
      "d": "2025-03-16",
      "price": 294.11,
      "url": "https://fortune.com/2025/03/16/rheinmetall-defense-contractor-europe-european-union-germany-ukraine-russia-nato/",
      "title": "Rheinmetall sees growth 'that we have never experienced before' - Fortune",
      "src": "fortune.com",
-     "detected": false
-    },
-    {
-     "d": "2025-03-17",
-     "price": 296.38,
-     "url": "https://tradebrains.in/features/defence-stock-jumps-4-after-3p-india-equity-increased-their-stake-by-3-37/",
-     "title": "Defence stock jumps 4% after 3P India Equity increased their stake by 3.37% - Trade Brains",
-     "src": "tradebrains.in",
-     "detected": true
-    },
-    {
-     "d": "2025-05-19",
-     "price": 391.96,
-     "url": "https://sports.yahoo.com/article/bucs-yaya-named-most-underrated-221800083.html",
-     "title": "Bucs Yaya Named 'Most Underrated' Player - Yahoo Sports",
-     "src": "sports.yahoo.com",
-     "detected": false
-    },
-    {
-     "d": "2025-05-20",
-     "price": 398.08,
-     "url": "https://www.cnbc.com/2025/05/20/stock-market-today-live-updates.html",
-     "title": "S&P 500 futures are little changed after benchmark snaps six-day win streak: Live updates - CNBC",
-     "src": "cnbc.com",
-     "detected": true
-    },
-    {
-     "d": "2025-05-20",
-     "price": 398.08,
-     "url": "https://www.nbcnewyork.com/news/business/money-report/sp-500-futures-are-little-changed-after-benchmark-snaps-six-day-win-streak-live-updates/6272251/",
-     "title": "S&P 500 futures are little changed after benchmark snaps six-day win streak: Live updates - NBC New York",
-     "src": "nbcnewyork.com",
      "detected": false
     },
     {
@@ -8702,68 +13006,12 @@
      "detected": false
     },
     {
-     "d": "2025-06-11",
-     "price": 393.18,
-     "url": "https://www.cnbc.com/2025/06/11/a-bullish-breakout-in-this-little-known-pharma-stock-is-forming-charts-show.html",
-     "title": "A bullish breakout in this little-known pharma stock is forming, charts show - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-06-25",
-     "price": 400.47,
-     "url": "https://www.cnbc.com/2025/06/25/cramer-this-defense-stock-is-the-next-palantir-of-hardware-and-it-soared-30percent.html",
-     "title": "Jim Cramer says this defense stock is the next 'Palantir of hardware' and it soared 30% - CNBC",
-     "src": "cnbc.com",
-     "detected": true
-    },
-    {
      "d": "2025-06-26",
      "price": 429.04,
      "url": "https://bulgarianmilitary.com/2025/06/26/leopard-2-spark-rheinmetall-stock-surge-on-frankfurt-exchange/",
      "title": "Leopard 2 spark Rheinmetall stock surge on Frankfurt exchange - BulgarianMilitary.com",
      "src": "bulgarianmilitary.com",
      "detected": false
-    },
-    {
-     "d": "2025-07-02",
-     "price": 402.49,
-     "url": "https://www.cnbc.com/2025/07/02/this-sub-10-pharma-stock-is-attempting-a-bullish-breakout-according-to-the-charts.html",
-     "title": "This sub-$10 pharma stock is attempting a bullish breakout, according to the charts - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-07-19",
-     "price": 422.53,
-     "url": "https://www.insidermonkey.com/blog/8-stocks-that-jim-cramer-recently-talked-about-1571269/6/",
-     "title": "8 Stocks That Jim Cramer Recently Talked About - Insider Monkey",
-     "src": "insidermonkey.com",
-     "detected": true
-    },
-    {
-     "d": "2025-07-21",
-     "price": 417.64,
-     "url": "https://www.insidermonkey.com/blog/jim-cramer-reflected-on-these-17-stocks-1572119/4/",
-     "title": "Jim Cramer Reflected on These 17 Stocks - Insider Monkey",
-     "src": "insidermonkey.com",
-     "detected": true
-    },
-    {
-     "d": "2025-07-22",
-     "price": 410.4,
-     "url": "https://m.economictimes.com/tech/technology/technology-wont-replace-workforce-assures-labour-minister-mandaviya/articleshow/122833456.cms",
-     "title": "Technology won't replace workforce, assures Labour Minister Mandaviya - The Economic Times",
-     "src": "m.economictimes.com",
-     "detected": false
-    },
-    {
-     "d": "2025-08-01",
-     "price": 389.91,
-     "url": "https://www.insidermonkey.com/blog/10-best-stocks-to-buy-amid-gold-rally-1581404/5/",
-     "title": "10 Best Stocks to Buy Amid Gold Rally - Insider Monkey",
-     "src": "insidermonkey.com",
-     "detected": true
     },
     {
      "d": "2025-08-07",
@@ -8788,30 +13036,6 @@
      "title": "Wall Street Journal - September 15 - TradingView",
      "src": "tradingview.com",
      "detected": false
-    },
-    {
-     "d": "2025-10-03",
-     "price": 458.2,
-     "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/",
-     "title": "USA Rare Earth Takes Off On Merger, White House Talks - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": true
-    },
-    {
-     "d": "2025-10-12",
-     "price": 431.41,
-     "url": "https://ts2.tech/en/us-antimony-uamy-stock-skyrockets-on-245m-defense-deal-is-it-too-good-to-be-true/",
-     "title": "US Antimony (UAMY) Stock Skyrockets on $245M Defense Deal \u2013 Is It Too Good to Be True? - ts2.tech",
-     "src": "ts2.tech",
-     "detected": false
-    },
-    {
-     "d": "2025-10-13",
-     "price": 429.53,
-     "url": "https://www.investors.com/news/rare-earth-us-china-deal-ai-chips-world-peace-mp-usar/",
-     "title": "Price Of A U.S.-China Deal Just Got A Lot Higher; Rare Earth Stocks Soar - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": true
     },
     {
      "d": "2025-11-18",
@@ -8846,46 +13070,6 @@
      "detected": false
     },
     {
-     "d": "2026-01-05",
-     "price": 405.85,
-     "url": "https://www.tipranks.com/news/6-defense-and-energy-stocks-that-are-surging-on-trumps-venezuela-operation",
-     "title": "6 Defense and Energy Stocks that Are Surging on Trump\u2019s Venezuela Operation - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-05",
-     "price": 405.85,
-     "url": "https://www.cnbc.com/2026/01/05/defense-stocks-soar-us-strike-on-venezuela-heralds-hard-power-era.html",
-     "title": "Global defense stocks soar as U.S. strike on Venezuela heralds new 'hard power' era - CNBC",
-     "src": "cnbc.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-05",
-     "price": 405.85,
-     "url": "https://www.wsj.com/finance/defense-stocks-boosted-by-u-s-intervention-in-venezuela-as-geopolitical-risk-rises-68a75d64",
-     "title": "Defense Stocks Boosted by U.S. Intervention in Venezuela as Geopolitical Risk Rises - The Wall Street Journal",
-     "src": "wsj.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-08",
-     "price": 430.48,
-     "url": "https://apnews.com/article/trump-defense-contractors-dividends-buybacks-876b67b72369551340124c5e137bc89d",
-     "title": "How Trump shook up defense stocks this week - AP News",
-     "src": "apnews.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-13",
-     "price": 438.22,
-     "url": "https://www.investors.com/news/l3harris-department-of-defense-1-billion-investment-missile-business-ipo-ownership-stake/",
-     "title": "L3Harris Surges On $1 Billion DOD Investment, Missile IPO Plans - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": true
-    },
-    {
      "d": "2026-02-05",
      "price": 370.12,
      "url": "https://www.wsj.com/business/earnings/rheinmetall-shares-under-pressure-as-forecasts-miss-expectations-e8c9db98?gaa_at=eafs&gaa_n=AWEtsqf5HtAWt0OPtAI-YCr1Tq84LR0hjgNI-KCmYGVJBe_pD7FqGJubTRMq&gaa_ts=69847ba8&gaa_sig=5t0FpoZx19hrewnxAVbXsFIpFvTY-DTvUTKLl6rSgdgA6oQ-lHk5uvjCnFGRNFmcqo9xppNZnS4MyfGyO7wibQ%3D%3D",
@@ -8899,22 +13083,6 @@
      "url": "https://aviationweek.com/defense/missile-defense-weapons/mbda-backlog-tops-50b-surging-demand",
      "title": "MBDA Backlog Tops $50B On Surging Demand - Aviation Week",
      "src": "aviationweek.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-20",
-     "price": 405.26,
-     "url": "https://www.cnbc.com/2026/02/19/fridays-big-stock-stories-whats-likely-to-move-the-market.html",
-     "title": "Friday's big stock stories: What\u2019s likely to move the market in the next trading session - CNBC",
-     "src": "cnbc.com",
-     "detected": true
-    },
-    {
-     "d": "2026-02-20",
-     "price": 405.26,
-     "url": "https://m.economictimes.com/us/news/who-is-doug-wilson-the-controversial-pastor-sparks-backlash-after-pentagon-prayer-service-with-defense-secretary-hegseth/articleshow/128592161.cms",
-     "title": "Who is Doug Wilson? The controversial pastor sparks backlash after Pentagon prayer service with Defense Se - The Economic Times",
-     "src": "m.economictimes.com",
      "detected": false
     }
    ]
@@ -9955,14 +14123,6 @@
      "url": "https://www.cnbc.com/2026/03/18/thursdays-big-stock-stories-whats-likely-to-move-the-market.html",
      "title": "Thursday's big stock stories: What\u2019s likely to move the market in the next trading session - CNBC",
      "src": "cnbc.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-27",
-     "price": 119.06,
-     "url": "https://www.wsj.com/business/auto-transport-roundup-market-talk-83e299e3?gaa_at=eafs&gaa_n=AWEtsqdvPILqFY4RnrOfsU9CGkFr84g9tTss1PwdWRV43BINMKKmG2plWzS8&gaa_ts=69c6e302&gaa_sig=RQ7nbrU0le9TXxNH3iuDFStky3twSVAh43naGykN3xOpQU5M2a3ZalY2873VG41p9HS6hY0cmC_GSKSUrytfyw%3D%3D",
-     "title": "Auto & Transport Roundup: Market Talk - wsj.com",
-     "src": "wsj.com",
      "detected": false
     },
     {
@@ -9971,7 +14131,15 @@
      "url": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-497dadb2?gaa_at=eafs&gaa_n=AWEtsqeUaTrjggXNnrCFB3JhEgeDN6j6-zG3aDTucSM3XMOp64cI-WaHpiZJ&gaa_ts=69cb3106&gaa_sig=suJCjmnzJc59fGvURhekta1f_7hzuua9UCr4OO6AnQ3eP8-WRSwzv6gnKZ9dqs7TC2w0FgEEaYtmy6X6Tdm-Hg%3D%3D",
      "title": "Energy & Utilities Roundup: Market Talk - wsj.com",
      "src": "wsj.com",
-     "detected": true
+     "detected": false
+    },
+    {
+     "d": "2026-03-27",
+     "price": 119.06,
+     "url": "https://www.wsj.com/business/auto-transport-roundup-market-talk-83e299e3?gaa_at=eafs&gaa_n=AWEtsqdvPILqFY4RnrOfsU9CGkFr84g9tTss1PwdWRV43BINMKKmG2plWzS8&gaa_ts=69c6e302&gaa_sig=RQ7nbrU0le9TXxNH3iuDFStky3twSVAh43naGykN3xOpQU5M2a3ZalY2873VG41p9HS6hY0cmC_GSKSUrytfyw%3D%3D",
+     "title": "Auto & Transport Roundup: Market Talk - wsj.com",
+     "src": "wsj.com",
+     "detected": false
     },
     {
      "d": "2026-03-28",
@@ -10003,7 +14171,7 @@
      "url": "https://www.bozemandailychronicle.com/ap_news/business/iran-hits-tanker-off-coast-of-qatar-kuwait-airport-and-israel-kills-5-in-beirut/article_ea9c11a7-8da4-5a20-8437-83d3b8e12382.html",
      "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - Bozeman Daily Chronicle",
      "src": "bozemandailychronicle.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2026-04-01",
@@ -10011,7 +14179,7 @@
      "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-1-2026-19cf516c2d2c614eb182dbad7a6592ef",
      "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - AP News",
      "src": "apnews.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2026-04-01",
@@ -10019,14 +14187,6 @@
      "url": "https://nypost.com/2026/04/01/world-news/iran-hits-tanker-off-coast-of-qatar-kuwait-airport-and-israel-kills-5-in-beirut-attack/",
      "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - New York Post",
      "src": "nypost.com",
-     "detected": false
-    },
-    {
-     "d": "2026-04-09",
-     "price": 169.97,
-     "url": "https://www.marinelink.com/news/tanker-vessel-futures-fly-high-demand-537853",
-     "title": "Tanker Vessel Futures Fly High On Demand - Marine News Magazine",
-     "src": "marinelink.com",
      "detected": false
     },
     {
@@ -10825,7 +14985,17 @@
      754.95
     ]
    ],
-   "dots": [],
+   "dots": [
+    {
+     "d": "2026-05-07",
+     "kind": "name",
+     "price": 46.55,
+     "title": "A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks",
+     "lede": "# A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks.com. Top Analyst Stocks PopularTop Smart Score Stocks PopularAI Analyst Top Stocks NewTop Insiders StocksMarket MoversTipRanks 50 IndexAI StocksLargest Comp",
+     "src": "www.tipranks.com",
+     "url": "https://www.tipranks.com/news/a-roundhill-memory-etf-dram-slip-today-could-be-a-buying-opportunity"
+    }
+   ],
    "ground_truth": [
     {
      "d": "2026-02-14",
@@ -10873,7 +15043,7 @@
      "url": "https://www.tipranks.com/news/a-roundhill-memory-etf-dram-slip-today-could-be-a-buying-opportunity",
      "title": "A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks",
      "src": "tipranks.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2026-05-08",
@@ -10968,126 +15138,155 @@
  },
  "gt_recall": {
   "MP": [
-   15,
-   38
+   16,
+   30
+  ],
+  "AREC": [
+   9,
+   22
   ],
   "GDX": [
-   2,
+   13,
    39
   ],
   "RNMBY": [
-   26,
-   51
+   2,
+   17
   ],
   "BWET": [
    12,
-   27
+   26
   ],
   "DRAM": [
-   4,
+   5,
    19
   ]
  },
  "candidates": [
   [
    "TSM",
-   720
+   671,
+   85
   ],
   [
    "HL",
-   144
+   145,
+   13
   ],
   [
    "KGC",
-   91
-  ],
-  [
-   "CLF",
-   68
-  ],
-  [
-   "MOD",
-   66
+   90,
+   12
   ],
   [
    "CIFR",
-   64
+   66,
+   10
+  ],
+  [
+   "CLF",
+   64,
+   0
+  ],
+  [
+   "MOD",
+   63,
+   7
   ],
   [
    "AEM",
-   45
+   45,
+   11
   ],
   [
    "HMY",
-   45
+   43,
+   2
   ],
   [
    "HBM",
-   40
+   42,
+   4
   ],
   [
    "NVDA",
-   39
+   36,
+   3
   ],
   [
    "INTC",
-   35
+   35,
+   4
   ],
   [
    "IAG",
-   33
-  ],
-  [
-   "MDV",
-   33
-  ],
-  [
-   "MSFT",
-   25
-  ],
-  [
-   "RIO",
-   24
+   33,
+   1
   ],
   [
    "CDE",
-   22
+   29,
+   1
   ],
   [
-   "MP",
-   21
+   "MDV",
+   29,
+   0
   ],
   [
-   "F",
-   21
+   "RIO",
+   28,
+   0
   ],
   [
    "MU",
-   21
+   25,
+   8
   ],
   [
-   "SSRM",
-   20
+   "MSFT",
+   24,
+   1
   ],
   [
    "AU",
-   19
-  ],
-  [
-   "CSGP",
-   19
-  ],
-  [
-   "BHP",
-   18
+   24,
+   5
   ],
   [
    "EXK",
-   18
+   23,
+   5
+  ],
+  [
+   "F",
+   22,
+   1
+  ],
+  [
+   "CSGP",
+   21,
+   0
+  ],
+  [
+   "SSRM",
+   20,
+   1
   ],
   [
    "AG",
-   17
+   19,
+   1
+  ],
+  [
+   "B",
+   19,
+   2
+  ],
+  [
+   "BHP",
+   18,
+   2
   ]
  ],
  "daily": [
@@ -11097,11 +15296,11 @@
   ],
   [
    "2024-12-26",
-   30
+   34
   ],
   [
    "2024-12-27",
-   41
+   42
   ],
   [
    "2024-12-28",
@@ -11117,11 +15316,11 @@
   ],
   [
    "2024-12-31",
-   48
+   54
   ],
   [
    "2025-01-01",
-   20
+   23
   ],
   [
    "2025-01-02",
@@ -11129,7 +15328,7 @@
   ],
   [
    "2025-01-03",
-   56
+   59
   ],
   [
    "2025-01-04",
@@ -11137,23 +15336,23 @@
   ],
   [
    "2025-01-05",
-   3
+   4
   ],
   [
    "2025-01-06",
-   66
+   77
   ],
   [
    "2025-01-08",
-   48
+   54
   ],
   [
    "2025-01-09",
-   38
+   39
   ],
   [
    "2025-01-10",
-   39
+   43
   ],
   [
    "2025-01-11",
@@ -11161,27 +15360,27 @@
   ],
   [
    "2025-01-12",
-   8
+   10
   ],
   [
    "2025-01-13",
-   55
+   56
   ],
   [
    "2025-01-14",
-   41
+   43
   ],
   [
    "2025-01-15",
-   69
+   76
   ],
   [
    "2025-01-16",
-   66
+   67
   ],
   [
    "2025-01-17",
-   59
+   61
   ],
   [
    "2025-01-18",
@@ -11193,7 +15392,7 @@
   ],
   [
    "2025-01-20",
-   23
+   24
   ],
   [
    "2025-01-21",
@@ -11201,15 +15400,15 @@
   ],
   [
    "2025-01-22",
-   41
+   49
   ],
   [
    "2025-01-23",
-   35
+   38
   ],
   [
    "2025-01-24",
-   48
+   49
   ],
   [
    "2025-01-25",
@@ -11221,7 +15420,7 @@
   ],
   [
    "2025-01-27",
-   53
+   56
   ],
   [
    "2025-01-28",
@@ -11229,15 +15428,15 @@
   ],
   [
    "2025-01-29",
-   35
+   37
   ],
   [
    "2025-01-30",
-   48
+   55
   ],
   [
    "2025-01-31",
-   52
+   56
   ],
   [
    "2025-02-01",
@@ -11249,11 +15448,11 @@
   ],
   [
    "2025-02-03",
-   64
+   65
   ],
   [
    "2025-02-05",
-   44
+   47
   ],
   [
    "2025-02-06",
@@ -11261,11 +15460,11 @@
   ],
   [
    "2025-02-07",
-   52
+   56
   ],
   [
    "2025-02-08",
-   25
+   28
   ],
   [
    "2025-02-09",
@@ -11273,15 +15472,15 @@
   ],
   [
    "2025-02-10",
-   47
+   52
   ],
   [
    "2025-02-11",
-   50
+   53
   ],
   [
    "2025-02-12",
-   50
+   53
   ],
   [
    "2025-02-13",
@@ -11289,11 +15488,11 @@
   ],
   [
    "2025-02-14",
-   48
+   53
   ],
   [
    "2025-02-15",
-   32
+   33
   ],
   [
    "2025-02-16",
@@ -11301,11 +15500,11 @@
   ],
   [
    "2025-02-20",
-   45
+   47
   ],
   [
    "2025-02-21",
-   48
+   49
   ],
   [
    "2025-02-22",
@@ -11313,83 +15512,83 @@
   ],
   [
    "2025-02-23",
-   17
+   18
   ],
   [
    "2025-02-24",
-   42
+   44
   ],
   [
    "2025-02-25",
-   58
+   62
   ],
   [
    "2025-02-26",
-   56
-  ],
-  [
-   "2025-02-27",
-   70
-  ],
-  [
-   "2025-02-28",
    59
   ],
   [
+   "2025-02-27",
+   74
+  ],
+  [
+   "2025-02-28",
+   62
+  ],
+  [
    "2025-03-01",
-   29
-  ],
-  [
-   "2025-03-02",
-   26
-  ],
-  [
-   "2025-03-03",
-   68
-  ],
-  [
-   "2025-03-05",
    31
   ],
   [
+   "2025-03-02",
+   27
+  ],
+  [
+   "2025-03-03",
+   73
+  ],
+  [
+   "2025-03-05",
+   29
+  ],
+  [
    "2025-03-06",
-   17
+   13
   ],
   [
    "2025-03-07",
-   27
+   23
   ],
   [
    "2025-03-08",
-   10
+   7
   ],
   [
    "2025-03-09",
-   15
+   10
   ],
   [
    "2025-03-10",
-   54
+   49
   ],
   [
    "2025-03-11",
-   37
+   30
   ],
   [
    "2025-03-12",
-   39
+   38
   ],
   [
    "2025-03-13",
-   34
+   33
   ],
   [
    "2025-03-14",
-   27
+   28
   ],
   [
    "2025-03-15",
-   13
+   11
   ],
   [
    "2025-03-16",
@@ -11397,7 +15596,7 @@
   ],
   [
    "2025-03-17",
-   34
+   35
   ],
   [
    "2025-03-19",
@@ -11405,11 +15604,11 @@
   ],
   [
    "2025-03-20",
-   19
+   20
   ],
   [
    "2025-03-21",
-   22
+   23
   ],
   [
    "2025-03-22",
@@ -11421,11 +15620,11 @@
   ],
   [
    "2025-03-24",
-   21
+   24
   ],
   [
    "2025-03-25",
-   19
+   21
   ],
   [
    "2025-03-26",
@@ -11449,11 +15648,11 @@
   ],
   [
    "2025-03-31",
-   22
+   26
   ],
   [
    "2025-04-02",
-   24
+   25
   ],
   [
    "2025-04-03",
@@ -11477,19 +15676,19 @@
   ],
   [
    "2025-04-08",
-   75
+   80
   ],
   [
    "2025-04-09",
-   66
+   73
   ],
   [
    "2025-04-10",
-   52
+   57
   ],
   [
    "2025-04-11",
-   5
+   7
   ],
   [
    "2025-04-12",
@@ -11501,15 +15700,15 @@
   ],
   [
    "2025-04-14",
-   76
+   81
   ],
   [
    "2025-04-16",
-   142
+   151
   ],
   [
    "2025-04-17",
-   46
+   48
   ],
   [
    "2025-04-19",
@@ -11521,7 +15720,7 @@
   ],
   [
    "2025-04-21",
-   42
+   43
   ],
   [
    "2025-04-22",
@@ -11529,7 +15728,7 @@
   ],
   [
    "2025-04-23",
-   55
+   58
   ],
   [
    "2025-04-24",
@@ -11541,99 +15740,99 @@
   ],
   [
    "2025-04-30",
-   39
+   45
   ],
   [
    "2025-05-01",
-   29
+   27
   ],
   [
    "2025-05-02",
-   22
+   28
   ],
   [
    "2025-05-03",
-   18
+   14
   ],
   [
    "2025-05-04",
-   13
+   2
   ],
   [
    "2025-05-05",
-   24
+   32
   ],
   [
    "2025-05-06",
-   22
+   26
   ],
   [
    "2025-05-07",
-   30
+   31
   ],
   [
    "2025-05-08",
-   22
+   34
   ],
   [
    "2025-05-09",
-   18
+   23
   ],
   [
    "2025-05-10",
-   16
+   20
   ],
   [
    "2025-05-11",
-   12
+   10
   ],
   [
    "2025-05-12",
-   29
+   33
   ],
   [
    "2025-05-14",
-   46
+   50
   ],
   [
    "2025-05-15",
-   55
+   58
   ],
   [
    "2025-05-16",
-   37
+   39
   ],
   [
    "2025-05-17",
-   15
+   16
   ],
   [
    "2025-05-18",
-   11
+   13
   ],
   [
    "2025-05-19",
-   36
-  ],
-  [
-   "2025-05-20",
-   44
-  ],
-  [
-   "2025-05-21",
-   48
-  ],
-  [
-   "2025-05-22",
-   38
-  ],
-  [
-   "2025-05-23",
    37
   ],
   [
+   "2025-05-20",
+   47
+  ],
+  [
+   "2025-05-21",
+   51
+  ],
+  [
+   "2025-05-22",
+   40
+  ],
+  [
+   "2025-05-23",
+   38
+  ],
+  [
    "2025-05-24",
-   28
+   30
   ],
   [
    "2025-05-25",
@@ -11641,19 +15840,19 @@
   ],
   [
    "2025-05-26",
-   43
+   44
   ],
   [
    "2025-05-28",
-   52
+   57
   ],
   [
    "2025-05-29",
-   72
+   74
   ],
   [
    "2025-05-30",
-   26
+   28
   ],
   [
    "2025-05-31",
@@ -11665,7 +15864,7 @@
   ],
   [
    "2025-06-02",
-   36
+   38
   ],
   [
    "2025-06-03",
@@ -11673,15 +15872,15 @@
   ],
   [
    "2025-06-04",
-   44
+   49
   ],
   [
    "2025-06-05",
-   27
+   31
   ],
   [
    "2025-06-06",
-   29
+   34
   ],
   [
    "2025-06-07",
@@ -11693,47 +15892,47 @@
   ],
   [
    "2025-06-09",
-   35
-  ],
-  [
-   "2025-06-11",
-   53
-  ],
-  [
-   "2025-06-12",
-   52
-  ],
-  [
-   "2025-06-13",
-   37
-  ],
-  [
-   "2025-06-14",
-   18
-  ],
-  [
-   "2025-06-15",
-   16
-  ],
-  [
-   "2025-06-16",
    40
   ],
   [
-   "2025-06-17",
+   "2025-06-11",
+   54
+  ],
+  [
+   "2025-06-12",
+   57
+  ],
+  [
+   "2025-06-13",
    38
   ],
   [
+   "2025-06-14",
+   22
+  ],
+  [
+   "2025-06-15",
+   18
+  ],
+  [
+   "2025-06-16",
+   43
+  ],
+  [
+   "2025-06-17",
+   41
+  ],
+  [
    "2025-06-18",
-   37
+   38
   ],
   [
    "2025-06-19",
-   31
+   32
   ],
   [
    "2025-06-20",
-   41
+   43
   ],
   [
    "2025-06-21",
@@ -11749,19 +15948,19 @@
   ],
   [
    "2025-06-25",
-   39
+   42
   ],
   [
    "2025-06-26",
-   15
+   16
   ],
   [
    "2025-06-27",
-   21
+   16
   ],
   [
    "2025-06-28",
-   14
+   13
   ],
   [
    "2025-06-29",
@@ -11773,15 +15972,15 @@
   ],
   [
    "2025-07-01",
-   19
+   18
   ],
   [
    "2025-07-02",
-   19
+   24
   ],
   [
    "2025-07-03",
-   33
+   29
   ],
   [
    "2025-07-04",
@@ -11789,15 +15988,15 @@
   ],
   [
    "2025-07-05",
-   17
+   15
   ],
   [
    "2025-07-06",
-   18
+   14
   ],
   [
    "2025-07-07",
-   33
+   34
   ],
   [
    "2025-07-10",
@@ -11817,23 +16016,23 @@
   ],
   [
    "2025-07-14",
-   72
+   76
   ],
   [
    "2025-07-15",
-   26
+   27
   ],
   [
    "2025-07-16",
-   40
+   44
   ],
   [
    "2025-07-17",
-   50
+   55
   ],
   [
    "2025-07-18",
-   59
+   63
   ],
   [
    "2025-07-19",
@@ -11845,19 +16044,19 @@
   ],
   [
    "2025-07-21",
-   70
+   74
   ],
   [
    "2025-07-23",
-   10
+   13
   ],
   [
    "2025-07-24",
-   33
+   37
   ],
   [
    "2025-07-25",
-   48
+   57
   ],
   [
    "2025-07-26",
@@ -11865,7 +16064,7 @@
   ],
   [
    "2025-07-27",
-   10
+   11
   ],
   [
    "2025-07-28",
@@ -11873,75 +16072,75 @@
   ],
   [
    "2025-07-29",
-   49
-  ],
-  [
-   "2025-07-30",
    51
   ],
   [
-   "2025-07-31",
-   50
-  ],
-  [
-   "2025-08-01",
-   42
-  ],
-  [
-   "2025-08-02",
-   17
-  ],
-  [
-   "2025-08-03",
-   25
-  ],
-  [
-   "2025-08-04",
+   "2025-07-30",
    57
   ],
   [
+   "2025-07-31",
+   52
+  ],
+  [
+   "2025-08-01",
+   43
+  ],
+  [
+   "2025-08-02",
+   19
+  ],
+  [
+   "2025-08-03",
+   26
+  ],
+  [
+   "2025-08-04",
+   58
+  ],
+  [
    "2025-08-06",
-   39
+   40
   ],
   [
    "2025-08-07",
-   54
+   60
   ],
   [
    "2025-08-08",
-   46
+   51
   ],
   [
    "2025-08-09",
-   16
+   18
   ],
   [
    "2025-08-10",
-   23
+   25
   ],
   [
    "2025-08-11",
-   49
+   53
   ],
   [
    "2025-08-12",
-   44
+   48
   ],
   [
    "2025-08-13",
-   39
+   42
   ],
   [
    "2025-08-14",
-   39
+   42
   ],
   [
    "2025-08-15",
-   41
+   42
   ],
   [
    "2025-08-16",
-   22
+   24
   ],
   [
    "2025-08-17",
@@ -11953,79 +16152,79 @@
   ],
   [
    "2025-08-20",
-   20
+   31
   ],
   [
    "2025-08-21",
-   32
+   40
   ],
   [
    "2025-08-22",
-   22
-  ],
-  [
-   "2025-08-23",
-   13
-  ],
-  [
-   "2025-08-24",
-   19
-  ],
-  [
-   "2025-08-25",
-   29
-  ],
-  [
-   "2025-08-26",
    30
   ],
   [
-   "2025-08-27",
-   19
+   "2025-08-23",
+   12
   ],
   [
-   "2025-08-28",
-   25
-  ],
-  [
-   "2025-08-29",
-   19
-  ],
-  [
-   "2025-08-30",
-   18
-  ],
-  [
-   "2025-08-31",
+   "2025-08-24",
    15
   ],
   [
+   "2025-08-25",
+   27
+  ],
+  [
+   "2025-08-26",
+   33
+  ],
+  [
+   "2025-08-27",
+   27
+  ],
+  [
+   "2025-08-28",
+   30
+  ],
+  [
+   "2025-08-29",
+   25
+  ],
+  [
+   "2025-08-30",
+   23
+  ],
+  [
+   "2025-08-31",
+   26
+  ],
+  [
    "2025-09-01",
-   8
+   15
   ],
   [
    "2025-09-03",
-   28
+   31
   ],
   [
    "2025-09-04",
-   42
+   41
   ],
   [
    "2025-09-05",
-   39
+   38
   ],
   [
    "2025-09-06",
-   17
+   20
   ],
   [
    "2025-09-07",
-   24
+   18
   ],
   [
    "2025-09-08",
-   51
+   52
   ],
   [
    "2025-09-09",
@@ -12033,43 +16232,43 @@
   ],
   [
    "2025-09-10",
-   41
+   43
   ],
   [
    "2025-09-11",
-   42
+   50
   ],
   [
    "2025-09-12",
-   46
+   47
   ],
   [
    "2025-09-13",
-   6
+   7
   ],
   [
    "2025-09-14",
-   20
+   17
   ],
   [
    "2025-09-15",
-   45
+   44
   ],
   [
    "2025-09-17",
-   32
+   33
   ],
   [
    "2025-09-18",
-   40
+   41
   ],
   [
    "2025-09-19",
-   38
+   40
   ],
   [
    "2025-09-20",
-   6
+   8
   ],
   [
    "2025-09-21",
@@ -12081,151 +16280,151 @@
   ],
   [
    "2025-09-23",
-   52
+   55
   ],
   [
    "2025-09-24",
-   48
+   52
   ],
   [
    "2025-09-25",
-   34
-  ],
-  [
-   "2025-09-26",
-   29
-  ],
-  [
-   "2025-09-27",
-   13
-  ],
-  [
-   "2025-09-28",
-   23
-  ],
-  [
-   "2025-09-29",
-   61
-  ],
-  [
-   "2025-10-01",
    36
   ],
   [
-   "2025-10-02",
+   "2025-09-26",
    33
   ],
   [
+   "2025-09-27",
+   14
+  ],
+  [
+   "2025-09-28",
+   24
+  ],
+  [
+   "2025-09-29",
+   67
+  ],
+  [
+   "2025-10-01",
+   14
+  ],
+  [
+   "2025-10-02",
+   21
+  ],
+  [
    "2025-10-03",
-   40
+   23
   ],
   [
    "2025-10-04",
-   20
+   13
   ],
   [
    "2025-10-05",
-   19
-  ],
-  [
-   "2025-10-06",
-   50
-  ],
-  [
-   "2025-10-07",
-   41
-  ],
-  [
-   "2025-10-08",
-   46
-  ],
-  [
-   "2025-10-09",
-   41
-  ],
-  [
-   "2025-10-10",
-   61
-  ],
-  [
-   "2025-10-11",
-   27
-  ],
-  [
-   "2025-10-12",
-   24
-  ],
-  [
-   "2025-10-13",
-   44
-  ],
-  [
-   "2025-10-15",
-   24
-  ],
-  [
-   "2025-10-16",
-   25
-  ],
-  [
-   "2025-10-17",
-   28
-  ],
-  [
-   "2025-10-18",
-   18
-  ],
-  [
-   "2025-10-19",
    11
   ],
   [
-   "2025-10-20",
-   22
-  ],
-  [
-   "2025-10-21",
-   32
-  ],
-  [
-   "2025-10-22",
-   22
-  ],
-  [
-   "2025-10-23",
-   24
-  ],
-  [
-   "2025-10-24",
+   "2025-10-06",
    26
   ],
   [
+   "2025-10-07",
+   20
+  ],
+  [
+   "2025-10-08",
+   23
+  ],
+  [
+   "2025-10-09",
+   23
+  ],
+  [
+   "2025-10-10",
+   36
+  ],
+  [
+   "2025-10-11",
+   21
+  ],
+  [
+   "2025-10-12",
+   15
+  ],
+  [
+   "2025-10-13",
+   24
+  ],
+  [
+   "2025-10-15",
+   37
+  ],
+  [
+   "2025-10-16",
+   43
+  ],
+  [
+   "2025-10-17",
+   50
+  ],
+  [
+   "2025-10-18",
+   27
+  ],
+  [
+   "2025-10-19",
+   20
+  ],
+  [
+   "2025-10-20",
+   44
+  ],
+  [
+   "2025-10-21",
+   61
+  ],
+  [
+   "2025-10-22",
+   46
+  ],
+  [
+   "2025-10-23",
+   44
+  ],
+  [
+   "2025-10-24",
+   46
+  ],
+  [
    "2025-10-25",
-   8
+   18
   ],
   [
    "2025-10-26",
-   6
+   18
   ],
   [
    "2025-10-27",
-   32
+   52
   ],
   [
    "2025-10-28",
-   1
+   2
   ],
   [
    "2025-10-29",
-   38
+   43
   ],
   [
    "2025-10-30",
-   41
+   45
   ],
   [
    "2025-10-31",
-   28
+   33
   ],
   [
    "2025-11-01",
@@ -12233,15 +16432,15 @@
   ],
   [
    "2025-11-02",
-   19
+   20
   ],
   [
    "2025-11-03",
-   46
+   51
   ],
   [
    "2025-11-04",
-   48
+   49
   ],
   [
    "2025-11-05",
@@ -12249,39 +16448,39 @@
   ],
   [
    "2025-11-06",
-   53
+   57
   ],
   [
    "2025-11-07",
-   29
+   30
   ],
   [
    "2025-11-08",
-   18
+   19
   ],
   [
    "2025-11-09",
-   12
+   14
   ],
   [
    "2025-11-10",
-   55
+   57
   ],
   [
    "2025-11-11",
-   1
+   2
   ],
   [
    "2025-11-12",
-   33
+   40
   ],
   [
    "2025-11-13",
-   51
+   57
   ],
   [
    "2025-11-14",
-   37
+   41
   ],
   [
    "2025-11-15",
@@ -12289,23 +16488,23 @@
   ],
   [
    "2025-11-16",
-   20
+   21
   ],
   [
    "2025-11-17",
-   44
+   48
   ],
   [
    "2025-11-18",
-   47
+   48
   ],
   [
    "2025-11-19",
-   29
+   30
   ],
   [
    "2025-11-20",
-   39
+   41
   ],
   [
    "2025-11-21",
@@ -12313,7 +16512,7 @@
   ],
   [
    "2025-11-22",
-   14
+   17
   ],
   [
    "2025-11-23",
@@ -12321,7 +16520,7 @@
   ],
   [
    "2025-11-24",
-   41
+   44
   ],
   [
    "2025-11-25",
@@ -12329,71 +16528,67 @@
   ],
   [
    "2025-11-26",
-   40
+   23
   ],
   [
    "2025-11-27",
-   45
+   23
   ],
   [
    "2025-11-28",
-   35
+   16
   ],
   [
    "2025-11-29",
-   21
+   11
   ],
   [
    "2025-11-30",
-   18
+   10
   ],
   [
    "2025-12-01",
-   47
+   22
   ],
   [
    "2025-12-02",
-   33
+   14
   ],
   [
    "2025-12-03",
-   36
+   15
   ],
   [
    "2025-12-04",
-   55
+   33
   ],
   [
    "2025-12-05",
-   29
+   22
   ],
   [
    "2025-12-06",
-   17
+   10
   ],
   [
    "2025-12-07",
-   8
+   7
   ],
   [
    "2025-12-08",
-   42
-  ],
-  [
-   "2025-12-09",
-   2
+   19
   ],
   [
    "2025-12-10",
-   25
+   28
   ],
   [
    "2025-12-11",
-   35
+   38
   ],
   [
    "2025-12-12",
-   46
+   50
   ],
   [
    "2025-12-13",
@@ -12405,135 +16600,135 @@
   ],
   [
    "2025-12-15",
-   40
+   41
   ],
   [
    "2025-12-16",
-   50
+   51
   ],
   [
    "2025-12-17",
-   41
+   47
   ],
   [
    "2025-12-18",
-   30
-  ],
-  [
-   "2025-12-19",
-   40
-  ],
-  [
-   "2025-12-20",
-   28
-  ],
-  [
-   "2025-12-21",
-   29
-  ],
-  [
-   "2025-12-22",
-   37
-  ],
-  [
-   "2025-12-24",
-   26
-  ],
-  [
-   "2025-12-25",
-   14
-  ],
-  [
-   "2025-12-26",
-   25
-  ],
-  [
-   "2025-12-27",
-   10
-  ],
-  [
-   "2025-12-28",
-   16
-  ],
-  [
-   "2025-12-29",
-   27
-  ],
-  [
-   "2025-12-30",
-   22
-  ],
-  [
-   "2025-12-31",
-   20
-  ],
-  [
-   "2026-01-01",
-   15
-  ],
-  [
-   "2026-01-02",
-   36
-  ],
-  [
-   "2026-01-03",
-   15
-  ],
-  [
-   "2026-01-04",
-   7
-  ],
-  [
-   "2026-01-05",
-   27
-  ],
-  [
-   "2026-01-06",
-   1
-  ],
-  [
-   "2026-01-07",
-   48
-  ],
-  [
-   "2026-01-08",
-   41
-  ],
-  [
-   "2026-01-09",
-   38
-  ],
-  [
-   "2026-01-10",
-   13
-  ],
-  [
-   "2026-01-11",
-   14
-  ],
-  [
-   "2026-01-12",
-   37
-  ],
-  [
-   "2026-01-13",
-   41
-  ],
-  [
-   "2026-01-14",
    35
   ],
   [
-   "2026-01-15",
-   48
-  ],
-  [
-   "2026-01-16",
+   "2025-12-19",
    43
   ],
   [
+   "2025-12-20",
+   31
+  ],
+  [
+   "2025-12-21",
+   30
+  ],
+  [
+   "2025-12-22",
+   42
+  ],
+  [
+   "2025-12-24",
+   50
+  ],
+  [
+   "2025-12-25",
+   24
+  ],
+  [
+   "2025-12-26",
+   40
+  ],
+  [
+   "2025-12-27",
+   23
+  ],
+  [
+   "2025-12-28",
+   28
+  ],
+  [
+   "2025-12-29",
+   49
+  ],
+  [
+   "2025-12-30",
+   40
+  ],
+  [
+   "2025-12-31",
+   31
+  ],
+  [
+   "2026-01-01",
+   19
+  ],
+  [
+   "2026-01-02",
+   59
+  ],
+  [
+   "2026-01-03",
+   24
+  ],
+  [
+   "2026-01-04",
+   11
+  ],
+  [
+   "2026-01-05",
+   63
+  ],
+  [
+   "2026-01-06",
+   2
+  ],
+  [
+   "2026-01-07",
+   50
+  ],
+  [
+   "2026-01-08",
+   43
+  ],
+  [
+   "2026-01-09",
+   41
+  ],
+  [
+   "2026-01-10",
+   16
+  ],
+  [
+   "2026-01-11",
+   15
+  ],
+  [
+   "2026-01-12",
+   39
+  ],
+  [
+   "2026-01-13",
+   44
+  ],
+  [
+   "2026-01-14",
+   36
+  ],
+  [
+   "2026-01-15",
+   51
+  ],
+  [
+   "2026-01-16",
+   46
+  ],
+  [
    "2026-01-17",
-   20
+   24
   ],
   [
    "2026-01-18",
@@ -12549,67 +16744,67 @@
   ],
   [
    "2026-01-21",
-   35
+   19
   ],
   [
    "2026-01-22",
-   43
+   18
   ],
   [
    "2026-01-23",
-   41
-  ],
-  [
-   "2026-01-24",
-   25
-  ],
-  [
-   "2026-01-25",
-   8
-  ],
-  [
-   "2026-01-26",
-   42
-  ],
-  [
-   "2026-01-27",
-   44
-  ],
-  [
-   "2026-01-28",
-   36
-  ],
-  [
-   "2026-01-29",
-   34
-  ],
-  [
-   "2026-01-30",
-   36
-  ],
-  [
-   "2026-01-31",
    20
   ],
   [
-   "2026-02-01",
-   16
+   "2026-01-24",
+   14
   ],
   [
-   "2026-02-02",
-   48
+   "2026-01-25",
+   4
   ],
   [
-   "2026-02-04",
+   "2026-01-26",
    29
   ],
   [
+   "2026-01-27",
+   16
+  ],
+  [
+   "2026-01-28",
+   14
+  ],
+  [
+   "2026-01-29",
+   22
+  ],
+  [
+   "2026-01-30",
+   25
+  ],
+  [
+   "2026-01-31",
+   8
+  ],
+  [
+   "2026-02-01",
+   8
+  ],
+  [
+   "2026-02-02",
+   26
+  ],
+  [
+   "2026-02-04",
+   33
+  ],
+  [
    "2026-02-05",
-   59
+   61
   ],
   [
    "2026-02-06",
-   51
+   58
   ],
   [
    "2026-02-07",
@@ -12617,27 +16812,27 @@
   ],
   [
    "2026-02-08",
-   19
+   20
   ],
   [
    "2026-02-09",
-   47
+   51
   ],
   [
    "2026-02-10",
-   45
+   46
   ],
   [
    "2026-02-11",
-   39
+   41
   ],
   [
    "2026-02-12",
-   50
+   53
   ],
   [
    "2026-02-13",
-   38
+   41
   ],
   [
    "2026-02-14",
@@ -12645,7 +16840,7 @@
   ],
   [
    "2026-02-15",
-   12
+   13
   ],
   [
    "2026-02-16",
@@ -12653,67 +16848,67 @@
   ],
   [
    "2026-02-18",
-   23
+   39
   ],
   [
    "2026-02-19",
-   20
+   29
   ],
   [
    "2026-02-20",
-   27
+   32
   ],
   [
    "2026-02-21",
-   7
+   11
   ],
   [
    "2026-02-22",
-   8
+   15
   ],
   [
    "2026-02-23",
-   22
-  ],
-  [
-   "2026-02-24",
-   30
-  ],
-  [
-   "2026-02-25",
-   25
-  ],
-  [
-   "2026-02-26",
-   20
-  ],
-  [
-   "2026-02-27",
-   38
-  ],
-  [
-   "2026-02-28",
-   14
-  ],
-  [
-   "2026-03-01",
-   13
-  ],
-  [
-   "2026-03-02",
-   37
-  ],
-  [
-   "2026-03-04",
-   20
-  ],
-  [
-   "2026-03-05",
    45
   ],
   [
+   "2026-02-24",
+   40
+  ],
+  [
+   "2026-02-25",
+   46
+  ],
+  [
+   "2026-02-26",
+   33
+  ],
+  [
+   "2026-02-27",
+   52
+  ],
+  [
+   "2026-02-28",
+   18
+  ],
+  [
+   "2026-03-01",
+   21
+  ],
+  [
+   "2026-03-02",
+   55
+  ],
+  [
+   "2026-03-04",
+   23
+  ],
+  [
+   "2026-03-05",
+   48
+  ],
+  [
    "2026-03-06",
-   39
+   41
   ],
   [
    "2026-03-07",
@@ -12725,27 +16920,27 @@
   ],
   [
    "2026-03-09",
-   42
+   45
   ],
   [
    "2026-03-10",
-   47
+   49
   ],
   [
    "2026-03-11",
-   43
+   45
   ],
   [
    "2026-03-12",
-   36
+   38
   ],
   [
    "2026-03-13",
-   34
+   36
   ],
   [
    "2026-03-14",
-   18
+   21
   ],
   [
    "2026-03-15",
@@ -12753,107 +16948,103 @@
   ],
   [
    "2026-03-16",
-   44
+   46
   ],
   [
    "2026-03-18",
-   48
+   32
   ],
   [
    "2026-03-19",
-   41
-  ],
-  [
-   "2026-03-20",
-   41
-  ],
-  [
-   "2026-03-21",
-   13
-  ],
-  [
-   "2026-03-22",
-   19
-  ],
-  [
-   "2026-03-23",
-   33
-  ],
-  [
-   "2026-03-24",
    25
   ],
   [
-   "2026-03-25",
-   36
+   "2026-03-20",
+   39
   ],
   [
-   "2026-03-26",
-   43
+   "2026-03-21",
+   10
   ],
   [
-   "2026-03-27",
-   50
+   "2026-03-22",
+   13
   ],
   [
-   "2026-03-28",
-   12
+   "2026-03-23",
+   17
   ],
   [
-   "2026-03-29",
+   "2026-03-24",
    16
   ],
   [
-   "2026-03-30",
-   55
+   "2026-03-25",
+   32
   ],
   [
-   "2026-03-31",
-   1
+   "2026-03-26",
+   26
+  ],
+  [
+   "2026-03-27",
+   29
+  ],
+  [
+   "2026-03-28",
+   9
+  ],
+  [
+   "2026-03-29",
+   9
+  ],
+  [
+   "2026-03-30",
+   42
   ],
   [
    "2026-04-01",
-   66
+   71
   ],
   [
    "2026-04-02",
-   47
+   50
   ],
   [
    "2026-04-03",
-   27
+   28
   ],
   [
    "2026-04-04",
-   14
+   15
   ],
   [
    "2026-04-05",
-   19
+   21
   ],
   [
    "2026-04-06",
-   45
+   46
   ],
   [
    "2026-04-07",
-   33
-  ],
-  [
-   "2026-04-08",
    37
   ],
   [
+   "2026-04-08",
+   42
+  ],
+  [
    "2026-04-09",
-   41
+   43
   ],
   [
    "2026-04-10",
-   38
+   39
   ],
   [
    "2026-04-11",
-   10
+   12
   ],
   [
    "2026-04-12",
@@ -12861,47 +17052,47 @@
   ],
   [
    "2026-04-13",
-   37
+   40
   ],
   [
    "2026-04-15",
-   46
+   47
   ],
   [
    "2026-04-16",
-   38
+   40
   ],
   [
    "2026-04-17",
-   39
+   40
   ],
   [
    "2026-04-18",
-   20
+   22
   ],
   [
    "2026-04-19",
-   15
+   17
   ],
   [
    "2026-04-20",
-   41
+   44
   ],
   [
    "2026-04-21",
-   42
-  ],
-  [
-   "2026-04-22",
-   32
-  ],
-  [
-   "2026-04-23",
    45
   ],
   [
-   "2026-04-24",
+   "2026-04-22",
+   35
+  ],
+  [
+   "2026-04-23",
    49
+  ],
+  [
+   "2026-04-24",
+   55
   ],
   [
    "2026-04-25",
@@ -12909,11 +17100,11 @@
   ],
   [
    "2026-04-26",
-   15
+   18
   ],
   [
    "2026-04-27",
-   46
+   48
   ],
   [
    "2026-04-28",
@@ -12921,135 +17112,135 @@
   ],
   [
    "2026-04-29",
-   20
+   34
   ],
   [
    "2026-04-30",
-   22
+   31
   ],
   [
    "2026-05-01",
-   26
-  ],
-  [
-   "2026-05-02",
-   11
-  ],
-  [
-   "2026-05-03",
-   8
-  ],
-  [
-   "2026-05-04",
    35
   ],
   [
+   "2026-05-02",
+   17
+  ],
+  [
+   "2026-05-03",
+   20
+  ],
+  [
+   "2026-05-04",
+   52
+  ],
+  [
    "2026-05-05",
-   25
+   49
   ],
   [
    "2026-05-06",
-   36
+   51
   ],
   [
    "2026-05-07",
-   53
+   69
   ],
   [
    "2026-05-08",
-   32
+   50
   ],
   [
    "2026-05-09",
-   15
+   19
   ],
   [
    "2026-05-10",
-   20
+   25
   ],
   [
    "2026-05-11",
-   41
+   60
   ],
   [
    "2026-05-13",
-   46
+   35
   ],
   [
    "2026-05-14",
-   43
+   26
   ],
   [
    "2026-05-15",
-   39
+   27
   ],
   [
    "2026-05-16",
-   21
+   13
   ],
   [
    "2026-05-17",
-   20
-  ],
-  [
-   "2026-05-18",
-   48
-  ],
-  [
-   "2026-05-19",
-   40
-  ],
-  [
-   "2026-05-20",
-   48
-  ],
-  [
-   "2026-05-21",
-   46
-  ],
-  [
-   "2026-05-22",
-   45
-  ],
-  [
-   "2026-05-23",
    11
   ],
   [
+   "2026-05-18",
+   34
+  ],
+  [
+   "2026-05-19",
+   23
+  ],
+  [
+   "2026-05-20",
+   28
+  ],
+  [
+   "2026-05-21",
+   29
+  ],
+  [
+   "2026-05-22",
+   22
+  ],
+  [
+   "2026-05-23",
+   7
+  ],
+  [
    "2026-05-24",
-   15
+   9
   ],
   [
    "2026-05-25",
-   18
+   13
   ],
   [
    "2026-05-27",
-   46
+   51
   ],
   [
    "2026-05-28",
-   44
-  ],
-  [
-   "2026-05-29",
-   41
-  ],
-  [
-   "2026-05-30",
-   12
-  ],
-  [
-   "2026-05-31",
-   12
-  ],
-  [
-   "2026-06-01",
    48
   ],
   [
+   "2026-05-29",
+   43
+  ],
+  [
+   "2026-05-30",
+   16
+  ],
+  [
+   "2026-05-31",
+   13
+  ],
+  [
+   "2026-06-01",
+   50
+  ],
+  [
    "2026-06-02",
-   55
+   59
   ],
   [
    "2026-06-03",
@@ -13057,11 +17248,11 @@
   ],
   [
    "2026-06-04",
-   49
+   51
   ],
   [
    "2026-06-05",
-   47
+   50
   ],
   [
    "2026-06-06",
@@ -13073,19 +17264,19 @@
   ],
   [
    "2026-06-08",
-   34
+   37
   ],
   [
    "2026-06-10",
-   62
+   65
   ],
   [
    "2026-06-11",
-   40
+   43
   ],
   [
    "2026-06-12",
-   37
+   38
   ],
   [
    "2026-06-13",
@@ -13093,19 +17284,19 @@
   ],
   [
    "2026-06-14",
-   16
+   17
   ],
   [
    "2026-06-15",
-   47
+   53
   ],
   [
    "2026-06-16",
-   32
+   38
   ],
   [
    "2026-06-17",
-   48
+   50
   ],
   [
    "2026-06-18",
@@ -13117,527 +17308,559 @@
   ],
   [
    "2026-06-20",
-   16
+   19
   ],
   [
    "2026-06-21",
-   12
+   14
   ],
   [
    "2026-06-22",
-   46
+   48
   ],
   [
    "2026-06-24",
-   32
+   50
   ],
   [
    "2026-06-25",
-   33
+   57
   ],
   [
    "2026-06-26",
-   18
+   34
   ],
   [
    "2026-06-27",
-   8
+   16
   ],
   [
    "2026-06-28",
-   12
+   13
   ],
   [
    "2026-06-29",
-   41
+   53
   ],
   [
    "2026-06-30",
-   36
+   46
   ],
   [
    "2026-07-01",
-   30
+   48
   ],
   [
    "2026-07-02",
-   22
+   39
   ],
   [
    "2026-07-03",
-   18
+   22
   ],
   [
    "2026-07-04",
-   10
+   16
   ],
   [
    "2026-07-05",
-   7
+   10
   ],
   [
    "2026-07-06",
-   36
+   56
   ]
  ],
  "monthly": [
   [
    "2024-12",
-   191
+   202
   ],
   [
    "2025-01",
-   1086
+   1159
   ],
   [
    "2025-02",
-   1004
+   1052
   ],
   [
    "2025-03",
-   654
+   641
   ],
   [
    "2025-04",
-   786
+   832
   ],
   [
    "2025-05",
-   874
+   933
   ],
   [
    "2025-06",
-   810
+   852
   ],
   [
    "2025-07",
-   846
+   890
   ],
   [
    "2025-08",
-   855
+   951
   ],
   [
    "2025-09",
-   904
+   945
   ],
   [
    "2025-10",
-   868
+   899
   ],
   [
    "2025-11",
-   918
-  ],
-  [
-   "2025-12",
-   869
-  ],
-  [
-   "2026-01",
    892
   ],
   [
+   "2025-12",
+   902
+  ],
+  [
+   "2026-01",
+   821
+  ],
+  [
    "2026-02",
-   746
+   870
   ],
   [
    "2026-03",
-   913
+   829
   ],
   [
    "2026-04",
-   925
+   1010
   ],
   [
    "2026-05",
-   897
+   895
   ],
   [
    "2026-06",
-   929
+   1061
   ],
   [
    "2026-07",
-   123
+   191
   ]
  ],
  "quarterly": [
   [
    "2024-Q4",
-   191
+   202
   ],
   [
    "2025-Q1",
-   2744
+   2852
   ],
   [
    "2025-Q2",
-   2470
+   2617
   ],
   [
    "2025-Q3",
-   2605
+   2786
   ],
   [
    "2025-Q4",
-   2655
+   2693
   ],
   [
    "2026-Q1",
-   2551
+   2520
   ],
   [
    "2026-Q2",
-   2751
+   2966
   ],
   [
    "2026-Q3",
-   123
+   191
   ]
  ],
  "dow": [
-  3266,
-  1553,
-  3011,
-  3042,
-  2787,
-  1243,
-  1188
+  3440,
+  1613,
+  3205,
+  3155,
+  2914,
+  1296,
+  1204
  ],
  "recency": [
   13,
-  1578,
-  571,
-  666,
-  1449,
-  1582,
-  1552,
-  1540,
-  1688,
+  1686,
+  587,
+  702,
+  1513,
+  1649,
+  1642,
+  1600,
+  1754,
   617,
-  577,
-  1338,
-  1460,
-  1459
+  594,
+  1401,
+  1506,
+  1563
  ],
  "beat_counts": [
   [
-   "under the radar small cap stock",
-   725
-  ],
-  [
-   "overlooked stock catalyst",
-   715
-  ],
-  [
-   "artificial intelligence semiconductor stocks",
-   710
-  ],
-  [
-   "biggest stock gainers",
-   706
+   "stock skyrocketing soaring surging breakout",
+   693
   ],
   [
    "best performing stock",
-   693
+   690
   ],
   [
-   "robotics stocks",
-   693
+   "under the radar small cap stock",
+   686
   ],
   [
-   "quantum stocks",
-   692
+   "biggest stock gainers",
+   685
   ],
   [
-   "nuclear stocks",
-   691
+   "artificial intelligence semiconductor stocks",
+   679
   ],
   [
-   "biotech pharma stocks",
-   689
-  ],
-  [
-   "niche ETF surging",
-   682
-  ],
-  [
-   "war chokepoint stock beneficiary",
+   "overlooked stock catalyst",
    677
   ],
   [
-   "defense aerospace stocks",
-   669
+   "uranium nuclear fuel supply squeeze stock",
+   677
+  ],
+  [
+   "biotech pharma stocks",
+   672
+  ],
+  [
+   "memory chip DRAM shortage stock",
+   666
+  ],
+  [
+   "tanker shipping freight rates ETF",
+   665
+  ],
+  [
+   "supply shortage supply shock stock",
+   665
   ],
   [
    "cryptocurrency stocks",
    665
   ],
   [
-   "rare earth critical minerals stock",
+   "gold silver mining stocks",
    664
   ],
   [
-   "supply shortage supply shock stock",
-   663
+   "upcoming FDA election vote stock anticipation",
+   662
   ],
   [
-   "uranium nuclear fuel supply squeeze stock",
-   659
-  ],
-  [
-   "consumer stocks",
-   658
-  ],
-  [
-   "space stocks",
-   657
-  ],
-  [
-   "real estate stocks",
-   655
+   "rare earth critical minerals stock",
+   661
   ],
   [
    "utility stocks",
-   653
+   656
   ],
   [
    "export ban tariff sanctions stock beneficiary",
    651
   ],
   [
-   "materials stocks",
-   651
+   "niche ETF surging",
+   643
   ],
   [
-   "shipping maritime stocks",
-   649
+   "space stocks",
+   643
   ],
   [
-   "tanker shipping freight rates ETF",
-   648
-  ],
-  [
-   "memory chip DRAM shortage stock",
-   648
-  ],
-  [
-   "upcoming FDA election vote stock anticipation",
+   "war chokepoint stock beneficiary",
    641
   ],
   [
-   "healthcare stocks",
-   625
-  ],
-  [
-   "industrial stocks",
-   625
-  ],
-  [
-   "telecom stocks",
-   625
-  ],
-  [
-   "financial stocks",
-   606
-  ],
-  [
    "technology stocks",
-   605
+   640
+  ],
+  [
+   "robotics stocks",
+   639
+  ],
+  [
+   "real estate stocks",
+   638
+  ],
+  [
+   "consumer stocks",
+   636
   ],
   [
    "energy stocks",
-   592
+   634
+  ],
+  [
+   "materials stocks",
+   632
+  ],
+  [
+   "quantum stocks",
+   631
+  ],
+  [
+   "nuclear stocks",
+   629
+  ],
+  [
+   "financial stocks",
+   626
+  ],
+  [
+   "shipping maritime stocks",
+   624
+  ],
+  [
+   "defense aerospace stocks",
+   620
+  ],
+  [
+   "telecom stocks",
+   611
+  ],
+  [
+   "healthcare stocks",
+   608
+  ],
+  [
+   "industrial stocks",
+   605
   ]
  ],
  "beat_unique": {
-  "under the radar small cap stock": 307,
-  "overlooked stock catalyst": 216,
-  "artificial intelligence semiconductor stocks": 561,
-  "biggest stock gainers": 443,
-  "best performing stock": 453,
-  "robotics stocks": 539,
-  "quantum stocks": 527,
-  "nuclear stocks": 473,
-  "biotech pharma stocks": 558,
-  "niche ETF surging": 215,
-  "war chokepoint stock beneficiary": 177,
-  "defense aerospace stocks": 562,
-  "cryptocurrency stocks": 566,
-  "rare earth critical minerals stock": 394,
-  "supply shortage supply shock stock": 240,
-  "uranium nuclear fuel supply squeeze stock": 157,
-  "consumer stocks": 487,
-  "space stocks": 475,
-  "real estate stocks": 601,
-  "utility stocks": 516,
-  "export ban tariff sanctions stock beneficiary": 302,
-  "materials stocks": 513,
-  "shipping maritime stocks": 559,
-  "tanker shipping freight rates ETF": 215,
-  "memory chip DRAM shortage stock": 303,
-  "upcoming FDA election vote stock anticipation": 252,
-  "healthcare stocks": 488,
-  "industrial stocks": 440,
-  "telecom stocks": 545,
-  "financial stocks": 429,
-  "technology stocks": 363,
-  "energy stocks": 251
+  "stock skyrocketing soaring surging breakout": 497,
+  "best performing stock": 443,
+  "under the radar small cap stock": 282,
+  "biggest stock gainers": 400,
+  "artificial intelligence semiconductor stocks": 517,
+  "overlooked stock catalyst": 204,
+  "uranium nuclear fuel supply squeeze stock": 156,
+  "biotech pharma stocks": 542,
+  "memory chip DRAM shortage stock": 307,
+  "tanker shipping freight rates ETF": 236,
+  "supply shortage supply shock stock": 250,
+  "cryptocurrency stocks": 551,
+  "gold silver mining stocks": 563,
+  "upcoming FDA election vote stock anticipation": 269,
+  "rare earth critical minerals stock": 381,
+  "utility stocks": 517,
+  "export ban tariff sanctions stock beneficiary": 293,
+  "niche ETF surging": 181,
+  "space stocks": 469,
+  "war chokepoint stock beneficiary": 170,
+  "technology stocks": 394,
+  "robotics stocks": 506,
+  "real estate stocks": 582,
+  "consumer stocks": 467,
+  "energy stocks": 281,
+  "materials stocks": 487,
+  "quantum stocks": 467,
+  "nuclear stocks": 426,
+  "financial stocks": 435,
+  "shipping maritime stocks": 530,
+  "defense aerospace stocks": 510,
+  "telecom stocks": 526,
+  "healthcare stocks": 474,
+  "industrial stocks": 409
  },
  "beat_byname": {
-  "under the radar small cap stock": 1,
-  "overlooked stock catalyst": 0,
-  "artificial intelligence semiconductor stocks": 0,
-  "biggest stock gainers": 2,
+  "stock skyrocketing soaring surging breakout": 2,
   "best performing stock": 0,
-  "robotics stocks": 0,
-  "quantum stocks": 0,
-  "nuclear stocks": 0,
-  "biotech pharma stocks": 0,
-  "niche ETF surging": 3,
-  "war chokepoint stock beneficiary": 2,
-  "defense aerospace stocks": 7,
-  "cryptocurrency stocks": 0,
-  "rare earth critical minerals stock": 11,
-  "supply shortage supply shock stock": 2,
+  "under the radar small cap stock": 1,
+  "biggest stock gainers": 1,
+  "artificial intelligence semiconductor stocks": 0,
+  "overlooked stock catalyst": 0,
   "uranium nuclear fuel supply squeeze stock": 3,
-  "consumer stocks": 1,
-  "space stocks": 0,
-  "real estate stocks": 0,
+  "biotech pharma stocks": 0,
+  "memory chip DRAM shortage stock": 2,
+  "tanker shipping freight rates ETF": 1,
+  "supply shortage supply shock stock": 2,
+  "cryptocurrency stocks": 0,
+  "gold silver mining stocks": 5,
+  "upcoming FDA election vote stock anticipation": 1,
+  "rare earth critical minerals stock": 14,
   "utility stocks": 0,
   "export ban tariff sanctions stock beneficiary": 2,
-  "materials stocks": 59,
-  "shipping maritime stocks": 1,
-  "tanker shipping freight rates ETF": 1,
-  "memory chip DRAM shortage stock": 1,
-  "upcoming FDA election vote stock anticipation": 1,
-  "healthcare stocks": 0,
-  "industrial stocks": 0,
-  "telecom stocks": 0,
-  "financial stocks": 0,
+  "niche ETF surging": 3,
+  "space stocks": 1,
+  "war chokepoint stock beneficiary": 2,
   "technology stocks": 1,
-  "energy stocks": 2
+  "robotics stocks": 0,
+  "real estate stocks": 2,
+  "consumer stocks": 1,
+  "energy stocks": 2,
+  "materials stocks": 59,
+  "quantum stocks": 0,
+  "nuclear stocks": 0,
+  "financial stocks": 0,
+  "shipping maritime stocks": 1,
+  "defense aerospace stocks": 7,
+  "telecom stocks": 0,
+  "healthcare stocks": 0,
+  "industrial stocks": 0
  },
  "pass_split": {
-  "gem_only": 3833,
-  "coverage_only": 11342,
-  "both": 915
+  "gem_only": 3731,
+  "coverage_only": 12112,
+  "both": 984
  },
  "domain_counts": [
   [
    "www.tipranks.com",
-   1958,
+   1956,
    "specialty"
   ],
   [
    "www.marketbeat.com",
-   1944,
+   1924,
    "specialty"
   ],
   [
    "www.kitco.com",
-   1063,
+   1093,
    "specialty"
   ],
   [
    "www.cnbc.com",
-   985,
-   "other"
-  ],
-  [
-   "www.wsj.com",
-   610,
+   1011,
    "other"
   ],
   [
    "finance.yahoo.com",
-   508,
+   570,
+   "other"
+  ],
+  [
+   "www.wsj.com",
+   562,
    "other"
   ],
   [
    "seekingalpha.com",
-   485,
+   482,
    "specialty"
   ],
   [
    "www.reuters.com",
-   450,
+   456,
    "other"
   ],
   [
    "www.seatrade-maritime.com",
-   420,
-   "specialty"
-  ],
-  [
-   "markets.businessinsider.com",
-   320,
-   "other"
-  ],
-  [
-   "www.forbes.com",
-   303,
-   "other"
-  ],
-  [
-   "www.stocktitan.net",
-   293,
+   418,
    "specialty"
   ],
   [
    "www.investors.com",
-   284,
+   332,
    "other"
   ],
   [
+   "www.forbes.com",
+   320,
+   "other"
+  ],
+  [
+   "markets.businessinsider.com",
+   315,
+   "other"
+  ],
+  [
+   "www.stocktitan.net",
+   308,
+   "specialty"
+  ],
+  [
    "markets.ft.com",
-   239,
+   244,
    "other"
   ],
   [
    "www.tradingview.com",
-   203,
+   220,
    "other"
   ],
   [
-   "aviationweek.com",
-   195,
-   "other"
-  ],
-  [
-   "www.businessinsider.com",
-   184,
-   "other"
-  ],
-  [
-   "www.insidermonkey.com",
-   183,
-   "other"
-  ],
-  [
-   "www.marinelink.com",
-   165,
+   "www.mining.com",
+   210,
    "other"
   ],
   [
    "www.investing.com",
-   142,
+   194,
+   "other"
+  ],
+  [
+   "www.businessinsider.com",
+   191,
+   "other"
+  ],
+  [
+   "www.insidermonkey.com",
+   175,
+   "other"
+  ],
+  [
+   "aviationweek.com",
+   174,
+   "other"
+  ],
+  [
+   "www.marinelink.com",
+   157,
+   "other"
+  ],
+  [
+   "www.investopedia.com",
+   144,
    "other"
   ],
   [
    "www.utilitydive.com",
-   124,
-   "other"
-  ],
-  [
-   "www.biospace.com",
-   122,
+   133,
    "other"
   ],
   [
    "www.bloomberg.com",
-   121,
+   127,
+   "other"
+  ],
+  [
+   "www.benzinga.com",
+   120,
+   "specialty"
+  ],
+  [
+   "ts2.tech",
+   120,
+   "mill"
+  ],
+  [
+   "www.biospace.com",
+   116,
    "other"
   ],
   [
@@ -13646,33 +17869,13 @@
    "other"
   ],
   [
-   "www.investopedia.com",
-   115,
+   "www.theglobeandmail.com",
+   104,
    "other"
-  ],
-  [
-   "www.benzinga.com",
-   110,
-   "specialty"
   ],
   [
    "www.marketwatch.com",
-   91,
-   "other"
-  ],
-  [
-   "ts2.tech",
-   85,
-   "mill"
-  ],
-  [
-   "spacenews.com",
-   84,
-   "specialty"
-  ],
-  [
-   "www.ainvest.com",
-   82,
+   101,
    "other"
   ]
  ]

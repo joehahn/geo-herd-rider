@@ -95,7 +95,12 @@ def run(start: str, end: str, lookback: int, ckpt: Path) -> dict:
     return _summarize(list(pool.values()), wcount, cnt["n"], elapsed, len(anchors), start, end, lookback)
 
 
-WINDOW_OVERRIDE = {"RNMBY": ["2025-01-01", "2026-07-11"]}   # full 2025-26 era (its rise+fall), per request
+WINDOW_OVERRIDE = {"RNMBY": ["2025-01-01", "2026-07-11"],   # full 2025-26 era (its rise+fall), per request
+                   "AREC": ["2025-01-01", "2026-05-01"]}
+# strong superlative markers — for the candidate shortlist's "gem-buzz" count (how many of a ticker's
+# mentions sit in a skyrocketing/soaring/record-high article), and shared with build_ground_truth intent
+SUPERLATIVES = ("skyrocket", "soar", "surg", "best performing", "best-performing", "record high",
+                "all-time high", "little-known", "under the radar", "outperform", "rocket", "explod", "breakout")
 
 
 def _actual_peaks(panel) -> dict:
@@ -182,12 +187,17 @@ def _summarize(arts, wcount, credits, elapsed, nwin, start, end, lookback=14) ->
     pool_urls = {_norm_url(a["url"]) for a in arts if a.get("url")}
     gt_recall = {g: [sum(1 for a in gt.get(g, []) if _norm_url(a["url"]) in pool_urls), len(gt.get(g, []))]
                  for g in gem_detect.GEMS}
-    tick, pat = collections.Counter(), re.compile(r"\$([A-Z]{1,5})\b|\((?:NYSE|NASDAQ|NYSEARCA)[:\s]+([A-Z]{1,5})\)")
+    tick, tick_super = collections.Counter(), collections.Counter()
+    pat = re.compile(r"\$([A-Z]{1,5})\b|\((?:NYSE|NASDAQ|NYSEARCA)[:\s]+([A-Z]{1,5})\)")
     for a in arts:
-        for m in pat.findall(a.get("title", "") + " " + a.get("snippet", "")):
+        blob = a.get("title", "") + " " + a.get("snippet", "")
+        is_super = any(w in blob.lower() for w in SUPERLATIVES)
+        for m in pat.findall(blob):
             s = m[0] or m[1]
             if s:
                 tick[s] += 1
+                if is_super:
+                    tick_super[s] += 1
     detection, hits = {}, {}
     for g, r in det.items():
         bn, th = r["by_name"], r["thesis"]
@@ -261,7 +271,8 @@ def _summarize(arts, wcount, credits, elapsed, nwin, start, end, lookback=14) ->
                      "llm_usd": 0.0, "pool_size": len(arts)},
             "wcount": wcount, "detection": detection, "hits": hits, "det_arts": det_arts,
             "charts": _chart_data(det, panel, peaks, pool_urls, gt), "gt_recall": gt_recall,
-            "candidates": tick.most_common(25),
+            "candidates": [[s, n, tick_super.get(s, 0)] for s, n in tick.most_common()
+                           if s not in gem_detect.GEMS][:25],   # exclude already-promoted gems from the shortlist
             "daily": sorted(daily.items()), "monthly": sorted(monthly.items()),
             "quarterly": sorted(quarterly.items()), "dow": dow, "recency": recency,
             "beat_counts": beats.most_common(),

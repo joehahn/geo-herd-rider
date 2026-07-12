@@ -18,6 +18,8 @@ import re
 GEMS = {
     "MP":    {"form": "single stock", "name": ["mp materials"], "ticker": ["MP"],
               "thesis": ["rare earth", "rare-earth", "neodymium", "critical mineral"]},
+    "AREC":  {"form": "single stock", "name": ["american resources", "reelement"], "ticker": ["AREC"],
+              "thesis": ["rare earth", "rare-earth", "critical mineral", "ndfeb", "gallium", "magnet"]},
     "GDX":   {"form": "ETF wrapper", "name": ["vaneck gold", "gold miners etf"], "ticker": ["GDX"],
               "thesis": ["gold miner", "gold mining stock"]},
     "RNMBY": {"form": "foreign ADR", "name": ["rheinmetall"], "ticker": ["RNMBY"],
@@ -30,7 +32,8 @@ GEMS = {
               "strict": True, "thesis": ["memory chip", "dram shortage", "memory shortage",
                                          "memory price", "dram price"]},
 }
-PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": "2026-04-25", "DRAM": "2026-06-18"}
+PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": "2026-04-25", "DRAM": "2026-06-18",
+        "AREC": "2025-10-14"}
 
 
 def _ticker_hit(tk: str, raw: str, strict: bool = False) -> bool:

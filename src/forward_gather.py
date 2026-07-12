@@ -63,6 +63,9 @@ COVERAGE_BEATS = [
     # added to close coverage gaps the backtest exposed (no defense beat drove RNMBY under-coverage;
     # AI/biotech had specialty desks in the allowlist but no beat steering to them)
     "defense aerospace stocks", "artificial intelligence semiconductor stocks", "biotech pharma stocks",
+    # gold was diluted under "materials" (0.7% of pool, hurt GDX recall); superlative framing catches the
+    # "skyrocketing/soaring" gem coverage the target set is defined by (shifts a touch toward momentum-confirm)
+    "gold silver mining stocks", "stock skyrocketing soaring surging breakout",
     "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
