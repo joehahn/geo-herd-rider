@@ -10,8 +10,10 @@ forward paper trade is the verdict; the page says so.
 from __future__ import annotations
 import html
 import json
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
+
+README_URL = "https://github.com/joehahn/geo-herd-rider/blob/main/README.md"
 
 PLOTLY_CDN = "https://cdn.plot.ly/plotly-2.35.2.min.js"
 
@@ -237,7 +239,17 @@ def build() -> Path:
     .pchead .tk{font-weight:700;font-size:15px;color:#212529} .pchead .bd{color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600;margin:0 7px}
     #tt{position:fixed;display:none;max-width:360px;background:#212529;color:#f1f3f5;padding:9px 11px;border-radius:6px;font-size:12px;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,.28);pointer-events:none;z-index:20}
     #tt b{color:#fff} #tt .lede{color:#ced4da;margin-top:4px;font-style:italic}
+    .nav{display:flex;align-items:center;gap:4px;background:#212529;padding:8px 16px;margin:-24px -18px 18px;border-radius:0 0 8px 8px}
+    .nav a{color:#ced4da;text-decoration:none;font-size:13px;padding:5px 12px;border-radius:5px}
+    .nav a.active{background:#1c7ed6;color:#fff;font-weight:600}
+    .nav a:not(.soon):hover{background:#343a40;color:#fff}
+    .nav a.soon{color:#6c757d;cursor:default;border:1px dashed #495057}
+    .nav .gen{margin-left:auto;color:#868e96;font-size:11px}
     """
+    nav = (f'<nav class="nav"><a href="retrieval_backtest.html" class="active">Retrieval backtest</a>'
+           f'<a class="soon">+ next db (soon)</a>'
+           f'<a href="{README_URL}">README</a>'
+           f'<span class="gen">generated {datetime.now().strftime("%Y-%m-%d %H:%M")}</span></nav>')
     half = res["candidates"][:20]
     mx = half[0][1] if half else 1
     col1 = "".join(_cand_row(*r, mx) for r in half[:10])
@@ -257,6 +269,7 @@ def build() -> Path:
     html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Retrieval backtest</title>
 <script src="{PLOTLY_CDN}"></script>
 <style>{css}</style></head><body>
+{nav}
 <h1>Retrieval backtest — can the firehose catch the gems early?</h1>
 <div class="sub">Bi-weekly Tavily two-pass sweep, {res['span'][0]} → {res['span'][1]} (forward day-1) ·
 generic aligned beats, <b>no ticker queries</b> · {res['generated_from']}</div>
