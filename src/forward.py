@@ -130,7 +130,7 @@ def _use_sandbox(dir_path: str) -> None:
 
 def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                  anchor: pd.Timestamp | None = None, news_cap: int = 0,
-                 gather_engine: str = "anthropic", scout_model: str | None = None,
+                 gather_engine: str = "both", scout_model: str | None = None,
                  scout_provider: str = "anthropic") -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
@@ -201,7 +201,7 @@ def _scans_dict(log: pd.DataFrame) -> dict:
     return dict(sorted(out.items()))
 
 
-def pull_day(model: str, gather_engine: str = "anthropic") -> None:
+def pull_day(model: str, gather_engine: str = "both") -> None:
     """DAILY past-24h news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
     The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
 
@@ -320,7 +320,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--pull", action="store_true",
                     help="daily 1-day Anthropic news pull; accumulates for the weekly --scan (no LLM scout)")
     ap.add_argument("--gather", choices=["anthropic", "tavily"], default=None,
-                    help="gather engine override; default = profile gather_engine or anthropic")
+                    help="gather engine override: anthropic | tavily | both (default = both — union of the two)")
     args = ap.parse_args(argv)
     if args.trace is not None:
         tp = str(SCANS_CSV.parent / "transcript.jsonl") if args.trace == "__default__" else args.trace
@@ -353,7 +353,7 @@ def main(argv: list[str] | None = None) -> int:
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
                      news_cap=int(fm.get("news_cap", 0)),
-                     gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))),
+                     gather_engine=(args.gather or str(fm.get("gather_engine", "both"))),
                      scout_model=scout_id, scout_provider=scout_prov)
 
     if args.pull:
@@ -363,7 +363,7 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         fm = load_financial_model(str(PROFILE))
         (_si, _sp), (event_id, _prov) = resolve_stage_models(fm)   # daily gather = Anthropic event model
-        pull_day(args.model or event_id, gather_engine=(args.gather or str(fm.get("gather_engine", "anthropic"))))
+        pull_day(args.model or event_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))))
 
     if args.report:
         report()

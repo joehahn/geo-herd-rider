@@ -31,6 +31,8 @@ GEMS_GT = {
     "MP":    {"names": ["MP Materials stock", "$MP rare earth"], "start": "2025-01-01", "end": "2025-12-31"},
     "AREC":  {"names": ["American Resources AREC stock", "ReElement rare earth AREC"], "start": "2025-01-01", "end": "2026-05-01"},
     "TSM":   {"names": ["Taiwan Semiconductor TSM stock", "TSMC $TSM chip"], "start": "2025-01-01", "end": "2026-07-07"},
+    "KGC":   {"names": ["Kinross Gold KGC stock", "Kinross gold miner $KGC"], "start": "2025-05-01", "end": "2026-07-07"},
+    "HL":    {"names": ["Hecla Mining HL stock", "Hecla silver miner $HL"], "start": "2025-09-01", "end": "2026-02-28"},
     "DRAM":  {"names": ["Roundhill Memory ETF DRAM", "DRAM memory ETF"], "start": "2026-01-01", "end": "2026-07-11"},
     "BWET":  {"names": ["Breakwave Tanker Shipping ETF", "BWET tanker ETF"], "start": "2026-01-01", "end": "2026-07-11"},
     "GDX":   {"names": ["VanEck Gold Miners ETF GDX", "GDX gold miners"], "start": "2025-01-01", "end": "2026-07-11"},

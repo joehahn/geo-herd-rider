@@ -36,7 +36,6 @@ defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks
 lookback_period_days: 14          # Optimizer trailing lookback (calendar days); short = responsive to recent moves
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
-gather_engine: anthropic          # forward gather: anthropic (Brave live web search) or tavily (date-honoring, reaches old weeks). Default anthropic.
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
 # --- forward web-search domain steering (two-pass gather). Curate by OUTLET TYPE, never by "named a winner". ---
 specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call (reaches Cloudflare-walled etf.com)

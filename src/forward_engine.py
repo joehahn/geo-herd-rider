@@ -46,7 +46,7 @@ def _save(events: dict, retired: dict, nid: int, week_seq: int) -> None:
 
 def run_week(anchor: pd.Timestamp, model: str, rebalance_days: int,
              curator_memory_weeks: int = 8, workers: int = 8, capture: dict | None = None,
-             news_cap: int = 0, gather_engine: str = "anthropic",
+             news_cap: int = 0, gather_engine: str = "both",
              pool: list | None = None, scout_model: str | None = None,
              scout_provider: str = "anthropic") -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.

@@ -22,6 +22,10 @@ GEMS = {
               "thesis": ["rare earth", "rare-earth", "critical mineral", "ndfeb", "gallium", "magnet"]},
     "TSM":   {"form": "single stock", "name": ["taiwan semiconductor", "tsmc"], "ticker": ["TSM"],
               "thesis": ["semiconductor", "foundry", "ai chip", "chipmaker", "advanced node"]},
+    "KGC":   {"form": "single stock", "name": ["kinross gold", "kinross"], "ticker": ["KGC"],
+              "thesis": ["gold miner", "gold mining", "gold price", "bullion"]},
+    "HL":    {"form": "single stock", "name": ["hecla mining", "hecla"], "ticker": ["HL"],
+              "thesis": ["silver miner", "silver mining", "silver price", "silver rally"]},
     "GDX":   {"form": "ETF wrapper", "name": ["vaneck gold", "gold miners etf"], "ticker": ["GDX"],
               "thesis": ["gold miner", "gold mining stock"]},
     "RNMBY": {"form": "foreign ADR", "name": ["rheinmetall"], "ticker": ["RNMBY"],
@@ -35,7 +39,7 @@ GEMS = {
                                          "memory price", "dram price"]},
 }
 PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": "2026-04-25", "DRAM": "2026-06-18",
-        "AREC": "2025-10-14", "TSM": "2026-06-30"}
+        "AREC": "2025-10-14", "TSM": "2026-06-30", "KGC": "2026-01-28", "HL": "2026-01-23"}
 
 
 def _ticker_hit(tk: str, raw: str, strict: bool = False) -> bool:

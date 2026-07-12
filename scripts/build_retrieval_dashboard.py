@@ -21,7 +21,7 @@ OUT = REPO / "docs_preview" / "retrieval_backtest.html"
 
 FORM_COLOR = {"single stock": "#2f9e44", "ETF wrapper": "#f08c00", "foreign ADR": "#868e96"}
 DISPLAY_FORM = {"single stock": "stock", "ETF wrapper": "ETF", "foreign ADR": "ADR"}   # badge label
-LANE_ORDER = ["MP", "AREC", "TSM", "DRAM", "BWET", "GDX", "RNMBY"]   # single stocks, then ETF wrappers, then ADR
+LANE_ORDER = ["MP", "AREC", "TSM", "KGC", "HL", "DRAM", "BWET", "GDX", "RNMBY"]   # single stocks, then ETFs, then ADR
 CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the actual price peak
     "MP": "The only US rare-earth producer — rallied as the US moved to break its dependence on Chinese "
           "rare earths (China's Apr-2025 export controls, then a July DoD equity stake). Named by ticker "
@@ -32,6 +32,10 @@ CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the ac
     "TSM": "Taiwan Semiconductor (TSMC) — the AI/datacenter <b>chip-foundry</b> thesis (advanced-node demand "
            "from the AI boom). Mega-cap, the #1 candidate ticker the retriever named on its own: <b>~3.4× off "
            "the Apr-2025 tariff bottom</b>, then plateaued near the high (a secular winner more than a decayed gem).",
+    "KGC": "Kinross Gold — a <b>gold miner</b> riding the 2025-26 gold bull run (a GDX constituent). "
+           "<b>~4× to Jan-2026</b>, then pulled back with the metal.",
+    "HL": "Hecla Mining — the largest US <b>silver miner</b>; rode the silver / precious-metals rally. "
+          "<b>~7× to Jan-2026, then −56%</b> — a classic run-and-decay gem.",
     "DRAM": "Roundhill Memory ETF (launched 2026-04-02) — plays the DRAM/HBM memory shortage driven by the "
             "AI-datacenter boom. ETF named <b>~6 weeks before peak</b>; the memory thesis (hollow) was "
             "visible months earlier, <b>before the fund even existed</b>.",
@@ -280,11 +284,13 @@ instrument; US-centric beats under-cover European names). So the firehose reliab
 <div class="sub">Ticker (solid) vs <b>SPY</b> (dashed), both <b>normalized to 1× at the window start</b> so the growth
 multiple &amp; out-performance are visible. Each <b style="color:#1c7ed6">●</b> is an article that <b>names the
 ticker</b> (by-name), placed at its date &amp; price. <b>Hover</b> for date · price · lede; <b>click</b> to open
-the article. <b>Target set</b> (superlative gem news we WANT caught): <b style="color:#1c7ed6">● detected</b>
-by the Tavily backtest · <b style="color:#2f9e44">▢ forward-reachable</b> (Tavily missed it, but the live
-Anthropic engine <i>can</i> reach it — e.g. Cloudflare-walled etf.com) · <b style="color:#f76707">▢ missed by
-both</b> engines (Anthropic-blocked like WSJ/MarketWatch/Investors.com, or unindexed). Small blue dots =
-other retrieved by-name articles.</div>
+the article.<br><b>Squares = the "target set"</b> — an article that BOTH names the ticker AND carries a
+superlative (the news we want caught). <b>Every target square was MISSED by the Tavily backtest</b>; the color
+says what the live forward (Anthropic) engine can do about that miss: <b style="color:#2f9e44">🟩 green =
+forward-<i>reachable</i></b> (Anthropic can reach it — e.g. Cloudflare-walled etf.com; "reachable" ≠ "would
+surface it") · <b style="color:#f76707">🟧 orange = missed by BOTH</b> engines (Anthropic-blocked like
+WSJ/MarketWatch/Investors.com, or unindexed). A target the Tavily backtest <i>did</i> catch is a
+<b style="color:#1c7ed6">big blue ●</b>. Small blue dots = other by-name articles (not in the target set).</div>
 {charts_html}
 
 <h2>Detection summary</h2>
