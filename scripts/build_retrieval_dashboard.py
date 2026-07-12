@@ -169,8 +169,6 @@ def _diag(res: dict) -> str:
         + bar("quarterhist", [d for d, _ in quarterly], [c for _, c in quarterly], layout="yaxis:{title:'articles / quarter'}")
         + bar("weekhist", [d for d, _ in _weekly(daily)], [c for _, c in _weekly(daily)], layout="yaxis:{title:'articles / week'}")
         + bar("dowhist", ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], res["dow"], layout="yaxis:{title:'articles'}")
-        + bar("recencyhist", list(range(len(res["recency"]))), res["recency"],
-              layout="yaxis:{title:'articles'},xaxis:{title:'days before window-end (cap=80 sorted-desc)'}")
         # per-beat: total (blue) + unique-only (dark) grouped
         + "Plotly.newPlot('beathist',[{type:'bar',orientation:'h',name:'total',y:" + J(bnames) + ",x:"
         + J([c for _, c in beats]) + ",marker:{color:" + BLUE + "}},{type:'bar',orientation:'h',name:'unique',y:"
@@ -345,28 +343,22 @@ High mention count <i>and</i> high ▲ = a candidate worth promoting (e.g. AREC,
 <div class="sub">Publication weekday of the retrieved pool.</div>
 <div id="dowhist" style="width:100%;height:260px"></div>
 
-<h2>Plot 8 · Within-window recency</h2>
-<div class="sub">Articles by days-before-window-end. The <code>cap=80 sorted-desc</code> truncation + Tavily's
-recency ranking heavily over-sample the recent edge of each bi-weekly window (the older half is under-covered)
-— the main temporal bias, and a case for the weekly-cadence pivot.</div>
-<div id="recencyhist" style="width:100%;height:280px"></div>
-
-<h2>Plot 9 · Articles per search term (total vs unique)</h2>
+<h2>Plot 8 · Articles per search term (total vs unique)</h2>
 <div class="sub">Distinct pool articles each aligned beat surfaced (11 gem + 21 coverage beats). <b>total</b> vs
 <b>unique</b> (surfaced by that beat ONLY) — a low unique share = a redundant beat. Hover for the beat.</div>
 <div id="beathist" style="width:100%;height:640px"></div>
 
-<h2>Plot 10 · By-name yield per search term</h2>
+<h2>Plot 9 · By-name yield per search term</h2>
 <div class="sub">How many <b>gem-ticker-naming</b> articles each beat surfaced — which beats are productive for
 the actual goal, not just volume.</div>
 <div id="bynamehist" style="width:100%;height:640px"></div>
 
-<h2>Plot 11 · Articles per source domain</h2>
+<h2>Plot 10 · Articles per source domain</h2>
 <div class="sub">Top publishers, colored by list: <b style="color:#2f9e44">allowlist</b> (specialty desks),
 <b style="color:#adb5bd">other</b>, <b style="color:#e03131">blocklist</b> (should be absent).</div>
 <div id="domhist" style="width:100%;height:520px"></div>
 
-<h2>Plot 12 · Two-pass split (gem allowlist vs coverage)</h2>
+<h2>Plot 11 · Two-pass split (gem allowlist vs coverage)</h2>
 <div class="sub">How the pool divides between the GEM pass (specialty allowlist) and the COVERAGE pass
 (unrestricted minus mills) — the two-pass balance.</div>
 <div id="passhist" style="width:100%;height:280px"></div>
