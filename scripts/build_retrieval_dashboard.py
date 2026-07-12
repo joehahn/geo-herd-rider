@@ -21,7 +21,7 @@ OUT = REPO / "docs_preview" / "retrieval_backtest.html"
 
 FORM_COLOR = {"single stock": "#2f9e44", "ETF wrapper": "#f08c00", "foreign ADR": "#868e96"}
 DISPLAY_FORM = {"single stock": "stock", "ETF wrapper": "ETF", "foreign ADR": "ADR"}   # badge label
-LANE_ORDER = ["MP", "AREC", "DRAM", "BWET", "GDX", "RNMBY"]   # single stocks, then ETF wrappers, then ADR
+LANE_ORDER = ["MP", "AREC", "TSM", "DRAM", "BWET", "GDX", "RNMBY"]   # single stocks, then ETF wrappers, then ADR
 CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the actual price peak
     "MP": "The only US rare-earth producer — rallied as the US moved to break its dependence on Chinese "
           "rare earths (China's Apr-2025 export controls, then a July DoD equity stake). Named by ticker "
@@ -29,6 +29,9 @@ CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the ac
     "AREC": "American Resources / ReElement — a tiny critical-minerals small-cap riding the <b>same 2025 "
             "rare-earth / China-decoupling thesis as MP</b> (US rare-earth supply chain, NdFeB magnets, "
             "gallium for defense). Higher-beta MP sibling: <b>16.9× to Oct-2025, then −74%</b>.",
+    "TSM": "Taiwan Semiconductor (TSMC) — the AI/datacenter <b>chip-foundry</b> thesis (advanced-node demand "
+           "from the AI boom). Mega-cap, the #1 candidate ticker the retriever named on its own: <b>~3.4× off "
+           "the Apr-2025 tariff bottom</b>, then plateaued near the high (a secular winner more than a decayed gem).",
     "DRAM": "Roundhill Memory ETF (launched 2026-04-02) — plays the DRAM/HBM memory shortage driven by the "
             "AI-datacenter boom. ETF named <b>~6 weeks before peak</b>; the memory thesis (hollow) was "
             "visible months earlier, <b>before the fund even existed</b>.",
