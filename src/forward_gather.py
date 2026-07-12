@@ -68,6 +68,12 @@ COVERAGE_BEATS = [
     # gold was diluted under "materials" (0.7% of pool, hurt GDX recall) -> dedicated gold + silver beats
     # (HL's silver-rally coverage was ~20 of the missed target squares)
     "gold silver mining stocks", "silver mining stocks",
+    # supply/demand-shock clusters where dramatic gems appear but the broad "materials/energy" beats were
+    # too generic to rank: logistics BEYOND maritime; industrial base metals (tariff/EV/AI-demand movers,
+    # CLF-class); energy distribution + the AI-datacenter power-demand grid theme
+    "freight trucking rail air cargo logistics stocks",
+    "steel copper lithium aluminum coal mining stocks",
+    "electric power grid pipeline energy infrastructure stocks",
     # superlative framing — the missed target squares ARE superlatives ("Surges to All-Time High",
     # "Skyrockets 380%", "Rockets to record"); a superlative beat targets that exact class
     "stock surges skyrockets all-time high record",
