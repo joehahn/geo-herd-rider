@@ -73,6 +73,12 @@ COVERAGE_BEATS = [
     # coverage is "best-performing / skyrocketing / little-known ETF" (BWET, DRAM) which the "stocks" beats miss
     "best performing ETF little-known skyrocketing surging",
     "gold silver miners ETF surging record high",
+    # thematic-sector ETF beats — the sectors that spawn hot single-theme ETF gems (like GDX/BWET/DRAM).
+    # Forward-BREADTH insurance: backtest recall won't move (no other ETF gem in the GT to catch), but this
+    # positions the live forward to catch the next thematic ETF the moment it's named. Boring index sectors
+    # (utility/telecom/consumer/real-estate/financial) deliberately skipped — they don't spawn ETF gems.
+    "nuclear uranium ETF surging", "robotics automation ETF surging", "quantum computing ETF surging",
+    "space defense ETF surging", "crypto blockchain ETF surging", "semiconductor memory chip ETF surging",
     "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
