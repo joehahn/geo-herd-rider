@@ -69,6 +69,10 @@ COVERAGE_BEATS = [
     # superlative framing — the missed target squares ARE superlatives ("Surges to All-Time High",
     # "Skyrockets 380%", "Rockets to record"); a superlative beat targets that exact class
     "stock surges skyrockets all-time high record",
+    # ETF-variant beats (several gems ARE ETFs: GDX/BWET/DRAM) with superlative framing — the wrappers'
+    # coverage is "best-performing / skyrocketing / little-known ETF" (BWET, DRAM) which the "stocks" beats miss
+    "best performing ETF little-known skyrocketing surging",
+    "gold silver miners ETF surging record high",
     "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
