@@ -61,13 +61,14 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   read is capped. (backtest_gdelt overrides via --news-cap.)
     # forward web-search domain steering (forward_gather two-pass). Curate by OUTLET TYPE, never by outcome.
     "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
-                        "tipranks.com", "marketbeat.com", "barchart.com",   # generalist stock/ETF desks (all sectors)
+                        "tipranks.com", "barchart.com",   # generalist stock/ETF desks (all sectors)
                         "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com",
                         "endpts.com", "statnews.com", "biopharmadive.com", "quantumcomputingreport.com",
                         "world-nuclear-news.org", "breakingdefense.com", "defensenews.com",  # sector trade press (tech-growth/defense)
                         "seatrade-maritime.com", "kitco.com"],  # maritime + commodities desks (early tanker/gold theses)
     "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
-                   "stockstory.org", "defenseworld.net", "ts2.tech"],  # COVERAGE blocklist (listicle mills + content farms)
+                   "stockstory.org", "defenseworld.net", "ts2.tech",   # listicle mills + content farms
+                   "marketbeat.com"],  # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
     "max_agents": 7,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
                                        #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
     "spy_agent_conviction": 5,

@@ -46,7 +46,6 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - etftrends.com
   - stocktitan.net
   - tipranks.com
-  - marketbeat.com
   - barchart.com
   # sector trade press (from portfolio-wave-rider/news_sources.md; tech-growth + defense — deepen those verticals):
   - semianalysis.com
@@ -72,4 +71,5 @@ mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" l
   - stockstory.org
   - defenseworld.net              # automated aggregator / content farm (122 low-quality hits in the backtest)
   - ts2.tech                      # AI-generated content farm
+  - marketbeat.com                # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
 ---
