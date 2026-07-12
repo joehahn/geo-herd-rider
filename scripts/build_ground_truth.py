@@ -35,6 +35,26 @@ GEMS_GT = {
     "GDX":   {"names": ["VanEck Gold Miners ETF GDX", "GDX gold miners"], "start": "2025-01-01", "end": "2026-07-11"},
     "RNMBY": {"names": ["Rheinmetall stock", "RNMBY defense stock"], "start": "2025-01-01", "end": "2026-02-28"},
 }
+# curated known target articles, merged in on every build so they survive Tavily's non-determinism AND
+# reach targets Tavily can't crawl (Cloudflare-walled etf.com). These are the ground-truth we WANT caught,
+# whether or not the generic retriever reaches them — the walled etf.com ones will show as MISSED, which is
+# exactly the point (the early BWET superlative signal existed but is unreachable).
+MANUAL_SEEDS = {
+    "BWET": [
+        {"date": "2026-03-04", "source": "etf.com",
+         "title": "This Little-Known Fund Is the Best-Performing ETF of 2026",
+         "url": "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026"},
+        {"date": "2026-03-20", "source": "etf.com",
+         "title": "This Skyrocketing ETF Is Still Flying Under the Radar",
+         "url": "https://www.etf.com/sections/features/skyrocketing-etf-still-flying-under-radar"},
+        {"date": "2026-04-09", "source": "bloomberg.com",
+         "title": "A 1,300% Rally Turns a Tiny Shipping ETF Into an Iran War Gauge",
+         "url": "https://www.bloomberg.com/news/articles/2026-04-09/a-1-300-rally-turns-a-tiny-shipping-etf-into-an-iran-war-gauge"},
+        {"date": "2026-04-25", "source": "cnbc.com",
+         "title": "This little-known ETF is up over 600% amid U.S.-Iran war - a better trade than oil or energy stocks",
+         "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html"},
+    ],
+}
 SUPER = ["skyrocket", "soar", "surg", "best performing", "best-performing", "little-known", "little known",
          "under the radar", "outperform", "rocketing", "explod", "on fire", "breakout", "record high",
          "all-time high", "up 1", "up 2", "up 3", "up 4", "up 5", "up 6", "up 7", "up 8", "up 9", "jump", "spike",
@@ -77,6 +97,8 @@ def build() -> dict:
                     nu = _norm(r["url"])
                     if nu not in seen:
                         seen[nu] = {"url": r["url"], "date": d, "title": (r.get("title") or "")[:160]}
+        for a in MANUAL_SEEDS.get(g, []):            # always include curated targets (survive rebuilds)
+            seen.setdefault(_norm(a["url"]), {"url": a["url"], "date": a["date"], "title": a["title"]})
         out[g] = sorted(seen.values(), key=lambda x: x["date"])
         print(f"  {g:6}: {len(out[g])} ground-truth superlative articles ({cfg['start']}..{cfg['end']})")
     OUT.write_text(json.dumps(out, indent=1))

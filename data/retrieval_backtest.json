@@ -12903,6 +12903,30 @@
    ],
    "ground_truth": [
     {
+     "d": "2026-03-04",
+     "price": 67.08,
+     "url": "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
+     "title": "This Little-Known Fund Is the Best-Performing ETF of 2026",
+     "src": "etf.com",
+     "detected": false
+    },
+    {
+     "d": "2026-03-20",
+     "price": 94.11,
+     "url": "https://www.etf.com/sections/features/skyrocketing-etf-still-flying-under-radar",
+     "title": "This Skyrocketing ETF Is Still Flying Under the Radar",
+     "src": "etf.com",
+     "detected": false
+    },
+    {
+     "d": "2026-04-09",
+     "price": 169.97,
+     "url": "https://www.bloomberg.com/news/articles/2026-04-09/a-1-300-rally-turns-a-tiny-shipping-etf-into-an-iran-war-gauge",
+     "title": "A 1,300% Rally Turns a Tiny Shipping ETF Into an Iran War Gauge",
+     "src": "bloomberg.com",
+     "detected": false
+    },
+    {
      "d": "2026-04-25",
      "price": 139.77,
      "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
@@ -13708,7 +13732,7 @@
   ],
   "BWET": [
    1,
-   1
+   4
   ],
   "DRAM": [
    0,
