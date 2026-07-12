@@ -87,6 +87,7 @@ COVERAGE_BEATS = [
     # (utility/telecom/consumer/real-estate/financial) deliberately skipped — they don't spawn ETF gems.
     "nuclear uranium ETF surging", "robotics automation ETF surging", "quantum computing ETF surging",
     "space defense ETF surging", "crypto blockchain ETF surging", "semiconductor memory chip ETF surging",
+    "power grid AI datacenter energy ETF surging",   # AI-power-demand is a genuinely hot ETF theme
     "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
