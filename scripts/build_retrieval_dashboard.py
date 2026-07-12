@@ -346,12 +346,12 @@ High mention count <i>and</i> high ▲ = a candidate worth promoting (e.g. AREC,
 <h2>Plot 8 · Articles per search term (total vs unique)</h2>
 <div class="sub">Distinct pool articles each aligned beat surfaced (11 gem + 21 coverage beats). <b>total</b> vs
 <b>unique</b> (surfaced by that beat ONLY) — a low unique share = a redundant beat. Hover for the beat.</div>
-<div id="beathist" style="width:100%;height:640px"></div>
+<div id="beathist" style="width:100%;height:760px"></div>
 
 <h2>Plot 9 · By-name yield per search term</h2>
 <div class="sub">How many <b>gem-ticker-naming</b> articles each beat surfaced — which beats are productive for
 the actual goal, not just volume.</div>
-<div id="bynamehist" style="width:100%;height:640px"></div>
+<div id="bynamehist" style="width:100%;height:760px"></div>
 
 <h2>Plot 10 · Articles per source domain</h2>
 <div class="sub">Top publishers, colored by list: <b style="color:#2f9e44">allowlist</b> (specialty desks),
