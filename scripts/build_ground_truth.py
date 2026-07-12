@@ -59,7 +59,9 @@ SUPER = ["skyrocket", "soar", "surg", "best performing", "best-performing", "lit
          "under the radar", "outperform", "rocketing", "explod", "on fire", "breakout", "record high",
          "all-time high", "up 1", "up 2", "up 3", "up 4", "up 5", "up 6", "up 7", "up 8", "up 9", "jump", "spike",
          # unprecedented-growth family (e.g. RNMBY "growth we have never experienced before") + record-X
-         "unprecedented", "never seen", "never experienced", "record order", "record backlog", "highest ever"]
+         "unprecedented", "never seen", "never experienced", "record order", "record backlog", "highest ever",
+         # fastest / most-traded / best-perf family (e.g. DRAM "fastest ETF to hit $6.5B", "seventh-most-traded")
+         "fastest", "most traded", "most-traded", "best perf"]
 SUPER_Q = ["skyrocketing soaring surging record high", "best performing stock outperforming",
            "little-known under the radar breakout"]
 
