@@ -124,10 +124,13 @@ def _price_chart(g: str, ch: dict, det: dict) -> str:
                  f'data-lede="" data-url="{html.escape(a["url"])}"')
         if a["detected"]:
             s.append(f'<circle class="dot" cx="{dx:.1f}" cy="{dy:.1f}" r="7.5" fill="#1c7ed6" stroke="#0b3d91" '
-                     f'stroke-width="2" data-kind="TARGET ✓ detected" {attrs}/>')
-        else:
+                     f'stroke-width="2" data-kind="TARGET ✓ detected (Tavily)" {attrs}/>')
+        elif a.get("forward_reachable"):     # Tavily missed it, but the forward (Anthropic) can reach it
             s.append(f'<rect class="dot" x="{dx-6:.1f}" y="{dy-6:.1f}" width="12" height="12" fill="none" '
-                     f'stroke="#f76707" stroke-width="2.2" data-kind="TARGET ✗ MISSED" {attrs}/>')
+                     f'stroke="#2f9e44" stroke-width="2.4" data-kind="TARGET ✗ missed by Tavily, ✓ forward-reachable (Anthropic)" {attrs}/>')
+        else:                                # missed by both engines (Anthropic-blocked or not indexed)
+            s.append(f'<rect class="dot" x="{dx-6:.1f}" y="{dy-6:.1f}" width="12" height="12" fill="none" '
+                     f'stroke="#f76707" stroke-width="2.2" data-kind="TARGET ✗ MISSED by both engines" {attrs}/>')
     s.append("</svg>")
     return "".join(s)
 
@@ -274,9 +277,11 @@ instrument; US-centric beats under-cover European names). So the firehose reliab
 <div class="sub">Ticker (solid) vs <b>SPY</b> (dashed), both <b>normalized to 1× at the window start</b> so the growth
 multiple &amp; out-performance are visible. Each <b style="color:#1c7ed6">●</b> is an article that <b>names the
 ticker</b> (by-name), placed at its date &amp; price. <b>Hover</b> for date · price · lede; <b>click</b> to open
-the article. <b>Big <span style="color:#1c7ed6">●</span></b> / <b><span style="color:#f76707">▢</span></b> =
-the <b>ground-truth target</b> set (superlative gem news we WANT caught): big blue = detected, orange square =
-<b>missed</b>. (Small blue dots = other retrieved by-name articles. Thesis-only "theme" dots dropped.)</div>
+the article. <b>Target set</b> (superlative gem news we WANT caught): <b style="color:#1c7ed6">● detected</b>
+by the Tavily backtest · <b style="color:#2f9e44">▢ forward-reachable</b> (Tavily missed it, but the live
+Anthropic engine <i>can</i> reach it — e.g. Cloudflare-walled etf.com) · <b style="color:#f76707">▢ missed by
+both</b> engines (Anthropic-blocked like WSJ/MarketWatch/Investors.com, or unindexed). Small blue dots =
+other retrieved by-name articles.</div>
 {charts_html}
 
 <h2>Detection summary</h2>

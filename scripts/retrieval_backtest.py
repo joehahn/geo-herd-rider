@@ -129,6 +129,8 @@ def _chart_data(det: dict, panel, peaks: dict, pool_urls: set | None = None, gt:
     Dots outside the window are dropped to keep the chart on the era; pre-inception dots (DRAM thesis
     before its 2026-04 launch) stay at baseline with price=null."""
     charts = {}
+    reach_path = REPO / "data" / "gt_forward_reachable.json"   # missed GT the FORWARD (Anthropic) can still reach
+    reach = json.loads(reach_path.read_text()) if reach_path.exists() else {}
     spy = panel["SPY"].dropna() if "SPY" in panel.columns else pd.Series(dtype=float)
     for g in gem_detect.GEMS:
         rows = [(a, "name") for a in det[g]["by_name"]]     # by-name dots only (thesis grep isn't the scout)
@@ -170,7 +172,8 @@ def _chart_data(det: dict, panel, peaks: dict, pool_urls: set | None = None, gt:
             sub2 = s[s.index <= gd] if len(s) else s
             gt_over.append({"d": a["date"], "price": round(float(sub2.iloc[-1]), 2) if len(sub2) else None,
                             "url": a["url"], "title": a["title"], "src": urlparse(a["url"]).netloc.replace("www.", ""),
-                            "detected": (pool_urls is not None) and _norm_url(a["url"]) in pool_urls})
+                            "detected": (pool_urls is not None) and _norm_url(a["url"]) in pool_urls,
+                            "forward_reachable": bool(reach.get(a["url"], False))})
         charts[g] = {"ticker": g, "window": [wstart.date().isoformat(), wend.date().isoformat()],
                      "series": series, "spy_series": spy_series, "dots": sorted(dots, key=lambda x: x["d"]),
                      "ground_truth": sorted(gt_over, key=lambda x: x["d"])}

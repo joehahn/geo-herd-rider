@@ -4166,7 +4166,8 @@
      "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-nysemp-surges-41-in-one-month-following-saudi-p",
      "title": "MP Materials (NYSE:MP) Surges 41% In One Month Following Saudi Partnership - simplywall.st",
      "src": "simplywall.st",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-07-10",
@@ -4174,7 +4175,8 @@
      "url": "https://finance.yahoo.com/news/live/stock-market-today-sp-500-nasdaq-eke-out-fresh-records-nvidia-closes-at-4t-market-cap-200027558.html",
      "title": "Stock market today: S&P 500, Nasdaq eke out fresh records, Nvidia closes at $4T market cap - Yahoo Finance",
      "src": "finance.yahoo.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-07-15",
@@ -4182,7 +4184,8 @@
      "url": "https://tokenist.com/mp-stock-surges-in-premarket-after-apples-investment-plans-reported/",
      "title": "MP Stock Surges in Premarket After Apple\u2019s Investment Plans Reported - Tokenist",
      "src": "tokenist.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-07-19",
@@ -4190,7 +4193,8 @@
      "url": "https://www.marketbeat.com/stock-ideas/these-3-rare-earth-stocks-are-surging-alongside-mp-materials/",
      "title": "These 3 Rare Earth Stocks Are Surging Alongside MP Materials - MarketBeat",
      "src": "marketbeat.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-08-08",
@@ -4198,7 +4202,8 @@
      "url": "https://www.kitco.com/news/off-the-wire/2025-08-08/mp-materials-hits-record-high-after-smaller-loss-pentagon-and-apple",
      "title": "MP Materials hits record high after smaller loss, Pentagon and Apple boost - KITCO",
      "src": "kitco.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-08-11",
@@ -4206,7 +4211,8 @@
      "url": "https://www.mining.com/mp-materials-hits-new-high-as-it-receives-150m-pentagon-loan/",
      "title": "MP Materials hits new high as it receives $150M Pentagon loan - Mining.com",
      "src": "mining.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-09-24",
@@ -4214,7 +4220,8 @@
      "url": "https://ts2.tech/en/mp-materials-stock-skyrockets-on-pentagon-deal-and-apple-alliance-rare-earth-boom-or-hype/",
      "title": "MP Materials Stock Skyrockets on Pentagon Deal and Apple Alliance \u2013 Rare Earth Boom or Hype? - ts2.tech",
      "src": "ts2.tech",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-10-03",
@@ -4222,7 +4229,8 @@
      "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/",
      "title": "USA Rare Earth Takes Off On Merger, White House Talks - Investor's Business Daily",
      "src": "investors.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-10-12",
@@ -4230,7 +4238,8 @@
      "url": "https://ts2.tech/en/mp-materials-mp-stock-skyrockets-380-on-u-s-rare-earth-push-boom-or-bust/",
      "title": "MP Materials (MP) Stock Skyrockets 380% on U.S. Rare-Earth Push \u2013 Boom or Bust? - ts2.tech",
      "src": "ts2.tech",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-10-13",
@@ -4238,7 +4247,8 @@
      "url": "https://www.investors.com/news/rare-earth-us-china-deal-ai-chips-world-peace-mp-usar/",
      "title": "Price Of A U.S.-China Deal Just Got A Lot Higher; Rare Earth Stocks Soar - Investor's Business Daily",
      "src": "investors.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-10-22",
@@ -4246,7 +4256,8 @@
      "url": "https://www.theglobeandmail.com/investing/markets/stocks/MP-N/pressreleases/35605300/1-big-reason-i-m-watching-mp-materials-stock-in-2025/",
      "title": "1 Big Reason I'm Watching MP Materials Stock in 2025 - The Globe and Mail",
      "src": "theglobeandmail.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-13",
@@ -4254,7 +4265,8 @@
      "url": "https://rollingout.com/2025/11/13/mp-materials-stock-nvidia-comparison/",
      "title": "MP Materials stock surges 250%: Is it the next Nvidia? - Rolling Out",
      "src": "rollingout.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-14",
@@ -4262,7 +4274,8 @@
      "url": "https://nai500.com/blog/2025/11/mp-materials-can-a-rare-earth-miner-replicate-nvidias-growth-myth/",
      "title": "MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth? - NAI500",
      "src": "nai500.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-19",
@@ -4270,7 +4283,8 @@
      "url": "https://www.mining.com/mp-materials-soars-on-saudi-arabia-rare-earth-joint-venture/",
      "title": "MP Materials soars on Saudi Arabia rare earth joint venture - Mining.com",
      "src": "mining.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-11-22",
@@ -4278,7 +4292,8 @@
      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-soars-on-strategic-u-s-saudi-partnership/68379413",
      "title": "MP Materials Stock Soars on Strategic U.S.-Saudi Partnership - Ad-hoc-news.de",
      "src": "ad-hoc-news.de",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-24",
@@ -4286,7 +4301,8 @@
      "url": "https://www.investing.com/news/analyst-ratings/mp-materials-stock-rating-upgraded-by-bmo-capital-on-strategic-value-93CH-4374244",
      "title": "MP Materials stock rating upgraded by BMO Capital on strategic value - Investing.com",
      "src": "investing.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-24",
@@ -4294,7 +4310,8 @@
      "url": "https://nai500.com/blog/2025/11/the-bet-on-mp-materials-isnt-about-revenue-its-about-us-independence/",
      "title": "The Bet on MP Materials Isn\u2019t About Revenue. It\u2019s About US Independence - NAI500",
      "src": "nai500.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-12-05",
@@ -4302,7 +4319,8 @@
      "url": "https://m.uk.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4403078?ampMode=1",
      "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com UK",
      "src": "m.uk.investing.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-12-05",
@@ -4310,7 +4328,8 @@
      "url": "https://m.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4392533?ampMode=1",
      "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com",
      "src": "m.investing.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-12-06",
@@ -4318,7 +4337,8 @@
      "url": "https://ca.investing.com/news/insider-trading-news/mp-materials-ceo-litinsky-sells-242-million-in-stock-93CH-4352311",
      "title": "MP Materials CEO Litinsky sells $24.2 million in stock By Investing.com - Investing.com Canada",
      "src": "ca.investing.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-12-08",
@@ -4326,7 +4346,8 @@
      "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-mp-is-up-69-after-dodbacked-minetomagnet-push-h",
      "title": "MP Materials (MP) Is Up 6.9% After DoD\u2011Backed Mine\u2011to\u2011Magnet Push - Has The Bull Case Changed? - simplywall.st",
      "src": "simplywall.st",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-12-11",
@@ -4334,7 +4355,8 @@
      "url": "https://www.fool.com/investing/2025/12/11/will-mp-materials-stock-have-room-to-run-in-2026/",
      "title": "Will MP Materials Stock Have Room to Run in 2026? - The Motley Fool",
      "src": "fool.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     }
    ]
   },
@@ -7075,7 +7097,8 @@
      "url": "https://www.investors.com/news/rare-earth-stocks-usar-trump-equity-stake-report/",
      "title": "Rare Earth Stocks Jump On Trump Stake In USA Rare Earth - Investor's Business Daily",
      "src": "investors.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": false
     },
     {
      "d": "2026-02-26",
@@ -7083,7 +7106,8 @@
      "url": "https://www.investors.com/news/five-rare-earth-stocks-to-watch-as-shortages-hit-aerospace/",
      "title": "Five Rare Earth Stocks To Watch As Shortages Hit Aerospace - Investor's Business Daily",
      "src": "investors.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     }
    ]
   },
@@ -8717,7 +8741,8 @@
      "url": "https://www.kitco.com/opinion/2025-08-06/gold-3800-gdx-60-targets-play",
      "title": "Gold $3800 & GDX $60: Targets in play - KITCO",
      "src": "kitco.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-08-08",
@@ -8725,7 +8750,8 @@
      "url": "https://www.mining.com/web/gdx-record-high-watch/",
      "title": "GDX record-high watch - Mining.com",
      "src": "mining.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-10-02",
@@ -8733,7 +8759,8 @@
      "url": "https://www.investing.com/analysis/the-5-best-gold-mining-stocks-to-buy-now-200667791",
      "title": "The 5 Best Gold Mining Stocks to Buy Now - Investing.com",
      "src": "investing.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-10-21",
@@ -8741,7 +8768,8 @@
      "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/",
      "title": "Gold Prices Suffer Worst Loss In 12 Years After Huge Rally; These ETFs, Miners Plunge - Investor's Business Daily",
      "src": "investors.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     },
     {
      "d": "2025-10-24",
@@ -8749,7 +8777,8 @@
      "url": "https://ts2.tech/en/gold-blasts-above-4100-silver-sizzles-on-fed-cut-hopes/",
      "title": "Gold Blasts Above $4,100; Silver Sizzles on Fed-Cut Hopes - ts2.tech",
      "src": "ts2.tech",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-12-26",
@@ -8757,7 +8786,8 @@
      "url": "https://www.smartkarma.com/insights/gold-s-unprecedented-margin-cycle-the-gdx-etf-feb26-strategy",
      "title": "Gold\u2019s Unprecedented Margin Cycle: The GDX ETF FEB26 Strategy - Smartkarma",
      "src": "smartkarma.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": false
     },
     {
      "d": "2026-01-26",
@@ -8765,7 +8795,8 @@
      "url": "https://www.moneyshow.com/articles/tradingidea-64825/chart-of-the-day-1-26-26-after-$100-silver-and-almost-$5k-gold-whats-next/",
      "title": "(01/26/26) Chart of the Day 1/26/26: After $100 Silver and (Almost) $5K Gol - moneyshow.com",
      "src": "moneyshow.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": false
     },
     {
      "d": "2026-04-25",
@@ -8773,7 +8804,8 @@
      "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/261572086-do-more-volatile-gold-stocks-mean-greater-opportunity-tradingkey",
      "title": "Do More Volatile Gold Stocks Mean Greater Opportunity? - TradingKey",
      "src": "tradingkey.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     }
    ]
   },
@@ -11917,7 +11949,8 @@
      "url": "https://www.bloomberg.com/news/articles/2025-02-24/rheinmetall-has-35-more-upside-on-german-defense-boom-ubs-says",
      "title": "Rheinmetall Has 35% More Upside on German Defense Boom, UBS Says - Bloomberg",
      "src": "bloomberg.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-03-16",
@@ -11925,7 +11958,8 @@
      "url": "https://fortune.com/2025/03/16/rheinmetall-defense-contractor-europe-european-union-germany-ukraine-russia-nato/",
      "title": "Rheinmetall sees growth 'that we have never experienced before' - Fortune",
      "src": "fortune.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-06-26",
@@ -11933,7 +11967,8 @@
      "url": "https://bulgarianmilitary.com/2025/06/26/leopard-2-spark-rheinmetall-stock-surge-on-frankfurt-exchange/",
      "title": "Leopard 2 spark Rheinmetall stock surge on Frankfurt exchange - BulgarianMilitary.com",
      "src": "bulgarianmilitary.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2025-08-07",
@@ -11941,7 +11976,8 @@
      "url": "https://www.wsj.com/business/earnings/rheinmetall-holds-off-raising-guidance-despite-surging-sales-77ffe500?gaa_at=eafs&gaa_n=ASWzDAhX5QMyNLxIsNlevEDoQRuVM_PQS5507hxO7UOYbUtpYqmsjQyb22kY&gaa_ts=6894b8a9&gaa_sig=X5sxv2EuC2pTilqvJNgUS9n4aPCs_iulfeDjNqx84iN39QTRWgVGmbeUTJudw64GrT9sH2tGmDDdDBHnlZ5jnA%3D%3D",
      "title": "Rheinmetall Has Become a Serious Partner for U.S. Defense Contractors, CEO Says - The Wall Street Journal",
      "src": "wsj.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": false
     },
     {
      "d": "2025-11-18",
@@ -11949,7 +11985,8 @@
      "url": "https://www.cnbc.com/2025/11/18/rheinmetall-german-defense-giant-sees-sales-surging-fivefold-by-2030.html",
      "title": "Rheinmetall shares rise as defense giant sees sales surging fivefold by 2030 - CNBC",
      "src": "cnbc.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     }
    ]
   },
@@ -12909,7 +12946,8 @@
      "url": "https://www.etf.com/sections/features/little-known-fund-best-performing-etf-2026",
      "title": "This Little-Known Fund Is the Best-Performing ETF of 2026",
      "src": "etf.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2026-03-20",
@@ -12917,7 +12955,8 @@
      "url": "https://www.etf.com/sections/features/skyrocketing-etf-still-flying-under-radar",
      "title": "This Skyrocketing ETF Is Still Flying Under the Radar",
      "src": "etf.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2026-04-09",
@@ -12925,7 +12964,8 @@
      "url": "https://www.bloomberg.com/news/articles/2026-04-09/a-1-300-rally-turns-a-tiny-shipping-etf-into-an-iran-war-gauge",
      "title": "A 1,300% Rally Turns a Tiny Shipping ETF Into an Iran War Gauge",
      "src": "bloomberg.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     },
     {
      "d": "2026-04-25",
@@ -12933,7 +12973,8 @@
      "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
      "title": "This little-known ETF is up over 600% amid U.S.-Iran war, a better trade than oil or energy stocks - CNBC",
      "src": "cnbc.com",
-     "detected": true
+     "detected": true,
+     "forward_reachable": false
     }
    ]
   },
@@ -13701,7 +13742,8 @@
      "url": "https://www.marketwatch.com/story/the-dram-memory-etf-has-gotten-off-to-a-blazing-start-here-comes-a-leveraged-version-baebfe12",
      "title": "The \u2018DRAM\u2019 memory ETF has gotten off to a blazing start. Here comes a leveraged version. - MarketWatch",
      "src": "marketwatch.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": false
     },
     {
      "d": "2026-05-12",
@@ -13709,7 +13751,8 @@
      "url": "https://finance.yahoo.com/markets/article/micron-helps-dram-become-the-fastest-etf-to-hit-65-billion-145645491.html",
      "title": "Micron helps DRAM become the fastest ETF to hit $6.5 billion - Yahoo Finance",
      "src": "finance.yahoo.com",
-     "detected": false
+     "detected": false,
+     "forward_reachable": true
     }
    ]
   }
