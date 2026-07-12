@@ -52,7 +52,9 @@ GEM_BEATS = [
     # catalyst -> named beneficiary (a discrete datable event and the ticker it lifts)
     "war chokepoint stock beneficiary", "export ban tariff sanctions stock beneficiary",
     "supply shortage supply shock stock", "rare earth critical minerals stock",
-    "tanker shipping freight rates ETF", "memory chip DRAM shortage stock",
+    "memory chip DRAM shortage stock",       # dropped "tanker shipping freight rates ETF" 2026-07-12:
+    # redundant (17% unique, all macro noise / 0 gems) + off-target (pulled uranium/supply not tanker);
+    # tanker/BWET coverage lives in "shipping maritime stocks" + "niche ETF surging" + the ETF-superlative beat
     "uranium nuclear fuel supply squeeze stock", "upcoming FDA election vote stock anticipation",
 ]
 COVERAGE_BEATS = [
