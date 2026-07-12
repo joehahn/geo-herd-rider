@@ -66,6 +66,17 @@ def _named_in(text: str, kw: dict) -> bool:
     return any(n in low for n in kw["name"]) or any(_ticker_hit(t, text, kw.get("strict", False)) for t in kw["ticker"])
 
 
+def named_in_title(title: str, kw: dict) -> bool:
+    """Stricter than _named_in: the gem is the article's SUBJECT — its company name, or its ticker as a
+    whole-word TITLE token (any length, since a bare ticker in a headline signals the subject). Rejects
+    roundups/market-wraps that only carry a body ticker-tag ("Stock market today: S&P 500…", "5 Rare
+    Earth Stocks to Watch") while keeping "MP Stock Surges…", "Goldman Raises TSM Target…"."""
+    low = title.lower()
+    if any(n in low for n in kw["name"]):
+        return True
+    return any(re.search(rf"(?<![A-Za-z0-9]){t}(?![A-Za-z0-9])", title) for t in kw["ticker"])
+
+
 def detect(pool: list[dict]) -> dict:
     """-> {gem: {"by_name":[arts], "thesis":[arts]}} sorted by date; each list = matching articles.
 

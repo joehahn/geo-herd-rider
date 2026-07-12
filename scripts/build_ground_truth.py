@@ -93,7 +93,9 @@ def build() -> dict:
                     # REALLY names the gem (distinctive company name in the title, or an explicit $TK/(TK)
                     # tag anywhere) — the same rule gem_detect uses; rejects generic-word chrome matches
                     kw = gem_detect.GEMS[g]
-                    named = gem_detect._named_in(title, kw) or any(gem_detect._ticker_form(t, blob) for t in kw["ticker"])
+                    # require the gem to be the article's SUBJECT (named in the TITLE) — a body ticker-tag
+                    # alone admits roundups/market-wraps that merely list the gem
+                    named = gem_detect.named_in_title(title, kw)
                     if not (named and any(s in blob.lower() for s in SUPER)):
                         continue
                     d = _iso(r.get("published_date") or "")
