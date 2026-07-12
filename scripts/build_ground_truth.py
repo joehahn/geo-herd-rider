@@ -18,10 +18,12 @@ from urllib.parse import urlparse
 
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "src"))
+sys.path.insert(0, str(REPO / "scripts"))
 from util import load_dotenv  # noqa: E402
 
 load_dotenv()
 import search  # noqa: E402
+import gem_detect  # noqa: E402 — reuse the robust by-name matcher so GT only holds articles that REALLY name the gem
 
 OUT = REPO / "data" / "gem_ground_truth.json"
 # gem -> display names to search by, and its era
@@ -35,7 +37,9 @@ GEMS_GT = {
 }
 SUPER = ["skyrocket", "soar", "surg", "best performing", "best-performing", "little-known", "little known",
          "under the radar", "outperform", "rocketing", "explod", "on fire", "breakout", "record high",
-         "all-time high", "up 1", "up 2", "up 3", "up 4", "up 5", "up 6", "up 7", "up 8", "up 9", "%", "jump", "spike"]
+         "all-time high", "up 1", "up 2", "up 3", "up 4", "up 5", "up 6", "up 7", "up 8", "up 9", "jump", "spike",
+         # unprecedented-growth family (e.g. RNMBY "growth we have never experienced before") + record-X
+         "unprecedented", "never seen", "never experienced", "record order", "record backlog", "highest ever"]
 SUPER_Q = ["skyrocketing soaring surging record high", "best performing stock outperforming",
            "little-known under the radar breakout"]
 
@@ -59,9 +63,13 @@ def build() -> dict:
         for name in cfg["names"]:
             for sq in SUPER_Q:
                 for r in search.search(f"{name} {sq}", before_date=cfg["end"], start_date=cfg["start"], max_results=15):
-                    text = ((r.get("title") or "") + " " + (r.get("content") or "")).lower()
-                    names_gem = g.lower() in text or any(w in text for w in name.lower().replace("$", "").split() if len(w) > 3)
-                    if not (names_gem and any(s in text for s in SUPER)):
+                    title = r.get("title") or ""
+                    blob = title + "  " + (r.get("content") or "")
+                    # REALLY names the gem (distinctive company name in the title, or an explicit $TK/(TK)
+                    # tag anywhere) — the same rule gem_detect uses; rejects generic-word chrome matches
+                    kw = gem_detect.GEMS[g]
+                    named = gem_detect._named_in(title, kw) or any(gem_detect._ticker_form(t, blob) for t in kw["ticker"])
+                    if not (named and any(s in blob.lower() for s in SUPER)):
                         continue
                     d = _iso(r.get("published_date") or "")
                     if not d or not (cfg["start"] <= d <= cfg["end"]):

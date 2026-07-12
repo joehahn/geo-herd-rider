@@ -6,57 +6,57 @@
  "generated_from": "tavily two-pass aligned beat sweep (no ticker queries)",
  "cost": {
   "windows": 40,
-  "tavily_credits": 1360,
-  "wall_seconds": 878.5,
+  "tavily_credits": 1320,
+  "wall_seconds": 1190.6,
   "llm_usd": 0.0,
-  "pool_size": 16827
+  "pool_size": 17385
  },
  "wcount": {
-  "2025-01-07": 443,
-  "2025-01-21": 511,
-  "2025-02-04": 520,
-  "2025-02-18": 501,
-  "2025-03-04": 569,
-  "2025-03-18": 311,
-  "2025-04-01": 199,
-  "2025-04-15": 466,
-  "2025-04-29": 321,
-  "2025-05-13": 325,
-  "2025-05-27": 481,
-  "2025-06-10": 445,
-  "2025-06-24": 442,
-  "2025-07-08": 282,
-  "2025-07-22": 440,
-  "2025-08-05": 451,
-  "2025-08-19": 486,
-  "2025-09-02": 334,
-  "2025-09-16": 458,
-  "2025-09-30": 472,
-  "2025-10-14": 270,
-  "2025-10-28": 508,
+  "2025-01-07": 428,
+  "2025-01-21": 497,
+  "2025-02-04": 504,
+  "2025-02-18": 486,
+  "2025-03-04": 469,
+  "2025-03-18": 502,
+  "2025-04-01": 192,
+  "2025-04-15": 454,
+  "2025-04-29": 312,
+  "2025-05-13": 336,
+  "2025-05-27": 471,
+  "2025-06-10": 442,
+  "2025-06-24": 452,
+  "2025-07-08": 380,
+  "2025-07-22": 403,
+  "2025-08-05": 437,
+  "2025-08-19": 469,
+  "2025-09-02": 461,
+  "2025-09-16": 450,
+  "2025-09-30": 417,
+  "2025-10-14": 501,
+  "2025-10-28": 491,
   "2025-11-11": 472,
-  "2025-11-25": 458,
-  "2025-12-09": 225,
-  "2025-12-23": 475,
-  "2026-01-06": 463,
-  "2026-01-20": 454,
-  "2026-02-03": 223,
-  "2026-02-17": 476,
-  "2026-03-03": 436,
-  "2026-03-17": 454,
-  "2026-03-31": 299,
-  "2026-04-14": 466,
-  "2026-04-28": 479,
-  "2026-05-12": 512,
-  "2026-05-26": 277,
-  "2026-06-09": 490,
-  "2026-06-23": 473,
-  "2026-07-07": 460
+  "2025-11-25": 479,
+  "2025-12-09": 346,
+  "2025-12-23": 439,
+  "2026-01-06": 417,
+  "2026-01-20": 455,
+  "2026-02-03": 447,
+  "2026-02-17": 447,
+  "2026-03-03": 373,
+  "2026-03-17": 394,
+  "2026-03-31": 453,
+  "2026-04-14": 451,
+  "2026-04-28": 458,
+  "2026-05-12": 496,
+  "2026-05-26": 325,
+  "2026-06-09": 476,
+  "2026-06-23": 458,
+  "2026-07-07": 445
  },
  "detection": {
   "MP": {
    "form": "single stock",
-   "by_name": 68,
+   "by_name": 97,
    "thesis": 284,
    "peak": "2025-10-14",
    "earliest_by_name": "2025-01-22",
@@ -65,26 +65,26 @@
   },
   "AREC": {
    "form": "single stock",
-   "by_name": 4,
-   "thesis": 351,
+   "by_name": 7,
+   "thesis": 365,
    "peak": "2025-10-14",
-   "earliest_by_name": "2025-08-07",
+   "earliest_by_name": "2025-03-07",
    "earliest_thesis": "2024-12-31",
-   "lead_days": 68
+   "lead_days": 221
   },
   "GDX": {
    "form": "ETF wrapper",
-   "by_name": 7,
-   "thesis": 71,
+   "by_name": 5,
+   "thesis": 74,
    "peak": "2026-02-27",
-   "earliest_by_name": "2025-02-21",
+   "earliest_by_name": "2025-08-06",
    "earliest_thesis": "2025-01-01",
-   "lead_days": 371
+   "lead_days": 205
   },
   "RNMBY": {
    "form": "foreign ADR",
    "by_name": 9,
-   "thesis": 27,
+   "thesis": 30,
    "peak": "2025-09-29",
    "earliest_by_name": "2025-03-12",
    "earliest_thesis": "2025-01-13",
@@ -93,7 +93,7 @@
   "BWET": {
    "form": "ETF wrapper",
    "by_name": 1,
-   "thesis": 55,
+   "thesis": 66,
    "peak": "2026-06-22",
    "earliest_by_name": "2026-04-25",
    "earliest_thesis": "2025-01-14",
@@ -102,7 +102,7 @@
   "DRAM": {
    "form": "ETF wrapper",
    "by_name": 1,
-   "thesis": 50,
+   "thesis": 37,
    "peak": "2026-06-22",
    "earliest_by_name": "2026-05-07",
    "earliest_thesis": "2025-03-25",
@@ -117,12 +117,12 @@
     "2025-01-22",
     "2025-02-20",
     "2025-02-21",
-    "2025-02-28",
     "2025-04-14",
     "2025-04-21",
     "2025-05-31",
     "2025-06-12",
     "2025-06-13",
+    "2025-06-27",
     "2025-07-15",
     "2025-07-16",
     "2025-07-16",
@@ -132,18 +132,44 @@
     "2025-08-12",
     "2025-08-31",
     "2025-09-25",
-    "2025-09-29",
     "2025-10-03",
+    "2025-10-10",
     "2025-10-13",
     "2025-10-17",
     "2025-10-22",
     "2025-10-26",
     "2025-10-27",
+    "2025-11-06",
+    "2025-11-07",
+    "2025-11-07",
     "2025-11-07",
     "2025-11-13",
+    "2025-11-13",
     "2025-11-14",
+    "2025-11-17",
+    "2025-11-18",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-20",
+    "2025-11-20",
+    "2025-11-21",
     "2025-11-22",
+    "2025-11-23",
+    "2025-11-24",
+    "2025-11-24",
+    "2025-11-26",
+    "2025-11-29",
     "2025-12-05",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-05",
+    "2025-12-06",
+    "2025-12-06",
+    "2025-12-06",
+    "2025-12-08",
+    "2025-12-11",
     "2025-12-25",
     "2025-12-26",
     "2025-12-26",
@@ -152,11 +178,17 @@
     "2026-01-05",
     "2026-01-10",
     "2026-01-16",
+    "2026-01-23",
+    "2026-01-23",
+    "2026-01-24",
+    "2026-01-29",
     "2026-02-26",
     "2026-02-26",
     "2026-02-26",
     "2026-02-27",
     "2026-02-27",
+    "2026-03-21",
+    "2026-03-21",
     "2026-04-03",
     "2026-04-07",
     "2026-04-08",
@@ -167,9 +199,6 @@
     "2026-05-07",
     "2026-05-07",
     "2026-05-07",
-    "2026-05-13",
-    "2026-05-20",
-    "2026-05-23",
     "2026-05-27",
     "2026-06-06",
     "2026-06-06",
@@ -207,6 +236,11 @@
     "2025-02-26",
     "2025-02-27",
     "2025-02-27",
+    "2025-03-07",
+    "2025-03-11",
+    "2025-03-13",
+    "2025-03-13",
+    "2025-03-13",
     "2025-03-14",
     "2025-04-09",
     "2025-04-14",
@@ -214,11 +248,12 @@
     "2025-04-17",
     "2025-04-17",
     "2025-04-23",
+    "2025-05-01",
+    "2025-05-01",
+    "2025-05-01",
     "2025-05-02",
     "2025-05-02",
-    "2025-05-07",
     "2025-05-09",
-    "2025-05-12",
     "2025-05-15",
     "2025-05-16",
     "2025-05-16",
@@ -237,22 +272,20 @@
     "2025-06-11",
     "2025-06-11",
     "2025-06-12",
-    "2025-06-12",
     "2025-06-17",
     "2025-06-18",
     "2025-06-19",
     "2025-06-19",
-    "2025-06-28",
+    "2025-06-25",
+    "2025-06-27",
     "2025-07-06",
     "2025-07-10",
     "2025-07-12",
-    "2025-07-14",
     "2025-07-14",
     "2025-07-16",
     "2025-07-16",
     "2025-07-17",
     "2025-07-20",
-    "2025-07-21",
     "2025-07-24",
     "2025-07-25",
     "2025-07-29",
@@ -264,6 +297,7 @@
     "2025-08-20",
     "2025-08-22",
     "2025-08-22",
+    "2025-08-24",
     "2025-08-25",
     "2025-08-26",
     "2025-08-26",
@@ -280,17 +314,14 @@
     "2025-09-09",
     "2025-09-11",
     "2025-09-17",
-    "2025-09-17",
-    "2025-09-18",
     "2025-09-19",
     "2025-09-23",
-    "2025-09-24",
-    "2025-09-25",
     "2025-10-02",
     "2025-10-03",
     "2025-10-03",
     "2025-10-03",
     "2025-10-06",
+    "2025-10-07",
     "2025-10-08",
     "2025-10-10",
     "2025-10-10",
@@ -299,10 +330,13 @@
     "2025-10-12",
     "2025-10-13",
     "2025-10-13",
+    "2025-10-13",
+    "2025-10-13",
     "2025-10-16",
     "2025-10-17",
     "2025-10-17",
     "2025-10-19",
+    "2025-10-20",
     "2025-10-21",
     "2025-10-21",
     "2025-10-21",
@@ -313,40 +347,45 @@
     "2025-10-27",
     "2025-10-27",
     "2025-10-29",
-    "2025-10-30",
+    "2025-10-29",
     "2025-10-30",
     "2025-10-30",
     "2025-10-31",
+    "2025-11-01",
     "2025-11-03",
     "2025-11-03",
-    "2025-11-05",
+    "2025-11-04",
     "2025-11-05",
     "2025-11-06",
+    "2025-11-07",
     "2025-11-08",
     "2025-11-10",
+    "2025-11-10",
     "2025-11-12",
+    "2025-11-13",
+    "2025-11-14",
     "2025-11-14",
     "2025-11-17",
     "2025-11-18",
-    "2025-11-18",
-    "2025-11-18",
     "2025-11-21",
+    "2025-11-24",
     "2025-11-24",
     "2025-11-26",
     "2025-11-27",
-    "2025-12-04",
+    "2025-11-27",
     "2025-12-05",
     "2025-12-05",
-    "2025-12-07",
-    "2025-12-08",
     "2025-12-08",
     "2025-12-10",
-    "2025-12-21",
+    "2025-12-11",
+    "2025-12-11",
+    "2025-12-15",
+    "2025-12-18",
+    "2025-12-22",
     "2025-12-25",
     "2025-12-27",
     "2026-01-07",
     "2026-01-07",
-    "2026-01-10",
     "2026-01-11",
     "2026-01-11",
     "2026-01-12",
@@ -362,11 +401,10 @@
     "2026-01-21",
     "2026-01-24",
     "2026-01-26",
-    "2026-01-26",
-    "2026-01-26",
     "2026-01-28",
     "2026-01-29",
     "2026-01-30",
+    "2026-02-02",
     "2026-02-02",
     "2026-02-04",
     "2026-02-04",
@@ -379,21 +417,16 @@
     "2026-02-09",
     "2026-02-10",
     "2026-02-16",
-    "2026-02-18",
     "2026-02-20",
     "2026-02-23",
     "2026-02-24",
-    "2026-02-25",
     "2026-02-26",
     "2026-02-26",
     "2026-02-28",
     "2026-03-02",
     "2026-03-02",
-    "2026-03-04",
     "2026-03-05",
     "2026-03-05",
-    "2026-03-05",
-    "2026-03-07",
     "2026-03-13",
     "2026-03-18",
     "2026-03-20",
@@ -414,7 +447,6 @@
     "2026-04-20",
     "2026-04-20",
     "2026-04-20",
-    "2026-04-20",
     "2026-04-22",
     "2026-04-24",
     "2026-04-24",
@@ -430,14 +462,11 @@
     "2026-05-18",
     "2026-05-20",
     "2026-05-20",
-    "2026-05-20",
-    "2026-05-20",
     "2026-05-21",
     "2026-05-21",
     "2026-05-22",
     "2026-05-22",
     "2026-05-23",
-    "2026-05-25",
     "2026-05-27",
     "2026-05-28",
     "2026-05-29",
@@ -470,8 +499,11 @@
   },
   "AREC": {
    "by_name_dates": [
+    "2025-03-07",
     "2025-08-07",
     "2025-08-27",
+    "2025-11-03",
+    "2026-01-23",
     "2026-03-10",
     "2026-05-22"
    ],
@@ -506,7 +538,10 @@
     "2025-02-26",
     "2025-02-27",
     "2025-02-27",
-    "2025-02-28",
+    "2025-03-11",
+    "2025-03-13",
+    "2025-03-13",
+    "2025-03-13",
     "2025-03-14",
     "2025-04-07",
     "2025-04-07",
@@ -518,12 +553,12 @@
     "2025-04-21",
     "2025-04-23",
     "2025-04-23",
+    "2025-05-01",
+    "2025-05-01",
+    "2025-05-01",
     "2025-05-02",
     "2025-05-02",
-    "2025-05-05",
-    "2025-05-07",
     "2025-05-09",
-    "2025-05-12",
     "2025-05-15",
     "2025-05-16",
     "2025-05-16",
@@ -543,17 +578,16 @@
     "2025-06-11",
     "2025-06-11",
     "2025-06-12",
-    "2025-06-12",
     "2025-06-13",
     "2025-06-17",
     "2025-06-18",
     "2025-06-19",
     "2025-06-19",
-    "2025-06-28",
+    "2025-06-25",
+    "2025-06-27",
     "2025-07-06",
     "2025-07-10",
     "2025-07-12",
-    "2025-07-14",
     "2025-07-14",
     "2025-07-15",
     "2025-07-15",
@@ -562,7 +596,6 @@
     "2025-07-17",
     "2025-07-19",
     "2025-07-20",
-    "2025-07-21",
     "2025-07-24",
     "2025-07-25",
     "2025-07-29",
@@ -579,6 +612,7 @@
     "2025-08-20",
     "2025-08-22",
     "2025-08-22",
+    "2025-08-24",
     "2025-08-25",
     "2025-08-26",
     "2025-08-26",
@@ -595,13 +629,8 @@
     "2025-09-09",
     "2025-09-11",
     "2025-09-17",
-    "2025-09-17",
-    "2025-09-17",
-    "2025-09-18",
     "2025-09-19",
     "2025-09-23",
-    "2025-09-24",
-    "2025-09-25",
     "2025-09-25",
     "2025-10-02",
     "2025-10-03",
@@ -609,12 +638,16 @@
     "2025-10-03",
     "2025-10-03",
     "2025-10-06",
+    "2025-10-07",
     "2025-10-08",
     "2025-10-10",
     "2025-10-10",
     "2025-10-10",
+    "2025-10-10",
     "2025-10-12",
     "2025-10-12",
+    "2025-10-13",
+    "2025-10-13",
     "2025-10-13",
     "2025-10-13",
     "2025-10-13",
@@ -622,6 +655,7 @@
     "2025-10-17",
     "2025-10-17",
     "2025-10-19",
+    "2025-10-20",
     "2025-10-21",
     "2025-10-21",
     "2025-10-21",
@@ -635,53 +669,73 @@
     "2025-10-27",
     "2025-10-27",
     "2025-10-29",
-    "2025-10-30",
+    "2025-10-29",
     "2025-10-30",
     "2025-10-30",
     "2025-10-31",
+    "2025-11-01",
     "2025-11-03",
     "2025-11-03",
-    "2025-11-05",
+    "2025-11-04",
     "2025-11-05",
     "2025-11-06",
+    "2025-11-06",
+    "2025-11-07",
+    "2025-11-07",
+    "2025-11-07",
     "2025-11-07",
     "2025-11-08",
     "2025-11-10",
+    "2025-11-10",
     "2025-11-12",
+    "2025-11-13",
     "2025-11-14",
     "2025-11-14",
     "2025-11-14",
     "2025-11-17",
+    "2025-11-17",
     "2025-11-18",
     "2025-11-18",
-    "2025-11-18",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-19",
+    "2025-11-20",
+    "2025-11-20",
     "2025-11-21",
+    "2025-11-21",
+    "2025-11-21",
+    "2025-11-23",
+    "2025-11-24",
     "2025-11-24",
     "2025-11-26",
+    "2025-11-26",
     "2025-11-27",
-    "2025-12-04",
+    "2025-11-27",
     "2025-12-05",
     "2025-12-05",
     "2025-12-05",
-    "2025-12-07",
+    "2025-12-05",
+    "2025-12-05",
     "2025-12-08",
     "2025-12-08",
     "2025-12-10",
-    "2025-12-12",
-    "2025-12-17",
-    "2025-12-21",
+    "2025-12-11",
+    "2025-12-11",
+    "2025-12-11",
+    "2025-12-15",
+    "2025-12-18",
+    "2025-12-22",
     "2025-12-22",
     "2025-12-25",
     "2025-12-25",
     "2025-12-26",
     "2025-12-27",
     "2025-12-27",
-    "2025-12-30",
     "2026-01-05",
     "2026-01-05",
     "2026-01-07",
     "2026-01-07",
-    "2026-01-10",
     "2026-01-11",
     "2026-01-11",
     "2026-01-12",
@@ -697,14 +751,15 @@
     "2026-01-17",
     "2026-01-21",
     "2026-01-21",
+    "2026-01-23",
+    "2026-01-23",
     "2026-01-24",
-    "2026-01-26",
-    "2026-01-26",
     "2026-01-26",
     "2026-01-26",
     "2026-01-28",
     "2026-01-29",
     "2026-01-30",
+    "2026-02-02",
     "2026-02-02",
     "2026-02-04",
     "2026-02-04",
@@ -717,11 +772,9 @@
     "2026-02-09",
     "2026-02-10",
     "2026-02-16",
-    "2026-02-18",
     "2026-02-20",
     "2026-02-23",
     "2026-02-24",
-    "2026-02-25",
     "2026-02-26",
     "2026-02-26",
     "2026-02-26",
@@ -731,15 +784,14 @@
     "2026-02-28",
     "2026-03-02",
     "2026-03-02",
-    "2026-03-04",
     "2026-03-05",
     "2026-03-05",
-    "2026-03-05",
-    "2026-03-07",
     "2026-03-13",
     "2026-03-18",
     "2026-03-20",
     "2026-03-20",
+    "2026-03-21",
+    "2026-03-21",
     "2026-03-21",
     "2026-03-26",
     "2026-03-30",
@@ -756,7 +808,6 @@
     "2026-04-16",
     "2026-04-19",
     "2026-04-19",
-    "2026-04-20",
     "2026-04-20",
     "2026-04-20",
     "2026-04-20",
@@ -780,15 +831,10 @@
     "2026-05-18",
     "2026-05-20",
     "2026-05-20",
-    "2026-05-20",
-    "2026-05-20",
-    "2026-05-20",
     "2026-05-21",
     "2026-05-21",
     "2026-05-22",
     "2026-05-23",
-    "2026-05-23",
-    "2026-05-25",
     "2026-05-27",
     "2026-05-27",
     "2026-05-28",
@@ -831,11 +877,9 @@
   },
   "GDX": {
    "by_name_dates": [
-    "2025-02-21",
     "2025-08-06",
     "2025-10-21",
     "2025-10-21",
-    "2026-02-23",
     "2026-04-29",
     "2026-05-08"
    ],
@@ -843,13 +887,13 @@
     "2025-01-01",
     "2025-01-03",
     "2025-01-03",
-    "2025-01-08",
     "2025-01-27",
     "2025-01-31",
     "2025-01-31",
     "2025-01-31",
     "2025-02-12",
     "2025-02-25",
+    "2025-03-08",
     "2025-03-09",
     "2025-03-10",
     "2025-03-10",
@@ -869,6 +913,10 @@
     "2025-05-28",
     "2025-06-09",
     "2025-06-14",
+    "2025-06-20",
+    "2025-06-20",
+    "2025-06-23",
+    "2025-06-23",
     "2025-07-16",
     "2025-07-17",
     "2025-07-18",
@@ -877,14 +925,16 @@
     "2025-08-09",
     "2025-08-10",
     "2025-08-14",
+    "2025-08-23",
+    "2025-08-28",
     "2025-09-06",
     "2025-09-09",
     "2025-09-12",
     "2025-09-28",
+    "2025-10-02",
     "2025-10-16",
     "2025-10-19",
     "2025-10-30",
-    "2025-11-26",
     "2026-01-07",
     "2026-01-15",
     "2026-01-26",
@@ -902,9 +952,6 @@
     "2026-04-27",
     "2026-04-30",
     "2026-05-13",
-    "2026-05-16",
-    "2026-05-17",
-    "2026-05-17",
     "2026-05-30",
     "2026-06-20",
     "2026-06-21",
@@ -918,8 +965,8 @@
     "2025-03-12",
     "2025-07-18",
     "2025-08-07",
-    "2025-11-05",
     "2025-11-20",
+    "2025-11-21",
     "2025-12-31",
     "2026-03-19",
     "2026-06-24",
@@ -938,10 +985,13 @@
     "2025-06-23",
     "2025-06-25",
     "2025-07-06",
+    "2025-10-01",
+    "2025-10-08",
+    "2025-10-10",
+    "2025-12-16",
     "2026-01-15",
-    "2026-02-18",
+    "2026-01-29",
     "2026-02-25",
-    "2026-03-01",
     "2026-03-06",
     "2026-03-18",
     "2026-03-19",
@@ -972,17 +1022,24 @@
     "2025-05-16",
     "2025-05-30",
     "2025-06-19",
+    "2025-06-27",
     "2025-07-25",
     "2025-07-31",
     "2025-08-21",
     "2025-08-25",
     "2025-08-29",
-    "2025-09-15",
     "2025-10-01",
     "2025-10-09",
     "2025-10-16",
     "2025-10-16",
-    "2025-12-04",
+    "2025-10-30",
+    "2025-11-03",
+    "2025-11-09",
+    "2025-11-13",
+    "2025-11-26",
+    "2025-12-05",
+    "2025-12-08",
+    "2025-12-17",
     "2026-01-05",
     "2026-01-07",
     "2026-02-05",
@@ -995,6 +1052,8 @@
     "2026-03-04",
     "2026-03-09",
     "2026-03-16",
+    "2026-03-27",
+    "2026-03-27",
     "2026-04-02",
     "2026-04-03",
     "2026-04-09",
@@ -1003,8 +1062,10 @@
     "2026-04-24",
     "2026-05-07",
     "2026-05-07",
+    "2026-05-13",
     "2026-05-14",
     "2026-05-15",
+    "2026-05-19",
     "2026-05-20",
     "2026-05-22",
     "2026-05-25",
@@ -1028,46 +1089,33 @@
     "2025-07-25",
     "2025-08-11",
     "2025-08-11",
-    "2025-11-17",
     "2025-12-21",
-    "2025-12-22",
+    "2025-12-24",
     "2025-12-25",
     "2026-01-01",
     "2026-01-01",
-    "2026-01-02",
     "2026-01-15",
     "2026-01-23",
     "2026-01-26",
-    "2026-01-30",
     "2026-02-02",
     "2026-02-05",
     "2026-02-14",
     "2026-02-27",
     "2026-03-06",
     "2026-03-11",
-    "2026-03-16",
-    "2026-03-18",
     "2026-03-19",
     "2026-03-25",
     "2026-03-26",
     "2026-03-26",
     "2026-04-01",
     "2026-05-05",
-    "2026-05-05",
-    "2026-05-05",
-    "2026-05-05",
-    "2026-05-08",
     "2026-05-08",
     "2026-05-11",
-    "2026-05-14",
     "2026-05-16",
     "2026-05-21",
     "2026-05-29",
-    "2026-06-02",
     "2026-06-17",
     "2026-06-18",
-    "2026-06-24",
-    "2026-06-24",
     "2026-06-24",
     "2026-06-25",
     "2026-06-27",
@@ -1109,12 +1157,6 @@
      "url": "https://www.kitco.com/news/off-the-wire/2025-02-20/mp-materials-fourth-quarter-loss-beats-wall-streets-expectations"
     },
     {
-     "d": "2025-02-28",
-     "src": "www.tradingview.com",
-     "title": "MP Materials Corp. / DE SEC 10-K Report - TradingView",
-     "url": "https://www.tradingview.com/news/tradingview:671e795522a56:0-mp-materials-corp-de-sec-10-k-report/"
-    },
-    {
      "d": "2025-04-14",
      "src": "www.benzinga.com",
      "title": "MP Materials, The Metals Company Shares Are Moving Higher Monday: Here's Why - Benzinga",
@@ -1137,6 +1179,12 @@
      "src": "www.forbes.com",
      "title": "Buy Or Fear MP Materials Stock - Forbes",
      "url": "https://www.forbes.com/sites/greatspeculations/2025/06/12/buy-or-fear-mp-materials-stock/"
+    },
+    {
+     "d": "2025-06-13",
+     "src": "simplywall.st",
+     "title": "MP Materials (NYSE:MP) Surges 41% In One Month Following Saudi Partnership - simplywall.st",
+     "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-nysemp-surges-41-in-one-month-following-saudi-p"
     }
    ],
    "thesis": [
@@ -1205,6 +1253,12 @@
   "AREC": {
    "by_name": [
     {
+     "d": "2025-03-07",
+     "src": "www.stocktitan.net",
+     "title": "Can This US Company Break China's Rare Earth Elements Monopoly? - StockTitan",
+     "url": "https://www.stocktitan.net/news/AREC/american-resources-and-re-element-technologies-participate-in-a-83mg9aei38aa.html"
+    },
+    {
      "d": "2025-08-07",
      "src": "www.builderonline.com",
      "title": "Avila Real Estate Capital Group Closes Inaugural Debt Fund, Expands Originations Team - Builder Magazine",
@@ -1215,6 +1269,18 @@
      "src": "www.stocktitan.net",
      "title": "First All-in-One US Rare Earth Production Hub: ReElement and Principal Mineral Break Supply Chain Barriers - Stock Titan",
      "url": "https://www.stocktitan.net/news/AREC/re-element-and-principal-mineral-partner-to-provide-integrated-rare-cwhb7g2e3kuh.html"
+    },
+    {
+     "d": "2025-11-03",
+     "src": "www.stocktitan.net",
+     "title": "American Resources (NASDAQ: AREC) Targets 10,000 t NdFeB via $1.4B OSC Partnership - Stock Titan",
+     "url": "https://www.stocktitan.net/news/AREC/re-element-technologies-forges-1-4-billion-partnership-with-u-s-duuyro675wc0.html"
+    },
+    {
+     "d": "2026-01-23",
+     "src": "www.theglobeandmail.com",
+     "title": "Analysts\u2019 Top Materials Picks: American Resources (AREC), Centerra Gold (CGAU) - The Globe and Mail",
+     "url": "https://www.theglobeandmail.com/investing/markets/stocks/AREC/pressreleases/37174552/analysts-top-materials-picks-american-resources-arec-centerra-gold-cgau/"
     },
     {
      "d": "2026-03-10",
@@ -1295,12 +1361,6 @@
   "GDX": {
    "by_name": [
     {
-     "d": "2025-02-21",
-     "src": "www.mining.com",
-     "title": "GDX\u2019s dozen-year breakout - MINING.com",
-     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/"
-    },
-    {
      "d": "2025-08-06",
      "src": "www.kitco.com",
      "title": "Gold $3800 & GDX $60: Targets in play - KITCO",
@@ -1317,12 +1377,6 @@
      "src": "www.investors.com",
      "title": "Gold Prices Suffer Worst Loss In 12 Years After Huge Rally; These ETFs, Miners Plunge - Investor's Business Daily",
      "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/"
-    },
-    {
-     "d": "2026-02-23",
-     "src": "seekingalpha.com",
-     "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
-     "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money"
     },
     {
      "d": "2026-04-29",
@@ -1355,12 +1409,6 @@
      "src": "stocknews.com",
      "title": "AEM: 3 Gold Mining Stocks To Hedge Against Inflation - StockNews.com",
      "url": "https://stocknews.com/news/aem-gold-gfi-3-gold-mining-stocks-to-hedge-against-inflation/"
-    },
-    {
-     "d": "2025-01-08",
-     "src": "www.mining.com",
-     "title": "K92 Mining shares soar on record-breaking production - MINING.com",
-     "url": "https://www.mining.com/k92-mining-shares-soar-on-record-breaking-production/"
     },
     {
      "d": "2025-01-27",
@@ -1397,6 +1445,12 @@
      "src": "www.mining.com",
      "title": "Gold stocks glitter as worries around inflation, tariffs flare - MINING.com",
      "url": "https://www.mining.com/web/gold-stocks-glitter-as-worries-around-inflation-tariffs-flare/"
+    },
+    {
+     "d": "2025-03-08",
+     "src": "seekingalpha.com",
+     "title": "Gold Mining ETFs Shine In Early 2025 - Seeking Alpha",
+     "url": "https://seekingalpha.com/article/4765856-gold-mining-etfs-shine-in-early-2025"
     }
    ]
   },
@@ -1421,16 +1475,16 @@
      "url": "https://aviationweek.com/defense/aircraft-propulsion/rheinmetall-talks-boeing-lockheed-ccas-germany"
     },
     {
-     "d": "2025-11-05",
-     "src": "www.defensenews.com",
-     "title": "Leonardo, Rheinmetall book first Lynx combat vehicle order for Italy - Defense News",
-     "url": "https://www.defensenews.com/global/europe/2025/11/05/leonardo-rheinmetall-book-first-lynx-combat-vehicle-order-for-italy/"
-    },
-    {
      "d": "2025-11-20",
      "src": "aviationweek.com",
      "title": "Diehl Buys Out Rheinmetall\u2019s Share Of AIM - Aviation Week Network",
      "url": "https://aviationweek.com/defense/missile-defense-weapons/diehl-buys-out-rheinmetalls-share-aim"
+    },
+    {
+     "d": "2025-11-21",
+     "src": "aviationweek.com",
+     "title": "In Brief: Diehl Buys Out Rheinmetall\u2019s Share Of AIM - Aviation Week Network",
+     "url": "https://aviationweek.com/aerospacedailydepartments/brief-diehl-buys-out-rheinmetalls-share-aim"
     },
     {
      "d": "2025-12-31",
@@ -1639,28 +1693,28 @@
      "url": "https://www.reuters.com/business/micron-raises-forecasts-ai-boosts-memory-chip-demand-2025-08-11/"
     },
     {
-     "d": "2025-11-17",
-     "src": "www.cnbc.com",
-     "title": "AI is contributing to a memory chip shortage that could hit phones and cars - CNBC",
-     "url": "https://www.cnbc.com/2025/11/17/ai-fuels-memory-chip-shortage-that-could-hit-phones-and-cars.html"
-    },
-    {
      "d": "2025-12-21",
      "src": "ts2.tech",
      "title": "Semiconductor Stocks Week Ahead (Dec. 22\u201326, 2025): Nvidia, Micron, Broadcom and TSMC in Focus as AI Spending, Memory Shortages and China Headlines Drive Volatility - ts2.tech",
      "url": "https://ts2.tech/en/semiconductor-stocks-week-ahead-dec-22-26-2025-nvidia-micron-broadcom-and-tsmc-in-focus-as-ai-spending-memory-shortages-and-china-headlines-drive-volatility/"
     },
     {
-     "d": "2025-12-22",
-     "src": "www.forbes.com",
-     "title": "Why Is SanDisk Stock Surging? - Forbes",
-     "url": "https://www.forbes.com/sites/greatspeculations/2025/12/22/why-is-sandisk-stock-surging/"
+     "d": "2025-12-24",
+     "src": "seekingalpha.com",
+     "title": "Micron Stock: Buy Now Before It's Too Late (NASDAQ:MU) - Seeking Alpha",
+     "url": "https://seekingalpha.com/article/4855497-micron-stock-buy-now-before-its-too-late"
     },
     {
      "d": "2025-12-25",
      "src": "www.tipranks.com",
      "title": "AI Boom Sparks RAM Crisis: PC and Phone Makers Slash Memory Specs - TipRanks",
      "url": "https://www.tipranks.com/news/ai-boom-sparks-ram-crisis-pc-and-phone-makers-slash-memory-specs"
+    },
+    {
+     "d": "2026-01-01",
+     "src": "seekingalpha.com",
+     "title": "AI chip boom to push global consumer electronics prices up in 2026 - Seeking Alpha",
+     "url": "https://seekingalpha.com/news/4536179-ai-chip-boom-to-push-global-consumer-electronics-prices-up-in-2026"
     }
    ]
   }
@@ -3627,15 +3681,6 @@
      "url": "https://www.kitco.com/news/off-the-wire/2025-02-20/mp-materials-fourth-quarter-loss-beats-wall-streets-expectations"
     },
     {
-     "d": "2025-02-28",
-     "kind": "name",
-     "price": 24.01,
-     "title": "MP Materials Corp. / DE SEC 10-K Report - TradingView",
-     "lede": "MP Materials Corp., a leading producer of rare earth materials, has released its 2024\u00a010-K report, detailing significant financial and operational performance metrics, strategic initiatives, and the challenges faced by the company. Sales Un",
-     "src": "www.tradingview.com",
-     "url": "https://www.tradingview.com/news/tradingview:671e795522a56:0-mp-materials-corp-de-sec-10-k-report/"
-    },
-    {
      "d": "2025-04-14",
      "kind": "name",
      "price": 27.59,
@@ -3679,6 +3724,15 @@
      "lede": "MP Materials (NYSE:MP) Surges 41% In One Month Following Saudi Partnership - Simply Wall St News MP Materials (NYSE:MP) recently gained market attention as Saudi Arabian Mining Company (Maaden) formed a partnership with the company to estab",
      "src": "simplywall.st",
      "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-nysemp-surges-41-in-one-month-following-saudi-p"
+    },
+    {
+     "d": "2025-06-27",
+     "kind": "name",
+     "price": 32.9,
+     "title": "Top Stock Movers Now: Nike, Boeing, MP Materials, and More - Investopedia",
+     "lede": "Image 7: Traders work at the New York Stock Exchange:max_bytes(150000):strip_icc():format(webp)/GettyImages-2221360035-6bed8e4b406843f195fe4aa00eba2369.jpg) 5 Things to Know Before the Stock Market OpensImage 9: The MP Materials logo is see",
+     "src": "www.investopedia.com",
+     "url": "https://www.investopedia.com/top-stock-movers-now-nike-boeing-mp-materials-and-more-11762516"
     },
     {
      "d": "2025-07-15",
@@ -3762,15 +3816,6 @@
      "url": "https://seekingalpha.com/news/4499188-trump-administration-explores-taking-stakes-in-more-critical-minerals-companies---report"
     },
     {
-     "d": "2025-09-29",
-     "kind": "name",
-     "price": 68.18,
-     "title": "MP Materials : Still Rare? - Forbes",
-     "lede": "Reports have emerged suggesting the government might be looking to take equity interests in the mineral supply chain that is vital to U.S. interests, potentially involving companies such as MP Materials. This positions MP as a pivotal playe",
-     "src": "www.forbes.com",
-     "url": "https://www.forbes.com/sites/greatspeculations/2025/09/29/mp-materials--still-rare/"
-    },
-    {
      "d": "2025-10-03",
      "kind": "name",
      "price": 71.5,
@@ -3778,6 +3823,15 @@
      "lede": "**USA Rare Earth** (USAR) stock broke out on Thursday, then continued to fly higher Friday after new CEO Barbara Humpton confirmed talks with the White House in a CNBC interview. After federal investments in rare-earth play **MP Materials**",
      "src": "www.investors.com",
      "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/"
+    },
+    {
+     "d": "2025-10-10",
+     "kind": "name",
+     "price": 78.34,
+     "title": "Stocks making the biggest moves midday: MP Materials, Alibaba, Protagonist Therapeutics & more - CNBC",
+     "lede": "Check out the companies making the biggest moves midday: Rare earth stocks \u2014 The group rose broadly after President Donald Trump said China was holding the world \"captive\" over the minerals, threatening countermeasures. Magnificent Seven \u2014 ",
+     "src": "www.cnbc.com",
+     "url": "https://www.cnbc.com/2025/10/10/stocks-making-the-biggest-moves-midday-mp-bab-ptgx.html"
     },
     {
      "d": "2025-10-13",
@@ -3825,6 +3879,24 @@
      "url": "https://www.aol.com/articles/buy-mp-materials-stock-now-133627574.html"
     },
     {
+     "d": "2025-11-06",
+     "kind": "name",
+     "price": 51.95,
+     "title": "MP Materials quarterly loss widens after halting sales to Chinese customers - Mining.com",
+     "lede": "Gold Futures $ 4006.5 / ozt  0.49% Critical Minerals\u00a0Markets\u00a0Top Companies\u00a0China\u00a0USA\u00a0Rare Earth US rare earths company MP Materials said on Thursday its third-quarter loss widened as it stopped sales to Chinese customers as part of an agree",
+     "src": "www.mining.com",
+     "url": "https://www.mining.com/web/mp-materials-quarterly-loss-widens-after-halting-sales-to-chinese-customers/"
+    },
+    {
+     "d": "2025-11-07",
+     "kind": "name",
+     "price": 58.6,
+     "title": "MP Materials quarterly loss widens after halting sales to Chinese customers - KITCO",
+     "lede": "US rare earths company MP Materials said on Thursday its third-quarter loss widened as it stopped sales to Chinese customers as part of an agreement with the US government, although the results surpassed Wall Street expectations. MP owns th",
+     "src": "www.kitco.com",
+     "url": "https://www.kitco.com/news/off-the-wire/2025-11-07/mp-materials-quarterly-loss-widens-after-halting-sales-chinese"
+    },
+    {
      "d": "2025-11-07",
      "kind": "name",
      "price": 58.6,
@@ -3832,6 +3904,15 @@
      "lede": "# MP Materials falls on wider third-quarter loss \\*\\* Shares of rare earth miner MP Materials MP fall 6.8% to $48.43 premarket \\*\\* MP posted Q3 net loss of $41.8 million, or 24 cents per share, vs a loss of $25.5 million, or 16 cents per s",
      "src": "www.tradingview.com",
      "url": "https://www.tradingview.com/news/reuters.com,2025:newsml_L4N3WJ127:0-mp-materials-falls-on-wider-third-quarter-loss/"
+    },
+    {
+     "d": "2025-11-07",
+     "kind": "name",
+     "price": 58.6,
+     "title": "MP Materials CEO warns investors to approach suddenly hot rare earths industry with caution - CNBC",
+     "lede": "# MP Materials CEO warns investors to approach suddenly hot rare earths industry with caution * MP Materials CEO James Litinsky cautioned investors to approach other rare earth projects with caution as the market speculates about future gov",
+     "src": "www.cnbc.com",
+     "url": "https://www.cnbc.com/2025/11/07/mp-materials-rare-earth-critical-mineral-china-trump.html"
     },
     {
      "d": "2025-11-13",
@@ -3843,6 +3924,15 @@
      "url": "https://rollingout.com/2025/11/13/mp-materials-stock-nvidia-comparison/"
     },
     {
+     "d": "2025-11-13",
+     "kind": "name",
+     "price": 57.54,
+     "title": "Is MP Materials Stock the Next Nvidia? - The Globe and Mail",
+     "lede": "# Is MP Materials Stock the Next Nvidia? * 10 stocks we like better than MP Materials \u203a The necessity of MP's product, along with the strong demand expected of it, makes it a kind of mining analogue to a tech company that pretty much everyo",
+     "src": "www.theglobeandmail.com",
+     "url": "https://www.theglobeandmail.com/investing/markets/markets-news/Motley%20Fool/36093113/is-mp-materials-stock-the-next-nvidia/"
+    },
+    {
      "d": "2025-11-14",
      "kind": "name",
      "price": 58.64,
@@ -3850,6 +3940,87 @@
      "lede": "* **MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth?** # MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth? At the Mountain Pass mine in California, rare earth miner\u00a0MP Materials (MP) is attracting capi",
      "src": "nai500.com",
      "url": "https://nai500.com/blog/2025/11/mp-materials-can-a-rare-earth-miner-replicate-nvidias-growth-myth/"
+    },
+    {
+     "d": "2025-11-17",
+     "kind": "name",
+     "price": 56.98,
+     "title": "Gina Rinehart becomes MP Materials\u2019 top shareholder - Mining.com",
+     "lede": "Micro Gold Futures $ 4043.9 / ozt  -0.99% Gold Futures $ 4043.3 / ozt  -1.01% Micro Gold Futures $ 4043.9 / ozt  -0.99% Gold Futures $ 4043.3 / ozt  -1.01% Markets\u00a0Top Companies\u00a0Australia\u00a0USA\u00a0Rare Earth Gina Rinehart, Australia\u2019s richest pe",
+     "src": "www.mining.com",
+     "url": "https://www.mining.com/web/gina-rinehart-becomes-mp-materials-top-shareholder/"
+    },
+    {
+     "d": "2025-11-18",
+     "kind": "name",
+     "price": 58.51,
+     "title": "Gina Rinehart becomes largest shareholder in MP Materials - Mining Technology",
+     "lede": "# Gina Rinehart becomes largest shareholder in MP Materials Gina Rinehart, Australia\u2019s richest person, has become the largest shareholder in MP Materials, the US-based rare earths producer. Rinehart\u2019s Hancock Prospecting raised its stake in",
+     "src": "www.mining-technology.com",
+     "url": "https://www.mining-technology.com/news/gina-rinehart-largest-shareholder-mp-materials/"
+    },
+    {
+     "d": "2025-11-19",
+     "kind": "name",
+     "price": 63.55,
+     "title": "MP Materials and the U.S. Department of War Partner with the Saudi Arabian Mining Company (Maaden) to Develop Rare Earth Refinery Joint Venture - Stock Titan",
+     "lede": "These forward-looking statements are subject to a number of risks and uncertainties, including risks relating to (i) the parties\u2019 ability to enter into definitive agreements establishing a joint venture for the purposes of constructing and ",
+     "src": "www.stocktitan.net",
+     "url": "https://www.stocktitan.net/news/MP/mp-materials-and-the-u-s-department-of-war-partner-with-the-saudi-1nd0ps03v3e1.html"
+    },
+    {
+     "d": "2025-11-19",
+     "kind": "name",
+     "price": 63.55,
+     "title": "MP Materials and the U.S. Department of War Partner with the Saudi Arabian Mining Company (Maaden) to Develop Rare Earth Refinery Joint Venture - FinancialConte",
+     "lede": "(NYSE: MP), America\u2019s fully-integrated rare earth materials and magnetics producer, today announced it has partnered with the U.S. Department of War (DoW) to establish a strategic joint venture with the Saudi Arabian Mining Company (Maaden)",
+     "src": "markets.financialcontent.com",
+     "url": "https://markets.financialcontent.com/wral/article/bizwire-2025-11-19-mp-materials-and-the-us-department-of-war-partner-with-the-saudi-arabian-mining-company-maaden-to-develop-rare-earth-refinery-joint-venture"
+    },
+    {
+     "d": "2025-11-19",
+     "kind": "name",
+     "price": 63.55,
+     "title": "MP Materials and the U.S. Department of War Partner with the Saudi Arabian Mining Company to Develop Rare Earth Refinery Joint Venture - Investing News Network",
+     "lede": "(NYSE: MP), America's fully-integrated rare earth materials and magnetics producer, today announced it has partnered with the U.S. Department of War (DoW) to establish a strategic joint venture with the Saudi Arabian Mining Company (Maaden)",
+     "src": "investingnews.com",
+     "url": "https://investingnews.com/mp-materials-and-the-u-s-department-of-war-partner-with-the-saudi-arabian-mining-company-to-develop-rare-earth-refinery-joint-venture/"
+    },
+    {
+     "d": "2025-11-19",
+     "kind": "name",
+     "price": 63.55,
+     "title": "MP Materials and the U.S. Department of War Partner with the Saudi Arabian Mining Company (Maaden) to Develop Rare Earth Refinery Joint Venture - Business Wire",
+     "lede": "(NYSE: MP), America\u2019s fully-integrated rare earth materials and magnetics producer, today announced it has partnered with the U.S. Department of War (DoW) to establish a strategic joint venture with the Saudi Arabian Mining Company (Maaden)",
+     "src": "www.businesswire.com",
+     "url": "https://www.businesswire.com/news/home/20251118096805/en/MP-Materials-and-the-U.S.-Department-of-War-Partner-with-the-Saudi-Arabian-Mining-Company-Maaden-to-Develop-Rare-Earth-Refinery-Joint-Venture"
+    },
+    {
+     "d": "2025-11-20",
+     "kind": "name",
+     "price": 56.68,
+     "title": "Think It's Too Late to Buy MP Materials? Here's 1 Reason Why There's Still Time. - AOL.com",
+     "lede": "* Despite a huge valuation boost in 2025, MP Materials stock has a bright future. * 10 stocks we like better than MP Materials \u203a **MP Materials** (NYSE: MP) has had a wild year. MP Materials is a mining company at the heart of the U.S. push",
+     "src": "www.aol.com",
+     "url": "https://www.aol.com/articles/think-too-buy-mp-materials-130700112.html"
+    },
+    {
+     "d": "2025-11-20",
+     "kind": "name",
+     "price": 56.68,
+     "title": "MP Materials to build a rare earth refinery in Saudi Arabia - Investorsobserver",
+     "lede": "# MP Materials to build a rare earth refinery in Saudi Arabia This investment made the DoD the largest shareholder of MP Materials, cementing the company's place in the hierarchy of the White House's rare-earth strategy. The company announc",
+     "src": "investorsobserver.com",
+     "url": "https://investorsobserver.com/news/stock-update/mp-materials-to-build-a-rare-earth-refinery-in-saudi-arabia/"
+    },
+    {
+     "d": "2025-11-21",
+     "kind": "name",
+     "price": 55.27,
+     "title": "MP Materials\u2019 rare earth refinery deal with Saudi sends US miner\u2019s shares up 8.6% - alcircle",
+     "lede": "On Wednesday, November 19, the US miner MP Materials experienced a sharp rise of 8.61 per cent in its stock movement to US$63.55 following a new rare earth refinery deal signed with the US Department of Defence and the Saudi Arabian Mining ",
+     "src": "www.alcircle.com",
+     "url": "https://www.alcircle.com/news/mp-materials-rare-earth-refinery-deal-with-saudi-sends-us-miners-shares-up-8-6-116283"
     },
     {
      "d": "2025-11-22",
@@ -3861,6 +4032,51 @@
      "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-soars-on-strategic-u-s-saudi-partnership/68379413"
     },
     {
+     "d": "2025-11-23",
+     "kind": "name",
+     "price": 55.27,
+     "title": "MP Materials (MP) Is Down 5.7% After Announcing Rare Earth Joint Venture With US and Maaden - simplywall.st",
+     "lede": "* We'll explore how U.S. government-backed oversight in this new Saudi venture could influence MP Materials' long-term growth outlook and risk profile. To be a shareholder in MP Materials, you need to believe in the company's ability to lea",
+     "src": "simplywall.st",
+     "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-mp-is-down-57-after-announcing-rare-earth-joint"
+    },
+    {
+     "d": "2025-11-24",
+     "kind": "name",
+     "price": 59.04,
+     "title": "MP Materials stock rating upgraded by BMO Capital on strategic value - Investing.com",
+     "lede": "# MP Materials stock rating upgraded by BMO Capital on strategic value MP Materials stock rating upgraded by BMO Capital on strategic value MP Materials stock rating upgraded by BMO Capital on strategic value Investing.com - BMO Capital upg",
+     "src": "www.investing.com",
+     "url": "https://www.investing.com/news/analyst-ratings/mp-materials-stock-rating-upgraded-by-bmo-capital-on-strategic-value-93CH-4374244"
+    },
+    {
+     "d": "2025-11-24",
+     "kind": "name",
+     "price": 59.04,
+     "title": "The Bet on MP Materials Isn\u2019t About Revenue. It\u2019s About US Independence - NAI500",
+     "lede": "In a striking departure from conventional market logic, MP Materials (NYSE: MP) saw its shares surge more than 23% following a Q3 earnings report that revealed a 15% year-over-year revenue decline. MP Materials\u2019 Q3 revenue of $53.6 million,",
+     "src": "nai500.com",
+     "url": "https://nai500.com/blog/2025/11/the-bet-on-mp-materials-isnt-about-revenue-its-about-us-independence/"
+    },
+    {
+     "d": "2025-11-26",
+     "kind": "name",
+     "price": 60.15,
+     "title": "5 Reasons to Buy MP Materials Stock Like There's No Tomorrow - The Globe and Mail",
+     "lede": "In this deal, the Pentagon committed to buy all the output from MP's next magnet plan (dubbed its \"10X Facility\") and guaranteed a minimum price of about $110 per kilogram for neodymium-praseodymium (NdPr), one of MP's key rare earth oxides",
+     "src": "www.theglobeandmail.com",
+     "url": "https://www.theglobeandmail.com/investing/markets/stocks/MP/pressreleases/36324598/5-reasons-to-buy-mp-materials-stock-like-theres-no-tomorrow/"
+    },
+    {
+     "d": "2025-11-29",
+     "kind": "name",
+     "price": 61.95,
+     "title": "MP Materials Stock: A Strategic Powerhouse in the Making - Ad-hoc-news.de",
+     "lede": "Sie befinden sind hier: Startseite > B\u00f6rse > Ueberblick > MP Materials Stock: A Strategic Powerhouse in the Making ... # MP Materials Stock: A Strategic Powerhouse in the Making MP Materials US5533681012 Shares of MP Materials have demonstr",
+     "src": "www.ad-hoc-news.de",
+     "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-a-strategic-powerhouse-in-the-making/68398230"
+    },
+    {
      "d": "2025-12-05",
      "kind": "name",
      "price": 62.09,
@@ -3868,6 +4084,78 @@
      "lede": "Entering text into the input field will update the search result below. Entering text into the input field will update the search result below. Search for Symbols, analysts, keywords. (MP) StockBy: Carl Surran, SA News Editor. MP Materials ",
      "src": "seekingalpha.com",
      "url": "https://seekingalpha.com/news/4529053-mp-materials-raised-at-morgan-stanley-on-strategic-importance-to-u-s-rare-earth-supply-chain"
+    },
+    {
+     "d": "2025-12-05",
+     "kind": "name",
+     "price": 62.09,
+     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com UK",
+     "lede": "# Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain. Investing.com - Morgan Stanley upgraded MP Materials (NYSE:MP) stock rating from Equalweight to Overweight and raised its price target to $71.00 f",
+     "src": "m.uk.investing.com",
+     "url": "https://m.uk.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4403078?ampMode=1"
+    },
+    {
+     "d": "2025-12-05",
+     "kind": "name",
+     "price": 62.09,
+     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com",
+     "lede": "# Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain. Investing.com - Morgan Stanley upgraded MP Materials (NYSE:MP) stock rating from Equalweight to Overweight and raised its price target to $71.00 f",
+     "src": "m.investing.com",
+     "url": "https://m.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4392533?ampMode=1"
+    },
+    {
+     "d": "2025-12-05",
+     "kind": "name",
+     "price": 62.09,
+     "title": "Think It's Too Late to Buy MP Materials? Here's 1 Reason Why There's Still Time. - AOL.com",
+     "lede": "# Think It's Too Late to Buy MP Materials? * Despite a huge valuation boost in 2025, MP Materials stock has a bright future. * 10 stocks we like better than MP Materials \u203a. **MP Materials** (NYSE: MP) has had a wild year. ***Where to invest",
+     "src": "www.aol.com",
+     "url": "https://www.aol.com/finance/think-too-buy-mp-materials-130700112.html"
+    },
+    {
+     "d": "2025-12-06",
+     "kind": "name",
+     "price": 62.09,
+     "title": "Conflicting Signals Emerge for MP Materials Investors - AD HOC NEWS",
+     "lede": "Sie befinden sind hier: Startseite > B\u00f6rse > Ueberblick > Conflicting Signals Emerge for MP Materials Investors ... # Conflicting Signals Emerge for MP Materials Investors. Investors in MP Materials are facing a complex puzzle. While Litins",
+     "src": "www.ad-hoc-news.de",
+     "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/conflicting-signals-emerge-for-mp-materials-investors/68410334"
+    },
+    {
+     "d": "2025-12-06",
+     "kind": "name",
+     "price": 62.09,
+     "title": "MP Materials CEO Litinsky sells $24.2 million in stock - Investing.com",
+     "lede": "#### Popular Searches. ##### Please try another search. * \"We jumped the gun\": Morgan Stanley reverts back to call for December Fed rate cut. View all comments (0)0. The company announced a joint venture with the U.S. Department of War and ",
+     "src": "www.investing.com",
+     "url": "https://www.investing.com/news/insider-trading-news/mp-materials-ceo-litinsky-sells-242-million-in-stock-93CH-4394620"
+    },
+    {
+     "d": "2025-12-06",
+     "kind": "name",
+     "price": 62.09,
+     "title": "MP Materials CEO Litinsky sells $24.2 million in stock By Investing.com - Investing.com Canada",
+     "lede": "#### Popular Searches. ##### Please try another search. # MP Materials CEO Litinsky sells $24.2 million in stock. MP Materials CEO Litinsky sells $24.2 million in stock. View all comments (0)0. The shares sold were held by James Henry Litin",
+     "src": "ca.investing.com",
+     "url": "https://ca.investing.com/news/insider-trading-news/mp-materials-ceo-litinsky-sells-242-million-in-stock-93CH-4352311"
+    },
+    {
+     "d": "2025-12-08",
+     "kind": "name",
+     "price": 61.2,
+     "title": "MP Materials (MP) Is Up 6.9% After DoD\u2011Backed Mine\u2011to\u2011Magnet Push - Has The Bull Case Changed? - simplywall.st",
+     "lede": "* Morgan Stanley recently upgraded MP Materials to Overweight, highlighting its role in building a fully domestic US mine\u2011to\u2011magnet rare earths supply chain and its joint venture with the Department of Defense and Saudi Arabian Mining Compa",
+     "src": "simplywall.st",
+     "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-mp-is-up-69-after-dodbacked-minetomagnet-push-h"
+    },
+    {
+     "d": "2025-12-11",
+     "kind": "name",
+     "price": 60.01,
+     "title": "Should You Buy MP Materials Stock While It's Under $65? - AOL.com",
+     "lede": "# Should You Buy MP Materials Stock While It's Under $65? * 10 stocks we like better than MP Materials \u203a. **MP Materials** (NYSE: MP) is a mining company that occupies a critical place in the White House's plan to rebuild a domestic supply ",
+     "src": "www.aol.com",
+     "url": "https://www.aol.com/finance/buy-mp-materials-stock-while-002400280.html"
     }
    ],
    "ground_truth": [
@@ -3882,17 +4170,9 @@
     {
      "d": "2025-07-10",
      "price": 45.23,
-     "url": "https://www.businessinsider.com/mp-materials-stock-price-mining-rare-earth-pentagon-stake-china-2025-7",
-     "title": "The Pentagon is taking a big stake in a rare earth mining company, sending the stock up 60% - Business Insider",
-     "src": "businessinsider.com",
-     "detected": true
-    },
-    {
-     "d": "2025-07-14",
-     "price": 48.52,
-     "url": "https://www.energyandcapital.com/the-one-big-beautiful-mining-boom/",
-     "title": "The One Big Beautiful Mining Boom - Energy & Capital",
-     "src": "energyandcapital.com",
+     "url": "https://finance.yahoo.com/news/live/stock-market-today-sp-500-nasdaq-eke-out-fresh-records-nvidia-closes-at-4t-market-cap-200027558.html",
+     "title": "Stock market today: S&P 500, Nasdaq eke out fresh records, Nvidia closes at $4T market cap - Yahoo Finance",
+     "src": "finance.yahoo.com",
      "detected": true
     },
     {
@@ -3936,35 +4216,11 @@
      "detected": false
     },
     {
-     "d": "2025-09-25",
-     "price": 77.13,
-     "url": "https://www.mk.co.kr/en/stock/11429458",
-     "title": "Shares of companies that the Donald Trump administration of the United States strategically seeks to.. - \ub9e4\uc77c\uacbd\uc81c",
-     "src": "mk.co.kr",
-     "detected": true
-    },
-    {
-     "d": "2025-09-29",
-     "price": 68.18,
-     "url": "https://www.forbes.com/sites/greatspeculations/2025/09/29/mp-materials--still-rare/",
-     "title": "MP Materials : Still Rare? - Forbes",
-     "src": "forbes.com",
-     "detected": true
-    },
-    {
      "d": "2025-10-03",
      "price": 71.5,
      "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/",
      "title": "USA Rare Earth Takes Off On Merger, White House Talks - Investor's Business Daily",
      "src": "investors.com",
-     "detected": true
-    },
-    {
-     "d": "2025-10-10",
-     "price": 78.34,
-     "url": "https://www.cnbc.com/2025/10/10/rare-earth-trump-china-tariff.html",
-     "title": "Rare earth stocks jump after Trump says China holding world 'captive' over the metals, threatens countermeasures - CNBC",
-     "src": "cnbc.com",
      "detected": true
     },
     {
@@ -3984,14 +4240,6 @@
      "detected": true
     },
     {
-     "d": "2025-10-14",
-     "price": 98.65,
-     "url": "https://www.mining.com/web/us-rare-earth-chokepoint-is-a-big-little-problem/",
-     "title": "US rare earth chokepoint is a big little problem - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
      "d": "2025-10-22",
      "price": 69.8,
      "url": "https://www.theglobeandmail.com/investing/markets/stocks/MP-N/pressreleases/35605300/1-big-reason-i-m-watching-mp-materials-stock-in-2025/",
@@ -4000,28 +4248,20 @@
      "detected": true
     },
     {
-     "d": "2025-10-28",
-     "price": 64.94,
-     "url": "https://www.aol.com/articles/forget-tech-boom-miner-300-114800348.html",
-     "title": "Forget the Tech Boom: This Miner Is Up 300% in 2025 - AOL.com",
-     "src": "aol.com",
-     "detected": false
+     "d": "2025-11-13",
+     "price": 57.54,
+     "url": "https://rollingout.com/2025/11/13/mp-materials-stock-nvidia-comparison/",
+     "title": "MP Materials stock surges 250%: Is it the next Nvidia? - Rolling Out",
+     "src": "rollingout.com",
+     "detected": true
     },
     {
      "d": "2025-11-14",
      "price": 58.64,
-     "url": "https://www.cnbc.com/2025/11/14/jpmorgan-sees-an-underappreciated-national-security-opportunity-in-this-rare-earth-miner.html",
-     "title": "JPMorgan sees an \u2018underappreciated national security\u2019 opportunity in this rare earth miner - CNBC",
-     "src": "cnbc.com",
+     "url": "https://nai500.com/blog/2025/11/mp-materials-can-a-rare-earth-miner-replicate-nvidias-growth-myth/",
+     "title": "MP Materials: Can A Rare Earth Miner Replicate Nvidia\u2019s Growth Myth? - NAI500",
+     "src": "nai500.com",
      "detected": true
-    },
-    {
-     "d": "2025-11-18",
-     "price": 58.51,
-     "url": "https://www.mining.com/web/yttrium-price-surges-to-record-as-rally-approaches-1500/",
-     "title": "Yttrium price surges to record as rally approaches 1,500% - Mining.com",
-     "src": "mining.com",
-     "detected": false
     },
     {
      "d": "2025-11-19",
@@ -4032,12 +4272,12 @@
      "detected": false
     },
     {
-     "d": "2025-11-23",
+     "d": "2025-11-22",
      "price": 55.27,
-     "url": "https://ts2.tech/en/mp-materials-mp-stock-today-november-23-2025-saudi-jv-shock-hedge-fund-buying-and-insider-selling-after-a-monster-rally/",
-     "title": "MP Materials (MP) Stock Today, November 23, 2025: Saudi JV Shock, Hedge Fund Buying, and Insider Selling After a Monster Rally - ts2.tech",
-     "src": "ts2.tech",
-     "detected": false
+     "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/mp-materials-stock-soars-on-strategic-u-s-saudi-partnership/68379413",
+     "title": "MP Materials Stock Soars on Strategic U.S.-Saudi Partnership - Ad-hoc-news.de",
+     "src": "ad-hoc-news.de",
+     "detected": true
     },
     {
      "d": "2025-11-24",
@@ -4045,15 +4285,7 @@
      "url": "https://www.investing.com/news/analyst-ratings/mp-materials-stock-rating-upgraded-by-bmo-capital-on-strategic-value-93CH-4374244",
      "title": "MP Materials stock rating upgraded by BMO Capital on strategic value - Investing.com",
      "src": "investing.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-24",
-     "price": 59.04,
-     "url": "https://www.tradingview.com/news/zacks:bedeaa9ab094b:0-mp-vs-usar-which-rare-earth-play-looks-stronger-right-now/",
-     "title": "MP vs. USAR: Which Rare-Earth Play Looks Stronger Right Now? - TradingView",
-     "src": "tradingview.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-11-24",
@@ -4061,15 +4293,7 @@
      "url": "https://nai500.com/blog/2025/11/the-bet-on-mp-materials-isnt-about-revenue-its-about-us-independence/",
      "title": "The Bet on MP Materials Isn\u2019t About Revenue. It\u2019s About US Independence - NAI500",
      "src": "nai500.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-05",
-     "price": 62.09,
-     "url": "https://m.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4392533?ampMode=1",
-     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com",
-     "src": "m.investing.com",
-     "detected": false
+     "detected": true
     },
     {
      "d": "2025-12-05",
@@ -4077,7 +4301,31 @@
      "url": "https://m.uk.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4403078?ampMode=1",
      "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com UK",
      "src": "m.uk.investing.com",
-     "detected": false
+     "detected": true
+    },
+    {
+     "d": "2025-12-05",
+     "price": 62.09,
+     "url": "https://m.investing.com/news/analyst-ratings/morgan-stanley-upgrades-mp-materials-stock-rating-to-overweight-on-rare-earth-supply-chain-93CH-4392533?ampMode=1",
+     "title": "Morgan Stanley upgrades MP Materials stock rating to Overweight on rare earth supply chain - Investing.com",
+     "src": "m.investing.com",
+     "detected": true
+    },
+    {
+     "d": "2025-12-06",
+     "price": 62.09,
+     "url": "https://ca.investing.com/news/insider-trading-news/mp-materials-ceo-litinsky-sells-242-million-in-stock-93CH-4352311",
+     "title": "MP Materials CEO Litinsky sells $24.2 million in stock By Investing.com - Investing.com Canada",
+     "src": "ca.investing.com",
+     "detected": true
+    },
+    {
+     "d": "2025-12-08",
+     "price": 61.2,
+     "url": "https://simplywall.st/stocks/us/materials/nyse-mp/mp-materials/news/mp-materials-mp-is-up-69-after-dodbacked-minetomagnet-push-h",
+     "title": "MP Materials (MP) Is Up 6.9% After DoD\u2011Backed Mine\u2011to\u2011Magnet Push - Has The Bull Case Changed? - simplywall.st",
+     "src": "simplywall.st",
+     "detected": true
     },
     {
      "d": "2025-12-11",
@@ -6765,6 +7013,15 @@
    ],
    "dots": [
     {
+     "d": "2025-03-07",
+     "kind": "name",
+     "price": 0.56,
+     "title": "Can This US Company Break China's Rare Earth Elements Monopoly? - StockTitan",
+     "lede": "American Resources (NASDAQ:AREC) and its portfolio company ReElement Technologies participated in a Virtual Investor 'What This Means' segment to discuss their production of rare earth elements and critical minerals. FISHERS, IN / ACCESS Ne",
+     "src": "www.stocktitan.net",
+     "url": "https://www.stocktitan.net/news/AREC/american-resources-and-re-element-technologies-participate-in-a-83mg9aei38aa.html"
+    },
+    {
      "d": "2025-08-07",
      "kind": "name",
      "price": 1.3,
@@ -6783,6 +7040,24 @@
      "url": "https://www.stocktitan.net/news/AREC/re-element-and-principal-mineral-partner-to-provide-integrated-rare-cwhb7g2e3kuh.html"
     },
     {
+     "d": "2025-11-03",
+     "kind": "name",
+     "price": 4.0,
+     "title": "American Resources (NASDAQ: AREC) Targets 10,000 t NdFeB via $1.4B OSC Partnership - Stock Titan",
+     "lede": "**American Resources (NASDAQ:AREC)** said ReElement Technologies and Vulcan Elements secured a **$1.4 billion** joint partnership with the U.S. Department of War Office of Strategic Capital (OSC) announced on **November 3, 2025**. **America",
+     "src": "www.stocktitan.net",
+     "url": "https://www.stocktitan.net/news/AREC/re-element-technologies-forges-1-4-billion-partnership-with-u-s-duuyro675wc0.html"
+    },
+    {
+     "d": "2026-01-23",
+     "kind": "name",
+     "price": 4.37,
+     "title": "Analysts\u2019 Top Materials Picks: American Resources (AREC), Centerra Gold (CGAU) - The Globe and Mail",
+     "lede": "## Latest in. This section contains press releases and other materials from third parties (including paid content). The Globe and Mail has not reviewed this content. # Analysts\u2019 Top Materials Picks: American Resources (AREC), Centerra Gold ",
+     "src": "www.theglobeandmail.com",
+     "url": "https://www.theglobeandmail.com/investing/markets/stocks/AREC/pressreleases/37174552/analysts-top-materials-picks-american-resources-arec-centerra-gold-cgau/"
+    },
+    {
      "d": "2026-03-10",
      "kind": "name",
      "price": 3.45,
@@ -6794,110 +7069,6 @@
    ],
    "ground_truth": [
     {
-     "d": "2025-01-01",
-     "price": null,
-     "url": "https://markets.businessinsider.com/news/stocks/the-10-best-performing-s-and-p-500-stocks-in-2024-include-nvidia-tesla-2024-12",
-     "title": "These were the 10 best-performing S&P 500 stocks in 2024 - Markets Insider",
-     "src": "markets.businessinsider.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-05",
-     "price": 0.62,
-     "url": "https://www.tipranks.com/news/the-fly/sleep-number-says-climatecool-series-outperforming-expectations?utm_source=edition.cnn.com&utm_medium=referral",
-     "title": "Sleep Number says ClimateCool series outperforming expectations - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2025-06-10",
-     "price": 0.8,
-     "url": "https://www.stocktitan.net/news/AREC/re-element-technologies-advances-national-defense-supply-chain-with-isf7dph1spto.html",
-     "title": "ReElement Breaks China's Monopoly: Achieves 99.999% Pure Gallium for US Defense Industry - Stock Titan",
-     "src": "stocktitan.net",
-     "detected": false
-    },
-    {
-     "d": "2025-10-03",
-     "price": 3.7,
-     "url": "https://www.investors.com/news/usa-rare-earth-stock-merger-trump-administration/",
-     "title": "USA Rare Earth Takes Off On Merger, White House Talks - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": true
-    },
-    {
-     "d": "2025-10-21",
-     "price": 4.23,
-     "url": "https://www.investors.com/news/rare-earth-stocks-american-resources-usar-us-australia-critical-minerals/",
-     "title": "Rare Earth Stocks: Analyst Names Next Trump Stakes; U.S.-Australia Deal Struck - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": false
-    },
-    {
-     "d": "2025-10-25",
-     "price": 3.88,
-     "url": "https://www.chosun.com/english/world-en/2025/10/26/64KVL354GRCEVMZXIW2XBJRNFQ/",
-     "title": "Second Lady Usha Vance Gains Unexpected Prominence - \uc870\uc120\uc77c\ubcf4",
-     "src": "chosun.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-21",
-     "price": 2.67,
-     "url": "https://www.npr.org/2025/11/21/nx-s1-5601696/rare-earths-china-trump-pentagon",
-     "title": "Rare earths: Federal backing and tech advances aim to help the U.S. catch up to China - NPR",
-     "src": "npr.org",
-     "detected": false
-    },
-    {
-     "d": "2025-11-21",
-     "price": 2.67,
-     "url": "https://www.mining.com/web/pentagon-lends-700-million-to-vulcan-reelement-for-magnets/",
-     "title": "Pentagon lends $700 million to Vulcan, ReElement for magnets - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-23",
-     "price": 2.63,
-     "url": "https://www.cnbc.com/2025/12/24/critical-minerals-rare-earth-magnet-makers-relish-a-moment-in-the-sun.html",
-     "title": "China\u2019s mineral dominance gives Western magnet makers a moment in the sun - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-10",
-     "price": 3.37,
-     "url": "https://www.aol.com/articles/usa-rare-earth-stock-skyrocketing-201104739.html",
-     "title": "USA Rare Earth Stock Is Skyrocketing Today -- Is It a Buy Right Now? - AOL.com",
-     "src": "aol.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-24",
-     "price": 4.37,
-     "url": "https://www.fool.com/investing/2026/01/24/could-buying-usa-rare-earth-stock-today-set-you-up/",
-     "title": "Could Buying USA Rare Earth Stock Today Set You Up for Life? - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-25",
-     "price": 4.37,
-     "url": "https://www.fool.com/investing/2026/01/25/this-overlooked-rare-stock-could-transform-100/",
-     "title": "This Overlooked Rare-Earth Stock Could Transform $1,000 Into Life-Changing Wealth - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-26",
-     "price": 3.72,
-     "url": "https://www.wsj.com/livecoverage/stock-market-today-dow-sp-500-nasdaq-01-26-2026/card/usa-rare-earth-stock-jumps-after-federal-government-deal-ip1kA64k8t0H804slZKY",
-     "title": "USA Rare Earth Stock Jumps After Federal Government Deal - The Wall Street Journal",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
      "d": "2026-01-26",
      "price": 3.72,
      "url": "https://www.investors.com/news/rare-earth-stocks-usar-trump-equity-stake-report/",
@@ -6906,66 +7077,10 @@
      "detected": false
     },
     {
-     "d": "2026-01-26",
-     "price": 3.72,
-     "url": "https://www.aol.com/articles/usa-rare-earth-stock-soaring-141609535.html",
-     "title": "USA Rare Earth stock is soaring on news that the Trump administration is taking a stake in the mining company - AOL.com",
-     "src": "aol.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-26",
-     "price": 3.72,
-     "url": "https://www.forbes.com/sites/tylerroush/2026/01/26/usa-rare-earth-surges-20-after-trump-administration-invests-16-billion/",
-     "title": "USA Rare Earth Surges 20% After Trump Administration Invests $1.6 Billion - Forbes",
-     "src": "forbes.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-26",
-     "price": 3.72,
-     "url": "https://www.cnbc.com/2026/01/26/usa-rare-earth-shares-jump-20percent-as-commerce-department-takes-equity-stake.html",
-     "title": "USA Rare Earth shares jump 20% as Commerce Department takes equity stake - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-31",
-     "price": 3.16,
-     "url": "https://www.fool.com/investing/2026/01/31/is-usa-rare-earth-stock-a-once-in-a-decade/",
-     "title": "Is USA Rare Earth Stock a Once-in-a-Decade Rare-Earth Opportunity?\u200b - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-14",
-     "price": 3.08,
-     "url": "https://www.marketbeat.com/instant-alerts/promising-gold-stocks-to-add-to-your-watchlist-february-14th-2026-02-14/",
-     "title": "Promising Gold Stocks To Add to Your Watchlist - February 14th - MarketBeat",
-     "src": "marketbeat.com",
-     "detected": true
-    },
-    {
      "d": "2026-02-26",
      "price": 3.08,
      "url": "https://www.investors.com/news/five-rare-earth-stocks-to-watch-as-shortages-hit-aerospace/",
      "title": "Five Rare Earth Stocks To Watch As Shortages Hit Aerospace - Investor's Business Daily",
-     "src": "investors.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-15",
-     "price": 3.11,
-     "url": "https://www.cnbc.com/2026/03/15/top-wall-street-analysts-are-bullish-on-these-3-dividend-paying-energy-stocks.html",
-     "title": "Top Wall Street analysts are bullish on these 3 dividend-paying energy stocks - CNBC",
-     "src": "cnbc.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-20",
-     "price": 2.35,
-     "url": "https://www.investors.com/news/usa-rare-earth-stock-soars-brazil-mega-deal-china-battle-heats-up/",
-     "title": "2 Trump Bets In Critical Rare Earths Jump Above Key Levels - Investor's Business Daily",
      "src": "investors.com",
      "detected": true
     }
@@ -6974,462 +7089,10 @@
   "GDX": {
    "ticker": "GDX",
    "window": [
-    "2025-01-31",
+    "2025-07-16",
     "2026-04-28"
    ],
    "series": [
-    [
-     "2025-01-31",
-     38.68
-    ],
-    [
-     "2025-02-03",
-     39.27
-    ],
-    [
-     "2025-02-04",
-     39.74
-    ],
-    [
-     "2025-02-05",
-     40.74
-    ],
-    [
-     "2025-02-06",
-     40.83
-    ],
-    [
-     "2025-02-07",
-     40.57
-    ],
-    [
-     "2025-02-10",
-     41.66
-    ],
-    [
-     "2025-02-11",
-     41.14
-    ],
-    [
-     "2025-02-12",
-     41.83
-    ],
-    [
-     "2025-02-13",
-     42.2
-    ],
-    [
-     "2025-02-14",
-     40.78
-    ],
-    [
-     "2025-02-18",
-     41.24
-    ],
-    [
-     "2025-02-19",
-     41.24
-    ],
-    [
-     "2025-02-20",
-     41.94
-    ],
-    [
-     "2025-02-21",
-     40.51
-    ],
-    [
-     "2025-02-24",
-     40.67
-    ],
-    [
-     "2025-02-25",
-     40.09
-    ],
-    [
-     "2025-02-26",
-     40.57
-    ],
-    [
-     "2025-02-27",
-     39.18
-    ],
-    [
-     "2025-02-28",
-     39.43
-    ],
-    [
-     "2025-03-03",
-     39.42
-    ],
-    [
-     "2025-03-04",
-     39.99
-    ],
-    [
-     "2025-03-05",
-     41.4
-    ],
-    [
-     "2025-03-06",
-     41.06
-    ],
-    [
-     "2025-03-07",
-     41.34
-    ],
-    [
-     "2025-03-10",
-     40.22
-    ],
-    [
-     "2025-03-11",
-     41.54
-    ],
-    [
-     "2025-03-12",
-     41.6
-    ],
-    [
-     "2025-03-13",
-     42.9
-    ],
-    [
-     "2025-03-14",
-     43.33
-    ],
-    [
-     "2025-03-17",
-     44.25
-    ],
-    [
-     "2025-03-18",
-     44.53
-    ],
-    [
-     "2025-03-19",
-     44.9
-    ],
-    [
-     "2025-03-20",
-     44.83
-    ],
-    [
-     "2025-03-21",
-     44.18
-    ],
-    [
-     "2025-03-24",
-     43.93
-    ],
-    [
-     "2025-03-25",
-     44.7
-    ],
-    [
-     "2025-03-26",
-     44.35
-    ],
-    [
-     "2025-03-27",
-     45.43
-    ],
-    [
-     "2025-03-28",
-     45.24
-    ],
-    [
-     "2025-03-31",
-     45.64
-    ],
-    [
-     "2025-04-01",
-     45.47
-    ],
-    [
-     "2025-04-02",
-     45.43
-    ],
-    [
-     "2025-04-03",
-     45.39
-    ],
-    [
-     "2025-04-04",
-     41.38
-    ],
-    [
-     "2025-04-07",
-     41.15
-    ],
-    [
-     "2025-04-08",
-     41.2
-    ],
-    [
-     "2025-04-09",
-     44.67
-    ],
-    [
-     "2025-04-10",
-     46.83
-    ],
-    [
-     "2025-04-11",
-     49.34
-    ],
-    [
-     "2025-04-14",
-     49.66
-    ],
-    [
-     "2025-04-15",
-     50.17
-    ],
-    [
-     "2025-04-16",
-     51.54
-    ],
-    [
-     "2025-04-17",
-     50.55
-    ],
-    [
-     "2025-04-21",
-     51.29
-    ],
-    [
-     "2025-04-22",
-     49.87
-    ],
-    [
-     "2025-04-23",
-     48.38
-    ],
-    [
-     "2025-04-24",
-     49.4
-    ],
-    [
-     "2025-04-25",
-     48.46
-    ],
-    [
-     "2025-04-28",
-     49.07
-    ],
-    [
-     "2025-04-29",
-     48.13
-    ],
-    [
-     "2025-04-30",
-     48.66
-    ],
-    [
-     "2025-05-01",
-     46.86
-    ],
-    [
-     "2025-05-02",
-     46.74
-    ],
-    [
-     "2025-05-05",
-     48.37
-    ],
-    [
-     "2025-05-06",
-     50.42
-    ],
-    [
-     "2025-05-07",
-     49.46
-    ],
-    [
-     "2025-05-08",
-     48.53
-    ],
-    [
-     "2025-05-09",
-     50.01
-    ],
-    [
-     "2025-05-12",
-     46.28
-    ],
-    [
-     "2025-05-13",
-     46.2
-    ],
-    [
-     "2025-05-14",
-     45.22
-    ],
-    [
-     "2025-05-15",
-     46.15
-    ],
-    [
-     "2025-05-16",
-     46.0
-    ],
-    [
-     "2025-05-19",
-     47.0
-    ],
-    [
-     "2025-05-20",
-     48.46
-    ],
-    [
-     "2025-05-21",
-     49.08
-    ],
-    [
-     "2025-05-22",
-     48.83
-    ],
-    [
-     "2025-05-23",
-     50.17
-    ],
-    [
-     "2025-05-27",
-     49.41
-    ],
-    [
-     "2025-05-28",
-     49.99
-    ],
-    [
-     "2025-05-29",
-     49.92
-    ],
-    [
-     "2025-05-30",
-     50.28
-    ],
-    [
-     "2025-06-02",
-     53.38
-    ],
-    [
-     "2025-06-03",
-     52.71
-    ],
-    [
-     "2025-06-04",
-     52.83
-    ],
-    [
-     "2025-06-05",
-     52.77
-    ],
-    [
-     "2025-06-06",
-     51.25
-    ],
-    [
-     "2025-06-09",
-     51.75
-    ],
-    [
-     "2025-06-10",
-     51.06
-    ],
-    [
-     "2025-06-11",
-     51.57
-    ],
-    [
-     "2025-06-12",
-     53.14
-    ],
-    [
-     "2025-06-13",
-     54.07
-    ],
-    [
-     "2025-06-16",
-     53.16
-    ],
-    [
-     "2025-06-17",
-     53.12
-    ],
-    [
-     "2025-06-18",
-     52.62
-    ],
-    [
-     "2025-06-20",
-     51.91
-    ],
-    [
-     "2025-06-23",
-     52.73
-    ],
-    [
-     "2025-06-24",
-     51.49
-    ],
-    [
-     "2025-06-25",
-     51.55
-    ],
-    [
-     "2025-06-26",
-     52.24
-    ],
-    [
-     "2025-06-27",
-     50.36
-    ],
-    [
-     "2025-06-30",
-     51.68
-    ],
-    [
-     "2025-07-01",
-     51.66
-    ],
-    [
-     "2025-07-02",
-     52.28
-    ],
-    [
-     "2025-07-03",
-     52.53
-    ],
-    [
-     "2025-07-07",
-     52.79
-    ],
-    [
-     "2025-07-08",
-     50.42
-    ],
-    [
-     "2025-07-09",
-     51.13
-    ],
-    [
-     "2025-07-10",
-     51.53
-    ],
-    [
-     "2025-07-11",
-     52.04
-    ],
-    [
-     "2025-07-14",
-     52.07
-    ],
-    [
-     "2025-07-15",
-     51.25
-    ],
     [
      "2025-07-16",
      51.45
@@ -8225,458 +7888,6 @@
    ],
    "spy_series": [
     [
-     "2025-01-31",
-     591.69
-    ],
-    [
-     "2025-02-03",
-     587.71
-    ],
-    [
-     "2025-02-04",
-     591.65
-    ],
-    [
-     "2025-02-05",
-     594.05
-    ],
-    [
-     "2025-02-06",
-     596.11
-    ],
-    [
-     "2025-02-07",
-     590.66
-    ],
-    [
-     "2025-02-10",
-     594.67
-    ],
-    [
-     "2025-02-11",
-     595.12
-    ],
-    [
-     "2025-02-12",
-     593.2
-    ],
-    [
-     "2025-02-13",
-     599.47
-    ],
-    [
-     "2025-02-14",
-     599.44
-    ],
-    [
-     "2025-02-18",
-     601.2
-    ],
-    [
-     "2025-02-19",
-     602.61
-    ],
-    [
-     "2025-02-20",
-     600.11
-    ],
-    [
-     "2025-02-21",
-     589.84
-    ],
-    [
-     "2025-02-24",
-     587.16
-    ],
-    [
-     "2025-02-25",
-     584.24
-    ],
-    [
-     "2025-02-26",
-     584.53
-    ],
-    [
-     "2025-02-27",
-     575.2
-    ],
-    [
-     "2025-02-28",
-     584.18
-    ],
-    [
-     "2025-03-03",
-     573.94
-    ],
-    [
-     "2025-03-04",
-     567.15
-    ],
-    [
-     "2025-03-05",
-     573.25
-    ],
-    [
-     "2025-03-06",
-     563.07
-    ],
-    [
-     "2025-03-07",
-     566.23
-    ],
-    [
-     "2025-03-10",
-     551.14
-    ],
-    [
-     "2025-03-11",
-     546.56
-    ],
-    [
-     "2025-03-12",
-     549.46
-    ],
-    [
-     "2025-03-13",
-     542.14
-    ],
-    [
-     "2025-03-14",
-     553.34
-    ],
-    [
-     "2025-03-17",
-     557.6
-    ],
-    [
-     "2025-03-18",
-     551.58
-    ],
-    [
-     "2025-03-19",
-     557.58
-    ],
-    [
-     "2025-03-20",
-     555.97
-    ],
-    [
-     "2025-03-21",
-     556.16
-    ],
-    [
-     "2025-03-24",
-     566.12
-    ],
-    [
-     "2025-03-25",
-     567.48
-    ],
-    [
-     "2025-03-26",
-     560.7
-    ],
-    [
-     "2025-03-27",
-     559.21
-    ],
-    [
-     "2025-03-28",
-     547.95
-    ],
-    [
-     "2025-03-31",
-     551.63
-    ],
-    [
-     "2025-04-01",
-     553.19
-    ],
-    [
-     "2025-04-02",
-     556.69
-    ],
-    [
-     "2025-04-03",
-     529.25
-    ],
-    [
-     "2025-04-04",
-     498.27
-    ],
-    [
-     "2025-04-07",
-     497.38
-    ],
-    [
-     "2025-04-08",
-     489.59
-    ],
-    [
-     "2025-04-09",
-     541.01
-    ],
-    [
-     "2025-04-10",
-     517.3
-    ],
-    [
-     "2025-04-11",
-     526.53
-    ],
-    [
-     "2025-04-14",
-     531.64
-    ],
-    [
-     "2025-04-15",
-     530.15
-    ],
-    [
-     "2025-04-16",
-     518.37
-    ],
-    [
-     "2025-04-17",
-     519.11
-    ],
-    [
-     "2025-04-21",
-     506.75
-    ],
-    [
-     "2025-04-22",
-     519.93
-    ],
-    [
-     "2025-04-23",
-     527.99
-    ],
-    [
-     "2025-04-24",
-     539.11
-    ],
-    [
-     "2025-04-25",
-     543.0
-    ],
-    [
-     "2025-04-28",
-     543.21
-    ],
-    [
-     "2025-04-29",
-     546.63
-    ],
-    [
-     "2025-04-30",
-     546.85
-    ],
-    [
-     "2025-05-01",
-     550.72
-    ],
-    [
-     "2025-05-02",
-     558.9
-    ],
-    [
-     "2025-05-05",
-     555.69
-    ],
-    [
-     "2025-05-06",
-     551.05
-    ],
-    [
-     "2025-05-07",
-     553.36
-    ],
-    [
-     "2025-05-08",
-     557.22
-    ],
-    [
-     "2025-05-09",
-     556.51
-    ],
-    [
-     "2025-05-12",
-     574.9
-    ],
-    [
-     "2025-05-13",
-     578.7
-    ],
-    [
-     "2025-05-14",
-     579.44
-    ],
-    [
-     "2025-05-15",
-     582.27
-    ],
-    [
-     "2025-05-16",
-     585.96
-    ],
-    [
-     "2025-05-19",
-     586.6
-    ],
-    [
-     "2025-05-20",
-     584.62
-    ],
-    [
-     "2025-05-21",
-     574.77
-    ],
-    [
-     "2025-05-22",
-     575.0
-    ],
-    [
-     "2025-05-23",
-     571.08
-    ],
-    [
-     "2025-05-27",
-     582.95
-    ],
-    [
-     "2025-05-28",
-     579.58
-    ],
-    [
-     "2025-05-29",
-     581.86
-    ],
-    [
-     "2025-05-30",
-     581.21
-    ],
-    [
-     "2025-06-02",
-     584.49
-    ],
-    [
-     "2025-06-03",
-     587.82
-    ],
-    [
-     "2025-06-04",
-     587.66
-    ],
-    [
-     "2025-06-05",
-     584.82
-    ],
-    [
-     "2025-06-06",
-     590.83
-    ],
-    [
-     "2025-06-09",
-     591.36
-    ],
-    [
-     "2025-06-10",
-     594.71
-    ],
-    [
-     "2025-06-11",
-     593.02
-    ],
-    [
-     "2025-06-12",
-     595.37
-    ],
-    [
-     "2025-06-13",
-     588.72
-    ],
-    [
-     "2025-06-16",
-     594.32
-    ],
-    [
-     "2025-06-17",
-     589.24
-    ],
-    [
-     "2025-06-18",
-     589.15
-    ],
-    [
-     "2025-06-20",
-     587.77
-    ],
-    [
-     "2025-06-23",
-     593.57
-    ],
-    [
-     "2025-06-24",
-     600.13
-    ],
-    [
-     "2025-06-25",
-     600.47
-    ],
-    [
-     "2025-06-26",
-     605.16
-    ],
-    [
-     "2025-06-27",
-     608.17
-    ],
-    [
-     "2025-06-30",
-     611.08
-    ],
-    [
-     "2025-07-01",
-     610.88
-    ],
-    [
-     "2025-07-02",
-     613.65
-    ],
-    [
-     "2025-07-03",
-     618.49
-    ],
-    [
-     "2025-07-07",
-     613.88
-    ],
-    [
-     "2025-07-08",
-     613.54
-    ],
-    [
-     "2025-07-09",
-     617.22
-    ],
-    [
-     "2025-07-10",
-     618.96
-    ],
-    [
-     "2025-07-11",
-     616.79
-    ],
-    [
-     "2025-07-14",
-     617.96
-    ],
-    [
-     "2025-07-15",
-     615.32
-    ],
-    [
      "2025-07-16",
      617.38
     ],
@@ -9471,15 +8682,6 @@
    ],
    "dots": [
     {
-     "d": "2025-02-21",
-     "kind": "name",
-     "price": 40.51,
-     "title": "GDX\u2019s dozen-year breakout - MINING.com",
-     "lede": "How bullish sentiment shifts fuel huge gold-stock gains, the perspective from GDX\u2019s current technicals, why that long-awaited secular breakout failed in late October, and why gold stocks will almost certainly punch through this time around.",
-     "src": "www.mining.com",
-     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/"
-    },
-    {
      "d": "2025-08-06",
      "kind": "name",
      "price": 56.98,
@@ -9505,122 +8707,9 @@
      "lede": "Gold miner ETFs sank Tuesday in stock market trade as gold prices tumbled more than 6%. SPDR Gold Shares (GLD) fell more than 6% in stock market action. VanEck Gold Miners (GDX), VanEck Junior Gold Miners ETF (GDXJ) and Sprott Gold Miners E",
      "src": "www.investors.com",
      "url": "https://www.investors.com/news/gold-prices-suffer-worst-loss-in-12-years-etfs-miners-plunge/"
-    },
-    {
-     "d": "2026-02-23",
-     "kind": "name",
-     "price": 110.29,
-     "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
-     "lede": "Entering text into the input field will update the search result below. Entering text into the input field will update the search result below. Search for Symbols, analysts, keywords. Join the community built by investors, for investors. Fe",
-     "src": "seekingalpha.com",
-     "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money"
     }
    ],
    "ground_truth": [
-    {
-     "d": "2025-02-07",
-     "price": 40.57,
-     "url": "https://www.mining.com/web/gold-stock-valuation-anomaly/",
-     "title": "Gold stock valuation anomaly - MINING.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-02-21",
-     "price": 40.51,
-     "url": "https://www.mining.com/web/gdxs-dozen-year-breakout/",
-     "title": "GDX\u2019s dozen-year breakout - MINING.com",
-     "src": "mining.com",
-     "detected": true
-    },
-    {
-     "d": "2025-02-25",
-     "price": 40.09,
-     "url": "https://www.mining.com/web/gold-stocks-glitter-as-worries-around-inflation-tariffs-flare/",
-     "title": "Gold stocks glitter as worries around inflation, tariffs flare - MINING.com",
-     "src": "mining.com",
-     "detected": true
-    },
-    {
-     "d": "2025-04-17",
-     "price": 50.55,
-     "url": "https://www.mining.com/web/gdxs-gold-pursuit-quickens/",
-     "title": "GDX\u2019s gold pursuit quickens - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-05-02",
-     "price": 46.74,
-     "url": "https://www.fool.com/investing/2025/05/02/3-no-brainer-gold-stocks-to-buy-right-now/",
-     "title": "3 No-Brainer Gold Stocks to Buy Right Now - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
-     "d": "2025-05-09",
-     "price": 50.01,
-     "url": "https://www.kitco.com/opinion/2025-05-09/its-old-turkey-time-gold-stock-investors",
-     "title": "Its Old Turkey Time for gold stock investors - KITCO",
-     "src": "kitco.com",
-     "detected": true
-    },
-    {
-     "d": "2025-05-16",
-     "price": 46.0,
-     "url": "https://www.mining.com/web/gold-miners-q1-2025-fundamentals/",
-     "title": "Gold miners\u2019 Q1 2025 fundamentals - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-05-24",
-     "price": 50.17,
-     "url": "https://www.forbes.com/sites/brettowens/2025/05/24/why-the-moodys-downgrade-puts-this-dividend-duo-in-bullish-mood/",
-     "title": "Why The Moody\u2019s Downgrade Puts This Dividend Duo In Bullish Mood - Forbes",
-     "src": "forbes.com",
-     "detected": false
-    },
-    {
-     "d": "2025-06-03",
-     "price": 52.71,
-     "url": "https://www.kitco.com/opinion/2025-06-03/gdx-words-most-aesthetic-chart",
-     "title": "GDX: The word's most aesthetic chart? - KITCO",
-     "src": "kitco.com",
-     "detected": false
-    },
-    {
-     "d": "2025-06-14",
-     "price": 54.07,
-     "url": "https://www.jpost.com/business-and-innovation/precious-metals/article-857690",
-     "title": "Gold Mining Stocks Surge as Gold and Silver Break Out: Bull Market Enters Hyperdrive - The Jerusalem Post",
-     "src": "jpost.com",
-     "detected": true
-    },
-    {
-     "d": "2025-06-27",
-     "price": 50.36,
-     "url": "https://www.mining.com/web/gold-miners-stack-records/",
-     "title": "Gold miners stack records - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-07-18",
-     "price": 50.76,
-     "url": "https://www.mining.com/web/gold-stocks-priming-to-run/",
-     "title": "Gold stocks priming to run - Mining.com",
-     "src": "mining.com",
-     "detected": true
-    },
-    {
-     "d": "2025-08-01",
-     "price": 52.07,
-     "url": "https://www.mining.com/web/bullish-gdx-technicals/",
-     "title": "Bullish GDX technicals - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
     {
      "d": "2025-08-06",
      "price": 56.98,
@@ -9638,52 +8727,12 @@
      "detected": false
     },
     {
-     "d": "2025-08-26",
-     "price": 61.16,
-     "url": "https://www.kitco.com/opinion/2025-08-26/pce-report-upside-breakout-gold",
-     "title": "The PCE report: An upside breakout for gold? - KITCO",
-     "src": "kitco.com",
-     "detected": false
-    },
-    {
      "d": "2025-10-02",
      "price": 76.54,
      "url": "https://www.investing.com/analysis/the-5-best-gold-mining-stocks-to-buy-now-200667791",
      "title": "The 5 Best Gold Mining Stocks to Buy Now - Investing.com",
      "src": "investing.com",
-     "detected": false
-    },
-    {
-     "d": "2025-10-09",
-     "price": 75.06,
-     "url": "https://www.fool.com/investing/2025/10/09/gold-all-time-high-4000-ounce-buy-gold-etf/",
-     "title": "Gold Hits $4,000 per Ounce. Here Are 3 Top Gold ETFs to Buy Now. - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
-     "d": "2025-10-16",
-     "price": 83.83,
-     "url": "https://www.kitco.com/opinion/2025-10-16/dips-rx-acrophobia",
-     "title": "Dips: The Rx for acrophobia - KITCO",
-     "src": "kitco.com",
      "detected": true
-    },
-    {
-     "d": "2025-10-17",
-     "price": 78.16,
-     "url": "https://seekingalpha.com/news/4505391-gold-silver-slide-on-heavy-profit-taking-after-trump-reassures-on-china",
-     "title": "Gold, silver slide on heavy profit-taking after Trump reassures on China (GLD:NYSEARCA) - Seeking Alpha",
-     "src": "seekingalpha.com",
-     "detected": true
-    },
-    {
-     "d": "2025-10-17",
-     "price": 78.16,
-     "url": "https://nai500.com/blog/2025/10/investment-choices-amid-soaring-gold-prices-newmont-vs-gold-etfs/",
-     "title": "Investment Choices Amid Soaring Gold Prices: Newmont vs. Gold ETFs - NAI500",
-     "src": "nai500.com",
-     "detected": false
     },
     {
      "d": "2025-10-21",
@@ -9702,54 +8751,6 @@
      "detected": false
     },
     {
-     "d": "2025-11-11",
-     "price": 76.16,
-     "url": "https://www.kitco.com/opinion/2025-11-11/precious-metals-higher-price-sustenance",
-     "title": "Precious metals: Higher price sustenance - KITCO",
-     "src": "kitco.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-12",
-     "price": 78.68,
-     "url": "https://www.mining.com/web/gold-trading-like-a-meme-stock-sets-up-miners-as-levered-bet/",
-     "title": "Gold \u2018trading like a meme stock\u2019 sets up miners as levered bet - Mining.com",
-     "src": "mining.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-25",
-     "price": 77.24,
-     "url": "https://www.kitco.com/opinion/2025-11-25/gold-stocks-horse-race",
-     "title": "A gold stocks horse race? - KITCO",
-     "src": "kitco.com",
-     "detected": false
-    },
-    {
-     "d": "2025-11-26",
-     "price": 80.96,
-     "url": "https://www.cnbc.com/2025/11/26/this-gold-miner-etf-can-give-a-blueprint-on-whether-the-health-care-rally-can-go-on-heres-why.html",
-     "title": "This gold miner ETF can give a blueprint on whether the health care rally can go on. Here's why - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-22",
-     "price": 90.18,
-     "url": "https://www.tradingview.com/news/reuters.com,2025:newsml_L4N3XS0IL:0-gold-miners-climb-as-bullion-surges-past-4-400-oz-mark/",
-     "title": "Gold miners climb as bullion surges past $4,400/oz mark - TradingView \u2014 Track All Markets",
-     "src": "tradingview.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-26",
-     "price": 91.29,
-     "url": "https://www.mining.com/web/precious-metals-greatest-year/",
-     "title": "Precious metals\u2019 greatest year - Mining.com",
-     "src": "mining.com",
-     "detected": true
-    },
-    {
      "d": "2025-12-26",
      "price": 91.29,
      "url": "https://www.smartkarma.com/insights/gold-s-unprecedented-margin-cycle-the-gdx-etf-feb26-strategy",
@@ -9758,51 +8759,11 @@
      "detected": false
     },
     {
-     "d": "2026-01-25",
-     "price": 107.02,
-     "url": "https://www.fool.com/coverage/etfs/2026/01/25/the-gold-rush-continues-gdx-s-amplified-bet-vs-gld-s-steady-hold/",
-     "title": "The Gold Rush Continues: GDX's Amplified Bet vs. GLD's Steady Hold - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
      "d": "2026-01-26",
      "price": 107.48,
      "url": "https://www.moneyshow.com/articles/tradingidea-64825/chart-of-the-day-1-26-26-after-$100-silver-and-almost-$5k-gold-whats-next/",
      "title": "(01/26/26) Chart of the Day 1/26/26: After $100 Silver and (Almost) $5K Gol - moneyshow.com",
      "src": "moneyshow.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-26",
-     "price": 107.48,
-     "url": "https://www.kitco.com/news/off-the-wire/2026-01-26/gold-miner-shares-jump-bullion-prices-hit-5100oz-record-high",
-     "title": "Gold miner shares jump as bullion prices hit $5,100/oz record high - KITCO",
-     "src": "kitco.com",
-     "detected": true
-    },
-    {
-     "d": "2026-01-26",
-     "price": 107.48,
-     "url": "https://www.reuters.com/world/africa/gold-miner-shares-jump-bullion-prices-hit-5100oz-record-high-2026-01-26/",
-     "title": "Gold miner shares jump as bullion prices hit $5,100/oz record high - Reuters",
-     "src": "reuters.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-23",
-     "price": 110.29,
-     "url": "https://seekingalpha.com/article/4873584-gold-and-silver-miners-are-printing-money",
-     "title": "Gold And Silver Miners Are Printing Money - Seeking Alpha",
-     "src": "seekingalpha.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-03",
-     "price": 94.59,
-     "url": "https://www.mining.com/web/gold-stock-green-shoots/",
-     "title": "Gold-stock green shoots - Mining.com",
-     "src": "mining.com",
      "detected": false
     },
     {
@@ -12894,15 +11855,6 @@
      "url": "https://aviationweek.com/defense/aircraft-propulsion/rheinmetall-talks-boeing-lockheed-ccas-germany"
     },
     {
-     "d": "2025-11-05",
-     "kind": "name",
-     "price": 388.92,
-     "title": "Leonardo, Rheinmetall book first Lynx combat vehicle order for Italy - Defense News",
-     "lede": "# Leonardo, Rheinmetall book first Lynx combat vehicle order for Italy ROME \u2014 The team-up between Leonardo and Rheinmetall to fulfill a huge vehicle order for the Italian army has received its first contract, the manufacturers said on Wedne",
-     "src": "www.defensenews.com",
-     "url": "https://www.defensenews.com/global/europe/2025/11/05/leonardo-rheinmetall-book-first-lynx-combat-vehicle-order-for-italy/"
-    },
-    {
      "d": "2025-11-20",
      "kind": "name",
      "price": 369.27,
@@ -12910,6 +11862,15 @@
      "lede": "+ MRO + MRO - MRO * AWIN - Aerospace and Defense * Aviation Week & Space Technology * Aviation Week & Space Technology - Inside MRO * CAPA Airline Leader Summit - Asia & Sustainability Awards - Aerospace and Defense  * CAPA Asia Aviation Su",
      "src": "aviationweek.com",
      "url": "https://aviationweek.com/defense/missile-defense-weapons/diehl-buys-out-rheinmetalls-share-aim"
+    },
+    {
+     "d": "2025-11-21",
+     "kind": "name",
+     "price": 342.83,
+     "title": "In Brief: Diehl Buys Out Rheinmetall\u2019s Share Of AIM - Aviation Week Network",
+     "lede": "+ MRO + MRO - MRO * AWIN - Aerospace and Defense * Aviation Week & Space Technology * Aviation Week & Space Technology - Inside MRO - MRO  * CAPA Airline Leader Summit - Asia & Sustainability Awards - Aerospace and Defense  * CAPA Asia Avia",
+     "src": "aviationweek.com",
+     "url": "https://aviationweek.com/aerospacedailydepartments/brief-diehl-buys-out-rheinmetalls-share-aim"
     },
     {
      "d": "2025-12-31",
@@ -12950,14 +11911,6 @@
    ],
    "ground_truth": [
     {
-     "d": "2025-01-30",
-     "price": 153.6,
-     "url": "https://www.yahoo.com/news/germany-orders-weapons-worth-2-192244289.html",
-     "title": "Defense Stocks Rise After Germany\u2019s \u20ac2.5 Billion Weapons Order - Yahoo! Voices",
-     "src": "yahoo.com",
-     "detected": true
-    },
-    {
      "d": "2025-02-24",
      "price": 198.21,
      "url": "https://www.bloomberg.com/news/articles/2025-02-24/rheinmetall-has-35-more-upside-on-german-defense-boom-ubs-says",
@@ -12966,43 +11919,11 @@
      "detected": false
     },
     {
-     "d": "2025-02-24",
-     "price": 198.21,
-     "url": "https://www.tradingview.com/news/reuters.com,2025:newsml_L3N3PF0FP:0-german-shares-gain-after-merz-s-conservatives-win-national-election/",
-     "title": "German shares gain after Merz's conservatives win national election - TradingView",
-     "src": "tradingview.com",
-     "detected": false
-    },
-    {
-     "d": "2025-03-03",
-     "price": 245.33,
-     "url": "https://markets.businessinsider.com/news/stocks/european-defense-stocks-ukraine-war-rheinmetall-bae-systems-leonardo-2025-3",
-     "title": "European Defense Stocks Soar As Leaders Rally Around Ukraine - Markets Insider",
-     "src": "markets.businessinsider.com",
-     "detected": true
-    },
-    {
-     "d": "2025-03-03",
-     "price": 245.33,
-     "url": "https://www.tradingview.com/news/reuters.com,2025:newsml_L5N3PM08C:0-german-arms-maker-shares-jump-on-hopes-for-higher-defence-spending/",
-     "title": "German arms maker shares jump on hopes for higher defence spending - TradingView",
-     "src": "tradingview.com",
-     "detected": false
-    },
-    {
      "d": "2025-03-16",
      "price": 294.11,
      "url": "https://fortune.com/2025/03/16/rheinmetall-defense-contractor-europe-european-union-germany-ukraine-russia-nato/",
      "title": "Rheinmetall sees growth 'that we have never experienced before' - Fortune",
      "src": "fortune.com",
-     "detected": false
-    },
-    {
-     "d": "2025-05-27",
-     "price": 425.54,
-     "url": "https://www.reuters.com/business/aerospace-defense/europes-defence-companies-scramble-workers-business-booms-2025-05-27/",
-     "title": "Help wanted: Europe's defence companies scramble for workers as business booms - Reuters",
-     "src": "reuters.com",
      "detected": false
     },
     {
@@ -13022,67 +11943,11 @@
      "detected": false
     },
     {
-     "d": "2025-08-07",
-     "price": 383.47,
-     "url": "https://www.reuters.com/markets/europe/european-shares-tick-higher-with-earnings-tariffs-focus-2025-08-07/",
-     "title": "European shares tick higher with earnings, tariffs in focus - Reuters",
-     "src": "reuters.com",
-     "detected": false
-    },
-    {
-     "d": "2025-09-15",
-     "price": 453.59,
-     "url": "https://www.tradingview.com/news/reuters.com,2025:newsml_L3N3V208I:0-wall-street-journal-september-15/",
-     "title": "Wall Street Journal - September 15 - TradingView",
-     "src": "tradingview.com",
-     "detected": false
-    },
-    {
      "d": "2025-11-18",
      "price": 396.05,
      "url": "https://www.cnbc.com/2025/11/18/rheinmetall-german-defense-giant-sees-sales-surging-fivefold-by-2030.html",
      "title": "Rheinmetall shares rise as defense giant sees sales surging fivefold by 2030 - CNBC",
      "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-18",
-     "price": 357.76,
-     "url": "https://www.wsj.com/business/earnings/rheinmetall-to-sell-civil-division-refocus-on-military-business-391ba6e5?gaa_at=eafs&gaa_n=AWEtsqfKSPcSnX_j9DogqdZiwF9YVrc9INz9K3U_v_WhHjhnrGp0wEjtfsZg&gaa_ts=6943ef12&gaa_sig=tp3fALR2RUn9kB1oo1OmvCtkZT6bqwknH5D_GkOx2cFsl1MF5VltV71Qq6VCS4rgAzKmsXASI89I3oyVjM58fg%3D%3D",
-     "title": "Rheinmetall Joint Venture Wins $2 Billion Space-Reconnaissance Contract - The Wall Street Journal",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
-     "d": "2025-12-19",
-     "price": 360.23,
-     "url": "https://www.wsj.com/world/europe/rheinmetall-knds-get-near-5-billion-german-army-order-for-puma-tanks-a07be2f6?gaa_at=eafs&gaa_n=AWEtsqd3KfeWn8aPZKSFGKKC8JFIwY_kP5aeSZ2L2cba7_NG6JFWB0IBSrao&gaa_ts=69453e75&gaa_sig=bxNPJWu2rMvDpO8TuY2GJxJyyIW91cj0usocO4LmTesnC1bnON45PLze6mPuNeax6Qv4MKunBb701QlMy6evDA%3D%3D",
-     "title": "Rheinmetall, KNDS Get Near $5 Billion German Army Order for Puma Tanks - The Wall Street Journal",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-05",
-     "price": 405.85,
-     "url": "https://www.reuters.com/world/americas/european-stocks-rise-defense-shares-lead-after-venezuela-shock-2026-01-05/",
-     "title": "Europe's STOXX breaks 600-mark for first time as Venezuela strikes lift defence shares - Reuters",
-     "src": "reuters.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-05",
-     "price": 370.12,
-     "url": "https://www.wsj.com/business/earnings/rheinmetall-shares-under-pressure-as-forecasts-miss-expectations-e8c9db98?gaa_at=eafs&gaa_n=AWEtsqf5HtAWt0OPtAI-YCr1Tq84LR0hjgNI-KCmYGVJBe_pD7FqGJubTRMq&gaa_ts=69847ba8&gaa_sig=5t0FpoZx19hrewnxAVbXsFIpFvTY-DTvUTKLl6rSgdgA6oQ-lHk5uvjCnFGRNFmcqo9xppNZnS4MyfGyO7wibQ%3D%3D",
-     "title": "Rheinmetall Shares Under Pressure as Forecasts Miss Expectations - The Wall Street Journal",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-18",
-     "price": 394.43,
-     "url": "https://aviationweek.com/defense/missile-defense-weapons/mbda-backlog-tops-50b-surging-demand",
-     "title": "MBDA Backlog Tops $50B On Surging Demand - Aviation Week",
-     "src": "aviationweek.com",
      "detected": false
     }
    ]
@@ -14038,204 +12903,12 @@
    ],
    "ground_truth": [
     {
-     "d": "2026-01-30",
-     "price": 36.71,
-     "url": "https://m.investing.com/analysis/5-commoditylinked-stocks-to-buy-amid-debasement-trade-200674162?ampMode=1",
-     "title": "5 Commodity-Linked Stocks to Buy Amid Debasement Trade - Investing.com",
-     "src": "m.investing.com",
-     "detected": false
-    },
-    {
-     "d": "2026-01-30",
-     "price": 36.71,
-     "url": "https://m.za.investing.com/analysis/5-commoditylinked-stocks-to-buy-amid-debasement-trade-200617001?ampMode=1",
-     "title": "5 Commodity-Linked Stocks to Buy Amid Debasement Trade - Investing.com South Africa",
-     "src": "m.za.investing.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-20",
-     "price": 48.65,
-     "url": "https://www.oilandgas360.com/u-s-iran-tensions-threaten-to-send-oil-tanker-rates-soaring/",
-     "title": "U.S.-Iran tensions threaten to send oil tanker rates soaring - Oil & Gas 360",
-     "src": "oilandgas360.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-26",
-     "price": 58.63,
-     "url": "https://www.marinelink.com/news/bimco-sees-strong-crude-tanker-market-536227",
-     "title": "BIMCO Sees Strong Crude Tanker Market, Flags Recycling Risk - Marine News Magazine",
-     "src": "marinelink.com",
-     "detected": false
-    },
-    {
-     "d": "2026-02-27",
-     "price": 57.3,
-     "url": "https://www.seatrade-maritime.com/tankers/vlcc-rates-how-high-and-for-how-long-",
-     "title": "VLCC rates \u2013 how high and for how long? - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-04",
-     "price": 67.08,
-     "url": "https://www.seatrade-maritime.com/tankers/vlcc-rates-skyrocket-to-hit-never-done-before-highs",
-     "title": "VLCC rates skyrocket to hit never done before highs - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-06",
-     "price": 57.48,
-     "url": "https://oilprice.com/Latest-Energy-News/World-News/Qatar-Leases-Tankers-as-LNG-Market-Hits-Crisis-Mode.html",
-     "title": "Qatar Leases Tankers as LNG Market Hits Crisis Mode - Crude Oil Prices Today | OilPrice.com",
-     "src": "oilprice.com",
-     "detected": false
-    },
-    {
-     "d": "2026-03-09",
-     "price": 61.68,
-     "url": "https://www.seatrade-maritime.com/tankers/oil-breaches-100-as-tankers-stranded-and-rates-skyrocket",
-     "title": "Oil breaches $100 as tankers stranded and rates skyrocket - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-12",
-     "price": 62.85,
-     "url": "https://www.forbes.com/sites/greatspeculations/2026/03/12/shipping-stocks-catch-a-windfall-as-freight-markets-go-vertical/",
-     "title": "Shipping Stocks Catch A Windfall As Freight Markets Go Vertical - Forbes",
-     "src": "forbes.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-12",
-     "price": 62.85,
-     "url": "https://www.tipranks.com/news/atlassian-stock-team-rises-on-news-of-10-workforce-reduction",
-     "title": "Atlassian Stock (TEAM) Rises on News of 10% Workforce Reduction - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-18",
-     "price": 77.51,
-     "url": "https://www.cnbc.com/2026/03/18/thursdays-big-stock-stories-whats-likely-to-move-the-market.html",
-     "title": "Thursday's big stock stories: What\u2019s likely to move the market in the next trading session - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-03-27",
-     "price": 119.06,
-     "url": "https://www.wsj.com/business/energy-utilities-roundup-market-talk-497dadb2?gaa_at=eafs&gaa_n=AWEtsqeUaTrjggXNnrCFB3JhEgeDN6j6-zG3aDTucSM3XMOp64cI-WaHpiZJ&gaa_ts=69cb3106&gaa_sig=suJCjmnzJc59fGvURhekta1f_7hzuua9UCr4OO6AnQ3eP8-WRSwzv6gnKZ9dqs7TC2w0FgEEaYtmy6X6Tdm-Hg%3D%3D",
-     "title": "Energy & Utilities Roundup: Market Talk - wsj.com",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
-     "d": "2026-03-27",
-     "price": 119.06,
-     "url": "https://www.wsj.com/business/auto-transport-roundup-market-talk-83e299e3?gaa_at=eafs&gaa_n=AWEtsqdvPILqFY4RnrOfsU9CGkFr84g9tTss1PwdWRV43BINMKKmG2plWzS8&gaa_ts=69c6e302&gaa_sig=RQ7nbrU0le9TXxNH3iuDFStky3twSVAh43naGykN3xOpQU5M2a3ZalY2873VG41p9HS6hY0cmC_GSKSUrytfyw%3D%3D",
-     "title": "Auto & Transport Roundup: Market Talk - wsj.com",
-     "src": "wsj.com",
-     "detected": false
-    },
-    {
-     "d": "2026-03-28",
-     "price": 119.06,
-     "url": "https://cleantechnica.com/2026/03/27/middle-east-crude-oil-tanker-rates-reached-a-multi-decade-high-in-march/",
-     "title": "Middle East Crude Oil Tanker Rates Reached A Multi-Decade High In March - CleanTechnica",
-     "src": "cleantechnica.com",
-     "detected": false
-    },
-    {
-     "d": "2026-03-30",
-     "price": 122.32,
-     "url": "https://www.tipranks.com/news/the-fly/wharf-real-estate-investment-downgraded-to-neutral-from-overweight-at-jpmorgan-thefly-news?utm_source=markets.businessinsider.com&utm_medium=referral",
-     "title": "Wharf Real Estate Investment downgraded to Neutral from Overweight at JPMorgan - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-01",
-     "price": 116.32,
-     "url": "https://www.huffpost.com/entry/iran-us-war_n_69ccdd19e4b0a891ea427699",
-     "title": "Iran Hits Tanker Off Coast Of Qatar, Kuwait Airport And Israel Kills 5 In Beirut Attack - HuffPost",
-     "src": "huffpost.com",
-     "detected": false
-    },
-    {
-     "d": "2026-04-01",
-     "price": 116.32,
-     "url": "https://www.bozemandailychronicle.com/ap_news/business/iran-hits-tanker-off-coast-of-qatar-kuwait-airport-and-israel-kills-5-in-beirut/article_ea9c11a7-8da4-5a20-8437-83d3b8e12382.html",
-     "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - Bozeman Daily Chronicle",
-     "src": "bozemandailychronicle.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-01",
-     "price": 116.32,
-     "url": "https://apnews.com/article/iran-us-israel-trump-lebanon-april-1-2026-19cf516c2d2c614eb182dbad7a6592ef",
-     "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - AP News",
-     "src": "apnews.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-01",
-     "price": 116.32,
-     "url": "https://nypost.com/2026/04/01/world-news/iran-hits-tanker-off-coast-of-qatar-kuwait-airport-and-israel-kills-5-in-beirut-attack/",
-     "title": "Iran hits tanker off coast of Qatar, Kuwait airport and Israel kills 5 in Beirut attack - New York Post",
-     "src": "nypost.com",
-     "detected": false
-    },
-    {
-     "d": "2026-04-24",
-     "price": 139.77,
-     "url": "https://www.seatrade-maritime.com/tankers/listed-tanker-stocks-full-ahead-or-full-astern-",
-     "title": "Listed tanker stocks \u2013 full ahead or full astern? - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
      "d": "2026-04-25",
      "price": 139.77,
      "url": "https://www.cnbc.com/2026/04/25/crude-oil-freight-tanker-strait-hormuz-iran-war-energy-stocks.html",
      "title": "This little-known ETF is up over 600% amid U.S.-Iran war, a better trade than oil or energy stocks - CNBC",
      "src": "cnbc.com",
      "detected": true
-    },
-    {
-     "d": "2026-05-06",
-     "price": 185.58,
-     "url": "https://www.seatrade-maritime.com/tankers/risk-reward-balance-skews-towards-dry-cargo-says-norden",
-     "title": "Risk reward balance skews towards dry cargo, says Norden - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
-     "d": "2026-05-07",
-     "price": 173.51,
-     "url": "https://www.cnbc.com/2026/05/07/this-oil-tanker-stock-has-outperformed-bank-of-america-sees-more-gains.html",
-     "title": "This oil tanker stock has outperformed. Bank of America sees more gains, even if U.S.-Iran war ends - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-05-08",
-     "price": 167.37,
-     "url": "https://www.seatrade-maritime.com/security/top-maritime-news-stories-for-week-ended-8-may",
-     "title": "Top maritime news stories for week ended 8 May - Seatrade Maritime News",
-     "src": "seatrade-maritime.com",
-     "detected": true
-    },
-    {
-     "d": "2026-07-09",
-     "price": 199.43,
-     "url": "https://www.marinelink.com/news/tanker-vessel-contracting-hits-record-541093",
-     "title": "Tanker Vessel Contracting Hits Record High - Marine News Magazine",
-     "src": "marinelink.com",
-     "detected": false
     }
    ]
   },
@@ -14998,86 +13671,6 @@
    ],
    "ground_truth": [
     {
-     "d": "2026-02-14",
-     "price": null,
-     "url": "https://finance.yahoo.com/news/why-dram-shortages-pushing-micron-142230987.html",
-     "title": "Why DRAM Shortages Are Pushing Micron (MU) Back Into the Spotlight - Yahoo Finance",
-     "src": "finance.yahoo.com",
-     "detected": true
-    },
-    {
-     "d": "2026-02-15",
-     "price": null,
-     "url": "https://www.tipranks.com/news/with-micron-stock-mu-up-285-lets-look-at-who-owns-it",
-     "title": "With Micron Stock (MU) Up 285%, Let\u2019s Look at Who Owns It - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-03-18",
-     "price": null,
-     "url": "https://www.cnbc.com/2026/03/18/micron-earnings-are-out-after-the-bell-following-a-big-move-higher-what-analysts-expect.html",
-     "title": "Micron earnings are out after the bell following a big move higher. What analysts expect - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-04-05",
-     "price": 27.76,
-     "url": "https://www.tipranks.com/news/8-plus-dividend-yield-and-double-digit-upside-analysts-suggest-2-dividend-stocks-to-buy",
-     "title": "8%-Plus Dividend Yield and Double-Digit Upside: Analysts Suggest 2 Dividend Stocks to Buy - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-04-05",
-     "price": 27.76,
-     "url": "https://www.tipranks.com/news/apple-aapl-at-a-fork-in-the-road-as-it-races-to-rebuild-siri",
-     "title": "Apple (AAPL) at a \u201cFork in the Road\u201d as It Races to Rebuild Siri - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-05-07",
-     "price": 46.55,
-     "url": "https://www.tipranks.com/news/a-roundhill-memory-etf-dram-slip-today-could-be-a-buying-opportunity",
-     "title": "A Roundhill Memory ETF (DRAM) Slip Today Could Be a Buying Opportunity - TipRanks",
-     "src": "tipranks.com",
-     "detected": true
-    },
-    {
-     "d": "2026-05-08",
-     "price": 52.8,
-     "url": "https://www.cnbc.com/2026/05/08/the-hottest-etf-since-bitcoin-mania-just-added-1-billion-in-a-day.html",
-     "title": "The hottest ETF since bitcoin-mania just added $1 billion in a day - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-05-08",
-     "price": 52.8,
-     "url": "https://www.barrons.com/articles/memory-micron-sandisk-ai-stock-price-c1377e52",
-     "title": "Memory Stocks Continue to Surge. What\u2019s Driving Micron and Sandisk Higher. - Barron's",
-     "src": "barrons.com",
-     "detected": false
-    },
-    {
-     "d": "2026-05-10",
-     "price": 52.8,
-     "url": "https://www.cnbc.com/2026/05/10/memory-chip-makers-are-looking-at-a-supercycle-and-windfall-gains-the-stocks-jumped-30percent-in-one-week.html",
-     "title": "Memory chip makers are looking at a 'supercycle' and 'windfall gains.' The stocks jumped 30% in one week - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-05-10",
-     "price": 52.8,
-     "url": "https://www.fool.com/investing/2026/05/10/are-sandisk-and-micron-too-expensive-heres-how-you/",
-     "title": "Are SanDisk and Micron Too Expensive? Here's How You Can Invest in the Artificial Intelligence (AI) Memory Supercycle for Just $50. - The Motley Fool",
-     "src": "fool.com",
-     "detected": false
-    },
-    {
      "d": "2026-05-12",
      "price": 51.3,
      "url": "https://www.marketwatch.com/story/the-dram-memory-etf-has-gotten-off-to-a-blazing-start-here-comes-a-leveraged-version-baebfe12",
@@ -15092,156 +13685,121 @@
      "title": "Micron helps DRAM become the fastest ETF to hit $6.5 billion - Yahoo Finance",
      "src": "finance.yahoo.com",
      "detected": false
-    },
-    {
-     "d": "2026-05-12",
-     "price": 51.3,
-     "url": "https://finance.yahoo.com/markets/stocks/articles/dram-etf-drops-5-memory-140031834.html",
-     "title": "DRAM ETF Drops 5% as Memory Trade Cools After Parabolic Run - Yahoo Finance",
-     "src": "finance.yahoo.com",
-     "detected": false
-    },
-    {
-     "d": "2026-06-18",
-     "price": 76.71,
-     "url": "https://finance.yahoo.com/technology/articles/us-chip-stocks-gain-apple-103032930.html",
-     "title": "US chip stocks gain after Apple-Intel partnership - Yahoo Finance",
-     "src": "finance.yahoo.com",
-     "detected": false
-    },
-    {
-     "d": "2026-06-24",
-     "price": 69.93,
-     "url": "https://www.cnbc.com/2026/06/24/micron-earnings-could-jolt-markets-and-a-new-etf-may-fuel-volatility.html",
-     "title": "Micron earnings are set to send the market on a wild ride \u2014 and a new ETF may add to the volatility - CNBC",
-     "src": "cnbc.com",
-     "detected": false
-    },
-    {
-     "d": "2026-07-05",
-     "price": 60.63,
-     "url": "https://www.reuters.com/world/asia-pacific/samsung-likely-post-18-fold-jump-profit-surging-ai-demand-memory-2026-07-05/",
-     "title": "Samsung likely to post 18-fold jump in profit on surging AI demand for memory - Reuters",
-     "src": "reuters.com",
-     "detected": false
-    },
-    {
-     "d": "2026-07-07",
-     "price": 60.59,
-     "url": "https://finance.yahoo.com/markets/article/micron-samsung-sk-hynix-just-dragged-memory-stocks-into-a-bear-market-154549356.html",
-     "title": "Micron, Samsung, SK Hynix just dragged memory stocks into a bear market - Yahoo Finance",
-     "src": "finance.yahoo.com",
-     "detected": false
     }
    ]
   }
  },
  "gt_recall": {
   "MP": [
-   16,
-   30
+   20,
+   24
   ],
   "AREC": [
-   9,
-   22
+   1,
+   2
   ],
   "GDX": [
-   13,
-   39
+   3,
+   12
   ],
   "RNMBY": [
-   2,
-   17
+   0,
+   5
   ],
   "BWET": [
-   12,
-   26
+   1,
+   1
   ],
   "DRAM": [
-   5,
-   19
+   0,
+   2
   ]
  },
  "candidates": [
   [
    "TSM",
-   671,
-   85
+   755,
+   91
   ],
   [
    "HL",
-   145,
-   13
-  ],
-  [
-   "KGC",
-   90,
+   146,
    12
   ],
   [
+   "KGC",
+   95,
+   10
+  ],
+  [
    "CIFR",
-   66,
+   68,
    10
   ],
   [
    "CLF",
-   64,
+   67,
    0
   ],
   [
-   "MOD",
-   63,
-   7
-  ],
-  [
    "AEM",
-   45,
-   11
+   54,
+   8
   ],
   [
    "HMY",
-   43,
+   50,
    2
   ],
   [
+   "MOD",
+   49,
+   7
+  ],
+  [
    "HBM",
-   42,
+   47,
    4
   ],
   [
    "NVDA",
-   36,
-   3
+   43,
+   2
   ],
   [
    "INTC",
-   35,
-   4
-  ],
-  [
-   "IAG",
-   33,
-   1
-  ],
-  [
-   "CDE",
-   29,
-   1
+   37,
+   3
   ],
   [
    "MDV",
-   29,
+   34,
    0
   ],
   [
+   "CDE",
+   32,
+   1
+  ],
+  [
+   "IAG",
+   31,
+   1
+  ],
+  [
    "RIO",
-   28,
+   29,
    0
   ],
   [
    "MU",
-   25,
+   27,
    8
+  ],
+  [
+   "AU",
+   25,
+   3
   ],
   [
    "MSFT",
@@ -15249,9 +13807,9 @@
    1
   ],
   [
-   "AU",
+   "SSRM",
    24,
-   5
+   1
   ],
   [
    "EXK",
@@ -15259,33 +13817,28 @@
    5
   ],
   [
-   "F",
+   "AG",
    22,
    1
   ],
   [
    "CSGP",
-   21,
+   20,
    0
   ],
   [
-   "SSRM",
+   "F",
    20,
    1
   ],
   [
-   "AG",
-   19,
-   1
-  ],
-  [
-   "B",
-   19,
+   "BHP",
+   17,
    2
   ],
   [
-   "BHP",
-   18,
+   "B",
+   17,
    2
   ]
  ],
@@ -15296,11 +13849,11 @@
   ],
   [
    "2024-12-26",
-   34
+   30
   ],
   [
    "2024-12-27",
-   42
+   41
   ],
   [
    "2024-12-28",
@@ -15316,7 +13869,7 @@
   ],
   [
    "2024-12-31",
-   54
+   52
   ],
   [
    "2025-01-01",
@@ -15340,11 +13893,11 @@
   ],
   [
    "2025-01-06",
-   77
+   69
   ],
   [
    "2025-01-08",
-   54
+   51
   ],
   [
    "2025-01-09",
@@ -15352,7 +13905,7 @@
   ],
   [
    "2025-01-10",
-   43
+   39
   ],
   [
    "2025-01-11",
@@ -15368,11 +13921,11 @@
   ],
   [
    "2025-01-14",
-   43
+   42
   ],
   [
    "2025-01-15",
-   76
+   71
   ],
   [
    "2025-01-16",
@@ -15380,7 +13933,7 @@
   ],
   [
    "2025-01-17",
-   61
+   60
   ],
   [
    "2025-01-18",
@@ -15400,11 +13953,11 @@
   ],
   [
    "2025-01-22",
-   49
+   42
   ],
   [
    "2025-01-23",
-   38
+   36
   ],
   [
    "2025-01-24",
@@ -15420,7 +13973,7 @@
   ],
   [
    "2025-01-27",
-   56
+   55
   ],
   [
    "2025-01-28",
@@ -15428,15 +13981,15 @@
   ],
   [
    "2025-01-29",
-   37
+   36
   ],
   [
    "2025-01-30",
-   55
+   51
   ],
   [
    "2025-01-31",
-   56
+   55
   ],
   [
    "2025-02-01",
@@ -15452,7 +14005,7 @@
   ],
   [
    "2025-02-05",
-   47
+   45
   ],
   [
    "2025-02-06",
@@ -15460,11 +14013,11 @@
   ],
   [
    "2025-02-07",
-   56
+   53
   ],
   [
    "2025-02-08",
-   28
+   27
   ],
   [
    "2025-02-09",
@@ -15472,15 +14025,15 @@
   ],
   [
    "2025-02-10",
-   52
+   50
   ],
   [
    "2025-02-11",
-   53
+   51
   ],
   [
    "2025-02-12",
-   53
+   52
   ],
   [
    "2025-02-13",
@@ -15488,7 +14041,7 @@
   ],
   [
    "2025-02-14",
-   53
+   49
   ],
   [
    "2025-02-15",
@@ -15500,103 +14053,103 @@
   ],
   [
    "2025-02-20",
-   47
+   39
   ],
   [
    "2025-02-21",
-   49
+   39
   ],
   [
    "2025-02-22",
-   23
+   19
   ],
   [
    "2025-02-23",
-   18
-  ],
-  [
-   "2025-02-24",
-   44
-  ],
-  [
-   "2025-02-25",
-   62
-  ],
-  [
-   "2025-02-26",
-   59
-  ],
-  [
-   "2025-02-27",
-   74
-  ],
-  [
-   "2025-02-28",
-   62
-  ],
-  [
-   "2025-03-01",
-   31
-  ],
-  [
-   "2025-03-02",
-   27
-  ],
-  [
-   "2025-03-03",
-   73
-  ],
-  [
-   "2025-03-05",
-   29
-  ],
-  [
-   "2025-03-06",
-   13
-  ],
-  [
-   "2025-03-07",
-   23
-  ],
-  [
-   "2025-03-08",
-   7
-  ],
-  [
-   "2025-03-09",
-   10
-  ],
-  [
-   "2025-03-10",
-   49
-  ],
-  [
-   "2025-03-11",
-   30
-  ],
-  [
-   "2025-03-12",
-   38
-  ],
-  [
-   "2025-03-13",
-   33
-  ],
-  [
-   "2025-03-14",
-   28
-  ],
-  [
-   "2025-03-15",
    11
   ],
   [
+   "2025-02-24",
+   33
+  ],
+  [
+   "2025-02-25",
+   50
+  ],
+  [
+   "2025-02-26",
+   53
+  ],
+  [
+   "2025-02-27",
+   64
+  ],
+  [
+   "2025-02-28",
+   45
+  ],
+  [
+   "2025-03-01",
+   27
+  ],
+  [
+   "2025-03-02",
+   24
+  ],
+  [
+   "2025-03-03",
+   65
+  ],
+  [
+   "2025-03-05",
+   37
+  ],
+  [
+   "2025-03-06",
+   32
+  ],
+  [
+   "2025-03-07",
+   36
+  ],
+  [
+   "2025-03-08",
+   17
+  ],
+  [
+   "2025-03-09",
+   20
+  ],
+  [
+   "2025-03-10",
+   75
+  ],
+  [
+   "2025-03-11",
+   51
+  ],
+  [
+   "2025-03-12",
+   45
+  ],
+  [
+   "2025-03-13",
+   55
+  ],
+  [
+   "2025-03-14",
+   44
+  ],
+  [
+   "2025-03-15",
+   24
+  ],
+  [
    "2025-03-16",
-   5
+   10
   ],
   [
    "2025-03-17",
-   35
+   56
   ],
   [
    "2025-03-19",
@@ -15604,7 +14157,7 @@
   ],
   [
    "2025-03-20",
-   20
+   19
   ],
   [
    "2025-03-21",
@@ -15620,11 +14173,11 @@
   ],
   [
    "2025-03-24",
-   24
+   21
   ],
   [
    "2025-03-25",
-   21
+   20
   ],
   [
    "2025-03-26",
@@ -15648,7 +14201,7 @@
   ],
   [
    "2025-03-31",
-   26
+   24
   ],
   [
    "2025-04-02",
@@ -15676,15 +14229,15 @@
   ],
   [
    "2025-04-08",
-   80
+   78
   ],
   [
    "2025-04-09",
-   73
+   67
   ],
   [
    "2025-04-10",
-   57
+   55
   ],
   [
    "2025-04-11",
@@ -15700,15 +14253,15 @@
   ],
   [
    "2025-04-14",
-   81
+   79
   ],
   [
    "2025-04-16",
-   151
+   148
   ],
   [
    "2025-04-17",
-   48
+   46
   ],
   [
    "2025-04-19",
@@ -15720,7 +14273,7 @@
   ],
   [
    "2025-04-21",
-   43
+   42
   ],
   [
    "2025-04-22",
@@ -15728,7 +14281,7 @@
   ],
   [
    "2025-04-23",
-   58
+   55
   ],
   [
    "2025-04-24",
@@ -15744,63 +14297,63 @@
   ],
   [
    "2025-05-01",
-   27
+   30
   ],
   [
    "2025-05-02",
-   28
+   29
   ],
   [
    "2025-05-03",
-   14
+   18
   ],
   [
    "2025-05-04",
-   2
+   9
   ],
   [
    "2025-05-05",
-   32
+   29
   ],
   [
    "2025-05-06",
-   26
+   25
   ],
   [
    "2025-05-07",
-   31
+   35
   ],
   [
    "2025-05-08",
-   34
+   28
   ],
   [
    "2025-05-09",
-   23
+   22
   ],
   [
    "2025-05-10",
-   20
+   19
   ],
   [
    "2025-05-11",
-   10
+   11
   ],
   [
    "2025-05-12",
-   33
+   36
   ],
   [
    "2025-05-14",
-   50
+   46
   ],
   [
    "2025-05-15",
-   58
+   56
   ],
   [
    "2025-05-16",
-   39
+   38
   ],
   [
    "2025-05-17",
@@ -15808,11 +14361,11 @@
   ],
   [
    "2025-05-18",
-   13
+   12
   ],
   [
    "2025-05-19",
-   37
+   36
   ],
   [
    "2025-05-20",
@@ -15820,11 +14373,11 @@
   ],
   [
    "2025-05-21",
-   51
+   52
   ],
   [
    "2025-05-22",
-   40
+   39
   ],
   [
    "2025-05-23",
@@ -15840,11 +14393,11 @@
   ],
   [
    "2025-05-26",
-   44
+   43
   ],
   [
    "2025-05-28",
-   57
+   55
   ],
   [
    "2025-05-29",
@@ -15864,7 +14417,7 @@
   ],
   [
    "2025-06-02",
-   38
+   39
   ],
   [
    "2025-06-03",
@@ -15872,7 +14425,7 @@
   ],
   [
    "2025-06-04",
-   49
+   51
   ],
   [
    "2025-06-05",
@@ -15880,7 +14433,7 @@
   ],
   [
    "2025-06-06",
-   34
+   33
   ],
   [
    "2025-06-07",
@@ -15892,27 +14445,27 @@
   ],
   [
    "2025-06-09",
-   40
+   37
   ],
   [
    "2025-06-11",
-   54
+   58
   ],
   [
    "2025-06-12",
-   57
+   53
   ],
   [
    "2025-06-13",
-   38
+   41
   ],
   [
    "2025-06-14",
-   22
+   19
   ],
   [
    "2025-06-15",
-   18
+   16
   ],
   [
    "2025-06-16",
@@ -15920,19 +14473,19 @@
   ],
   [
    "2025-06-17",
-   41
+   40
   ],
   [
    "2025-06-18",
-   38
+   39
   ],
   [
    "2025-06-19",
-   32
+   31
   ],
   [
    "2025-06-20",
-   43
+   44
   ],
   [
    "2025-06-21",
@@ -15940,67 +14493,67 @@
   ],
   [
    "2025-06-22",
-   9
-  ],
-  [
-   "2025-06-23",
-   36
-  ],
-  [
-   "2025-06-25",
-   42
-  ],
-  [
-   "2025-06-26",
-   16
-  ],
-  [
-   "2025-06-27",
-   16
-  ],
-  [
-   "2025-06-28",
-   13
-  ],
-  [
-   "2025-06-29",
-   9
-  ],
-  [
-   "2025-06-30",
-   41
-  ],
-  [
-   "2025-07-01",
-   18
-  ],
-  [
-   "2025-07-02",
-   24
-  ],
-  [
-   "2025-07-03",
-   29
-  ],
-  [
-   "2025-07-04",
-   11
-  ],
-  [
-   "2025-07-05",
-   15
-  ],
-  [
-   "2025-07-06",
    14
   ],
   [
+   "2025-06-23",
+   43
+  ],
+  [
+   "2025-06-25",
+   43
+  ],
+  [
+   "2025-06-26",
+   18
+  ],
+  [
+   "2025-06-27",
+   33
+  ],
+  [
+   "2025-06-28",
+   16
+  ],
+  [
+   "2025-06-29",
+   11
+  ],
+  [
+   "2025-06-30",
+   49
+  ],
+  [
+   "2025-07-01",
+   22
+  ],
+  [
+   "2025-07-02",
+   32
+  ],
+  [
+   "2025-07-03",
+   37
+  ],
+  [
+   "2025-07-04",
+   21
+  ],
+  [
+   "2025-07-05",
+   21
+  ],
+  [
+   "2025-07-06",
+   28
+  ],
+  [
    "2025-07-07",
-   34
+   49
   ],
   [
    "2025-07-10",
-   3
+   2
   ],
   [
    "2025-07-11",
@@ -16008,55 +14561,55 @@
   ],
   [
    "2025-07-12",
-   28
-  ],
-  [
-   "2025-07-13",
-   17
-  ],
-  [
-   "2025-07-14",
-   76
-  ],
-  [
-   "2025-07-15",
    27
   ],
   [
+   "2025-07-13",
+   16
+  ],
+  [
+   "2025-07-14",
+   70
+  ],
+  [
+   "2025-07-15",
+   25
+  ],
+  [
    "2025-07-16",
-   44
+   42
   ],
   [
    "2025-07-17",
-   55
+   52
   ],
   [
    "2025-07-18",
-   63
+   54
   ],
   [
    "2025-07-19",
-   23
+   20
   ],
   [
    "2025-07-20",
-   19
+   18
   ],
   [
    "2025-07-21",
-   74
+   66
   ],
   [
    "2025-07-23",
-   13
+   10
   ],
   [
    "2025-07-24",
-   37
+   35
   ],
   [
    "2025-07-25",
-   57
+   54
   ],
   [
    "2025-07-26",
@@ -16076,11 +14629,11 @@
   ],
   [
    "2025-07-30",
-   57
+   55
   ],
   [
    "2025-07-31",
-   52
+   51
   ],
   [
    "2025-08-01",
@@ -16088,15 +14641,15 @@
   ],
   [
    "2025-08-02",
-   19
+   18
   ],
   [
    "2025-08-03",
-   26
+   25
   ],
   [
    "2025-08-04",
-   58
+   57
   ],
   [
    "2025-08-06",
@@ -16104,35 +14657,35 @@
   ],
   [
    "2025-08-07",
-   60
+   56
   ],
   [
    "2025-08-08",
-   51
+   49
   ],
   [
    "2025-08-09",
-   18
+   17
   ],
   [
    "2025-08-10",
-   25
+   24
   ],
   [
    "2025-08-11",
-   53
+   50
   ],
   [
    "2025-08-12",
-   48
+   47
   ],
   [
    "2025-08-13",
-   42
+   41
   ],
   [
    "2025-08-14",
-   42
+   39
   ],
   [
    "2025-08-15",
@@ -16140,7 +14693,7 @@
   ],
   [
    "2025-08-16",
-   24
+   23
   ],
   [
    "2025-08-17",
@@ -16152,59 +14705,59 @@
   ],
   [
    "2025-08-20",
-   31
+   43
   ],
   [
    "2025-08-21",
-   40
+   54
   ],
   [
    "2025-08-22",
-   30
+   40
   ],
   [
    "2025-08-23",
-   12
+   21
   ],
   [
    "2025-08-24",
-   15
+   24
   ],
   [
    "2025-08-25",
-   27
+   40
   ],
   [
    "2025-08-26",
-   33
+   46
   ],
   [
    "2025-08-27",
-   27
+   35
   ],
   [
    "2025-08-28",
-   30
+   46
   ],
   [
    "2025-08-29",
-   25
+   34
   ],
   [
    "2025-08-30",
-   23
+   32
   ],
   [
    "2025-08-31",
-   26
+   28
   ],
   [
    "2025-09-01",
-   15
+   18
   ],
   [
    "2025-09-03",
-   31
+   27
   ],
   [
    "2025-09-04",
@@ -16212,15 +14765,15 @@
   ],
   [
    "2025-09-05",
-   38
+   40
   ],
   [
    "2025-09-06",
-   20
+   19
   ],
   [
    "2025-09-07",
-   18
+   23
   ],
   [
    "2025-09-08",
@@ -16228,7 +14781,7 @@
   ],
   [
    "2025-09-09",
-   50
+   49
   ],
   [
    "2025-09-10",
@@ -16236,139 +14789,139 @@
   ],
   [
    "2025-09-11",
-   50
+   42
   ],
   [
    "2025-09-12",
-   47
+   45
   ],
   [
    "2025-09-13",
-   7
+   6
   ],
   [
    "2025-09-14",
-   17
-  ],
-  [
-   "2025-09-15",
-   44
-  ],
-  [
-   "2025-09-17",
-   33
-  ],
-  [
-   "2025-09-18",
-   41
-  ],
-  [
-   "2025-09-19",
-   40
-  ],
-  [
-   "2025-09-20",
-   8
-  ],
-  [
-   "2025-09-21",
-   10
-  ],
-  [
-   "2025-09-22",
-   59
-  ],
-  [
-   "2025-09-23",
-   55
-  ],
-  [
-   "2025-09-24",
-   52
-  ],
-  [
-   "2025-09-25",
-   36
-  ],
-  [
-   "2025-09-26",
-   33
-  ],
-  [
-   "2025-09-27",
-   14
-  ],
-  [
-   "2025-09-28",
-   24
-  ],
-  [
-   "2025-09-29",
-   67
-  ],
-  [
-   "2025-10-01",
-   14
-  ],
-  [
-   "2025-10-02",
-   21
-  ],
-  [
-   "2025-10-03",
-   23
-  ],
-  [
-   "2025-10-04",
-   13
-  ],
-  [
-   "2025-10-05",
-   11
-  ],
-  [
-   "2025-10-06",
-   26
-  ],
-  [
-   "2025-10-07",
    20
   ],
   [
-   "2025-10-08",
-   23
-  ],
-  [
-   "2025-10-09",
-   23
-  ],
-  [
-   "2025-10-10",
-   36
-  ],
-  [
-   "2025-10-11",
-   21
-  ],
-  [
-   "2025-10-12",
-   15
-  ],
-  [
-   "2025-10-13",
-   24
-  ],
-  [
-   "2025-10-15",
-   37
-  ],
-  [
-   "2025-10-16",
+   "2025-09-15",
    43
   ],
   [
-   "2025-10-17",
+   "2025-09-17",
+   28
+  ],
+  [
+   "2025-09-18",
+   35
+  ],
+  [
+   "2025-09-19",
+   34
+  ],
+  [
+   "2025-09-20",
+   7
+  ],
+  [
+   "2025-09-21",
+   9
+  ],
+  [
+   "2025-09-22",
+   52
+  ],
+  [
+   "2025-09-23",
+   53
+  ],
+  [
+   "2025-09-24",
+   46
+  ],
+  [
+   "2025-09-25",
+   30
+  ],
+  [
+   "2025-09-26",
+   31
+  ],
+  [
+   "2025-09-27",
+   13
+  ],
+  [
+   "2025-09-28",
+   21
+  ],
+  [
+   "2025-09-29",
+   58
+  ],
+  [
+   "2025-10-01",
+   38
+  ],
+  [
+   "2025-10-02",
+   36
+  ],
+  [
+   "2025-10-03",
+   41
+  ],
+  [
+   "2025-10-04",
+   21
+  ],
+  [
+   "2025-10-05",
+   20
+  ],
+  [
+   "2025-10-06",
    50
+  ],
+  [
+   "2025-10-07",
+   42
+  ],
+  [
+   "2025-10-08",
+   49
+  ],
+  [
+   "2025-10-09",
+   43
+  ],
+  [
+   "2025-10-10",
+   62
+  ],
+  [
+   "2025-10-11",
+   28
+  ],
+  [
+   "2025-10-12",
+   25
+  ],
+  [
+   "2025-10-13",
+   46
+  ],
+  [
+   "2025-10-15",
+   35
+  ],
+  [
+   "2025-10-16",
+   42
+  ],
+  [
+   "2025-10-17",
+   47
   ],
   [
    "2025-10-18",
@@ -16376,39 +14929,39 @@
   ],
   [
    "2025-10-19",
-   20
+   18
   ],
   [
    "2025-10-20",
-   44
+   46
   ],
   [
    "2025-10-21",
-   61
+   58
   ],
   [
    "2025-10-22",
-   46
-  ],
-  [
-   "2025-10-23",
    44
   ],
   [
+   "2025-10-23",
+   43
+  ],
+  [
    "2025-10-24",
-   46
+   45
   ],
   [
    "2025-10-25",
-   18
+   16
   ],
   [
    "2025-10-26",
-   18
+   17
   ],
   [
    "2025-10-27",
-   52
+   51
   ],
   [
    "2025-10-28",
@@ -16416,7 +14969,7 @@
   ],
   [
    "2025-10-29",
-   43
+   39
   ],
   [
    "2025-10-30",
@@ -16424,103 +14977,103 @@
   ],
   [
    "2025-10-31",
-   33
+   28
   ],
   [
    "2025-11-01",
-   15
+   13
   ],
   [
    "2025-11-02",
-   20
+   7
   ],
   [
    "2025-11-03",
-   51
+   64
   ],
   [
    "2025-11-04",
-   49
+   47
   ],
   [
    "2025-11-05",
-   37
+   30
   ],
   [
    "2025-11-06",
-   57
+   61
   ],
   [
    "2025-11-07",
-   30
+   47
   ],
   [
    "2025-11-08",
-   19
+   26
   ],
   [
    "2025-11-09",
-   14
+   20
   ],
   [
    "2025-11-10",
-   57
+   44
   ],
   [
    "2025-11-11",
-   2
+   1
   ],
   [
    "2025-11-12",
-   40
+   51
   ],
   [
    "2025-11-13",
-   57
+   54
   ],
   [
    "2025-11-14",
-   41
+   34
   ],
   [
    "2025-11-15",
-   11
+   12
   ],
   [
    "2025-11-16",
-   21
+   26
   ],
   [
    "2025-11-17",
-   48
+   34
   ],
   [
    "2025-11-18",
-   48
+   40
   ],
   [
    "2025-11-19",
-   30
+   36
   ],
   [
    "2025-11-20",
-   41
+   43
   ],
   [
    "2025-11-21",
-   39
+   42
   ],
   [
    "2025-11-22",
-   17
+   27
   ],
   [
    "2025-11-23",
-   18
+   20
   ],
   [
    "2025-11-24",
-   44
+   57
   ],
   [
    "2025-11-25",
@@ -16528,119 +15081,119 @@
   ],
   [
    "2025-11-26",
-   23
-  ],
-  [
-   "2025-11-27",
-   23
-  ],
-  [
-   "2025-11-28",
-   16
-  ],
-  [
-   "2025-11-29",
-   11
-  ],
-  [
-   "2025-11-30",
-   10
-  ],
-  [
-   "2025-12-01",
-   22
-  ],
-  [
-   "2025-12-02",
-   14
-  ],
-  [
-   "2025-12-03",
-   15
-  ],
-  [
-   "2025-12-04",
-   33
-  ],
-  [
-   "2025-12-05",
-   22
-  ],
-  [
-   "2025-12-06",
-   10
-  ],
-  [
-   "2025-12-07",
-   7
-  ],
-  [
-   "2025-12-08",
-   19
-  ],
-  [
-   "2025-12-10",
-   28
-  ],
-  [
-   "2025-12-11",
-   38
-  ],
-  [
-   "2025-12-12",
-   50
-  ],
-  [
-   "2025-12-13",
-   17
-  ],
-  [
-   "2025-12-14",
-   22
-  ],
-  [
-   "2025-12-15",
-   41
-  ],
-  [
-   "2025-12-16",
-   51
-  ],
-  [
-   "2025-12-17",
-   47
-  ],
-  [
-   "2025-12-18",
    35
   ],
   [
-   "2025-12-19",
-   43
+   "2025-11-27",
+   35
   ],
   [
-   "2025-12-20",
-   31
+   "2025-11-28",
+   18
   ],
   [
-   "2025-12-21",
+   "2025-11-29",
+   19
+  ],
+  [
+   "2025-11-30",
+   21
+  ],
+  [
+   "2025-12-01",
    30
   ],
   [
-   "2025-12-22",
-   42
-  ],
-  [
-   "2025-12-24",
-   50
-  ],
-  [
-   "2025-12-25",
+   "2025-12-02",
    24
   ],
   [
-   "2025-12-26",
+   "2025-12-03",
+   25
+  ],
+  [
+   "2025-12-04",
+   39
+  ],
+  [
+   "2025-12-05",
+   36
+  ],
+  [
+   "2025-12-06",
+   13
+  ],
+  [
+   "2025-12-07",
+   11
+  ],
+  [
+   "2025-12-08",
    40
+  ],
+  [
+   "2025-12-10",
+   29
+  ],
+  [
+   "2025-12-11",
+   32
+  ],
+  [
+   "2025-12-12",
+   31
+  ],
+  [
+   "2025-12-13",
+   23
+  ],
+  [
+   "2025-12-14",
+   27
+  ],
+  [
+   "2025-12-15",
+   49
+  ],
+  [
+   "2025-12-16",
+   42
+  ],
+  [
+   "2025-12-17",
+   42
+  ],
+  [
+   "2025-12-18",
+   36
+  ],
+  [
+   "2025-12-19",
+   37
+  ],
+  [
+   "2025-12-20",
+   23
+  ],
+  [
+   "2025-12-21",
+   21
+  ],
+  [
+   "2025-12-22",
+   47
+  ],
+  [
+   "2025-12-24",
+   46
+  ],
+  [
+   "2025-12-25",
+   23
+  ],
+  [
+   "2025-12-26",
+   37
   ],
   [
    "2025-12-27",
@@ -16648,43 +15201,43 @@
   ],
   [
    "2025-12-28",
-   28
+   26
   ],
   [
    "2025-12-29",
-   49
+   42
   ],
   [
    "2025-12-30",
-   40
+   35
   ],
   [
    "2025-12-31",
-   31
+   23
   ],
   [
    "2026-01-01",
-   19
+   15
   ],
   [
    "2026-01-02",
-   59
+   56
   ],
   [
    "2026-01-03",
-   24
+   21
   ],
   [
    "2026-01-04",
-   11
+   14
   ],
   [
    "2026-01-05",
-   63
+   55
   ],
   [
    "2026-01-06",
-   2
+   1
   ],
   [
    "2026-01-07",
@@ -16692,7 +15245,7 @@
   ],
   [
    "2026-01-08",
-   43
+   44
   ],
   [
    "2026-01-09",
@@ -16700,39 +15253,39 @@
   ],
   [
    "2026-01-10",
-   16
-  ],
-  [
-   "2026-01-11",
    15
   ],
   [
+   "2026-01-11",
+   19
+  ],
+  [
    "2026-01-12",
-   39
+   41
   ],
   [
    "2026-01-13",
-   44
+   43
   ],
   [
    "2026-01-14",
-   36
+   37
   ],
   [
    "2026-01-15",
-   51
-  ],
-  [
-   "2026-01-16",
    46
   ],
   [
+   "2026-01-16",
+   43
+  ],
+  [
    "2026-01-17",
-   24
+   26
   ],
   [
    "2026-01-18",
-   13
+   14
   ],
   [
    "2026-01-19",
@@ -16744,99 +15297,99 @@
   ],
   [
    "2026-01-21",
-   19
+   35
   ],
   [
    "2026-01-22",
-   18
+   41
   ],
   [
    "2026-01-23",
-   20
+   43
   ],
   [
    "2026-01-24",
-   14
+   28
   ],
   [
    "2026-01-25",
-   4
+   8
   ],
   [
    "2026-01-26",
-   29
+   44
   ],
   [
    "2026-01-27",
-   16
+   47
   ],
   [
    "2026-01-28",
-   14
+   40
   ],
   [
    "2026-01-29",
-   22
+   37
   ],
   [
    "2026-01-30",
-   25
+   40
   ],
   [
    "2026-01-31",
-   8
-  ],
-  [
-   "2026-02-01",
-   8
-  ],
-  [
-   "2026-02-02",
-   26
-  ],
-  [
-   "2026-02-04",
-   33
-  ],
-  [
-   "2026-02-05",
-   61
-  ],
-  [
-   "2026-02-06",
-   58
-  ],
-  [
-   "2026-02-07",
-   19
-  ],
-  [
-   "2026-02-08",
    20
   ],
   [
-   "2026-02-09",
-   51
+   "2026-02-01",
+   17
   ],
   [
-   "2026-02-10",
-   46
+   "2026-02-02",
+   47
   ],
   [
-   "2026-02-11",
-   41
+   "2026-02-04",
+   30
   ],
   [
-   "2026-02-12",
+   "2026-02-05",
+   60
+  ],
+  [
+   "2026-02-06",
    53
   ],
   [
+   "2026-02-07",
+   20
+  ],
+  [
+   "2026-02-08",
+   17
+  ],
+  [
+   "2026-02-09",
+   44
+  ],
+  [
+   "2026-02-10",
+   42
+  ],
+  [
+   "2026-02-11",
+   37
+  ],
+  [
+   "2026-02-12",
+   48
+  ],
+  [
    "2026-02-13",
-   41
+   44
   ],
   [
    "2026-02-14",
-   18
+   17
   ],
   [
    "2026-02-15",
@@ -16848,167 +15401,171 @@
   ],
   [
    "2026-02-18",
-   39
+   30
   ],
   [
    "2026-02-19",
-   29
+   27
   ],
   [
    "2026-02-20",
-   32
+   31
   ],
   [
    "2026-02-21",
-   11
+   8
   ],
   [
    "2026-02-22",
-   15
-  ],
-  [
-   "2026-02-23",
-   45
-  ],
-  [
-   "2026-02-24",
-   40
-  ],
-  [
-   "2026-02-25",
-   46
-  ],
-  [
-   "2026-02-26",
-   33
-  ],
-  [
-   "2026-02-27",
-   52
-  ],
-  [
-   "2026-02-28",
-   18
-  ],
-  [
-   "2026-03-01",
-   21
-  ],
-  [
-   "2026-03-02",
-   55
-  ],
-  [
-   "2026-03-04",
-   23
-  ],
-  [
-   "2026-03-05",
-   48
-  ],
-  [
-   "2026-03-06",
-   41
-  ],
-  [
-   "2026-03-07",
-   11
-  ],
-  [
-   "2026-03-08",
-   29
-  ],
-  [
-   "2026-03-09",
-   45
-  ],
-  [
-   "2026-03-10",
-   49
-  ],
-  [
-   "2026-03-11",
-   45
-  ],
-  [
-   "2026-03-12",
-   38
-  ],
-  [
-   "2026-03-13",
-   36
-  ],
-  [
-   "2026-03-14",
-   21
-  ],
-  [
-   "2026-03-15",
-   22
-  ],
-  [
-   "2026-03-16",
-   46
-  ],
-  [
-   "2026-03-18",
-   32
-  ],
-  [
-   "2026-03-19",
-   25
-  ],
-  [
-   "2026-03-20",
-   39
-  ],
-  [
-   "2026-03-21",
-   10
-  ],
-  [
-   "2026-03-22",
    13
   ],
   [
-   "2026-03-23",
-   17
+   "2026-02-23",
+   36
   ],
   [
-   "2026-03-24",
-   16
+   "2026-02-24",
+   34
   ],
   [
-   "2026-03-25",
-   32
+   "2026-02-25",
+   39
   ],
   [
-   "2026-03-26",
-   26
-  ],
-  [
-   "2026-03-27",
+   "2026-02-26",
    29
   ],
   [
-   "2026-03-28",
-   9
+   "2026-02-27",
+   45
   ],
   [
-   "2026-03-29",
-   9
+   "2026-02-28",
+   17
   ],
   [
-   "2026-03-30",
+   "2026-03-01",
+   19
+  ],
+  [
+   "2026-03-02",
+   45
+  ],
+  [
+   "2026-03-04",
+   20
+  ],
+  [
+   "2026-03-05",
    42
   ],
   [
+   "2026-03-06",
+   35
+  ],
+  [
+   "2026-03-07",
+   9
+  ],
+  [
+   "2026-03-08",
+   27
+  ],
+  [
+   "2026-03-09",
+   41
+  ],
+  [
+   "2026-03-10",
+   45
+  ],
+  [
+   "2026-03-11",
+   41
+  ],
+  [
+   "2026-03-12",
+   32
+  ],
+  [
+   "2026-03-13",
+   33
+  ],
+  [
+   "2026-03-14",
+   19
+  ],
+  [
+   "2026-03-15",
+   17
+  ],
+  [
+   "2026-03-16",
+   33
+  ],
+  [
+   "2026-03-18",
+   48
+  ],
+  [
+   "2026-03-19",
+   43
+  ],
+  [
+   "2026-03-20",
+   47
+  ],
+  [
+   "2026-03-21",
+   15
+  ],
+  [
+   "2026-03-22",
+   19
+  ],
+  [
+   "2026-03-23",
+   34
+  ],
+  [
+   "2026-03-24",
+   26
+  ],
+  [
+   "2026-03-25",
+   40
+  ],
+  [
+   "2026-03-26",
+   43
+  ],
+  [
+   "2026-03-27",
+   50
+  ],
+  [
+   "2026-03-28",
+   15
+  ],
+  [
+   "2026-03-29",
+   16
+  ],
+  [
+   "2026-03-30",
+   56
+  ],
+  [
+   "2026-03-31",
+   1
+  ],
+  [
    "2026-04-01",
-   71
+   66
   ],
   [
    "2026-04-02",
-   50
+   48
   ],
   [
    "2026-04-03",
@@ -17028,11 +15585,11 @@
   ],
   [
    "2026-04-07",
-   37
+   36
   ],
   [
    "2026-04-08",
-   42
+   40
   ],
   [
    "2026-04-09",
@@ -17044,31 +15601,31 @@
   ],
   [
    "2026-04-11",
-   12
+   11
   ],
   [
    "2026-04-12",
-   22
+   21
   ],
   [
    "2026-04-13",
-   40
+   37
   ],
   [
    "2026-04-15",
-   47
+   41
   ],
   [
    "2026-04-16",
-   40
+   38
   ],
   [
    "2026-04-17",
-   40
+   38
   ],
   [
    "2026-04-18",
-   22
+   21
   ],
   [
    "2026-04-19",
@@ -17076,7 +15633,7 @@
   ],
   [
    "2026-04-20",
-   44
+   42
   ],
   [
    "2026-04-21",
@@ -17084,23 +15641,23 @@
   ],
   [
    "2026-04-22",
-   35
+   34
   ],
   [
    "2026-04-23",
-   49
+   47
   ],
   [
    "2026-04-24",
-   55
+   53
   ],
   [
    "2026-04-25",
-   18
+   17
   ],
   [
    "2026-04-26",
-   18
+   16
   ],
   [
    "2026-04-27",
@@ -17112,15 +15669,15 @@
   ],
   [
    "2026-04-29",
-   34
+   33
   ],
   [
    "2026-04-30",
-   31
+   30
   ],
   [
    "2026-05-01",
-   35
+   34
   ],
   [
    "2026-05-02",
@@ -17132,15 +15689,15 @@
   ],
   [
    "2026-05-04",
-   52
+   51
   ],
   [
    "2026-05-05",
-   49
+   44
   ],
   [
    "2026-05-06",
-   51
+   48
   ],
   [
    "2026-05-07",
@@ -17148,7 +15705,7 @@
   ],
   [
    "2026-05-08",
-   50
+   46
   ],
   [
    "2026-05-09",
@@ -17156,19 +15713,19 @@
   ],
   [
    "2026-05-10",
-   25
+   24
   ],
   [
    "2026-05-11",
-   60
+   61
   ],
   [
    "2026-05-13",
-   35
+   33
   ],
   [
    "2026-05-14",
-   26
+   32
   ],
   [
    "2026-05-15",
@@ -17176,31 +15733,31 @@
   ],
   [
    "2026-05-16",
-   13
+   17
   ],
   [
    "2026-05-17",
-   11
+   15
   ],
   [
    "2026-05-18",
-   34
+   31
   ],
   [
    "2026-05-19",
-   23
+   32
   ],
   [
    "2026-05-20",
-   28
+   35
   ],
   [
    "2026-05-21",
-   29
+   35
   ],
   [
    "2026-05-22",
-   22
+   39
   ],
   [
    "2026-05-23",
@@ -17208,23 +15765,23 @@
   ],
   [
    "2026-05-24",
-   9
+   7
   ],
   [
    "2026-05-25",
-   13
+   15
   ],
   [
    "2026-05-27",
-   51
+   47
   ],
   [
    "2026-05-28",
-   48
+   45
   ],
   [
    "2026-05-29",
-   43
+   41
   ],
   [
    "2026-05-30",
@@ -17240,7 +15797,7 @@
   ],
   [
    "2026-06-02",
-   59
+   56
   ],
   [
    "2026-06-03",
@@ -17252,7 +15809,7 @@
   ],
   [
    "2026-06-05",
-   50
+   49
   ],
   [
    "2026-06-06",
@@ -17264,11 +15821,11 @@
   ],
   [
    "2026-06-08",
-   37
+   36
   ],
   [
    "2026-06-10",
-   65
+   63
   ],
   [
    "2026-06-11",
@@ -17276,7 +15833,7 @@
   ],
   [
    "2026-06-12",
-   38
+   36
   ],
   [
    "2026-06-13",
@@ -17284,19 +15841,19 @@
   ],
   [
    "2026-06-14",
-   17
+   16
   ],
   [
    "2026-06-15",
-   53
+   49
   ],
   [
    "2026-06-16",
-   38
+   35
   ],
   [
    "2026-06-17",
-   50
+   48
   ],
   [
    "2026-06-18",
@@ -17316,19 +15873,19 @@
   ],
   [
    "2026-06-22",
-   48
+   47
   ],
   [
    "2026-06-24",
-   50
+   45
   ],
   [
    "2026-06-25",
-   57
+   52
   ],
   [
    "2026-06-26",
-   34
+   33
   ],
   [
    "2026-06-27",
@@ -17340,11 +15897,11 @@
   ],
   [
    "2026-06-29",
-   53
+   52
   ],
   [
    "2026-06-30",
-   46
+   45
   ],
   [
    "2026-07-01",
@@ -17364,165 +15921,221 @@
   ],
   [
    "2026-07-05",
-   10
+   11
   ],
   [
    "2026-07-06",
-   56
+   53
   ]
  ],
  "monthly": [
   [
    "2024-12",
-   202
+   195
   ],
   [
    "2025-01",
-   1159
+   1121
   ],
   [
    "2025-02",
-   1052
+   952
   ],
   [
    "2025-03",
-   641
+   810
   ],
   [
    "2025-04",
-   832
+   811
   ],
   [
    "2025-05",
-   933
+   932
   ],
   [
    "2025-06",
-   852
+   894
   ],
   [
    "2025-07",
-   890
+   907
   ],
   [
    "2025-08",
-   951
+   1055
   ],
   [
    "2025-09",
-   945
+   885
   ],
   [
    "2025-10",
-   899
+   1104
   ],
   [
    "2025-11",
-   892
+   967
   ],
   [
    "2025-12",
-   902
+   912
   ],
   [
    "2026-01",
-   821
+   1000
   ],
   [
    "2026-02",
-   870
+   820
   ],
   [
    "2026-03",
-   829
+   911
   ],
   [
    "2026-04",
-   1010
+   972
   ],
   [
    "2026-05",
-   895
+   920
   ],
   [
    "2026-06",
-   1061
+   1028
   ],
   [
    "2026-07",
-   191
+   189
   ]
  ],
  "quarterly": [
   [
    "2024-Q4",
-   202
+   195
   ],
   [
    "2025-Q1",
-   2852
+   2883
   ],
   [
    "2025-Q2",
-   2617
+   2637
   ],
   [
    "2025-Q3",
-   2786
+   2847
   ],
   [
    "2025-Q4",
-   2693
+   2983
   ],
   [
    "2026-Q1",
-   2520
+   2731
   ],
   [
    "2026-Q2",
-   2966
+   2920
   ],
   [
    "2026-Q3",
-   191
+   189
   ]
  ],
  "dow": [
-  3440,
-  1613,
-  3205,
-  3155,
-  2914,
-  1296,
-  1204
+  3539,
+  1649,
+  3264,
+  3244,
+  3008,
+  1392,
+  1289
  ],
  "recency": [
-  13,
-  1686,
-  587,
-  702,
-  1513,
-  1649,
-  1642,
-  1600,
-  1754,
-  617,
-  594,
-  1401,
-  1506,
-  1563
+  12,
+  1738,
+  629,
+  746,
+  1597,
+  1694,
+  1679,
+  1637,
+  1801,
+  660,
+  646,
+  1411,
+  1550,
+  1585
  ],
  "beat_counts": [
   [
-   "stock skyrocketing soaring surging breakout",
-   693
+   "cryptocurrency stocks",
+   739
   ],
   [
-   "best performing stock",
-   690
+   "robotics stocks",
+   725
   ],
   [
-   "under the radar small cap stock",
+   "quantum stocks",
+   724
+  ],
+  [
+   "space stocks",
+   716
+  ],
+  [
+   "shipping maritime stocks",
+   711
+  ],
+  [
+   "uranium nuclear fuel supply squeeze stock",
+   705
+  ],
+  [
+   "artificial intelligence semiconductor stocks",
+   705
+  ],
+  [
+   "supply shortage supply shock stock",
+   702
+  ],
+  [
+   "export ban tariff sanctions stock beneficiary",
+   701
+  ],
+  [
+   "nuclear stocks",
+   701
+  ],
+  [
+   "financial stocks",
+   696
+  ],
+  [
+   "real estate stocks",
+   694
+  ],
+  [
+   "biotech pharma stocks",
+   692
+  ],
+  [
+   "tanker shipping freight rates ETF",
+   691
+  ],
+  [
+   "memory chip DRAM shortage stock",
+   687
+  ],
+  [
+   "energy stocks",
+   686
+  ],
+  [
+   "war chokepoint stock beneficiary",
    686
   ],
   [
@@ -17530,262 +16143,190 @@
    685
   ],
   [
-   "artificial intelligence semiconductor stocks",
-   679
-  ],
-  [
    "overlooked stock catalyst",
-   677
+   684
   ],
   [
-   "uranium nuclear fuel supply squeeze stock",
-   677
+   "rare earth critical minerals stock",
+   684
   ],
   [
-   "biotech pharma stocks",
+   "telecom stocks",
+   680
+  ],
+  [
+   "best performing stock",
+   676
+  ],
+  [
+   "defense aerospace stocks",
+   676
+  ],
+  [
+   "upcoming FDA election vote stock anticipation",
+   674
+  ],
+  [
+   "under the radar small cap stock",
    672
   ],
   [
-   "memory chip DRAM shortage stock",
-   666
+   "technology stocks",
+   672
   ],
   [
-   "tanker shipping freight rates ETF",
-   665
+   "utility stocks",
+   672
   ],
   [
-   "supply shortage supply shock stock",
-   665
-  ],
-  [
-   "cryptocurrency stocks",
-   665
+   "niche ETF surging",
+   667
   ],
   [
    "gold silver mining stocks",
    664
   ],
   [
-   "upcoming FDA election vote stock anticipation",
-   662
-  ],
-  [
-   "rare earth critical minerals stock",
-   661
-  ],
-  [
-   "utility stocks",
-   656
-  ],
-  [
-   "export ban tariff sanctions stock beneficiary",
-   651
-  ],
-  [
-   "niche ETF surging",
-   643
-  ],
-  [
-   "space stocks",
-   643
-  ],
-  [
-   "war chokepoint stock beneficiary",
-   641
-  ],
-  [
-   "technology stocks",
-   640
-  ],
-  [
-   "robotics stocks",
-   639
-  ],
-  [
-   "real estate stocks",
-   638
-  ],
-  [
    "consumer stocks",
-   636
-  ],
-  [
-   "energy stocks",
-   634
+   659
   ],
   [
    "materials stocks",
-   632
-  ],
-  [
-   "quantum stocks",
-   631
-  ],
-  [
-   "nuclear stocks",
-   629
-  ],
-  [
-   "financial stocks",
-   626
-  ],
-  [
-   "shipping maritime stocks",
-   624
-  ],
-  [
-   "defense aerospace stocks",
-   620
-  ],
-  [
-   "telecom stocks",
-   611
-  ],
-  [
-   "healthcare stocks",
-   608
+   654
   ],
   [
    "industrial stocks",
-   605
+   640
+  ],
+  [
+   "healthcare stocks",
+   639
   ]
  ],
  "beat_unique": {
-  "stock skyrocketing soaring surging breakout": 497,
-  "best performing stock": 443,
-  "under the radar small cap stock": 282,
-  "biggest stock gainers": 400,
-  "artificial intelligence semiconductor stocks": 517,
-  "overlooked stock catalyst": 204,
-  "uranium nuclear fuel supply squeeze stock": 156,
-  "biotech pharma stocks": 542,
-  "memory chip DRAM shortage stock": 307,
-  "tanker shipping freight rates ETF": 236,
-  "supply shortage supply shock stock": 250,
-  "cryptocurrency stocks": 551,
-  "gold silver mining stocks": 563,
-  "upcoming FDA election vote stock anticipation": 269,
-  "rare earth critical minerals stock": 381,
-  "utility stocks": 517,
-  "export ban tariff sanctions stock beneficiary": 293,
-  "niche ETF surging": 181,
-  "space stocks": 469,
-  "war chokepoint stock beneficiary": 170,
-  "technology stocks": 394,
-  "robotics stocks": 506,
-  "real estate stocks": 582,
-  "consumer stocks": 467,
-  "energy stocks": 281,
-  "materials stocks": 487,
-  "quantum stocks": 467,
-  "nuclear stocks": 426,
-  "financial stocks": 435,
-  "shipping maritime stocks": 530,
-  "defense aerospace stocks": 510,
-  "telecom stocks": 526,
-  "healthcare stocks": 474,
-  "industrial stocks": 409
+  "cryptocurrency stocks": 630,
+  "robotics stocks": 556,
+  "quantum stocks": 527,
+  "space stocks": 561,
+  "shipping maritime stocks": 585,
+  "uranium nuclear fuel supply squeeze stock": 166,
+  "artificial intelligence semiconductor stocks": 557,
+  "supply shortage supply shock stock": 229,
+  "export ban tariff sanctions stock beneficiary": 345,
+  "nuclear stocks": 457,
+  "financial stocks": 494,
+  "real estate stocks": 630,
+  "biotech pharma stocks": 562,
+  "tanker shipping freight rates ETF": 216,
+  "memory chip DRAM shortage stock": 364,
+  "energy stocks": 295,
+  "war chokepoint stock beneficiary": 208,
+  "biggest stock gainers": 422,
+  "overlooked stock catalyst": 211,
+  "rare earth critical minerals stock": 403,
+  "telecom stocks": 595,
+  "best performing stock": 424,
+  "defense aerospace stocks": 560,
+  "upcoming FDA election vote stock anticipation": 258,
+  "under the radar small cap stock": 263,
+  "technology stocks": 407,
+  "utility stocks": 524,
+  "niche ETF surging": 206,
+  "gold silver mining stocks": 576,
+  "consumer stocks": 479,
+  "materials stocks": 515,
+  "industrial stocks": 442,
+  "healthcare stocks": 520
  },
  "beat_byname": {
-  "stock skyrocketing soaring surging breakout": 2,
-  "best performing stock": 0,
-  "under the radar small cap stock": 1,
-  "biggest stock gainers": 1,
-  "artificial intelligence semiconductor stocks": 0,
-  "overlooked stock catalyst": 0,
-  "uranium nuclear fuel supply squeeze stock": 3,
-  "biotech pharma stocks": 0,
-  "memory chip DRAM shortage stock": 2,
-  "tanker shipping freight rates ETF": 1,
-  "supply shortage supply shock stock": 2,
   "cryptocurrency stocks": 0,
-  "gold silver mining stocks": 5,
-  "upcoming FDA election vote stock anticipation": 1,
-  "rare earth critical minerals stock": 14,
-  "utility stocks": 0,
-  "export ban tariff sanctions stock beneficiary": 2,
-  "niche ETF surging": 3,
-  "space stocks": 1,
-  "war chokepoint stock beneficiary": 2,
-  "technology stocks": 1,
   "robotics stocks": 0,
-  "real estate stocks": 2,
-  "consumer stocks": 1,
-  "energy stocks": 2,
-  "materials stocks": 59,
   "quantum stocks": 0,
+  "space stocks": 1,
+  "shipping maritime stocks": 1,
+  "uranium nuclear fuel supply squeeze stock": 4,
+  "artificial intelligence semiconductor stocks": 0,
+  "supply shortage supply shock stock": 2,
+  "export ban tariff sanctions stock beneficiary": 1,
   "nuclear stocks": 0,
   "financial stocks": 0,
-  "shipping maritime stocks": 1,
-  "defense aerospace stocks": 7,
+  "real estate stocks": 2,
+  "biotech pharma stocks": 0,
+  "tanker shipping freight rates ETF": 1,
+  "memory chip DRAM shortage stock": 2,
+  "energy stocks": 2,
+  "war chokepoint stock beneficiary": 3,
+  "biggest stock gainers": 1,
+  "overlooked stock catalyst": 1,
+  "rare earth critical minerals stock": 16,
   "telecom stocks": 0,
-  "healthcare stocks": 0,
-  "industrial stocks": 0
+  "best performing stock": 0,
+  "defense aerospace stocks": 8,
+  "upcoming FDA election vote stock anticipation": 1,
+  "under the radar small cap stock": 0,
+  "technology stocks": 0,
+  "utility stocks": 0,
+  "niche ETF surging": 2,
+  "gold silver mining stocks": 4,
+  "consumer stocks": 1,
+  "materials stocks": 90,
+  "industrial stocks": 0,
+  "healthcare stocks": 0
  },
  "pass_split": {
-  "gem_only": 3731,
-  "coverage_only": 12112,
-  "both": 984
+  "gem_only": 3936,
+  "coverage_only": 12427,
+  "both": 1022
  },
  "domain_counts": [
   [
-   "www.tipranks.com",
-   1956,
+   "www.marketbeat.com",
+   2153,
    "specialty"
   ],
   [
-   "www.marketbeat.com",
-   1924,
+   "www.tipranks.com",
+   1918,
    "specialty"
   ],
   [
    "www.kitco.com",
-   1093,
+   1119,
    "specialty"
   ],
   [
    "www.cnbc.com",
-   1011,
-   "other"
-  ],
-  [
-   "finance.yahoo.com",
-   570,
+   1089,
    "other"
   ],
   [
    "www.wsj.com",
-   562,
+   672,
+   "other"
+  ],
+  [
+   "finance.yahoo.com",
+   574,
    "other"
   ],
   [
    "seekingalpha.com",
-   482,
+   533,
    "specialty"
   ],
   [
    "www.reuters.com",
-   456,
+   492,
    "other"
   ],
   [
    "www.seatrade-maritime.com",
-   418,
+   461,
    "specialty"
   ],
   [
-   "www.investors.com",
-   332,
-   "other"
-  ],
-  [
    "www.forbes.com",
-   320,
-   "other"
-  ],
-  [
-   "markets.businessinsider.com",
-   315,
+   332,
    "other"
   ],
   [
@@ -17794,88 +16335,98 @@
    "specialty"
   ],
   [
-   "markets.ft.com",
-   244,
+   "markets.businessinsider.com",
+   305,
+   "other"
+  ],
+  [
+   "www.investors.com",
+   291,
    "other"
   ],
   [
    "www.tradingview.com",
-   220,
+   268,
+   "other"
+  ],
+  [
+   "markets.ft.com",
+   267,
    "other"
   ],
   [
    "www.mining.com",
-   210,
-   "other"
-  ],
-  [
-   "www.investing.com",
-   194,
-   "other"
-  ],
-  [
-   "www.businessinsider.com",
-   191,
+   222,
    "other"
   ],
   [
    "www.insidermonkey.com",
-   175,
+   201,
    "other"
   ],
   [
-   "aviationweek.com",
-   174,
+   "www.businessinsider.com",
+   186,
    "other"
   ],
   [
    "www.marinelink.com",
-   157,
+   177,
+   "other"
+  ],
+  [
+   "aviationweek.com",
+   172,
+   "other"
+  ],
+  [
+   "www.investing.com",
+   169,
    "other"
   ],
   [
    "www.investopedia.com",
-   144,
+   135,
    "other"
   ],
   [
    "www.utilitydive.com",
-   133,
+   131,
    "other"
   ],
   [
    "www.bloomberg.com",
-   127,
-   "other"
-  ],
-  [
-   "www.benzinga.com",
-   120,
-   "specialty"
-  ],
-  [
-   "ts2.tech",
-   120,
-   "mill"
-  ],
-  [
-   "www.biospace.com",
-   116,
-   "other"
-  ],
-  [
-   "www.fiercebiotech.com",
-   116,
+   123,
    "other"
   ],
   [
    "www.theglobeandmail.com",
-   104,
+   122,
    "other"
   ],
   [
-   "www.marketwatch.com",
-   101,
+   "www.benzinga.com",
+   122,
+   "specialty"
+  ],
+  [
+   "www.biospace.com",
+   120,
+   "other"
+  ],
+  [
+   "www.fiercebiotech.com",
+   112,
+   "other"
+  ],
+  [
+   "ts2.tech",
+   111,
+   "mill"
+  ],
+  [
+   "www.ainvest.com",
+   110,
    "other"
   ]
  ]

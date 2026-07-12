@@ -100,7 +100,8 @@ WINDOW_OVERRIDE = {"RNMBY": ["2025-01-01", "2026-07-11"],   # full 2025-26 era (
 # strong superlative markers — for the candidate shortlist's "gem-buzz" count (how many of a ticker's
 # mentions sit in a skyrocketing/soaring/record-high article), and shared with build_ground_truth intent
 SUPERLATIVES = ("skyrocket", "soar", "surg", "best performing", "best-performing", "record high",
-                "all-time high", "little-known", "under the radar", "outperform", "rocket", "explod", "breakout")
+                "all-time high", "little-known", "under the radar", "outperform", "rocket", "explod", "breakout",
+                "unprecedented", "never seen", "never experienced", "record order", "record backlog", "highest ever")
 
 
 def _actual_peaks(panel) -> dict:
