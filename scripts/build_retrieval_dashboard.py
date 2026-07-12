@@ -186,7 +186,7 @@ def _diag(res: dict) -> str:
         "<extra></extra>'}],{margin:{l:175,r:20,t:10,b:34},xaxis:{title:'articles (green=allowlist, grey=other,"
         " red=blocklist)'},yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});"
         # gem-pass vs coverage-pass split
-        + "Plotly.newPlot('passhist',[{type:'bar',x:" + J(["gem allowlist pass only", "coverage pass only", "both passes"])
+        + "Plotly.newPlot('passhist',[{type:'bar',x:" + J(["allowlist pass only (specialty_allow)", "blocklist pass only (all − mill_block)", "both passes"])
         + ",y:" + J([ps["gem_only"], ps["coverage_only"], ps["both"]]) + ",marker:{color:[" + GREEN + "," + GREY
         + "," + BLUE + "]}}],{margin:{t:10,r:10,b:40,l:45},yaxis:{title:'articles'},bargap:0.4},"
         "{displayModeBar:false,responsive:true});")
@@ -358,9 +358,12 @@ the actual goal, not just volume.</div>
 <b style="color:#adb5bd">other</b>, <b style="color:#e03131">blocklist</b> (should be absent).</div>
 <div id="domhist" style="width:100%;height:520px"></div>
 
-<h2>Plot 11 · Two-pass split (gem allowlist vs coverage)</h2>
-<div class="sub">How the pool divides between the GEM pass (specialty allowlist) and the COVERAGE pass
-(unrestricted minus mills) — the two-pass balance.</div>
+<h2>Plot 11 · Two-pass split — allowlist vs blocklist source filter</h2>
+<div class="sub">The pool is gathered in two passes that differ by their <b>source filter</b>: the
+<b>allowlist pass</b> runs the gem-hunting beats restricted to the <code>specialty_allow</code> desks
+(narrow — specialty sources only); the <b>blocklist pass</b> runs the broad sector beats over <i>all</i>
+sources <i>except</i> the <code>mill_block</code> mills (broad query + mill filter). Bars = articles surfaced
+by only one pass vs by both.</div>
 <div id="passhist" style="width:100%;height:280px"></div>
 
 <div class="note"><b>What this is / isn't.</b> This is a <b>backtest of known winners on look-ahead-leaky
