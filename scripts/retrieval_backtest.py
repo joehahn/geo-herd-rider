@@ -78,9 +78,9 @@ def run(start: str, end: str, lookback: int, ckpt: Path) -> dict:
         ak = a.date().isoformat()
         if ak in done:
             continue
-        # cap=0 (keep ALL — no recency truncation) + max_results=20 (deeper per beat); free on credits,
-        # and this is a retrieval-only backtest (no LLM scout reads the pool). Forward keeps its defaults.
-        arts = t.gather(None, None, a, lookback, workers=4, cap=0, max_results=20)
+        # cap=0 (keep ALL — no recency truncation) + max_results=40 (deeper per beat surfaces target
+        # articles that ranked ~#20-40); free on credits (Tavily bills per SEARCH, not per result).
+        arts = t.gather(None, None, a, lookback, workers=4, cap=0, max_results=40)
         for art in arts:
             ex = pool.get(art["url"])
             if ex is None:

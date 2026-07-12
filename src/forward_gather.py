@@ -63,8 +63,12 @@ COVERAGE_BEATS = [
     # added to close coverage gaps the backtest exposed (no defense beat drove RNMBY under-coverage;
     # AI/biotech had specialty desks in the allowlist but no beat steering to them)
     "defense aerospace stocks", "artificial intelligence semiconductor stocks", "biotech pharma stocks",
-    # gold was diluted under "materials" (0.7% of pool, hurt GDX recall) -> a dedicated gold beat
-    "gold silver mining stocks",
+    # gold was diluted under "materials" (0.7% of pool, hurt GDX recall) -> dedicated gold + silver beats
+    # (HL's silver-rally coverage was ~20 of the missed target squares)
+    "gold silver mining stocks", "silver mining stocks",
+    # superlative framing — the missed target squares ARE superlatives ("Surges to All-Time High",
+    # "Skyrockets 380%", "Rockets to record"); a superlative beat targets that exact class
+    "stock surges skyrockets all-time high record",
     "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
