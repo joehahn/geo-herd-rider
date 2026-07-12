@@ -29,7 +29,7 @@ risk_aversion: 0.1                # lambda in mean-variance utility (μᵀw − 
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 7                     # Keep only the top-N agents in the weekly watchlist, incl. the always-on SPY agent; 0 = uncapped
-news_cap: 0                       # Per-WEEK scout budget (articles the weekly --scan reads). 0 = UNCAPPED. The daily --pull fetches uncapped regardless; this caps only the weekly scout read. Renamed from window_cap + set 80->0 on 2026-07-10 (dated discontinuity).
+news_cap: 500                     # Per-WEEK scout budget (the weekly --scan reads the freshest N of the week's pool; drops the older tail, warns on drop). 0=UNCAPPED. Set 0->500 on 2026-07-12: the deeper 43-beat dual-engine retrieval makes the weekly pool large, so bound the scout's read (cost/context). The daily --pull still fetches uncapped.
 spy_agent_conviction: 5           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
 defensive_agent_conviction: 5     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
 defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme
