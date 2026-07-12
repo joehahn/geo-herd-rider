@@ -36,24 +36,42 @@ PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": 
 def _ticker_hit(tk: str, raw: str, strict: bool = False) -> bool:
     """Whole-token ticker match: $TK, or a (EXCH: TK)/(TK) parenthetical. When not strict, also a bare
     uppercase \\bTK\\b for len>=3. strict=True (e.g. DRAM, a common word) requires the $/paren form."""
-    if re.search(rf"\${tk}\b", raw):
-        return True
-    if re.search(rf"\((?:NYSE|NASDAQ|NYSEARCA|OTC|BATS)?[:\s]*{tk}\)", raw):   # (DRAM) or (NASDAQ: MU)
+    if _ticker_form(tk, raw):
         return True
     if not strict and len(tk) >= 3 and re.search(rf"(?<![A-Za-z0-9]){tk}(?![A-Za-z0-9])", raw):
         return True
     return False
 
 
+def _ticker_form(tk: str, raw: str) -> bool:
+    """A DELIBERATE editorial ticker tag: $TK or a (EXCH: TK)/(TK) parenthetical (never a bare word).
+    These survive as real ticker references even inside a snippet; a bare company NAME does not —
+    Tavily scrapes page chrome (related-article widgets, image captions like 'the MP Materials logo
+    is seen on a phone screen'), so a bare name in the snippet alone is unreliable."""
+    return bool(re.search(rf"\${tk}\b", raw)
+                or re.search(rf"\((?:NYSE|NASDAQ|NYSEARCA|OTC|BATS)?[:\s]*{tk}\)", raw))
+
+
+def _named_in(text: str, kw: dict) -> bool:
+    low = text.lower()
+    return any(n in low for n in kw["name"]) or any(_ticker_hit(t, text, kw.get("strict", False)) for t in kw["ticker"])
+
+
 def detect(pool: list[dict]) -> dict:
-    """-> {gem: {"by_name":[arts], "thesis":[arts]}} sorted by date; each list = matching articles."""
+    """-> {gem: {"by_name":[arts], "thesis":[arts]}} sorted by date; each list = matching articles.
+
+    BY-NAME requires the gem in the article TITLE, or a deliberate ticker tag ($TK / (TK)) ANYWHERE
+    (title+snippet). A bare company-name in the snippet ONLY is rejected — that pattern is Tavily
+    page-chrome (sidebars / image captions / related-headline widgets) far more often than the
+    article's real subject (e.g. an Opendoor article whose scraped snippet carries an 'MP Materials'
+    related-link thumbnail). THESIS-only = the sector/catalyst phrase but no by-name."""
     out = {g: {"by_name": [], "thesis": []} for g in GEMS}
     for a in pool:
-        raw = a.get("title", "") + "  " + a.get("snippet", "")
-        low = raw.lower()
+        title = a.get("title", "") or ""
+        blob = title + "  " + (a.get("snippet", "") or "")
+        low = blob.lower()
         for g, kw in GEMS.items():
-            named = any(n in low for n in kw["name"]) or \
-                any(_ticker_hit(t, raw, kw.get("strict", False)) for t in kw["ticker"])
+            named = _named_in(title, kw) or any(_ticker_form(t, blob) for t in kw["ticker"])
             thesis = any(t in low for t in kw["thesis"])
             if named:
                 out[g]["by_name"].append(a)

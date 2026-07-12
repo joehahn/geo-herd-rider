@@ -46,9 +46,9 @@ _MILL_BLOCK = list(_FGM.get("mill_block") or [])             # COVERAGE pass blo
 # COVERAGE beats -> blocklist pass. The ONLY residual gap: Anthropic also spawns adaptive follow-ups (Tavily
 # runs the fixed list only) -> the backtest is a valid but CONSERVATIVE proxy (under-finds vs the forward).
 GEM_BEATS = [
-    # early-framing (still-under-the-radar)
-    "under the radar small cap stock", "flying under the radar ETF", "overlooked stock catalyst",
-    "still early stock rally", "niche ETF surging", "small-cap stock to watch breakout",
+    # early-framing (still-under-the-radar) — trimmed 6->3 (the set was ~60% self-redundant in the backtest;
+    # keep one stock / catalyst / ETF framing each — none is load-bearing for any gem's key article)
+    "under the radar small cap stock", "overlooked stock catalyst", "niche ETF surging",
     # catalyst -> named beneficiary (a discrete datable event and the ticker it lifts)
     "war chokepoint stock beneficiary", "export ban tariff sanctions stock beneficiary",
     "supply shortage supply shock stock", "rare earth critical minerals stock",
@@ -59,7 +59,11 @@ COVERAGE_BEATS = [
     "technology stocks", "energy stocks", "financial stocks", "healthcare stocks", "industrial stocks",
     "materials stocks", "consumer stocks", "utility stocks", "real estate stocks", "telecom stocks",
     "shipping maritime stocks", "cryptocurrency stocks", "space stocks", "robotics stocks",
-    "quantum stocks", "nuclear stocks", "best performing stock", "biggest stock gainers",
+    "quantum stocks", "nuclear stocks",
+    # added to close coverage gaps the backtest exposed (no defense beat drove RNMBY under-coverage;
+    # AI/biotech had specialty desks in the allowlist but no beat steering to them)
+    "defense aerospace stocks", "artificial intelligence semiconductor stocks", "biotech pharma stocks",
+    "best performing stock", "biggest stock gainers",
 ]
 GEM_SYSTEM = (
     "You are the news firehose surfacing EARLY, still-under-the-radar gem-class coverage for a scout — the "

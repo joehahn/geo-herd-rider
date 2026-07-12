@@ -40,17 +40,22 @@ def _pdate(r: dict) -> str | None:
 
 
 def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
-           workers: int = 8, cap: int = 80, freeze_cap: int = 160, dated: bool = False) -> list[dict]:
+           workers: int = 8, cap: int = 80, freeze_cap: int = 160, dated: bool = False,
+           max_results: int = 8) -> list[dict]:
     """Date-bounded Tavily beat sweep -> a window-filtered arts pool for the scout. `client`/`model`/
     `dated`/`freeze_cap` are accepted for interface parity with forward_gather but unused (Tavily needs
-    no LLM to drive it, and its date range is a real server-side filter)."""
+    no LLM to drive it, and its date range is a real server-side filter). `cap` truncates the merged pool
+    to the N most-RECENT (a scout-read budget for the forward; the recency truncation biases toward the
+    window's recent edge) -- pass cap=0 to keep ALL (the retrieval backtest, which has no scout, does this).
+    `max_results` is how many results each beat keeps (Tavily bills per search, not per result, so a bigger
+    value is free recall)."""
     lo = (anchor - pd.Timedelta(days=lookback_days)).date().isoformat()
     hi = anchor.date().isoformat()
     pool: dict[str, dict] = {}
 
     def _q(task: tuple):
         beat, inc, exc = task
-        return beat, search.search(beat, before_date=hi, start_date=lo, max_results=8,
+        return beat, search.search(beat, before_date=hi, start_date=lo, max_results=max_results,
                                    include_domains=inc, exclude_domains=exc)
 
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:
@@ -66,7 +71,9 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
                     if beat not in ex_r["queries"]:     # tag which beat(s) surfaced it (Plot 13/14 attribution)
                         ex_r["queries"].append(beat)
 
-    arts = sorted(pool.values(), key=lambda x: x["published_date"], reverse=True)[:cap]
+    arts = sorted(pool.values(), key=lambda x: x["published_date"], reverse=True)
+    if cap:                                             # cap=0 -> keep ALL (no recency truncation)
+        arts = arts[:cap]
     if capture is not None:
         capture["arts"] = arts
         capture["queries"] = list(BEATS)

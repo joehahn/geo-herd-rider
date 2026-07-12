@@ -8,89 +8,183 @@ local preview). The retrieval backtest is an UPPER BOUND (look-ahead-leaky web s
 forward paper trade is the verdict; the page says so.
 """
 from __future__ import annotations
+import html
 import json
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
+
+PLOTLY_CDN = "https://cdn.plot.ly/plotly-2.35.2.min.js"
 
 REPO = Path(__file__).resolve().parent.parent
 SRC = REPO / "data" / "retrieval_backtest.json"
 OUT = REPO / "docs_preview" / "retrieval_backtest.html"
 
 FORM_COLOR = {"single stock": "#2f9e44", "ETF wrapper": "#f08c00", "foreign ADR": "#868e96"}
+DISPLAY_FORM = {"single stock": "stock", "ETF wrapper": "ETF", "foreign ADR": "ADR"}   # badge label
 LANE_ORDER = ["MP", "DRAM", "BWET", "GDX", "RNMBY"]     # single stock, then ETF wrappers, then ADR
+CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the actual price peak
+    "MP": "The only US rare-earth producer — rallied as the US moved to break its dependence on Chinese "
+          "rare earths (China's Apr-2025 export controls, then a July DoD equity stake). Named by ticker "
+          "at the base of the run-up, <b>~7½ months before its Oct-2025 peak</b>.",
+    "DRAM": "Roundhill Memory ETF (launched 2026-04-02) — plays the DRAM/HBM memory shortage driven by the "
+            "AI-datacenter boom. ETF named <b>~6 weeks before peak</b>; the memory thesis (hollow) was "
+            "visible months earlier, <b>before the fund even existed</b>.",
+    "BWET": "Breakwave Tanker Shipping ETF — crude-tanker (VLCC) freight rates spiking on the 2026 "
+            "Strait-of-Hormuz / Iran crisis. Named by ticker only <b>after a ~600% run</b> (still ~2 months "
+            "before the top); the tanker thesis (hollow) showed earlier.",
+    "GDX": "VanEck Gold Miners ETF — the 2025-26 gold bull run (safe-haven + rate-cut demand). "
+           "<b>Never named by ticker</b>; only the gold-miner thesis + individual miners (HMY/HL/KGC) surfaced.",
+    "RNMBY": "Rheinmetall (German defense ADR) — European rearmament after Germany's Mar-2025 debt-brake "
+             "defense-spending exemption + the Ukraine war. Named only <b>in hindsight</b>; the whole "
+             "rise-and-fall went uncovered by the US-centric beats.",
+}
 
 
 def _x(d: str, lo: date, span: int, x0: float, w: float) -> float:
     return x0 + (date.fromisoformat(d) - lo).days / span * w
 
 
-def _timeline(res: dict) -> str:
-    lo, hi = date.fromisoformat(res["span"][0]), date.fromisoformat(res["span"][1])
-    span = (hi - lo).days
-    W, x0, plot_w, lane_h = 1120, 96, 1000, 46
-    lanes = [g for g in LANE_ORDER if g in res["detection"]]
-    H = 44 + len(lanes) * lane_h + 34
-    s = [f'<svg viewBox="0 0 {W} {H}" width="100%" style="max-width:{W}px">']
-    # month/quarter gridlines + labels
-    y_top, y_bot = 30, 30 + len(lanes) * lane_h
-    yq, mq = lo.year, ((lo.month - 1) // 3) * 3 + 1
-    while date(yq, mq, 1) <= hi:
-        gx = _x(date(yq, mq, 1).isoformat(), lo, span, x0, plot_w)
-        s.append(f'<line x1="{gx:.0f}" y1="{y_top}" x2="{gx:.0f}" y2="{y_bot}" stroke="#e9ecef"/>')
-        s.append(f'<text x="{gx:.0f}" y="{y_bot+16}" font-size="11" fill="#868e96" text-anchor="middle">'
-                 f'{yq}-{mq:02d}</text>')
-        mq += 3
+def _price_chart(g: str, ch: dict, det: dict) -> str:
+    """Ticker vs SPY over the gem's era, BOTH normalized to 1.0 at the window start (so the y-axis is a
+    growth multiple and out/under-performance is visible), with a blue dot for every by-name article.
+    Each dot carries data-* (raw $ price, date, lede) for the hover popup."""
+    W, x0, y0, plotw, ploth = 1080, 52, 14, 1004, 150
+    ws, we = date.fromisoformat(ch["window"][0]), date.fromisoformat(ch["window"][1])
+    span = (we - ws).days or 1
+    series, spy = ch["series"], ch.get("spy_series", [])
+    if not series:
+        return '<svg viewBox="0 0 100 20" width="100%"><text x="4" y="14" font-size="11" fill="#adb5bd">no price data</text></svg>'
+    t0 = series[0][1]                                   # normalization base (first close in window)
+    tnorm = [(d, v / t0) for d, v in series]
+    snorm = [(d, v / spy[0][1]) for d, v in spy] if spy else []
+    allv = [v for _, v in tnorm] + [v for _, v in snorm]
+    vmin, vmax = min(allv), max(allv)
+    pad = (vmax - vmin) * 0.06 or 0.1
+    vmin, vmax = vmin - pad, vmax + pad
+
+    def X(dstr):
+        return x0 + (date.fromisoformat(dstr) - ws).days / span * plotw
+
+    def Y(v):
+        return y0 + ploth - (v - vmin) / (vmax - vmin) * ploth
+
+    s = [f'<svg viewBox="0 0 {W} {y0+ploth+26}" width="100%" style="max-width:{W}px">']
+    for v in sorted({round(vmin + pad, 1), 1.0, round(vmax - pad, 1)}):   # y gridlines as growth multiples
+        if not (vmin <= v <= vmax):
+            continue
+        y = Y(v)
+        s.append(f'<line x1="{x0}" y1="{y:.0f}" x2="{x0+plotw}" y2="{y:.0f}" '
+                 f'stroke="{"#dee2e6" if v == 1.0 else "#f1f3f5"}"/>')
+        s.append(f'<text x="{x0-6}" y="{y+3:.0f}" font-size="9" fill="#adb5bd" text-anchor="end">{v:g}×</text>')
+    yq, mq = ws.year, ws.month                          # monthly x ticks
+    while date(yq, mq, 1) <= we:
+        if date(yq, mq, 1) >= ws:
+            gx = X(date(yq, mq, 1).isoformat())
+            s.append(f'<line x1="{gx:.0f}" y1="{y0}" x2="{gx:.0f}" y2="{y0+ploth}" stroke="#f8f9fa"/>')
+            s.append(f'<text x="{gx:.0f}" y="{y0+ploth+15}" font-size="8.5" fill="#adb5bd" '
+                     f'text-anchor="middle">{yq}-{mq:02d}</text>')
+        mq += 1
         if mq > 12:
-            mq -= 12; yq += 1
-    for i, g in enumerate(lanes):
-        d = res["detection"][g]
-        cy = y_top + i * lane_h + lane_h / 2
-        s.append(f'<line x1="{x0}" y1="{cy:.0f}" x2="{x0+plot_w}" y2="{cy:.0f}" stroke="#f1f3f5"/>')
-        col = FORM_COLOR[d["form"]]
-        s.append(f'<text x="{x0-10}" y="{cy-3:.0f}" font-size="13" font-weight="600" fill="#212529" '
-                 f'text-anchor="end">{g}</text>')
-        s.append(f'<text x="{x0-10}" y="{cy+11:.0f}" font-size="9" fill="{col}" text-anchor="end">'
-                 f'{d["form"]}</text>')
-        # thesis (hollow grey) then by-name (filled colored) so by-name sits on top
-        for dt in res["hits"][g]["thesis_dates"]:
-            s.append(f'<circle cx="{_x(dt,lo,span,x0,plot_w):.1f}" cy="{cy:.0f}" r="3.2" fill="none" '
-                     f'stroke="#adb5bd" stroke-width="1"/>')
-        for dt in res["hits"][g]["by_name_dates"]:
-            s.append(f'<circle cx="{_x(dt,lo,span,x0,plot_w):.1f}" cy="{cy:.0f}" r="4.2" fill="{col}"/>')
-        # peak marker
-        px = _x(d["peak"], lo, span, x0, plot_w)
-        s.append(f'<line x1="{px:.0f}" y1="{cy-15:.0f}" x2="{px:.0f}" y2="{cy+15:.0f}" stroke="#e03131" '
-                 f'stroke-width="1.4" stroke-dasharray="3,2"/>')
-        s.append(f'<text x="{px+4:.0f}" y="{cy-8:.0f}" font-size="9" fill="#e03131">peak</text>')
-        # lead annotation
-        if d["lead_days"] is not None:
-            ld = d["lead_days"]
-            lc = "#2f9e44" if ld > 7 else "#e8590c" if ld >= 0 else "#e03131"
-            txt = f"+{ld}d early" if ld > 0 else (f"{ld}d (post-peak)" if ld < 0 else "at peak")
-            ex = _x(d["earliest_by_name"], lo, span, x0, plot_w)
-            s.append(f'<text x="{ex:.0f}" y="{cy-9:.0f}" font-size="10" fill="{lc}" '
-                     f'text-anchor="middle" font-weight="600">{txt}</text>')
+            mq = 1; yq += 1
+    if snorm:                                            # SPY benchmark (muted, dashed) under the ticker
+        pts = " ".join(f"{X(d):.1f},{Y(v):.1f}" for d, v in snorm)
+        s.append(f'<polyline points="{pts}" fill="none" stroke="#adb5bd" stroke-width="1.2" stroke-dasharray="4,3"/>')
+        s.append(f'<text x="{X(snorm[-1][0])-2:.0f}" y="{Y(snorm[-1][1])-3:.0f}" font-size="9" '
+                 f'fill="#868e96" text-anchor="end">SPY {snorm[-1][1]:.1f}×</text>')
+    pts = " ".join(f"{X(d):.1f},{Y(v):.1f}" for d, v in tnorm)
+    s.append(f'<polyline points="{pts}" fill="none" stroke="#495057" stroke-width="1.7"/>')
+    s.append(f'<text x="{X(tnorm[-1][0])-2:.0f}" y="{Y(tnorm[-1][1])-3:.0f}" font-size="9.5" '
+             f'fill="#343a40" font-weight="600" text-anchor="end">{g} {tnorm[-1][1]:.1f}×</text>')
+    pk = det["peak"]
+    if ws <= date.fromisoformat(pk) <= we:
+        px = X(pk)
+        s.append(f'<line x1="{px:.0f}" y1="{y0}" x2="{px:.0f}" y2="{y0+ploth}" stroke="#e03131" '
+                 f'stroke-width="1.3" stroke-dasharray="3,2"/>')
+        s.append(f'<text x="{px+4:.0f}" y="{y0+10}" font-size="9" fill="#e03131">peak</text>')
+    base_y = y0 + ploth - 4
+    for d in ch["dots"]:
+        dx = X(d["d"])
+        dy = base_y if d["price"] is None else Y(d["price"] / t0)
+        pr = f"${d['price']:,.2f}" if d["price"] is not None else "pre-inception (no price)"
+        s.append(
+            f'<circle class="dot" cx="{dx:.1f}" cy="{dy:.1f}" r="4.6" fill="#1c7ed6" stroke="#1c7ed6" '
+            f'stroke-width="1.5" data-date="{d["d"]}" data-price="{html.escape(pr)}" data-kind="by-name" '
+            f'data-src="{html.escape(d["src"])}" data-title="{html.escape(d["title"])}" '
+            f'data-lede="{html.escape(d["lede"])}" data-url="{html.escape(d["url"])}"/>')
+    # ground-truth overlay: target superlative articles — big blue dot = DETECTED, orange square = MISSED
+    for a in ch.get("ground_truth", []):
+        dx = X(a["d"])
+        dy = base_y if a["price"] is None else Y(a["price"] / t0)
+        pr = f"${a['price']:,.2f}" if a["price"] is not None else "pre-inception"
+        attrs = (f'data-date="{a["d"]}" data-price="{html.escape(pr)}" '
+                 f'data-src="{html.escape(a["src"])}" data-title="{html.escape(a["title"])}" '
+                 f'data-lede="" data-url="{html.escape(a["url"])}"')
+        if a["detected"]:
+            s.append(f'<circle class="dot" cx="{dx:.1f}" cy="{dy:.1f}" r="7.5" fill="#1c7ed6" stroke="#0b3d91" '
+                     f'stroke-width="2" data-kind="TARGET ✓ detected" {attrs}/>')
         else:
-            s.append(f'<text x="{x0+plot_w:.0f}" y="{cy-9:.0f}" font-size="10" fill="#e03131" '
-                     f'text-anchor="end">never named by ticker</text>')
-    s.append('</svg>')
+            s.append(f'<rect class="dot" x="{dx-6:.1f}" y="{dy-6:.1f}" width="12" height="12" fill="none" '
+                     f'stroke="#f76707" stroke-width="2.2" data-kind="TARGET ✗ MISSED" {attrs}/>')
+    s.append("</svg>")
     return "".join(s)
 
 
-def _volume(res: dict) -> str:
-    wc = res["wcount"]
-    ks = sorted(wc)
-    mx = max(wc.values()) or 1
-    W, bw, gap, h = len(ks) * 8, 6, 2, 40
-    s = [f'<svg viewBox="0 0 {max(W,300)} {h+16}" width="100%" style="max-width:{max(W,300)}px">']
-    for i, k in enumerate(ks):
-        bh = wc[k] / mx * h
-        c = "#4dabf7" if wc[k] else "#ffa8a8"
-        s.append(f'<rect x="{i*(bw+gap)}" y="{h-bh:.0f}" width="{bw}" height="{bh:.0f}" fill="{c}"/>')
-    s.append(f'<text x="0" y="{h+13}" font-size="10" fill="#868e96">{ks[0]}</text>')
-    s.append(f'<text x="{W}" y="{h+13}" font-size="10" fill="#868e96" text-anchor="end">{ks[-1]}</text>')
-    s.append('</svg>')
-    return "".join(s)
+def _diag(res: dict) -> str:
+    """Plotly JS for every retrieval-diagnostic plot. Divs must already exist in the page."""
+    J = json.dumps
+    BLUE, GREEN, GREY, RED = "'#4dabf7'", "'#2f9e44'", "'#adb5bd'", "'#e03131'"
+    daily = res["daily"]
+    monthly, quarterly = res["monthly"], res["quarterly"]
+    beats = res["beat_counts"][::-1]                     # ascending -> largest on top (horizontal bars)
+    bnames = [b for b, _ in beats]
+    uniq = [res["beat_unique"].get(b, 0) for b in bnames]
+    bytk = sorted(res["beat_byname"].items(), key=lambda kv: kv[1])
+    doms = res["domain_counts"][:25][::-1]
+    dklass = {"specialty": GREEN, "mill": RED, "other": GREY}
+    dcolors = "[" + ",".join(dklass[k] for _, _, k in doms) + "]"
+    ps = res["pass_split"]
+
+    def bar(div, x, y, extra="", color=BLUE, layout=""):
+        return ("Plotly.newPlot('" + div + "',[{x:" + J(x) + ",y:" + J(y) + ",type:'bar',marker:{color:"
+                + color + "}" + extra + "}],{margin:{t:10,r:10,b:40},bargap:0.08," + layout
+                + "},{displayModeBar:false,responsive:true});")
+    return (
+        bar("newshist", [d for d, _ in daily], [c for _, c in daily], layout="yaxis:{title:'articles / day'}")
+        + bar("monthhist", [d for d, _ in monthly], [c for _, c in monthly], layout="yaxis:{title:'articles / month'}")
+        + bar("quarterhist", [d for d, _ in quarterly], [c for _, c in quarterly], layout="yaxis:{title:'articles / quarter'}")
+        + bar("weekhist", [d for d, _ in _weekly(daily)], [c for _, c in _weekly(daily)], layout="yaxis:{title:'articles / week'}")
+        + bar("dowhist", ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], res["dow"], layout="yaxis:{title:'articles'}")
+        + bar("recencyhist", list(range(len(res["recency"]))), res["recency"],
+              layout="yaxis:{title:'articles'},xaxis:{title:'days before window-end (cap=80 sorted-desc)'}")
+        # per-beat: total (blue) + unique-only (dark) grouped
+        + "Plotly.newPlot('beathist',[{type:'bar',orientation:'h',name:'total',y:" + J(bnames) + ",x:"
+        + J([c for _, c in beats]) + ",marker:{color:" + BLUE + "}},{type:'bar',orientation:'h',name:'unique',y:"
+        + J(bnames) + ",x:" + J(uniq) + ",marker:{color:'#1c7ed6'}}],{barmode:'group',margin:{l:255,r:20,t:10,b:34},"
+        "xaxis:{title:'articles surfaced (total vs only-this-beat)'},yaxis:{automargin:true,tickfont:{size:10}},"
+        "legend:{orientation:'h'}},{displayModeBar:false,responsive:true});"
+        # by-name yield per beat
+        + "Plotly.newPlot('bynamehist',[{type:'bar',orientation:'h',y:" + J([b for b, _ in bytk]) + ",x:"
+        + J([n for _, n in bytk]) + ",marker:{color:" + GREEN + "},hovertemplate:'%{y}<br>%{x} gem-naming"
+        " articles<extra></extra>'}],{margin:{l:255,r:20,t:10,b:34},xaxis:{title:'articles that name a gem ticker'},"
+        "yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});"
+        # per-domain, colored by allow/block/other
+        + "Plotly.newPlot('domhist',[{type:'bar',orientation:'h',y:" + J([d for d, _, _ in doms]) + ",x:"
+        + J([n for _, n, _ in doms]) + ",marker:{color:" + dcolors + "},hovertemplate:'%{y}<br>%{x} articles"
+        "<extra></extra>'}],{margin:{l:175,r:20,t:10,b:34},xaxis:{title:'articles (green=allowlist, grey=other,"
+        " red=blocklist)'},yaxis:{automargin:true,tickfont:{size:10}}},{displayModeBar:false,responsive:true});"
+        # gem-pass vs coverage-pass split
+        + "Plotly.newPlot('passhist',[{type:'bar',x:" + J(["gem allowlist pass only", "coverage pass only", "both passes"])
+        + ",y:" + J([ps["gem_only"], ps["coverage_only"], ps["both"]]) + ",marker:{color:[" + GREEN + "," + GREY
+        + "," + BLUE + "]}}],{margin:{t:10,r:10,b:40,l:45},yaxis:{title:'articles'},bargap:0.4},"
+        "{displayModeBar:false,responsive:true});")
+
+
+def _weekly(daily):
+    wk = {}
+    for d, c in daily:
+        dd = date.fromisoformat(d)
+        wk[(dd - timedelta(days=dd.weekday())).isoformat()] = wk.get((dd - timedelta(days=dd.weekday())).isoformat(), 0) + c
+    return sorted(wk.items())
 
 
 def build() -> Path:
@@ -125,14 +219,29 @@ def build() -> Path:
     .cand .sym{width:52px;font-weight:600;font-family:monospace} .cand .bar{height:11px;background:#4dabf7;border-radius:2px}
     .cand .n{color:#868e96} .cols{display:grid;grid-template-columns:1fr 1fr;gap:8px 30px}
     .note{font-size:12px;color:#868e96;background:#f8f9fa;border-radius:8px;padding:12px 16px;margin-top:8px}
+    .dot{cursor:pointer} .dot:hover{stroke-width:2.8}
+    .pcwrap{margin:6px 0 18px} .pchead{font-size:13px;color:#495057;margin:16px 0 0}
+    .pchead .tk{font-weight:700;font-size:15px;color:#212529} .pchead .bd{color:#fff;padding:1px 6px;border-radius:4px;font-size:10px;font-weight:600;margin:0 7px}
+    #tt{position:fixed;display:none;max-width:360px;background:#212529;color:#f1f3f5;padding:9px 11px;border-radius:6px;font-size:12px;line-height:1.45;box-shadow:0 4px 16px rgba(0,0,0,.28);pointer-events:none;z-index:20}
+    #tt b{color:#fff} #tt .lede{color:#ced4da;margin-top:4px;font-style:italic}
     """
-    dot = ('<span class="legend"><b>●</b> filled = named by ticker &nbsp; '
-           '<span style="color:#adb5bd">○</span> hollow = thesis only (catalyst named, vehicle not) &nbsp; '
-           '<span style="color:#e03131">┆</span> peak</span>')
     half = res["candidates"][:20]
     col1 = "".join(_cand_row(s, n, half[0][1]) for s, n in half[:10])
     col2 = "".join(_cand_row(s, n, half[0][1]) for s, n in half[10:20])
+    def _recall_badge(g):
+        h, t = res.get("gt_recall", {}).get(g, [0, 0])
+        pct = f"{100*h//t}%" if t else "—"
+        col = "#2f9e44" if t and h / t >= 0.4 else "#e8590c" if t and h / t >= 0.15 else "#e03131"
+        return (f'<span style="float:right;font-size:12px;color:{col};font-weight:600">'
+                f'target recall {h}/{t} ({pct})</span>')
+    charts_html = "".join(
+        f'<div class="pcwrap"><div class="pchead"><span class="tk">{g}</span>'
+        f'<span class="bd" style="background:{FORM_COLOR[res["detection"][g]["form"]]}">'
+        f'{DISPLAY_FORM[res["detection"][g]["form"]]}</span>{_recall_badge(g)}{CAPTION[g]}</div>'
+        f'{_price_chart(g, res["charts"][g], res["detection"][g])}</div>'
+        for g in LANE_ORDER)
     html = f"""<!doctype html><html><head><meta charset="utf-8"><title>Retrieval backtest</title>
+<script src="{PLOTLY_CDN}"></script>
 <style>{css}</style></head><body>
 <h1>Retrieval backtest — can the firehose catch the gems early?</h1>
 <div class="sub">Bi-weekly Tavily two-pass sweep, {res['span'][0]} → {res['span'][1]} (forward day-1) ·
@@ -148,7 +257,7 @@ generic aligned beats, <b>no ticker queries</b> · {res['generated_from']}</div>
 
 <div class="finding">
 <b>Finding — retrievability splits on the gem's <i>form</i>.</b> A single-stock gem (<b>MP</b>) is named
-by ticker early and often (<b>+132d</b> before peak) — cleanly retrievable off the generic beats. The
+by ticker early and often (<b>~7½ months before its price peak</b>) — cleanly retrievable off the generic beats. The
 ETF-wrapper gems (<b>DRAM, BWET, GDX</b>) are named by ticker <i>late or never</i>, yet their underlying
 <b>thesis and constituent stocks show up early</b> — to buy the ETF early you'd have to infer the vehicle
 from the thesis. The foreign ADR (<b>RNMBY</b>) is named only in hindsight (and is the semi-synthetic
@@ -156,24 +265,76 @@ instrument; US-centric beats under-cover European names). So the firehose reliab
 <i>single-stock</i> gems by name; ETF wrappers need vehicle inference.
 </div>
 
-<h2>Detection timeline</h2>
-{dot}
-{_timeline(res)}
+<h2>Plot 1 · Price &amp; retrieval timing</h2>
+<div class="sub">Ticker (solid) vs <b>SPY</b> (dashed), both <b>normalized to 1× at the window start</b> so the growth
+multiple &amp; out-performance are visible. Each <b style="color:#1c7ed6">●</b> is an article that <b>names the
+ticker</b> (by-name), placed at its date &amp; price. <b>Hover</b> for date · price · lede; <b>click</b> to open
+the article. <b>Big <span style="color:#1c7ed6">●</span></b> / <b><span style="color:#f76707">▢</span></b> =
+the <b>ground-truth target</b> set (superlative gem news we WANT caught): big blue = detected, orange square =
+<b>missed</b>. (Small blue dots = other retrieved by-name articles. Thesis-only "theme" dots dropped.)</div>
+{charts_html}
 
 <h2>Detection summary</h2>
 <table><tr><th>gem</th><th>form</th><th>by-name</th><th>thesis</th><th>earliest by-name</th>
 <th>earliest thesis</th><th>peak</th><th>lead vs peak</th></tr>
 {table}
 </table>
+<div class="sub" style="margin-top:6px"><b>by-name</b> = articles that name the ticker (title, or a $TK/(TK)
+tag anywhere — a bare company name in the scraped snippet alone is rejected as page-chrome). <b>thesis</b> =
+a keyword count of theme-only articles (e.g. "rare earth" without naming MP); shown for context only — it's a
+grep, <i>not</i> the scout's judgment, and it's not plotted. <b>peak</b> = actual price maximum.</div>
 
-<h2>Candidate gems the sweep surfaced (un-planted)</h2>
-<div class="sub">Tickers the generic beats found on their own — your "there are probably others" hunch.
-Gold-miner cluster + memory/AI-chip names dominate, matching the live theses.</div>
+<h2>Plot 2 · Candidate gems the sweep surfaced (un-planted)</h2>
+<div class="sub">Tickers the generic beats found on their own — your "there are probably others" hunch (a $TICKER /
+(EXCH:TICKER) mention count). Gold-miner cluster + memory/AI-chip names dominate, matching the live theses.</div>
 <div class="cols"><div>{col1}</div><div>{col2}</div></div>
 
-<h2>Retrieval volume per window</h2>
-<div class="sub">~80 articles/window, 0 blackouts (after the rate-limit fix). Confirms even coverage across the span.</div>
-{_volume(res)}
+<h2>Plot 3 · News-count histogram (per day)</h2>
+<div class="sub">Retrieved articles per publication day. Each bi-weekly window caps at 80, so this is the
+<i>retrieved &amp; kept</i> pool, not raw availability.</div>
+<div id="newshist" style="width:100%;height:300px"></div>
+
+<h2>Plot 4 · Weekly article counts</h2>
+<div class="sub">Retrieved articles per calendar week (Monday-anchored).</div>
+<div id="weekhist" style="width:100%;height:280px"></div>
+
+<h2>Plot 5 · Monthly article counts</h2>
+<div class="sub">Retrieved articles per calendar month — coarse temporal coverage.</div>
+<div id="monthhist" style="width:100%;height:280px"></div>
+
+<h2>Plot 6 · Quarterly article counts</h2>
+<div class="sub">Retrieved articles per calendar quarter.</div>
+<div id="quarterhist" style="width:100%;height:260px"></div>
+
+<h2>Plot 7 · Articles by day of week</h2>
+<div class="sub">Publication weekday of the retrieved pool.</div>
+<div id="dowhist" style="width:100%;height:260px"></div>
+
+<h2>Plot 8 · Within-window recency</h2>
+<div class="sub">Articles by days-before-window-end. The <code>cap=80 sorted-desc</code> truncation + Tavily's
+recency ranking heavily over-sample the recent edge of each bi-weekly window (the older half is under-covered)
+— the main temporal bias, and a case for the weekly-cadence pivot.</div>
+<div id="recencyhist" style="width:100%;height:280px"></div>
+
+<h2>Plot 9 · Articles per search term (total vs unique)</h2>
+<div class="sub">Distinct pool articles each aligned beat surfaced (11 gem + 21 coverage beats). <b>total</b> vs
+<b>unique</b> (surfaced by that beat ONLY) — a low unique share = a redundant beat. Hover for the beat.</div>
+<div id="beathist" style="width:100%;height:640px"></div>
+
+<h2>Plot 10 · By-name yield per search term</h2>
+<div class="sub">How many <b>gem-ticker-naming</b> articles each beat surfaced — which beats are productive for
+the actual goal, not just volume.</div>
+<div id="bynamehist" style="width:100%;height:640px"></div>
+
+<h2>Plot 11 · Articles per source domain</h2>
+<div class="sub">Top publishers, colored by list: <b style="color:#2f9e44">allowlist</b> (specialty desks),
+<b style="color:#adb5bd">other</b>, <b style="color:#e03131">blocklist</b> (should be absent).</div>
+<div id="domhist" style="width:100%;height:520px"></div>
+
+<h2>Plot 12 · Two-pass split (gem allowlist vs coverage)</h2>
+<div class="sub">How the pool divides between the GEM pass (specialty allowlist) and the COVERAGE pass
+(unrestricted minus mills) — the two-pass balance.</div>
+<div id="passhist" style="width:100%;height:280px"></div>
 
 <div class="note"><b>What this is / isn't.</b> This is a <b>backtest of known winners on look-ahead-leaky
 web search</b> (Tavily re-surfaces past weeks with hindsight; CLAUDE.md #4/#6). A positive means the ticker
@@ -182,6 +343,23 @@ of noise (that's the next rung: run the scout→matcher→event-agent curator ov
 <b>upper bound</b>; the forward paper trade is the verdict. Backtest engine = Tavily (reaches history);
 live forward engine = Anthropic web_search (recent weeks) — same aligned beats, so this proxies forward
 retrieval (conservatively: Anthropic also spawns adaptive follow-ups this fixed sweep doesn't).</div>
+<div id="tt"></div>
+<script>
+const tt=document.getElementById('tt');
+document.querySelectorAll('.dot').forEach(c=>{{
+ c.addEventListener('mousemove',e=>{{
+  const d=c.dataset;
+  tt.innerHTML='<b>'+d.date+'</b> &middot; '+d.src+' &middot; '+d.price+' &middot; '+d.kind
+    +'<br><b>'+d.title+'</b><div class="lede">'+d.lede+'</div>';
+  tt.style.display='block';
+  let L=e.clientX+15; if(L>window.innerWidth-370)L=e.clientX-375;
+  tt.style.left=L+'px'; tt.style.top=(e.clientY+15)+'px';
+ }});
+ c.addEventListener('mouseleave',()=>tt.style.display='none');
+ c.addEventListener('click',()=>{{if(c.dataset.url)window.open(c.dataset.url,'_blank');}});
+}});
+</script>
+<script>{_diag(res)}</script>
 </body></html>"""
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(html)

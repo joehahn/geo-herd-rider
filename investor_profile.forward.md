@@ -61,6 +61,9 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - world-nuclear-news.org
   - breakingdefense.com
   - defensenews.com
+  # maritime + commodities specialty desks (surfaced the early BWET-tanker + gold theses in the backtest):
+  - seatrade-maritime.com
+  - kitco.com
 mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills that crowd out the gem call
   - fool.com
   - 247wallst.com
@@ -68,4 +71,6 @@ mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" l
   - kiplinger.com
   - money.usnews.com
   - stockstory.org
+  - defenseworld.net              # automated aggregator / content farm (122 low-quality hits in the backtest)
+  - ts2.tech                      # AI-generated content farm
 ---
