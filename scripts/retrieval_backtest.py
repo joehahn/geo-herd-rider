@@ -97,9 +97,11 @@ def run(start: str, end: str, lookback: int, ckpt: Path) -> dict:
 
 TAVILY_CREDIT_USD = 0.008   # pay-as-you-go rate (Jul-2026 receipt: $41.72 / 5216 credits), pre-tax
 WINDOW_OVERRIDE = {"RNMBY": ["2025-01-01", "2026-07-11"],   # full 2025-26 era (its rise+fall), per request
-                   "AREC": ["2025-01-01", "2026-05-01"],
+                   "INTC": ["2026-01-01", "2026-07-07"],    # 2026 foundry/Terafab/earnings run ($39->$141)
+                   "MU": ["2026-01-01", "2026-07-07"],      # 2026 AI-memory/HBM run ($315->$1213)
                    "TSM": ["2025-01-01", "2026-07-07"],
-                   "KGC": ["2025-05-01", "2026-07-07"],
+                   "NEM": ["2025-01-01", "2026-07-07"],
+                   "CIFR": ["2025-04-01", "2026-07-07"],
                    "HL": ["2025-09-01", "2026-02-28"]}
 # strong superlative markers — for the candidate shortlist's "gem-buzz" count (how many of a ticker's
 # mentions sit in a skyrocketing/soaring/record-high article), and shared with build_ground_truth intent

@@ -17,6 +17,7 @@ import yfinance as yf
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 PRICE_CACHE = REPO_ROOT / "data" / "prices_cache" / "panel.csv"
+VOLUME_CACHE = REPO_ROOT / "data" / "prices_cache" / "volume.csv"
 
 BENCHMARK = "SPY"
 
@@ -52,6 +53,32 @@ def fetch_panel(tickers: list[str], start: str, end: str, use_cache: bool = True
     PRICE_CACHE.parent.mkdir(parents=True, exist_ok=True)
     prices.to_csv(PRICE_CACHE)
     return prices
+
+
+def fetch_volume_panel(tickers: list[str], start: str, end: str, use_cache: bool = True) -> pd.DataFrame:
+    """Daily VOLUME panel for `tickers` over [start, end] (DatetimeIndex, tz-naive), cached to
+    data/prices_cache/volume.csv. Powers the RVOL breakout-confirmation gate (a +X% move on thin
+    volume is a false breakout). Same look-ahead hygiene as fetch_panel (explicit start/end)."""
+    tickers = sorted(set(tickers))
+    if use_cache and VOLUME_CACHE.exists():
+        cached = pd.read_csv(VOLUME_CACHE, index_col=0, parse_dates=True)
+        if set(tickers).issubset(cached.columns) and cached.index.min() <= pd.Timestamp(start) \
+                and cached.index.max() >= pd.Timestamp(end):
+            return cached[tickers]
+
+    raw = yf.download(tickers, start=start, end=end, interval="1d", auto_adjust=True, progress=False)
+    if raw is None or len(raw) == 0:
+        raise RuntimeError(f"yfinance returned no volume for {tickers}")
+    vol = raw["Volume"] if isinstance(raw.columns, pd.MultiIndex) else raw[["Volume"]]
+    if isinstance(vol, pd.Series):
+        vol = vol.to_frame(tickers[0])
+    elif list(vol.columns) == ["Volume"]:
+        vol = vol.rename(columns={"Volume": tickers[0]})
+    vol.index = pd.to_datetime(vol.index).tz_localize(None)
+
+    VOLUME_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    vol.to_csv(VOLUME_CACHE)
+    return vol
 
 
 def entry_index(trading_days: pd.DatetimeIndex, telegraph_ts: str,

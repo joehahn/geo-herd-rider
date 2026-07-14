@@ -125,6 +125,56 @@
       "vehicle_note": "window 2025-04-01..2026-01-01: agent must HOLD through the quiet-June lull to ride the July-2025 DoD-stake leap ($33->$64 in weeks) up to the ~3.9x peak ($99); current book exits end-May and misses it"
     },
     {
+      "id": "hl",
+      "ticker": "HL",
+      "name": "Hecla Mining",
+      "catalyst": "2025-26 silver / precious-metals rally (largest US silver miner)",
+      "trigger_date": "2025-09-01",
+      "window_start": "2025-09-01",
+      "window_end": "2026-02-28",
+      "size_tier": "mid",
+      "shape": "materials / COMMODITY RALLY (silver bull run)",
+      "peak_multiple": 7.0,
+      "vehicle_note": "single-stock silver miner; ran ~7x to Jan-2026 then -56% — a clean run-and-decay gem. Curator-backtest window 2025-09-01..2026-02-28 (retrieval Plot-1 era)"
+    },
+    {
+      "id": "tsm", "ticker": "TSM", "name": "Taiwan Semiconductor",
+      "catalyst": "AI/datacenter advanced-node chip-foundry demand", "trigger_date": "2025-04-01",
+      "window_start": "2025-01-01", "window_end": "2026-07-07", "size_tier": "mega", "shape": "AI semiconductor / secular",
+      "peak_multiple": 3.4, "vehicle_note": "mega-cap foundry; ~3.4x off the Apr-2025 tariff bottom, then plateaued near the high"
+    },
+    {
+      "id": "intc", "ticker": "INTC", "name": "Intel",
+      "catalyst": "foundry/AI turnaround: Terafab megaproject + blowout Q1 earnings", "trigger_date": "2026-04-07",
+      "window_start": "2026-01-01", "window_end": "2026-07-07", "size_tier": "large", "shape": "AI semiconductor / turnaround",
+      "peak_multiple": 3.58, "vehicle_note": "named early on 14A progress (Feb), ran on Musk's Terafab (Apr-7) + Q1 beat (Apr-23); $39->$141"
+    },
+    {
+      "id": "mu", "ticker": "MU", "name": "Micron",
+      "catalyst": "AI-memory / HBM boom (the DRAM-shortage thesis, retrievable as the stock)", "trigger_date": "2026-03-16",
+      "window_start": "2026-01-01", "window_end": "2026-07-07", "size_tier": "large", "shape": "AI memory / supply shock",
+      "peak_multiple": 3.89, "vehicle_note": "the retrievable single-stock version of the DRAM ETF; $315->$1213 to Jun-2026"
+    },
+    {
+      "id": "nem", "ticker": "NEM", "name": "Newmont",
+      "catalyst": "2025-26 gold bull run (world's largest gold miner)", "trigger_date": "2025-01-06",
+      "window_start": "2025-01-01", "window_end": "2026-07-07", "size_tier": "large", "shape": "materials / COMMODITY RALLY (gold)",
+      "peak_multiple": 3.55, "vehicle_note": "retrievable gold single-stock (vs mid-cap KGC, invisible to the beats); ~3.55x to Jan-2026"
+    },
+    {
+      "id": "cifr", "ticker": "CIFR", "name": "Cipher Mining",
+      "catalyst": "bitcoin-miner to AI/HPC-datacenter pivot (Google-backed Fluidstack deal)", "trigger_date": "2025-09-25",
+      "window_start": "2025-04-01", "window_end": "2026-07-07", "size_tier": "mid", "shape": "crypto miner / AI-datacenter pivot",
+      "peak_multiple": 13.9, "vehicle_note": "$2.10->$29 (13.9x) to Jun-2026; skyrocketed 300% on the AI cloud deal + bitcoin boom"
+    },
+    {
+      "id": "other", "ticker": "OTHER", "name": "Other themes",
+      "catalyst": "catch-all for curator events on themes with no designated gem (uranium/steel/lithium/quantum/space/biotech/one-offs)",
+      "trigger_date": "2025-01-01", "window_start": "2025-01-01", "window_end": "2026-07-07",
+      "size_tier": "n/a", "shape": "catch-all / candidate-gem shortlist", "peak_multiple": 0,
+      "vehicle_note": "no single overlay ticker; the book is the orphan-theme agents vs SPY. Promote strong themes to own dbs later."
+    },
+    {
       "id": "ypf",
       "ticker": "YPF",
       "name": "YPF (Argentina ADR)",

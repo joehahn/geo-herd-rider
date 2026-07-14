@@ -14,6 +14,58 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
 
+## Add a crypto / bitcoin-miner beat (parked 2026-07-14; needs a full re-ingest)
+
+CIFR (Cipher Mining — the bitcoin-miner→AI-datacenter pivot, 13.9× in 2026) recalls only **16% (5/31)**;
+crypto miners are thinly covered by the current 46 beats. Add a crypto/bitcoin-miner beat (e.g.
+`"bitcoin miner hashrate AI datacenter stock"` + a coverage variant) to `forward_gather.GEM_BEATS` /
+`COVERAGE_BEATS`. **Batch it with any OTHER beat tweaks** — a new beat only takes effect after a full
+~$14 Tavily re-ingest (the sweep resume is per-anchor, so there's no cheap delta), so don't re-sweep for
+this alone. It ALSO helps the live forward immediately (fresh gather, no re-ingest needed).
+
+## Curator simplification: LLM agent-picker replaces conviction/gates/aging (2026-07-14, forward-test candidate)
+
+Backtest (`scripts/proto_select.py`, post-hoc replay over `firehose_scans_full.json`) settled the redesign:
+**drop `conviction` + all gates (`momentum_gate`, `rvol_gate`) + `aging`; KEEP event-agents + milestones +
+catalyst + exits; replace the conviction-ranked `max_agents` cull with a weekly LLM agent-picker** that reads
+each live event's catalyst/milestones/exit/weeks-alive/cumulative-P&L and emits an ORDERED KEEP-LIST only
+(no numbers to the optimizer — #1-safe; sizing stays mechanical). Ranks on catalyst ARC (favor early/building,
+demote crested/near-resolution, reserve slots for fresh events), never predicted $.
+
+Evidence: conviction ≈ random (worthless); deepseek picker 23rd %ile (worse than random); **sonnet5 picker
+83rd %ile, +162%, funded the real winners (MU/MP)** — model quality is the whole story. BUT one backtest
+window + LLM training-contamination (sonnet5 trained on 2025–26 may recognize memorized winners) ⇒ **the
+forward paper trade is the only clean test** (see [[agent-picker-findings]]). Picker prompt + scoring harness
+live in `scripts/proto_select.py`; responses cached in `data/windows/picker_cache.json`.
+
+**IMPLEMENTED 2026-07-14 (verified free):** `src/picker.py` (portfolio picker, prompt + model-specific cache);
+`firehose.backtest(..., picker=)` opt-in pluggable cull — legacy path byte-identical (MP still +120.6%), picker
+path stub-tested (SPY+GLD appended post-cull, 6 metadata fields fed); `optimizer` defaults `max_events` +
+`picker_model`; `agent.scout`/`process_week` `max_events` knob (rename of CANDIDATE_CAP, default 3 = unchanged);
+`forward_engine` logs milestones+exit; `forward.py --report` builds+passes the picker (NaN-safe on old logs);
+both profiles carry `max_events`+`picker_model`. SPY/GLD dropped as competing agents (appended post-cull).
+
+**REMAINING (behavior change → needs a paid curator re-run / forward run to validate):**
+1. relax the scout prompt's self-limit ("rarely more than 2") so it discovers freely, then replace the
+   take-first-N inflow cull with a mechanical **diversity/novelty tiebreak** (needs a theme classifier moved into
+   `src/`). Flagged in the `agent.py` CANDIDATE_CAP comment.
+2. **Run it forward** (`forward.py --scan` weekly on post-cutoff weeks, `--report` for the picker cull) — the
+   clean test where memorization can't help. Acceptance bar = the random-percentile-vs-sub-windows scoreboard.
+3. Optional: dedup `scripts/proto_select.py`'s picker copy to import from `src/picker.py` (one prompt source).
+
+## Delete the RVOL gate if we don't need it later (turned OFF 2026-07-14)
+
+`rvol_gate` (breakout volume co-confirmation: fund a name only if recent volume ≥ Nx its 20-day avg) is
+now **OFF** (`rvol_gate: 0.0` in `investor_profile.backtest.md`). It tested as a win on the whole-era book
+(+$79K MP) but was **overfit**: on the per-gem thematic books it evicts the climbing gem from its own
+dashboard (volume fades faster than price → the gem fails the 1.5× test at most rebalances → capital parks
+in peers/SPY; MP capture 28%→59% with it off). Kept inert (guarded by `if rvol_gate > 0`, no runtime cost)
+in case it earns its keep at a **lower/adaptive threshold** or **as an exit** rather than an entry gate.
+**If it stays unused, DELETE the code** — `_rvol` + the gate application (`firehose.py`),
+`fetch_volume_panel` (`score.py`), the volume-panel plumbing, and the profile knob. **Batch this with the
+other deferred dead-knob deletions** (`trailing_stop_pct`, `prune_zero_weight_weeks`) — one deliberate
+cleanup pass, not piecemeal.
+
 ## Window the resolved-catalyst ledger fed to the scout (not urgent)
 
 The scout is told which catalysts have RESOLVED so it won't re-chase the hype (the `retired` ledger in

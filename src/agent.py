@@ -34,6 +34,7 @@ import costs  # noqa: E402
 import gdelt as gd  # noqa: E402
 import firehose  # noqa: E402
 import llm  # noqa: E402
+import picker_log  # noqa: E402
 from util import scan_anchors  # noqa: E402
 
 # Strict JSON schemas for the structured-output path (OpenRouter/DeepSeek — guarantees parseable
@@ -53,7 +54,11 @@ AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                               "news_claims": {"type": "string"},
                               "sources": {"type": "array", "items": {"type": "string"}}}}
 
-CANDIDATE_CAP = 3        # max candidate events the scout proposes per week (bound the fan-out)
+CANDIDATE_CAP = 3        # DEFAULT for the `max_events` knob: max NEW events the scout admits per week
+                         #   (bounds event-agent creation -> weekly LLM cost). 0 = uncapped inflow.
+                         #   TODO: when unbounded-discovery is enabled, replace the take-first-N cull below
+                         #   with a mechanical diversity/novelty tiebreak (spread across themes, prefer
+                         #   themes not already live) — NOT reward-ranking, NOT source-count.
 WINDOW_CAP = 80          # max firehose headlines shown to the scout per week
 
 SCOUT_SYSTEM = """You are a markets desk scanning a week of financial-news headlines to DISCOVER
@@ -281,7 +286,7 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
     return us
 
 
-def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> list[dict]:
+def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max_events: int = CANDIDATE_CAP) -> list[dict]:
     if not arts:
         return []
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
@@ -293,7 +298,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> 
                           label=f"scout-{anchor.date()}", json_schema=SCOUT_SCHEMA)
     cands = _extract(txt).get("candidates", [])
     out = []
-    for c in cands[:CANDIDATE_CAP]:
+    for c in (cands if not max_events else cands[:max_events]):   # max_events=0 -> uncapped inflow
         try:
             m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
         except Exception:  # noqa: BLE001
@@ -310,6 +315,10 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "") -> 
             out.append(m.model_dump())
         elif tk:
             print(f"  scope: dropped unresolved foreign ticker {tk} ({anchor.date()})", file=sys.stderr)
+    picker_log.log("scout", {"context": str(anchor.date()), "max_events": max_events,   # OFF unless enabled
+                             "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
+                                           "thesis": c.get("thesis", "")} for c in cands],
+                             "admitted": [p["ticker"] for p in out]})
     return out
 
 
@@ -744,8 +753,27 @@ def event_agent_v2(client, anchor, event, entries, news):
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
 
+def _carry_forward(anchor, ev) -> dict:
+    """SILENCE WEEK (no pooled article mentions this event's vehicles or catalyst): reproduce
+    event_agent_v2's DETERMINISTIC no-news behavior WITHOUT an LLM call. The EVENT_AGENT_SYSTEM prompt
+    instructs a plain silence-decay when there is no fresh coverage — conviction steps DOWN 1 (floored at
+    1), the thesis stays live (a fade is not an exit), and the vehicles are unchanged. Emitting that
+    mechanically leaves the scans/portfolio identical to a live run while skipping the (dominant)
+    silence-week judgment calls. A resolution/exit can only come FROM news, which IS fresh coverage -> the
+    real agent runs then, so no exit is ever missed. Returns the same dict shape as event_agent_v2."""
+    prev = ev["entries"][-1] if ev["entries"] else {}
+    conv = max(1, int(prev.get("conviction", 5) or 5) - 1)     # deterministic -1 silence-decay, floored at 1
+    veh = prev.get("vehicles") or sorted(ev["vehicles"])[:1]    # no news -> vehicles unchanged from last week
+    return {"date": anchor.date().isoformat(), "thesis_live": True, "exit_case": prev.get("exit_case", ""),
+            "catalyst_resolved": False, "conviction": conv, "exit_advice": prev.get("exit_advice", ""),
+            "milestones": prev.get("milestones", []),
+            "assessment": "No fresh coverage this week — mechanical silence-decay (no LLM call).",
+            "news_claims": "", "sources": [], "vehicles": veh}
+
+
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
-                 curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None):
+                 curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
+                 aging_floor=1, aging_patience=0, max_events=CANDIDATE_CAP):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
@@ -755,7 +783,12 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
 
     Two-tier LLM split: `scout_client` runs the cheap, high-volume extraction/routing stages (scout +
     matcher); `client` runs the judgment stage (the event agents). `scout_client` defaults to `client`,
-    so single-client callers keep the pre-split behavior byte-for-byte."""
+    so single-client callers keep the pre-split behavior byte-for-byte.
+
+    `gate_silent` (default True): skip the LLM event-agent on any live event with NO fresh coverage this
+    week (empty `_filter_event`) — reproducing its deterministic silence-decay mechanically (see
+    `_carry_forward`). Returns-neutral by construction; cuts the dominant silence-week judgment calls.
+    Set False to force a live agent on every event (the pre-gate baseline, for A/B)."""
     scout_client = scout_client or client
     src_fn = src_fn or (lambda tk: "live")
     if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
@@ -763,7 +796,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     else:                                                  # <0 = whole history; >0 = last N weeks only
         rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
                          if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
-    cands = scout(scout_client, anchor, pool, retired=rmem)
+    cands = scout(scout_client, anchor, pool, retired=rmem, max_events=max_events)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
@@ -786,7 +819,10 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     live_events = [ev for ev in events.values() if ev["status"] == "live"]
 
     def work(ev):
-        return ev, event_agent_v2(client, anchor, ev, ev["entries"], _filter_event(pool, ev))
+        news = _filter_event(pool, ev)
+        if gate_silent and not news:                       # silence week -> mechanical carry-forward, NO LLM call
+            return ev, _carry_forward(anchor, ev)
+        return ev, event_agent_v2(client, anchor, ev, ev["entries"], news)
 
     picks = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
@@ -806,6 +842,18 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                               "exit_advice": entry.get("exit_advice", ""),
                               "milestones": entry.get("milestones", []),
                               "evidence_urls": entry["sources"]})
+    # AGING RETIREMENT (candidate -> live -> AGING): retire a LIVE event that has faded to conviction
+    # <= aging_floor for aging_patience consecutive weeks — a SPENT thesis (no fresh milestone would keep
+    # its conviction up). Stops it spawning an agent, so the ~14-19 concurrent-agent pileup self-clears.
+    # REVIVAL-SAFE: retire as "aged" (NOT catalyst_resolved, NOT added to the don't-re-chase `retired`
+    # memory), so if genuinely fresh news returns the scout can RE-NOMINATE it (a new event, conviction
+    # reset) — preserving the 18-43% revival via re-nomination instead of an in-place hold. 0 = OFF.
+    if aging_patience > 0:
+        for ev in events.values():
+            if ev["status"] != "live" or len(ev["entries"]) < aging_patience:
+                continue
+            if all(int(e.get("conviction", 5) or 5) <= aging_floor for e in ev["entries"][-aging_patience:]):
+                ev["status"] = "aged"
     return picks, nid
 
 

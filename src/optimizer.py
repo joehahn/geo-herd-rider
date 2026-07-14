@@ -42,15 +42,43 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 14,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
+    "gather_model": "sonnet5",         # LIVE, FORWARD-ONLY (firehose): the LLM that runs the live web-search
+                                       #   gather (forward_gather). Web search is Anthropic-only, so this MUST
+                                       #   resolve to an Anthropic model. The backtest has NO gather (its pool
+                                       #   is GDELT/Tavily), so this knob is inert there — like news_cap it may
+                                       #   legitimately differ from .forward.md. Falls back to event_agent_model
+                                       #   (then legacy `model:`) if unset.
     "event_agent_model": "sonnet5",     # LIVE (judgment): the LLM that runs the per-event agents (the
-                                       #   live/exit switch + conviction). Keep on a strong model. Short
-                                       #   names resolved by resolve_curator_model(). (Legacy `model:` is
-                                       #   still read as a fallback for both stages.)
+                                       #   live/exit switch + conviction). Reads the ALREADY-gathered pool with
+                                       #   NO web search, so ANY provider works (decoupled from gather_model as
+                                       #   of the 3-knob split). Keep on a strong model for judgment quality.
+                                       #   Short names resolved by resolve_curator_model(). (Legacy `model:` is
+                                       #   still read as a fallback for all stages.)
     "scout_model": "llama4",           # LIVE (extraction/routing): the cheap, high-volume LLM that reads
                                        #   the firehose pool and does the scout + matcher stages. This is
                                        #   where the token cost lives, so it runs a cheap model (llama4,
                                        #   OpenRouter). Falls back to event_agent_model if unset.
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
+    "momentum_gate_pct": 0.0,          # LIVE (candidate->live PROMOTION gate): a curator-named ticker is only
+                                       #   FUNDED once its own realized trailing return (over momentum_window_days)
+                                       #   clears this threshold — price-confirmation that the market is already
+                                       #   rewarding the thesis (the LLM conviction is a weak return-predictor; a
+                                       #   +20%/1mo gate lifted backtests +17..+157% across MP/HL/BWET). Below the
+                                       #   gate a name stays a monitored CANDIDATE (unfunded). 0.0 = OFF (no gate).
+                                       #   Deterministic + look-ahead-clean (trailing). Meant to be SWEPT.
+    "momentum_window_days": 30,        # LIVE: trailing calendar-day window for the momentum_gate_pct confirmation.
+    "rvol_gate": 0.0,                  # LIVE (breakout CO-confirmation): only FUND a name whose recent volume >=
+                                       #   rvol_gate x its trailing-avg volume — a +X% move on THIN volume is a false
+                                       #   breakout (rejects the "caught-but-fake" case). 1.5 = 150% of avg. 0.0 = OFF.
+    "rvol_window_days": 20,            # LIVE: trailing trading-day window for the RVOL average.
+    "trailing_low_days": 0,            # LIVE (let-winners-run EXIT): unfund a LIVE name that makes a new N-trading-day
+                                       #   price low (Turtle-style trailing breakdown) — cut losers, let winners ride.
+                                       #   0 = OFF. Typical 10 (tight) or 20 (loose).
+    "aging_floor": 1,                  # CURATOR (aging->retire): conviction at/below which a LIVE event counts as
+                                       #   "aging" (a spent/faded thesis). Paired with aging_patience.
+    "aging_patience": 0,               # CURATOR: retire an event once it's been at/below aging_floor for this many
+                                       #   consecutive weeks -> stops it spawning an agent (clears the concurrent-agent
+                                       #   pileup). Revival-safe (scout may re-nominate on fresh news). 0 = OFF.
     "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
@@ -61,7 +89,7 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   read is capped. (backtest_gdelt overrides via --news-cap.)
     # forward web-search domain steering (forward_gather two-pass). Curate by OUTLET TYPE, never by outcome.
     "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
-                        "tipranks.com", "barchart.com",   # generalist stock/ETF desks (all sectors)
+                        "tipranks.com", "barchart.com", "zerohedge.com",   # generalist stock/ETF + macro desks (all sectors)
                         "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com",
                         "endpts.com", "statnews.com", "biopharmadive.com", "quantumcomputingreport.com",
                         "world-nuclear-news.org", "breakingdefense.com", "defensenews.com",  # sector trade press (tech-growth/defense)
@@ -69,8 +97,20 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
                    "stockstory.org", "defenseworld.net", "ts2.tech",   # listicle mills + content farms
                    "marketbeat.com"],  # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
-    "max_agents": 7,                   # LIVE (firehose backtest): keep only the top-N agents (by the agent's
-                                       #   catalyst-conviction rating) in the weekly watchlist. 0 = uncapped.
+    "max_agents": 7,                   # LIVE (PORTFOLIO cull): keep only the top-N EVENT-agents that hold capital.
+                                       #   SPY/GLD are NOT agents here (added to the optimizer AFTER the cull). When a
+                                       #   caller passes a picker, the LLM agent-picker ranks; else the legacy conviction
+                                       #   sort. 0 = uncapped. (Old spy/defensive-agent-conviction ranking is legacy.)
+    "max_events": 3,                   # LIVE (scout INFLOW cap): max NEW events the scout admits per week. Bounds
+                                       #   event-agent creation -> weekly LLM cost. Enforced CHEAPLY (catalyst gate,
+                                       #   then a mechanical diversity/novelty tiebreak — NOT the picker, NOT reward-
+                                       #   ranking, NOT source-count). Rename of the old CANDIDATE_CAP=3. 0 = uncapped.
+    "picker_model": "sonnet5",         # the model src/picker.make_picker uses for the max_agents cull WHEN a caller
+                                       #   opts in (proto_select --picker / forward). INERT otherwise (no auto LLM calls
+                                       #   on dashboard rebuilds). Needs a STRONG model — cheap pickers tie/trail random.
+    "picker_effort": "low",            # Anthropic reasoning effort for the picker call. 'low' = cheap/fast (a ranking
+                                       #   task needs little thinking) — use for backtest replays. 'high' for forward
+                                       #   (1 call/week, trivial cost, and reasoning may be the picker's only edge).
     "spy_agent_conviction": 5,
     "defensive_agent_conviction": 5,   # LIVE (firehose backtest): a 2nd always-on "agent" (defensive default, e.g.
                                        #   gold) at this conviction; a faded event ranked below it is displaced and
@@ -108,18 +148,30 @@ def resolve_curator_model(short: str) -> tuple[str, str]:
 
 
 def resolve_stage_models(fm: dict) -> tuple[tuple[str, str], tuple[str, str]]:
-    """Two-tier curator split from a loaded financial model. Returns
+    """CURATOR stage split from a loaded financial model. Returns
     ((scout_id, scout_provider), (event_id, event_provider)).
 
-    * event_agent_model — the judgment stage (event agents); strong model.
+    * event_agent_model — the judgment stage (event agents); reads the already-gathered
+      pool with no web search, so it may be ANY provider (decoupled from the gather).
     * scout_model — the cheap high-volume extraction/routing stage (scout + matcher);
       falls back to the event model if unset.
+    * The live web-search GATHER is a THIRD, separate stage — see resolve_gather_model.
     * Legacy: a single `model:` key (old profiles/archives) is honored as the fallback
-      for BOTH stages, so pre-split configs keep resolving unchanged."""
+      for both curator stages, so pre-split configs keep resolving unchanged."""
     legacy = fm.get("model") or "sonnet5"
     event_short = fm.get("event_agent_model") or legacy
     scout_short = fm.get("scout_model") or event_short
     return resolve_curator_model(scout_short), resolve_curator_model(event_short)
+
+
+def resolve_gather_model(fm: dict) -> tuple[str, str]:
+    """The live web-search GATHER model (the 'firehose' stage) -> (model_id, provider).
+
+    Web search is Anthropic-only, so this must resolve to an Anthropic model (the caller —
+    forward.py — validates the provider and errors clearly otherwise). Forward-only: the
+    backtest has no gather. Falls back to event_agent_model, then legacy `model:`, if unset."""
+    short = fm.get("gather_model") or fm.get("event_agent_model") or fm.get("model") or "sonnet5"
+    return resolve_curator_model(short)
 
 
 def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> dict[str, Any]:

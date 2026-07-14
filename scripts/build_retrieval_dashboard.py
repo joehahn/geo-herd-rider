@@ -23,24 +23,30 @@ OUT = REPO / "docs_preview" / "retrieval_backtest.html"
 
 FORM_COLOR = {"single stock": "#2f9e44", "ETF wrapper": "#f08c00", "foreign ADR": "#868e96"}
 DISPLAY_FORM = {"single stock": "stock", "ETF wrapper": "ETF", "foreign ADR": "ADR"}   # badge label
-LANE_ORDER = ["MP", "AREC", "TSM", "KGC", "HL", "DRAM", "BWET", "GDX", "RNMBY"]   # single stocks, then ETFs, then ADR
+LANE_ORDER = ["MP", "TSM", "INTC", "MU", "NEM", "HL", "CIFR", "BWET", "GDX", "RNMBY"]   # single stocks, then ETFs, then ADR
 CAPTION = {  # per-gem storyline (why it moved) + the retrieval timing vs the actual price peak
     "MP": "The only US rare-earth producer — rallied as the US moved to break its dependence on Chinese "
           "rare earths (China's Apr-2025 export controls, then a July DoD equity stake). Named by ticker "
           "at the base of the run-up, <b>~7½ months before its Oct-2025 peak</b>.",
-    "AREC": "American Resources / ReElement — a tiny critical-minerals small-cap riding the <b>same 2025 "
-            "rare-earth / China-decoupling thesis as MP</b> (US rare-earth supply chain, NdFeB magnets, "
-            "gallium for defense). Higher-beta MP sibling: <b>16.9× to Oct-2025, then −74%</b>.",
+    "INTC": "Intel — the <b>foundry / AI-turnaround</b> thesis: named early on 14A-process progress (Feb-2026), "
+            "then ran on <b>joining Elon Musk's Terafab AI-chip megaproject (Apr-7)</b> and a <b>blowout Q1 "
+            "earnings beat (Apr-23, +23–28%)</b>. <b>$39 → $141 (3.58×) to Jun-2026</b>, now ~$103. A heavily-covered "
+            "single-stock mover (245 by-ticker articles).",
     "TSM": "Taiwan Semiconductor (TSMC) — the AI/datacenter <b>chip-foundry</b> thesis (advanced-node demand "
            "from the AI boom). Mega-cap, the #1 candidate ticker the retriever named on its own: <b>~3.4× off "
            "the Apr-2025 tariff bottom</b>, then plateaued near the high (a secular winner more than a decayed gem).",
-    "KGC": "Kinross Gold — a <b>gold miner</b> riding the 2025-26 gold bull run (a GDX constituent). "
-           "<b>~4× to Jan-2026</b>, then pulled back with the metal.",
+    "NEM": "Newmont — the world's largest <b>gold miner</b>, riding the 2025-26 gold bull run (a GDX top holding). "
+           "<b>~3.55× to Jan-2026</b>, then pulled back with the metal. The <b>retrievable</b> gold single-stock "
+           "(62 by-ticker articles) — where mid-cap Kinross (KGC) was invisible to the generic beats (0/29 recall).",
+    "CIFR": "Cipher Mining — a <b>bitcoin miner pivoting to AI/HPC datacenters</b> (Google-backed $1.4B Fluidstack "
+            "deal, Sep-2025; 'skyrockets 300% on AI cloud deal', Oct-2025). The 2026 crypto-miner→AI-compute theme. "
+            "<b>$2.10 → $29 (13.9×)</b> to Jun-2026 — the biggest mover in the candidate set.",
     "HL": "Hecla Mining — the largest US <b>silver miner</b>; rode the silver / precious-metals rally. "
           "<b>~7× to Jan-2026, then −56%</b> — a classic run-and-decay gem.",
-    "DRAM": "Roundhill Memory ETF (launched 2026-04-02) — plays the DRAM/HBM memory shortage driven by the "
-            "AI-datacenter boom. ETF named <b>~6 weeks before peak</b>; the memory thesis (hollow) was "
-            "visible months earlier, <b>before the fund even existed</b>.",
+    "MU": "Micron — the <b>AI-memory / HBM</b> pure-play: the <b>retrievable single-stock version of the DRAM-ETF "
+          "thesis</b> (memory shortage + high-bandwidth-memory demand for AI datacenters). Named early and often "
+          "by ticker (296 articles) on doubled price targets + a monster Q2 + a new Taiwan memory site. <b>$315 → "
+          "$1,213 (3.89×) to Jun-2026</b>, now ~$937 — where the DRAM ETF was un-retrievable, the stock isn't.",
     "BWET": "Breakwave Tanker Shipping ETF — crude-tanker (VLCC) freight rates spiking on the 2026 "
             "Strait-of-Hormuz / Iran crisis. Named by ticker only <b>after a ~600% run</b> (still ~2 months "
             "before the top); the tanker thesis (hollow) showed earlier.",
@@ -244,10 +250,18 @@ def build() -> Path:
     .nav a.soon{color:#6c757d;cursor:default;border:1px dashed #495057}
     .nav .gen{margin-left:auto;color:#868e96;font-size:11px}
     """
+    # link only to gem-curator dashboards that ACTUALLY exist yet (they appear as the full-pool run advances)
+    gem_links = ""
+    for g in LANE_ORDER:
+        sub = "bwet_curator" if g == "BWET" else g.lower()
+        if (REPO / "docs" / sub / "index.html").exists():
+            gem_links += f'<a href="../docs/{sub}/index.html">{g}</a>'
+    if (REPO / "docs" / "other" / "index.html").exists():   # non-gem catch-all (candidate future gems)
+        gem_links += '<a href="../docs/other/index.html">OTHER</a>'
     nav = (f'<nav class="nav"><a href="retrieval_backtest.html" class="active">Retrieval backtest</a>'
-           f'<a class="soon">+ next db (soon)</a>'
-           f'<a href="{README_URL}">README</a>'
-           f'<span class="gen">generated {datetime.now().strftime("%Y-%m-%d %H:%M")}</span></nav>')
+           + gem_links
+           + f'<a href="{README_URL}">README</a>'
+           + f'<span class="gen">generated {datetime.now().strftime("%Y-%m-%d %H:%M")}</span></nav>')
     half = res["candidates"][:20]
     mx = half[0][1] if half else 1
     col1 = "".join(_cand_row(*r, mx) for r in half[:10])

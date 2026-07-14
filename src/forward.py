@@ -42,7 +42,7 @@ import score
 import trace
 import trump_feed
 import wayback
-from optimizer import load_financial_model, resolve_curator_model, resolve_stage_models
+from optimizer import load_financial_model, resolve_curator_model, resolve_gather_model, resolve_stage_models
 from util import load_dotenv, scan_anchors, news_domains
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -82,7 +82,7 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     """Write the immutable per-week archive (LOCAL-ONLY). REUSES the gather's already-frozen in-window
     pool (`capture['arts']` — the actual scout input, no re-fetching) + the full raw-result metadata."""
     cfg = load_financial_model(str(PROFILE))               # stamp the frozen config that produced this week
-    knobs = {k: cfg.get(k) for k in ("event_agent_model", "scout_model", "concentration_cap", "risk_aversion",
+    knobs = {k: cfg.get(k) for k in ("gather_model", "event_agent_model", "scout_model", "concentration_cap", "risk_aversion",
              "min_trade_size", "lookback_period_days", "max_agents", "spy_agent_conviction",
              "defensive_agent_conviction", "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
     pool = capture.get("arts", [])                         # frozen in-window pool: {title,url,published_date,source,snippet}
@@ -131,10 +131,14 @@ def _use_sandbox(dir_path: str) -> None:
 def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                  anchor: pd.Timestamp | None = None, news_cap: int = 0,
                  gather_engine: str = "both", scout_model: str | None = None,
-                 scout_provider: str = "anthropic") -> pd.DataFrame:
+                 scout_provider: str = "anthropic", gather_model: str | None = None,
+                 event_provider: str = "anthropic") -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
-    LOCAL journal; here we log the decision + archive the raw inputs."""
+    LOCAL journal; here we log the decision + archive the raw inputs.
+
+    `model` is the event/judgment model (any provider); `gather_model` is the Anthropic web-search
+    firehose model (defaults to `model`). Three-tier split — see optimizer.resolve_gather_model."""
     log = _read()
     anchor = anchor if anchor is not None else _current_anchor(rebalance_days)
     wk_key = anchor.date().isoformat()
@@ -165,7 +169,8 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     picks = forward_engine.run_week(anchor, model, rebalance_days,
                                     curator_memory_weeks=curator_memory_weeks, capture=capture, news_cap=news_cap,
                                     gather_engine=gather_engine, pool=pool,
-                                    scout_model=scout_model, scout_provider=scout_provider)
+                                    scout_model=scout_model, scout_provider=scout_provider,
+                                    gather_model=gather_model, event_provider=event_provider)
     # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
     # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
@@ -175,6 +180,7 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     rows = [{"decision_ts": decision_ts, "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
              "conviction": p.get("conviction", ""),
+             "milestones": p.get("milestones", ""), "exit_advice": p.get("exit_advice", ""),  # picker evidence
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
     SCANS_CSV.parent.mkdir(parents=True, exist_ok=True)
@@ -194,8 +200,10 @@ def _scans_dict(log: pd.DataFrame) -> dict:
             if not str(r.get("ticker", "")).strip():
                 continue
             tl = r.get("thesis_live")
+            _cell = lambda k: ("" if pd.isna(r.get(k, "")) else str(r.get(k, "")))   # NaN-safe (old logs lack these cols)
             picks.append({"ticker": str(r["ticker"]).strip().upper(),
                           "thesis": r.get("thesis", ""),
+                          "milestones": _cell("milestones"), "exit_advice": _cell("exit_advice"),  # picker evidence
                           "thesis_live": str(tl) in ("True", "true", "1", "1.0", "True ")})
         out[anchor] = picks
     return dict(sorted(out.items()))
@@ -256,7 +264,13 @@ def report() -> None:
     fm = load_financial_model(str(PROFILE))
     cap = float(fm.get("initial_investment_usd", 50_000))
     scans = _scans_dict(log)
-    bt = firehose.backtest(scans, fm, cap)
+    pk = None
+    if fm.get("picker_model"):                        # the weekly max_agents cull = the LLM agent-picker
+        import picker                                  # noqa: PLC0415
+        pk, pstats = picker.make_picker(fm)
+    bt = firehose.backtest(scans, fm, cap, picker=pk)
+    if pk:
+        print(f"  agent-picker: {pstats()[1]}, {pstats()[0]} LLM calls (rest cached)")
     print(f"weeks scanned: {len(weeks)}  ({weeks[0]} .. {weeks[-1]})")
     print(f"  firehose portfolio : ${cap:,.0f} -> ${bt['final']:,.0f} ({bt['final']/cap-1:+.1%})")
     print(f"  SPY           : ${cap:,.0f} -> ${bt['spy_final']:,.0f} ({bt['spy_final']/cap-1:+.1%})")
@@ -284,7 +298,10 @@ def explain(week: str | None = None) -> None:
     block = "\n".join(f"[{a.get('published_date')} | {a.get('source')}] {a.get('title')} "
                       f"— {a.get('snippet', '')[:180]}" for a in pool)
     _cfg = rec.get("config", {})
-    model_id = resolve_curator_model(_cfg.get("event_agent_model") or _cfg.get("model") or "sonnet5")[0]
+    # the audit runs on Anthropic (it's a web-search-free critique); resolve the Anthropic gather model,
+    # never the (possibly non-Anthropic) event model, else make_client("anthropic", <llama-id>) would break.
+    model_id = resolve_curator_model(_cfg.get("gather_model") or _cfg.get("event_agent_model")
+                                     or _cfg.get("model") or "sonnet5")[0]
     sys_p = ("You audit a hidden-gem scout. It keeps ONLY a still-EARLY / under-the-radar US-listed ticker "
              "tied to a SPECIFIC, DATABLE, RESOLVABLE catalyst (a war/chokepoint, export ban/tariff, named "
              "bill, regulatory/agency action, supply shock, deal, OR a dated future event it is rising in "
@@ -306,6 +323,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--report", action="store_true", help="mark the accumulated portfolio to market vs SPY")
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to data/forward/transcript.jsonl (or PATH)")
+    ap.add_argument("--log-picker", nargs="?", const="__default__", default=None, dest="log_picker",
+                    help="AUDIT the scout + agent pickers: log every cull's full inputs+outputs to "
+                         "data/forward/picker_decisions.jsonl (or PATH). OFF by default.")
     ap.add_argument("--model", default=None,
                     help="curator model id override; default = investor_profile.forward.md's model knob "
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
@@ -326,6 +346,11 @@ def main(argv: list[str] | None = None) -> int:
         tp = str(SCANS_CSV.parent / "transcript.jsonl") if args.trace == "__default__" else args.trace
         trace.enable(tp)
         print(f"  TRACE ON -> {tp}", flush=True)
+    if args.log_picker is not None:
+        import picker_log  # noqa: PLC0415
+        lp = str(SCANS_CSV.parent / "picker_decisions.jsonl") if args.log_picker == "__default__" else args.log_picker
+        picker_log.enable(lp)
+        print(f"  PICKER LOG ON -> {lp}", flush=True)
     if args.sandbox:
         _use_sandbox(args.sandbox)
     if not (args.scan or args.report or args.explain is not None or args.pull):
@@ -340,21 +365,23 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set (export it or put it in .env).", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        (scout_id, scout_prov), (event_id, provider) = resolve_stage_models(fm)
-        if args.model:                          # explicit override wins (event/gather model)
-            event_id = args.model
-        elif provider != "anthropic":           # the gather + event model does web search (Anthropic-only)
-            print(f"ERROR: forward --scan needs an Anthropic event_agent_model (gather web search is "
-                  f"Anthropic-only); '{fm.get('event_agent_model') or fm.get('model')}' resolves to "
-                  f"provider '{provider}'. Pass --model <anthropic-id>. (scout_model may be any provider.)",
-                  file=sys.stderr)
+        (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
+        gather_id, gather_prov = resolve_gather_model(fm)
+        if args.model:                          # explicit override wins — sets the Anthropic GATHER model
+            gather_id, gather_prov = args.model, "anthropic"
+        if gather_prov != "anthropic":          # ONLY the gather does web search (Anthropic-only); event may be any provider
+            print(f"ERROR: forward --scan needs an Anthropic gather_model (the web-search firehose is "
+                  f"Anthropic-only); '{fm.get('gather_model') or fm.get('event_agent_model') or fm.get('model')}' "
+                  f"resolves to provider '{gather_prov}'. Pass --model <anthropic-id>. "
+                  f"(event_agent_model and scout_model may be any provider.)", file=sys.stderr)
             return 2
         rebal = args.rebalance_days or int(fm.get("rebalance_days", 7))
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
                      news_cap=int(fm.get("news_cap", 0)),
                      gather_engine=(args.gather or str(fm.get("gather_engine", "both"))),
-                     scout_model=scout_id, scout_provider=scout_prov)
+                     scout_model=scout_id, scout_provider=scout_prov,
+                     gather_model=gather_id, event_provider=event_prov)
 
     if args.pull:
         load_dotenv()
@@ -362,8 +389,8 @@ def main(argv: list[str] | None = None) -> int:
             print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
             return 2
         fm = load_financial_model(str(PROFILE))
-        (_si, _sp), (event_id, _prov) = resolve_stage_models(fm)   # daily gather = Anthropic event model
-        pull_day(args.model or event_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))))
+        gather_id, _gp = resolve_gather_model(fm)                   # daily pull is gather-ONLY (Anthropic web search)
+        pull_day(args.model or gather_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))))
 
     if args.report:
         report()

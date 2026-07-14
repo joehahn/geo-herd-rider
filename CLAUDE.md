@@ -81,14 +81,18 @@ news firehose pays. Confirm scope before jumping ahead.
   (`backtest_gdelt.py`, sweeps, gem-dashboards, bake-off) — free to evolve. `investor_profile.forward.md`
   = the FROZEN live-forward candidate (`forward.py`). Keep the **strategy knobs** (`event_agent_model`,
   `scout_model`, `max_agents`, the floors, `risk_aversion`, `concentration_cap`) synced across both so the
-  backtest stays a valid proxy; only **retrieval-operational** knobs (`news_cap`) may differ. Promoting a
-  backtest candidate to forward = copy the strategy knobs into `.forward.md` as a dated re-freeze. Any
-  profile knob you add must be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model` silently
-  drops it.
-  - **Two-tier curator (2026-07-10):** the old single `model` knob is split into `event_agent_model`
-    (judgment: per-event agents + the forward's Anthropic web-search gather — must be Anthropic) and
-    `scout_model` (cheap scout+matcher; any provider). `resolve_stage_models(fm)` returns both, with a
-    legacy `model:` key honored as the fallback for both. `news_cap` (renamed from `window_cap`) is the
-    per-week scout-read budget (`0`=uncapped); the forward's daily `--pull` fetches uncapped regardless.
+  backtest stays a valid proxy; only **retrieval-operational** knobs (`news_cap`, `gather_model`) may differ.
+  Promoting a backtest candidate to forward = copy the strategy knobs into `.forward.md` as a dated re-freeze.
+  Any profile knob you add must be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model`
+  silently drops it.
+  - **Three-tier curator (2026-07-12; was two-tier 2026-07-10):** the old single `model` knob is split into
+    three decoupled stages: `gather_model` (the live web-search FIREHOSE — Anthropic-ONLY, since web search is;
+    the ONLY stage that must be Anthropic; forward-only, inert in the backtest), `event_agent_model` (JUDGMENT:
+    per-event agents; reads the gathered pool with NO web search, so ANY provider), and `scout_model` (cheap
+    scout+matcher; ANY provider). `resolve_stage_models(fm)` returns (scout, event); `resolve_gather_model(fm)`
+    returns the gather. A legacy `model:` key is the fallback for all three. The Anthropic requirement is now
+    ONLY on `gather_model`, so a cheap `event_agent_model` is a legal config and the backtest can proxy a
+    cheap-judgment forward. `news_cap` (renamed from `window_cap`) is the per-week scout-read budget
+    (`0`=uncapped); the forward's daily `--pull` fetches uncapped regardless.
 - Commit/push only when asked. Commit-message trailer:
   `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>`

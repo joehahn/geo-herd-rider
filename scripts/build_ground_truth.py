@@ -29,11 +29,12 @@ OUT = REPO / "data" / "gem_ground_truth.json"
 # gem -> display names to search by, and its era
 GEMS_GT = {
     "MP":    {"names": ["MP Materials stock", "$MP rare earth"], "start": "2025-01-01", "end": "2025-12-31"},
-    "AREC":  {"names": ["American Resources AREC stock", "ReElement rare earth AREC"], "start": "2025-01-01", "end": "2026-05-01"},
+    "INTC":  {"names": ["Intel INTC stock", "Intel foundry chip $INTC"], "start": "2026-01-01", "end": "2026-07-07"},
     "TSM":   {"names": ["Taiwan Semiconductor TSM stock", "TSMC $TSM chip"], "start": "2025-01-01", "end": "2026-07-07"},
-    "KGC":   {"names": ["Kinross Gold KGC stock", "Kinross gold miner $KGC"], "start": "2025-05-01", "end": "2026-07-07"},
+    "NEM":   {"names": ["Newmont NEM stock", "Newmont gold miner $NEM"], "start": "2025-01-01", "end": "2026-07-07"},
+    "CIFR":  {"names": ["Cipher Mining CIFR stock", "Cipher bitcoin AI datacenter $CIFR"], "start": "2025-04-01", "end": "2026-07-07"},
     "HL":    {"names": ["Hecla Mining HL stock", "Hecla silver miner $HL"], "start": "2025-09-01", "end": "2026-02-28"},
-    "DRAM":  {"names": ["Roundhill Memory ETF DRAM", "DRAM memory ETF"], "start": "2026-01-01", "end": "2026-07-11"},
+    "MU":    {"names": ["Micron MU stock", "Micron memory HBM $MU"], "start": "2026-01-01", "end": "2026-07-07"},
     "BWET":  {"names": ["Breakwave Tanker Shipping ETF", "BWET tanker ETF"], "start": "2026-01-01", "end": "2026-07-11"},
     "GDX":   {"names": ["VanEck Gold Miners ETF GDX", "GDX gold miners"], "start": "2025-01-01", "end": "2026-07-11"},
     "RNMBY": {"names": ["Rheinmetall stock", "RNMBY defense stock"], "start": "2025-01-01", "end": "2026-02-28"},

@@ -18,12 +18,14 @@ import re
 GEMS = {
     "MP":    {"form": "single stock", "name": ["mp materials"], "ticker": ["MP"],
               "thesis": ["rare earth", "rare-earth", "neodymium", "critical mineral"]},
-    "AREC":  {"form": "single stock", "name": ["american resources", "reelement"], "ticker": ["AREC"],
-              "thesis": ["rare earth", "rare-earth", "critical mineral", "ndfeb", "gallium", "magnet"]},
+    "INTC":  {"form": "single stock", "name": ["intel"], "ticker": ["INTC"],
+              "thesis": ["foundry", "chip factory", "terafab", "14a process", "semiconductor", "ai chip"]},
     "TSM":   {"form": "single stock", "name": ["taiwan semiconductor", "tsmc"], "ticker": ["TSM"],
               "thesis": ["semiconductor", "foundry", "ai chip", "chipmaker", "advanced node"]},
-    "KGC":   {"form": "single stock", "name": ["kinross gold", "kinross"], "ticker": ["KGC"],
+    "NEM":   {"form": "single stock", "name": ["newmont"], "ticker": ["NEM"],
               "thesis": ["gold miner", "gold mining", "gold price", "bullion"]},
+    "CIFR":  {"form": "single stock", "name": ["cipher mining", "cipher"], "ticker": ["CIFR"],
+              "thesis": ["bitcoin miner", "crypto mining", "bitcoin mining", "ai datacenter", "hpc", "hashrate"]},
     "HL":    {"form": "single stock", "name": ["hecla mining", "hecla"], "ticker": ["HL"],
               "thesis": ["silver miner", "silver mining", "silver price", "silver rally"]},
     "GDX":   {"form": "ETF wrapper", "name": ["vaneck gold", "gold miners etf"], "ticker": ["GDX"],
@@ -32,14 +34,13 @@ GEMS = {
               "thesis": ["german defen", "europe defen", "defense spending", "rearmament"]},
     "BWET":  {"form": "ETF wrapper", "name": ["breakwave"], "ticker": ["BWET"],
               "thesis": ["vlcc", "tanker rate", "tanker stock", "freight rate", "supertanker"]},
-    # DRAM: ticker collides with "DRAM" the memory commodity -> STRICT (require $DRAM/(DRAM) form, never
-    # the bare word, else Micron/DRAM-chip articles false-positive). name catches the Roundhill Memory ETF.
-    "DRAM":  {"form": "ETF wrapper", "name": ["roundhill memory", "memory etf"], "ticker": ["DRAM"],
-              "strict": True, "thesis": ["memory chip", "dram shortage", "memory shortage",
-                                         "memory price", "dram price"]},
+    # MU: the memory/AI-HBM single stock (the RETRIEVABLE version of the DRAM-ETF thesis). Ticker "MU" is
+    # only 2 chars, so the bare-word rule is off (len>=3) -> matches via $MU/(MU) form or the "micron" name.
+    "MU":    {"form": "single stock", "name": ["micron"], "ticker": ["MU"],
+              "thesis": ["memory chip", "dram", "hbm", "high-bandwidth memory", "ai memory"]},
 }
-PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": "2026-04-25", "DRAM": "2026-06-18",
-        "AREC": "2025-10-14", "TSM": "2026-06-30", "KGC": "2026-01-28", "HL": "2026-01-23"}
+PEAK = {"MP": "2025-07-10", "GDX": "2026-02-13", "RNMBY": "2025-11-19", "BWET": "2026-04-25", "MU": "2026-06-25",
+        "INTC": "2026-06-22", "TSM": "2026-06-30", "NEM": "2026-01-28", "CIFR": "2026-06-18", "HL": "2026-01-23"}
 
 
 def _ticker_hit(tk: str, raw: str, strict: bool = False) -> bool:

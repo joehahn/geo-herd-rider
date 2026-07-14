@@ -426,16 +426,69 @@ def _agent_precision(scans: dict, panel, fm: dict | None = None) -> list:
 OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->W.Med transit
 
 
+def _trailing_return(panel, ticker, asof, window_days):
+    """Realized trailing return of `ticker` over `window_days` calendar days ending at `asof` (a trading
+    day). Uses ONLY prices on/before `asof` -> look-ahead-clean. None if unpriced / no history in-window.
+    Powers the momentum-confirmation gate (candidate -> live promotion)."""
+    if ticker not in panel.columns:
+        return None
+    s = panel[ticker].dropna()
+    s = s[s.index <= asof]
+    if len(s) < 2:
+        return None
+    past = s[s.index <= asof - pd.Timedelta(days=window_days)]
+    if not len(past):
+        return None
+    return s.iloc[-1] / past.iloc[-1] - 1.0
+
+
+def _rvol(vol_panel, ticker, asof, window_td):
+    """Relative volume as of `asof`: latest daily volume / trailing `window_td`-trading-day average.
+    Look-ahead-clean. None if unavailable. Powers the breakout volume co-confirmation."""
+    if vol_panel is None or ticker not in vol_panel.columns:
+        return None
+    v = vol_panel[ticker].dropna()
+    v = v[v.index <= asof]
+    if len(v) < 2:
+        return None
+    avg = v.iloc[-window_td:].mean() if len(v) >= 2 else None
+    if not avg or avg <= 0:
+        return None
+    return float(v.iloc[-1] / avg)
+
+
+def _at_trailing_low(panel, ticker, asof, window_td):
+    """True if `ticker`'s latest close is at/below its trailing `window_td`-trading-day low as of `asof`
+    (a Turtle-style breakdown -> cut the loser). Look-ahead-clean. False if unpriced/insufficient history."""
+    if ticker not in panel.columns:
+        return False
+    s = panel[ticker].dropna()
+    s = s[s.index <= asof]
+    if len(s) <= window_td:
+        return False
+    return float(s.iloc[-1]) <= float(s.iloc[-window_td:].min()) + 1e-12
+
+
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
-             panel: pd.DataFrame | None = None,
-             overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR) -> dict:
+             panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
+             overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
+
+    `picker` (opt-in) = a callable(cand_meta, max_keep) -> ordered keep-list (see src/picker.make_picker).
+    When passed, the max_agents cull ranks EVENT-agents via the LLM picker instead of conviction, and
+    SPY + the defensive asset are dropped as competing agents — they're appended to the optimizer AFTER
+    the cull. When None (default: all dashboards/sweeps), behavior is byte-identical to before (no LLM).
 
     `panel` lets a caller inject a FROZEN adjusted-close panel (DatetimeIndex, tz-naive) instead of
     fetching live — used by the golden-snapshot regression replay so results are deterministic
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
+    mom_gate = float(fm.get("momentum_gate_pct", 0.0) or 0.0)   # candidate->live PROMOTION: only fund a name whose
+    mom_win = int(fm.get("momentum_window_days", 30) or 30)     #   trailing mom_win-day return >= mom_gate. 0.0 = OFF.
+    rvol_gate = float(fm.get("rvol_gate", 0.0) or 0.0)          # breakout volume co-confirm: recent vol >= rvol_gate x avg
+    rvol_win = int(fm.get("rvol_window_days", 20) or 20)        #   over rvol_win trading days. 0.0 = OFF.
+    tlow_days = int(fm.get("trailing_low_days", 0) or 0)        # let-winners-run exit: unfund a name at a tlow_days-day low. 0=OFF.
     max_agents = int(fm.get("max_agents", 0) or 0)             # 0 = off; keep only the top-N agents (by catalyst conviction) in the weekly watchlist
     spy_agent = int(fm.get("spy_agent_conviction", 0) or 0)     # SPY as an always-on "agent" that always recommends SPY: a synthetic candidate at this
     defensive_agent = int(fm.get("defensive_agent_conviction", 0) or 0)   # a 2nd always-on agent (defensive default: gold/bonds) at
@@ -443,11 +496,13 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     bench = score.BENCHMARK                                     #   conviction that events must OUT-RANK to be held; else capital parks in SPY. 0 = off.
     anchors = list(scans)
     watch = _stateful_watch(scans)  # sticky hold + hard-exit on catalyst_resolved
-    tickers = {score.BENCHMARK, overlay} | ({defensive} if defensive_agent else set()) | {t for w in watch.values() for t in w}
+    tickers = {score.BENCHMARK, overlay} | ({defensive} if (defensive_agent or picker is not None) else set()) | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
         panel = score.fetch_panel(sorted(tickers), start, end, use_cache=False)
+    if rvol_gate > 0 and vol_panel is None:
+        vol_panel = score.fetch_volume_panel(sorted(tickers), start, end, use_cache=False)
     days = panel[score.BENCHMARK].dropna().index
 
     # ticker validation: drop names with no price data (hallucinated/delisted, e.g. the GDELT BBRD)
@@ -461,32 +516,60 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     conv = {}                         # running last-known catalyst-conviction per ticker (for the max_agents cap)
+    first_k, meta = {}, {}                      # PICKER context (built only when picker set): first-week seen + event metadata
     for k, a in enumerate(anchors):
         for p in scans[a]:            # carry the latest catalyst-conviction the agent assigned each ticker
             conv[p["ticker"]] = p.get("conviction", conv.get(p["ticker"], 5))
+            if picker is not None:    # the metadata the picker ranks on (catalyst arc; NO P&L — it fed a chaotic feedback loop)
+                t = p["ticker"]; first_k.setdefault(t, k)
+                meta[t] = {"catalyst": (p.get("thesis") or "")[:160],
+                           "milestones": str(p.get("milestones") or "")[:200],
+                           "exit_condition": str(p.get("exit_advice") or p.get("exit_case") or "")[:140]}
         i = score.entry_index(days, a.strftime("%Y-%m-%dT%H:%M:%S%z"), fm.get("t_update_days"))
         reb.append(None if i is None else i)
         if i is not None:
+            # CANDIDATE -> LIVE confirmation gate + let-winners-run exit. A curator-named ticker is FUNDED only
+            # once it CONFIRMS (price momentum + optional volume) and is NOT breaking down; below the gate it
+            # stays a monitored candidate (unfunded). All checks trailing + look-ahead-clean (prices/vol <= the
+            # rebalance day). SPY/defensive floors are exempt.
+            di = days[i]
             wl = list(watch[a])
-            # SPY agent-agent: an always-on agent that always recommends SPY -- a synthetic candidate at
-            # spy_agent conviction that competes in the weekly max_agents ranking like any other event.
-            # A weaker-conviction event that ranks below it is displaced when the watchlist is full; when
-            # nothing beats it, capital parks in SPY. Replaces the mechanical hold_benchmark add.
-            cand = list(wl)
-            if spy_agent and bench in valid:
-                conv[bench] = spy_agent
-                if bench not in cand:
-                    cand.append(bench)
-            if defensive_agent and defensive in valid:           # defensive agent (gold/bonds): mirrors SPY -- a floor
-                conv[defensive] = defensive_agent
-                if defensive not in cand:
-                    cand.append(defensive)
-            if max_agents and len(cand) > max_agents:  # keep only the top-N candidates by conviction (SPY competes)
-                keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_agents])
-                cand = [t for t in cand if t in keep]
-            uni = cand
+            if mom_gate > 0:                                   # #primary: realized trailing-return momentum
+                wl = [t for t in wl if (_trailing_return(panel, t, di, mom_win) or -9.0) >= mom_gate]
+            if rvol_gate > 0:                                  # #co-confirm: breakout volume (reject thin/fake moves)
+                wl = [t for t in wl if (_rvol(vol_panel, t, di, rvol_win) or 0.0) >= rvol_gate]
+            if tlow_days > 0:                                  # #exit: cut a name breaking to a new N-day low
+                wl = [t for t in wl if not _at_trailing_low(panel, t, di, tlow_days)]
+            if picker is not None:
+                # PICKER path: cull EVENT-agents only via the LLM keep-list; SPY + defensive are NOT competing
+                # agents -- they're appended to the optimizer AFTER the cull (idle capital always has a home).
+                ev = list(wl)
+                if max_agents and len(ev) > max_agents:
+                    cm = [{"ticker": t, **meta.get(t, {}), "weeks_alive": k - first_k.get(t, k)} for t in ev]
+                    keep = picker(cm, max_agents, context=str(a.date()))
+                    ev = [t for t in keep if t in ev][:max_agents] or ev[:max_agents]
+                uni = list(dict.fromkeys(ev + [t for t in (bench, defensive) if t in valid]))
+                watch[a] = ev
+            else:
+                # SPY agent-agent: an always-on agent that always recommends SPY -- a synthetic candidate at
+                # spy_agent conviction that competes in the weekly max_agents ranking like any other event.
+                # A weaker-conviction event that ranks below it is displaced when the watchlist is full; when
+                # nothing beats it, capital parks in SPY. Replaces the mechanical hold_benchmark add.
+                cand = list(wl)
+                if spy_agent and bench in valid:
+                    conv[bench] = spy_agent
+                    if bench not in cand:
+                        cand.append(bench)
+                if defensive_agent and defensive in valid:       # defensive agent (gold/bonds): mirrors SPY -- a floor
+                    conv[defensive] = defensive_agent
+                    if defensive not in cand:
+                        cand.append(defensive)
+                if max_agents and len(cand) > max_agents:  # keep only the top-N candidates by conviction (SPY competes)
+                    keep = set(sorted(cand, key=lambda t: (-conv.get(t, 0), t))[:max_agents])
+                    cand = [t for t in cand if t in keep]
+                uni = cand
+                watch[a] = [t for t in cand if t not in (bench, defensive)]   # event watchlist (SPY/BND funded via the weights)
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
-            watch[a] = [t for t in cand if t not in (bench, defensive)]   # event watchlist (SPY/BND funded via the weights)
             week_w[k] = w
 
     value, spyval, log = capital, capital, []
@@ -549,10 +632,11 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
     overlay_vals = None
     if overlay in panel.columns:
         ov = panel[overlay].reindex(d_idx).ffill()
-        ai = next((i for i, d in enumerate(d_idx) if d >= pd.Timestamp(overlay_anchor)), None)
-        if ai is not None and pd.notna(ov.iloc[ai]) and ov.iloc[ai] > 0:
-            scale = values[ai] / float(ov.iloc[ai])
-            overlay_vals = [None if pd.isna(v) else round(float(v) * scale, 2) for v in ov.tolist()]
+        # normalize the gem overlay to `capital` (initial_investment_usd) at DAY 1 of the trace, so it starts
+        # at the SAME $ as the portfolio + SPY (both begin at capital) and is directly comparable across the era.
+        base = next((float(ov.iloc[i]) for i in range(len(ov)) if pd.notna(ov.iloc[i]) and ov.iloc[i] > 0), None)
+        if base:
+            overlay_vals = [None if pd.isna(v) else round(float(v) / base * capital, 2) for v in ov.tolist()]
     alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]
     cash = [max(0.0, round(1 - float(alloc.loc[d].sum()), 4)) for d in d_idx]
     return {"dates": [d.strftime("%Y-%m-%d") for d in d_idx], "value": values, "spy": spy_val,

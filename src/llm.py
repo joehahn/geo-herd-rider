@@ -40,7 +40,8 @@ class LLMClient(ABC):
     @abstractmethod
     def complete(self, system: str, user: str, *, use_web_search: bool, label: str,
                  stage: str = "ladder", json_schema: dict | None = None,
-                 search_query: str | None = None, before_date: str | None = None) -> str: ...
+                 search_query: str | None = None, before_date: str | None = None,
+                 effort: str = "high") -> str: ...
 
 
 class AnthropicClient(LLMClient):
@@ -53,7 +54,7 @@ class AnthropicClient(LLMClient):
         self._c = anthropic.Anthropic()
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
-                 json_schema=None, search_query=None, before_date=None) -> str:
+                 json_schema=None, search_query=None, before_date=None, effort="high") -> str:
         # json_schema/search_query/before_date are ignored here: the Anthropic path parses
         # free-form fenced JSON and uses its own server-side, before:<date> web search.
         m = self.model
@@ -66,14 +67,27 @@ class AnthropicClient(LLMClient):
         kw = {"model": m, "max_tokens": 8000, "system": system, "tools": tools, "messages": messages}
         if _supports_advanced(m):  # Haiku rejects effort + adaptive thinking
             kw["thinking"] = {"type": "adaptive"}
-            kw["output_config"] = {"effort": "high"}
+            kw["output_config"] = {"effort": effort}   # 'high' default; picker passes 'low' (ranking needs little thinking)
         tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
         text = ""
         ws_queries: list = []
         # Server-side web search loops internally; pause_turn means it hit the tool-iteration
         # cap — re-send to resume (the API detects the trailing server_tool_use).
+        import anthropic as _an, sys as _sys, time as _t
+        _TRANSIENT = (_an.OverloadedError, _an.RateLimitError, _an.APITimeoutError,
+                      _an.InternalServerError, _an.APIConnectionError)   # 529/429/timeout/5xx/conn
         for _ in range(6):
-            r = self._c.messages.create(**kw)
+            for _a in range(6):                       # retry transient API errors with exponential backoff
+                try:
+                    r = self._c.messages.create(**kw)
+                    break
+                except _TRANSIENT as _e:
+                    if _a == 5:
+                        raise
+                    _w = min(45, 3 * 2 ** _a)
+                    print(f"  llm transient {type(_e).__name__} for {label}; retry {_a + 1}/5 in {_w}s",
+                          file=_sys.stderr, flush=True)
+                    _t.sleep(_w)
             u = costs.extract(r.usage)
             for k in tally:
                 tally[k] += u.get(k, 0)
@@ -113,7 +127,7 @@ class OpenRouterClient(LLMClient):
         self._c = OpenAI(base_url=self.BASE_URL, api_key=key, timeout=90.0, max_retries=4)
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
-                 json_schema=None, search_query=None, before_date=None) -> str:
+                 json_schema=None, search_query=None, before_date=None, effort="high") -> str:  # effort: Anthropic-only, ignored here
         # Real, look-ahead-safe web search via Tavily (end_date filter), injected as context —
         # OpenRouter's :online has no date control, so we don't use it.
         if use_web_search and search_query:
