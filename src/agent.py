@@ -54,7 +54,7 @@ AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                               "news_claims": {"type": "string"},
                               "sources": {"type": "array", "items": {"type": "string"}}}}
 
-CANDIDATE_CAP = 3        # DEFAULT for the `max_events` knob: max NEW events the scout admits per week
+CANDIDATE_CAP = 3        # DEFAULT for the `max_new_events` knob: max NEW events the scout admits per week
                          #   (bounds event-agent creation -> weekly LLM cost). 0 = uncapped inflow.
                          #   TODO: when unbounded-discovery is enabled, replace the take-first-N cull below
                          #   with a mechanical diversity/novelty tiebreak (spread across themes, prefer
@@ -286,7 +286,7 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
     return us
 
 
-def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max_events: int = CANDIDATE_CAP) -> list[dict]:
+def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max_new_events: int = CANDIDATE_CAP) -> list[dict]:
     if not arts:
         return []
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
@@ -298,7 +298,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max
                           label=f"scout-{anchor.date()}", json_schema=SCOUT_SCHEMA)
     cands = _extract(txt).get("candidates", [])
     out = []
-    for c in (cands if not max_events else cands[:max_events]):   # max_events=0 -> uncapped inflow
+    for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
         try:
             m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
         except Exception:  # noqa: BLE001
@@ -315,7 +315,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max
             out.append(m.model_dump())
         elif tk:
             print(f"  scope: dropped unresolved foreign ticker {tk} ({anchor.date()})", file=sys.stderr)
-    picker_log.log("scout", {"context": str(anchor.date()), "max_events": max_events,   # OFF unless enabled
+    picker_log.log("scout", {"context": str(anchor.date()), "max_new_events": max_new_events,   # OFF unless enabled
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
                                            "thesis": c.get("thesis", "")} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
@@ -773,7 +773,7 @@ def _carry_forward(anchor, ev) -> dict:
 
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
                  curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
-                 aging_floor=1, aging_patience=0, max_events=CANDIDATE_CAP):
+                 max_new_events=CANDIDATE_CAP):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
@@ -796,7 +796,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     else:                                                  # <0 = whole history; >0 = last N weeks only
         rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
                          if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
-    cands = scout(scout_client, anchor, pool, retired=rmem, max_events=max_events)
+    cands = scout(scout_client, anchor, pool, retired=rmem, max_new_events=max_new_events)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
@@ -842,18 +842,6 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                               "exit_advice": entry.get("exit_advice", ""),
                               "milestones": entry.get("milestones", []),
                               "evidence_urls": entry["sources"]})
-    # AGING RETIREMENT (candidate -> live -> AGING): retire a LIVE event that has faded to conviction
-    # <= aging_floor for aging_patience consecutive weeks — a SPENT thesis (no fresh milestone would keep
-    # its conviction up). Stops it spawning an agent, so the ~14-19 concurrent-agent pileup self-clears.
-    # REVIVAL-SAFE: retire as "aged" (NOT catalyst_resolved, NOT added to the don't-re-chase `retired`
-    # memory), so if genuinely fresh news returns the scout can RE-NOMINATE it (a new event, conviction
-    # reset) — preserving the 18-43% revival via re-nomination instead of an in-place hold. 0 = OFF.
-    if aging_patience > 0:
-        for ev in events.values():
-            if ev["status"] != "live" or len(ev["entries"]) < aging_patience:
-                continue
-            if all(int(e.get("conviction", 5) or 5) <= aging_floor for e in ev["entries"][-aging_patience:]):
-                ev["status"] = "aged"
     return picks, nid
 
 

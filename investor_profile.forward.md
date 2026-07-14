@@ -32,34 +32,22 @@ event_agent_model: sonnet5         # JUDGMENT stage (per-event agents): live/exi
 scout_model: llama4                # EXTRACTION/ROUTING stage (scout + matcher): the cost driver, runs a
                                   #   cheap model. Any provider (no web search). Falls back to
                                   #   event_agent_model if unset.  llama4 = llama-4-maverick (OpenRouter) ~$0.3
+picker_model: sonnet5             # PORTFOLIO-cull agent-picker (src/picker.py): forward --report ranks live events -> keep-list.
+                                  #   FORWARD is the clean test of the picker (post-cutoff, no memorized winners). STRONG model required.
+picker_effort: high               # forward = 1 picker call/week, trivial cost, so keep full reasoning (its likely only edge).
 initial_investment_usd: 50000     # Day-0 dollar allocation.
 concentration_cap: 1.0            # Per-ticker max allocation.
 risk_aversion: 0.1                # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
-max_agents: 7                     # PORTFOLIO cull: top-N EVENT-agents that hold capital (SPY/GLD added AFTER the cull via
-                                  #   the picker path, not competing). 0 = uncapped.
-max_events: 3                     # scout INFLOW cap: max NEW events/week (bounds event-agent LLM cost). 0 = uncapped.
-picker_model: sonnet5             # forward --report's max_agents cull = the LLM agent-picker (src/picker.py). STRONG model
-                                  #   required. FORWARD is the clean test of the picker (post-cutoff, no memorized winners).
-                                  #   (spy_agent_conviction/defensive_agent_conviction below are IGNORED under the picker.)
+max_agents: 7                     # PORTFOLIO cull: top-N EVENT-agents that hold capital. SPY + GLD appended AFTER the
+                                  #   cull (not competing). forward --report ranks the keep-list via the picker. 0 = uncapped.
+max_new_events: 3                 # scout INFLOW cap: max NEW events/week (bounds event-agent LLM cost). 0 = uncapped.
 news_cap: 500                     # Per-WEEK scout budget (the weekly --scan reads the freshest N of the week's pool; drops the older tail, warns on drop). 0=UNCAPPED. The daily --pull still fetches uncapped.
-spy_agent_conviction: 5           # Conviction of the always-on SPY agent in the max_agents ranking; a live event must out-rank it to take a slot
-defensive_agent_conviction: 5     # a 2nd always-on defensive-default agent (parks faded-event capital in the defensive asset); 0 = off
-defensive_ticker: GLD             # defensive asset (GLD=gold, BND=bonds); auto-skipped on gems of the same theme
-curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0 = off, <0 = whole history, >0 = last N weeks
+defensive_ticker: GLD             # defensive asset appended to the optimizer post-cull (GLD=gold, BND=bonds); "" = none.
+                                  #   SPY + this always ride post-cull; neither competes for a slot.
+curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0=off, <0=all, >0=last N
 lookback_period_days: 14          # Optimizer trailing lookback (calendar days); short = responsive to recent moves
-momentum_gate_pct: 0.0            # CANDIDATE->LIVE momentum-confirmation gate. OFF here (frozen candidate) — under
-                                  #   backtest validation in .backtest.md at 0.20; promote by setting this (a dated
-                                  #   re-freeze) only once the FORWARD scoreboard confirms the lift (non-negotiable #6).
-momentum_window_days: 30          # trailing calendar-day window for momentum_gate_pct (synced with .backtest.md).
-rvol_gate: 0.0                    # breakout volume co-confirm. OFF here (frozen) — validated in .backtest.md at 1.5;
-                                  #   promote with momentum_gate as one dated re-freeze once the forward confirms.
-rvol_window_days: 20             # trailing trading-day window for RVOL (synced with .backtest.md).
-trailing_low_days: 0             # let-winners-run N-day-low exit — OFF (redundant with the momentum gate in backtests).
-aging_floor: 1                   # CURATOR aging->retire floor (synced with .backtest.md; keep at 1).
-aging_patience: 0                # OFF here (frozen candidate) — validated post-hoc in .backtest.md at 3 (cuts concurrent
-                                 #   agents ~60%, returns-neutral, revival-safe); promote once the forward confirms.
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
 risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
 # --- forward web-search domain steering (two-pass gather). Curate by OUTLET TYPE, never by "named a winner". ---

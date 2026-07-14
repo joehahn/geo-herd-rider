@@ -58,27 +58,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   the firehose pool and does the scout + matcher stages. This is
                                        #   where the token cost lives, so it runs a cheap model (llama4,
                                        #   OpenRouter). Falls back to event_agent_model if unset.
+    "picker_model": "sonnet5",         # PORTFOLIO-cull agent-picker (src/picker.make_picker): ranks live events -> keep-list.
+                                       #   Opt-in (proto_select --picker / forward); INERT on plain dashboard rebuilds. Needs a
+                                       #   STRONG model — cheap pickers tie/trail random.
+    "picker_effort": "low",            # Anthropic reasoning effort for the picker call: 'low' = cheap/fast (ranking needs little
+                                       #   thinking) for backtest replays; 'high' for forward (1 call/week, trivial cost).
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
-    "momentum_gate_pct": 0.0,          # LIVE (candidate->live PROMOTION gate): a curator-named ticker is only
-                                       #   FUNDED once its own realized trailing return (over momentum_window_days)
-                                       #   clears this threshold — price-confirmation that the market is already
-                                       #   rewarding the thesis (the LLM conviction is a weak return-predictor; a
-                                       #   +20%/1mo gate lifted backtests +17..+157% across MP/HL/BWET). Below the
-                                       #   gate a name stays a monitored CANDIDATE (unfunded). 0.0 = OFF (no gate).
-                                       #   Deterministic + look-ahead-clean (trailing). Meant to be SWEPT.
-    "momentum_window_days": 30,        # LIVE: trailing calendar-day window for the momentum_gate_pct confirmation.
-    "rvol_gate": 0.0,                  # LIVE (breakout CO-confirmation): only FUND a name whose recent volume >=
-                                       #   rvol_gate x its trailing-avg volume — a +X% move on THIN volume is a false
-                                       #   breakout (rejects the "caught-but-fake" case). 1.5 = 150% of avg. 0.0 = OFF.
-    "rvol_window_days": 20,            # LIVE: trailing trading-day window for the RVOL average.
-    "trailing_low_days": 0,            # LIVE (let-winners-run EXIT): unfund a LIVE name that makes a new N-trading-day
-                                       #   price low (Turtle-style trailing breakdown) — cut losers, let winners ride.
-                                       #   0 = OFF. Typical 10 (tight) or 20 (loose).
-    "aging_floor": 1,                  # CURATOR (aging->retire): conviction at/below which a LIVE event counts as
-                                       #   "aging" (a spent/faded thesis). Paired with aging_patience.
-    "aging_patience": 0,               # CURATOR: retire an event once it's been at/below aging_floor for this many
-                                       #   consecutive weeks -> stops it spawning an agent (clears the concurrent-agent
-                                       #   pileup). Revival-safe (scout may re-nominate on fresh news). 0 = OFF.
     "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
                                        #   every N days AND reads that same trailing news window. 7=weekly.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
@@ -97,33 +82,15 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
                    "stockstory.org", "defenseworld.net", "ts2.tech",   # listicle mills + content farms
                    "marketbeat.com"],  # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
-    "max_agents": 7,                   # LIVE (PORTFOLIO cull): keep only the top-N EVENT-agents that hold capital.
-                                       #   SPY/GLD are NOT agents here (added to the optimizer AFTER the cull). When a
-                                       #   caller passes a picker, the LLM agent-picker ranks; else the legacy conviction
-                                       #   sort. 0 = uncapped. (Old spy/defensive-agent-conviction ranking is legacy.)
-    "max_events": 3,                   # LIVE (scout INFLOW cap): max NEW events the scout admits per week. Bounds
-                                       #   event-agent creation -> weekly LLM cost. Enforced CHEAPLY (catalyst gate,
-                                       #   then a mechanical diversity/novelty tiebreak — NOT the picker, NOT reward-
-                                       #   ranking, NOT source-count). Rename of the old CANDIDATE_CAP=3. 0 = uncapped.
-    "picker_model": "sonnet5",         # the model src/picker.make_picker uses for the max_agents cull WHEN a caller
-                                       #   opts in (proto_select --picker / forward). INERT otherwise (no auto LLM calls
-                                       #   on dashboard rebuilds). Needs a STRONG model — cheap pickers tie/trail random.
-    "picker_effort": "low",            # Anthropic reasoning effort for the picker call. 'low' = cheap/fast (a ranking
-                                       #   task needs little thinking) — use for backtest replays. 'high' for forward
-                                       #   (1 call/week, trivial cost, and reasoning may be the picker's only edge).
-    "spy_agent_conviction": 5,
-    "defensive_agent_conviction": 5,   # LIVE (firehose backtest): a 2nd always-on "agent" (defensive default, e.g.
-                                       #   gold) at this conviction; a faded event ranked below it is displaced and
-                                       #   capital parks in the defensive asset. 0 = off. Auto-skipped on same-theme gems.
-    "defensive_ticker": "GLD",         # the defensive asset the defensive-agent parks in (GLD=gold, BND=bonds, ...)         # LIVE (firehose backtest): SPY as an always-on "agent" that always recommends SPY — a synthetic
-                                       #   candidate at this conviction that a live event must OUT-RANK to be held;
-                                       #   else capital parks in SPY. Replaces the mechanical hold_benchmark add. 0 = off.
-    "hold_benchmark": True,            # LIVE (firehose backtest): SPY always in the optimizer universe
-                                       #   (gems must beat SPY to be funded; idle capital rides the market).
+    "max_agents": 7,                   # PORTFOLIO cull: keep only the top-N EVENT-agents that hold capital. SPY + the
+                                       #   defensive asset are NOT agents (appended to the optimizer AFTER the cull). With a
+                                       #   picker the LLM ranks the keep-list; without one, a deterministic keep-first-N. 0 = uncapped.
+    "max_new_events": 3,               # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
+                                       #   Enforced by the catalyst gate + (TODO) a diversity tiebreak. 0 = uncapped. (was CANDIDATE_CAP)
+    "defensive_ticker": "GLD",         # the defensive asset appended to the optimizer universe AFTER the cull (GLD=gold,
+                                       #   BND=bonds, ...). "" = none. SPY + this always ride post-cull; neither competes for a slot.
     "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of
                                        #   (so it won't re-chase a done thesis): 0 = off, <0 = whole history, >0 = last N.
-    # Vestigial from portfolio-wave-rider's architecture — loaded but NOT applied here:
-    "max_watchlist_size": 12,          # (no single rolling watchlist to cap)
 }
 
 

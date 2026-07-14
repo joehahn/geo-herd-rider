@@ -181,8 +181,6 @@ def main(argv=None):
     (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
     reb = int(fm.get("rebalance_days", 7))
     memw = int(fm.get("curator_memory_weeks", 8))
-    aging_floor = int(fm.get("aging_floor", 1))
-    aging_patience = int(fm.get("aging_patience", 0))        # 0 = OFF (aging retirement disabled)
     news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
     scout_cli = llm.make_client(scout_prov, scout_id)
     event_cli = llm.make_client(event_prov, event_id)
@@ -225,7 +223,7 @@ def main(argv=None):
                   flush=True)
         picks, nid = agent.process_week(event_cli, anch, wkpool, events, retired, nid, i,
                                         curator_memory_weeks=memw, scout_client=scout_cli,
-                                        aging_floor=aging_floor, aging_patience=aging_patience)
+                                        max_new_events=int(fm.get("max_new_events", agent.CANDIDATE_CAP)))
         live = [p for p in picks if p["thesis_live"]]
         print(f"  {wk} ({i + 1}/{len(anchors)}): {len(wkpool):3} arts -> "
               f"{[(p['ticker'], p['conviction']) for p in live] or 'none'}", flush=True)

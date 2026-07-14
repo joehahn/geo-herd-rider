@@ -176,7 +176,7 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     capital = capital_override if capital_override is not None else float(fm.get("initial_investment_usd", 50_000))
     _fm = fm
     if GEM_VERTICAL.get(ticker) == "gold" and str(fm.get("defensive_ticker", "GLD")).upper() in ("GLD", "IAU", "GOLD", "SGOL", "AAAU"):
-        _fm = {**fm, "defensive_agent_conviction": 0}   # skip the gold defensive-agent on a gold-themed gem (no double-count)
+        _fm = {**fm, "defensive_ticker": ""}            # don't append GLD on a gold-themed gem (no double-count)
     ov_tk = GEM_OVERLAY.get(ticker, ticker)             # wrapper/ADR gems benchmark on the press-named single-stock
     bt = firehose.backtest(scans, _fm, capital, daily=True, overlay=ov_tk, overlay_anchor=cfg["trigger"])
     d = bt["daily"]
