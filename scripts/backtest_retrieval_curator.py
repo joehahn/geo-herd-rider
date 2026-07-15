@@ -30,6 +30,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import pandas as pd  # noqa: E402
 import agent  # noqa: E402
+import costs  # noqa: E402
 import firehose  # noqa: E402
 import llm  # noqa: E402
 from util import load_dotenv, scan_anchors  # noqa: E402
@@ -162,8 +163,17 @@ def main(argv=None):
                     help="per-week cap on articles the scout reads (most-recent kept); 0 = uncapped. "
                          "Omit to use the profile's news_cap.")
     ap.add_argument("--no-render", action="store_true", help="write scans only; skip build_gem")
+    ap.add_argument("--log-picker", nargs="?", const="__default__", default=None, dest="log_picker",
+                    help="AUDIT the scout-picker (inflow cull): log every week's proposed vs admitted candidates "
+                         "to data/windows/picker_decisions.jsonl (or PATH). OFF by default.")
     a = ap.parse_args(argv)
     load_dotenv()
+    if a.log_picker is not None:
+        import picker_log  # noqa: PLC0415
+        lp = (str(ROOT / "data" / "windows" / "picker_decisions.jsonl")
+              if a.log_picker == "__default__" else a.log_picker)
+        picker_log.enable(lp)
+        print(f"  PICKER LOG ON -> {lp}", flush=True)
     if a.full:
         gem = "FULL"
         start, end = a.start or FULL_WINDOW[0], a.end or FULL_WINDOW[1]
@@ -211,6 +221,7 @@ def main(argv=None):
             {"events": {k: {**v, "vehicles": sorted(v["vehicles"])} for k, v in events.items()},
              "retired": retired, "nid": nid}, indent=1, default=str))
 
+    _led0 = len(pd.read_csv(costs.LEDGER)) if costs.LEDGER.exists() else 0   # ledger rows before this run (for the cost sidecar)
     for i, anch in enumerate(anchors):
         wk = anch.date().isoformat()
         if wk in scans:                                      # already scanned (resume) -> skip
@@ -223,7 +234,8 @@ def main(argv=None):
                   flush=True)
         picks, nid = agent.process_week(event_cli, anch, wkpool, events, retired, nid, i,
                                         curator_memory_weeks=memw, scout_client=scout_cli,
-                                        max_new_events=int(fm.get("max_new_events", agent.CANDIDATE_CAP)))
+                                        max_new_events=int(fm.get("max_new_events", agent.CANDIDATE_CAP)),
+                                        event_agent_effort=str(fm.get("event_agent_effort", "high")))
         live = [p for p in picks if p["thesis_live"]]
         print(f"  {wk} ({i + 1}/{len(anchors)}): {len(wkpool):3} arts -> "
               f"{[(p['ticker'], p['conviction']) for p in live] or 'none'}", flush=True)
@@ -232,6 +244,21 @@ def main(argv=None):
 
     named = {p["ticker"] for ps in scans.values() for p in ps}
     print(f"\nDONE. wrote {scans_path} ({len(scans)} weeks, {len(events)} events).", flush=True)
+
+    if costs.LEDGER.exists():                                # COST SIDECAR: exact ledger delta of THIS run -> dashboard barchart
+        _led = pd.read_csv(costs.LEDGER).iloc[_led0:]
+        _lab = _led["label"].astype(str).str.lower()
+        cb = {"Retriever": 2.0,   # Tavily news-ingest estimate for the window (not tracked in the LLM ledger)
+              "Scout": round(float(_led.loc[_lab.str.startswith("scout"), "cost_usd"].sum()), 2),
+              "Matcher": round(float(_led.loc[_lab.str.startswith("match"), "cost_usd"].sum()), 2),
+              "Event": round(float(_led.loc[_lab.str.startswith("event"), "cost_usd"].sum()), 2),
+              "Resolver": round(float(_led.loc[_lab.str.startswith("resolve"), "cost_usd"].sum()), 2),
+              "Picker": round(float(_led.loc[_led["stage"].astype(str) == "picker", "cost_usd"].sum()), 2)}
+        cb["_models"] = {"Retriever": "Tavily", "Scout": fm.get("scout_model"), "Matcher": fm.get("scout_model"),
+                         "Event": fm.get("event_agent_model"), "Picker": fm.get("picker_model"),
+                         "Resolver": fm.get("scout_model")}   # shown under each cost bar in the dashboard
+        scans_path.with_suffix(".cost.json").write_text(json.dumps(cb))
+        print(f"  cost sidecar -> {scans_path.with_suffix('.cost.json').name}: {cb}", flush=True)
 
     if a.full:                                   # slice the one full run into per-gem era scan files
         print("SLICING into per-gem era files ...", flush=True)

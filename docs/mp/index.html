@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>geo-herd-rider — gem scan</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+ :root{--ink:#1a1a1a;--mut:#666;--line:#e3e3e3;--bg:#fafafa}
+ body{font:15px/1.55 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);margin:0;background:var(--bg)}
+ .wrap{max-width:960px;margin:0 auto;padding:28px 20px 60px}
+ h1{font-size:25px;margin:0 0 4px} h2{font-size:18px;margin:34px 0 6px}
+ .sub{color:var(--mut);margin:0 0 18px}
+ .warn{background:#fff8e1;border:1px solid #f0d98c;border-radius:8px;padding:10px 14px;font-size:13px;color:#5a4a00;margin:14px 0 22px}
+ .story{background:#fff;border:1px solid var(--line);border-left:4px solid #2980b9;border-radius:8px;padding:12px 16px;font-size:13.5px;line-height:1.55;margin:12px 0 20px}
+ .cards{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 6px}
+ .card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+ .card .k{color:var(--mut);font-size:12px;text-transform:uppercase;letter-spacing:.03em}
+ .card .v{font-size:22px;font-weight:600;margin-top:3px}
+ .pos{color:#1e7d34} .neg{color:#c0392b}
+ a{color:#2980b9} .foot{color:var(--mut);font-size:12px;margin-top:30px;border-top:1px solid var(--line);padding-top:12px}
+ .nav{display:flex;gap:20px;padding:0 0 16px;margin:0 0 18px;border-bottom:1px solid var(--line);font-size:14px}
+ .nav a{color:var(--mut);text-decoration:none;font-weight:500} .nav a:hover{color:var(--ink)} .nav a.active{color:var(--ink);font-weight:600}
+ #chart,#alloc,#dollars{width:100%;height:420px}
+ #gantt{width:100%}
+ .atab{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+ .atab th,.atab td{text-align:left;padding:5px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+ .atab th{color:var(--mut);font-weight:600}
+ .atab td:first-child{white-space:nowrap;color:var(--mut);font-variant-numeric:tabular-nums}
+ details.clip{display:inline}
+ details.clip>summary{display:inline;cursor:pointer;color:#2980b9;font-size:11px;list-style:none}
+ details.clip>summary::-webkit-details-marker{display:none}
+ details.clip[open]>summary{display:none}
+</style></head>
+<body><div style="font:12px ui-monospace,monospace;color:#666;text-align:right;padding:4px 12px;background:#eef3f6;border-bottom:1px solid #dbe3e8">🕒 generated 2026-07-14 21:39:46 CDT</div><div class="wrap">
+ <nav class="nav"><a href="../index.html">↑ All gems</a>
+   <a href="index.html" class="active">Dashboard</a>
+   <a href="firehose.html">Firehose log</a>
+   <a href="../sweeps/index.html">Sweeps</a>
+   <a href="../../docs_preview/retrieval_backtest.html">Retrieval backtest</a>
+   <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
+ <h1 id="gemtitle">Gem scan</h1>
+ <p class="sub" id="sub"></p>
+ <div class="cards" id="cards"></div>
+ <div class="story" id="story"></div>
+
+ <h2>Scan parameters</h2>
+ <table id="params" style="border-collapse:collapse;font-size:13px;max-width:560px"></table>
+
+ <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
+ <div id="chart"></div>
+
+ <h2>Plot 2 — Normalized performance <span style="font-size:13px;font-weight:400;color:#777">— every funded ticker's price starts at 1.0× the week it is first NAMED (line begins at the naming week); the portfolio value and SPY start at 1.0× on day one. The portfolio + SPY are drawn <b>thick</b>; each thin line is one funded ticker's price multiple since it was named.</span></h2>
+ <div id="normperf"></div>
+
+ <h2>Plot 3 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 7, 9.</span></h2>
+ <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
+   went live, <b>✕</b> its exit.</p>
+ <div id="gainseries"></div>
+
+ <h2>Plot 4 — Allocation over time</h2>
+ <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
+   watchlist is non-empty; to cash when the press names nothing live.</p>
+ <div id="alloc"></div>
+ <p class="sub" id="allocnote" style="margin-top:4px"></p>
+
+ <h2>Plot 5 — Holdings timeline (proposed vs funded)</h2>
+ <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
+   dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
+   (the optimizer actually bought it).</p>
+ <div id="gantt"></div>
+
+ <h2>Plot 6 — Cumulative $ gain per holding</h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
+   (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
+   portfolio's total gain.</p>
+ <div id="gain"></div>
+
+ <h2>Plot 7 — Cumulative $ earned per agent <span style="font-size:13px;font-weight:400;color:#777">— event-agents + the SPY/gold floors</span></h2>
+ <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
+   partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
+   agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
+   winner, red = loser; the bars sum to the portfolio's total gain.</p>
+ <div id="agentgain"></div>
+
+ <h2>Plot 8 — Dollars held per ticker</h2>
+ <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
+   stack's top edge is the portfolio value). Plot 4 shows the same split as percentages.</p>
+ <div id="dollars"></div>
+
+ <h2 id="agentprec_h"></h2>
+ <p class="sub" id="agentprec_cap" style="margin:0 0 6px"></p>
+ <div id="agentprec"></div>
+
+ <h2>Plot 10 — What it cost <span style="font-size:13px;font-weight:400;color:#777">— approx $ to rebuild this db from scratch (reingest the window's news → curator), per-run ledger delta</span></h2>
+ <div id="costs"></div>
+ <div id="coststage" style="max-width:640px;margin-top:10px"></div>
+
+ <h2>Plot 11 — Agent storyboard — week-by-week (per event)</h2>
+ <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
+   ticker (gem first), captioned with the event <b>thesis</b>. Columns are the raw journal fields:
+   <code>thesis_live</code> (hold/exit), <code>thesis</code> (the event/catalyst), <code>exit_case</code>
+   (devil's-advocate; RESOLVED flag forces the exit), <code>assessment</code> (the weekly read), and
+   <code>exit_advice</code> (the exit trigger). Use it to confirm what event/ticker was discovered, when,
+   and that it exited as the thesis decayed.</p>
+ <div id="arcs"></div>
+</div>
+<script>
+Promise.resolve({"gem": "MP", "overlay_label": "MP trigger", "caught": false, "overlays": [{"ticker": "MP", "vals": [50000.0, 47084.55, 47983.48, 47448.98, 47108.84, 50072.89, 51433.43, 50874.64, 50704.57, 51214.77, 52016.52, 52405.25, 52283.77, 50583.09, 50242.96, 52818.27, 53352.77, 54008.75, 59450.92, 57240.04, 58576.29, 58163.27, 62001.94, 59985.42, 58673.47, 59232.26, 57628.76, 56972.79, 55855.2, 56316.81, 59037.9, 58965.02, 57240.04, 57750.24, 56997.08, 58333.33, 54737.61, 54543.25, 62342.08, 59280.85, 60689.99, 59329.45, 58333.33, 59135.08, 59232.26, 65184.65, 64844.51, 65184.65, 65136.05, 63775.51, 62925.17, 64285.71, 65427.6, 63313.9, 63581.15, 63095.24, 59305.15, 61151.6, 61127.31, 60301.26, 56025.27, 58284.74, 53304.18, 57847.42, 57191.45, 55102.04, 67031.1, 60908.65, 67006.8, 64018.47], "anchor": "2025-04-01", "color": "#1f77b4"}], "gem_label": "MP", "combo_targets": ["MP"], "caught_all": false, "both_held": 0, "model": "sonnet5", "storyline": "<b>MP Materials (MP)<\/b> is the main US rare-earth miner (Mountain Pass, California). It rose on <b>China's April-2025 rare-earth export curbs<\/b> \u2014 Beijing restricting critical-mineral exports makes the lone scaled US producer strategically valuable \u2014 then <b>surged again in July 2025<\/b> when the <b>Department of Defense took a $400M stake<\/b> (becoming MP's largest shareholder) with a 10-year $110/kg price floor, sending the stock up ~50% in a day. This dashboard tracks the event as <b>event-agent its agent<\/b> (the thick blue curve in the plots below). <b>Exit condition:<\/b> the curbs ease / the scarcity premium fades \u2014 an open-ended driver, so it exits only on a genuine reversal (China lifting the controls).<div style='margin-top:9px'><b>This gem (MP) was not caught<\/b> &mdash; no agent named it this window; the events the curator did track are below.<\/div>", "ever_funded": ["GLD", "SPY"], "gem_desc": "US rare-earth miner", "seeds": [{"date": "2025-04-04", "title": "China imposes export controls on medium and heavy rare earths - MP Materials the lone scaled US producer", "snippet": "China's Ministry of Commerce and General Administration of Customs issued Announcement 18 on April 4, imposing export controls on seven medium and heavy rare-earth materials - samarium, gadolinium, terbium, dysprosium, lutetium, scandium and yttrium - and the permanent magnets made from them, choking a supply chain the US relies on China for roughly 70%. MP Materials, which mines and processes rare earths at Mountain Pass, California, is the only scaled US producer positioned to benefit - still under-owned as the curbs are only just biting.", "source": "hklaw.com", "genuine": true}, {"date": "2025-07-10", "title": "Pentagon to become largest shareholder in rare-earth miner MP Materials; shares surge 50%", "snippet": "The Department of Defense agreed to purchase $400 million of a new series of MP Materials preferred stock, positioning DoD to become the company's largest shareholder. The 10-year agreement establishes a price-floor commitment of $110 per kilogram for MP's neodymium-praseodymium (NdPr) output, ensuring stable and predictable cash flow. Shares soared about 50% to close at $45.23; the stock rose roughly 85% in July and is up about 365% year to date.", "source": "cnbc.com", "genuine": true}], "capital": 50000.0, "dates": ["2025-01-07", "2025-01-08", "2025-01-10", "2025-01-13", "2025-01-14", "2025-01-15", "2025-01-16", "2025-01-17", "2025-01-21", "2025-01-22", "2025-01-23", "2025-01-24", "2025-01-27", "2025-01-28", "2025-01-29", "2025-01-30", "2025-01-31", "2025-02-03", "2025-02-04", "2025-02-05", "2025-02-06", "2025-02-07", "2025-02-10", "2025-02-11", "2025-02-12", "2025-02-13", "2025-02-14", "2025-02-18", "2025-02-19", "2025-02-20", "2025-02-21", "2025-02-24", "2025-02-25", "2025-02-26", "2025-02-27", "2025-02-28", "2025-03-03", "2025-03-04", "2025-03-05", "2025-03-06", "2025-03-07", "2025-03-10", "2025-03-11", "2025-03-12", "2025-03-13", "2025-03-14", "2025-03-17", "2025-03-18", "2025-03-19", "2025-03-20", "2025-03-21", "2025-03-24", "2025-03-25", "2025-03-26", "2025-03-27", "2025-03-28", "2025-03-31", "2025-04-01", "2025-04-02", "2025-04-03", "2025-04-04", "2025-04-07", "2025-04-08", "2025-04-09", "2025-04-10", "2025-04-11", "2025-04-14", "2025-04-15", "2025-04-16", "2025-04-17"], "value": [50000.0, 50201.6, 50266.43, 49958.74, 50156.56, 50710.91, 50912.19, 50902.18, 51583.08, 51856.34, 51901.65, 52066.48, 51459.89, 51903.14, 51681.57, 52127.24, 51976.5, 51835.58, 52291.88, 52579.06, 52546.97, 52449.33, 53160.51, 53044.49, 53024.64, 53559.88, 53027.72, 53665.31, 53727.23, 53671.31, 53332.6, 53444.92, 52886.28, 52949.01, 52129.34, 52182.38, 52336.69, 52434.02, 52694.47, 52204.4, 52320.0, 51550.39, 51810.92, 52052.7, 52438.11, 52812.78, 53139.09, 53361.53, 53701.26, 53603.68, 53321.76, 53481.38, 53645.5, 53203.58, 53346.84, 52761.94, 53250.54, 53230.36, 53415.38, 52323.67, 50487.25, 49733.77, 49654.95, 52616.6, 52705.99, 53690.14, 53659.25, 53796.47, 54565.91, 54432.04], "spy": [50000.0, 50073.05, 49308.56, 49385.02, 49452.97, 50352.51, 50255.68, 50760.24, 51224.87, 51512.83, 51793.99, 51642.8, 50912.29, 51349.75, 51119.55, 51393.91, 51120.39, 50776.38, 51117.0, 51324.27, 51502.64, 51031.21, 51377.77, 51416.85, 51251.21, 51792.29, 51789.75, 51941.8, 52064.12, 51847.51, 50960.72, 50728.81, 50476.53, 50502.0, 49695.9, 50471.44, 49587.18, 49000.22, 49526.87, 48647.71, 48920.37, 47617.35, 47221.51, 47472.1, 46839.27, 47806.77, 48175.42, 47654.72, 48173.72, 48034.42, 48050.27, 48910.77, 49028.35, 48443.04, 48314.38, 47341.41, 47659.2, 47793.82, 48096.27, 45726.05, 43049.12, 42972.44, 42299.37, 46741.62, 44693.45, 45490.9, 45932.23, 45803.58, 44785.47, 44849.36], "gain": {"SPY": -2312.56, "GLD": 6744.59}, "gain_series": {"GLD": [0.0, 177.28, 497.33, 163.69, 338.61, 589.15, 822.91, 642.69, 1168.44, 1345.13, 1296.19, 1511.48, 1150.13, 1298.47, 1232.1, 1492.75, 1527.06, 1619.43, 1959.94, 2176.52, 2083.57, 2146.11, 2738.67, 2609.19, 2646.24, 2995.06, 2463.78, 3049.53, 3069.36, 3087.88, 3054.86, 3248.0, 2777.87, 2831.71, 2293.48, 2075.61, 2534.37, 2837.99, 2910.78, 2732.19, 2750.36, 2444.8, 2848.04, 2998.26, 3614.74, 3628.72, 3819.42, 4233.12, 4379.32, 4333.45, 4045.64, 3887.28, 3965.65, 3950.89, 4188.4, 4320.07, 4572.43, 4502.16, 4575.01, 4359.88, 3543.49, 2819.95, 3000.54, 4225.68, 5082.84, 5753.82, 5549.49, 5736.76, 6904.39, 6744.59], "SPY": [0.0, 24.33, -230.9, -204.95, -182.06, 121.75, 89.28, 259.49, 414.65, 511.21, 605.46, 555.01, 309.75, 604.67, 449.48, 634.49, 449.45, 216.15, 331.94, 402.55, 463.4, 303.23, 421.84, 435.3, 378.4, 564.82, 563.94, 615.78, 657.87, 583.43, 277.74, 196.92, 108.42, 117.3, -164.14, 106.76, -197.68, -403.97, -216.31, -527.79, -430.36, -894.42, -1037.12, -945.56, -1176.63, -815.94, -680.33, -871.58, -678.06, -729.77, -723.88, -405.89, -320.15, -747.31, -841.56, -1558.13, -1321.89, -1271.81, -1159.63, -2036.21, -3056.24, -3086.19, -3345.59, -1609.08, -2376.85, -2063.69, -1890.24, -1940.28, -2338.48, -2312.56]}, "overlay": [50000.0, 47084.55, 47983.48, 47448.98, 47108.84, 50072.89, 51433.43, 50874.64, 50704.57, 51214.77, 52016.52, 52405.25, 52283.77, 50583.09, 50242.96, 52818.27, 53352.77, 54008.75, 59450.92, 57240.04, 58576.29, 58163.27, 62001.94, 59985.42, 58673.47, 59232.26, 57628.76, 56972.79, 55855.2, 56316.81, 59037.9, 58965.02, 57240.04, 57750.24, 56997.08, 58333.33, 54737.61, 54543.25, 62342.08, 59280.85, 60689.99, 59329.45, 58333.33, 59135.08, 59232.26, 65184.65, 64844.51, 65184.65, 65136.05, 63775.51, 62925.17, 64285.71, 65427.6, 63313.9, 63581.15, 63095.24, 59305.15, 61151.6, 61127.31, 60301.26, 56025.27, 58284.74, 53304.18, 57847.42, 57191.45, 55102.04, 67031.1, 60908.65, 67006.8, 64018.47], "overlay_ticker": "MP", "overlay_anchor": "2025-04-01", "alloc": {"GLD": [0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.333, 0.333, 0.333, 0.333, 0.333, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.333, 0.333, 0.333, 0.333, 0.333, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667, 0.667], "SPY": [0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.667, 0.667, 0.667, 0.667, 0.667, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.667, 0.667, 0.667, 0.667, 0.667, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333, 0.333]}, "cash": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "colors": {"SPY": "#ff7f0e", "GLD": "#eab308", "MP": "#1f77b4"}, "metrics": {"final": 54432.0, "total_ret": 0.0886, "spy_ret": -0.103, "max_dd": -0.0758}, "cost_usd": 4.37, "weeks": 13, "gems": [], "watchlist": [{"week": "2025-01-03", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-01-10", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-01-17", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-01-24", "names": [], "funded": ["SPY", "GLD"]}, {"week": "2025-01-31", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-02-07", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-02-14", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-02-21", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-02-28", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-03-07", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-03-14", "names": [], "funded": ["GLD", "SPY"]}, {"week": "2025-03-21", "names": [], "funded": ["SPY", "GLD"]}, {"week": "2025-03-28", "names": [], "funded": []}], "watch_daily": {}, "retrieval": {}, "params": {"initial_investment_usd": 50000, "risk_aversion": 0.5, "concentration_cap": 0.667, "t_update_days": 1, "min_trade_size": 0.1, "lookback_period_days": 14, "gather_model": "sonnet5", "event_agent_model": "sonnet5", "event_agent_effort": "medium", "scout_model": "llama4", "picker_model": "sonnet5", "picker_effort": "low", "risk_free_rate": 0.04, "rebalance_days": 7, "news_lookback_days": null, "news_cap": 0, "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net", "tipranks.com", "barchart.com", "zerohedge.com", "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com", "endpts.com", "statnews.com", "biopharmadive.com", "quantumcomputingreport.com", "world-nuclear-news.org", "breakingdefense.com", "defensenews.com", "seatrade-maritime.com", "kitco.com"], "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com", "stockstory.org", "defenseworld.net", "ts2.tech", "marketbeat.com"], "max_agents": 5, "max_new_events": 2, "defensive_ticker": "GLD", "curator_memory_weeks": 8, "model": "sonnet5"}, "arcs": {}, "lifecycle": [{"date": "2025-01-03", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-10", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-17", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-24", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-01-31", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-07", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-14", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-21", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-02-28", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-03-07", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-03-14", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-03-21", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}, {"date": "2025-03-28", "state": "pre", "agent": "", "src": "", "exit_case": "", "assessment": "", "exit_advice": ""}], "agents": {}, "agent_of": {}, "agent_marks": {}, "agent_gain": {}, "agent_conviction": {}, "agent_convgain": {}, "agent_precision": [{"ticker": "GLD", "thesis": "defensive (GLD) floor agent", "first": "2025-01-03", "last": "2025-03-28", "ret": 0.1666, "agent": ""}], "norm_prices": {"GLD": [1.0, 1.0053, 1.0149, 1.0048, 1.0101, 1.0177, 1.0247, 1.0193, 1.035, 1.0404, 1.0389, 1.0453, 1.0345, 1.0434, 1.0394, 1.0552, 1.0572, 1.0629, 1.0734, 1.08, 1.0772, 1.0791, 1.0974, 1.0934, 1.0945, 1.1053, 1.0889, 1.1069, 1.1075, 1.1081, 1.107, 1.1131, 1.0984, 1.1001, 1.0833, 1.0765, 1.0907, 1.1002, 1.1025, 1.0969, 1.0974, 1.0878, 1.1006, 1.1054, 1.125, 1.1254, 1.1315, 1.1447, 1.1495, 1.148, 1.1387, 1.1337, 1.1387, 1.1377, 1.153, 1.1615, 1.1782, 1.1759, 1.1783, 1.1712, 1.1438, 1.1192, 1.1253, 1.1669, 1.1954, 1.2182, 1.2113, 1.2176, 1.2572, 1.2572]}, "named_at": {}, "cost_breakdown": {"Retriever": 2.5, "Scout": 218.0, "Matcher": 1.77, "Event": 318.43, "Picker": 9.54, "Resolver": 0.35}}).then(D=>{
+  const fmt=x=>"$"+Math.round(x).toLocaleString();
+  const pct=x=>(x>=0?"+":"")+(x*100).toFixed(1)+"%";
+  const last=D.dates.length-1, m=D.metrics, cls=x=>x>=0?"pos":"neg";
+  const _title = D.book_title || `Scan of the ${D.gem} era`;   // the whole era's book, with ${D.gem} as the highlighted overlay
+  document.title = `${_title} — geo-herd-rider`;
+  document.getElementById("gemtitle").textContent = _title;
+  const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
+  const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
+  const _sr = D.scan_range || [D.dates[0], D.dates[last]];      // scan-anchor window (not the priced-curve range)
+  document.getElementById("sub").textContent = D.subtitle ||    // forward book sets its own; gem dashboards keep default
+    `${D.gem_desc ? D.gem_desc + "  " : ""}${D.weeks} weekly scans · ${_sr[0]} → ${_sr[1]} · $${D.capital.toLocaleString()} start · weekly-rebalanced`;
+
+  document.getElementById("cards").innerHTML=[
+    ["Final Curated Portfolio", fmt(m.final), pct(m.total_ret), cls(m.total_ret)],
+    ["Final SPY", fmt(D.spy[last]), pct(m.spy_ret), cls(m.spy_ret)],
+    ["Excess vs SPY", pct(m.total_ret-m.spy_ret), "", cls(m.total_ret-m.spy_ret)],
+    ["Max drawdown", pct(m.max_dd), "", cls(m.max_dd)],
+  ].map(([k,v,s,c])=>`<div class="card"><div class="k">${k}</div><div class="v ${c}">${v}</div>
+     <div class="sub" style="margin:0;font-size:12px">${s}</div></div>`).join("");
+
+  // Scan parameters table (mean-variance / optimizer knobs from investor_profile.backtest.md)
+  const P=D.params||{};
+  const order=["model","gather_model","event_agent_model","scout_model","initial_investment_usd",
+    "concentration_cap","min_trade_size","risk_aversion","max_agents","spy_agent_conviction",
+    "defensive_agent_conviction","defensive_ticker",
+    "momentum_gate_pct","momentum_window_days","rvol_gate","rvol_window_days","trailing_low_days",
+    "aging_floor","aging_patience","curator_memory_weeks","news_cap",
+    "lookback_period_days","t_update_days","rebalance_days","risk_free_rate"];
+  const pk=order.filter(k=>k in P);   // only the curated LIVE knobs (hides vestigial/optional keys)
+  const prow=(k,v)=>`<tr><td style="padding:3px 16px 3px 0;border-bottom:1px solid #eee"><code>${k}</code></td>`
+    +`<td style="padding:3px 0;border-bottom:1px solid #eee;text-align:right">${v}</td></tr>`;
+  document.getElementById("params").innerHTML=
+    prow("window", `${D.dates[0]} → ${D.dates[D.dates.length-1]}`) + prow("weekly_scans", D.weeks)
+    + pk.map(k=>prow(k, P[k])).join("");
+
+  // PWR (tab10) palette: portfolio = red, SPY = gray, the gem overlay = its own allocation color.
+  const BOOK="#111", SPYC="#ff7f0e";
+  const OVC=(D.colors&&D.colors[D.overlay_ticker])||"#1f77b4";
+  const endlab=(arr,col,ys)=>({x:D.dates[last],y:arr[last],xanchor:"left",xshift:6,yshift:ys,
+    showarrow:false,text:fmt(arr[last])+" ("+pct(arr[last]/D.capital-1)+")",font:{color:col,size:11}});
+  const vtraces=[
+    {x:D.dates,y:D.value,name:"Curated portfolio",line:{color:BOOK,width:2.4}},
+    {x:D.dates,y:D.spy,name:"SPY",line:{color:SPYC,width:1.6,dash:"dot"}},
+  ];
+  const vann=[endlab(D.value,BOOK,10),endlab(D.spy,SPYC,-10)], vshapes=[];
+  // overlay curves: the list D.overlays (primary + any extra target gems for a combo card), or the
+  // single legacy D.overlay. Each gem's scaled price + a dotted trigger line, in its own color.
+  const OVL=(D.overlays&&D.overlays.length)?D.overlays
+    :(D.overlay?[{ticker:D.overlay_ticker,vals:D.overlay,anchor:D.overlay_anchor,color:OVC}]:[]);
+  OVL.forEach(o=>{
+    const oc=o.color||(D.colors&&D.colors[o.ticker])||OVC;
+    vtraces.push({x:D.dates,y:o.vals,name:o.ticker+" (scaled)",
+      line:{color:oc,width:1.8,dash:"dash"},connectgaps:true});
+    vshapes.push({type:"line",x0:o.anchor,x1:o.anchor,yref:"paper",y0:0,y1:1,
+      line:{color:oc,width:1,dash:"dot"}});
+    vann.push({x:o.anchor,y:1,yref:"paper",yanchor:"bottom",showarrow:false,
+      text:o.ticker+" trigger",font:{color:oc,size:10}});
+  });
+  // seed markers: distinguish SYNTHETIC (fictitious ⭐ star) from NEWS-DERIVED (real article ◆ diamond)
+  const SDall=(D.seeds||[]).filter(s=>s.date&&s.date>=D.dates[0]&&s.date<=D.dates[D.dates.length-1]);
+  const clean=t=>String(t||"").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  const seedTrace=(subset,nm,sym,col,edge,lab)=>{
+    if(!subset.length)return;
+    const sx=subset.map(s=>{let i=D.dates.findIndex(d=>d>=s.date);return i<0?D.dates[D.dates.length-1]:D.dates[i];});
+    const sy=sx.map(x=>{let i=D.dates.indexOf(x);return i<0?D.value[0]:D.value[i];});
+    vtraces.push({x:sx,y:sy,mode:"markers",name:nm,
+      marker:{size:16,color:col,symbol:sym,line:{color:edge,width:1.5}},
+      text:subset.map(s=>lab+" planted "+s.date+(s.source?" · "+clean(s.source):"")
+        +"<br><b>"+clean(s.title)+"</b><br>"+clean(s.snippet).slice(0,150)),
+      hovertemplate:"%{text}<extra></extra>"});
+  };
+  seedTrace(SDall.filter(s=>!s.genuine),"🌱 synthetic seed","star","#f1c40f","#a67c00",
+    "🌱 <b>SYNTHETIC SEED</b> — hand-authored catalyst description, NOT a retrieved article (no real URL) ·");
+  seedTrace(SDall.filter(s=>s.genuine),"◆ news-derived seed","diamond","#27ae60","#145a32",
+    "◆ <b>NEWS-DERIVED SEED</b> — a REAL published article, planted because the retriever misses the niche piece ·");
+  const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
+  Plotly.newPlot("chart",vtraces,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 2 — normalized performance: each funded ticker's price starts at 1.0× the week it is first
+  // NAMED (D.norm_prices is null before that week; connectgaps starts the line there). The portfolio
+  // and SPY are each divided by their own day-one value (start at 1.0× on dates[0]). Portfolio + SPY thick.
+  const NPPAL=["#2ca02c","#8e44ad","#8c564b","#e377c2","#16a085","#17becf","#bcbd22","#c0392b","#2980b9"];
+  const _norm=arr=>{const f=(arr||[]).find(v=>v!=null&&isFinite(v)&&v>0);
+    return f?arr.map(v=>v==null?null:+(v/f).toFixed(4)):arr;};
+  const NP=D.norm_prices||{};
+  const nptr=Object.keys(NP).map((t,i)=>({x:D.dates,y:NP[t],name:t,connectgaps:true,
+    line:{color:(D.colors&&D.colors[t])||NPPAL[i%NPPAL.length],width:1.3},
+    hovertemplate:`<b>${t}</b> %{y:.2f}×<extra></extra>`}));
+  nptr.push({x:D.dates,y:_norm(D.value),name:"Portfolio",line:{color:"#111",width:3.2},
+    hovertemplate:"Portfolio %{y:.2f}×<extra></extra>"});
+  nptr.push({x:D.dates,y:_norm(D.spy),name:"SPY",line:{color:"#ff7f0e",width:3,dash:"dot"},
+    hovertemplate:"SPY %{y:.2f}×<extra></extra>"});
+  Plotly.newPlot("normperf",nptr,{margin:{l:70,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{title:"× first value",tickformat:".2f",automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // shared agent palette — ONE color per agent across Plots 2/7/8/9. The gem-carrier gets a RESERVED
+  // green (and 2x thickness); every other agent draws from a green-free, gray-free palette, so no
+  // co-discovered agent can visually match the gem or the SPY floor.
+  const AGM=D.agents||{};
+  const GEMCOL="#1f77b4";
+  const AGPAL=["#d62728","#8e44ad","#2ca02c","#8c564b","#e377c2","#16a085","#17becf","#bcbd22"];
+  const _gemAg0=(D.agent_of||{})[(D.overlay_ticker||"").toUpperCase()]||"";
+  const agColor={}; let _pi=0;
+  Object.keys(AGM).forEach(id=>{agColor[id]= id==="spy"?"#ff7f0e": id==="defensive"?"#eab308": id===_gemAg0?GEMCOL:AGPAL[(_pi++)%AGPAL.length];});
+
+  // Plot 2 — cumulative $ gain PER AGENT, drawn ONLY while the agent is held (funded). Count the
+  // concurrent curves at any x to verify the curator juggles <= max_agents at once (dashed SPY floor aside).
+  const GS=D.gain_series||{}, FF=new Set(D.ever_funded||[]), AO=D.agent_of||{}, ALC=D.alloc||{};
+  const agBasket=id=>((AGM[id]||{}).basket)||id;             // the agent's funded basket, e.g. BAESY+RNMBY
+  const gemAg=AO[(D.overlay_ticker||"").toUpperCase()]||"";   // the agent carrying THIS dashboard's gem (drawn 2x thick)
+  const byAgent={};                                          // group funded tickers by agent: a basket = ONE agent = ONE curve
+  Object.keys(GS).filter(t=>FF.has(t)).forEach(t=>{const a = t==="SPY" ? "spy" : (AO[t]||t); (byAgent[a]=byAgent[a]||[]).push(t);});
+  const gtr=Object.entries(byAgent).map(([a,tks])=>{
+    const gem = !!gemAg && a===gemAg;
+    const held = D.dates.map((_,i)=> tks.some(t=>((ALC[t]||[])[i]||0) > 1e-6));            // funded this week?
+    const y = D.dates.map((_,i)=> held[i] ? tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0) : null);  // active-only (gaps when idle)
+    return {x:D.dates, y, mode:"lines", name:a+" ("+agBasket(a)+")", connectgaps:false,
+      line:{color: agColor[a]||"#888", width: gem?4:2, dash: a==="spy"?"dash":"solid"},
+      hovertemplate:a+" ("+agBasket(a)+") $%{y:,.0f}<extra></extra>"};
+  });
+  // entry/exit markers: ▲ where each agent went live, ✕ where its catalyst resolved — on its cumulative curve
+  const AM=D.agent_marks||{}, idxOf=ds=>{let j=-1;for(let i=0;i<D.dates.length;i++){if(D.dates[i]<=ds)j=i;else break;}return j;};
+  const mk=(a,tks,field,sym,tag)=>{
+    const cum=D.dates.map((_,i)=> tks.reduce((s,t)=>s+((GS[t]||[])[i]||0),0));
+    const pts=[...new Set([].concat(...tks.map(t=>(AM[t]||{})[field]||[])))].map(idxOf).filter(i=>i>=0);
+    if(pts.length) gtr.push({x:pts.map(i=>D.dates[i]),y:pts.map(i=>cum[i]),mode:"markers",showlegend:false,cliponaxis:false,
+      marker:{symbol:sym,size:sym==="triangle-up"?20:13,color:agColor[a]||"#888",line:{color:"#fff",width:2}},
+      hovertemplate:a+" "+tag+" %{x|%Y-%m-%d}<extra></extra>"});
+  };
+  Object.entries(byAgent).forEach(([a,tks])=>{ mk(a,tks,"live","triangle-up","went live"); mk(a,tks,"exit","x","exit"); });
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"▲ went live",marker:{symbol:"triangle-up",size:18,color:"#666"}});
+  gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit (catalyst resolved)",marker:{symbol:"x",size:12,color:"#666"}});
+  Plotly.newPlot("gainseries",gtr,
+    {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false},
+     yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  const traces=[];
+  for(const t in D.alloc) traces.push({x:D.dates,y:D.alloc[t].map(v=>v*100),name:t,
+    stackgroup:"a",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"%{y:.0f}%"});
+  traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
+  Plotly.newPlot("alloc",traces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+  const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
+  document.getElementById("allocnote").innerHTML="";
+
+  // Plot 4 — holdings Gantt: every curator-named ticker. Thin gray + small markers = PROPOSED
+  // (watchlisted/thesis-live); thick colored + large markers = FUNDED (optimizer bought it).
+  const WD=D.watch_daily||{};
+  // contiguous spans where series[i] passes thresh
+  const spansOf=(arr,th)=>{const s=[];let st=null;for(let i=0;i<D.dates.length;i++){
+    const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
+    if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
+  const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
+  // ROW ORDER: (a) FUNDED gem tickers (optimizer ever gave weight > 0.01), then (b) the SPY + defensive
+  // (GLD) benchmark/floor block, then (c) UNFUNDED (proposed-only) tickers. Within each group keep the
+  // first-proposed ordering so the timeline still reads left-to-right.
+  const _isFunded=t=>(D.alloc[t]||[]).some(w=>w>0.01);
+  const _BENCH=new Set(["SPY",((D.params&&D.params.defensive_ticker)||"GLD").toUpperCase()]);
+  const _gbase=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
+                .filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
+                .sort((a,b)=>propFirst(a)-propFirst(b));
+  const gord=[
+    ..._gbase.filter(t=>_isFunded(t)&&!_BENCH.has(t)),   // (a) funded gems
+    ..._gbase.filter(t=>_BENCH.has(t)),                  // (b) SPY + GLD benchmark/floor block
+    ..._gbase.filter(t=>!_isFunded(t)&&!_BENCH.has(t)),  // (c) unfunded (proposed only)
+  ];
+  const gtraces=[];
+  gord.forEach((t,yi)=>{
+    const col=D.colors[t]||"#888";
+    spansOf(WD[t],0).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:"#ccd2d8",width:5},marker:{color:"#ccd2d8",size:4},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · proposed<br>%{x|%Y-%m-%d}<extra></extra>`}));
+    spansOf(D.alloc[t],0.0001).forEach(sp=>gtraces.push({x:[D.dates[sp[0]],D.dates[sp[1]]],y:[yi,yi],
+      mode:"lines+markers",line:{color:col,width:13},marker:{color:col,size:9},
+      legendgroup:t,showlegend:false,hovertemplate:`<b>${t}</b> · funded<br>%{x|%Y-%m-%d}<extra></extra>`}));
+  });
+  Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
+    height:Math.max(180,34*gord.length+80),
+    yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed",automargin:false},
+    xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
+  // FUNDED tickers only (gord above includes proposed-never-funded names that have no alloc series).
+  const ord=Object.keys(D.alloc).filter(t=>D.alloc[t].some(w=>w>0.0001))
+              .sort((a,b)=>D.alloc[a].findIndex(w=>w>0.0001)-D.alloc[b].findIndex(w=>w>0.0001));
+  const dtraces=[];
+  for(const t of ord) dtraces.push({x:D.dates,y:D.alloc[t].map((w,i)=>w*D.value[i]),name:t,
+    stackgroup:"d",line:{width:0},fillcolor:D.colors[t]||"#bbb",hovertemplate:"$%{y:,.0f}"});
+  dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",showlegend:false,stackgroup:"d",
+    line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
+  Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
+    xaxis:{type:"date",range:XR,autorange:false},
+    yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
+    hovermode:"x unified"},{displayModeBar:false,responsive:true});
+
+  // Plot 6 — cumulative $ gain per holding (sorted bar; green win / red loss; sums to total gain).
+  const G=Object.entries(D.gain||{}).sort((a,b)=>b[1]-a[1]);
+  Plotly.newPlot("gain",[{type:"bar",x:G.map(e=>e[0]),y:G.map(e=>e[1]),
+    marker:{color:G.map(e=>e[1]>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:50},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
+  const AG=D.agent_gain||{};   // AGM + agColor defined above the Plot 2 block (shared across Plots 2/7/8/9)
+  const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
+  // DE-EMPHASIZE (not hide) never-funded agents so the funded + gem agents pop while the dead-weight ones
+  // stay VISIBLE but muted (thin, faint, grey). Fixes the "too many ineffective agents confuse the plots"
+  // clutter without losing sight of them. "funded" = ever got capital (byAgent keys) + the gem + SPY/gold floors.
+  const fundedAg=new Set(Object.keys(byAgent)); fundedAg.add("spy"); fundedAg.add("defensive"); if(gemAg)fundedAg.add(gemAg);
+  const isFunded=aid=>fundedAg.has(aid);
+  const MUTE="#cfd4da";                                       // grey for muted (unfunded) agents
+  const agS=Object.entries(AG).sort((a,b)=>b[1]-a[1]);        // all agents; unfunded greyed below
+  Plotly.newPlot("agentgain",[{type:"bar",x:agS.map(e=>aglab(e[0])),y:agS.map(e=>e[1]),
+    marker:{color:agS.map(e=>isFunded(e[0])?(agColor[e[0]]||"#888"):MUTE),line:{color:"#333",width:0.5}},
+    hovertemplate:"%{x}<br>$%{y:,.0f}<extra></extra>"}],
+    {margin:{l:72,r:30,t:18,b:70},xaxis:{tickangle:-30},
+     yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 9 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
+  const AP=(D.agent_precision||[]).filter(r=>r.ret!==null&&r.ret!==undefined);
+  const nwin=AP.filter(r=>r.ret>0).length, nap=AP.length;
+  const prec = nap ? Math.round(100*nwin/nap) : 0;
+  const aph=document.getElementById("agentprec_h");
+  if(aph) aph.textContent=`Plot 9 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
+  const APs=AP.slice().sort((a,b)=>a.ret-b.ret);
+  // dynamic caption: the curator's batting average in words, from the actual bars
+  const capEl=document.getElementById("agentprec_cap");
+  if(capEl){
+    if(!nap){ capEl.innerHTML="No agents to score this window."; }
+    else{
+      const APc=AP.slice().sort((a,b)=>b.ret-a.ret), pct=v=>(v>=0?"+":"")+Math.round(v*100)+"%";
+      const list=APc.map(r=>`<b style="color:${r.ret>=0?'#2ca02c':'#d62728'}">${r.ticker} ${pct(r.ret)}</b>`).join(", ");
+      const gem=(D.overlay_ticker||"").toUpperCase(), gemR=APc.find(r=>r.ticker===gem);
+      const best=APc[0], worst=APc[APc.length-1], bits=[];
+      bits.push(gemR?`the gem ${gem} was a ${gemR.ret>0?"winning":"losing"} call (${pct(gemR.ret)})`
+                    :`the gem ${gem} was never named this window`);
+      if(best&&best.ticker!==gem) bits.push(`${best.ticker} was the best pick (${pct(best.ret)})`);
+      if(worst&&worst.ret<0&&worst.ticker!==gem) bits.push(`${worst.ticker} the worst (${pct(worst.ret)})`);
+      capEl.innerHTML=`Each bar is one agent's <b>standalone return over its live span</b> &mdash; ${list} `
+        +`&mdash; so the curator's picks won <b>${nwin} of ${nap}</b> times, independent of how much the optimizer `
+        +`actually sized each (Plots 1/4 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
+    }
+  }
+  Plotly.newPlot("agentprec",[{type:"bar",orientation:"h",
+    y:APs.map(r=>(r.agent?r.agent+" · ":"")+r.ticker+" · "+String(r.thesis||"").slice(0,40)), x:APs.map(r=>r.ret*100),
+    marker:{color:APs.map(r=>r.ret>=0?"#2ca02c":"#d62728")},
+    hovertemplate:"%{y}<br>%{x:.0f}% over live span<extra></extra>"}],
+    {margin:{l:280,r:30,t:10,b:40},height:Math.max(180,20*APs.length+60),
+     xaxis:{ticksuffix:"%",zeroline:true,zerolinecolor:"#888"},yaxis:{automargin:false,tickfont:{size:10}}},
+    {displayModeBar:false,responsive:true});
+
+  // (Watchlist-by-date plot removed — the journal (below) + holdings timeline cover the same ground.)
+
+  // Plot 10 — What it cost (rendered BEFORE the storyboard so the on-page order is cost then storyboard).
+  document.getElementById("costs").innerHTML =
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">model <b>${D.model||'—'}</b> · ${D.weeks} weekly scans</div></div>`;
+
+  // cost barchart — approx LLM $ per stage from the SHARED, cumulative ledger (rough estimate, not
+  // per-book). Retriever is a fixed Tavily pool-ingest estimate; Resolver only shown if it has spend.
+  const CB=D.cost_breakdown||{};
+  const cbModels=CB._models||{};
+  const cbOrder=["Retriever","Scout","Matcher","Event","Picker"].concat((CB.Resolver||0)>0?["Resolver"]:[]);
+  const cbx=cbOrder.filter(k=>k in CB), cby=cbx.map(k=>CB[k]||0);
+  const cbLabels=cbx.map(k=>cbModels[k]?`${k}<br>(${cbModels[k]})`:k);   // two-line tick: stage + model/engine
+  if(cbx.length){
+    Plotly.newPlot("coststage",[{type:"bar",x:cbLabels,y:cby,marker:{color:"#2980b9"},
+      text:cby.map(v=>"$"+(+v).toFixed(2)),textposition:"outside",
+      hovertemplate:"%{x}<br>$%{y:.2f}<extra></extra>"}],
+      {margin:{l:60,r:20,t:34,b:40},
+       title:{text:"approx LLM cost by stage (cumulative ledger estimate)",font:{size:13}},
+       yaxis:{tickprefix:"$",separatethousands:true}},
+      {displayModeBar:false,responsive:true});
+  }
+
+  // Plot 11 — Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
+  const ats=Object.keys(A).sort((x,y)=>{
+    if(x===D.gem)return -1; if(y===D.gem)return 1;
+    const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
+    return A[y].length-A[x].length;});
+  const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
+    :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
+  const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
+  const hdr = ats.length ? `<p class="sub">${nF} funded event(s) · ${nU} never-funded proposal(s) (the ineffective agents — muted below)</p>` : "";
+  document.getElementById("arcs").innerHTML = hdr + (ats.length ? ats.map(t=>{
+    const funded=F.has(t);
+    const rows=A[t].map(e=>`<tr><td>${e.date}</td><td>${e.live?"live":"<b style='color:#c00'>EXIT</b>"}</td><td>${e.conviction??"—"}</td>`
+      +`<td>${clip(e.thesis)}</td>`
+      +`<td class="sub">${(e.milestones||[]).map(m=>esc(String(m))).join(" → ")||"—"}</td>`
+      +`<td>${e.resolved?"<b style='color:#c00'>RESOLVED</b> · ":""}${clip(e.exit_case)||"—"}</td>`
+      +`<td>${clip(e.assessment)}</td><td class="sub">${clip(e.exit_advice)}</td></tr>`).join("");
+    const open = t===D.gem ? " open" : "";
+    const thesis = (A[t][A[t].length-1]||{}).thesis || "";   // event catalyst (latest)
+    const fundTag = funded ? "" : ` · <span style="color:#aaa">never funded</span>`;
+    const style = funded ? "margin:0 0 6px" : "margin:0 0 6px;opacity:.5";
+    return `<details${open} style="${style}"><summary><b>${t}</b>${AO[t]?` <span class="sub">agent ${AO[t]}</span>`:""} · ${A[t].length} wk`
+      +`${t===D.gem?" (gem)":""}${fundTag} — <span class="sub">${clip(thesis)}</span></summary>`
+      +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>thesis</th><th>milestones</th>`
+      +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
+  }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
+});
+</script></body></html>

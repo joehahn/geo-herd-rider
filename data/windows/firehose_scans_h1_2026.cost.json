@@ -1,0 +1,1 @@
+{"Retriever": 2.0, "Scout": 0.67, "Matcher": 0.0, "Event": 5.58, "Resolver": 0.0, "Picker": 0.0, "_models": {"Retriever": "Tavily", "Scout": "llama4", "Matcher": "llama4", "Event": "sonnet5", "Picker": "sonnet5", "Resolver": "llama4"}}

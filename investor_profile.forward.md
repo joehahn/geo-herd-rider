@@ -25,6 +25,8 @@ gather_model: sonnet5              # FIREHOSE stage (live web-search gather). We
                                   #   sonnet4  = claude-sonnet-4-6 (Anthropic)     ~$3.6
                                   #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
+event_agent_effort: high           # keep FULL reasoning for the live forward candidate (quality). (forward_engine
+                                  #   currently uses the process_week default 'high'; backtest reads 'medium' for cost.)
 event_agent_model: sonnet5         # JUDGMENT stage (per-event agents): live/exit switch + conviction. Reads the
                                   #   ALREADY-gathered pool with NO web search, so ANY provider works (decoupled
                                   #   from gather_model as of the 2026-07-12 3-knob split). Kept on sonnet5 for the
@@ -42,10 +44,9 @@ t_update_days: 1                  # Assumed number of business days from event d
 min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
 max_agents: 7                     # PORTFOLIO cull: top-N EVENT-agents that hold capital. SPY + GLD appended AFTER the
                                   #   cull (not competing). forward --report ranks the keep-list via the picker. 0 = uncapped.
+drop_unfunded_weeks: 0            # CULL: drop an event the optimizer leaves UNFUNDED for N straight weeks. 0 = OFF (validate forward first).
 max_new_events: 3                 # scout INFLOW cap: max NEW events/week (bounds event-agent LLM cost). 0 = uncapped.
 news_cap: 500                     # Per-WEEK scout budget (the weekly --scan reads the freshest N of the week's pool; drops the older tail, warns on drop). 0=UNCAPPED. The daily --pull still fetches uncapped.
-defensive_ticker: GLD             # defensive asset appended to the optimizer post-cull (GLD=gold, BND=bonds); "" = none.
-                                  #   SPY + this always ride post-cull; neither competes for a slot.
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0=off, <0=all, >0=last N
 lookback_period_days: 14          # Optimizer trailing lookback (calendar days); short = responsive to recent moves
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window

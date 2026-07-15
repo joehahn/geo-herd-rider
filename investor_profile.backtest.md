@@ -14,6 +14,8 @@
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather) — Anthropic-ONLY. INERT in the
                                   #   backtest (no live gather; the pool is GDELT/Tavily), so this is a
                                   #   forward-only knob like news_cap; kept = .forward.md for validity.
+event_agent_effort: medium         # reasoning effort for the per-event judgment call (the curator COST DRIVER,
+                                  #   ~$0.056/call on sonnet5 at 'high'). 'medium' ~halves backtest curator cost.
 event_agent_model: sonnet5         # JUDGMENT stage (the per-event agents: live/exit switch + conviction).
                                   #   Reads the gathered pool with NO web search -> ANY provider (3-knob split,
                                   #   2026-07-12). On sonnet5 (Anthropic) for the strong-judgment HL rerun — the
@@ -27,27 +29,28 @@ event_agent_model: sonnet5         # JUDGMENT stage (the per-event agents: live/
                                   #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8
                                   #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
                                   #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
-scout_model: sonnet5               # EXTRACTION/ROUTING stage (scout + matcher): reads the whole firehose
-                                  #   pool, so it's the token-cost driver. TEMPORARILY on sonnet5 for the HL
-                                  #   matcher-fix confirmation (does a strong matcher split silver HL/SVM off
-                                  #   MP's rare-earth event?). Restore llama4 after — this is the cost driver.
+scout_model: llama4                # EXTRACTION/ROUTING stage (scout + matcher): reads the whole firehose pool,
+                                  #   so it's the token-cost driver -> runs a CHEAP model (llama4, OpenRouter ~$0.3/run).
+                                  #   Any provider (no web search).
 picker_model: sonnet5             # PORTFOLIO-cull agent-picker (src/picker.py): ranks live events on catalyst-arc -> keep-list.
                                   #   Opt-in (proto_select --picker / forward --report); INERT on plain dashboard rebuilds.
                                   #   STRONG model required (cheap pickers tie/trail random).
 picker_effort: low                # Anthropic reasoning effort for the picker: 'low' = cheap/fast for backtest replays;
                                   #   'high' for forward (1 call/week, trivial cost, reasoning may be its only edge).
 initial_investment_usd: 50000     # Day-0 dollar allocation.
-concentration_cap: 1.0            # Per-ticker max allocation.
-risk_aversion: 0.1              # lambda in mean-variance utility (μᵀw − λ·wᵀΣw).
+concentration_cap: 0.667          # Per-ticker max allocation (conservative: no single name > ~2/3 the book).
+risk_aversion: 0.5              # lambda in mean-variance utility (μᵀw − λ·wᵀΣw). Conservative: 0.5 favors lower-variance spread (was 0.1 = aggressive-μ).
 t_update_days: 1                  # Assumed number of business days from event detection to trade execution
-min_trade_size: 0.0               # Drop holdings smaller than this & reallocate
-max_agents: 7                     # PORTFOLIO cull: top-N EVENT-agents that hold capital. SPY + GLD appended AFTER the
+min_trade_size: 0.1               # Drop holdings smaller than 10% & reallocate (fewer dust positions).
+max_agents: 5                     # PORTFOLIO cull: top-N EVENT-agents that hold capital. SPY + GLD appended AFTER the
                                   #   cull (not competing). With a picker (opt-in) the LLM ranks; else keep-first-N. 0=uncapped
-max_new_events: 3                 # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
+drop_unfunded_weeks: 0            # CULL: drop an event the optimizer leaves UNFUNDED for N straight weeks. 0 = OFF.
+                                  #   Set to 0 (2026-07-15): the 1000-draw Monte-Carlo showed =4 was an overfit lever
+                                  #   (+38% Q1 / -45% H1 vs +0% neutral); =0 dominates on worst-window return AND gem-capture,
+                                  #   and matches the frozen forward profile. Do not re-enable without cross-window support.
+max_new_events: 2                 # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
                                   #   Cheap cull = catalyst gate + (TODO) diversity tiebreak. 0 = uncapped. (was CANDIDATE_CAP)
 news_cap: 0                       # Per-SCAN (per-week) cap on articles the scout reads; 0 = UNCAPPED.
-defensive_ticker: GLD             # defensive asset appended to the optimizer post-cull (GLD=gold, BND=bonds); "" = none.
-                                  #   SPY + this always ride post-cull; build_dashboard blanks it on same-theme gold gems.
 curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0=off, <0=all, >0=last N
 lookback_period_days: 14          # Optimizer trailing lookback (calendar days); short = responsive to recent moves
 rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window

@@ -1,0 +1,1813 @@
+{
+ "events": {
+  "ev1": {
+   "id": "ev1",
+   "catalyst": "gains on gold price surge",
+   "status": "live",
+   "vehicles": [
+    "AEM",
+    "AREC",
+    "GFI",
+    "GOLD",
+    "HMY",
+    "NEM",
+    "REELEMENT TECHNOLOGIES",
+    "RIOFF",
+    "SBSW"
+   ],
+   "entries": [
+    {
+     "date": "2025-01-03",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if gold prices reverse into a sustained downtrend below key support (~$2500) or Fed turns hawkish decisively",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025"
+     ],
+     "assessment": "Gold remains near multi-week highs with structural tailwinds (inflation, central bank buying, rate-cut expectations) supporting miners. Coverage still frames this as early/ongoing rather than exhausted - analysts see further gains in H2 2025. Multiple gold miners named across press as inflation hedges/beneficiaries. This is a structural, open-ended commodity driver, not a single datable event, so thesis stays live absent a reversal in gold's trend.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-01-03/gold-market-boiling-4-gold-stock-options-riding-high",
+      "https://www.kitco.com/news/article/2025-01-03/strong-majority-retail-traders-expect-gold-trade-above-3000oz-2025-experts",
+      "https://www.inkl.com/news/3-gold-mining-stocks-to-hedge-against-inflation-09dbb1cd-22a8-4e0c-88f9-4c7a23a27a8c"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "SBSW"
+     ]
+    },
+    {
+     "date": "2025-01-10",
+     "thesis_live": true,
+     "exit_case": "none - gold at four-week highs on safe-haven demand, structural driver still intact",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2500 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty"
+     ],
+     "assessment": "Gold continues grinding to fresh multi-week highs on safe-haven demand, Trump policy/tariff uncertainty, and central bank buying - structural tailwinds remain intact and press still frames this as ongoing rather than exhausted. Miners like AEM confirmed gaining alongside gold moves. No reversal signal; thesis remains structural and live.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-01-09/gold-hits-four-week-peak-safe-haven-demand",
+      "https://www.kitco.com/news/off-the-wire/2025-01-10/gold-rebounds-trump-policy-uncertainty-despite-robust-us-jobs-data",
+      "https://finance.yahoo.com/news/why-market-dipped-agnico-eagle-225018980.html"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "SBSW"
+     ]
+    },
+    {
+     "date": "2025-01-17",
+     "thesis_live": true,
+     "exit_case": "none - gold structural uptrend intact, third straight weekly gain, no reversal below key support",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2500 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries"
+     ],
+     "assessment": "Gold structural driver remains intact - third consecutive weekly gain, safe-haven and tariff-hedge demand, CME stocks up a third in six weeks. SBSW crashing on company-specific issues, but other miners (AEM, GFI, HMY) still track the gold trend. No reversal signal; thesis stays live and structural.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-01-17/gold-set-third-straight-weekly-gain-trumps-policies-focus",
+      "https://www.kitco.com/news/off-the-wire/2025-01-17/cme-precious-metals-stocks-soar-trump-tariff-threat",
+      "https://www.insidermonkey.com/blog/why-sibanye-stillwater-sbsw-is-crashing-1425567/"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "SBSW"
+     ]
+    },
+    {
+     "date": "2025-01-24",
+     "thesis_live": true,
+     "exit_case": "none - gold near record highs, structural drivers (rate-cut calls, tariff uncertainty, safe-haven demand) intact",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2500 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone"
+     ],
+     "assessment": "Gold continues to grind toward record highs, driven by Trump's calls for lower rates, tariff uncertainty, and safe-haven demand - structural driver remains firmly intact with no reversal signal. SBSW remains company-specific weak link; AEM, GFI, HMY still track gold trend cleanly.",
+     "news_claims": "",
+     "sources": [
+      "https://www.usatoday.com/story/money/2025/01/24/gold-near-record-high-trump/77932172007/",
+      "https://www.kitco.com/news/article/2025-01-24/price-gains-gold-silver-trump-eases-tone-china-tariff-threats"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "SBSW"
+     ]
+    },
+    {
+     "date": "2025-01-31",
+     "thesis_live": true,
+     "exit_case": "none \u2014 gold hit fresh record $2800 on tariff/safe-haven demand, structural driver still accelerating",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2600 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Gold broke above $2800 for the first time ever this week, driven by tariff-threat escalation and safe-haven flows - structural driver remains firmly intact and if anything reaccelerating, not fading. AEM confirmed outperforming broader market and sector on the move. No reversal signal whatsoever; conviction ticks up on fresh milestone (record high breach) rather than decaying on silence.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-01-31/gold-surges-past-2800-tariff-threats-reignite-record-rally",
+      "https://finance.yahoo.com/news/agnico-eagle-mines-aem-sees-224521505.html",
+      "https://www.kitco.com/opinion/2025-01-31/silver-and-miners-lead-gold-another-breakout"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "SBSW"
+     ]
+    },
+    {
+     "date": "2025-02-07",
+     "thesis_live": true,
+     "exit_case": "none - gold structural rally still intact, near $3000 with fresh record highs, no reversal",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2700 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Gold's structural rally continues to reaccelerate rather than fade - four more all-time highs this week, nearing $3000, with press explicitly framing gold stocks as poised to explode further. Tariff uncertainty, weak jobs data, and safe-haven demand all still driving flows. No reversal signal; conviction holds steady given fresh milestone (new highs, mining-sector coverage of valuation anomaly suggesting more room to run). SBSW remains the weak/company-specific link but AEM, GFI, HMY continue tracking gold cleanly; adding NEM/GOLD as broader named beneficiaries given press explicitly naming Newmont/Barrick this week.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-02-07/gold-stocks-set-explode-gold-price-nears-3000",
+      "https://reporter.am/2025/02/07/gold-stocks-to-research-february-05th.html",
+      "https://www.mining.com/web/gold-stock-valuation-anomaly/"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-02-14",
+     "thesis_live": true,
+     "exit_case": "none - gold structural rally intact, no downtrend reversal or hawkish Fed pivot",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2700 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Structural driver remains fully intact - press this week explicitly frames gold miners as poised to outperform in 2025 and highlights historic profit margins/M&A interest amid pessimistic sentiment, suggesting the equity re-rating is still lagging the metal. Tariff uncertainty (reciprocal tariff rollout) continues as a live macro tailwind. No reversal signal in gold price trend. Basket remains AEM, GFI, HMY, NEM, GOLD; SBSW stays weak company-specific link but retained given still-live gold beta.",
+     "news_claims": "",
+     "sources": [
+      "https://www.streetwisereports.com/article/2025/02/14/top-gold-stocks-set-to-outperform-in-2025-according-to-expert-analysis.html",
+      "https://www.streetwisereports.com/article/2025/02/14/gold-mining-companies-eye-mergers-as-profit-margins-hit-historic-highs.html",
+      "https://www.northernminer.com/news/barrick-weighs-us-relocation-says-ceo-mark-bristow/1003875752/"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-02-21",
+     "thesis_live": true,
+     "exit_case": "none - gold hit 8th straight weekly gain, fresh record highs, no reversal in sight",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2800 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Structural gold rally remains fully intact - eighth consecutive weekly gain, fresh all-time highs, press explicitly framing momentum as pointing toward $3000. Newmont and Gold Fields both report strong Q4/2024 results tied to record gold prices, confirming miner earnings are tracking the metal cleanly. Broader equity market wobble (Goldman correction call, NYT on Trump-era stock declines) is itself a safe-haven tailwind for gold, not a reversal signal. Harmony Gold mine incident is company-specific/tragic but not thesis-relevant. No reversal in gold's uptrend; basket unchanged.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/article/2025-02-21/gold-price-surging-record-highs-and-bullish-momentum-point-3000",
+      "https://www.kitco.com/opinion/2025-02-21/gold-extends-historic-rally-global-uncertainties-fuel-safe-haven-demand",
+      "https://www.kitco.com/opinion/2025-02-21/newmont-reports-strong-q4-gold-posts-all-time-highs"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "Gold's eight-week win streak ended this week on dollar strength/profit-taking, but no trend reversal below key support confirmed",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2800 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Structural gold rally pauses after eight straight weekly gains as dollar strengthens and traders take profits following new Trump tariff announcements; Kitco explicitly frames the rally as 'far from over' rather than reversed. No sustained downtrend or break of key support - this reads as consolidation, not a reversal signal. AEM lagging market slightly this month but still up alongside gold historically. Basket unchanged; conviction ticks down modestly on the pause/silence in fresh upside milestones and increased profit-taking chatter, but structural driver (tariff uncertainty, central bank buying, inflation hedge demand) remains intact.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/article/2025-02-28/golds-eight-week-win-streak-ends-rally-far-over",
+      "https://www.kitco.com/opinion/2025-02-28/golds-record-week-cut-short-dollar-strength-and-traders-taking-profits",
+      "https://finance.yahoo.com/news/agnico-eagle-mines-aem-increases-224520522.html"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "none - gold rally reaccelerating toward $3000 on tariff/trade-war risk aversion, no reversal",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2800 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Structural gold rally reaccelerates after last week's pause - Kitco explicitly frames $3000 as 'back in play' with risk aversion rising on multi-front trade war escalation crushing equity gains. Investors rushing into gold ETFs amid economic chaos confirms fresh institutional flows, not exhaustion. Newmont widening output gap and Gold Fields' record dividend both reinforce miner earnings tracking record gold prices cleanly. No reversal signal - conviction ticks back up on fresh milestone/renewed momentum after prior week's consolidation.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-03-07/3000-gold-back-play-risk-aversion-increases",
+      "https://www.kitco.com/news/article/2025-03-06/who-buying-investors-rush-gold-etfs-amid-economic-chaos",
+      "https://www.mining.com/web/newmont-widens-output-gap-over-gold-mining-rivals/",
+      "https://www.kitco.com/news/article/2025-03-07/record-dividend-gold-fields-dividend-strategy-explained"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "none - gold just breached $3000 record high, structural rally intact, no reversal signal",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2900 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Gold pierced $3000 for the first time this week, driven by escalating trade war and equity market correction fears - a fresh, major milestone confirming the structural rally is reaccelerating, not exhausted. Billionaire investor Paulson publicly adding mining stocks pre-record-highs and Agnico investing $44M in Collective Mining reinforce continued institutional conviction in the sector. Newmont/Gold Fields/Agnico/Harmony all continue tracking gold cleanly; conviction ticks up on this new all-time-high milestone. No reversal signal in gold's trend whatsoever - the driver remains fully structural and intact.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-03-14/tsx-futures-rise-index-set-weekly-loss-heightened-trade-war",
+      "https://in.benzinga.com/trading-ideas/movers/25/03/44331708/billionaire-hedge-funder-adds-mining-stocks-before-gold-makes-record-highs-gold-will-go-up-paulson-says",
+      "https://www.mining.com/collective-soars-again-as-agnico-invests-44m/"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "Kitco flags signals of imminent correction; investors reining in expectations after $3000 breach - possible near-term pause",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2900 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Gold structural rally remains intact after piercing $3000 last week; this week's coverage is mixed - Forbes frames $3000 breach as ongoing inflation/Fed crisis story (bullish structural framing), while Kitco flags correction-signal chatter and market digesting the level. This reads as consolidation/profit-taking after a major milestone, not a reversal - no sustained downtrend or support break below ~$2900. Basket unchanged; conviction holds near recent high given fresh milestone last week but tempered slightly by correction-risk chatter this week.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/article/2025-03-21/wall-street-and-main-street-rein-their-expectations-markets-digest-3000",
+      "https://www.kitco.com/opinion/2025-03-21/gold-market-analysis-signals-imminent-price-correction",
+      "https://www.forbes.com/sites/steveforbes/2025/03/20/golds-3000-surge-why-the-fed-faces-an-existential-crisis/"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "none - gold hit fresh record highs again this week on tariff/inflation safe-haven demand",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if gold reverses into sustained downtrend below ~$2900 or Fed turns decisively hawkish",
+     "milestones": [
+      "Gold hits three-week high near $2619/oz on CPI data",
+      "Retail traders bullish on gold above $3000/oz in 2025",
+      "Gold hits four-week peak on safe-haven demand and Trump policy uncertainty",
+      "Gold set for third straight weekly gain amid Trump policy uncertainty; COMEX warehouse stocks surge on tariff-hedge deliveries",
+      "Gold surges near record high as Trump calls for lower rates and eases China tariff tone",
+      "Gold surges past $2800 record high as tariff threats reignite rally"
+     ],
+     "assessment": "Gold hit yet another record high this week, explicitly driven by Trump's new tariff plans (auto tariffs) and hot February inflation data spooking equities into safe-haven flows. Reuters confirms fresh record; Yahoo Finance reports Wall Street continuing to raise bullish gold targets (17th record of year) rather than calling the top - this is not exhaustion, it's ongoing institutional re-rating. Structural driver (tariff war, inflation, Fed uncertainty, central bank buying) remains fully intact with no reversal signal. Basket unchanged; conviction stays high given fresh milestone (new all-time high) and continued bullish sell-side commentary rather than fade/exhaustion framing.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/markets/commodities/gold-climbs-record-high-trumps-tariff-plans-spark-safe-haven-demand-2025-03-28/",
+      "https://finance.yahoo.com/news/wall-street-keeps-upping-its-bullish-calls-on-gold--heres-why-162732492.html"
+     ],
+     "vehicles": [
+      "AEM",
+      "GFI",
+      "HMY",
+      "NEM",
+      "GOLD"
+     ]
+    }
+   ]
+  },
+  "ev2": {
+   "id": "ev2",
+   "catalyst": "$840M emissions-free power deal",
+   "status": "live",
+   "vehicles": [
+    "CEG",
+    "VST"
+   ],
+   "entries": [
+    {
+     "date": "2025-01-03",
+     "thesis_live": true,
+     "exit_case": "none \u2014 deal just signed this week, structural AI-power buildout still early",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or deal is canceled",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis"
+     ],
+     "assessment": "Fresh, specific, datable federal procurement deal tying nuclear power directly to AI-driven data center demand; still early-stage narrative despite growing analyst attention.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/constellation-new-energy-gsa-ink-procurement-deal-emissions-free-power-federal-buildings/736443/",
+      "https://www.ajot.com/news/constellation-gets-1-billion-in-contracts-to-supply-us-government-nuclear-power",
+      "https://markets.businessinsider.com/news/stocks/nuclear-stocks-ai-data-centers-constellation-energy-vistra-2025-1"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-01-10",
+     "thesis_live": true,
+     "exit_case": "none - GSA deal stands; new $16.4B Calpine acquisition extends and reinforces the clean-power buildout thesis",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator"
+     ],
+     "assessment": "The structural clean-power/AI-demand thesis just delivered a major fresh milestone: Constellation's $16.4B Calpine acquisition, explicitly framed around building the largest, cleanest US generation portfolio to meet AI/data-center load growth. This is not resolution of the original catalyst but confirmation the driver is accelerating and generating new concrete developments, keeping conviction high. VST remains a peer beneficiary of the same nuclear/power-for-AI theme.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/constellation-acquires-calpine-in-164b-mega-deal/737012/",
+      "https://www.investing.com/news/stock-market-news/constellation-nears-acquisition-of-calpine-in-major-power-deal-bloomberg-news-93CH-3803707"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-01-17",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver"
+     ],
+     "assessment": "No fresh CEG/VST-specific milestone this week, but broader coverage (FERC/DOE outlook, Oklo-RPower nuclear-gas data center deal, DOE utility loan wave) confirms the structural nuclear/AI-power demand driver remains intact and is generating adjacent activity across the sector. No reversal signal. Slight conviction step-down for lack of ticker-specific news this week.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/ferc-doe-epa-trump-2025-outlook-electricity-demand-growth/737385/",
+      "https://www.powermag.com/nuclear-gas-synergy-oklo-and-rpower-unveil-phased-model-to-address-data-center-power-demands/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-01-24",
+     "thesis_live": true,
+     "exit_case": "none \u2014 nuclear/AI power demand driver still expanding, no reversal signal",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "Trump pushes emergency powers/fast-track generation co-located with AI; NextEra eyes restarting shuttered nuclear plant; zombie reactors could restart for AI demand"
+     ],
+     "assessment": "Fresh sector-wide confirmation this week: Trump administration explicitly targeting fast-tracked power generation co-located with AI data centers, plus NextEra's move to restart a shuttered nuclear plant and broader 'zombie reactor revival' coverage all reinforce the structural nuclear/AI-power demand driver CEG and VST sit at the center of. No CEG/VST-specific news, but adjacent milestones keep the thesis alive and arguably accelerating with political tailwinds now added. Conviction ticks back up given breadth of fresh sector confirmation despite lack of ticker-specific headline.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/trump-emergency-co-located-power-plants-ai-data-center-davos/738209/",
+      "https://www.powermag.com/nextera-eyes-restart-of-shuttered-nuclear-plant-partners-with-ge-vernova-on-gas-power-expansion/",
+      "https://techcrunch.com/2025/01/22/zombie-nuclear-reactors-could-be-revived-thanks-to-ai-data-center-demand/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-01-31",
+     "thesis_live": true,
+     "exit_case": "Exxon CEO argues gas beats nuclear on speed for data centers, a mild counter-narrative, not a reversal",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "Trump pushes emergency powers/fast-track generation co-located with AI; NextEra eyes restarting shuttered nuclear plant; zombie reactors could restart for AI demand"
+     ],
+     "assessment": "No fresh CEG/VST-specific catalyst this week; Calpine deal progresses (divestitures to satisfy PJM market power concerns) confirming deal is real and moving forward, a minor structural milestone. Broader coverage shows nuclear/AI-power thesis facing some competitive framing (Exxon touting gas as faster alternative) but no reversal of the underlying nuclear/data-center demand driver. Conviction steps down modestly for lack of ticker-specific fresh news and a mild competing-narrative headline, consistent with silence decay.",
+     "news_claims": "",
+     "sources": [
+      "https://seekingalpha.com/news/4400084-calpine-plans-to-sell-four-power-plants-in-pjm-to-avoid-market-power-concerns-from",
+      "https://www.businessinsider.com/exxon-mobil-ceo-natural-gas-timeline-data-centers-faster-nuclear-2025-1",
+      "https://www.utilitydive.com/news/2025-electric-utility-trends-outlook-2025/738845/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-02-07",
+     "thesis_live": true,
+     "exit_case": "DeepSeek efficiency shock raises doubt AI compute needs as much power as assumed, denting demand thesis",
+     "catalyst_resolved": false,
+     "conviction": 5,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff in power/nuclear stocks on demand-growth doubts"
+     ],
+     "assessment": "First genuine headwind to the thesis: DeepSeek's low-compute AI model triggered a sharp selloff across power stocks (CEG, VST) on fears that AI data-center electricity demand growth may be overstated, directly challenging the core driver rather than being mere silence. No CEG/VST-specific deal news this week, and the competing narrative is now explicit and material rather than speculative. This is not yet a confirmed reversal (demand growth narrative could recover, and no counter-evidence the underlying buildout is halted), but conviction should step down meaningfully given the first credible threat to the structural driver. Holding but watching closely for further confirmation that AI power demand assumptions are being revised down.",
+     "news_claims": "",
+     "sources": [
+      "https://finance.yahoo.com/news/power-stocks-had-ai-tear-103000765.html",
+      "https://www.latimes.com/opinion/story/2025-02-06/china-deepseek-artificial-intelligence-stocks"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-02-14",
+     "thesis_live": true,
+     "exit_case": "none \u2014 DeepSeek demand-doubt fears directly rebutted this week by utilities/IEA data",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff in power/nuclear stocks on demand-growth doubts"
+     ],
+     "assessment": "Last week's DeepSeek-driven demand-doubt scare is directly countered this week by utility executives (Bloomberg: 'full speed on data centers') and IEA's 2027 electricity demand forecast (adding another California), both explicitly reaffirming the nuclear/AI-power structural driver. This is a genuine fresh confirming milestone, not mere silence, so conviction recovers from last week's dip. No CEG/VST-specific deal news, but the sector-wide reassurance directly addresses the prior week's threat to the thesis. Structural driver remains intact; no reversal.",
+     "news_claims": "",
+     "sources": [
+      "https://www.bloomberg.com/news/articles/2025-02-13/utilities-are-full-speed-on-data-centers-even-after-deepseek?srnd=phx-green",
+      "https://www.newsweek.com/global-electricity-demand-rising-forecast-international-energy-agency-iea-2030909",
+      "https://seekingalpha.com/news/4408399-u_s_-electricity-demand-growth-through-2027-will-be-like-adding-another-california"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-02-21",
+     "thesis_live": true,
+     "exit_case": "none \u2014 no reversal; CenterPoint capex hike and Microsoft nuclear coverage confirm demand thesis intact",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA reaffirm demand growth outlook"
+     ],
+     "assessment": "No CEG/VST-specific headline this week, but broad structural confirmation continues: CenterPoint and peer utilities raising capex explicitly to meet data-center power demand, plus continued mainstream coverage of tech giants' nuclear procurement (Microsoft) reinforces the same driver CEG/VST sit at the center of. No reversal signal; DeepSeek demand-doubt scare from two weeks ago remains countered. Conviction holds near prior level given breadth of adjacent confirming coverage despite lack of ticker-specific news.",
+     "news_claims": "",
+     "sources": [
+      "https://www.tradingview.com/news/reuters.com,2025:newsml_L3N3PB19G:0-centerpoint-raises-spending-plan-as-power-demand-from-data-centers-soars/",
+      "https://www.ynetnews.com/article/h1106qfc1l",
+      "https://www.ajot.com/news/centerpoint-joins-peers-in-raising-capital-spending-plan-to-meet-data-centers-power-demand"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "Vistra CEO cites 'red tape' delaying data-center power deals, mild demand-timing concern, not reversal",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA/PJM/KKR reaffirm demand growth outlook"
+     ],
+     "assessment": "Structural nuclear/AI-power driver remains intact and well-confirmed this week via PJM's $6.7B transmission expansion approval, PSEG's growing nuclear offtake talks pipeline, Talen/Amazon Susquehanna deal progress, Constellation's Crane (TMI) restart proceeding ahead of schedule, and KKR flagging more AI-power deals coming. Counterweight: Vistra CEO flagged regulatory 'red tape' slowing data-center deal closings, a mild near-term friction point but not a reversal of demand. No CEG/VST-specific new deal this week, but breadth of adjacent structural confirmation (PJM, PSEG, Talen, Constellation's own Crane progress) keeps conviction steady rather than decaying further; slight tick down from red-tape friction noted.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/pjm-rtep-transmission-expansion-plan-aep-dominion-firstenergy/741097/",
+      "https://www.utilitydive.com/news/pseg-peg-data-centers-pjm-earnings-larossa/740969/",
+      "https://www.businessinsider.com/talen-energy-earnings-ceo-amazon-deal-regulatory-hurdles-2025-2",
+      "https://www.powermag.com/constellation-races-to-revive-crane-nuclear-plant-amid-tight-timelines-market-shifts/",
+      "https://www.businessinsider.com/vistra-earnings-q4-2024-ceo-red-tape-data-center-delays-2025-2",
+      "https://www.bloomberg.com/news/videos/2025-02-28/kkr-says-more-deals-coming-around-ai-power-needs"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA/PJM/KKR/Treasury Sec reaffirm demand growth; nuclear stocks rebound sharply; Congress holds hearings on AI load growth"
+     ],
+     "assessment": "No CEG/VST-specific deal news this week, but strong fresh structural confirmation: nuclear stocks rebounded up to 40%+ off recent lows after Treasury Secretary Bessent signaled heavy federal investment in nuclear energy, and a House Energy Subcommittee hearing (Mar 5) plus Axios coverage explicitly centered on AI/data-center load growth alarms reinforce the driver is very much alive and politically salient. Tariff risk to transmission/plant buildouts is a mild friction note (utility filings flag potential delays) but not a reversal of underlying demand. Conviction ticks back up from last week given the genuine rebound and fresh political-attention milestone, offsetting recent silence-decay drift.",
+     "news_claims": "",
+     "sources": [
+      "https://www.mk.co.kr/en/stock/11256273",
+      "https://www.axios.com/pro/energy-policy/2025/03/05/ai-power-demand-sets-off-hill-alarm-bells",
+      "https://www.powermag.com/lawmakers-scrutinize-power-sectors-future-as-surging-demand-raises-alarms/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "none \u2014 structural nuclear/AI-power demand driver still active, no reversal or deal unwind",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA/PJM/KKR/Treasury Sec reaffirm demand growth; nuclear stocks rebound sharply; Congress holds hearings on AI load growth"
+     ],
+     "assessment": "Fresh, high-profile structural confirmation this week: Amazon, Google, Meta and Occidental publicly pledged support for tripling global nuclear capacity by 2050 at CERAWeek, reinforcing hyperscaler-driven nuclear demand directly relevant to CEG/VST. Axios and FERC chairman comments at CERAWeek further confirm AI-data-center power demand realism is now mainstream policy/industry consensus, not reversal. No CEG/VST-specific deal news, but the tech-giant nuclear pledge is a genuine new milestone (not mere silence), keeping conviction steady. No sign of demand-narrative reversal or deal unwind; thesis remains structurally intact.",
+     "news_claims": "",
+     "sources": [
+      "https://www.cnbc.com/2025/03/12/amazon-google-and-meta-support-tripling-nuclear-power-by-2050.html",
+      "https://www.axios.com/2025/03/12/ai-data-centers-energy-demand-realism",
+      "https://www.reuters.com/business/energy/ceraweek-natgas-key-meeting-rising-us-power-demand-ferc-chairman-says-2025-03-13/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA/PJM/KKR/Treasury Sec reaffirm demand growth; nuclear stocks rebound sharply; Congress holds hearings; tech giants pledge nuclear tripling at CERAWeek"
+     ],
+     "assessment": "No CEG/VST-specific news this week; adjacent confirmation continues (Santee Cooper citing AI-driven data-center demand to sell unfinished reactors, Microsoft adding 475MW solar for AI data centers) but is weaker/more tangential than recent weeks' hyperscaler nuclear pledges. Structural driver remains intact, no reversal signal. Applying silence decay given lack of ticker-specific catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.utilitydive.com/news/santee-cooper-seeks-a-buyer-for-its-unfinished-reactors-what-happens-next/742649/",
+      "https://techcrunch.com/2025/03/20/solar-notches-another-win-as-microsoft-adds-475-mw-to-power-its-ai-data-centers/"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "none - original deal closed but structural nuclear/AI-power demand driver remains unresolved and ongoing",
+     "catalyst_resolved": false,
+     "conviction": 5,
+     "exit_advice": "exit if nuclear/data-center power demand narrative reverses or major deal is unwound",
+     "milestones": [
+      "Constellation-GSA $840M emissions-free power deal signed",
+      "Constellation nears $1B total in federal nuclear contracts",
+      "Nuclear stocks rally on AI power demand thesis",
+      "Constellation announces $16.4B Calpine acquisition, creating largest US power generator",
+      "FERC/DOE 2025 outlook flags data-center demand growth as top agenda driver",
+      "DeepSeek AI efficiency breakthrough sparks selloff, then utilities/IEA/PJM/KKR/Treasury Sec reaffirm demand growth; nuclear stocks rebound sharply; Congress holds hearings; tech giants pledge nuclear tripling at CERAWeek"
+     ],
+     "assessment": "No CEG/VST-specific news this week. Sector tone softer: tech selloff dragged VST lower and uranium stocks fell on Russia-Ukraine partial ceasefire hopes (tangential, not core nuclear-for-AI-power demand reversal). No genuine reversal of the structural driver, just continued silence on ticker-specific catalysts plus mild negative sentiment spillover. Applying further silence decay.",
+     "news_claims": "",
+     "sources": [
+      "https://seekingalpha.com/news/4425117-uranium-stocks-add-to-losses-as-russia-and-ukraine-agree-to-partial-ceasefire",
+      "https://finance.yahoo.com/news/p-500-gains-losses-today-205835836.html"
+     ],
+     "vehicles": [
+      "CEG",
+      "VST"
+     ]
+    }
+   ]
+  },
+  "ev3": {
+   "id": "ev3",
+   "catalyst": "China lithium acquisition",
+   "status": "live",
+   "vehicles": [
+    "COMPANY",
+    "MP",
+    "TSM",
+    "ZANGGE MINING",
+    "ZIJMY"
+   ],
+   "entries": [
+    {
+     "date": "2025-01-10",
+     "thesis_live": true,
+     "exit_case": "none - talks just disclosed, deal unsigned, still pending",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if the Zijin-Zangge deal is signed/closed or talks are called off",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B"
+     ],
+     "assessment": "Zijin Mining, a major Chinese gold/copper producer, is in early-stage talks to acquire Zangge Mining, a $6-6.4B lithium producer, as part of a broader push into lithium/battery metals. This is fresh, specific, datable and still unresolved - no signed agreement yet, so the acquisition premium/consolidation catalyst remains live and tradeable via both the target and acquirer.",
+     "news_claims": "",
+     "sources": [
+      "https://www.bloomberg.com/news/articles/2025-01-10/zijin-mining-in-talks-to-buy-6-billion-china-lithium-producer",
+      "https://www.mining.com/web/zijin-adds-to-lithium-push-with-talks-to-buy-6-billion-miner/",
+      "https://www.tipranks.com/news/company-announcements/zijin-mining-group-eyes-potential-acquisition-of-zangge-mining"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-01-17",
+     "thesis_live": true,
+     "exit_case": "Zijin has formally offered $1.87B for 25% stake, but deal not yet signed/closed",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Talks have progressed to a concrete formal offer (25% stake, $1.87B) confirming the acquisition thesis is advancing, not resolved - deal terms are now public but not yet signed/closed, so the consolidation premium catalyst remains live and tradeable via both target and acquirer until definitive agreement.",
+     "news_claims": "Zijin to buy 25% stake in Chinese lithium miner Zangge for $1.87 billion (mining.com, 2025-01-16)",
+     "sources": [
+      "https://www.mining.com/zijin-to-buy-25-stake-in-chinese-lithium-miner-for-1-87-billion/"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-01-24",
+     "thesis_live": true,
+     "exit_case": "none - deal not yet signed/closed, no news this week confirms completion or collapse",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "No fresh coverage this week specifically on the Zijin-Zangge deal progress; broader news is dominated by Trump tariff/policy and unrelated stories. Silence decay applies - stepping conviction down from 7 to 6 given no incremental confirmation, but deal remains unresolved and thesis intact.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/article/2025-01-24/price-gains-gold-silver-trump-eases-tone-china-tariff-threats"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-01-31",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 5,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "No fresh coverage on the Zijin-Zangge deal this week; news flow dominated by Trump tariffs and gold rally. Silence decay continues - stepping conviction down from 6 to 5. Deal remains unsigned/unresolved, thesis intact but fading absent new confirmation.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-01-31/gold-surges-past-2800-tariff-threats-reignite-record-rally"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-02-07",
+     "thesis_live": true,
+     "exit_case": "No fresh news confirming deal still pending or signed; silence continues but no reversal",
+     "catalyst_resolved": false,
+     "conviction": 4,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Third consecutive week with no fresh coverage of the Zijin-Zangge deal specifically; news flow dominated by gold rally, tariffs, and unrelated macro. Silence decay continues - stepping conviction down from 5 to 4. Deal remains unsigned/unresolved per last confirmed reporting, so thesis technically intact but edge fading fast absent new confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-02-07/gold-stocks-set-explode-gold-price-nears-3000"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-02-14",
+     "thesis_live": true,
+     "exit_case": "none - deal still unsigned per last confirmed reporting, no collapse or closing reported",
+     "catalyst_resolved": false,
+     "conviction": 3,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Fourth consecutive week with no fresh coverage of the Zijin-Zangge deal specifically; news dominated by unrelated macro/tariff/earnings stories. Silence decay continues, stepping conviction down from 4 to 3. Deal remains unsigned/unresolved per last confirmed reporting, thesis technically intact but edge has largely faded absent new confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-14/stocks-hover-near-recent-highs-dollar-down-tariff-relief"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-02-21",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 2,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Fifth consecutive week with no fresh coverage specifically on the Zijin-Zangge deal; news flow entirely dominated by tariffs, gold miners, and unrelated commodity stories. Silence decay continues, stepping conviction down from 3 to 2. Deal remains unsigned/unresolved per last confirmed reporting (25% stake offer at $1.87B), so thesis technically intact but edge has almost fully decayed absent new confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-20/mp-materials-fourth-quarter-loss-beats-wall-streets-expectations"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Sixth consecutive week with no fresh coverage of the Zijin-Zangge deal; news dominated by tariffs, gold/dollar moves, and unrelated equities. Silence decay continues, conviction down from 2 to 1 - deal remains technically unsigned/unresolved per last confirmed reporting but edge has essentially fully decayed absent new confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-28/stocks-tumble-dollar-firm-trump-tariff-threats-ruffle-markets"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "Seven weeks silence on Zijin-Zangge specifically; no confirmation deal ever signed or collapsed, but edge essentially dead",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Seventh consecutive week with zero fresh coverage of the Zijin-Zangge deal specifically; this week's lithium news is Rio Tinto/Arcadium (unrelated catalyst) not Zijin/Zangge. Silence decay continues, conviction bottoms at 1. Deal remains technically unsigned/unresolved per last confirmed reporting, so thesis is not formally killed, but edge has fully decayed absent any new confirmation of progress or collapse - essentially uninvestable until fresh news breaks.",
+     "news_claims": "",
+     "sources": [
+      "https://miningdigital.com/articles/energy-transition-rio-tintos-6-7bn-lithium-acquisition"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "Eighth straight week with zero fresh Zijin-Zangge coverage; no confirmation deal is even still alive",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Eighth consecutive week with no fresh coverage of the Zijin-Zangge deal specifically; news dominated by tariff war, market volatility, and unrelated stories. Silence decay has bottomed conviction at 1. Deal remains technically unsigned/unresolved per last confirmed reporting, so thesis not formally killed, but edge fully decayed - essentially uninvestable absent fresh confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.tradingview.com/news/reuters.com,2025:newsml_L1N3PX07Y:0-chinese-stocks-end-week-higher-on-hopes-of-more-consumption-stimulus/"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "none new; deal remains unsigned per last confirmed reporting, no reversal evidence",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Ninth consecutive week with zero fresh coverage of the Zijin-Zangge deal specifically; news dominated by tariffs, quantum computing, Fed, and unrelated equities. Silence decay has bottomed conviction at 1. Deal remains technically unsigned/unresolved per last confirmed reporting, so thesis not formally killed, but edge fully decayed - essentially uninvestable absent fresh confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/markets/us/futures-slip-tariff-woes-fedex-falls-after-cutting-forecast-2025-03-21/"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "none - deal remains unsigned/uncollapsed per last confirmed reporting; no reversal found",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the Zijin-Zangge deal is formally signed/closed or talks collapse",
+     "milestones": [
+      "Zijin in talks to acquire Zangge Mining for ~$6-6.4B",
+      "Zijin offers $1.87B for 25% stake in Zangge"
+     ],
+     "assessment": "Tenth consecutive week with zero fresh coverage of the Zijin-Zangge deal specifically; news dominated by tariffs, gold records, and unrelated tech/market stories. Silence decay has bottomed conviction at 1. Deal remains technically unsigned/unresolved per last confirmed reporting, so thesis not formally killed, but edge fully decayed - essentially uninvestable absent fresh confirmation of progress or collapse.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/markets/commodities/gold-climbs-record-high-trumps-tariff-plans-spark-safe-haven-demand-2025-03-28/"
+     ],
+     "vehicles": [
+      "ZANGGE MINING",
+      "ZIJMY"
+     ]
+    }
+   ]
+  },
+  "ev4": {
+   "id": "ev4",
+   "catalyst": "U.S. Army AI contract secured",
+   "status": "live",
+   "vehicles": [
+    "BA",
+    "GSIT",
+    "LMT",
+    "MCHP",
+    "SWKS",
+    "XLNX"
+   ],
+   "entries": [
+    {
+     "date": "2025-01-17",
+     "thesis_live": true,
+     "exit_case": "Contract just secured/announced this week; no reversal or resolution yet, still fresh",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if the Army contract news fades without follow-on orders or GSI reverses gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "GSI Technology stock jumped on confirmation of a U.S. Army AI contract, a fresh, specific, datable catalyst directly tied to the ticker. This is under-the-radar small-cap news, not yet mainstream-saturated. MCHP, SWKS, XLNX are peers but no news ties them directly to this specific Army AI deal this week \u2014 GSIT is the clean pure-play. Keep GSIT as primary; retain peers only if future news implicates them in the same contract ecosystem.",
+     "news_claims": "GSI Technology (GSIT) stock soared on news it secured a U.S. Army AI contract.",
+     "sources": [
+      "https://www.investing.com/news/company-news/gsi-technology-secures-us-army-ai-contract-93CH-3818904"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-01-24",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 5,
+     "exit_advice": "exit if the Army contract news fades without follow-on orders or GSI reverses gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "No fresh news this week specifically tied to GSIT's Army AI contract; general market news unrelated. Applying silence decay, stepping conviction down from 6 to 5. Catalyst not resolved (contract awarded but follow-on execution/orders still pending), thesis remains live but under-covered. Peers MCHP, SWKS, XLNX still not implicated in this specific contract, drop them.",
+     "news_claims": "",
+     "sources": [
+      "https://www.therobotreport.com/lg-acquires-majority-stake-in-bear-robotics/"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-01-31",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 4,
+     "exit_advice": "exit if the Army contract news fades without follow-on orders or GSI reverses gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "No news this week specifically tied to GSIT's Army AI contract; unrelated defense/AI contract headlines dominate. Applying continued silence decay, stepping conviction down from 5 to 4. Contract awarded but no follow-on execution/order news yet; thesis remains live but increasingly under-covered. Peers MCHP, SWKS, XLNX still not implicated in this specific contract.",
+     "news_claims": "",
+     "sources": [
+      "https://www.tipranks.com/news/the-fly/fluor-joint-venture-awarded-contract-for-bhp-group-olympic-dam-smelter-project"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-02-07",
+     "thesis_live": true,
+     "exit_case": "No follow-on orders or fresh GSIT-specific news since original Army contract award three weeks ago",
+     "catalyst_resolved": false,
+     "conviction": 3,
+     "exit_advice": "exit if the Army contract news fades without follow-on orders or GSI reverses gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Third consecutive week with no GSIT-specific news; unrelated defense contract headlines (AeroVironment Army deal, NASA/Amentum) dominate but don't implicate GSIT. Continued silence decay steps conviction from 4 to 3. Contract remains awarded but unconfirmed by any follow-on execution, orders, or revenue recognition news. Thesis technically still live but rapidly losing edge; nearing cull floor absent fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.marinelink.com/news/hapaglloyd-confident-tariff-resilience-521984"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-02-14",
+     "thesis_live": true,
+     "exit_case": "No follow-on orders, execution updates, or revenue confirmation since Jan contract award; four straight silent weeks",
+     "catalyst_resolved": false,
+     "conviction": 2,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Fourth consecutive week with zero GSIT-specific news; this week's flow is dominated by unrelated defense contracts (AeroVironment/Denmark, MDA/Globalstar, Filtronic/SpaceX, BigBear.AI/DoD) that do not implicate GSIT. Continued silence decay drops conviction from 3 to 2, nearing cull floor. Contract award remains unconfirmed by any follow-on execution or revenue news; thesis technically live but edge nearly exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.aol.com/why-bigbear-ai-bbai-stock-221954189.html"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-02-21",
+     "thesis_live": true,
+     "exit_case": "Five weeks of zero GSIT-specific follow-on news; original contract award unconfirmed by execution or revenue",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Fifth consecutive week with no GSIT-specific news; this week's defense contract headlines (Pratt & Whitney F119, Firefly Space Force launch) are unrelated. Continued silence decay drops conviction from 2 to 1, at cull floor. Contract award remains unconfirmed by follow-on execution, orders, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://aviationweek.com/defense/aircraft-propulsion/pratt-whitney-gets-15b-f119-sustainment-contract-plans-upgrades",
+      "https://spacenews.com/u-s-space-force-awards-firefly-21-8-million-contract-for-rapid-response-launch-mission/"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "Six weeks with zero GSIT-specific follow-on; no execution/order news since initial award",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Sixth consecutive week with no GSIT-specific news; this week's contract headlines (CPS Technologies Army SBIR, BlackSky, Unusual Machines/Red Cat) are unrelated to GSIT. Silence decay holds conviction at cull floor (1). Contract award remains unconfirmed by any follow-on execution, order, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.stocktitan.net/news/CPSH/cps-technologies-awarded-army-phase-i-sbir-contract-to-advance-ctko6wqezgh2.html"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "Seven weeks with zero GSIT-specific follow-on news; contract remains unconfirmed by any execution/order/revenue event",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Seventh consecutive week with no GSIT-specific news; this week's flow (ZenaTech tariffs, MCHP layoffs, crypto miners) is unrelated to the Army AI contract. MCHP news this week is a workforce cut, not tied to this catalyst, so it doesn't revive the peer thesis. Silence decay holds conviction at cull floor (1). Contract award remains unconfirmed by any follow-on execution, order, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.benzinga.com/25/03/44081107/microchip-technology-to-cut-workforce-by-2000-employees"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "Eight weeks with zero follow-on execution/order news; contract award itself is the only event and it already occurred",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Eighth consecutive week with no GSIT-specific news; this week's contract headlines (GE Aerospace/Air Force, port labor deal, Drax) are unrelated to GSIT's Army AI contract. Silence decay holds conviction at cull floor (1). Contract award remains unconfirmed by any follow-on execution, order, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/business/aerospace-defense/ge-aerospace-secures-18-billion-us-air-force-contract-2025-03-14/"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "Nine weeks with zero GSIT-specific follow-on order/execution news since the original Army contract award",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Ninth consecutive week with no GSIT-specific news; this week's defense headline (Boeing wins NGAD F-47 fighter jet contract) is unrelated to GSIT's Army AI deal and not the same catalyst. Silence decay holds conviction at cull floor (1). Contract award remains unconfirmed by any follow-on execution, order, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/business/aerospace-defense/trump-awards-boeing-much-needed-win-with-fighter-jet-contract-sources-say-2025-03-21/"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "Ten weeks with zero GSIT-specific follow-on news; contract remains unconfirmed by execution/revenue",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if no follow-on order/execution news emerges soon, or GSIT reverses initial gains",
+     "milestones": [
+      "GSI Technology secures U.S. Army AI contract"
+     ],
+     "assessment": "Tenth consecutive week with no GSIT-specific news; this week's flow (Nvidia China restrictions, CoreWeave IPO, Boeing NGAD F-47, tariff turmoil) is unrelated to GSIT's Army AI deal. Silence decay holds conviction at cull floor (1). Contract award remains unconfirmed by any follow-on execution, order, or revenue news; thesis technically still live but edge essentially exhausted absent a fresh catalyst.",
+     "news_claims": "",
+     "sources": [
+      "https://www.airandspaceforces.com/air-force-boeing-ngad-best-overall-value/"
+     ],
+     "vehicles": [
+      "GSIT"
+     ]
+    }
+   ]
+  },
+  "ev5": {
+   "id": "ev5",
+   "catalyst": "Trump tariff threats",
+   "status": "live",
+   "vehicles": [
+    "AGNICO EAGLE MINES",
+    "BTBT",
+    "COIN",
+    "DISCOVERY SILVER",
+    "GLENCORE",
+    "HIVE",
+    "MSTR",
+    "NEM",
+    "RIOT"
+   ],
+   "entries": [
+    {
+     "date": "2025-01-31",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced",
+      "gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation"
+     ],
+     "assessment": "Tariff threats are still fresh and escalating, not yet implemented \u2014 driving gold to record highs as a safe-haven trade. This is a structural, open-ended policy driver (trade war regime) that will keep generating milestones (implementation, retaliation, further threats). Gold miners AEM/NEM benefit directly from the safe-haven bid; Glencore is exposed as a diversified miner/trader sensitive to trade-flow disruption; Discovery Silver is a precious-metals pure-play catching the same tailwind. Early stage, under-the-radar in equity terms even as gold itself is prominent.",
+     "news_claims": "Gold surpassed $2,800/oz for first time on tariff-driven safe-haven demand; Trump tariff plan pushing dollar and yields higher, rattling stocks; markets bracing for looming implementation.",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-01-31/gold-surges-past-2800-tariff-threats-reignite-record-rally",
+      "https://www.kitco.com/news/off-the-wire/2025-01-31/trump-tariff-plan-rattles-stocks-pushes-dollar-treasury-yields-higher"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-02-07",
+     "thesis_live": true,
+     "exit_case": "none - tariff threats remain unresolved and structural, with implementation still pending",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced",
+      "gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs"
+     ],
+     "assessment": "Structural driver remains intact and continues generating fresh milestones \u2014 gold near $3000 with 40 new highs, continued tariff-uncertainty coverage across markets/shipping/logistics. No resolution or reversal; still early in equity positioning terms despite gold's own prominence. Maintain basket.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-02-07/gold-stocks-set-explode-gold-price-nears-3000",
+      "https://www.kitco.com/news/off-the-wire/2025-02-07/ftse-100-eases-record-high-tariff-uncertainty-weak-us-jobs-data"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-02-14",
+     "thesis_live": true,
+     "exit_case": "Reciprocal tariffs postponed and markets 'shrug off' tariff talk near record highs \u2014 threat losing bite",
+     "catalyst_resolved": false,
+     "conviction": 6,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced",
+      "gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk"
+     ],
+     "assessment": "Structural driver persists but is showing signs of fatigue: reciprocal tariffs were formally rolled out yet implementation postponed, and multiple outlets note markets 'shrugging off' tariff talk near record highs. Gold still grinding toward $3000 keeps the safe-haven thesis alive, but equity-market complacency suggests some priced-in fade. Not a reversal or resolution \u2014 tariff threats remain live and escalating in rhetoric (Taiwan chips, new threats reported 2/13) \u2014 so maintain basket but trim conviction slightly for fading acute urgency even as structural regime continues.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-14/stocks-hover-near-recent-highs-dollar-down-tariff-relief",
+      "https://www.cnbc.com/2025/02/14/the-market-continues-to-broaden-out-as-investors-ignore-tariff-and-inflation-threats.html",
+      "https://www.logisticsmgmt.com/article/white_house_rolls_out_plan_focused_on_implementing_reciprocal_tariffs",
+      "https://www.kitco.com/opinion/2025-02-14/3000-gold-view-miner-q4-earnings-season-begins"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-02-21",
+     "thesis_live": true,
+     "exit_case": "none \u2014 tariff threats remain live, unresolved, and actively driving gold/safe-haven flows",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced -> gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge; stocks post biggest weekly decline of Trump presidency"
+     ],
+     "assessment": "Structural driver intact and reaccelerating: gold hit fresh records above $2,950 this week explicitly tied to tariff fears, with stagflation concerns and worst weekly equity decline of Trump's term reinforcing the safe-haven bid. No withdrawal or deal signed \u2014 EU only expresses 'willingness to work' to avoid pain, not resolution. Newmont's strong Q4 explicitly cites tariff-driven risk aversion boosting gold. Conviction ticks back up from last week's fatigue read given fresh acute escalation (stock selloff, stagflation fear) even as structural regime continues generating milestones. Maintain full basket.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-20/gold-hits-record-high-trump-tariff-concerns-mount",
+      "https://www.kitco.com/news/off-the-wire/2025-02-20/stagflation-fears-haunt-us-markets-despite-trumps-pro-growth-agenda",
+      "https://www.nytimes.com/2025/02/21/business/stock-market-declines-trump.html",
+      "https://www.kitco.com/opinion/2025-02-21/newmont-reports-strong-q4-gold-posts-all-time-highs"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "none \u2014 tariffs still threatened/escalating, not withdrawn; new tariffs announced this week, no deal signed",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced",
+      "gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge; stocks post biggest weekly decline of Trump presidency"
+     ],
+     "assessment": "Structural tariff-threat driver continues generating fresh milestones \u2014 new tariffs formally announced on Mexico/Canada/China this week, triggering a global stock selloff and trade-war escalation coverage (economists debating China resilience, EU industry alarm, rail/shipping impact). Gold itself pulled back short-term on dollar strength/profit-taking despite the tariff news, but the safe-haven/trade-disruption thesis for miners remains intact and arguably intensifying as actual implementation (not just threats) begins. No withdrawal, no deal \u2014 driver escalating, not resolving. Maintain basket.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/news/off-the-wire/2025-02-28/stocks-tumble-dollar-firm-trump-tariff-threats-ruffle-markets",
+      "https://www.kitco.com/opinion/2025-02-27/gold-prices-tumble-trump-announces-new-tariffs-and-dollar-strengthens",
+      "https://www.cnbc.com/2025/02/28/trump-tariffs-to-hit-over-200-billion-in-us-canada-mexico-rail-trade.html"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "none \u2014 tariffs escalating (Mexico/Canada/China implemented), no withdrawal or deal signed",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced -> gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge; stocks post biggest weekly decline of Trump presidency",
+      "tariffs on Mexico/Canada/China formally implemented; global selloff; $3000 gold back in play as risk aversion increases"
+     ],
+     "assessment": "Structural driver continues escalating with fresh milestones \u2014 actual tariff implementation on Mexico/Canada/China this week (not just threats), triggering a broad equity selloff, 'Trump put' questioned, and gold explicitly framed as reclaiming the $3000 narrative on risk aversion. No withdrawal, no deal \u2014 driver intensifying, not resolving. Conviction ticks back up on fresh acute escalation atop the structural regime. Maintain full basket.",
+     "news_claims": "",
+     "sources": [
+      "https://www.kitco.com/opinion/2025-03-07/3000-gold-back-play-risk-aversion-increases",
+      "https://www.kitco.com/news/off-the-wire/2025-03-06/investors-question-trump-put-tariffs-rattle-stock-markets",
+      "https://www.theguardian.com/business/2025/mar/07/european-markets-euro-trump-tariff-ftse-100-dax"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "none \u2014 tariff war escalating (steel/aluminum reinstated, EU retaliation), no withdrawal or deal signed",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced -> gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge",
+      "tariffs on Mexico/Canada/China formally implemented; global selloff"
+     ],
+     "assessment": "Structural tariff-war driver continues delivering fresh milestones \u2014 gold decisively broke $3,000 this week explicitly tied to tariff anxiety, EU retaliation sweeping fashion/alcohol/autos, S&P in correction, recession-risk commentary from economists. No resolution or reversal in sight; if anything the trade war is deepening with reciprocal EU tariffs and continued whiplash. Gold miners remain the cleanest expression of the safe-haven bid as the milestone (breaching $3000) has now materialized. Maintain full basket; conviction stays high given genuine acute escalation atop the structural regime.",
+     "news_claims": "",
+     "sources": [
+      "https://www.axios.com/2025/03/14/gold-all-time-high-3000",
+      "https://www.nytimes.com/2025/03/14/us/politics/gold-price-record-high.html",
+      "https://www.cnbc.com/2025/03/14/eu-tariffs-american-whiskey-jeans-cars-and-handbags-could-be-hit.html"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "none \u2014 tariffs still escalating, no withdrawal or trade deal signed; FedEx/Nike margin hits confirm ongoing impact",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced -> gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge",
+      "tariffs on Mexico/Canada/China formally implemented; global selloff; gold breaches $3000; corporate margin warnings (Nike, FedEx) confirm real economic drag"
+     ],
+     "assessment": "Structural tariff-war driver remains fully live and intensifying \u2014 gold near record highs, corporate earnings (Nike, FedEx) now explicitly citing tariff-driven margin damage, and fresh Reuters/AP coverage this week ties equity weakness directly to 'tariff woes.' No withdrawal, no deal \u2014 Trump reaffirmed only 'flexibility,' not resolution. Kitco flags a possible near-term gold correction/technical pullback, a soft signal but not a driver reversal. Maintain full miner/safe-haven basket; conviction holds high given genuine ongoing acute escalation atop the structural regime.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/markets/us/futures-slip-tariff-woes-fedex-falls-after-cutting-forecast-2025-03-21/",
+      "https://www.marketwatch.com/story/nike-says-what-others-wont-tariffs-will-hurt-margins-the-stock-heads-for-a-5-year-low-a00553e7",
+      "https://www.kitco.com/opinion/2025-03-21/gold-market-analysis-signals-imminent-price-correction",
+      "https://www.telegraph.co.uk/business/2025/03/19/us-federal-reserve-interest-rates-markets-latest-news-trump/"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "none \u2014 auto tariffs and 'Liberation Day' reciprocal tariffs still ahead, driver escalating not resolved",
+     "catalyst_resolved": false,
+     "conviction": 8,
+     "exit_advice": "exit if tariffs are formally withdrawn or a comprehensive US trade deal ends the threat",
+     "milestones": [
+      "Trump tariff plan announced -> gold surges past $2,800 record on tariff safe-haven rush",
+      "markets brace for tariff implementation",
+      "gold nears $3000 amid continued tariff uncertainty and daily record highs",
+      "reciprocal tariff plan rolled out but implementation postponed; markets increasingly shrug off tariff talk",
+      "gold hits fresh record above $2,950 as tariff concerns mount; stagflation fears emerge",
+      "tariffs on Mexico/Canada/China formally implemented; global selloff; gold breaches $3000; corporate margin warnings (Nike, FedEx) confirm real economic drag"
+     ],
+     "assessment": "Structural tariff-war driver remains fully live and intensifying \u2014 new auto tariffs this week, gold hitting fresh records (17th of the year) explicitly tied to tariff safe-haven demand, and markets bracing for the looming 'Liberation Day' reciprocal tariff rollout. Wall Street strategists raising gold price targets on the trade-war thesis. No withdrawal, no deal \u2014 the driver is escalating with a concrete near-term catalyst (Liberation Day tariffs) still ahead, so this is not arc-complete. Maintain full miner/safe-haven basket at high conviction.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/markets/commodities/gold-climbs-record-high-trumps-tariff-plans-spark-safe-haven-demand-2025-03-28/",
+      "https://finance.yahoo.com/news/wall-street-keeps-upping-its-bullish-calls-on-gold--heres-why-162732492.html",
+      "https://www.bloomberg.com/news/articles/2025-03-28/market-rout-starts-with-big-tech-as-tariff-inflation-fears-hit"
+     ],
+     "vehicles": [
+      "AGNICO EAGLE MINES",
+      "DISCOVERY SILVER",
+      "GLENCORE",
+      "NEM"
+     ]
+    }
+   ]
+  },
+  "ev6": {
+   "id": "ev6",
+   "catalyst": "Early FDA approval",
+   "status": "exited",
+   "vehicles": [
+    "EOLYY",
+    "OTHER BIOTECH FIRMS WITH PENDING FDA APPROVALS"
+   ],
+   "entries": [
+    {
+     "date": "2025-02-14",
+     "thesis_live": false,
+     "exit_case": "FDA approval already announced this week \u2014 the specific binary event has occurred and is public",
+     "catalyst_resolved": true,
+     "conviction": 3,
+     "exit_advice": "exit as approval is now public/priced; no pending decision remains for EOLYY",
+     "milestones": [
+      "Early FDA approval granted to Evolus",
+      "Buy rating issued citing approval and market positioning"
+     ],
+     "assessment": "Entered on the early FDA approval catalyst for Evolus (EOLYY); news this week confirms the approval already happened and a Buy rating followed, meaning the discrete regulatory event is resolved and priced. The 'early' framing (ahead of expected timeline) was the edge, but that surprise is now public. No concrete follow-on regulatory catalyst is cited beyond generic 'strategic market positioning' commentary, which is not a pending binary. This is a classic acute-catalyst resolution: approval granted, thesis fulfilled, edge gone even though the stock may keep re-rating on fundamentals.",
+     "news_claims": "Evolus (EOLYY) received Buy rating following early FDA approval and strategic market positioning commentary.",
+     "sources": [
+      "https://www.tipranks.com/news/ratings/evolus-gains-buy-rating-on-early-fda-approval-and-strategic-market-positioning"
+     ],
+     "vehicles": [
+      "EOLYY"
+     ]
+    }
+   ]
+  },
+  "ev7": {
+   "id": "ev7",
+   "catalyst": "$100M share repurchase program",
+   "status": "live",
+   "vehicles": [
+    "HLYA",
+    "ROK",
+    "XYL"
+   ],
+   "entries": [
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 3,
+     "exit_advice": "exit if the buyback is completed, suspended, or fully absorbed with no fresh authorization",
+     "milestones": [
+      "$100M share repurchase program announced"
+     ],
+     "assessment": "Entry week; no ticker-specific news found in this week's feed confirming which company (HLYA/ROK/XYL) launched the buyback or providing fresh detail beyond the announcement itself. Generic $100M buybacks are a routine, low-specificity catalyst with no external shock or scarcity driver, so conviction starts low; will reassess as execution/pace news emerges.",
+     "news_claims": "",
+     "sources": [],
+     "vehicles": [
+      "HLYA",
+      "ROK",
+      "XYL"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 2,
+     "exit_advice": "exit if the buyback is completed, suspended, or fully absorbed with no fresh authorization",
+     "milestones": [
+      "$100M share repurchase program announced"
+     ],
+     "assessment": "No fresh ticker-specific news this week on HLYA/ROK/XYL buyback execution or pace; broader tape dominated by tariff/trade-war risk-off and unrelated mega-cap earnings. Continued silence on this specific catalyst compounds the fade; generic buyback remains low-conviction with no scarcity/shock driver.",
+     "news_claims": "",
+     "sources": [],
+     "vehicles": [
+      "HLYA",
+      "ROK",
+      "XYL"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the buyback is completed, suspended, or fully absorbed with no fresh authorization",
+     "milestones": [
+      "$100M share repurchase program announced"
+     ],
+     "assessment": "Third consecutive week with zero ticker-specific news on HLYA/ROK/XYL buyback execution, pace, or authorization changes. This was always a routine, generic capital-return catalyst with no scarcity/shock driver, and continued silence compounds the fade toward cull-floor conviction. No reversal or completion evidence either, so thesis stays technically live but is now a very weak hold.",
+     "news_claims": "",
+     "sources": [],
+     "vehicles": [
+      "HLYA",
+      "ROK",
+      "XYL"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "Fourth straight week with zero HLYA/ROK/XYL buyback-specific news; generic catalyst never had scarcity/shock driver.",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the buyback is completed, suspended, or fully absorbed with no fresh authorization",
+     "milestones": [
+      "$100M share repurchase program announced"
+     ],
+     "assessment": "No ticker-specific news on HLYA/ROK/XYL buyback execution for a fourth consecutive week; broader tape dominated by tariff risk-off, FedEx/Nike/Micron earnings reactions, and AI-chip headlines unrelated to this catalyst. Silence continues to compound the fade on this always-generic, low-specificity capital-return catalyst; no reversal or completion evidence, so technically still live but at cull-floor conviction.",
+     "news_claims": "",
+     "sources": [],
+     "vehicles": [
+      "HLYA",
+      "ROK",
+      "XYL"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "none",
+     "catalyst_resolved": false,
+     "conviction": 1,
+     "exit_advice": "exit if the buyback is completed, suspended, or fully absorbed with no fresh authorization",
+     "milestones": [
+      "$100M share repurchase program announced"
+     ],
+     "assessment": "Fifth consecutive week with zero ticker-specific news on HLYA/ROK/XYL buyback execution, pace, or authorization; this week's feed dominated by tariff policy, CoreWeave IPO, and AI-chip headlines unrelated to this catalyst. This was always a generic, low-specificity capital-return catalyst with no scarcity/shock driver, and continued silence keeps compounding the fade toward cull-floor conviction. No completion or reversal evidence, so thesis remains technically live but is now essentially a non-position.",
+     "news_claims": "",
+     "sources": [],
+     "vehicles": [
+      "HLYA",
+      "ROK",
+      "XYL"
+     ]
+    }
+   ]
+  },
+  "ev8": {
+   "id": "ev8",
+   "catalyst": "$1.2B data center expansion",
+   "status": "live",
+   "vehicles": [
+    "CORZ",
+    "CSCO",
+    "NVDA"
+   ],
+   "entries": [
+    {
+     "date": "2025-02-28",
+     "thesis_live": true,
+     "exit_case": "none - CoreWeave expansion just announced this week, deal freshly signed not yet built out",
+     "catalyst_resolved": false,
+     "conviction": 7,
+     "exit_advice": "exit if data center capex growth visibly decelerates or CoreWeave/hyperscaler deals get canceled",
+     "milestones": [
+      "Core Scientific unveils $1.2B AI & data center expansion with CoreWeave",
+      "CORZ stock surges 11%+ on announcement",
+      "Nvidia Blackwell reaches full-scale production, $11B revenue",
+      "Broader utility/power buildout confirms data center demand (PJM $6.7B transmission, FirstEnergy pipeline doubles)"
+     ],
+     "assessment": "Core Scientific's $1.2B CoreWeave-tied data center expansion is the freshest concrete milestone in the broader data center capex buildout; entered day of announcement. Structural driver (AI power/compute buildout) remains early with utilities, transmission operators, and chipmakers all confirming demand, though some market wobble (Cramer's 'wavering faith' piece) signals sentiment risk. NVDA margin concerns are noise, not resolution. CORZ is the cleanest pure-play on this specific deal; NVDA/CSCO are broader beneficiaries of the same structural theme.",
+     "news_claims": "",
+     "sources": [
+      "https://www.tradingview.com/news/reuters.com,2025-02-27:newsml_CDK5gQ8SQ:0/",
+      "https://crypto-economy.com/core-scientific-unveils-1-2b-ai-mining-hub-after-reporting-q4-losses/",
+      "https://www.cnbc.com/2025/02/25/jim-cramer-wavering-faith-in-data-centers-is-shaping-market-action.html"
+     ],
+     "vehicles": [
+      "CORZ",
+      "NVDA",
+      "CSCO"
+     ]
+    },
+    {
+     "date": "2025-03-07",
+     "thesis_live": true,
+     "exit_case": "none - structural AI/data center capex buildout continues with no reversal signal",
+     "catalyst_resolved": false,
+     "conviction": 5,
+     "exit_advice": "exit if data center capex growth visibly decelerates or CoreWeave/hyperscaler deals get canceled",
+     "milestones": [
+      "Core Scientific unveils $1.2B AI & data center expansion with CoreWeave",
+      "CORZ stock surges 11%+ on announcement",
+      "Nvidia Blackwell reaches full-scale production, $11B revenue",
+      "Broader utility/power buildout confirms data center demand (PJM $6.7B transmission, FirstEnergy pipeline doubles)",
+      "Dominion seeks approval for 1-GW gas plant to serve surging demand",
+      "Nuclear power revival tied explicitly to AI data center load growth"
+     ],
+     "assessment": "No fresh CORZ/CoreWeave-specific news this week; broader structural buildout evidence continues (Dominion gas plant, nuclear revival, WSJ tying nuclear to AI data centers) confirming the theme remains live and under-appreciated, but silence on the specific deal warrants a conviction step-down per silence decay. Hedge fund flows into AI/data center stocks (Triata) show mainstream momentum but not resolution.",
+     "news_claims": "",
+     "sources": [
+      "https://www.powermag.com/dominion-seeks-virginia-approval-for-1-gw-gas-fired-power-plant/",
+      "https://www.wsj.com/us-news/climate-environment/nuclear-power-plant-waste-ai-data-center-657c067f",
+      "https://finance.yahoo.com/news/hedge-fund-triata-gains-39-022816760.html"
+     ],
+     "vehicles": [
+      "CORZ",
+      "CSCO",
+      "NVDA"
+     ]
+    },
+    {
+     "date": "2025-03-14",
+     "thesis_live": true,
+     "exit_case": "none - CoreWeave deal not canceled, structural data center buildout still expanding (grid strain concerns confirm demand)",
+     "catalyst_resolved": false,
+     "conviction": 4,
+     "exit_advice": "exit if data center capex growth visibly decelerates or CoreWeave/hyperscaler deals get canceled",
+     "milestones": [
+      "Core Scientific unveils $1.2B AI & data center expansion with CoreWeave",
+      "CORZ stock surges 11%+ on announcement",
+      "Nvidia Blackwell reaches full-scale production, $11B revenue",
+      "Broader utility/power buildout confirms data center demand (PJM $6.7B transmission, FirstEnergy pipeline doubles)",
+      "Dominion seeks approval for 1-GW gas plant to serve surging demand",
+      "Nuclear power revival tied explicitly to AI data center load growth"
+     ],
+     "assessment": "No fresh CORZ/CoreWeave-specific news for second straight week; second consecutive silence decay step. Broader structural theme still confirmed (CERAWeek grid strain commentary, Axios energy pragmatism piece) but generic AI/NVDA noise dominates coverage rather than the specific deal. NVDA facing valuation debate/investigation headlines, unrelated to catalyst. Structural driver intact, not reversed, but specific edge fading toward priced-in as coverage broadens to macro/tariff worries rather than data center-specific.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/business/energy/ceraweek-data-center-build-out-stokes-fears-overburdening-biggest-us-grid-2025-03-13/",
+      "https://www.axios.com/2025/03/12/ai-data-centers-energy-demand-realism"
+     ],
+     "vehicles": [
+      "CORZ",
+      "CSCO",
+      "NVDA"
+     ]
+    },
+    {
+     "date": "2025-03-21",
+     "thesis_live": true,
+     "exit_case": "CoreWeave IPO pricing news shifts attention to IPO event itself, not the CORZ deal, but structural buildout undamaged",
+     "catalyst_resolved": false,
+     "conviction": 3,
+     "exit_advice": "exit if data center capex growth visibly decelerates or CoreWeave/hyperscaler deals get canceled",
+     "milestones": [
+      "Core Scientific unveils $1.2B AI & data center expansion with CoreWeave",
+      "CORZ stock surges 11%+ on announcement",
+      "Nvidia Blackwell reaches full-scale production, $11B revenue",
+      "Broader utility/power buildout confirms data center demand (PJM $6.7B transmission, FirstEnergy pipeline doubles)",
+      "Dominion seeks approval for 1-GW gas plant to serve surging demand",
+      "Nuclear power revival tied explicitly to AI data center load growth"
+     ],
+     "assessment": "Third straight week of no CORZ-specific news; silence decay continues to compound conviction down. CoreWeave IPO pricing is adjacent but shifts narrative to the IPO event rather than the original $1.2B expansion deal itself. Structural driver (AI power/data center buildout) remains intact per Microsoft solar addition and Santee Cooper reactor sale citing AI demand, but coverage has broadened away from the specific catalyst toward generic NVDA GTC/quantum/macro noise. No reversal of the driver, but edge is fading toward priced-in as CoreWeave's own IPO becomes the story.",
+     "news_claims": "",
+     "sources": [
+      "https://www.reuters.com/technology/artificial-intelligence/coreweave-ask-47-55-per-share-ipo-sources-say-2025-03-19/",
+      "https://techcrunch.com/2025/03/20/solar-notches-another-win-as-microsoft-adds-475-mw-to-power-its-ai-data-centers/",
+      "https://www.utilitydive.com/news/santee-cooper-seeks-a-buyer-for-its-unfinished-reactors-what-happens-next/742649/"
+     ],
+     "vehicles": [
+      "CORZ",
+      "CSCO",
+      "NVDA"
+     ]
+    },
+    {
+     "date": "2025-03-28",
+     "thesis_live": true,
+     "exit_case": "CoreWeave IPO priced, shifting narrative away from original CORZ-CoreWeave deal to IPO aftermath",
+     "catalyst_resolved": false,
+     "conviction": 2,
+     "exit_advice": "exit if data center capex growth visibly decelerates or CoreWeave/hyperscaler deals get canceled",
+     "milestones": [
+      "Core Scientific unveils $1.2B AI & data center expansion with CoreWeave",
+      "CORZ stock surges 11%+ on announcement",
+      "Nvidia Blackwell reaches full-scale production, $11B revenue",
+      "Broader utility/power buildout confirms data center demand (PJM $6.7B transmission, FirstEnergy pipeline doubles)",
+      "Dominion seeks approval for 1-GW gas plant to serve surging demand",
+      "Nuclear power revival tied explicitly to AI data center load growth"
+     ],
+     "assessment": "Fourth straight week with no CORZ/CoreWeave-expansion-specific news; silence decay continues to compound conviction toward the floor. CoreWeave's IPO priced below expectations, shifting the market's attention to IPO performance/valuation debates rather than the original $1.2B expansion deal. NVDA coverage this week is dominated by China energy-efficiency rule risk, tariff relief rumors, and generic bull/bear valuation debate - none tied to the specific catalyst. Structural AI/data center buildout theme remains intact (Barchart's $1T buildout piece, Schneider Electric $700M infrastructure investment) but has fully genericized away from the CORZ deal itself, which is now old news absorbed into broader macro/AI narrative. Priced-in decay is now severe; the specific edge is essentially spent even though the structural driver hasn't reversed.",
+     "news_claims": "",
+     "sources": [
+      "https://www.investopedia.com/nvidia-backed-coreweave-prices-its-ipo-at-usd40-per-share-below-expectations-11701963",
+      "https://finance.yahoo.com/news/nvidia-just-took-17-billion-181903276.html",
+      "https://www.barchart.com/story/news/31531748/nvidia-ceo-jensen-huang-is-betting-on-1-trillion-in-data-center-buildouts-by-2028-heres-the-top-stock-to-buy"
+     ],
+     "vehicles": [
+      "CORZ",
+      "CSCO",
+      "NVDA"
+     ]
+    }
+   ]
+  }
+ },
+ "retired": {
+  "EOLYY": [
+   "Early FDA approval (resolved 2025-02-14)",
+   6
+  ],
+  "OTHER BIOTECH FIRMS WITH PENDING FDA APPROVALS": [
+   "Early FDA approval (resolved 2025-02-14)",
+   6
+  ]
+ },
+ "nid": 8
+}

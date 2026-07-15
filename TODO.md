@@ -53,6 +53,19 @@ both profiles carry `max_events`+`picker_model`. SPY/GLD dropped as competing ag
    clean test where memorization can't help. Acceptance bar = the random-percentile-vs-sub-windows scoreboard.
 3. Optional: dedup `scripts/proto_select.py`'s picker copy to import from `src/picker.py` (one prompt source).
 
+## Delete old data + dbs (2026-07-14)
+
+The new curator+picker pipeline is being rebuilt from scratch (first a Q1-2025 single-db proof). Once the
+new dbs are trusted, DELETE the stale artifacts from the old (gates/conviction/aging) pipeline so the repo
+isn't cluttered/misleading:
+- `data/windows/firehose_scans_*.json` per-gem slices + `firehose_scans_full.json*` (old 79-week run; backed
+  up to `*.79wk.bak.json`), the `.journal.json`, `picker_cache.json`, `picker_decisions.jsonl`, `*.log`.
+- old per-gem dashboards under `docs/` (mp, mu, nem, gdx, hl, bwet_curator, rnmby, cifr, tsm, intc, other) if
+  the theme-keyed set is superseded by the new single/rebuilt dbs.
+- stale `data/` outputs: old `retrieval_backtest*.json` checkpoints, `gem_ground_truth`/`gt_forward_reachable`
+  if regenerated. Keep fixtures (`gems.json`, seeds) + the retrieval pool ckpt (expensive to rebuild).
+Do a careful pass — don't delete the retrieval pool (`data/retrieval_backtest.ckpt.json`, ~$14 to rebuild).
+
 ## Delete the RVOL gate if we don't need it later (turned OFF 2026-07-14)
 
 `rvol_gate` (breakout volume co-confirmation: fund a name only if recent volume ≥ Nx its 20-day avg) is

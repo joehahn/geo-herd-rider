@@ -74,6 +74,114 @@ def book_cost(dates: list[str]) -> float:
     return round(float(led.groupby("label")["cost_usd"].last().sum()) if len(led) else 0.0, 2)
 
 
+def cost_breakdown(scans_path=None) -> dict:
+    """Per-stage LLM $ to REBUILD this db FROM SCRATCH (reingest the window's news -> curator). PREFERS a
+    per-run SIDECAR (<scans>.cost.json) written by the curator harness — the EXACT ledger delta of the run
+    that produced these scans (+ a Retriever ingest estimate) — so it's a true per-book figure. Falls back
+    to a rough cumulative-ledger estimate only if no sidecar exists (labeled as such in the chart)."""
+    from pathlib import Path as _P  # noqa: PLC0415
+    out = {"Retriever": 2.50,   # Tavily news-ingest estimate for the window (not tracked in the LLM ledger)
+           "Scout": 0.0, "Matcher": 0.0, "Event": 0.0, "Picker": 0.0, "Resolver": 0.0}
+    if scans_path is not None:                          # per-run sidecar = the exact from-scratch rebuild cost
+        side = _P(str(scans_path)).with_suffix(".cost.json")
+        if side.exists():
+            try:
+                return {**out, **json.loads(side.read_text())}
+            except Exception:  # noqa: BLE001
+                pass
+    if not costs.LEDGER.exists():
+        return out
+    led = pd.read_csv(costs.LEDGER)
+    lab = led["label"].astype(str).str.lower()
+    out["Scout"] = round(float(led.loc[lab.str.startswith("scout"), "cost_usd"].sum()), 2)
+    out["Matcher"] = round(float(led.loc[lab.str.startswith("match"), "cost_usd"].sum()), 2)
+    out["Event"] = round(float(led.loc[lab.str.startswith("event"), "cost_usd"].sum()), 2)
+    out["Resolver"] = round(float(led.loc[lab.str.startswith("resolve"), "cost_usd"].sum()), 2)
+    out["Picker"] = round(float(led.loc[led["stage"].astype(str) == "picker", "cost_usd"].sum()), 2)
+    return out
+
+
+def _norm_price_panel(tickers: list, dates: list, named_at: dict | None = None) -> dict:
+    """For each ticker, its price series reindexed onto `dates` (ffill) and normalized to 1.0× at the
+    moment it is first NAMED — for Plot 2 (normalized-performance overlay of the funded tickers).
+    `named_at` maps ticker -> the ISO week it first appears in a pick; the curve is null before that
+    week and starts at 1.0× on the first priced day on/after it (falls back to the first non-null
+    value when the ticker has no naming week)."""
+    import pandas as pd  # noqa: PLC0415
+    import score  # noqa: PLC0415
+    out: dict = {}
+    named_at = named_at or {}
+    tickers = sorted({t for t in tickers if t})
+    if not tickers or not dates:
+        return out
+    try:
+        panel = score.fetch_panel(tickers, dates[0], dates[-1], use_cache=False)
+    except Exception:  # noqa: BLE001
+        return out
+    idx = pd.DatetimeIndex([pd.Timestamp(x) for x in dates])
+    for tk in tickers:
+        if tk not in panel:
+            continue
+        s = panel[tk].dropna()
+        if not len(s):
+            continue
+        if getattr(s.index, "tz", None) is not None:
+            s.index = s.index.tz_localize(None)
+        vals = s.reindex(idx, method="ffill").tolist()
+        # base index = first priced day on/after the ticker's naming week; fall back to first valid day
+        na = named_at.get(tk) or named_at.get(str(tk).upper())
+        base_i = next((i for i, d in enumerate(dates) if d >= na), None) if na else None
+        if base_i is not None:
+            while base_i < len(vals) and (pd.isna(vals[base_i]) or float(vals[base_i]) <= 0):
+                base_i += 1
+            if base_i >= len(vals):
+                base_i = None
+        if base_i is None:   # no naming week (or no priced day after it): rebase at first valid value
+            base_i = next((i for i, x in enumerate(vals) if not pd.isna(x) and float(x) > 0), None)
+        if base_i is None:
+            continue
+        base = float(vals[base_i])
+        out[tk] = [None if (i < base_i or pd.isna(x) or float(x) <= 0) else round(float(x) / base, 4)
+                   for i, x in enumerate(vals)]
+    return out
+
+
+# The 10 known retrieval-backtest gems (Plot 3 overlay), to see which ran over a window that the
+# curator never named. Order fixes the palette assignment in the page.
+RETRIEVER_GEMS = ["MP", "TSM", "INTC", "MU", "NEM", "HL", "CIFR", "BWET", "GDX", "RNMBY"]
+
+
+def _retriever_gem_panel(dates: list) -> dict:
+    """Each RETRIEVER_GEMS ticker's price reindexed onto `dates` (ffill) and normalized to 1.0× at the
+    window start (`dates[0]`, i.e. its first valid value) — for Plot 3 (retriever-gem overlay). Drops
+    any gem with no price data over the window."""
+    import pandas as pd  # noqa: PLC0415
+    import score  # noqa: PLC0415
+    out: dict = {}
+    if not dates:
+        return out
+    try:
+        panel = score.fetch_panel(RETRIEVER_GEMS, dates[0], dates[-1], use_cache=False)
+    except Exception:  # noqa: BLE001
+        return out
+    idx = pd.DatetimeIndex([pd.Timestamp(x) for x in dates])
+    for tk in RETRIEVER_GEMS:
+        if tk not in panel:
+            continue
+        s = panel[tk].dropna()
+        if not len(s):
+            continue
+        if getattr(s.index, "tz", None) is not None:
+            s.index = s.index.tz_localize(None)
+        vals = s.reindex(idx, method="ffill").tolist()
+        base_i = next((i for i, x in enumerate(vals) if not pd.isna(x) and float(x) > 0), None)
+        if base_i is None:
+            continue
+        base = float(vals[base_i])
+        out[tk] = [None if (pd.isna(x) or float(x) <= 0) else round(float(x) / base, 4) for x in vals]
+    return out
+
+
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
 
 
@@ -305,8 +413,8 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         funded = sorted(t for t in tks if t in ag_gs)
         agent_meta[aid]["basket"] = ", ".join(funded or sorted(tks))
 
-    # per-agent conviction over time (Plot 8) + the synthetic SPY agent-agent's row in the gain/
-    # conviction plots: its $ P&L is booked on SPY holdings, its conviction is the constant spy_agent_conviction.
+    # per-agent conviction over time + the synthetic SPY agent-agent's row (feeds the cross-gem convgain plot):
+    # its $ P&L is booked on SPY holdings, its conviction is the constant spy_agent_conviction.
     agent_conviction: dict = {}
     for a in sorted(scans):
         ds = a.date().isoformat()
@@ -333,9 +441,9 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         agent_conviction["defensive"] = [{"date": a.date().isoformat(), "conviction": defensive_agent}
                                          for a in sorted(scans)]
 
-    # per-agent (conviction, cumulative-gain) TIME-HISTORY for Plot 9: trace each agent as a connected
-    # path through (conviction, $gain) space week by week (gain = its ticker's cumulative gain since the
-    # agent's start), so a rising-right path = conviction and gain climbing together.
+    # per-agent (conviction, cumulative-gain) TIME-HISTORY (feeds the cross-gem convgain plot): trace each
+    # agent as a connected path through (conviction, $gain) space week by week (gain = its ticker's
+    # cumulative gain since the agent's start), so a rising-right path = conviction and gain climbing together.
     agent_convgain: dict = {}
     for aid, cpts in agent_conviction.items():
         gs = ag_gs.get(agent_meta.get(aid, {}).get("ticker"))
@@ -444,9 +552,16 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     else:
         _gstatus = (f"<b style='color:#0a7a0a'>still live</b> &mdash; {_gcase}" if _gcase
                     else "<b style='color:#0a7a0a'>still live</b> (catalyst active)")
+    import score  # noqa: PLC0415
+    _bench_tks = {str(getattr(score, "BENCHMARK", "SPY")).upper(),
+                  str(fm.get("defensive_ticker", "GLD")).upper()}
     if _gem_aid:
         _gem_exit = (f"<div style='margin-top:9px'><b>This gem&rsquo;s event-agent ({_gem_aid})</b> &mdash; "
                      f"catalyst: <i>{_gthesis}</i>. Exit: {_gstatus}.</div>")
+    elif ticker.upper() in _bench_tks:
+        # the overlay is a benchmark / safe-haven (SPY, GLD), not a gem — don't claim it was "not caught"
+        _gem_exit = (f"<div style='margin-top:9px'>{ticker} is the benchmark / safe-haven, not a gem "
+                     f"&mdash; the events the curator tracked are below.</div>")
     else:
         _gem_exit = (f"<div style='margin-top:9px'><b>This gem ({ticker}) was not caught</b> &mdash; "
                      f"no agent named it this window; the events the curator did track are below.</div>")
@@ -460,9 +575,24 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
     _colors["SPY"] = _ORANGE
     _colors[_defv] = _YEL
     _colors[d["overlay_ticker"]] = _BLU
+    # Plot 1b (normalized performance): each FUNDED ticker's price series, normalized to 1.0 at its
+    # first value. "Funded" = the optimizer ever gave it weight > 0.01. SPY is drawn from d["spy"] in
+    # the page, so it's excluded here to avoid a duplicate curve.
+    _funded_tks = [t for t, w in d["alloc"].items()
+                   if t != "SPY" and any(float(x) > 0.01 for x in w)]
+    named_at: dict = {}                       # ticker -> first ISO week it appears in any pick (Plot 2 rebase)
+    for a in sorted(scans):
+        wk = a.date().isoformat()
+        for p in scans[a]:
+            tk = str(p.get("ticker", "")).strip().upper()
+            if tk:
+                named_at.setdefault(tk, wk)
+    norm_prices = _norm_price_panel(_funded_tks, d["dates"], named_at)
+    retriever_gems = _retriever_gem_panel(d["dates"])   # Plot 3: 10 known gems, normalized to 1.0× at window start
     payload = {
         "gem": ticker, "overlay_label": f"{d['overlay_ticker']} trigger", "caught": caught,
         "overlays": overlays, "gem_label": label_override or ticker,
+        "book_title": label_override,             # big title uses this; falls back to "Scan of the {gem} era" for real gems
         "combo_targets": combo_targets, "caught_all": caught_all, "both_held": both_held,
         "model": disp_model, "storyline": _story, "ever_funded": ever_funded, "gem_desc": GEM_DESC.get(ticker, ""),
         "seeds": sorted({(s["date"], s["title"]): s for t in combo_targets   # all overlaid tickers' seeds (GEO + MSTR)
@@ -481,6 +611,10 @@ def build_gem(ticker: str, capital_override: float | None = None, *, extra_overl
         "agent_conviction": agent_conviction, "agent_convgain": agent_convgain,
         "agent_precision": [{**r, "agent": thesis_id.get(r.get("thesis", ""), "")}
                             for r in bt.get("agent_precision", [])],   # tag each bar with its ev-id
+        "norm_prices": norm_prices,               # Plot 2: funded tickers' prices, normalized to 1.0× at first-named
+        "named_at": named_at,                     # ticker -> first ISO week it was named (Plot 2 rebase anchor)
+        "retriever_gems": retriever_gems,         # Plot 3: 10 known retrieval gems, normalized to 1.0× at window start
+        "cost_breakdown": cost_breakdown(cfg["scans"]),   # cost barchart: per-run $ to rebuild from scratch (sidecar)
     }
     out = cfg["out"]; out.mkdir(parents=True, exist_ok=True)
     pj = json.dumps(payload).replace("</", "<\\/")   # inline data (works from file:// too), </script>-safe
@@ -975,10 +1109,9 @@ INDEX_HTML = r"""<!doctype html>
  details.clip[open]>summary{display:none}
 </style></head>
 <body><div class="wrap">
- <nav class="nav"><a href="../index.html">↑ All gems</a>
-   <a href="index.html" class="active">Dashboard</a>
-   <a href="firehose.html">Firehose log</a>
-   <a href="../sweeps/index.html">Sweeps</a>
+ <nav class="nav"><a href="index.html" class="active" id="navtitle">Dashboard</a>
+   <a href="../q1_2025_book/index.html">Q1 2025 db</a>
+   <a href="../h1_2026_book/index.html">H1 2026 db</a>
    <a href="../../docs_preview/retrieval_backtest.html">Retrieval backtest</a>
    <a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></nav>
  <h1 id="gemtitle">Gem scan</h1>
@@ -992,70 +1125,54 @@ INDEX_HTML = r"""<!doctype html>
  <h2>Plot 1 — Portfolio value <span style="font-size:13px;font-weight:400;color:#777">— the ⭐ markers are <b>synthetic</b> seeds: hand-authored catalyst descriptions injected at the event date to grant early naming, <b>not</b> retrieved articles. Any seeded return is a hindsight upper bound (see README).</span></h2>
  <div id="chart"></div>
 
- <h2>Plot 2 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 6, 8, 9.</span></h2>
+ <h2>Plot 2 — Normalized performance <span style="font-size:13px;font-weight:400;color:#777">— every funded ticker's price starts at 1.0× the week it is first NAMED (line begins at the naming week, marked with a round dot); the portfolio value and SPY start at 1.0× on day one. The portfolio + SPY are drawn <b>thick</b>; each thin line is one funded ticker's price multiple since it was named.</span></h2>
+ <div id="normperf"></div>
+
+ <h2>Plot 3 — Retriever-gem overlay <span style="font-size:13px;font-weight:400;color:#777">— the 10 known gems normalized to 1.0× at window start, vs the portfolio/SPY. Which ran that the curator never named?</span></h2>
+ <div id="retrievergems"></div>
+
+ <h2>Plot 4 — Cumulative $ gain per agent <span style="font-size:13px;font-weight:400;color:#777">— this dashboard's gem-carrier is drawn <b>2× thick</b>; agent colors match Plots 8, 10.</span></h2>
  <p class="sub">Each funded event's running $ contribution to the book. <b>▲</b> marks the week the agent
    went live, <b>✕</b> its exit.</p>
  <div id="gainseries"></div>
 
- <h2>Plot 3 — Allocation over time</h2>
+ <h2>Plot 5 — Allocation over time</h2>
  <p class="sub">Capital committed per ticker (cash fills the rest). Fully invested while the
    watchlist is non-empty; to cash when the press names nothing live.</p>
  <div id="alloc"></div>
  <p class="sub" id="allocnote" style="margin-top:4px"></p>
 
- <h2>Plot 4 — Holdings timeline (proposed vs funded)</h2>
+ <h2>Plot 6 — Holdings timeline (proposed vs funded)</h2>
  <p class="sub">One row per ticker the curator <b>named</b>. <span style="color:#aab">Thin gray, small
    dots</span> = <b>proposed</b> (on the live watchlist); <b>thick colored, large dots</b> = <b>funded</b>
    (the optimizer actually bought it).</p>
  <div id="gantt"></div>
 
- <h2>Plot 5 — Cumulative $ gain per holding</h2>
+ <h2>Plot 7 — Cumulative $ gain per holding</h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L each holding contributed over the window
    (Σ daily position-value × daily return). Green = winner, red = loser; the bars sum to the
    portfolio's total gain.</p>
  <div id="gain"></div>
 
- <h2>Plot 6 — Cumulative $ earned per agent <span style="font-size:13px;font-weight:400;color:#777">— event-agents + the SPY/gold floors</span></h2>
+ <h2>Plot 8 — Cumulative $ earned per agent <span style="font-size:13px;font-weight:400;color:#777">— event-agents + the SPY/gold floors</span></h2>
  <p class="sub" style="margin:0 0 6px">Total dollar P&amp;L attributed to each <b>distinct agent</b> (event id),
    partitioning a ticker's gain across its agents by their active windows — so a ticker that spawned two
    agents (e.g. BWET's <code>ev2</code> then <code>ev6</code>) shows each one's own contribution. Green =
    winner, red = loser; the bars sum to the portfolio's total gain.</p>
  <div id="agentgain"></div>
 
- <h2>Plot 7 — Dollars held per ticker</h2>
+ <h2>Plot 9 — Dollars held per ticker</h2>
  <p class="sub">Capital in <b>dollars</b> per ticker over time (cash fills to the portfolio total, so the
-   stack's top edge is the portfolio value). Plot 3 shows the same split as percentages.</p>
+   stack's top edge is the portfolio value). Plot 5 shows the same split as percentages.</p>
  <div id="dollars"></div>
-
- <h2>Plot 8 — Conviction score over time, per event-agent (+ SPY/gold floors)</h2>
- <p class="sub" style="margin:0 0 6px">Each <b>event-agent's</b> catalyst-conviction rating (1-10) week by week —
-   how strong / early / datable it judged its own catalyst. The dashed orange line is the always-on
-   <b>SPY floor agent</b> (<code>spy_agent_conviction</code>); with the optional <b>defensive agent</b>
-   (<code>defensive_agent_conviction</code> / <code>defensive_ticker</code>, gold) it forms the floor a live
-   event-agent must out-rank to be funded.</p>
- <div id="convtime"></div>
-
- <h2>Plot 9 — Gain vs conviction over time, per agent <span style="font-size:13px;font-weight:400;color:#777">— &#9650; triangle = start, octagon (stop-sign) = end of each path</span></h2>
- <p class="sub" style="margin:0 0 6px">Each agent's <b>time-history</b> as a connected path through
-   (conviction&nbsp;x, cumulative&nbsp;$&nbsp;gain&nbsp;y) space — one dot per week, joined in time order. A path that
-   climbs <b>up-and-right</b> = conviction and gain rising together (a good, self-aware thesis); a path
-   <b>high on x but sinking on y</b> = high conviction that isn't paying off (a conviction miss). SPY (the
-   always-on agent) is the dashed grey path.</p>
- <div id="gainconv"></div>
-
- <h2>Plot 10 — Weekly P&amp;L grouped by conviction (the cull decision) <span style="font-size:13px;font-weight:400;color:#777">— which conviction levels make vs lose money</span></h2>
- <p class="sub" style="margin:0 0 6px">For every event-agent, each week's <b>change in $ gain</b> is attributed to
-   the agent's <b>conviction that week</b>, then summed across <b>all agent-weeks at each conviction level</b>.
-   Each bar = total weekly P&amp;L generated while agents sat at that conviction (<b style="color:#2ca02c">green</b>=net
-   made money, <b style="color:#d62728">red</b>=net lost). This answers the cull question directly: if the low-conviction
-   bars (shaded <b style="color:#c0392b">cull zone, conviction&nbsp;≤1</b>) are deep in the red, those agents are
-   bleeding the book and retiring them is pure upside. Hover shows the agent-week count behind each bar.
-   SPY/gold floors excluded.</p>
- <div id="gainconv_pool"></div>
 
  <h2 id="agentprec_h"></h2>
  <p class="sub" id="agentprec_cap" style="margin:0 0 6px"></p>
  <div id="agentprec"></div>
+
+ <h2>Plot 11 — What it cost <span style="font-size:13px;font-weight:400;color:#777">— approx $ to rebuild this db from scratch (reingest the window's news → curator), per-run ledger delta</span></h2>
+ <div id="costs"></div>
+ <div id="coststage" style="max-width:640px;margin-top:10px"></div>
 
  <h2>Plot 12 — Agent storyboard — week-by-week (per event)</h2>
  <p class="sub" style="margin:0 0 6px">Each event-agent's arc since entry — one collapsible block per
@@ -1065,9 +1182,6 @@ INDEX_HTML = r"""<!doctype html>
    <code>exit_advice</code> (the exit trigger). Use it to confirm what event/ticker was discovered, when,
    and that it exited as the thesis decayed.</p>
  <div id="arcs"></div>
-
- <h2>What it cost</h2>
- <div id="costs"></div>
 </div>
 <script>
 Promise.resolve({{DATA}}).then(D=>{
@@ -1077,6 +1191,7 @@ Promise.resolve({{DATA}}).then(D=>{
   const _title = D.book_title || `Scan of the ${D.gem} era`;   // the whole era's book, with ${D.gem} as the highlighted overlay
   document.title = `${_title} — geo-herd-rider`;
   document.getElementById("gemtitle").textContent = _title;
+  const _nt=document.getElementById("navtitle"); if(_nt) _nt.textContent = _title;   // navbar shows the db title
   const gn=document.getElementById("gemname"); if(gn) gn.textContent = D.gem;
   const st=document.getElementById("story"); if(st){ if(D.storyline){st.innerHTML=D.storyline;} else {st.style.display="none";} }
   const _sr = D.scan_range || [D.dates[0], D.dates[last]];      // scan-anchor window (not the priced-curve range)
@@ -1149,11 +1264,55 @@ Promise.resolve({{DATA}}).then(D=>{
   const XR=[D.dates[0],D.dates[last]];  // shared date range so plots 1-4 line up horizontally
   Plotly.newPlot("chart",vtraces,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},annotations:vann,shapes:vshapes,
-     xaxis:{type:"date",range:XR,autorange:false},
+     xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
-  // shared agent palette — ONE color per agent across Plots 2/7/8/9. The gem-carrier gets a RESERVED
+  // Plot 2 — normalized performance: each funded ticker's price starts at 1.0× the week it is first
+  // NAMED (D.norm_prices is null before that week; connectgaps starts the line there). The portfolio
+  // and SPY are each divided by their own day-one value (start at 1.0× on dates[0]). Portfolio + SPY thick.
+  const NPPAL=["#2ca02c","#8e44ad","#8c564b","#e377c2","#16a085","#17becf","#bcbd22","#c0392b","#2980b9"];
+  const _norm=arr=>{const f=(arr||[]).find(v=>v!=null&&isFinite(v)&&v>0);
+    return f?arr.map(v=>v==null?null:+(v/f).toFixed(4)):arr;};
+  const NP=D.norm_prices||{};
+  const nptr=Object.keys(NP).map((t,i)=>({x:D.dates,y:NP[t],name:t,connectgaps:true,
+    line:{color:(D.colors&&D.colors[t])||NPPAL[i%NPPAL.length],width:1.3},
+    hovertemplate:`<b>${t}</b> %{y:.2f}×<extra></extra>`}));
+  // start dots: a filled circle at each funded ticker's FIRST non-null point (the naming moment).
+  Object.keys(NP).forEach((t,i)=>{
+    const ys=NP[t]||[], fi=ys.findIndex(v=>v!=null&&isFinite(v));
+    if(fi>=0) nptr.push({x:[D.dates[fi]],y:[ys[fi]],mode:"markers",showlegend:false,cliponaxis:false,
+      marker:{size:7,symbol:"circle",color:(D.colors&&D.colors[t])||NPPAL[i%NPPAL.length]},
+      hovertemplate:`<b>${t}</b> named %{x|%Y-%m-%d}<extra></extra>`});
+  });
+  nptr.push({x:D.dates,y:_norm(D.value),name:"Portfolio",line:{color:"#111",width:3.2},
+    hovertemplate:"Portfolio %{y:.2f}×<extra></extra>"});
+  nptr.push({x:D.dates,y:_norm(D.spy),name:"SPY",line:{color:"#ff7f0e",width:3,dash:"dot"},
+    hovertemplate:"SPY %{y:.2f}×<extra></extra>"});
+  Plotly.newPlot("normperf",nptr,{margin:{l:70,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
+     yaxis:{title:"× first value",tickformat:".2f",automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // Plot 3 — retriever-gem overlay: the 10 known retrieval-backtest gems, each normalized to 1.0× at
+  // the window start (dates[0]), vs the portfolio (thick black) and SPY (thick orange dotted). Shows
+  // which known gems ran over this window that the curator never named.
+  const RG=D.retriever_gems||{};
+  const RGPAL=["#2ca02c","#8e44ad","#8c564b","#e377c2","#16a085","#17becf","#bcbd22","#c0392b","#2980b9","#d62728"];
+  const _gf=(t)=>!!(NP&&NP[t]);   // gem was FUNDED by the solution if it's in the funded (norm_prices) set
+  const rgtr=Object.keys(RG).map((t,i)=>({x:D.dates,y:RG[t],name:(_gf(t)?t+" ✓funded":t),connectgaps:true,
+    line:{color:RGPAL[i%RGPAL.length],width:(_gf(t)?4:1.3)},
+    hovertemplate:`<b>${t}</b>${_gf(t)?" (funded)":""} %{y:.2f}×<extra></extra>`}));
+  rgtr.push({x:D.dates,y:_norm(D.value),name:"Portfolio",line:{color:"#111",width:3.2},
+    hovertemplate:"Portfolio %{y:.2f}×<extra></extra>"});
+  rgtr.push({x:D.dates,y:_norm(D.spy),name:"SPY",line:{color:"#ff7f0e",width:3,dash:"dot"},
+    hovertemplate:"SPY %{y:.2f}×<extra></extra>"});
+  Plotly.newPlot("retrievergems",rgtr,{margin:{l:70,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
+     xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
+     yaxis:{title:"× window start",tickformat:".2f",automargin:false},hovermode:"x unified"},
+    {displayModeBar:false,responsive:true});
+
+  // shared agent palette — ONE color per agent across Plots 4/8/10. The gem-carrier gets a RESERVED
   // green (and 2x thickness); every other agent draws from a green-free, gray-free palette, so no
   // co-discovered agent can visually match the gem or the SPY floor.
   const AGM=D.agents||{};
@@ -1192,7 +1351,7 @@ Promise.resolve({{DATA}}).then(D=>{
   gtr.push({x:[D.dates[0]],y:[null],mode:"markers",name:"✕ exit (catalyst resolved)",marker:{symbol:"x",size:12,color:"#666"}});
   Plotly.newPlot("gainseries",gtr,
     {margin:{l:80,r:140,t:24,b:36},legend:{orientation:"h",y:1.14},
-     xaxis:{type:"date",range:XR,autorange:false},
+     xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
      yaxis:{tickprefix:"$",separatethousands:true,automargin:false,zeroline:true},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
 
@@ -1202,7 +1361,7 @@ Promise.resolve({{DATA}}).then(D=>{
   traces.push({x:D.dates,y:D.cash.map(v=>v*100),name:"cash",stackgroup:"a",
     line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"%{y:.0f}%"});
   Plotly.newPlot("alloc",traces,{margin:{l:80,r:140,t:40,b:36},
-    xaxis:{type:"date",range:XR,autorange:false},
+    xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
     yaxis:{ticksuffix:"%",range:[0,100],automargin:false},legend:{orientation:"h",y:1.22},hovermode:"x unified"},
     {displayModeBar:false,responsive:true});
   const dep=D.cash.filter(v=>v<0.999).length, n=D.cash.length;
@@ -1216,9 +1375,19 @@ Promise.resolve({{DATA}}).then(D=>{
     const on=(arr&&arr[i]||0)>th; if(on&&st===null)st=i;
     if(st!==null&&(!on||i===D.dates.length-1)){s.push([st,on?i:i-1]);st=null;}}return s;};
   const propFirst=t=>{const a=WD[t]||[];for(let i=0;i<a.length;i++)if(a[i])return i;return 1e9;};
-  const gord=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
+  // ROW ORDER: (a) FUNDED gem tickers (optimizer ever gave weight > 0.01), then (b) the SPY + defensive
+  // (GLD) benchmark/floor block, then (c) UNFUNDED (proposed-only) tickers. Within each group keep the
+  // first-proposed ordering so the timeline still reads left-to-right.
+  const _isFunded=t=>(D.alloc[t]||[]).some(w=>w>0.01);
+  const _BENCH=new Set(["SPY",((D.params&&D.params.defensive_ticker)||"GLD").toUpperCase()]);
+  const _gbase=Array.from(new Set([...Object.keys(WD),...Object.keys(D.alloc||{})]))
                 .filter(t=>propFirst(t)<1e9||(D.alloc[t]||[]).some(w=>w>0.0001))
                 .sort((a,b)=>propFirst(a)-propFirst(b));
+  const gord=[
+    ..._gbase.filter(t=>_isFunded(t)&&!_BENCH.has(t)),   // (a) funded gems
+    ..._gbase.filter(t=>_BENCH.has(t)),                  // (b) SPY + GLD benchmark/floor block
+    ..._gbase.filter(t=>!_isFunded(t)&&!_BENCH.has(t)),  // (c) unfunded (proposed only)
+  ];
   const gtraces=[];
   gord.forEach((t,yi)=>{
     const col=D.colors[t]||"#888";
@@ -1232,7 +1401,7 @@ Promise.resolve({{DATA}}).then(D=>{
   Plotly.newPlot("gantt",gtraces,{margin:{l:80,r:140,t:18,b:36},
     height:Math.max(180,34*gord.length+80),
     yaxis:{tickmode:"array",tickvals:gord.map((_,i)=>i),ticktext:gord,autorange:"reversed",automargin:false},
-    xaxis:{type:"date",range:XR,autorange:false},hovermode:"closest"},
+    xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},hovermode:"closest"},
     {displayModeBar:false,responsive:true});
 
   // Plot 5 — dollars held per ticker over time (stacked area; top edge = portfolio value).
@@ -1245,7 +1414,7 @@ Promise.resolve({{DATA}}).then(D=>{
   dtraces.push({x:D.dates,y:D.cash.map((c,i)=>c*D.value[i]),name:"cash",showlegend:false,stackgroup:"d",
     line:{width:0},fillcolor:"#dfe3e6",hovertemplate:"$%{y:,.0f}"});
   Plotly.newPlot("dollars",dtraces,{margin:{l:80,r:140,t:40,b:36},
-    xaxis:{type:"date",range:XR,autorange:false},
+    xaxis:{type:"date",range:XR,autorange:false,dtick:604800000},
     yaxis:{tickprefix:"$",separatethousands:true,automargin:false},legend:{orientation:"h",y:1.22},
     hovermode:"x unified"},{displayModeBar:false,responsive:true});
 
@@ -1259,7 +1428,7 @@ Promise.resolve({{DATA}}).then(D=>{
     {displayModeBar:false,responsive:true});
 
   // Plot 7 — cumulative $ earned per distinct agent (event); bars sum to total gain.
-  const AG=D.agent_gain||{};   // AGM + agColor defined above the Plot 2 block (shared across Plots 2/7/8/9)
+  const AG=D.agent_gain||{};   // AGM + agColor defined above the Plot 4 block (shared across Plots 4/8/10)
   const aglab=id=>AGM[id]?id+" ("+(AGM[id].basket||AGM[id].ticker)+")":id;
   // DE-EMPHASIZE (not hide) never-funded agents so the funded + gem agents pop while the dead-weight ones
   // stay VISIBLE but muted (thin, faint, grey). Fixes the "too many ineffective agents confuse the plots"
@@ -1275,63 +1444,12 @@ Promise.resolve({{DATA}}).then(D=>{
      yaxis:{tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
     {displayModeBar:false,responsive:true});
 
-  // Plot 8 — conviction score over time, per agent (one line each; SPY agent = dashed grey flat line).
-  const AC=D.agent_conviction||{};
-  const convTraces=Object.entries(AC).map(([aid,pts])=>{const f=isFunded(aid),col=f?(agColor[aid]||"#888"):MUTE;
-    return {x:pts.map(p=>p.date), y:pts.map(p=>p.conviction), mode:"lines+markers", name:aglab(aid), opacity:f?1:0.35,
-    line:(aid==="spy"||aid==="defensive")?{color:col,dash:"dash",width:1.5}:{color:col,width:f?2:1},
-    marker:{size:f?5:3,color:col}};});
-  if(convTraces.length) Plotly.newPlot("convtime",convTraces,
-    {margin:{l:46,r:130,t:16,b:40},legend:{orientation:"v",x:1.02,y:1},
-     xaxis:{type:"date"},yaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:2}},
-    {displayModeBar:false,responsive:true});
-
-  // Plot 9 — each agent's time-history as a connected path through (conviction, cumulative $ gain).
-  const CG=D.agent_convgain||{};
-  const cgTraces=Object.entries(CG).filter(([a,s])=>s&&s.length).map(([aid,s])=>{
-    const n=s.length, f=isFunded(aid), col=f?(agColor[aid]||"#888"):MUTE;
-    return {x:s.map(p=>p.conviction), y:s.map(p=>p.gain), mode:"lines+markers", name:aglab(aid), opacity:f?1:0.35,
-      line:(aid==="spy"||aid==="defensive")?{color:col,dash:"dash",width:1.5}:{color:col,width:f?1.5:1},
-      marker:{size:s.map((p,i)=> (i===0||i===n-1) ? (f?13:8) : (f?6:4)),                  // big start + end
-        symbol:s.map((p,i)=> i===0 ? "triangle-up" : i===n-1 ? "octagon" : "circle"),     // start = triangle, end = octagon (stop-sign)
-        color:col,
-        line:{color:"#222",width:s.map((p,i)=> i===0||i===n-1 ? 1.2 : 0)}},
-      customdata:s.map(p=>p.date),
-      hovertemplate:"%{fullData.name}<br>%{customdata}<br>conviction %{x}<br>$%{y:,.0f}<extra></extra>"};
-  });
-  if(cgTraces.length) Plotly.newPlot("gainconv",cgTraces,
-    {margin:{l:74,r:130,t:16,b:44},legend:{orientation:"v",x:1.02,y:1},
-     xaxis:{title:"conviction (1-10)",range:[0,10.5],dtick:1},
-     yaxis:{title:"cumulative $ gain",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"}},
-    {displayModeBar:false,responsive:true});
-
-  // Plot 10 — weekly P&L grouped by conviction (the cull decision): for each event-agent, attribute each
-  // week's CHANGE in cumulative gain to that week's conviction, then sum across all agent-weeks per level.
-  const byConv={};   // conviction -> {sum: $ weekly P&L, n: agent-weeks}
-  Object.entries(CG).forEach(([aid,s])=>{
-    if(aid==="spy"||aid==="defensive"||!s||!s.length) return;
-    let prev=0;
-    s.forEach(p=>{ const wk=p.gain-prev; prev=p.gain; const c=p.conviction;
-      if(c==null) return; (byConv[c]=byConv[c]||{sum:0,n:0}); byConv[c].sum+=wk; byConv[c].n++; });
-  });
-  const bcx=Object.keys(byConv).map(Number).sort((a,b)=>a-b);
-  if(bcx.length) Plotly.newPlot("gainconv_pool",[{type:"bar",
-    x:bcx, y:bcx.map(c=>byConv[c].sum),
-    marker:{color:bcx.map(c=>byConv[c].sum>=0?"#2ca02c":"#d62728")},
-    customdata:bcx.map(c=>byConv[c].n),
-    hovertemplate:"conviction %{x}<br>Σ weekly P&L $%{y:,.0f}<br>%{customdata} agent-weeks<extra></extra>"}],
-    {margin:{l:78,r:30,t:16,b:44},
-     xaxis:{title:"conviction (1-10)",dtick:1,range:[0.5,10.5]},
-     yaxis:{title:"Σ weekly $ P&L at this conviction",tickprefix:"$",separatethousands:true,zeroline:true,zerolinecolor:"#888"},
-     shapes:[{type:"rect",x0:0.5,x1:1.5,yref:"paper",y0:0,y1:1,fillcolor:"#c0392b",opacity:0.08,line:{width:0}}]},
-    {displayModeBar:false,responsive:true});
-
-  // Plot 11 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
+  // Plot 10 — agent precision: standalone return per agent over its live span (curator skill, unmasked).
   const AP=(D.agent_precision||[]).filter(r=>r.ret!==null&&r.ret!==undefined);
   const nwin=AP.filter(r=>r.ret>0).length, nap=AP.length;
   const prec = nap ? Math.round(100*nwin/nap) : 0;
   const aph=document.getElementById("agentprec_h");
-  if(aph) aph.textContent=`Plot 11 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
+  if(aph) aph.textContent=`Plot 10 — Agent precision: ${nwin}/${nap} agents profitable (${prec}%) — curator skill, unmasked by sizing`;
   const APs=AP.slice().sort((a,b)=>a.ret-b.ret);
   // dynamic caption: the curator's batting average in words, from the actual bars
   const capEl=document.getElementById("agentprec_cap");
@@ -1348,7 +1466,7 @@ Promise.resolve({{DATA}}).then(D=>{
       if(worst&&worst.ret<0&&worst.ticker!==gem) bits.push(`${worst.ticker} the worst (${pct(worst.ret)})`);
       capEl.innerHTML=`Each bar is one agent's <b>standalone return over its live span</b> &mdash; ${list} `
         +`&mdash; so the curator's picks won <b>${nwin} of ${nap}</b> times, independent of how much the optimizer `
-        +`actually sized each (Plots 1/3 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
+        +`actually sized each (Plots 1/5 show the sized result). The curator's <b>batting average</b>: ${bits.join("; ")}.`;
     }
   }
   Plotly.newPlot("agentprec",[{type:"bar",orientation:"h",
@@ -1361,14 +1479,37 @@ Promise.resolve({{DATA}}).then(D=>{
 
   // (Watchlist-by-date plot removed — the journal (below) + holdings timeline cover the same ground.)
 
-  // Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
+  // Plot 11 — What it cost (rendered BEFORE the storyboard so the on-page order is cost then storyboard).
+  document.getElementById("costs").innerHTML =
+    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
+    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
+    + `<div class="sub" style="margin:6px 0 0;font-size:12px">model <b>${D.model||'—'}</b> · ${D.weeks} weekly scans</div></div>`;
+
+  // cost barchart — approx LLM $ per stage from the SHARED, cumulative ledger (rough estimate, not
+  // per-book). Retriever is a fixed Tavily pool-ingest estimate; Resolver only shown if it has spend.
+  const CB=D.cost_breakdown||{};
+  const cbModels=CB._models||{};
+  const cbOrder=["Retriever","Scout","Matcher","Event","Picker"].concat((CB.Resolver||0)>0?["Resolver"]:[]);
+  const cbx=cbOrder.filter(k=>k in CB), cby=cbx.map(k=>CB[k]||0);
+  const cbLabels=cbx.map(k=>cbModels[k]?`${k}<br>(${cbModels[k]})`:k);   // two-line tick: stage + model/engine
+  if(cbx.length){
+    Plotly.newPlot("coststage",[{type:"bar",x:cbLabels,y:cby,marker:{color:"#2980b9"},
+      text:cby.map(v=>"$"+(+v).toFixed(2)),textposition:"outside",
+      hovertemplate:"%{x}<br>$%{y:.2f}<extra></extra>"}],
+      {margin:{l:60,r:20,t:34,b:40},
+       title:{text:"approx LLM cost by stage (cumulative ledger estimate)",font:{size:13}},
+       yaxis:{tickprefix:"$",separatethousands:true}},
+      {displayModeBar:false,responsive:true});
+  }
+
+  // Plot 12 — Agent journal arcs: gem first, then FUNDED events, then never-funded proposals (muted, collapsed).
   const A=D.arcs||{}, F=new Set(D.ever_funded||[]);
   const ats=Object.keys(A).sort((x,y)=>{
     if(x===D.gem)return -1; if(y===D.gem)return 1;
     const fx=F.has(x), fy=F.has(y); if(fx!==fy)return fx?-1:1;
     return A[y].length-A[x].length;});
   const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-  // long text -> first n chars + a native pulldown ("more") for the rest (Plots 8 & 9)
+  // long text -> first n chars + a native pulldown ("more") for the rest (Plot 12 storyboard)
   const clip=(s,n=160)=>{s=s||"";return s.length<=n?esc(s)
     :esc(s.slice(0,n))+'…<details class="clip"><summary>more</summary>'+esc(s.slice(n))+'</details>';};
   const nF=ats.filter(t=>F.has(t)).length, nU=ats.length-nF;
@@ -1389,12 +1530,6 @@ Promise.resolve({{DATA}}).then(D=>{
       +`<table class="atab"><thead><tr><th>Date</th><th>thesis_live</th><th>conv</th><th>thesis</th><th>milestones</th>`
       +`<th>exit_case</th><th>assessment</th><th>exit_advice</th></tr></thead><tbody>${rows}</tbody></table></details>`;
   }).join("") : '<p class="sub">No agent journal persisted for this book (re-scan to populate).</p>');
-
-
-  document.getElementById("costs").innerHTML =
-    `<div class="card" style="max-width:430px"><div class="k">cost to produce this portfolio</div>`
-    + `<div class="v">$${(D.cost_usd||0).toFixed(2)}</div>`
-    + `<div class="sub" style="margin:6px 0 0;font-size:12px">model <b>${D.model||'—'}</b> · ${D.weeks} weekly scans</div></div>`;
 });
 </script></body></html>
 """
@@ -1515,7 +1650,7 @@ LANDING_HTML = r"""<!doctype html>
   const yr=ay.length?[Math.max(0,Math.min(...ay)-0.3),Math.max(...ay)*1.05]:undefined;
   Plotly.newPlot("gemsplot", traces,
    {margin:{l:46,r:14,t:6,b:34},legend:{orientation:"h",y:1.16,font:{size:11}},
-    xaxis:{type:"date",range:xr},yaxis:{title:"multiple (start = 1.0×)",range:yr,zeroline:false},hovermode:"closest"},
+    xaxis:{type:"date",range:xr,dtick:604800000},yaxis:{title:"multiple (start = 1.0×)",range:yr,zeroline:false},hovermode:"closest"},
    {displayModeBar:false,responsive:true});
   // hover a gem card -> highlight that gem's curve(s) in Plot 1 (thicken + un-dim; fade the rest)
   const gp=document.getElementById("gemsplot"), tks=S.map(s=>s.ticker);

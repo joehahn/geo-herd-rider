@@ -54,6 +54,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   of the 3-knob split). Keep on a strong model for judgment quality.
                                        #   Short names resolved by resolve_curator_model(). (Legacy `model:` is
                                        #   still read as a fallback for all stages.)
+    "event_agent_effort": "high",       # Anthropic reasoning effort for the per-event JUDGMENT call (the curator cost
+                                       #   driver: ~$0.056/call on sonnet5 at 'high'). 'medium' roughly halves cost for
+                                       #   backtest curator runs; keep 'high' for the forward candidate. Only affects
+                                       #   Anthropic event models (ignored on OpenRouter).
     "scout_model": "llama4",           # LIVE (extraction/routing): the cheap, high-volume LLM that reads
                                        #   the firehose pool and does the scout + matcher stages. This is
                                        #   where the token cost lives, so it runs a cheap model (llama4,
@@ -87,6 +91,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   picker the LLM ranks the keep-list; without one, a deterministic keep-first-N. 0 = uncapped.
     "max_new_events": 3,               # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
                                        #   Enforced by the catalyst gate + (TODO) a diversity tiebreak. 0 = uncapped. (was CANDIDATE_CAP)
+    "drop_unfunded_weeks": 0,          # CULL: drop an event the optimizer leaves UNFUNDED (weight ~0) for this many consecutive
+                                       #   weeks -> stops re-running it. Garbage-collects live-but-never-funded theses. 0 = OFF.
     "defensive_ticker": "GLD",         # the defensive asset appended to the optimizer universe AFTER the cull (GLD=gold,
                                        #   BND=bonds, ...). "" = none. SPY + this always ride post-cull; neither competes for a slot.
     "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of

@@ -250,16 +250,14 @@ def build() -> Path:
     .nav a.soon{color:#6c757d;cursor:default;border:1px dashed #495057}
     .nav .gen{margin-left:auto;color:#868e96;font-size:11px}
     """
-    # link only to gem-curator dashboards that ACTUALLY exist yet (they appear as the full-pool run advances)
-    gem_links = ""
-    for g in LANE_ORDER:
-        sub = "bwet_curator" if g == "BWET" else g.lower()
-        if (REPO / "docs" / sub / "index.html").exists():
-            gem_links += f'<a href="../docs/{sub}/index.html">{g}</a>'
-    if (REPO / "docs" / "other" / "index.html").exists():   # non-gem catch-all (candidate future gems)
-        gem_links += '<a href="../docs/other/index.html">OTHER</a>'
+    # navbar: only the live artifacts — the curator dbs + README (old per-gem dbs were retired)
+    db_link = ""
+    if (REPO / "docs" / "q1_2025_book" / "index.html").exists():
+        db_link += '<a href="../docs/q1_2025_book/index.html">Q1 2025 db</a>'
+    if (REPO / "docs" / "h1_2026_book" / "index.html").exists():
+        db_link += '<a href="../docs/h1_2026_book/index.html">H1 2026 db</a>'
     nav = (f'<nav class="nav"><a href="retrieval_backtest.html" class="active">Retrieval backtest</a>'
-           + gem_links
+           + db_link
            + f'<a href="{README_URL}">README</a>'
            + f'<span class="gen">generated {datetime.now().strftime("%Y-%m-%d %H:%M")}</span></nav>')
     half = res["candidates"][:20]

@@ -463,6 +463,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     first_k, meta = {}, {}                      # PICKER context (built only when picker set): first-week seen + event metadata
+    drop_unfunded = int(fm.get("drop_unfunded_weeks", 0) or 0)   # CULL: drop an event the optimizer leaves unfunded N straight weeks (0 = OFF)
+    dropped_unfunded, unfunded_streak = set(), {}
     for k, a in enumerate(anchors):
         if picker is not None:                  # the metadata the picker ranks on (catalyst arc; NO conviction, NO P&L)
             for p in scans[a]:
@@ -476,7 +478,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             # PORTFOLIO cull: keep the top-N EVENT-agents, then append SPY + the defensive asset to the optimizer.
             # SPY/defensive are NOT competing agents -- they ride post-cull so idle capital always has a home.
             # No gates, no conviction: the picker ranks (LLM keep-list); without one, a deterministic keep-first-N.
-            ev = list(watch[a])
+            ev = [t for t in watch[a] if t not in dropped_unfunded]   # live events (drop-unfunded ones excluded)
+            live_ev = list(ev)                                        # all live this week -> feeds the unfunded streak
             if max_agents and len(ev) > max_agents:
                 if picker is not None:
                     cm = [{"ticker": t, **meta.get(t, {}), "weeks_alive": k - first_k.get(t, k)} for t in ev]
@@ -488,6 +491,15 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             watch[a] = ev
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
             week_w[k] = w
+            if drop_unfunded > 0:               # an event unfunded (optimizer weight ~0) for N straight weeks is culled
+                funded = {t for t in w if w.get(t, 0) > 0.01}
+                for t in live_ev:
+                    if t in funded:
+                        unfunded_streak[t] = 0
+                    else:
+                        unfunded_streak[t] = unfunded_streak.get(t, 0) + 1
+                        if unfunded_streak[t] >= drop_unfunded:
+                            dropped_unfunded.add(t)
 
     value, spyval, log = capital, capital, []
     rows = [{"date": str(days[reb[0]].date()) if reb[0] else str(anchors[0].date()),

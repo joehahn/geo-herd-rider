@@ -1,0 +1,27 @@
+{"kind": "scout", "context": "2026-01-02", "max_new_events": 2, "proposed": [{"ticker": "MU", "company": "Micron Technology", "thesis": "AI demand lifts Micron"}], "admitted": ["MU"]}
+{"kind": "scout", "context": "2026-01-09", "max_new_events": 2, "proposed": [{"ticker": "VST", "company": "Vistra Corp", "thesis": "Meta signs nuclear power deals"}], "admitted": ["VST"]}
+{"kind": "scout", "context": "2026-01-16", "max_new_events": 2, "proposed": [{"ticker": "AMD", "company": "Advanced Micro Devices, Inc.", "thesis": "Trump pushes tech firms to fund power plants"}], "admitted": ["AMD"]}
+{"kind": "scout", "context": "2026-01-23", "max_new_events": 2, "proposed": [{"ticker": "CDE", "company": "Coeur Mining", "thesis": "Greenland dispute escalates"}], "admitted": ["CDE"]}
+{"kind": "scout", "context": "2026-01-30", "max_new_events": 2, "proposed": [{"ticker": "USAR", "company": "USA Rare Earth", "thesis": "Trump takes $1.6B stake"}], "admitted": ["USAR"]}
+{"kind": "scout", "context": "2026-02-06", "max_new_events": 2, "proposed": [{"ticker": "TUNG.L", "company": "Tungsten West", "thesis": "Tungsten West Raises \u00a344.4m"}], "admitted": []}
+{"kind": "scout", "context": "2026-02-13", "max_new_events": 2, "proposed": [{"ticker": "X", "company": "X-Energy", "thesis": "secures first U.S. nuclear fuel license in 50 years"}], "admitted": ["X"]}
+{"kind": "scout", "context": "2026-02-20", "max_new_events": 2, "proposed": [{"ticker": "NVDA", "company": "Nvidia", "thesis": "Trump announces 10% global tariff"}], "admitted": ["NVDA"]}
+{"kind": "scout", "context": "2026-02-27", "max_new_events": 2, "proposed": [{"ticker": "MP", "company": "MP Materials", "thesis": "signs rare earths deal"}], "admitted": ["MP"]}
+{"kind": "scout", "context": "2026-03-06", "max_new_events": 2, "proposed": [{"ticker": "MRVL", "company": "Marvell Technology", "thesis": "the US drafts global AI chip export permits"}], "admitted": ["MRVL"]}
+{"kind": "scout", "context": "2026-03-13", "max_new_events": 2, "proposed": [{"ticker": "HIMS", "company": "Hims & Hers Health, Inc.", "thesis": "settles with Novo Nordisk"}], "admitted": ["HIMS"]}
+{"kind": "scout", "context": "2026-03-20", "max_new_events": 2, "proposed": [{"ticker": "MU", "company": "Micron Technology", "thesis": "the Iran war disrupts chip supply"}], "admitted": ["MU"]}
+{"kind": "scout", "context": "2026-03-27", "max_new_events": 2, "proposed": [{"ticker": "HL", "company": "Hecla Mining Company", "thesis": "Russia bans gasoline exports"}], "admitted": ["HL"]}
+{"kind": "scout", "context": "2026-04-03", "max_new_events": 2, "proposed": [{"ticker": "MU", "company": "Micron Technology", "thesis": "AI memory shortage remains strong"}], "admitted": ["MU"]}
+{"kind": "scout", "context": "2026-04-10", "max_new_events": 2, "proposed": [{"ticker": "TSM", "company": "Taiwan Semiconductor Manufacturing Company Limited", "thesis": "Pentagon awards $4.76B missile contract"}], "admitted": ["TSM"]}
+{"kind": "scout", "context": "2026-04-17", "max_new_events": 2, "proposed": [{"ticker": "TSM", "company": "Taiwan Semiconductor Manufacturing Company Limited", "thesis": "US approves additional funding for Rapidus"}], "admitted": ["TSM"]}
+{"kind": "scout", "context": "2026-04-24", "max_new_events": 2, "proposed": [{"ticker": "XE", "company": "X-energy", "thesis": "X-energy raises $1B in data center-driven IPO"}], "admitted": ["XE"]}
+{"kind": "scout", "context": "2026-05-01", "max_new_events": 2, "proposed": [{"ticker": "LMT", "company": "Lockheed Martin Corporation", "thesis": "awarded U.S. Space Force Space-Based Interceptor Contracts"}], "admitted": ["LMT"]}
+{"kind": "scout", "context": "2026-05-08", "max_new_events": 2, "proposed": [{"ticker": "MU", "company": "Micron Technology, Inc.", "thesis": "AI demand lifts memory chip prices"}], "admitted": ["MU"]}
+{"kind": "scout", "context": "2026-05-15", "max_new_events": 2, "proposed": [{"ticker": "UAVS", "company": "EagleNXT", "thesis": "U.S. Army awards three deals"}], "admitted": ["UAVS"]}
+{"kind": "scout", "context": "2026-05-22", "max_new_events": 2, "proposed": [{"ticker": "AREC", "company": "Arconic Corporation", "thesis": "US rare earth JV"}], "admitted": ["AREC"]}
+{"kind": "scout", "context": "2026-05-29", "max_new_events": 2, "proposed": [{"ticker": "DELL", "company": "Dell Technologies", "thesis": "Dell reports AI-driven earnings beat"}], "admitted": ["DELL"]}
+{"kind": "scout", "context": "2026-06-05", "max_new_events": 2, "proposed": [{"ticker": "MRVL", "company": "Marvell Technology Inc.", "thesis": "Nvidia CEO predicts trillion-dollar valuation"}, {"ticker": "CHHYF", "company": "Charbone Hydrogen Corporation", "thesis": "Investment in UHP industrial gas platform"}], "admitted": ["MRVL", "CHHYF"]}
+{"kind": "scout", "context": "2026-06-12", "max_new_events": 2, "proposed": [{"ticker": "COSM", "company": "Cosmos Health Inc.", "thesis": "new drug contracts"}], "admitted": ["COSM"]}
+{"kind": "scout", "context": "2026-06-19", "max_new_events": 2, "proposed": [{"ticker": "EFR", "company": "Energy Fuels Inc.", "thesis": "the US Department of Energy backs rare earths"}], "admitted": ["EFR"]}
+{"kind": "scout", "context": "2026-06-26", "max_new_events": 2, "proposed": [{"ticker": "TII", "company": "Titan Mining Corporation", "thesis": "US critical minerals story"}], "admitted": ["TII"]}
+{"kind": "scout", "context": "2026-07-03", "max_new_events": 2, "proposed": [{"ticker": "LEU", "company": "Centrus Energy Corp.", "thesis": "US Department of Energy awards HALEU contract"}], "admitted": ["LEU"]}

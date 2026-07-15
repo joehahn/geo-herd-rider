@@ -80,6 +80,10 @@ thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a 
 or a name buried in a list. Most weeks warrant 0-1 candidates; rarely more than 2. When in doubt,
 propose nothing. Prefer the PUREST vehicle for a theme (a rate/commodity ETN or clean pure-play
 over diluted operators; a single ADR over a broad ETF).
+NEVER propose a LEVERAGED or INVERSE ETF (2x/3x/-1x/-2x/-3x — e.g. NUGT, JNUG, AGQ, DUST, SOXL, SOXS,
+TQQQ, SQQQ, UVXY, and any "Ultra"/"UltraPro"/"Direxion Daily"/"ProShares Ultra" product). They RESET
+leverage DAILY and bleed from volatility decay, so they are day-trade instruments, NOT hold-the-catalyst
+gems — name the UNDERLYING single-stock or the PLAIN 1x ETF/commodity instead.
 
 PEER BASKET (extra vehicles for ONE catalyst — NOT extra catalysts). Keep the single purest name as
 `ticker`, but ALSO list in `peers` the OTHER US-listed tickers that express the SAME catalyst — direct
@@ -724,7 +728,7 @@ def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     return body
 
 
-def event_agent_v2(client, anchor, event, entries, news):
+def event_agent_v2(client, anchor, event, entries, news, effort="high"):
     digest = _journal_digest(entries)
     entry_wk = entries[0]["date"] if entries else anchor.date().isoformat()
     nb = _block(news) if news else "(no fresh coverage for this event this week)"
@@ -734,7 +738,7 @@ def event_agent_v2(client, anchor, event, entries, news):
             "Re-check the EXIT condition against your WHOLE journal, then write this week's note and "
             "pick the current vehicle(s) (JSON).")
     txt = client.complete(EVENT_AGENT_SYSTEM, user, use_web_search=False, stage="agent",
-                          label=f"event-{event['id']}-{anchor.date()}", json_schema=EVENT_AGENT_SCHEMA)
+                          label=f"event-{event['id']}-{anchor.date()}", json_schema=EVENT_AGENT_SCHEMA, effort=effort)
     try:
         e = JournalEntry(**_extract(txt))
     except Exception:  # noqa: BLE001
@@ -773,7 +777,7 @@ def _carry_forward(anchor, ev) -> dict:
 
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
                  curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
-                 max_new_events=CANDIDATE_CAP):
+                 max_new_events=CANDIDATE_CAP, event_agent_effort="high"):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
@@ -822,7 +826,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         news = _filter_event(pool, ev)
         if gate_silent and not news:                       # silence week -> mechanical carry-forward, NO LLM call
             return ev, _carry_forward(anchor, ev)
-        return ev, event_agent_v2(client, anchor, ev, ev["entries"], news)
+        return ev, event_agent_v2(client, anchor, ev, ev["entries"], news, effort=event_agent_effort)
 
     picks = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
