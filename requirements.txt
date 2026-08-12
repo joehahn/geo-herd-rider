@@ -15,5 +15,6 @@ pyyaml>=6.0
 requests>=2.31
 matplotlib>=3.8     # scripts/plot_shipping.py (README figures)
 pydantic>=2.0
+google-cloud-bigquery>=3.20   # src/gkg.py: GDELT GKG discovery on BigQuery (needs gcp-key.json)
 
 warcio                  # only for the parked CC-NEWS spike (src/ccnews.py); not used by the firehose

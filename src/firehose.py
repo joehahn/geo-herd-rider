@@ -36,7 +36,7 @@ import costs  # noqa: E402
 import score  # noqa: E402
 import curator  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
-from util import load_dotenv as _load_dotenv, news_domains, scan_anchors, MAX_TEXT  # noqa: E402
+from util import resolve_cadence, load_dotenv as _load_dotenv, news_domains, scan_anchors, MAX_TEXT  # noqa: E402
 
 MODEL = "claude-opus-4-8"
 WORKERS = 8
@@ -90,6 +90,43 @@ GDELT_QUERIES = (
     + list(_CATALYSTS.values())                          # catalysts: (topic) only -- raw event news
 )
 GDELT_WEEK_CAP = 80          # max GDELT headlines fed to the LLM per week (seeds always kept)
+
+
+def news_pool(queries, start, end, chunk_days: int = 30, per: int = 60, cache_path=None,
+              stats_path=None, engine: str | None = None, profile: str | None = None) -> list[dict]:
+    """THE backtest discovery entry point — dispatches to the configured retrieval engine and returns
+    the same article records either way ({published_date, source, title, snippet, url, queries}).
+
+    `engine` (default: the profile's `retrieval_engine`):
+      "gkg" — GDELT's GKG on BigQuery (src/gkg.py). One date-partitioned SQL query per chunk, no
+              per-request throttle, and a semantic theme+subject-org gate instead of the DOC API's
+              lexical `(stock OR ETF OR ...)` AND-clause.
+      "doc" — the legacy GDELT DOC API (src/gdelt.py). Keyless, so it needs no gcp-key.json, but
+              measured on this repo at 67% HTTP-429 and ~28 items/min.
+
+    IMPORTANT — `queries` is engine-specific and NOT translated between the two. The DOC engine takes
+    this module's GDELT_QUERIES (boolean AND/OR strings tuned for a lexical index). GKG takes beat
+    query strings from retrieval_config.json and matches their `keywords` atoms against title+URL.
+    Passing GDELT_QUERIES through to GKG would match nothing, so when the engine is "gkg" the
+    argument is IGNORED and the full beat set is used. Pass an explicit subset only if you mean beat
+    query strings.
+
+    The engine name is woven into `cache_path` so the two engines never read each other's pool — they
+    match on different surfaces (full text vs title+URL) and their pools are not interchangeable."""
+    eng = (engine or load_financial_model(
+        profile or str(REPO_ROOT / "investor_profile.backtest.md")).get("retrieval_engine", "gkg")).lower()
+    if cache_path:                                  # <dir>/gdelt_pool.json -> <dir>/gdelt_pool.gkg.json
+        p = Path(cache_path)
+        cache_path = str(p.with_suffix(f".{eng}{p.suffix}"))
+    if eng == "doc":
+        import gdelt as gd          # local, like the other call site: keeps import cost off the path
+        return gd.pool(queries, start, end, chunk_days=chunk_days, per=per,
+                       cache_path=cache_path, stats_path=stats_path)
+    if eng != "gkg":
+        raise ValueError(f"unknown retrieval_engine {eng!r}; expected 'gkg' or 'doc'")
+    import gkg                      # local: pulls in google-cloud-bigquery, unwanted on the doc path
+    return gkg.pool(start, end, queries=None, cache_path=cache_path, stats_path=stats_path,
+                    profile=profile, chunk_days=max(chunk_days, 7))
 
 SCAN_SYSTEM = """You are a markets desk reading the week's news firehose to find HIDDEN GEMS the
 financial press is already calling out — tickers a journalist explicitly names as a thesis-driven
@@ -290,7 +327,6 @@ def run_scans(start, end, rebalance_days, model, workers, fixture=None, gdelt=Fa
             pairs = list(zip(anchors, ex.map(lambda a: scan_fixture(client, model, a, articles), anchors)))
         return dict(sorted(pairs))
     if gdelt:
-        import gdelt as gd
         import hashlib
         seeds = _fixture_articles(seed) if seed else []
         qs = queries or GDELT_QUERIES
@@ -301,8 +337,8 @@ def run_scans(start, end, rebalance_days, model, workers, fixture=None, gdelt=Fa
         cache_f.parent.mkdir(parents=True, exist_ok=True)
         print(f"Firehose: GDELT scan of {len(anchors)} weeks ({len(qs)} queries, +{len(seeds)} "
               f"seeds); pool fetch/resume (checkpointed, ~10s/query-chunk) ...", file=sys.stderr)
-        gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
-                        cache_path=str(cache_f))   # resumable: survives sleep/kill, resumes next run
+        gpool = news_pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
+                          cache_path=str(cache_f))   # engine per profile; resumable across kills
         print(f"  GDELT pool: {len(gpool)} deduped articles ({cache_f.name}).", file=sys.stderr)
 
         def one(a):
@@ -334,20 +370,109 @@ def _live(p: dict) -> bool:
     return bool(p.get("thesis_live", True))
 
 
-EXIT_PATIENCE = 2   # consecutive EXPLICIT thesis-dead reads before exiting (hysteresis vs churn)
-MAX_STALE = 4       # weeks a held name may go UNMENTIONED before we drop it (no thesis confirmation)
+# These count SCANS, not calendar weeks -- so changing rebalance_period silently changes their
+# REAL-TIME horizon (at biweekly, 4 scans of silence is 8 weeks, not 4). They are profile knobs as of
+# 2026-08-09 for exactly that reason: a hardcoded 4 that was right weekly is wrong biweekly, and a
+# constant nobody can see is the worst place for a cadence-sensitive number.
+EXIT_PATIENCE = 2   # consecutive EXPLICIT thesis-dead SCANS before exiting (hysteresis vs churn)
+MAX_STALE = 4       # SCANS a held name may go UNMENTIONED before we drop it (no thesis confirmation)
 
 
-def _stateful_watch(scans: dict) -> dict:
+def _watch_clocks(fm: dict | None) -> tuple[int, int]:
+    """(exit_patience, max_stale) in SCANS. Profile overrides the module defaults."""
+    fm = fm or {}
+    return (int(fm.get("exit_patience_scans", EXIT_PATIENCE) or EXIT_PATIENCE),
+            int(fm.get("max_stale_scans", MAX_STALE) or MAX_STALE))
+
+
+def _trend_rank(tickers: list[str], panel, asof, lookback: int) -> dict:
+    """Per-name trailing risk-adjusted return: mean/sd of daily returns over `lookback`.
+
+    PER NAME, not a joint optimisation over the candidate set. With a 30-day lookback and ~40 live
+    candidates the covariance matrix is rank-deficient, so joint mean-variance cannot rank that
+    universe -- asking the optimizer directly for its top-N was measured at the 13th percentile,
+    worse than random. A single-asset statistic is well-conditioned at n=30. Rank with this, then
+    let the optimizer do the joint work on the survivors.
+
+    Missing/short history scores -inf so it sorts last rather than crashing the cull."""
+    out = {}
+    for tk in tickers:
+        try:
+            col = panel[tk].loc[:asof].dropna().iloc[-lookback:]
+            if len(col) < 10:
+                out[tk] = float("-inf"); continue
+            r = col.pct_change().dropna()
+            sd = float(r.std())
+            out[tk] = float(r.mean() / sd) if sd > 0 else 0.0
+        except Exception:  # noqa: BLE001
+            out[tk] = float("-inf")
+    return out
+
+
+def _ranked_cull(ev: list[str], keep: int, panel, asof, lookback: int,
+                 first_k: dict, k: int, fresh_slots: int, fresh_scans: int) -> list[str]:
+    """Choose which `keep` live events hold capital, mechanically.
+
+    Replaces `ev[:keep]` over an ALPHABETICAL list -- which, once live events outnumbered the cap,
+    was allocating capital by first letter. Measured against a 60-seed random null: alphabetical
+    67th percentile, trailing-return 83rd, freshness+trend 83rd, oldest-first 53rd.
+
+    TWO TIERS, because the two signals see different things:
+      1. FRESHNESS RESERVE -- up to `fresh_slots` for events first seen within `fresh_scans` scans.
+         A trailing statistic cannot see a catalyst younger than its own window, and a fresh thesis
+         is pre-run-up by construction, so a pure trend rank would evict exactly the early gems this
+         project exists to catch (non-negotiable #2).
+      2. TREND -- the rest by trailing risk-adjusted return.
+
+    NON-DESTRUCTIVE: _stateful_watch recomputes the full live set every scan, so a name culled here
+    returns next scan if its trend turns. This is rotation, not eviction."""
+    if len(ev) <= keep:
+        return ev
+    fresh = [t for t in ev if (k - first_k.get(t, k)) < fresh_scans]
+    fresh = sorted(fresh, key=lambda t: first_k.get(t, k), reverse=True)[:max(0, fresh_slots)]
+    rest = [t for t in ev if t not in set(fresh)]
+    sc = _trend_rank(rest, panel, asof, lookback)
+    rest = sorted(rest, key=lambda t: (-sc.get(t, float("-inf")), t))
+    return (fresh + rest)[:keep]
+
+
+def anchor_tickers(fm: dict) -> list[str]:
+    """The PERMANENT optimizer anchors (`always_include`), appended after the watchlist cull.
+
+    Falls back to the pre-2026-08-09 pair (SPY + `defensive_ticker`) when a profile predates the knob,
+    so old profiles and the archived run configs keep reproducing their original books."""
+    raw = fm.get("always_include")
+    if raw is None:
+        defv = str(fm.get("defensive_ticker", "GLD") or "").upper()
+        raw = [score.BENCHMARK] + ([defv] if defv else [])
+    return list(dict.fromkeys(str(t).strip().upper() for t in (raw or []) if str(t).strip()))
+
+
+def watchlist_cap(fm: dict) -> int:
+    """The cap on tickers that may hold capital. `max_watchlist` is the current name; `max_agents` is
+    the deprecated alias still written by the sweeps, the gem dashboards and the frozen forward
+    profile. 0 = uncapped."""
+    v = fm.get("max_watchlist")
+    return int((fm.get("max_agents", 0) if v is None else v) or 0)
+
+
+def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None = None) -> dict:
     """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
     one-off noise. It EXITS on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
     consecutive *reads*), prolonged silence (unmentioned >=MAX_STALE weeks), or — the moment the
     agent flags catalyst_resolved=True — a HARD exit that honors that verdict without hysteresis
-    (the catalyst is definitively done). Single-week flip-flops no longer churn the position."""
+    (the catalyst is definitively done). Single-week flip-flops no longer churn the position.
+
+    `seed` = the `starter_watchlist` INCEPTION holdings. They enter at week 0 with no thesis behind
+    them, so they age out on the normal MAX_STALE clock (no agent ever mentions them) -- day-0 capital
+    has a home and the curator's own picks displace it over the first few weeks rather than by fiat."""
+    exit_patience, max_stale = _watch_clocks(fm)
     anchors = list(scans)
     holding, dead, stale, out = {}, {}, {}, {}
+    for t in (seed or []):
+        holding[t] = True; dead[t] = 0; stale[t] = 0
     for a in anchors:
         resolved = {p["ticker"] for p in scans[a] if p.get("catalyst_resolved")}
         live = {p["ticker"] for p in scans[a] if _live(p)} - resolved
@@ -361,11 +486,11 @@ def _stateful_watch(scans: dict) -> dict:
                 continue
             if t in flagged_dead:
                 dead[t] += 1; stale[t] = 0
-                if dead[t] >= EXIT_PATIENCE:
+                if dead[t] >= exit_patience:
                     del holding[t]
             else:                            # unmentioned this week — tolerate, but not forever
                 stale[t] += 1
-                if stale[t] >= MAX_STALE:
+                if stale[t] >= max_stale:
                     del holding[t]
         out[a] = sorted(holding)
     return out
@@ -402,18 +527,20 @@ def _agent_precision(scans: dict, panel, fm: dict | None = None) -> list:
                 ret = None
         rows.append({"ticker": tk, "thesis": th, "first": _naive(e["first"]).date().isoformat(),
                      "last": _naive(e["last"]).date().isoformat(), "ret": ret})
-    # the always-on DEFENSIVE floor agent(s) (gold/GLD): standalone return over the full window
+    # the always-on ANCHOR agents (always_include: SPY/GLD/BIL): standalone return over the full window.
+    # They are not curator picks, so they don't score as precision -- they're the floor the picks are read against.
     anchors = sorted(scans)
     if fm and anchors and panel is not None:
-        defv = str(fm.get("defensive_ticker", "GLD") or "").upper()   # GLD is now always appended post-cull
-        if defv and defv in panel.columns:
+        for defv in anchor_tickers(fm):
+            if defv == score.BENCHMARK or defv not in panel.columns:
+                continue                       # SPY is already the benchmark line; don't double-count it
             ds = panel[defv].dropna()
             if getattr(ds.index, "tz", None) is not None:
                 ds = ds.copy(); ds.index = ds.index.tz_localize(None)
             try:
                 lo = ds.loc[:_naive(anchors[0])]; hi = ds.loc[:_naive(anchors[-1])]
                 if len(lo) and len(hi):
-                    rows.append({"ticker": defv, "thesis": f"defensive ({defv}) floor agent",
+                    rows.append({"ticker": defv, "thesis": f"anchor ({defv}) floor agent",
                                  "first": _naive(anchors[0]).date().isoformat(),
                                  "last": _naive(anchors[-1]).date().isoformat(),
                                  "ret": round(float(hi.iloc[-1] / lo.iloc[-1] - 1), 4)})
@@ -432,20 +559,23 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
     `picker` (opt-in) = a callable(cand_meta, max_keep) -> ordered keep-list (see src/picker.make_picker).
-    When passed, the max_agents cull ranks EVENT-agents via the LLM picker instead of conviction, and
-    SPY + the defensive asset are dropped as competing agents — they're appended to the optimizer AFTER
+    When passed, the max_watchlist cull ranks EVENT-agents via the LLM picker instead of conviction, and
+    the always_include anchors are dropped as competing agents — they're appended to the optimizer AFTER
     the cull. When None (default: all dashboards/sweeps), behavior is byte-identical to before (no LLM).
 
     `panel` lets a caller inject a FROZEN adjusted-close panel (DatetimeIndex, tz-naive) instead of
     fetching live — used by the golden-snapshot regression replay so results are deterministic
     (live yfinance prices drift day to day). Default None = fetch live, as before."""
     lookback = int(fm.get("lookback_period_days", curator.BACKTEST_LOOKBACK_DAYS))
-    max_agents = int(fm.get("max_agents", 0) or 0)             # PORTFOLIO cull: keep top-N EVENT-agents. 0 = uncapped.
-    defensive = str(fm.get("defensive_ticker", "GLD") or "").upper()   # appended to the optimizer AFTER the cull (idle capital parks here); "" = none
-    bench = score.BENCHMARK
+    cull_rank = str(fm.get("cull_rank", "trend") or "trend").lower()
+    fresh_slots = int(fm.get("cull_fresh_slots", 3) or 0)
+    fresh_scans = int(fm.get("cull_fresh_scans", 2) or 0)
+    max_watch = watchlist_cap(fm)          # PORTFOLIO cull: keep top-N tickers/event-agents. 0 = uncapped.
+    always = anchor_tickers(fm)            # permanent anchors, appended AFTER the cull; idle capital parks here
+    starter = [str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
     anchors = list(scans)
-    watch = _stateful_watch(scans)  # sticky hold + hard-exit on catalyst_resolved
-    tickers = {score.BENCHMARK, overlay} | ({defensive} if defensive else set()) | {t for w in watch.values() for t in w}
+    watch = _stateful_watch(scans, seed=starter, fm=fm)  # inception holdings + sticky hold + hard-exit on catalyst_resolved
+    tickers = {score.BENCHMARK, overlay} | set(always) | set(starter) | {t for w in watch.values() for t in w}
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
@@ -463,31 +593,74 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
     first_k, meta = {}, {}                      # PICKER context (built only when picker set): first-week seen + event metadata
-    drop_unfunded = int(fm.get("drop_unfunded_weeks", 0) or 0)   # CULL: drop an event the optimizer leaves unfunded N straight weeks (0 = OFF)
-    dropped_unfunded, unfunded_streak = set(), {}
+    # UNFUNDED PRUNE. A name the optimizer refuses to fund for `drop_unfunded_weeks` CONSECUTIVE weeks
+    # leaves the watchlist. Persistence is what makes this work: a single week's mean-variance weights
+    # are noise at this lookback (30 daily obs, 15-26 candidates -> rank-deficient Sigma), but N straight
+    # rejections is not. Measured 2026-08-09 against a MATCHED null -- same number of drops, same weeks,
+    # random victims -- it lands 88th-100th percentile at every N in 2..8, so the SIGNAL is real even
+    # though the best-scoring N is not (the dollar peak at 3 is one path's noise).
+    #
+    # RE-ENTRY is what keeps this from being an early-gem killer. A fresh catalyst is pre-run-up by
+    # construction, so a backward-looking optimizer rejects it during exactly the weeks it is most worth
+    # holding; a permanent drop turns that lag into a life sentence (non-negotiable #2). Two ways back:
+    #   unfunded_cooldown_weeks  N weeks after the drop the name is eligible again, streak cleared. 0 = never.
+    #   unfunded_reentry_on_new_catalyst  the name returns the moment the curator names it under a
+    #                            DIFFERENT thesis than the one it was dropped on -- a new bet, not the old one.
+    drop_unfunded = int(fm.get("drop_unfunded_weeks", 0) or 0)   # 0 = OFF
+    cooldown = int(fm.get("unfunded_cooldown_weeks", 0) or 0)    # 0 = drops are permanent (pre-2026-08-09 behavior)
+    reentry_new_cat = bool(fm.get("unfunded_reentry_on_new_catalyst", False))
+    dropped_at: dict[str, tuple[int, str]] = {}                  # ticker -> (week dropped, thesis it was dropped on)
+    unfunded_streak = {}
+
+    def _is_dropped(t: str, k: int, wk_thesis: dict) -> bool:
+        """Still excluded this week? Checks both re-entry routes."""
+        rec = dropped_at.get(t)
+        if rec is None:
+            return False
+        dk, dth = rec
+        if cooldown and (k - dk) >= cooldown:
+            del dropped_at[t]; unfunded_streak[t] = 0
+            return False
+        # released only when the name is being carried for a reason it was NOT dropped on
+        if reentry_new_cat and wk_thesis.get(t) and dth not in wk_thesis[t]:
+            del dropped_at[t]; unfunded_streak[t] = 0
+            return False
+        return True
     for k, a in enumerate(anchors):
+        for p in scans[a]:                      # first-seen scan per ticker -- the ranked cull's freshness tier
+            first_k.setdefault(p["ticker"], k)
         if picker is not None:                  # the metadata the picker ranks on (catalyst arc; NO conviction, NO P&L)
             for p in scans[a]:
-                t = p["ticker"]; first_k.setdefault(t, k)
+                t = p["ticker"]
                 meta[t] = {"catalyst": (p.get("thesis") or "")[:160],
                            "milestones": str(p.get("milestones") or "")[:200],
                            "exit_condition": str(p.get("exit_advice") or p.get("exit_case") or "")[:140]}
         i = score.entry_index(days, a.strftime("%Y-%m-%dT%H:%M:%S%z"), fm.get("t_update_days"))
         reb.append(None if i is None else i)
         if i is not None:
-            # PORTFOLIO cull: keep the top-N EVENT-agents, then append SPY + the defensive asset to the optimizer.
-            # SPY/defensive are NOT competing agents -- they ride post-cull so idle capital always has a home.
+            # PORTFOLIO cull: keep the top-N tickers, then append the always_include anchors to the optimizer.
+            # Anchors are NOT competing agents -- they ride post-cull so idle capital always has a home.
             # No gates, no conviction: the picker ranks (LLM keep-list); without one, a deterministic keep-first-N.
-            ev = [t for t in watch[a] if t not in dropped_unfunded]   # live events (drop-unfunded ones excluded)
+            # ALL of this week's theses per ticker, not just one. A ticker can be a vehicle of two live
+            # events at once (it joins the second as a PEER, which the same-ticker guard does not cover
+            # -- measured at 9% of ticker-scans), and a dict comprehension would silently keep whichever
+            # pick came last, answering "has the thesis changed?" against an arbitrary one of two.
+            wk_thesis: dict = {}
+            for p in scans[a]:
+                wk_thesis.setdefault(p["ticker"], set()).add(p.get("thesis") or "")
+            ev = [t for t in watch[a] if not _is_dropped(t, k, wk_thesis)]   # live events (unfunded-pruned ones excluded)
             live_ev = list(ev)                                        # all live this week -> feeds the unfunded streak
-            if max_agents and len(ev) > max_agents:
+            if max_watch and len(ev) > max_watch:
                 if picker is not None:
                     cm = [{"ticker": t, **meta.get(t, {}), "weeks_alive": k - first_k.get(t, k)} for t in ev]
-                    keep = picker(cm, max_agents, context=str(a.date()))
-                    ev = [t for t in keep if t in ev][:max_agents] or ev[:max_agents]
+                    keep = picker(cm, max_watch, context=str(a.date()))
+                    ev = [t for t in keep if t in ev][:max_watch] or ev[:max_watch]
+                elif cull_rank == "trend":
+                    ev = _ranked_cull(ev, max_watch, panel, days[i], lookback,
+                                      first_k, k, fresh_slots, fresh_scans)
                 else:
-                    ev = ev[:max_agents]        # no-picker fallback (dashboards/sweeps): keep first N, deterministic
-            uni = list(dict.fromkeys(ev + [t for t in (bench, defensive) if t and t in valid]))
+                    ev = ev[:max_watch]         # legacy keep-first-N over sorted(holding) = ALPHABETICAL
+            uni = list(dict.fromkeys(ev + [t for t in always if t in valid]))
             watch[a] = ev
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
             week_w[k] = w
@@ -498,8 +671,9 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                         unfunded_streak[t] = 0
                     else:
                         unfunded_streak[t] = unfunded_streak.get(t, 0) + 1
-                        if unfunded_streak[t] >= drop_unfunded:
-                            dropped_unfunded.add(t)
+                        if unfunded_streak[t] >= drop_unfunded and t not in dropped_at:
+                            _th = wk_thesis.get(t) or {""}
+                            dropped_at[t] = (k, sorted(_th)[0])
 
     value, spyval, log = capital, capital, []
     rows = [{"date": str(days[reb[0]].date()) if reb[0] else str(anchors[0].date()),
@@ -522,11 +696,13 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
            "watch": {a: watch[a] for a in anchors},   # pruned sticky watch, so the dashboard matches
            "agent_precision": _agent_precision(scans, panel, fm)}   # unmasked curator-skill metric
     if daily:
-        out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor)
+        out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor,
+                                     buyhold=[t for t in starter if t in valid])
     return out
 
 
-def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_anchor=OVERLAY_ANCHOR) -> dict | None:
+def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_anchor=OVERLAY_ANCHOR,
+                  buyhold: list[str] | None = None) -> dict | None:
     """Daily value/alloc: hold each week's weights from its rebalance day until the next."""
     starts = [r for r in reb if r is not None]
     if not starts:
@@ -566,9 +742,23 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
         base = next((float(ov.iloc[i]) for i in range(len(ov)) if pd.notna(ov.iloc[i]) and ov.iloc[i] > 0), None)
         if base:
             overlay_vals = [None if pd.isna(v) else round(float(v) / base * capital, 2) for v in ov.tolist()]
+    # BUY-AND-HOLD baseline: the `starter_watchlist`, bought equal-DOLLAR on day 1 and never touched.
+    # Same `capital` and same day-1 start as the curated book and SPY, so all three curves are directly
+    # comparable. Weights drift after day 1 -- that is the point: this is what NOT rebalancing looks like.
+    bh_val = None
+    held = [t for t in (buyhold or []) if t in panel.columns]
+    if held:
+        norm = panel[held].reindex(d_idx).ffill()
+        base = norm.iloc[0]
+        held = [t for t in held if pd.notna(base[t]) and base[t] > 0]
+        if held:
+            bh = (norm[held] / base[held]).mean(axis=1)     # equal-dollar at inception == mean of price relatives
+            bh_val = [None if pd.isna(v) else round(capital * float(v), 2) for v in bh.tolist()]
+
     alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]
     cash = [max(0.0, round(1 - float(alloc.loc[d].sum()), 4)) for d in d_idx]
     return {"dates": [d.strftime("%Y-%m-%d") for d in d_idx], "value": values, "spy": spy_val,
+            "bh": bh_val, "bh_tickers": held,
             "overlay": overlay_vals, "overlay_ticker": overlay, "overlay_anchor": overlay_anchor,
             "alloc": {t: [round(x, 4) for x in alloc[t]] for t in alloc.columns}, "cash": cash,
         "gain": {t: round(v, 2) for t, v in gain.items()}, "gain_series": gain_series}
@@ -601,7 +791,7 @@ def main(argv: list[str] | None = None) -> int:
         print("ERROR: ANTHROPIC_API_KEY not set.", file=sys.stderr)
         return 2
     fm = load_financial_model(str(REPO_ROOT / "investor_profile.backtest.md"))
-    rebalance = args.rebalance_days if args.rebalance_days is not None else int(fm.get("rebalance_days", 7))
+    rebalance = args.rebalance_days if args.rebalance_days is not None else resolve_cadence(fm)
     lookback = args.lookback_days if args.lookback_days is not None else fm.get("news_lookback_days")
 
     scans = run_scans(args.start, args.end, rebalance, args.model, args.workers,

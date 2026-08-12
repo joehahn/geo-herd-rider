@@ -279,6 +279,20 @@ demand continues") it lost the *specific discrete catalyst* and defaulted to hol
   exits work (cap already concentrates), so it was removed entirely in favor of the memory/exit fix.
   Recorded here so it isn't re-litigated.
 
+**Known risk — engineered-catalyst exit timing [flag for forward eval].** The exit-on-resolution
+logic is built around catalysts that resolve on an *economic/physical* clock (bill signed, chokepoint
+reopened, deal closed). A subset of named gems may instead move on an *engineered* clock — a policy
+decision steered by the very people the press names as beneficiaries (the "conspiracy" reading of a
+Zero-Hedge-style who's-who piece). For entry this changes nothing: the observable signature is still
+"press names the ticker early while framed as under-the-radar," and the strategy is agnostic about
+*why* it pops (non-negotiable #1 already bars us from betting on the conspiracy narrative or on
+magnitude). But the **exit** is harder: an engineered catalyst decays on a *political* clock — policy
+reverses, principals rotate out, the news cycle turns — none of which the fundamentals telegraph, and
+none of which maps cleanly onto our "specific discrete catalyst RESOLVES" test. Flagged as something
+the forward eval should watch for (held positions whose thesis went stale politically, not
+economically, and that our exit logic held too long). NOT a rung to build — a "who named it" source
+tier is downstream of the forward scoreboard proving the plain news firehose pays (scope discipline).
+
 **Caveat (carried throughout):** the curator LLM is **stochastic** — re-scans give different draws,
 so single-run before/after comparisons are noisy. Treat per-draw deltas as suggestive, not proof;
 the forward eval (or multi-seed averaging) is the real test.

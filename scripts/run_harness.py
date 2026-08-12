@@ -35,7 +35,7 @@ import firehose  # noqa: E402
 import agent  # noqa: E402
 import score  # noqa: E402
 from optimizer import load_financial_model, resolve_curator_model, CURATOR_MODELS  # noqa: E402
-from util import load_dotenv  # noqa: E402
+from util import resolve_cadence, load_dotenv  # noqa: E402
 
 GEMS_JSON = ROOT / "data" / "fixtures" / "gems.json"
 REPORT = ROOT / "data" / "windows" / "harness_report.json"
@@ -108,7 +108,7 @@ def main(argv: list[str] | None = None) -> int:
     gems = {g["ticker"]: g for g in spec["gems"]}
     controls = {c["ticker"]: c for c in spec.get("controls", [])}
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    rebalance = int(fm.get("rebalance_days", 7))
+    rebalance = resolve_cadence(fm)
     model_short = str(fm.get("event_agent_model") or fm.get("model") or "mimo").strip().lower()
     resolved_id, resolved_prov = resolve_curator_model(model_short)
     if args.model is None:

@@ -45,7 +45,7 @@ def main(argv=None):
         k, v = kv.split("=", 1)
         fm[k.strip()] = float(v) if "." in v else int(v)
     anchors = sorted(scans)
-    tickers = {score.BENCHMARK, str(fm.get("defensive_ticker", "GLD")).upper()} | \
+    tickers = set(firehose.anchor_tickers(fm)) | {score.BENCHMARK} | \
         {p["ticker"] for a in scans for p in scans[a] if p.get("ticker")}
     start = (anchors[0] - pd.Timedelta(days=200)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")

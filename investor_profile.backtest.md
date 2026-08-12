@@ -1,61 +1,53 @@
 ---
 # ==========================================================================
-# BACKTEST / DEV CONFIG — free to evolve. The GDELT backtest (backtest_gdelt.py),
-# sweeps, gem-dashboards, and the model bake-off read THIS file. To promote a
-# backtest-settled candidate to the live forward test, copy the STRATEGY knobs into
-# investor_profile.forward.md (a dated re-freeze; see that file's header).
-#   * Keep the STRATEGY knobs (event_agent_model, scout_model, max_agents, floors,
-#     risk_aversion, concentration_cap) in sync with .forward.md so the backtest stays a
-#     valid proxy; only RETRIEVAL-operational knobs (news_cap) legitimately differ.
-#   * backtest_gdelt.py can override news_cap via --news-cap (CLI); the value below is
-#     the default for profile-reading tools (run_harness).
+# BACKTEST / DEV CONFIG — free to evolve. Read by backtest_gdelt.py, the sweeps and the dashboards.
+# Promoting a settled candidate to the live forward test = copying the STRATEGY knobs into
+# investor_profile.forward.md as a dated re-freeze (see that file's header).
+#
+# Order: AI models -> curator -> optimizer -> source allow/block lists.
+# Any knob added here must also exist in optimizer._FINANCIAL_MODEL_DEFAULTS or it is SILENTLY
+# IGNORED; load_financial_model warns about unknown keys.
 # ==========================================================================
-# Active optimizer settings
-gather_model: sonnet5              # FIREHOSE stage (live web-search gather) — Anthropic-ONLY. INERT in the
-                                  #   backtest (no live gather; the pool is GDELT/Tavily), so this is a
-                                  #   forward-only knob like news_cap; kept = .forward.md for validity.
-event_agent_effort: medium         # reasoning effort for the per-event judgment call (the curator COST DRIVER,
-                                  #   ~$0.056/call on sonnet5 at 'high'). 'medium' ~halves backtest curator cost.
-event_agent_model: sonnet5         # JUDGMENT stage (the per-event agents: live/exit switch + conviction).
-                                  #   Reads the gathered pool with NO web search -> ANY provider (3-knob split,
-                                  #   2026-07-12). On sonnet5 (Anthropic) for the strong-judgment HL rerun — the
-                                  #   test of whether a real judge holds conviction through the live thesis and
-                                  #   calls the exit near the peak (vs llama4's noise). scout_model stays llama4.
-                                  #   Keep on a strong model. Choices (approx $/run):
-                                  #   deepseek = deepseek-chat V3 (OpenRouter)     ~$0.1
-                                  #   llama4   = llama-4-maverick (OpenRouter)     ~$0.3
-                                  #   mimo     = xiaomi/mimo-v2.5-pro (OpenRouter) ~$0.4
-                                  #   sonnet4  = claude-sonnet-4-6 (Anthropic)     ~$3.6
-                                  #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8
-                                  #   grok4    = x-ai/grok-4.3 (OpenRouter)        ~$3.7
-                                  #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
-scout_model: llama4                # EXTRACTION/ROUTING stage (scout + matcher): reads the whole firehose pool,
-                                  #   so it's the token-cost driver -> runs a CHEAP model (llama4, OpenRouter ~$0.3/run).
-                                  #   Any provider (no web search).
-picker_model: sonnet5             # PORTFOLIO-cull agent-picker (src/picker.py): ranks live events on catalyst-arc -> keep-list.
-                                  #   Opt-in (proto_select --picker / forward --report); INERT on plain dashboard rebuilds.
-                                  #   STRONG model required (cheap pickers tie/trail random).
-picker_effort: low                # Anthropic reasoning effort for the picker: 'low' = cheap/fast for backtest replays;
-                                  #   'high' for forward (1 call/week, trivial cost, reasoning may be its only edge).
-initial_investment_usd: 50000     # Day-0 dollar allocation.
-concentration_cap: 0.667          # Per-ticker max allocation (conservative: no single name > ~2/3 the book).
-risk_aversion: 0.5              # lambda in mean-variance utility (μᵀw − λ·wᵀΣw). Conservative: 0.5 favors lower-variance spread (was 0.1 = aggressive-μ).
-t_update_days: 1                  # Assumed number of business days from event detection to trade execution
-min_trade_size: 0.1               # Drop holdings smaller than 10% & reallocate (fewer dust positions).
-max_agents: 5                     # PORTFOLIO cull: top-N EVENT-agents that hold capital. SPY + GLD appended AFTER the
-                                  #   cull (not competing). With a picker (opt-in) the LLM ranks; else keep-first-N. 0=uncapped
-drop_unfunded_weeks: 0            # CULL: drop an event the optimizer leaves UNFUNDED for N straight weeks. 0 = OFF.
-                                  #   Set to 0 (2026-07-15): the 1000-draw Monte-Carlo showed =4 was an overfit lever
-                                  #   (+38% Q1 / -45% H1 vs +0% neutral); =0 dominates on worst-window return AND gem-capture,
-                                  #   and matches the frozen forward profile. Do not re-enable without cross-window support.
-max_new_events: 2                 # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
-                                  #   Cheap cull = catalyst gate + (TODO) diversity tiebreak. 0 = uncapped. (was CANDIDATE_CAP)
-news_cap: 0                       # Per-SCAN (per-week) cap on articles the scout reads; 0 = UNCAPPED.
-curator_memory_weeks: 8           # Weeks of RESOLVED catalysts the scout is reminded of so it won't re-chase a done thesis: 0=off, <0=all, >0=last N
-lookback_period_days: 14          # Optimizer trailing lookback (calendar days); short = responsive to recent moves
-rebalance_days: 7                 # The firehose scans/rebalances every N days AND reads that same trailing news window
-risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
-# --- forward web-search domain steering (used by forward_gather; synced here for visibility). Curate by OUTLET TYPE. ---
+
+# ---------- AI MODELS: who does what, and what it costs ----------
+scout_model: llama4               # OPENS events. Reads the whole week's news (~1,500 headlines in ~10 chunked
+                                  #   calls) and proposes ticker + catalyst. Also runs the matcher, ticker guard
+                                  #   and relevance filter. ~90% of the AI bill, so keep it cheap.
+event_agent_model: deepseek4      # CLOSES events. Once per live event per scan: still live? catalyst resolved?
+                                  #   which tickers? Decides how long the book holds things.
+picker_model:                     # BLANK = off. Would pick which live events hold capital; cull_rank does that
+                                  #   for free instead. ~$10 per  dashboard build, and a cheap picker is worse
+                                  #   than random.
+
+# ---------- CURATOR: what gets discovered, and when it is dropped ----------
+retrieval_engine: gkg             # backtest news source (GDELT GKG on BigQuery). Forward always uses web search.
+news_cap: 0                       # articles the scout reads per scan. 0 = all of them.
+event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
+max_new_events: 4                 # new events admitted per scan, best-sourced first (gem beats outrank generic coverage beats). 
+curator_memory_weeks: 4           # Scans of already-resolved catalysts the scout is reminded of, so it does not re-open a thesis that is already over.
+exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
+max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
+max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). A catalyst not resolved by then was a theme, not a catalyst.
+
+# ---------- OPTIMIZER: what gets funded, and how much ----------
+initial_investment_usd: 50000     # day-0 dollars.
+starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
+always_include: [SPY, GLD]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
+max_watchlist: 6                  # how many tickers may hold capital at once. 
+cull_rank: trend                  # when live events > max_watchlist, who gets money. trend=best recent risk-adjusted price; keep-first=alphabetical, kept ONLY as the sweep's null control.
+cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
+cull_fresh_scans: 2               # how new counts as new, in scans.
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped. 0 = never drop on unfunding alone; max_watchlist does the pruning.
+unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
+concentration_cap: 0.40           # most of the book any one ticker may take.
+min_trade_size: 0.05              # positions smaller than this are dropped rather than held as dust.
+risk_aversion: 3.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+lookback_period_days: 60          # days of price history behind μ and Σ. Short lookbacks chase noise; cancellation falls monotonically 21d->60d.
+rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. Also the news window per scan.
+t_update_days: 1                  # trading days between the signal and the trade.
+risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
+
+# ---------- SOURCES: which outlets the forward gather prefers and avoids ----------
 specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call
   # generalist stock/ETF desks (all sectors):
   - etf.com
@@ -79,7 +71,20 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - defensenews.com
   # maritime + commodities specialty desks (surfaced the early BWET-tanker + gold theses in the backtest):
   - seatrade-maritime.com
-  - kitco.com
+  # commodities / critical minerals -- the rare-earth + uranium beats are the top evidence producers
+  # and had 0 and 1 desks. mining.com scores 347 evidence-hits/1k articles, ~2x benzinga.
+  - mining.com
+  - northernminer.com
+  - argusmedia.com
+  - benchmarkminerals.com          # lithium/battery price authority; not crawled by GDELT, forward-only
+  # memory / semis pricing (semianalysis does analysis, not prices):
+  - digitimes.com
+  - trendforce.com                 # DRAM/NAND price authority; not crawled by GDELT, forward-only
+  # power grid / datacenter energy -- an uncovered sector the AI-datacenter theme keeps hitting:
+  - utilitydive.com
+  - powermag.com
+  # tanker/shipping desks (seatrade-maritime is conference-focused):
+  - splash247.com                  # not crawled by GDELT, forward-only
 mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills
   - fool.com
   - 247wallst.com
@@ -90,4 +95,25 @@ mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" l
   - defenseworld.net              # automated aggregator / content farm (122 low-quality hits in the backtest)
   - ts2.tech                      # AI-generated content farm
   - marketbeat.com                # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
+  # MarketBeat-network syndication clones of the above -- same bot templates, different masthead. A/B'd
+  # 2026-08-07 on a 14d GKG pool: 374 articles (19.8% of the pool) and a hand read of a random sample
+  # found ZERO pieces of real reporting. Title patterns alone left 66-72% of them standing (the bots have
+  # unbounded variants), so the domain block is what clears them. insidermonkey.com and financialcontent.com
+  # were candidates in the same A/B and are deliberately NOT blocked -- they carry genuine catalyst
+  # reporting that names tickers, which is exactly what the firehose is for.
+  - tickerreport.com
+  - dailypolitical.com
+  - themarketsdaily.com
+  # MarketBeat-network clones (2026-08-10): 13,447 articles = 10.5% of the 3-year pool, 100% bot
+  # templates (13F position changes, "Stock Price Down 8.3%"), 13.8 curator-evidence hits per 1k vs
+  # benzinga's 179. Blocking costs 1.8% of evidence.
+  - wkrb13.com
+  - modernreaders.com
+  - theenterpriseleader.com
+  - etfdailynews.com
+  # Motley Fool international editions -- foreign-exchange listicles, no US-listed relevance.
+  # fool.co.uk produced ZERO curator evidence in 3 years. fool.ca is deliberately NOT blocked (small
+  # volume, 81.6/1k, covers US-listed names).
+  - fool.com.au
+  - fool.co.uk
 ---

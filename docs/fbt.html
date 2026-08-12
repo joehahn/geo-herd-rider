@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Firehose Backtest (FBT)</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root {
+  --surface:#fcfcfb; --card:#ffffff; --text:#0b0b0b; --text2:#52514e;
+  --grid:#e6e5e1; --line:#e6e5e1;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7;
+    --grid:#33322f; --line:#33322f;
+  }
+}
+:root[data-theme="dark"] {
+  --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7;
+  --grid:#33322f; --line:#33322f;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--surface); color:var(--text);
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+header h1 { font-size:26px; margin:0 0 4px; letter-spacing:-.01em; }
+.sub { color:var(--text2); font-size:14px; margin:0 0 6px; }
+.nav { font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
+  padding-bottom:12px; margin-bottom:22px; }
+.nav a { color:var(--text2); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:12px; margin-bottom:30px; }
+.tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 14px; }
+.tile-h { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.dot { font-size:11px; }
+.tl { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--text2); flex:1; }
+.badge { font-size:10px; text-transform:uppercase; letter-spacing:.05em; border:1px solid;
+  border-radius:20px; padding:1px 7px; }
+.tv { font-size:27px; font-weight:600; letter-spacing:-.02em; }
+.ts { font-size:12.5px; color:var(--text2); margin-bottom:7px; }
+.tw { font-size:12.5px; color:var(--text2); line-height:1.5; }
+.panel { margin:0 0 34px; }
+.panel h2 { font-size:17px; margin:0 0 5px; font-weight:600; }
+.lead { color:var(--text2); font-size:13.5px; margin:0 0 12px; max-width:80ch; }
+.plot { background:var(--card); border:1px solid var(--line); border-radius:10px; }
+details.tbl { margin-top:9px; font-size:13px; color:var(--text2); }
+details.tbl summary { cursor:pointer; }
+table { border-collapse:collapse; margin-top:9px; width:100%; font-size:12.5px; }
+th,td { text-align:left; padding:5px 9px; border-bottom:1px solid var(--line); }
+th { color:var(--text2); font-weight:600; }
+.params { width:auto; } .params td:first-child { color:var(--text2); }
+.scroll { overflow-x:auto; }
+footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--text2); }
+</style></head><body>
+<div class="wrap">
+<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-11 20:54</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
+<header>
+  <h1>Firehose Backtest (FBT)</h1>
+  <p class="sub">2025-07-04 → 2026-07-03 &middot; 38,896 articles &middot; GKG on BigQuery</p>
+</header>
+<div class="tiles"><div class="tile"><div class="tile-h"><span class="dot" style="color:#0ca30c">●</span><span class="tl">Corpus</span><span class="badge" style="color:#0ca30c;border-color:#0ca30c">good</span></div><div class="tv">38,896</div><div class="ts">365 days · 107/day</div><div class="tw">Articles kept after every filter, and how many that is per day.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#d03b3b">■</span><span class="tl">Signal in the corpus</span><span class="badge" style="color:#d03b3b;border-color:#d03b3b">critical</span></div><div class="tv">48%</div><div class="ts">blind-judged sample of 300</div><div class="tw">Share a strong model judged worth a trader&#x27;s attention. The rest is noise the scout must read past.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#0ca30c">●</span><span class="tl">Has body text</span><span class="badge" style="color:#0ca30c;border-color:#0ca30c">good</span></div><div class="tv">86%</div><div class="ts">33,571 of 38,896</div><div class="tw">Share with real article text. The rest reach the curator as a headline only.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#fab219">▲</span><span class="tl">Has byline</span><span class="badge" style="color:#fab219;border-color:#fab219">warning</span></div><div class="tv">44%</div><div class="ts">17,237 named authors</div><div class="tw">Share with a named human author. Wire and PR copy have none by design.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#0ca30c">●</span><span class="tl">Beats firing</span><span class="badge" style="color:#0ca30c;border-color:#0ca30c">good</span></div><div class="tv">46/46</div><div class="ts">0 beat(s) returned nothing all year</div><div class="tw">Standing weekly searches that returned at least one article this year.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#0ca30c">●</span><span class="tl">Early-framing beats</span><span class="badge" style="color:#0ca30c;border-color:#0ca30c">good</span></div><div class="tv">7,417</div><div class="ts">19.1% of corpus</div><div class="tw">Articles from the 10 under-the-radar beats — the ones this strategy bets on.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#fab219">▲</span><span class="tl">Source spread</span><span class="badge" style="color:#fab219;border-color:#fab219">warning</span></div><div class="tv">2,287</div><div class="ts">top-10 = 44% of corpus</div><div class="tw">Distinct outlets in the corpus, and how much the ten largest supply.</div></div><div class="tile"><div class="tile-h"><span class="dot" style="color:#d03b3b">■</span><span class="tl">Volume floor</span><span class="badge" style="color:#d03b3b;border-color:#d03b3b">critical</span></div><div class="tv">29</div><div class="ts">p10/day vs median 123</div><div class="tw">Articles on a thin day (10th percentile) against a typical day.</div></div></div>
+<section class="panel"><h2>Parameters</h2>
+  <div class="scroll"><table class="params"><tr><td>Window</td><td>2025-07-04 → 2026-07-03</td></tr><tr><td>Articles</td><td>38,896</td></tr><tr><td>Discovery engine</td><td>GKG on BigQuery (gdelt-bq.gdeltv2.gkg_partitioned)</td></tr><tr><td>Rows scanned</td><td>318,637</td></tr><tr><td>BigQuery</td><td>0 GB billed over 0 queries</td></tr><tr><td>Discovery time</td><td>42s</td></tr><tr><td>Beats</td><td>10 early-framing + 36 sector-coverage</td></tr><tr><td>Beat vocabulary</td><td><a href="https://github.com/joehahn/geo-herd-rider/blob/main/retrieval_config.json"><code>retrieval_config.json</code></a> — every beat's search query, its GKG keyword atoms, the spam patterns and the engine knobs</td></tr><tr><td>Domain steering</td><td><a href="https://github.com/joehahn/geo-herd-rider/blob/main/investor_profile.backtest.md"><code>investor_profile.backtest.md</code></a> — specialty_allow (gem pass) and mill_block (the blocklist stage above)</td></tr><tr><td>Lede arm</td><td>live (today&#x27;s page) — look-ahead-BIASED, prototype only</td></tr></table></div></section>
+<section class="panel"><h2>1. Filtering the ingestion funnel</h2><p class="lead">Every filter an article must survive, from all of GDELT down to the corpus — a 3,511&times; reduction. The first four stages run inside the BigQuery query and were never counted until now; their figures are scaled from four sampled weeks. Everything from &ldquo;GKG rows scanned&rdquo; down is exact. <b>Log x-axis</b> — the funnel spans 3.5 orders of magnitude.<br><br>Each stage also carries how often it was <b>wrong</b>: a sample of what it discarded was re-read by a strong model that was never told a filter was involved. Volume alone cannot tell you whether a stage is working — the two largest here throw away real coverage about 40% of the time.<br><br>Stages are configured in <a href="https://github.com/joehahn/geo-herd-rider/blob/main/retrieval_config.json"><code>retrieval_config.json</code></a> and <a href="https://github.com/joehahn/geo-herd-rider/blob/main/investor_profile.backtest.md"><code>investor_profile.backtest.md</code></a>.</p><div id="p-funnel" class="plot" style="height:460px"></div></section><section class="panel"><h2>2. Coverage over time</h2><p class="lead">The same corpus at three resolutions: per month, per ISO week, and per day. Month shows whether any stretch of calendar is under-served; week is the scout's actual cadence, so a thin week is a thin decision; day exposes individual holes the coarser views average away. Flat and gap-free is the goal.</p><div id="p-vol" class="plot" style="height:700px"></div></section><section class="panel"><h2>3. Articles by day of week</h2><p class="lead">Where the volume sits across the week. A weekend trough is normal market-news behaviour, not a retrieval fault — this panel exists so a real gap is distinguishable from the ordinary weekly cycle.</p><div id="p-dow" class="plot" style="height:300px"></div></section><section class="panel"><h2>4. Body text vs article age</h2><p class="lead">Fraction of articles containing text rather than just a bare headline. Older articles score worse because their links have rotted.</p><div id="p-text" class="plot" style="height:360px"></div></section><section class="panel"><h2>5. Lede provenance by month</h2><p class="lead">Counts of where each month's text came from. <b>Clean</b> is the Wayback copy pulled from archive.org as written when crawled soon after publication. <b>Biased</b> is the current text (pulled via the GKG-provided url) which may have been edited since. <b>None</b> is a bare headline.</p><div id="p-prov" class="plot" style="height:380px"></div></section><section class="panel"><h2>6. Wayback backfill progress</h2><p class="lead">A Wayback pass is filling the articles that reached the curator as a bare headline — dead links, 5xx, paywalls. This panel reads the backfill's cache directly rather than the corpus file, so it moves every time this page is rebuilt instead of waiting for the multi-day pass to finish. Grey is the remaining hole per month, green is text already recovered. The hole is concentrated in the oldest months, because that is where links have rotted.</p><div id="p-backfill" class="plot" style="height:360px"></div></section><section class="panel"><h2>7. Live vs archived text divergence</h2><p class="lead">Most of this corpus was read from the article's page <b>as it looks today</b>, because that is ~2,600&times; faster than pulling an archived copy. The risk: today's page may no longer be what ran on the decision date.<br><br>A month-stratified sample was fetched BOTH ways — today's page and the archive.org snapshot from on-or-before that date. This plots the share where the two differ materially: a spot check on the ~87% we could not afford to fetch cleanly. Flat and low means today's page is a faithful stand-in at every age.</p><div id="p-drift" class="plot" style="height:360px"></div></section><section class="panel"><h2>8. Why text is missing</h2><p class="lead">The recorded reason each headline-only article failed, straight from the fetch — all code, no AI. <b>url_recycled</b> is a real test: the page loaded and produced text, but shared too few words with the stored headline, so that URL now serves a different story. <b>removed</b> is HTTP 404/410. <b>blocked_or_paywalled</b> is 401/403 — a paywall and a bot-wall are indistinguishable to an anonymous client, so they share one honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% are genuine walls and 18% our parser failing.</p><div id="p-miss" class="plot" style="height:340px"></div></section><section class="panel"><h2>9. Articles per beat</h2><p class="lead">A <b>beat</b> is one standing weekly search; all 46 live in <a href="https://github.com/joehahn/geo-herd-rider/blob/main/retrieval_config.json"><code>retrieval_config.json</code></a>, each with a plain-English query (used verbatim on the forward path) and keyword atoms (matched against headline and URL here). Sectors and superlatives are just coverage beats, not separate files.<br><br><b>Orange</b>: the 10 early-framing beats — coverage while a name is still under-the-radar, what this strategy bets on. <b>Blue</b>: the 36 sector-coverage beats; one superlative beat among them is the corpus's largest single source. Three early-framing beats sit at the bottom, contributing nothing.<br><br>Outlet preferences live in <a href="https://github.com/joehahn/geo-herd-rider/blob/main/investor_profile.backtest.md"><code>investor_profile.backtest.md</code></a>, sources in <a href="https://github.com/joehahn/geo-herd-rider/blob/main/news_sources.md"><code>news_sources.md</code></a>. The English-origin gate (plot 1) is still in code — a wart.</p><div id="p-beats" class="plot" style="height:900px"></div></section><section class="panel"><h2>10. Articles per source</h2><p class="lead">The 50 largest outlets, plus everything else folded into one grey bar. A sweep dominated by a handful of publishers inherits their editorial priorities; a long tail means genuine breadth.</p><div id="p-src" class="plot" style="height:1050px"></div></section><section class="panel"><h2>11. Specialty-desk reach</h2><p class="lead">The outlets hand-picked in <a href="https://github.com/joehahn/geo-herd-rider/blob/main/investor_profile.backtest.md"><code>investor_profile.backtest.md</code></a> as <code>specialty_allow</code> — the desks expected to carry the early call. On the forward path a whole search pass is restricted to them; BigQuery cannot do that, so here they are simply measured. Desks with <b>zero</b> articles are shown, not omitted — that is the finding.</p><div id="p-spec" class="plot" style="height:620px"></div></section><section class="panel"><h2>12. News replication</h2><p class="lead">The same story often runs on many sites at once; ingest merges those copies and counts how many outlets ran each one (plot 1 calls this step <i>syndication</i>). Most sit at 1 — a story only one outlet carried is one the market probably has not priced yet. Widest this year: 122 outlets. Log axis.</p><div id="p-syn" class="plot" style="height:320px"></div></section><section class="panel"><h2>13. Articles per author</h2><p class="lead">The 25 most frequent named writers, with the no-byline bucket shown in grey for scale. Wire copy, PR releases and the publisher's own name are excluded by design, so a byline here is a real person. Most of the corpus has none — that is normal for market news, not a fault. Log axis.</p><div id="p-auth" class="plot" style="height:640px"></div></section>
+
+</div>
+<script>
+const DATA = {"funnel": {"labels": ["GKG rows in the window", "\u2212 non-English origin", "\u2212 no market theme", "\u2212 no beat keyword in title/URL", "GKG rows scanned", "\u2212 mill_block domain", "\u2212 bot/listicle headline", "\u2212 beat only in Extras, not this article", "\u2212 no subject company", "\u2212 duplicate URL / undated", "= CORPUS (after syndication collapse)"], "values": [136582069, 48095814, 3098667, 320320, 318637, 281482, 277567, 147498, 67472, 58117, 38896], "notes": ["every article GDELT indexed, all languages (est.)", "88,486,255 dropped (est.) \u00b7 TranslationInfo", "44,997,147 dropped (est.) \u00b7 engine.market_themes", "2,778,347 dropped (est.) \u00b7 beat keywords", "exact, from here down", "37,155 dropped \u00b7 investor profile \u00b7 6% wrongly \u21d2 ~2,229 real lost", "3,915 dropped \u00b7 spam_title_patterns \u00b7 3% wrongly \u21d2 ~104 real lost", "130,069 dropped \u00b7 beat keywords \u00b7 40% wrongly \u21d2 ~52,027 real lost", "80,026 dropped \u00b7 ontopic_offset + org_stoplist \u00b7 43% wrongly \u21d2 ~34,675 real lost", "9,355 dropped (uncounted residual)", "19,221 syndicated copies folded \u00b7 3,978 rescued by named ticker"]}, "backfill": {"resolved": 4321, "hits": 3274, "hit_pct": 75.8, "remaining": 5325, "newly_applied": 3274, "mtime": "2026-08-09 20:58", "running": false, "m": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "none": [433, 462, 658, 789, 588, 529, 420, 323, 335, 302, 271, 201, 14], "clean": [2001, 1273, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]}, "prov": {"m": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "clean": [2001, 1273, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "live": [710, 1447, 2587, 3055, 2385, 2340, 2468, 2494, 2942, 3020, 3259, 3286, 304], "none": [433, 462, 658, 789, 588, 529, 420, 323, 335, 302, 271, 201, 14]}, "drift": {"m": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "both": [1657, 1027, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "div": [104, 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "pct": [6.3, 4.7, null, null, null, null, null, null, null, null, null, null, null]}, "months": {"m": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "n": [3144, 3182, 3245, 3844, 2973, 2869, 2888, 2817, 3277, 3322, 3530, 3487, 318], "text": [2711, 2720, 2587, 3055, 2385, 2340, 2468, 2494, 2942, 3020, 3259, 3286, 304], "auth": [1172, 1268, 1363, 1641, 1263, 1244, 1285, 1284, 1548, 1566, 1662, 1777, 164]}, "daily": {"d": ["2025-07-04", "2025-07-05", "2025-07-06", "2025-07-07", "2025-07-08", "2025-07-09", "2025-07-10", "2025-07-11", "2025-07-12", "2025-07-13", "2025-07-14", "2025-07-15", "2025-07-16", "2025-07-17", "2025-07-18", "2025-07-19", "2025-07-20", "2025-07-21", "2025-07-22", "2025-07-23", "2025-07-24", "2025-07-25", "2025-07-26", "2025-07-27", "2025-07-28", "2025-07-29", "2025-07-30", "2025-07-31", "2025-08-01", "2025-08-02", "2025-08-03", "2025-08-04", "2025-08-05", "2025-08-06", "2025-08-07", "2025-08-08", "2025-08-09", "2025-08-10", "2025-08-11", "2025-08-12", "2025-08-13", "2025-08-14", "2025-08-15", "2025-08-16", "2025-08-17", "2025-08-18", "2025-08-19", "2025-08-20", "2025-08-21", "2025-08-22", "2025-08-23", "2025-08-24", "2025-08-25", "2025-08-26", "2025-08-27", "2025-08-28", "2025-08-29", "2025-08-30", "2025-08-31", "2025-09-01", "2025-09-02", "2025-09-03", "2025-09-04", "2025-09-05", "2025-09-06", "2025-09-07", "2025-09-08", "2025-09-09", "2025-09-10", "2025-09-11", "2025-09-12", "2025-09-13", "2025-09-14", "2025-09-15", "2025-09-16", "2025-09-17", "2025-09-18", "2025-09-19", "2025-09-20", "2025-09-21", "2025-09-22", "2025-09-23", "2025-09-24", "2025-09-25", "2025-09-26", "2025-09-27", "2025-09-28", "2025-09-29", "2025-09-30", "2025-10-01", "2025-10-02", "2025-10-03", "2025-10-04", "2025-10-05", "2025-10-06", "2025-10-07", "2025-10-08", "2025-10-09", "2025-10-10", "2025-10-11", "2025-10-12", "2025-10-13", "2025-10-14", "2025-10-15", "2025-10-16", "2025-10-17", "2025-10-18", "2025-10-19", "2025-10-20", "2025-10-21", "2025-10-22", "2025-10-23", "2025-10-24", "2025-10-25", "2025-10-26", "2025-10-27", "2025-10-28", "2025-10-29", "2025-10-30", "2025-10-31", "2025-11-01", "2025-11-02", "2025-11-03", "2025-11-04", "2025-11-05", "2025-11-06", "2025-11-07", "2025-11-08", "2025-11-09", "2025-11-10", "2025-11-11", "2025-11-12", "2025-11-13", "2025-11-14", "2025-11-15", "2025-11-16", "2025-11-17", "2025-11-18", "2025-11-19", "2025-11-20", "2025-11-21", "2025-11-22", "2025-11-23", "2025-11-24", "2025-11-25", "2025-11-26", "2025-11-27", "2025-11-28", "2025-11-29", "2025-11-30", "2025-12-01", "2025-12-02", "2025-12-03", "2025-12-04", "2025-12-05", "2025-12-06", "2025-12-07", "2025-12-08", "2025-12-09", "2025-12-10", "2025-12-11", "2025-12-12", "2025-12-13", "2025-12-14", "2025-12-15", "2025-12-16", "2025-12-17", "2025-12-18", "2025-12-19", "2025-12-20", "2025-12-21", "2025-12-22", "2025-12-23", "2025-12-24", "2025-12-25", "2025-12-26", "2025-12-27", "2025-12-28", "2025-12-29", "2025-12-30", "2025-12-31", "2026-01-01", "2026-01-02", "2026-01-03", "2026-01-04", "2026-01-05", "2026-01-06", "2026-01-07", "2026-01-08", "2026-01-09", "2026-01-10", "2026-01-11", "2026-01-12", "2026-01-13", "2026-01-14", "2026-01-15", "2026-01-16", "2026-01-17", "2026-01-18", "2026-01-19", "2026-01-20", "2026-01-21", "2026-01-22", "2026-01-23", "2026-01-24", "2026-01-25", "2026-01-26", "2026-01-27", "2026-01-28", "2026-01-29", "2026-01-30", "2026-01-31", "2026-02-01", "2026-02-02", "2026-02-03", "2026-02-04", "2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-09", "2026-02-10", "2026-02-11", "2026-02-12", "2026-02-13", "2026-02-14", "2026-02-15", "2026-02-16", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-25", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05", "2026-03-06", "2026-03-07", "2026-03-08", "2026-03-09", "2026-03-10", "2026-03-11", "2026-03-12", "2026-03-13", "2026-03-14", "2026-03-15", "2026-03-16", "2026-03-17", "2026-03-18", "2026-03-19", "2026-03-20", "2026-03-21", "2026-03-22", "2026-03-23", "2026-03-24", "2026-03-25", "2026-03-26", "2026-03-27", "2026-03-28", "2026-03-29", "2026-03-30", "2026-03-31", "2026-04-01", "2026-04-02", "2026-04-03", "2026-04-04", "2026-04-05", "2026-04-06", "2026-04-07", "2026-04-08", "2026-04-09", "2026-04-10", "2026-04-11", "2026-04-12", "2026-04-13", "2026-04-14", "2026-04-15", "2026-04-16", "2026-04-17", "2026-04-18", "2026-04-19", "2026-04-20", "2026-04-21", "2026-04-22", "2026-04-23", "2026-04-24", "2026-04-25", "2026-04-26", "2026-04-27", "2026-04-28", "2026-04-29", "2026-04-30", "2026-05-01", "2026-05-02", "2026-05-03", "2026-05-04", "2026-05-05", "2026-05-06", "2026-05-07", "2026-05-08", "2026-05-09", "2026-05-10", "2026-05-11", "2026-05-12", "2026-05-13", "2026-05-14", "2026-05-15", "2026-05-16", "2026-05-17", "2026-05-18", "2026-05-19", "2026-05-20", "2026-05-21", "2026-05-22", "2026-05-23", "2026-05-24", "2026-05-25", "2026-05-26", "2026-05-27", "2026-05-28", "2026-05-29", "2026-05-30", "2026-05-31", "2026-06-01", "2026-06-02", "2026-06-03", "2026-06-04", "2026-06-05", "2026-06-06", "2026-06-07", "2026-06-08", "2026-06-09", "2026-06-10", "2026-06-11", "2026-06-12", "2026-06-13", "2026-06-14", "2026-06-15", "2026-06-16", "2026-06-17", "2026-06-18", "2026-06-19", "2026-06-20", "2026-06-21", "2026-06-22", "2026-06-23", "2026-06-24", "2026-06-25", "2026-06-26", "2026-06-27", "2026-06-28", "2026-06-29", "2026-06-30", "2026-07-01", "2026-07-02", "2026-07-03"], "n": [86, 35, 37, 130, 182, 145, 180, 164, 40, 32, 126, 156, 148, 136, 121, 43, 24, 138, 143, 132, 141, 118, 26, 33, 151, 182, 123, 172, 139, 49, 28, 122, 139, 126, 207, 148, 32, 24, 166, 140, 137, 120, 134, 27, 26, 114, 144, 126, 122, 107, 35, 16, 112, 113, 176, 167, 111, 45, 30, 58, 117, 174, 144, 115, 32, 29, 130, 128, 185, 143, 123, 38, 31, 109, 134, 143, 180, 121, 20, 22, 164, 137, 198, 137, 129, 32, 15, 109, 148, 134, 124, 119, 49, 18, 171, 148, 147, 152, 147, 67, 53, 169, 196, 161, 181, 147, 54, 35, 136, 134, 135, 123, 128, 32, 26, 150, 169, 233, 166, 140, 46, 29, 157, 142, 152, 150, 110, 35, 29, 159, 127, 123, 133, 125, 27, 23, 118, 155, 150, 197, 124, 39, 23, 116, 151, 96, 89, 87, 33, 28, 124, 130, 154, 140, 125, 40, 30, 127, 145, 131, 152, 141, 48, 25, 90, 112, 132, 116, 109, 41, 25, 102, 127, 70, 31, 69, 27, 26, 84, 87, 109, 39, 126, 25, 16, 108, 162, 137, 142, 129, 34, 21, 106, 118, 122, 128, 104, 37, 21, 97, 120, 124, 128, 101, 29, 13, 115, 116, 140, 160, 127, 43, 36, 114, 129, 149, 152, 161, 50, 26, 114, 107, 154, 154, 94, 29, 23, 66, 107, 146, 115, 100, 34, 34, 108, 131, 162, 159, 126, 37, 25, 117, 111, 177, 141, 134, 41, 33, 184, 153, 180, 138, 129, 43, 35, 160, 132, 139, 135, 114, 29, 33, 108, 112, 133, 137, 118, 44, 28, 84, 130, 129, 118, 72, 17, 23, 69, 106, 148, 147, 111, 36, 31, 110, 163, 138, 151, 154, 89, 51, 155, 155, 140, 155, 174, 47, 50, 128, 126, 177, 152, 91, 38, 30, 117, 175, 207, 166, 156, 39, 37, 110, 169, 222, 183, 111, 30, 46, 123, 132, 145, 205, 141, 60, 46, 78, 152, 150, 149, 128, 56, 38, 141, 145, 142, 158, 116, 55, 50, 124, 124, 125, 136, 133, 68, 34, 165, 168, 156, 156, 119, 45, 38, 168, 142, 146, 150, 130, 36, 44, 135, 138, 117, 126, 75]}, "weekly": {"d": ["2025-06-30", "2025-07-07", "2025-07-14", "2025-07-21", "2025-07-28", "2025-08-04", "2025-08-11", "2025-08-18", "2025-08-25", "2025-09-01", "2025-09-08", "2025-09-15", "2025-09-22", "2025-09-29", "2025-10-06", "2025-10-13", "2025-10-20", "2025-10-27", "2025-11-03", "2025-11-10", "2025-11-17", "2025-11-24", "2025-12-01", "2025-12-08", "2025-12-15", "2025-12-22", "2025-12-29", "2026-01-05", "2026-01-12", "2026-01-19", "2026-01-26", "2026-02-02", "2026-02-09", "2026-02-16", "2026-02-23", "2026-03-02", "2026-03-09", "2026-03-16", "2026-03-23", "2026-03-30", "2026-04-06", "2026-04-13", "2026-04-20", "2026-04-27", "2026-05-04", "2026-05-11", "2026-05-18", "2026-05-25", "2026-06-01", "2026-06-08", "2026-06-15", "2026-06-22", "2026-06-29"], "n": [158, 873, 754, 731, 844, 798, 750, 664, 754, 669, 778, 729, 812, 701, 885, 943, 714, 933, 775, 717, 806, 600, 743, 769, 625, 452, 486, 733, 636, 612, 737, 781, 675, 602, 748, 754, 862, 742, 680, 573, 648, 856, 876, 742, 897, 871, 852, 751, 807, 744, 847, 816, 591]}, "monthly": {"m": ["2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"], "n": [3144, 3182, 3245, 3844, 2973, 2869, 2888, 2817, 3277, 3322, 3530, 3487, 318]}, "dow": {"k": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"], "n": [6436, 7209, 7645, 7483, 6461, 2083, 1579]}, "beats": {"q": ["best performing ETF little-known skyrocketing surging", "niche ETF surging", "overlooked stock catalyst", "robotics automation ETF surging", "nuclear uranium ETF surging", "telecom stocks", "quantum computing ETF surging", "utility stocks", "best performing stock", "power grid AI datacenter energy ETF surging", "industrial stocks", "space stocks", "space defense ETF surging", "materials stocks", "semiconductor memory chip ETF surging", "robotics stocks", "nuclear stocks", "gold silver miners ETF surging record high", "shipping maritime stocks", "memory chip DRAM shortage stock", "healthcare stocks", "biggest stock gainers", "supply shortage supply shock stock", "crypto blockchain ETF surging", "upcoming FDA election vote stock anticipation", "silver mining stocks", "electric power grid pipeline energy infrastructure stocks", "freight trucking rail air cargo logistics stocks", "defense aerospace stocks", "quantum stocks", "uranium nuclear fuel supply squeeze stock", "war chokepoint stock beneficiary", "consumer stocks", "gold silver mining stocks", "real estate stocks", "steel copper lithium aluminum titanium coal mining stocks", "under the radar small cap stock", "export ban tariff sanctions stock beneficiary", "financial stocks", "rare earth critical minerals stock", "energy stocks", "biotech pharma stocks", "artificial intelligence semiconductor stocks", "technology stocks", "cryptocurrency stocks", "stock surges skyrockets all-time high record"], "n": [8, 13, 15, 16, 18, 20, 23, 40, 47, 53, 54, 60, 60, 63, 79, 114, 133, 147, 173, 262, 262, 267, 277, 320, 383, 390, 399, 401, 411, 509, 737, 1100, 1178, 1256, 1314, 1344, 1423, 1540, 1637, 1667, 1676, 1719, 2487, 2897, 5640, 8134], "gem": [false, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, true, false, true, false, false, false, false, false, true, true, false, false, false, false, true, true, false, true, false, false, false, false, false, false]}, "sources": {"s": ["yahoo.com", "benzinga.com", "insidermonkey.com", "indiatimes.com", "financialcontent.com", "biztoc.com", "manilatimes.net", "finanznachrichten.de", "marketscreener.com", "livemint.com", "moneycontrol.com", "rttnews.com", "seekingalpha.com", "thehindubusinessline.com", "proactiveinvestors.com", "forbes.com", "prnewswire.com", "businesstoday.in", "coindesk.com", "cnbc.com", "el-balad.com", "baystreet.ca", "cantechletter.com", "investors.com", "businesstimes.com.sg", "cointelegraph.com", "ibtimes.com.au", "theglobeandmail.com", "globenewswire.com", "fool.com.au", "econotimes.com", "investegate.co.uk", "bitcoinmagazine.com", "proactiveinvestors.co.uk", "oilprice.com", "jdsupra.com", "morningstar.com", "fxstreet.com", "foreignpolicyjournal.com", "zerohedge.com", "equitybulls.com", "pr-inside.com", "webpronews.com", "mondaq.com", "juniorminingnetwork.com", "businessinsider.com", "directorstalkinterviews.com", "coinspeaker.com", "itnewsonline.com", "mining.com", "(2,237 other outlets)"], "n": [4189, 3373, 1793, 1425, 1359, 1135, 1126, 1026, 798, 727, 522, 487, 435, 350, 332, 329, 315, 311, 310, 294, 272, 249, 229, 228, 218, 216, 213, 211, 194, 188, 186, 176, 175, 166, 160, 155, 151, 149, 144, 137, 137, 131, 128, 126, 123, 119, 117, 113, 113, 108, 13228]}, "spec": {"d": ["etf.com", "stocktitan.net", "tipranks.com", "barchart.com", "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com", "endpts.com", "statnews.com", "quantumcomputingreport.com", "seatrade-maritime.com", "benchmarkminerals.com", "trendforce.com", "splash247.com", "world-nuclear-news.org", "breakingdefense.com", "powermag.com", "defensenews.com", "argusmedia.com", "utilitydive.com", "etftrends.com", "northernminer.com", "digitimes.com", "biopharmadive.com", "mining.com", "zerohedge.com", "seekingalpha.com", "benzinga.com"], "n": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 3, 4, 4, 5, 9, 24, 26, 41, 108, 137, 435, 3373], "total": 4173, "corpus": 38896, "zero": 15}, "syn": {"k": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10+"], "n": [32997, 4359, 585, 265, 124, 62, 50, 55, 41, 358]}, "miss": {"k": ["blocked_or_paywalled", "url_recycled", "removed", "no_text_on_page", "http_429", "unreachable", "http_500", "http_406", "http_402", "http_521", "http_421", "http_400", "http_503", "http_502"], "n": [2534, 1245, 820, 781, 221, 209, 52, 17, 9, 9, 7, 5, 3, 3]}, "authors": {"a": ["(no byline)", "Henry Khederian", "Parshwa Turakhiya", "Anusuya Lahiri", "Vandana Singh", "Aniket Verma", "Mohd Haider", "Avi Kapoor", "Piero Cingari", "Angelica Ballesteros", "Micah Zimmerman", "Soumya Eswaran", "Evette Mitkov", "Lekha Gupta", "Glenn Wilkins", "A Ksheerasagar", "Adam Eckert", "Akanksha Bakshi", "The Business Times", "Prashun Talukdar", "Tyler Durden", "Mike Clair", "Dylan Berman", "Madison Wilson", "Jonathan Ponciano", "Ian Lyall"], "n": [21659, 281, 246, 209, 197, 185, 165, 155, 153, 147, 142, 132, 125, 124, 122, 121, 119, 119, 107, 106, 105, 103, 102, 99, 99, 98]}};
+const L = {"surface": "#fcfcfb", "text": "#0b0b0b", "text2": "#52514e", "grid": "#e6e5e1", "s1": "#2a78d6", "s2": "#eb6834", "s3": "#1baf7a", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}, D = {"surface": "#1a1a19", "text": "#ffffff", "text2": "#c3c2b7", "grid": "#33322f", "s1": "#3987e5", "s2": "#d95926", "s3": "#199e70", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}, ST = {"good": "#0ca30c", "warning": "#fab219", "serious": "#ec835a", "critical": "#d03b3b"};
+function pal() {
+  const dark = document.documentElement.dataset.theme === 'dark' ||
+    (document.documentElement.dataset.theme !== 'light' &&
+     window.matchMedia('(prefers-color-scheme: dark)').matches);
+  return dark ? D : L;
+}
+function base(p, extra) {
+  return Object.assign({
+    paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+    font:{color:p.text2, size:12, family:'-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif'},
+    margin:{l:60,r:24,t:14,b:44},
+    xaxis:{gridcolor:p.grid, zerolinecolor:p.grid, linecolor:p.grid},
+    yaxis:{gridcolor:p.grid, zerolinecolor:p.grid, linecolor:p.grid},
+    hoverlabel:{bgcolor:p.surface, bordercolor:p.grid, font:{color:p.text}},
+    showlegend:false
+  }, extra || {});
+}
+const CFG = {displayModeBar:false, responsive:true};
+
+function draw() {
+  const p = pal();
+
+  // 1. funnel — horizontal bars, ordinal blue (magnitude down a fixed sequence of stages)
+  const f = DATA.funnel, nst = f.labels.length;
+  Plotly.react('p-funnel', [{
+    type:'bar', orientation:'h', x:f.values, y:f.labels,
+    marker:{color:f.labels.map((_,i)=>p.ord[Math.min(Math.floor(i*p.ord.length/nst), p.ord.length-1)]),
+             line:{width:2, color:p.surface}},
+    text:f.values.map((v,i)=>v.toLocaleString()+'  —  '+f.notes[i]),
+    textposition:'outside', textfont:{color:p.text2, size:11.5}, cliponaxis:false,
+    hovertemplate:'%{y}<br>%{x:,} remaining<extra></extra>'
+  }], base(p, {margin:{l:220,r:190,t:10,b:36},
+      yaxis:{autorange:'reversed', gridcolor:'rgba(0,0,0,0)', linecolor:p.grid, tickfont:{size:12}},
+      xaxis:{type:'log', gridcolor:p.grid, zerolinecolor:p.grid,
+              title:{text:'articles remaining (log scale)', font:{size:11}}}
+  }), CFG);
+
+  // 2. volume at three resolutions -- SMALL MULTIPLES, one shared measure (articles), never a
+  //    second y-scale on one frame. Each row is its own subplot with its own count axis.
+  Plotly.react('p-vol', [
+    {type:'bar', x:DATA.monthly.m, y:DATA.monthly.n, marker:{color:p.s1, line:{width:2,color:p.surface}},
+      xaxis:'x', yaxis:'y', hovertemplate:'%{x}<br>%{y:,} articles<extra>month</extra>'},
+    {type:'bar', x:DATA.weekly.d, y:DATA.weekly.n, marker:{color:p.s1},
+      xaxis:'x2', yaxis:'y2', hovertemplate:'week of %{x}<br>%{y:,} articles<extra>week</extra>'},
+    {type:'bar', x:DATA.daily.d, y:DATA.daily.n, marker:{color:p.s1},
+      xaxis:'x3', yaxis:'y3', hovertemplate:'%{x}<br>%{y} articles<extra>day</extra>'}
+  ], base(p, {
+    grid:{rows:3, columns:1, pattern:'independent', roworder:'top to bottom'},
+    margin:{l:64,r:24,t:26,b:40}, bargap:0.15,
+    annotations:[
+      {text:'per month', x:0, xref:'paper', y:1.0,  yref:'paper', showarrow:false,
+        font:{size:11.5, color:p.text2}, xanchor:'left'},
+      {text:'per ISO week', x:0, xref:'paper', y:0.635, yref:'paper', showarrow:false,
+        font:{size:11.5, color:p.text2}, xanchor:'left'},
+      {text:'per day', x:0, xref:'paper', y:0.27, yref:'paper', showarrow:false,
+        font:{size:11.5, color:p.text2}, xanchor:'left'}
+    ],
+    xaxis:{gridcolor:p.grid},  yaxis:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}},
+    xaxis2:{gridcolor:p.grid}, yaxis2:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}},
+    xaxis3:{gridcolor:p.grid}, yaxis3:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}}
+  }), CFG);
+
+  // 4. body text vs article age -- connected dots (a trend over an ordered axis), single series so
+  //    no legend box; the title names it. Markers >= 8px with a surface ring so overlaps stay legible.
+  const M = DATA.months, share = M.n.map((tot,i)=>100*M.text[i]/tot);
+  Plotly.react('p-text', [{
+    type:'scatter', mode:'lines+markers', x:M.m, y:share,
+    line:{color:p.s1, width:2},
+    marker:{color:p.s1, size:10, line:{width:2, color:p.surface}},
+    cliponaxis:false,
+    customdata:M.m.map((_,i)=>[M.text[i], M.n[i]]),
+    hovertemplate:'%{x}<br>%{y:.1f}% have body text<br>%{customdata[0]:,} of %{customdata[1]:,}<extra></extra>'
+  }], base(p, {margin:{l:60,r:30,t:26,b:44},
+      // autoscaled, NOT anchored at 0: the series lives in a ~58-80% band, and forcing a 0-100
+      // axis compresses the whole decay into the top fifth of the panel where the slope -- the
+      // entire point of the chart -- is unreadable.
+      yaxis:{gridcolor:p.grid, ticksuffix:'%', autorange:true,
+              title:{text:'articles with body text', font:{size:11}}},
+      xaxis:{gridcolor:p.grid, title:{text:'publication month  (left = ~1 year old at fetch, right = days old)',
+              font:{size:11}}}}), CFG);
+
+  // 5. lede provenance -- stacked COUNTS. Green=clean is the status "good" colour deliberately: this
+  //    is the only band a quotable number may rest on. Orange=biased, grey=none.
+  const PR = DATA.prov;
+  Plotly.react('p-prov', [
+    {type:'bar', name:'clean (as-of archive)', x:PR.m, y:PR.clean,
+      marker:{color:ST.good, line:{width:2,color:p.surface}},
+      hovertemplate:'%{x}<br>%{y:,} clean<extra></extra>'},
+    {type:'bar', name:'biased (live page)', x:PR.m, y:PR.live,
+      marker:{color:p.s2, line:{width:2,color:p.surface}},
+      hovertemplate:'%{x}<br>%{y:,} biased<extra></extra>'},
+    {type:'bar', name:'none (headline only)', x:PR.m, y:PR.none,
+      marker:{color:p.grid, line:{width:2,color:p.surface}},
+      hovertemplate:'%{x}<br>%{y:,} headline-only<extra></extra>'}
+  ], base(p, {barmode:'stack', showlegend:true,
+      legend:{orientation:'h', y:1.14, x:0, font:{size:11.5}},
+      margin:{l:64,r:24,t:36,b:44},
+      yaxis:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}},
+      xaxis:{gridcolor:p.grid}}), CFG);
+
+  // 6. wayback backfill -- reads the backfill's own cache, so this moves on every rebuild instead
+  //    of waiting for the multi-day pass to rewrite pool.json. Stacked: recovered vs still missing.
+  const BF = DATA.backfill;
+  Plotly.react('p-backfill', [
+    {type:'bar', name:'text recovered from archive.org', x:BF.m, y:BF.clean,
+      marker:{color:ST.good, line:{width:2, color:p.surface}},
+      hovertemplate:'%{x}<br>%{y:,} recovered<extra></extra>'},
+    {type:'bar', name:'still headline-only', x:BF.m, y:BF.none,
+      marker:{color:p.grid, line:{width:2, color:p.surface}},
+      hovertemplate:'%{x}<br>%{y:,} still missing<extra></extra>'}
+  ], base(p, {barmode:'stack', showlegend:true,
+      legend:{orientation:'h', y:1.14, x:0, font:{size:11}},
+      margin:{l:64,r:24,t:40,b:60},
+      yaxis:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}},
+      xaxis:{gridcolor:p.grid}}), CFG);
+
+  // 7. measured drift -- connected dots over an ordered axis, single series (no legend box; the
+  //    title names it). Nulls where a month had no both-arms sample rather than an implied zero.
+  const DR = DATA.drift;
+  Plotly.react('p-drift', [{
+    type:'scatter', mode:'lines+markers+text', x:DR.m, y:DR.pct, connectgaps:false,
+    line:{color:p.s1, width:2},
+    marker:{color:p.s1, size:10, line:{width:2, color:p.surface}},
+    text:DR.pct.map(v=>v===null?'':v.toFixed(0)+'%'), textposition:'top center',
+    textfont:{color:p.text2, size:11}, cliponaxis:false,
+    customdata:DR.m.map((_,i)=>[DR.div[i], DR.both[i]]),
+    hovertemplate:'%{x}<br>%{y:.1f}% diverged<br>%{customdata[0]} of %{customdata[1]} sampled<extra></extra>'
+  }], base(p, {margin:{l:60,r:30,t:26,b:44},
+      yaxis:{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
+              title:{text:'live text differing from archive', font:{size:11}}},
+      xaxis:{gridcolor:p.grid, title:{text:'publication month', font:{size:11}}}}), CFG);
+
+  // 5. why text is missing -- measured reasons, horizontal bars, labelled (never colour alone)
+  const MS = DATA.miss;
+  Plotly.react('p-miss', [{
+    type:'bar', orientation:'h', x:MS.n.slice().reverse(), y:MS.k.slice().reverse(),
+    marker:{color:p.s2, line:{width:2, color:p.surface}},
+    text:MS.n.slice().reverse().map(v=>v.toLocaleString()), textposition:'outside',
+    textfont:{color:p.text2, size:11}, cliponaxis:false,
+    hovertemplate:'%{y}<br>%{x:,} articles<extra></extra>'
+  }], base(p, {margin:{l:190,r:90,t:14,b:40},
+      yaxis:{gridcolor:'rgba(0,0,0,0)', tickfont:{size:11.5}, automargin:true},
+      // log: the reasons span ~3 decades (thousands down to single digits) and a linear axis
+      // renders everything below the top two as a zero-length stub
+      xaxis:{type:'log', gridcolor:p.grid,
+              title:{text:'headline-only articles (log scale)', font:{size:11}}}}), CFG);
+
+  // 4. beat productivity — gem vs coverage as two named series (identity, never colour alone:
+  //    the legend plus the y-axis label both name the beat)
+  const B = DATA.beats;
+  const gi = B.q.map((_,i)=>i).filter(i=>B.gem[i]), ci = B.q.map((_,i)=>i).filter(i=>!B.gem[i]);
+  Plotly.react('p-beats', [
+    {type:'bar', orientation:'h', name:'sector-coverage beat (36)', x:ci.map(i=>B.n[i]), y:ci.map(i=>B.q[i]),
+      marker:{color:p.s1, line:{width:2,color:p.surface}},
+      text:ci.map(i=>B.n[i].toLocaleString()), textposition:'outside',
+      textfont:{color:p.text2, size:10.5}, cliponaxis:false,
+      hovertemplate:'%{y}<br>%{x:,} articles<extra></extra>'},
+    {type:'bar', orientation:'h', name:'early-framing beat (10, the thesis)', x:gi.map(i=>B.n[i]),
+      y:gi.map(i=>B.q[i]), marker:{color:p.s2, line:{width:2,color:p.surface}},
+      text:gi.map(i=>B.n[i].toLocaleString()), textposition:'outside',
+      textfont:{color:p.text2, size:10.5}, cliponaxis:false,
+      hovertemplate:'%{y}<br>%{x:,} articles<extra></extra>'}
+  ], base(p, {margin:{l:330,r:90,t:10,b:40}, showlegend:true,
+      legend:{orientation:'h', y:1.045, x:0, font:{size:11.5}},
+      yaxis:{gridcolor:'rgba(0,0,0,0)', tickfont:{size:11}, automargin:true},
+      // log: beats span 7,010 down to 3, so a linear axis hides every starving beat -- which is
+      // precisely what this panel exists to show
+      xaxis:{type:'log', gridcolor:p.grid,
+              title:{text:'articles over the window (log scale)', font:{size:11}}}}), CFG);
+
+  // 5. sources
+  const S = DATA.sources;
+  Plotly.react('p-src', [{
+    type:'bar', orientation:'h', x:S.n.slice().reverse(), y:S.s.slice().reverse(),
+    marker:{color:S.s.slice().reverse().map(s=>s.startsWith('(')?p.grid:p.s1),
+             line:{width:2,color:p.surface}},
+    text:S.n.slice().reverse().map(v=>v.toLocaleString()), textposition:'outside',
+    textfont:{color:p.text2, size:10}, cliponaxis:false,
+    hovertemplate:'%{y}<br>%{x:,} articles<extra></extra>'
+  }], base(p, {margin:{l:200,r:60,t:10,b:44},
+      yaxis:{gridcolor:'rgba(0,0,0,0)', tickfont:{size:10}, automargin:true},
+      xaxis:{type:'log', autorange:true, gridcolor:p.grid,
+              title:{text:'articles (log scale)', font:{size:11}}}}), CFG);
+
+  // 10. specialty-desk reach. Zero-yield desks are drawn as status-critical, with a visible marker,
+  //     because a bar of length zero on a log axis is invisible -- and those are the whole point.
+  const SP = DATA.spec;
+  Plotly.react('p-spec', [{
+    type:'bar', orientation:'h', x:SP.n.map(v=>v===0?null:v), y:SP.d,
+    marker:{color:SP.n.map(v=>v===0?ST.critical:p.s3), line:{width:2,color:p.surface}},
+    text:SP.n.map(v=>v===0?'0 — never reached':v.toLocaleString()), textposition:'outside',
+    textfont:{color:p.text2, size:10.5}, cliponaxis:false,
+    hovertemplate:'%{y}<br>%{text}<extra></extra>'
+  }], base(p, {margin:{l:210,r:130,t:14,b:44},
+      yaxis:{gridcolor:'rgba(0,0,0,0)', tickfont:{size:10.5}, automargin:true},
+      xaxis:{type:'log', autorange:true, gridcolor:p.grid,
+              title:{text:'articles (log scale) — ' + SP.zero + ' of ' + SP.d.length +
+                     ' desks returned nothing', font:{size:11}}}}), CFG);
+
+  // 6. syndication
+  Plotly.react('p-syn', [{
+    type:'bar', x:DATA.syn.k, y:DATA.syn.n,
+    marker:{color:DATA.syn.k.map(k=>k==='1'?p.s3:p.s1), line:{width:2,color:p.surface}},
+    text:DATA.syn.n.map(v=>v.toLocaleString()), textposition:'outside',
+    textfont:{color:p.text2, size:11}, cliponaxis:false,
+    hovertemplate:'carried by %{x} outlet(s)<br>%{y:,} stories<extra></extra>'
+  }], base(p, {yaxis:{type:'log', gridcolor:p.grid, title:{text:'stories (log)', font:{size:11}}},
+                // type:'category' is REQUIRED, not cosmetic. The x values are '1'..'9' plus '10+';
+                // left to auto-detect, Plotly reads the nine numeric-looking strings as numbers,
+                // makes the axis linear, and then silently DROPS the one bar it cannot place -- the
+                // 10+ bucket, which is the whole point of having a bucket.
+                xaxis:{type:'category', title:{text:'outlets carrying the story', font:{size:11}},
+                        gridcolor:p.grid}}), CFG);
+
+  // 7. day of week
+  Plotly.react('p-dow', [{
+    type:'bar', x:DATA.dow.k, y:DATA.dow.n, marker:{color:p.s1, line:{width:2,color:p.surface}},
+    hovertemplate:'%{x}<br>%{y:,} articles<extra></extra>'
+  }], base(p, {yaxis:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}}}), CFG);
+
+  // 8. authors
+  const A = DATA.authors;
+  Plotly.react('p-auth', [{
+    type:'bar', orientation:'h', x:A.n.slice().reverse(), y:A.a.slice().reverse(),
+    marker:{color:A.a.slice().reverse().map(s=>s.startsWith('(')?p.grid:p.s3),
+             line:{width:2,color:p.surface}},
+    text:A.n.slice().reverse().map(v=>v.toLocaleString()), textposition:'outside',
+    textfont:{color:p.text2, size:10}, cliponaxis:false,
+    hovertemplate:'%{y}<br>%{x:,} articles<extra></extra>'
+  }], base(p, {margin:{l:200,r:70,t:10,b:44},
+      yaxis:{gridcolor:'rgba(0,0,0,0)', tickfont:{size:10}, automargin:true},
+      // log: the no-byline bucket is ~1000x the busiest writer, so a linear axis renders every
+      // author as a zero-length stub against it
+      xaxis:{type:'log', autorange:true, gridcolor:p.grid,
+              title:{text:'articles (log scale)', font:{size:11}}}}), CFG);
+}
+draw();
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+</script>
+</body></html>

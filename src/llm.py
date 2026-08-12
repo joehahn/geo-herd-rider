@@ -65,9 +65,20 @@ class AnthropicClient(LLMClient):
             tools = []
         messages = [{"role": "user", "content": user}]
         kw = {"model": m, "max_tokens": 8000, "system": system, "tools": tools, "messages": messages}
+        # GREEDY DECODING. Temperature was never set, so every call sampled at the provider default
+        # (1.0) -- measured 2026-08-10: two byte-identical 13-scan backtests produced 10 vs 21 tickers,
+        # a same-config Jaccard of 0.29. The scout runs first each week and decides which events exist,
+        # so one sampled difference in week 1 cascades through every later week. At that noise floor no
+        # single-run A/B can resolve anything, which is why the event_news_cap 20-vs-10 comparison came
+        # back BELOW the floor and measured nothing. Pinned to 0 to make sweeps interpretable.
+        # NOTE this does not give bit-exact determinism (provider batching/hardware still jitter), and
+        # it CHANGES the curator -- greedy decoding picks systematically differently from sampling --
+        # so runs before and after this are different configs.
         if _supports_advanced(m):  # Haiku rejects effort + adaptive thinking
             kw["thinking"] = {"type": "adaptive"}
             kw["output_config"] = {"effort": effort}   # 'high' default; picker passes 'low' (ranking needs little thinking)
+        else:
+            kw["temperature"] = 0    # adaptive-thinking models reject an explicit temperature
         tally = {"input_tokens": 0, "output_tokens": 0, "cache_read_tokens": 0, "web_searches": 0}
         text = ""
         ws_queries: list = []
@@ -135,7 +146,7 @@ class OpenRouterClient(LLMClient):
             ctx = websearch.context(search_query, before_date)
             if ctx:
                 user = ctx + "\n\n" + user
-        kw = {"model": self.model, "max_tokens": 8000,
+        kw = {"model": self.model, "max_tokens": 8000, "temperature": 0,   # greedy: see AnthropicClient
               "messages": [{"role": "system", "content": system},
                            {"role": "user", "content": user}]}
         if json_schema is not None:  # structured outputs: guarantees parseable JSON (fixes the

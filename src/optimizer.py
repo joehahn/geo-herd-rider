@@ -42,13 +42,17 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   renormalize (pile in). ~1/N caps funded names near N.
     "lookback_period_days": 14,        # LIVE: trailing window (calendar days, ending at entry)
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
-    "gather_model": "sonnet5",         # LIVE, FORWARD-ONLY (firehose): the LLM that runs the live web-search
+    "model": "sonnet5",                # LEGACY/UMBRELLA: the default for every curator stage. The per-stage
+                                       #   knobs below override it (chain: scout -> event -> model). Registered
+                                       #   here because load_financial_model DROPS any key absent from this dict
+                                       #   -- omitting it silently sent judgment back to the sonnet5 default.
+    "gather_model": None,      # unset -> falls back to event_agent_model, then `model`         # LIVE, FORWARD-ONLY (firehose): the LLM that runs the live web-search
                                        #   gather (forward_gather). Web search is Anthropic-only, so this MUST
                                        #   resolve to an Anthropic model. The backtest has NO gather (its pool
                                        #   is GDELT/Tavily), so this knob is inert there — like news_cap it may
                                        #   legitimately differ from .forward.md. Falls back to event_agent_model
                                        #   (then legacy `model:`) if unset.
-    "event_agent_model": "sonnet5",     # LIVE (judgment): the LLM that runs the per-event agents (the
+    "event_agent_model": None, # unset -> falls back to `model`     # LIVE (judgment): the LLM that runs the per-event agents (the
                                        #   live/exit switch + conviction). Reads the ALREADY-gathered pool with
                                        #   NO web search, so ANY provider works (decoupled from gather_model as
                                        #   of the 3-knob split). Keep on a strong model for judgment quality.
@@ -58,7 +62,7 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   driver: ~$0.056/call on sonnet5 at 'high'). 'medium' roughly halves cost for
                                        #   backtest curator runs; keep 'high' for the forward candidate. Only affects
                                        #   Anthropic event models (ignored on OpenRouter).
-    "scout_model": "llama4",           # LIVE (extraction/routing): the cheap, high-volume LLM that reads
+    "scout_model": None,       # unset -> falls back to event_agent_model, then `model`           # LIVE (extraction/routing): the cheap, high-volume LLM that reads
                                        #   the firehose pool and does the scout + matcher stages. This is
                                        #   where the token cost lives, so it runs a cheap model (llama4,
                                        #   OpenRouter). Falls back to event_agent_model if unset.
@@ -68,14 +72,27 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "picker_effort": "low",            # Anthropic reasoning effort for the picker call: 'low' = cheap/fast (ranking needs little
                                        #   thinking) for backtest replays; 'high' for forward (1 call/week, trivial cost).
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
-    "rebalance_days": 7,               # LIVE: the single cadence knob — the firehose scans/rebalances
-                                       #   every N days AND reads that same trailing news window. 7=weekly.
+    "rebalance_period": "weekly",      # LIVE: the cadence, NAMED (weekly|biweekly|monthly|quarterly) -- PWR's
+                                       #   vocabulary, adopted 2026-08-09. Resolved by util.resolve_cadence(), which
+                                       #   falls back to rebalance_days when this is unset.
+    "rebalance_days": 7,               # LIVE: the numeric cadence escape hatch, for a cadence rebalance_period has
+                                       #   no word for. The firehose scans/rebalances every N days AND reads that
+                                       #   same trailing news window. Ignored when rebalance_period is set.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
     "news_cap": 0,                     # per-SCAN (per-week) cap on how many articles the scout reads
                                        #   (most-recent kept); ONE meaning everywhere. 0 = UNCAPPED. The
                                        #   forward's daily pull fetches uncapped; only this weekly scout
                                        #   read is capped. (backtest_gdelt overrides via --news-cap.)
+    "retrieval_engine": "gkg",         # BACKTEST-ONLY discovery engine (forward always uses web search):
+                                       #   "gkg" = GDELT's GKG on BigQuery (src/gkg.py) -- one partitioned
+                                       #     SQL query per window, no throttle, semantic theme+org gating,
+                                       #     vocabulary from retrieval_config.json. Needs gcp-key.json.
+                                       #   "doc" = the legacy GDELT DOC API (src/gdelt.py) -- keyless, but
+                                       #     measured at 67% HTTP-429 and ~28 items/min. The no-key fallback.
+                                       #   Both are date-honest (look-ahead-clean); they differ in the
+                                       #   SURFACE they match (DOC = full text, GKG = title+URL), so the two
+                                       #   pools are NOT interchangeable article-for-article.
     # forward web-search domain steering (forward_gather two-pass). Curate by OUTLET TYPE, never by outcome.
     "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
                         "tipranks.com", "barchart.com", "zerohedge.com",   # generalist stock/ETF + macro desks (all sectors)
@@ -86,15 +103,73 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
                    "stockstory.org", "defenseworld.net", "ts2.tech",   # listicle mills + content farms
                    "marketbeat.com"],  # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
-    "max_agents": 7,                   # PORTFOLIO cull: keep only the top-N EVENT-agents that hold capital. SPY + the
-                                       #   defensive asset are NOT agents (appended to the optimizer AFTER the cull). With a
-                                       #   picker the LLM ranks the keep-list; without one, a deterministic keep-first-N. 0 = uncapped.
+    "cull_rank": "trend",              # how the max_watchlist cull chooses who holds capital:
+                                       #   "trend"      = trailing risk-adjusted return + a freshness reserve (free,
+                                       #                  deterministic; 83rd %ile vs a 60-seed random null)
+                                       #   "keep-first" = the legacy ev[:N] over an ALPHABETICAL list (67th %ile)
+                                       #   a `picker` passed in code overrides both.
+    "cull_fresh_slots": 3,             # slots reserved for events first seen within cull_fresh_scans. A trailing
+                                       #   statistic cannot see a catalyst younger than its own window, so without
+                                       #   this the trend rank evicts exactly the early gems (non-negotiable #2).
+    "cull_fresh_scans": 2,             # how recent counts as "fresh", in SCANS.
+    "max_watchlist": 7,                # PORTFOLIO cull: hard cap on the tickers that may hold capital. In GHR one held
+                                       #   ticker IS one event-agent, so this is the same cap the old `max_agents` named --
+                                       #   renamed 2026-08-09 to share PWR's vocabulary. `max_agents` still works as a
+                                       #   deprecated alias (firehose reads max_watchlist first). always_include names ride
+                                       #   post-cull and are NOT agents. With a picker the LLM ranks the keep-list; without
+                                       #   one, a deterministic keep-first-N. 0 = uncapped.
+    "max_agents": 7,                   # DEPRECATED alias for max_watchlist. Kept because the sweeps, the gem dashboards and
+                                       #   the frozen forward profile all still write it; remove once those are migrated.
     "max_new_events": 3,               # scout INFLOW cap: max NEW events the scout admits/week (bounds event-agent LLM cost).
                                        #   Enforced by the catalyst gate + (TODO) a diversity tiebreak. 0 = uncapped. (was CANDIDATE_CAP)
-    "drop_unfunded_weeks": 0,          # CULL: drop an event the optimizer leaves UNFUNDED (weight ~0) for this many consecutive
-                                       #   weeks -> stops re-running it. Garbage-collects live-but-never-funded theses. 0 = OFF.
-    "defensive_ticker": "GLD",         # the defensive asset appended to the optimizer universe AFTER the cull (GLD=gold,
-                                       #   BND=bonds, ...). "" = none. SPY + this always ride post-cull; neither competes for a slot.
+    "drop_unfunded_weeks": 3,          # UNFUNDED PRUNE: drop a name the optimizer leaves UNFUNDED (weight ~0) this many
+                                       #   CONSECUTIVE weeks, freeing its capital for events the math will actually back.
+                                       #   Turned ON 2026-08-09: against a matched null (same drop count, same weeks, random
+                                       #   victims) it scores 88th-100th %ile for every N in 2..8, so the signal is robust.
+                                       #   3 = the smallest count that means "persistent" rather than "a blip"; do NOT tune
+                                       #   it to the dollar peak, which is one path's noise (CLAUDE.md #5). 0 = OFF.
+    "unfunded_cooldown_weeks": 0,      # RE-ENTRY on a CLOCK. Keep at 0. Measured 2026-08-10 and REJECTED: 4wk $58K,
+                                       #   8wk $104K, 12wk $94K against $130K for the new-catalyst release, and
+                                       #   non-monotone. A clock readmits a name with NO new information, so the same
+                                       #   fading thesis walks back in. Release on evidence, not elapsed time. Dropped
+                                       #   from the profiles so it does not invite being switched on.
+    "unfunded_reentry_on_new_catalyst": False,  # RE-ENTRY: let a dropped name back the moment the curator names it under a
+                                       #   DIFFERENT thesis (a new bet, not the old one).
+    "always_include": ["SPY", "GLD"],   # PERMANENT optimizer anchors, appended AFTER the max_watchlist cull and
+                                       #   OUTSIDE it -- they never compete for a watchlist slot. Idle capital always has a
+                                       #   home: SPY = equity beta, GLD = gold. BIL (T-bills) was added 2026-08-09 on
+                                       #   PWR's precedent and REMOVED 2026-08-10: swept over a fixed curation it cost
+                                       #   ~$40K of book value ($154K->$194K, $180K->$205K). A zero-volatility asset is
+                                       #   exactly what a variance-penalised objective wants to hold, so it absorbs
+                                       #   capital by construction rather than by thesis.
+                                       #   [] = no anchors.
+    "starter_watchlist": ["AAPL", "GOOGL", "AMZN"],  # INCEPTION holdings, equal-weight, held from day 0 until the sticky
+                                       #   watch ages them out (MAX_STALE weeks unmentioned) as the curator's own picks take
+                                       #   over. Also the basket the CBT's buy-and-hold baseline is built from. Deliberately
+                                       #   a boring mega-cap base chosen WITHOUT hindsight about the backtest window --
+                                       #   its job is to be a fair yardstick, not a good portfolio. [] = start empty.
+    "defensive_ticker": "GLD",         # DEPRECATED, superseded by always_include. Still read by the pre-GKG gem dashboards
+                                       #   (scripts/build_dashboard.py) and by the always_include fallback. "" = none.
+    "exit_patience_scans": 2,          # consecutive explicit thesis-dead SCANS before a position exits (hysteresis
+                                       #   vs churn). Counts SCANS, so its real-time length follows rebalance_period.
+                                       #   Kept at 2 even biweekly: 2 is the minimum that IS hysteresis, and a
+                                       #   catalyst_resolved verdict bypasses it with an immediate hard exit anyway.
+    "max_stale_scans": 4,              # SCANS a held name may go UNMENTIONED before it is dropped. Also counts SCANS
+                                       #   -- halve it when you halve the cadence, or the silence timeout doubles.
+    "relevance_filter": False,         # BACKTEST-ONLY: cheap-LLM relevance filter at pool assembly (src/relevance.py),
+                                       #   the stand-in for the forward's search-engine ranking. NO quota -- it judges
+                                       #   each article on its merits, so pool size floats with the week's news the way
+                                       #   the forward's does. Inert forward (the search index already filters).
+    "relevance_keep": 0,               # SAFETY CEILING on the filtered pool; 0 = none (intended).
+    "event_news_cap": 20,              # articles handed to EACH event-agent per scan. THE cost knob: the judgment
+                                       #   stage is ~95% of the curator bill and its input is this slice, so cost is
+                                       #   scans x live-events x this. Binds in 76% of event-weeks (median event-week
+                                       #   matches 55 articles). 0 = uncapped.
+    "max_event_scans": 26,             # AGE CAP: retire an event still live after this many SCANS. The mechanical
+                                       #   backstop for the catalyst_resolved problem -- a catalyst that has not
+                                       #   resolved in 26 scans (~1yr biweekly) is a THEME by the design's own
+                                       #   definition. max_stale_scans only fires on SILENCE, which a well-covered
+                                       #   theme never triggers. The scout may re-propose on fresh evidence. 0 = OFF.
     "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of
                                        #   (so it won't re-chase a done thesis): 0 = off, <0 = whole history, >0 = last N.
 }
@@ -102,6 +177,9 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
 
 # Curator-model registry: short name -> (provider model id, provider). The profile's `model` knob
 # holds the short name; scanning + the dashboard resolve through here so there is ONE source of truth.
+# MEASURED $/M input tokens (2026-08-10, from data/llm_costs.csv on the 3-year run -- not vendor list
+# prices): llama-4-maverick $0.401, deepseek-v4-flash $0.280. The old per-run estimates that used to sit
+# in both investor profiles were stale and are gone; this registry is the one home for model facts.
 CURATOR_MODELS: dict[str, tuple[str, str]] = {
     "mimo":     ("xiaomi/mimo-v2.5-pro",          "openrouter"),  # ~1T MoE open-weight (cheap)
     "sonnet4":   ("claude-sonnet-4-6",             "anthropic"),
@@ -109,6 +187,7 @@ CURATOR_MODELS: dict[str, tuple[str, str]] = {
     "opus":     ("claude-opus-4-8",               "anthropic"),
     # bake-off models (all OpenRouter):
     "llama4":   ("meta-llama/llama-4-maverick",   "openrouter"),  # 400B MoE / 17B active
+    "deepseek4": ("deepseek/deepseek-v4-flash",        "openrouter"),  # cheap JUDGMENT candidate
     "deepseek": ("deepseek/deepseek-chat",        "openrouter"),  # V3, 671B MoE / 37B active
     "grok4":    ("x-ai/grok-4.3",                 "openrouter"),  # grok-4 deprecated -> 4.3 (frontier reasoning)
 }
@@ -169,7 +248,17 @@ def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> 
     legacy = data.get("financial_model")
     if isinstance(legacy, dict):
         out.update(legacy)
-    out.update({k: v for k, v in data.items() if k in _FINANCIAL_MODEL_DEFAULTS})
+    known = {k: v for k, v in data.items() if k in _FINANCIAL_MODEL_DEFAULTS}
+    out.update(known)
+    # LOUD about the silent-drop trap (CLAUDE.md): a knob absent from _FINANCIAL_MODEL_DEFAULTS is
+    # dropped without a word, so a profile edit can look applied and do nothing. `_meta` keys and the
+    # legacy nested block are exempt; everything else gets named.
+    unknown = [k for k in data
+               if k not in _FINANCIAL_MODEL_DEFAULTS and k != "financial_model" and not k.startswith("_")]
+    if unknown:
+        import sys as _sys
+        print(f"WARN {p.name}: {len(unknown)} profile key(s) NOT in optimizer._FINANCIAL_MODEL_DEFAULTS "
+              f"and therefore IGNORED: {sorted(unknown)}", file=_sys.stderr)
     return out
 
 

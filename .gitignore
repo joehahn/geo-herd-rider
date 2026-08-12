@@ -88,3 +88,23 @@ data/retrieval_backtest.ckpt.json
 
 # throwaway forward 2-week sandbox
 data/forward_2wk/
+
+# BigQuery service-account key -- personal credential, never push
+gcp-key.json
+
+# raw GKG rows cached off BigQuery (large, regenerable for the cost of a re-scan);
+# bigquery_cost.jsonl lives here too and is likewise local
+data/gkg_cache/
+
+# Curator/sweep RUN DIRS — regenerable artifacts, ~4.4 GB in total. The committed record is the
+# built dashboard (docs/cbt.html, docs/sbt.html), which embeds everything it needs to render.
+data/cbt_*/
+data/backtest_1yr/
+data/backtest_3yr/
+data/backtest_gkg/
+data/cap[A-Z]*/
+data/smoke_gkg*/
+data/spot*/
+data/windows/picker_cache.json
+# sweep grids: free to regenerate (scripts/sweep_optimizer.py, ~12 min, no LLM calls)
+data/sweep_*.json

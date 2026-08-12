@@ -32,6 +32,7 @@ import retstats  # noqa: E402
 import score  # noqa: E402
 import build_dashboard  # noqa: E402  (import-safe: real work guarded by if __name__=="__main__")
 from optimizer import load_financial_model  # noqa: E402
+from util import resolve_cadence  # noqa: E402
 
 OUT = ROOT / "docs_preview" / "forward"
 
@@ -402,7 +403,7 @@ def build(sandbox: str, out_dir: str, as_of: str | None, overrides: list | None 
     out.mkdir(parents=True, exist_ok=True)
     pj = json.dumps(payload).replace("</", "<\\/")
     (out / f"{week}.json").write_text(json.dumps(payload, indent=2))     # sidecar (debug / regression)
-    rebd = int(fm.get("rebalance_days", 7))
+    rebd = resolve_cadence(fm)
     prev = (pd.Timestamp(week) - pd.Timedelta(days=rebd)).date().isoformat()
     nxt = (pd.Timestamp(week) + pd.Timedelta(days=rebd)).date().isoformat()      # next always anticipates the coming week
     is_first = (week == weeks[0])

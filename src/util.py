@@ -32,13 +32,32 @@ def load_dotenv() -> None:
         os.environ.setdefault(key.strip(), value.strip().strip("'\""))
 
 
+# PWR's cadence vocabulary, adopted 2026-08-09 so the two repos name the same thing the same way.
+# A NAMED period, not a raw day count: "biweekly" says what it means and reads the same in both
+# projects' profiles. rebalance_days stays as the numeric escape hatch for a cadence with no name.
+REBALANCE_PERIODS = {"weekly": 7, "biweekly": 14, "monthly": 30, "quarterly": 91}
+
+
+def resolve_cadence(fm: dict) -> int:
+    """Scan/rebalance cadence in DAYS. `rebalance_period` (named) wins; `rebalance_days` (numeric) is
+    the fallback for both legacy profiles and any cadence the vocabulary has no word for."""
+    per = str(fm.get("rebalance_period") or "").strip().lower()
+    if per:
+        if per not in REBALANCE_PERIODS:
+            raise ValueError(f"rebalance_period={per!r}; expected one of {sorted(REBALANCE_PERIODS)} "
+                             f"(or use the numeric rebalance_days)")
+        return REBALANCE_PERIODS[per]
+    return int(fm.get("rebalance_days", 7) or 7)
+
+
 def scan_anchors(start: str, end: str, period_days: int = 7) -> list[pd.Timestamp]:
     """Rebalance/scan decision points spanning the window, at 16:30 ET (after-close cron).
 
-    `period_days` is the single cadence knob (`rebalance_days`): the gap between scans AND the
-    natural trailing news window each scan reads (see firehose). The weekly default (7) anchors
-    on Fridays (the canonical after-close weekly cron); any other cadence steps every N days."""
-    freq = "W-FRI" if period_days == 7 else f"{period_days}D"
+    `period_days` is the cadence in days (see resolve_cadence): the gap between scans AND the
+    natural trailing news window each scan reads (see firehose). 7 and 14 anchor on FRIDAYS -- the
+    canonical after-close cron, and it keeps a biweekly series on the same weekday as a weekly one
+    so the two are directly comparable. Other cadences step every N days from `start`."""
+    freq = {7: "W-FRI", 14: "2W-FRI"}.get(period_days, f"{period_days}D")
     pts = pd.date_range(start, end, freq=freq, tz="America/New_York")
     return [p.normalize() + pd.Timedelta(hours=CRON_HOUR, minutes=CRON_MIN) for p in pts]
 

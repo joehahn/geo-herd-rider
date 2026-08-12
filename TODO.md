@@ -6,13 +6,29 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 ## Current plan — ordered (2026-07-07, soonest first)
 
 1. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
-2. **GDELT → BigQuery / GKG migration** *(ON HOLD 2026-07-09)* — **recall** (themes/tone close the keyword-synonym gap) + reliability. NOT a clean-backtest speed win: GKG selects URLs but carries no article text, so Wayback is still the fetch bottleneck; real speed only on the forward (live fetch). Revisit when recall is the priority.
-3. **Single data pull 2024 → end-of-BWET era** (after BigQuery) — replace the overlapping-scan hodgepodge.
-4. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
+2. ~~**GDELT → BigQuery / GKG migration**~~ — **DONE 2026-08-08/09**, see below. `src/gkg.py`, own GCP project, 1-year corpus ingested.
+3. ~~**Single data pull**~~ — **DONE**: one clean 1-year pull, `data/backtest_1yr/` (2025-07-04 → 2026-07-03, chunk-aligned so a 3-year extension reuses it).
+4. **Curator half — breadth/diversity instrumentation + a real backtest run.** THE CURRENT BLOCKER. The retriever is measured end to end; the curator is not. Nothing about "is the backtest top-notch?" is answerable until this exists, and it also gates the `no_org`/`no_beat` relaxation A/B.
+5. **Pivot to forward testing (LAST)** — the only clean scoreboard (`forward.py`); run it after the infra is solid.
 
 **Done:** label seeds synthetic, review GDX, GDX seeding + analysis (locked as negative control), review RNMBY, news-derived seeds (all gems, P3), 1-ticker-vs-many-agent A/B (P4), README + diagrams refresh, delete unused exit knobs, Sonnet-5 eval (now default), 7-model bake-off, SPY-as-idle-holding.
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
+
+## Decouple the news window from the rebalance cadence: `news_lookback_days` (parked 2026-08-11)
+
+Today one knob does both jobs: `backtest_gdelt.py:212` builds the scan's pool as
+`anch - Timedelta(days=cadence) .. anch`, so the trailing news window IS `rebalance_period`. PWR carries a
+separate `news_lookback_days: 14` for exactly this reason.
+
+Not added yet because the coupling guarantees window == cadence, so there is never a blind stretch of news,
+and a knob with no demonstrated job cuts against the ongoing effort to shrink the profile. The case that
+would justify it is **`news_lookback_days` > `rebalance_period`** — a deliberate OVERLAP, so an article
+GDELT indexes late (or one published right on a scan boundary) still gets read on the next scan instead of
+falling in the gap. That is a real retrieval hole, just not one we have measured yet.
+
+If adopted: add to `optimizer._FINANCIAL_MODEL_DEFAULTS` (else `load_financial_model` silently drops it),
+default `0` = follow the cadence, and let the matcher's existing dedup absorb the re-read articles.
 
 ## Add a crypto / bitcoin-miner beat (parked 2026-07-14; needs a full re-ingest)
 
@@ -93,6 +109,191 @@ never expires** — fine for a short backtest, but over a long/forward run it (a
   sweep it once the resolved-catalyst guard itself is validated.
 - Depends on the resolved-catalyst scout guard proving out first (currently under test).
 
+## Reconcile the two notions of "which outlets matter" (parked 2026-08-07, do when convenient)
+
+GHR has TWO disconnected source-authority stores, and the weaker one is the user-facing file:
+
+- `news_sources.md` -- prose only. `util.news_domains()` regex-scrapes EVERY url out of it into one
+  flat, undifferentiated preferred-domain list (`firehose.py:318`, `forward.py`). No tiers, no
+  block list, no rationale carried into code.
+- `investor_profile.{backtest,forward}.md` -- `specialty_allow` (the GEM pass allowlist) and
+  `mill_block` (the COVERAGE pass blocklist). This is the list that actually steers retrieval, and
+  the one the 2026-08-07 mill A/B edited.
+
+PWR solved this by giving its `news_sources.md` YAML front matter (`source_block`, `source_major`)
+plus a prose specialty section, parsed into THREE authority tiers shared by backtest and forward
+(`corpus.source_tier`, `gkg_pool.authority`). GHR should land somewhere similar: ONE user-editable
+source file with machine-readable tiers, and the profile keeping only the knobs.
+
+Not blocking: the profile lists are correct and in use today; `news_domains()` is a soft preference.
+Do it alongside phase 2 (forward usage), where the tiers actually get exercised.
+
+## Retrieval filters — settled 2026-08-09, do not re-litigate without new evidence
+
+Five funnel filters were audited with a blind strong-model judge (`scripts/audit_filter.py` replays
+the funnel over cached BigQuery rows for free; `scripts/judge_dropped.py` judges the drops, and its
+`--stage corpus` mode judges what SURVIVED). Two method notes that cost real time:
+
+- A cheap-screen -> strong-confirm tier measures the SCREEN's precision and is blind to its RECALL.
+  Every tiered number was a LOWER BOUND (1.4-3.2x too optimistic). Use `--strong-only` on a smaller
+  sample instead.
+- An FP rate is meaningless alone. It only means something against the SIGNAL DENSITY of what the
+  filter keeps. Computing that table first would have saved a long detour.
+
+  population                    articles/yr   signal %   vs corpus
+  CORPUS (kept)                      38,896     48.3%
+  - SQL keyword gate              2,778,347     27.0%    -21.3 pts
+  - no_beat                         130,069     40.0%     -8.3 pts
+  - no_org                           80,026     43.3%     -5.0 pts
+  - spam                              3,915      3.3%    -45.0 pts
+  - blocklist                        37,155      6.0%    -42.3 pts
+
+EVERY filter discards material with lower signal density than the corpus it feeds -- none is
+inverted. Verdicts:
+
+- blocklist, spam        KEEP. Strong enrichers, trivial volume. Nothing to do.
+- SQL keyword gate       KEEP. Weakest enricher, but the only thing keeping the corpus tractable:
+                         dropping it puts 1.83M tokens/week at the scout, over llama4's 1M CONTEXT
+                         (cost is irrelevant -- it is ~$14/yr). Both replacement discriminators were
+                         TESTED AND FAILED: GKG themes do not separate (best lift 30% vs 11%), and
+                         subject-org gives only 59% recall at 32% precision. Do not retry these.
+- url_recycled, syndication  KEEP. Fixed (16% FP) and a collapse, not a deletion.
+- no_org, no_beat        RELAX AND TEST. The only two where the tradeoff is genuinely open (-5.0 and
+                         -8.3 pts). Admitting both costs ~$1.40/yr and 0.24M context -- cheap enough
+                         to just try. But whether it HELPS is a CURATOR question (does it surface
+                         more, more diverse ticker-events?), not a retrieval one, so gate it behind a
+                         `retrieval_relaxed` toggle and A/B it once the breadth instrumentation
+                         exists. Diluting the pool 4x for the same events would be strictly worse.
+- English-origin         AUDIT LATER. `TranslationInfo IS NULL` drops 88.5M rows/yr and is the
+                         largest unexamined thing in the system. Probably correct for a US-listed
+                         strategy, but that is an assumption, not a measurement. It is a SCOPE
+                         decision, so answer it by deciding, not by sampling.
+
+Dashboard: `docs/fbt.html` (Firehose Backtest), built by `scripts/build_fbt_dashboard.py`.
+**DONE for now (2026-08-09)** — 12 panels + 8 verdict tiles; funnel carries each stage's measured
+false-positive rate, so it reads as a QUALITY chart, not just a volume one. Revisit only after the
+Curator Backtest (CBT) exists, since two deferred items need curator output to be worth building:
+  - articles-per-ticker, best drawn as a JOIN (coverage per ticker x picked/not-picked), not a bare
+    corpus histogram -- ticker extraction is the curator's job, and a regex proxy here would
+    disagree with it invisibly
+  - the `no_org` / `no_beat` relaxation A/B, which only a curator outcome can settle
+Two small known gaps, deliberately left: no look-ahead-verified tile (checked manually -- 0 articles
+fall outside the requested window), and no weekly-pool-size callout (median 748/week, p10 600,
+min 158). Panel 3 (day of week) is the weakest panel and a drop candidate.
+Named FIREHOSE, not 'retriever' -- that is PWR's word and appears 0 times in this repo;
+`firehose` appears 117 times. A later Firehose Bootstrap / Forwardtest would mirror it.
+
+Corpus state: 38,896 articles, 106.6/day, 93.5% with text (10.2% of it clean/archived), 18,435
+bylines, 46/46 beats, 2,284 sources. ~52% of it is noise; the scout is the intended backstop.
+
+## Cleanup backlog — dead code and retired data (parked 2026-08-09)
+
+Deliberately NOT done during the retrieval work: none of it moves the blocker (the curator half is
+unmeasured), and one item is a real decision rather than hygiene. Do it in one pass, and get the
+deletions confirmed before removing anything -- these are Dropbox-synced with a 6-month restore
+window, not a git-tracked working tree.
+
+### 1. The DOC-API vocabulary — a DECISION, not a deletion
+`firehose._VEHICLE / _MOVERS / _EARLY / _SECTORS(15) / _CATALYSTS(5)` compose `GDELT_QUERIES`, 22
+boolean strings. This is an ENTIRE PARALLEL retrieval vocabulary -- superlatives, early-framing,
+sectors, catalysts -- and the live GKG path reads none of it; `retrieval_config.json` holds the
+current version of all four concepts. Two vocabularies for one idea, and the dead one has the names
+that sound most canonical (`_MOVERS`, `_EARLY`), which is exactly how it caused confusion.
+
+BUT deleting it removes the `doc` engine entirely, since that vocabulary IS its query set. So decide
+first: do we ever want a keyless fallback (no GCP key, no billing)? Three options:
+  a) keep both, accept the duplication (status quo -- confusing, zero work)
+  b) delete `_MOVERS/_EARLY/_SECTORS/_CATALYSTS/GDELT_QUERIES` + `retrieval_engine: doc` + the
+     dispatcher's doc branch + the now-dead `queries=` parameter threaded through 5 call sites
+     (firehose.news_pool, agent x2, backtest_gdelt x2, backfill_gdelt)
+  c) derive the DOC queries FROM retrieval_config.json, so one vocabulary has two renderings --
+     principled, and the same shape as the gkg/websearch split, but real work for an unused path
+Recommendation: (b) unless the keyless fallback is genuinely wanted. Nothing has used `doc` since
+the GKG migration.
+
+### 2. Retired gem machinery — dead per the 2026-08-07 redirect
+Gem CAPTURE was retired as a scoreboard (the gem CONCEPT remains, CLAUDE.md #2). Dead:
+  scripts/gem_detect.py, scripts/build_ground_truth.py, scripts/gem_capture_readout.py,
+  scripts/gt_healthcheck.py, scripts/refresh_gem_dashboards.py,
+  data/gem_ground_truth.json, data/gt_forward_reachable.json,
+  and the gem-detection half of scripts/retrieval_backtest.py (the Tavily sweep)
+Confirm the list before deleting; some may still be referenced by docs/ pages.
+
+### 3. Config/code separation — remaining leaks
+`engine.english_only` was promoted to retrieval_config.json on 2026-08-09 (it was the worst offender:
+the largest filter in the system, 88.5M rows/yr, as a bare SQL condition with no knob). Still
+hard-coded, in rough order of how much judgement they encode:
+  - `lede.title_consistent(min_overlap=2)`  -- the threshold whose mis-specification caused a 73.5%
+    false-positive incident; a tuned judgement call sitting in code
+  - `wayback._PSEUDO_AUTHORS` / `_WIRE_PUBLISHERS` -- editorial calls about which bylines are people
+  - `gkg._CRYPTO_SYMS` -- which symbols are coins rather than listed vehicles (named-ticker rescue)
+  - `gkg._PLURAL`, `gkg._ORG_SUFFIX_RE`, `wayback._MIN_LEDE/_MAX_LEDE` -- mechanical, fine in code
+The first two are worth promoting; the rest are genuinely implementation detail.
+
+### 4. Stale run dirs
+data/backtest_bwet_h, data/backtest_bwet_v2, data/forward_proto, data/forward_2wk, data/windows/*
+and docs/{mp,q1_2025_book,h1_2026_book} predate the GKG migration and the filter fixes, so every
+number in them is from a corpus that no longer exists. Confirm before removing.
+
+## CBT — Curator Backtest (BUILT 2026-08-09; awaiting a clean-text re-run)
+
+**DONE**: 52-week run over data/backtest_1yr (~$6, ~25 min), dashboard at `docs/cbt.html` built by
+`scripts/build_cbt_dashboard.py`. Both dashboards share `scripts/dash_nav.py` (README · Backtest
+[Firehose/Curator/Sweeps] · Bootstrap · Forwardtest; unbuilt pages render as greyed text, not dead
+links). Instrumentation added to backtest_gdelt.py: `--decisions` (picker_log: scout PROPOSED vs
+ADMITTED) and a per-week `curator_metrics.json` funnel, with the CAPS recorded alongside so a reading
+is attributable to the curator or to a knob.
+
+FIRST RESULTS (live-text corpus, NOT quotable):
+  52 weeks · 26 events opened · 7 live at end · 31 distinct tickers picked · 729 picks
+  events live/week median 6 (max 9) · distinct catalysts/week median 6 (max 9)
+  scout: 65 proposed, 60 admitted, cap-bound in only 2 of 52 weeks
+  curator picked 10 of the 40 most-covered tickers
+
+  -> BREADTH IS CURATOR-BOUND, not cap-bound. `max_new_events` bound 2 weeks in 52, so loosening it
+     changes nothing -- and that also further weakens the deferred no_org/no_beat relaxation A/B: a
+     scout proposing ~1.25 candidates/week from 750 articles will not propose more from 3,400.
+  -> Events and catalysts move TOGETHER (both median 6), so the curator is not running six variants
+     of one theme. That is real diversity.
+
+PENDING: re-run once the Wayback backfill finishes (~92 h from 2026-08-09; per-article cutoffs, ~7/min).
+Every article the curator cited in this run was LIVE-page text (1,929 live, 111 headline-only, 0
+archived), so no number on the current CBT page is quotable under CLAUDE.md #4. The re-run is $6.
+
+## CBT — original plan (kept for the record)
+
+The curator half is entirely unmeasured: the only run ever made was a 3-week smoke test on the OLD
+pool, before every retrieval fix. Until this exists, "is the backtest top-notch?" has no answer on
+the curator side, and three deferred decisions stay blocked:
+  - the `no_org` / `no_beat` relaxation A/B (retrieval metrics cannot settle it -- only whether the
+    curator finds MORE and MORE DIVERSE ticker-events with the bigger pool)
+  - articles-per-ticker as a JOIN (coverage per ticker x picked/not-picked)
+  - whether 52% corpus noise actually costs anything, given the scout is the intended backstop
+
+WHAT IT MEASURES (per the 2026-08-07 redirect -- NOT gem capture):
+  - BREADTH: adds per curation, how many distinct events are live, how many survive to funding
+  - DIVERSITY: are funded events spread across catalysts/sectors, or all one theme
+  - CONVERSION: articles -> candidates -> events -> funded positions, the curator's own funnel
+  - COST: $ per curation, per event, per funded position
+
+ORDER OF WORK:
+  1. 4-week pilot on data/backtest_1yr to measure real per-week cost before committing to 52 weeks
+  2. breadth/diversity instrumentation (the measures above) -- build BEFORE the full run so the run
+     produces something readable, rather than an equity curve nobody wants to steer by
+  3. full 52-week run
+  4. docs/cbt.html, mirroring the FBT's structure (verdict tiles + a conversion funnel)
+
+FORWARD-USE COMES AFTER, and the FBT's findings say it should look much better: nearly every ceiling
+the FBT exposed is an artefact of GKG, not of the strategy -- 12 of 21 specialty desks unreachable,
+title-only matching (40% FP on no_beat), English-origin only. Anthropic web_search reaches etf.com
+despite its Cloudflare wall (validated 2026-07-10, forward_gather.py), indexes full text, and
+supports the two-pass allow/block split BigQuery cannot. So the BACKTEST IS A CONSERVATIVE PROXY: it
+under-finds relative to the forward. Right direction for a proxy to err, but it means backtest
+numbers understate forward capability and the two corpora are not comparable article-for-article.
+The catch: websearch cannot be used for a clean backtest at all (CLAUDE.md #4 -- `before:` leaks),
+so forward retrieval can never be validated the way the FBT validated GKG. The forward paper trade
+is the only test it gets.
+
 ## Standing risks (carried from the retired SPEC)
 
 Deep ladders are seductive storytelling; public events get priced fast; survivorship bias is
@@ -100,9 +301,24 @@ everywhere; the herd is faster than it looks; and a retrospective backtest canno
 edge (every historical number here is an upper bound — the forward eval is the only clean test).
 The design is meant to fail loudly and cheaply when a rung doesn't pay.
 
-## GDELT → BigQuery / GKG migration — recall + reliability (ON HOLD as of 2026-07-09)
+## GDELT → BigQuery / GKG migration — DONE 2026-08-08/09 (was ON HOLD; the hold was wrong)
 
-The GDELT **DOC API** is our firehose retrieval, and it's a **triple** bottleneck. Migrating the
+**OUTCOME.** Migrated. `src/gkg.py` + `retrieval_config.json`, own GCP project `geo-herd-rider`.
+1-year corpus at `data/backtest_1yr/`: 38,896 articles, 106.6/day, 93.5% with body text, 18,435
+bylines, 46/46 beats firing, 2,284 sources. Discovery for a full year takes ~5 minutes and ~250 GB
+(inside the free tier) against 4-5 hours and 67% HTTP-429s on the DOC API.
+
+**THE HOLD WAS BASED ON TWO WRONG PREMISES**, both recorded below and both refuted in practice:
+  1. *"GKG carries no title, so Wayback must supply title AND lede."* False -- `<PAGE_TITLE>` is in
+     the `Extras` column, with a URL-slug fallback. Title, date, source and URL all come free.
+  2. *"The Wayback text bottleneck stays, so there is no speed win."* True as stated but no longer
+     binding: `src/lede.py` splits the lede into a fast live fetch (~43/s, look-ahead-biased) and a
+     clean archived one (16.7/min after switching CDX -> the availability API), so you prototype by
+     day and de-bias overnight. Measured drift between the two is ~3% with no age trend.
+
+The original analysis is kept below as the record of what was believed and why.
+
+The GDELT **DOC API** was our firehose retrieval, and it was a **triple** bottleneck. Migrating the
 retrieval layer to **Google BigQuery** (the GDELT dataset, incl. the **GKG** Global Knowledge Graph)
 helps with recall + reliability. This is a candidate before the 114-week full run.
 
@@ -203,3 +419,158 @@ signal layered on top.
   forward operation you can't replay history, so the tag would need to be logged at decision time —
   another reason to defer until the early-gating question is actually on deck.
 - Was previously documented as the README "open knob"; moved here when the tag was stripped.
+
+## always_include / max_watchlist / starter_watchlist migration (2026-08-09)
+
+Adopted from PWR at the user's direction (no A/B — PWR already proved them). Landed in
+`src/optimizer.py` defaults, both investor profiles, `src/firehose.py`
+(`anchor_tickers()` / `watchlist_cap()` / `_stateful_watch(seed=)` / the buy-and-hold series in
+`_daily_series`), `scripts/build_cbt_dashboard.py`, `scripts/build_forward_sweeps.py`.
+
+Still writing the DEPRECATED names, harmless but worth cleaning up in one pass:
+- `max_agents` → `max_watchlist`: `scripts/build_dashboard.py` (sweep knob list + the JS sweep
+  registry), `scripts/proto_select.py`, `scripts/backfill_gdelt.py`, `scripts/backfill_tavily.py`,
+  `scripts/augment_scan.py`, `src/picker.py` docstring, `src/forward_engine.py` comment. The alias
+  in `firehose.watchlist_cap()` keeps every one of them working, so this is cosmetic.
+- `defensive_ticker` → `always_include`: `scripts/build_dashboard.py` (the pre-GKG gem dashboards
+  build their own universes and still special-case GLD), `scripts/build_forward_dashboard.py`
+  (display only). Kept in the optimizer defaults for exactly these.
+
+Open question, NOT settled: is `max_watchlist: 7` binding often enough to do the rotation work it
+is there for? Measure it on the next CBT run (weeks where live events > 7) before sweeping it.
+
+## Unfunded prune turned ON (2026-08-09)
+
+`drop_unfunded_weeks: 0 -> 3` with `unfunded_reentry_on_new_catalyst: true`, `unfunded_cooldown_weeks: 0`.
+Implemented in `firehose.backtest` (`dropped_at` + `_is_dropped`, replacing the permanent
+`dropped_unfunded` set). Both profiles + `optimizer._FINANCIAL_MODEL_DEFAULTS` updated; forward header
+logs it as a dated discontinuity.
+
+What the evidence does and does NOT support:
+- TRUSTWORTHY: percentile against a MATCHED null (same drop count, same weeks, random victims).
+  Prune scores 88th-100th %ile at every N in 2..8; new-catalyst re-entry 100th. So *which* names get
+  dropped carries information — it is not merely "hold fewer names".
+- NOT TRUSTWORTHY: the dollars. One window, contaminated corpus, still ~90% short of archived ledes.
+  The N=3 dollar peak is one path's noise (N=2 $83K, N=3 $123K, N=4 $106K) — do not tune to it.
+- Time-gated re-entry was tested and REJECTED: 4wk $58K, 8wk $104K, 12wk $94K, non-monotonic, all worse
+  than the new-catalyst release ($130K). A clock readmits a name with no new information.
+- Asking the optimizer directly for its top-N in ONE shot scored 13th %ile, worse than alphabetical
+  and worse than random. Persistence is the noise filter; the instantaneous weights are not usable.
+
+Follow-ups:
+- Re-run all of the above once the wayback backfill lands (~42h from 2026-08-09) — every number here
+  is on the incomplete-text corpus.
+- `max_watchlist` is now VESTIGIAL (binds 0/50 weeks). Keep as a backstop; do not sweep it until the
+  prune is off or the curator floods.
+- REAL breadth constraint found, unrelated to any cull: the book funds only ~2.4 positions on average
+  (HHI 0.45, effective N ~2.2), and the prune barely moved it (2.4 -> 2.3). That is the optimizer's
+  doing — `risk_aversion 1.0` + `concentration_cap 0.667` + `min_trade_size 0.1` — NOT the watchlist.
+  If diversity is the goal, sweep those three, not the cull.
+- The proposed ranked cull (freshness reserve + trailing risk-adjusted return) was WITHDRAWN: with the
+  prune on, the cull never fires. Scores are recorded here in case the prune is ever turned off:
+  alphabetical 67th %ile, oldest-first 53rd, freshest-first 85th, trend 83rd, freshness+trend 83rd,
+  press-recency 67th (inert — byte-identical to alphabetical, since live names are re-named weekly).
+
+## 3-year biweekly rebuild (2026-08-09)
+
+- 1-year wayback backfill STOPPED at 3,921/38,896 and the corpus superseded. Its wayback_cache.json
+  (4,321 lookups, 3,274 hits) and lede_live_cache.json (39,405 fetches) were copied into
+  data/backtest_3yr, so none of that work is repeated.
+- Ingesting data/backtest_3yr, 2023-08-10 -> 2026-08-09, GKG + live ledes. ~470 GB new BigQuery scan
+  (~$0-3 against the 1 TB/mo free tier and the $294 trial credit).
+- `rebalance_days: 7` -> `rebalance_period: biweekly` (PWR's vocabulary). util.resolve_cadence() is the
+  ONE resolver; rebalance_days survives as the numeric escape hatch. 7 and 14 both anchor on FRIDAY so
+  weekly and biweekly series stay comparable.
+- `optimizer.load_financial_model` now WARNS on profile keys missing from _FINANCIAL_MODEL_DEFAULTS.
+  This class of bug bit us live: `rebalance_period` was written to both profiles and silently ignored.
+
+TO DO once the ingest lands:
+- Restart the wayback backfill on data/backtest_3yr (it will trickle for days; ~830/h).
+- Re-run backtest_gdelt over 3y biweekly (79 anchors, ~$9), then rebuild FBT + CBT.
+- RE-MEASURE the unfunded prune at biweekly. The 88th-100th %ile matched-null result was WEEKLY and
+  does not transfer. Same for the ranked-cull scores recorded above.
+- Sweep the diversity knobs the backtest profile just adopted from PWR (cap 0.25, risk_aversion 3.0,
+  min_trade_size 0.05, max_watchlist 16). They are a borrowed STARTING POINT, not a fitted result.
+- Promote to investor_profile.forward.md as a dated re-freeze once the sweep settles. The two profiles
+  are KNOWINGLY out of sync on strategy knobs until then (cadence knobs ARE synced).
+
+## Source-quality pass (2026-08-10)
+
+mill_block +6, synced across both profiles: wkrb13.com, modernreaders.com, theenterpriseleader.com,
+etfdailynews.com (MarketBeat-network clones; 13,447 arts = 10.5% of the 3-year pool at 13.8 evidence
+hits/1k vs benzinga 179, so blocking costs 1.8% of evidence), fool.com.au, fool.co.uk (foreign-exchange
+listicles; fool.co.uk produced ZERO evidence in 3 years). fool.ca deliberately KEPT (98 arts, 81.6/1k,
+covers US-listed names).
+
+Kept and vindicated: insidermonkey.com is the HIGHEST-yield large source in the corpus (187.5/1k,
+above benzinga) -- the earlier decision not to block it was right. finanznachrichten.de kept (61.9/1k):
+junior-resource press releases, exactly what the uranium/lithium/rare-earth beats want, though many are
+CVE/European listings the US-ticker guard rejects.
+
+Open, not acted on:
+- Indian-market outlets (indiatimes, livemint, moneycontrol, businesstoday.in, thehindubusinessline):
+  8,715 arts = 6.8% at 38.8/1k, mostly Indian-listed coverage. businesstoday.in is 6.9/1k. Needs a
+  content look, not a title look, before any block.
+- investors.com is 4th-highest yield here (149.5/1k) but Anthropic web_search is HARD-BLOCKED by Dow
+  Jones domains, so it is BACKTEST-ONLY. The forward is structurally weaker here for retrieval reasons,
+  not curator reasons. Do not read backtest source-mix as forward source-mix.
+- The gem-beat review was measured through the GKG rendering ONLY and is therefore INVALID for the
+  framing beats (`niche ETF surging`, `overlooked stock catalyst`, `under the radar small cap stock`):
+  etf.com contributes 0 of 128,565 articles because GDELT does not crawl it, while Anthropic web_search
+  reaches it. Do not drop those beats on GKG evidence.
+
+## specialty_allow rebalance (2026-08-10)
+
+The list was seeded from PWR's news_sources.md and carried PWR's sector profile (tech-growth/defense/
+biotech). GHR's evidence is commodities/energy/shipping/trade-policy. Measured mismatch:
+biotech had 3 desks for 94 evidence hits; critical minerals had 0 for 501; uranium had 1 for 1,774.
+
++9 desks, synced both profiles. Measured (GDELT-crawled, evidence-hits per 1k articles vs benzinga 179):
+  mining.com 347 · northernminer.com 316 · argusmedia.com 238 · digitimes.com 135
+  utilitydive.com 1333 (n=12) · powermag.com 600 (n=5)   <- tiny samples, sector gap is the real argument
+Forward-only, NOT crawled by GDELT so unmeasurable here: trendforce.com (DRAM/NAND prices),
+benchmarkminerals.com (lithium), splash247.com (tankers).
+
+-1: kitco.com REMOVED. Crawled by GDELT, 99 articles, ZERO curator evidence in 3 years.
+
+Kept but FLAGGED, cannot be measured (0 GKG presence): tipranks.com, barchart.com are data/screener
+sites rather than desks that break early gem calls -- closer in kind to the mills than to etf.com.
+Decide forward.
+
+STANDING CAVEAT: specialty_allow is the FORWARD Anthropic gem-pass allowlist. Its purpose is reaching
+desks GDELT cannot (etf.com = 0 of 128,565 here, reachable via Anthropic). So GKG yield is a PROXY --
+good negative evidence when a desk IS crawled and yields nothing (kitco), good positive evidence when
+crawled and high-yield (mining.com), and NO evidence either way for uncrawled desks.
+
+## [DEFERRED — forward gets revamped after the backtest settles] Forward gem pass returns ZERO from Anthropic
+## (found 2026-08-11, prompted by PWR's arstechnica bug)
+DO NOT FIX NOW (user's call, 2026-08-11): the whole forward-use path is being revamped once the
+backtest settles, so an incomplete daily ingest is acceptable in the meantime. Logged so the
+finding is not lost — the $1-5/day of wasted spend is the thing to remember.
+
+PWR found ONE domain (arstechnica.com) that blocks Anthropic's crawler 400-ing the whole specialty
+pass, because all preferred desks go in as a single `allowed_domains` list. GHR has the IDENTICAL
+architecture (`forward_gather.py:261`, one list of 29 domains in one web_search call), so it was
+worth checking.
+
+CHECKED: GHR does NOT have that bug. Probed the full 29-domain specialty_allow against Anthropic
+web_search -- ACCEPTED, no 400. So no domain in our list blocks the crawler.
+
+BUT a different problem is live and has been for at least 20 consecutive daily runs:
+  `union: anthropic 0 + tavily 139` -- the ANTHROPIC half contributes ZERO, every single day.
+  Tavily carries the entire forward pool. Meanwhile the ledger shows the gem+coverage calls running
+  and costing $1.42-$4.68 PER DAY (2026-08-10 alone: gem 1.42M input tokens, $4.68).
+  So we are paying daily for a stage that yields nothing.
+
+Not yet root-caused. Two candidates:
+  1. The FAIL-CLOSED date filter (forward_gather.py:299) drops every article whose published_date is
+     missing or outside (lo, hi]. On a PAST-24H window almost nothing Anthropic returns may carry a
+     parseable same-day date -- memory retrieval-ceiling-gdelt-niche-press records Anthropic reaching
+     back only ~4-18 articles/WEEK, so ~0/day could be correct behaviour meeting an unrealistic window.
+  2. Something upstream returns results that never survive `build`.
+  `capture["results"]` carries an `in_window` flag per raw result and would separate these two
+  immediately -- the daily pull does not appear to persist it. Persist it, then read one day.
+
+If (1), the fix is either widening the Anthropic window (it is not a same-day engine) or dropping
+Anthropic from the daily pull and running it weekly, where its reach-back actually produces articles.
+Either way: stop paying $1-5/day for zero articles.

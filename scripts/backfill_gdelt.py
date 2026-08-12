@@ -20,7 +20,7 @@ import agent  # noqa: E402
 import firehose  # noqa: E402
 import gdelt as gd  # noqa: E402
 import llm  # noqa: E402
-import wayback  # noqa: E402
+import lede  # noqa: E402  two-speed ledes (clean `lede` + fast `lede_live`)
 from util import load_dotenv, scan_anchors  # noqa: E402
 from optimizer import load_financial_model, resolve_curator_model  # noqa: E402
 
@@ -37,7 +37,7 @@ def main():
     enrich_cache = str(ROOT / "data" / "windows" / "wayback_forward.json")
 
     print("  pulling GDELT (general queries, weekly chunks, throttled) ...", flush=True)
-    gpool = gd.pool(firehose.GDELT_QUERIES, win_start, anchors[-1], chunk_days=7, per=80,
+    gpool = firehose.news_pool(firehose.GDELT_QUERIES, win_start, anchors[-1], chunk_days=7, per=80,
                     cache_path=str(cache_f), stats_path=stats)
     print(f"  GDELT pool: {len(gpool)} articles", flush=True)
 
@@ -52,7 +52,9 @@ def main():
         wk = anch.date().isoformat()
         gslice = sorted(firehose._window(gpool, anch, 7),
                         key=lambda x: x.get("published_date", ""), reverse=True)[:80]
-        wayback.enrich(gslice, wk, cache_path=enrich_cache, fetch=True, stats_path=stats)   # as-of ledes
+        # as-of (clean) ledes into `lede`, then render-time arm selection fills `snippet`
+        lede.enrich_wayback(gslice, wk, cache_path=enrich_cache, stats_path=stats)
+        lede.apply(gslice, arm="fuller")
         for a in gslice:
             a["engine"] = "gdelt"
         tf = TAV / "archive" / f"{wk}.json"

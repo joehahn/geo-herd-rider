@@ -80,7 +80,8 @@ news firehose pays. Confirm scope before jumping ahead.
 - **Exactly two investor-profile files.** `investor_profile.backtest.md` = the dev/backtest config
   (`backtest_gdelt.py`, sweeps, gem-dashboards, bake-off) — free to evolve. `investor_profile.forward.md`
   = the FROZEN live-forward candidate (`forward.py`). Keep the **strategy knobs** (`event_agent_model`,
-  `scout_model`, `max_agents`, the floors, `risk_aversion`, `concentration_cap`) synced across both so the
+  `scout_model`, `max_watchlist`, `always_include`, `starter_watchlist`, the floors, `risk_aversion`,
+  `concentration_cap`) synced across both so the
   backtest stays a valid proxy; only **retrieval-operational** knobs (`news_cap`, `gather_model`) may differ.
   Promoting a backtest candidate to forward = copy the strategy knobs into `.forward.md` as a dated re-freeze.
   Any profile knob you add must be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model`

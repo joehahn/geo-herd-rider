@@ -43,7 +43,7 @@ import trace
 import trump_feed
 import wayback
 from optimizer import load_financial_model, resolve_curator_model, resolve_gather_model, resolve_stage_models
-from util import load_dotenv, scan_anchors, news_domains
+from util import resolve_cadence, load_dotenv, scan_anchors, news_domains
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 SCANS_CSV = REPO_ROOT / "data" / "forward" / "firehose_scans.csv"
@@ -84,6 +84,7 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     cfg = load_financial_model(str(PROFILE))               # stamp the frozen config that produced this week
     knobs = {k: cfg.get(k) for k in ("gather_model", "event_agent_model", "scout_model", "picker_model", "picker_effort",
              "concentration_cap", "risk_aversion", "min_trade_size", "lookback_period_days", "max_agents",
+             "max_watchlist", "always_include", "starter_watchlist",
              "max_new_events", "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
     pool = capture.get("arts", [])                         # frozen in-window pool: {title,url,published_date,source,snippet}
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
@@ -375,7 +376,7 @@ def main(argv: list[str] | None = None) -> int:
                   f"resolves to provider '{gather_prov}'. Pass --model <anthropic-id>. "
                   f"(event_agent_model and scout_model may be any provider.)", file=sys.stderr)
             return 2
-        rebal = args.rebalance_days or int(fm.get("rebalance_days", 7))
+        rebal = args.rebalance_days or resolve_cadence(fm)
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
                      news_cap=int(fm.get("news_cap", 0)),

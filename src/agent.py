@@ -22,7 +22,8 @@ from __future__ import annotations
 
 import json
 import sys
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed as _as_completed
+from concurrent.futures import TimeoutError as _FutTimeout
 from pathlib import Path
 
 import pandas as pd
@@ -31,10 +32,10 @@ from pydantic import BaseModel, ConfigDict, field_validator
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
 import costs  # noqa: E402
-import gdelt as gd  # noqa: E402
 import firehose  # noqa: E402
 import llm  # noqa: E402
 import picker_log  # noqa: E402
+import score  # noqa: E402  ticker normalization + tradeability guard
 from util import scan_anchors  # noqa: E402
 
 # Strict JSON schemas for the structured-output path (OpenRouter/DeepSeek — guarantees parseable
@@ -43,9 +44,10 @@ from util import scan_anchors  # noqa: E402
 SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["candidates"],
                "properties": {"candidates": {"type": "array", "items": {
                    "type": "object", "additionalProperties": False,
-                   "required": ["ticker", "company", "thesis", "why_now", "peers"],
+                   "required": ["ticker", "company", "thesis", "why_now", "pending_next", "peers"],
                    "properties": {"ticker": {"type": "string"}, "company": {"type": "string"},
                                   "thesis": {"type": "string"}, "why_now": {"type": "string"},
+                                  "pending_next": {"type": "string"},
                                   "peers": {"type": "array", "items": {"type": "string"}}}}}}}
 AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "sources"],
@@ -75,11 +77,30 @@ DO NOT skip a strong gem — put your best-known ticker (even a foreign one like
 company) in `ticker`; a downstream resolver will web-search the US-listed symbol from `company`. Never
 drop a real thesis merely because you can't recall the exact ticker.
 
-BE RUTHLESSLY SELECTIVE. Propose a ticker ONLY if the press frames it as a STANDOUT, SUSTAINED
-thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a routine daily gainer,
-or a name buried in a list. Most weeks warrant 0-1 candidates; rarely more than 2. When in doubt,
-propose nothing. Prefer the PUREST vehicle for a theme (a rate/commodity ETN or clean pure-play
-over diluted operators; a single ADR over a broad ETF).
+BE SELECTIVE ON QUALITY, NOT ON COUNT. Propose a ticker only if the press frames it as a STANDOUT,
+SUSTAINED thesis-driven mover with a real, nameable catalyst — NOT a one-off mention, a routine daily
+gainer, or a name buried in a list. But do NOT ration yourself: propose EVERY name in this week's
+headlines that clears the bar. Some weeks that is none; a week with a big supply shock or a policy
+shift may well carry five or more, and holding back a name that qualifies is a miss, not discipline.
+Prefer the PUREST vehicle for a theme (a rate/commodity ETN or clean pure-play over diluted
+operators; a single ADR over a broad ETF).
+
+SUPERLATIVE FRAMING IS EVIDENCE, NOT NOISE — but ONLY the RUN-SCALE kind. The tell is a superlative
+describing a LARGE, ALREADY-SUSTAINED move plus language saying the crowd has not arrived yet:
+  ADMIT  "best-performing ETF of the year", "up over 600%", "a 1,300% rally", "skyrocketing",
+         "flying under the radar", "little-known", "still early", "obscure", "nobody is talking about"
+  REJECT "hits a new 52-week / 1-year high", "shares jump 5%", "Q3 earnings beat", "tops estimates",
+         "overtakes X in market cap", "potential recovery", "analyst raises target", "gaps up"
+The difference is MAGNITUDE and DURATION, not the presence of an excited verb. A multi-hundred-percent
+run that the press is still calling under-the-radar is the signal; a new high or a good quarter is a
+routine daily event and is NOT. When in doubt, ask: does this headline describe a move measured in
+MULTIPLES over months, or a move measured in percent over a day? Only the first qualifies, and it
+must still sit on top of a nameable catalyst — a superlative ALONE is momentum and is rejected.
+
+The progression to watch, and the reason this works: "under the radar" -> "skyrocketing, still under
+the radar" -> "a 1,300% rally" -> mainstream. Each rung is a step from the smart money toward the slow
+herd. Naming it on the FIRST or SECOND rung is the whole edge; by the last rung the move is largely
+spent.
 NEVER propose a LEVERAGED or INVERSE ETF (2x/3x/-1x/-2x/-3x — e.g. NUGT, JNUG, AGQ, DUST, SOXL, SOXS,
 TQQQ, SQQQ, UVXY, and any "Ultra"/"UltraPro"/"Direxion Daily"/"ProShares Ultra" product). They RESET
 leverage DAILY and bleed from volatility decay, so they are day-trade instruments, NOT hold-the-catalyst
@@ -126,6 +147,24 @@ as ongoing "news / demand / growth / approval news" ("chip-subsidy news", "EV de
 "freight-rate strength"), which can never be marked RESOLVED and so never exits. If the only phrasing
 you can give is an ongoing trend, it's a theme — drop it. Drop only names that are theme/value/hype
 AND NOTHING ELSE.
+
+NOT-YET-RESOLVED (the gate this list kept missing). The catalyst must still be PENDING or IN FORCE at
+this week's date. Before proposing, ask: "what FUTURE event would flip this position to EXIT?" If the
+honest answer is "the thing already happened", REJECT it — you would be buying news that is already
+priced, and the event agent will close it on its very next read. Measured 2026-08-10: 44% of all
+events opened lived exactly ONE scan, because past-tense headlines were being admitted as live theses.
+  REJECT (resolved — the whole catalyst is in the past and nothing remains):
+    "FDA approves X" (the approval IS the event), "Ghana grants the mining lease", "PDD surpassed
+    Alibaba in market cap", "Q3 earnings beat", "the merger closed", "gold steadied ahead of CPI"
+    once the CPI print has landed.
+  KEEP (a resolution is still ahead of us):
+    - IN FORCE and reversible — an export ban, sanctions, a closed chokepoint, a war, an outage. The
+      condition persists and constrains supply until it LIFTS, and the lifting is the exit.
+    - PENDING and dated — an FDA decision date not yet reached, a scheduled vote, a court date.
+    - RESOLVED BUT WITH A NAMED NEXT LEG — an approval already granted where the press names a dated
+      follow-on (launch date, capacity milestone, a supply contract still to be signed). Write the
+      thesis around THAT leg, not the part that already happened.
+A past-tense headline is fine as EVIDENCE that a condition exists; it is not itself a live catalyst.
 
 EARLY / BUILDING CATALYST — NAME IT WHILE IT'S STILL FORMING (this is the edge). Catch the ticker
 while its catalyst is BUILDING and the name is still under-owned — do NOT wait for the acute peak. An
@@ -210,6 +249,7 @@ class ScoutCandidate(BaseModel):
     company: str = ""              # company name (for the US-ticker resolver when the ADR symbol is obscure)
     thesis: str = ""
     why_now: str = ""
+    pending_next: str = ""         # the concrete thing that has NOT happened yet; empty/none -> rejected
     peers: list[str] = []          # same-catalyst peer vehicles: extra US tickers for THIS event's basket
 
     @field_validator("ticker")
@@ -290,21 +330,168 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
     return us
 
 
-def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max_new_events: int = CANDIDATE_CAP) -> list[dict]:
+_NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happened",
+                    "nothing pending", "no pending catalyst", "resolved", "unknown"}
+_SCOUT_DEADLINE = 420    # seconds for ALL scout chunks of one scan; a wedged call must not stall a run
+SCOUT_CHUNK = 200        # headlines per scout call; 0 = one call over the whole pool (pre-2026-08-10)
+
+
+def _gem_beats() -> set:
+    """The gem-beat query strings from retrieval_config.json -- the strategy's own early-gem
+    vocabulary (uranium squeeze, rare-earth curbs, export bans, war chokepoints, under-the-radar
+    framing) as opposed to the generic sector-coverage beats."""
+    try:
+        import json as _j
+        cfg = _j.loads((REPO_ROOT / "retrieval_config.json").read_text())
+        return {b["query"] for b in cfg.get("gem_beats", [])}
+    except Exception:  # noqa: BLE001
+        return set()
+
+
+def _scout_chunks(arts: list[dict], size: int) -> list[list[dict]]:
+    """Split the week's pool into topic-coherent chunks, one scout call each.
+
+    BY BEAT, not by arbitrary slice. Each call then judges "is this a standout WITHIN uranium /
+    rare earths / defence", which is a far easier question than "is this a standout among 1,480
+    mixed headlines" -- and the second question is what the single-call scout was being asked.
+    Measured 2026-08-10: it read the whole pool and still proposed a median of ONE name per scan,
+    unchanged across two prompt rewrites. relevance.py already batches at this size for the same
+    reason; the scout was the last stage still doing a single mega-pass.
+
+    An article carrying several beats lands in several chunks -- that is fine, the union dedupes by
+    ticker. Ordering is deterministic (beat name, then url) so the same pool always chunks the same
+    way and a rerun is comparable."""
+    if not size:
+        return [arts], [set()]
+    by_beat: dict = {}
+    for a in arts:
+        for b in (a.get("queries") or ["(no beat)"]):
+            by_beat.setdefault(b, []).append(a)
+    out: list[list[dict]] = []
+    beats_of: list[set] = []          # parallel to `out`: which beat(s) each chunk was built from
+    bin_: list = []
+    bin_beats: set = set()
+    for b in sorted(by_beat):
+        grp = sorted(by_beat[b], key=lambda x: x.get("url", ""))
+        if len(grp) >= size:                        # a big beat gets its own chunk(s)
+            for i in range(0, len(grp), size):
+                out.append(grp[i:i + size]); beats_of.append({b})
+            continue
+        # PACK the small beats together instead of one call per beat. The beat distribution is very
+        # skewed -- a naive one-chunk-per-beat split produced 56 chunks for 4k articles, many of size
+        # 1, each still paying a full system prompt for nothing.
+        if len(bin_) + len(grp) > size and bin_:
+            out.append(bin_); beats_of.append(set(bin_beats)); bin_, bin_beats = [], set()
+        bin_ += grp; bin_beats.add(b)
+    if bin_:
+        out.append(bin_); beats_of.append(set(bin_beats))
+    if not out:
+        return [arts], [set()]
+    return out, beats_of
+
+
+def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str) -> list[dict]:
+    """One scout call over one chunk -> raw candidate dicts (unvalidated)."""
+    user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(chunk)}\n{rblock}\n"
+            "WORK IN TWO PASSES, in this order:\n"
+            "  PASS 1 - ENUMERATE. Read the WHOLE list and note every ticker whose coverage carries "
+            "either (a) a nameable catalyst, or (b) run-scale superlative framing. Do not judge yet; "
+            "just gather.\n"
+            "  PASS 2 - FILTER. For EACH survivor write `pending_next`: the concrete thing that has "
+            "NOT happened yet and whose happening would END this thesis -- a decision date, a vote, a "
+            "ruling, a deal still to close, a curb still to be lifted. If the only thing you can name "
+            "is the event that ALREADY happened (the contract WAS awarded, the merger WAS announced, "
+            "earnings WERE reported, the approval WAS granted), then there is nothing pending: write "
+            "\"none\" and DROP the candidate. A catalyst in the past tense is news the market has "
+            "already priced. Propose every survivor; there is no quota.\n"
+            "This is ONE SLICE of a larger week, so judge it on its own merits -- do not hold back "
+            "because you expect better names elsewhere. If nothing here qualifies, propose nothing. "
+            "Output the JSON.")
+    try:
+        txt = client.complete(SCOUT_SYSTEM, user, use_web_search=False, stage="agent",
+                              label=label, json_schema=SCOUT_SCHEMA)
+        return _extract(txt).get("candidates", [])
+    except Exception as e:  # noqa: BLE001 - one bad chunk must not lose the whole week
+        print(f"  scout chunk failed ({type(e).__name__}) {label}", file=sys.stderr)
+        return []
+
+
+def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
+          max_new_events: int = CANDIDATE_CAP, chunk_size: int = SCOUT_CHUNK) -> list[dict]:
     if not arts:
         return []
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
               f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
               if retired else "")
-    user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(arts)}\n{rblock}\n"
-            "Which tickers is the press naming as thesis-driven movers? Output the JSON.")
-    txt = client.complete(SCOUT_SYSTEM, user, use_web_search=False, stage="agent",
-                          label=f"scout-{anchor.date()}", json_schema=SCOUT_SCHEMA)
-    cands = _extract(txt).get("candidates", [])
-    out = []
+    chunks, chunk_beats = _scout_chunks(arts, chunk_size)
+    gem = _gem_beats()
+    if len(chunks) == 1:
+        cands = _scout_once(client, anchor, chunks[0], rblock, f"scout-{anchor.date()}")
+    else:
+        # BOUNDED WAIT. ex.map() blocks forever on a future that never returns, so one wedged HTTP
+        # call freezes the entire backtest -- observed 2026-08-11, a run sat at 0% CPU for 54 minutes
+        # with no retry logged. The per-request timeout in llm.py does not help if the hang is below
+        # it. A chunk that misses the deadline is dropped (its beat is simply unscouted this scan),
+        # which loses a little recall and never the run.
+        with ThreadPoolExecutor(max_workers=min(16, len(chunks))) as ex:
+            futs = {ex.submit(_scout_once, client, anchor, ch, rblock,
+                              f"scout-{anchor.date()}-{i}"): i
+                    for i, ch in enumerate(chunks)}
+            per = [[] for _ in chunks]
+            try:
+                for f in _as_completed(futs, timeout=_SCOUT_DEADLINE):
+                    per[futs[f]] = f.result() or []
+            except _FutTimeout:
+                n_lost = sum(1 for f in futs if not f.done())
+                print(f"  scout: {n_lost}/{len(chunks)} chunks timed out after {_SCOUT_DEADLINE}s; "
+                      f"proceeding without them", file=sys.stderr)
+                for f in futs:
+                    f.cancel()
+        gi = 0
+        # UNION by ticker: the same name surfacing in two beats is one candidate, not two. First
+        # occurrence keeps its thesis; peers are merged so no vehicle is lost to chunk boundaries.
+        merged: dict = {}
+        for gi, grp in enumerate(per):
+            for c in grp:
+                # A cheap scout occasionally emits a bare string where the schema asks for an object
+                # ("NVDA" instead of {"ticker":"NVDA",...}). Crashed the 3-year v8 run at scan 34/37
+                # after 70 minutes, so treat it as the malformed candidate it is and drop it -- one
+                # bad row must never cost the whole curation.
+                if not isinstance(c, dict):
+                    print(f"  scout: dropped non-object candidate {c!r}", file=sys.stderr)
+                    continue
+                k = str(c.get("ticker", "")).strip().upper()
+                if not k:
+                    continue
+                if k in merged:
+                    merged[k]["peers"] = list(dict.fromkeys(
+                        list(merged[k].get("peers") or []) + list(c.get("peers") or [])))
+                else:
+                    merged[k] = dict(c)
+                    merged[k]["_gem"] = bool(gem & chunk_beats[gi]) if gi < len(chunk_beats) else False
+        # GEM-BEAT PREFERENCE. Chunking is BY BEAT, so every candidate already knows which beat
+        # surfaced it -- provenance for free, no extra LLM call. Measured 2026-08-11 on the 3-year
+        # run: events whose opening evidence was purely gem-beat cancelled at 11%, versus 89% for
+        # all events, and the relationship is monotone in gem share. So a gem-beat candidate outranks
+        # a coverage-beat one, which turns max_new_events from arbitrary truncation (cands[:N] over
+        # dict order) into a real quality gate.
+        cands = sorted(merged.values(), key=lambda c: (not c.get("_gem", False),))
+        print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
+              f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
+              file=sys.stderr)
+    out, _dropped_resolved = [], []
     for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
+        # ENFORCED, not merely instructed. Measured 2026-08-11: 8 of 9 one-scan events were past-tense
+        # catalysts ("contract awarded", "merger announced", "earnings reported") that the event agent
+        # closed one scan later with "already announced and public". The NOT-YET-RESOLVED prose rule
+        # sits 60% into a 12k-char prompt and was being ignored; a required schema field the model must
+        # fill, checked here, is a gate. Same commit-then-check shape that fixed the exit side.
+        _pn = str(c.get("pending_next") or "").strip().lower()
+        if (not _pn) or _pn in _NOTHING_PENDING or len(_pn) < 8:
+            _dropped_resolved.append(str(c.get("ticker", "")))
+            continue
         try:
-            m = ScoutCandidate(**c)          # validates + drops any extra (e.g. a price target)
+            m = ScoutCandidate(**{k: v for k, v in c.items() if not k.startswith("_")})
         except Exception:  # noqa: BLE001
             continue
         tk = m.ticker.strip()
@@ -319,7 +506,11 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "", max
             out.append(m.model_dump())
         elif tk:
             print(f"  scope: dropped unresolved foreign ticker {tk} ({anchor.date()})", file=sys.stderr)
+    if _dropped_resolved:
+        print(f"  scout: dropped {len(_dropped_resolved)} already-resolved candidate(s) "
+              f"({', '.join(_dropped_resolved[:6])}) ({anchor.date()})", file=sys.stderr)
     picker_log.log("scout", {"context": str(anchor.date()), "max_new_events": max_new_events,   # OFF unless enabled
+                             "chunks": len(chunks), "dropped_resolved": _dropped_resolved,
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
                                            "thesis": c.get("thesis", "")} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
@@ -363,7 +554,8 @@ def targeted_pool(event: dict, win_start, win_end, chunk_days, per) -> list[dict
     qs = _event_terms(event)
     key = hashlib.md5(f"evt{tk}{qs}{pd.Timestamp(win_start).date()}{pd.Timestamp(win_end).date()}".encode()).hexdigest()[:10]
     cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_event_{key}.json"
-    pool = gd.pool(qs, win_start, win_end, chunk_days=chunk_days, per=per, cache_path=str(cache_f))
+    pool = firehose.news_pool(qs, win_start, win_end, chunk_days=chunk_days, per=per,
+                              cache_path=str(cache_f))
     _event_pools[tk] = pool
     return pool
 
@@ -402,8 +594,8 @@ def run_agent_scans(start, end, rebalance_days, model, workers, queries=None, se
     cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
     cache_f.parent.mkdir(parents=True, exist_ok=True)
     print(f"Agent: scout->fan-out over {len(anchors)} weeks; pool fetch/resume ...", file=sys.stderr)
-    gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
-                    cache_path=str(cache_f))
+    gpool = firehose.news_pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
+                               cache_path=str(cache_f))
     seeds = firehose._fixture_articles(seed) if seed else []
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running agents ...", file=sys.stderr)
 
@@ -520,7 +712,15 @@ CATALYST (FIXED — the discrete thing you entered on), its KNOWN vehicles, your
 for this event since entry (your memory — the whole arc, not just last week), and this week's news.
 Write the new note.
 
-FIRST, ARGUE FOR EXIT (devil's advocate — do this BEFORE deciding, EVERY week, against your WHOLE
+FIRST, TEST YOUR OWN STANDING EXIT CONDITION. Your journal carries the `exit_advice` you wrote when
+you entered and every week since: "exit if/when <observable thing>". Read it and answer ONE concrete
+question against THIS WEEK'S NEWS and every prior week — HAS THAT THING HAPPENED? It is a factual
+check, not a fresh opinion. If it has, the thesis is over: say so in `exit_case`, and set
+catalyst_resolved=true if the trigger you named WAS the catalyst resolving. Re-deriving the exit case
+from scratch each week is how a position drifts past its own stated trigger -- you already committed
+to what would end this, so check that first, before forming any new view.
+
+THEN ARGUE FOR EXIT ANYWAY (devil's advocate — do this BEFORE deciding, EVERY week, against your WHOLE
 journal): state the SINGLE strongest reason this thesis is ALREADY OVER — the catalyst has RESOLVED
 (occurred / closed / been signed) or its DRIVING CONDITION has REVERSED (curbs lifted, ceasefire,
 chokepoint reopened, shortage ended) (`exit_case`, <=20 words). Write "none" ONLY after genuinely
@@ -688,16 +888,40 @@ def _consolidate_events(events: dict) -> int:
     return merged
 
 
-def _filter_event(arts, event):
-    """Broad-pool articles relevant to an event: mention any of its vehicles or catalyst keywords."""
+EVENT_NEWS_CAP = 20   # default; overridden by the profile's `event_news_cap` (see process_week)
+
+
+def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
+    """The articles ONE event-agent re-reads this scan, BEST FIRST.
+
+    Ranked, not merely truncated. This used to return `hits[:cap]` in pool order -- which the
+    backtest sorts most-recent-first -- so each agent saw the NEWEST `cap` matches rather than the
+    most relevant. The median event-week matches ~55 articles, so ~35 were discarded on publication
+    timestamp alone, and a mining.com piece from Monday lost to twenty bot posts from Friday.
+
+    The ranking is structural and deterministic -- no LLM, and deliberately NO fitted per-source
+    weights, which would be tuning retrieval to this backtest's own outcomes (CLAUDE.md #6):
+      +3  one of the event's VEHICLES appears in the TITLE  -> the article is about this NAME
+      +2  a catalyst keyword appears in the TITLE           -> the article is about this THESIS
+      +1  a GEM beat surfaced it                            -> the strategy's own early-gem vocabulary
+      recency breaks ties.
+    With the slice ranked, `cap` decides only HOW MUCH evidence is seen, not WHICH."""
     veh = {v.lower() for v in event["vehicles"]}
     kws = [w for w in event["catalyst"].lower().replace(",", " ").split() if len(w) > 4]
-    hits = []
+    gem = _gem_beats()
+    scored = []
     for a in arts:
-        hay = (a.get("title", "") + " " + a.get("snippet", "")).lower()
-        if any(v in hay for v in veh) or any(k in hay for k in kws):
-            hits.append(a)
-    return hits[:20]
+        title = (a.get("title") or "").lower()
+        hay = title + " " + (a.get("snippet") or "").lower()
+        if not (any(v in hay for v in veh) or any(k in hay for k in kws)):
+            continue
+        s = (3 if any(v in title for v in veh) else 0)
+        s += (2 if any(k in title for k in kws) else 0)
+        s += (1 if gem & set(a.get("queries") or []) else 0)
+        scored.append((-s, a.get("published_date", "") or "", a))
+    scored.sort(key=lambda x: (x[0], [-ord(c) for c in x[1]]))   # score desc, then newest first
+    hits = [a for _, _, a in scored]
+    return hits[:cap] if cap else hits
 
 
 def _journal_digest(entries: list[dict], keep: int = 20) -> str:
@@ -775,9 +999,79 @@ def _carry_forward(anchor, ev) -> dict:
             "news_claims": "", "sources": [], "vehicles": veh}
 
 
+def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
+    """Normalize, RESOLVE, then drop scout candidates whose symbols aren't tradeable — loudly. The
+    single gate between the curator LLM's free-text output and the price layer.
+
+    Before this existed, an event agent emitting the vehicle `RIGETTI COMPUTING` (a company name) or
+    a symbol with no yfinance history (measured: `IFIN`, the sole funded pick of a 3-week smoke run)
+    flowed straight through to score.fetch_panel, which returned nothing and dropped the position
+    with NO trace in the output. A backtest then under-reported the positions the curator actually
+    took, and the equity curve looked fine. Silent is the failure mode that matters here, hence the
+    per-week print.
+
+    Also a LOOK-AHEAD guard: score.validate_tickers rejects a symbol whose first trade postdates the
+    anchor, so a backtest cannot buy a company that had not listed on the decision date.
+
+    Normalization is applied too, so `$RGTI` / `NASDAQ:RGTI` / `(RGTI)` all collapse to `RGTI`
+    instead of fragmenting one position into several unpriceable ones.
+
+    RESOLUTION, not just rejection. `scout()` already runs a company NAME through
+    `resolve_us_ticker` (a look-ahead-safe static name<->symbol lookup) — but ONLY for a candidate's
+    PRIMARY ticker. Its `peers` list went through nothing at all, which is exactly how the vehicle
+    `RIGETTI COMPUTING` reached an event's basket. So a name-shaped reject is sent to the SAME
+    resolver here and re-validated; only if that fails is the symbol dropped. Otherwise this guard
+    would discard a real position (RIGETTI COMPUTING -> RGTI) that the codebase already knows how to
+    recover. Pass `client=None` to skip resolution (offline replays)."""
+    if not cands:
+        return cands
+    as_of = anchor.date().isoformat()
+    raw = {c["ticker"] for c in cands} | {p for c in cands for p in (c.get("peers") or [])}
+    ok, bad = score.validate_tickers(sorted(raw), as_of=as_of)
+    okset, rescued = set(ok), {}
+
+    # second chance for the name-shaped rejects only: a bad SHAPE may be a resolvable company name,
+    # whereas "no price history" / "not listed until ..." are verdicts about a real symbol and final.
+    if client is not None:
+        for orig, reason in list(bad.items()):
+            if "company name" not in reason and "US-symbol shape" not in reason:
+                continue
+            sym = resolve_us_ticker(client, orig)
+            if not sym:
+                continue
+            good, _ = score.validate_tickers([sym], as_of=as_of)
+            if good:
+                rescued[score.normalize_ticker(orig)] = good[0]
+                okset.add(good[0])
+                bad.pop(orig, None)
+
+    def _fix(q: str) -> str:
+        n = score.normalize_ticker(q)
+        return rescued.get(n, n)
+
+    kept = []
+    for c in cands:
+        tk = _fix(c["ticker"])
+        if tk not in okset:
+            continue                       # primary symbol unusable -> the whole candidate goes
+        c = dict(c, ticker=tk,
+                 peers=[p for p in (_fix(q) for q in (c.get("peers") or []))
+                        if p in okset and p != tk])
+        kept.append(c)
+    if rescued:
+        print(f"    ticker guard ({as_of}) resolved {len(rescued)}: "
+              + "; ".join(f"{k!r} -> {v}" for k, v in rescued.items()), file=sys.stderr, flush=True)
+    if bad:
+        print(f"    !! ticker guard ({as_of}) rejected {len(bad)}: "
+              + "; ".join(f"{k!r} -> {v}" for k, v in list(bad.items())[:6])
+              + (f" (+{len(bad) - 6} more)" if len(bad) > 6 else ""), file=sys.stderr, flush=True)
+    return kept
+
+
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
                  curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
-                 max_new_events=CANDIDATE_CAP, event_agent_effort="high"):
+                 max_new_events=CANDIDATE_CAP, event_agent_effort="high",
+                 event_news_cap=EVENT_NEWS_CAP, max_event_scans=0):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
@@ -805,25 +1099,45 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
                      for v in ev["vehicles"]}
+    # A blank thesis is unusable downstream -- it becomes an event with no catalyst, writes NaN to
+    # firehose_scans.csv, and can never be judged resolved. Drop it at the door.
+    cands = [c for c in cands if str(c.get("thesis") or "").strip()]
     new_cands = [c for c in cands if c["ticker"] not in held_to_event]
+    # TICKER GUARD: normalize + verify tradeability BEFORE an unusable symbol can open an event and
+    # burn an event-agent call on it (see _validate_candidates).
+    new_cands = _validate_candidates(new_cands, anchor, client=scout_client)
     match = match_to_events(scout_client, anchor, new_cands, events) if new_cands else {}
     for c in new_cands:
         tk, eid = c["ticker"], match.get(c["ticker"], "new")
-        peers = {q.strip().upper() for q in c.get("peers", [])          # same-catalyst basket peers
-                 if q.strip() and "." not in q and q.strip().upper() != tk}
+        peers = {q for q in c.get("peers", []) if q != tk}   # already normalized + validated above
         if eid in events and events[eid]["status"] == "live":
             events[eid]["vehicles"] |= {tk, *peers}
         else:
             nid += 1
             events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"],
                                   "status": "live", "vehicles": {tk, *peers}, "entries": []}
+    # AGE CAP -- the mechanical backstop for a catalyst that never resolves. The design contract is
+    # that a catalyst is "specific, datable, resolvable"; an event still live after `max_event_scans`
+    # has, by that definition, turned out to be a THEME. Getting the LLM to call catalyst_resolved
+    # reliably has failed three times (see the catalyst-gate memories), and MAX_STALE only fires on
+    # SILENCE -- a theme like "uranium supply shortage" is covered every week, so it never goes stale
+    # and never exits. Measured 2026-08-10: events ran 68 and 78 scans (2.5-3 YEARS) on exactly that
+    # failure. This retires them without an LLM call, which also stops paying for them.
+    # The scout may re-propose the thesis on fresh evidence; that is the intended escape hatch.
+    if max_event_scans:
+        for ev in list(events.values()):
+            if ev["status"] == "live" and len(ev.get("entries") or []) >= max_event_scans:
+                ev["status"] = "exited"
+                for tk in ev["vehicles"]:
+                    retired[tk] = (f"{ev['catalyst']} (aged out after {max_event_scans} scans)", week_idx)
+                print(f"  aged out after {len(ev['entries'])} scans: {ev['catalyst'][:60]}", file=sys.stderr)
     merged = _consolidate_events(events)                   # weekly dup-catalyst merge
     if merged:
         print(f"  consolidated {merged} duplicate-catalyst event(s) ({anchor.date()})", file=sys.stderr)
     live_events = [ev for ev in events.values() if ev["status"] == "live"]
 
     def work(ev):
-        news = _filter_event(pool, ev)
+        news = _filter_event(pool, ev, cap=event_news_cap)
         if gate_silent and not news:                       # silence week -> mechanical carry-forward, NO LLM call
             return ev, _carry_forward(anchor, ev)
         return ev, event_agent_v2(client, anchor, ev, ev["entries"], news, effort=event_agent_effort)
@@ -851,17 +1165,22 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
 
 def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=None, seed=None,
                           pool_chunk_days=90, pool_per=150, provider="anthropic", targeted=False,
-                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, news_cap=WINDOW_CAP) -> dict:
+                          enrich=False, enrich_fetch=True, curator_memory_weeks=8, news_cap=WINDOW_CAP,
+                          arm="fuller") -> dict:
     """Event-first engine: scout -> match candidates into events -> per-event agent picks current
     vehicle(s). The watchlist is the union of each live event's current vehicles. Returns
     {anchor: picks} like the other engines, so backtest()/scoring are unchanged. Per-week resume.
 
     enrich=True: fill each week's GDELT headlines with their as-of-date Wayback lede (so the
-    curator sees the ticker the headline omits), look-ahead-clean (snapshot <= anchor)."""
+    curator sees the ticker the headline omits), look-ahead-clean (snapshot <= anchor).
+
+    `arm` selects which text the curator READS once the ledes are fetched (see lede.ARMS): "clean"
+    is the only look-ahead-safe choice and the only one whose results are quotable; "fuller" (the
+    default) prefers the clean lede and falls back to a fast `lede_live` where one exists."""
     import hashlib
     import os
     if enrich:
-        import wayback
+        import lede
     client = llm.make_client(provider, model)
     print(f"Event-agent: provider={provider} model={model}", file=sys.stderr)
     anchors = scan_anchors(start, end, rebalance_days)
@@ -871,8 +1190,8 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
     cache_f = REPO_ROOT / "data" / "windows" / f"gdelt_pool_{key}.json"
     cache_f.parent.mkdir(parents=True, exist_ok=True)
     stats_path = str(REPO_ROOT / "data" / "windows" / "retrieval_stats.json")
-    gpool = gd.pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
-                    cache_path=str(cache_f), stats_path=stats_path)
+    gpool = firehose.news_pool(qs, win_start, anchors[-1], chunk_days=pool_chunk_days, per=pool_per,
+                               cache_path=str(cache_f), stats_path=stats_path)
     seeds = firehose._fixture_articles(seed) if seed else []
     print(f"  pool {len(gpool)} + {len(seeds)} seeds; running event-agents ...", file=sys.stderr)
 
@@ -906,13 +1225,22 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
                           key=lambda x: x.get("published_date", ""), reverse=True)
         gslice = _gsorted[:news_cap] if news_cap else _gsorted   # news_cap=0 -> UNCAPPED (keep all)
         if enrich:
-            wayback.enrich(gslice, a.date().isoformat(), cache_path=enrich_cache,
-                           fetch=enrich_fetch, stats_path=stats_path)
+            # Two-speed ledes: the archive pass fills `lede` (clean), then apply() picks the arm that
+            # fills `snippet` -- the field the curator actually reads. With only the wayback pass run
+            # here, "fuller" resolves to the clean lede for every article that has one, and falls back
+            # to `lede_live` only where some other pass already supplied it.
+            lede.enrich_wayback(gslice, a.date().isoformat(), cache_path=enrich_cache,
+                                fetch=enrich_fetch, stats_path=stats_path)
+            lede.apply(gslice, arm=arm)
         seed_slice = firehose._window(seeds, a, rebalance_days)
         win = seed_slice + gslice
         provenance[a.isoformat()] = [
             {"src": src,
-             "wayback_hit": src == "gdelt" and bool(x.get("snippet") and x.get("snippet") != x.get("title")),
+             # explicit provenance now that clean/live ledes live in separate fields; the old
+             # "snippet != title" heuristic could not tell a clean lede from a biased one.
+             "wayback_hit": src == "gdelt" and x.get("lede_source") == "wayback",
+             "lede_source": x.get("lede_source") or "none",
+             "snippet_source": x.get("snippet_source") or "headline",
              "published_date": x.get("published_date", ""), "source": x.get("source", ""),
              "title": x.get("title", ""), "snippet": x.get("snippet", ""), "url": x.get("url", "")}
             for src, lst in (("seed", seed_slice), ("gdelt", gslice)) for x in lst]

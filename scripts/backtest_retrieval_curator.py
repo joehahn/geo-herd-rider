@@ -33,7 +33,7 @@ import agent  # noqa: E402
 import costs  # noqa: E402
 import firehose  # noqa: E402
 import llm  # noqa: E402
-from util import load_dotenv, scan_anchors  # noqa: E402
+from util import resolve_cadence, load_dotenv, scan_anchors  # noqa: E402
 from optimizer import load_financial_model, resolve_stage_models  # noqa: E402
 
 CKPT = ROOT / "data" / "retrieval_backtest.ckpt.json"
@@ -189,7 +189,7 @@ def main(argv=None):
 
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
-    reb = int(fm.get("rebalance_days", 7))
+    reb = resolve_cadence(fm)
     memw = int(fm.get("curator_memory_weeks", 8))
     news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
     scout_cli = llm.make_client(scout_prov, scout_id)
