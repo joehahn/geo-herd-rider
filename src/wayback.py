@@ -488,6 +488,17 @@ def enrich(articles: list[dict], cutoff: str, cache_path: str | None = None,
                 except WaybackTransient:
                     n_defer += 1
                     deferred.add(url)                  # don't cache; not tallied as a miss
+                except Exception as e:                 # noqa: BLE001
+                    # ANY other per-URL failure -- a DNS blip, a malformed snapshot, a decode error on
+                    # one archived page -- used to propagate and kill the whole pass. That is an
+                    # 11-hour unattended run thrown away by one bad URL, so treat it exactly like a
+                    # transient: defer it, leave it uncached, and keep going. Named on stderr so a
+                    # systematic fault is still visible rather than silently swallowed.
+                    n_defer += 1
+                    deferred.add(url)
+                    if n_defer <= 20 or n_defer % 500 == 0:
+                        print(f"    wayback: deferring {url[:70]} ({type(e).__name__}: {e})",
+                              file=sys.stderr, flush=True)
                 else:
                     cache[_ckey(url, per_cutoff.get(url, cutoff))] = res if res else False
                     n_new += 1

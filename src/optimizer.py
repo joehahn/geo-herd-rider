@@ -40,7 +40,10 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   (enter at that day's close). 1=next session, 2/3=wait.
     "min_trade_size": 0.0,             # LIVE: drop basket positions below this fraction and
                                        #   renormalize (pile in). ~1/N caps funded names near N.
-    "lookback_period_days": 14,        # LIVE: trailing window (calendar days, ending at entry)
+    "optimizer_lookback_days": 14,     # LIVE: trailing window (calendar days, ending at entry) behind
+                                       #   mu and Sigma. Renamed 2026-08-12 from lookback_period_days to
+                                       #   say WHOSE lookback it is -- news_lookback_days is the other one.
+    "lookback_period_days": 14,        # LIVE: trailing window (calendar days, ending at entry) [LEGACY ALIAS of optimizer_lookback_days]
                                        #   for the optimizer's mu/Sigma fit. Short = noisier weights.
     "model": "sonnet5",                # LEGACY/UMBRELLA: the default for every curator stage. The per-stage
                                        #   knobs below override it (chain: scout -> event -> model). Registered
@@ -80,6 +83,11 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   same trailing news window. Ignored when rebalance_period is set.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
+    "news_lookback_days": 0,           # LIVE: trailing calendar days of news each scan reads. 0 = follow
+                                       #   the cadence. Set it LONGER than the cadence for a deliberate
+                                       #   OVERLAP, so an article GDELT indexes late -- or one published
+                                       #   right on a scan boundary -- still gets read on the next scan
+                                       #   instead of falling in the gap. PWR carries the same knob.
     "news_cap": 0,                     # per-SCAN (per-week) cap on how many articles the scout reads
                                        #   (most-recent kept); ONE meaning everywhere. 0 = UNCAPPED. The
                                        #   forward's daily pull fetches uncapped; only this weekly scout
@@ -255,6 +263,14 @@ def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> 
     # legacy nested block are exempt; everything else gets named.
     unknown = [k for k in data
                if k not in _FINANCIAL_MODEL_DEFAULTS and k != "financial_model" and not k.startswith("_")]
+    # Keep the renamed knob and its legacy alias in lockstep, in whichever direction the profile
+    # wrote it. Existing readers of either name then see the same number and no call site has to move.
+    _new, _old = "optimizer_lookback_days", "lookback_period_days"
+    if _old in data and _new not in data:
+        out[_new] = out[_old]
+    elif _new in data:
+        out[_old] = out[_new]
+
     if unknown:
         import sys as _sys
         print(f"WARN {p.name}: {len(unknown)} profile key(s) NOT in optimizer._FINANCIAL_MODEL_DEFAULTS "

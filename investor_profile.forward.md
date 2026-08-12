@@ -69,7 +69,7 @@ event_news_cap: 20                # articles handed to EACH event-agent per scan
 relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
                                   #   here. Kept for parity so both profiles carry the same knobs.
 relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)
-lookback_period_days: 45          # trailing calendar days of prices used to estimate μ and Σ
+optimizer_lookback_days: 45          # trailing calendar days of prices used to estimate μ and Σ
 rebalance_period: biweekly        # weekly | biweekly | monthly | quarterly; how often the curator runs & rebalances,
                                   #   and the trailing news window each scan reads. NOTE the *_scans knobs above count
                                   #   SCANS, so their real-time horizon follows this.

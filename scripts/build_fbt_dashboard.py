@@ -850,7 +850,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', dra
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--run", default="data/backtest_1yr")
+    # The 3-year corpus is what the curator actually reads; the 1-year dir is a stale leftover.
+    # Defaulting to it silently rebuilt this dashboard on 1/3 of the data (caught 2026-08-12).
+    ap.add_argument("--run", default="data/backtest_3yr")
     ap.add_argument("--out", default="docs/fbt.html")
     a = ap.parse_args(argv)
     build(ROOT / a.run if not Path(a.run).is_absolute() else Path(a.run),

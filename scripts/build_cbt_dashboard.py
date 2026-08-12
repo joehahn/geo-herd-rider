@@ -184,7 +184,11 @@ def main(argv=None) -> int:
                 print(f"  picker unavailable ({type(_e).__name__}: {_e}); cull falls back to keep-first-N",
                       file=sys.stderr)
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick)
-        prec = _bt.get("agent_precision", [])
+        # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
+        # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
+        # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
+        # than silently counted as losses -- the "no priced theses" fallback already assumed this.
+        prec = [x for x in _bt.get("agent_precision", []) if isinstance(x.get("ret"), (int, float))]
         # how hard the max_watchlist cull actually bites: live names vs what may hold capital
         _w = _fh._stateful_watch(_scans, seed=[x.upper() for x in (_lfm0.get("starter_watchlist") or [])])
         _live_n = [len(v) for v in _w.values()]
@@ -393,11 +397,11 @@ def main(argv=None) -> int:
              why="Share of cited articles found back in the corpus. Low means picks rest on evidence "
                  "the backtest cannot audit."),
         dict(label="Agent precision",
-             value=(f"{100*sum(1 for x in prec if x['ret'] > 0)/len(prec):.0f}%" if prec else "—"),
-             sub=(f"{sum(1 for x in prec if x['ret'] > 0)} of {len(prec)} theses profitable"
+             value=(f"{100*sum(1 for x in prec if (x['ret'] or 0) > 0)/len(prec):.0f}%" if prec else "—"),
+             sub=(f"{sum(1 for x in prec if (x['ret'] or 0) > 0)} of {len(prec)} theses profitable"
                   if prec else "no priced theses"),
-             status=("good" if prec and sum(1 for x in prec if x["ret"] > 0)/len(prec) >= 0.5
-                     else "warning" if prec and sum(1 for x in prec if x["ret"] > 0)/len(prec) >= 0.35
+             status=("good" if prec and sum(1 for x in prec if (x["ret"] or 0) > 0)/len(prec) >= 0.5
+                     else "warning" if prec and sum(1 for x in prec if (x["ret"] or 0) > 0)/len(prec) >= 0.35
                      else "critical"),
              why="Share of the curator's theses that made money standalone over their live span. A "
                  "HIT RATE, not a return — breadth without precision is noise."),
@@ -641,7 +645,7 @@ def main(argv=None) -> int:
               "came from. Grey means no beat-attributable evidence.",
               "c-wcomp", _wcomp_h),
         panel(3, "Cumulative $ gain per holding",
-              "The 5 best and 5 worst funded names, with every other name rolled into one grey bar. "
+              "The 10 best and 5 worst funded names, with every other name rolled into one grey bar. "
               "A result resting on one or two names is a different thing from the same return spread "
               "across many — and the difference is not visible in the equity curve above. <b>Click any "
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
@@ -1113,14 +1117,16 @@ function draw() {{
               zerolinewidth:1.5, title:{{text:'return over watchlisted span', font:{{size:11}}}}}}}}), CFG);
 
   const GH = Object.entries(BK.gain);
-    // TOP 5 + BOTTOM 5 + one rolled-up bar for everything between. 85 funded names is unreadable as
+    // TOP 10 + BOTTOM 5 + one rolled-up bar for everything between. 85 funded names is unreadable as
     // 85 bars, and the middle of that distribution is the part that carries no information -- what
     // matters is which few names made the money, which few lost it, and whether the long tail nets
-    // out to anything. The rolled bar is grey because it is an aggregate, not a name.
+    // out to anything. Asymmetric on purpose: the winners are where the thesis either worked or
+    // did not, so they get the deeper list. The rolled bar is grey because it is an aggregate.
+    const _NTOP = 10, _NBOT = 5;
     const _gs = GH.slice().sort((a,b) => b[1] - a[1]);
-    const _top = _gs.slice(0, 5);
-    const _bot = _gs.slice(-5);
-    const _midArr = _gs.slice(5, Math.max(5, _gs.length - 5));
+    const _top = _gs.slice(0, _NTOP);
+    const _bot = _gs.length > _NTOP + _NBOT ? _gs.slice(-_NBOT) : _gs.slice(_NTOP);
+    const _midArr = _gs.slice(_NTOP, Math.max(_NTOP, _gs.length - _NBOT));
     const _mid = _midArr.reduce((s, e) => s + e[1], 0);
     const GHr = _midArr.length
       ? [..._top, [`other (${{_midArr.length}})`, _mid], ..._bot]

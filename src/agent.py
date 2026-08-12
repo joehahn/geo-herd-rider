@@ -232,7 +232,13 @@ Decide:
                  the event is SOLELY a theme/secular-momentum story, a valuation call ("undervalued",
                  "13F"), a technical signal ("golden cross"), generic macro, hype, or a one-off mention
                  with no resolvable catalyst at all.
-  exit_advice  — <=20 words: the concrete condition that would end the thesis.
+  exit_advice  — <=20 words: the OBSERVABLE EVENT whose OCCURRENCE ends the thesis, and roughly WHEN
+                 it is due ("Q3 earnings confirm DRAM pricing", "FDA decision by ~Mar 2026", "mine
+                 reaches commercial output ~mid-2026"). Name the thing the thesis is WAITING FOR.
+                 Do NOT write a reversal that may never arrive ("exit if export curbs are lifted",
+                 "exit on a ceasefire") — a condition with no due date can never be checked off, so
+                 the position rides until it times out. If the driver is a PERMANENT condition with
+                 no pending milestone, this is a theme, not a catalyst: set thesis_live=false.
   assessment   — <=40 words: what changed this week and your read, continuous with your prior note.
   news_claims  — OPTIONAL <=12 words: attribute any size/return figure to the PRESS ("press cites
                  ~600% YTD"). NEVER your own price target or magnitude forecast — you do not predict
@@ -716,7 +722,9 @@ FIRST, TEST YOUR OWN STANDING EXIT CONDITION. Your journal carries the `exit_adv
 you entered and every week since: "exit if/when <observable thing>". Read it and answer ONE concrete
 question against THIS WEEK'S NEWS and every prior week — HAS THAT THING HAPPENED? It is a factual
 check, not a fresh opinion. If it has, the thesis is over: say so in `exit_case`, and set
-catalyst_resolved=true if the trigger you named WAS the catalyst resolving. Re-deriving the exit case
+catalyst_resolved=true if the trigger you named WAS the catalyst resolving. THE DUE DATE COUNTS TOO:
+if the milestone you named was due and has now passed — it happened, or it quietly did not — the
+thesis is equally over, because what you were waiting for is no longer ahead of you. Re-deriving the exit case
 from scratch each week is how a position drifts past its own stated trigger -- you already committed
 to what would end this, so check that first, before forming any new view.
 
@@ -727,9 +735,12 @@ chokepoint reopened, shortage ended) (`exit_case`, <=20 words). Write "none" ONL
 looking and finding nothing. This is NOT a "was I right?" review (that just rubber-stamps the hold) —
 it is the case AGAINST the position, made fresh each week, which is what defeats hold-inertia.
 
-A QUIET STRETCH IS NOT AN EXIT. Do NOT exit on "staleness", "aging thesis", "edge decayed", "premium
-already absorbed / priced-in", or "N quiet weeks with no fresh news" while the DRIVING CONDITION is
-still in force. A live catalyst can go silent for weeks and then RE-ACCELERATE (a follow-on deal, an
+A QUIET STRETCH IS NOT AN EXIT — BUT A FINISHED CATALYST IS. Do NOT exit on "staleness", "aging
+thesis", "edge decayed", or "N quiet weeks with no fresh news" while the catalyst you named is STILL
+PENDING. That guard protects a live catalyst that has gone quiet; it does NOT protect a catalyst that
+has already happened, or one whose due date has passed, or a thesis resting on a PERMANENT condition
+(standing export controls, an ongoing war, a secular trend) with no pending milestone left. Those are
+over, and holding them until the age cap retires them is the failure this paragraph must not cause. A live catalyst can go silent for weeks and then RE-ACCELERATE (a follow-on deal, an
 escalation, a government stake) — exiting on silence forfeits exactly that second leg. HOLD through
 silence; exit ONLY on the resolution / reversal above (or catalyst_resolved below).
 

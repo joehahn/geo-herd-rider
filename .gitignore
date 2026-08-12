@@ -103,7 +103,7 @@ data/backtest_1yr/
 data/backtest_3yr/
 data/backtest_gkg/
 data/cap[A-Z]*/
-data/smoke_gkg*/
+data/smoke_*/
 data/spot*/
 data/windows/picker_cache.json
 # sweep grids: free to regenerate (scripts/sweep_optimizer.py, ~12 min, no LLM calls)

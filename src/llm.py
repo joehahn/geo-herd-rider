@@ -157,7 +157,33 @@ class OpenRouterClient(LLMClient):
             # rate-limited primary doesn't fall back to one that 400s on structured output (the
             # StreamLake/DeepInfra failure that crashed deepseek BWET mid-scan).
             kw["extra_body"] = {"provider": {"require_parameters": True}}
-        r = self._c.chat.completions.create(**kw)
+        # RETRY. This path had NO retry: one bad response killed the caller. A 3-year curation died at
+        # scan 18/37 (2026-08-12) when OpenRouter returned a non-JSON body and the SDK's .json()
+        # raised JSONDecodeError straight through. The Anthropic path above already backs off; this
+        # one now matches it, and also treats a malformed/truncated body as transient -- because from
+        # here it is indistinguishable from a 5xx, and the only safe response is to ask again.
+        import json as _json, sys as _sys, time as _t
+        _r = None
+        # 3 attempts, NOT 6: the SDK client above already retries 4x per call at a 90s timeout, so
+        # this outer loop multiplies with it. At 6 it could spend ~45 min on a single wedged call and
+        # block the whole scan (24 workers, ex.map waits for all). This loop exists only for the
+        # errors the SDK does NOT retry -- chiefly a malformed/truncated body -- so it stays short.
+        for _a in range(3):
+            try:
+                _r = self._c.chat.completions.create(**kw)
+                break
+            except Exception as _e:  # noqa: BLE001 - classified below, re-raised if not transient
+                _n = type(_e).__name__
+                _transient = isinstance(_e, _json.JSONDecodeError) or any(
+                    k in _n for k in ("APIConnection", "APITimeout", "RateLimit", "InternalServer",
+                                      "APIStatus", "ReadTimeout", "ConnectError", "RemoteProtocol"))
+                if not _transient or _a == 2:
+                    raise
+                _w = min(45, 3 * 2 ** _a)
+                print(f"  llm transient {_n} for {label}; retry {_a + 1}/5 in {_w}s",
+                      file=_sys.stderr, flush=True)
+                _t.sleep(_w)
+        r = _r
         text = r.choices[0].message.content or ""
         u = r.usage
         # Record only the token cost (accurate). OpenRouter's :online web plugin is billed

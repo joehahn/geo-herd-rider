@@ -22,28 +22,28 @@ picker_model:                     # BLANK = off. Would pick which live events ho
 # ---------- CURATOR: what gets discovered, and when it is dropped ----------
 retrieval_engine: gkg             # backtest news source (GDELT GKG on BigQuery). Forward always uses web search.
 news_cap: 0                       # articles the scout reads per scan. 0 = all of them.
+news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 4                 # new events admitted per scan, best-sourced first (gem beats outrank generic coverage beats). 
 curator_memory_weeks: 4           # Scans of already-resolved catalysts the scout is reminded of, so it does not re-open a thesis that is already over.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
 max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
-max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). A catalyst not resolved by then was a theme, not a catalyst.
+max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). 
 
 # ---------- OPTIMIZER: what gets funded, and how much ----------
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
-always_include: [SPY, GLD]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once. 
-cull_rank: trend                  # when live events > max_watchlist, who gets money. trend=best recent risk-adjusted price; keep-first=alphabetical, kept ONLY as the sweep's null control.
+always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
+max_watchlist: 12                 # how many tickers may hold capital at once.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped. 0 = never drop on unfunding alone; max_watchlist does the pruning.
+drop_unfunded_weeks: 2            # scans a name can go unfunded before it is dropped from the watchlist.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
 concentration_cap: 0.40           # most of the book any one ticker may take.
 min_trade_size: 0.05              # positions smaller than this are dropped rather than held as dust.
 risk_aversion: 3.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
-lookback_period_days: 60          # days of price history behind μ and Σ. Short lookbacks chase noise; cancellation falls monotonically 21d->60d.
-rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. Also the news window per scan.
+optimizer_lookback_days: 21       # days of price history behind μ and Σ.
+rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. The trading cadence.
 t_update_days: 1                  # trading days between the signal and the trade.
 risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
 

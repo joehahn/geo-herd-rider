@@ -132,13 +132,18 @@ def main(argv=None):
     # until 2026-08-09, which quietly made the profile's cadence knob decorative for the backtest.
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     cadence = a.rebalance_days if a.rebalance_days else resolve_cadence(fm)
+    # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
+    # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
+    news_win = int(fm.get("news_lookback_days") or 0) or cadence
     anchors = scan_anchors(a.start, a.end, cadence)
     win_start = anchors[0] - pd.Timedelta(days=10)
     cache_f = str(OUT / "gdelt_pool.json")
     stats = str(OUT / "retrieval_stats.json")
     enrich_cache = str(OUT / "wayback.json")     # clean arm: url -> as-of lede | false
     live_cache = str(OUT / "lede_live.json")     # fast arm: url -> today's lede | false
-    print(f"  {len(anchors)} scans every {cadence}d  {anchors[0].date()} .. {anchors[-1].date()}", flush=True)
+    print(f"  {len(anchors)} scans every {cadence}d, reading {news_win}d of news"
+          f"{' (OVERLAP '+str(news_win-cadence)+'d)' if news_win>cadence else ''}  "
+          f"{anchors[0].date()} .. {anchors[-1].date()}", flush=True)
 
     gpool = None
     if a.corpus:
@@ -209,9 +214,9 @@ def main(argv=None):
         if wk in done:
             continue
         if a.by_week and not a.no_pull and not a.corpus:     # pull THIS week's beats now, then process it
-            gpool = firehose.news_pool(firehose.GDELT_QUERIES, anch - pd.Timedelta(days=cadence), anch,
+            gpool = firehose.news_pool(firehose.GDELT_QUERIES, anch - pd.Timedelta(days=news_win), anch,
                                        chunk_days=7, per=80, cache_path=cache_f, stats_path=stats)
-        _raw = sorted(firehose._window(gpool, anch, cadence),   # news window == the cadence (ONE knob)
+        _raw = sorted(firehose._window(gpool, anch, news_win),  # news window; >= cadence gives an overlap
                       key=lambda x: x.get("published_date", ""), reverse=True)
         if rel_on:                  # stand in for the forward's search-engine relevance ranking
             _before = len(_raw)
