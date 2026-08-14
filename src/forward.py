@@ -211,6 +211,44 @@ def _scans_dict(log: pd.DataFrame) -> dict:
     return dict(sorted(out.items()))
 
 
+# ANTHROPIC NEEDS A WIDER RETRIEVAL WINDOW THAN TAVILY. Measured 2026-08-14 on a live 165-result gem
+# sweep: at the 1-day window the daily pull used, **0 of 165** results survived the fail-closed date
+# filter (3d -> 22, 7d -> 35, 14d -> 55). Anthropic's web_search has NO recency operator -- `before:DATE`
+# bounds only the UPPER end -- so it returns articles spread over months and a 1-day window matches
+# essentially nothing. That is the whole of the "anthropic 0 + tavily N" line every day for 32 days:
+# not a crash, a spec mismatch, which is why it never raised. Tavily has a real date filter, so it keeps
+# lookback=1 and stays the precise daily engine.
+#
+# Widening looks BACKWARD only (hi stays at the anchor), so it cannot leak future news -- non-negotiable
+# #4 is intact. The cost is that consecutive days re-surface the same articles, so _drop_already_pulled
+# removes any URL an earlier daily file already stored.
+_ANTHROPIC_LOOKBACK = 7
+
+
+def _drop_already_pulled(arts: list, daily_dir: Path, today_key: str, back: int = 21) -> list:
+    """Drop articles whose URL an earlier daily file already captured.
+
+    The Anthropic pass looks back `_ANTHROPIC_LOOKBACK` days, so without this the same article would be
+    re-stored every day for a week and the weekly scan would read it as several independent mentions --
+    which would corrupt evscore's coverage-velocity signal (it counts mentions per scan)."""
+    seen: set = set()
+    for f in sorted(daily_dir.glob("*.json"))[-back:]:
+        if f.stem >= today_key:
+            continue
+        try:
+            for a in (json.loads(f.read_text()).get("pool") or []):
+                u = (a.get("url") or "").split("?")[0].rstrip("/").lower()
+                if u:
+                    seen.add(u)
+        except Exception:  # noqa: BLE001 -- a corrupt old file must not block today's pull
+            continue
+    out = [a for a in arts
+           if (a.get("url") or "").split("?")[0].rstrip("/").lower() not in seen]
+    if len(out) != len(arts):
+        print(f"    anthropic: {len(arts) - len(out)} of {len(arts)} already pulled on an earlier day")
+    return out
+
+
 def pull_day(model: str, gather_engine: str = "both") -> None:
     """DAILY past-24h news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
     The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
@@ -235,12 +273,23 @@ def pull_day(model: str, gather_engine: str = "both") -> None:
         arts = forward_gather_tavily.gather(None, model, day, 1, capture=cap, cap=0)
     elif gather_engine == "both":                           # UNION: Anthropic + Tavily, deduped by URL
         acap, tcap = {}, {}
-        a_arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=acap, cap=0)
+        a_arts = forward_gather.gather(anthropic.Anthropic(), model, day, _ANTHROPIC_LOOKBACK,
+                                       capture=acap, cap=0)
+        a_arts = _drop_already_pulled(a_arts, daily_dir, dk)
         t_arts = forward_gather_tavily.gather(None, model, day, 1, capture=tcap, cap=0)
         arts = forward_gather.merge_pools(a_arts, t_arts)
         cap["arts"] = arts
         cap["queries"] = (acap.get("queries") or []) + (tcap.get("queries") or [])
         print(f"    union: anthropic {len(a_arts)} + tavily {len(t_arts)} -> {len(arts)} deduped")
+        # FAIL LOUD ON A DEAD ENGINE. The union masks a broken half: "anthropic 0 + tavily 139" reads
+        # like a normal line, and that is exactly how the Anthropic pass stayed dead for 32 days while
+        # the corpus quietly lost the Cloudflare-walled specialty desks Tavily cannot reach. The two
+        # engines are COMPLEMENTARY, not redundant -- measured over 34 overlapping days, GKG and the
+        # web-search corpus shared 2.3% of URLs -- so a silent zero is a real hole, not a rounding error.
+        for _eng, _n in (("anthropic", len(a_arts)), ("tavily", len(t_arts))):
+            if _n == 0:
+                print(f"  !! WARNING: the {_eng} gather returned ZERO articles for {dk}. The pull is "
+                      f"running on one engine and this day's corpus has a coverage hole.", file=sys.stderr)
     else:
         arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=0)  # uncapped daily
 

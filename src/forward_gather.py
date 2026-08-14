@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json as _json
 import re
+import time as _time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -245,10 +246,32 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     fetch/freeze that subset. The full window filter still runs on the fetched dates (fail closed).
     """
     _WS = "web_search_20260209"
-    gem = _run_search(client, model, anchor, GEM_SYSTEM,                       # pass 1: specialty-allowlisted gem sweep
-                      {"type": _WS, "name": "web_search", "max_uses": 24, "allowed_domains": _SPECIALTY_ALLOW}, "gem")
-    cov = _run_search(client, model, anchor, COVERAGE_SYSTEM,                  # pass 2: broad sweep, mills blocked
-                      {"type": _WS, "name": "web_search", "max_uses": 24, "blocked_domains": _MILL_BLOCK}, "coverage")
+
+    def _search_with_backoff(system, tool, label):
+        """Run one pass; if it comes back with QUERIES BUT NO RESULTS, wait and retry.
+
+        That exact signature -- searches issued, nothing returned -- is server-side web-search rate
+        limiting, not an empty internet. Observed 2026-08-14: a lone GEM pass returned 165 results, but
+        the COVERAGE pass right behind it returned 0 from 0 queries, and the model's own text said "I've
+        hit a hard limit on web search calls for this session". Two 24-use passes back to back can
+        exhaust the allowance, and the old code treated the resulting emptiness as a normal quiet day."""
+        for attempt in range(3):
+            r = _run_search(client, model, anchor, system, tool, label)
+            if r["results"] or not r["queries"]:
+                return r                                  # got results, or genuinely searched nothing
+            wait = 60 * (attempt + 1)
+            print(f"    {label}: {len(r['queries'])} searches returned 0 results "
+                  f"(web-search rate limit); waiting {wait}s and retrying", flush=True)
+            _time.sleep(wait)
+        return r
+
+    gem = _search_with_backoff(GEM_SYSTEM,                                     # pass 1: specialty-allowlisted gem sweep
+                               {"type": _WS, "name": "web_search", "max_uses": 24,
+                                "allowed_domains": _SPECIALTY_ALLOW}, "gem")
+    _time.sleep(20)          # let the web-search allowance recover before pass 2 (see _search_with_backoff)
+    cov = _search_with_backoff(COVERAGE_SYSTEM,                                # pass 2: broad sweep, mills blocked
+                               {"type": _WS, "name": "web_search", "max_uses": 24,
+                                "blocked_domains": _MILL_BLOCK}, "coverage")
     merged: dict[str, dict] = {}                                               # merge both passes, UNIONing query tags
     for r in gem["results"] + cov["results"]:
         ex = merged.get(r["url"])
@@ -285,8 +308,24 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     # FAIL CLOSED: keep only articles with a parseable date INSIDE the window (lo, hi]. Undateable or
     # future-dated (the before:-leak) are dropped — never leak an unconfirmable article to the scout.
     kept = [a for a in built if a["published_date"] and lo < a["published_date"][:10] <= hi]
+
+    # FUNNEL LOG. This pipeline can return zero for at least four unrelated reasons -- no search results,
+    # everything triaged out on URL date, every freeze-fetch failing, or a window too narrow for what the
+    # engine returns -- and they are indistinguishable from the outside. That ambiguity is what let the
+    # daily pull report "anthropic 0" for 32 days without anyone being able to say why. One line, every run.
+    _undated = sum(1 for a in built if not a["published_date"])
+    _out = len(built) - len(kept) - _undated
+    print(f"    gather funnel [{lo}..{hi}]: {len(raw['results'])} raw -> {len(triaged)} triaged -> "
+          f"{len(survivors)} fetched -> {len(kept)} in-window "
+          f"(dropped: {_out} out-of-window, {_undated} undateable)", flush=True)
     kept.sort(key=lambda a: a["published_date"], reverse=True)
-    result = kept[:cap]
+    # cap=0 MEANS UNCAPPED, NOT "KEEP NOTHING". `kept[:0]` is the empty list, and that one slice is what
+    # returned "anthropic 0" on every daily pull for 32 days: pull_day passes cap=0 for exactly the reason
+    # its docstring gives ("the daily pull must keep every day's news"), and every article the gather had
+    # just found, dated and frozen was thrown away on the last line. It never raised and never logged, so
+    # the union line read "anthropic 0 + tavily 139" like a slow news day. 0 = uncapped is the convention
+    # everywhere else here (news_cap, max_new_events both document it); this now honours it.
+    result = kept[:cap] if cap else kept
     if capture is not None:
         kept_urls = {a["url"] for a in result}
         capture["queries"] = raw["queries"]
