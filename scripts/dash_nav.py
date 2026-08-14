@@ -24,7 +24,7 @@ BACKTEST = [
     ("sbt.html", "Sweeps", True),
 ]
 BOOTSTRAP = [
-    ("fbs.html", "Firehose", False),
+    ("fbs.html", "Firehose", True),      # built 2026-08-14
     ("cbs.html", "Curator", False),
 ]
 FORWARDTEST = [
