@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -172,6 +173,14 @@ def main(argv=None):
 
     (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
     memw = int(fm.get("curator_memory_weeks", 8))
+    # The event-concurrency picker. Built once; None unless BOTH knobs are set, so an unset picker_model
+    # cannot silently turn max_events into "keep the first N", which would be a mechanical cull wearing
+    # the picker's name.
+    _picker = None
+    if int(fm.get("max_events") or 0) and fm.get("picker_model") and not os.environ.get("GHR_NO_PICKER"):
+        import picker as _pk
+        _picker, _pstats = _pk.make_picker(fm)
+        print(f"  event-picker ON: cap {fm.get('max_events')} via {_pstats()[1]}", flush=True)
     news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
     ev_cap = a.event_news_cap if a.event_news_cap is not None else int(fm.get("event_news_cap", 20))
     rel_keep = a.relevance_keep if a.relevance_keep is not None else int(fm.get("relevance_keep", 0))
@@ -248,6 +257,8 @@ def main(argv=None):
             x["engine"] = "gdelt"
         picks, nid = agent.process_week(event_cli, anch, gslice, events, retired, nid, i,
                                         curator_memory_weeks=memw, scout_client=scout_cli,
+                                        discovery_filter=bool(fm.get('discovery_filter')),
+                                        max_events=int(fm.get('max_events') or 0), picker=_picker,
                                         event_news_cap=ev_cap, max_event_scans=max_ev_scans,
                                         max_new_events=max_new, workers=a.workers)
         live = [p for p in picks if p["thesis_live"]]

@@ -24,8 +24,10 @@ for attempt in {1..40}; do
   print -r -- "=== attempt $attempt $(date -u +%FT%TZ) ===" >> "$LOG"
   # ingest.py is the corpus tool. NOT backfill_gdelt.py -- that one ignores its arguments, runs the
   # FORWARD pipeline, and bills BigQuery scans (~4.5 GB per weekly chunk) no matter what you pass it.
-  .venv/bin/python scripts/ingest.py --out "$CORPUS" --no-discover --wayback --gentle \
-      --misses-only >> "$LOG" 2>&1 &
+  # NO --misses-only: that pass is DONE (its 16,881 leftovers are confirmed-unarchived, not unfetched).
+  # This pass targets the 81,523 articles whose text came from a LIVE page fetched today -- look-ahead
+  # risk, since the page may have been edited since publication. An as-of snapshot replaces it.
+  .venv/bin/python scripts/ingest.py --out "$CORPUS" --no-discover --wayback --gentle >> "$LOG" 2>&1 &
   pid=$!
   # watch for a stalled log while the child runs
   while kill -0 $pid 2>/dev/null; do

@@ -474,7 +474,13 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
     for t in (seed or []):
         holding[t] = True; dead[t] = 0; stale[t] = 0
     for a in anchors:
-        resolved = {p["ticker"] for p in scans[a] if p.get("catalyst_resolved")}
+        # catalyst_resolved is DELIBERATELY IGNORED (2026-08-12). Replaying the 3-year v10 book with
+        # the flag honoured vs ignored gave $763,866 / 31.8% cancelled / Sharpe 1.67 against
+        # $764,075 / 31.3% / 1.70 -- i.e. it changes nothing, or marginally hurts. It fired on 7% of
+        # entries and three separate attempts to make it fire more never moved the book, because the
+        # exit that actually matters is thesis_live (removing THAT costs $257k and 0.32 Sharpe).
+        # The flag is still read from the scan rows and rendered, so old runs keep their history.
+        resolved: set = set()
         live = {p["ticker"] for p in scans[a] if _live(p)} - resolved
         flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
         for t in resolved:                   # catalyst RESOLVED -> honor the agent's verdict, exit NOW

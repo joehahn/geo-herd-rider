@@ -503,7 +503,7 @@ def build(run: Path, out: Path) -> None:
               "behaviour, not a retrieval fault — this panel exists so a real gap is distinguishable "
               "from the ordinary weekly cycle.",
               "p-dow", 300),
-        panel(4, "Body text vs article age",
+        panel(4, "Body text vs time",
               "Fraction of articles containing text rather than just a bare headline. Older articles "
               "score worse because their links have rotted.",
               "p-text", 360),
@@ -513,13 +513,19 @@ def build(run: Path, out: Path) -> None:
               "current text (pulled via the GKG-provided url) which may have been edited since. "
               "<b>None</b> is a bare headline.",
               "p-prov", 380),
-        panel(6, "Wayback backfill progress",
-              "A Wayback pass is filling the articles that reached the curator as a bare headline — "
-              "dead links, 5xx, paywalls. This panel reads the backfill's cache directly rather than "
-              "the corpus file, so it moves every time this page is rebuilt instead of waiting for "
-              "the multi-day pass to finish. Grey is the remaining hole per month, green is text "
-              "already recovered. The hole is concentrated in the oldest months, because that is "
-              "where links have rotted.",
+        panel(6, "Wayback hit rate (of URLs attempted)",
+              "A Wayback pass fills the articles that reached the curator as a bare headline — dead "
+              "links, 5xx, paywalls. Grey is the remaining hole per month, green is text recovered. "
+              "The hole concentrates in the oldest months, where links have rotted, and in the "
+              "NEWEST, where archive.org has not crawled yet. This panel reads the backfill's cache "
+              "directly rather than the corpus file, so it moves on every rebuild instead of waiting "
+              "for the multi-day pass to finish."
+              "<br><br><b>Mind the denominator.</b> The headline percentage here is hits &divide; URLs "
+              "<b>ATTEMPTED</b> — only the articles that lacked text and were queued for Wayback. It "
+              "is NOT the share of the corpus carrying text, which is the stat tile above and panel 5. "
+              "The two are easily confused because they currently sit a tenth of a point apart by "
+              "coincidence: the hit rate is 63.3% of attempted URLs, while live-page text happens to "
+              "be 63.4% of the corpus. Corpus text coverage is 87% (23% archived + 63% live).",
               "p-backfill", 360),
         panel(7, "Live vs archived text divergence",
               "Most of this corpus was read from the article's page <b>as it looks today</b>, "

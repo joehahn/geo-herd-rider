@@ -36,19 +36,30 @@ import optimizer  # noqa: E402
 import score  # noqa: E402
 
 # The grid. Two families, both FREE because neither touches the curation:
-#   WHEN capital enters and leaves (cull_rank, max_watchlist, lookback_period_days,
+#   WHEN capital enters and leaves (max_watchlist, lookback_period_days,
 #     drop_unfunded_weeks) -- what the eyeball review of the price popups flagged, since 8 of 10
 #     questionable rides were the optimizer defunding while the curator still had the thesis live;
 #   HOW MUCH each name gets (concentration_cap, risk_aversion, min_trade_size) -- the mean-variance
 #     sizing knobs, swept because PWR's sweep found lambda and the cap to be its live levers.
+# cull_rank is NOT swept: fixed at `trend`. Settled 2026-08-12 on the v10 book -- trend wins every
+# full-grid marginal (cancelled 44.8 vs 46.2, Sharpe 0.85 vs 0.77, ann 34.9 vs 27.5) and takes all 20
+# of the top plateau rows. `keep-first` (alphabetical) survives the shortlist gates MORE often, but
+# only because it never rotates on price, so it is steadier and poorer -- not a real contender.
+# Worth re-adding as a periodic NULL CONTROL: on the v8 book trend and alphabetical tied, which was
+# the tell that the trend ranker was doing nothing, and only a null could have shown that.
 GRID = {
-    "cull_rank":            ["trend", "keep-first"],
     "max_watchlist":        [4, 6, 8, 12],
     "concentration_cap":    [0.25, 0.40, 0.60],
-    "lookback_period_days": [21, 30, 45, 60],
+    # 7/10/14 added 2026-08-12: 21 was the grid's LOWER EDGE and won 20/20 of the shortlist top-20,
+    # which is the signature of a sweep that wants to go further than it is allowed to.
+    "lookback_period_days": [7, 10, 14, 21, 30, 45, 60],
     "drop_unfunded_weeks":  [0, 2, 4],
     "risk_aversion":        [0.5, 1.0, 2.0, 3.0, 4.0],
-    "min_trade_size":       [0.0, 0.025, 0.05, 0.10],
+    # Extended to 0.2/0.3. Over [0.0 .. 0.10] this knob was DEAD (13/13/13/12 across the shortlist) --
+    # every value was below a typical position, so it only ever swept dust. At max_watchlist 8 an equal
+    # book is 12.5% a name, so 0.2/0.3 finally BITE: they force the book down to its 3-4 largest
+    # convictions. That turns a dust filter into a real concentration lever, which is a different knob.
+    "min_trade_size":       [0.0, 0.05, 0.10, 0.20, 0.30],
 }
 
 # Worker state. The frozen price panel is several MB and every cell needs it, so it is handed to each

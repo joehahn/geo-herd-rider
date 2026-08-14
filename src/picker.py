@@ -29,11 +29,12 @@ _ROOT = Path(__file__).resolve().parent.parent
 _CACHE_PATH = _ROOT / "data" / "windows" / "picker_cache.json"
 
 PICKER_SYS = (
-    "You are the weekly AGENT-PICKER for a news-driven portfolio. You are given every currently-live "
-    "event-agent, each with: ticker, catalyst, milestones-to-date, its stated exit condition, and "
-    "weeks_alive. Output an ORDERED keep-list of the agents most worth holding capital next week (top = "
-    "most worth a slot). You do NOT assign weights, sizes, or expected returns — a mechanical optimizer "
-    "sizes whatever you keep. Rank on THESIS ARC AND HEALTH, using the evidence:\n"
+    "You are the weekly EVENT-PICKER for a news-driven portfolio. You are given every currently-live "
+    "EVENT, each with: id, the vehicles (tickers) expressing it, catalyst, milestones-to-date, its "
+    "stated exit condition, and weeks_alive. ONE event is ONE thesis however many tickers carry it, so "
+    "judge the THESIS, not the basket size. Output an ORDERED keep-list of the EVENT IDS most worth "
+    "holding capital next week (top = most worth a slot). You do NOT assign weights, sizes, or expected "
+    "returns — a mechanical optimizer sizes whatever you keep. Rank on THESIS ARC AND HEALTH:\n"
     "- FAVOR catalysts still early / building — the shock is unfolding, milestones still landing, thesis "
     "unresolved and under-owned.\n"
     "- DEMOTE catalysts that have crested or are near resolution — if a long-lived winner's catalyst is "
@@ -41,7 +42,7 @@ PICKER_SYS = (
     "the thesis dies, don't ride it into resolution.\n"
     "- RESERVE a few slots for the newest agents — fresh events are fishing expeditions; most won't pay, so "
     "keep several lines in the water. Don't let established agents crowd out all exploration.\n"
-    'Return JSON: {"keep": ["TICKER", ...]} ordered best-first.'
+    'Return JSON: {"keep": ["ev12", ...]} — EVENT IDS, ordered best-first.'
     # NOTE: cumulative P&L was REMOVED as an input (2026-07-14) — it depended on prior cull decisions, creating
     # a chaotic feedback loop that made the backtest non-reproducible. Inputs are now stable/scan-derived only.
 )
@@ -53,8 +54,8 @@ def make_picker(fm: dict, cache_path: Path | None = None):
     """Return (pick_fn, stats_fn). pick_fn(cand_meta, max_keep) -> ordered keep-list of tickers.
 
     picker_model resolves through the curator-model registry; default 'sonnet5' (the picker NEEDS a strong
-    model — cheap models tie or trail random). cand_meta = [{ticker, catalyst, milestones, exit_condition,
-    weeks_alive, cum_pnl_usd}, ...]."""
+    model — cheap models tie or trail random). cand_meta = [{ticker (the EVENT ID), vehicles, catalyst, milestones,
+    exit_condition, weeks_alive}, ...]. `ticker` keeps its name so the cache key and schema are unchanged."""
     short = fm.get("picker_model") or "sonnet5"
     effort = str(fm.get("picker_effort", "low")).lower()   # ranking task -> 'low' by default (cheap/fast); 'high' for the forward test
     mid, prov = resolve_curator_model(short)

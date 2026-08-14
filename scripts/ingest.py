@@ -41,6 +41,20 @@ import firehose  # noqa: E402
 import lede as lede_mod  # noqa: E402
 
 
+def _load_meta(pool_path: Path) -> dict:
+    """The pool's non-article metadata (start/end/chunk_days).
+
+    Enrich-only runs (--no-discover) never rebuild `meta`, so saving with a fresh empty dict silently
+    STRIPS it -- and the FBT derives its as-of cutoff from `end`, so the lede-provenance panel goes
+    blank. Same panel, same silent-loss shape as the re-derive that wiped 3,985 archived ledes; a
+    lossless rewrite has to carry the metadata too, not just the articles."""
+    try:
+        d = json.loads(pool_path.read_text())
+        return {k: v for k, v in d.items() if k != "articles"}
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def _load(pool_path: Path) -> list[dict]:
     if not pool_path.exists():
         sys.exit(f"{pool_path} not found -- run with --start/--end to discover first")
@@ -125,6 +139,7 @@ def main(argv=None) -> int:
         print(f"  -> {len(arts)} articles in {time.monotonic() - t0:.0f}s -> {pool_path}", flush=True)
     else:
         arts = _load(pool_path)
+        meta = _load_meta(pool_path)          # carry it forward; an enrich-only save must not strip it
         print(f"loaded {len(arts)} articles from {pool_path}", flush=True)
 
     if a.live:

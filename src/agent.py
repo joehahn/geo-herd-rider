@@ -21,6 +21,7 @@ targeted live search is clean only forward. All backtest numbers are upper bound
 from __future__ import annotations
 
 import json
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed as _as_completed
 from concurrent.futures import TimeoutError as _FutTimeout
@@ -294,6 +295,35 @@ def _extract(text: str) -> dict:
     if s != -1 and e > s:
         return json.loads(t[s:e + 1])
     return {}
+
+
+# DISCOVERY GATE. The press tell for a gem is a SUPERLATIVE plus an under-the-radar framing -- "best
+# performing ETF of 2026, flying under the radar", "a 1,300% rally", "skyrocketing, still little known".
+# That vocabulary is what separates a gem call from routine coverage, and it is detectable with a regex,
+# so it costs nothing and is fully auditable.
+#
+# APPLIED TO THE SCOUT POOL ONLY. The event agents keep reading the FULL corpus via _filter_event,
+# because tracking an event needs its ORDINARY follow-up ("chokepoint reopens", "contract signed") which
+# carries no superlative at all. Filtering globally would starve them, and with gate_silent+max_stale_scans
+# that reads as manufactured silence -- events would die of a drought we invented, and it would look
+# exactly like an over-eager exit prompt.
+SUPERLATIVE = re.compile(
+    r"under[- ]the[- ]radar|flying under|little[- ]known|lesser[- ]known|obscure|overlooked|unnoticed|"
+    r"under[- ]followed|hidden gem|nobody is talking|no one is talking|still early|"
+    r"best[- ]performing|top[- ]performing|outperform|"
+    r"\b\d{3,}\s*%|\b\d+(?:\.\d+)?\s*x\b|skyrocket|soar|surg(?:e|ed|ing)\b|rally of|"
+    r"\bmultiplied\b|\bdoubl(?:e|ed|ing)\b|\btripl(?:e|ed|ing)\b", re.I)
+
+
+def superlative_pool(arts: list[dict]) -> list[dict]:
+    """The scout's DISCOVERY slice: articles whose headline carries the gem tell.
+
+    Measured 2026-08-12 on the 208k-article corpus: keeps 7.6% (a median 411 per monthly scan, against
+    3,000-4,700 unfiltered). Two things follow. The scout is 91% of the LLM bill and now reads ~10x less.
+    And an added source can no longer be CROWDED OUT -- adding etf.com to the raw pool made discovery
+    worse (48 tickers lost, including QUBT/RGTI/HL) because more candidates chased the same admission
+    slots; filtered, etf.com and etftrends become the #2 and #6 contributors to what the scout sees."""
+    return [a for a in arts if SUPERLATIVE.search((a.get("title") or ""))]
 
 
 def _block(arts: list[dict]) -> str:
@@ -1082,7 +1112,8 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
                  curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
                  max_new_events=CANDIDATE_CAP, event_agent_effort="high",
-                 event_news_cap=EVENT_NEWS_CAP, max_event_scans=0):
+                 event_news_cap=EVENT_NEWS_CAP, max_event_scans=0, discovery_filter=False,
+                 max_events=0, picker=None, ev_metrics=None):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
     used by BOTH the backtest (agent.run_event_agent_scans, GDELT+seed pool) and the forward driver
@@ -1105,7 +1136,13 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     else:                                                  # <0 = whole history; >0 = last N weeks only
         rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
                          if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
-    cands = scout(scout_client, anchor, pool, retired=rmem, max_new_events=max_new_events)
+    # The scout sees only the superlative slice; `pool` itself is untouched, so the event agents below
+    # still call _filter_event over the FULL corpus.
+    spool = superlative_pool(pool) if discovery_filter else pool
+    if discovery_filter:
+        print(f"  discovery gate: {len(spool)} of {len(pool)} articles carry the gem tell",
+              file=sys.stderr, flush=True)
+    cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
@@ -1142,6 +1179,52 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                 for tk in ev["vehicles"]:
                     retired[tk] = (f"{ev['catalyst']} (aged out after {max_event_scans} scans)", week_idx)
                 print(f"  aged out after {len(ev['entries'])} scans: {ev['catalyst'][:60]}", file=sys.stderr)
+    # CONCURRENCY CAP. `max_events` bounds how many events may be LIVE at once, and the picker decides
+    # which survive. This is deliberately NOT `max_new_events`: an admission cap discards candidates
+    # permanently and unexamined at the door (measured 2026-08-12: 1,412 of 1,556 proposals binned, and
+    # adding a source made discovery WORSE because the extra candidates just crowded the same 4 slots).
+    # A concurrency cap keeps everything rankable -- a strong thesis arriving in a busy week competes
+    # again next scan instead of being lost.
+    #
+    # The picker ranks on catalyst ARC (early/building over crested), never on predicted return, which is
+    # what keeps it inside non-negotiable #1. It needs a STRONG model: measured 2026-07-14, sonnet5 hit
+    # the 83rd percentile while a cheap picker came in BELOW random, so a weak picker is worse than none.
+    # picker=None is the MECHANICAL CONTROL, not a disabled feature: it keeps the OLDEST max_events
+    # (insertion order), which is the null any LLM ranker must beat. Without a control, "the picker
+    # helped" cannot be distinguished from "capping concurrency helped".
+    if max_events:
+        _ev_metrics = ev_metrics if ev_metrics is not None else {}
+        _live = [ev for ev in events.values() if ev["status"] == "live"]
+        if len(_live) > max_events:
+            meta = [{"ticker": ev["id"], "vehicles": sorted(ev["vehicles"]),
+                     "catalyst": ev["catalyst"],
+                     "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
+                     "exit_condition": (ev.get("entries") or [{}])[-1].get("exit_advice", ""),
+                     "weeks_alive": len(ev.get("entries") or [])} for ev in _live]
+            if picker is not None:
+                keep = set(picker(meta, max_events, context=str(anchor.date())))
+                _how = "picker"
+            else:
+                # DEFAULT: arithmetic ranking on this scan's PRESS COVERAGE (src/evscore.py) -- source
+                # breadth, superlative count, coverage velocity, author breadth. Not a forecast, and
+                # not an LLM: an LLM ranker has now failed to beat its own null three times here.
+                import evscore  # noqa: PLC0415
+                ranked = evscore.rank(_live, pool, prev=_ev_metrics)
+                keep = {eid for eid, _, _ in ranked[:max_events]}
+                for eid, sc, m in ranked:
+                    _ev_metrics[eid] = m
+                _how = "coverage-rank"
+                print("    " + " · ".join(f"{eid}:{sc:.0f}(s{m['source_breadth']}/x{m['superlatives']})"
+                                          for eid, sc, m in ranked[:6]), file=sys.stderr)
+            for ev in _live:
+                if ev["id"] not in keep:
+                    ev["status"] = "exited"
+                    for tk in ev["vehicles"]:
+                        retired[tk] = (f"{ev['catalyst']} (picker-culled)", week_idx)
+            print(f"  event-cull [{_how}]: "
+                  f"{len(_live)} live -> kept {len(keep & {e['id'] for e in _live})} (cap {max_events})",
+                  file=sys.stderr, flush=True)
+
     merged = _consolidate_events(events)                   # weekly dup-catalyst merge
     if merged:
         print(f"  consolidated {merged} duplicate-catalyst event(s) ({anchor.date()})", file=sys.stderr)

@@ -27,6 +27,7 @@ Render-only: no LLM, no network.
 from __future__ import annotations
 
 import argparse
+import ast
 import collections
 import json
 import statistics
@@ -72,6 +73,45 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     run, corpus = ROOT / a.run, ROOT / a.corpus
     M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus)
+
+    # ARTICLES PER BEAT over the whole corpus -- the denominator for beat efficiency (panel 6) and
+    # the reason panel 5 can now list beats that produced NOTHING. `queries` is a stringified list.
+    _beat_arts: dict = collections.Counter()
+    for _a in ARTS:
+        _q = _a.get("queries")
+        if isinstance(_q, str):
+            try:
+                _q = ast.literal_eval(_q)
+            except Exception:  # noqa: BLE001
+                _q = []
+        for _b in (_q or []):
+            _beat_arts[_b] += 1
+    _beat_arts = dict(_beat_arts)
+
+    # ...and the same counts AFTER the discovery gate. This is the denominator that matters: the scout
+    # is 91% of the LLM bill and reads ONLY gate-passed articles, so a beat's real cost is what it puts
+    # in front of the scout, not what it pulled from GKG. The two diverge sharply -- the momentum beat
+    # passes the gate at 31% against 3-8% for everything else, because its atoms (`stock surges`,
+    # `shares soar`) ARE the gate's vocabulary. On the corpus denominator that beat is 17% of articles;
+    # on this one it is 35% of everything the scout reads.
+    _beat_gated: dict = collections.Counter()
+    try:
+        import agent as _ag
+        _gset = {id(_x) for _x in _ag.superlative_pool(ARTS)}
+        for _a in ARTS:
+            if id(_a) not in _gset:
+                continue
+            _q = _a.get("queries")
+            if isinstance(_q, str):
+                try:
+                    _q = ast.literal_eval(_q)
+                except Exception:  # noqa: BLE001
+                    _q = []
+            for _b in (_q or []):
+                _beat_gated[_b] += 1
+    except Exception as _e:  # noqa: BLE001 - the gate is optional; fall back to corpus counts
+        print(f"  gated beat counts unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
+    _beat_gated = dict(_beat_gated)
 
     weeks = [r["week"] for r in M]
     ev = J.get("events", {})
@@ -256,9 +296,15 @@ def main(argv=None) -> int:
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
             "tickerbeat": {tk: _beat_of(tk) for tk in
                            ({p["ticker"] for p in PICKS} | set(_gain) | set(_dom))},
+            # ARTICLES PER BEAT across the whole corpus -- the denominator for beat efficiency, and
+            # the reason gainbeat can now list beats that produced NOTHING. Counting only funded beats
+            # (the old behaviour) showed 9 of 46 and hid the expensive failures entirely.
+            "beatarts": _beat_arts,
+            "beatgated": _beat_gated,
             "gainbeat": {b: round(v, 2) for b, v in sorted(
                 {bb: sum(g for tk, g in _gain.items() if _beat_of(tk) == bb)
-                 for bb in {_beat_of(tk) for tk in _gain}}.items(), key=lambda kv: kv[1])},
+                 for bb in ({_beat_of(tk) for tk in _gain} | set(_beat_arts))}.items(),
+                key=lambda kv: kv[1])},
             "anchors": _fh.anchor_tickers(_lfm0),
             "rebal": [str(x.date()) for x in sorted(_scans)],
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
@@ -409,6 +455,27 @@ def main(argv=None) -> int:
              status="good", why="Curator spend for the run: scout, matcher and event agents."),
     ])
 
+    # OPEN DATE for every event, including those culled on the scan they opened. `entries[0].date`
+    # exists only once an event-agent has run, and with max_events culling most events the SAME scan
+    # they open, 103 of 175 had no entries -- so they carried start="" and were silently DROPPED from
+    # the timeline. decisions.jsonl records what was ADMITTED per scan, which is when an event comes
+    # into being, so it dates them all.
+    _opened = {}
+    try:
+        import ast as _ast
+        _first = {}
+        for _l in (run / "decisions.jsonl").open():
+            _r = json.loads(_l)
+            _a = _r["admitted"] if isinstance(_r["admitted"], list) else _ast.literal_eval(_r["admitted"])
+            for _t in _a:
+                _first.setdefault(_t, _r["context"])
+        for _k, _v in ev.items():
+            _d = [_first[t] for t in _v.get("vehicles", []) if t in _first]
+            if _d:
+                _opened[_k] = min(_d)
+    except Exception:  # noqa: BLE001 - decisions.jsonl is opt-in via --decisions
+        pass
+
     payload = {
         "funnel": {
             "labels": ["articles read", "candidates proposed", "candidates admitted",
@@ -425,12 +492,19 @@ def main(argv=None) -> int:
                    "cap": [d.get("max_new_events", 0) for d in scout]},
         "ceiling": ceil_rows[:40],
         "px": px_hist,
+        "cap_pct": float(_lfm0.get("concentration_cap", 0.25)),
         "gantt": [{"id": k, "cat": v.get("catalyst", "")[:70],
                    "veh": sorted(v.get("vehicles", []))[:6],
-                   "start": (v.get("entries") or [{}])[0].get("date", ""),
-                   "end": (v.get("entries") or [{}])[-1].get("date", ""),
+                   "start": ((v.get("entries") or [{}])[0].get("date", "") or _opened.get(k, "")),
+                   "end": ((v.get("entries") or [{}])[-1].get("date", "") or _opened.get(k, "")),
                    "beat": _ev_beat.get(k, "no beat"), "fund": _ev_fund.get(k, []),
-                   "status": v.get("status", "")} for k, v in ev.items()],
+                   "status": v.get("status", "")}
+                   # CULLED-AT-BIRTH events are EXCLUDED BY CHOICE (and counted in the lead):
+                   # max_events retires most events on the scan they open, before any agent sees
+                   # them, so they would draw 103 zero-length bars and bury the theses that ran.
+                   # Stated, not silent -- silently dropping them (no entries -> no date) was this
+                   # panel's original bug.
+                   for k, v in ev.items() if (v.get("entries") or [])],
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "beat": {"b": [b for b, _ in beat_c.most_common(20)], "n": [n for _, n in beat_c.most_common(20)]},
@@ -568,13 +642,16 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>20. Curation log</h2>'
+        f'<section class="panel"><h2>21. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
         f'of an add. <b>Proposed&rarr;admitted</b> is what the scout put forward versus what survived '
         f'the inflow cap, so a week where those differ is a week the cap bound.</p>'
-        f'<div class="scroll">{curation_log}</div></section>')
+        # Collapsed by default. It is the longest table on the page and it is a REFERENCE, not a
+          # finding -- you arrive with a particular week in mind rather than reading it through.
+          f'<details class="tbl"><summary>show the {len(log_rows)}-week log</summary>'
+          f'<div class="scroll">{curation_log}</div></details></section>')
 
     # one row per ticker needs ~16px of vertical space, or the axis has no room for the labels
     _wcomp_n = len({s["t"] for s in ((book.get("wcomp") or {}).get("watch") or [])}
@@ -627,6 +704,14 @@ def main(argv=None) -> int:
             f"&middot; {len(ents)} weeks</summary><ul style='font-size:12.5px;margin:.6em 0'>{li}</ul></details>")
     story_html = "".join(_blocks)
 
+    # ~14px a row keeps every event legible; a fixed 700px gave 4px at 175 events.
+    # ~18px a row: 48 beats in 460px gave 9.6px and Plotly silently SKIPPED every other label.
+    _n_beats = len(book.get("gainbeat") or {})
+    _n_beats_eff = sum(1 for _b, _n in (book.get("beatgated") or {}).items() if _n >= 20)
+    _n_gantt = sum(1 for g in payload["gantt"] if g["start"])
+    _n_lived = len(payload["gantt"])            # events with >=1 agent entry (the ones drawn)
+    _n_culled = len(ev) - _n_lived              # retired on the scan they opened
+
     panels = ptable + "".join([
         panel(1, "Realized portfolio value",
               "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
@@ -644,47 +729,68 @@ def main(argv=None) -> int:
               "Colour is the ticker&rsquo;s dominant BEAT &mdash; which part of the firehose its evidence "
               "came from. Grey means no beat-attributable evidence.",
               "c-wcomp", _wcomp_h),
-        panel(3, "Cumulative $ gain per holding",
-              "The 10 best and 5 worst funded names, with every other name rolled into one grey bar. "
+        panel(3, "Event timeline",
+              f"The {_n_lived} events that LIVED. The pale bar spans proposed &rarr; terminated; the solid "
+              "overlay is when the optimizer actually FUNDED it, coloured by beat. A bar with no solid "
+              "section is a thesis the curator held and the math never backed. "
+              f"<b>{_n_culled} further events are not shown</b> \u2014 <code>max_events</code> retired "
+              "them on the scan they opened, before any agent assessed them, so they have no span to "
+              "draw. That is deliberate: those events go on to return 12.6 points LESS over the next "
+              "60 days than the ones kept.",
+              "c-gantt", max(700, 14 * _n_gantt)),
+        panel(4, "Cumulative $ gain per holding",
+              "The 16 best and 8 worst funded names, with every other name rolled into one grey bar. "
               "A result resting on one or two names is a different thing from the same return spread "
               "across many — and the difference is not visible in the equity curve above. <b>Click any "
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
               "moments the optimizer funded and unfunded it.",
               "c-gainh", 560),
-        panel(4, "Perfect-foresight ceiling per ticker",
-              "For each name, the best single buy&rarr;sell that was available INSIDE the span the "
-              "curator held it watchlisted (pale), against what simply holding it start-to-finish "
-              "returned (solid). No credit for names it never found. A LOW ceiling means the pick "
-              "itself was a dud; a HIGH ceiling with a weak hold means the pick was fine and the "
-              "timing was not. Hindsight upper bound &mdash; not attainable. <b>Click any bar</b> to "
-              "open that ticker&rsquo;s price history, with the watchlisted span shaded and the "
-              "funded span drawn heavier.",
-              "c-ceil", 620),
         panel(5, "Cumulative $ gain per beat",
               "The same dollars as the panel above, rolled up to the BEAT that surfaced each ticker\u2019s "
               "evidence \u2014 i.e. which part of the firehose paid. A beat that costs money is a "
               "retrieval-vocabulary problem, not a curator one.",
-              "c-gainb", 460),
-        panel(6, "Cumulative $ gain per event",
+              "c-gainb", max(460, 18 * _n_beats)),
+        panel(6, "Gain per article read, by beat",
+              "The same dollars divided by how many of that beat's articles actually REACHED THE SCOUT "
+              "&mdash; i.e. survived the discovery gate. That is the cost that binds: the scout is 91% of "
+              "the LLM bill and reads only gate-passed articles. The corpus count and the pass rate are "
+              "in the hover. They diverge sharply &mdash; the momentum beat passes at 31% against 3-8% "
+              "elsewhere, because its atoms ARE the gate's vocabulary, so it is 17% of the corpus but 35% "
+              "of everything the scout reads. "
+              "Beats that retrieved articles but never produced a funded position sit at zero: they are "
+              "pure cost. Read it against panel 5 &mdash; a tall bar there with a short bar here is a "
+              "beat carried by volume rather than by quality.",
+              "c-beateff", max(420, 18 * _n_beats_eff)),
+        panel(7, "Cumulative $ gain per event",
               "The same gains grouped by the EVENT that motivated them. PWR groups this by wave "
               "bucket; GHR's unit of thesis is the event, so this is its analogue. It answers whether "
               "the curator's <i>ideas</i> paid, independently of which vehicle expressed them.",
               "c-gaine", 480),
-        panel(7, "Portfolio $ by event over time",
+        panel(8, "Portfolio value by event over time",
               "How the book was distributed across events as the year ran. Wide bands that persist "
               "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating.",
               "c-evtime", 420),
-        panel(8, "Allocation over time",
+        panel(9, "Thesis concentration",
+              "How much of the FUNDED book its single largest EVENT held, day by day. "
+              "<code>concentration_cap</code> limits any one TICKER, but nothing limits a THESIS: an "
+              "event naming four vehicles can take the whole book while every position looks "
+              "disciplined under the cap. The dashed line is the per-ticker cap for scale &mdash; the "
+              "gap between it and the solid line is the exposure the cap does not see. Read the "
+              "<b>time above 80%</b>: those are days the portfolio was one bet wearing several "
+              "tickers, so a single thesis being wrong takes the whole book with it.",
+              "c-evconc", 380),
+        panel(10, "Allocation over time",
               "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
               "<code>always_include</code> anchors (SPY, GLD, BIL) sit outside the watchlist cap and "
-              "are where idle capital parks; gaps are uninvested cash.",
+              "are where idle capital parks. Uninvested cash is drawn as its own dark band rather than "
+              "left as a gap, so an empty stretch reads as a decision, not as missing data.",
               "c-alloc", 580),
-        panel(9, "Curator funnel",
+        panel(11, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "The direct analogue of the firehose funnel — but here the interesting collapse is at the "
               "top: a whole week of articles yields a handful of candidates. Log x-axis.",
               "c-funnel", 340),
-        panel(10, "Breadth over time",
+        panel(12, "Breadth over time",
               "Events live, distinct tickers named, and how many separate catalysts those events "
               "represent — per rebalance. Several events on one theme is concentration wearing a "
               "diversity costume, which is why catalysts are drawn separately from events. The dashed "
@@ -694,37 +800,32 @@ def main(argv=None) -> int:
               "an active knob. What used to sit between the solid and dashed lines was inventory the "
               "optimizer was never going to fund.",
               "c-breadth", 380),
-        panel(11, "Scout inflow vs the cap",
+        panel(13, "Scout inflow vs the cap",
               "What the scout proposed each week against what it was allowed to admit "
               f"(<code>max_new_events</code>, in {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}). "
               "If the proposal line sits below the cap, breadth is limited by the curator's judgement, "
               "not by the knob — and loosening the knob would change nothing.",
               "c-inflow", 340),
-        panel(12, "Event timeline",
-              "Every event the curator opened. The pale bar spans proposed &rarr; terminated; the solid "
-              "overlay is when the optimizer actually FUNDED it, coloured by beat. A bar with no solid "
-              "section is a thesis the curator held and the math never backed.",
-              "c-gantt", 700),
-        panel(13, "Coverage vs picks, per ticker",
+        panel(14, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(14, "Evidence by lede provenance",
+        panel(15, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
-              "cluster on <b>archived</b> text the clean arm is earning its cost; if they cluster on "
+              "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(15, "Evidence by source",
+        panel(16, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(16, "Evidence by beat",
+        panel(17, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(17, "Agent precision",
+        panel(18, "Agent precision",
               "Every thesis the curator held, and what that ticker returned over its live span — the "
               "standalone result of the idea, before any position sizing. This is the closest thing "
               "on this page to a skill measure: it asks whether the curator's calls were RIGHT, not "
@@ -735,16 +836,20 @@ def main(argv=None) -> int:
               table_html(["ticker", "return %", "live span", "thesis"],
                          [[x["ticker"], f"{100*x['ret']:+.1f}%", f"{x['first']} → {x['last']}",
                            x["thesis"][:90]] for x in sorted(prec, key=lambda z: -z["ret"])])),
-        panel(18, "Event storyboard",
+        panel(19, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(19, "Text provenance of what the curator read",
-              "Per week, how much of the pool reached the curator as archived text, live-page text, or "
-              "a bare headline. This is the firehose's provenance panel restricted to the slices the "
-              "curator actually read.",
+        panel(20, "Text provenance of what the curator read",
+              "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
+              "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
+              "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
+              "the article's own date), which is the only look-ahead-CLEAN text here: a live page is "
+              "fetched today and may have been edited, extended or corrected since publication, so it can "
+              "carry knowledge the curator could not have had. A week leaning on live text is a week "
+              "whose result is an upper bound.",
               "c-text", 340),
     ])
     panels += log_panel          # the log is a reference table, not a headline -- it reads last
@@ -891,7 +996,11 @@ function draw() {{
       line:{{color:ST.critical, width:2, dash:'dash'}}}}
   ], base(p, {{barmode:'group', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},
-      yaxis:{{gridcolor:p.grid, rangemode:'tozero', title:{{text:'candidates', font:{{size:11}}}}}}}}), CFG);
+      // LOG y: `proposed` runs 2-72 while `admitted` is pinned at 2-4 by the cap, so on a linear axis
+      // the admitted bars and the cap line are flattened into the baseline and the whole point of the
+      // panel -- how far the scout's supply overshoots what is let through -- is invisible.
+      // rangemode:'tozero' is dropped: it is meaningless on a log axis, which cannot reach 0.
+      yaxis:{{type:'log', gridcolor:p.grid, title:{{text:'candidates (log)', font:{{size:11}}}}}}}}), CFG);
 
   const G = DATA.gantt.filter(g=>g.start);
   const _gseen = new Set();
@@ -991,7 +1100,10 @@ function draw() {{
         hovertemplate:'%{{x}}<br>an event opened or closed<extra></extra>'}}
     ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
         margin:{{l:74,r:24,t:40,b:44}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value', font:{{size:11}}}}}}}}), CFG);
+        // LOG y-axis: the book grows ~11x, so linearly the first two years flatten onto the baseline
+          // and only the last leg is legible. On a log scale equal vertical distances are equal
+          // PERCENTAGE moves, which is what makes the curator line comparable to SPY anywhere on it.
+          yaxis:{{type:'log', gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value (log)', font:{{size:11}}}}}}}}), CFG);
 
     // 2. watchlist composition -- horizontal spans, pale = watchlisted, solid = funded. Ticker rows are
   //    ordered by first appearance so the page reads chronologically down the axis.
@@ -1028,12 +1140,37 @@ function draw() {{
 
   const TB = BK.tickerbeat || {{}};
   const GB = Object.entries(BK.gainbeat || {{}}).sort((a,b)=>a[1]-b[1]);
+
+  // 6. GAIN PER 1,000 ARTICLES. The denominator is what makes an expensive beat visible: the momentum
+  // beat is the single largest source of articles in the corpus and returns NEGATIVE dollars, which
+  // panel 5 cannot show because it plots totals. Zero-gain beats are kept in deliberately -- they
+  // retrieved articles and produced nothing, which is the cheapest thing to prune.
+  {{
+    const BA = BK.beatarts || {{}}, BG = BK.beatgated || {{}};
+    // denominator = GATE-PASSED articles, not corpus articles: that is what the scout actually reads.
+    const eff = Object.keys(BA)
+      .map(b => [b, BA[b], BG[b] || 0, (BK.gainbeat || {{}})[b] || 0])
+      .filter(r => r[2] >= 20)                       // below ~20 gated articles the ratio is noise
+      .map(r => [r[0], r[1], r[2], r[3], r[3] / r[2]])
+      .sort((a, b) => a[4] - b[4]);
+    Plotly.react('c-beateff', [{{
+      type:'bar', orientation:'h', x:eff.map(r=>r[4]), y:eff.map(r=>r[0]),
+      marker:{{color:eff.map(r=>r[4] >= 0 ? _bcol(r[0]) : ST.critical),
+               line:{{width:2, color:p.surface}}}},
+      customdata:eff.map(r=>[r[1], r[2], r[3], 100*r[2]/r[1]]),
+      hovertemplate:'%{{y}}<br>%{{customdata[1]:,}} gate-passed of %{{customdata[0]:,}} in corpus (%{{customdata[3]:.1f}}%)<br>gain %{{customdata[2]:$,.0f}}'
+                    +'<br><b>%{{x:$,.2f}} per gate-passed article</b><extra></extra>'
+    }}], base(p, {{margin:{{l:250,r:24,t:16,b:46}},
+        xaxis:{{gridcolor:p.grid, zeroline:true, zerolinecolor:p.text2, zerolinewidth:1.5,
+                tickprefix:'$', title:{{text:'gain per GATE-PASSED article (what the scout reads)', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}, type:'category', tickmode:'linear', dtick:1}}}}), CFG);
+  }}
   Plotly.react('c-gainb', [{{
     type:'bar', orientation:'h', x:GB.map(e=>e[1]), y:GB.map(e=>e[0]),
     marker:{{color:GB.map(e=>_bcol(e[0])), line:{{width:2,color:p.surface}}}},
     hovertemplate:'%{{y}}<br>%{{x:$,.0f}}<extra></extra>'
   }}], base(p, {{margin:{{l:250,r:100,t:10,b:44}},
-      yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}}},
+      yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}, type:'category', tickmode:'linear', dtick:1}},
       xaxis:{{gridcolor:p.grid, zeroline:true, zerolinecolor:p.text2, zerolinewidth:1.5,
               tickprefix:'$', title:{{text:'cumulative gain', font:{{size:11}}}}}}}}), CFG);
 
@@ -1086,7 +1223,7 @@ function draw() {{
   }};
   (function bind(){{
     let done = 0;
-    ['c-ceil', 'c-gainh'].forEach(id => {{
+    ['c-gainh'].forEach(id => {{
       const g = document.getElementById(id);
       if (g && g.on) {{
         g.on('plotly_click', ev => {{
@@ -1100,21 +1237,6 @@ function draw() {{
   }})();
   document.addEventListener('keydown', e => {{ if (e.key === 'Escape') window._hideTk(); }});
 
-  const CE = DATA.ceiling || [];
-  Plotly.react('c-ceil', [
-    {{type:'bar', name:'best available (hindsight)', x:CE.map(r=>r.t), y:CE.map(r=>r.ceil),
-      marker:{{color:CE.map(r=>_bcol(r.b)), line:{{width:2,color:p.surface}}}}, opacity:0.35,
-      hovertemplate:'%{{x}}<br>ceiling %{{y:.0f}}%<extra></extra>'}},
-    {{type:'bar', name:'buy &amp; hold over the same span', x:CE.map(r=>r.t), y:CE.map(r=>r.bh),
-      marker:{{color:CE.map(r=>_dark(_bcol(r.b), 0.72)), line:{{width:2,color:p.surface}}}},
-      hovertemplate:'%{{x}}<br>buy &amp; hold %{{y:.0f}}%<extra></extra>'}}
-  ], base(p, {{barmode:'overlay', showlegend:true,
-      legend:{{orientation:'h', y:1.1, x:0, font:{{size:11}}}},
-      margin:{{l:64,r:24,t:44,b:80}},
-      xaxis:{{gridcolor:'rgba(0,0,0,0)', tickangle:-90, tickmode:'linear', dtick:1,
-              tickfont:{{size:10}}, automargin:true}},
-      yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:true, zerolinecolor:p.text2,
-              zerolinewidth:1.5, title:{{text:'return over watchlisted span', font:{{size:11}}}}}}}}), CFG);
 
   const GH = Object.entries(BK.gain);
     // TOP 10 + BOTTOM 5 + one rolled-up bar for everything between. 85 funded names is unreadable as
@@ -1122,7 +1244,7 @@ function draw() {{
     // matters is which few names made the money, which few lost it, and whether the long tail nets
     // out to anything. Asymmetric on purpose: the winners are where the thesis either worked or
     // did not, so they get the deeper list. The rolled bar is grey because it is an aggregate.
-    const _NTOP = 10, _NBOT = 5;
+    const _NTOP = 16, _NBOT = 8;
     const _gs = GH.slice().sort((a,b) => b[1] - a[1]);
     const _top = _gs.slice(0, _NTOP);
     const _bot = _gs.length > _NTOP + _NBOT ? _gs.slice(-_NBOT) : _gs.slice(_NTOP);
@@ -1156,12 +1278,82 @@ function draw() {{
         xaxis:{{gridcolor:p.grid, zeroline:true, zerolinecolor:p.text2, zerolinewidth:1.5,
                 tickprefix:'$', title:{{text:'cumulative gain', font:{{size:11}}}}}}}}), CFG);
 
-    Plotly.react('c-evtime', Object.entries(BK.evseries).map((e,i)=>({{
-      type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
-      line:{{width:0.5, color:PALS[i % PALS.length]}}, fillcolor:PALS[i % PALS.length]
-    }})), base(p, {{showlegend:true, legend:{{orientation:'h', y:1.1, x:0, font:{{size:10}}}},
+    // BK.alloc is a WEIGHT per ticker per day (sums to 1, or to 0 on a fully-cash day) -- NOT dollars.
+    // Both stacks below label their axis '$', so convert here once: dollars = weight x that day's
+    // portfolio value. Without this the y-axis read "$1" at every point in a book that grew 8x.
+    const _DOL = {{}};
+    Object.entries(BK.alloc).forEach(([t, a]) => {{
+      _DOL[t] = a.map((w, i) => w * BK.value[i]);
+    }});
+    // DOLLARS HELD per event, not cumulative gain -- so the top edge of the stack IS the portfolio
+    // value, which is what the panel title claims. A ticker named by more than one live event has its
+    // dollars SPLIT evenly between them rather than counted twice. Anchors and uninvested cash are not
+    // part of any event, so they get their own band; without it the stack would stop short of the
+    // portfolio value and the difference would read as missing data.
+    const _evVeh = Object.fromEntries((DATA.gantt || []).map(g => [g.id, g.veh || []]));
+    const _nd = BK.dates.length;
+    const _owners = {{}};                       // ticker -> how many events claim it
+    Object.values(_evVeh).forEach(vs => vs.forEach(t => {{ _owners[t] = (_owners[t] || 0) + 1; }}));
+    const _evDollars = Object.entries(_evVeh).map(([id, vs]) => {{
+      const y = new Array(_nd).fill(0);
+      vs.forEach(t => {{
+        const a = _DOL[t];
+        if (!a) return;
+        for (let i = 0; i < _nd; i++) y[i] += a[i] / _owners[t];
+      }});
+      return [id, y];
+    }}).filter(e => e[1].some(v => v > 0));
+    const _evSum = new Array(_nd).fill(0);
+    _evDollars.forEach(e => {{ for (let i = 0; i < _nd; i++) _evSum[i] += e[1][i]; }});
+    const _rest = BK.value.map((v, i) => Math.max(0, v - _evSum[i]));
+    Plotly.react('c-evtime', [
+      {{type:'scatter', mode:'lines', stackgroup:'one', name:'anchors + cash', x:BK.dates, y:_rest,
+        line:{{width:0.5, color:GREY}}, fillcolor:GREY,
+        hovertemplate:'%{{x}}<br>anchors + cash %{{y:$,.0f}}<extra></extra>'}},
+      ..._evDollars.map((e,i)=>({{
+        type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
+        line:{{width:0.5, color:PALS[i % PALS.length]}}, fillcolor:PALS[i % PALS.length],
+        hovertemplate:'%{{x}}<br>'+e[0]+' %{{y:$,.0f}}<extra></extra>'}}))
+    ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.1, x:0, font:{{size:10}}}},
         margin:{{l:70,r:24,t:40,b:44}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'cumulative $ by event', font:{{size:11}}}}}}}}), CFG);
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value', font:{{size:11}}}}}}}}), CFG);
+
+    // 8. THESIS CONCENTRATION. Share of the FUNDED book held by its largest single event, per day.
+    // concentration_cap bounds a TICKER; nothing bounds an EVENT, so a thesis naming four vehicles can
+    // hold the whole book with every position still under the cap. Anchors are excluded -- they are
+    // where idle cash parks, not a thesis, and counting them would dilute the very number in question.
+    // Vehicles claimed by two live events are split evenly, as in panel 7, so one dollar is counted once.
+    {{
+      const ANC2 = new Set(BK.anchors || []);
+      const conc = [], capline = [];
+      for (let i = 0; i < _nd; i++) {{
+        const byEv = {{}}; let tot = 0;
+        Object.entries(_evVeh).forEach(([id, vs]) => vs.forEach(t => {{
+          if (ANC2.has(t)) return;
+          const w = (BK.alloc[t] || [])[i] || 0;
+          if (w > 0.001) {{ const q = w / _owners[t]; byEv[id] = (byEv[id] || 0) + q; tot += q; }}
+        }}));
+        const top = Object.values(byEv);
+        conc.push(tot > 0.05 ? 100 * Math.max(...top, 0) / tot : null);
+        capline.push(100 * (DATA.cap_pct || 25));
+      }}
+      const above = conc.filter(x => x !== null && x >= 80).length;
+      const live  = conc.filter(x => x !== null).length;
+      Plotly.react('c-evconc', [
+        {{type:'scatter', mode:'lines', name:'largest event share', x:BK.dates, y:conc,
+          line:{{color:ST.critical, width:2}}, connectgaps:false,
+          hovertemplate:'%{{x}}<br>largest thesis = %{{y:.0f}}% of the funded book<extra></extra>'}},
+        {{type:'scatter', mode:'lines', name:'per-TICKER cap (for scale)', x:BK.dates, y:capline,
+          line:{{color:p.text2, width:1.5, dash:'dash'}}, hoverinfo:'skip'}}
+      ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+          margin:{{l:60,r:24,t:44,b:44}},
+          yaxis:{{gridcolor:p.grid, range:[0,105], ticksuffix:'%',
+                  title:{{text:'largest thesis share', font:{{size:11}}}}}},
+          annotations:[{{xref:'paper', yref:'paper', x:0.01, y:0.06, showarrow:false,
+            font:{{size:11.5, color:p.text2}},
+            text:`one thesis held &ge;80% of the book on <b>${{above}}</b> of ${{live}} funded days`}}]}}), CFG);
+    }}
+
 
     // The always_include anchors are not curator picks -- they are where idle capital parks. Giving
     // them ONE shared neutral colour stops three separate hues implying three separate theses, and
@@ -1169,14 +1361,23 @@ function draw() {{
     const ANCH = new Set(BK.anchors || []);
     const _ANCHC = GREY;
     const _nonAnchor = Object.keys(BK.alloc).filter(k => !ANCH.has(k));
-    Plotly.react('c-alloc', Object.entries(BK.alloc).map((e,i)=>({{
+    // UNINVESTED CASH gets its own band. Left as a gap it showed the page through the stack, which
+    // reads as missing data rather than as "the optimizer chose to hold nothing here".
+    const _allocSum = new Array(BK.dates.length).fill(0);
+    Object.values(_DOL).forEach(a => a.forEach((v,i) => {{ _allocSum[i] += v; }}));
+    const _cash = BK.value.map((v,i) => Math.max(0, v - _allocSum[i]));
+    Plotly.react('c-alloc', [
+      {{type:'scatter', mode:'lines', stackgroup:'one', name:'uninvested cash', x:BK.dates, y:_cash,
+        line:{{width:0.5, color:_dark(GREY, 0.80)}}, fillcolor:_dark(GREY, 0.80),
+        hovertemplate:'%{{x}}<br>uninvested cash %{{y:$,.0f}}<extra></extra>'}},
+      ...Object.entries(_DOL).map((e,i)=>({{
       type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
       legendgroup: ANCH.has(e[0]) ? 'anchors' : e[0],
       // Anchors share ONE grey; the palette index is taken over NON-anchors only, so pulling the
       // anchors out of the ramp doesn't leave holes or shift every other series' colour.
       line:{{width:0.5, color: ANCH.has(e[0]) ? _ANCHC : PALS[_nonAnchor.indexOf(e[0]) % PALS.length]}},
       fillcolor: ANCH.has(e[0]) ? _ANCHC : PALS[_nonAnchor.indexOf(e[0]) % PALS.length]
-    }})), base(p, {{showlegend:true,
+    }}))], base(p, {{showlegend:true,
         // ~47 series wrap to several legend rows; anchoring the legend's BOTTOM just above the plot
         // and reserving real top margin keeps it fully clear instead of spilling back over the area.
         legend:{{orientation:'h', yanchor:'bottom', y:1.02, xanchor:'left', x:0, font:{{size:10}}}},

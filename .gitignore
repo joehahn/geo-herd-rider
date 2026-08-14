@@ -99,9 +99,12 @@ data/gkg_cache/
 # Curator/sweep RUN DIRS — regenerable artifacts, ~4.4 GB in total. The committed record is the
 # built dashboard (docs/cbt.html, docs/sbt.html), which embeds everything it needs to render.
 data/cbt_*/
-data/backtest_1yr/
-data/backtest_3yr/
-data/backtest_gkg/
+# every corpus/run dir: regenerable, and hundreds of MB each. Broad patterns on purpose --
+# backtest_3yr_v2, cdx_etf and corpus_etf.bak each slipped past the narrower list once.
+data/backtest_*/
+data/corpus_*/
+data/cdx_*/
+data/smoke_*/
 data/cap[A-Z]*/
 data/smoke_*/
 data/spot*/

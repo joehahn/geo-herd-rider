@@ -69,7 +69,9 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   the firehose pool and does the scout + matcher stages. This is
                                        #   where the token cost lives, so it runs a cheap model (llama4,
                                        #   OpenRouter). Falls back to event_agent_model if unset.
-    "picker_model": "sonnet5",         # PORTFOLIO-cull agent-picker (src/picker.make_picker): ranks live events -> keep-list.
+    "picker_model": None,              # PORTFOLIO-cull agent-picker (src/picker.make_picker): ranks live events -> keep-list.
+                                       #   Default None so ABSENT = OFF, which is what an omitted knob should mean. It used to
+                                       #   default to sonnet5, so deleting the blank profile line silently ENABLED a ~$10/run picker.
                                        #   Opt-in (proto_select --picker / forward); INERT on plain dashboard rebuilds. Needs a
                                        #   STRONG model — cheap pickers tie/trail random.
     "picker_effort": "low",            # Anthropic reasoning effort for the picker call: 'low' = cheap/fast (ranking needs little
@@ -83,6 +85,16 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   same trailing news window. Ignored when rebalance_period is set.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
                                        #   sparse-coverage smoothing). None => news window = rebalance_days.
+    "max_events": 0,                   # LIVE (scan): how many events may be LIVE AT ONCE; 0 = uncapped. The
+                                       #   picker decides which survive. Prefer this over max_new_events: an
+                                       #   ADMISSION cap bins candidates unexamined and forever, a CONCURRENCY
+                                       #   cap leaves them rankable next scan. Needs picker_model set.
+    "discovery_filter": False,         # LIVE (scan): gate the SCOUT's pool to headlines carrying the gem tell
+                                       #   (a superlative + under-the-radar framing). Keeps ~7% of the corpus, so
+                                       #   the scout -- 91% of the LLM bill -- reads ~10x less, and an added source
+                                       #   can no longer be crowded out of the admission slots by routine coverage.
+                                       #   The EVENT AGENTS are unaffected: they still read the full corpus, because
+                                       #   tracking an event needs its ordinary follow-up, which carries no superlative.
     "news_lookback_days": 0,           # LIVE: trailing calendar days of news each scan reads. 0 = follow
                                        #   the cadence. Set it LONGER than the cadence for a deliberate
                                        #   OVERLAP, so an article GDELT indexes late -- or one published
