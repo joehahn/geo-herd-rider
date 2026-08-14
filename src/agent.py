@@ -23,9 +23,11 @@ from __future__ import annotations
 import json
 import re
 import sys
+import time as _time
 from concurrent.futures import ThreadPoolExecutor, as_completed as _as_completed
 from concurrent.futures import TimeoutError as _FutTimeout
 from pathlib import Path
+from threading import Thread as _Thread
 
 import pandas as pd
 from pydantic import BaseModel, ConfigDict, field_validator
@@ -469,20 +471,39 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
         # with no retry logged. The per-request timeout in llm.py does not help if the hang is below
         # it. A chunk that misses the deadline is dropped (its beat is simply unscouted this scan),
         # which loses a little recall and never the run.
-        with ThreadPoolExecutor(max_workers=min(16, len(chunks))) as ex:
-            futs = {ex.submit(_scout_once, client, anchor, ch, rblock,
-                              f"scout-{anchor.date()}-{i}"): i
-                    for i, ch in enumerate(chunks)}
-            per = [[] for _ in chunks]
+        # DAEMON THREADS, NOT ThreadPoolExecutor. A wedged chunk has to be abandonable at TWO points,
+        # and the executor blocks at both:
+        #   1. `with ThreadPoolExecutor(...)` calls shutdown(wait=True) on exit -- it waits for exactly
+        #      the thread the deadline just gave up on. f.cancel() does NOT help: it is a no-op once a
+        #      future is running. Observed 2026-08-14 on the first forward scan -- the 420s deadline
+        #      fired, printed its message, and the process then sat at 0.1% CPU for 19 more minutes
+        #      with no LLM call, i.e. the "0% CPU for 54 minutes" stall this guard was meant to prevent.
+        #   2. Even with shutdown(wait=False), the pool's threads are NON-DAEMON and Python joins them
+        #      at interpreter exit, so the scan finishes its work and then hangs on the way out --
+        #      under cron that strands a process every day. Verified both by wedging a chunk on purpose.
+        # Daemon threads fix both: abandoned instantly here, and never block process exit.
+        per = [[] for _ in chunks]
+        done = [False] * len(chunks)
+
+        def _run(i, ch):
             try:
-                for f in _as_completed(futs, timeout=_SCOUT_DEADLINE):
-                    per[futs[f]] = f.result() or []
-            except _FutTimeout:
-                n_lost = sum(1 for f in futs if not f.done())
-                print(f"  scout: {n_lost}/{len(chunks)} chunks timed out after {_SCOUT_DEADLINE}s; "
-                      f"proceeding without them", file=sys.stderr)
-                for f in futs:
-                    f.cancel()
+                per[i] = _scout_once(client, anchor, ch, rblock, f"scout-{anchor.date()}-{i}") or []
+            except Exception as e:  # noqa: BLE001 -- one bad chunk must not take the scan down
+                print(f"  scout chunk {i} failed: {type(e).__name__}: {e}", file=sys.stderr)
+            finally:
+                done[i] = True
+
+        threads = [_Thread(target=_run, args=(i, ch), daemon=True, name=f"scout-{i}")
+                   for i, ch in enumerate(chunks)]
+        for t in threads:
+            t.start()
+        _deadline = _time.monotonic() + _SCOUT_DEADLINE
+        for t in threads:
+            t.join(max(0.0, _deadline - _time.monotonic()))
+        if not all(done):
+            n_lost = sum(1 for d in done if not d)
+            print(f"  scout: {n_lost}/{len(chunks)} chunks timed out after {_SCOUT_DEADLINE}s; "
+                  f"proceeding without them", file=sys.stderr)
         gi = 0
         # UNION by ticker: the same name surfacing in two beats is one candidate, not two. First
         # occurrence keeps its thesis; peers are merged so no vehicle is lost to chunk boundaries.
