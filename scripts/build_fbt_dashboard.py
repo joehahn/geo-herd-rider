@@ -338,15 +338,45 @@ def table_html(headers: list[str], rows: list[list]) -> str:
 
 
 # --------------------------------------------------------------------------- build
-def build(run: Path, out: Path) -> None:
-    arts, meta, stats = _load(run)
+def build(run: Path, out: Path, bootstrap: bool = False) -> None:
+    """Render the corpus-health dashboard.
+
+    `bootstrap=True` renders FBS (docs/fbs.html) off src/bootstrap_corpus instead of a single pool.json.
+    SAME panels on purpose: the questions that matter about a corpus -- how much of it has text, which
+    beats it reaches, how deep the provenance goes -- do not change because the corpus was assembled
+    from two eras, and a forked copy of 870 lines of panel code would drift from this one within a week
+    (which is precisely how the beat vocabulary drifted). One builder, two corpora."""
+    if bootstrap:
+        import bootstrap_corpus
+        arts, meta = bootstrap_corpus.load()
+        stats = {}                       # no retrieval_stats.json: the corpus is assembled, not ingested
+        print(f"  {bootstrap_corpus.describe(meta)}", flush=True)
+    else:
+        arts, meta, stats = _load(run)
+    _PAGE = "fbs.html" if bootstrap else "fbt.html"
+    _NAME = "Firehose Bootstrap (FBS)" if bootstrap else "Firehose Backtest (FBT)"
+    # The sub-line must say WHICH corpus, and for FBS where the two eras meet -- a reader who cannot see
+    # the handoff on the page will read the seam as a retrieval change.
+    _SRC = (f"GKG+wayback &rarr; {meta.get('handoff','?')} &rarr; websearch daily "
+            f"({meta.get('n_gkg',0):,} + {meta.get('n_websearch',0):,})") if bootstrap else "GKG on BigQuery"
     gem = _gem_beats()
     n = len(arts)
     dates = sorted(a.get("published_date", "")[:10] for a in arts if a.get("published_date"))
     win = f"{dates[0]} → {dates[-1]}" if dates else "?"
 
     # ---- panel data ------------------------------------------------------
-    fun = funnel_rows(stats, n, run)
+    if bootstrap:
+        # An assembled corpus has no ingest funnel -- there is no BigQuery scan to narrow. What matters
+        # instead is COMPOSITION: how much came from each era, and where the seam is. Same panel slot,
+        # honest content, rather than a funnel chart with nothing to put in it.
+        fun = [(f"GKG + wayback (to {meta['handoff']})", meta["n_gkg"],
+                f"{meta['start']} → {meta['handoff']}, ~3 months of retrospective depth"),
+               (f"websearch daily (from {meta['handoff']})", meta["n_websearch"],
+                f"{meta['handoff']} → {meta['end']}, deduped by URL; grows every morning"),
+               ("title-spam dropped from the websearch era", meta["spam_dropped"],
+                "the backtest's filter re-applied, so both eras are filtered to one standard")]
+    else:
+        fun = funnel_rows(stats, n, run)
 
     import difflib
     bymonth = collections.defaultdict(
@@ -479,9 +509,18 @@ def build(run: Path, out: Path) -> None:
                      for k, v in params)
 
     panels = "".join([
-        panel(1, "Filtering the ingestion funnel",
-              "Every filter an article must survive, from all of GDELT down to the corpus — a "
-              f"{fun[0][1] / max(n, 1):,.0f}&times; reduction. The first four stages run inside the "
+        panel(1, ("How the bootstrap corpus is assembled" if bootstrap
+                  else "Filtering the ingestion funnel"),
+              (f"A CLEAN CUT at {meta.get('handoff','?')}, not a blend: GKG + the wayback lede backfill "
+               f"before it, the daily websearch pull ONLY after it. GKG is not used past the handoff even "
+               f"though it has coverage there, because the forward test this leads to runs on websearch "
+               f"alone — blending would make the bootstrap richer than the thing it predicts. The seam is "
+               f"nearly invisible by volume (~101/day before, ~97/day after), but the eras are otherwise "
+               f"<b>97.7% disjoint by URL</b>, so treat any metric that moves at the handoff as a corpus "
+               f"change first and a signal second. Defined in src/bootstrap_corpus.py."
+               if bootstrap else
+               "Every filter an article must survive, from all of GDELT down to the corpus — a "
+               f"{(fun[0][1] / max(n, 1)) if fun else 0:,.0f}&times; reduction. The first four stages run inside the "
               "BigQuery query and were never counted until now; their figures are scaled from four "
               "sampled weeks. Everything from &ldquo;GKG rows scanned&rdquo; down is exact. "
               "<b>Log x-axis</b> — the funnel spans 3.5 orders of magnitude."
@@ -490,7 +529,7 @@ def build(run: Path, out: Path) -> None:
               "Volume alone cannot tell you whether a stage is working — the two largest here throw "
               "away real coverage about 40% of the time."
               f"<br><br>Stages are configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} "
-              f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}.",
+              f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
         panel(2, "Coverage over time",
               "The same corpus at three resolutions: per month, per ISO week, and per day. Month shows "
@@ -587,16 +626,16 @@ def build(run: Path, out: Path) -> None:
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Firehose Backtest (FBT)</title>
+<title>{_NAME}</title>
 <script src="{PLOTLY_CDN}"></script>
 <style>
 {CSS}
 </style></head><body>
 <div class="wrap">
-{dash_nav.render('fbt.html')}
+{dash_nav.render(_PAGE)}
 <header>
-  <h1>Firehose Backtest (FBT)</h1>
-  <p class="sub">{esc(win)} &middot; {n:,} articles &middot; GKG on BigQuery</p>
+  <h1>{_NAME}</h1>
+  <p class="sub">{esc(win)} &middot; {n:,} articles &middot; {_SRC}</p>
 </header>
 <div class="tiles">{tiles}</div>
 <section class="panel"><h2>Parameters</h2>
@@ -859,10 +898,15 @@ def main(argv=None) -> int:
     # The 3-year corpus is what the curator actually reads; the 1-year dir is a stale leftover.
     # Defaulting to it silently rebuilt this dashboard on 1/3 of the data (caught 2026-08-12).
     ap.add_argument("--run", default="data/backtest_3yr")
-    ap.add_argument("--out", default="docs/fbt.html")
+    ap.add_argument("--out", default="")
+    ap.add_argument("--bootstrap", action="store_true",
+                    help="render FBS (docs/fbs.html) off the assembled bootstrap corpus "
+                         "(src/bootstrap_corpus) instead of a single run's pool.json")
     a = ap.parse_args(argv)
+    out = a.out or ("docs/fbs.html" if a.bootstrap else "docs/fbt.html")
     build(ROOT / a.run if not Path(a.run).is_absolute() else Path(a.run),
-          ROOT / a.out if not Path(a.out).is_absolute() else Path(a.out))
+          ROOT / out if not Path(out).is_absolute() else Path(out),
+          bootstrap=a.bootstrap)
     return 0
 
 
