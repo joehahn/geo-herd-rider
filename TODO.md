@@ -15,7 +15,16 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
 
-## Decouple the news window from the rebalance cadence: `news_lookback_days` (parked 2026-08-11)
+## DONE 2026-08-14 — Decouple the news window from the rebalance cadence: `news_lookback_days`
+
+**Shipped in c0c8dda.** `optimizer` had documented this as live behaviour all along, but only
+`firehose.py` (the backtest) implemented it; `forward.py` built its pool window from the cadence, so
+setting the knob did nothing. Now honoured on both sides, with a `--lookback-days` override mirroring
+the backtest's. Forward profile runs `news_lookback_days: 30` with `rebalance_period: weekly`, and
+`news_cap` went 500 -> 0 in the same change because the cap truncated the new 30-day window back to
+~5 days. Original note follows.
+
+### (superseded) original note, parked 2026-08-11
 
 Today one knob does both jobs: `backtest_gdelt.py:212` builds the scan's pool as
 `anch - Timedelta(days=cadence) .. anch`, so the trailing news window IS `rebalance_period`. PWR carries a
@@ -185,6 +194,38 @@ Named FIREHOSE, not 'retriever' -- that is PWR's word and appears 0 times in thi
 
 Corpus state: 38,896 articles, 106.6/day, 93.5% with text (10.2% of it clean/archived), 18,435
 bylines, 46/46 beats, 2,284 sources. ~52% of it is noise; the scout is the intended backstop.
+
+## Retired parameters still present in the code (parked 2026-08-14)
+
+The `rebalance_days` -> `rebalance_period` rename was done 2026-08-09 but never finished, and the
+leftover cost real money in wrong numbers before anyone noticed. `optimizer` kept `rebalance_days: 7`
+as a default, so `load_financial_model` INJECTED it into every profile; any code reading the raw key
+got 7 for a monthly run whose scans are 30 days apart. Two CBT figures were silently wrong (a funnel
+bar 5x too small, a watchlist span 4x too short) and nothing complained, because 7 is a plausible
+cadence. **The lesson to carry: a retired knob that still resolves to a plausible number is more
+dangerous than one that is absent.** Deleting the default and making `resolve_cadence` fail loud is
+DONE (2026-08-14); what follows is the remaining cosmetic tail.
+
+### 1. `rebalance_days` function parameters -> `cadence_days`
+`agent.run_agent_scans/run_event_agent_scans`, `firehose.run_scans`, `forward.scan_and_log/_current_anchor`,
+`forward_engine.run_week`. These carry an ALREADY-RESOLVED integer, not the retired config key, so
+they are safe -- but the name now points at a knob that no longer exists, which is how a future reader
+gets sent back to the raw key. Pure rename, touches every call site, no behaviour change.
+KEEP the `--rebalance-days` CLI flags: a numeric escape hatch is legitimate on the command line, where
+it cannot masquerade as configuration.
+
+### 2. Finish the `lookback_period_days` -> `optimizer_lookback_days` rename
+Renamed 2026-08-12, but `optimizer.load_financial_model` still reconciles the two names in lockstep so
+old readers keep working (`optimizer.py:285`). Verified correct today -- the profile's 45 reaches
+`firehose.py:576` -- so this is hygiene, not a bug. Finish it: move the ~3 readers
+(`firehose.py:576`, `forward.py:89`, `scripts/sweep_optimizer.py` GRID) onto the new name and delete
+both the alias and the reconciliation block. Note the sweep GRID key is part of every saved
+`data/sweep_*.json`, so either migrate those or keep the sweep key as-is deliberately.
+
+### 3. Audit result, for whoever picks this up
+All 42 knobs in `_FINANCIAL_MODEL_DEFAULTS` have a real reader as of 2026-08-14 -- there is no third
+dead knob hiding. `trailing_stop_pct` and `prune_zero_weight_weeks` (deferred 2026-07-03) are already
+gone. So this item is genuinely just the two renames above.
 
 ## Cleanup backlog — dead code and retired data (parked 2026-08-09)
 
@@ -542,8 +583,36 @@ desks GDELT cannot (etf.com = 0 of 128,565 here, reachable via Anthropic). So GK
 good negative evidence when a desk IS crawled and yields nothing (kitco), good positive evidence when
 crawled and high-yield (mining.com), and NO evidence either way for uncrawled desks.
 
-## [DEFERRED — forward gets revamped after the backtest settles] Forward gem pass returns ZERO from Anthropic
-## (found 2026-08-11, prompted by PWR's arstechnica bug)
+## DONE 2026-08-14 — Forward gem pass returns ZERO from Anthropic (found 2026-08-11)
+
+**Fixed in b68e9ed, 32 days after it started.** The cause was TWO independent bugs, and the first is
+the one worth remembering:
+
+1. `cap=0` MEANT "KEEP NOTHING". `gather()` ended with `kept[:cap]`, and `pull_day` passes `cap=0`
+   for the reason its own docstring gives -- the daily pull must keep every day's news. `kept[:0]` is
+   the empty list, so every article the gather had searched for, dated and frozen was discarded on the
+   final line. `0 = uncapped` is the convention everywhere else here (`news_cap`, `max_new_events`),
+   and `forward_gather_tavily` already implemented it correctly (`if cap:`) -- which is exactly why
+   Tavily worked and Anthropic did not, for a month, with nobody able to see why.
+2. A 1-DAY WINDOW MATCHES ALMOST NOTHING. Anthropic's web_search has no recency operator
+   (`before:DATE` bounds only the upper end), so it returns articles spread over months. Measured on a
+   live 165-result sweep: at the 1-day window the pull used, **0 of 165** survived the fail-closed date
+   filter (3d -> 22, 7d -> 35). Anthropic now looks back 7 days; Tavily keeps 1, having a real date
+   filter. `_drop_already_pulled` stops the wider window re-storing the same URL every day.
+
+Verified live: 0 -> 43 articles, including etftrends.com -- the Cloudflare-walled specialty desk
+Tavily cannot reach, i.e. the early-gem rung this engine exists for.
+
+HARDENED so it cannot recur silently: `gather()` logs its funnel every run (raw -> triaged -> fetched
+-> in-window), a pass returning queries-but-no-results is treated as rate limiting and retried with
+backoff, and `pull_day` warns loudly to stderr when either engine returns zero. **The diagnosis only
+became possible after adding the funnel log** -- zero had four indistinguishable causes, and guessing
+between them produced two failed fix attempts first.
+
+The 32 days of one-engine coverage are NOT recoverable; the bootstrap corpus carries that hole from
+2026-07-07 to 2026-08-13. See `src/bootstrap_corpus.py`.
+
+### (superseded) original note, parked 2026-08-11
 DO NOT FIX NOW (user's call, 2026-08-11): the whole forward-use path is being revamped once the
 backtest settles, so an incomplete daily ingest is acceptable in the meantime. Logged so the
 finding is not lost — the $1-5/day of wasted spend is the thing to remember.
