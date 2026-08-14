@@ -268,7 +268,15 @@ def main(argv=None) -> int:
                     for _bq in (_a.get("queries") or []):
                         _tb[_p["ticker"]][_bq] += 1
         _dom = {tk: c.most_common(1)[0][0] for tk, c in _tb.items() if c}
-        _top = [b for b, _ in collections.Counter(_dom.values()).most_common(8)]
+        # KEEP EVERY BEAT THAT MOVED MONEY. A flat top-8-by-ticker-count cap silently misattributed the
+        # book: measured 2026-08-14 on v15, RKLB's $36,886 -- the single largest gain in the run, and a
+        # pure rocket-builder -- landed in "other" because "space stocks" funded few tickers, while the
+        # per-beat chart still listed "space stocks" at $0 (that panel enumerates ALL corpus beats). The
+        # reading was exactly backwards: the beat looked like a total failure while it was the top earner.
+        # So a beat that is dominant for any ticker carrying P&L keeps its own label; only beats that
+        # funded nothing but noise fold into "other" (still capped, so the hue order stays finite).
+        _moved = {b for b in _dom.values()}
+        _top = [b for b, _ in collections.Counter(_dom.values()).most_common(24) if b in _moved]
         def _beat_of(tk):
             b = _dom.get(tk)
             return b if b in _top else ("other" if b else "no beat")
@@ -1221,19 +1229,27 @@ function draw() {{
         margin:{{l:64,r:20,t:10,b:40}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$'}}, xaxis:{{gridcolor:p.grid, type:'date'}}}}), CFG);
   }};
+  // Bind the drill-down click ONCE PER GRAPH, and stop retrying once every graph is bound.
+  // The retry exists because this runs before Plotly.react() has turned the div into a graph
+  // (`g.on` does not exist yet), so the first pass always misses. But the terminating condition has
+  // to be counted against the ACTUAL id list: an earlier `done < 2` against a one-id list could
+  // never be satisfied, so bind() rescheduled itself every 150ms forever, appending ANOTHER
+  // plotly_click handler to c-gainh each pass. Within a minute one click fired _showTk hundreds of
+  // times, each doing a full Plotly.react on the modal -- the tab froze instead of opening the popup,
+  // which reads exactly like "the popup doesn't work" (found 2026-08-14 on plot 4).
+  const _CLICKABLE = ['c-gainh'];
   (function bind(){{
-    let done = 0;
-    ['c-gainh'].forEach(id => {{
+    const left = _CLICKABLE.filter(id => {{
       const g = document.getElementById(id);
-      if (g && g.on) {{
-        g.on('plotly_click', ev => {{
-          const tk = ev.points[0].x;
-          if (!String(tk).startsWith('other (')) window._showTk(tk);   // the rolled bar is not a name
-        }});
-        done++;
-      }}
+      if (!g || !g.on || g._tkBound) return !(g && g._tkBound);   // not ready yet -> keep waiting
+      g._tkBound = true;                                          // idempotent: never bind twice
+      g.on('plotly_click', ev => {{
+        const tk = ev.points[0].x;
+        if (!String(tk).startsWith('other (')) window._showTk(tk);   // the rolled bar is not a name
+      }});
+      return false;
     }});
-    if (done < 2) setTimeout(bind, 150);
+    if (left.length) setTimeout(bind, 150);
   }})();
   document.addEventListener('keydown', e => {{ if (e.key === 'Escape') window._hideTk(); }});
 
