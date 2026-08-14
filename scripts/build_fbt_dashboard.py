@@ -175,7 +175,11 @@ def funnel_rows(stats: dict, n_corpus: int, run: Path) -> list[tuple[str, int, s
     aud = audits(run)
     for name, n, src, key in [
             ("mill_block domain", g.get("dropped_blocklist", 0), "investor profile", "blocklist"),
-            ("bot/listicle headline", g.get("dropped_spam", 0), "spam_title_patterns", "spam"),
+            # "bot/listicle" named 2 of the 17 hard patterns. EIGHT are institutional-filing churn
+            # (13F, Form 4, "buys N shares of", "stake raised by", "grows position in"), and the rest
+            # are earnings transcripts, chart-signal templates and quote pages. The label now says so.
+            ("boilerplate headline", g.get("dropped_spam", 0),
+             "listicles · 13F/insider filings · earnings transcripts · chart signals", "spam"),
             ("beat only in Extras, not this article", g.get("dropped_no_beat", 0), "beat keywords", "no_beat"),
             ("no subject company", g.get("dropped_no_org", 0), "ontopic_offset + org_stoplist", "no_org")]:
         rows -= int(n)
@@ -541,9 +545,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                + ("<br><br>Each bar also carries how often it was <b>wrong</b>, from a re-read of its drops."
                   if _has_audit else
                   "")
-               + "<br><br>The residual bar is found by SUBTRACTION, not counted: three skips increment no "
-               "counter (no URL, no date, a URL already seen), so what is left over after the "
-               "counted stages and the syndication collapse is attributed to them."
+               + ""
                + f"<br><br>Configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} and "
                  f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
