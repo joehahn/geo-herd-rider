@@ -367,6 +367,14 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     win = f"{dates[0]} → {dates[-1]}" if dates else "?"
 
     # ---- panel data ------------------------------------------------------
+    # Does the funnel actually HAVE its upstream stages and its accuracy annotations? The prose below
+    # is written from these flags rather than asserting a fixed story: the old text claimed BOTH
+    # ("figures are scaled from four sampled weeks", "each stage carries how often it was wrong")
+    # while rendering NEITHER -- prefilter_scale.json does not exist for this corpus and no drop audit
+    # has been run against it. A panel that describes content it is not showing is worse than one that
+    # admits the gap, because the reader cannot tell the funnel is missing its three largest stages.
+    _has_prefilter = (run / "prefilter_scale.json").exists()
+    _has_audit = (bool(audits(run)) if not bootstrap else False)
     if bootstrap:
         # An assembled corpus has no ingest funnel -- there is no BigQuery scan to narrow. What matters
         # instead is COMPOSITION: how much came from each era, and where the seam is. Same panel slot,
@@ -521,17 +529,34 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                f"<b>97.7% disjoint by URL</b>, so treat any metric that moves at the handoff as a corpus "
                f"change first and a signal second. Defined in src/bootstrap_corpus.py."
                if bootstrap else
-               "Every filter an article must survive, from all of GDELT down to the corpus — a "
-               f"{(fun[0][1] / max(n, 1)) if fun else 0:,.0f}&times; reduction. The first four stages run inside the "
-              "BigQuery query and were never counted until now; their figures are scaled from four "
-              "sampled weeks. Everything from &ldquo;GKG rows scanned&rdquo; down is exact. "
-              "<b>Log x-axis</b> — the funnel spans 3.5 orders of magnitude."
-              "<br><br>Each stage also carries how often it was <b>wrong</b>: a sample of what it "
-              "discarded was re-read by a strong model that was never told a filter was involved. "
-              "Volume alone cannot tell you whether a stage is working — the two largest here throw "
-              "away real coverage about 40% of the time."
-              f"<br><br>Stages are configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} "
-              f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
+               "Every filter an article must survive on its way into the corpus. Each bar is what REMAINS "
+               "after that stage; the arithmetic reconciles exactly to the corpus count. <b>Log x-axis</b>."
+               + ("<br><br>The first four stages run inside the BigQuery query; their figures are scaled "
+                  "from four sampled weeks. Everything from &ldquo;GKG rows scanned&rdquo; down is exact."
+                  if _has_prefilter else
+                  "<br><br><b>THIS FUNNEL STARTS PART-WAY DOWN.</b> Three more filters run before it, inside "
+                  "the BigQuery <code>WHERE</code> clause, and are <b>not shown</b>: <b>English-origin</b> "
+                  "(<code>TranslationInfo IS NULL</code>, the largest filter in the pipeline), the "
+                  "<b>market-theme</b> gate (<code>V2Themes</code> against our 10 theme codes), and the "
+                  "<b>beat-keyword</b> match (the gem + coverage beats, against URL and page title). Together "
+                  "they discard the large majority of GDELT before a single row is fetched, so the corpus "
+                  "below is a small remainder of a much larger population. They are uncounted on purpose: "
+                  "what they drop is never retrieved, so unlike every bar shown here their cost in lost "
+                  "coverage cannot be audited after the fact — only a deliberate recall probe (re-running a "
+                  "window with one gate removed) can measure it. All three are OUR configuration, not "
+                  "GDELT's editorial choice.")
+               + ("<br><br>Each stage also carries how often it was <b>wrong</b>: a sample of what it "
+                  "discarded was re-read by a strong model that was never told a filter was involved. "
+                  "Volume alone cannot tell you whether a stage is working."
+                  if _has_audit else
+                  "<br><br><b>No accuracy annotations on this build.</b> The drop audit "
+                  "(scripts/judge_dropped.py) has not been run against this corpus, so every bar here is "
+                  "VOLUME ONLY. Volume cannot tell you whether a stage is working: when that audit last ran, "
+                  "the two largest stages were throwing away real coverage about 40% of the time.")
+               + "<br><br>The <i>uncounted residual</i> bar lumps three skips that share no counter: rows "
+                 "with no URL, rows with no parseable date, and duplicate URLs."
+               + f"<br><br>Stages are configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} "
+                 f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
         panel(2, "Coverage over time",
               "The same corpus at three resolutions: per month, per ISO week, and per day. Month shows "
