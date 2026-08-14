@@ -483,11 +483,43 @@ def main(argv=None) -> int:
     except Exception:  # noqa: BLE001 - decisions.jsonl is opt-in via --decisions
         pass
 
+    # per-scan gate counts: prefer what the run RECORDED; recompute only for pre-2026-08-14 runs
+    if all("articles_gated" in r for r in M):
+        _gated_total = sum(r["articles_gated"] for r in M)
+    else:
+        try:
+            import agent as _ag2
+            import pandas as _pd2
+            import statistics as _st2
+            # Cadence from THE RUN, never the profile. investor_profile.backtest.md still carries a
+            # stale rebalance_days: 7 alongside rebalance_period: monthly, and this run's scans are
+            # actually 30 days apart -- reading the profile gave a 7-day window and undercounted the
+            # gate bar by 5x (1,087 vs the true 5,096). The run's own scan spacing cannot drift.
+            _wk = sorted(_pd2.Timestamp(str(r["week"])[:10]) for r in M)
+            _gaps = [(_wk[i + 1] - _wk[i]).days for i in range(len(_wk) - 1)]
+            _cad = int(_st2.median(_gaps)) if _gaps else 30
+            _gt = 0
+            for _r in M:
+                _hi = str(_r["week"])[:10]
+                _lo = (_pd2.Timestamp(_hi) - _pd2.Timedelta(days=_cad)).date().isoformat()
+                _w = [a for a in ARTS if _lo < (a.get("published_date") or "")[:10] <= _hi]
+                _gt += len(_ag2.superlative_pool(_w))
+            _gated_total = _gt
+        except Exception as _e:  # noqa: BLE001 -- a missing gate bar beats a broken dashboard
+            print(f"  gate bar skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
+            _gated_total = 0
+
     payload = {
         "funnel": {
-            "labels": ["articles read", "candidates proposed", "candidates admitted",
-                       "events opened", "vehicles named", "picks logged"],
-            "values": [sum(r["articles_read"] for r in M), proposed, admitted,
+            # THE DISCOVERY GATE BELONGS IN THIS FUNNEL. Without it the chart jumps 98,950 -> 187 in one
+            # step and reads as "the scout rejected 99.8% of what it saw" -- but the scout never saw
+            # 98,950. It saw ~5,100: the gate is a ~19x cut sitting between those two bars, and it was
+            # the largest single reduction anywhere in the pipeline while appearing on no dashboard.
+            # `articles_gated` is recorded per scan by backtest_gdelt.py from 2026-08-14; older runs
+            # lack it, so it is recomputed here (free -- superlative_pool over the window, no LLM).
+            "labels": ["articles read", "past the discovery gate", "candidates proposed",
+                       "candidates admitted", "events opened", "vehicles named", "picks logged"],
+            "values": [sum(r["articles_read"] for r in M), _gated_total, proposed, admitted,
                        J.get("nid", 0), len(all_veh), len(PICKS)]},
         "breadth": {"w": weeks, "cap": _wcap, "held": _held_per_week,
                     "events": [r["events_live"] for r in M],

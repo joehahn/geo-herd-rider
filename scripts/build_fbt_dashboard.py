@@ -197,51 +197,6 @@ def funnel_rows(stats: dict, n_corpus: int, run: Path) -> list[tuple[str, int, s
 
 
 
-def curation_funnel(run: Path, arts: list, cadence_days: int) -> list[tuple[str, int, str]]:
-    """What the CURATOR removes, per scan -- the half of the funnel plot 1 never showed.
-
-    Plot 1 stops at the corpus, but the corpus is not what the scout reads. Measured 2026-08-14 on
-    v15: the discovery gate alone takes 2,659 in-window articles down to 140 (a 19x cut) and the scout
-    then proposes 6 -- both LARGER reductions than any bar in the ingest funnel, and neither appeared
-    anywhere on this dashboard. A funnel that stops at the corpus understates what the pipeline
-    discards by more than two orders of magnitude.
-
-    Returns per-scan MEDIANS, because these stages run once per scan on a trailing window, not once
-    over the corpus -- a total would silently double-count the overlap between windows."""
-    import statistics as _st
-    dec = run / "decisions.jsonl"
-    if not dec.exists():
-        return []
-    rows = [json.loads(l) for l in dec.open() if l.strip()]
-    rows = [r for r in rows if r.get("kind") == "scout" and r.get("context")]
-    if not rows:
-        return []
-    import agent as _agent
-    win_n, gate_n, prop_n, adm_n = [], [], [], []
-    for r in rows:
-        hi = str(r["context"])[:10]
-        lo = (date.fromisoformat(hi) - timedelta(days=cadence_days)).isoformat()
-        win = [x for x in arts if lo < (x.get("published_date") or "")[:10] <= hi]
-        win_n.append(len(win))
-        gate_n.append(len(_agent.superlative_pool(win)))
-        prop_n.append(len(r.get("proposed") or []))
-        adm_n.append(len(r.get("admitted") or []))
-    med = lambda v: int(_st.median(v)) if v else 0
-    tot = lambda v: sum(v)
-    return [
-        ("corpus inside the scan's news window", med(win_n),
-         f"median per scan over {len(rows)} scans · {cadence_days}d trailing window"),
-        ("− discovery gate (the gem tell)", med(gate_n),
-         f"{tot(win_n) - tot(gate_n):,} dropped across all scans · "
-         f"{100 * tot(gate_n) / max(tot(win_n), 1):.1f}% survive · agent.superlative_pool. "
-         f"EVENT AGENTS ARE UNAFFECTED — they read the full window, so an event's ordinary "
-         f"follow-up coverage is never withheld from the agent tracking it"),
-        ("− not named by the scout", med(prop_n),
-         f"{tot(prop_n):,} candidates proposed across all scans · the LLM's extraction step"),
-        ("= admitted as events", med(adm_n),
-         f"{tot(adm_n):,} admitted · after the ticker guard, the already-resolved block and max_new_events"),
-    ]
-
 
 def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
     """The headline judgements. Each is (label, value, status, why) -- the page leads with these so a
@@ -385,8 +340,7 @@ def table_html(headers: list[str], rows: list[list]) -> str:
 
 
 # --------------------------------------------------------------------------- build
-def build(run: Path, out: Path, bootstrap: bool = False,
-          curation: Path | None = None, cadence_days: int = 30) -> None:
+def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     """Render the corpus-health dashboard.
 
     `bootstrap=True` renders FBS (docs/fbs.html) off src/bootstrap_corpus instead of a single pool.json.
@@ -425,7 +379,6 @@ def build(run: Path, out: Path, bootstrap: bool = False,
                 "the backtest's filter re-applied, so both eras are filtered to one standard")]
     else:
         fun = funnel_rows(stats, n, run)
-    cfun = curation_funnel(curation, arts, cadence_days) if curation else []
 
     import difflib
     bymonth = collections.defaultdict(
@@ -501,8 +454,6 @@ def build(run: Path, out: Path, bootstrap: bool = False,
 
     # ---- payload ---------------------------------------------------------
     payload = {
-        "cfunnel": {"labels": [r[0] for r in cfun], "values": [r[1] for r in cfun],
-                    "notes": [r[2] for r in cfun]},
         "funnel": {"labels": [r[0] for r in fun], "values": [r[1] for r in fun],
                    "notes": [r[2] for r in fun]},
         "backfill": {**(stats.get("wayback_overlay") or {}),
@@ -582,17 +533,6 @@ def build(run: Path, out: Path, bootstrap: bool = False,
               f"<br><br>Stages are configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} "
               f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
-        *([panel("1b", "What the CURATOR removes, per scan",
-                 "Plot 1 stops at the corpus — but the corpus is not what the scout reads. These are the "
-                 "stages AFTER it, and the two biggest cuts in the whole pipeline are here, not above: the "
-                 "discovery gate takes a scan's window down by ~19&times;, and the scout then names a "
-                 "handful. Neither appeared anywhere on this dashboard until now, so the ingest funnel "
-                 "alone understated what the pipeline discards by more than two orders of magnitude."
-                 "<br><br><b>Per-scan medians, not totals</b> — these run once per scan on a trailing "
-                 "window, so summing them would double-count the overlap between windows."
-                 "<br><br>The gate is <b>scout-only</b>: event agents still read the full window, so an "
-                 "event's ordinary follow-up coverage is never withheld from the agent tracking it.",
-                 "p-cfunnel", 340)] if cfun else []),
         panel(2, "Coverage over time",
               "The same corpus at three resolutions: per month, per ISO week, and per day. Month shows "
               "whether any stretch of calendar is under-served; week is the scout's actual cadence, so "
@@ -744,25 +684,6 @@ function draw() {{
       xaxis:{{type:'log', gridcolor:p.grid, zerolinecolor:p.grid,
               title:{{text:'articles remaining (log scale)', font:{{size:11}}}}}}
   }}), CFG);
-  // 1b. the CURATION funnel -- same form as plot 1 on purpose: the reader is meant to see these as
-  //     two halves of ONE funnel, ingest then curation. Log x for the same reason.
-  if ((DATA.cfunnel.labels || []).length) {{
-    const cf = DATA.cfunnel, cn = cf.labels.length;
-    Plotly.react('p-cfunnel', [{{
-      type:'bar', orientation:'h', x:cf.values, y:cf.labels,
-      marker:{{color:cf.labels.map((_,i)=>p.ord[Math.min(Math.floor(i*p.ord.length/cn), p.ord.length-1)]),
-               line:{{width:2, color:p.surface}}}},
-      text:cf.values.map(v=>v.toLocaleString()),
-      textposition:'outside', textfont:{{color:p.text2, size:12}}, cliponaxis:false,
-      customdata:cf.notes,
-      hovertemplate:'%{{y}}<br>%{{x:,}} per scan (median)<br>%{{customdata}}<extra></extra>'
-    }}], base(p, {{margin:{{l:265,r:90,t:10,b:36}},
-        yaxis:{{autorange:'reversed', gridcolor:'rgba(0,0,0,0)', linecolor:p.grid, tickfont:{{size:12}}}},
-        xaxis:{{type:'log', gridcolor:p.grid, zerolinecolor:p.grid,
-                title:{{text:'articles per scan, median (log scale)', font:{{size:11}}}}}}
-    }}), CFG);
-  }}
-
 
   // 2. volume at three resolutions -- SMALL MULTIPLES, one shared measure (articles), never a
   //    second y-scale on one frame. Each row is its own subplot with its own count axis.
@@ -980,11 +901,6 @@ def main(argv=None) -> int:
     # Defaulting to it silently rebuilt this dashboard on 1/3 of the data (caught 2026-08-12).
     ap.add_argument("--run", default="data/backtest_3yr")
     ap.add_argument("--out", default="")
-    ap.add_argument("--curation", default="",
-                    help="a curation run dir (e.g. data/cbt_3yr_v15) -> adds plot 1b, the "
-                         "CURATOR-side funnel. Free: replays decisions.jsonl, no LLM.")
-    ap.add_argument("--cadence-days", type=int, default=30,
-                    help="scan cadence the curation run used; sets plot 1b's news window")
     ap.add_argument("--bootstrap", action="store_true",
                     help="render FBS (docs/fbs.html) off the assembled bootstrap corpus "
                          "(src/bootstrap_corpus) instead of a single run's pool.json")
@@ -992,10 +908,7 @@ def main(argv=None) -> int:
     out = a.out or ("docs/fbs.html" if a.bootstrap else "docs/fbt.html")
     build(ROOT / a.run if not Path(a.run).is_absolute() else Path(a.run),
           ROOT / out if not Path(out).is_absolute() else Path(out),
-          bootstrap=a.bootstrap,
-          curation=((ROOT / a.curation) if a.curation and not Path(a.curation).is_absolute()
-                    else (Path(a.curation) if a.curation else None)),
-          cadence_days=a.cadence_days)
+          bootstrap=a.bootstrap)
     return 0
 
 

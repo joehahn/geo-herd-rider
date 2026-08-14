@@ -289,6 +289,14 @@ def main(argv=None):
         metrics.append({
             "week": wk,
             "articles_read": len(gslice),
+            # TRACK THE GATE AT THE SOURCE. The discovery gate is the single largest reduction in the
+            # whole pipeline (~19x: 2,659 -> 140 per scan on v15) and nothing recorded it, so every
+            # dashboard that wanted it had to re-derive it from the corpus. Recording it here is free --
+            # the scan computes the same set anyway -- and it means a later reader never has to guess
+            # which gate vocabulary was in force at the time. Runs made before 2026-08-14 lack the key;
+            # build_cbt_dashboard falls back to recomputing it rather than forcing a re-curation.
+            "articles_gated": (len(agent.superlative_pool(gslice))
+                               if fm.get("discovery_filter") else len(gslice)),
             "articles_with_text": sum(1 for x in gslice if x.get("snippet") != x.get("title")),
             "lede_clean": _arm["wayback"], "lede_live": _arm["live"],
             "lede_headline_only": _arm["headline_only"],
