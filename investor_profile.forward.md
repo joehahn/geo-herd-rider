@@ -38,6 +38,14 @@
 #               retrieval_engine is deliberately ABSENT: it is the backtest's gkg selector, and
 #               firehose.py would otherwise read 'gkg' for a web-search run.
 #               Sync with the backtest is a GOAL, not a gate, while this is in development.
+#   2026-08-14  news_lookback_days 0 -> 30 with rebalance_period held at WEEKLY: the news window is now
+#               DECOUPLED from the trading cadence. optimizer.py documented this as live behaviour all
+#               along, but only firehose.py (the backtest) implemented it -- forward.py used the cadence,
+#               so the knob was a silent no-op until wired here today. At weekly+cadence-window an article
+#               is visible to exactly ONE scan then ages out; at 30d it stays readable across ~4.
+#               news_cap 500 -> 0 in the same breath: the cap truncated the 30d window (1,676 articles)
+#               back to the newest 500, a ~5-day window, cutting scout intake from 149 to 38 and undoing
+#               the widening. discovery_filter (~9% pass) is the read budget now, as in the backtest.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -51,7 +59,11 @@ event_agent_model: deepseek4      # CLOSES events. Once per live event per scan:
 discovery_filter: true            # gate the SCOUT to headlines carrying the gem tell (superlative + under-the-radar
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
-news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
+news_lookback_days: 30            # trailing days of news each scan READS -- DECOUPLED from the trading
+                                  #   cadence (rebalance_period: weekly). 0 would follow the cadence, and at
+                                  #   weekly that gives each article exactly ONE scan before it ages out for
+                                  #   good; 30 keeps it readable across ~4 scans, so an article published on a
+                                  #   scan boundary or indexed late is still seen. Trades stay WEEKLY.
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
@@ -161,7 +173,13 @@ cull_rank: trend                  # trend = trailing risk-adjusted return + fres
 curator_memory_weeks: 4           # SCANS of resolved catalysts the scout is reminded of; 0 = off, <0 = all
 event_agent_effort: high           # keep FULL reasoning for the live forward candidate (quality). (forward_engine
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
-news_cap: 500                     # articles the scout reads per scan; 0 = uncapped (the daily --pull is always uncapped)
+news_cap: 0                       # articles the scout reads per scan; 0 = UNCAPPED (the daily --pull always is).
+                                  #   Was 500, which silently defeated news_lookback_days: 30 -- measured
+                                  #   2026-08-14, a 30d window holds 1,676 articles and the cap truncated it to
+                                  #   the newest 500, i.e. back to a ~5-day window (08-09..08-13), cutting what
+                                  #   reached the scout from 149 to 38. discovery_filter is the real read budget
+                                  #   now (~9% of the pool carries the gem tell), so a second cap only re-narrows
+                                  #   the window we just widened. Matches the backtest, which is uncapped.
 picker_effort: high               # forward = 1 picker call/week, trivial cost, so keep full reasoning (its likely only edge).
 relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
 relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)

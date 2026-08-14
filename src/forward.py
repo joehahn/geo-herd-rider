@@ -134,7 +134,7 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                  anchor: pd.Timestamp | None = None, news_cap: int = 0,
                  gather_engine: str = "both", scout_model: str | None = None,
                  scout_provider: str = "anthropic", gather_model: str | None = None,
-                 event_provider: str = "anthropic") -> pd.DataFrame:
+                 event_provider: str = "anthropic", news_lookback_days: int = 0) -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
     LOCAL journal; here we log the decision + archive the raw inputs.
@@ -153,7 +153,16 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     daily_dir = SCANS_CSV.parent / "daily"                 # weekly scan CONSUMES the week's accumulated daily pulls
     acc: dict = {}
     if daily_dir.exists():
-        lo = (anchor - pd.Timedelta(days=rebalance_days)).date().isoformat()
+        # NEWS WINDOW != TRADING CADENCE. news_lookback_days (0 = follow the cadence) decouples how far
+        # back each scan READS from how often it TRADES. optimizer.py has documented this as LIVE
+        # behaviour all along -- "set it LONGER than the cadence for a deliberate OVERLAP, so an article
+        # indexed late, or published right on a scan boundary, still gets read on the next scan" -- but
+        # only firehose.py (the BACKTEST) implemented it; the forward silently used the cadence, so
+        # setting the knob here did nothing. That matters most at a short cadence: measured 2026-08-14,
+        # a batch of articles dated 08-09..08-14 is visible to exactly ONE weekly scan and then ages out
+        # for good, while a 30-day window keeps it readable across four. Backward-only, so #4 holds.
+        _news_lb = news_lookback_days or rebalance_days
+        lo = (anchor - pd.Timedelta(days=_news_lb)).date().isoformat()
         for f in sorted(daily_dir.glob("*.json")):
             for a in json.loads(f.read_text()).get("pool", []):
                 d = (a.get("published_date") or "")[:10]
@@ -397,6 +406,10 @@ def main(argv: list[str] | None = None) -> int:
                     help="audit why the scout kept few/no gems for a week (default: latest archive); no web search")
     ap.add_argument("--sandbox", default=None, metavar="DIR",
                     help="THROWAWAY run: redirect journal/scan-log/archive under DIR (isolates from the live series)")
+    ap.add_argument("--lookback-days", type=int, default=None, dest="lookback_days",
+                    help="trailing days of news each scan READS (0/unset = follow the cadence). "
+                         "Mirrors firehose.py's --lookback-days so backtest and forward take the "
+                         "same override; the profile knob is news_lookback_days.")
     ap.add_argument("--rebalance-days", type=int, default=None, dest="rebalance_days",
                     help="override the gather window in days (e.g. 28 for a 4-week prototype); default from profile")
     ap.add_argument("--anchor", default=None, metavar="YYYY-MM-DD",
@@ -445,7 +458,9 @@ def main(argv: list[str] | None = None) -> int:
                      news_cap=int(fm.get("news_cap", 0)),
                      gather_engine=(args.gather or str(fm.get("gather_engine", "both"))),
                      scout_model=scout_id, scout_provider=scout_prov,
-                     gather_model=gather_id, event_provider=event_prov)
+                     gather_model=gather_id, event_provider=event_prov,
+                     news_lookback_days=int(args.lookback_days if args.lookback_days is not None
+                                            else (fm.get("news_lookback_days") or 0)))
 
     if args.pull:
         load_dotenv()
