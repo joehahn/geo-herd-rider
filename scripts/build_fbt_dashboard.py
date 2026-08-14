@@ -529,34 +529,22 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                f"<b>97.7% disjoint by URL</b>, so treat any metric that moves at the handoff as a corpus "
                f"change first and a signal second. Defined in src/bootstrap_corpus.py."
                if bootstrap else
-               "Every filter an article must survive on its way into the corpus. Each bar is what REMAINS "
-               "after that stage; the arithmetic reconciles exactly to the corpus count. <b>Log x-axis</b>."
-               + ("<br><br>The first four stages run inside the BigQuery query; their figures are scaled "
-                  "from four sampled weeks. Everything from &ldquo;GKG rows scanned&rdquo; down is exact."
+               "Each bar is what REMAINS; the arithmetic reconciles to the corpus count. "
+               "<b>Log x-axis</b>."
+               + ("<br><br>The top four stages run inside the BigQuery query, scaled from four sampled weeks. "
+                  "Everything below &ldquo;GKG rows scanned&rdquo; is exact."
                   if _has_prefilter else
-                  "<br><br><b>THIS FUNNEL STARTS PART-WAY DOWN.</b> Three more filters run before it, inside "
-                  "the BigQuery <code>WHERE</code> clause, and are <b>not shown</b>: <b>English-origin</b> "
-                  "(<code>TranslationInfo IS NULL</code>, the largest filter in the pipeline), the "
-                  "<b>market-theme</b> gate (<code>V2Themes</code> against our 10 theme codes), and the "
-                  "<b>beat-keyword</b> match (the gem + coverage beats, against URL and page title). Together "
-                  "they discard the large majority of GDELT before a single row is fetched, so the corpus "
-                  "below is a small remainder of a much larger population. They are uncounted on purpose: "
-                  "what they drop is never retrieved, so unlike every bar shown here their cost in lost "
-                  "coverage cannot be audited after the fact — only a deliberate recall probe (re-running a "
-                  "window with one gate removed) can measure it. All three are OUR configuration, not "
-                  "GDELT's editorial choice.")
-               + ("<br><br>Each stage also carries how often it was <b>wrong</b>: a sample of what it "
-                  "discarded was re-read by a strong model that was never told a filter was involved. "
-                  "Volume alone cannot tell you whether a stage is working."
+                  "<br><br><b>STARTS PART-WAY DOWN.</b> Three filters run first, inside the BigQuery "
+                  "<code>WHERE</code>, and are not shown: English-origin, market-theme, beat-keyword. They "
+                  "drop most of GDELT before a row is fetched. Uncounted because their drops are never "
+                  "retrieved — only a recall probe can price them. All three are ours, not GDELT's.")
+               + ("<br><br>Each bar also carries how often it was <b>wrong</b>, from a re-read of its drops."
                   if _has_audit else
-                  "<br><br><b>No accuracy annotations on this build.</b> The drop audit "
-                  "(scripts/judge_dropped.py) has not been run against this corpus, so every bar here is "
-                  "VOLUME ONLY. Volume cannot tell you whether a stage is working: when that audit last ran, "
-                  "the two largest stages were throwing away real coverage about 40% of the time.")
-               + "<br><br>The <i>uncounted residual</i> bar lumps three skips that share no counter: rows "
-                 "with no URL, rows with no parseable date, and duplicate URLs."
-               + f"<br><br>Stages are configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} "
-                 f"and {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
+                  "<br><br><b>VOLUME ONLY.</b> No drop audit here, so no bar says how often it was wrong. "
+                  "Last time one ran, the two largest stages discarded real coverage ~40% of the time.")
+               + "<br><br>Residual = three skips with no counter: no URL, no date, duplicate URL."
+               + f"<br><br>Configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} and "
+                 f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
         panel(2, "Coverage over time",
               "The same corpus at three resolutions: per month, per ISO week, and per day. Month shows "
