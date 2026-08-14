@@ -22,61 +22,73 @@
 #               STRATEGY knobs (concentration_cap, risk_aversion, min_trade_size, max_watchlist) are
 #               deliberately LEFT FROZEN while the 3-year backtest sweeps them, so the two profiles
 #               are KNOWINGLY out of sync on those until that sweep promotes a dated re-freeze.
+#   2026-08-14  BOOTSTRAP RE-FREEZE. Wholesale copy of investor_profile.backtest.md's strategy knobs,
+#               resolving the 8-knob drift that had accumulated (risk_aversion 1.0->4.0,
+#               discovery_filter false->true, max_events 0->8, drop_unfunded 2->4, min_trade_size
+#               0.1->0.2, always_include GLD->BIL, event_agent_model sonnet5->deepseek4). The
+#               optimizer six are the cross-curation-robust cell [6, 0.40, 45, 4, 4.0, 0.20]; see the
+#               backtest profile's header for how it was chosen and why single-sweep fitting failed.
+#               EXCEPTION: rebalance_period is WEEKLY, deliberately out of sync with the backtest's
+#               monthly, to exercise the rebalance machinery often during the bootstrap smoketest.
+#               That cadence was NEVER SWEPT (rebalance_period is not in the grid), so CBS performance
+#               is not evidence for the config -- it is a MECHANICS test. Dial back to monthly if the
+#               smoketest gives no reason to keep it.
+#               Kept forward-side (retrieval-operational): gather_model (Anthropic-only, the live
+#               web-search stage), news_cap, and the effort/relevance knobs the backtest file lacks.
+#               retrieval_engine is deliberately ABSENT: it is the backtest's gkg selector, and
+#               firehose.py would otherwise read 'gkg' for a web-search run.
+#               Sync with the backtest is a GOAL, not a gate, while this is in development.
 # ==========================================================================
-# Active optimizer settings
-gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
-                                  #   so this MUST resolve to an Anthropic model. This is the ONLY stage that
-                                  #   requires Anthropic. Choices:
-                                  #   sonnet4  = claude-sonnet-4-6 (Anthropic)     ~$3.6
-                                  #   sonnet5  = claude-sonnet-5 (Anthropic)       ~$3.8
-                                  #   opus     = claude-opus-4-8 (Anthropic)       ~$4.4
-event_agent_effort: high           # keep FULL reasoning for the live forward candidate (quality). (forward_engine
-                                  #   currently uses the process_week default 'high'; backtest reads 'medium' for cost.)
-event_agent_model: sonnet5         # JUDGMENT stage (per-event agents): live/exit switch + conviction. Reads the
-                                  #   ALREADY-gathered pool with NO web search, so ANY provider works (decoupled
-                                  #   from gather_model as of the 2026-07-12 3-knob split). Kept on sonnet5 for the
-                                  #   frozen candidate; a cheaper judgment model is now a legal forward config.
-scout_model: llama4                # EXTRACTION/ROUTING stage (scout + matcher): the cost driver, runs a
-                                  #   cheap model. Any provider (no web search). Falls back to
-                                  #   event_agent_model if unset.  llama4 = llama-4-maverick (OpenRouter) ~$0.3
-picker_model: sonnet5             # PORTFOLIO-cull agent-picker (src/picker.py): forward --report ranks live events -> keep-list.
-                                  #   FORWARD is the clean test of the picker (post-cutoff, no memorized winners). STRONG model required.
-picker_effort: high               # forward = 1 picker call/week, trivial cost, so keep full reasoning (its likely only edge).
-initial_investment_usd: 50000     # day-0 dollar allocation
-always_include: [SPY, GLD]   # permanent optimizer anchors (equity/gold/T-bill), OUTSIDE max_watchlist
-starter_watchlist: [AAPL, GOOGL, AMZN]   # inception holdings (equal-weight); aged out as the curator's picks take over
-concentration_cap: 0.40          # per-position cap: a single position may be at most 66.7%
-risk_aversion: 1.0                # λ in mean_variance utility (μᵀw − λ·wᵀΣw); higher = more diversified/risk-averse
-t_update_days: 1                  # business days from event detection to trade execution
-min_trade_size: 0.1               # drop positions below this fraction of the book and reallocate
-max_watchlist: 6                  # hard cap on tickers that may hold capital; anchors ride outside it
-cull_rank: trend                  # trend = trailing risk-adjusted return + freshness reserve; keep-first = legacy alphabetical
-cull_fresh_slots: 3               # watchlist slots reserved for newly-opened events
-cull_fresh_scans: 2               # how recent counts as fresh, in scans
-drop_unfunded_weeks: 2            # prune a name the optimizer leaves unfunded this many SCANS running; 0 = off
-unfunded_reentry_on_new_catalyst: true   # a pruned name returns when the curator names it under a DIFFERENT thesis
-unfunded_cooldown_weeks: 0        # scans after a prune before a name is eligible again; 0 = never (release on evidence)
-max_new_events: 6                 # scout inflow cap: max NEW events admitted per scan; 0 = uncapped
-exit_patience_scans: 2            # consecutive explicit thesis-dead SCANS before a position exits (hysteresis vs churn)
-max_stale_scans: 2                # SCANS a held name may go unmentioned before it is dropped
-max_event_scans: 26               # AGE CAP: retire an event still live after this many scans (~1yr biweekly).
-                                  #   The mechanical backstop for catalyst_resolved: a thesis that never resolves
-                                  #   is a theme. max_stale_scans only fires on SILENCE, which a well-covered
-                                  #   theme never triggers. 0 = OFF.
-curator_memory_weeks: 4           # SCANS of resolved catalysts the scout is reminded of; 0 = off, <0 = all
-news_cap: 500                     # articles the scout reads per scan; 0 = uncapped (the daily --pull is always uncapped)
-event_news_cap: 20                # articles handed to EACH event-agent per scan (the curator cost knob); 0 = uncapped
-relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
-                                  #   here. Kept for parity so both profiles carry the same knobs.
-relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)
-optimizer_lookback_days: 45          # trailing calendar days of prices used to estimate μ and Σ
-rebalance_period: biweekly        # weekly | biweekly | monthly | quarterly; how often the curator runs & rebalances,
-                                  #   and the trailing news window each scan reads. NOTE the *_scans knobs above count
-                                  #   SCANS, so their real-time horizon follows this.
-risk_free_rate: 0.04              # reporting only (Sharpe); not in the weight optimization.
-# --- forward web-search domain steering (two-pass gather). Curate by OUTLET TYPE, never by "named a winner". ---
-specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call (reaches Cloudflare-walled etf.com)
-  # generalist stock/ETF desks (cover ALL sectors incl. maritime/energy):
+
+# ---------- AI MODELS: who does what, and what it costs ----------
+scout_model: llama4               # OPENS events. Reads the whole week's news (~1,500 headlines in ~10 chunked
+                                  #   calls) and proposes ticker + catalyst. Also runs the matcher, ticker guard
+                                  #   and relevance filter. ~90% of the AI bill, so keep it cheap.
+event_agent_model: deepseek4      # CLOSES events. Once per live event per scan: still live? catalyst resolved?
+                                  #   which tickers? Decides how long the book holds things.
+
+# ---------- CURATOR: what gets discovered, and when it is dropped ----------
+discovery_filter: true            # gate the SCOUT to headlines carrying the gem tell (superlative + under-the-radar
+                                  #   framing). Event agents still read the full corpus, so an event's ordinary
+                                  #   follow-up coverage is never withheld from the agent tracking it.
+news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
+event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
+max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
+                                  #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
+max_events: 8                     # how many events may be LIVE AT ONCE. When it binds, the lowest-ranked are
+                                  #   retired -- ranked by PRESS COVERAGE (src/evscore.py): independent-source
+                                  #   breadth, superlative count, coverage velocity, author breadth. No forecast.
+picker_model:                     # BLANK = use the arithmetic coverage-rank (src/evscore.py). An LLM ranker
+                                  #   has failed to beat its own null three times here. Set to a STRONG model only
+                                  #   to re-test that.  # ranks live events by catalyst ARC (early/building over crested) and emits an ordered
+                                  #   keep-list only -- never weights or returns. MUST be a strong model: sonnet5 hit the
+                                  #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
+exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
+max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
+max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). 
+
+# ---------- OPTIMIZER: what gets funded, and how much ----------
+initial_investment_usd: 50000     # day-0 dollars.
+starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
+always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
+max_watchlist: 6                  # how many tickers may hold capital at once.
+cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
+cull_fresh_scans: 2               # how new counts as new, in scans.
+drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
+concentration_cap: 0.40           # most of the book any one ticker may take.
+min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
+                                  #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
+                                  #   it holds only the strongest 2-3 convictions.
+risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+optimizer_lookback_days: 45       # days of price history behind μ and Σ.
+rebalance_period: weekly         # weekly | biweekly | monthly | quarterly. The trading cadence.
+t_update_days: 1                  # trading days between the signal and the trade.
+risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
+
+# ---------- SOURCES: which outlets the forward gather prefers and avoids ----------
+specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call
+  # generalist stock/ETF desks (all sectors):
   - etf.com
   - benzinga.com
   - seekingalpha.com
@@ -112,7 +124,7 @@ specialty_allow:                  # GEM pass allowlist: specialty desks that car
   - powermag.com
   # tanker/shipping desks (seatrade-maritime is conference-focused):
   - splash247.com                  # not crawled by GDELT, forward-only
-mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills that crowd out the gem call
+mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills
   - fool.com
   - 247wallst.com
   - nerdwallet.com
@@ -143,4 +155,16 @@ mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" l
   # volume, 81.6/1k, covers US-listed names).
   - fool.com.au
   - fool.co.uk
+
+# ---------- forward-only retrieval/operational knobs ----------
+cull_rank: trend                  # trend = trailing risk-adjusted return + freshness reserve; keep-first = legacy alphabetical
+curator_memory_weeks: 4           # SCANS of resolved catalysts the scout is reminded of; 0 = off, <0 = all
+event_agent_effort: high           # keep FULL reasoning for the live forward candidate (quality). (forward_engine
+gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
+news_cap: 500                     # articles the scout reads per scan; 0 = uncapped (the daily --pull is always uncapped)
+picker_effort: high               # forward = 1 picker call/week, trivial cost, so keep full reasoning (its likely only edge).
+relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
+relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)
+unfunded_cooldown_weeks: 0        # scans after a prune before a name is eligible again; 0 = never (release on evidence)
+
 ---

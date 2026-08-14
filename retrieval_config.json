@@ -324,12 +324,11 @@
    "query": "space stocks",
    "origin": "vetted",
    "keywords": [
-    "satellite launch",
-    "launch vehicle",
+    "rocket",
+    "satellite",
     "spacecraft",
-    "orbital launch",
-    "space company",
-    "satellite operator"
+    "launch vehicle",
+    "orbit"
    ]
   },
   {
@@ -340,7 +339,10 @@
     "industrial robot",
     "warehouse automation",
     "robotics company",
-    "robotic surgery"
+    "robotic surgery",
+    "robotics",
+    "humanoid",
+    "automation"
    ]
   },
   {
@@ -361,8 +363,13 @@
     "microreactor",
     "nuclear reactor",
     "nuclear power plant",
+    "reactor design",
+    "nuclear power",
+    "nuclear energy",
+    "nuclear fuel",
+    "smr",
     "fusion energy",
-    "reactor design"
+    "data center power"
    ]
   },
   {
@@ -674,5 +681,7 @@
  "_english_only_note": "engine.english_only maps to the SQL predicate `TranslationInfo IS NULL`, which keeps only English-ORIGIN articles (GDELT machine-translates foreign coverage and marks it here). It is the LARGEST single filter in the pipeline -- measured at 88.5M rows/year, 64.6% of everything GDELT indexes -- and until 2026-08-09 it was a bare condition in the SQL with no knob, no note, and no audit, so it never appeared in the funnel dashboard at all. Promoted to config because a scope decision of that size should be visible and switchable, not buried. Set false to admit foreign-origin coverage, e.g. to reach non-US press writing about US-listed ADRs -- but expect roughly 3x the rows and note that the beat keywords are English, so recall on translated text will be poor until they are too.",
  "_org_stoplist_note": "MATCHED ON WORD BOUNDARIES, not as substrings (src/gkg._stoplist_re). The substring form silently discarded real listed companies whose names merely CONTAIN a stop token: `sec` killed SecureWorks / Secure Energy Services / Second Sight Medical, `epa` killed EPAM Systems, `russell` killed Russell Metals. Fixed 2026-08-10. Note some entries ARE themselves listed companies (Nasdaq/NDAQ, Cboe/CBOE, MSCI, FactSet/FDS, Morningstar/MORN) -- they stay because they appear far more often as index/data providers than as subjects, but an article genuinely about one of them as a company is collateral damage. MEASURED 2026-08-10, and the reason the generic-institution tokens below exist: switching to word boundaries removed an ACCIDENT that was load-bearing -- `epa` had been matching 'd-EPA-rtment', which is what kept Defense Department / Department of Government Efficiency / state banking departments out of the pool. Without a replacement the fix readmitted 1,457 rows per 24 chunks of which 82% were government-only subjects, i.e. exactly the general news the org test exists to exclude. So `department`/`ministry`/`agency`/... are now EXPLICIT, and the index-sector artifacts ('Select Sector', 'Software Sector') with them. Lesson: before removing a filter that looks wrong, measure what it was actually catching.",
  "_pruned_beats_note": "Removed 2026-08-13: 'stock surges skyrockets all-time high record', 'best performing stock', 'biggest stock gainers'. Their atoms (stock surges / shares soar / all-time high / best performing stock) ARE the discovery gate's own vocabulary, so they passed the gate at 31% and 94% against 3-8% elsewhere -- selected FOR, not filtered. Together they were 56% of everything the scout read and returned -$10,503. They retrieve articles ABOUT a price move rather than its CAUSE, which is the NVTS failure mode (bought the top on 'Stock Soared Today'). Safe for the gem class: of 476 under-the-radar-framed articles in the corpus they surfaced 3. The framing lives in 'under the radar small cap stock' (386) and 'niche ETF surging', both retained.",
- "_fda_beat_note": "Renamed + re-atomised 2026-08-13. Was 'upcoming FDA election vote stock anticipation': a two-topic name whose election half rested on ONE atom ('ballot measure', 58 hits, pulling politics with no tradeable name), and whose 'clinical readout' atom fired ONCE in 3 years. It is really an FDA-catalyst beat, and a good one -- 1,293 articles, only 37 gated (2.9%, so nearly free), and only 6% overlap with 'biotech pharma stocks'. It retrieves exactly the DATED milestone the event-agent exit prompt now asks for (PDUFA date, Phase 3 readout, approval)."
+ "_fda_beat_note": "Renamed + re-atomised 2026-08-13. Was 'upcoming FDA election vote stock anticipation': a two-topic name whose election half rested on ONE atom ('ballot measure', 58 hits, pulling politics with no tradeable name), and whose 'clinical readout' atom fired ONCE in 3 years. It is really an FDA-catalyst beat, and a good one -- 1,293 articles, only 37 gated (2.9%, so nearly free), and only 6% overlap with 'biotech pharma stocks'. It retrieves exactly the DATED milestone the event-agent exit prompt now asks for (PDUFA date, Phase 3 readout, approval).",
+ "_atom_broadening_note": "2026-08-13. robotics/nuclear/space were specified as narrow COMPOUND phrases ('humanoid robot', 'small modular reactor') while crypto and AI used bare high-frequency nouns ('bitcoin', 'gpu'). GKG matches atoms against the URL and title, so 'Robotics stocks surge' matched NOTHING in the robotics list. Result: robotics retrieved 266 articles in 3 years (7/month) against crypto's 16,796, and those beats produced ZERO gains -- a retrieval-vocabulary defect, not a curator one. Added the bare nouns, measured on the existing corpus: robotics +500 articles, nuclear +306, space +95. 'data center power' sits in the NUCLEAR beat deliberately, so AI-datacenter demand reaches the nuclear thesis and not only the semis one (170 AI x nuclear crossover articles already exist). SKIPPED for collisions/near-zero: bare 'quantum' (matches Quantum Solutions, a crypto firm), bare 'fission' (matches Fission Uranium Corp, TSE-listed), 'grid capacity' (0), 'power purchase agreement' (3, top hit is a biopharma PPA), 'space launch' (3).",
+ "_beat_vocabulary_note": "2026-08-13, aligned to portfolio-wave-rider's wave_keywords: GENERIC DOMAIN VOCABULARY, never named firms. A roster of launch companies goes stale (Stoke/Relativity return 0 today and will matter in two years); generic nouns do not, and it keeps GHR's beats comparable with PWR's wave buckets. Atoms are word-bounded with an optional plural (gkg._atom_regex), so 'rocket' CANNOT match 'sky-rocket' -- an earlier scare came from a looser hand-rolled regex, not the production one. DELIBERATE DEVIATIONS from PWR: no bare 'uranium' in nuclear (2,543 articles here, and the dedicated uranium gem beat already carries them -- it would swamp the reactor/SMR signal); 'orbit' instead of 'in orbit' (25 real space articles vs 10, at the cost of 8 Ultragenyx/Mereo 'Orbit' TRIAL hits, 24% noise); dropped lunar lander / starship / spaceflight / space station (0-15 hits each); kept 'fusion energy' -- 'fusion reactor' returns ZERO. 'data center power' sits in NUCLEAR so AI-datacenter demand reaches the nuclear thesis, not only the semis one. Dropped 'orbital launch', 'space company', 'satellite operator' 2026-08-13: each is subsumed by the bare 'satellite' / 'orbit' atoms, so they added nothing but length."
 }

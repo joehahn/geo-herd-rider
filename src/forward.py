@@ -35,6 +35,7 @@ import pandas as pd
 import firehose
 import anthropic
 import forward_engine
+import gkg                       # for _spam_title only: the forward pull filters to the BACKTEST's standard
 import forward_gather
 import forward_gather_tavily
 import llm
@@ -242,9 +243,22 @@ def pull_day(model: str, gather_engine: str = "both") -> None:
         print(f"    union: anthropic {len(a_arts)} + tavily {len(t_arts)} -> {len(arts)} deduped")
     else:
         arts = forward_gather.gather(anthropic.Anthropic(), model, day, 1, capture=cap, cap=0)  # uncapped daily
-    out.write_text(json.dumps({"date": dk, "model": model, "pool": cap.get("arts", arts),
+
+    # SAME TITLE-SPAM FILTER THE BACKTEST APPLIES (gkg._spam_title, from retrieval_config.json).
+    # Until 2026-08-14 the forward pull filtered by DOMAIN only (specialty_allow / mill_block), while the
+    # backtest additionally dropped listicle/price-target titles -- so the two corpora were filtered to
+    # different standards and were not comparable. Measured over the 1,875 articles accumulated by then it
+    # removes ~1.1% ("9 Best Stocks To Buy Now For August 2026"), i.e. mill_block already catches most of
+    # it; this closes the rest so the bootstrap can splice backtest and forward news without a filtering
+    # seam. Applied at WRITE time (not in the gather) so it covers every engine branch above equally.
+    _pool = cap.get("arts", arts)
+    _kept = [a for a in _pool if not gkg._spam_title(a.get("title") or "")]
+    if len(_kept) != len(_pool):
+        print(f"    spam-title filter: dropped {len(_pool) - len(_kept)} of {len(_pool)}")
+    cap["arts"] = _kept
+    out.write_text(json.dumps({"date": dk, "model": model, "pool": _kept,
                                "queries": cap.get("queries", [])}, indent=2, default=str))
-    print(f"  pulled {len(cap.get('arts', arts))} articles -> {out}")
+    print(f"  pulled {len(_kept)} articles -> {out}")
 
 
 def report() -> None:

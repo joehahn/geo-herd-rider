@@ -11,6 +11,7 @@ future-dated OR whose date can't be parsed is DROPPED — fail closed, like sear
 """
 from __future__ import annotations
 
+import json as _json
 import re
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -45,51 +46,38 @@ _MILL_BLOCK = list(_FGM.get("mill_block") or [])             # COVERAGE pass blo
 # imports these + the domain lists to run the identical two-pass sweep. GEM beats -> allowlist pass;
 # COVERAGE beats -> blocklist pass. The ONLY residual gap: Anthropic also spawns adaptive follow-ups (Tavily
 # runs the fixed list only) -> the backtest is a valid but CONSERVATIVE proxy (under-finds vs the forward).
-GEM_BEATS = [
-    # early-framing (still-under-the-radar) — trimmed 6->3 (the set was ~60% self-redundant in the backtest;
-    # keep one stock / catalyst / ETF framing each — none is load-bearing for any gem's key article)
-    "under the radar small cap stock", "overlooked stock catalyst", "niche ETF surging",
-    # catalyst -> named beneficiary (a discrete datable event and the ticker it lifts)
-    "war chokepoint stock beneficiary", "export ban tariff sanctions stock beneficiary",
-    "supply shortage supply shock stock", "rare earth critical minerals stock",
-    "memory chip DRAM shortage stock",       # dropped "tanker shipping freight rates ETF" 2026-07-12:
-    # redundant (17% unique, all macro noise / 0 gems) + off-target (pulled uranium/supply not tanker);
-    # tanker/BWET coverage lives in "shipping maritime stocks" + "niche ETF surging" + the ETF-superlative beat
-    "uranium nuclear fuel supply squeeze stock", "upcoming FDA election vote stock anticipation",
-]
-COVERAGE_BEATS = [
-    "technology stocks", "energy stocks", "financial stocks", "healthcare stocks", "industrial stocks",
-    "materials stocks", "consumer stocks", "utility stocks", "real estate stocks", "telecom stocks",
-    "shipping maritime stocks", "cryptocurrency stocks", "space stocks", "robotics stocks",
-    "quantum stocks", "nuclear stocks",
-    # added to close coverage gaps the backtest exposed (no defense beat drove RNMBY under-coverage;
-    # AI/biotech had specialty desks in the allowlist but no beat steering to them)
-    "defense aerospace stocks", "artificial intelligence semiconductor stocks", "biotech pharma stocks",
-    # gold was diluted under "materials" (0.7% of pool, hurt GDX recall) -> dedicated gold + silver beats
-    # (HL's silver-rally coverage was ~20 of the missed target squares)
-    "gold silver mining stocks", "silver mining stocks",
-    # supply/demand-shock clusters where dramatic gems appear but the broad "materials/energy" beats were
-    # too generic to rank: logistics BEYOND maritime; industrial base metals (tariff/EV/AI-demand movers,
-    # CLF-class); energy distribution + the AI-datacenter power-demand grid theme
-    "freight trucking rail air cargo logistics stocks",
-    "steel copper lithium aluminum titanium coal mining stocks",
-    "electric power grid pipeline energy infrastructure stocks",
-    # superlative framing — the missed target squares ARE superlatives ("Surges to All-Time High",
-    # "Skyrockets 380%", "Rockets to record"); a superlative beat targets that exact class
-    "stock surges skyrockets all-time high record",
-    # ETF-variant beats (several gems ARE ETFs: GDX/BWET/DRAM) with superlative framing — the wrappers'
-    # coverage is "best-performing / skyrocketing / little-known ETF" (BWET, DRAM) which the "stocks" beats miss
-    "best performing ETF little-known skyrocketing surging",
-    "gold silver miners ETF surging record high",
-    # thematic-sector ETF beats — the sectors that spawn hot single-theme ETF gems (like GDX/BWET/DRAM).
-    # Forward-BREADTH insurance: backtest recall won't move (no other ETF gem in the GT to catch), but this
-    # positions the live forward to catch the next thematic ETF the moment it's named. Boring index sectors
-    # (utility/telecom/consumer/real-estate/financial) deliberately skipped — they don't spawn ETF gems.
-    "nuclear uranium ETF surging", "robotics automation ETF surging", "quantum computing ETF surging",
-    "space defense ETF surging", "crypto blockchain ETF surging", "semiconductor memory chip ETF surging",
-    "power grid AI datacenter energy ETF surging",   # AI-power-demand is a genuinely hot ETF theme
-    "best performing stock", "biggest stock gainers",
-]
+#
+# THE STRINGS NOW COME FROM retrieval_config.json, WHICH IS AUTHORITATIVE (2026-08-14).
+# They used to be hardcoded here and hand-copied into retrieval_config.json, which that file's own header
+# claimed was "lifted byte-for-byte" — nothing enforced it, and it silently drifted: a beat prune and an
+# FDA-beat rename landed in the JSON only, so for days the FORWARD pull kept spending live web searches on
+# three pruned momentum beats ("best performing stock", "biggest stock gainers", "stock surges skyrockets
+# all-time high record") and on a stale "upcoming FDA election vote" beat, while the BACKTEST measured a
+# different vocabulary. Reading one file removes the class of bug rather than re-syncing by hand.
+#
+# The rationale comments that used to annotate each beat are preserved in retrieval_config.json alongside
+# the strings they explain (each beat carries its own `origin` + `keywords`), so the provenance moved with
+# the data instead of being stranded here.
+def _load_beats() -> tuple[list[str], list[str]]:
+    """(gem, coverage) beat queries from retrieval_config.json.
+
+    FAILS LOUDLY. An empty or missing config must never degrade to a silent fallback list: a stale
+    hardcoded copy is exactly how the drift above went unnoticed, and a forward pull that quietly runs
+    the wrong beats is unrepeatable — the day's news cannot be re-fetched later (see forward_daily.sh)."""
+    p = Path(__file__).resolve().parent.parent / "retrieval_config.json"
+    cfg = _json.loads(p.read_text())
+    gem = [b["query"] for b in cfg.get("gem_beats") or []]
+    cov = [b["query"] for b in cfg.get("coverage_beats") or []]
+    if not gem or not cov:
+        raise ValueError(f"{p} has no gem_beats/coverage_beats; refusing to gather on an empty beat set")
+    return gem, cov
+
+
+GEM_BEATS, COVERAGE_BEATS = _load_beats()
+
+# (The former hardcoded GEM_BEATS/COVERAGE_BEATS literals, with their per-beat rationale comments,
+#  were deleted here on 2026-08-14 when retrieval_config.json became authoritative. They are in git
+#  history if that reasoning is ever needed; do NOT reintroduce a literal list — see _load_beats.)
 GEM_SYSTEM = (
     "You are the news firehose surfacing EARLY, still-under-the-radar gem-class coverage for a scout — the "
     "press naming a specific US-listed stock, ETF, or ADR on a discrete catalyst BEFORE the crowd. Run ONE "
