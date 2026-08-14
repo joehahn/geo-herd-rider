@@ -276,7 +276,6 @@ class JournalEntry(BaseModel):
     thesis_live: bool = True
     exit_case: str = ""              # devil's-advocate: strongest reason the thesis is already over
     catalyst_resolved: bool = False  # binary: has the entry catalyst already happened? -> forces exit
-    conviction: int = 5              # 1-10 CATALYST QUALITY (specificity/under-radar) for the top-N shortlist — COMPOSITION, never a return/size forecast
     exit_advice: str = ""
     milestones: list[str] = []   # ordered catalyst-progress events (the arc); qualitative, NEVER magnitude
     assessment: str = ""
@@ -753,10 +752,9 @@ every open event. When unsure, MERGE — fragmenting one catalyst across several
 biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["exit_case", "catalyst_resolved", "thesis_live", "conviction", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "sources"],
+    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "sources"],
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
-        "conviction": {"type": "integer"},   # 1-10 CATALYST QUALITY (specific/datable/under-radar) — NOT a return forecast
         "exit_advice": {"type": "string"},
         "milestones": {"type": "array", "items": {"type": "string"}},   # ordered catalyst-progress events (the arc)
         "assessment": {"type": "string"},
@@ -764,6 +762,17 @@ EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
         "vehicles": {"type": "array", "items": {"type": "string"}},
         "sources": {"type": "array", "items": {"type": "string"}}}}
 
+# CONVICTION RETIRED 2026-08-14. The agent used to rate `conviction` 1-10 here, plus a PRICED-IN DECAY
+# and a SILENCE DECAY rule that stepped it up and down. All three are gone, for two reasons:
+#   MEASURED WORTHLESS. conviction ranked ~random against its own null (picker.py, evscore.py both record
+#   the replay). The event cull is arithmetic coverage-rank now and the portfolio cull is the picker or a
+#   price-trend rank -- firehose.py's cull comment already read "No gates, no conviction".
+#   INERT BY CONSTRUCTION. Both decay rules explicitly left catalyst_resolved=false and thesis_live=true,
+#   so they moved ONLY the score. With nothing reading the score, ~600 chars of prompt per event-agent
+#   call bought a number that changed no decision -- while inviting a future reader to wire it back in.
+# The SILENCE-WEEK code path (_silence_entry) survives untouched: skipping the LLM call on a no-coverage
+# week is a real cost saving. It simply no longer carries a score. Judgment the agent still owns: the
+# live/exit switch, the standing exit condition, the milestone arc, and which vehicles express it.
 EVENT_AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given: the event's
 CATALYST (FIXED — the discrete thing you entered on), its KNOWN vehicles, your FULL weekly journal
 for this event since entry (your memory — the whole arc, not just last week), and this week's news.
@@ -830,10 +839,10 @@ milestones, so a gap between them is a QUIET STRETCH, not completion. Exit a str
 genuine REVERSAL of the driver itself — a concrete COUNTER-event (a trade deal that ends the tariff war,
 the curbs lifted, the reserve pivot unwound, the funding cut) — never on silence, an "aging thesis", or a
 single milestone passing while the buildout plainly continues. (b) Silence is NOT a hard exit
-(catalyst_resolved stays false) — but it IS a fade: a structural driver earns high conviction by delivering
-FRESH milestones, not by the mere passage of time, so genuine prolonged quiet steps conviction DOWN per the
-SILENCE DECAY rule below (recovering when fresh coverage resumes). Don't confuse a single milestone passing
-amid ONGOING coverage (compounding) with true silence (fading). (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
+(catalyst_resolved stays false): a structural driver proves itself by delivering FRESH milestones, not by
+the mere passage of time, so treat prolonged quiet as a reason to scrutinise whether the driver is still
+running — never as an exit on its own. Don't confuse a single milestone passing amid ONGOING coverage
+(compounding) with true silence (fading). (c) RE-ANCHOR: the driver is fixed, but update your thesis to its
 FRESHEST concrete milestone — if you entered on "the administration threatens sweeping tariffs" and the driver then became
 "the first tariff round takes effect," THAT round is the live catalyst now; clinging to the
 ORIGINAL milestone while the driver has moved on is anchoring, and forces an exit for the wrong reason.
@@ -853,32 +862,6 @@ a name from a DIFFERENT catalyst. The event is the durable unit; its basket of t
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
 composition, the exit, and which vehicle.
 
-RATE `conviction` 1-10 — the QUALITY of THIS catalyst, so a shortlist can keep only the strongest
-events. This is NOT a return/price forecast (never guess how much it will move — that is forbidden
-and destroys value). Score ONLY the catalyst itself: 10 = a specific, datable, thesis-driven,
-still-early / under-the-radar shock with a clean pure-play vehicle (a named war/curb/bill/supply-
-shock the press explicitly ties to this ticker); 1 = vague, generic, already-mainstream, or a routine
-business item (an analyst rating, a small partnership, a run-of-the-mill earnings beat). Judge the
-CATALYST's specificity + magnitude-of-event + how under-the-radar it still is — never the expected
-return.
-
-PRICED-IN DECAY (the SOFT resolution). As a thesis gets ABSORBED, step conviction DOWN. When the
-coverage flips from "still under-owned / more upside ahead" to "fully valued / consensus / the move
-has largely happened" and no fresh catalyst lies ahead, the EDGE is gone even though the driver has
-NOT reversed — mark conviction LOW (3-4) so the position is out-competed and culled from the shortlist.
-This priced-in fade is a SOFT resolution: leave catalyst_resolved=false / thesis_live=true (you are NOT
-calling a hard exit, just letting a played-out name lose the fitness contest). It is DISTINCT from a
-STRUCTURAL, open-ended buildout still delivering fresh milestones — keep THAT high; do NOT fade a live
-open-ended driver merely because time has passed or coverage went quiet (silence alone is not priced-in —
-that is the SILENCE DECAY rule below, a separate signal).
-
-SILENCE DECAY. The press covers a live ticker-trend OFTEN and LOUDLY, so SILENCE about this event's trend
-(no fresh press on the move, explicit or implied) is itself a fade signal. On EACH weekly refresh (every
-rebalance) with NO fresh coverage of this ticker's trend, step conviction DOWN by 1 from your PRIOR score —
-so continued silence COMPOUNDS week over week toward the cull floor, while a single fresh trend-story RESETS
-it back up. This is a SOFT fade (leave catalyst_resolved=false), and it applies to STRUCTURAL buildouts too
-(they keep conviction only while delivering fresh milestones, not by the passage of time).
-
 `exit_advice` (<=20 words) is the STANDING EXIT CONDITION: the concrete, observable trigger that would
 END this thesis — phrase it as "exit if/when <observable event>" (e.g. "exit if a Hormuz reopening or
 ceasefire looks imminent"). It is a forward CONDITION, not a hold/sell verdict — `thesis_live` already
@@ -890,11 +873,10 @@ near-term milestone becomes the thing to watch — but do NOT churn the wording 
 `milestones` (ordered list, <=6 short items, oldest -> newest) — the catalyst's ARC as concrete progress
 events (e.g. ["Israel-Iran strikes","Hormuz transit threatened","tankers reroute","US sets Iran deadline"]).
 CARRY FORWARD the list from your journal and APPEND a new item ONLY when a concrete development actually
-lands this week; never pad with speculation. This is the evidence trail behind your conviction and exit
-call — a LIVE driver keeps throwing off fresh milestones; a stalled/resolved one stops (feed that into the
-SILENCE DECAY and exit logic above).
+lands this week; never pad with speculation. This is the evidence trail behind your live/exit call — a LIVE
+driver keeps throwing off fresh milestones; a stalled/resolved one stops (feed that into the exit logic above).
 
-Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,"conviction":7,
+Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
 "exit_advice":"...","milestones":["...","..."],"assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
@@ -988,10 +970,10 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
 
 def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     """Compact week-by-week journal so the agent sees the FULL arc of an event since entry — the
-    catalyst it entered on, how the VEHICLE evolved, and every live/exit/conviction read — not just
-    last week. One line per week: date | live | conviction | vehicles | assessment | standing exit
+    catalyst it entered on, how the VEHICLE evolved, and every live/exit read — not just
+    last week. One line per week: date | live | vehicles | assessment | standing exit
     condition, plus a trailing milestone trail. Carrying these forward makes them LOAD-BEARING: the
-    agent re-reads its own prior conviction (for SILENCE DECAY), its 'exit-if' trigger, and the
+    agent re-reads its own prior read, its 'exit-if' trigger, and the
     milestone arc each week and tests them against the news, instead of re-deriving (or forgetting)
     them. The entry week is always shown."""
     if not entries:
@@ -1000,7 +982,7 @@ def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     def line(e):
         veh = ",".join(e.get("vehicles", [])) or "-"
         xa = (e.get("exit_advice", "") or "").strip()
-        base = (f"{e.get('date', '?')} live={e.get('thesis_live')} conv={e.get('conviction', '?')} "
+        base = (f"{e.get('date', '?')} live={e.get('thesis_live')} "
                 f"veh=[{veh}] {e.get('assessment', '')}").strip()
         return base + (f" | exit-if: {xa}" if xa else "")
     if len(entries) <= keep:
@@ -1036,7 +1018,6 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
     return {"date": anchor.date().isoformat(), "thesis_live": live,
             "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
-            "conviction": int(getattr(e, "conviction", 5) or 5),
             "exit_advice": e.exit_advice,
             "milestones": [str(m).strip() for m in (e.milestones or []) if str(m).strip()][:6],
             "assessment": e.assessment,
@@ -1046,18 +1027,19 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
 def _carry_forward(anchor, ev) -> dict:
     """SILENCE WEEK (no pooled article mentions this event's vehicles or catalyst): reproduce
     event_agent_v2's DETERMINISTIC no-news behavior WITHOUT an LLM call. The EVENT_AGENT_SYSTEM prompt
-    instructs a plain silence-decay when there is no fresh coverage — conviction steps DOWN 1 (floored at
-    1), the thesis stays live (a fade is not an exit), and the vehicles are unchanged. Emitting that
+    instructs holding steady when there is no fresh coverage — the thesis stays live (silence is not an
+    exit) and the vehicles are unchanged. (It used to also step a `conviction` score down 1 per silent
+    week; that score was retired 2026-08-14 as measured-worthless and decision-inert, but skipping the
+    LLM call on a silent week is a real saving, so this path stays.) Emitting that
     mechanically leaves the scans/portfolio identical to a live run while skipping the (dominant)
     silence-week judgment calls. A resolution/exit can only come FROM news, which IS fresh coverage -> the
     real agent runs then, so no exit is ever missed. Returns the same dict shape as event_agent_v2."""
     prev = ev["entries"][-1] if ev["entries"] else {}
-    conv = max(1, int(prev.get("conviction", 5) or 5) - 1)     # deterministic -1 silence-decay, floored at 1
     veh = prev.get("vehicles") or sorted(ev["vehicles"])[:1]    # no news -> vehicles unchanged from last week
     return {"date": anchor.date().isoformat(), "thesis_live": True, "exit_case": prev.get("exit_case", ""),
-            "catalyst_resolved": False, "conviction": conv, "exit_advice": prev.get("exit_advice", ""),
+            "catalyst_resolved": False, "exit_advice": prev.get("exit_advice", ""),
             "milestones": prev.get("milestones", []),
-            "assessment": "No fresh coverage this week — mechanical silence-decay (no LLM call).",
+            "assessment": "No fresh coverage this week — held mechanically (no LLM call).",
             "news_claims": "", "sources": [], "vehicles": veh}
 
 
@@ -1270,7 +1252,6 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                               "thesis_live": entry["thesis_live"], "src": src_fn(tk),
                               "exit_case": entry.get("exit_case", ""),
                               "catalyst_resolved": entry.get("catalyst_resolved", False),
-                              "conviction": entry.get("conviction", 5),
                               "assessment": entry.get("assessment", ""),
                               "exit_advice": entry.get("exit_advice", ""),
                               "milestones": entry.get("milestones", []),

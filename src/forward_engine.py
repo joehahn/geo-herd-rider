@@ -94,6 +94,6 @@ def run_week(anchor: pd.Timestamp, event_model: str, rebalance_days: int,
     # forward logs only the LIVE picks. milestones + exit_advice are carried so the weekly max_agents
     # PICKER (src/picker.py) has the catalyst-arc evidence it ranks on at --report time.
     return [{"ticker": p["ticker"], "thesis": p["thesis"], "thesis_live": p["thesis_live"],
-             "conviction": p["conviction"], "evidence_urls": p["evidence_urls"],
+             "evidence_urls": p["evidence_urls"],
              "milestones": p.get("milestones", ""), "exit_advice": p.get("exit_advice", "")}
             for p in picks_full if p["thesis_live"]]

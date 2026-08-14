@@ -565,7 +565,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
     `picker` (opt-in) = a callable(cand_meta, max_keep) -> ordered keep-list (see src/picker.make_picker).
-    When passed, the max_watchlist cull ranks EVENT-agents via the LLM picker instead of conviction, and
+    When passed, the max_watchlist cull ranks EVENT-agents via the LLM picker rather than the default
+    price-trend rank (conviction, the original ranker, was retired 2026-08-14), and
     the always_include anchors are dropped as competing agents — they're appended to the optimizer AFTER
     the cull. When None (default: all dashboards/sweeps), behavior is byte-identical to before (no LLM).
 

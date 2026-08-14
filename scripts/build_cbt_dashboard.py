@@ -190,7 +190,6 @@ def main(argv=None) -> int:
             _scans[_ts] += [{"ticker": r.ticker, "thesis": ("" if _pd.isna(r.thesis) else str(r.thesis)),
                              "thesis_live": (bool(r.thesis_live) if _hasflag else True),
                              "catalyst_resolved": (bool(r.catalyst_resolved) if _hasflag else False),
-                             "conviction": int(r.conviction) if _pd.notna(r.conviction) else 5,
                              "evidence_urls": []} for r in _g.itertuples()]
         if not _hasflag:
             for _e in ev.values():
@@ -204,7 +203,7 @@ def main(argv=None) -> int:
                         _scans[_ts].append({"ticker": _v, "thesis": _e.get("catalyst", ""),
                                             "thesis_live": False,
                                             "catalyst_resolved": bool(_x.get("catalyst_resolved")),
-                                            "conviction": 1, "evidence_urls": []})
+                                            "evidence_urls": []})
         _scans = dict(sorted(_scans.items()))
         # ONE capital figure for every curve on the value panel -- the curated book, the
         # buy-and-hold of starter_watchlist, and SPY all start at initial_investment_usd.
@@ -701,7 +700,7 @@ def main(argv=None) -> int:
         li = "".join(
             f"<li style='margin:.25em 0'><code>{esc(en.get('date',''))}</code> "
             f"<b>{'live' if str(en.get('thesis_live')).lower()=='true' else 'EXIT'}</b> "
-            f"conv&nbsp;{esc(en.get('conviction',''))} — {esc(str(en.get('assessment') or '')[:200])}"
+            f"{esc(str(en.get('assessment') or '')[:200])}"
             + (f"<br><span style='color:#999'>exit: {esc(str(en.get('exit_case'))[:180])}</span>"
                if str(en.get('catalyst_resolved')).lower() == 'true' and en.get('exit_case') else "")
             + "</li>" for en in ents)

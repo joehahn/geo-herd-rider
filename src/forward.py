@@ -55,7 +55,9 @@ _FWD_PROFILE = REPO_ROOT / "investor_profile.forward.md"   #   inputs frozen at 
 PROFILE = _FWD_PROFILE if _FWD_PROFILE.exists() else REPO_ROOT / "investor_profile.backtest.md"
 MODEL = "claude-opus-4-8"
 
-COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "conviction", "evidence_urls"]
+# `conviction` was dropped from this schema 2026-08-14 (measured ~random, read by nothing). Rows written
+# before that date still carry the column; _read tolerates it, so the historical log stays loadable.
+COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
 
 
 def _freeze_text(url: str, cutoff: str) -> tuple[str, str]:
@@ -93,7 +95,7 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
            "queries": capture.get("queries", []),
            "pool": pool,                                   # the FROZEN articles the scout actually read (replay corpus)
            "raw_results": capture.get("results", []),      # every gather hit (metadata + in_window flag), no re-fetch
-           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "conviction", "evidence_urls")} for p in picks]}
+           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "evidence_urls")} for p in picks]}
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     out = ARCHIVE_DIR / f"{week}.json"
     out.write_text(json.dumps(rec, indent=2, default=str))
@@ -187,16 +189,15 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
     if not picks:
         print(f"  week {wk_key}: no live gems this week (journal holds nothing).")
-        picks = [{"ticker": "", "thesis": "", "thesis_live": "", "conviction": ""}]   # empty marker row
+        picks = [{"ticker": "", "thesis": "", "thesis_live": ""}]   # empty marker row
     rows = [{"decision_ts": decision_ts, "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
-             "conviction": p.get("conviction", ""),
              "milestones": p.get("milestones", ""), "exit_advice": p.get("exit_advice", ""),  # picker evidence
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
     SCANS_CSV.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(SCANS_CSV, index=False)
-    live = [f"{r['ticker']}(conv {r['conviction']})" for r in rows if r["ticker"]]
+    live = [r['ticker'] for r in rows if r["ticker"]]
     print(f"  week {wk_key}: logged {live or '—'} -> {SCANS_CSV}")
     return out
 

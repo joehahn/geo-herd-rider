@@ -263,7 +263,7 @@ def main(argv=None):
                                         max_new_events=max_new, workers=a.workers)
         live = [p for p in picks if p["thesis_live"]]
         print(f"  {wk} ({i + 1}/{len(anchors)}): {len(gslice):3} arts -> "
-              f"{[(p['ticker'], p['conviction']) for p in live] or 'none'}", flush=True)
+              f"{[p['ticker'] for p in live] or 'none'}", flush=True)
         (OUT / "archive" / f"{wk}.json").write_text(json.dumps(
             {"week": wk, "model": event_id, "pool": gslice, "queries": [], "raw_results": [],
              "config": {**{k: fm.get(k) for k in CFG}, "news_cap": news_cap}}, indent=2, default=str))
@@ -277,11 +277,10 @@ def main(argv=None):
                 rows.append({"decision_ts": ts, "week": wk, "ticker": p["ticker"], "thesis": p["thesis"],
                              "thesis_live": bool(p.get("thesis_live", True)),
                              "catalyst_resolved": bool(p.get("catalyst_resolved", False)),
-                             "conviction": p["conviction"],
                              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])})
         else:
             rows.append({"decision_ts": ts, "week": wk, "ticker": "", "thesis": "", "thesis_live": "",
-                         "catalyst_resolved": "", "conviction": "", "evidence_urls": ""})
+                         "catalyst_resolved": "", "evidence_urls": ""})
         # PER-WEEK CURATOR METRICS -- the curator's own funnel, the analogue of the FBT's plot 1.
         # Volume alone cannot say whether the curator is working; what matters is how much reaches
         # each stage. Written every week so a partial run is still readable.
