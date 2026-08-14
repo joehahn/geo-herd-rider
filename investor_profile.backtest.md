@@ -7,6 +7,22 @@
 # Order: AI models -> curator -> optimizer -> source allow/block lists.
 # Any knob added here must also exist in optimizer._FINANCIAL_MODEL_DEFAULTS or it is SILENTLY
 # IGNORED; load_financial_model warns about unknown keys.
+#
+# HOW THE SIX OPTIMIZER KNOBS BELOW WERE CHOSEN (2026-08-14) -- AND HOW NOT TO CHOOSE THEM.
+# DO NOT re-fit these to the top of a single sweep. Twice now that has produced a number that did
+# not survive the next curation, because a fresh curation moves the book more than any knob does:
+#   - the previous nominal [4, 0.60, 45, 0, 4.0, 0.30] was the top of v14's sweep at $324,524,
+#     and fell to $122,408 when v15 re-curated the same window.
+#   - v15's own top cell [8, 0.40, 30, 2, 4.0, 0.30] pays $441,877 on v15 and $61,471 on v14 --
+#     BELOW SPY's $86,213. A sweep winner is a curation-specific spike until proven otherwise.
+# So the selection ranks by WORST-CASE plateau percentile across BOTH recent curations, over the
+# 216 of 6,300 cells that clear the DD/L1/L2/cancellation gates in v14 AND v15. The chosen cell
+# [6, 0.40, 45, 4, 4.0, 0.20] is 98th/99th percentile in both: $191,814 (v14) / $298,606 (v15),
+# worst case ~2.2x SPY, drawdown 33% and Sharpe 1.43 (vs 40% / 0.80 before).
+# CAVEAT, recorded deliberately: these same cells rank only 13th-19th percentile on v10's corpus,
+# and NO cell is strong across all three. v10 predates the wayback backfill and the beat prune, so
+# it is weighted low -- but the honest reading is that CORPUS quality dominates and knob-tuning is
+# second-order. Per CLAUDE.md #4/#6 every figure here is an UPPER BOUND; forward is the verdict.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -41,15 +57,15 @@ max_event_scans: 12               # retires the whole EVENT at this age (~1 year
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 4                  # how many tickers may hold capital at once.
+max_watchlist: 6                  # how many tickers may hold capital at once.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
+drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.60           # most of the book any one ticker may take.
-min_trade_size: 0.30              # positions smaller than this are dropped. At max_watchlist 8 an equal book
-                                  #   is 12.5% a name, so this is a CONCENTRATION lever, not a dust filter:
-                                  #   it holds only the 3-4 strongest convictions.
+concentration_cap: 0.40           # most of the book any one ticker may take.
+min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
+                                  #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
+                                  #   it holds only the strongest 2-3 convictions.
 risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
 optimizer_lookback_days: 45       # days of price history behind μ and Σ.
 rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. The trading cadence.
