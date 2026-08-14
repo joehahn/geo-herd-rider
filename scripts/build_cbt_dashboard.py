@@ -160,6 +160,7 @@ def main(argv=None) -> int:
     top_cov = cov.most_common(40)
 
     from optimizer import load_financial_model as _lfm
+    from util import resolve_cadence as _resolve_cadence
     _lfm0 = _lfm(str(ROOT / "investor_profile.backtest.md"))
 
     # ---- portfolio math: only for SKILL measures, never as the headline ---------------------------
@@ -208,7 +209,10 @@ def main(argv=None) -> int:
         # ONE capital figure for every curve on the value panel -- the curated book, the
         # buy-and-hold of starter_watchlist, and SPY all start at initial_investment_usd.
         _wcap = _fh.watchlist_cap(_lfm0)
-        _cad0 = int(_lfm0.get('rebalance_days', 14) or 14)
+        # resolve_cadence, NOT the raw key: rebalance_days is the retired numeric knob and
+        # optimizer's defaults still inject 7 for it, so reading it directly returned 7 for a
+        # run whose scans are 30 days apart -- the final watchlist span was drawn 4x too short.
+        _cad0 = _resolve_cadence(_lfm0)
         _cap = float(_lfm0.get('initial_investment_usd', 50_000.0))
         # PICKER: without it the max_watchlist cull is keep-first-N over sorted(holding) -- i.e.
         # alphabetical. That was harmless while the prune kept live events under the cap, but live

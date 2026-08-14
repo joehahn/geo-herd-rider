@@ -34,20 +34,25 @@ def load_dotenv() -> None:
 
 # PWR's cadence vocabulary, adopted 2026-08-09 so the two repos name the same thing the same way.
 # A NAMED period, not a raw day count: "biweekly" says what it means and reads the same in both
-# projects' profiles. rebalance_days stays as the numeric escape hatch for a cadence with no name.
+# projects' profiles. It REPLACED the old numeric `rebalance_days` knob, which is retired.
 REBALANCE_PERIODS = {"weekly": 7, "biweekly": 14, "monthly": 30, "quarterly": 91}
 
 
 def resolve_cadence(fm: dict) -> int:
-    """Scan/rebalance cadence in DAYS. `rebalance_period` (named) wins; `rebalance_days` (numeric) is
-    the fallback for both legacy profiles and any cadence the vocabulary has no word for."""
+    """Scan/rebalance cadence in DAYS, from `rebalance_period`. THE only way to read the cadence.
+
+    FAILS LOUD rather than falling back. The retired `rebalance_days` used to be the fallback here, and
+    because optimizer's defaults injected 7 for it, any caller reading the raw key silently got 7 --
+    including for a monthly run whose scans are 30 days apart. That produced two wrong numbers in the
+    CBT dashboard before anyone noticed (2026-08-14), because 7 is a plausible cadence and nothing
+    complained. A missing cadence is a config error worth stopping for, not worth guessing at."""
     per = str(fm.get("rebalance_period") or "").strip().lower()
-    if per:
-        if per not in REBALANCE_PERIODS:
-            raise ValueError(f"rebalance_period={per!r}; expected one of {sorted(REBALANCE_PERIODS)} "
-                             f"(or use the numeric rebalance_days)")
-        return REBALANCE_PERIODS[per]
-    return int(fm.get("rebalance_days", 7) or 7)
+    if not per:
+        raise ValueError("rebalance_period is not set. It replaced the retired numeric rebalance_days; "
+                         f"set one of {sorted(REBALANCE_PERIODS)} in the investor profile.")
+    if per not in REBALANCE_PERIODS:
+        raise ValueError(f"rebalance_period={per!r}; expected one of {sorted(REBALANCE_PERIODS)}")
+    return REBALANCE_PERIODS[per]
 
 
 def scan_anchors(start: str, end: str, period_days: int = 7) -> list[pd.Timestamp]:

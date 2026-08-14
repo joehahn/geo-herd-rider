@@ -34,7 +34,7 @@ def main(argv=None):
     ap.add_argument("--sandbox", required=True)
     ap.add_argument("--anchor", required=True, help="most recent week-ending Friday")
     ap.add_argument("--weeks", type=int, default=8)
-    ap.add_argument("--rebalance-days", type=int, default=7, dest="rebalance_days")
+    ap.add_argument("--rebalance-days", type=int, default=7, dest="rebalance_period")
     a = ap.parse_args(argv)
     load_dotenv()
     fm = load_financial_model(str(ROOT / "investor_profile.forward.md"))
@@ -63,7 +63,7 @@ def main(argv=None):
             {"week": wk, "model": model, "pool": arts, "queries": cap.get("queries", []),
              "raw_results": cap.get("results", []), "config": {k: fm.get(k) for k in
              ("model", "concentration_cap", "risk_aversion", "lookback_period_days", "max_agents",
-              "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days")}},
+              "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_period")}},
             indent=2, default=str))
         if live:
             for p in live:

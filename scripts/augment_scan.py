@@ -60,7 +60,7 @@ def main():
             {"week": wk, "model": model, "pool": pool, "queries": [], "raw_results": [],
              "config": {k: fm.get(k) for k in ("model", "concentration_cap", "risk_aversion", "lookback_period_days",
                         "max_agents", "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker",
-                        "rebalance_days")}}, indent=2, default=str))
+                        "rebalance_period")}}, indent=2, default=str))
         if live:
             for p in live:
                 rows.append({"decision_ts": ts, "week": wk, "ticker": p["ticker"], "thesis": p["thesis"],

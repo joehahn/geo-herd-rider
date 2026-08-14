@@ -78,13 +78,18 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   thinking) for backtest replays; 'high' for forward (1 call/week, trivial cost).
     "risk_free_rate": 0.04,            # reporting only (Sharpe); not in the mean-variance weights
     "rebalance_period": "weekly",      # LIVE: the cadence, NAMED (weekly|biweekly|monthly|quarterly) -- PWR's
-                                       #   vocabulary, adopted 2026-08-09. Resolved by util.resolve_cadence(), which
-                                       #   falls back to rebalance_days when this is unset.
-    "rebalance_days": 7,               # LIVE: the numeric cadence escape hatch, for a cadence rebalance_period has
-                                       #   no word for. The firehose scans/rebalances every N days AND reads that
-                                       #   same trailing news window. Ignored when rebalance_period is set.
+                                       #   vocabulary, adopted 2026-08-09. THE ONLY cadence knob: always read it
+                                       #   through util.resolve_cadence(), never as a raw dict key.
+                                       #   `rebalance_days` was the old numeric knob and is RETIRED (2026-08-14).
+                                       #   Leaving it here as a default was not harmless: load_financial_model
+                                       #   injected 7 into every profile, so any code that read the raw key got 7
+                                       #   for a run whose real cadence was 30 -- which is exactly what happened
+                                       #   twice in build_cbt_dashboard (a gate bar 5x too small, and a watchlist
+                                       #   span 4x too short). A retired knob that still resolves to a plausible
+                                       #   number is worse than one that is absent. A numeric override now lives
+                                       #   ONLY on the CLI (--rebalance-days), where it cannot masquerade as config.
     "news_lookback_days": None,        # optional: override the news window ONLY (advanced; rare
-                                       #   sparse-coverage smoothing). None => news window = rebalance_days.
+                                       #   sparse-coverage smoothing). None => news window follows the cadence.
     "max_events": 0,                   # LIVE (scan): how many events may be LIVE AT ONCE; 0 = uncapped. The
                                        #   picker decides which survive. Prefer this over max_new_events: an
                                        #   ADMISSION cap bins candidates unexamined and forever, a CONCURRENCY

@@ -88,7 +88,7 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
     knobs = {k: cfg.get(k) for k in ("gather_model", "event_agent_model", "scout_model", "picker_model", "picker_effort",
              "concentration_cap", "risk_aversion", "min_trade_size", "lookback_period_days", "max_agents",
              "max_watchlist", "always_include", "starter_watchlist",
-             "max_new_events", "defensive_ticker", "curator_memory_weeks", "rebalance_days")}
+             "max_new_events", "defensive_ticker", "curator_memory_weeks", "rebalance_period")}
     pool = capture.get("arts", [])                         # frozen in-window pool: {title,url,published_date,source,snippet}
     rec = {"week": week, "decision_ts": decision_ts, "model": model,
            "profile": PROFILE.name, "config": knobs,
