@@ -537,12 +537,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                   "<br><br><b>STARTS PART-WAY DOWN.</b> Three filters run first, inside the BigQuery "
                   "<code>WHERE</code>, and are not shown: English-origin, market-theme, beat-keyword. They "
                   "drop most of GDELT before a row is fetched. Uncounted because their drops are never "
-                  "retrieved — only a recall probe can price them. All three are ours, not GDELT's.")
+                  "retrieved.")
                + ("<br><br>Each bar also carries how often it was <b>wrong</b>, from a re-read of its drops."
                   if _has_audit else
-                  "<br><br><b>VOLUME ONLY.</b> No drop audit here, so no bar says how often it was wrong. "
-                  "Last time one ran, the two largest stages discarded real coverage ~40% of the time.")
-               + "<br><br>Residual = three skips with no counter: no URL, no date, duplicate URL."
+                  "")
+               + "<br><br>The residual bar is found by SUBTRACTION, not counted: three skips increment no "
+               "counter (no URL, no date, a URL already seen), so what is left over after the "
+               "counted stages and the syndication collapse is attributed to them."
                + f"<br><br>Configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} and "
                  f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
               "p-funnel", 460),
