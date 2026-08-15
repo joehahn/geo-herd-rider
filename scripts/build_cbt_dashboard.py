@@ -943,10 +943,10 @@ def main(argv=None) -> int:
               "optimizer was never going to fund.",
               "c-breadth", 380),
         panel(13, "Scout inflow vs admissions",
-                "Candidate <b>tickers</b> the scout proposed each scan, against what was admitted — "
-                "each candidate is a (ticker, thesis) pair, not an event, and several can collapse into "
-                f"one event later (176 admissions became {J.get('nid', 0)} events). One scan = one "
-                f"<code>rebalance_period</code> = {_cad0} days here."
+                f"Candidate <b>tickers</b> the scout proposed each <code>rebalance_period</code> "
+                f"({_cad0} days here), against what was admitted. Each candidate is a (ticker, thesis) "
+                f"pair, not an event — several can collapse into one event later (176 admissions became "
+                f"{J.get('nid', 0)} events)."
                 "<br><br><b>Nothing caps this</b>: <code>max_new_events</code> is 0 (uncapped), "
                 f"superseded by <code>max_events</code> = {_lfm0.get('max_events', 0)}, a concurrency "
                 "cap applied later — so the gap between the bars is the already-resolved block and the "
@@ -1149,7 +1149,7 @@ function draw() {{
   ], base(p, {{barmode:'group', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
-              title:{{text:'candidate tickers per scan', font:{{size:11}}}}}}}}), CFG);
+              title:{{text:'candidate tickers per rebalance_period', font:{{size:11}}}}}}}}), CFG);
 
   const G = DATA.gantt.filter(g=>g.start);
   const _gseen = new Set();

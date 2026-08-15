@@ -225,6 +225,26 @@ means as the unit, not days.
 Measured on v15 / CBT plot 5. Deferred deliberately: it is ONE curation, and we watched the optimizer
 config flip sign between v14 and v15, so do not prune six beats on a single run.
 
+### 0. Scout PASS-2 leaks past-tense catalysts (~9%, measured 2026-08-14)
+The scout prompt requires every candidate to name a `pending_next` -- "the concrete thing that has NOT
+happened yet whose happening would END this thesis" -- and to DROP anything whose catalyst is already
+past, because "a catalyst in the past tense is news the market has already priced." It leaks. Of 187
+proposals in v15, ~16 (9%) read as past-tense only:
+
+    "Q4 earnings beat" (x2) · "CHIPS Act is signed" (x2) · "Rezdiffra wins FDA approval"
+    "Novartis acquisition announced" · "Piedmont Lithium gets mining permit approved"
+    "promising test results announced"
+
+A keyword test leaves 80% of proposals ambiguous, so 9% is a FLOOR, not a rate. The filter mostly
+works -- this is not a broken gate -- but it is the thing setting breadth, more than any knob: proposals
+are bimodal at exactly 1 (13 scans) or 5-11 (21 scans), and input volume does not explain the split
+(median 117 gate-passed articles on the 1-scans vs 150 on the others).
+
+FIX WHEN RE-CURATING (not standalone -- it needs a curation to evaluate): tighten the drop rule with
+the observed failure phrasings ("earnings beat", "wins approval", "is signed", "announced",
+"gets ... approved"), then re-curate and re-measure the same 9%. Do it in the same pass as the
+conviction-free prompt so one curation validates both.
+
 ### 1. THE THING TO LOOK AT FIRST -- 27% of the book has no evidence
 `NRXP` and `XENE` are the only 2 of 104 tickers that NEVER carried an evidence URL, and they are
 **$62,739 of $235,776 (27%) of total book gain**. They come from ev64/ev65, biotech trial events whose
