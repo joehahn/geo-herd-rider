@@ -266,7 +266,22 @@ def main(argv=None) -> int:
               "two norms rank configs alike &mdash; if they do, the churn ordering is robust rather "
               "than an artefact of which norm was picked. Coloured by <b>Sharpe</b>, as panel 3.",
               "s-l2", 470),
-        panel(5, "Return vs cancellation",
+        panel(5, "Return vs Sharpe",
+              "The same cloud with <b>Sharpe on the horizontal</b> &mdash; return per unit of "
+              "volatility, the measure table 6 actually ranks by. This is the one panel here where "
+              "<b>upper-RIGHT is best</b>, since higher Sharpe is better; every other risk axis on "
+              "this page reads the other way. Colour is max drawdown, pinned to the same 20&ndash;120% "
+              "band as panel 6 so the two are comparable. The cloud is a tight rising diagonal "
+              "&mdash; return and Sharpe correlate <b>+0.92</b> across the grid, so for most configs "
+              "they say the same thing and there is no return/risk trade to agonise over. <b>The "
+              "divergence is all in the tail, which is exactly where a config gets picked.</b> On "
+              "this book the grid's biggest final value ($1.52M, 225%/yr) ranks only <b>1,351st of "
+              "6,300 by Sharpe</b> &mdash; 79th percentile &mdash; because it earns that return on a "
+              "59% drawdown. The best-Sharpe cell (1.93) makes $401K on a 24% drawdown instead. Read "
+              "the top-right corner, not the top edge: a point that is high but far left is return "
+              "bought with volatility a live account has to actually sit through.",
+              "s-sharpe", 470),
+        panel(6, "Return vs cancellation",
               "The fourth view of the same points, and the one that matters most: the horizontal axis "
               "is the share of the winners' gains handed back by the losers, so <b>upper-left is "
               "best</b> &mdash; a book that earns and keeps it. Colour is max drawdown, so a pale "
@@ -274,8 +289,8 @@ def main(argv=None) -> int:
               "shape is itself the finding: if it were a tight rising diagonal these knobs would only "
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
-        ('<section class="panel"><h2>6. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config that clears <b>all five gates read off panels 2&ndash;5</b> "
+        ('<section class="panel"><h2>7. Recommended settings</h2><p class="lead">'
+         "The shortlist: every config that clears <b>all five gates read off panels 2&ndash;6</b> "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive, <b>ranked by Sharpe</b>. There is "
          "deliberately NO churn gate: median Sharpe RISES monotonically with churn on this book "
@@ -289,13 +304,13 @@ def main(argv=None) -> int:
          "scatter IS the trade-off, and a config carrying two of them is the honest compromise. "
          f"Top {TOP_N} shown; the rest expand below. Current live config on the last row."
          f'</p>{rec}</section>'),
-        panel(7, f"{heat['ky']} × {heat['kx']}",
+        panel(8, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
               "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
               "interactions hide — a value that looks harmless on average can be the worst choice "
               "in one corner of the grid.",
               "s-heat", 420),
-        panel(8, "Each knob on its own",
+        panel(9, "Each knob on its own",
               "For every value of every knob: the MEDIAN cancellation across all cells holding that "
               "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
               "knob only pays in combination with something else. The live setting is outlined.",
@@ -384,7 +399,7 @@ function draw(){{
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
       xaxis:{{gridcolor:p.grid, ticksuffix:xsuf, range:(xmax ? [(xmin!==undefined?xmin:0), xmax] : undefined),
-             title:{{text:xlab+(div==='s-dd'||div==='s-canc'?' (lower is better)':' (lower = steadier)'), font:{{size:11}}}}}},
+             title:{{text:xlab+(div==='s-sharpe'?' (HIGHER is better)':(div==='s-dd'||div==='s-canc'?' (lower is better)':' (lower = steadier)')), font:{{size:11}}}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:'%',
              title:{{text:'annualized return', font:{{size:11}}}}}}}}), CFG);
   }}
@@ -406,6 +421,10 @@ function draw(){{
   // X-axis 0-250%. Set explicitly rather than auto-ranged so the panel means the same thing across
   // rebuilds -- the cloud's position shifts between curations, and an auto axis re-centres it every
   // time, which hides exactly the drift worth seeing.
+  // Return vs SHARPE. The only panel whose x-axis is better HIGHER, so the axis label is
+  // switched below rather than inheriting the shared 'lower is better' suffix. Drawdown
+  // colour is pinned to 20-120 to match panel 6, so the two read as one picture.
+  scat('s-sharpe', SH, 'Sharpe', '', DD, 'max DD %', undefined, 20, 120);
   scat('s-canc', CANC, 'gains cancelled',      '%', DD,   'max DD %', 250, 20, 120, 0);
 
   // 3. the interaction the 1-D sweeps cannot show
