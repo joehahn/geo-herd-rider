@@ -503,9 +503,22 @@ SCOUT_ARTICLES_PER_CALL = 30     # batching budget ONLY -- never truncates a gro
 GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
 
 
+UNGROUPED = "\x00ungrouped"     # sentinel key; never collides with a real org name
+
+
 def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
-    """One ticker-group, oldest first, as the scout sees it."""
-    head = f"=== {key.upper()} — {len(arts)} article(s) ==="
+    """One ticker-group, oldest first, as the scout sees it.
+
+    The UNGROUPED bundle gets a DIFFERENT header on purpose. Every other block says "these articles
+    are all about one company, read them as one story" -- which is exactly the wrong instruction for
+    a bundle whose only common trait is that we could not identify a company. Told to read those as
+    one story the scout would invent a connection between a tariff headline and an Alzheimer trial."""
+    if key == UNGROUPED:
+        head = (f"=== UNCLUSTERED — {len(arts)} UNRELATED article(s) ===\n"
+                f"(No company could be identified for these, so they are NOT one story. Judge each "
+                f"one ON ITS OWN, exactly as you would a standalone headline.)")
+    else:
+        head = f"=== {key.upper()} — {len(arts)} article(s) ==="
     return head + "\n" + _block(arts, max_chars=max_chars)
 
 
@@ -535,11 +548,26 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
                 seeds.append(k)
     full = _orgs.group(full_pool, canon=canon)
     groups = []
+    covered: set = set()
     for k in seeds:
         arts = full.get(k) or []
         if not arts:
             continue
         groups.append((k, arts))            # WHOLE group: never drop a ticker's news
+        covered.update(id(a) for a in arts)
+    # THE UNCLUSTERED CATCH-ALL -- grouping must be ADDITIVE, never subtractive.
+    # Measured 2026-08-15 on one 30-day window: of 149 gated articles, 74 (50%) produce no usable org
+    # key, so under grouping alone they would join no bundle and the scout would NEVER SEE THEM --
+    # articles the old flat path did show. Two causes, and neither is fixable by editing the stoplist:
+    #   17  GKG attached no organisation to the article at all (a source-data gap), and
+    #   57  named only non-companies -- `United States` (48), `York Stock Exchange` (6), `Drug
+    #       Administration`, `World Trade Organization`. Those rejections are CORRECT; grouping on
+    #       "United States" would build one meaningless 5,228-article bundle.
+    # The loss was not junk: "Alpha Cognition Is 'Under-Followed' As Alzheimer Drug Targets $2 Billion"
+    # carries the exact gem tell this strategy hunts, and vanished. So anything the gate passed that
+    # no group claimed is shown anyway, standalone -- grouping can now only ADD context, never remove
+    # an article. No knob: a fallback that can be switched off is a fallback that silently isn't there.
+    orphans = [a for a in gated if id(a) not in covered]
     # BIN-PACK BY ARTICLE COUNT, not a fixed groups-per-call. With 8 groups per call a 256-article
     # NVDA bundle shared a call with seven others and drowned them -- the model sees one enormous
     # story and seven footnotes, which is the crowding this design set out to remove.
@@ -550,10 +578,14 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
     # 16 calls and 110k tokens. A group at or over the budget lands in a call of its own; small ones
     # (the median group is 2 articles) share, which is nearly free.
     #
-    # The budget IS max_group_articles, so one knob does both jobs: it caps the biggest single group
-    # AND guarantees no call can hold more than one such group's worth.
+    # The budget NEVER truncates a group: an over-budget group gets a call to itself, whole.
     groups.sort(key=lambda kv: -len(kv[1]))            # densest first: big groups get their own call
     budget = articles_per_call or 10 ** 9
+    # The unclustered articles are the one bundle it IS right to split -- they share no story, so
+    # there is nothing to preserve by keeping them together, and 74 unrelated headlines in a single
+    # call is the crowding this design removed everywhere else.
+    for i in range(0, len(orphans), budget):
+        groups.append((UNGROUPED, orphans[i:i + budget]))
     batches, cur, n = [], [], 0
     for g in groups:
         if cur and n + len(g[1]) > budget:
@@ -566,6 +598,16 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
             cur, n = [], 0
     if cur:
         batches.append(cur)
+    # SELF-CHECK: grouping is additive, so every gated article must appear in some batch. This is the
+    # bug this function shipped with on 2026-08-15 -- 50% of gated articles silently invisible because
+    # they carried no usable org -- and it is invisible from the outside: the scan still runs, still
+    # costs the same, and just proposes fewer events. O(n) on a few hundred articles, so it always runs.
+    _shown = {id(x) for b in batches for _k, v in b for x in v}
+    _lost = [a for a in gated if id(a) not in _shown]
+    if _lost:
+        print(f"  !! scout grouping DROPPED {len(_lost)} gated article(s) -- this is a bug, they are "
+              f"invisible to the curator. First: {(_lost[0].get('title') or '')[:70]!r}",
+              file=sys.stderr, flush=True)
     return batches
 
 
@@ -620,6 +662,10 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                     merged[k] = dict(c)
                     merged[k]["_gem"] = False
         cands = list(merged.values())
+        # The shared decision-log payload below records len(chunks). In grouped mode the equivalent
+        # unit is the CALL, so point it at the batches -- without this `chunks` is unbound and the
+        # scan dies after the first week (caught by the first smoke test of this path).
+        chunks = blocks
         print(f"  scout: {sum(len(g) for g in per)} raw -> {len(cands)} unique", file=sys.stderr)
     else:
         chunks, chunk_beats = _scout_chunks(arts, chunk_size)
