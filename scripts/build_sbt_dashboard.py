@@ -177,11 +177,20 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    GATES = [("max DD", "max_drawdown", lambda v: v < 65, "< 65%"),
-             ("L1", "l1", lambda v: v < 1800, "< 1800%/yr"),
-             ("L2", "l2", lambda v: v < 1100, "< 1100/yr"),
-             ("cancelled", "cancelled", lambda v: v < 60, "< 60%")]
-    TOP_N = 30                      # rows shown in table 6 AND marked as squares in panels 2-5
+    # RE-CUT 2026-08-15 to the user's bars, and they are much tighter than what they replace
+    # (was DD<65, L1<1800, L2<1100, cancelled<60). 414 of 6,300 cells survive -- 6.6%, against 4,368
+    # under the old set. Each bar does real work on its own: DD keeps 26.9%, Sharpe 20.6%,
+    # cancellation 26.6%, L2 53.0%. L1 is DROPPED: L2 is the stricter of the two churn norms here and
+    # gating both was redundant.
+    # The Sharpe floor is no longer a formality. Under the old set it was documented as a bar that
+    # "cannot bind at the top of the list" since the table ranks by Sharpe; at >1.2 it is now the
+    # single most selective gate and cuts genuinely profitable-but-volatile configs, which is the
+    # intent -- the grid's $1.52M cell (Sharpe 1.20, DD 59%) fails on three of the four bars.
+    GATES = [("max DD", "max_drawdown", lambda v: v < 35, "&lt; 35%"),
+             ("L2", "l2", lambda v: v < 800, "&lt; 800/yr"),
+             ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
+             ("cancelled", "cancelled", lambda v: v < 25, "&lt; 25%")]
+    TOP_N = 30                      # rows shown in table 7 AND marked as squares in panels 2-6
     short = [c for c in cells
              if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
     # Ranked by SHARPE, not plateau. Plateau ranks on CANCELLATION, and cancellation alone selects
@@ -290,13 +299,19 @@ def main(argv=None) -> int:
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
         ('<section class="panel"><h2>7. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config that clears <b>all five gates read off panels 2&ndash;6</b> "
+         "The shortlist: every config that clears <b>all four gates</b> &mdash; read off panels "
+         "2, 4, 5 and 6 &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
-         f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive, <b>ranked by Sharpe</b>. There is "
-         "deliberately NO churn gate: median Sharpe RISES monotonically with churn on this book "
-         "(0.73 below L2 500, 1.17 above 900), so an L1/L2 ceiling was selecting for a book that "
-         "barely trades. Trading is free in an IRA, so churn was only ever a proxy for drawdown "
-         "&mdash; which is gated directly instead. <b>plateau</b> = "
+         f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive, <b>ranked by Sharpe</b>. The bars "
+         "were re-cut 2026-08-15 and are far tighter than the set they replace (DD &lt; 65, L1 "
+         "&lt; 1800, L2 &lt; 1100, cancelled &lt; 60, which left 4,368 standing). Each does real "
+         "work alone: DD keeps 26.9% of the grid, Sharpe 20.6%, cancellation 26.6%, L2 53.0%. "
+         "<b>L1 is dropped</b> &mdash; L2 is the stricter of the two churn norms here, so gating "
+         "both was redundant. The earlier note that there was \"deliberately NO churn gate, because "
+         "median Sharpe rises monotonically with churn\" was true of an older book and has since "
+         "<b>inverted</b>: on this one median Sharpe peaks in the L2 600&ndash;800 band (1.03) and "
+         "collapses above it (0.97 by 1,000, 0.63 by 1,400, 0.45 beyond), while median drawdown "
+         "climbs 35% &rarr; 76%. An L2 ceiling of 800 sits exactly on that peak. <b>plateau</b> = "
          "&frac12;&middot;the config's own cancellation + &frac12;&middot;the mean of its grid "
          "neighbours, so a lone in-sample spike with weak surroundings still shows up. "
          "A <b>&#9733;</b> marks the survivor that is best on that column (plateau, cancellation, "
@@ -394,7 +409,7 @@ function draw(){{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:'#7dd3fc',
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>table-6 top 20</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>table-7 top 20</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
