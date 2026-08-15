@@ -904,14 +904,15 @@ def main(argv=None) -> int:
                 "grey anchor stretch is the book parked in SPY/BIL, not a decision to hold cash.",
                 "c-alloc", 580),
         panel(10, "Thesis concentration",
-              "How much of the FUNDED book its single largest EVENT held, day by day. "
-              "<code>concentration_cap</code> limits any one TICKER, but nothing limits a THESIS: an "
-              "event naming four vehicles can take the whole book while every position looks "
-              "disciplined under the cap. The dashed line is the per-ticker cap for scale &mdash; the "
-              "gap between it and the solid line is the exposure the cap does not see. Read the "
-              "<b>time above 80%</b>: those are days the portfolio was one bet wearing several "
-              "tickers, so a single thesis being wrong takes the whole book with it.",
-              "c-evconc", 380),
+                "What share of the WHOLE PORTFOLIO is riding on a single event. Anchors (SPY, BIL) are "
+                "excluded from the numerator — parking idle capital is not a bet — but kept in the "
+                "denominator, so a day fully in anchors reads <b>0%</b>: no bet, no risk."
+                "<br><br>Read it as position risk: 100% means every dollar is on one thesis, and the "
+                "dashed line is the per-TICKER cap for scale (a cap on tickers, not on events — an "
+                "event can exceed it by holding several vehicles)."
+                "<br><br>It previously divided by the FUNDED slice rather than the portfolio, which "
+                "made a single ticker at 22.7% of the book, with 77% in anchors, read as 100%.",
+                "c-evconc", 380),
         panel(11, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "The direct analogue of the firehose funnel — but here the interesting collapse is at the "
@@ -1463,30 +1464,39 @@ function draw() {{
     // Vehicles claimed by two live events are split evenly, as in panel 7, so one dollar is counted once.
     {{
       const ANC2 = new Set(BK.anchors || []);
+      // LARGEST EVENT AS A SHARE OF THE WHOLE PORTFOLIO -- the question actually worth asking:
+      // how much of MY MONEY is riding on one thesis?
+      // This used to divide the largest event by the EVENT-DRIVEN total, with anchors excluded from
+      // BOTH sides. So a day holding one ticker at 22.7% with 77% parked in SPY/BIL read as 100%
+      // concentration (2023-10-12, CRLBF) -- the opposite of risky. 137 days sat at ~100% while the
+      // dominant event held a MEDIAN OF ONE ticker and 38% of the book. It also emitted a null, and
+      // so a visible gap, whenever the funded slice fell under 5% -- precisely the "nothing is
+      // funded" case that carries no concentration risk at all (146 days, 20% of the backtest).
+      // Anchors stay OUT of the numerator (SPY/BIL is where idle capital parks, not a bet) and IN
+      // the denominator, so an all-anchor day now reads 0%: no bet, no risk, no gap.
       const conc = [], capline = [];
       for (let i = 0; i < _nd; i++) {{
-        const byEv = {{}}; let tot = 0;
+        const byEv = {{}};
         Object.entries(_evVeh).forEach(([id, vs]) => vs.forEach(t => {{
           if (ANC2.has(t)) return;
-          const w = (BK.alloc[t] || [])[i] || 0;
-          if (w > 0.001) {{ const q = w / _owners[t]; byEv[id] = (byEv[id] || 0) + q; tot += q; }}
+          const w = (BK.alloc[t] || [])[i] || 0;         // already a fraction of portfolio value
+          if (w > 0.001) byEv[id] = (byEv[id] || 0) + w / _owners[t];
         }}));
-        const top = Object.values(byEv);
-        conc.push(tot > 0.05 ? 100 * Math.max(...top, 0) / tot : null);
+        conc.push(100 * Math.max(...Object.values(byEv), 0));
         capline.push(100 * (DATA.cap_pct || 25));
       }}
-      const above = conc.filter(x => x !== null && x >= 80).length;
-      const live  = conc.filter(x => x !== null).length;
+      const above = conc.filter(x => x >= 80).length;
+      const live  = conc.filter(x => x > 0).length;
       Plotly.react('c-evconc', [
-        {{type:'scatter', mode:'lines', name:'largest event share', x:BK.dates, y:conc,
+        {{type:'scatter', mode:'lines', name:'largest event, % of portfolio', x:BK.dates, y:conc,
           line:{{color:ST.critical, width:2}}, connectgaps:false,
-          hovertemplate:'%{{x}}<br>largest thesis = %{{y:.0f}}% of the funded book<extra></extra>'}},
+          hovertemplate:'%{{x}}<br>largest thesis = %{{y:.0f}}% of the PORTFOLIO<extra></extra>'}},
         {{type:'scatter', mode:'lines', name:'per-TICKER cap (for scale)', x:BK.dates, y:capline,
           line:{{color:p.text2, width:1.5, dash:'dash'}}, hoverinfo:'skip'}}
       ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           margin:{{l:60,r:24,t:44,b:44}},
           yaxis:{{gridcolor:p.grid, range:[0,105], ticksuffix:'%',
-                  title:{{text:'largest thesis share', font:{{size:11}}}}}},
+                  title:{{text:'largest thesis, % of portfolio', font:{{size:11}}}}}},
           annotations:[{{xref:'paper', yref:'paper', x:0.01, y:0.06, showarrow:false,
             font:{{size:11.5, color:p.text2}},
             text:`one thesis held &ge;80% of the book on <b>${{above}}</b> of ${{live}} funded days`}}]}}), CFG);
