@@ -442,9 +442,26 @@ def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str,
     `block` lets the caller pass pre-rendered text (the ticker-grouped view) instead of a flat
     headline list; everything downstream is identical."""
     body = block if block is not None else _block(chunk)
-    user = (f"Week ending {anchor.date()}. Headlines:\n\n{body}\n{rblock}\n"
+    # GROUPED MODE NEEDS ITS OWN FRAMING. The list prompt below says "Headlines:" and "read the WHOLE
+    # list", which invites the model to pick the standout ACROSS everything in the call -- so a call
+    # holding bundles for RKLB, ASTS and LMT would tend to yield one candidate, not three. The bundles
+    # are independent tickers and each deserves its own verdict, so say so explicitly.
+    if block is not None:
+        lead = (f"Week ending {anchor.date()}. Below are SEPARATE per-ticker news bundles, each headed "
+                f"=== TICKER === and ordered oldest-first.\n\n{body}\n{rblock}\n"
+                "JUDGE EACH BUNDLE INDEPENDENTLY. They are different companies competing for nothing -- "
+                "one strong bundle does not disqualify another, and there is NO QUOTA. Propose a "
+                "candidate from EVERY bundle that qualifies, and none from those that do not.\n"
+                "READ A BUNDLE AS ONE STORY, not as separate headlines. The articles are the same "
+                "ticker's recent coverage in date order, so a bundle can show you a CAUSE and its "
+                "EFFECT together -- 'wins $5.6B contract' early and 'stock is soaring' later are one "
+                "driver, and the pairing is the signal. A bundle of nothing but 'stock jumped' with no "
+                "cause anywhere in it is NOT a candidate.\n")
+    else:
+        lead = f"Week ending {anchor.date()}. Headlines:\n\n{body}\n{rblock}\n"
+    user = (lead +
             "WORK IN TWO PASSES, in this order:\n"
-            "  PASS 1 - ENUMERATE. Read the WHOLE list and note every ticker whose coverage carries "
+            "  PASS 1 - ENUMERATE. Read EVERYTHING above and note every ticker whose coverage carries "
             "either (a) a nameable catalyst, or (b) run-scale superlative framing. Do not judge yet; "
             "just gather.\n"
             "  PASS 2 - FILTER. For EACH survivor write `pending_next`: the concrete thing that has "
