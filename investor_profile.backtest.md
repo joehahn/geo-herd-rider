@@ -44,10 +44,6 @@ scout_articles_per_call: 30       # BATCHING ONLY: how many articles' worth of t
                                   #   max_group_articles, which capped a group and so DELETED news;
                                   #   it was caught dropping the one Rocket Lab article the whole
                                   #   grouping design exists to surface.
-max_article_orgs: 4               # above this many subject companies an article is a LISTICLE: it then
-                                  #   joins a ticker's group ONLY if that ticker is in its TITLE. Keeps
-                                  #   'Why Rocket Lab Is Skyrocketing' in RKLB's group while '3 Stocks to
-                                  #   Make the Most of the Crude Surge' joins none. Worth sweeping.
 max_article_chars: 800            # how much of ONE article's text the curator sees. Caps the article,
                                   #   NOT the ticker-group total -- the signal is corroboration across
                                   #   articles, so a group cap would hide the very article that explains

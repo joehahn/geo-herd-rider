@@ -137,10 +137,9 @@ def main(argv=None):
     # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
     agent.MAX_ARTICLE_CHARS = int(fm.get('max_article_chars') or agent.MAX_ARTICLE_CHARS)
     agent.SCOUT_ARTICLES_PER_CALL = int(fm.get('scout_articles_per_call') or agent.SCOUT_ARTICLES_PER_CALL)
-    agent.MAX_ARTICLE_ORGS = int(fm.get('max_article_orgs') or agent.MAX_ARTICLE_ORGS)
     print(f"  max_article_chars={agent.MAX_ARTICLE_CHARS} · "
           f"scout_articles_per_call={agent.SCOUT_ARTICLES_PER_CALL} · "
-          f"max_article_orgs={agent.MAX_ARTICLE_ORGS} · group_by_ticker={agent.GROUP_BY_TICKER}",
+          f"group_by_ticker={agent.GROUP_BY_TICKER}",
           flush=True)
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.

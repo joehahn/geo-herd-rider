@@ -500,7 +500,6 @@ def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str,
 # saving survive; it no longer decides WHAT the scout may read about them. That mirrors the privilege
 # event agents have always had via _filter_event, which reads the full window.
 SCOUT_ARTICLES_PER_CALL = 30     # batching budget ONLY -- never truncates a group
-MAX_ARTICLE_ORGS = 4             # above this an article is a listicle; see orgs.group
 GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
 
 
@@ -522,7 +521,7 @@ def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
 # simply gets a call to itself, intact.
 
 def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
-                  max_article_orgs: int, articles_per_call: int) -> list[list[tuple]]:
+                  articles_per_call: int) -> list[list[tuple]]:
     """[[(org, [articles]), ...], ...] -- ticker-groups packed into per-call batches.
 
     SEEDED BY THE GATE, FILLED FROM THE FULL POOL. Only entities the gate flagged get a group (so the
@@ -534,7 +533,7 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
         for k in _orgs.article_orgs(a, canon):
             if k not in seeds:
                 seeds.append(k)
-    full = _orgs.group(full_pool, max_article_orgs=max_article_orgs, canon=canon)
+    full = _orgs.group(full_pool, canon=canon)
     groups = []
     for k in seeds:
         arts = full.get(k) or []
@@ -572,8 +571,7 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
 
 def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
           max_new_events: int = CANDIDATE_CAP, chunk_size: int = SCOUT_CHUNK,
-          full_pool: list[dict] | None = None, canon: dict | None = None,
-          max_article_orgs: int = 4) -> list[dict]:
+          full_pool: list[dict] | None = None, canon: dict | None = None) -> list[dict]:
     """`arts` is the GATED slice (what earns attention). When `full_pool` is given the scout reads
     TICKER-GROUPS built from it instead of a flat headline list -- see _scout_groups."""
     if not arts:
@@ -581,7 +579,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
               f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
               if retired else "")
-    batches = (_scout_groups(arts, full_pool, canon or {}, max_article_orgs, SCOUT_ARTICLES_PER_CALL)
+    batches = (_scout_groups(arts, full_pool, canon or {}, SCOUT_ARTICLES_PER_CALL)
                if full_pool else [])
     if batches:
         blocks = ["\n\n".join(_group_block(k, v, MAX_ARTICLE_CHARS) for k, v in b) for b in batches]
@@ -1321,8 +1319,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         except Exception as e:  # noqa: BLE001 -- fall back to the flat path rather than lose the scan
             print(f"  scout: grouping unavailable ({type(e).__name__}: {e})", file=sys.stderr)
     cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events,
-                  full_pool=(pool if _canon else None), canon=_canon,
-                  max_article_orgs=MAX_ARTICLE_ORGS)
+                  full_pool=(pool if _canon else None), canon=_canon)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"

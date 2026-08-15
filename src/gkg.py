@@ -539,9 +539,7 @@ def pool(start, end, queries: list[str] | None = None, cache_path: str | None = 
                              "tone": round(_tone(r["V2Tone"]), 2), "queries": list(hits),
                              # ENTITY KEY for ticker-grouping. Stored generously (40) rather than
                              # tightly, because the LISTICLE THRESHOLD is a curation-time decision
-                             # (max_article_orgs) and truncating here would make a 40-org listicle
-                             # indistinguishable from a 4-org story -- the 40 is only a corpus-size
-                             # bound, not a filter.
+                             # bound, not a filter -- grouping uses every org an article names.
                              "orgs": _orgs[:40]}
             else:
                 for q in hits:                       # same URL re-surfaced by another beat

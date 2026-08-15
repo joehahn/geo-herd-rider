@@ -179,20 +179,20 @@ def build_canon(arts: list) -> dict:
     return _canonical_map(c)
 
 
-def group(arts: list, max_article_orgs: int = 4, canon: dict | None = None,
-          min_articles: int = 1) -> dict:
+def group(arts: list, canon: dict | None = None, min_articles: int = 1) -> dict:
     """{org_key: [articles, oldest first]} — the unit the curator judges.
 
-    An article joins EVERY org it names, because a two-company story is real evidence for both and
-    assigning it to one arbitrarily would discard signal.
+    An article joins EVERY org it names. A two-company story is real evidence for both, and assigning
+    it to one arbitrarily would discard signal.
 
-    THE LISTICLE RULE. Above `max_article_orgs` companies, an article is a listicle and joins a group
-    ONLY if that org appears in its TITLE. Measured 2026-08-14: listicles are 4% of gate-passing
-    articles and 82% of them name no company in the title at all. So "3 Stocks to Make the Most of the
-    Surge in Crude Oil Prices" joins nothing instead of being copied into ten groups, while "Why Rocket
-    Lab Is Skyrocketing Now" still joins Rocket Lab -- which is the headline the whole grouping exists
-    to pair with its driver. The title is the publisher's claim about what a piece is ABOUT; the org
-    list is only what it MENTIONS.
+    NO LISTICLE RULE HERE ANY MORE. There was one (`max_article_orgs`): above N companies an article
+    joined a group only if that company was in its TITLE. It was deleted 2026-08-15 as redundant and
+    harmful. Redundant because actual listicles are already dropped at INGEST by
+    spam_title_patterns ("N best stocks", "stocks to buy now") -- after that filter only 75 of 21,233
+    articles (0.35%) name more than four orgs. Harmful because those 75 are mostly NOT listicles but
+    genuine multi-company news, and the title rule mangles them: "Uranium stocks extend gains as Trump
+    signs orders to boost nuclear industry" names no company in its title, so it would have joined NO
+    group -- a real nuclear catalyst deleted, in the vertical this work is trying to fix.
     """
     canon = canon if canon is not None else build_canon(arts)
     out: dict = collections.defaultdict(list)
@@ -200,10 +200,6 @@ def group(arts: list, max_article_orgs: int = 4, canon: dict | None = None,
         keys = article_orgs(a, canon)
         if not keys:
             continue
-        if len(keys) > max_article_orgs:
-            title = _PUNCT.sub(" ", (a.get("title") or "").lower())
-            title = _WS.sub(" ", title)
-            keys = [k for k in keys if k in title or all(w in title for w in k.split())]
         for k in keys:
             out[k].append(a)
     # COLLAPSE NEAR-DUPLICATE HEADLINES inside a group. Syndication means the same story arrives from
