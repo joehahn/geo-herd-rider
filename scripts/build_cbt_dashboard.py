@@ -30,6 +30,7 @@ import argparse
 import ast
 import collections
 import json
+import re
 import statistics
 import sys
 from datetime import datetime
@@ -674,6 +675,9 @@ def main(argv=None) -> int:
     _cad = int(statistics.median(_gaps)) if _gaps else _rc(_lfm0)   # what the RUN did, not what the profile now says
     _cad_profile = _rc(_lfm0)
     fmp = _lfm0
+    # Raw profile TEXT, for the self-audit below: load_financial_model returns defaults
+    # merged in, so it cannot tell a knob the profile DECLARES from one it merely defaults.
+    PROFILE_TEXT = (ROOT / "investor_profile.backtest.md").read_text()
     cfgp = json.loads((ROOT / "retrieval_config.json").read_text())
     arm_used = "fuller (archived lede, falling back to live page)"
     # A knob's value, named by its investor_profile key. NO commentary: the profile itself carries the
@@ -690,6 +694,10 @@ def main(argv=None) -> int:
         "unfunded_cooldown_weeks":  {0: "0 = never"},
         "curator_memory_weeks":     {0: "0 = off", -1: "-1 = whole history"},
         "relevance_keep":           {0: "0 = no ceiling"},
+        "max_events":               {0: "0 = uncapped"},
+        "news_lookback_days":       {0: "0 = track rebalance_period"},
+        "scout_articles_per_call":  {0: "0 = one call for everything"},
+        "max_article_chars":        {0: "0 = untruncated"},
     }
 
     def _pv(key, note=""):
@@ -719,9 +727,18 @@ def main(argv=None) -> int:
         _pv("scout_model"),
         _pv("event_agent_model"),
         _pv("picker_model"),
+        _pv("retrieval_engine"),
+        _pv("discovery_filter"),
         _pv("news_cap"),
+        _pv("news_lookback_days"),
         _pv("event_news_cap"),
         _pv("relevance_filter"),
+        # The three knobs that define the GROUPED scout (added 2026-08-15). Their absence made a
+        # grouped run indistinguishable from a flat one on this page, which is the single biggest
+        # design change the curation has had.
+        _pv("scout_articles_per_call"),
+        _pv("max_article_chars"),
+        _pv("max_events"),
         _pv("max_new_events"),
         _pv("curator_memory_weeks"),
         _pv("exit_patience_scans"),
@@ -732,16 +749,35 @@ def main(argv=None) -> int:
         _pv("starter_watchlist"),
         _pv("always_include"),
         _pv("max_watchlist"),
+        _pv("cull_fresh_slots"),
+        _pv("cull_fresh_scans"),
         _pv("concentration_cap"),
         _pv("risk_aversion"),
         _pv("min_trade_size"),
-        _pv("lookback_period_days"),
+        # CANONICAL NAME. lookback_period_days is a LEGACY ALIAS that load_financial_model keeps in
+        # sync; showing the alias meant the table named a knob the profile no longer uses.
+        _pv("optimizer_lookback_days"),
         _pv("t_update_days"),
         _pv("risk_free_rate"),
         _pv("drop_unfunded_weeks"),
         _pv("unfunded_reentry_on_new_catalyst"),
         _pv("unfunded_cooldown_weeks"),
     ]
+    # SELF-AUDIT. This table is hand-maintained, so every knob added to the profile has to be added
+    # here too -- and on 2026-08-15 eleven were not, including max_events and the two knobs that
+    # define the grouped scout. A run's own settings silently going missing from the page that exists
+    # to record them is the worst kind of drift, because the page still looks complete.
+    # Anything declared in the profile and not placed above is appended rather than dropped.
+    _shown = {k for k, _ in params}
+    _declared = [m.group(1) for m in re.finditer(r"^([a-z_][a-z0-9_]*):", PROFILE_TEXT, re.M)]
+    _alias = {"lookback_period_days"}          # legacy aliases, deliberately shown under the new name
+    _missing = [k for k in dict.fromkeys(_declared) if k not in _shown and k not in _alias]
+    if _missing:
+        params.append(("— declared in the profile, not placed above —", ""))
+        for k in _missing:
+            v = fmp.get(k)
+            # the source lists are long; a count is the readable form and the profile is one click away
+            params.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
     prows = "".join(
         (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
          f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">{esc(k.strip("— "))}</td></tr>'
