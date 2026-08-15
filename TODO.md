@@ -195,6 +195,41 @@ Named FIREHOSE, not 'retriever' -- that is PWR's word and appears 0 times in thi
 Corpus state: 38,896 articles, 106.6/day, 93.5% with text (10.2% of it clean/archived), 18,435
 bylines, 46/46 beats, 2,284 sources. ~52% of it is noise; the scout is the intended backstop.
 
+## Beat economics + an evidence-provenance hole (parked 2026-08-14, revisit with the bootstrap dbs)
+
+Measured on v15 / CBT plot 5. Deferred deliberately: it is ONE curation, and we watched the optimizer
+config flip sign between v14 and v15, so do not prune six beats on a single run.
+
+### 1. THE THING TO LOOK AT FIRST -- 27% of the book has no evidence
+`NRXP` and `XENE` are the only 2 of 104 tickers that NEVER carried an evidence URL, and they are
+**$62,739 of $235,776 (27%) of total book gain**. They come from ev64/ev65, biotech trial events whose
+own journal entry reads "No news directly mentions Azetukalner or its Phase 3 trial." So the single
+largest contributor to the backtest was held on an event with no traceable article behind it. 9% of all
+journal entries (19 of 221) come from the mechanical silence path, which produces no sources by design.
+This is also why "no beat" shows as the #2 earner in plot 5 -- it is an ATTRIBUTION hole, not a missing
+beat. Understand this before tuning any beat.
+
+### 2. Beat economics as measured (44 beats: 10 earn, 8 lose, 26 return exactly $0)
+  best earning   uranium nuclear fuel supply squeeze  $77,231 / 2,097 arts   $36,829 per 1k
+                 memory chip DRAM shortage            $22,701 /   490 arts   $46,329 per 1k  (most efficient)
+                 space stocks                         $38,498 / 5,233 arts
+                 upcoming FDA decision                $19,006 / 1,878 arts   -- KEEP, it earns
+  worst per art  best performing ETF little-known    -$9,086 /    39 arts  -$232,975 per 1k
+                 ^ 33 of its 39 articles pass the discovery gate (85%), so it aims a loss-making
+                   firehose straight at the scout. USER'S CALL 2026-08-14: keep for now, re-examine
+                   when we return to the bootstrap dashboards.
+  big + zero     financial 5,472 · consumer 4,576 · real estate 4,382 · gold silver mining 3,149
+                 (326 gated!) · rare earth critical minerals 2,681 · crypto blockchain ETF 1,498
+  losing but KEEP  export ban tariff sanctions -$24,418 -- thematically core (war/tariff channel);
+                   the loss is NVTS, one bad name, not a bad beat.
+
+### 3. You CANNOT find missing beats by scanning the corpus
+All 100,180 corpus articles carry a beat tag; zero carry none. The BigQuery keyword gate REQUIRES a
+beat match to enter, so the corpus is beat-filtered by construction and scanning it can only
+rediscover the beats we already have. Finding what we are missing needs the RECALL PROBE (re-run one
+window with the keyword gate removed, judge what is new) -- the same experiment parked for FBT's
+uncounted upstream filters. That is the only thing that can answer "what beat are we not running?".
+
 ## Retired parameters still present in the code (parked 2026-08-14)
 
 The `rebalance_days` -> `rebalance_period` rename was done 2026-08-09 but never finished, and the
