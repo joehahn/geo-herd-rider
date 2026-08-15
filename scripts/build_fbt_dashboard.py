@@ -180,7 +180,14 @@ def funnel_rows(stats: dict, n_corpus: int, run: Path) -> list[tuple[str, int, s
             # are earnings transcripts, chart-signal templates and quote pages. The label now says so.
             ("boilerplate headline", g.get("dropped_spam", 0),
              "listicles · 13F/insider filings · earnings transcripts · chart signals", "spam"),
-            ("beat only in Extras, not this article", g.get("dropped_no_beat", 0), "beat keywords", "no_beat"),
+            # "beat only in Extras" named a GDELT column, which means nothing without the schema. What
+            # it does: BigQuery can only grep the whole page blob, so it keeps a row if a beat word
+            # appears ANYWHERE on the page -- a sidebar link, a related-stories strip. Python then
+            # re-checks against this article's own headline + URL, and drops it if the word was only
+            # page furniture. Coarse query, exact re-check; this bar is where the over-fetch is repaid.
+            ("beat word not in the headline or URL", g.get("dropped_no_beat", 0),
+             "beat keywords, re-checked against the article's own title (BigQuery matched the whole page)",
+             "no_beat"),
             ("no subject company", g.get("dropped_no_org", 0), "ontopic_offset + org_stoplist", "no_org")]:
         rows -= int(n)
         fp = aud.get(key)
