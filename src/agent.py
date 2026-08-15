@@ -499,7 +499,7 @@ def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str,
 # The gate still decides WHICH tickers are worth looking at, so the attention filter and its ~10x cost
 # saving survive; it no longer decides WHAT the scout may read about them. That mirrors the privilege
 # event agents have always had via _filter_event, which reads the full window.
-MAX_GROUP_ARTICLES = 12          # overridden per-run from the profile
+SCOUT_ARTICLES_PER_CALL = 30     # batching budget ONLY -- never truncates a group
 MAX_ARTICLE_ORGS = 4             # above this an article is a listicle; see orgs.group
 GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
 
@@ -510,38 +510,19 @@ def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
     return head + "\n" + _block(arts, max_chars=max_chars)
 
 
-def _thin(arts: list[dict], cap: int) -> list[dict]:
-    """Cap a group WITHOUT losing its head.
-
-    The first cut kept the newest `cap` articles, which is wrong for this job: a driver usually
-    PRECEDES the move it causes. On the 2025-04-16 Rocket Lab group, tail-truncation dropped "Joins
-    Space Force Launch Program" (03-28) and "Completes Mission, Targets 20+ Launches" (03-27) while
-    keeping four near-duplicate "stock is rising" items from 04-14/15 -- deleting the cause and
-    keeping the effect, the exact failure the grouping was built to fix.
-
-    So: always keep the newest few (is the driver still live?) and the oldest one (what started it),
-    and sample the middle evenly to preserve the arc."""
-    if not cap or len(arts) <= cap:
-        return arts
-    keep_new = max(1, cap // 2)
-    tail = arts[-keep_new:]
-    head_pool = arts[:-keep_new]
-    n_head = cap - keep_new
-    if n_head <= 0:
-        return tail
-    step = len(head_pool) / n_head
-    head = [head_pool[min(len(head_pool) - 1, int(i * step))] for i in range(n_head)]
-    seen, out = set(), []
-    for a in head + tail:                       # de-dup while preserving date order
-        u = a.get("url") or id(a)
-        if u not in seen:
-            seen.add(u)
-            out.append(a)
-    return out
-
+# _thin() DELETED 2026-08-15. It capped a group at max_group_articles and was a hack: measured across
+# six windows, the biggest group the corpus ever produces is NVDA at 274 articles = 89k chars ~ 22k
+# tokens, which is 2.2% of llama-4-maverick's 1M context. The cap was never protecting context, only
+# shaving cost -- and it did so by DELETING NEWS, which is the one thing this pipeline cannot afford.
+# It had already been caught dropping "Joins Space Force Launch Program" from the Rocket Lab group,
+# the single article the whole grouping design exists to surface.
+#
+# A ticker's group is now passed WHOLE. The remaining budget below decides only how many SMALL groups
+# share a call -- an ATTENTION question, not a truncation one -- and a group larger than the budget
+# simply gets a call to itself, intact.
 
 def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
-                  max_article_orgs: int, max_group_articles: int) -> list[list[tuple]]:
+                  max_article_orgs: int, articles_per_call: int) -> list[list[tuple]]:
     """[[(org, [articles]), ...], ...] -- ticker-groups packed into per-call batches.
 
     SEEDED BY THE GATE, FILLED FROM THE FULL POOL. Only entities the gate flagged get a group (so the
@@ -559,7 +540,7 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
         arts = full.get(k) or []
         if not arts:
             continue
-        groups.append((k, _thin(arts, max_group_articles)))
+        groups.append((k, arts))            # WHOLE group: never drop a ticker's news
     # BIN-PACK BY ARTICLE COUNT, not a fixed groups-per-call. With 8 groups per call a 256-article
     # NVDA bundle shared a call with seven others and drowned them -- the model sees one enormous
     # story and seven footnotes, which is the crowding this design set out to remove.
@@ -573,7 +554,7 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
     # The budget IS max_group_articles, so one knob does both jobs: it caps the biggest single group
     # AND guarantees no call can hold more than one such group's worth.
     groups.sort(key=lambda kv: -len(kv[1]))            # densest first: big groups get their own call
-    budget = max_group_articles or 10 ** 9
+    budget = articles_per_call or 10 ** 9
     batches, cur, n = [], [], 0
     for g in groups:
         if cur and n + len(g[1]) > budget:
@@ -600,7 +581,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
               f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
               if retired else "")
-    batches = (_scout_groups(arts, full_pool, canon or {}, max_article_orgs, MAX_GROUP_ARTICLES)
+    batches = (_scout_groups(arts, full_pool, canon or {}, max_article_orgs, SCOUT_ARTICLES_PER_CALL)
                if full_pool else [])
     if batches:
         blocks = ["\n\n".join(_group_block(k, v, MAX_ARTICLE_CHARS) for k, v in b) for b in batches]

@@ -38,11 +38,12 @@ discovery_filter: true            # gate the SCOUT to headlines carrying the gem
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
 news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
-max_group_articles: 30            # the ARTICLE BUDGET for one scout call, and so also the cap on one
-                                  #   ticker-group. A group at/over it gets a call to ITSELF, so a
-                                  #   256-article NVDA bundle can no longer drown seven small groups
-                                  #   sharing its call. 12 was too tight: it bound on 13% of groups
-                                  #   against a p90 of 17, thinning exactly the well-covered names.
+scout_articles_per_call: 30       # BATCHING ONLY: how many articles' worth of ticker-groups share
+                                  #   one scout call. It NEVER truncates a group -- a group larger
+                                  #   than this simply gets a call to itself, intact. Replaces
+                                  #   max_group_articles, which capped a group and so DELETED news;
+                                  #   it was caught dropping the one Rocket Lab article the whole
+                                  #   grouping design exists to surface.
 max_article_orgs: 4               # above this many subject companies an article is a LISTICLE: it then
                                   #   joins a ticker's group ONLY if that ticker is in its TITLE. Keeps
                                   #   'Why Rocket Lab Is Skyrocketing' in RKLB's group while '3 Stocks to

@@ -186,12 +186,15 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   each article on its merits, so pool size floats with the week's news the way
                                        #   the forward's does. Inert forward (the search index already filters).
     "relevance_keep": 0,               # SAFETY CEILING on the filtered pool; 0 = none (intended).
-    "max_group_articles": 12,          # LIVE: articles per TICKER-GROUP handed to the scout, newest
-                                       #   kept. Without it a mega-cap swamps the call -- NVDA carried
-                                       #   261 articles in one 30-day window against Rocket Lab's 51,
-                                       #   so one group would crowd out every other. Newest-kept
-                                       #   because a group is read to answer "is the driver still
-                                       #   running", which the recent end answers.
+    "scout_articles_per_call": 30,     # LIVE: batching budget for the ticker-grouped scout -- how
+                                       #   many articles' worth of groups share one call. It does
+                                       #   NOT truncate: a group bigger than this gets its own call,
+                                       #   whole. Purely an ATTENTION knob (a single mega-call scout
+                                       #   proposed a median of ONE name), never a drop knob.
+                                       #   Replaced max_group_articles, which capped a group at N and
+                                       #   deleted the rest -- measured, the biggest group the corpus
+                                       #   produces is 274 articles = 2.2% of the model's context, so
+                                       #   that cap was shaving cost by discarding news.
     "max_article_orgs": 4,             # LIVE: above this many subject companies, an article is treated
                                        #   as a LISTICLE and joins a ticker-group ONLY if that ticker is
                                        #   named in its TITLE. At or below it, the article joins every
