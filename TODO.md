@@ -275,6 +275,26 @@ rediscover the beats we already have. Finding what we are missing needs the RECA
 window with the keyword gate removed, judge what is new) -- the same experiment parked for FBT's
 uncounted upstream filters. That is the only thing that can answer "what beat are we not running?".
 
+## Retire max_new_events (parked 2026-08-15)
+
+It is already OFF and inert: the profile sets 0, which means uncapped, and the 2026-08-15 smoke run
+confirmed nothing is truncated (proposals per scan 0/18/20/17/15/24/8/18, none cut). The profile's own
+comment says why: "Superseded by max_events: an admission cap bins candidates unexamined and forever,
+a concurrency cap keeps them rankable."
+
+DELETE IT RATHER THAN LEAVE IT AT 0. A superseded knob that still resolves to a value is the exact
+pattern that produced four separate bugs on 2026-08-14 -- see the `0 = UNCAPPED` sentinel item under
+"Retired parameters". One of those bugs was max_new_events' own: CBT's tile compared
+`proposed > max_new_events` with no zero-guard and reported "35/37 weeks hit the cap" in CRITICAL red
+for a knob that was switched off (fixed 140a0fd, but the knob survived).
+
+SCOPE when doing it:
+  - drop from investor_profile.backtest.md and optimizer._FINANCIAL_MODEL_DEFAULTS
+  - drop the `max_new_events` parameter threaded through agent.scout / agent.process_week
+  - backtest_gdelt's `--max-new-events` CLI flag: repoint at max_events, or remove
+  - CBT's `cap_max_new_events` field and the "Scout inflow" tile that reads it
+Check nothing else reads it first -- scripts/augment_scan.py and the proto_* experiments may.
+
 ## Audit the remaining CAPS: which ones silently drop news? (parked 2026-08-15)
 
 Two of the three knobs added on 2026-08-15 were deleted the same day, both by one test the user

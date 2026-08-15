@@ -86,6 +86,13 @@ news firehose pays. Confirm scope before jumping ahead.
   Promoting a backtest candidate to forward = copy the strategy knobs into `.forward.md` as a dated re-freeze.
   Any profile knob you add must be in `optimizer._FINANCIAL_MODEL_DEFAULTS`, else `load_financial_model`
   silently drops it.
+  - **ASK BEFORE ADDING ANY NEW PROFILE KNOB** (user's standing instruction, 2026-08-15). The profile
+    accumulates `max_X` parameters that are usually workarounds for a shortcoming elsewhere, and they
+    end up DROPPING NEWS: `max_group_articles` capped a ticker's coverage and deleted the one article
+    the grouping design existed to surface; `max_article_orgs` duplicated a filter that already runs at
+    ingest and excluded real multi-company catalyst articles. Both were added and deleted the same day.
+    Before proposing one, answer: does it DISCARD news, or bound something genuinely finite? Is the
+    limit MEASURED or assumed? Is it redundant with a filter upstream? Prefer fixing the shortcoming.
   - **Three-tier curator (2026-07-12; was two-tier 2026-07-10):** the old single `model` knob is split into
     three decoupled stages: `gather_model` (the live web-search FIREHOSE — Anthropic-ONLY, since web search is;
     the ONLY stage that must be Anthropic; forward-only, inert in the backtest), `event_agent_model` (JUDGMENT:
