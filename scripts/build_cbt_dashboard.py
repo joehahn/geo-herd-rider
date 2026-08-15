@@ -658,10 +658,6 @@ def main(argv=None) -> int:
             [{"t": t, "n": n, "g": round(float(_gain[t]), 2), "per": round(float(_gain[t]) / n, 2)}
              for t, n in top_cov if t in picked and t in _gain and n],
             key=lambda r: r["per"]),
-        "prec": {"t": [x["ticker"] for x in sorted(prec, key=lambda z: z["ret"])],
-                 "r": [round(100 * x["ret"], 1) for x in sorted(prec, key=lambda z: z["ret"])],
-                 "th": [str(x.get("thesis") or "")[:70] for x in sorted(prec, key=lambda z: z["ret"])],
-                 "span": [f"{x['first']} → {x['last']}" for x in sorted(prec, key=lambda z: z["ret"])]},
         "book": book,
         "text": {"w": weeks, "clean": [r["lede_clean"] for r in M],
                  "live": [r["lede_live"] for r in M], "none": [r["lede_headline_only"] for r in M]},
@@ -984,24 +980,13 @@ def main(argv=None) -> int:
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(19, "Agent precision",
-              "Every thesis the curator held, and what that ticker returned over its live span — the "
-              "standalone result of the idea, before any position sizing. This is the closest thing "
-              "on this page to a skill measure: it asks whether the curator's calls were RIGHT, not "
-              "whether the optimizer weighted them well. Green is profitable, red is not. Read it "
-              "beside <i>Breadth over time</i>: breadth without precision is noise, precision "
-              "without breadth is luck.",
-              "c-prec", 620,
-              table_html(["ticker", "return %", "live span", "thesis"],
-                         [[x["ticker"], f"{100*x['ret']:+.1f}%", f"{x['first']} → {x['last']}",
-                           x["thesis"][:90]] for x in sorted(prec, key=lambda z: -z["ret"])])),
-        panel(20, "Event storyboard",
+        panel(19, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(21, "Text provenance of what the curator read",
+        panel(20, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1588,18 +1573,6 @@ function draw() {{
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'dollars held', font:{{size:11}}}}}}}}), CFG);
   }}
 
-  const PR = DATA.prec;
-  Plotly.react('c-prec', [{{
-    type:'bar', orientation:'h', x:PR.r, y:PR.t,
-    marker:{{color:PR.r.map(v=>v>0?ST.good:ST.critical), line:{{width:2,color:p.surface}}}},
-    text:PR.r.map(v=>(v>0?'+':'')+v.toFixed(0)+'%'), textposition:'outside',
-    textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
-    customdata:PR.t.map((_,i)=>[PR.th[i], PR.span[i]]),
-    hovertemplate:'%{{y}} %{{x:.1f}}%<br>%{{customdata[0]}}<br>%{{customdata[1]}}<extra></extra>'
-  }}], base(p, {{margin:{{l:80,r:80,t:10,b:44}},
-      yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:11}}}},
-      xaxis:{{gridcolor:p.grid, zeroline:true, zerolinecolor:p.text2, zerolinewidth:1.5,
-              ticksuffix:'%', title:{{text:'standalone return over the live span', font:{{size:11}}}}}}}}), CFG);
 
   const T = DATA.text;
   Plotly.react('c-text', [
