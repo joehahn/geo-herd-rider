@@ -896,7 +896,13 @@ def main(argv=None) -> int:
               "How the book was distributed across events as the year ran. Wide bands that persist "
               "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating.",
               "c-evtime", 420),
-        panel(9, "Thesis concentration",
+        panel(9, "Allocation over time",
+              "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
+              "<code>always_include</code> anchors (SPY, GLD, BIL) sit outside the watchlist cap and "
+              "are where idle capital parks. Uninvested cash is drawn as its own dark band rather than "
+              "left as a gap, so an empty stretch reads as a decision, not as missing data.",
+              "c-alloc", 580),
+        panel(10, "Thesis concentration",
               "How much of the FUNDED book its single largest EVENT held, day by day. "
               "<code>concentration_cap</code> limits any one TICKER, but nothing limits a THESIS: an "
               "event naming four vehicles can take the whole book while every position looks "
@@ -905,12 +911,6 @@ def main(argv=None) -> int:
               "<b>time above 80%</b>: those are days the portfolio was one bet wearing several "
               "tickers, so a single thesis being wrong takes the whole book with it.",
               "c-evconc", 380),
-        panel(10, "Allocation over time",
-              "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
-              "<code>always_include</code> anchors (SPY, GLD, BIL) sit outside the watchlist cap and "
-              "are where idle capital parks. Uninvested cash is drawn as its own dark band rather than "
-              "left as a gap, so an empty stretch reads as a decision, not as missing data.",
-              "c-alloc", 580),
         panel(11, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "The direct analogue of the firehose funnel — but here the interesting collapse is at the "
