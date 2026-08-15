@@ -8,21 +8,33 @@
 # Any knob added here must also exist in optimizer._FINANCIAL_MODEL_DEFAULTS or it is SILENTLY
 # IGNORED; load_financial_model warns about unknown keys.
 #
-# HOW THE SIX OPTIMIZER KNOBS BELOW WERE CHOSEN (2026-08-14) -- AND HOW NOT TO CHOOSE THEM.
-# DO NOT re-fit these to the top of a single sweep. Twice now that has produced a number that did
-# not survive the next curation, because a fresh curation moves the book more than any knob does:
-#   - the previous nominal [4, 0.60, 45, 0, 4.0, 0.30] was the top of v14's sweep at $324,524,
-#     and fell to $122,408 when v15 re-curated the same window.
+# HOW THE SIX OPTIMIZER KNOBS BELOW WERE CHOSEN (2026-08-15) -- AND HOW NOT TO CHOOSE THEM.
+# DO NOT re-fit these to the top of a single sweep. Three times now that has produced a number that
+# did not survive the next curation, because a fresh curation moves the book more than any knob does:
+#   - nominal [4, 0.60, 45, 0, 4.0, 0.30] topped v14's sweep at $324,524, then paid $122,408 when
+#     v15 re-curated the same window.
 #   - v15's own top cell [8, 0.40, 30, 2, 4.0, 0.30] pays $441,877 on v15 and $61,471 on v14 --
 #     BELOW SPY's $86,213. A sweep winner is a curation-specific spike until proven otherwise.
-# So the selection ranks by WORST-CASE plateau percentile across BOTH recent curations, over the
-# 216 of 6,300 cells that clear the DD/L1/L2/cancellation gates in v14 AND v15. The chosen cell
-# [6, 0.40, 45, 4, 4.0, 0.20] is 98th/99th percentile in both: $191,814 (v14) / $298,606 (v15),
-# worst case ~2.2x SPY, drawdown 33% and Sharpe 1.43 (vs 40% / 0.80 before).
-# CAVEAT, recorded deliberately: these same cells rank only 13th-19th percentile on v10's corpus,
-# and NO cell is strong across all three. v10 predates the wayback backfill and the beat prune, so
-# it is weighted low -- but the honest reading is that CORPUS quality dominates and knob-tuning is
-# second-order. Per CLAUDE.md #4/#6 every figure here is an UPPER BOUND; forward is the verdict.
+#   - and the cell chosen on 2026-08-14 by worst-case plateau across v14+v15,
+#     [6, 0.40, 45, 4, 4.0, 0.20], fell to $165,772 on the v4 grouped curation -- 78th percentile,
+#     Sharpe 0.85, and it left the book holding NOTHING on 53% of days (32% of trades cancelled).
+#     Robustness across two curations of the SAME design did not survive a change of design.
+#
+# CURRENT CELL [8, 0.25, 14, 0, 4.0, 0.20], set 2026-08-15 off the v4 sweep (data/sweep_v4.json).
+# Selected as the highest SHARPE among the 414 of 6,300 cells clearing the shortlist gates
+# (max DD < 35%, L2 < 800/yr, Sharpe > 1.2, cancelled < 25%): Sharpe 1.93, $245,283, drawdown 21%,
+# cancellation 20.0%. It is NOT the grid's biggest number -- that is $1.52M at a 59% drawdown and
+# Sharpe 1.20, which fails three of the four gates and is a lone spike besides (its grid neighbours
+# average $310K, a fifth of its own value). Two cells we preferred earlier in the same session,
+# [6, 0.40, 21, 0, 4.0, 0.30] ($401K) and [12, 0.40, 30, 0, 4.0, 0.30] ($719K), both fail on L2
+# alone (960 and 1003 against the 800 ceiling).
+# The chosen cell sits in a tight cluster -- every one of the top ~10 by Sharpe is
+# [8, 0.25, 14, 0, *, *] -- so it is a plateau, not a peak.
+# CAVEATS, recorded deliberately: (1) this is ONE curation, and the failure mode above is precisely
+# that a cell fitted to one curation does not transfer; a second v4-design curation is the cheap way
+# to test it ($4.50, ~50 min, no re-ingest). (2) the v4 curation ran --arm fuller, which mixes
+# look-ahead-BIASED live ledes; backtest_gdelt.py marks `clean` as the only quotable arm. Per
+# CLAUDE.md #4/#6 every figure here is an UPPER BOUND; the forward test is the verdict.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -67,17 +79,30 @@ max_event_scans: 12               # retires the whole EVENT at this age (~1 year
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once.
+max_watchlist: 8                  # how many tickers may hold capital at once.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
+                                  #   0 = NEVER drop for being unfunded. Every top-Sharpe cell on the v4
+                                  #   sweep sets this to 0: with 191 events competing for 8 slots a name is
+                                  #   often unfunded because something else outranked it this month, not
+                                  #   because its thesis died -- the curator's exit switch already handles
+                                  #   that. Dropping on 4 kept evicting names the optimizer then re-bought.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.40           # most of the book any one ticker may take.
-min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
-                                  #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
-                                  #   it holds only the strongest 2-3 convictions.
+concentration_cap: 0.25           # most of the book any one ticker may take. Tightened from 0.40
+                                  #   2026-08-15: at max_watchlist 8 the sweep's whole top-Sharpe cluster
+                                  #   sits at 0.25, i.e. spread the risk and let the curator's breadth,
+                                  #   not a single name, carry the return.
+min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 8 an equal book
+                                  #   is 12.5% a name, so at 0.20 this still BITES -- a concentration lever,
+                                  #   not a dust filter. Watch it: paired with the old [6, 0.40, 45, 4] cell
+                                  #   it cancelled 32% of trades and left the book in cash 53% of days,
+                                  #   because positions under the floor are DROPPED rather than shrunk.
 risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
-optimizer_lookback_days: 45       # days of price history behind μ and Σ.
+optimizer_lookback_days: 14       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
+                                  #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book
+                                  #   rebalanced monthly averages over two regimes of a fast-moving
+                                  #   catalyst name, which is the wrong estimate of its mu.
 rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. The trading cadence.
 t_update_days: 1                  # trading days between the signal and the trade.
 risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
