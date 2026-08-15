@@ -123,7 +123,11 @@ def main(argv=None) -> int:
     # DISTINCT tickers, vs `admitted` which counts ticker-scans: 45 of v15's 176 admissions are the
     # same ticker re-admitted later (TSM 11x). Without this the funnel's next bar looks like a cull.
     _distinct_admitted = len({t for d in scout for t in d.get("admitted", [])})
-    capbound = sum(1 for d in scout if len(d.get("proposed", [])) > d.get("max_new_events", 99))
+    # 0 = UNCAPPED. Without that guard every scan proposing anything counted as "hit the cap" and the
+    # tile read "35/37 weeks hit the cap" in CRITICAL red for a knob that is switched off -- the same
+    # `0 means uncapped, not zero` bug that made the Anthropic gather return nothing for 32 days.
+    capbound = sum(1 for d in scout
+                   if d.get("max_new_events") and len(d.get("proposed", [])) > d["max_new_events"])
 
     # ---- attribution: join each pick's evidence urls back to the corpus ---------------------------
     src_c, lede_c, beat_c = collections.Counter(), collections.Counter(), collections.Counter()
@@ -514,10 +518,12 @@ def main(argv=None) -> int:
              status=st(len(all_veh), 40, 15),
              why="Distinct tickers the curator named. Peer baskets mean one event can carry several."),
         dict(label="Scout inflow", value=f"{proposed}",
-             sub=f"{admitted} admitted · {capbound}/{len(scout)} weeks hit the cap",
+             sub=(f"{admitted} admitted · {capbound}/{len(scout)} scans hit the admission cap"
+                  if any(d.get("max_new_events") for d in scout)
+                  else f"{admitted} admitted · admission cap OFF (max_new_events=0)"),
              status="critical" if capbound > len(scout) * 0.5 else "good",
-             why="Candidates the scout proposed vs admitted. If the cap rarely binds, breadth is set "
-                 "by the curator, not the knob."),
+             why="Candidates the scout proposed vs admitted. The admission cap is OFF, so the gap is the "
+                   "already-resolved block and the ticker guard — breadth is set by the curator."),
         dict(label="Evidence matched", value=f"{100*n_matched/max(n_ev_urls,1):.0f}%",
              sub=f"{n_matched:,} of {n_ev_urls:,} cited urls",
              status=st(100*n_matched/max(n_ev_urls, 1), 90, 70),
@@ -936,12 +942,12 @@ def main(argv=None) -> int:
               "an active knob. What used to sit between the solid and dashed lines was inventory the "
               "optimizer was never going to fund.",
               "c-breadth", 380),
-        panel(13, "Scout inflow vs the cap",
-              "What the scout proposed each week against what it was allowed to admit "
-              f"(<code>max_new_events</code>, in {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}). "
-              "If the proposal line sits below the cap, breadth is limited by the curator's judgement, "
-              "not by the knob — and loosening the knob would change nothing.",
-              "c-inflow", 340),
+        panel(13, "Scout inflow vs admissions",
+                "What the scout proposed each scan against what was admitted. <b>Nothing caps this</b>: "
+                "<code>max_new_events</code> is 0 (uncapped), superseded by the <code>max_events</code> "
+                "concurrency cap applied later — so the gap between the bars is the already-resolved "
+                "block and the ticker guard, not a knob. Breadth here is set by the curator's judgement.",
+                "c-inflow", 340),
         panel(14, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
@@ -1125,18 +1131,21 @@ function draw() {{
       yaxis:{{gridcolor:p.grid, rangemode:'tozero', title:{{text:'count', font:{{size:11}}}}}}}}), CFG);
 
   const I = DATA.inflow;
+  // LINEAR y, and no cap line. The log axis was justified when max_new_events was SET: proposed ran
+  // 2-72 while admitted sat pinned at 2-4, so linear flattened the admitted bars into the baseline.
+  // With max_new_events: 0 (uncapped, superseded by the max_events CONCURRENCY cap) the two series
+  // share a range -- 0-11 vs 0-11 -- and log now only makes small differences look large. The `cap`
+  // trace is dropped outright: it was all zeros, and a dashed line at 0 is meaningless and cannot be
+  // drawn on a log axis at all.
   Plotly.react('c-inflow', [
-    {{type:'bar', name:'proposed', x:I.w, y:I.prop, marker:{{color:p.s1, line:{{width:2,color:p.surface}}}}}},
-    {{type:'bar', name:'admitted', x:I.w, y:I.adm, marker:{{color:p.s3, line:{{width:2,color:p.surface}}}}}},
-    {{type:'scatter', mode:'lines', name:'cap', x:I.w, y:I.cap,
-      line:{{color:ST.critical, width:2, dash:'dash'}}}}
+    {{type:'bar', name:'proposed', x:I.w, y:I.prop, marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
+      hovertemplate:'%{{x}}<br>proposed %{{y}}<extra></extra>'}},
+    {{type:'bar', name:'admitted', x:I.w, y:I.adm, marker:{{color:p.s3, line:{{width:2,color:p.surface}}}},
+      hovertemplate:'%{{x}}<br>admitted %{{y}}<extra></extra>'}}
   ], base(p, {{barmode:'group', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},
-      // LOG y: `proposed` runs 2-72 while `admitted` is pinned at 2-4 by the cap, so on a linear axis
-      // the admitted bars and the cap line are flattened into the baseline and the whole point of the
-      // panel -- how far the scout's supply overshoots what is let through -- is invisible.
-      // rangemode:'tozero' is dropped: it is meaningless on a log axis, which cannot reach 0.
-      yaxis:{{type:'log', gridcolor:p.grid, title:{{text:'candidates (log)', font:{{size:11}}}}}}}}), CFG);
+      yaxis:{{gridcolor:p.grid, rangemode:'tozero',
+              title:{{text:'candidates per scan', font:{{size:11}}}}}}}}), CFG);
 
   const G = DATA.gantt.filter(g=>g.start);
   const _gseen = new Set();
