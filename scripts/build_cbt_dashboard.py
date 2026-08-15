@@ -856,6 +856,24 @@ def main(argv=None) -> int:
     _n_lived = len(payload["gantt"])            # events with >=1 agent entry (the ones drawn)
     _n_culled = len(ev) - _n_lived              # retired on the scan they opened
 
+    # UNINVESTED DAYS, measured not assumed. The old caption asserted the book is "never actually in
+    # cash" -- a claim that was true of one curation and silently false for the next (53% of days on
+    # the v4 book). Anything the caption states about the data is now computed from the data.
+    # `alloc` holds WEIGHTS (0..1), not dollars -- the JS multiplies by book value at render time.
+    # Comparing the weight sum against the dollar value made every day read as uninvested.
+    _bv = book.get("value") or []
+    _bal = book.get("alloc") or {}
+    _cash_days = sum(1 for i in range(len(_bv))
+                     if 1.0 - sum(s[i] for s in _bal.values() if i < len(s)) > 0.005)
+    _cash_note = (
+        f"<b>{_cash_days} of {len(_bv)} days ({100 * _cash_days / len(_bv):.0f}%) the book holds no "
+        f"position at all</b> and sits in cash — drawn as its own band, not left blank. That is the "
+        f"optimizer cancelling trades, not the curator running out of ideas: at "
+        f"<code>min_trade_size {_lfm0.get('min_trade_size')}</code> with "
+        f"<code>max_watchlist {_lfm0.get('max_watchlist')}</code>, positions sized below the floor are "
+        f"dropped rather than shrunk."
+        if _cash_days and _bv else
+        "The weights sum to 1 on every day, so the book is never actually in cash.")
     panels = ptable + "".join([
         panel(1, "Realized portfolio value",
               "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
@@ -917,9 +935,8 @@ def main(argv=None) -> int:
         panel(9, "Allocation over time",
                 "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
                 "<code>always_include</code> anchors (SPY, BIL) sit outside the watchlist cap and are "
-                "where idle capital parks — which is why there is <b>no cash band</b>: the weights sum "
-                "to 1 within 1e-4 on every one of 734 days, so the book is never actually in cash. A "
-                "grey anchor stretch is the book parked in SPY/BIL, not a decision to hold cash.",
+                "where idle capital parks; a grey anchor stretch is the book in SPY/BIL, not a "
+                "decision to hold cash. " + _cash_note,
                 "c-alloc", 580),
         panel(10, "Thesis concentration",
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
@@ -1552,12 +1569,25 @@ function draw() {{
     const _nonAnchor = Object.keys(BK.alloc).filter(k => !ANCH.has(k));
     const _allocSum = new Array(BK.dates.length).fill(0);
     Object.values(_DOL).forEach(a => a.forEach((v,i) => {{ _allocSum[i] += v; }}));
-    // NO CASH SERIES. It used to be drawn as its own band "so an empty stretch reads as a decision,
-    // not as missing data" -- but there is never an empty stretch: always_include [SPY, BIL] absorbs
-    // idle capital, so the weights sum to 1 within 1e-4 on all 734 days and the band could only ever
-    // draw a hairline of float rounding. Drawing it invited the reader to see a cash position that
-    // does not exist. If a future config drops the anchors this must come back.
+    // THE CASH SERIES IS BACK (2026-08-15). It was deleted on the reasoning that "there is never an
+    // empty stretch -- always_include [SPY, BIL] absorbs idle capital, so the weights sum to 1 on all
+    // 734 days". That was true of the curation it was written for and is FALSE of this one: on the
+    // v4 book 399 of 753 days (53%) carry NO position at all, in stretches up to 81 days, because at
+    // max_watchlist 6 / min_trade_size 0.20 the optimizer cancels 32% of its trades and the book sits
+    // in cash. Without this band those days rendered as blank white canvas, which reads as a chart
+    // that failed to draw rather than as a book that is not invested -- the single most important
+    // thing this panel can say. An assumption about the DATA had been hard-coded into the CHART.
+    // Drawn only when it is real (>0.5% of the book on some day) so a fully-invested run is unchanged.
+    const _cash = BK.value.map((v,i) => Math.max(0, v - _allocSum[i]));
+    const _cashReal = _cash.some((c,i) => BK.value[i] > 0 && c / BK.value[i] > 0.005);
     Plotly.react('c-alloc', [
+      ...(_cashReal ? [{{
+        type:'scatter', mode:'lines', stackgroup:'one', name:'uninvested (cash)',
+        x:BK.dates, y:_cash, legendgroup:'cash',
+        // A DISTINCT tone from the anchor grey: "parked in SPY/BIL" and "not in the market at all"
+        // are different states and must not share a colour.
+        line:{{width:0.5, color:'#c2b8a3'}}, fillcolor:'#c2b8a3'
+      }}] : []),
       ...Object.entries(_DOL).map((e,i)=>({{
       type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
       legendgroup: ANCH.has(e[0]) ? 'anchors' : e[0],
