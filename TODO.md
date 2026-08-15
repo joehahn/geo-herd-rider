@@ -282,7 +282,29 @@ old readers keep working (`optimizer.py:285`). Verified correct today -- the pro
 both the alias and the reconciliation block. Note the sweep GRID key is part of every saved
 `data/sweep_*.json`, so either migrate those or keep the sweep key as-is deliberately.
 
-### 3. Audit result, for whoever picks this up
+### 3. THE `0 = UNCAPPED` SENTINEL — four bugs in one day, sweep for the rest
+Every one of these is the same shape: a knob whose 0 means "no limit" used directly in a comparison,
+a slice, or a `or DEFAULT` fallback, so 0 silently behaves as ZERO or as a live limit. None raised.
+
+  cap=0 in forward_gather.gather   `kept[:cap]` -> `kept[:0]` -> []. Returned NOTHING from the
+                                   Anthropic engine on every daily pull for 32 DAYS. Fixed b68e9ed.
+  news_cap=500 (not 0, but same
+  family: a cap nobody re-checked)  truncated the new 30-day news window back to ~5 days, cutting
+                                   scout intake 149 -> 38. Fixed c0c8dda.
+  rebalance_days                   retired knob still injected as 7 by the optimizer defaults, so any
+                                   raw read got 7 for a 30-day run. Two wrong CBT figures. Fixed 3c014d2.
+  max_new_events=0 in CBT's tile   `proposed > max_new_events` with no zero-guard, so every scan
+                                   scored as a cap hit: "35/37 weeks hit the cap" in CRITICAL red for
+                                   a knob that is OFF. Fixed 140a0fd.
+
+TO DO: grep every knob documented as "0 = uncapped/unlimited" (news_cap, max_new_events, max_events,
+event_news_cap, news_lookback_days, cull_* ...) and check each READ SITE for the guard. The correct
+form is `x[:n] if n else x` and `if n and value > n`, never the bare comparison or slice. Consider a
+single helper (e.g. `util.cap(seq, n)`) so the guard cannot be forgotten at a new call site.
+Worth doing as one pass: the class is proven to reach production silently, and three of the four above
+produced plausible-looking numbers rather than errors.
+
+### 4. Audit result, for whoever picks this up
 All 42 knobs in `_FINANCIAL_MODEL_DEFAULTS` have a real reader as of 2026-08-14 -- there is no third
 dead knob hiding. `trailing_stop_pct` and `prune_zero_weight_weeks` (deferred 2026-07-03) are already
 gone. So this item is genuinely just the two renames above.
