@@ -133,6 +133,10 @@ def main(argv=None):
     # until 2026-08-09, which quietly made the profile's cadence knob decorative for the backtest.
     fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     cadence = a.rebalance_days if a.rebalance_days else resolve_cadence(fm)
+    # One knob for how much of ONE article the curator sees. Set on the module so every call
+    # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
+    agent.MAX_ARTICLE_CHARS = int(fm.get('max_article_chars') or agent.MAX_ARTICLE_CHARS)
+    print(f"  max_article_chars={agent.MAX_ARTICLE_CHARS}", flush=True)
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
     news_win = int(fm.get("news_lookback_days") or 0) or cadence

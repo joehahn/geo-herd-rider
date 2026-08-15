@@ -38,6 +38,10 @@ discovery_filter: true            # gate the SCOUT to headlines carrying the gem
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
 news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
+max_article_chars: 800            # how much of ONE article's text the curator sees. Caps the article,
+                                  #   NOT the ticker-group total -- the signal is corroboration across
+                                  #   articles, so a group cap would hide the very article that explains
+                                  #   the move. Was hardcoded at 200 in agent._block.
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.

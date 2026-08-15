@@ -516,7 +516,14 @@ def pool(start, end, queries: list[str] | None = None, cache_path: str | None = 
                 # but not in this article's own headline or URL -- not actually about the beat
                 _STAT["dropped_no_beat"] += 1
                 continue
-            if not _subject_orgs(r["V2Organizations"], eng["ontopic_offset"], stoplist):
+            # PERSIST the subject orgs, do not just test them. This list is the ENTITY KEY the
+            # curator needs to group a ticker's coverage together -- "RKLB is skyrocketing" and
+            # "$5.6B Neutron win" are the same story only if something says both are about Rocket
+            # Lab. It was computed here and thrown away, so every downstream stage had to re-derive
+            # it from the headline (measured: an exchange tag appears in only 14% of gate-passers,
+            # which groups almost nothing). Free: the column is already SELECTed and scanned.
+            _orgs = _subject_orgs(r["V2Organizations"], eng["ontopic_offset"], stoplist)
+            if not _orgs:
                 if _names_ticker(title):
                     _STAT["rescued_named_ticker"] += 1   # headline names the vehicle: keep regardless
                 else:
@@ -529,7 +536,8 @@ def pool(start, end, queries: list[str] | None = None, cache_path: str | None = 
             if ex is None:
                 seen[url] = {"published_date": pub, "source": r["SourceCommonName"] or "",
                              "title": title, "snippet": title, "url": url, "language": "English",
-                             "tone": round(_tone(r["V2Tone"]), 2), "queries": list(hits)}
+                             "tone": round(_tone(r["V2Tone"]), 2), "queries": list(hits),
+                             "orgs": _orgs[:12]}   # entity key for ticker-grouping; 12 caps listicles
             else:
                 for q in hits:                       # same URL re-surfaced by another beat
                     if q not in ex["queries"]:

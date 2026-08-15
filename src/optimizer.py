@@ -186,6 +186,16 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   each article on its merits, so pool size floats with the week's news the way
                                        #   the forward's does. Inert forward (the search index already filters).
     "relevance_keep": 0,               # SAFETY CEILING on the filtered pool; 0 = none (intended).
+    "max_article_chars": 800,          # LIVE: how much of ONE article's text the curator sees. Was
+                                       #   hardcoded in THREE disagreeing places -- lede.enrich_live and
+                                       #   lede.apply cut at 280, then agent._block cut again at 200,
+                                       #   which was the binding limit. 200 chars of an insidermonkey
+                                       #   listicle is "We recently compiled a list of..." -- the driver,
+                                       #   if stated, is past the cut, so the scout saw a stock that moved
+                                       #   with no reason attached. This caps ONE article; it deliberately
+                                       #   does NOT cap a ticker-group's total, because the signal is
+                                       #   corroboration ACROSS articles ("RKLB is skyrocketing" + "$5.6B
+                                       #   Neutron win"), and capping the group would re-create the bug.
     "event_news_cap": 20,              # articles handed to EACH event-agent per scan. THE cost knob: the judgment
                                        #   stage is ~95% of the curator bill and its input is this slice, so cost is
                                        #   scans x live-events x this. Binds in 76% of event-weeks (median event-week

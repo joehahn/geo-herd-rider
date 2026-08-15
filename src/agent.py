@@ -327,9 +327,17 @@ def superlative_pool(arts: list[dict]) -> list[dict]:
     return [a for a in arts if SUPERLATIVE.search((a.get("title") or ""))]
 
 
-def _block(arts: list[dict]) -> str:
+# The binding truncation on what the curator reads. Was a bare [:200] here, BELOW the 280 that
+# lede.apply had already cut to -- so two separate hardcoded limits disagreed and the smaller one won
+# silently. 200 chars of a listicle is its throat-clearing ("We recently compiled a list of..."), which
+# is why the scout kept seeing "RKLB is skyrocketing" with no reason attached. Now one profile knob.
+MAX_ARTICLE_CHARS = 800          # overridden per-run from the profile; see process_week
+
+
+def _block(arts: list[dict], max_chars: int | None = None) -> str:
+    n = max_chars or MAX_ARTICLE_CHARS
     return "\n".join(f"[{a.get('published_date','')} | {a.get('source','')}] {a.get('title','')}"
-                     f" — {a.get('snippet','')[:200]} ({a.get('url','') or 'no url'})" for a in arts)
+                     f" — {a.get('snippet','')[:n]} ({a.get('url','') or 'no url'})" for a in arts)
 
 
 RESOLVER_SYSTEM = """You are a ticker-lookup utility. Given a company name (and maybe a foreign
@@ -1327,7 +1335,9 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
             # to `lede_live` only where some other pass already supplied it.
             lede.enrich_wayback(gslice, a.date().isoformat(), cache_path=enrich_cache,
                                 fetch=enrich_fetch, stats_path=stats_path)
-            lede.apply(gslice, arm=arm)
+            # SAME limit as _block: apply() used to cut at 280 and _block again at 200, so the
+            # text was truncated twice by two different hardcoded numbers.
+            lede.apply(gslice, arm=arm, max_chars=MAX_ARTICLE_CHARS)
         seed_slice = firehose._window(seeds, a, rebalance_days)
         win = seed_slice + gslice
         provenance[a.isoformat()] = [
