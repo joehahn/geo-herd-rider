@@ -524,8 +524,7 @@ def _thin(arts: list[dict], cap: int) -> list[dict]:
 
 
 def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
-                  max_article_orgs: int, max_group_articles: int,
-                  per_call: int = 8) -> list[list[tuple]]:
+                  max_article_orgs: int, max_group_articles: int) -> list[list[tuple]]:
     """[[(org, [articles]), ...], ...] -- ticker-groups packed into per-call batches.
 
     SEEDED BY THE GATE, FILLED FROM THE FULL POOL. Only entities the gate flagged get a group (so the
@@ -544,8 +543,33 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
         if not arts:
             continue
         groups.append((k, _thin(arts, max_group_articles)))
-    groups.sort(key=lambda kv: -len(kv[1]))            # densest coverage first
-    return [groups[i:i + per_call] for i in range(0, len(groups), per_call)] or []
+    # BIN-PACK BY ARTICLE COUNT, not a fixed groups-per-call. With 8 groups per call a 256-article
+    # NVDA bundle shared a call with seven others and drowned them -- the model sees one enormous
+    # story and seven footnotes, which is the crowding this design set out to remove.
+    #
+    # One call per group fixes that completely but triples the scan: SCOUT_SYSTEM is 12.5k chars, so
+    # 67 groups pay that overhead 67 times -- measured, 87k -> 277k tokens for one window.
+    # Bin-packing to an article budget gets the same isolation for +26%: measured on the same window,
+    # 16 calls and 110k tokens. A group at or over the budget lands in a call of its own; small ones
+    # (the median group is 2 articles) share, which is nearly free.
+    #
+    # The budget IS max_group_articles, so one knob does both jobs: it caps the biggest single group
+    # AND guarantees no call can hold more than one such group's worth.
+    groups.sort(key=lambda kv: -len(kv[1]))            # densest first: big groups get their own call
+    budget = max_group_articles or 10 ** 9
+    batches, cur, n = [], [], 0
+    for g in groups:
+        if cur and n + len(g[1]) > budget:
+            batches.append(cur)
+            cur, n = [], 0
+        cur.append(g)
+        n += len(g[1])
+        if n >= budget:
+            batches.append(cur)
+            cur, n = [], 0
+    if cur:
+        batches.append(cur)
+    return batches
 
 
 def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
