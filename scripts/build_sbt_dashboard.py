@@ -348,7 +348,34 @@ def main(argv=None) -> int:
               "moves directly, while final value is one lucky name away from noise, and each point is "
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
-              "s-me", 460)] if me and me.get("rows") else []))
+              "s-me", 460),
+        panel(11, "Risk-adjusted quality vs max_events",
+              "Sharpe per cap, with the shortlist's <b>&gt; 1.2 floor</b> drawn in. This is the panel "
+              "to weigh against 10, because Sharpe is what table 7 actually ranks by and what the "
+              "live config was chosen on &mdash; a cap that wins on final value while dropping below "
+              "the floor has not won anything we would deploy. Bars under the line are configs the "
+              "shortlist would refuse regardless of how much money they made.",
+              "s-me-sharpe", 380),
+        panel(12, "Where the money sits, and what it gives back",
+              "Three percentages on ONE axis, all of them defects: <b>max drawdown</b> (the hole the "
+              "book digs), <b>cancellation</b> (winners' gains handed back by losers) and <b>idle "
+              "days</b> (days holding NO position at all &mdash; the cash band in CBT plot 9). Dashed "
+              "lines are the shortlist bars, DD &lt; 35% and cancellation &lt; 25%. Idle days is the "
+              "one that ties this knob to the optimizer: a tight cap starves the watchlist, so the "
+              "book sits in cash not because the curator ran out of theses but because it was never "
+              "allowed to open them. All three are better LOW, so a cap whose three bars are all "
+              "short is the one to want.",
+              "s-me-risk", 400),
+        panel(13, "What the cap costs, and what it buys",
+              "Left bars: the <b>LLM bill for that curation</b> &mdash; the only thing on this page "
+              "that is not free, since each point is a full re-curation rather than a replay. Right "
+              "bars: the same money divided by <b>tickers that actually got funded</b>, which is the "
+              "efficiency question &mdash; a cap that opens hundreds of events the optimizer never "
+              "funds is paying the event-agent bill for reading it may as well not have done. Only "
+              "the agent half of the bill scales with the cap; the scout reads the same ticker-groups "
+              "either way, which is why the left bars flatten while the cap keeps rising.",
+              "s-me-cost", 380),
+    ] if me and me.get("rows") else []))
 
     nknob1 = 1 + len(keys)          # last knob column index, for the narrow-column CSS rule
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -510,14 +537,70 @@ function draw(){{
                       '$%{{customdata[3]}} to curate<extra></extra>'}},
       {{type:'scatter', mode:'lines+markers', name:'culled at birth', x:xs,
         y:ME.rows.map(r=>r.cull_pct), yaxis:'y2',
-        line:{{width:2, color:STATUS.serious}}, marker:{{size:9}},
+        line:{{width:2, color:ST.serious}}, marker:{{size:9}},
         hovertemplate:'%{{y:.1f}}% of events culled unread<extra></extra>'}}
     ], base(p, {{margin:{{l:74,r:64,t:34,b:44}},
         legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
         xaxis:{{title:{{text:'max_events (events allowed live at once)', font:{{size:11}}}}}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
-                 title:{{text:'events culled at birth', font:{{size:11}}}}}}}}), CFG);
+                 title:{{text:'events culled at birth', font:{{size:11}}}}}},
+        // SPY over the same window, as the bar every cap has to clear. Without it the panel invites
+        // reading the tallest bar as "good" when the question is whether ANY cap beats buy-and-hold.
+        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y',
+                  y0:ME.rows[0].spy, y1:ME.rows[0].spy,
+                  line:{{color:p.text2, width:1.5, dash:'dash'}}}}],
+        annotations:[{{xref:'paper', x:0.99, xanchor:'right', yref:'y', y:ME.rows[0].spy,
+                       yanchor:'bottom', showarrow:false, font:{{size:10.5, color:p.text2}},
+                       text:'SPY $'+Math.round(ME.rows[0].spy).toLocaleString()}}]}}), CFG);
+
+    // 11. Sharpe, against the shortlist floor
+    Plotly.react('s-me-sharpe', [{{
+      type:'bar', x:xs, y:ME.rows.map(r=>r.sharpe||0),
+      marker:{{color:ME.rows.map(r=>(r.sharpe||0) >= 1.2 ? p.s1 : ST.critical),
+               line:{{width:2, color:p.surface}}}},
+      text:ME.rows.map(r=>(r.sharpe||0).toFixed(2)), textposition:'outside',
+      textfont:{{color:p.text2, size:11}}, cliponaxis:false,
+      hovertemplate:'max_events %{{x}}<br>Sharpe %{{y:.2f}}<extra></extra>', showlegend:false}}],
+      base(p, {{margin:{{l:64,r:20,t:16,b:46}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'Sharpe', font:{{size:11}}}}}},
+        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:1.2, y1:1.2,
+                  line:{{color:ST.warning, width:1.5, dash:'dash'}}}}],
+        annotations:[{{xref:'paper', x:0.99, xanchor:'right', yref:'y', y:1.2, yanchor:'bottom',
+                       showarrow:false, font:{{size:10.5, color:p.text2}},
+                       text:'shortlist floor 1.2'}}]}}), CFG);
+
+    // 12. three DEFECT percentages, one axis (they share a unit, so no second scale is needed)
+    const PCT = [['max drawdown','max_drawdown',ST.critical],
+                 ['cancellation','cancelled',ST.warning],
+                 ['idle days','idle_pct',p.s2]];
+    Plotly.react('s-me-risk', PCT.map(([nm,f,col])=>({{
+      type:'bar', name:nm, x:xs, y:ME.rows.map(r=>r[f]||0),
+      marker:{{color:col, line:{{width:2, color:p.surface}}}},
+      hovertemplate:nm+' %{{y:.1f}}%<extra></extra>'}})),
+      base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
+        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', title:{{text:'percent (all better LOW)', font:{{size:11}}}}}},
+        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:35, y1:35,
+                  line:{{color:ST.critical, width:1.2, dash:'dash'}}}},
+                {{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:25, y1:25,
+                  line:{{color:ST.warning, width:1.2, dash:'dot'}}}}]}}), CFG);
+
+    // 13. bill, and bill per funded ticker -- both DOLLARS, so one axis is honest
+    Plotly.react('s-me-cost', [
+      {{type:'bar', name:'curation cost', x:xs, y:ME.rows.map(r=>r.cost_usd||0),
+        marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+        hovertemplate:'$%{{y:.2f}} to curate<extra></extra>'}},
+      {{type:'bar', name:'cost per funded ticker', x:xs,
+        y:ME.rows.map(r=>r.funded ? (r.cost_usd||0)/r.funded : 0),
+        marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
+        hovertemplate:'$%{{y:.2f}} per funded ticker<extra></extra>'}}
+    ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
+        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'USD', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 draw();
