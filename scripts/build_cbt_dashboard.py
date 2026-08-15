@@ -481,6 +481,22 @@ def main(argv=None) -> int:
             for _t in _a:
                 _first.setdefault(_t, _r["context"])
         for _k, _v in ev.items():
+            # AN EVENT IS BORN WHEN ITS AGENT FIRST RAN, not when its earliest-ever ticker was first
+            # seen. The old rule took min(first-admitted) across the event's vehicles -- but a basket
+            # GROWS: the agent adds peer tickers over time, and if it absorbs a ticker that some
+            # EARLIER event introduced, the event's start date jumps backwards to that old date.
+            # Measured 2026-08-14 on v15: 18 of 61 events were back-dated, median 390 days, worst 870
+            # (ev78 drawn at 2024-02-07 when its agent first ran 2026-06-26, dated by AMD/NVDA which it
+            # inherited). That made the timeline unreadable -- events appeared to start years before
+            # their catalyst existed, and the ordering no longer tracked when things actually happened.
+            # So: the event's OWN first journal entry wins. min(first-admitted) survives only as the
+            # fallback for events culled at birth (19 of 80 here), which never ran an agent and so have
+            # no entry to date them -- and whose basket never grew, so the fallback is right for them.
+            _ent = _v.get("entries") or []
+            _own = (_ent[0].get("date") if _ent else None)
+            if _own:
+                _opened[_k] = str(_own)[:10]
+                continue
             _d = [_first[t] for t in _v.get("vehicles", []) if t in _first]
             if _d:
                 _opened[_k] = min(_d)
