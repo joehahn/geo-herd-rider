@@ -81,9 +81,15 @@ def main(argv=None) -> int:
                    if cellmap[(str(xv), str(yv))] else None
                    for xv in S["grid"][kx]] for yv in S["grid"][ky]]}
 
+    # THE max_events SERIES (panel 10), if it has been collected. Optional on purpose: it is the one
+    # thing on this page that is NOT free -- max_events is a CURATION knob, so each point cost a full
+    # re-curation (~$3-4.50, ~45 min) rather than a replay of fixed book math. Absent -> panel omitted.
+    _me = ROOT / "data/sweep_max_events.json"
+    me = json.loads(_me.read_text()) if _me.exists() else None
+
     payload = {"cells": cells, "keys": keys, "marg": marg, "heat": heat,
                "spy": cells[0]["spy"] if cells else 0,
-               "cur": cur}
+               "cur": cur, "me": me}
 
     # What was swept, and what the profile currently says -- PWR's "Parameter settings" panel. The
     # `current` column is what makes it readable: without it the grid is a list of numbers with no
@@ -330,7 +336,19 @@ def main(argv=None) -> int:
               "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
               "knob only pays in combination with something else. The live setting is outlined.",
               "s-marg", 620),
-    ])
+    ] + ([panel(10, "Portfolio value vs max_events",
+              "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
+              "FIXED curation through different book math, so 6,300 cells cost nothing; "
+              "<code>max_events</code> decides which events stay live and so which tickers ever reach "
+              "the optimizer, meaning each point here is a full re-curation "
+              f"(${sum(r.get('cost_usd') or 0 for r in (me or {{}}).get('rows', [])):.2f} and several "
+              "hours for the series). Bars are final portfolio value, the line is the share of events "
+              "<b>culled at birth</b> &mdash; opened and retired without a single agent read, i.e. work "
+              "paid for and thrown away. Read the CULL LINE first: it is a structural count the cap "
+              "moves directly, while final value is one lucky name away from noise, and each point is "
+              "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
+              "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
+              "s-me", 460)] if me and me.get("rows") else []))
 
     nknob1 = 1 + len(keys)          # last knob column index, for the narrow-column CSS rule
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -473,6 +491,34 @@ function draw(){{
     lay['yaxis'+(i===0?'':(i+1))] = {{gridcolor:p.grid, ticksuffix:'%', tickfont:{{size:10}}}};
   }});
   Plotly.react('s-marg', tr, base(p, lay), CFG);
+
+  // 5. max_events: value (bars) against cull-at-birth (line). TWO y-axes is normally forbidden, and
+  // is legitimate here only because the second series is a PERCENTAGE OF A DIFFERENT THING (events
+  // culled), not a second measure of the same book on a rescaled money axis -- the trap that makes
+  // dual axes lie. The line is the trustworthy series and is drawn on top.
+  const ME = DATA.me;
+  if (ME && ME.rows && ME.rows.length) {{
+    const xs = ME.rows.map(r => r.max_events === 0 ? 'uncapped' : String(r.max_events));
+    Plotly.react('s-me', [
+      {{type:'bar', name:'final value', x:xs, y:ME.rows.map(r=>r.final),
+        marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
+        text:ME.rows.map(r=>'$'+Math.round(r.final).toLocaleString()), textposition:'outside',
+        textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+        customdata:ME.rows.map(r=>[r.events, r.agent_reads, r.funded, r.cost_usd]),
+        hovertemplate:'max_events %{{x}}<br>final $%{{y:,.0f}}<br>%{{customdata[0]}} events · '+
+                      '%{{customdata[1]}} agent-reads<br>%{{customdata[2]}} tickers funded · '+
+                      '$%{{customdata[3]}} to curate<extra></extra>'}},
+      {{type:'scatter', mode:'lines+markers', name:'culled at birth', x:xs,
+        y:ME.rows.map(r=>r.cull_pct), yaxis:'y2',
+        line:{{width:2, color:STATUS.serious}}, marker:{{size:9}},
+        hovertemplate:'%{{y:.1f}}% of events culled unread<extra></extra>'}}
+    ], base(p, {{margin:{{l:74,r:64,t:34,b:44}},
+        legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
+        xaxis:{{title:{{text:'max_events (events allowed live at once)', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}},
+        yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
+                 title:{{text:'events culled at birth', font:{{size:11}}}}}}}}), CFG);
+  }}
 }}
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
