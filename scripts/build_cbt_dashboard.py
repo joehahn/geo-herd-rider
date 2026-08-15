@@ -1421,9 +1421,12 @@ function draw() {{
     }});
     // DOLLARS HELD per event, not cumulative gain -- so the top edge of the stack IS the portfolio
     // value, which is what the panel title claims. A ticker named by more than one live event has its
-    // dollars SPLIT evenly between them rather than counted twice. Anchors and uninvested cash are not
-    // part of any event, so they get their own band; without it the stack would stop short of the
-    // portfolio value and the difference would read as missing data.
+    // dollars SPLIT evenly between them rather than counted twice. The ANCHORS (always_include) belong
+    // to no event, so they get their own band; without it the stack would stop short of the portfolio
+    // value and the difference would read as missing data. The band was called "anchors + cash", which
+    // implied some of it was a deliberate cash position -- it never is. Measured 2026-08-14: the daily
+    // weights sum to 1 within 1e-4 on every one of 734 days, because always_include [SPY, BIL]
+    // guarantees idle capital a home. The band is 100% anchors.
     const _evVeh = Object.fromEntries((DATA.gantt || []).map(g => [g.id, g.veh || []]));
     const _nd = BK.dates.length;
     const _owners = {{}};                       // ticker -> how many events claim it
@@ -1441,9 +1444,9 @@ function draw() {{
     _evDollars.forEach(e => {{ for (let i = 0; i < _nd; i++) _evSum[i] += e[1][i]; }});
     const _rest = BK.value.map((v, i) => Math.max(0, v - _evSum[i]));
     Plotly.react('c-evtime', [
-      {{type:'scatter', mode:'lines', stackgroup:'one', name:'anchors + cash', x:BK.dates, y:_rest,
+      {{type:'scatter', mode:'lines', stackgroup:'one', name:'anchors', x:BK.dates, y:_rest,
         line:{{width:0.5, color:GREY}}, fillcolor:GREY,
-        hovertemplate:'%{{x}}<br>anchors + cash %{{y:$,.0f}}<extra></extra>'}},
+        hovertemplate:'%{{x}}<br>anchors %{{y:$,.0f}}<extra></extra>'}},
       ..._evDollars.map((e,i)=>({{
         type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
         line:{{width:0.5, color:PALS[i % PALS.length]}}, fillcolor:PALS[i % PALS.length],
@@ -1495,15 +1498,14 @@ function draw() {{
     const ANCH = new Set(BK.anchors || []);
     const _ANCHC = GREY;
     const _nonAnchor = Object.keys(BK.alloc).filter(k => !ANCH.has(k));
-    // UNINVESTED CASH gets its own band. Left as a gap it showed the page through the stack, which
-    // reads as missing data rather than as "the optimizer chose to hold nothing here".
     const _allocSum = new Array(BK.dates.length).fill(0);
     Object.values(_DOL).forEach(a => a.forEach((v,i) => {{ _allocSum[i] += v; }}));
-    const _cash = BK.value.map((v,i) => Math.max(0, v - _allocSum[i]));
+    // NO CASH SERIES. It used to be drawn as its own band "so an empty stretch reads as a decision,
+    // not as missing data" -- but there is never an empty stretch: always_include [SPY, BIL] absorbs
+    // idle capital, so the weights sum to 1 within 1e-4 on all 734 days and the band could only ever
+    // draw a hairline of float rounding. Drawing it invited the reader to see a cash position that
+    // does not exist. If a future config drops the anchors this must come back.
     Plotly.react('c-alloc', [
-      {{type:'scatter', mode:'lines', stackgroup:'one', name:'uninvested cash', x:BK.dates, y:_cash,
-        line:{{width:0.5, color:_dark(GREY, 0.80)}}, fillcolor:_dark(GREY, 0.80),
-        hovertemplate:'%{{x}}<br>uninvested cash %{{y:$,.0f}}<extra></extra>'}},
       ...Object.entries(_DOL).map((e,i)=>({{
       type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
       legendgroup: ANCH.has(e[0]) ? 'anchors' : e[0],
