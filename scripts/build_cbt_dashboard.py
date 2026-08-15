@@ -247,10 +247,56 @@ def main(argv=None) -> int:
         _gain = _d.get("gain") or {}
         _gs = _d.get("gain_series") or {}
         _alloc = _d.get("alloc") or {}
-        _tick2ev = {v: eid for eid, e in ev.items() for v in e.get("vehicles", [])}
+        # ATTRIBUTE P&L TO THE EVENT THAT WAS ACTUALLY HOLDING, ON THE DAY IT HELD.
+        # The old rule was `{v: eid for eid, e in ev.items() for v in e.get("vehicles", [])}` -- a plain
+        # dict comprehension, so LAST WRITE WINS and a ticker claimed by several events handed its
+        # ENTIRE lifetime P&L to whichever event happened to iterate last. That is not a rounding
+        # error: 63 of 145 tickers are claimed by more than one event, carrying $311,951 of $411,591
+        # gross gain, so ~76% of this panel was decided by dict ordering. Concretely, ev78 was charged
+        # AMD's whole -$15,508 -- a ticker SIX events claim and ev78 never funded -- while GEV's
+        # +$3,971, which ev78 did fund, went to ev79. The panel read -$17,473 for an event that made
+        # about +$2,000.
+        # Now: walk each ticker's daily gain increment and split it among the events that (a) list the
+        # ticker and (b) were LIVE that day. Equal split when several qualify, because nothing in the
+        # book says which of two live events "owns" a shared position -- and an equal split is at
+        # least stable and sums to the true total, which the old rule did not.
+        _elife = {}
+        for _k, _e in ev.items():
+            _en = _e.get("entries") or []
+            _elife[_k] = (str(_en[0].get("date"))[:10] if _en and _en[0].get("date") else None,
+                          None if _e.get("status") == "live" or not _en
+                          else str(_en[-1].get("date"))[:10])
+        _claim = collections.defaultdict(list)
+        for _k, _e in ev.items():
+            for _v in _e.get("vehicles", []):
+                _claim[_v].append(_k)
+        _dates_l = _d.get("dates") or []
         _evgain = collections.Counter()
         for _tk, _g in _gain.items():
-            _evgain[_tick2ev.get(_tk, "(unassigned)")] += float(_g or 0)
+            _ser = _gs.get(_tk)
+            _cands = _claim.get(_tk, [])
+            if not _ser or not _cands or not _dates_l:
+                _evgain["(unassigned)"] += float(_g or 0)      # no series/claim -> cannot place it
+                continue
+            _prev = 0.0
+            for _i, _day in enumerate(_dates_l):
+                _cum = float(_ser[_i] or 0) if _i < len(_ser) else _prev
+                _inc, _prev = _cum - _prev, _cum
+                if not _inc:
+                    continue
+                # A start of None means the event has NO journal entries -- it was culled at birth and
+                # never ran an agent, so it never tracked anything and cannot have owned a position.
+                # Treating None as "live forever" (the first cut of this fix) let those events collect
+                # a share of every ticker they listed, across the whole backtest: ev70 and ev79 were
+                # silently splitting MU's and GEV's P&L with the events that actually held them.
+                _live = [_k for _k in _cands
+                         if _elife[_k][0] is not None and _elife[_k][0] <= _day
+                         and (_elife[_k][1] is None or _day <= _elife[_k][1])]
+                if not _live:
+                    _evgain["(unassigned)"] += _inc
+                else:
+                    for _k in _live:
+                        _evgain[_k] += _inc / len(_live)
         # BUY-AND-HOLD baseline, PWR's blue curve: the profile's `starter_watchlist`, equal-DOLLAR at
         # inception and never touched again. The honest control for "did curating add anything, or
         # would holding a boring opening basket have done as well?" firehose.backtest computes it off
