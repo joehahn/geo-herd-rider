@@ -537,7 +537,12 @@ def pool(start, end, queries: list[str] | None = None, cache_path: str | None = 
                 seen[url] = {"published_date": pub, "source": r["SourceCommonName"] or "",
                              "title": title, "snippet": title, "url": url, "language": "English",
                              "tone": round(_tone(r["V2Tone"]), 2), "queries": list(hits),
-                             "orgs": _orgs[:12]}   # entity key for ticker-grouping; 12 caps listicles
+                             # ENTITY KEY for ticker-grouping. Stored generously (40) rather than
+                             # tightly, because the LISTICLE THRESHOLD is a curation-time decision
+                             # (max_article_orgs) and truncating here would make a 40-org listicle
+                             # indistinguishable from a 4-org story -- the 40 is only a corpus-size
+                             # bound, not a filter.
+                             "orgs": _orgs[:40]}
             else:
                 for q in hits:                       # same URL re-surfaced by another beat
                     if q not in ex["queries"]:

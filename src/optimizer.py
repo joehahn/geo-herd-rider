@@ -186,6 +186,16 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   each article on its merits, so pool size floats with the week's news the way
                                        #   the forward's does. Inert forward (the search index already filters).
     "relevance_keep": 0,               # SAFETY CEILING on the filtered pool; 0 = none (intended).
+    "max_article_orgs": 4,             # LIVE: above this many subject companies, an article is treated
+                                       #   as a LISTICLE and joins a ticker-group ONLY if that ticker is
+                                       #   named in its TITLE. At or below it, the article joins every
+                                       #   org's group, because a 2-3 company story is genuine evidence
+                                       #   for each. Measured 2026-08-14: listicles are 4% of gate-passers
+                                       #   and 82% of them name NO company in the title -- "3 Stocks to
+                                       #   Make the Most of the Surge in Crude Oil" joins nothing, while
+                                       #   "Why Rocket Lab Is Skyrocketing Now" still joins RKLB. The
+                                       #   title is the publisher's claim about what the piece is ABOUT;
+                                       #   the org list is only what it MENTIONS.
     "max_article_chars": 800,          # LIVE: how much of ONE article's text the curator sees. Was
                                        #   hardcoded in THREE disagreeing places -- lede.enrich_live and
                                        #   lede.apply cut at 280, then agent._block cut again at 200,
