@@ -897,11 +897,12 @@ def main(argv=None) -> int:
               "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating.",
               "c-evtime", 420),
         panel(9, "Allocation over time",
-              "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
-              "<code>always_include</code> anchors (SPY, GLD, BIL) sit outside the watchlist cap and "
-              "are where idle capital parks. Uninvested cash is drawn as its own dark band rather than "
-              "left as a gap, so an empty stretch reads as a decision, not as missing data.",
-              "c-alloc", 580),
+                "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
+                "<code>always_include</code> anchors (SPY, BIL) sit outside the watchlist cap and are "
+                "where idle capital parks — which is why there is <b>no cash band</b>: the weights sum "
+                "to 1 within 1e-4 on every one of 734 days, so the book is never actually in cash. A "
+                "grey anchor stretch is the book parked in SPY/BIL, not a decision to hold cash.",
+                "c-alloc", 580),
         panel(10, "Thesis concentration",
               "How much of the FUNDED book its single largest EVENT held, day by day. "
               "<code>concentration_cap</code> limits any one TICKER, but nothing limits a THESIS: an "
