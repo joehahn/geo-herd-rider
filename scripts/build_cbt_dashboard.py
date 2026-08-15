@@ -651,6 +651,13 @@ def main(argv=None) -> int:
         "beat": {"b": [b for b, _ in beat_c.most_common(20)], "n": [n for _, n in beat_c.most_common(20)]},
         "cov": {"t": [t for t, _ in top_cov], "n": [n for _, n in top_cov],
                 "picked": [t in picked for t, _ in top_cov]},
+        # GAIN PER ARTICLE, per ticker -- the per-ticker twin of the by-beat panel. Only tickers that
+        # are BOTH in the top-40 by coverage AND carry a book gain qualify, so this is a subset of the
+        # bars above; the panel says so rather than letting the shorter list read as missing data.
+        "covgain": sorted(
+            [{"t": t, "n": n, "g": round(float(_gain[t]), 2), "per": round(float(_gain[t]) / n, 2)}
+             for t, n in top_cov if t in picked and t in _gain and n],
+            key=lambda r: r["per"]),
         "prec": {"t": [x["ticker"] for x in sorted(prec, key=lambda z: z["ret"])],
                  "r": [round(100 * x["ret"], 1) for x in sorted(prec, key=lambda z: z["ret"])],
                  "th": [str(x.get("thesis") or "")[:70] for x in sorted(prec, key=lambda z: z["ret"])],
@@ -956,22 +963,28 @@ def main(argv=None) -> int:
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(15, "Evidence by lede provenance",
+        panel(15, "Gain per article, per ticker",
+              "For the picked tickers above: dollars earned per article the press wrote about them. "
+              "The per-ticker twin of plot 6. A name that paid a lot on little coverage sits far right; "
+              "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
+              "coverage AND funded appear, so this is a subset of the bars above.",
+              "c-covgain", 420),
+        panel(16, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(16, "Evidence by source",
+        panel(17, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(17, "Evidence by beat",
+        panel(18, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(18, "Agent precision",
+        panel(19, "Agent precision",
               "Every thesis the curator held, and what that ticker returned over its live span — the "
               "standalone result of the idea, before any position sizing. This is the closest thing "
               "on this page to a skill measure: it asks whether the curator's calls were RIGHT, not "
@@ -982,13 +995,13 @@ def main(argv=None) -> int:
               table_html(["ticker", "return %", "live span", "thesis"],
                          [[x["ticker"], f"{100*x['ret']:+.1f}%", f"{x['first']} → {x['last']}",
                            x["thesis"][:90]] for x in sorted(prec, key=lambda z: -z["ret"])])),
-        panel(19, "Event storyboard",
+        panel(20, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(20, "Text provenance of what the curator read",
+        panel(21, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1177,12 +1190,33 @@ function draw() {{
   Plotly.react('c-cov', [{{
     type:'bar', orientation:'h', x:C.n.slice().reverse(), y:C.t.slice().reverse(),
     marker:{{color:C.picked.slice().reverse().map(b=>b?ST.good:p.grid), line:{{width:2,color:p.surface}}}},
-    text:C.picked.slice().reverse().map((b,i)=>C.n.slice().reverse()[i].toLocaleString()+(b?' ✓ picked':'')),
+    text:C.n.slice().reverse().map(v=>v.toLocaleString()),   // colour already carries picked/not
     textposition:'outside', textfont:{{color:p.text2, size:10}}, cliponaxis:false,
     hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'
   }}], base(p, {{margin:{{l:90,r:130,t:10,b:44}},
       yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}}},
       xaxis:{{gridcolor:p.grid, title:{{text:'articles naming this ticker', font:{{size:11}}}}}}}}), CFG);
+
+  // 15. GAIN PER ARTICLE, per ticker. Diverging: losers left of zero, winners right, so "was this
+  //     name's coverage worth reading?" is answered by which side of the line it sits on.
+  (function(){{
+    const CG = DATA.covgain || [];
+    if (!CG.length) return;
+    Plotly.react('c-covgain', [{{
+      type:'bar', orientation:'h', x:CG.map(r=>r.per), y:CG.map(r=>r.t),
+      marker:{{color:CG.map(r=>r.per >= 0 ? ST.good : ST.critical),
+               line:{{width:2, color:p.surface}}}},
+      text:CG.map(r=>(r.per>=0?'+$':'-$')+Math.abs(r.per).toFixed(0)),
+      textposition:'outside', textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
+      customdata:CG.map(r=>[r.n, r.g]),
+      hovertemplate:'%{{y}}<br>$%{{x:,.1f}} per article'
+                  + '<br>%{{customdata[0]:,}} articles &middot; $%{{customdata[1]:,.0f}} total<extra></extra>'
+    }}], base(p, {{margin:{{l:90,r:96,t:10,b:46}},
+        yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10.5}}}},
+        xaxis:{{gridcolor:p.grid, zerolinecolor:p.text2, zerolinewidth:1.5,
+                title:{{text:'$ gain per article naming this ticker', font:{{size:11}}}}}}
+    }}), CFG);
+  }})();
 
   const LD = DATA.lede;
   Plotly.react('c-lede', [{{
