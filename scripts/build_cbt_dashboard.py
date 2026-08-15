@@ -907,16 +907,12 @@ def main(argv=None) -> int:
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
                 "day parked in SPY/BIL reads 0%; the dashed line is the per-ticker cap, for scale.",
                 "c-evconc", 380),
-        panel(11, "Does concentrating pay?",
-              "Each grey dot is one day: how concentrated the book was, against what it returned over "
-              "the NEXT 30 days. Orange dots are monthly means, since daily points are not independent.",
-              "c-concpay", 400),
-        panel(12, "Curator funnel",
+        panel(11, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "The direct analogue of the firehose funnel — but here the interesting collapse is at the "
               "top: a whole week of articles yields a handful of candidates. Log x-axis.",
               "c-funnel", 340),
-        panel(13, "Breadth over time",
+        panel(12, "Breadth over time",
               "Events live, distinct tickers named, and how many separate catalysts those events "
               "represent — per rebalance. Several events on one theme is concentration wearing a "
               "diversity costume, which is why catalysts are drawn separately from events. The dashed "
@@ -926,32 +922,32 @@ def main(argv=None) -> int:
               "an active knob. What used to sit between the solid and dashed lines was inventory the "
               "optimizer was never going to fund.",
               "c-breadth", 380),
-        panel(14, "Scout inflow vs the cap",
+        panel(13, "Scout inflow vs the cap",
               "What the scout proposed each week against what it was allowed to admit "
               f"(<code>max_new_events</code>, in {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}). "
               "If the proposal line sits below the cap, breadth is limited by the curator's judgement, "
               "not by the knob — and loosening the knob would change nothing.",
               "c-inflow", 340),
-        panel(15, "Coverage vs picks, per ticker",
+        panel(14, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(16, "Evidence by lede provenance",
+        panel(15, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(17, "Evidence by source",
+        panel(16, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(18, "Evidence by beat",
+        panel(17, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(19, "Agent precision",
+        panel(18, "Agent precision",
               "Every thesis the curator held, and what that ticker returned over its live span — the "
               "standalone result of the idea, before any position sizing. This is the closest thing "
               "on this page to a skill measure: it asks whether the curator's calls were RIGHT, not "
@@ -962,13 +958,13 @@ def main(argv=None) -> int:
               table_html(["ticker", "return %", "live span", "thesis"],
                          [[x["ticker"], f"{100*x['ret']:+.1f}%", f"{x['first']} → {x['last']}",
                            x["thesis"][:90]] for x in sorted(prec, key=lambda z: -z["ret"])])),
-        panel(20, "Event storyboard",
+        panel(19, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(21, "Text provenance of what the curator read",
+        panel(20, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1498,42 +1494,6 @@ function draw() {{
           annotations:[{{xref:'paper', yref:'paper', x:0.01, y:0.06, showarrow:false,
             font:{{size:11.5, color:p.text2}},
             text:`one thesis held &ge;80% of the book on <b>${{above}}</b> of ${{live}} funded days`}}]}}), CFG);
-
-    // 11. DOES CONCENTRATING PAY? concentration on day i vs the portfolio's return over the NEXT 30
-    //     days. Built only after the obvious confound was tested: concentration RISES when a position
-    //     wins, so it could just be measuring past returns. It is not -- vs the PRIOR 30 days the
-    //     correlation is +0.04, vs the next 30 it is +0.27, and collapsing 704 daily points to 35
-    //     monthly means (which are roughly independent, unlike overlapping daily windows) leaves +0.29.
-    //     Still one curation, one config, 35 effective points: suggestive, not established.
-    (function(){{
-      const _conc = conc, _val = BK.value, _d = BK.dates, _N = 30;
-      const dx=[], dy=[], dt=[];
-      for (let i = 0; i + _N < _d.length; i++) {{
-        if (!_val[i] || !_val[i+_N]) continue;
-        dx.push(_conc[i]); dy.push(100*(_val[i+_N]/_val[i]-1)); dt.push(_d[i]);
-      }}
-      const mo = {{}};
-      dx.forEach((x,i)=>{{ const k=dt[i].slice(0,7); (mo[k] = mo[k] || []).push([x, dy[i]]); }});
-      const mk = Object.keys(mo).sort();
-      const mxs = mk.map(k=>mo[k].reduce((a,b)=>a+b[0],0)/mo[k].length);
-      const mys = mk.map(k=>mo[k].reduce((a,b)=>a+b[1],0)/mo[k].length);
-      Plotly.react('c-concpay', [
-        {{type:'scatter', mode:'markers', name:'each day', x:dx, y:dy, text:dt,
-          marker:{{color:p.text2, size:5, opacity:0.16}},
-          hovertemplate:'%{{text}}<br>concentration %{{x:.0f}}%<br>next 30d %{{y:+.1f}}%<extra></extra>'}},
-        {{type:'scatter', mode:'markers', name:'monthly mean', x:mxs, y:mys, text:mk,
-          marker:{{color:ST.warning, size:11, line:{{width:2, color:p.surface}}}},
-          hovertemplate:'%{{text}}<br>mean concentration %{{x:.0f}}%<br>mean next 30d %{{y:+.1f}}%<extra></extra>'}},
-        {{type:'scatter', mode:'lines', name:'break-even', x:[0,100], y:[0,0], showlegend:false,
-          line:{{color:p.grid, width:1.5, dash:'dot'}}, hoverinfo:'skip'}}
-      ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-          margin:{{l:64,r:24,t:42,b:46}},
-          xaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[-2,102],
-                  title:{{text:'largest thesis, % of portfolio', font:{{size:11}}}}}},
-          yaxis:{{gridcolor:p.grid, ticksuffix:'%',
-                  title:{{text:'portfolio return, next 30 days', font:{{size:11}}}}}}
-      }}), CFG);
-    }})();
 
     }}
 

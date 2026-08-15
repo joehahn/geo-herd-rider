@@ -195,6 +195,31 @@ Named FIREHOSE, not 'retriever' -- that is PWR's word and appears 0 times in thi
 Corpus state: 38,896 articles, 106.6/day, 93.5% with text (10.2% of it clean/archived), 18,435
 bylines, 46/46 beats, 2,284 sources. ~52% of it is noise; the scout is the intended backstop.
 
+## TESTED AND REJECTED 2026-08-14 — "does concentrating pay?"
+
+Built as a CBT panel (concentration on day i vs the portfolio's next-30d return), then REMOVED the
+same day when the regime control killed it. Recorded so nobody rebuilds it.
+
+    portfolio fwd 30d              monthly corr +0.28   n=35   t=+1.70   (p~0.10)
+    SPY fwd 30d (regime control)   monthly corr +0.28   n=35   t=+1.70
+    EXCESS (portfolio - SPY)       monthly corr +0.23   n=35   t=+1.36   (p~0.18)
+
+Concentration predicts SPY's forward return EXACTLY as well as the portfolio's -- identical to two
+decimals. The panel was measuring market regime, not concentration: the curator happens to
+concentrate in periods that precede rallies. Nothing is significant, and the buckets are not
+monotonic either (25-50% -> +12.1%, 50-80% -> +6.0%, 80-100% -> +18.5%).
+
+TWO METHOD LESSONS worth more than the result:
+  - The first confound test (concentration vs PRIOR 30d return: +0.04) looked reassuring and was
+    NOT sufficient. Ruling out reverse causality does not rule out a third variable driving both.
+    Always control for the market before believing any timing relationship in this book.
+  - A per-EVENT version was tried first -- peak share vs realised P&L, 36 points, corr -0.09 -- and
+    showed nothing. That was the honest framing; the daily one only looked better because
+    overlapping windows inflate n from 35 to 704.
+
+If revisited on the bootstrap corpus: test against EXCESS return from the start, and treat monthly
+means as the unit, not days.
+
 ## Beat economics + an evidence-provenance hole (parked 2026-08-14, revisit with the bootstrap dbs)
 
 Measured on v15 / CBT plot 5. Deferred deliberately: it is ONE curation, and we watched the optimizer
