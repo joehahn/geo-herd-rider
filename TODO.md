@@ -275,6 +275,46 @@ rediscover the beats we already have. Finding what we are missing needs the RECA
 window with the keyword gate removed, judge what is new) -- the same experiment parked for FBT's
 uncounted upstream filters. That is the only thing that can answer "what beat are we not running?".
 
+## Audit the remaining CAPS: which ones silently drop news? (parked 2026-08-15)
+
+Two of the three knobs added on 2026-08-15 were deleted the same day, both by one test the user
+proposed: DOES IT DROP NEWS? Neither was protecting a real constraint.
+
+    max_group_articles   capped a ticker-group at N and discarded the rest. Justified as context
+                         protection; measured, the biggest group the corpus produces is NVDA at 274
+                         articles = 22k tokens = 2.2% of the model's 1M context. It was shaving COST
+                         by deleting news, and had already been caught removing "Rocket Lab's Stock
+                         Spikes as Firm Joins Space Force Launch Program" -- the single article the
+                         grouping design exists to surface. Deleted 420025e.
+    max_article_orgs     restricted a >N-org article to groups named in its TITLE. Redundant --
+                         listicles are already dropped at INGEST by spam_title_patterns -- and
+                         harmful: only 75 of 21,233 articles (0.35%) survive to reach it, and they
+                         are mostly REAL multi-company news. "Uranium stocks extend gains as Trump
+                         signs orders" names no company in its title, so it would have joined NO
+                         group. Deleted 1ea7666.
+
+THE TEST that both failed, and that the survivors pass: does the cap DISCARD an article, or does it
+bound something that is genuinely finite? max_article_chars truncates WITHIN an article (bounded
+attention, no article lost). scout_articles_per_call decides how many groups share a call and never
+truncates a group. Those are fine. A cap that deletes rows to save money is not.
+
+TO AUDIT -- 10 of 44 profile knobs are cap-shaped:
+    concentration_cap · event_news_cap · max_agents · max_event_scans · max_events ·
+    max_new_events · max_stale_scans · max_watchlist · news_cap · max_article_chars
+For each, ask in order: (1) does it discard news or positions, or bound a genuinely finite
+resource? (2) if it discards, what was the stated justification and is it MEASURED or assumed?
+(3) is it redundant with a filter further upstream?
+
+Known suspects from today:
+  - `event_news_cap: 20` caps what each event-agent re-reads per scan. Same shape as the group cap
+    just deleted, and the agent is the stage that decides how long the book HOLDS things.
+  - `max_events` / `max_new_events` interact: v16 admitted more candidates against an unchanged
+    max_events: 8 and got WORSE, because more candidates chased the same slots and the coverage-rank
+    cull discarded more at birth (3 of RKLB's 4 events had zero agent entries).
+  - `news_cap` already burned us once at 500, truncating a 30-day window to ~5 days (c0c8dda).
+Related: the `0 = uncapped` sentinel audit under "Retired parameters", which is the same family of
+bug seen from the other side.
+
 ## Retired parameters still present in the code (parked 2026-08-14)
 
 The `rebalance_days` -> `rebalance_period` rename was done 2026-08-09 but never finished, and the
