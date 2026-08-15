@@ -345,7 +345,28 @@ def main(argv=None) -> int:
         _vs = list(_e.get("vehicles") or [])
         _bs = collections.Counter(_tbmap.get(v) for v in _vs if _tbmap.get(v))
         _ev_beat[_k] = _bs.most_common(1)[0][0] if _bs else "no beat"
-        _held = [any((_al.get(v) or [0] * len(_dts))[i] > 0.01 for v in _vs) for i in range(len(_dts))]
+        # AN EVENT CANNOT BE FUNDED BEFORE IT EXISTED. `_held` marks any day ANY of the event's
+        # vehicles was funded -- but the basket GROWS, so an event that later absorbs a widely-held
+        # ticker (AMD, NVDA) inherits every day that ticker was ever funded, including years under a
+        # DIFFERENT event. That drew ev69's funded bar starting 2024 when its agent first ran
+        # 2026-05-27. Same root cause as the start-date bug fixed alongside this, and the one the
+        # user actually saw: the pale proposed span and the solid funded span were BOTH wrong, and
+        # fixing only the span left the chart looking unchanged.
+        # So clip funding to the event's own lifetime. Two live events sharing a vehicle still both
+        # show funded, which is honest -- both do claim it -- but neither reaches outside its life.
+        # Derived inline, NOT from _opened: that dict is built ~150 lines further down, so reading it
+        # here would NameError. Same rule -- the event is born when its agent first ran.
+        _lo_i, _hi_i = 0, len(_dts) - 1
+        _ents = _e.get("entries") or []
+        _ostart = str(_ents[0].get("date"))[:10] if _ents and _ents[0].get("date") else None
+        if _ostart:
+            _lo_i = next((i for i, d in enumerate(_dts) if d >= _ostart), len(_dts))
+        _oend = _ents[-1].get("date") if _ents else None
+        if _oend and _e.get("status") != "live":
+            _hi_i = next((i for i in range(len(_dts) - 1, -1, -1) if _dts[i] <= str(_oend)[:10]), _hi_i)
+        _held = [(_lo_i <= i <= _hi_i)
+                 and any((_al.get(v) or [0] * len(_dts))[i] > 0.01 for v in _vs)
+                 for i in range(len(_dts))]
         _runs, _st = [], None
         for _i, _h in enumerate(_held):
             if _h and _st is None:
