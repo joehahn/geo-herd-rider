@@ -51,6 +51,7 @@ _SUFFIX = re.compile(
     r"holdings?|holding|sarl|gmbh|pte|bhd|ab|oyj|asa)\.?$", re.I)
 _PUNCT = re.compile(r"[^a-z0-9 ]+")
 _WS = re.compile(r"\s+")
+_ENTITY = re.compile(r"&#?[a-z0-9]{1,8};", re.I)
 
 # NOT COMPANIES. GKG's org extractor returns countries, agencies, exchanges, wires, trade bodies and
 # occasionally product names. These are not investable entities and grouping on them is worse than
@@ -205,6 +206,21 @@ def group(arts: list, max_article_orgs: int = 4, canon: dict | None = None,
             keys = [k for k in keys if k in title or all(w in title for w in k.split())]
         for k in keys:
             out[k].append(a)
+    # COLLAPSE NEAR-DUPLICATE HEADLINES inside a group. Syndication means the same story arrives from
+    # biztoc AND benzinga, and some wires emit a title twice; grouped, those burn slots that the cap
+    # then denies to a real article. Measured on the Rocket Lab group: 2 of 12 kept slots were exact
+    # duplicate headlines. Collapsed on a normalised title, keeping the earliest (the original).
     for k in out:
         out[k].sort(key=lambda x: (x.get("published_date") or ""))
+        seen, dedup = set(), []
+        for x in out[k]:
+            # strip HTML entities FIRST: "Inc.&#xA0;(RKLB)" and "Inc. (RKLB)" are the same headline,
+            # but &#xA0; survives _PUNCT as the letters "xa0" and split the pair into two slots.
+            _t0 = _ENTITY.sub(" ", (x.get("title") or "").lower())
+            t = _WS.sub(" ", _PUNCT.sub(" ", _t0)).strip()[:90]
+            if t and t in seen:
+                continue
+            seen.add(t)
+            dedup.append(x)
+        out[k] = dedup
     return {k: v for k, v in out.items() if len(v) >= min_articles}

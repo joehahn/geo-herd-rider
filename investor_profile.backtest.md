@@ -38,6 +38,9 @@ discovery_filter: true            # gate the SCOUT to headlines carrying the gem
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
 news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period
+max_group_articles: 12            # articles per ticker-group shown to the scout, newest kept.
+                                  #   Caps a mega-cap (NVDA had 261 in one window) from crowding
+                                  #   out every other group in the same call.
 max_article_orgs: 4               # above this many subject companies an article is a LISTICLE: it then
                                   #   joins a ticker's group ONLY if that ticker is in its TITLE. Keeps
                                   #   'Why Rocket Lab Is Skyrocketing' in RKLB's group while '3 Stocks to

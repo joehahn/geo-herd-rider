@@ -136,7 +136,12 @@ def main(argv=None):
     # One knob for how much of ONE article the curator sees. Set on the module so every call
     # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
     agent.MAX_ARTICLE_CHARS = int(fm.get('max_article_chars') or agent.MAX_ARTICLE_CHARS)
-    print(f"  max_article_chars={agent.MAX_ARTICLE_CHARS}", flush=True)
+    agent.MAX_GROUP_ARTICLES = int(fm.get('max_group_articles') or agent.MAX_GROUP_ARTICLES)
+    agent.MAX_ARTICLE_ORGS = int(fm.get('max_article_orgs') or agent.MAX_ARTICLE_ORGS)
+    print(f"  max_article_chars={agent.MAX_ARTICLE_CHARS} · "
+          f"max_group_articles={agent.MAX_GROUP_ARTICLES} · "
+          f"max_article_orgs={agent.MAX_ARTICLE_ORGS} · group_by_ticker={agent.GROUP_BY_TICKER}",
+          flush=True)
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
     news_win = int(fm.get("news_lookback_days") or 0) or cadence

@@ -435,9 +435,14 @@ def _scout_chunks(arts: list[dict], size: int) -> list[list[dict]]:
     return out, beats_of
 
 
-def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str) -> list[dict]:
-    """One scout call over one chunk -> raw candidate dicts (unvalidated)."""
-    user = (f"Week ending {anchor.date()}. Headlines:\n\n{_block(chunk)}\n{rblock}\n"
+def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str,
+                block: str | None = None) -> list[dict]:
+    """One scout call over one chunk -> raw candidate dicts (unvalidated).
+
+    `block` lets the caller pass pre-rendered text (the ticker-grouped view) instead of a flat
+    headline list; everything downstream is identical."""
+    body = block if block is not None else _block(chunk)
+    user = (f"Week ending {anchor.date()}. Headlines:\n\n{body}\n{rblock}\n"
             "WORK IN TWO PASSES, in this order:\n"
             "  PASS 1 - ENUMERATE. Read the WHOLE list and note every ticker whose coverage carries "
             "either (a) a nameable catalyst, or (b) run-scale superlative framing. Do not judge yet; "
@@ -461,66 +466,127 @@ def _scout_once(client, anchor, chunk: list[dict], rblock: str, label: str) -> l
         return []
 
 
+# ---- TICKER-GROUPED SCOUT INPUT -------------------------------------------------------------------
+# The scout used to read a flat list of gate-passing headlines, one line each, and judge every line on
+# its own. That cannot work for the case this project cares most about. Measured on the 2025-04-16
+# window: of 53 Rocket Lab articles, the 3 that passed the gate were ALL "RKLB is skyrocketing" -- the
+# gate keeps magnitude language and rejects plain catalyst reporting, so "Joins Space Force Launch
+# Program" and "Jumps On Two Hypersonic Testing Contracts" never reached the scout. It was handed a
+# move with no cause and correctly refused to open an event.
+#
+# Grouped, the same window gives the scout ONE Rocket Lab bundle holding both halves in date order, and
+# the question changes from "does this headline name a pending catalyst?" (unanswerable from a listicle
+# lede) to "does this ticker's recent coverage describe a live driver?" -- which is the question the
+# strategy actually needs answered.
+#
+# The gate still decides WHICH tickers are worth looking at, so the attention filter and its ~10x cost
+# saving survive; it no longer decides WHAT the scout may read about them. That mirrors the privilege
+# event agents have always had via _filter_event, which reads the full window.
+MAX_GROUP_ARTICLES = 12          # overridden per-run from the profile
+MAX_ARTICLE_ORGS = 4             # above this an article is a listicle; see orgs.group
+GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
+
+
+def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
+    """One ticker-group, oldest first, as the scout sees it."""
+    head = f"=== {key.upper()} — {len(arts)} article(s) ==="
+    return head + "\n" + _block(arts, max_chars=max_chars)
+
+
+def _thin(arts: list[dict], cap: int) -> list[dict]:
+    """Cap a group WITHOUT losing its head.
+
+    The first cut kept the newest `cap` articles, which is wrong for this job: a driver usually
+    PRECEDES the move it causes. On the 2025-04-16 Rocket Lab group, tail-truncation dropped "Joins
+    Space Force Launch Program" (03-28) and "Completes Mission, Targets 20+ Launches" (03-27) while
+    keeping four near-duplicate "stock is rising" items from 04-14/15 -- deleting the cause and
+    keeping the effect, the exact failure the grouping was built to fix.
+
+    So: always keep the newest few (is the driver still live?) and the oldest one (what started it),
+    and sample the middle evenly to preserve the arc."""
+    if not cap or len(arts) <= cap:
+        return arts
+    keep_new = max(1, cap // 2)
+    tail = arts[-keep_new:]
+    head_pool = arts[:-keep_new]
+    n_head = cap - keep_new
+    if n_head <= 0:
+        return tail
+    step = len(head_pool) / n_head
+    head = [head_pool[min(len(head_pool) - 1, int(i * step))] for i in range(n_head)]
+    seen, out = set(), []
+    for a in head + tail:                       # de-dup while preserving date order
+        u = a.get("url") or id(a)
+        if u not in seen:
+            seen.add(u)
+            out.append(a)
+    return out
+
+
+def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
+                  max_article_orgs: int, max_group_articles: int,
+                  per_call: int = 8) -> list[list[tuple]]:
+    """[[(org, [articles]), ...], ...] -- ticker-groups packed into per-call batches.
+
+    SEEDED BY THE GATE, FILLED FROM THE FULL POOL. Only entities the gate flagged get a group (so the
+    scout's attention is still bought by a move-signal or gem framing), but the group is then filled
+    from every article about that entity in the window, which is where the driver lives."""
+    import orgs as _orgs
+    seeds: list = []
+    for a in gated:
+        for k in _orgs.article_orgs(a, canon):
+            if k not in seeds:
+                seeds.append(k)
+    full = _orgs.group(full_pool, max_article_orgs=max_article_orgs, canon=canon)
+    groups = []
+    for k in seeds:
+        arts = full.get(k) or []
+        if not arts:
+            continue
+        groups.append((k, _thin(arts, max_group_articles)))
+    groups.sort(key=lambda kv: -len(kv[1]))            # densest coverage first
+    return [groups[i:i + per_call] for i in range(0, len(groups), per_call)] or []
+
+
 def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
-          max_new_events: int = CANDIDATE_CAP, chunk_size: int = SCOUT_CHUNK) -> list[dict]:
+          max_new_events: int = CANDIDATE_CAP, chunk_size: int = SCOUT_CHUNK,
+          full_pool: list[dict] | None = None, canon: dict | None = None,
+          max_article_orgs: int = 4) -> list[dict]:
+    """`arts` is the GATED slice (what earns attention). When `full_pool` is given the scout reads
+    TICKER-GROUPS built from it instead of a flat headline list -- see _scout_groups."""
     if not arts:
         return []
     rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
               f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
               if retired else "")
-    chunks, chunk_beats = _scout_chunks(arts, chunk_size)
-    gem = _gem_beats()
-    if len(chunks) == 1:
-        cands = _scout_once(client, anchor, chunks[0], rblock, f"scout-{anchor.date()}")
-    else:
-        # BOUNDED WAIT. ex.map() blocks forever on a future that never returns, so one wedged HTTP
-        # call freezes the entire backtest -- observed 2026-08-11, a run sat at 0% CPU for 54 minutes
-        # with no retry logged. The per-request timeout in llm.py does not help if the hang is below
-        # it. A chunk that misses the deadline is dropped (its beat is simply unscouted this scan),
-        # which loses a little recall and never the run.
-        # DAEMON THREADS, NOT ThreadPoolExecutor. A wedged chunk has to be abandonable at TWO points,
-        # and the executor blocks at both:
-        #   1. `with ThreadPoolExecutor(...)` calls shutdown(wait=True) on exit -- it waits for exactly
-        #      the thread the deadline just gave up on. f.cancel() does NOT help: it is a no-op once a
-        #      future is running. Observed 2026-08-14 on the first forward scan -- the 420s deadline
-        #      fired, printed its message, and the process then sat at 0.1% CPU for 19 more minutes
-        #      with no LLM call, i.e. the "0% CPU for 54 minutes" stall this guard was meant to prevent.
-        #   2. Even with shutdown(wait=False), the pool's threads are NON-DAEMON and Python joins them
-        #      at interpreter exit, so the scan finishes its work and then hangs on the way out --
-        #      under cron that strands a process every day. Verified both by wedging a chunk on purpose.
-        # Daemon threads fix both: abandoned instantly here, and never block process exit.
-        per = [[] for _ in chunks]
-        done = [False] * len(chunks)
+    batches = (_scout_groups(arts, full_pool, canon or {}, max_article_orgs, MAX_GROUP_ARTICLES)
+               if full_pool else [])
+    if batches:
+        blocks = ["\n\n".join(_group_block(k, v, MAX_ARTICLE_CHARS) for k, v in b) for b in batches]
+        print(f"  scout: {sum(len(b) for b in batches)} ticker-groups from {len(arts)} gated "
+              f"articles -> {len(blocks)} call(s)", file=sys.stderr, flush=True)
+        per = [[] for _ in blocks]
 
-        def _run(i, ch):
+        def _rung(i, bl):
             try:
-                per[i] = _scout_once(client, anchor, ch, rblock, f"scout-{anchor.date()}-{i}") or []
-            except Exception as e:  # noqa: BLE001 -- one bad chunk must not take the scan down
-                print(f"  scout chunk {i} failed: {type(e).__name__}: {e}", file=sys.stderr)
-            finally:
-                done[i] = True
+                per[i] = _scout_once(client, anchor, [], rblock,
+                                     f"scout-{anchor.date()}-g{i}", block=bl) or []
+            except Exception as e:  # noqa: BLE001 -- one bad batch must not take the scan down
+                print(f"  scout group-batch {i} failed: {type(e).__name__}: {e}", file=sys.stderr)
 
-        threads = [_Thread(target=_run, args=(i, ch), daemon=True, name=f"scout-{i}")
-                   for i, ch in enumerate(chunks)]
+        threads = [_Thread(target=_rung, args=(i, bl), daemon=True, name=f"scoutg-{i}")
+                   for i, bl in enumerate(blocks)]
         for t in threads:
             t.start()
-        _deadline = _time.monotonic() + _SCOUT_DEADLINE
+        _dl = _time.monotonic() + _SCOUT_DEADLINE
         for t in threads:
-            t.join(max(0.0, _deadline - _time.monotonic()))
-        if not all(done):
-            n_lost = sum(1 for d in done if not d)
-            print(f"  scout: {n_lost}/{len(chunks)} chunks timed out after {_SCOUT_DEADLINE}s; "
-                  f"proceeding without them", file=sys.stderr)
-        gi = 0
-        # UNION by ticker: the same name surfacing in two beats is one candidate, not two. First
-        # occurrence keeps its thesis; peers are merged so no vehicle is lost to chunk boundaries.
+            t.join(max(0.0, _dl - _time.monotonic()))
+        # UNION by ticker, exactly as the chunked path does. No _gem flag here: grouping is by ENTITY,
+        # not by beat, so a candidate has no single originating beat to score. max_new_events therefore
+        # truncates on arrival order (densest-coverage groups first) rather than on gem-beat rank.
         merged: dict = {}
-        for gi, grp in enumerate(per):
+        for grp in per:
             for c in grp:
-                # A cheap scout occasionally emits a bare string where the schema asks for an object
-                # ("NVDA" instead of {"ticker":"NVDA",...}). Crashed the 3-year v8 run at scan 34/37
-                # after 70 minutes, so treat it as the malformed candidate it is and drop it -- one
-                # bad row must never cost the whole curation.
                 if not isinstance(c, dict):
                     print(f"  scout: dropped non-object candidate {c!r}", file=sys.stderr)
                     continue
@@ -532,17 +598,85 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                         list(merged[k].get("peers") or []) + list(c.get("peers") or [])))
                 else:
                     merged[k] = dict(c)
-                    merged[k]["_gem"] = bool(gem & chunk_beats[gi]) if gi < len(chunk_beats) else False
-        # GEM-BEAT PREFERENCE. Chunking is BY BEAT, so every candidate already knows which beat
-        # surfaced it -- provenance for free, no extra LLM call. Measured 2026-08-11 on the 3-year
-        # run: events whose opening evidence was purely gem-beat cancelled at 11%, versus 89% for
-        # all events, and the relationship is monotone in gem share. So a gem-beat candidate outranks
-        # a coverage-beat one, which turns max_new_events from arbitrary truncation (cands[:N] over
-        # dict order) into a real quality gate.
-        cands = sorted(merged.values(), key=lambda c: (not c.get("_gem", False),))
-        print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
-              f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
-              file=sys.stderr)
+                    merged[k]["_gem"] = False
+        cands = list(merged.values())
+        print(f"  scout: {sum(len(g) for g in per)} raw -> {len(cands)} unique", file=sys.stderr)
+    else:
+        chunks, chunk_beats = _scout_chunks(arts, chunk_size)
+        gem = _gem_beats()
+        if len(chunks) == 1:
+            cands = _scout_once(client, anchor, chunks[0], rblock, f"scout-{anchor.date()}")
+        else:
+            # BOUNDED WAIT. ex.map() blocks forever on a future that never returns, so one wedged HTTP
+            # call freezes the entire backtest -- observed 2026-08-11, a run sat at 0% CPU for 54 minutes
+            # with no retry logged. The per-request timeout in llm.py does not help if the hang is below
+            # it. A chunk that misses the deadline is dropped (its beat is simply unscouted this scan),
+            # which loses a little recall and never the run.
+            # DAEMON THREADS, NOT ThreadPoolExecutor. A wedged chunk has to be abandonable at TWO points,
+            # and the executor blocks at both:
+            #   1. `with ThreadPoolExecutor(...)` calls shutdown(wait=True) on exit -- it waits for exactly
+            #      the thread the deadline just gave up on. f.cancel() does NOT help: it is a no-op once a
+            #      future is running. Observed 2026-08-14 on the first forward scan -- the 420s deadline
+            #      fired, printed its message, and the process then sat at 0.1% CPU for 19 more minutes
+            #      with no LLM call, i.e. the "0% CPU for 54 minutes" stall this guard was meant to prevent.
+            #   2. Even with shutdown(wait=False), the pool's threads are NON-DAEMON and Python joins them
+            #      at interpreter exit, so the scan finishes its work and then hangs on the way out --
+            #      under cron that strands a process every day. Verified both by wedging a chunk on purpose.
+            # Daemon threads fix both: abandoned instantly here, and never block process exit.
+            per = [[] for _ in chunks]
+            done = [False] * len(chunks)
+
+            def _run(i, ch):
+                try:
+                    per[i] = _scout_once(client, anchor, ch, rblock, f"scout-{anchor.date()}-{i}") or []
+                except Exception as e:  # noqa: BLE001 -- one bad chunk must not take the scan down
+                    print(f"  scout chunk {i} failed: {type(e).__name__}: {e}", file=sys.stderr)
+                finally:
+                    done[i] = True
+
+            threads = [_Thread(target=_run, args=(i, ch), daemon=True, name=f"scout-{i}")
+                       for i, ch in enumerate(chunks)]
+            for t in threads:
+                t.start()
+            _deadline = _time.monotonic() + _SCOUT_DEADLINE
+            for t in threads:
+                t.join(max(0.0, _deadline - _time.monotonic()))
+            if not all(done):
+                n_lost = sum(1 for d in done if not d)
+                print(f"  scout: {n_lost}/{len(chunks)} chunks timed out after {_SCOUT_DEADLINE}s; "
+                      f"proceeding without them", file=sys.stderr)
+            gi = 0
+            # UNION by ticker: the same name surfacing in two beats is one candidate, not two. First
+            # occurrence keeps its thesis; peers are merged so no vehicle is lost to chunk boundaries.
+            merged: dict = {}
+            for gi, grp in enumerate(per):
+                for c in grp:
+                    # A cheap scout occasionally emits a bare string where the schema asks for an object
+                    # ("NVDA" instead of {"ticker":"NVDA",...}). Crashed the 3-year v8 run at scan 34/37
+                    # after 70 minutes, so treat it as the malformed candidate it is and drop it -- one
+                    # bad row must never cost the whole curation.
+                    if not isinstance(c, dict):
+                        print(f"  scout: dropped non-object candidate {c!r}", file=sys.stderr)
+                        continue
+                    k = str(c.get("ticker", "")).strip().upper()
+                    if not k:
+                        continue
+                    if k in merged:
+                        merged[k]["peers"] = list(dict.fromkeys(
+                            list(merged[k].get("peers") or []) + list(c.get("peers") or [])))
+                    else:
+                        merged[k] = dict(c)
+                        merged[k]["_gem"] = bool(gem & chunk_beats[gi]) if gi < len(chunk_beats) else False
+            # GEM-BEAT PREFERENCE. Chunking is BY BEAT, so every candidate already knows which beat
+            # surfaced it -- provenance for free, no extra LLM call. Measured 2026-08-11 on the 3-year
+            # run: events whose opening evidence was purely gem-beat cancelled at 11%, versus 89% for
+            # all events, and the relationship is monotone in gem share. So a gem-beat candidate outranks
+            # a coverage-beat one, which turns max_new_events from arbitrary truncation (cands[:N] over
+            # dict order) into a real quality gate.
+            cands = sorted(merged.values(), key=lambda c: (not c.get("_gem", False),))
+            print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
+                  f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
+                  file=sys.stderr)
     out, _dropped_resolved = [], []
     for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
         # ENFORCED, not merely instructed. Measured 2026-08-11: 8 of 9 one-scan events were past-tense
@@ -1153,7 +1287,20 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     if discovery_filter:
         print(f"  discovery gate: {len(spool)} of {len(pool)} articles carry the gem tell",
               file=sys.stderr, flush=True)
-    cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events)
+    # TICKER-GROUPED INPUT. `spool` (the gated slice) still decides WHICH entities earn attention;
+    # `pool` (the full window) supplies what the scout may READ about them. Passing both is what pairs
+    # "RKLB is skyrocketing" with "$5.6B Neutron win" -- the gate admits the first and rejects the
+    # second, so on a flat list the scout only ever saw a move with no cause.
+    _canon = None
+    if GROUP_BY_TICKER and any(a.get("orgs") for a in pool):
+        try:
+            import orgs as _orgs
+            _canon = _orgs.build_canon(pool)
+        except Exception as e:  # noqa: BLE001 -- fall back to the flat path rather than lose the scan
+            print(f"  scout: grouping unavailable ({type(e).__name__}: {e})", file=sys.stderr)
+    cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events,
+                  full_pool=(pool if _canon else None), canon=_canon,
+                  max_article_orgs=MAX_ARTICLE_ORGS)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"

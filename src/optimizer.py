@@ -186,6 +186,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   each article on its merits, so pool size floats with the week's news the way
                                        #   the forward's does. Inert forward (the search index already filters).
     "relevance_keep": 0,               # SAFETY CEILING on the filtered pool; 0 = none (intended).
+    "max_group_articles": 12,          # LIVE: articles per TICKER-GROUP handed to the scout, newest
+                                       #   kept. Without it a mega-cap swamps the call -- NVDA carried
+                                       #   261 articles in one 30-day window against Rocket Lab's 51,
+                                       #   so one group would crowd out every other. Newest-kept
+                                       #   because a group is read to answer "is the driver still
+                                       #   running", which the recent end answers.
     "max_article_orgs": 4,             # LIVE: above this many subject companies, an article is treated
                                        #   as a LISTICLE and joins a ticker-group ONLY if that ticker is
                                        #   named in its TITLE. At or below it, the article joins every
