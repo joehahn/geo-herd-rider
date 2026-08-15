@@ -1,0 +1,210 @@
+"""orgs.py — turn GKG's raw subject-org strings into a usable ENTITY KEY, then group news by it.
+
+WHY THIS EXISTS. The curator kept seeing that a ticker had moved without seeing why. Measured
+2026-08-14 on the 3-year corpus: of 53 Rocket Lab articles in one scan window, the 3 that reached the
+scout were all "RKLB is skyrocketing" — while "Rocket Lab Lift Off: Huge $5.6 Billion Neutron Win" and
+"Joins Space Force Launch Program" were filtered out, because plain catalyst reporting carries no
+superlative. The scout was handed a move with no cause and correctly refused to open an event on it.
+
+The fix is to stop judging headlines one at a time and judge a TICKER'S COVERAGE TOGETHER: the
+move-signal and the driver are the same story, and only look like one story when they sit side by side.
+GKG already knows which companies an article is about (`V2Organizations`, filtered to subjects by
+character offset) — gkg.py computed that list, used it as a yes/no filter and threw it away. It is now
+persisted as `orgs`, and this module makes it groupable.
+
+TWO PROBLEMS WITH RAW GKG ORGS, both measured on the 6-month corpus (21,627 articles, 7,124 distinct
+org strings):
+
+  1. NON-COMPANIES DOMINATE. The single most common "org" is `United States` at 5,228 — nearly 4x the
+     next entry. Also `York Stock Exchange` (a truncation of New York Stock Exchange), `Drug
+     Administration` (of Food and Drug Administration), `Oval Office`, `Trump Administration`,
+     `Newsfile` (a wire), `World Gold Council` (a trade body), `Blackwell` (an Nvidia PRODUCT).
+     Grouping on any of these produces one enormous meaningless bundle.
+
+  2. ONE COMPANY, SEVERAL STRINGS. `Taiwan Semiconductor` / `Taiwan Semiconductor Manufacturing` /
+     `Taiwan Semiconductor Manufacturing Company` are one company in three groups; likewise `Rocket
+     Lab` / `Rocket Lab United States` / `Rocket Lab Launch`. Left unmerged, the corroboration this
+     whole design depends on is split across bundles and lost.
+
+Both are ordinary data cleaning, but skipping either makes the grouping useless rather than merely
+noisy, so they are handled here rather than left to the caller.
+"""
+from __future__ import annotations
+
+import collections
+import json
+import re
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
+
+# Corporate suffixes stripped before comparing. A company is the same company whether the article
+# writes "Rocket Lab" or "Rocket Lab Inc".
+# ONLY TRAILING LEGAL FORMS, and only at the END. An earlier version stripped `lab`, `group`,
+# `technologies`, `systems`, `solutions`, `resources`, `therapeutics` anywhere in the string -- which
+# turned "Rocket Lab" into "rocket" and would have merged it with any other rocket company, and
+# "Quantum Computing Inc" into "quantum". Those words are usually the DISTINCTIVE part of a name, not
+# boilerplate. Anchoring to the end and keeping the list to legal forms is the conservative choice:
+# under-merging leaves two groups for one company, over-merging silently fuses two companies.
+_SUFFIX = re.compile(
+    r"[\s,]+(inc|corp|corporation|co|company|ltd|limited|plc|llc|l\.l\.c|lp|nv|n\.v|sa|s\.a|ag|se|"
+    r"holdings?|holding|sarl|gmbh|pte|bhd|ab|oyj|asa)\.?$", re.I)
+_PUNCT = re.compile(r"[^a-z0-9 ]+")
+_WS = re.compile(r"\s+")
+
+# NOT COMPANIES. GKG's org extractor returns countries, agencies, exchanges, wires, trade bodies and
+# occasionally product names. These are not investable entities and grouping on them is worse than
+# useless -- `United States` alone would swallow 5,228 articles into one bundle. Kept as normalised
+# forms (suffix-stripped, lowercase) so the check is one set lookup.
+_NOT_A_COMPANY = {
+    # countries / regions / governments
+    "united states", "united kingdom", "european union", "north america", "south america",
+    "middle east", "hong kong", "new zealand", "saudi arabia", "south africa", "south korea",
+    "north korea", "british columbia", "new york", "white house", "oval office",
+    "trump administration", "biden administration", "congress", "senate", "house representatives",
+    "supreme court", "federal reserve", "treasury", "pentagon", "state department",
+    # regulators / agencies (incl. GKG's characteristic truncations)
+    "drug administration", "food drug administration", "securities exchange commission",
+    "federal trade commission", "federal communications commission", "environmental protection",
+    "european central bank", "international monetary fund", "world bank", "world health organization",
+    "european commission", "national aeronautics space administration",
+    # exchanges / indices (incl. truncations)
+    "york stock exchange", "stock exchange", "nasdaq", "nyse", "s&p", "dow jones", "russell",
+    "ftse", "nikkei", "hang seng", "cboe", "cme",
+    # wires / publishers / data vendors that GKG mislabels as subjects
+    "newsfile", "globe newswire", "globenewswire", "business wire", "businesswire", "pr newswire",
+    "prnewswire", "accesswire", "canadian press", "press association", "yahoo finance",
+    "zacks investment research", "motley fool", "seeking alpha", "benzinga", "marketbeat",
+    "simply wall st", "insider monkey", "tipranks",
+    # trade bodies / cartels / standards
+    "organization petroleum exporting countries", "opec", "world gold council", "silver institute",
+    "international energy agency", "world trade organization", "nato", "united nations",
+    # law firms that appear on every class-action notice
+    "robbins geller rudman dowd", "pomerantz", "rosen law firm", "bronstein gewirtz grossman",
+    "levi korsinsky", "glancy prongay murray", "bragar eagel squire", "berger montague",
+    "faruqi faruqi", "kirby mcinerney", "bernstein liebhard", "lowey dannenberg", "portnoy law",
+    "gross law firm", "schall law firm", "hagens berman", "kahn swick foti", "block leviton",
+    # courts and wire prefixes that GKG emits as if they were subject companies
+    "united states district court", "district court", "prnewswire robbins", "globe newswire robbins",
+}
+
+_MIN_LEN = 3          # single/double-character "orgs" are extraction noise
+_MAX_WORDS = 6        # a 7-word "org" is a sentence fragment, not a company name
+
+
+def normalise(name: str) -> str:
+    """One canonical, comparable form for an org string. Empty string = not usable as a key."""
+    s = _PUNCT.sub(" ", (name or "").lower())
+    s = _WS.sub(" ", s).strip()
+    for _ in range(3):                       # "Foo Holdings Inc" -> "Foo Holdings" -> "Foo"
+        t = _SUFFIX.sub("", s).strip()
+        if t == s:
+            break
+        s = t
+    if len(s) < _MIN_LEN or len(s.split()) > _MAX_WORDS or s in _NOT_A_COMPANY:
+        return ""
+    if s.isdigit():
+        return ""
+    return s
+
+
+def _canonical_map(counts: collections.Counter) -> dict:
+    """Merge org variants onto one key: `taiwan semiconductor manufacturing` -> `taiwan semiconductor`.
+
+    RULE: if A's words are a prefix of B's words, they are the same company and the SHORTER form wins
+    (it is the one a second article is likeliest to also use). Prefix, not substring, on purpose --
+    substring matching merges `rocket lab` into `rocket companies`-style false pairs, and word-boundary
+    prefixes do not. Longest names are folded first so a three-step chain
+    (`taiwan semiconductor manufacturing company` -> `... manufacturing` -> `taiwan semiconductor`)
+    resolves to the root rather than stopping halfway."""
+    # SHORTEST FIRST. Sorting longest-first meant "taiwan semiconductor manufacturing" became a root
+    # before "taiwan semiconductor" was seen, so the two never merged -- the exact split this map
+    # exists to remove. Shortest-first makes the root available when its variants arrive.
+    keys = sorted(counts, key=lambda k: (len(k.split()), -counts[k]))
+    canon: dict = {}
+    roots: list = []
+    for k in keys:
+        kw = k.split()
+        hit = ""
+        for r in roots:
+            rw = r.split()
+            # A ONE-WORD ROOT MAY NOT ABSORB LONGER NAMES. "quantum" would otherwise swallow "quantum
+            # computing" (a specific company) and anything else starting with the word, fusing
+            # unrelated issuers into one group. Two-word roots are specific enough to be safe:
+            # "rocket lab" absorbing "rocket lab launch" is right, "rocket" absorbing "rocket lab" and
+            # "rocket companies" is not. Under-merging costs a split group; over-merging invents a
+            # company that does not exist.
+            if len(rw) < 2:
+                continue
+            if len(rw) < len(kw) and kw[:len(rw)] == rw:
+                hit = r
+                break
+        if hit:
+            canon[k] = canon.get(hit, hit)
+        else:
+            canon[k] = k
+            roots.append(k)
+    # roots were discovered longest-first, so re-point any key whose root itself got folded
+    for k, v in list(canon.items()):
+        seen = set()
+        while v in canon and canon[v] != v and v not in seen:
+            seen.add(v)
+            v = canon[v]
+        canon[k] = v
+    return canon
+
+
+def article_orgs(a: dict, canon: dict | None = None) -> list:
+    """The usable, canonical org keys for one article (dropped non-companies removed)."""
+    out = []
+    for o in (a.get("orgs") or []):
+        n = normalise(o)
+        if not n:
+            continue
+        n = (canon or {}).get(n, n)
+        if n not in out:
+            out.append(n)
+    return out
+
+
+def build_canon(arts: list) -> dict:
+    """The variant->canonical map for a corpus. Built once per run, not per article."""
+    c = collections.Counter()
+    for a in arts:
+        for o in (a.get("orgs") or []):
+            n = normalise(o)
+            if n:
+                c[n] += 1
+    return _canonical_map(c)
+
+
+def group(arts: list, max_article_orgs: int = 4, canon: dict | None = None,
+          min_articles: int = 1) -> dict:
+    """{org_key: [articles, oldest first]} — the unit the curator judges.
+
+    An article joins EVERY org it names, because a two-company story is real evidence for both and
+    assigning it to one arbitrarily would discard signal.
+
+    THE LISTICLE RULE. Above `max_article_orgs` companies, an article is a listicle and joins a group
+    ONLY if that org appears in its TITLE. Measured 2026-08-14: listicles are 4% of gate-passing
+    articles and 82% of them name no company in the title at all. So "3 Stocks to Make the Most of the
+    Surge in Crude Oil Prices" joins nothing instead of being copied into ten groups, while "Why Rocket
+    Lab Is Skyrocketing Now" still joins Rocket Lab -- which is the headline the whole grouping exists
+    to pair with its driver. The title is the publisher's claim about what a piece is ABOUT; the org
+    list is only what it MENTIONS.
+    """
+    canon = canon if canon is not None else build_canon(arts)
+    out: dict = collections.defaultdict(list)
+    for a in arts:
+        keys = article_orgs(a, canon)
+        if not keys:
+            continue
+        if len(keys) > max_article_orgs:
+            title = _PUNCT.sub(" ", (a.get("title") or "").lower())
+            title = _WS.sub(" ", title)
+            keys = [k for k in keys if k in title or all(w in title for w in k.split())]
+        for k in keys:
+            out[k].append(a)
+    for k in out:
+        out[k].sort(key=lambda x: (x.get("published_date") or ""))
+    return {k: v for k, v in out.items() if len(v) >= min_articles}
