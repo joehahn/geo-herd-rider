@@ -120,6 +120,9 @@ def main(argv=None) -> int:
     scout = [d for d in DEC if d.get("kind") == "scout"]
     proposed = sum(len(d.get("proposed", [])) for d in scout)
     admitted = sum(len(d.get("admitted", [])) for d in scout)
+    # DISTINCT tickers, vs `admitted` which counts ticker-scans: 45 of v15's 176 admissions are the
+    # same ticker re-admitted later (TSM 11x). Without this the funnel's next bar looks like a cull.
+    _distinct_admitted = len({t for d in scout for t in d.get("admitted", [])})
     capbound = sum(1 for d in scout if len(d.get("proposed", [])) > d.get("max_new_events", 99))
 
     # ---- attribution: join each pick's evidence urls back to the corpus ---------------------------
@@ -604,10 +607,16 @@ def main(argv=None) -> int:
             # the largest single reduction anywhere in the pipeline while appearing on no dashboard.
             # `articles_gated` is recorded per scan by backtest_gdelt.py from 2026-08-14; older runs
             # lack it, so it is recomputed here (free -- superlative_pool over the window, no LLM).
+            # UNITS CHANGE MID-FUNNEL, so say so. "admitted" counts ticker-admissions ACROSS SCANS
+            # (176 on v15) while "events opened" counts events (80) -- drawn adjacent that looked like a
+            # 2.2x cull, but 45 of the 176 are the SAME ticker re-admitted in a later scan (TSM 11x,
+            # NVDA 6x). Inserting the distinct-ticker count makes the unit change visible instead of
+            # reading as a rejection that never happened.
             "labels": ["articles read", "past the discovery gate", "candidates proposed",
-                       "candidates admitted", "events opened", "vehicles named", "picks logged"],
+                       "admissions (ticker-scans)", "distinct tickers admitted", "events opened",
+                       "vehicles named", "picks logged"],
             "values": [sum(r["articles_read"] for r in M), _gated_total, proposed, admitted,
-                       J.get("nid", 0), len(all_veh), len(PICKS)]},
+                       _distinct_admitted, J.get("nid", 0), len(all_veh), len(PICKS)]},
         "breadth": {"w": weeks, "cap": _wcap, "held": _held_per_week,
                     "events": [r["events_live"] for r in M],
                     "vehicles": [r["vehicles_live"] for r in M],
@@ -909,8 +918,13 @@ def main(argv=None) -> int:
                 "c-evconc", 380),
         panel(11, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
-              "The direct analogue of the firehose funnel — but here the interesting collapse is at the "
-              "top: a whole week of articles yields a handful of candidates. Log x-axis.",
+              "<b>Log x-axis.</b> Two things to watch: the <b>discovery gate</b> is the largest cut in "
+              "the whole pipeline (~19&times;), and it is <b>scout-only</b> — event agents still read "
+              "the full window, so tracking an event is never starved."
+              "<br><br>Units change mid-funnel: <i>admissions</i> counts ticker-scans, so a ticker "
+              "re-admitted in a later scan is counted again; <i>distinct tickers</i> and <i>events</i> "
+              "are the de-duplicated views. NOT shown: the ticker guard, which resolves names to "
+              "symbols and drops unresolvable ones before these counters see them.",
               "c-funnel", 340),
         panel(12, "Breadth over time",
               "Events live, distinct tickers named, and how many separate catalysts those events "
