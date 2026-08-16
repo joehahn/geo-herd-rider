@@ -86,6 +86,12 @@ def main(argv=None) -> int:
     # re-curation (~$3-4.50, ~45 min) rather than a replay of fixed book math. Absent -> panel omitted.
     _me = ROOT / "data/sweep_max_events.json"
     me = json.loads(_me.read_text()) if _me.exists() else None
+    # ORDER THE SERIES ONCE, HERE. max_events=0 means "uncapped", i.e. the LIMIT of the series, so it
+    # belongs at the right-hand end -- sorting numerically puts it at the left where it reads as the
+    # smallest cap, the exact opposite of what it is. Done at load so panel 1's table and panels 10-13
+    # cannot disagree: they did, the table showing 4..20,uncapped and the plots uncapped,4..20.
+    if me and me.get("rows"):
+        me["rows"] = sorted(me["rows"], key=lambda r: (r["max_events"] == 0, r["max_events"]))
 
     payload = {"cells": cells, "keys": keys, "marg": marg, "heat": heat,
                "spy": cells[0]["spy"] if cells else 0,
@@ -103,7 +109,7 @@ def main(argv=None) -> int:
     # Hence the fourth column: it exists to keep that distinction on the page rather than in a commit
     # message. Only shown once the series has actually been collected.
     if me and me.get("rows"):
-        _mer = sorted(me["rows"], key=lambda r: (r["max_events"] == 0, r["max_events"]))
+        _mer = me["rows"]                      # already in canonical order (see above)
         _cost = sum(r.get("cost_usd") or 0 for r in _mer)
         ps_rows.append([
             "max_events",
@@ -561,7 +567,8 @@ function draw(){{
         hovertemplate:'%{{y:.1f}}% of events culled unread<extra></extra>'}}
     ], base(p, {{margin:{{l:74,r:64,t:34,b:44}},
         legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
-        xaxis:{{title:{{text:'max_events (events allowed live at once)', font:{{size:11}}}}}},
+        xaxis:{{title:{{text:'max_events (events allowed live at once)', font:{{size:11}}}},
+               type:'category', categoryorder:'array', categoryarray:xs}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
                  title:{{text:'events culled at birth', font:{{size:11}}}}}},
@@ -583,7 +590,8 @@ function draw(){{
       textfont:{{color:p.text2, size:11}}, cliponaxis:false,
       hovertemplate:'max_events %{{x}}<br>Sharpe %{{y:.2f}}<extra></extra>', showlegend:false}}],
       base(p, {{margin:{{l:64,r:20,t:16,b:46}},
-        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
+               type:'category', categoryorder:'array', categoryarray:xs}},
         yaxis:{{gridcolor:p.grid, title:{{text:'Sharpe', font:{{size:11}}}}}},
         shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:1.2, y1:1.2,
                   line:{{color:ST.warning, width:1.5, dash:'dash'}}}}],
@@ -601,7 +609,8 @@ function draw(){{
       hovertemplate:nm+' %{{y:.1f}}%<extra></extra>'}})),
       base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
         legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
+               type:'category', categoryorder:'array', categoryarray:xs}},
         yaxis:{{gridcolor:p.grid, ticksuffix:'%', title:{{text:'percent (all better LOW)', font:{{size:11}}}}}},
         shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:35, y1:35,
                   line:{{color:ST.critical, width:1.2, dash:'dash'}}}},
@@ -619,7 +628,8 @@ function draw(){{
         hovertemplate:'$%{{y:.2f}} per funded ticker<extra></extra>'}}
     ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
         legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{title:{{text:'max_events', font:{{size:11}}}}}},
+        xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
+               type:'category', categoryorder:'array', categoryarray:xs}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'USD', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
