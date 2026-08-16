@@ -221,7 +221,14 @@ def main(argv=None) -> int:
     GATES = [("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
              ("L2", "l2", lambda v: v < 1200, "&lt; 1200/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
-             ("cancelled", "cancelled", lambda v: v < 35, "&lt; 35%")]
+             ("cancelled", "cancelled", lambda v: v < 35, "&lt; 35%"),
+             # A DIFFERENT KIND OF BAR from the other four, added 2026-08-16. Those are all risk or
+             # quality measures read off the whole book; this one asks whether the config actually got
+             # paid on the seven no-brainer names (panel 7). A config can clear every risk bar while
+             # making its money somewhere other than the theses this strategy exists to catch -- 26%
+             # of the grid LOSES money on names that rose 120-3,590% -- and nothing else here would
+             # notice. Keeps 19.8% of the grid alone; takes the shortlist 335 -> 100.
+             ("shortlist", "focus_gain", lambda v: v > 50_000, "&gt; $50k")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -368,7 +375,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all four gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
