@@ -245,13 +245,11 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
     return [
         dict(label="Corpus", value=f"{n:,}", sub=f"{len(days)} days · {n / max(len(days), 1):.0f}/day",
              status="good", why="Articles kept after every filter, and how many that is per day."),
-        dict(label="Signal in the corpus",
-             value=(f"{100 - aud['_corpus_junk']:.0f}%" if aud.get("_corpus_junk") else "—"),
-             sub=("blind-judged sample of 300" if aud.get("_corpus_junk") else "not measured"),
-             status=("critical" if (aud.get("_corpus_junk") or 0) > 45 else
-                     "warning" if (aud.get("_corpus_junk") or 0) > 25 else "good"),
-             why="Share a strong model judged worth a trader's attention. The rest is noise the "
-                 "scout must read past."),
+        # "Signal in the corpus" DROPPED 2026-08-16. It reported a blind-judged junk rate from an
+        # audit file that no current run produces, so it rendered as an em dash / "not measured" while
+        # still showing a GREEN status -- a tile claiming health from a number it did not have. If the
+        # audit is ever revived the tile can come back with it; an empty tile on the status strip is
+        # worse than no tile, because the strip is read as a checklist.
         dict(label="Has body text", value=f"{100 * lede / max(n, 1):.0f}%", sub=f"{lede:,} of {n:,}",
              status=st(100 * lede / max(n, 1), 85, 60),
              why="Share with real article text. The rest reach the curator as a headline only."),
