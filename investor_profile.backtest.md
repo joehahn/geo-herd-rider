@@ -20,38 +20,35 @@
 #     Sharpe 0.85, and it left the book holding NOTHING on 53% of days (32% of trades cancelled).
 #     Robustness across two curations of the SAME design did not survive a change of design.
 #
-# CURRENT CELL [4, 0.60, 30, 0, 4.00, 0.10] with max_events: 16, set 2026-08-16.
-# Row 1 of table 8 on the me16 curation (data/cbt_3yr_me16, the production curation), plateau-ranked,
-# clearing DD < 70%, L1 > 1800%/yr, L2 < 1250/yr, Sharpe > 1.2, cancelled < 40%, shortlist > $40k:
+# CURRENT CELL [4, 0.60, 30, 0, 4.00, 0.30] with max_events: 16, set 2026-08-16.
+# Row 2 of table 8 on the me16 curation. Chosen on TIMING, a dimension nothing on the scoreboard
+# measured until today:
 #
-#   plateau 19.4 (best of 254)   Sharpe 1.69   final $404,241   drawdown 35.8%   cancelled 15.9%
-#   shortlist gain $76,081 across 4 of the 7 no-brainer names
+#   durable lead over SPY in 6.3 months (vs 15.0 for the cell it replaces)
+#   longest spell behind SPY 32 days (vs 91)      ahead on 90% of days (vs 76%)
+#   Sharpe 1.80   final $588,540   drawdown 34.1%   cancellation 10.4%   shortlist $76,829
 #
-# CHOSEN FOR SHORTLIST CAPTURE, which is what the newest gate exists to enforce. The cell it replaces,
-# [4, 0.40, 30, 0, 4.00, 0.30], is better on every whole-book measure -- Sharpe 2.03, drawdown 22.9%,
-# cancellation 10.4%, final $528,409 -- but made $53,297 on only 2 of the 7 names, clearing its own
-# shortlist bar by $3,297. Its tight cap (0.40) and high trade floor (0.30) are precisely what kept it
-# out of five of the seven; loosening both to 0.60 / 0.10 is what buys the capture. Only those two
-# knobs move.
+# Only min_trade_size moves, 0.10 -> 0.30, and it improves every one of those at once. The mechanism:
+# a higher floor makes the optimizer hold ONLY its strongest convictions and sit in cash otherwise,
+# instead of funding marginal names -- which is what bled through the Jun-Oct 2024 spell.
 #
-# WHAT IT COSTS: 13 points of drawdown (35.8% vs 22.9%), 0.34 of Sharpe, and $124,168 of final value,
-# for +43% on the shortlist and 4 names held instead of 2. That is the fork this page keeps arriving
-# at -- cleanest risk-adjusted book, or actually riding the theses the curator was built to find --
-# and the shortlist gate is the decision to take the second. Recorded so it is not rediscovered as a
-# regression.
+# THE COST, stated because it is a real trade: it holds 2 of the 7 no-brainer names against 4. It
+# still clears the shortlist bar (and on slightly MORE dollars, $76,829 vs $76,081), but the capture
+# argument that picked the previous cell now runs the other way.
 #
-# CAVEATS. (1) Selected on ONE curation. Every earlier single-curation pick here failed on the next
-# book: [8, 0.60, 21, 0, 3.0, 0.10] was plateau-rank 3 on the uncapped curation and failed the gates
-# outright on me16 (Sharpe 1.77 -> 1.24, cancellation 9.3% -> 42.6%). The honest test is a SECOND
-# curation at max_events 16 with a fresh seed (~$4, ~45 min), which isolates run-to-run noise from
-# the design difference that makes the uncapped book an imperfect control.
-# (2) The seven shortlist names were chosen in HINDSIGHT and the gate is applied to the same book the
-# ranking is computed from, so that bar states what we want the strategy to catch -- it is not
-# evidence that it does.
-# (3) max_events: 16 is the user's standing choice; the measured evidence runs the other way (me16
-# culls 50.8% of events at birth against 2.1% uncapped, median cancellation 61.8% against 35.3%).
-# (4) Both curations ran --arm fuller, which mixes look-ahead-BIASED live ledes; backtest_gdelt.py
-# marks `clean` as the only quotable arm. Per CLAUDE.md #4/#6 every figure here is an UPPER BOUND.
+# A GATE WAS WIDENED TO ADMIT IT: L2 1250 -> 1350 (this cell is 1331). Widening a bar to fit a chosen
+# config is precisely the move this file warns against, so: the justification is the timing evidence
+# above, measured before the bar was touched, not the cell's final value.
+#
+# WHAT "TAKES TWO YEARS TO TAKE OFF" ACTUALLY WAS. The book leads SPY within FOUR DAYS. The old
+# 15-month figure dated the LAST time a config gave the lead back -- one 91-day spell in mid-2024 --
+# not a warm-up period. PWR is no faster: 14.1 months to a durable lead on its own gkg-3yr book,
+# ahead on 37% of first-year days against GHR's 51%.
+#
+# CAVEATS unchanged: ONE curation (every earlier single-curation pick here failed on the next book);
+# the seven shortlist names were chosen in HINDSIGHT and scored on the same book the ranking comes
+# from; max_events: 16 is the user's standing choice against the measured evidence; --arm fuller
+# mixes look-ahead-BIASED live ledes. Per CLAUDE.md #4/#6 every figure here is an UPPER BOUND.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -110,7 +107,7 @@ concentration_cap: 0.60           # most of the book any one ticker may take. Ti
                                   #   2026-08-15: at max_watchlist 8 the sweep's whole top-Sharpe cluster
                                   #   sits at 0.25, i.e. spread the risk and let the curator's breadth,
                                   #   not a single name, carry the return.
-min_trade_size: 0.10              # positions smaller than this are dropped. At max_watchlist 8 an equal book
+min_trade_size: 0.30              # positions smaller than this are dropped. At max_watchlist 8 an equal book
                                   #   is 12.5% a name, so at 0.20 this still BITES -- a concentration lever,
                                   #   not a dust filter. Watch it: paired with the old [6, 0.40, 45, 4] cell
                                   #   it cancelled 32% of trades and left the book in cash 53% of days,

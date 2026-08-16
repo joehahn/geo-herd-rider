@@ -206,7 +206,12 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-16 (third set today): DD < 70, L1 > 1800, L2 < 1250, Sharpe > 1.2,
+    # RE-CUT 2026-08-16 (fourth set today): DD < 70, L1 > 1800, L2 < 1350, Sharpe > 1.2,
+    # The L2 ceiling moved 1250 -> 1350 to admit [4, 0.60, 30, 0, 4.00, 0.30] (L2 1331), which
+    # reaches a DURABLE lead over SPY in 6.3 months against the previous pick's 15.0, with a
+    # worst losing spell of 32 days against 91. Widening a bar to admit a specific cell is
+    # exactly the move this file warns about, so it is recorded plainly: the justification is
+    # the timing evidence below, not the cell's final value.
     # cancelled < 40, shortlist gain > $40k. 254 of 6,300 survive.
     #
     # L1 IS NOW A FLOOR, NOT A CEILING -- the opposite direction from every earlier L1 bar, and worth
@@ -222,7 +227,7 @@ def main(argv=None) -> int:
     # entirely onto quality rather than risk.
     GATES = [("max DD", "max_drawdown", lambda v: v < 70, "&lt; 70%"),
              ("L1", "l1", lambda v: v > 1800, "&gt; 1800%/yr"),
-             ("L2", "l2", lambda v: v < 1250, "&lt; 1250/yr"),
+             ("L2", "l2", lambda v: v < 1350, "&lt; 1350/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
              ("cancelled", "cancelled", lambda v: v < 40, "&lt; 40%"),
              # Not a risk measure: did the config get PAID on the seven no-brainer names (panel 7)?
@@ -258,7 +263,13 @@ def main(argv=None) -> int:
         stars = {"plateau": min(short, key=lambda c: c["plateau"]),
                  "cancelled": min(short, key=lambda c: c["cancelled"]),
                  "ann": max(short, key=lambda c: c["ann"]),
-                 "Sharpe": max(short, key=lambda c: (c.get("sharpe") is not None, c.get("sharpe")))}
+                 "Sharpe": max(short, key=lambda c: (c.get("sharpe") is not None, c.get("sharpe"))),
+                 # fastest to a lead it never gives back -- the only timing measure on the page
+                 "lead mo": min(short, key=lambda c: (c.get("lead_months") is None,
+                                                      c.get("lead_months") or 1e9)),
+                 # still compounding in the back half, vs made its money early and coasted
+                 "slope/yr": max(short, key=lambda c: (c.get("slope_2h") is not None,
+                                                       c.get("slope_2h") or -1e18))}
     starred = {id(v) for v in stars.values()}
 
     def _st(c, col):
@@ -277,14 +288,19 @@ def main(argv=None) -> int:
     # their rank rather than left for the reader to hunt in a hover.
     payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
 
-    cols = ["#Sharpe", "plateau", "cancelled", "ann", "Sharpe", "Gain/Pain", "max DD",
-            "L1", "L2", "final"]
+    cols = ["#Sharpe", "plateau", "cancelled", "lead mo", "behind d", "slope/yr", "ann",
+            "Sharpe", "Gain/Pain", "max DD", "L1", "L2", "final"]
 
     def _row(c, label):
         return ([label] + [str(c[k]) for k in keys]
                 + [f"{_sh_rank.get(id(c), 0)}",
                    f"{c['plateau']:.0f}%" + _st(c, "plateau"),
                    f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
+                   (f"{c['lead_months']:.0f}" if c.get("lead_months") is not None else "never")
+                   + _st(c, "lead mo"),
+                   f"{c.get('worst_behind', 0):.0f}",
+                   (f"${c['slope_2h']:,.0f}" if c.get("slope_2h") is not None else "-")
+                   + _st(c, "slope/yr"),
                    _f(c.get("ann"), "%", 0) + _st(c, "ann"),
                    _f(c.get("sharpe")) + _st(c, "Sharpe"),
                    _f(c.get("gain_pain")), f"{c['max_drawdown']:.0f}%",

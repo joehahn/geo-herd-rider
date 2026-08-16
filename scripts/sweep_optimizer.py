@@ -160,9 +160,41 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     yrs = max(n, 1) / 252.0
     v0, vN = (vals[0] or 1), vals[-1]
     ann = ((vN / v0) ** (1 / yrs) - 1) if v0 > 0 and vN > 0 else None
+    # WHEN the return arrives, not just how much. Nothing else on the scoreboard says anything about
+    # timing, and it turns out to be a config choice rather than a property of the strategy: on the
+    # me16 book, moving min_trade_size 0.10 -> 0.30 alone takes the durable lead from 15.0 months to
+    # 6.3 and the worst losing spell from 91 days to 32.
+    #   lead_months  = months until the book is ahead of SPY AND STAYS ahead for the rest of the run.
+    #                  Deliberately the strict reading: this book leads SPY within FOUR DAYS, so a
+    #                  "first time ahead" measure says nothing. What matters is when the lead stops
+    #                  being given back. Note it is dominated by the LAST time a config fell behind,
+    #                  so it is a lagging measure by construction -- read it with worst_behind.
+    #   worst_behind = the longest unbroken run of days behind SPY, in trading days.
+    vals = d.get("value") or []
+    spyv = d.get("spy") or []
+    lead_m, worst = None, 0
+    if vals and spyv and len(vals) == len(spyv):
+        ahead = [a > b for a, b in zip(vals, spyv)]
+        run = 0
+        for x in ahead:
+            run = run + 1 if not x else 0
+            worst = max(worst, run)
+        for i in range(len(ahead)):
+            if all(ahead[i:]):
+                lead_m = round(i / len(ahead) * (len(ahead) / 252) * 12, 1)
+                break
+    # SECOND-HALF SLOPE (user's suggestion, 2026-08-16): (final - midpoint) / 1.5 years, in $/yr.
+    # Complements lead_months, which is a LAGGING measure -- it is fixed by the last time a config fell
+    # behind and says nothing about whether returns are still arriving. Slope asks the forward-looking
+    # version: is this book still compounding in its back half, or did it make its money early and
+    # then coast? A high final value with a flat second half is a config that got lucky once.
+    half = round(((vals[-1] - vals[len(vals) // 2]) / 1.5), 2) if len(vals) > 2 else None
     focus = round(sum(v for t, v in g.items() if t in FOCUS), 2)
     return {"final": round(b.get("final", 0), 2),
             "focus_gain": focus,
+            "lead_months": lead_m,
+            "slope_2h": half,
+            "worst_behind": worst,
             "focus_held": sum(1 for t in FOCUS if t in g),
             "cancelled": round(100 * abs(neg) / pos, 1) if pos else None,
             "ann": round(100 * ann, 1) if ann is not None else None,
