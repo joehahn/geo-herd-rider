@@ -885,37 +885,42 @@ function draw() {{
   //     honest because both are COUNTS and the question is their SHAPE -- a few entities holding most
   //     of the articles, against many entities holding one each.
   const G = DATA.grouping;
+  // FOUR traces, not two with a colour trick. The no-company bars are a different KIND of thing from
+  // a bundle-size bucket, and giving each its own trace is what puts the reason INTO THE LEGEND
+  // instead of leaving colour to carry it -- the previous version painted them from an index map, so
+  // the legend said only "articles" and a reader had to infer why two bars were odd.
+  const _sizeX = G.labels.filter((_, i) => i > 0 && i < G.labels.length - 1);
+  const _sizeA = G.articles.filter((_, i) => i > 0 && i < G.labels.length - 1);
+  const _sizeE = G.groups.filter((_, i) => i > 0 && i < G.labels.length - 1);
+  const _firstL = G.labels[0], _lastL = G.labels[G.labels.length - 1];
   Plotly.react('p-group', [
-    {{type:'bar', name:'articles', x:G.labels, y:G.articles,
-      // COLOUR BY OUTCOME, not by category. The first two bars are both "no company", but they are
-      // not both a problem: the gate-passed ones still reach the scout standalone through the
-      // unclustered catch-all, so they are painted like any other read article. The never-read ones
-      // are the panel's actual failure -- invisible to the curator in every role, not even usable as
-      // bundle context -- so they get the critical colour. Labelled either way; colour is never the
-      // only signal.
-      marker:{{color:G.labels.map((_, i) => i === G.labels.length - 1 ? ST.critical : p.s1),
-               line:{{width:2, color:p.surface}}}},
-      text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
+    {{type:'bar', name:'articles in bundles', x:_sizeX, y:_sizeA,
+      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+      text:_sizeA.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,
       hovertemplate:'%{{x}} per bundle<br>%{{y:,}} articles<extra></extra>'}},
-    {{type:'bar', name:'entities (bundles)', x:G.labels, y:G.groups,
+    {{type:'bar', name:'entities (bundles)', x:_sizeX, y:_sizeE,
       marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
-      text:G.groups.map(v=>v.toLocaleString()), textposition:'outside',
+      text:_sizeE.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} entities<extra></extra>'}}
+      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} entities<extra></extra>'}},
+    {{type:'bar', name:'no company named \u2014 ungrouped, still read', x:[_firstL], y:[G.articles[0]],
+      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+      text:[G.articles[0].toLocaleString()], textposition:'outside',
+      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+      hovertemplate:'%{{y:,}} articles: no company, but passed the gate<extra></extra>'}},
+    {{type:'bar', name:'no company named \u2014 rejected, never read',
+      x:[_lastL], y:[G.articles[G.articles.length - 1]],
+      marker:{{color:ST.critical, line:{{width:2, color:p.surface}}}},
+      text:[G.articles[G.articles.length - 1].toLocaleString()], textposition:'outside',
+      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+      hovertemplate:'%{{y:,}} articles: no company and failed the gate<extra></extra>'}}
   ], base(p, {{barmode:'group', showlegend:true,
-      margin:{{l:70,r:24,t:34,b:52}},
-      legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-      xaxis:{{title:{{text:'articles in the bundle \u2014 first and last have no bundle at all',
+      margin:{{l:70,r:24,t:52,b:52}},
+      legend:{{orientation:'h', y:1.18, x:0, font:{{size:10.5}}}},
+      xaxis:{{type:'category', categoryorder:'array', categoryarray:G.labels,
+             title:{{text:'articles in the bundle \u2014 first and last have no bundle at all',
                      font:{{size:11}}}}, tickfont:{{size:10}}}},
-      // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
-      // bucket past the first renders as a stub -- which hides the tail the design depends on.
-      // The top-right annotation that used to live here was removed 2026-08-16: it sat exactly where
-      // the tallest bars' outside labels land, so the two overprinted and neither was readable. Both
-      // of its numbers (entity count, no-company share) are already in the panel caption, so nothing
-      // was lost. On a log axis the bars are tall across the whole plot, leaving no safe corner for
-      // in-plot text -- the caption is the right home for it.
-      // range floor at 1 so a log axis cannot try to render a zero-count bucket.
       yaxis:{{type:'log', gridcolor:p.grid, rangemode:'tozero',
              title:{{text:'count (log scale)', font:{{size:11}}}}}}}}), CFG);
 
