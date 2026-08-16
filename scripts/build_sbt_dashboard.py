@@ -351,21 +351,15 @@ def main(argv=None) -> int:
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
         panel(7, "Gains on the no-brainer shortlist",
-              "Every other panel scores a config on the WHOLE book. This one asks a narrower question: "
-              "what did it make on seven names that were, in hindsight, obvious &mdash; a big multi-year "
-              "rise where the press named <b>dated, verifiable catalysts</b> rather than narrative "
-              "(RKLB space/defense, DRUG biotech, MU semis, BE power, IREN crypto&rarr;AI datacenter, "
-              "MP minerals, QUBT quantum; one per sector so no config can win by loading a single "
-              "theme). Vertical axis is dollars made on those seven, horizontal is Sharpe, colour is "
-              "cancellation &mdash; so <b>upper-right, pale</b> is a config that earns well, keeps it, "
-              "AND gets paid for catching the obvious ones. The two are related but far from the same "
-              "question: across the grid focus-gain correlates <b>+0.49</b> with Sharpe and only "
-              "<b>&minus;0.02</b> with drawdown, and configs below the zero line LOST money on names "
-              "that rose 120&ndash;3,590%. <b>Robotics is deliberately absent</b>, and that is a "
-              "retrieval finding rather than a view on the sector: our corpus carries 1 article on "
-              "RCAT (+868%), 0 on UMAC (+762%) and 3 on ONDS (+699%), while covering the sector's "
-              "losers well (PATH 90, SERV 37). Including it would measure a hole in our news feed as "
-              "if it were a config failure.",
+              "What each config made on seven names that were obvious in hindsight &mdash; big "
+              "multi-year rises where the press named <b>dated</b> catalysts, not narrative: RKLB, "
+              "DRUG, MU, BE, IREN, MP, QUBT, one per sector so nothing wins by loading a single "
+              "theme. Vertical is dollars on those seven, horizontal is Sharpe, colour is "
+              "cancellation &mdash; upper-right and pale earns well, keeps it, and gets paid for the "
+              "obvious ones; below the zero line it <b>lost</b> money on names that rose "
+              "120&ndash;3,590%. <b>No robotics</b>: our corpus carries 1 article on RCAT (+868%), 0 "
+              "on UMAC (+762%) and 3 on ONDS (+699%) but 90 on PATH (&minus;1%), so that sector is a "
+              "hole in our news feed, not a config failure.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all four gates</b> &mdash; "
