@@ -490,7 +490,17 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     #      incapable of corroborating anything, because there is nothing to corroborate with.
     _canon = _orgs.build_canon(arts)
     _grp = _orgs.group(arts, canon=_canon)
-    _no_org = sum(1 for a in arts if not _orgs.article_orgs(a, _canon))
+    # The no-company articles, SPLIT BY FATE -- the split is the whole point. One of these groups
+    # still reaches the scout; the other never reaches it in any role.
+    _noorg_arts = [a for a in arts if not _orgs.article_orgs(a, _canon)]
+    _no_org = len(_noorg_arts)
+    try:
+        import agent as _agent
+        _gated_ids = {id(x) for x in _agent.superlative_pool(arts)}
+        _no_org_seen = sum(1 for a in _noorg_arts if id(a) in _gated_ids)
+    except Exception:  # noqa: BLE001 -- the gate is optional here; fall back to not splitting
+        _no_org_seen = 0
+    _no_org_blind = _no_org - _no_org_seen
     _BUCK = [(1, 1, "1 article"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 50, "11-50"),
              (51, 10 ** 9, "51+")]
     _gsz, _asz = [], []
@@ -498,8 +508,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         gs = [k for k, v in _grp.items() if lo <= len(v) <= hi]
         _gsz.append(len(gs))
         _asz.append(sum(len(_grp[k]) for k in gs))
-    grouping = {"labels": [b[2] for b in _BUCK], "groups": _gsz, "articles": _asz,
-                "n_entities": len(_grp), "no_org": _no_org, "n": len(arts),
+    # Prepend the two no-company classes. They are NOT bundle sizes, so the x-axis is relabelled to
+    # say so; the entities series is genuinely 0 for both (no company = no bundle), and on a log axis
+    # a 0 simply does not render, which is the honest picture rather than a missing bar.
+    labels = ["no company\n(gate-passed)", "no company\n(never read)"] + [b[2] for b in _BUCK]
+    _gsz = [0, 0] + _gsz
+    _asz = [_no_org_seen, _no_org_blind] + _asz
+    grouping = {"labels": labels, "groups": _gsz, "articles": _asz,
+                "n_entities": len(_grp), "no_org": _no_org,
+                "no_org_seen": _no_org_seen, "no_org_blind": _no_org_blind, "n": len(arts),
                 "biggest": sorted(((len(v), k) for k, v in _grp.items()), reverse=True)[:12]}
 
     # ---- payload ---------------------------------------------------------
@@ -643,12 +660,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "p-miss", 340),
         panel(9, "Entity grouping: what the scout\u2019s bundles are made of",
               "The scout reads articles bundled by the company they are about, so a ticker\u2019s "
-              "move and its driver arrive together. This is what the corpus supports: how many "
-              "entities sit in each bundle size, and how many articles they carry. Watch the "
-              "<b>1-article</b> bar, where there is nothing to corroborate with, and note that "
-              f"<b>{grouping['no_org']:,} of {grouping['n']:,} articles "
-              f"({100 * grouping['no_org'] / max(grouping['n'], 1):.0f}%)</b> name no usable company "
-              "at all, so they bypass grouping entirely.",
+              "move and its driver arrive together. Blue bars are bundles by size &mdash; watch the "
+              "<b>1-article</b> bar, where there is nothing to corroborate with. The two amber bars "
+              "are articles naming no usable company, which can never join a bundle: "
+              f"<b>{grouping['no_org_seen']:,}</b> passed the discovery gate and still reach the "
+              f"scout standalone, but <b>{grouping['no_org_blind']:,}</b> did not and so reach it in "
+              "no role at all &mdash; not even as the bundle context that is grouping\u2019s whole "
+              "purpose.",
               "p-group", 360),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
@@ -866,7 +884,10 @@ function draw() {{
   const G = DATA.grouping;
   Plotly.react('p-group', [
     {{type:'bar', name:'articles', x:G.labels, y:G.articles,
-      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+      // the first two categories are articles with NO company -- a different kind of thing from a
+      // bundle size, so they are not painted as if they were one.
+      marker:{{color:G.labels.map((_, i) => i < 2 ? ST.warning : p.s1),
+               line:{{width:2, color:p.surface}}}},
       text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,
       hovertemplate:'%{{x}} per bundle<br>%{{y:,}} articles<extra></extra>'}},
@@ -878,7 +899,8 @@ function draw() {{
   ], base(p, {{barmode:'group', showlegend:true,
       margin:{{l:70,r:24,t:34,b:52}},
       legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-      xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
+      xaxis:{{title:{{text:'articles in the bundle \u2014 first two have no bundle at all',
+                     font:{{size:11}}}}, tickfont:{{size:10}}}},
       // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
       // bucket past the first renders as a stub -- which hides the tail the design depends on.
       // The top-right annotation that used to live here was removed 2026-08-16: it sat exactly where
