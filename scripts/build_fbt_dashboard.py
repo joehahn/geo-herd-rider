@@ -232,9 +232,12 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
     spec_counts.sort(key=lambda kv: kv[1])
     spec_total = sum(n for _, n in spec_counts)
     top10 = 100 * sum(c for _, c in srcs.most_common(10)) / max(n, 1)
-    perday = sorted(collections.Counter(a.get("published_date", "")[:10] for a in arts).values())
-    p10 = perday[len(perday) // 10] if perday else 0
-    med = statistics.median(perday) if perday else 0
+    # CLEAN (WAYBACK) TEXT. `lede` is the as-of-date archived body; `lede_live` is today's page,
+    # which is look-ahead BIASED. backtest_gdelt.py marks the clean arm as the ONLY one whose numbers
+    # are quotable, so this share is the ceiling on how much of any backtest figure is defensible --
+    # which makes it worth a tile of its own.
+    clean_n = sum(1 for a in arts if a.get("lede"))
+    clean_pct = 100 * clean_n / max(n, 1)
 
     def st(v, good, warn):      # higher is better
         return "good" if v >= good else ("warning" if v >= warn else "critical")
@@ -265,9 +268,18 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         dict(label="Source spread", value=f"{len(srcs):,}", sub=f"top-10 = {top10:.0f}% of corpus",
              status=st(100 - top10, 65, 50),
              why="Distinct outlets in the corpus, and how much the ten largest supply."),
-        dict(label="Volume floor", value=f"{p10:.0f}", sub=f"p10/day vs median {med:.0f}",
-             status=st(100 * p10 / max(med, 1), 50, 25),
-             why="Articles on a thin day (10th percentile) against a typical day."),
+        # REPLACED the "Volume floor" tile 2026-08-16. That one compared a thin day (p10) against a
+        # typical day and sat permanently at CRITICAL -- but the thinnest 10% of days were 71 Sundays
+        # and 39 Saturdays out of ~112. Pooling weekends with weekdays makes the distribution bimodal,
+        # so p10 lands in the weekend cluster and the median in the weekday one, and the ratio measures
+        # the gap BETWEEN two populations rather than any retrieval shortfall. Split properly it was
+        # healthy either way: weekdays 73%, weekends 58%. A permanently-red tile that is measuring the
+        # calendar trains you to ignore the light.
+        dict(label="Clean (archived) text", value=f"{clean_pct:.0f}%",
+             sub=f"{clean_n:,} of {n:,} via wayback",
+             status=st(clean_pct, 75, 50),
+             why="Share with as-of-date ARCHIVED body text. The live-page arm is look-ahead biased, "
+                 "so this is the ceiling on how much of a backtest number is quotable."),
     ]
 
 
