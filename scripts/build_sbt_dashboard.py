@@ -206,24 +206,22 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-16. Two-sided BANDS on both churn norms, which is a change of intent rather
-    # than of threshold: every earlier set only ever CAPPED churn, so a config that barely traded
-    # passed by default. A band excludes the still corner too, and on this book that is defensible --
-    # median Sharpe is 0.94 in the L2 0-400 band against 1.03 at 600-800, so the quiet corner of the
-    # grid is not the good corner, merely the motionless one.
-    # 319 of 6,300 survive. Cancellation is the most selective single bar (keeps 14.2%), then Sharpe
-    # (20.6%); the two churn bands are mild alone (56.3% / 61.0%) and bite in combination.
+    # RE-CUT again 2026-08-16 (second time today), and LOOSENED: DD 40 -> 60, cancellation 20 -> 35,
+    # the L2 band replaced by a plain ceiling of 1200, L1 dropped. Necessary because the previous set
+    # left ZERO survivors once max_events moved from uncapped to 16 -- a shortlist of nothing is not a
+    # shortlist. 335 of 6,300 survive on the me16 curation (1,244 on the uncapped one).
     #
-    # NOTE, because it decides the LIVE config's fate: the current nominal
-    # [8, 0.25, 14, 0, 4.0, 0.20] scores cancelled = 20.0 against a "< 20" bar and is EXCLUDED -- by
-    # 0.0. `cancelled` is stored rounded to one decimal, so the true value could be 19.96 or 20.04:
-    # the rounding, not the measurement, is what cuts it. Left strictly "<" as specified rather than
-    # quietly widened to "<=", which would readmit it plus 9 other cells (329 vs 319).
-    GATES = [("max DD", "max_drawdown", lambda v: v < 40, "&lt; 40%"),
-             ("L1", "l1", lambda v: 1400 < v < 1850, "1400&ndash;1850/yr"),
-             ("L2", "l2", lambda v: 600 < v < 1000, "600&ndash;1000/yr"),
+    # As specified the L2 bar read "< 120", which keeps zero cells on either curation: the MINIMUM L2
+    # anywhere in the grid is 355 (613 on me16). Read as 1200, consistent with the other two bars both
+    # being loosened. If 120 was meant literally, this gate needs re-deriving, not re-thresholding.
+    #
+    # Cancellation is still doing nearly all the selecting on me16 (keeps 7.6% alone, against 49.3% on
+    # the uncapped curation) -- that gap is the curation, not the bar: the me16 book gives back a
+    # median 61.8% of its winners' gains against 35.3% uncapped.
+    GATES = [("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
+             ("L2", "l2", lambda v: v < 1200, "&lt; 1200/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
-             ("cancelled", "cancelled", lambda v: v < 20, "&lt; 20%")]
+             ("cancelled", "cancelled", lambda v: v < 35, "&lt; 35%")]
     # Rows shown in table 7 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -353,7 +351,7 @@ def main(argv=None) -> int:
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
         ('<section class="panel"><h2>7. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all four gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
