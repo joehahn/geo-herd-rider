@@ -364,8 +364,8 @@ def main(argv=None) -> int:
               "obvious ones; below the zero line it <b>lost</b> money on names that rose "
               "120&ndash;3,590%. <b>No robotics</b>: our corpus carries 1 article on RCAT (+868%), 0 "
               "on UMAC (+762%) and 3 on ONDS (+699%) but 90 on PATH (&minus;1%), so that sector is a "
-              "hole in our news feed, not a config failure. Blue squares <b>#1&ndash;#5</b> are table "
-              "8's top five; the purple &#9733; is the live config.",
+              "hole in our news feed, not a config failure. Blue squares are table 8's top five "
+              "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all four gates</b> &mdash; "
@@ -539,10 +539,8 @@ function draw(){{
       // table-8 top 5, labelled with their rank and drawn UNDER the star
       const T5 = (DATA.top5 || []).map(i => C[i]).filter(c => c && !isCur(c));
       if (T5.length) tr.push({{
-        type:'scatter', mode:'markers+text', x:T5.map(c=>c.sharpe), y:T5.map(c=>c.focus_gain),
+        type:'scatter', mode:'markers', x:T5.map(c=>c.sharpe), y:T5.map(c=>c.focus_gain),
         marker:{{size:13, symbol:'square', color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
-        text:T5.map((c,i)=>'#'+(i+1)), textposition:'top center',
-        textfont:{{size:11, color:p.text2}}, cliponaxis:false,
         hovertext:T5.map((c,i)=>'<b>table-8 rank '+(i+1)+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
         hovertemplate:'%{{hovertext}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
         showlegend:false}});
