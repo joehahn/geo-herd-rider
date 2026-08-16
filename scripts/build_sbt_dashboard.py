@@ -265,6 +265,11 @@ def main(argv=None) -> int:
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
     payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
+    # Table 8's top 5, called out separately for panel 7. The other scatters mark all TOP_N as
+    # anonymous squares; on the shortlist-gain panel the question is narrower -- do the configs this
+    # page RECOMMENDS actually get paid on the no-brainer names? -- so those five are labelled with
+    # their rank rather than left for the reader to hunt in a hover.
+    payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
 
     cols = ["#Sharpe", "plateau", "cancelled", "ann", "Sharpe", "Gain/Pain", "max DD",
             "L1", "L2", "final"]
@@ -359,7 +364,8 @@ def main(argv=None) -> int:
               "obvious ones; below the zero line it <b>lost</b> money on names that rose "
               "120&ndash;3,590%. <b>No robotics</b>: our corpus carries 1 article on RCAT (+868%), 0 "
               "on UMAC (+762%) and 3 on ONDS (+699%) but 90 on PATH (&minus;1%), so that sector is a "
-              "hole in our news feed, not a config failure.",
+              "hole in our news feed, not a config failure. Blue squares <b>#1&ndash;#5</b> are table "
+              "8's top five; the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all four gates</b> &mdash; "
@@ -530,6 +536,16 @@ function draw(){{
         text:body.map(c=>K.map(k=>k+'='+c[k]).join('<br>')),
         hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
         showlegend:false}}];
+      // table-8 top 5, labelled with their rank and drawn UNDER the star
+      const T5 = (DATA.top5 || []).map(i => C[i]).filter(c => c && !isCur(c));
+      if (T5.length) tr.push({{
+        type:'scatter', mode:'markers+text', x:T5.map(c=>c.sharpe), y:T5.map(c=>c.focus_gain),
+        marker:{{size:13, symbol:'square', color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
+        text:T5.map((c,i)=>'#'+(i+1)), textposition:'top center',
+        textfont:{{size:11, color:p.text2}}, cliponaxis:false,
+        hovertext:T5.map((c,i)=>'<b>table-8 rank '+(i+1)+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+        hovertemplate:'%{{hovertext}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
+        showlegend:false}});
       if (me.length) tr.push({{
         type:'scatter', mode:'markers', x:me.map(c=>c.sharpe), y:me.map(c=>c.focus_gain),
         marker:{{size:20, color:PUR, symbol:'star', line:{{width:1.5, color:p.surface}}}},
