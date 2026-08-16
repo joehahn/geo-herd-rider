@@ -511,9 +511,12 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # Prepend the two no-company classes. They are NOT bundle sizes, so the x-axis is relabelled to
     # say so; the entities series is genuinely 0 for both (no company = no bundle), and on a log axis
     # a 0 simply does not render, which is the honest picture rather than a missing bar.
-    labels = ["no company\n(gate-passed)", "no company\n(never read)"] + [b[2] for b in _BUCK]
-    _gsz = [0, 0] + _gsz
-    _asz = [_no_org_seen, _no_org_blind] + _asz
+    # ORDER: the gate-passed no-company articles sit at the left (they ARE read, just without
+    # context), the size buckets run left-to-right as sizes should, and the never-read bar is placed
+    # LAST -- it is the terminal failure of the whole pipeline and reads as such at the right edge.
+    labels = ["no company\n(gate-passed)"] + [b[2] for b in _BUCK] + ["no company\n(never read)"]
+    _gsz = [0] + _gsz + [0]
+    _asz = [_no_org_seen] + _asz + [_no_org_blind]
     grouping = {"labels": labels, "groups": _gsz, "articles": _asz,
                 "n_entities": len(_grp), "no_org": _no_org,
                 "no_org_seen": _no_org_seen, "no_org_blind": _no_org_blind, "n": len(arts),
@@ -890,7 +893,7 @@ function draw() {{
       // are the panel's actual failure -- invisible to the curator in every role, not even usable as
       // bundle context -- so they get the critical colour. Labelled either way; colour is never the
       // only signal.
-      marker:{{color:G.labels.map((_, i) => i === 1 ? ST.critical : p.s1),
+      marker:{{color:G.labels.map((_, i) => i === G.labels.length - 1 ? ST.critical : p.s1),
                line:{{width:2, color:p.surface}}}},
       text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,
@@ -903,7 +906,7 @@ function draw() {{
   ], base(p, {{barmode:'group', showlegend:true,
       margin:{{l:70,r:24,t:34,b:52}},
       legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-      xaxis:{{title:{{text:'articles in the bundle \u2014 first two have no bundle at all',
+      xaxis:{{title:{{text:'articles in the bundle \u2014 first and last have no bundle at all',
                      font:{{size:11}}}}, tickfont:{{size:10}}}},
       // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
       // bucket past the first renders as a stub -- which hides the tail the design depends on.
