@@ -265,10 +265,10 @@ def main(argv=None) -> int:
                  "ann": max(short, key=lambda c: c["ann"]),
                  "Sharpe": max(short, key=lambda c: (c.get("sharpe") is not None, c.get("sharpe"))),
                  # fastest to a lead it never gives back -- the only timing measure on the page
-                 "lead mo": min(short, key=lambda c: (c.get("lead_months") is None,
+                 "months to lead": min(short, key=lambda c: (c.get("lead_months") is None,
                                                       c.get("lead_months") or 1e9)),
                  # still compounding in the back half, vs made its money early and coasted
-                 "slope/yr": max(short, key=lambda c: (c.get("slope_2h") is not None,
+                 "slope (per year)": max(short, key=lambda c: (c.get("slope_2h") is not None,
                                                        c.get("slope_2h") or -1e18))}
     starred = {id(v) for v in stars.values()}
 
@@ -288,8 +288,9 @@ def main(argv=None) -> int:
     # their rank rather than left for the reader to hunt in a hover.
     payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
 
-    cols = ["#Sharpe", "plateau", "cancelled", "lead mo", "behind d", "slope/yr", "ann",
-            "Sharpe", "Gain/Pain", "max DD", "L1", "L2", "final"]
+    cols = ["#Sharpe", "plateau", "cancelled", "months to lead", "days behind",
+            "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
+            "final"]
 
     def _row(c, label):
         return ([label] + [str(c[k]) for k in keys]
@@ -297,10 +298,10 @@ def main(argv=None) -> int:
                    f"{c['plateau']:.0f}%" + _st(c, "plateau"),
                    f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
                    (f"{c['lead_months']:.0f}" if c.get("lead_months") is not None else "never")
-                   + _st(c, "lead mo"),
+                   + _st(c, "months to lead"),
                    f"{c.get('worst_behind', 0):.0f}",
                    (f"${c['slope_2h']:,.0f}" if c.get("slope_2h") is not None else "-")
-                   + _st(c, "slope/yr"),
+                   + _st(c, "slope (per year)"),
                    _f(c.get("ann"), "%", 0) + _st(c, "ann"),
                    _f(c.get("sharpe")) + _st(c, "Sharpe"),
                    _f(c.get("gain_pain")), f"{c['max_drawdown']:.0f}%",
@@ -420,7 +421,9 @@ def main(argv=None) -> int:
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
               "the optimizer, meaning each point here is a full re-curation "
               f"(${sum(r.get('cost_usd') or 0 for r in (me or {{}}).get('rows', [])):.2f} and several "
-              "hours for the series). Bars are final portfolio value, the line is the share of events "
+              "hours for the series). Bars are final portfolio value and, beside it, the gain on the "
+              "seven no-brainer names from panel 7 &mdash; same axis, same unit. The line is the "
+              "share of events "
               "<b>culled at birth</b> &mdash; opened and retired without a single agent read, i.e. work "
               "paid for and thrown away. Read the CULL LINE first: it is a structural count the cap "
               "moves directly, while final value is one lucky name away from noise, and each point is "
@@ -651,11 +654,20 @@ function draw(){{
         hovertemplate:'max_events %{{x}}<br>final $%{{y:,.0f}}<br>%{{customdata[0]}} events · '+
                       '%{{customdata[1]}} agent-reads<br>%{{customdata[2]}} tickers funded · '+
                       '$%{{customdata[3]}} to curate<extra></extra>'}},
+      // Same axis as final value because it is the SAME UNIT -- dollars. Total return says whether a
+      // cap paid; this says whether it paid on the seven theses the strategy exists to catch, which a
+      // cap that culls discoveries should damage first.
+      {{type:'bar', name:'gain on the 7 shortlist names', x:xs,
+        y:ME.rows.map(r=>r.focus_gain || 0),
+        marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+        customdata:ME.rows.map(r=>[r.focus_held || 0]),
+        hovertemplate:'max_events %{{x}}<br>shortlist $%{{y:,.0f}}<br>'+
+                      '%{{customdata[0]}} of 7 names held<extra></extra>'}},
       {{type:'scatter', mode:'lines+markers', name:'culled at birth', x:xs,
         y:ME.rows.map(r=>r.cull_pct), yaxis:'y2',
         line:{{width:2, color:ST.serious}}, marker:{{size:9}},
         hovertemplate:'%{{y:.1f}}% of events culled unread<extra></extra>'}}
-    ], base(p, {{margin:{{l:74,r:64,t:34,b:44}},
+    ], base(p, {{barmode:'group', margin:{{l:74,r:64,t:34,b:44}},
         legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
         xaxis:{{title:{{text:'max_events (events allowed live at once)', font:{{size:11}}}},
                type:'category', categoryorder:'array', categoryarray:xs}},
