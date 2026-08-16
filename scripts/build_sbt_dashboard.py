@@ -206,29 +206,28 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT again 2026-08-16 (second time today), and LOOSENED: DD 40 -> 60, cancellation 20 -> 35,
-    # the L2 band replaced by a plain ceiling of 1200, L1 dropped. Necessary because the previous set
-    # left ZERO survivors once max_events moved from uncapped to 16 -- a shortlist of nothing is not a
-    # shortlist. 335 of 6,300 survive on the me16 curation (1,244 on the uncapped one).
+    # RE-CUT 2026-08-16 (third set today): DD < 70, L1 > 1800, L2 < 1250, Sharpe > 1.2,
+    # cancelled < 40, shortlist gain > $40k. 254 of 6,300 survive.
     #
-    # As specified the L2 bar read "< 120", which keeps zero cells on either curation: the MINIMUM L2
-    # anywhere in the grid is 355 (613 on me16). Read as 1200, consistent with the other two bars both
-    # being loosened. If 120 was meant literally, this gate needs re-deriving, not re-thresholding.
+    # L1 IS NOW A FLOOR, NOT A CEILING -- the opposite direction from every earlier L1 bar, and worth
+    # stating plainly because it inverts what the gate means. Previous sets capped churn (or banded
+    # it); this one REQUIRES turnover above 1,800%/yr, i.e. it deliberately excludes the quiet half of
+    # the grid. Defensible on this book -- the still corner is not the good corner, median Sharpe 0.94
+    # in the L2 0-400 band against 1.03 at 600-800 -- but it is a bet that trading pays, and if a
+    # future book stops rewarding turnover this bar will be selecting for churn on its own.
     #
-    # Cancellation is still doing nearly all the selecting on me16 (keeps 7.6% alone, against 49.3% on
-    # the uncapped curation) -- that gap is the curation, not the bar: the me16 book gives back a
-    # median 61.8% of its winners' gains against 35.3% uncapped.
-    GATES = [("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
-             ("L2", "l2", lambda v: v < 1200, "&lt; 1200/yr"),
+    # SELECTIVITY: the risk/churn bars are now mild (DD 88.3%, L1 89.1%, L2 89.1% alone). Cancellation
+    # (12.1%) and Sharpe (18.7%) do nearly all the work, with the shortlist bar (27.4%) trimming what
+    # is left. Loosening DD and cancellation while adding an L1 floor moved the selection almost
+    # entirely onto quality rather than risk.
+    GATES = [("max DD", "max_drawdown", lambda v: v < 70, "&lt; 70%"),
+             ("L1", "l1", lambda v: v > 1800, "&gt; 1800%/yr"),
+             ("L2", "l2", lambda v: v < 1250, "&lt; 1250/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
-             ("cancelled", "cancelled", lambda v: v < 35, "&lt; 35%"),
-             # A DIFFERENT KIND OF BAR from the other four, added 2026-08-16. Those are all risk or
-             # quality measures read off the whole book; this one asks whether the config actually got
-             # paid on the seven no-brainer names (panel 7). A config can clear every risk bar while
-             # making its money somewhere other than the theses this strategy exists to catch -- 26%
-             # of the grid LOSES money on names that rose 120-3,590% -- and nothing else here would
-             # notice. Keeps 19.8% of the grid alone; takes the shortlist 335 -> 100.
-             ("shortlist", "focus_gain", lambda v: v > 50_000, "&gt; $50k")]
+             ("cancelled", "cancelled", lambda v: v < 40, "&lt; 40%"),
+             # Not a risk measure: did the config get PAID on the seven no-brainer names (panel 7)?
+             # 26% of the grid loses money on names that rose 120-3,590% and no other bar notices.
+             ("shortlist", "focus_gain", lambda v: v > 40_000, "&gt; $40k")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -375,7 +374,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all six gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
