@@ -519,7 +519,7 @@ def main(argv=None) -> int:
              status=st(len(all_veh), 40, 15),
              why="Distinct tickers the curator named. Peer baskets mean one event can carry several."),
         dict(label="Scout inflow", value=f"{proposed}",
-             sub=(f"{admitted} admitted · {capbound}/{len(scout)} scans hit the admission cap"
+             sub=(f"{admitted} admitted · {capbound}/{len(scout)} curations hit the admission cap"
                   if any(d.get("max_new_events") for d in scout)
                   else f"{admitted} admitted · admission cap OFF (max_new_events=0)"),
              status="critical" if capbound > len(scout) * 0.5 else "good",
@@ -620,7 +620,7 @@ def main(argv=None) -> int:
             # NVDA 6x). Inserting the distinct-ticker count makes the unit change visible instead of
             # reading as a rejection that never happened.
             "labels": ["articles read", "past the discovery gate", "candidates proposed",
-                       "admissions (ticker-scans)", "distinct tickers admitted", "events opened",
+                       "admissions (ticker-curations)", "distinct tickers admitted", "events opened",
                        "vehicles named", "picks logged"],
             "values": [sum(r["articles_read"] for r in M), _gated_total, proposed, admitted,
                        _distinct_admitted, J.get("nid", 0), len(all_veh), len(PICKS)]},
@@ -756,7 +756,7 @@ def main(argv=None) -> int:
     params = [
         ("— window (this run) —", ""),
         ("backtest window", f"{weeks[0]} → {weeks[-1]}" if weeks else "?"),
-        ("curator calls", f"{len(M)} scans, every {_cad} days as run"
+        ("curator calls", f"{len(M)} curations, every {_cad} days as run"
          + ("" if _cad == _cad_profile else f" — profile now says {_cad_profile}d; this run predates that")),
         ("corpus", f"{a.corpus} · {len(ARTS):,} articles · "
                    f"{len(cfgp['gem_beats'])}+{len(cfgp['coverage_beats'])} beats"),
@@ -982,20 +982,19 @@ def main(argv=None) -> int:
               "no solid section is a thesis the curator held and the math never backed. "
               f"<b>Two classes are not drawn, and both are counted in panel 4:</b> {_n_culled} events "
               "with no agent read at all, and "
-              f"{_n_zero} that opened and terminated on the SAME scan &mdash; those draw as hairlines "
+              f"{_n_zero} that opened and terminated on the SAME curation &mdash; those draw as hairlines "
               "indistinguishable from the axis and would bury the theses that ran.",
               "c-gantt", max(700, 14 * _n_gantt)),
         panel(4, "Live events vs the cap",
-              "How many theses the curator was tracking at once, split by whether the optimizer had "
-              "put capital behind them, against the <code>max_events</code> ceiling (dashed). The "
-              "stack\u2019s top edge is the live count: where it sits ON the dashed line the cap is "
-              "BINDING and the lowest coverage-ranked live event was retired to make room, so what "
-              "the curator tracked was limited by the knob rather than by the news. <b>The amber band "
-              "is the allocation bottleneck</b> \u2014 live theses the math never backed. The dotted "
-              "line is a FLOW, not part of the stack: events that opened and terminated on the same "
-              f"scan, dropped from panel 3 as hairlines and tallied here instead. Across the run "
-              f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero} events with an agent read died having "
-              "never been funded at all</b>.",
+              "Theses the curator tracked at once, split by whether the optimizer put capital behind "
+              "them, against the <code>max_events</code> ceiling (dashed). The stack\u2019s top edge is "
+              "the live count &mdash; where it touches the dashed line the cap is binding and the "
+              "lowest coverage-ranked event was retired to make room, so the knob rather than the news "
+              "set what got tracked. <b>The amber band is the allocation bottleneck</b>: live theses "
+              "the math never backed, and across the run "
+              f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero}</b> events with an agent read died never "
+              "funded. The dotted line is a flow, not part of the stack &mdash; events opened and "
+              "closed in a single curation, dropped from panel 3 as hairlines.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names, with every other name rolled into one grey bar. "
@@ -1044,8 +1043,8 @@ def main(argv=None) -> int:
               "<b>Log x-axis.</b> Two things to watch: the <b>discovery gate</b> is the largest cut in "
               "the whole pipeline (~19&times;), and it is <b>scout-only</b> — event agents still read "
               "the full window, so tracking an event is never starved."
-              "<br><br>Units change mid-funnel: <i>admissions</i> counts ticker-scans, so a ticker "
-              "re-admitted in a later scan is counted again; <i>distinct tickers</i> and <i>events</i> "
+              "<br><br>Units change mid-funnel: <i>admissions</i> counts ticker-curations, so a ticker "
+              "re-admitted in a later curation is counted again; <i>distinct tickers</i> and <i>events</i> "
               "are the de-duplicated views. NOT shown: the ticker guard, which resolves names to "
               "symbols and drops unresolvable ones before these counters see them.",
               "c-funnel", 340),
@@ -1251,12 +1250,12 @@ function draw() {{
         x:B.w, y:FUND, line:{{width:0.5, color:p.s1}}, fillcolor:p.s1,
         hovertemplate:'%{{x}}<br>%{{y}} live and funded<extra></extra>'}},
     ];
-    // Same-scan events are a FLOW, not part of the live stock, so they stay a line on top of the
+    // Same-curation events are a FLOW, not part of the live stock, so they stay a line on top of the
     // stack rather than a third band -- adding them to the stack would double-count.
     if (B.zerospan) tr.push({{
-      type:'scatter', mode:'lines+markers', name:'opened & closed same scan',
+      type:'scatter', mode:'lines+markers', name:'opened & closed same curation',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
-      hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same scan<extra></extra>'}});
+      hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same curation<extra></extra>'}});
     Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
       legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
       margin:{{l:60,r:24,t:16,b:52}},
