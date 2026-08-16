@@ -40,6 +40,7 @@ sys.path.insert(0, str(ROOT / "scripts"))   # dash_nav: shared cross-page nav
 
 import dash_nav  # noqa: E402  shared cross-page nav (Backtest | Bootstrap | Forwardtest)
 import gkg as _gkg  # noqa: E402  specialty/blocklist domain matching, shared with the pipeline
+import orgs as _orgs  # noqa: E402  entity normalisation + grouping, the same code the scout uses
 
 PLOTLY_CDN = "https://cdn.plot.ly/plotly-2.35.2.min.js"
 README = "https://github.com/joehahn/geo-herd-rider/blob/main/README.md"
@@ -480,8 +481,30 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     miss_reasons = dict(sorted(collections.Counter(
         a.get("text_miss") for a in arts if a.get("text_miss")).items(), key=lambda kv: -kv[1]))
 
+    # ---- ENTITY GROUPING: what the scout's ticker-bundles are made of ---------------------------
+    # Built with the SAME orgs module the curator runs, so this measures the real thing rather than a
+    # reimplementation that could drift from it. Two questions the panel answers:
+    #   1. how much of the corpus can be bundled at all (an article with no usable subject org joins
+    #      no group and reaches the scout only via the unclustered catch-all), and
+    #   2. of what IS grouped, how much sits in singleton bundles -- where grouping is structurally
+    #      incapable of corroborating anything, because there is nothing to corroborate with.
+    _canon = _orgs.build_canon(arts)
+    _grp = _orgs.group(arts, canon=_canon)
+    _no_org = sum(1 for a in arts if not _orgs.article_orgs(a, _canon))
+    _BUCK = [(1, 1, "1 article"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 50, "11-50"),
+             (51, 10 ** 9, "51+")]
+    _gsz, _asz = [], []
+    for lo, hi, lab in _BUCK:
+        gs = [k for k, v in _grp.items() if lo <= len(v) <= hi]
+        _gsz.append(len(gs))
+        _asz.append(sum(len(_grp[k]) for k in gs))
+    grouping = {"labels": [b[2] for b in _BUCK], "groups": _gsz, "articles": _asz,
+                "n_entities": len(_grp), "no_org": _no_org, "n": len(arts),
+                "biggest": sorted(((len(v), k) for k, v in _grp.items()), reverse=True)[:12]}
+
     # ---- payload ---------------------------------------------------------
     payload = {
+        "grouping": grouping,
         "funnel": {"labels": [r[0] for r in fun], "values": [r[1] for r in fun],
                    "notes": [r[2] for r in fun]},
         "backfill": {**(stats.get("wayback_overlay") or {}),
@@ -618,7 +641,20 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
               "are genuine walls and 18% our parser failing.",
               "p-miss", 340),
-        panel(9, "Articles per beat",
+        panel(9, "Entity grouping: what the scout\u2019s bundles are made of",
+              "Before the scout reads anything, articles are bundled by the company they are about, "
+              "so a ticker\u2019s move-signal and its driver arrive together. This is what the corpus "
+              "supports. <b>Bars are articles</b> (left) and <b>entities</b> (right) by bundle size. "
+              "Two things to watch, both failure modes rather than successes: the <b>1-article</b> bar "
+              "is where grouping can do nothing &mdash; there is no second article to corroborate "
+              f"with; and <b>{grouping['no_org']:,} of {grouping['n']:,} articles "
+              f"({100 * grouping['no_org'] / max(grouping['n'], 1):.0f}%) carry no usable company at "
+              "all</b>, so they join no bundle and reach the scout only through the unclustered "
+              "catch-all. GKG either attached no organisation or attached only non-companies "
+              "(<code>United States</code>, <code>York Stock Exchange</code>), which are correctly "
+              "rejected but leave nothing to group on.",
+              "p-group", 360),
+        panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
               f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
               "verbatim on the forward path) and keyword atoms (matched against headline and URL "
@@ -631,25 +667,25 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               f"sources in {_LINK(SOURCES_URL, 'news_sources.md')}. The English-origin gate (plot 1) "
               "is still in code — a wart.",
               "p-beats", 900),
-        panel(10, "Articles per source",
+        panel(11, "Articles per source",
               "The 50 largest outlets, plus everything else folded into one grey bar. A sweep "
               "dominated by a handful of publishers inherits their editorial priorities; a long tail "
               "means genuine breadth.",
               "p-src", 1050),
-        panel(11, "Specialty-desk reach",
+        panel(12, "Specialty-desk reach",
               "The outlets hand-picked in "
               f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} as <code>specialty_allow</code> — "
               "the desks expected to carry the early call. On the forward path a whole search pass is "
               "restricted to them; BigQuery cannot do that, so here they are simply measured. Desks "
               "with <b>zero</b> articles are shown, not omitted — that is the finding.",
               "p-spec", 620),
-        panel(12, "News replication",
+        panel(13, "News replication",
               "The same story often runs on many sites at once; ingest merges those copies and "
               "counts how many outlets ran each one (plot 1 calls this step <i>syndication</i>). Most "
               "sit at 1 — a story only one outlet carried is one the market probably has not priced "
               "yet. Widest this year: 122 outlets. Log axis.",
               "p-syn", 320),
-        panel(13, "Articles per author",
+        panel(14, "Articles per author",
               "The 25 most frequent named writers, with the no-byline bucket shown in grey for scale. "
               "Wire copy, PR releases and the publisher's own name are excluded by design, so a "
               "byline here is a real person. Most of the corpus has none — that is normal for market "
@@ -826,6 +862,36 @@ function draw() {{
       // renders everything below the top two as a zero-length stub
       xaxis:{{type:'log', gridcolor:p.grid,
               title:{{text:'headline-only articles (log scale)', font:{{size:11}}}}}}}}), CFG);
+
+  // 3b. ENTITY GROUPING. Grouped bars, not stacked: articles and entities are different units and
+  //     stacking them would invite reading a total that means nothing. Both on one axis is still
+  //     honest because both are COUNTS and the question is their SHAPE -- a few entities holding most
+  //     of the articles, against many entities holding one each.
+  const G = DATA.grouping;
+  Plotly.react('p-group', [
+    {{type:'bar', name:'articles', x:G.labels, y:G.articles,
+      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
+      text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} articles<extra></extra>'}},
+    {{type:'bar', name:'entities (bundles)', x:G.labels, y:G.groups,
+      marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
+      text:G.groups.map(v=>v.toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} entities<extra></extra>'}}
+  ], base(p, {{barmode:'group',
+      margin:{{l:70,r:24,t:34,b:52}},
+      legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+      xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
+      // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
+      // bucket past the first renders as a stub -- which hides the tail the design depends on.
+      yaxis:{{type:'log', gridcolor:p.grid,
+             title:{{text:'count (log scale)', font:{{size:11}}}}}},
+      annotations:[{{xref:'paper', x:0.99, xanchor:'right', yref:'paper', y:0.97, yanchor:'top',
+        showarrow:false, font:{{size:11, color:p.text2}}, align:'right',
+        text:G.n_entities.toLocaleString()+' entities · '+
+             G.no_org.toLocaleString()+' articles ('+Math.round(100*G.no_org/G.n)+
+             '%) carry no usable company'}}]}}), CFG);
 
   // 4. beat productivity — gem vs coverage as two named series (identity, never colour alone:
   //    the legend plus the y-axis label both name the beat)
