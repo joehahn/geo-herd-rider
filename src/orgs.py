@@ -87,7 +87,36 @@ _NOT_A_COMPANY = {
     "gross law firm", "schall law firm", "hagens berman", "kahn swick foti", "block leviton",
     # courts and wire prefixes that GKG emits as if they were subject companies
     "united states district court", "district court", "prnewswire robbins", "globe newswire robbins",
+    # ADDED 2026-08-16 after a spot-check of the largest bundles. Each was holding real articles under
+    # a key that is not an investable company, so the bundle could never correspond to a ticker.
+    # 1,844 articles across these on the 3-year corpus.
+    "blackwell",                 # an Nvidia PRODUCT. Named as an example in this module's own
+                                 # docstring since the file was written, but never actually stoplisted
+                                 # -- it was holding 321 articles.
+    "alliance news", "canadian press on", "xinhua", "pa media", "dow jones newswires",
+    "critical minerals", "rare earths", "exchange traded funds", "bitcoin trust", "technology",
+    "stock market", "artificial intelligence", "electric vehicles",
+    "world economic forum", "european parliament", "european council", "state council",
+    # GKG truncates long org strings, so the STOPLIST HAS TO CARRY THE TRUNCATION, not the real
+    # name -- the full-name entries above never fire on these. Confirmed by printing the exact keys:
+    # a guess at the cut point ("...newsfil") missed and left 694 articles grouped under a wire.
+    "organization of the petroleum",   # OPEC
+    "british columbia newsfile",       # Newsfile wire dateline, not a company
 }
+
+# NON-COMPANY PREFIXES. Exact-string stoplisting cannot keep up with GKG here: it emits the same
+# non-company at many truncation lengths, and sometimes misspelled. OPEC alone appears as
+# "organization of the petroleum exporting countries", "organization of petroleum exporting
+# countries", "organization for petroleum exporting states", "organization of oil exporting
+# countries" and "organization of the petroeum exporting countries" (sic) -- eleven variants, and a
+# stoplist entry per variant is a losing game. These match on the START of the normalised key.
+# Deliberately short and conservative: each is a stem that CANNOT begin an investable company's name.
+_NOT_A_COMPANY_PREFIX = (
+    "organization of the petroleum", "organization of petroleum", "organization for petroleum",
+    "organization of oil exporting", "organizations of the petroleum", "organization of the petroeum",
+    "world economic forum", "canadian press", "british columbia newsfile", "alliance news",
+    "exchange traded fund", "globe newswire", "business wire", "pr newswire",
+)
 
 _MIN_LEN = 3          # single/double-character "orgs" are extraction noise
 _MAX_WORDS = 6        # a 7-word "org" is a sentence fragment, not a company name
@@ -103,6 +132,8 @@ def normalise(name: str) -> str:
             break
         s = t
     if len(s) < _MIN_LEN or len(s.split()) > _MAX_WORDS or s in _NOT_A_COMPANY:
+        return ""
+    if s.startswith(_NOT_A_COMPANY_PREFIX):
         return ""
     if s.isdigit():
         return ""
@@ -155,8 +186,84 @@ def _canonical_map(counts: collections.Counter) -> dict:
     return canon
 
 
-def article_orgs(a: dict, canon: dict | None = None) -> list:
-    """The usable, canonical org keys for one article (dropped non-companies removed)."""
+# TICKER IN THE TITLE. GKG's org extractor misses a company named plainly in the headline --
+# "Nauticus Robotics, Inc. (KITT)", "Rockwell Automation, Inc. (ROK)" -- and since the grouping key is
+# derived from V2Organizations ALONE, those articles join no bundle at all. Measured on the 3-year
+# corpus: 6,732 of the 17,290 articles that reach the curator in NO role name a ticker in their own
+# title. This recovers the unambiguous ones.
+_TICKER = re.compile(r"\(([A-Z]{1,5})\)|\b(?:NASDAQ|NYSE|NYSEARCA|AMEX):\s?([A-Z]{1,5})\b")
+
+
+def title_tickers(a: dict) -> set:
+    """Symbols named in an article's own title. Pattern-matched, so no ticker universe is needed."""
+    return {m.group(1) or m.group(2) for m in _TICKER.finditer(a.get("title") or "")}
+
+
+def learn_ticker_evidence(arts: list, canon: dict | None = None, store: dict | None = None) -> dict:
+    """Accumulate (ticker -> company) sightings into `store`, for map-building ACROSS curations.
+
+    Exists because a single curation window is far too small to learn from. Measured on the 6-month
+    corpus: a 30-day window yields 0-15 symbols against 223 learned corpus-wide, because the strict
+    rule needs >=3 sightings of the same unambiguous pairing and one month rarely contains them.
+    Learning from the WHOLE corpus instead would leak -- it would use articles the curator has not
+    reached yet -- so evidence is ACCUMULATED as curations run forward in time. Early curations get a
+    thin map and later ones a fuller one, which is the honest shape: you cannot know a mapping before
+    you have seen the evidence for it."""
+    store = {} if store is None else store
+    canon = canon or {}
+    for a in arts:
+        ks = article_orgs(a, canon)
+        ts = title_tickers(a)
+        if len(ks) == 1 and len(ts) == 1:
+            store.setdefault(next(iter(ts)), collections.Counter())[ks[0]] += 1
+    return store
+
+
+def ticker_map_from(store: dict) -> dict:
+    """Apply the strict thresholds to accumulated evidence -- see ticker_map for why they are strict."""
+    out = {}
+    for t, c in store.items():
+        (k, n), = c.most_common(1)
+        if n >= 3 and n / sum(c.values()) >= 0.8:
+            out[t] = k
+    return out
+
+
+def ticker_map(arts: list, canon: dict | None = None) -> dict:
+    """{TICKER: canonical org key}, learned from the corpus itself -- no external symbol list.
+
+    STRICT ON PURPOSE, and the strictness is the whole design. The obvious rule -- map a ticker to the
+    company it most often co-occurs with -- is WRONG, because tickers routinely appear in titles about
+    OTHER companies. Learned that way on this corpus, `AMZN` mapped to `nvidia` (Amazon is named in
+    many Nvidia stories), `GSK` to `pfizer`, and a hand-read of 14 samples found about half mis-mapped.
+    A mis-map is worse than no map: it files an article under the WRONG ticker's bundle, where it can
+    push the scout to propose a name the article was never about.
+
+    So a pair is learned ONLY from articles that name exactly ONE ticker and carry exactly ONE company,
+    and is kept only if that pairing is both repeated (>=3) and dominant (>=80% of that ticker's
+    sightings). Same hand-read on the strict map: 14 of 14 correct. It recovers 978 of the 17,290
+    rather than 3,421 -- precision bought with recall, deliberately."""
+    canon = canon or {}
+    seen: dict = collections.defaultdict(collections.Counter)
+    for a in arts:
+        ks = article_orgs(a, canon)
+        ts = title_tickers(a)
+        if len(ks) == 1 and len(ts) == 1:
+            seen[next(iter(ts))][ks[0]] += 1
+    out = {}
+    for t, c in seen.items():
+        (k, n), = c.most_common(1)
+        if n >= 3 and n / sum(c.values()) >= 0.8:
+            out[t] = k
+    return out
+
+
+def article_orgs(a: dict, canon: dict | None = None, tmap: dict | None = None) -> list:
+    """The usable, canonical org keys for one article (dropped non-companies removed).
+
+    `tmap` (from ticker_map) is a FALLBACK ONLY -- consulted when GKG gave nothing usable, never to
+    override an org GKG did supply, and only when the title names exactly one ticker. A title naming
+    two symbols is ambiguous about which one it is ABOUT, so it is left alone."""
     out = []
     for o in (a.get("orgs") or []):
         n = normalise(o)
@@ -165,6 +272,12 @@ def article_orgs(a: dict, canon: dict | None = None) -> list:
         n = (canon or {}).get(n, n)
         if n not in out:
             out.append(n)
+    if not out and tmap:
+        ts = title_tickers(a)
+        if len(ts) == 1:
+            k = tmap.get(next(iter(ts)))
+            if k:
+                out.append(k)
     return out
 
 
@@ -179,7 +292,8 @@ def build_canon(arts: list) -> dict:
     return _canonical_map(c)
 
 
-def group(arts: list, canon: dict | None = None, min_articles: int = 1) -> dict:
+def group(arts: list, canon: dict | None = None, min_articles: int = 1,
+          tmap: dict | None = None) -> dict:
     """{org_key: [articles, oldest first]} — the unit the curator judges.
 
     An article joins EVERY org it names. A two-company story is real evidence for both, and assigning
@@ -197,7 +311,7 @@ def group(arts: list, canon: dict | None = None, min_articles: int = 1) -> dict:
     canon = canon if canon is not None else build_canon(arts)
     out: dict = collections.defaultdict(list)
     for a in arts:
-        keys = article_orgs(a, canon)
+        keys = article_orgs(a, canon, tmap)
         if not keys:
             continue
         for k in keys:
