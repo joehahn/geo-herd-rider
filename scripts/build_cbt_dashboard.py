@@ -627,7 +627,15 @@ def main(argv=None) -> int:
         "breadth": {"w": weeks, "cap": _wcap, "held": _held_per_week,
                     "events": [r["events_live"] for r in M],
                     "vehicles": [r["vehicles_live"] for r in M],
-                    "catalysts": [r["distinct_catalysts"] for r in M]},
+                    "catalysts": [r["distinct_catalysts"] for r in M],
+                    # Events that opened and terminated on the SAME scan, by scan. Dropped from the
+                    # timeline (they draw as hairlines) so they are counted here instead -- the point
+                    # of panel 4 is what the cap is doing, and a one-scan life is the cap's signature.
+                    "zerospan": [sum(1 for _k, _v in ev.items()
+                                     if (_v.get("entries") or [])
+                                     and _v["entries"][0].get("date") == _v["entries"][-1].get("date")
+                                     == r["week"])
+                                 for r in M]},
         "inflow": {"w": [d["context"] for d in scout],
                    "prop": [len(d.get("proposed", [])) for d in scout],
                    "adm": [len(d.get("admitted", [])) for d in scout],
@@ -642,12 +650,18 @@ def main(argv=None) -> int:
                    "end": ((v.get("entries") or [{}])[-1].get("date", "") or _opened.get(k, "")),
                    "beat": _ev_beat.get(k, "no beat"), "fund": _ev_fund.get(k, []),
                    "status": v.get("status", "")}
-                   # CULLED-AT-BIRTH events are EXCLUDED BY CHOICE (and counted in the lead):
-                   # max_events retires most events on the scan they open, before any agent sees
-                   # them, so they would draw 103 zero-length bars and bury the theses that ran.
-                   # Stated, not silent -- silently dropping them (no entries -> no date) was this
-                   # panel's original bug.
-                   for k, v in ev.items() if (v.get("entries") or [])],
+                   # TWO CLASSES ARE EXCLUDED, both counted in the lead and both plotted in panel 4:
+                   #   1. CULLED AT BIRTH -- no agent entry at all, so no date and no span.
+                   #   2. ZERO-SPAN -- opened and terminated on the SAME scan. One agent read, then
+                   #      gone. 42 of 117 on the me16 book, and they draw as hairlines that are
+                   #      visually indistinguishable from the axis while consuming a third of the
+                   #      rows, burying the theses that actually ran.
+                   # Excluding them is stated, never silent: silently dropping a class (no entries ->
+                   # no date) was this panel's original bug, and the counts are drawn in panel 4 so
+                   # what is missing is visible rather than merely described.
+                   for k, v in ev.items()
+                   if (v.get("entries") or [])
+                   and (v["entries"][0].get("date") != v["entries"][-1].get("date"))],
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "beat": {"b": [b for b, _ in beat_c.most_common(20)], "n": [n for _, n in beat_c.most_common(20)]},
@@ -890,8 +904,11 @@ def main(argv=None) -> int:
     _n_beats = len(book.get("gainbeat") or {})
     _n_beats_eff = sum(1 for _b, _n in (book.get("beatgated") or {}).items() if _n >= 20)
     _n_gantt = sum(1 for g in payload["gantt"] if g["start"])
-    _n_lived = len(payload["gantt"])            # events with >=1 agent entry (the ones drawn)
-    _n_culled = len(ev) - _n_lived              # retired on the scan they opened
+    _n_lived = len(payload["gantt"])            # events that RAN for more than one scan (drawn)
+    _n_zero = sum(1 for v in ev.values()         # opened and terminated on the same scan
+                  if (v.get("entries") or [])
+                  and v["entries"][0].get("date") == v["entries"][-1].get("date"))
+    _n_culled = len(ev) - _n_lived - _n_zero    # no agent entry at all
 
     # UNINVESTED DAYS, measured not assumed. The old caption asserted the book is "never actually in
     # cash" -- a claim that was true of one curation and silently false for the next (53% of days on
@@ -929,13 +946,13 @@ def main(argv=None) -> int:
               "came from. Grey means no beat-attributable evidence.",
               "c-wcomp", _wcomp_h),
         panel(3, "Event timeline",
-              f"The {_n_lived} events that LIVED. The pale bar spans proposed &rarr; terminated; the solid "
-              "overlay is when the optimizer actually FUNDED it, coloured by beat. A bar with no solid "
-              "section is a thesis the curator held and the math never backed. "
-              f"<b>{_n_culled} further events are not shown</b> \u2014 <code>max_events</code> retired "
-              "them on the scan they opened, before any agent assessed them, so they have no span to "
-              "draw. That is deliberate: those events go on to return 12.6 points LESS over the next "
-              "60 days than the ones kept.",
+              f"The {_n_lived} events that RAN. The pale bar spans proposed &rarr; terminated; the "
+              "solid overlay is when the optimizer actually FUNDED it, coloured by beat. A bar with "
+              "no solid section is a thesis the curator held and the math never backed. "
+              f"<b>Two classes are not drawn, and both are counted in panel 4:</b> {_n_culled} events "
+              "with no agent read at all, and "
+              f"{_n_zero} that opened and terminated on the SAME scan &mdash; those draw as hairlines "
+              "indistinguishable from the axis and would bury the theses that ran.",
               "c-gantt", max(700, 14 * _n_gantt)),
         panel(4, "Live events vs the cap",
               "How many theses the curator was tracking at once, against the "
@@ -943,8 +960,11 @@ def main(argv=None) -> int:
               "cap is BINDING &mdash; every scan there, the lowest coverage-ranked live event was "
               "retired to make room, so what the curator found was limited by the knob rather than by "
               "the news. Where the line runs below it, the cap is inert and the curator simply had "
-              "fewer live theses than it was allowed.",
-              "c-evcount", 340),
+              "fewer live theses than it was allowed. The dotted line counts events that opened and "
+              "terminated on the SAME scan &mdash; dropped from panel 3 as hairlines, so tallied here. "
+              "A one-scan life is the cap\u2019s signature, and the two curves rising together is the "
+              "cap binding.",
+              "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names, with every other name rolled into one grey bar. "
               "A result resting on one or two names is a different thing from the same return spread "
@@ -1191,7 +1211,15 @@ function draw() {{
       type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:B.events,
       line:{{width:2, color:p.s1}}, marker:{{size:6}},
       hovertemplate:'%{{x}}<br>%{{y}} live events<extra></extra>'}}];
-    Plotly.react('c-evcount', tr, base(p, {{showlegend:false,
+    // Opened-and-closed-in-one-scan, per scan. These are DROPPED from the timeline (panel 3) because
+    // they draw as hairlines, so this is where they are accounted for: a one-scan life is the cap's
+    // signature, and the two curves rising together is the cap binding.
+    if (B.zerospan) tr.push({{
+      type:'scatter', mode:'lines+markers', name:'opened & closed same scan',
+      x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
+      hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same scan<extra></extra>'}});
+    Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
+      legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
       margin:{{l:60,r:24,t:16,b:52}},
       xaxis:{{gridcolor:p.grid, tickangle:-40, automargin:true}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
