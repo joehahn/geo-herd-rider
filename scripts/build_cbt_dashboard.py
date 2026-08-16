@@ -631,6 +631,32 @@ def main(argv=None) -> int:
                     # Events that opened and terminated on the SAME scan, by scan. Dropped from the
                     # timeline (they draw as hairlines) so they are counted here instead -- the point
                     # of panel 4 is what the cap is doing, and a one-scan life is the cap's signature.
+                    # LIVE, DERIVED FROM THE JOURNAL, for panel 4 only. `events` above comes from the
+                    # run's own events_live, which counts an event live only while it is being CARRIED
+                    # and so EXCLUDES the scan it terminates on. The unfunded series below is derived
+                    # from journal spans, which include that closing scan -- mixing the two put
+                    # `unfunded` ABOVE `events` on 26 of 37 scans and implied a NEGATIVE funded count.
+                    # Panel 4 therefore takes both curves from this one definition; `events` stays as
+                    # it was for the breadth panel, which compares it against other run-derived series.
+                    "live_j": [sum(1 for _k, _v in ev.items()
+                                   if (_v.get("entries") or [])
+                                   and _v["entries"][0].get("date", "") <= r["week"]
+                                   <= _v["entries"][-1].get("date", ""))
+                               for r in M],
+                    # LIVE BUT NEVER YET FUNDED, per scan. A subset of `events` on the same axis, so
+                    # the GAP between the two curves is what the optimizer actually backed. This is the
+                    # allocation bottleneck as a time series: the curator can be tracking a dozen live
+                    # theses while the book holds four, and nothing else on the page shows the two
+                    # side by side. Counted from event birth up to that scan -- an event that gets
+                    # funded later stops being counted from the scan it is first funded, so the curve
+                    # falls when capital finally arrives rather than staying flat.
+                    "unfunded": [sum(1 for _k, _v in ev.items()
+                                     if (_v.get("entries") or [])
+                                     and _v["entries"][0].get("date", "") <= r["week"]
+                                     <= _v["entries"][-1].get("date", "")
+                                     and not any(str(_a)[:10] <= r["week"]
+                                                 for _a, _b in (_ev_fund.get(_k) or [])))
+                                 for r in M],
                     "zerospan": [sum(1 for _k, _v in ev.items()
                                      if (_v.get("entries") or [])
                                      and _v["entries"][0].get("date") == _v["entries"][-1].get("date")
@@ -960,7 +986,10 @@ def main(argv=None) -> int:
               "cap is BINDING &mdash; every scan there, the lowest coverage-ranked live event was "
               "retired to make room, so what the curator found was limited by the knob rather than by "
               "the news. Where the line runs below it, the cap is inert and the curator simply had "
-              "fewer live theses than it was allowed. The dotted line counts events that opened and "
+              "fewer live theses than it was allowed. The amber line is how many of those live "
+              "theses had received <b>no capital</b> up to that scan &mdash; the gap between it and "
+              "the blue line is what the optimizer actually backed, and it is the allocation "
+              "bottleneck as a time series. The dotted line counts events that opened and "
               "terminated on the SAME scan &mdash; dropped from panel 3 as hairlines, so tallied here. "
               "A one-scan life is the cap\u2019s signature, and the two curves rising together is the "
               "cap binding.",
@@ -1206,14 +1235,19 @@ function draw() {{
   // zero would read as a ceiling of zero, the exact opposite of what it means.
   {{
     const ME = DATA.max_events;
-    const binding = (ME && ME > 0) ? B.events.filter(v => v >= ME).length : 0;
+    const LIVE = B.live_j || B.events;
+    const binding = (ME && ME > 0) ? LIVE.filter(v => v >= ME).length : 0;
     const tr = [{{
-      type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:B.events,
+      type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:(B.live_j || B.events),
       line:{{width:2, color:p.s1}}, marker:{{size:6}},
       hovertemplate:'%{{x}}<br>%{{y}} live events<extra></extra>'}}];
     // Opened-and-closed-in-one-scan, per scan. These are DROPPED from the timeline (panel 3) because
     // they draw as hairlines, so this is where they are accounted for: a one-scan life is the cap's
     // signature, and the two curves rising together is the cap binding.
+    if (B.unfunded) tr.push({{
+      type:'scatter', mode:'lines+markers', name:'live but never yet funded',
+      x:B.w, y:B.unfunded, line:{{width:2, color:ST.warning}}, marker:{{size:5}},
+      hovertemplate:'%{{x}}<br>%{{y}} live, no capital yet<extra></extra>'}});
     if (B.zerospan) tr.push({{
       type:'scatter', mode:'lines+markers', name:'opened & closed same scan',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
