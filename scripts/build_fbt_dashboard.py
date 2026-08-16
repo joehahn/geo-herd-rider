@@ -884,9 +884,13 @@ function draw() {{
   const G = DATA.grouping;
   Plotly.react('p-group', [
     {{type:'bar', name:'articles', x:G.labels, y:G.articles,
-      // the first two categories are articles with NO company -- a different kind of thing from a
-      // bundle size, so they are not painted as if they were one.
-      marker:{{color:G.labels.map((_, i) => i < 2 ? ST.warning : p.s1),
+      // COLOUR BY OUTCOME, not by category. The first two bars are both "no company", but they are
+      // not both a problem: the gate-passed ones still reach the scout standalone through the
+      // unclustered catch-all, so they are painted like any other read article. The never-read ones
+      // are the panel's actual failure -- invisible to the curator in every role, not even usable as
+      // bundle context -- so they get the critical colour. Labelled either way; colour is never the
+      // only signal.
+      marker:{{color:G.labels.map((_, i) => i === 1 ? ST.critical : p.s1),
                line:{{width:2, color:p.surface}}}},
       text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,

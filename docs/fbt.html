@@ -52,7 +52,7 @@ footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
   font-size:12.5px; color:var(--text2); }
 </style></head><body>
 <div class="wrap">
-<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-16 17:36</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
+<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-16 17:40</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
 <header>
   <h1>Firehose Backtest (FBT)</h1>
   <p class="sub">2023-08-11 → 2026-08-09 &middot; 99,117 articles &middot; GKG on BigQuery</p>
@@ -220,9 +220,13 @@ function draw() {
   const G = DATA.grouping;
   Plotly.react('p-group', [
     {type:'bar', name:'articles', x:G.labels, y:G.articles,
-      // the first two categories are articles with NO company -- a different kind of thing from a
-      // bundle size, so they are not painted as if they were one.
-      marker:{color:G.labels.map((_, i) => i < 2 ? ST.warning : p.s1),
+      // COLOUR BY OUTCOME, not by category. The first two bars are both "no company", but they are
+      // not both a problem: the gate-passed ones still reach the scout standalone through the
+      // unclustered catch-all, so they are painted like any other read article. The never-read ones
+      // are the panel's actual failure -- invisible to the curator in every role, not even usable as
+      // bundle context -- so they get the critical colour. Labelled either way; colour is never the
+      // only signal.
+      marker:{color:G.labels.map((_, i) => i === 1 ? ST.critical : p.s1),
                line:{width:2, color:p.surface}},
       text:G.articles.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{color:p.text2, size:10}, cliponaxis:false,
