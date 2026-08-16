@@ -256,16 +256,6 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         dict(label="Has byline", value=f"{100 * auth / max(n, 1):.0f}%", sub=f"{auth:,} named authors",
              status=st(100 * auth / max(n, 1), 60, 30),
              why="Share with a named human author. Wire and PR copy have none by design."),
-        dict(label="Beats firing", value=f"{len(beats)}/{n_beats}",
-             sub=f"{n_beats - len(beats)} beat(s) returned nothing all year",
-             status=st(100 * len(beats) / max(n_beats, 1), 100, 85),
-             why="Standing weekly searches that returned at least one article this year."),
-        dict(label="Early-framing beats", value=f"{gem_n:,}", sub=f"{100 * gem_n / max(n, 1):.1f}% of corpus",
-             status=st(100 * gem_n / max(n, 1), 15, 8),
-             why="Articles from the 10 under-the-radar beats — the ones this strategy bets on."),
-        dict(label="Source spread", value=f"{len(srcs):,}", sub=f"top-10 = {top10:.0f}% of corpus",
-             status=st(100 - top10, 65, 50),
-             why="Distinct outlets in the corpus, and how much the ten largest supply."),
         # REPLACED the "Volume floor" tile 2026-08-16. That one compared a thin day (p10) against a
         # typical day and sat permanently at CRITICAL -- but the thinnest 10% of days were 71 Sundays
         # and 39 Saturdays out of ~112. Pooling weekends with weekdays makes the distribution bimodal,
@@ -278,6 +268,16 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
              status=st(clean_pct, 75, 50),
              why="Share with as-of-date ARCHIVED body text. The live-page arm is look-ahead biased, "
                  "so this is the ceiling on how much of a backtest number is quotable."),
+        dict(label="Beats firing", value=f"{len(beats)}/{n_beats}",
+             sub=f"{n_beats - len(beats)} beat(s) returned nothing all year",
+             status=st(100 * len(beats) / max(n_beats, 1), 100, 85),
+             why="Standing weekly searches that returned at least one article this year."),
+        dict(label="Early-framing beats", value=f"{gem_n:,}", sub=f"{100 * gem_n / max(n, 1):.1f}% of corpus",
+             status=st(100 * gem_n / max(n, 1), 15, 8),
+             why="Articles from the 10 under-the-radar beats — the ones this strategy bets on."),
+        dict(label="Source spread", value=f"{len(srcs):,}", sub=f"top-10 = {top10:.0f}% of corpus",
+             status=st(100 - top10, 65, 50),
+             why="Distinct outlets in the corpus, and how much the ten largest supply."),
     ]
 
 
