@@ -31,7 +31,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import firehose as fh  # noqa: E402
 import optimizer  # noqa: E402
-from sweep_optimizer import load_scans  # noqa: E402
+from sweep_optimizer import load_scans, metrics  # noqa: E402
 
 # Scans a COMPLETE 3-year monthly curation produces, over 2023-08-11..2026-08-09. Hard-coded, so if
 # the backtest window ever changes this must change with it -- a stale value here makes every run look
@@ -56,14 +56,37 @@ def _mech(run: Path) -> dict:
             "vehicles": len({v for _, e in items for v in (e.get("vehicles") or [])})}
 
 
-def _cost(run: Path) -> float:
-    """LLM spend for this curation, from the per-run ledger if it kept one."""
-    for name in ("llm_costs.csv", "costs.csv"):
-        f = run / name
-        if f.exists():
-            import csv
-            return round(sum(float(r.get("cost_usd") or 0) for r in csv.DictReader(f.open())), 2)
-    return 0.0
+def _costs_by_window(runs: list) -> dict:
+    """LLM spend per curation, attributed from the GLOBAL ledger by each run's OWN time window.
+
+    There is no per-run cost file -- every call lands in data/llm_costs.csv -- so a first version
+    looked for one, found nothing, and reported $0.00 for all six runs.
+    The second version chained the windows (each run owns rows since the previous run's end). That
+    broke on the very first row: the uncapped run was curated a day earlier, so it sorted first, its
+    window opened at the dawn of the ledger, and it was billed $1,066.67 for a $4.51 curation.
+    A window is now bounded on BOTH sides by the run's own directory: birth time to journal mtime.
+    Independent per run, so the order the runs were curated in cannot corrupt the attribution."""
+    import csv
+    import datetime as dt
+    rows = []
+    f = ROOT / "data/llm_costs.csv"
+    if f.exists():
+        for r in csv.DictReader(f.open()):
+            try:
+                rows.append((dt.datetime.fromisoformat(r["ts"]), float(r.get("cost_usd") or 0)))
+            except Exception:  # noqa: BLE001 -- a malformed ledger row must not sink the report
+                continue
+    out = {}
+    for cap, rel in runs:
+        d = ROOT / rel
+        j = d / "journal.json"
+        if not j.exists():
+            continue
+        st = d.stat()
+        t0 = dt.datetime.fromtimestamp(getattr(st, "st_birthtime", st.st_ctime), dt.timezone.utc)
+        t1 = dt.datetime.fromtimestamp(j.stat().st_mtime, dt.timezone.utc)
+        out[cap] = round(sum(c for t, c in rows if t0 <= t <= t1), 2)
+    return out
 
 
 def main(argv=None) -> int:
@@ -78,6 +101,7 @@ def main(argv=None) -> int:
     fm = dict(fm)
     fm.pop("max_events", None)          # the swept knob must not also reach the book math
 
+    costs = _costs_by_window(RUNS)
     rows = []
     for cap, rel in RUNS:
         run = ROOT / rel
@@ -98,6 +122,13 @@ def main(argv=None) -> int:
         scans = load_scans(run)
         bt = fh.backtest(scans, fm, capital=float(fm.get("initial_investment_usd") or 50_000),
                          daily=True)
+        # Sharpe / drawdown / cancellation are NOT returned by backtest() -- they are derived in
+        # sweep_optimizer.metrics(). Reading them off `bt` returned None for every run and the first
+        # collected table showed Sharpe 0.00 and drawdown 0.0% across the board, which is a silent
+        # zero, the worst kind. Reuse the sweep's own function so this series and the 6,300-cell grid
+        # are computed by the SAME code and stay comparable.
+        anchors = set(fh.anchor_tickers(fm))
+        m = metrics(bt, anchors, fm)
         d = bt.get("daily") or {}
         alloc = d.get("alloc") or {}
         n = len(d.get("value") or [])
@@ -107,11 +138,11 @@ def main(argv=None) -> int:
         row = {"max_events": cap, "run": rel,
                "final": round(bt.get("final") or 0, 2),
                "spy": round(bt.get("spy_final") or 0, 2),
-               "sharpe": bt.get("sharpe"), "max_drawdown": bt.get("max_drawdown"),
-               "cancelled": bt.get("cancelled"),
+               "sharpe": m.get("sharpe"), "max_drawdown": m.get("max_drawdown"),
+               "cancelled": m.get("cancelled"), "ann": m.get("ann"),
                "funded": len([k for k, v in alloc.items() if any(x > 0.005 for x in v)]),
                "idle_pct": round(100 * idle / n, 1) if n else 0.0,
-               "cost_usd": _cost(run)}
+               "cost_usd": costs.get(cap, 0.0)}
         row.update(_mech(run))
         rows.append(row)
         print(f"  max_events={cap:<3} events {row['events']:4}  cull {row['cull_pct']:5.1f}%  "
