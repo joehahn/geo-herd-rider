@@ -232,10 +232,20 @@ def main(argv=None) -> int:
     TOP_N = 50
     short = [c for c in cells
              if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
-    # Ranked by SHARPE, not plateau. Plateau ranks on CANCELLATION, and cancellation alone selects
-    # for a book that barely trades -- the lowest-cancellation cell is dominated on return, Sharpe AND
-    # drawdown by cells further up the grid. Plateau stays as a column, so a lone spike is still visible.
-    short.sort(key=lambda c: -(c["sharpe"] if c.get("sharpe") is not None else -9))
+    # RANKED BY PLATEAU (2026-08-16), not Sharpe. Every cell here has already cleared five quality
+    # bars -- Sharpe > 1.2, DD < 40%, cancellation < 20%, both churn bands -- so the shortlist is a set
+    # of configs that are all ACCEPTABLE. The question the ordering should answer is therefore not
+    # "which is best in sample" but "which is likeliest to still work on the next curation", and that
+    # is what plateau estimates: half a config's own cancellation, half its grid neighbours'.
+    # Sharpe-ranking put [6, 0.40, 21, 0, 4.0, 0.30] at row 1 on a Sharpe of 1.93 whose immediate
+    # neighbours average 1.29 -- a knife-edge cell at the top of the list that decides configs. This
+    # repo has had THREE sweep winners fail to survive the next curation, so ranking on the in-sample
+    # peak is ranking on the quantity that has misled it every time.
+    # The Sharpe rank is kept as its own column: where the two disagree IS the overfit risk, and
+    # hiding one of them would just move the blind spot.
+    _sh_rank = {id(c): i + 1 for i, c in enumerate(
+        sorted(short, key=lambda c: -(c["sharpe"] if c.get("sharpe") is not None else -9)))}
+    short.sort(key=lambda c: c["plateau"])
 
     # A star per column-winner AMONG THE SURVIVORS, on the four measures worth optimising. Four stars
     # rarely land on one row -- where they scatter IS the trade-off, and reading that is the point.
@@ -258,11 +268,13 @@ def main(argv=None) -> int:
     _pos = {id(c): i for i, c in enumerate(cells)}
     payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
 
-    cols = ["plateau", "cancelled", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2", "final"]
+    cols = ["#Sharpe", "plateau", "cancelled", "ann", "Sharpe", "Gain/Pain", "max DD",
+            "L1", "L2", "final"]
 
     def _row(c, label):
         return ([label] + [str(c[k]) for k in keys]
-                + [f"{c['plateau']:.0f}%" + _st(c, "plateau"),
+                + [f"{_sh_rank.get(id(c), 0)}",
+                   f"{c['plateau']:.0f}%" + _st(c, "plateau"),
                    f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
                    _f(c.get("ann"), "%", 0) + _st(c, "ann"),
                    _f(c.get("sharpe")) + _st(c, "Sharpe"),
@@ -275,8 +287,8 @@ def main(argv=None) -> int:
     if len(short) > TOP_N:
         rest = (f'<details><summary>show the remaining {len(short) - TOP_N} surviving configs</summary>'
                 f'<div class="scroll">'
-                + _rot_table(hdr, [_row(c, ("★ " if id(c) in starred else "") + f"{i+21}")
-                                   for i, c in enumerate(short[20:])])
+                + _rot_table(hdr, [_row(c, ("★ " if id(c) in starred else "") + f"{i+TOP_N+1}")
+                                   for i, c in enumerate(short[TOP_N:])])
                 + '</div></details>')
     cur_tbl = (f'<div class="scroll">{_rot_table(hdr, [_row(cur, "current")])}</div>'
                if cur else "")
@@ -355,7 +367,15 @@ def main(argv=None) -> int:
          "shortlist</b>: [8, 0.25, 14, 0, 4.0, 0.20] scores cancellation 20.0 against the &lt; 20% "
          "bar and is cut by 0.0 &mdash; and since cancellation is stored to one decimal, the rounding "
          "rather than the measurement is what excludes it. The bar is left strictly &lt; as "
-         "specified. <b>plateau</b> = "
+         "specified. <b>Ranked by PLATEAU, not Sharpe</b> (changed 2026-08-16). Every row here has "
+         "already cleared all five bars, so the shortlist is a set of configs that are all acceptable; "
+         "the job of the ordering is then not to find the in-sample peak but the cell likeliest to "
+         "still work on the NEXT curation. Sharpe-ranking put [6, 0.40, 21, 0, 4.0, 0.30] at row 1 on "
+         "a Sharpe of 1.93 whose immediate grid neighbours average <b>1.29</b> &mdash; a knife-edge "
+         "cell at the top of the list people pick from, and this project has already had three sweep "
+         "winners fail to survive the next curation. The <b>#Sharpe</b> column keeps that ranking "
+         "visible: <b>where the two columns disagree is exactly where the overfit risk is</b>. "
+         "<b>plateau</b> = "
          "&frac12;&middot;the config's own cancellation + &frac12;&middot;the mean of its grid "
          "neighbours, so a lone in-sample spike with weak surroundings still shows up. "
          "A <b>&#9733;</b> marks the survivor that is best on that column (plateau, cancellation, "
