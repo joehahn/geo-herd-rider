@@ -935,6 +935,11 @@ def main(argv=None) -> int:
                   if (v.get("entries") or [])
                   and v["entries"][0].get("date") == v["entries"][-1].get("date"))
     _n_culled = len(ev) - _n_lived - _n_zero    # no agent entry at all
+    # Events that had an agent read and NEVER received capital, over the whole run. Stated as a number
+    # rather than drawn as a fourth curve: it is a cumulative FLOW against three stocks, so on this
+    # axis it would only ever rise and would flatten the bands that carry the panel's meaning.
+    _n_unfunded_ever = sum(1 for k, v in ev.items()
+                           if (v.get("entries") or []) and not (_ev_fund.get(k) or []))
 
     # UNINVESTED DAYS, measured not assumed. The old caption asserted the book is "never actually in
     # cash" -- a claim that was true of one curation and silently false for the next (53% of days on
@@ -981,18 +986,16 @@ def main(argv=None) -> int:
               "indistinguishable from the axis and would bury the theses that ran.",
               "c-gantt", max(700, 14 * _n_gantt)),
         panel(4, "Live events vs the cap",
-              "How many theses the curator was tracking at once, against the "
-              "<code>max_events</code> ceiling (dashed). Where the line sits ON the dashed line the "
-              "cap is BINDING &mdash; every scan there, the lowest coverage-ranked live event was "
-              "retired to make room, so what the curator found was limited by the knob rather than by "
-              "the news. Where the line runs below it, the cap is inert and the curator simply had "
-              "fewer live theses than it was allowed. The amber line is how many of those live "
-              "theses had received <b>no capital</b> up to that scan &mdash; the gap between it and "
-              "the blue line is what the optimizer actually backed, and it is the allocation "
-              "bottleneck as a time series. The dotted line counts events that opened and "
-              "terminated on the SAME scan &mdash; dropped from panel 3 as hairlines, so tallied here. "
-              "A one-scan life is the cap\u2019s signature, and the two curves rising together is the "
-              "cap binding.",
+              "How many theses the curator was tracking at once, split by whether the optimizer had "
+              "put capital behind them, against the <code>max_events</code> ceiling (dashed). The "
+              "stack\u2019s top edge is the live count: where it sits ON the dashed line the cap is "
+              "BINDING and the lowest coverage-ranked live event was retired to make room, so what "
+              "the curator tracked was limited by the knob rather than by the news. <b>The amber band "
+              "is the allocation bottleneck</b> \u2014 live theses the math never backed. The dotted "
+              "line is a FLOW, not part of the stack: events that opened and terminated on the same "
+              f"scan, dropped from panel 3 as hairlines and tallied here instead. Across the run "
+              f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero} events with an agent read died having "
+              "never been funded at all</b>.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names, with every other name rolled into one grey bar. "
@@ -1229,25 +1232,27 @@ function draw() {{
 
   const B = DATA.breadth;
 
-  // Panel 4: live events against the max_events ceiling. The count already exists for the breadth
-  // panel; what is new here is the CAP drawn beside it, which turns "how many theses" into "was the
-  // knob the binding constraint". Cap 0 means uncapped -- no line is drawn, because a dashed line at
-  // zero would read as a ceiling of zero, the exact opposite of what it means.
+  // Panel 4: the live-event stack against the max_events ceiling. STACKED rather than three
+  // separate lines because the two bands are PARTS OF ONE WHOLE -- unfunded + funded = live -- so the
+  // stack's top edge IS the live count and can be read straight against the cap, while the split
+  // shows the allocation bottleneck without a second axis or a subtraction done by eye.
+  // Unfunded sits BELOW: it is the base the optimizer has not acted on, and putting it underneath
+  // keeps the funded band adjacent to the ceiling it is competing for.
   {{
     const ME = DATA.max_events;
     const LIVE = B.live_j || B.events;
-    const binding = (ME && ME > 0) ? LIVE.filter(v => v >= ME).length : 0;
-    const tr = [{{
-      type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:(B.live_j || B.events),
-      line:{{width:2, color:p.s1}}, marker:{{size:6}},
-      hovertemplate:'%{{x}}<br>%{{y}} live events<extra></extra>'}}];
-    // Opened-and-closed-in-one-scan, per scan. These are DROPPED from the timeline (panel 3) because
-    // they draw as hairlines, so this is where they are accounted for: a one-scan life is the cap's
-    // signature, and the two curves rising together is the cap binding.
-    if (B.unfunded) tr.push({{
-      type:'scatter', mode:'lines+markers', name:'live but never yet funded',
-      x:B.w, y:B.unfunded, line:{{width:2, color:ST.warning}}, marker:{{size:5}},
-      hovertemplate:'%{{x}}<br>%{{y}} live, no capital yet<extra></extra>'}});
+    const UNF = B.unfunded || LIVE.map(() => 0);
+    const FUND = LIVE.map((v, i) => Math.max(0, v - (UNF[i] || 0)));
+    const tr = [
+      {{type:'scatter', mode:'lines', stackgroup:'ev', name:'live, not yet funded',
+        x:B.w, y:UNF, line:{{width:0.5, color:ST.warning}}, fillcolor:ST.warning,
+        hovertemplate:'%{{x}}<br>%{{y}} live, no capital yet<extra></extra>'}},
+      {{type:'scatter', mode:'lines', stackgroup:'ev', name:'live and funded',
+        x:B.w, y:FUND, line:{{width:0.5, color:p.s1}}, fillcolor:p.s1,
+        hovertemplate:'%{{x}}<br>%{{y}} live and funded<extra></extra>'}},
+    ];
+    // Same-scan events are a FLOW, not part of the live stock, so they stay a line on top of the
+    // stack rather than a third band -- adding them to the stack would double-count.
     if (B.zerospan) tr.push({{
       type:'scatter', mode:'lines+markers', name:'opened & closed same scan',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
@@ -1262,8 +1267,7 @@ function draw() {{
                 line:{{color:ST.critical, width:1.8, dash:'dash'}}}}] : [],
       annotations: (ME && ME > 0)
         ? [{{xref:'paper', x:0.99, xanchor:'right', yref:'y', y:ME, yanchor:'bottom',
-             showarrow:false, font:{{size:11, color:p.text2}},
-             text:'max_events '+ME+' \u2014 binding in '+binding+' of '+B.events.length+' scans'}}]
+             showarrow:false, font:{{size:11, color:p.text2}}, text:'max_events '+ME}}]
         : [{{xref:'paper', x:0.99, xanchor:'right', yref:'paper', y:0.02, yanchor:'bottom',
              showarrow:false, font:{{size:11, color:p.text2}},
              text:'max_events 0 = uncapped, no ceiling to draw'}}]}}), CFG);
