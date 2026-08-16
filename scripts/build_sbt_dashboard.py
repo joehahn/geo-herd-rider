@@ -224,7 +224,12 @@ def main(argv=None) -> int:
              ("L2", "l2", lambda v: 600 < v < 1000, "600&ndash;1000/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
              ("cancelled", "cancelled", lambda v: v < 20, "&lt; 20%")]
-    TOP_N = 30                      # rows shown in table 7 AND marked as squares in panels 2-6
+    # Rows shown in table 7 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
+    # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
+    # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
+    # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
+    # was invisible in the table AND unmarked in the scatters).
+    TOP_N = 50
     short = [c for c in cells
              if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
     # Ranked by SHARPE, not plateau. Plateau ranks on CANCELLATION, and cancellation alone selects
@@ -251,7 +256,7 @@ def main(argv=None) -> int:
     # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
-    payload["top20"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
+    payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
 
     cols = ["plateau", "cancelled", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2", "final"]
 
@@ -448,6 +453,7 @@ no LLM, no re-curation &middot; knobs from {_LINK(PROFILE_URL, 'investor_profile
 <script>
 const DATA = {json.dumps(payload)};
 const LIGHT = {json.dumps(LIGHT)}, DARK = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
+const TOPN = {TOP_N};
 const CFG = {{displayModeBar:false, responsive:true}};
 function base(p, o){{ return Object.assign({{
   paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
@@ -479,15 +485,15 @@ function draw(){{
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<br>'+xlab+' %{{x:,.0f}}'+xsuf+'<extra></extra>',
       showlegend:false}});
     const tr=[mk(c=>!isCur(c))];
-    // The table-6 top 20, as light-blue squares: smaller than the star and drawn UNDER it, so the live
+    // The table-7 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
     // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
-    const TOP = new Set(DATA.top20 || []);
+    const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
     if (top.length) tr.push({{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:'#7dd3fc',
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>table-7 top 20</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>table-7 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
