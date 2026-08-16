@@ -642,17 +642,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "are genuine walls and 18% our parser failing.",
               "p-miss", 340),
         panel(9, "Entity grouping: what the scout\u2019s bundles are made of",
-              "Before the scout reads anything, articles are bundled by the company they are about, "
-              "so a ticker\u2019s move-signal and its driver arrive together. This is what the corpus "
-              "supports. <b>Bars are articles</b> (left) and <b>entities</b> (right) by bundle size. "
-              "Two things to watch, both failure modes rather than successes: the <b>1-article</b> bar "
-              "is where grouping can do nothing &mdash; there is no second article to corroborate "
-              f"with; and <b>{grouping['no_org']:,} of {grouping['n']:,} articles "
-              f"({100 * grouping['no_org'] / max(grouping['n'], 1):.0f}%) carry no usable company at "
-              "all</b>, so they join no bundle and reach the scout only through the unclustered "
-              "catch-all. GKG either attached no organisation or attached only non-companies "
-              "(<code>United States</code>, <code>York Stock Exchange</code>), which are correctly "
-              "rejected but leave nothing to group on.",
+              "The scout reads articles bundled by the company they are about, so a ticker\u2019s "
+              "move and its driver arrive together. This is what the corpus supports: how many "
+              "entities sit in each bundle size, and how many articles they carry. Watch the "
+              "<b>1-article</b> bar, where there is nothing to corroborate with, and note that "
+              f"<b>{grouping['no_org']:,} of {grouping['n']:,} articles "
+              f"({100 * grouping['no_org'] / max(grouping['n'], 1):.0f}%)</b> name no usable company "
+              "at all, so they bypass grouping entirely.",
               "p-group", 360),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
@@ -879,7 +875,7 @@ function draw() {{
       text:G.groups.map(v=>v.toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10}}, cliponaxis:false,
       hovertemplate:'%{{x}} per bundle<br>%{{y:,}} entities<extra></extra>'}}
-  ], base(p, {{barmode:'group',
+  ], base(p, {{barmode:'group', showlegend:true,
       margin:{{l:70,r:24,t:34,b:52}},
       legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
       xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
