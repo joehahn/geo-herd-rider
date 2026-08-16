@@ -222,7 +222,7 @@ def main(argv=None) -> int:
              ("L2", "l2", lambda v: v < 1200, "&lt; 1200/yr"),
              ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
              ("cancelled", "cancelled", lambda v: v < 35, "&lt; 35%")]
-    # Rows shown in table 7 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
+    # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
     # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
@@ -350,7 +350,24 @@ def main(argv=None) -> int:
               "shape is itself the finding: if it were a tight rising diagonal these knobs would only "
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
-        ('<section class="panel"><h2>7. Recommended settings</h2><p class="lead">'
+        panel(7, "Gains on the no-brainer shortlist",
+              "Every other panel scores a config on the WHOLE book. This one asks a narrower question: "
+              "what did it make on seven names that were, in hindsight, obvious &mdash; a big multi-year "
+              "rise where the press named <b>dated, verifiable catalysts</b> rather than narrative "
+              "(RKLB space/defense, DRUG biotech, MU semis, BE power, IREN crypto&rarr;AI datacenter, "
+              "MP minerals, QUBT quantum; one per sector so no config can win by loading a single "
+              "theme). Vertical axis is dollars made on those seven, horizontal is Sharpe, colour is "
+              "cancellation &mdash; so <b>upper-right, pale</b> is a config that earns well, keeps it, "
+              "AND gets paid for catching the obvious ones. The two are related but far from the same "
+              "question: across the grid focus-gain correlates <b>+0.49</b> with Sharpe and only "
+              "<b>&minus;0.02</b> with drawdown, and configs below the zero line LOST money on names "
+              "that rose 120&ndash;3,590%. <b>Robotics is deliberately absent</b>, and that is a "
+              "retrieval finding rather than a view on the sector: our corpus carries 1 article on "
+              "RCAT (+868%), 0 on UMAC (+762%) and 3 on ONDS (+699%), while covering the sector's "
+              "losers well (PATH 90, SERV 37). Including it would measure a hole in our news feed as "
+              "if it were a config failure.",
+              "s-focus", 470),
+        ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all four gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
@@ -364,18 +381,18 @@ def main(argv=None) -> int:
          f"against a &lt; 20% bar; a <b>&#9733;</b> marks the best survivor per column, top {TOP_N} "
          "shown, current config on the last row."
          f'</p>{rec}</section>'),
-        panel(8, f"{heat['ky']} × {heat['kx']}",
+        panel(9, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
               "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
               "interactions hide — a value that looks harmless on average can be the worst choice "
               "in one corner of the grid.",
               "s-heat", 420),
-        panel(9, "Each knob on its own",
+        panel(10, "Each knob on its own",
               "For every value of every knob: the MEDIAN cancellation across all cells holding that "
               "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
               "knob only pays in combination with something else. The live setting is outlined.",
               "s-marg", 620),
-    ] + ([panel(10, "Portfolio value vs max_events",
+    ] + ([panel(11, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
               "FIXED curation through different book math, so 6,300 cells cost nothing; "
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
@@ -388,14 +405,14 @@ def main(argv=None) -> int:
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
               "s-me", 460),
-        panel(11, "Risk-adjusted quality vs max_events",
+        panel(12, "Risk-adjusted quality vs max_events",
               "Sharpe per cap, with the shortlist's <b>&gt; 1.2 floor</b> drawn in. This is the panel "
-              "to weigh against 10, because Sharpe is what table 7 actually ranks by and what the "
+              "to weigh against 10, because Sharpe is what table 8 actually ranks by and what the "
               "live config was chosen on &mdash; a cap that wins on final value while dropping below "
               "the floor has not won anything we would deploy. Bars under the line are configs the "
               "shortlist would refuse regardless of how much money they made.",
               "s-me-sharpe", 380),
-        panel(12, "Where the money sits, and what it gives back",
+        panel(13, "Where the money sits, and what it gives back",
               "Three percentages on ONE axis, all of them defects: <b>max drawdown</b> (the hole the "
               "book digs), <b>cancellation</b> (winners' gains handed back by losers) and <b>idle "
               "days</b> (days holding NO position at all &mdash; the cash band in CBT plot 9). Dashed "
@@ -405,7 +422,7 @@ def main(argv=None) -> int:
               "allowed to open them. All three are better LOW, so a cap whose three bars are all "
               "short is the one to want.",
               "s-me-risk", 400),
-        panel(13, "What the cap costs, and what it buys",
+        panel(14, "What the cap costs, and what it buys",
               "Left bars: the <b>LLM bill for that curation</b> &mdash; the only thing on this page "
               "that is not free, since each point is a full re-curation rather than a replay. Right "
               "bars: the same money divided by <b>tickers that actually got funded</b>, which is the "
@@ -486,7 +503,7 @@ function draw(){{
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<br>'+xlab+' %{{x:,.0f}}'+xsuf+'<extra></extra>',
       showlegend:false}});
     const tr=[mk(c=>!isCur(c))];
-    // The table-7 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
+    // The table-8 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
     // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
     const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
@@ -494,7 +511,7 @@ function draw(){{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:'#7dd3fc',
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>table-7 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>table-8 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
@@ -504,6 +521,35 @@ function draw(){{
              title:{{text:'annualized return', font:{{size:11}}}}}}}}), CFG);
   }}
   const CANC = c=>c.cancelled, DD = c=>c.max_drawdown;
+  // 7. shortlist gain vs Sharpe. NOT built on scat(): that helper fixes the y-axis to annualized
+  // return, and the whole point here is a different y.
+  {{
+    const F = C.filter(c => c.focus_gain !== undefined && c.focus_gain !== null);
+    if (F.length) {{
+      const isCur = c => K.map(k=>c[k]).join('|') === curKey;
+      const body = F.filter(c=>!isCur(c)), me = F.filter(isCur);
+      const tr = [{{
+        type:'scatter', mode:'markers', x:body.map(c=>c.sharpe), y:body.map(c=>c.focus_gain),
+        marker:{{size:7, color:body.map(CANC), colorscale:'YlOrRd', showscale:true, cmin:0, cmax:120,
+                 colorbar:{{title:{{text:'cancelled %', font:{{size:10}}}}, thickness:10}},
+                 line:{{width:1, color:p.surface}}}},
+        text:body.map(c=>K.map(k=>k+'='+c[k]).join('<br>')),
+        hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
+        showlegend:false}}];
+      if (me.length) tr.push({{
+        type:'scatter', mode:'markers', x:me.map(c=>c.sharpe), y:me.map(c=>c.focus_gain),
+        marker:{{size:20, color:PUR, symbol:'star', line:{{width:1.5, color:p.surface}}}},
+        text:me.map(c=>'<b>CURRENT CONFIG</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+        hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<extra></extra>', showlegend:false}});
+      Plotly.react('s-focus', tr, base(p, {{margin:{{l:78,r:20,t:16,b:48}},
+        xaxis:{{gridcolor:p.grid, title:{{text:'Sharpe (higher is better)', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$',
+               title:{{text:'$ made on the 7 shortlist names', font:{{size:11}}}}}},
+        // zero line: below it a config LOST money on names that rose 120-3,590%
+        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:0, y1:0,
+                  line:{{color:ST.critical, width:1.5, dash:'dash'}}}}]}}), CFG);
+    }}
+  }}
   scat('s-dd',   DD,   'max drawdown',         '%', CANC, 'cancelled %');
   // L1/L2 get SHARPE, not cancellation: neither axis carries any risk, so colour is doing real work
   // here, and Sharpe answers the question churn actually poses -- is the extra trading buying

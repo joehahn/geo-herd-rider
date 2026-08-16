@@ -97,6 +97,23 @@ def load_scans(run: Path) -> dict:
     return dict(sorted(sc.items()))
 
 
+# THE NO-BRAINER SHORTLIST. Tickers with a big multi-year rise WHOSE PRESS NAMED DATED, VERIFIABLE
+# CATALYSTS -- contract awards, FDA decisions, funding acts -- rather than diffuse narrative. One per
+# sector, so a config cannot score well by loading a single theme:
+#   RKLB space/defense · DRUG biotech · MU AI-infra/semis · BE power · IREN crypto->AI datacenter
+#   MP critical minerals · QUBT quantum
+# `focus_gain` is what a config made ON THESE NAMES. It answers a question total return cannot: did
+# this config get paid for catching the obvious ones, or for something else entirely?
+#
+# ROBOTICS IS DELIBERATELY ABSENT, and the reason is a retrieval finding, not a judgement about the
+# sector. Measured 2026-08-16 on the 99,117-article corpus: the robotics WINNERS are invisible to us
+# (RCAT +868% -> 1 article, UMAC +762% -> 0, ONDS +699% -> 3, KTOS +271% -> 4 = 8 articles between
+# them) while the robotics LOSERS are well covered (PATH -1% -> 90, SERV -79% -> 37, RR -69% -> 26).
+# Our corpus samples that sector INVERTED. PWR held ONDS off its own retrieval; we never saw it.
+# Putting robotics in this list would measure a retrieval hole as if it were a config failure.
+FOCUS = ("RKLB", "DRUG", "MU", "BE", "IREN", "MP", "QUBT")
+
+
 def metrics(b: dict, anchors: set, fm: dict) -> dict:
     """The scoreboard for one cell. Cancellation leads; return is reported but not optimised for."""
     d = b.get("daily") or {}
@@ -143,7 +160,10 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     yrs = max(n, 1) / 252.0
     v0, vN = (vals[0] or 1), vals[-1]
     ann = ((vN / v0) ** (1 / yrs) - 1) if v0 > 0 and vN > 0 else None
+    focus = round(sum(v for t, v in g.items() if t in FOCUS), 2)
     return {"final": round(b.get("final", 0), 2),
+            "focus_gain": focus,
+            "focus_held": sum(1 for t in FOCUS if t in g),
             "cancelled": round(100 * abs(neg) / pos, 1) if pos else None,
             "ann": round(100 * ann, 1) if ann is not None else None,
             "winners": sum(1 for v in g.values() if v > 0),
