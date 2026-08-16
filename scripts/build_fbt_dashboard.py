@@ -266,8 +266,8 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         dict(label="Clean (archived) text", value=f"{clean_pct:.0f}%",
              sub=f"{clean_n:,} of {n:,} via wayback",
              status=st(clean_pct, 75, 50),
-             why="Share with as-of-date ARCHIVED body text. The live-page arm is look-ahead biased, "
-                 "so this is the ceiling on how much of a backtest number is quotable."),
+             why="Share with as-of-date archived text \u2014 the live-page arm is look-ahead biased, "
+                 "so this caps how much of a backtest number is quotable."),
         dict(label="Beats firing", value=f"{len(beats)}/{n_beats}",
              sub=f"{n_beats - len(beats)} beat(s) returned nothing all year",
              status=st(100 * len(beats) / max(n_beats, 1), 100, 85),
