@@ -263,7 +263,7 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         # the gap BETWEEN two populations rather than any retrieval shortfall. Split properly it was
         # healthy either way: weekdays 73%, weekends 58%. A permanently-red tile that is measuring the
         # calendar trains you to ignore the light.
-        dict(label="Clean (archived) text", value=f"{clean_pct:.0f}%",
+        dict(label="Clean text", value=f"{clean_pct:.0f}%",
              sub=f"{clean_n:,} of {n:,} via wayback",
              status=st(clean_pct, 75, 50),
              why="Fraction of articles whose text was retrieved via wayback."),
