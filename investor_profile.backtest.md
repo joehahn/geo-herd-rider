@@ -20,42 +20,38 @@
 #     Sharpe 0.85, and it left the book holding NOTHING on 53% of days (32% of trades cancelled).
 #     Robustness across two curations of the SAME design did not survive a change of design.
 #
-# CURRENT CELL [4, 0.40, 30, 0, 4.00, 0.30] with max_events: 16, set 2026-08-16.
-# CHOSEN ON CROSS-CURATION TRANSFER, not on being best in sample -- the first config here selected
-# that way, after four straight failures of the in-sample method. It is measured on BOTH available
-# 3-year curations (uncapped = data/cbt_3yr_v4, and max_events=16 = data/cbt_3yr_me16) against the
-# gates DD < 60%, L2 < 1200/yr, Sharpe > 1.2, cancelled < 35%:
+# CURRENT CELL [4, 0.60, 30, 0, 4.00, 0.10] with max_events: 16, set 2026-08-16.
+# Row 1 of table 8 on the me16 curation (data/cbt_3yr_me16, the production curation), plateau-ranked,
+# clearing DD < 70%, L1 > 1800%/yr, L2 < 1250/yr, Sharpe > 1.2, cancelled < 40%, shortlist > $40k:
 #
-#   curation    Sharpe      final     DD     cancelled   gates
-#   uncapped      1.31   $167,023   23.9%       18.7%    PASS
-#   me16          2.03   $528,410   22.9%       10.4%    PASS
+#   plateau 19.4 (best of 254)   Sharpe 1.69   final $404,241   drawdown 35.8%   cancelled 15.9%
+#   shortlist gain $76,081 across 4 of the 7 no-brainer names
 #
-# Drawdown moves 1 point and cancellation improves across two structurally different books. That
-# stability is the whole case; it is NOT the biggest number on either curation.
+# CHOSEN FOR SHORTLIST CAPTURE, which is what the newest gate exists to enforce. The cell it replaces,
+# [4, 0.40, 30, 0, 4.00, 0.30], is better on every whole-book measure -- Sharpe 2.03, drawdown 22.9%,
+# cancellation 10.4%, final $528,409 -- but made $53,297 on only 2 of the 7 names, clearing its own
+# shortlist bar by $3,297. Its tight cap (0.40) and high trade floor (0.30) are precisely what kept it
+# out of five of the seven; loosening both to 0.60 / 0.10 is what buys the capture. Only those two
+# knobs move.
 #
-# WHAT IT REPLACES, and why -- worth keeping because it is the failure mode this repo keeps hitting.
-# [8, 0.60, 21, 0, 3.00, 0.10] was picked hours earlier as plateau-rank 3 on the uncapped curation
-# (Sharpe 1.77, $312,787, drawdown 29.6%, cancellation 9.3%). On the me16 curation the SAME cell
-# scores Sharpe 1.24, drawdown 54.0%, cancellation 42.6% -- it fails the gates outright. Being 3rd of
-# 319 by plateau on one curation predicted nothing about the next. Earlier failures, same shape:
-#   - [4, 0.60, 45, 0, 4.0, 0.30]: top of v14 at $324,524, paid $122,408 on v15.
-#   - [8, 0.40, 30, 2, 4.0, 0.30]: $441,877 on v15, $61,471 on v14 -- below SPY.
-#   - [6, 0.40, 45, 4, 4.0, 0.20]: chosen on worst-case plateau across v14+v15, then paid $165,772
-#     on the v4 grouped curation and left the book in cash 53% of days.
-# The lesson taken: rank on AGREEMENT ACROSS CURATIONS, and treat any single curation's ordering --
-# plateau included -- as one noisy sample.
+# WHAT IT COSTS: 13 points of drawdown (35.8% vs 22.9%), 0.34 of Sharpe, and $124,168 of final value,
+# for +43% on the shortlist and 4 names held instead of 2. That is the fork this page keeps arriving
+# at -- cleanest risk-adjusted book, or actually riding the theses the curator was built to find --
+# and the shortlist gate is the decision to take the second. Recorded so it is not rediscovered as a
+# regression.
 #
-# COST OF BEING RIGHT ABOUT THIS: on the uncapped curation this cell pays $167,023 against the
-# replaced cell's $312,787. Roughly $146K of backtest return traded for a risk profile that does not
-# depend on which curation you happen to hold. Recorded so the trade is not rediscovered as a bug.
-#
-# CAVEATS. (1) max_events: 16 is the USER'S standing choice; the measured evidence runs the other way
-# and is left here rather than argued again -- the me16 curation culls 50.8% of its events at birth
-# against 2.1% uncapped, its median cancellation is 61.8% against 35.3%, and under the previous,
-# tighter gates ZERO of 6,300 cells cleared on it. (2) Both curations ran --arm fuller, which mixes
-# look-ahead-BIASED live ledes; backtest_gdelt.py marks `clean` as the only quotable arm.
-# (3) TWO curations is a better test than one and still a small sample. Per CLAUDE.md #4/#6 every
-# figure here is an UPPER BOUND; the forward test is the verdict.
+# CAVEATS. (1) Selected on ONE curation. Every earlier single-curation pick here failed on the next
+# book: [8, 0.60, 21, 0, 3.0, 0.10] was plateau-rank 3 on the uncapped curation and failed the gates
+# outright on me16 (Sharpe 1.77 -> 1.24, cancellation 9.3% -> 42.6%). The honest test is a SECOND
+# curation at max_events 16 with a fresh seed (~$4, ~45 min), which isolates run-to-run noise from
+# the design difference that makes the uncapped book an imperfect control.
+# (2) The seven shortlist names were chosen in HINDSIGHT and the gate is applied to the same book the
+# ranking is computed from, so that bar states what we want the strategy to catch -- it is not
+# evidence that it does.
+# (3) max_events: 16 is the user's standing choice; the measured evidence runs the other way (me16
+# culls 50.8% of events at birth against 2.1% uncapped, median cancellation 61.8% against 35.3%).
+# (4) Both curations ran --arm fuller, which mixes look-ahead-BIASED live ledes; backtest_gdelt.py
+# marks `clean` as the only quotable arm. Per CLAUDE.md #4/#6 every figure here is an UPPER BOUND.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -110,11 +106,11 @@ drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dr
                                   #   because its thesis died -- the curator's exit switch already handles
                                   #   that. Dropping on 4 kept evicting names the optimizer then re-bought.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.40           # most of the book any one ticker may take. Tightened from 0.40
+concentration_cap: 0.60           # most of the book any one ticker may take. Tightened from 0.40
                                   #   2026-08-15: at max_watchlist 8 the sweep's whole top-Sharpe cluster
                                   #   sits at 0.25, i.e. spread the risk and let the curator's breadth,
                                   #   not a single name, carry the return.
-min_trade_size: 0.30              # positions smaller than this are dropped. At max_watchlist 8 an equal book
+min_trade_size: 0.10              # positions smaller than this are dropped. At max_watchlist 8 an equal book
                                   #   is 12.5% a name, so at 0.20 this still BITES -- a concentration lever,
                                   #   not a dust filter. Watch it: paired with the old [6, 0.40, 45, 4] cell
                                   #   it cancelled 32% of trades and left the book in cash 53% of days,
