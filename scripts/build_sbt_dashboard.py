@@ -94,8 +94,25 @@ def main(argv=None) -> int:
     # What was swept, and what the profile currently says -- PWR's "Parameter settings" panel. The
     # `current` column is what makes it readable: without it the grid is a list of numbers with no
     # indication of where we actually stand in it.
-    ps_rows = [[k, ", ".join(str(v) for v in S["grid"][k]), str(base[k])] for k in keys]
-    param_tbl = table_html(["parameter", "values swept", "current (profile)"], ps_rows)
+    ps_rows = [[k, ", ".join(str(v) for v in S["grid"][k]), str(base[k]), "free — book replay"]
+               for k in keys]
+    # max_events belongs in this table -- it IS swept on this page (panels 10-13) -- but it is swept
+    # on completely different terms and listing it beside the six without saying so would be the
+    # misleading part. The six are FREE: they re-weight a fixed curation, so 6,300 cells cost nothing.
+    # max_events is a CURATION knob, so each value needed its own re-curation and its own LLM bill.
+    # Hence the fourth column: it exists to keep that distinction on the page rather than in a commit
+    # message. Only shown once the series has actually been collected.
+    if me and me.get("rows"):
+        _mer = sorted(me["rows"], key=lambda r: (r["max_events"] == 0, r["max_events"]))
+        _cost = sum(r.get("cost_usd") or 0 for r in _mer)
+        ps_rows.append([
+            "max_events",
+            ", ".join("uncapped" if r["max_events"] == 0 else str(r["max_events"]) for r in _mer),
+            ("0 = uncapped" if not base.get("max_events") else str(base.get("max_events")))
+            if "max_events" in base else
+            ("0 = uncapped" if not _fm.get("max_events") else str(_fm.get("max_events"))),
+            f"${_cost:.2f} — {len(_mer)} re-curations"])
+    param_tbl = table_html(["parameter", "values swept", "current (profile)", "cost to sweep"], ps_rows)
 
     # ---- PLATEAU: the anti-overfit rank, ported from PWR ------------------------------------------
     # A config's score is half its own cancellation and half the mean of its GRID NEIGHBOURS -- every
@@ -256,7 +273,10 @@ def main(argv=None) -> int:
          f"{'&times;'.join(str(len(S['grid'][k])) for k in keys)} = {len(cells)} configs &mdash; and the "
          "values considered. These knobs only RE-WEIGHT a fixed set of curator picks, which is what "
          "makes the grid free: no LLM call is made and no event is discovered or closed differently. "
-         "Every other optimizer / curator parameter is held at its "
+         "<b>max_events is the exception</b> and is listed last: it is a CURATION knob, deciding which "
+         "events stay live and therefore which tickers ever reach the optimizer, so each of its values "
+         "needed a full re-curation rather than a replay &mdash; see the cost column, and panels "
+         "10&ndash;13. Every other optimizer / curator parameter is held at its "
          f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} value."
          f'</p><div class="scroll">{param_tbl}</div></section>'),
         panel(2, "Return vs drawdown",
