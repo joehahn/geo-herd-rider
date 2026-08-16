@@ -52,7 +52,7 @@ footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
   font-size:12.5px; color:var(--text2); }
 </style></head><body>
 <div class="wrap">
-<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-16 17:29</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
+<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-16 17:32</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
 <header>
   <h1>Firehose Backtest (FBT)</h1>
   <p class="sub">2023-08-11 → 2026-08-09 &middot; 99,117 articles &middot; GKG on BigQuery</p>
@@ -235,13 +235,14 @@ function draw() {
       xaxis:{title:{text:'articles in the bundle', font:{size:11}}},
       // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
       // bucket past the first renders as a stub -- which hides the tail the design depends on.
-      yaxis:{type:'log', gridcolor:p.grid,
-             title:{text:'count (log scale)', font:{size:11}}},
-      annotations:[{xref:'paper', x:0.99, xanchor:'right', yref:'paper', y:0.97, yanchor:'top',
-        showarrow:false, font:{size:11, color:p.text2}, align:'right',
-        text:G.n_entities.toLocaleString()+' entities · '+
-             G.no_org.toLocaleString()+' articles ('+Math.round(100*G.no_org/G.n)+
-             '%) carry no usable company'}]}), CFG);
+      // The top-right annotation that used to live here was removed 2026-08-16: it sat exactly where
+      // the tallest bars' outside labels land, so the two overprinted and neither was readable. Both
+      // of its numbers (entity count, no-company share) are already in the panel caption, so nothing
+      // was lost. On a log axis the bars are tall across the whole plot, leaving no safe corner for
+      // in-plot text -- the caption is the right home for it.
+      // range floor at 1 so a log axis cannot try to render a zero-count bucket.
+      yaxis:{type:'log', gridcolor:p.grid, rangemode:'tozero',
+             title:{text:'count (log scale)', font:{size:11}}}}), CFG);
 
   // 4. beat productivity — gem vs coverage as two named series (identity, never colour alone:
   //    the legend plus the y-axis label both name the beat)

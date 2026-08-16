@@ -881,13 +881,14 @@ function draw() {{
       xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
       // log: singleton entities outnumber big bundles by ~3 decades, and on a linear axis every
       // bucket past the first renders as a stub -- which hides the tail the design depends on.
-      yaxis:{{type:'log', gridcolor:p.grid,
-             title:{{text:'count (log scale)', font:{{size:11}}}}}},
-      annotations:[{{xref:'paper', x:0.99, xanchor:'right', yref:'paper', y:0.97, yanchor:'top',
-        showarrow:false, font:{{size:11, color:p.text2}}, align:'right',
-        text:G.n_entities.toLocaleString()+' entities · '+
-             G.no_org.toLocaleString()+' articles ('+Math.round(100*G.no_org/G.n)+
-             '%) carry no usable company'}}]}}), CFG);
+      // The top-right annotation that used to live here was removed 2026-08-16: it sat exactly where
+      // the tallest bars' outside labels land, so the two overprinted and neither was readable. Both
+      // of its numbers (entity count, no-company share) are already in the panel caption, so nothing
+      // was lost. On a log axis the bars are tall across the whole plot, leaving no safe corner for
+      // in-plot text -- the caption is the right home for it.
+      // range floor at 1 so a log axis cannot try to render a zero-count bucket.
+      yaxis:{{type:'log', gridcolor:p.grid, rangemode:'tozero',
+             title:{{text:'count (log scale)', font:{{size:11}}}}}}}}), CFG);
 
   // 4. beat productivity — gem vs coverage as two named series (identity, never colour alone:
   //    the legend plus the y-axis label both name the beat)
