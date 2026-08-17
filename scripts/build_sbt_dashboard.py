@@ -253,28 +253,31 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-17 (sixth set, on the v8 book): DD < 65%, L1 > 2100%/yr, L2 700-1300/yr,
-    # cancelled < 60%. 1,787 of 6,300 survive -- the loosest cut in this series.
+    # RE-CUT 2026-08-17 (seventh set, on the v8 book): DD < 65%, L1 > 2000%/yr, L2 750-1350/yr,
+    # Sharpe > 0.8, cancelled < 65%. 2,288 of 6,300 survive -- the loosest cut in this series, and
+    # more than a THIRD of the whole grid.
     #
-    # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so a requested
-    # "cancel < 0.6" is taken as < 60%. Read literally it would admit ZERO of the 6,300 cells, since
+    # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so the requested
+    # "cancel < 0.65" is taken as < 65%. Read literally it would admit ZERO of the 6,300 cells, since
     # the lowest cancellation anywhere on the grid is 4.1%.
     #
-    # SHARPE WAS DROPPED, and it was doing nearly all the filtering -- it alone took the running total
-    # from 2,948 to 1,208, while DD < 65% is inert at 90.4% and L2 at 85.8%. Removing it re-admits 610
-    # cells whose Sharpe is BELOW 1.0 (worst now admitted: 0.60), and they are visibly weaker than the
-    # ones that were already in:
-    #     newly admitted   median Sharpe 0.88   median final $118,256   median FOCUS $26,017
-    #     already present  median Sharpe 1.22   median final $202,724   median FOCUS $70,975
-    # So this set no longer distinguishes a steady book from a volatile one, and nothing in it rewards
-    # catching the no-brainer names either. Cancellation is now the only behavioural bar left.
+    # SHARPE IS BACK, but at 0.8 it no longer separates much -- 53.0% of the grid clears it, against
+    # 30.2% at the 1.0 bar the sixth set dropped. It is still the largest single cut here (3,850 ->
+    # 2,372); DD < 65% remains inert at 90.4%.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FOUR comfortably: DD 31.1, L1 2230,
-    # L2 806, cancellation 35.6.
+    # AT THIS LOOSENESS THE GATES BARELY SELECT, AND THE RANKING IS DOING THE WORK. Over a third of
+    # the grid survives, so the shortlist is defined much more by the `robust` order (cancellation
+    # rank + drawdown rank, measured at the 86th percentile of a re-curation) than by the bars above.
+    # That is not necessarily wrong -- the ranking is the better-evidenced half of the machinery --
+    # but read table 8 as "the top 100 configs" rather than as "the configs that passed a screen".
+    #
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FIVE comfortably: DD 31.1, L1 2230,
+    # L2 806, Sharpe 1.80, cancellation 35.6.
     GATES = [("max DD", "max_drawdown", lambda v: v < 65, "&lt; 65%"),
-             ("L1", "l1", lambda v: v > 2100, "&gt; 2100%/yr"),
-             ("L2", "l2", lambda v: 700 < v < 1300, "700&ndash;1300/yr"),
-             ("cancelled", "cancelled", lambda v: v < 60, "&lt; 60%")]
+             ("L1", "l1", lambda v: v > 2000, "&gt; 2000%/yr"),
+             ("L2", "l2", lambda v: 750 < v < 1350, "750&ndash;1350/yr"),
+             ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
+             ("cancelled", "cancelled", lambda v: v < 65, "&lt; 65%")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -445,7 +448,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all four gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by <code>robust</code></b> &mdash; the mean of a config's cancellation rank and "
