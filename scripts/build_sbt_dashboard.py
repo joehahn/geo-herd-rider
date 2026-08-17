@@ -148,6 +148,48 @@ def main(argv=None) -> int:
                         nb.append(n["cancelled"])
         c["plateau"] = round(0.5 * c["cancelled"] + 0.5 * (sum(nb) / len(nb) if nb else c["cancelled"]), 1)
 
+    # ---- ROBUST: the rank table 8 actually sorts on ------------------------------------------------
+    # Mean of a config's CANCELLATION rank and its DRAWDOWN rank, both 0 (best) .. 1 (worst), taken
+    # over every cell in the sweep. Ranks rather than raw values, because the two are on unrelated
+    # scales (cancellation runs 4-269%, drawdown 0-100%) and averaging them directly would let
+    # cancellation set the whole score.
+    #
+    # CHOSEN BY MEASUREMENT, 2026-08-17, not by argument. The only clean test available is the
+    # noise-experiment pair -- data/sweep_me16.json and data/sweep_rep.json, the SAME settings curated
+    # twice, differing only in LLM sampling. Rank all 6,300 configs on curation A, then look at where
+    # that top 50 actually lands on curation B. Percentile of B's final value, and B's median final:
+    #
+    #     rank(canc)+rank(DD)   86th   $189,137   <- this
+    #     + rank(sharpe)        85th   $160,259
+    #     plateau(cancellation) 83rd   $156,393   <- what table 8 used before
+    #     drawdown alone        67th   $ 94,531
+    #     SHARPE                54th   $ 64,075   <- a coin flip
+    #     slope_2h              53rd   $ 75,001
+    #     grid median           50th   $ 62,997
+    #     final                 43rd   $ 47,322   <- WORSE THAN RANDOM
+    #     annualized return     41st   $ 44,803
+    #     gain_pain             41st   $ 49,487
+    #
+    # Ranking by P&L -- final, annualized, gain-to-pain -- puts its winners BELOW the median on the
+    # re-curation. That is non-negotiable #6 expressed as a number: those metrics select one
+    # curation's luck. Sharpe carries essentially nothing across a re-run, which is why adding it to
+    # this composite makes it slightly worse rather than better. Do not re-add it without a new
+    # transfer test.
+    #
+    # PLATEAU SMOOTHING IS NOT WHAT WAS DOING THE WORK. Varying the self/neighbour weight on the
+    # cancellation plateau moved the result barely at all (w=0.5 -> 83rd, w=0.3 -> 84th, w=0.0, i.e.
+    # neighbours only -> 83rd). Cancellation is simply a REPRODUCIBLE metric while P&L is not.
+    # `plateau` is therefore kept and still shown as a column, but it no longer sets the order.
+    _rank = {}
+    for fld in ("cancelled", "max_drawdown"):
+        order = sorted(cells, key=lambda c, f=fld: (c.get(f) is None, c.get(f) or 0))
+        n = max(len(order) - 1, 1)
+        for i, c in enumerate(order):
+            _rank.setdefault(id(c), []).append(i / n)
+    for c in cells:
+        r = _rank.get(id(c)) or [1.0, 1.0]
+        c["robust"] = round(100 * sum(r) / len(r), 1)
+
     # 50% squeeze / 30% squeeze, by column name (position-independent, so a grid change cannot
     # silently point these at the wrong column).
     TIER_A = {"concentration_cap", "lookback_period_days", "drop_unfunded_weeks"}
@@ -251,26 +293,27 @@ def main(argv=None) -> int:
     TOP_N = 100
     short = [c for c in cells
              if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
-    # RANKED BY PLATEAU (2026-08-16), not Sharpe. Every cell here has already cleared five quality
-    # bars -- Sharpe > 1.2, DD < 40%, cancellation < 20%, both churn bands -- so the shortlist is a set
-    # of configs that are all ACCEPTABLE. The question the ordering should answer is therefore not
-    # "which is best in sample" but "which is likeliest to still work on the next curation", and that
-    # is what plateau estimates: half a config's own cancellation, half its grid neighbours'.
-    # Sharpe-ranking put [6, 0.40, 21, 0, 4.0, 0.30] at row 1 on a Sharpe of 1.93 whose immediate
-    # neighbours average 1.29 -- a knife-edge cell at the top of the list that decides configs. This
-    # repo has had THREE sweep winners fail to survive the next curation, so ranking on the in-sample
-    # peak is ranking on the quantity that has misled it every time.
-    # The Sharpe rank is kept as its own column: where the two disagree IS the overfit risk, and
-    # hiding one of them would just move the blind spot.
+    # RANKED BY `robust` (2026-08-17; was plateau 2026-08-16, Sharpe before that). Every cell here has
+    # already cleared the gates, so the shortlist is a set of configs that are all ACCEPTABLE. The
+    # question the ordering should answer is therefore not "which is best in sample" but "which is
+    # likeliest to still work on the NEXT curation" -- and that question now has a measured answer
+    # rather than an argued one. See the `robust` block above for the transfer test: ranking by
+    # cancellation+drawdown rank puts its top 50 at the 86th percentile of the re-curation, plateau at
+    # the 83rd, Sharpe at the 54th (a coin flip), and final value at the 43rd (worse than random).
+    # This repo has had THREE sweep winners fail to survive the next curation, so ranking on the
+    # in-sample peak is ranking on the quantity that has misled it every time.
+    # The Sharpe rank is kept as its own column: where it disagrees with the order IS the overfit
+    # risk, and hiding one of them would just move the blind spot.
     _sh_rank = {id(c): i + 1 for i, c in enumerate(
         sorted(short, key=lambda c: -(c["sharpe"] if c.get("sharpe") is not None else -9)))}
-    short.sort(key=lambda c: c["plateau"])
+    short.sort(key=lambda c: c["robust"])
 
     # A star per column-winner AMONG THE SURVIVORS, on the four measures worth optimising. Four stars
     # rarely land on one row -- where they scatter IS the trade-off, and reading that is the point.
     stars = {}
     if short:
-        stars = {"plateau": min(short, key=lambda c: c["plateau"]),
+        stars = {"robust": min(short, key=lambda c: c["robust"]),
+                 "plateau": min(short, key=lambda c: c["plateau"]),
                  "cancelled": min(short, key=lambda c: c["cancelled"]),
                  "ann": max(short, key=lambda c: c["ann"]),
                  "Sharpe": max(short, key=lambda c: (c.get("sharpe") is not None, c.get("sharpe"))),
@@ -298,13 +341,14 @@ def main(argv=None) -> int:
     # their rank rather than left for the reader to hunt in a hover.
     payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
 
-    cols = ["#Sharpe", "plateau", "cancelled", "months to lead", "days behind",
+    cols = ["#Sharpe", "robust", "plateau", "cancelled", "months to lead", "days behind",
             "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
             "final"]
 
     def _row(c, label):
         return ([label] + [str(c[k]) for k in keys]
                 + [f"{_sh_rank.get(id(c), 0)}",
+                   f"{c['robust']:.0f}" + _st(c, "robust"),
                    f"{c['plateau']:.0f}%" + _st(c, "plateau"),
                    f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
                    (f"{c['lead_months']:.0f}" if c.get("lead_months") is not None else "never")
@@ -404,7 +448,16 @@ def main(argv=None) -> int:
          "The shortlist: every config clearing <b>all four gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
-         "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
+         "<b>Ranked by <code>robust</code></b> &mdash; the mean of a config's cancellation rank and "
+         "its drawdown rank across the whole sweep, 0 = best. This ordering was <b>chosen by "
+         "measurement, not argument</b>: the only clean test available is the noise-experiment pair "
+         "(<code>me16</code> and <code>rep</code>, the same settings curated twice, differing only in "
+         "LLM sampling). Ranking all 6,300 configs on one and scoring that top 50 on the other puts "
+         "<b>cancellation+drawdown at the 86th percentile</b> of the re-curation, plateau at the 83rd, "
+         "<b>Sharpe at the 54th &mdash; a coin flip</b> &mdash; and <b>final value at the 43rd, worse "
+         "than random</b>. Ranking a shortlist by P&amp;L selects one curation's luck. The "
+         "<code>plateau</code> and <code>#Sharpe</code> columns are kept beside it: where they "
+         "disagree with the order is exactly where the overfit risk lives."
          "neighbours'), <b>not Sharpe</b>: every row here already passed the bars, so the question is "
          "not which is best in sample but which still works on the NEXT curation &mdash; and "
          "Sharpe-ranking put a cell at row 1 whose own 1.93 falls to <b>1.29</b> one step away, in a "
