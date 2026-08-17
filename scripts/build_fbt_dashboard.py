@@ -502,6 +502,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # are now bundled by BEAT -- the standing search that ingested them -- so every one of them has a
     # topical home. This is the whole point of the panel: the bar that used to be a hole is now a
     # bundle class, and it is drawn beside the company bundles so the two can be compared.
+    # TYPICAL SLICES PER WINDOW, for the bar labels. A beat bundle is date-sliced per curation, so a
+    # corpus-total bar alone implies the scout reads it as one block -- it does not. Estimated from
+    # the beat's article count over the run's span, at the same ~30-article budget the scout packs to.
+    _span_days = 1
+    try:
+        _ds = sorted({(a.get("published_date") or "")[:10] for a in arts if a.get("published_date")})
+        _span_days = max(1, (date.fromisoformat(_ds[-1]) - date.fromisoformat(_ds[0])).days)
+    except Exception:  # noqa: BLE001
+        pass
     _beat = collections.Counter()
     for a in _noorg:
         for q in (a.get("queries") or []):
@@ -523,7 +532,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # panel imply the top 100 IS the corpus -- they are 22,263 bundles holding a quarter of it, nearly
     # all singletons. Drawn as one aggregate in grey and labelled as a COUNT of bundles, not a bundle,
     # so it is not mistaken for one.
-    bundles = {"q": [t[0] for t in _top], "n": [t[1] for t in _top],
+    # slices/window = (articles in a 30-day window) / 30-article call budget, rounded up
+    def _slices(n):
+        per_win = n * 30.0 / _span_days
+        return max(1, int(-(-per_win // 30)))
+    bundles = {"q": [(t[0] + (f"  ×{_slices(t[1])}" if t[2] == "beat" and _slices(t[1]) > 1 else ""))
+                     for t in _top],
+               "n": [t[1] for t in _top],
                "kind": [t[2] for t in _top],
                "rest_n": len(_rest), "rest_a": sum(t[1] for t in _rest),
                "rest_singletons": sum(1 for t in _rest if t[1] == 1),
@@ -724,10 +739,11 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "standing search that found them, so they get a topical home instead of being read "
               f"alone ({bundles['n_beat']} beats, {bundles['a_beat']:,} articles). "
               "<b>A green bar is a corpus total, not one scout call.</b> Beat bundles are "
-              "DATE-SLICED per curation \u2014 crypto arrives as about three slices a window, and the "
-              "median slice the scout actually reads is ~20 articles \u2014 because a beat is a theme "
-              "rather than one story, so unlike a company bundle it may be split. Blue bars are also "
-              "corpus totals: a company bundle is filtered to the curation window before it is read.",
+              "DATE-SLICED per curation because a beat is a theme rather than one story, so unlike a "
+              "company bundle it may be split; the <b>\u00d7N</b> on a label is how many slices that "
+              "beat typically becomes in one window (median slice ~20 articles). Blue bars are also "
+              "corpus totals \u2014 a company bundle is filtered to the curation window before it is "
+              "read, and is never split.",
               "p-group", 1500),
     ])
 
