@@ -74,6 +74,10 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     run, corpus = ROOT / a.run, ROOT / a.corpus
     M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus)
+    try:
+        from sweep_optimizer import FOCUS as _FOCUS_TICKERS
+    except Exception:  # noqa: BLE001 -- emphasis is a nicety, never a build blocker
+        _FOCUS_TICKERS = ()
 
     # ARTICLES PER BEAT over the whole corpus -- the denominator for beat efficiency (panel 6) and
     # the reason panel 5 can now list beats that produced NOTHING. `queries` is a stringified list.
@@ -768,6 +772,7 @@ def main(argv=None) -> int:
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "bundle": bundle_buckets,
+        "focus": list(_FOCUS_TICKERS),   # the seven no-brainer tickers, bolded in plot 5
         # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
         # evidence, in proportion to how many of its cited articles came from each. A proportional
         # split, not an assignment: a pick argued off six archived articles and two live pages cannot
@@ -1082,12 +1087,15 @@ def main(argv=None) -> int:
               "closed in a single curation, dropped from panel 3 as hairlines.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
-              "The 20 best and 10 worst funded names, with every other name rolled into one grey bar. "
+              "The 30 best and 20 worst funded names, with every other name rolled into one grey bar. "
+              "<b>Bold tickers are the seven shortlist names</b> \u2014 the big multi-year "
+              "risers whose press named dated catalysts, i.e. the ones this strategy most "
+              "wants to be holding. "
               "A result resting on one or two names is a different thing from the same return spread "
               "across many — and the difference is not visible in the equity curve above. <b>Click any "
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
               "moments the optimizer funded and unfunded it.",
-              "c-gainh", 720),
+              "c-gainh", 820),
         panel(6, "Cumulative $ gain per beat",
               "The same dollars as the panel above, rolled up to the BEAT that surfaced each ticker\u2019s "
               "evidence \u2014 i.e. which part of the firehose paid. A beat that costs money is a "
@@ -1719,7 +1727,7 @@ function draw() {{
     // matters is which few names made the money, which few lost it, and whether the long tail nets
     // out to anything. Asymmetric on purpose: the winners are where the thesis either worked or
     // did not, so they get the deeper list. The rolled bar is grey because it is an aggregate.
-    const _NTOP = 20, _NBOT = 10;
+    const _NTOP = 30, _NBOT = 20;
     const _gs = GH.slice().sort((a,b) => b[1] - a[1]);
     const _top = _gs.slice(0, _NTOP);
     const _bot = _gs.length > _NTOP + _NBOT ? _gs.slice(-_NBOT) : _gs.slice(_NTOP);
@@ -1729,8 +1737,12 @@ function draw() {{
       ? [..._top, [`other (${{_midArr.length}})`, _mid], ..._bot]
       : _gs;
     const _isRoll = lbl => String(lbl).startsWith('other (');
+    // BOLD the shortlist names. Plotly renders HTML in tick labels, so the emphasis rides on the
+    // label itself -- no second series and no colour channel spent, and it survives the sort.
+    const _FOCUS = new Set(DATA.focus || []);
+    const _lbl = t => _FOCUS.has(t) ? '<b>' + t + '</b>' : t;
     Plotly.react('c-gainh', [{{
-      type:'bar', x:GHr.map(e=>e[0]), y:GHr.map(e=>e[1]),
+      type:'bar', x:GHr.map(e=>_lbl(e[0])), y:GHr.map(e=>e[1]),
       marker:{{color:GHr.map(e=>_isRoll(e[0]) ? GREY : _bcol(TB[e[0]])),
                line:{{width:2,color:p.surface}}}},
       hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<br>%{{customdata}}<extra></extra>',
