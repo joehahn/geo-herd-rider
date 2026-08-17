@@ -211,30 +211,26 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-17 (fourth set, on the v8 book): cancelled < 40%, Sharpe > 0.9, DD < 60%,
-    # L1 > 2050%/yr, L2 < 1250/yr, no-brainer gains > $50K. 332 of 6,300 survive.
+    # RE-CUT 2026-08-17 (fifth set, on the v8 book): DD < 65%, L1 > 2100%/yr, L2 700-1300/yr,
+    # Sharpe > 1.0, cancelled < 60%. 1,177 of 6,300 survive -- the loosest cut in this series.
     #
-    # CANCELLATION IS THE BINDING GATE, and it changes what this shortlist selects for. At < 40% it
-    # admits 12.1% of the grid on its own -- tighter than every other bar and tighter than the $50K
-    # no-brainer floor (22.2%). An earlier set inverted this: its loose < 60% cancellation passed 53%
-    # and let the FOCUS floor do the cutting. So these survivors are chosen first for LOW GIVE-BACK
-    # (little of the gross gain handed back by losing positions) and only second for riding the focus
-    # names. Sharpe, DD, L1 and L2 are near-inert here -- together they take 765 to 554.
+    # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so the requested
+    # "cancel < 0.6" is taken as < 60%. Read literally it would admit ZERO of the 6,300 cells, since
+    # the lowest cancellation anywhere on the grid is 4.1%.
     #
-    # THE $50K FLOOR SURVIVED THE FOCUS RE-CUT UNCHANGED, which is luck rather than design. FOCUS was
-    # cut from seven names to six the same day (see sweep_optimizer.FOCUS: DRUG and BE were never
-    # named by the curator, MP returned +141% against +1392% alternatives). That re-scan moved every
-    # focus_gain -- the live config went $56,312 -> $65,869 on 5 of 6 names held -- yet the share of
-    # the grid clearing $50K barely moved, 22.3% -> 22.2%. The floor did NOT need recalibrating.
+    # NO NO-BRAINER GATE IN THIS SET, so the shortlist is selected purely on how the book BEHAVES and
+    # not at all on what it caught. Sharpe does nearly all the work (30.2% alone; it takes the running
+    # total from 2,948 to 1,208) and DD < 65% is inert at 90.4%. These survivors are a DIFFERENT
+    # POPULATION from the fourth set's, not a relaxation of it -- that cut was bound by a $50K FOCUS
+    # floor, and nothing here rewards catching the no-brainer names at all.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL SIX (cancellation 35.6, Sharpe 1.81,
-    # DD 31.1, L1 2230, L2 806, FOCUS $65,869 on 5 of 6 names).
-    GATES = [("cancelled", "cancelled", lambda v: v < 40, "&lt; 40%"),
-             ("Sharpe", "sharpe", lambda v: v > 0.9, "&gt; 0.9"),
-             ("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
-             ("L1", "l1", lambda v: v > 2050, "&gt; 2050%/yr"),
-             ("L2", "l2", lambda v: v < 1250, "&lt; 1250/yr"),
-             ("no-brainer $", "focus_gain", lambda v: v > 50_000, "&gt; $50K")]
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FIVE comfortably: DD 31.1, L1 2230,
+    # L2 806, Sharpe 1.80, cancellation 35.6.
+    GATES = [("max DD", "max_drawdown", lambda v: v < 65, "&lt; 65%"),
+             ("L1", "l1", lambda v: v > 2100, "&gt; 2100%/yr"),
+             ("L2", "l2", lambda v: 700 < v < 1300, "700&ndash;1300/yr"),
+             ("Sharpe", "sharpe", lambda v: v > 1.0, "&gt; 1.0"),
+             ("cancelled", "cancelled", lambda v: v < 60, "&lt; 60%")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -393,7 +389,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all six gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
