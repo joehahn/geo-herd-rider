@@ -837,9 +837,12 @@ def event_agent(client, anchor: pd.Timestamp, event: dict, prior: dict | None,
             f"Your prior note: {pj}\n\nThis week's news for this event:\n{nb}\n\nWrite the new note (JSON).")
     txt = client.complete(AGENT_SYSTEM, user, use_web_search=False, stage="agent",
                           label=f"agent-{event['ticker']}-{anchor.date()}", json_schema=AGENT_SCHEMA)
-    d = _extract(txt)
+    # _extract is OUTSIDE the try below, so a malformed blob raised past this function and killed the
+    # whole run -- the same class of failure that ended a 45-minute curation at week 24 in the matcher.
+    # Pulled inside: an unparseable response now yields the safe default (thesis_live stays true), the
+    # same as a response that parsed but failed validation.
     try:
-        e = JournalEntry(**d)                # any magnitude/target key in d is dropped here
+        e = JournalEntry(**_extract(txt))    # any magnitude/target key is dropped here
     except Exception:  # noqa: BLE001
         e = JournalEntry()                   # malformed -> safe default (thesis_live stays true)
     return {"date": anchor.date().isoformat(), "thesis_live": e.thesis_live,
@@ -1106,8 +1109,20 @@ def match_to_events(client, anchor, candidates, events):
     user = f"OPEN EVENTS:\n{open_list}\n\nCANDIDATES:\n{cand_list}\n\nAssign each candidate. Output JSON."
     txt = client.complete(MATCH_SYSTEM, user, use_web_search=False, stage="agent",
                           label=f"match-{anchor.date()}", json_schema=EVENT_MATCH_SCHEMA)
+    # A MALFORMED MATCHER RESPONSE MUST NOT KILL THE RUN. The scout already tolerates this per chunk
+    # ("scout chunk failed (JSONDecodeError)") and carries on; this call did not, so one bad JSON blob
+    # from a cheap model ended a 45-minute, ~$3 curation at week 24 of 37 with nothing recoverable.
+    # Falling back to {} means every candidate is treated as NEW -- the same outcome as a matcher that
+    # found no matches, which is the safe direction: it can open a duplicate event, never silently
+    # merge two distinct theses. Loud on stderr so a run that quietly stopped matching is visible.
+    try:
+        matches = _extract(txt).get("matches", [])
+    except Exception as e:  # noqa: BLE001 -- any parse failure, not just JSONDecodeError
+        print(f"  !! matcher returned unparseable JSON ({type(e).__name__}) at {anchor.date()}; "
+              f"treating all {len(candidates)} candidate(s) as new", file=sys.stderr, flush=True)
+        return {c["ticker"]: "new" for c in candidates}
     out = {}
-    for m in _extract(txt).get("matches", []):
+    for m in matches:
         tk = str(m.get("ticker", "")).strip().upper()
         if tk:
             out[tk] = str(m.get("event", "new")).strip()
