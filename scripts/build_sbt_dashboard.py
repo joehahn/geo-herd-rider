@@ -206,33 +206,25 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-16 (fourth set today): DD < 70, L1 > 1800, L2 < 1350, Sharpe > 1.2,
-    # The L2 ceiling moved 1250 -> 1350 to admit [4, 0.60, 30, 0, 4.00, 0.30] (L2 1331), which
-    # reaches a DURABLE lead over SPY in 6.3 months against the previous pick's 15.0, with a
-    # worst losing spell of 32 days against 91. Widening a bar to admit a specific cell is
-    # exactly the move this file warns about, so it is recorded plainly: the justification is
-    # the timing evidence below, not the cell's final value.
-    # cancelled < 40, shortlist gain > $40k. 254 of 6,300 survive.
+    # RE-CUT 2026-08-17: DD < 45, L1 1500-1800, L2 600-1100, Sharpe > 1, cancelled < 50,
+    # shortlist gain > $10k. 171 of 6,300 survive on the v6 curation.
     #
-    # L1 IS NOW A FLOOR, NOT A CEILING -- the opposite direction from every earlier L1 bar, and worth
-    # stating plainly because it inverts what the gate means. Previous sets capped churn (or banded
-    # it); this one REQUIRES turnover above 1,800%/yr, i.e. it deliberately excludes the quiet half of
-    # the grid. Defensible on this book -- the still corner is not the good corner, median Sharpe 0.94
-    # in the L2 0-400 band against 1.03 at 600-800 -- but it is a bet that trading pays, and if a
-    # future book stops rewarding turnover this bar will be selecting for churn on its own.
+    # Both churn norms are two-sided BANDS again, and Sharpe is now the most selective bar by a wide
+    # margin -- it alone keeps 11.0% of the grid, against L1's 34.3% and cancellation's 30.0%. On the
+    # v6 book that is the binding constraint: this curation's median Sharpe is 0.53 against me16's
+    # 0.83, so a bar that was permissive on the previous book is severe on this one. The gates did not
+    # get stricter; the book got worse.
     #
-    # SELECTIVITY: the risk/churn bars are now mild (DD 88.3%, L1 89.1%, L2 89.1% alone). Cancellation
-    # (12.1%) and Sharpe (18.7%) do nearly all the work, with the shortlist bar (27.4%) trimming what
-    # is left. Loosening DD and cancellation while adding an L1 floor moved the selection almost
-    # entirely onto quality rather than risk.
-    GATES = [("max DD", "max_drawdown", lambda v: v < 70, "&lt; 70%"),
-             ("L1", "l1", lambda v: v > 1800, "&gt; 1800%/yr"),
-             ("L2", "l2", lambda v: v < 1350, "&lt; 1350/yr"),
-             ("Sharpe", "sharpe", lambda v: v > 1.2, "&gt; 1.2"),
-             ("cancelled", "cancelled", lambda v: v < 40, "&lt; 40%"),
-             # Not a risk measure: did the config get PAID on the seven no-brainer names (panel 7)?
-             # 26% of the grid loses money on names that rose 120-3,590% and no other bar notices.
-             ("shortlist", "focus_gain", lambda v: v > 40_000, "&gt; $40k")]
+    # The live config [4, 0.60, 30, 0, 4.00, 0.30] FAILS three of the six here (Sharpe 0.38,
+    # cancellation 70.6%, shortlist $0). It is the cell the profile currently names, and it does not
+    # survive its own shortlist on the curation it was run against.
+    GATES = [("max DD", "max_drawdown", lambda v: v < 45, "&lt; 45%"),
+             ("L1", "l1", lambda v: 1500 < v < 1800, "1500&ndash;1800%/yr"),
+             ("L2", "l2", lambda v: 600 < v < 1100, "600&ndash;1100/yr"),
+             ("Sharpe", "sharpe", lambda v: v > 1, "&gt; 1"),
+             ("cancelled", "cancelled", lambda v: v < 50, "&lt; 50%"),
+             # Not a risk measure: did it get PAID on the seven no-brainer names (panel 7)?
+             ("shortlist", "focus_gain", lambda v: v > 10_000, "&gt; $10k")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
