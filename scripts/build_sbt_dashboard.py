@@ -253,29 +253,47 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-17 (seventh set, on the v8 book): DD < 65%, L1 > 2000%/yr, L2 750-1350/yr,
-    # Sharpe > 0.8, cancelled < 65%. 2,288 of 6,300 survive -- the loosest cut in this series, and
-    # more than a THIRD of the whole grid.
+    # RE-CUT 2026-08-17 (eighth set, on the v8 book): DD < 65%, L1 > 2000%/yr, L2 750-1350/yr,
+    # final > $200K, Sharpe > 0.8, cancelled < 65%. 706 of 6,300 survive.
     #
     # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so the requested
     # "cancel < 0.65" is taken as < 65%. Read literally it would admit ZERO of the 6,300 cells, since
     # the lowest cancellation anywhere on the grid is 4.1%.
     #
-    # SHARPE IS BACK, but at 0.8 it no longer separates much -- 53.0% of the grid clears it, against
-    # 30.2% at the 1.0 bar the sixth set dropped. It is still the largest single cut here (3,850 ->
-    # 2,372); DD < 65% remains inert at 90.4%.
+    # SHARPE AT 0.8 barely separates -- 53.0% of the grid clears it. The $200K return floor is now the
+    # binding bar: it admits 24.6% alone and takes the survivor count 2,288 -> 706.
     #
-    # AT THIS LOOSENESS THE GATES BARELY SELECT, AND THE RANKING IS DOING THE WORK. Over a third of
-    # the grid survives, so the shortlist is defined much more by the `robust` order (cancellation
-    # rank + drawdown rank, measured at the 86th percentile of a re-curation) than by the bars above.
-    # That is not necessarily wrong -- the ranking is the better-evidenced half of the machinery --
-    # but read table 8 as "the top 100 configs" rather than as "the configs that passed a screen".
+    # RETURNS ARE A GATE, NOT PART OF THE SCORE (added 2026-08-17: final > $200K). The ask was for a
+    # ranker that "avoids losses but scales with gains". Every attempt to build that INTO the score
+    # measured worse, tested in BOTH directions on the noise-experiment pair (rank on one curation,
+    # score the top 50 on the other -- a one-way gain is noise):
+    #     gate final > Q3, rank by robust   A->B 87   B->A 68   mean 77.2   <- this
+    #     robust  (cancellation + drawdown) A->B 86   B->A 68   mean 76.9
+    #     geo(1-rank_canc, 1-rank_DD)       A->B 86   B->A 68   mean 76.9   (product form, same inputs)
+    #     robust + 0.5*ann blended in       A->B 88   B->A 64   mean 75.8   (the one-way mirage)
+    #     Calmar, ann / maxDD               A->B 67   B->A 67   mean 67.2
+    #     slope / (cancellation x drawdown) A->B 64   B->A 67   mean 65.5
+    #     SLOPE / CANCELLATION              A->B 60   B->A 66   mean 62.7   <- barely above random
+    # Ratios of a return over a risk measure all did badly; so did multiplying a return rank into the
+    # composite. Note geo(...) TIES robust exactly, so it is not additive-vs-multiplicative that
+    # matters -- it is WHICH QUANTITIES go in. Returns do not survive re-curation; cancellation and
+    # drawdown do. Keeping the money requirement as a visible gate makes it auditable instead of
+    # buried in a score, and it is the only formulation that beat robust in both directions.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FIVE comfortably: DD 31.1, L1 2230,
-    # L2 806, Sharpe 1.80, cancellation 35.6.
+    # THE 'NEVER GAINED OR LOST' DEGENERATE CASE DOES NOT ARISE, which is why the score needs no
+    # return term to defend against it. Both of robust's inputs are SCALE-FREE RATIOS: cancellation is
+    # |losses| / gains, so a book making $1K and losing $200 scores the same as one making $500K and
+    # losing $100K, and sitting still does not lower it (with no gains it is undefined and the cell is
+    # dropped). Measured on the top 100 by robust with NO gates applied: median final $199,584 against
+    # a grid median of $103,541, median annualized 83% against 43%, median L1 2,195 -- fully trading.
+    # One cell of 100 finished under $100K, and NO cell anywhere in the 6,300 has L1 < 50%/yr.
+    #
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL SIX: DD 31.1, L1 2230, L2 806,
+    # Sharpe 1.80, cancellation 35.6, final $302,079.
     GATES = [("max DD", "max_drawdown", lambda v: v < 65, "&lt; 65%"),
              ("L1", "l1", lambda v: v > 2000, "&gt; 2000%/yr"),
              ("L2", "l2", lambda v: 750 < v < 1350, "750&ndash;1350/yr"),
+             ("final", "final", lambda v: v > 200_000, "&gt; $200K"),
              ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
              ("cancelled", "cancelled", lambda v: v < 65, "&lt; 65%")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
@@ -448,7 +466,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all six gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by <code>robust</code></b> &mdash; the mean of a config's cancellation rank and "
