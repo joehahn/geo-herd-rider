@@ -198,7 +198,9 @@ def main(argv=None) -> int:
                           # each, so these columns answer "what did proposals of this size earn",
                           # not "how does the book decompose". Stated because they will not sum to
                           # the book total.
-                          "ticks": {l: sorted(_bucket_ticks[l]) for _, _, l in _BK}}
+                          "ticks": {l: sorted(_bucket_ticks[l]) for _, _, l in _BK},
+                          # bundle NAME -> tickers proposed from it, for the per-name panel
+                          "byname": {k: sorted(v) for k, v in _tick_by.items()}}
     except Exception as _e:  # noqa: BLE001 -- a diagnostic panel must never take the dashboard down
         print(f"  bundle-payoff panel unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
 
@@ -347,6 +349,19 @@ def main(argv=None) -> int:
         bundle_buckets["gain"] = [round(sum(float(_gg.get(t) or 0)
                                             for t in bundle_buckets.get("ticks", {}).get(l, [])), 2)
                                   for l in bundle_buckets.get("labels", [])]
+        # PER BUNDLE NAME. Same attribution as the size buckets -- a bundle is credited with the P&L
+        # of every ticker proposed out of it -- but named, so it answers WHICH bundles paid rather
+        # than which sizes. Beat bundles carry the \x00beat: sentinel; strip it and mark them.
+        _bn = []
+        for _k, _ts in (bundle_buckets.get("byname") or {}).items():
+            _v = sum(float(_gg.get(t) or 0) for t in _ts)
+            if _v:
+                _bn.append((_k, round(_v, 2), sorted(_ts)[:8]))
+        _bn.sort(key=lambda t: -abs(t[1]))
+        _bn = sorted(_bn[:30], key=lambda t: t[1])
+        bundle_buckets["names"] = [t[0] for t in _bn]
+        bundle_buckets["ngain"] = [t[1] for t in _bn]
+        bundle_buckets["nticks"] = [", ".join(t[2]) for t in _bn]
         _d = _bt.get("daily") or {}
         # PWR's CBT plots 2-7, as GHR equivalents. PWR groups by WAVE BUCKET (its thesis unit);
         # GHR's unit is the EVENT, so the two "by wave" panels become "by event" -- same question,
@@ -972,7 +987,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>25. Curation log</h2>'
+        f'<section class="panel"><h2>26. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1047,6 +1062,14 @@ def main(argv=None) -> int:
     # Events that had an agent read and NEVER received capital, over the whole run. Stated as a number
     # rather than drawn as a fourth curve: it is a cumulative FLOW against three stocks, so on this
     # axis it would only ever rise and would flatten the bands that carry the panel's meaning.
+    # The rolled middle of plot 5, stated in WORDS rather than drawn. Two tall grey bars compressed
+    # the y-axis so the named tickers -- the point of the panel -- lost most of their range.
+    _g5 = sorted((book.get("gain") or {}).items(), key=lambda kv: -kv[1])
+    _g5mid = _g5[16:max(16, len(_g5) - 8)]
+    _roll_w = sum(v for _, v in _g5mid if v > 0)
+    _roll_l = sum(v for _, v in _g5mid if v <= 0)
+    _roll_nw = sum(1 for _, v in _g5mid if v > 0)
+    _roll_nl = sum(1 for _, v in _g5mid if v <= 0)
     _n_unfunded_ever = sum(1 for k, v in ev.items()
                            if (v.get("entries") or []) and not (_ev_fund.get(k) or []))
 
@@ -1106,7 +1129,12 @@ def main(argv=None) -> int:
               "closed in a single curation, dropped from panel 3 as hairlines.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
-              "The 16 best and 8 worst funded names. Every other funded name is rolled into TWO grey bars \u2014 winners and losers separately, because netting them into one hid a wide spread that mostly cancels. "
+              "The 16 best and 8 worst funded names. Every other funded name is left OFF the "
+              f"chart and stated here instead: <b>{_roll_nw} more winners worth "
+              f"${_roll_w:,.0f}</b> and <b>{_roll_nl} more losers worth ${abs(_roll_l):,.0f}</b>. "
+              "They were drawn as two grey bars and are not any more \u2014 both were taller "
+              "than most named tickers, so they set the y-range and squashed the comparison "
+              "this panel is for. "
               "<b>Bold tickers are the seven shortlist names</b> \u2014 the big multi-year "
               "risers whose press named dated catalysts, i.e. the ones this strategy most "
               "wants to be holding. "
@@ -1192,17 +1220,24 @@ def main(argv=None) -> int:
               "total \u2014 the question is what proposals of each size earned, not how the book "
               "decomposes.",
               "c-bundlegain", 340),
-        panel(17, "Coverage vs picks, per ticker",
+        panel(17, "Gains per bundle",
+              "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
+              "bundles actually paid. A bundle is credited with the realised P&amp;L of every ticker "
+              "proposed out of it, so a name here earned its money by putting a ticker in front of "
+              "the scout at the right moment. The 30 largest by absolute value, winners and losers "
+              "both; hover for the tickers each one produced.",
+              "c-bundlename", 620),
+        panel(18, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(18, "Gain per article, per ticker",
+        panel(19, "Gain per article, per ticker",
               "For the picked tickers above: dollars earned per article the press wrote about them. "
               "The per-ticker twin of plot 6. A name that paid a lot on little coverage sits far right; "
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(19, "Gain per lede provenance",
+        panel(20, "Gain per lede provenance",
               "Dollars earned, split by where the text behind each pick came from. The money twin of "
               "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
               "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
@@ -1211,28 +1246,28 @@ def main(argv=None) -> int:
               "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
               "most of the money, the quotable arm is not the one earning.",
               "c-ledegain", 300),
-        panel(20, "Evidence by lede provenance",
+        panel(21, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(21, "Evidence by source",
+        panel(22, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(22, "Evidence by beat",
+        panel(23, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(23, "Event storyboard",
+        panel(24, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(24, "Text provenance of what the curator read",
+        panel(25, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1533,6 +1568,25 @@ function draw() {{
                title:{{text:'realised gain', font:{{size:11}}}}}}}}), CFG);
   }}
 
+  // GAINS PER BUNDLE NAME -- horizontal, like the per-event panel, because the labels are names.
+  // Beat bundles carry a sentinel prefix; strip it for display and mark them so the two kinds of
+  // bundle stay distinguishable at a glance.
+  if (BU && BU.names && BU.names.length) {{
+    const _BP = '\u0000beat:';
+    const _nm = BU.names.map(k => k.startsWith(_BP) ? 'theme: ' + k.slice(_BP.length) : k);
+    const _isBeat = BU.names.map(k => k.startsWith(_BP));
+    Plotly.react('c-bundlename', [{{
+      type:'bar', orientation:'h', x:BU.ngain, y:_nm,
+      marker:{{color:BU.ngain.map((v,i)=> v < 0 ? ST.critical : (_isBeat[i] ? ST.good : p.s1)),
+               line:{{width:2,color:p.surface}}}},
+      customdata:BU.nticks,
+      hovertemplate:'%{{y}}<br>$%{{x:,.0f}}<br>proposed: %{{customdata}}<extra></extra>'
+    }}], base(p, {{margin:{{l:230,r:70,t:16,b:44}},
+        yaxis:{{gridcolor:'rgba(0,0,0,0)', tickfont:{{size:10.5}}, automargin:true}},
+        xaxis:{{gridcolor:p.grid, tickprefix:'$', zeroline:true, zerolinecolor:p.text2,
+               zerolinewidth:1.5, title:{{text:'realised gain', font:{{size:11}}}}}}}}), CFG);
+  }}
+
   // GAIN by provenance -- same three categories as c-lede, same colours, so the two panels read as
   // a pair. Bars can be NEGATIVE here (a provenance whose picks lost money), which the article-count
   // twin can never show, so the axis is not forced to zero.
@@ -1771,18 +1825,13 @@ function draw() {{
     const _top = _gs.slice(0, _NTOP);
     const _bot = _gs.length > _NTOP + _NBOT ? _gs.slice(-_NBOT) : _gs.slice(_NTOP);
     const _midArr = _gs.slice(_NTOP, Math.max(_NTOP, _gs.length - _NBOT));
-    // TWO rolled bars, not one. A single netted aggregate hid the composition: on this book the
-    // unnamed middle is +$222k of winners against -$73k of losers, and netting them to $149k made a
-    // wide spread that mostly cancels look like one modest positive.
-    const _midW = _midArr.filter(e => e[1] > 0), _midL = _midArr.filter(e => e[1] <= 0);
-    const _sum = arr => arr.reduce((s, e) => s + e[1], 0);
-    const GHr = _midArr.length
-      ? [..._top,
-         ...(_midW.length ? [[`other winners (${{_midW.length}})`, _sum(_midW)]] : []),
-         ...(_midL.length ? [[`other losers (${{_midL.length}})`,  _sum(_midL)]] : []),
-         ..._bot]
-      : _gs;
-    const _isRoll = lbl => String(lbl).startsWith('other ');
+    // NO ROLLED BAR. The unnamed middle used to be drawn -- first netted into one grey bar, then
+    // split into winners and losers. Both versions were TALLER than most named tickers (+$222k and
+    // -$73k against a best single name of ~$50k), so they set the y-range and squashed the 24 bars
+    // the panel exists to compare. The totals are stated in the caption instead, where they cost no
+    // vertical range at all.
+    const GHr = [..._top, ..._bot];
+    const _isRoll = () => false;
     // BOLD the shortlist names. Plotly renders HTML in tick labels, so the emphasis rides on the
     // label itself -- no second series and no colour channel spent, and it survives the sort.
     const _FOCUS = new Set(DATA.focus || []);
