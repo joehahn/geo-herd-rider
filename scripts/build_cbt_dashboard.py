@@ -359,6 +359,21 @@ def main(argv=None) -> int:
                 _bn.append((_k, round(_v, 2), sorted(_ts)[:8]))
         _bn.sort(key=lambda t: -abs(t[1]))
         _bn = sorted(_bn[:30], key=lambda t: t[1])
+        # the unlisted tail, stated rather than drawn -- rolled bars here would be $86k and -$90k
+        # against a largest named bar of $50k, i.e. the same axis-squashing that was just removed
+        # from plot 5.
+        _shown = {t[0] for t in _bn}
+        _restv = []
+        for _k2, _ts2 in (bundle_buckets.get("byname") or {}).items():
+            if _k2 in _shown:
+                continue
+            _v2 = sum(float(_gg.get(t) or 0) for t in _ts2)
+            if _v2:
+                _restv.append(_v2)
+        bundle_buckets["rest_win_n"] = sum(1 for v in _restv if v > 0)
+        bundle_buckets["rest_win"] = round(sum(v for v in _restv if v > 0), 2)
+        bundle_buckets["rest_los_n"] = sum(1 for v in _restv if v <= 0)
+        bundle_buckets["rest_los"] = round(abs(sum(v for v in _restv if v <= 0)), 2)
         bundle_buckets["names"] = [t[0] for t in _bn]
         bundle_buckets["ngain"] = [t[1] for t in _bn]
         bundle_buckets["nticks"] = [", ".join(t[2]) for t in _bn]
@@ -1224,8 +1239,14 @@ def main(argv=None) -> int:
               "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
               "bundles actually paid. A bundle is credited with the realised P&amp;L of every ticker "
               "proposed out of it, so a name here earned its money by putting a ticker in front of "
-              "the scout at the right moment. The 30 largest by absolute value, winners and losers "
-              "both; hover for the tickers each one produced.",
+              "the scout at the right moment. The <b>30 largest by absolute value</b> are drawn, "
+              "winners and losers both; hover for the tickers each produced. Everything else is "
+              f"stated rather than drawn: <b>{bundle_buckets.get('rest_win_n', 0)} more bundles worth "
+              f"${bundle_buckets.get('rest_win', 0):,.0f}</b> and "
+              f"<b>{bundle_buckets.get('rest_los_n', 0)} more worth "
+              f"\u2212${bundle_buckets.get('rest_los', 0):,.0f}</b>. Rolled into bars they would be "
+              "taller than the largest named bundle and would flatten everything here, the same way "
+              "they did in plot 5.",
               "c-bundlename", 620),
         panel(18, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
