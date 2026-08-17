@@ -211,25 +211,27 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-17 (fifth set, on the v8 book): DD < 65%, L1 > 2100%/yr, L2 700-1300/yr,
-    # Sharpe > 1.0, cancelled < 60%. 1,177 of 6,300 survive -- the loosest cut in this series.
+    # RE-CUT 2026-08-17 (sixth set, on the v8 book): DD < 65%, L1 > 2100%/yr, L2 700-1300/yr,
+    # cancelled < 60%. 1,787 of 6,300 survive -- the loosest cut in this series.
     #
-    # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so the requested
+    # READ `cancelled` AS A PERCENT. It is stored 4.1-268.6 (median 58.6), not 0-1, so a requested
     # "cancel < 0.6" is taken as < 60%. Read literally it would admit ZERO of the 6,300 cells, since
     # the lowest cancellation anywhere on the grid is 4.1%.
     #
-    # NO NO-BRAINER GATE IN THIS SET, so the shortlist is selected purely on how the book BEHAVES and
-    # not at all on what it caught. Sharpe does nearly all the work (30.2% alone; it takes the running
-    # total from 2,948 to 1,208) and DD < 65% is inert at 90.4%. These survivors are a DIFFERENT
-    # POPULATION from the fourth set's, not a relaxation of it -- that cut was bound by a $50K FOCUS
-    # floor, and nothing here rewards catching the no-brainer names at all.
+    # SHARPE WAS DROPPED, and it was doing nearly all the filtering -- it alone took the running total
+    # from 2,948 to 1,208, while DD < 65% is inert at 90.4% and L2 at 85.8%. Removing it re-admits 610
+    # cells whose Sharpe is BELOW 1.0 (worst now admitted: 0.60), and they are visibly weaker than the
+    # ones that were already in:
+    #     newly admitted   median Sharpe 0.88   median final $118,256   median FOCUS $26,017
+    #     already present  median Sharpe 1.22   median final $202,724   median FOCUS $70,975
+    # So this set no longer distinguishes a steady book from a volatile one, and nothing in it rewards
+    # catching the no-brainer names either. Cancellation is now the only behavioural bar left.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FIVE comfortably: DD 31.1, L1 2230,
-    # L2 806, Sharpe 1.80, cancellation 35.6.
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL FOUR comfortably: DD 31.1, L1 2230,
+    # L2 806, cancellation 35.6.
     GATES = [("max DD", "max_drawdown", lambda v: v < 65, "&lt; 65%"),
              ("L1", "l1", lambda v: v > 2100, "&gt; 2100%/yr"),
              ("L2", "l2", lambda v: 700 < v < 1300, "700&ndash;1300/yr"),
-             ("Sharpe", "sharpe", lambda v: v > 1.0, "&gt; 1.0"),
              ("cancelled", "cancelled", lambda v: v < 60, "&lt; 60%")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
@@ -389,7 +391,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all four gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
