@@ -676,7 +676,44 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
               "are genuine walls and 18% our parser failing.",
               "p-miss", 340),
-        panel(9, "Articles per bundle",
+        panel(9, "Articles per beat",
+              "A <b>beat</b> is one standing weekly search; all 46 live in "
+              f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
+              "verbatim on the forward path) and keyword atoms (matched against headline and URL "
+              "here). Sectors and superlatives are just coverage beats, not separate files."
+              "<br><br><b>Orange</b>: the 10 early-framing beats — coverage while a name is still "
+              "under-the-radar, what this strategy bets on. <b>Blue</b>: the 36 sector-coverage "
+              "beats; one superlative beat among them is the corpus's largest single source. Three "
+              "early-framing beats sit at the bottom, contributing nothing."
+              f"<br><br>Outlet preferences live in {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}, "
+              f"sources in {_LINK(SOURCES_URL, 'news_sources.md')}. The English-origin gate (plot 1) "
+              "is still in code — a wart.",
+              "p-beats", 900),
+        panel(10, "Articles per source",
+              "The 50 largest outlets, plus everything else folded into one grey bar. A sweep "
+              "dominated by a handful of publishers inherits their editorial priorities; a long tail "
+              "means genuine breadth.",
+              "p-src", 1050),
+        panel(11, "Specialty-desk reach",
+              "The outlets hand-picked in "
+              f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} as <code>specialty_allow</code> — "
+              "the desks expected to carry the early call. On the forward path a whole search pass is "
+              "restricted to them; BigQuery cannot do that, so here they are simply measured. Desks "
+              "with <b>zero</b> articles are shown, not omitted — that is the finding.",
+              "p-spec", 620),
+        panel(12, "News replication",
+              "The same story often runs on many sites at once; ingest merges those copies and "
+              "counts how many outlets ran each one (plot 1 calls this step <i>syndication</i>). Most "
+              "sit at 1 — a story only one outlet carried is one the market probably has not priced "
+              "yet. Widest this year: 122 outlets. Log axis.",
+              "p-syn", 320),
+        panel(13, "Articles per author",
+              "The 25 most frequent named writers, with the no-byline bucket shown in grey for scale. "
+              "Wire copy, PR releases and the publisher's own name are excluded by design, so a "
+              "byline here is a real person. Most of the corpus has none — that is normal for market "
+              "news, not a fault. Log axis.",
+              "p-auth", 640),
+        panel(14, "Articles per bundle",
               "Articles are bundled before the scout reads them, so a ticker\u2019s move-signal and "
               f"its driver arrive together. The <b>{bundles['top_n']} largest</b> bundles are named; "
               f"the grey bar at the bottom is every other bundle combined \u2014 "
@@ -692,43 +729,6 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "rather than one story, so unlike a company bundle it may be split. Blue bars are also "
               "corpus totals: a company bundle is filtered to the curation window before it is read.",
               "p-group", 1500),
-        panel(10, "Articles per beat",
-              "A <b>beat</b> is one standing weekly search; all 46 live in "
-              f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
-              "verbatim on the forward path) and keyword atoms (matched against headline and URL "
-              "here). Sectors and superlatives are just coverage beats, not separate files."
-              "<br><br><b>Orange</b>: the 10 early-framing beats — coverage while a name is still "
-              "under-the-radar, what this strategy bets on. <b>Blue</b>: the 36 sector-coverage "
-              "beats; one superlative beat among them is the corpus's largest single source. Three "
-              "early-framing beats sit at the bottom, contributing nothing."
-              f"<br><br>Outlet preferences live in {_LINK(PROFILE_URL, 'investor_profile.backtest.md')}, "
-              f"sources in {_LINK(SOURCES_URL, 'news_sources.md')}. The English-origin gate (plot 1) "
-              "is still in code — a wart.",
-              "p-beats", 900),
-        panel(11, "Articles per source",
-              "The 50 largest outlets, plus everything else folded into one grey bar. A sweep "
-              "dominated by a handful of publishers inherits their editorial priorities; a long tail "
-              "means genuine breadth.",
-              "p-src", 1050),
-        panel(12, "Specialty-desk reach",
-              "The outlets hand-picked in "
-              f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} as <code>specialty_allow</code> — "
-              "the desks expected to carry the early call. On the forward path a whole search pass is "
-              "restricted to them; BigQuery cannot do that, so here they are simply measured. Desks "
-              "with <b>zero</b> articles are shown, not omitted — that is the finding.",
-              "p-spec", 620),
-        panel(13, "News replication",
-              "The same story often runs on many sites at once; ingest merges those copies and "
-              "counts how many outlets ran each one (plot 1 calls this step <i>syndication</i>). Most "
-              "sit at 1 — a story only one outlet carried is one the market probably has not priced "
-              "yet. Widest this year: 122 outlets. Log axis.",
-              "p-syn", 320),
-        panel(14, "Articles per author",
-              "The 25 most frequent named writers, with the no-byline bucket shown in grey for scale. "
-              "Wire copy, PR releases and the publisher's own name are excluded by design, so a "
-              "byline here is a real person. Most of the corpus has none — that is normal for market "
-              "news, not a fault. Log axis.",
-              "p-auth", 640),
     ])
 
     doc = f"""<!doctype html>
