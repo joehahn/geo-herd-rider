@@ -511,6 +511,16 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     labels = [b[2] for b in _BUCK] + ["beat\nbundles", "no bundle\nat all"]
     _gsz = _gsz + [len(_beat), 0]
     _asz = _asz + [sum(_beat.values()), _orphan_left]
+    # NAMED bundles for the horizontal bar: the biggest of each kind, so the panel says WHICH
+    # bundles carry the corpus rather than only how the sizes are distributed.
+    _named = ([(f"{k}", len(v), "company") for k, v in _grp.items()]
+              + [(f"{b}", n, "beat") for b, n in _beat.items()])
+    _named.sort(key=lambda t: -t[1])
+    _top = _named[:34]
+    bundles = {"q": [t[0] for t in _top], "n": [t[1] for t in _top],
+               "kind": [t[2] for t in _top],
+               "n_company": len(_grp), "n_beat": len(_beat),
+               "a_company": sum(len(v) for v in _grp.values()), "a_beat": sum(_beat.values())}
     grouping = {"labels": labels, "groups": _gsz, "articles": _asz,
                 "n_entities": len(_grp), "no_org": len(_noorg),
                 "no_org_seen": sum(_beat.values()), "no_org_blind": _orphan_left,
@@ -520,6 +530,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # ---- payload ---------------------------------------------------------
     payload = {
         "grouping": grouping,
+        "bundles": bundles,
         "funnel": {"labels": [r[0] for r in fun], "values": [r[1] for r in fun],
                    "notes": [r[2] for r in fun]},
         "backfill": {**(stats.get("wayback_overlay") or {}),
@@ -656,15 +667,16 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
               "are genuine walls and 18% our parser failing.",
               "p-miss", 340),
-        panel(9, "How the corpus is bundled for the scout",
-              "Articles are bundled before the scout reads them, so a move-signal and its driver "
-              "arrive together. Blue bars are COMPANY bundles by size &mdash; watch the <b>1</b> bar, "
-              "where there is nothing to corroborate with. Green is the <b>beat bundle</b> fallback: "
-              f"the <b>{grouping['no_org']:,}</b> articles naming no usable company are grouped by the "
-              "standing search that found them instead, date-ordered, so they get a topical home "
-              f"rather than being read alone. Red is what is left with no bundle at all "
-              f"(<b>{grouping['no_org_blind']:,}</b>).",
-              "p-group", 360),
+        panel(9, "Articles per bundle",
+              "Articles are bundled before the scout reads them, so a ticker\u2019s move-signal and "
+              "its driver arrive together. The 34 largest bundles, of "
+              f"<b>{bundles['n_company']:,}</b> company bundles carrying "
+              f"<b>{bundles['a_company']:,}</b> articles and <b>{bundles['n_beat']}</b> beat bundles "
+              f"carrying <b>{bundles['a_beat']:,}</b>. <b>Blue</b> is a COMPANY bundle &mdash; every "
+              "article about one firm. <b>Green</b> is a BEAT bundle, the fallback for articles that "
+              "name no usable company: they are grouped by the standing search that found them and "
+              "date-ordered, so they get a topical home instead of being read alone.",
+              "p-group", 620),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
               f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
@@ -874,49 +886,33 @@ function draw() {{
       xaxis:{{type:'log', gridcolor:p.grid,
               title:{{text:'headline-only articles (log scale)', font:{{size:11}}}}}}}}), CFG);
 
-  // 3b. ENTITY GROUPING. Grouped bars, not stacked: articles and entities are different units and
-  //     stacking them would invite reading a total that means nothing. Both on one axis is still
-  //     honest because both are COUNTS and the question is their SHAPE -- a few entities holding most
-  //     of the articles, against many entities holding one each.
-  const G = DATA.grouping;
-  // FOUR traces, not two with a colour trick. The no-company bars are a different KIND of thing from
-  // a bundle-size bucket, and giving each its own trace is what puts the reason INTO THE LEGEND
-  // instead of leaving colour to carry it -- the previous version painted them from an index map, so
-  // the legend said only "articles" and a reader had to infer why two bars were odd.
-  const _sizeX = G.labels.filter((_, i) => i > 0 && i < G.labels.length - 1);
-  const _sizeA = G.articles.filter((_, i) => i > 0 && i < G.labels.length - 1);
-  const _sizeE = G.groups.filter((_, i) => i > 0 && i < G.labels.length - 1);
-  const _firstL = G.labels[0], _lastL = G.labels[G.labels.length - 1];
+  // 3b. ARTICLES PER BUNDLE -- same form as the per-beat panel below it, so the two read as a
+  //     pair: this is what the scout is handed, that is where the corpus came from. Horizontal bars
+  //     because the labels are company and beat NAMES, which do not fit on an x-axis. Two named
+  //     series rather than a colour map, so the legend carries the distinction.
+  const BU = DATA.bundles;
+  const _ci = BU.kind.map((k,i)=>[k,i]).filter(t=>t[0]==='company').map(t=>t[1]).reverse();
+  const _bi = BU.kind.map((k,i)=>[k,i]).filter(t=>t[0]==='beat').map(t=>t[1]).reverse();
   Plotly.react('p-group', [
-    {{type:'bar', name:'articles in bundles', x:_sizeX, y:_sizeA,
-      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
-      text:_sizeA.map(v=>v.toLocaleString()), textposition:'outside',
-      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} articles<extra></extra>'}},
-    {{type:'bar', name:'entities (bundles)', x:_sizeX, y:_sizeE,
-      marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
-      text:_sizeE.map(v=>v.toLocaleString()), textposition:'outside',
-      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'%{{x}} per bundle<br>%{{y:,}} entities<extra></extra>'}},
-    {{type:'bar', name:'no company named \u2014 ungrouped, still read', x:[_firstL], y:[G.articles[0]],
-      marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
-      text:[G.articles[0].toLocaleString()], textposition:'outside',
-      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'%{{y:,}} articles: no company, but passed the gate<extra></extra>'}},
-    {{type:'bar', name:'no company named \u2014 rejected, never read',
-      x:[_lastL], y:[G.articles[G.articles.length - 1]],
-      marker:{{color:ST.critical, line:{{width:2, color:p.surface}}}},
-      text:[G.articles[G.articles.length - 1].toLocaleString()], textposition:'outside',
-      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'%{{y:,}} articles: no company and failed the gate<extra></extra>'}}
-  ], base(p, {{barmode:'group', showlegend:true,
-      margin:{{l:70,r:24,t:52,b:52}},
-      legend:{{orientation:'h', y:1.18, x:0, font:{{size:10.5}}}},
-      xaxis:{{type:'category', categoryorder:'array', categoryarray:G.labels,
-             title:{{text:'articles in the bundle \u2014 first and last have no bundle at all',
-                     font:{{size:11}}}}, tickfont:{{size:10}}}},
-      yaxis:{{type:'log', gridcolor:p.grid, rangemode:'tozero',
-             title:{{text:'count (log scale)', font:{{size:11}}}}}}}}), CFG);
+    {{type:'bar', orientation:'h', name:'company bundle', x:_ci.map(i=>BU.n[i]), y:_ci.map(i=>BU.q[i]),
+      marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
+      text:_ci.map(i=>BU.n[i].toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
+      hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'}},
+    {{type:'bar', orientation:'h', name:'beat bundle (no company named)',
+      x:_bi.map(i=>BU.n[i]), y:_bi.map(i=>BU.q[i]),
+      marker:{{color:ST.good, line:{{width:2,color:p.surface}}}},
+      text:_bi.map(i=>BU.n[i].toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
+      hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'}}
+  ], base(p, {{margin:{{l:300,r:90,t:34,b:44}}, showlegend:true,
+      legend:{{orientation:'h', y:1.06, x:0, font:{{size:11.5}}}},
+      barmode:'overlay',
+      yaxis:{{gridcolor:'rgba(0,0,0,0)', tickfont:{{size:10.5}}, automargin:true}},
+      // log x: the largest bundle is ~500x the smallest shown, and on a linear axis everything
+      // below the top three renders as a stub.
+      xaxis:{{type:'log', gridcolor:p.grid,
+             title:{{text:'articles in the bundle (log scale)', font:{{size:11}}}}}}}}), CFG);
 
   // 4. beat productivity — gem vs coverage as two named series (identity, never colour alone:
   //    the legend plus the y-axis label both name the beat)
