@@ -836,7 +836,7 @@ def main(argv=None) -> int:
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "bundle": bundle_buckets,
         "hold": hold_rows,
-        "focus": list(_FOCUS_TICKERS),   # the seven no-brainer tickers, bolded in plot 5
+        "focus": list(_FOCUS_TICKERS),   # the no-brainer tickers, bolded in plot 5
         # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
         # evidence, in proportion to how many of its cited articles came from each. A proportional
         # split, not an assignment: a pick argued off six archived articles and two live pages cannot

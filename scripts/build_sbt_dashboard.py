@@ -212,18 +212,23 @@ def main(argv=None) -> int:
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
     # RE-CUT 2026-08-17 (fourth set, on the v8 book): cancelled < 40%, Sharpe > 0.9, DD < 60%,
-    # L1 > 2050%/yr, L2 < 1250/yr, no-brainer gains > $50K. 342 of 6,300 survive.
+    # L1 > 2050%/yr, L2 < 1250/yr, no-brainer gains > $50K. 332 of 6,300 survive.
     #
-    # CANCELLATION IS NOW THE BINDING GATE, and it changes what this shortlist selects for. At < 40%
-    # it admits 12.5% of the grid on its own -- tighter than any other bar and tighter than the $50K
-    # no-brainer floor (22.3%). The previous set inverted this: its loose < 60% cancellation passed
-    # 53% and let the FOCUS floor do the cutting. So these survivors are chosen first for LOW GIVE-BACK
+    # CANCELLATION IS THE BINDING GATE, and it changes what this shortlist selects for. At < 40% it
+    # admits 12.1% of the grid on its own -- tighter than every other bar and tighter than the $50K
+    # no-brainer floor (22.2%). An earlier set inverted this: its loose < 60% cancellation passed 53%
+    # and let the FOCUS floor do the cutting. So these survivors are chosen first for LOW GIVE-BACK
     # (little of the gross gain handed back by losing positions) and only second for riding the focus
-    # names. Sharpe, DD, L1 and L2 are near-inert here -- together they take 785 to 575.
+    # names. Sharpe, DD, L1 and L2 are near-inert here -- together they take 765 to 554.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL SIX for the first time in this series of
-    # re-cuts (cancellation 35.3, Sharpe 1.81, DD 31.1, L1 2230, L2 806, FOCUS $56,312). Both bars that
-    # excluded it earlier moved: the DD floor is gone and the FOCUS floor came down from $80K.
+    # THE $50K FLOOR SURVIVED THE FOCUS RE-CUT UNCHANGED, which is luck rather than design. FOCUS was
+    # cut from seven names to six the same day (see sweep_optimizer.FOCUS: DRUG and BE were never
+    # named by the curator, MP returned +141% against +1392% alternatives). That re-scan moved every
+    # focus_gain -- the live config went $56,312 -> $65,869 on 5 of 6 names held -- yet the share of
+    # the grid clearing $50K barely moved, 22.3% -> 22.2%. The floor did NOT need recalibrating.
+    #
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] PASSES ALL SIX (cancellation 35.6, Sharpe 1.81,
+    # DD 31.1, L1 2230, L2 806, FOCUS $65,869 on 5 of 6 names).
     GATES = [("cancelled", "cancelled", lambda v: v < 40, "&lt; 40%"),
              ("Sharpe", "sharpe", lambda v: v > 0.9, "&gt; 0.9"),
              ("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
@@ -419,7 +424,7 @@ def main(argv=None) -> int:
               "the optimizer, meaning each point here is a full re-curation "
               f"(${sum(r.get('cost_usd') or 0 for r in (me or {{}}).get('rows', [])):.2f} and several "
               "hours for the series). Bars are final portfolio value and, beside it, the gain on the "
-              "seven no-brainer names from panel 7 &mdash; same axis, same unit. The line is the "
+              "six no-brainer names from panel 7 &mdash; same axis, same unit. The line is the "
               "share of events "
               "<b>culled at birth</b> &mdash; opened and retired without a single agent read, i.e. work "
               "paid for and thrown away. Read the CULL LINE first: it is a structural count the cap "

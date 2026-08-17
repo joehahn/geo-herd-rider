@@ -98,20 +98,52 @@ def load_scans(run: Path) -> dict:
 
 
 # THE NO-BRAINER SHORTLIST. Tickers with a big multi-year rise WHOSE PRESS NAMED DATED, VERIFIABLE
-# CATALYSTS -- contract awards, FDA decisions, funding acts -- rather than diffuse narrative. One per
-# sector, so a config cannot score well by loading a single theme:
-#   RKLB space/defense · DRUG biotech · MU AI-infra/semis · BE power · IREN crypto->AI datacenter
-#   MP critical minerals · QUBT quantum
+# CATALYSTS -- contract awards, FDA decisions, licensing milestones -- rather than diffuse narrative,
+# AND WHICH OUR CORPUS ACTUALLY NAMES. One per sector, so a config cannot score well by loading a
+# single theme:
+#   RKLB space/defense · MU AI-infra/semis · IREN crypto->AI datacenter · QUBT quantum
+#   VRT data-center power · LEU nuclear fuel
 # `focus_gain` is what a config made ON THESE NAMES. It answers a question total return cannot: did
 # this config get paid for catching the obvious ones, or for something else entirely?
 #
-# ROBOTICS IS DELIBERATELY ABSENT, and the reason is a retrieval finding, not a judgement about the
-# sector. Measured 2026-08-16 on the 99,117-article corpus: the robotics WINNERS are invisible to us
-# (RCAT +868% -> 1 article, UMAC +762% -> 0, ONDS +699% -> 3, KTOS +271% -> 4 = 8 articles between
-# them) while the robotics LOSERS are well covered (PATH -1% -> 90, SERV -79% -> 37, RR -69% -> 26).
-# Our corpus samples that sector INVERTED. PWR held ONDS off its own retrieval; we never saw it.
-# Putting robotics in this list would measure a retrieval hole as if it were a config failure.
-FOCUS = ("RKLB", "DRUG", "MU", "BE", "IREN", "MP", "QUBT")
+# THE COVERAGE REQUIREMENT IS LOAD-BEARING, and this list was CUT FROM SEVEN TO SIX on 2026-08-17
+# because three members failed it. Measured over the exact backtest window 2023-08-11..2026-08-14
+# (SPY +81%) against the v8 curation's 37 scans:
+#   DRUG +3191%, named in 0 of 37 scans -- the BEST return of the original seven, and invisible.
+#   BE   +1469%, named in 0 of 37 scans -- second best, also invisible. Neither reached the price
+#        panel at all, since the panel universe is built from the tickers the curator names.
+#   MP    +141%, named in 37 of 37 scans -- the WORST return, and the most-covered name we have.
+#        Funded by 0.9% of the 6,300 cells for $0. The optimizer declining a +141% name against
+#        +1392% alternatives is mean-variance working correctly, NOT a defect to fix.
+# So the list was INVERTED against our own coverage: its two biggest movers were unseen and its
+# weakest name was seen every week. `focus_gain` was in practice measuring four names.
+#
+# WHOLE SECTORS ARE DELIBERATELY ABSENT, and the reason is always a retrieval finding, not a
+# judgement about the sector. Our corpus samples these INVERTED -- the winners are invisible, the
+# non-movers are well covered -- so including them would measure a retrieval hole as a config failure:
+#   ROBOTICS   winners unseen (RCAT +868% -> 1 article, UMAC +762% -> 0, ONDS +699% -> 3,
+#              KTOS +283% -> named 0), losers well covered (PATH -1% -> 90, SERV -79% -> 37).
+#   CRIT. MIN. winners unseen (UAMY +1087% -> named 0, ASM +947% -> 0), covered names flat or down
+#              (MP +141% -> 37, USAR +84% -> 28, LAC -66% -> 17, CRML -39% -> 12).
+#   BIOTECH    best covered name is LLY, +134% on 22 namings; the real movers are near-invisible
+#              (CADL +926% -> named 1, SMMT +714% -> 2, TSHA +711% -> 1). Two independent screens
+#              (our corpus, and PWR's own CBT list) found no covered biotech that moved.
+#
+# THE TWO ADDITIONS ARE NOT SELECTED ON OUR OWN P&L, which would make this gate a restatement of
+# `final` rather than an independent check. We LOSE $14.1M on VRT across the grid and MAKE $23.3M on
+# LEU; one of each is deliberate.
+#   VRT +760%, named 6, 9 corpus articles. Data-center power/cooling; catalysts are hyperscaler
+#       contract awards. Chosen independently by PWR's CBT, which is corroboration from a system
+#       that does not share our retrieval.
+#   LEU +349%, named 23, the purest catalyst on the board: DOE HALEU contract awards, dated and
+#       verifiable, exactly the archetype this comment describes. Well covered, so it is a genuine
+#       config test rather than a retrieval test.
+# Rejected from PWR's list: NVDA/AMD (fail the premise -- a press-reading curator is not what finds
+# them, and MU already holds semis), KTOS/AXON/BWXT (named 0), IAU (an ETF wrapper; our measured
+# retrieval asymmetry says the thesis is retrievable and the vehicle is not), RGTI/IONQ (quantum,
+# already held by QUBT), CCJ/LLY/GOOGL/AMZN (mega-cap or modest), SMCI +54% / LMT +43% (below SPY).
+# OKLO +349% (named 5, 21 corpus articles) is a defensible 7th but sits adjacent to LEU in nuclear.
+FOCUS = ("RKLB", "MU", "IREN", "QUBT", "VRT", "LEU")
 
 
 def metrics(b: dict, anchors: set, fm: dict) -> dict:

@@ -140,7 +140,7 @@ def main(argv=None) -> int:
                "spy": round(bt.get("spy_final") or 0, 2),
                "sharpe": m.get("sharpe"), "max_drawdown": m.get("max_drawdown"),
                "cancelled": m.get("cancelled"), "ann": m.get("ann"),
-               # what each cap made on the seven no-brainer names (sweep_optimizer.FOCUS). Total
+               # what each cap made on the no-brainer names (sweep_optimizer.FOCUS). Total
                # return says whether a cap paid; this says whether it paid ON THE THESES THE STRATEGY
                # EXISTS TO CATCH -- and a cap that culls discoveries should show it here first.
                "focus_gain": m.get("focus_gain"), "focus_held": m.get("focus_held"),
