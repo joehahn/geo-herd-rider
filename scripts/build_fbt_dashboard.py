@@ -516,9 +516,18 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     _named = ([(f"{k}", len(v), "company") for k, v in _grp.items()]
               + [(f"{b}", n, "beat") for b, n in _beat.items()])
     _named.sort(key=lambda t: -t[1])
-    _top = _named[:34]
+    _TOP_N = 100
+    _top = _named[:_TOP_N]
+    _rest = _named[_TOP_N:]
+    # THE TAIL, as one bar. 22k bundles cannot be listed, but leaving them out entirely would let the
+    # panel imply the top 100 IS the corpus -- they are 22,263 bundles holding a quarter of it, nearly
+    # all singletons. Drawn as one aggregate in grey and labelled as a COUNT of bundles, not a bundle,
+    # so it is not mistaken for one.
     bundles = {"q": [t[0] for t in _top], "n": [t[1] for t in _top],
                "kind": [t[2] for t in _top],
+               "rest_n": len(_rest), "rest_a": sum(t[1] for t in _rest),
+               "rest_singletons": sum(1 for t in _rest if t[1] == 1),
+               "top_n": _TOP_N, "top_a": sum(t[1] for t in _top),
                "n_company": len(_grp), "n_beat": len(_beat),
                "a_company": sum(len(v) for v in _grp.values()), "a_beat": sum(_beat.values())}
     grouping = {"labels": labels, "groups": _gsz, "articles": _asz,
@@ -669,14 +678,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "p-miss", 340),
         panel(9, "Articles per bundle",
               "Articles are bundled before the scout reads them, so a ticker\u2019s move-signal and "
-              "its driver arrive together. The 34 largest bundles, of "
-              f"<b>{bundles['n_company']:,}</b> company bundles carrying "
-              f"<b>{bundles['a_company']:,}</b> articles and <b>{bundles['n_beat']}</b> beat bundles "
-              f"carrying <b>{bundles['a_beat']:,}</b>. <b>Blue</b> is a COMPANY bundle &mdash; every "
-              "article about one firm. <b>Green</b> is a BEAT bundle, the fallback for articles that "
-              "name no usable company: they are grouped by the standing search that found them and "
-              "date-ordered, so they get a topical home instead of being read alone.",
-              "p-group", 620),
+              f"its driver arrive together. The <b>{bundles['top_n']} largest</b> bundles are named; "
+              f"the grey bar at the bottom is every other bundle combined \u2014 "
+              f"<b>{bundles['rest_n']:,}</b> of them holding <b>{bundles['rest_a']:,}</b> articles, "
+              f"of which {bundles['rest_singletons']:,} hold a single article and can corroborate "
+              "nothing. <b>Blue</b> is a COMPANY bundle, every article about one firm. <b>Green</b> "
+              "is a BEAT bundle, the fallback for articles naming no usable company: grouped by the "
+              "standing search that found them and date-ordered, so they get a topical home instead "
+              f"of being read alone ({bundles['n_beat']} beats, {bundles['a_beat']:,} articles).",
+              "p-group", 1500),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
               f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
@@ -904,7 +914,16 @@ function draw() {{
       marker:{{color:ST.good, line:{{width:2,color:p.surface}}}},
       text:_bi.map(i=>BU.n[i].toLocaleString()), textposition:'outside',
       textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
-      hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'}}
+      hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'}},
+    {{type:'bar', orientation:'h',
+      name:'all '+BU.rest_n.toLocaleString()+' smaller bundles combined',
+      x:[BU.rest_a], y:['\u2014 '+BU.rest_n.toLocaleString()+' other bundles \u2014'],
+      marker:{{color:p.grid, line:{{width:2,color:p.surface}}}},
+      text:[BU.rest_a.toLocaleString()], textposition:'outside',
+      textfont:{{color:p.text2, size:10.5}}, cliponaxis:false,
+      hovertemplate:'%{{x:,}} articles across '+BU.rest_n.toLocaleString()+
+                    ' bundles ('+BU.rest_singletons.toLocaleString()+
+                    ' hold a single article)<extra></extra>'}}
   ], base(p, {{margin:{{l:300,r:90,t:34,b:44}}, showlegend:true,
       legend:{{orientation:'h', y:1.06, x:0, font:{{size:11.5}}}},
       barmode:'overlay',
