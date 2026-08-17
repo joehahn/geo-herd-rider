@@ -43,7 +43,7 @@ def main(argv=None) -> int:
     S = json.loads((ROOT / a.sweep).read_text())
     cells = [c for c in S["cells"] if c.get("cancelled") is not None]
     keys = list(S["grid"])
-    # `base` = where the LIVE profile sits in the grid (the star in panels 2-5, the "current" row).
+    # `base` = where the LIVE profile sits in the grid (the star in panels 2-7, the "current" row).
     # Read it from the profile at BUILD time, not from S["base"], which froze when the sweep ran. The
     # cells never change when a knob moves -- only which one is "current" -- so a profile edit should
     # cost a 2-second rebuild, not a re-sweep. Falls back to the stored base for any key the profile
@@ -148,7 +148,7 @@ def main(argv=None) -> int:
                         nb.append(n["cancelled"])
         c["plateau"] = round(0.5 * c["cancelled"] + 0.5 * (sum(nb) / len(nb) if nb else c["cancelled"]), 1)
 
-    # ---- ROBUST: the rank table 8 actually sorts on ------------------------------------------------
+    # ---- ROBUST: the rank table 9 actually sorts on ------------------------------------------------
     # Mean of a config's CANCELLATION rank and its DRAWDOWN rank, both 0 (best) .. 1 (worst), taken
     # over every cell in the sweep. Ranks rather than raw values, because the two are on unrelated
     # scales (cancellation runs 4-269%, drawdown 0-100%) and averaging them directly would let
@@ -161,7 +161,7 @@ def main(argv=None) -> int:
     #
     #     rank(canc)+rank(DD)   86th   $189,137   <- this
     #     + rank(sharpe)        85th   $160,259
-    #     plateau(cancellation) 83rd   $156,393   <- what table 8 used before
+    #     plateau(cancellation) 83rd   $156,393   <- what table 9 used before
     #     drawdown alone        67th   $ 94,531
     #     SHARPE                54th   $ 64,075   <- a coin flip
     #     slope_2h              53rd   $ 75,001
@@ -234,7 +234,7 @@ def main(argv=None) -> int:
     def _f(x, s="", d=2):
         return "—" if x is None else (f"{x:.{d}f}{s}")
 
-    # ---- SHORTLIST: read the gates straight off panels 2-5 ---------------------------------------
+    # ---- SHORTLIST: read the gates straight off panels 2-7 ---------------------------------------
     # Panels 2-5 plot annualized return against drawdown, L1, L2 and cancellation. Rather than eyeball
     # a "good corner" in four separate clouds, cut all four at once and let what survives be the
     # candidate set. These are ABSOLUTE bars, deliberately: a percentile gate would always pass the
@@ -298,7 +298,7 @@ def main(argv=None) -> int:
              ("L2", "l2", lambda v: 750 < v < 1350, "750&ndash;1350/yr"),
              ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
              ("cancelled", "cancelled", lambda v: v < 65, "&lt; 65%")]
-    # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
+    # Rows shown in table 9 AND marked as light-blue squares in panels 2-7. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
     # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
@@ -309,9 +309,9 @@ def main(argv=None) -> int:
     # where the ACCEPTABLE region sits -- only its tip. 100 restores a readable band without marking
     # so much of the cloud that the highlight stops meaning anything.
     #
-    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 8's visible rows,
-    # the `topn` payload behind the blue squares in panels 2-6, and the "show the remaining N" fold.
-    # Panel 7 is deliberately NOT on it -- it marks `top5` only, so its squares mean something
+    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 9's visible rows,
+    # the `topn` payload behind the blue squares in panels 2-7, and the "show the remaining N" fold.
+    # Panel 8 is deliberately NOT on it -- it marks `top5` only, so its squares mean something
     # narrower than the same-coloured squares elsewhere on the page.
     TOP_N = 100
     short = [c for c in cells
@@ -351,14 +351,14 @@ def main(argv=None) -> int:
     def _st(c, col):
         return " ★" if stars.get(col) is c else ""
 
-    # The 20 rows table 6 shows, keyed the same way the JS keys a cell, so panels 2-5 can mark exactly
+    # The rows table 9 shows, keyed the same way the JS keys a cell, so panels 2-7 can mark exactly
     # the configs the table recommends. Without this the table and the scatters are two separate
     # arguments about the same grid and you have to hold one in your head while reading the other.
     # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
     payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
-    # Table 8's top 5, called out separately for panel 7. The other scatters mark all TOP_N as
+    # Table 9's top 5, called out separately for panel 8. The other scatters mark all TOP_N as
     # anonymous squares; on the shortlist-gain panel the question is narrower -- do the configs this
     # page RECOMMENDS actually get paid on the no-brainer names? -- so those five are labelled with
     # their rank rather than left for the reader to hunt in a hover.
@@ -455,7 +455,31 @@ def main(argv=None) -> int:
               "shape is itself the finding: if it were a tight rising diagonal these knobs would only "
               "be trading return against cancellation, and it is not one.",
               "s-canc", 470),
-        panel(7, "Gains on the no-brainer shortlist",
+        panel(7, "Return vs second-half slope",
+              "Return against <b>when</b> it arrived. The horizontal is the second-half slope &mdash; "
+              "(final &minus; midpoint) &divide; 1.5 years, in dollars per year &mdash; so a point far "
+              "right was still compounding in the back half of the run, and a point at or left of zero "
+              "made its money early and then coasted or gave it back. <b>Upper-right is best.</b> "
+              "Colour is max drawdown, on the same 20&ndash;120% band as panels 5 and 6.<br><br>"
+              "The cloud is a tight rising diagonal &mdash; return and slope correlate <b>+0.95</b>, "
+              "tighter even than return and Sharpe &mdash; so for almost every config the two say the "
+              "same thing. <b>That tightness is the finding, and it is a warning about slope, not a "
+              "recommendation of it:</b> a measure this correlated with return carries almost no "
+              "information return does not, which is consistent with slope ranking configs at the 53rd "
+              "percentile on the re-curation transfer test, i.e. no better than random. Only <b>4 of "
+              "6,300</b> cells clear 50%/yr while finishing with a negative slope, so the "
+              "made-it-early-then-coasted failure this panel was built to expose barely happens on "
+              "this book. <b>863 cells (14%) do have a negative slope</b>, but they are the low-return "
+              "cells you would drop anyway.<br><br>"
+              "Two things to read carefully. The 95 cells above $500K/yr are <b>clipped</b> at the "
+              "right edge rather than allowed to flatten the rest (the maximum is $2.0M/yr). And the "
+              "two axes are computed off <b>different equity curves</b> &mdash; annualized return "
+              "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
+              "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
+              "is unaffected, but do not read a ratio off this panel. Blue squares are table 9\'s top "
+              "100 &mdash; all 100 have a positive slope, median <b>$151,140</b>/yr.",
+              "s-slope", 470),
+        panel(8, "Gains on the no-brainer shortlist",
               "What each config made on seven names that were obvious in hindsight &mdash; big "
               "multi-year rises where the press named <b>dated</b> catalysts, not narrative: RKLB, "
               "DRUG, MU, BE, IREN, MP, QUBT, one per sector so nothing wins by loading a single "
@@ -464,10 +488,10 @@ def main(argv=None) -> int:
               "obvious ones; below the zero line it <b>lost</b> money on names that rose "
               "120&ndash;3,590%. <b>No robotics</b>: our corpus carries 1 article on RCAT (+868%), 0 "
               "on UMAC (+762%) and 3 on ONDS (+699%) but 90 on PATH (&minus;1%), so that sector is a "
-              "hole in our news feed, not a config failure. Blue squares are table 8's top five "
+              "hole in our news feed, not a config failure. Blue squares are table 9's top five "
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
-        ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
+        ('<section class="panel"><h2>9. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all five gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
@@ -490,25 +514,25 @@ def main(argv=None) -> int:
          f"against a &lt; 20% bar; a <b>&#9733;</b> marks the best survivor per column, top {TOP_N} "
          "shown, current config on the last row."
          f'</p>{rec}</section>'),
-        panel(9, f"{heat['ky']} × {heat['kx']}",
+        panel(10, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
               "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
               "interactions hide — a value that looks harmless on average can be the worst choice "
               "in one corner of the grid.",
               "s-heat", 420),
-        panel(10, "Each knob on its own",
+        panel(11, "Each knob on its own",
               "For every value of every knob: the MEDIAN cancellation across all cells holding that "
               "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
               "knob only pays in combination with something else. The live setting is outlined.",
               "s-marg", 620),
-    ] + ([panel(11, "Portfolio value vs max_events",
+    ] + ([panel(12, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
               "FIXED curation through different book math, so 6,300 cells cost nothing; "
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
               "the optimizer, meaning each point here is a full re-curation "
               f"(${sum(r.get('cost_usd') or 0 for r in (me or {{}}).get('rows', [])):.2f} and several "
               "hours for the series). Bars are final portfolio value and, beside it, the gain on the "
-              "six no-brainer names from panel 7 &mdash; same axis, same unit. The line is the "
+              "six no-brainer names from panel 8 &mdash; same axis, same unit. The line is the "
               "share of events "
               "<b>culled at birth</b> &mdash; opened and retired without a single agent read, i.e. work "
               "paid for and thrown away. Read the CULL LINE first: it is a structural count the cap "
@@ -516,14 +540,15 @@ def main(argv=None) -> int:
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
               "s-me", 460),
-        panel(12, "Risk-adjusted quality vs max_events",
-              "Sharpe per cap, with the shortlist's <b>&gt; 1.2 floor</b> drawn in. This is the panel "
-              "to weigh against 10, because Sharpe is what table 8 actually ranks by and what the "
-              "live config was chosen on &mdash; a cap that wins on final value while dropping below "
-              "the floor has not won anything we would deploy. Bars under the line are configs the "
-              "shortlist would refuse regardless of how much money they made.",
+        panel(13, "Risk-adjusted quality vs max_events",
+              "Sharpe per cap, against the <b>&gt; 0.8 floor</b> the current gate set uses. Read it "
+              "beside panel 12: a cap that wins on final value while dropping below the floor has not "
+              "won anything the shortlist would admit. <b>Sharpe is NOT what table 9 ranks by</b> "
+              "&mdash; that is <code>robust</code>, cancellation rank + drawdown rank &mdash; and "
+              "Sharpe measured at the <b>54th percentile</b> on the re-curation transfer test, i.e. a "
+              "coin flip. It is kept here as a gate and a sanity column, not as a ranking.",
               "s-me-sharpe", 380),
-        panel(13, "Where the money sits, and what it gives back",
+        panel(14, "Where the money sits, and what it gives back",
               "Three percentages on ONE axis, all of them defects: <b>max drawdown</b> (the hole the "
               "book digs), <b>cancellation</b> (winners' gains handed back by losers) and <b>idle "
               "days</b> (days holding NO position at all &mdash; the cash band in CBT plot 9). Dashed "
@@ -533,7 +558,7 @@ def main(argv=None) -> int:
               "allowed to open them. All three are better LOW, so a cap whose three bars are all "
               "short is the one to want.",
               "s-me-risk", 400),
-        panel(14, "What the cap costs, and what it buys",
+        panel(15, "What the cap costs, and what it buys",
               "Left bars: the <b>LLM bill for that curation</b> &mdash; the only thing on this page "
               "that is not free, since each point is a full re-curation rather than a replay. Right "
               "bars: the same money divided by <b>tickers that actually got funded</b>, which is the "
@@ -614,7 +639,7 @@ function draw(){{
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<br>'+xlab+' %{{x:,.0f}}'+xsuf+'<extra></extra>',
       showlegend:false}});
     const tr=[mk(c=>!isCur(c))];
-    // The table-8 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
+    // The table-9 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
     // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
     const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
@@ -622,12 +647,12 @@ function draw(){{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:'#7dd3fc',
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>table-8 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>table-9 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
       xaxis:{{gridcolor:p.grid, ticksuffix:xsuf, range:(xmax ? [(xmin!==undefined?xmin:0), xmax] : undefined),
-             title:{{text:xlab+(div==='s-sharpe'?' (HIGHER is better)':(div==='s-dd'||div==='s-canc'?' (lower is better)':' (lower = steadier)')), font:{{size:11}}}}}},
+             title:{{text:xlab+(div==='s-sharpe'||div==='s-slope'?' (HIGHER is better)':(div==='s-dd'||div==='s-canc'?' (lower is better)':' (lower = steadier)')), font:{{size:11}}}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:'%',
              title:{{text:'annualized return', font:{{size:11}}}}}}}}), CFG);
   }}
@@ -647,12 +672,12 @@ function draw(){{
         text:body.map(c=>K.map(k=>k+'='+c[k]).join('<br>')),
         hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
         showlegend:false}}];
-      // table-8 top 5, labelled with their rank and drawn UNDER the star
+      // table-9 top 5, labelled with their rank and drawn UNDER the star
       const T5 = (DATA.top5 || []).map(i => C[i]).filter(c => c && !isCur(c));
       if (T5.length) tr.push({{
         type:'scatter', mode:'markers', x:T5.map(c=>c.sharpe), y:T5.map(c=>c.focus_gain),
         marker:{{size:13, symbol:'square', color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
-        hovertext:T5.map((c,i)=>'<b>table-8 rank '+(i+1)+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+        hovertext:T5.map((c,i)=>'<b>table-9 rank '+(i+1)+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
         hovertemplate:'%{{hovertext}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
         showlegend:false}});
       if (me.length) tr.push({{
@@ -691,6 +716,9 @@ function draw(){{
   // colour is pinned to 20-120 to match panel 6, so the two read as one picture.
   scat('s-sharpe', SH, 'Sharpe', '', DD, 'max DD %', undefined, 20, 120);
   scat('s-canc', CANC, 'gains cancelled',      '%', DD,   'max DD %', 250, 20, 120, 0);
+  // slope in $/yr: clipped at 500K (95 of 6,300 cells run past it, to $2.0M) so the bulk stays
+  // readable. xmin -160K keeps the single deeply-negative cell on the page.
+  scat('s-slope', c=>c.slope_2h, 'second-half slope', '', DD, 'max DD %', 500000, 20, 120, -160000);
 
   // 3. the interaction the 1-D sweeps cannot show
   const H = DATA.heat;
