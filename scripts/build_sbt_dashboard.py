@@ -238,7 +238,17 @@ def main(argv=None) -> int:
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
     # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
     # was invisible in the table AND unmarked in the scatters).
-    TOP_N = 50
+    # Raised 50 -> 100 on 2026-08-17, following the gate loosening the same day: the sixth set
+    # (DD/L1/L2/cancellation, no Sharpe bar) leaves 1,787 survivors where earlier cuts left 332-599,
+    # so 50 squares had shrunk to the top 2.8% of the shortlist and the scatters no longer showed
+    # where the ACCEPTABLE region sits -- only its tip. 100 restores a readable band without marking
+    # so much of the cloud that the highlight stops meaning anything.
+    #
+    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 8's visible rows,
+    # the `topn` payload behind the blue squares in panels 2-6, and the "show the remaining N" fold.
+    # Panel 7 is deliberately NOT on it -- it marks `top5` only, so its squares mean something
+    # narrower than the same-coloured squares elsewhere on the page.
+    TOP_N = 100
     short = [c for c in cells
              if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
     # RANKED BY PLATEAU (2026-08-16), not Sharpe. Every cell here has already cleared five quality
