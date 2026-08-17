@@ -382,6 +382,20 @@ def _subject_orgs(orgs: str, offset: int, stoplist: set) -> list[str]:
     return list(best.values())
 
 
+def beat_parent() -> dict:
+    """{beat: bundle key} -- which beats are the SAME SUBJECT when bundling for the scout.
+
+    Read from retrieval_config.json, never hard-coded: the beats themselves live there and the two
+    must not drift. Applies at BUNDLE time only -- the beats stay separate searches, because they have
+    different vocabulary and this file records what we actually query."""
+    return dict(config().get("beat_parent") or {})
+
+
+def bundle_beat(q: str) -> str:
+    """The bundle key for one beat -- itself, unless it merges into a parent."""
+    return beat_parent().get(q, q)
+
+
 def _specialty(profile: str | None = None) -> list[str]:
     """Specialty-desk domains from the profile's `specialty_allow` -- the same allowlist the forward
     gather's GEM pass uses. Here it only breaks ties when picking a syndicated story's representative
