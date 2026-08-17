@@ -684,8 +684,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               f"of which {bundles['rest_singletons']:,} hold a single article and can corroborate "
               "nothing. <b>Blue</b> is a COMPANY bundle, every article about one firm. <b>Green</b> "
               "is a BEAT bundle, the fallback for articles naming no usable company: grouped by the "
-              "standing search that found them and date-ordered, so they get a topical home instead "
-              f"of being read alone ({bundles['n_beat']} beats, {bundles['a_beat']:,} articles).",
+              "standing search that found them, so they get a topical home instead of being read "
+              f"alone ({bundles['n_beat']} beats, {bundles['a_beat']:,} articles). "
+              "<b>A green bar is a corpus total, not one scout call.</b> Beat bundles are "
+              "DATE-SLICED per curation \u2014 crypto arrives as about three slices a window, and the "
+              "median slice the scout actually reads is ~20 articles \u2014 because a beat is a theme "
+              "rather than one story, so unlike a company bundle it may be split. Blue bars are also "
+              "corpus totals: a company bundle is filtered to the curation window before it is read.",
               "p-group", 1500),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
