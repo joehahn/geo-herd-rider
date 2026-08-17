@@ -211,22 +211,28 @@ def main(argv=None) -> int:
     # so `cancelled` now does most of the selecting -- it alone keeps 586 of 6,300, against L2's 4,611.
     # The churn bars are back, but LOOSE: they exclude the runaway-turnover tail without excluding the
     # profitable high-churn region that the old L1<850 gate was silently cutting out.
-    # RE-CUT 2026-08-17 (second set, on the v8 book): Sharpe > 1, cancelled < 60%, DD 40-60%,
-    # L1 > 2100/yr, L2 750-1300/yr. 867 of 6,300 survive.
+    # RE-CUT 2026-08-17 (third set, on the v8 book): cancelled < 60%, Sharpe > 0.8, DD < 60%,
+    # L1 > 2050%/yr, L2 < 1250/yr, no-brainer gains > $80K. 599 of 6,300 survive.
     #
-    # DRAWDOWN IS NOW A BAND WITH A FLOOR, which is a different instruction from every previous set:
-    # it excludes configs whose drawdown is BELOW 40%. That is deliberate on a book that pays for
-    # volatility -- a config that never draws down on this curation is one that barely holds anything
-    # -- but it is worth stating because it inverts the usual reading of a risk gate, and it is what
-    # excludes the live config (DD 31.1%).
+    # DRAWDOWN IS A CEILING AGAIN. The previous set banded it 40-60%, which excluded the steadiest
+    # configs; this reverts to the usual reading. L2 likewise loses its floor and is a ceiling only.
     #
-    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] FAILS on max DD alone: 31.1% against the 40% floor.
-    # It clears every other bar comfortably (Sharpe 1.81, cancellation 35.3%, L1 2230, L2 806).
-    GATES = [("Sharpe", "sharpe", lambda v: v > 1, "&gt; 1"),
-             ("cancelled", "cancelled", lambda v: v < 60, "&lt; 60%"),
-             ("max DD", "max_drawdown", lambda v: 40 < v < 60, "40&ndash;60%"),
-             ("L1", "l1", lambda v: v > 2100, "&gt; 2100%/yr"),
-             ("L2", "l2", lambda v: 750 < v < 1300, "750&ndash;1300/yr")]
+    # THE NO-BRAINER GATE IS THE ONE THAT BINDS. Five of the six barriers are loose -- each admits
+    # 53-90% of the grid, and all five together still leave 1,834 cells. The $80K floor on FOCUS gains
+    # alone admits 12.8%, and it is what cuts 1,834 to 599. That is the intent: the shortlist is now
+    # selected on whether a config PAID ON THE THESES THE STRATEGY EXISTS TO CATCH, with the risk bars
+    # demoted to sanity checks. Read the survivors that way -- they are not the low-risk cells, they
+    # are the cells that rode RKLB/DRUG/MU/BE/IREN/MP/QUBT.
+    #
+    # THE LIVE CONFIG [8, 0.25, 21, 0, 4.00, 0.10] FAILS on that same gate and nothing else: $56,312
+    # of FOCUS gains against the $80K floor. It clears all five risk bars (DD 31.1, Sharpe 1.81,
+    # cancellation 35.3, L1 2230, L2 806) -- it is a steady book that under-rides the focus names.
+    GATES = [("cancelled", "cancelled", lambda v: v < 60, "&lt; 60%"),
+             ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
+             ("max DD", "max_drawdown", lambda v: v < 60, "&lt; 60%"),
+             ("L1", "l1", lambda v: v > 2050, "&gt; 2050%/yr"),
+             ("L2", "l2", lambda v: v < 1250, "&lt; 1250/yr"),
+             ("no-brainer $", "focus_gain", lambda v: v > 80_000, "&gt; $80K")]
     # Rows shown in table 8 AND marked as light-blue squares in panels 2-6. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
@@ -385,7 +391,7 @@ def main(argv=None) -> int:
               "(rank on hover); the purple &#9733; is the live config.",
               "s-focus", 470),
         ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
+         "The shortlist: every config clearing <b>all six gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
          "<b>Ranked by plateau</b> (&frac12; a config's own cancellation + &frac12; its grid "
