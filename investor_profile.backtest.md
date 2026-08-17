@@ -8,6 +8,34 @@
 # Any knob added here must also exist in optimizer._FINANCIAL_MODEL_DEFAULTS or it is SILENTLY
 # IGNORED; load_financial_model warns about unknown keys.
 #
+# ============================ READ THIS BEFORE TRUSTING ANY NUMBER BELOW ============================
+# MEASURED 2026-08-17: SINGLE-CURATION BACKTEST P&L CANNOT ADJUDICATE A CHANGE. The same settings
+# (max_events 16, corpus backtest_3yr_v4), run TWICE with nothing altered but the LLM's sampling:
+#
+#                        run A (me16)   run B (repeat)
+#     median final           $117,200        $62,997     -46%
+#     p25 / p90 final    $77,199/$245K   $29,710/$195K
+#     best cell in grid    $2,152,119     $1,011,264
+#     median Sharpe              0.83           0.53
+#     cells beating SPY         4,245          2,355
+#     cell [4,.6,30,0,4,.3]    $588,538        $75,132     -87%
+#
+# The 6,300 sweep cells are NOT 6,300 samples -- they are ONE curation viewed 6,300 ways, so a lucky
+# or unlucky book shifts every percentile together and looks exactly like a real improvement.
+#
+# THIS INVALIDATED THREE ATTRIBUTIONS MADE THE SAME DAY, each of which looked convincing at the time:
+#   - "max_events 0 halved the book"  -> disproved by a controlled run (v6 vs v7: medians within 0.7%)
+#   - "the corpus v4->v5 swap hurt"   -> 15.7% of articles changed text source, but 91% of those are
+#                                        >=0.99 identical; only 0.7% of the corpus materially differs
+#   - "the bundling changes hurt"     -> measured deterministically at ~1% of what the scout reads
+# All three were noise being read as signal. The repeat run settles it: run A was simply a lucky draw.
+#
+# WHAT REMAINS TRUSTWORTHY: deterministic or near-deterministic MECHANISM measures -- bundle-payoff
+# monotonicity (5.1% -> 67.8% proposal rate by bundle size), cull-at-birth rates, corpus coverage,
+# cancellation, orphan counts, the effect of a code change on scout input. Those reproduce. Book value
+# does not. Judge changes on mechanism; treat any P&L difference under ~2x as unmeasurable.
+# ====================================================================================================
+#
 # HOW THE SIX OPTIMIZER KNOBS BELOW WERE CHOSEN (2026-08-15) -- AND HOW NOT TO CHOOSE THEM.
 # DO NOT re-fit these to the top of a single sweep. Three times now that has produced a number that
 # did not survive the next curation, because a fresh curation moves the book more than any knob does:

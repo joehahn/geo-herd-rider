@@ -48,7 +48,17 @@ actually was"). Full design in the [`README`](README.md) + [`agent_design.md`](a
    clean test**, and fixture/historical numbers are upper bounds, never the verdict.
 5. **Don't tune the pre-registered lift bar to the data** once it's fixed. Same discipline
    that made geo-wave-rider credible.
-6. **Backtesting is the development loop, not the verdict.** We iterate on historical data
+6. **A single curation's P&L cannot adjudicate a change — measured, not asserted.** The same
+   settings run twice (`max_events 16`, corpus v4, nothing changed but LLM sampling) gave median
+   finals of **$117,200 and $62,997**, and one cell swung **$588,538 → $75,132**. The 6,300 sweep
+   cells are NOT 6,300 samples — they are ONE curation viewed 6,300 ways, so a lucky book lifts
+   every percentile at once and is indistinguishable from a real improvement. On 2026-08-17 this
+   invalidated three same-day attributions (to `max_events`, to the corpus swap, to the grouping
+   changes), each measured afterwards at ~1% of actual effect. **Judge changes on MECHANISM**
+   — cull-at-birth rate, bundle-payoff curve, coverage, cancellation, orphan counts, the measured
+   effect of a code change on what the scout reads. Those reproduce. Treat any P&L difference under
+   ~2x as unmeasurable, and never re-run a curation hoping for a better number.
+7. **Backtesting is the development loop, not the verdict.** We iterate on historical data
    on purpose (forward is too slow), but every historical return is an **upper bound** —
    report it as such, prefer windows that postdate the curator model's training cutoff
    (less contaminated), and trust a backtest-driven win only once it survives the forward
