@@ -1082,12 +1082,12 @@ def main(argv=None) -> int:
               "closed in a single curation, dropped from panel 3 as hairlines.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
-              "The 16 best and 8 worst funded names, with every other name rolled into one grey bar. "
+              "The 20 best and 10 worst funded names, with every other name rolled into one grey bar. "
               "A result resting on one or two names is a different thing from the same return spread "
               "across many — and the difference is not visible in the equity curve above. <b>Click any "
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
               "moments the optimizer funded and unfunded it.",
-              "c-gainh", 560),
+              "c-gainh", 720),
         panel(6, "Cumulative $ gain per beat",
               "The same dollars as the panel above, rolled up to the BEAT that surfaced each ticker\u2019s "
               "evidence \u2014 i.e. which part of the firehose paid. A beat that costs money is a "
@@ -1719,7 +1719,7 @@ function draw() {{
     // matters is which few names made the money, which few lost it, and whether the long tail nets
     // out to anything. Asymmetric on purpose: the winners are where the thesis either worked or
     // did not, so they get the deeper list. The rolled bar is grey because it is an aggregate.
-    const _NTOP = 16, _NBOT = 8;
+    const _NTOP = 20, _NBOT = 10;
     const _gs = GH.slice().sort((a,b) => b[1] - a[1]);
     const _top = _gs.slice(0, _NTOP);
     const _bot = _gs.length > _NTOP + _NBOT ? _gs.slice(-_NBOT) : _gs.slice(_NTOP);
