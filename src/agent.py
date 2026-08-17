@@ -507,6 +507,7 @@ _TICKER_EVIDENCE: dict = {}
 GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
 
 
+BEAT_PREFIX = "\x00beat:"      # marks a topical bundle, so _group_block can label it as one
 UNGROUPED = "\x00ungrouped"     # sentinel key; never collides with a real org name
 
 
@@ -517,6 +518,19 @@ def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
     are all about one company, read them as one story" -- which is exactly the wrong instruction for
     a bundle whose only common trait is that we could not identify a company. Told to read those as
     one story the scout would invent a connection between a tariff headline and an Alzheimer trial."""
+    if key.startswith(BEAT_PREFIX):
+        # A TOPICAL bundle, not a company one. The header has to say so: told to "read this as one
+        # story" the scout would invent a single catalyst spanning a whole sector. What it should do
+        # instead is find the NAMEABLE BENEFICIARIES inside a theme -- which is what these beats are
+        # for ("export ban tariff sanctions stock BENEFICIARY").
+        _b = key[len(BEAT_PREFIX):]
+        _d0 = (arts[0].get("published_date") or "")[:10] if arts else ""
+        _d1 = (arts[-1].get("published_date") or "")[:10] if arts else ""
+        head = (f"=== THEME: {_b.upper()} — {len(arts)} article(s), {_d0} to {_d1} ===\n"
+                f"(These share a SUBJECT, not a company, and none of them named one. Do NOT treat "
+                f"them as a single story. Look for a US-listed BENEFICIARY the coverage names or "
+                f"clearly implies, and propose it only if a dated, concrete catalyst is here.)")
+        return head + "\n" + _block(arts, max_chars=max_chars)
     if key == UNGROUPED:
         head = (f"=== UNCLUSTERED — {len(arts)} UNRELATED article(s) ===\n"
                 f"(No company could be identified for these, so they are NOT one story. Judge each "
@@ -536,6 +550,37 @@ def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
 # A ticker's group is now passed WHOLE. The remaining budget below decides only how many SMALL groups
 # share a call -- an ATTENTION question, not a truncation one -- and a group larger than the budget
 # simply gets a call to itself, intact.
+
+def _date_slices(beat: str, arts: list[dict], budget: int) -> list[tuple]:
+    """One beat's articles -> date-ordered slices, cut at day boundaries.
+
+    A beat bundle is NOT one story the way a company bundle is, so unlike a company group it may be
+    split. Splitting it by DATE rather than arbitrarily is what makes the split meaningful: news
+    arrives in bursts, so a date slice keeps a driver next to the move it caused. Measured on a
+    30-day window -- 82% of companies in the crypto beat and 86% in tech have ALL their coverage
+    inside a single slice, so the split costs very little corroboration, and the 18% that straddle
+    are the persistently-covered names that have their own company bundle anyway.
+    Slices are EQUAL-COUNT over a date-sorted list, not equal calendar spans: news volume spikes, so
+    calendar thirds would give wildly uneven calls. The count is derived from size rather than a
+    per-beat constant, so it self-adjusts and needs no table to maintain.
+    """
+    arts = sorted(arts, key=lambda a: (a.get("published_date") or ""))
+    n = max(1, -(-len(arts) // max(budget or 70, 1)))          # ceil
+    if n == 1:
+        return [(f"{BEAT_PREFIX}{beat}", arts)]
+    step = -(-len(arts) // n)
+    out, i = [], 0
+    while i < len(arts):
+        j = min(i + step, len(arts))
+        # SNAP TO A DAY BOUNDARY so one day's cluster is not split across two calls -- the coherence
+        # the date split exists to create.
+        d = (arts[j - 1].get("published_date") or "")[:10]
+        while j < len(arts) and (arts[j].get("published_date") or "")[:10] == d:
+            j += 1
+        out.append((f"{BEAT_PREFIX}{beat}", arts[i:j]))
+        i = j
+    return out
+
 
 def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
                   articles_per_call: int, tmap: dict | None = None) -> list[list[tuple]]:
@@ -572,6 +617,37 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
     # no group claimed is shown anyway, standalone -- grouping can now only ADD context, never remove
     # an article. No knob: a fallback that can be switched off is a fallback that silently isn't there.
     orphans = [a for a in gated if id(a) not in covered]
+    # BEAT BUNDLES for the orphans (2026-08-17). An article with no identifiable company used to be
+    # shown alone in the UNCLUSTERED block -- better than dropping it, but it got no context at all,
+    # which is the one thing bundling exists to provide. It has a BEAT though: every article carries
+    # the standing search that ingested it, so a topical bundle is always available.
+    # Seeded from the gated orphans and FILLED from every orphan on that beat in the window, exactly
+    # as company bundles are seeded from gated articles and filled from the full pool.
+    # Measured on the 3-year corpus: 18,564 articles (18.7%) have no company, and they concentrate in
+    # the POLICY beats -- `export ban tariff sanctions stock beneficiary` is 57% orphaned, `war
+    # chokepoint stock beneficiary` 51% -- because those articles are about governments, not firms.
+    # Those beats literally name the task ("...stock BENEFICIARY"), and a themed bundle is the input
+    # that task needs.
+    beat_groups: list = []
+    if orphans:
+        try:
+            import gkg as _gkg
+            _seed = {_gkg.bundle_beat(q) for a in orphans for q in (a.get("queries") or [])}
+            _pool_orph = [a for a in full_pool
+                          if not _orgs.article_orgs(a, canon, tmap) and id(a) not in covered]
+            _by = {}
+            for a in _pool_orph:
+                for q in (a.get("queries") or []):
+                    b = _gkg.bundle_beat(q)
+                    if b in _seed:
+                        _by.setdefault(b, []).append(a)
+            for b, arts in _by.items():
+                beat_groups.extend(_date_slices(b, arts, articles_per_call))
+            _placed = {id(x) for _k, v in beat_groups for x in v}
+            orphans = [a for a in orphans if id(a) not in _placed]   # anything a beat could not take
+        except Exception as e:  # noqa: BLE001 -- fall back to the unclustered block, never lose them
+            print(f"  scout: beat bundling unavailable ({type(e).__name__}: {e})",
+                  file=sys.stderr, flush=True)
     # BIN-PACK BY ARTICLE COUNT, not a fixed groups-per-call. With 8 groups per call a 256-article
     # NVDA bundle shared a call with seven others and drowned them -- the model sees one enormous
     # story and seven footnotes, which is the crowding this design set out to remove.
@@ -583,6 +659,7 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
     # (the median group is 2 articles) share, which is nearly free.
     #
     # The budget NEVER truncates a group: an over-budget group gets a call to itself, whole.
+    groups.extend(beat_groups)
     groups.sort(key=lambda kv: -len(kv[1]))            # densest first: big groups get their own call
     budget = articles_per_call or 10 ** 9
     # The unclustered articles are the one bundle it IS right to split -- they share no story, so

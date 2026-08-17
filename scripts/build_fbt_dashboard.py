@@ -489,37 +489,32 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     #   2. of what IS grouped, how much sits in singleton bundles -- where grouping is structurally
     #      incapable of corroborating anything, because there is nothing to corroborate with.
     _canon = _orgs.build_canon(arts)
-    _grp = _orgs.group(arts, canon=_canon)
-    # The no-company articles, SPLIT BY FATE -- the split is the whole point. One of these groups
-    # still reaches the scout; the other never reaches it in any role.
-    _noorg_arts = [a for a in arts if not _orgs.article_orgs(a, _canon)]
-    _no_org = len(_noorg_arts)
-    try:
-        import agent as _agent
-        _gated_ids = {id(x) for x in _agent.superlative_pool(arts)}
-        _no_org_seen = sum(1 for a in _noorg_arts if id(a) in _gated_ids)
-    except Exception:  # noqa: BLE001 -- the gate is optional here; fall back to not splitting
-        _no_org_seen = 0
-    _no_org_blind = _no_org - _no_org_seen
-    _BUCK = [(1, 1, "1 article"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 50, "11-50"),
-             (51, 10 ** 9, "51+")]
+    _tmap = _orgs.ticker_map(arts, _canon)
+    _grp = _orgs.group(arts, canon=_canon, tmap=_tmap)
+    _noorg = [a for a in arts if not _orgs.article_orgs(a, _canon, _tmap)]
+    _BUCK = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 50, "11-50"), (51, 10 ** 9, "51+")]
     _gsz, _asz = [], []
     for lo, hi, lab in _BUCK:
         gs = [k for k, v in _grp.items() if lo <= len(v) <= hi]
         _gsz.append(len(gs))
         _asz.append(sum(len(_grp[k]) for k in gs))
-    # Prepend the two no-company classes. They are NOT bundle sizes, so the x-axis is relabelled to
-    # say so; the entities series is genuinely 0 for both (no company = no bundle), and on a log axis
-    # a 0 simply does not render, which is the honest picture rather than a missing bar.
-    # ORDER: the gate-passed no-company articles sit at the left (they ARE read, just without
-    # context), the size buckets run left-to-right as sizes should, and the never-read bar is placed
-    # LAST -- it is the terminal failure of the whole pipeline and reads as such at the right edge.
-    labels = ["no company\n(gate-passed)"] + [b[2] for b in _BUCK] + ["no company\n(never read)"]
-    _gsz = [0] + _gsz + [0]
-    _asz = [_no_org_seen] + _asz + [_no_org_blind]
+    # WHERE THE NO-COMPANY ARTICLES NOW GO. They used to reach the scout alone (or not at all); they
+    # are now bundled by BEAT -- the standing search that ingested them -- so every one of them has a
+    # topical home. This is the whole point of the panel: the bar that used to be a hole is now a
+    # bundle class, and it is drawn beside the company bundles so the two can be compared.
+    _beat = collections.Counter()
+    for a in _noorg:
+        for q in (a.get("queries") or []):
+            _beat[_gkg.bundle_beat(q)] += 1
+            break                                   # median beats/article is 1; count each once
+    _orphan_left = sum(1 for a in _noorg if not (a.get("queries") or []))
+    labels = [b[2] for b in _BUCK] + ["beat\nbundles", "no bundle\nat all"]
+    _gsz = _gsz + [len(_beat), 0]
+    _asz = _asz + [sum(_beat.values()), _orphan_left]
     grouping = {"labels": labels, "groups": _gsz, "articles": _asz,
-                "n_entities": len(_grp), "no_org": _no_org,
-                "no_org_seen": _no_org_seen, "no_org_blind": _no_org_blind, "n": len(arts),
+                "n_entities": len(_grp), "no_org": len(_noorg),
+                "no_org_seen": sum(_beat.values()), "no_org_blind": _orphan_left,
+                "n": len(arts), "n_beats": len(_beat),
                 "biggest": sorted(((len(v), k) for k, v in _grp.items()), reverse=True)[:12]}
 
     # ---- payload ---------------------------------------------------------
@@ -661,15 +656,14 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
               "are genuine walls and 18% our parser failing.",
               "p-miss", 340),
-        panel(9, "Entity grouping: what the scout\u2019s bundles are made of",
-              "The scout reads articles bundled by the company they are about, so a ticker\u2019s "
-              "move and its driver arrive together. Blue bars are bundles by size &mdash; watch the "
-              "<b>1-article</b> bar, where there is nothing to corroborate with. The two amber bars "
-              "are articles naming no usable company, which can never join a bundle: "
-              f"<b>{grouping['no_org_seen']:,}</b> passed the discovery gate and still reach the "
-              f"scout standalone, but <b>{grouping['no_org_blind']:,}</b> did not and so reach it in "
-              "no role at all &mdash; not even as the bundle context that is grouping\u2019s whole "
-              "purpose.",
+        panel(9, "How the corpus is bundled for the scout",
+              "Articles are bundled before the scout reads them, so a move-signal and its driver "
+              "arrive together. Blue bars are COMPANY bundles by size &mdash; watch the <b>1</b> bar, "
+              "where there is nothing to corroborate with. Green is the <b>beat bundle</b> fallback: "
+              f"the <b>{grouping['no_org']:,}</b> articles naming no usable company are grouped by the "
+              "standing search that found them instead, date-ordered, so they get a topical home "
+              f"rather than being read alone. Red is what is left with no bundle at all "
+              f"(<b>{grouping['no_org_blind']:,}</b>).",
               "p-group", 360),
         panel(10, "Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
