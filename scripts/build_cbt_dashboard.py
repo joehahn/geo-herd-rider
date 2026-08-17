@@ -130,6 +130,62 @@ def main(argv=None) -> int:
     capbound = sum(1 for d in scout
                    if d.get("max_new_events") and len(d.get("proposed", [])) > d["max_new_events"])
 
+    # ---- BUNDLE PAYOFF: does a bigger ticker-bundle actually make the scout act? -------------------
+    # The design's central claim is that pairing a ticker's move-signal with its DRIVERS in one bundle
+    # is what lets the scout open an event -- a move with no cause is correctly refused. That claim is
+    # testable: bucket every bundle the scout was shown by size, and ask what fraction produced a
+    # proposal. Rebuilt with the SAME orgs/agent code the curation ran, and joined to proposals via
+    # each proposal's `company` field, which normalises to an org key ~100% of the time.
+    bundle_buckets = {"labels": [], "groups": [], "hits": []}
+    try:
+        import orgs as _o
+        import agent as _ag
+        import gkg as _gk
+        import pandas as _pdb
+        _cl = [a for a in ARTS if not _gk._spam_title(a.get("title") or "")]
+        _cn = _o.build_canon(_cl)
+        # resolve the cadence HERE: _cad0 is not defined until ~140 lines below this point
+        # Read the profile HERE rather than reuse _lfm0/_cad0: both are defined ~100 lines BELOW this
+        # point, and depending on definition order in a long function is how this file has broken
+        # before. Two extra file reads cost nothing.
+        from optimizer import load_financial_model as _lfmb
+        from util import resolve_cadence as _rc
+        _win_days = int(_rc(_lfmb(str(ROOT / "investor_profile.backtest.md"))) or 30)
+        _prop_by = collections.defaultdict(set)
+        for _d in DEC:
+            if _d.get("kind") != "scout":
+                continue
+            for _p in (_d.get("proposed") or []):
+                _k = _o.normalise(_p.get("company", ""))
+                if _k:
+                    _prop_by[_d["context"]].add(_cn.get(_k, _k))
+        _BK = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 30, "11-30"), (31, 10 ** 9, "31+")]
+        _tot = collections.Counter(); _hit = collections.Counter()
+        _store: dict = {}
+        for _r in M:
+            _hi = str(_r["week"])[:10]
+            _lo = (_pdb.Timestamp(_hi) - _pdb.Timedelta(days=_win_days)).date().isoformat()
+            _w = [a for a in _cl if _lo < (a.get("published_date") or "")[:10] <= _hi]
+            if not _w:
+                continue
+            _o.learn_ticker_evidence(_w, _cn, _store)          # chronological, as the run did
+            _tm = _o.ticker_map_from(_store)
+            _g = _ag.superlative_pool(_w)
+            _P = _prop_by.get(_hi, set())
+            for _b in _ag._scout_groups(_g, _w, _cn, 30, _tm):
+                for _k, _v in _b:
+                    if _k == _ag.UNGROUPED:
+                        continue
+                    _lab = next(l for lo, hi, l in _BK if lo <= len(_v) <= hi)
+                    _tot[_lab] += 1
+                    if _k in _P:
+                        _hit[_lab] += 1
+        bundle_buckets = {"labels": [l for _, _, l in _BK],
+                          "groups": [_tot[l] for _, _, l in _BK],
+                          "hits": [_hit[l] for _, _, l in _BK]}
+    except Exception as _e:  # noqa: BLE001 -- a diagnostic panel must never take the dashboard down
+        print(f"  bundle-payoff panel unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
+
     # ---- attribution: join each pick's evidence urls back to the corpus ---------------------------
     src_c, lede_c, beat_c = collections.Counter(), collections.Counter(), collections.Counter()
     # Per-TICKER provenance mix, for the gain-by-provenance panel. Counting evidence articles says
@@ -711,6 +767,7 @@ def main(argv=None) -> int:
                    and (v["entries"][0].get("date") != v["entries"][-1].get("date"))],
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
+        "bundle": bundle_buckets,
         # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
         # evidence, in proportion to how many of its cited articles came from each. A proportional
         # split, not an assignment: a pick argued off six archived articles and two live pages cannot
@@ -891,7 +948,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>23. Curation log</h2>'
+        f'<section class="panel"><h2>24. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1096,17 +1153,25 @@ def main(argv=None) -> int:
                 "cap applied later — so the gap between the bars is the already-resolved block and the "
                 "ticker guard, not a knob.",
                 "c-inflow", 340),
-        panel(15, "Coverage vs picks, per ticker",
+        panel(15, "Does a bigger bundle make the scout act?",
+              "The design\u2019s central claim, tested. Articles are bundled by company so a ticker\u2019s "
+              "move-signal and its DRIVER arrive together \u2014 a move with no cause is correctly "
+              "refused, which is why RKLB produced nothing for so long. If that is right, bigger "
+              "bundles should propose more often. Bars are how many bundles the scout was shown at "
+              "each size; the line is the share that produced a proposal. <b>Watch the 1-article "
+              "bar</b>: a bundle of one cannot corroborate anything, so it is the control.",
+              "c-bundle", 380),
+        panel(16, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(16, "Gain per article, per ticker",
+        panel(17, "Gain per article, per ticker",
               "For the picked tickers above: dollars earned per article the press wrote about them. "
               "The per-ticker twin of plot 6. A name that paid a lot on little coverage sits far right; "
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(17, "Gain per lede provenance",
+        panel(18, "Gain per lede provenance",
               "Dollars earned, split by where the text behind each pick came from. The money twin of "
               "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
               "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
@@ -1115,28 +1180,28 @@ def main(argv=None) -> int:
               "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
               "most of the money, the quotable arm is not the one earning.",
               "c-ledegain", 300),
-        panel(18, "Evidence by lede provenance",
+        panel(19, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(19, "Evidence by source",
+        panel(20, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(20, "Evidence by beat",
+        panel(21, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(21, "Event storyboard",
+        panel(22, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(22, "Text provenance of what the curator read",
+        panel(23, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1396,6 +1461,31 @@ function draw() {{
   }})();
 
   const LD = DATA.lede;
+  // BUNDLE PAYOFF: count of bundles shown (bars) against the share that produced a proposal (line).
+  // Dual axis is legitimate here for the same reason as CBT panel 4: the second series is a RATE over
+  // a different population, not the same quantity rescaled.
+  const BU = DATA.bundle;
+  if (BU && BU.labels && BU.groups.some(v=>v)) {{
+    const rate = BU.groups.map((g,i)=> g ? 100*BU.hits[i]/g : 0);
+    Plotly.react('c-bundle', [
+      {{type:'bar', name:'bundles shown', x:BU.labels, y:BU.groups,
+        marker:{{color:p.s2, line:{{width:2,color:p.surface}}}},
+        text:BU.groups.map(v=>v.toLocaleString()), textposition:'outside',
+        textfont:{{color:p.text2, size:10}}, cliponaxis:false,
+        customdata:BU.hits.map((h,i)=>[h]),
+        hovertemplate:'%{{x}} article(s) per bundle<br>%{{y:,}} bundles<br>'+
+                      '%{{customdata[0]}} produced a proposal<extra></extra>'}},
+      {{type:'scatter', mode:'lines+markers', name:'produced a proposal', x:BU.labels, y:rate,
+        yaxis:'y2', line:{{width:2, color:ST.good}}, marker:{{size:9}},
+        hovertemplate:'%{{y:.1f}}% of bundles this size produced a proposal<extra></extra>'}}
+    ], base(p, {{showlegend:true, margin:{{l:66,r:62,t:34,b:48}},
+        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+        xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, type:'log', title:{{text:'bundles shown (log)', font:{{size:11}}}}}},
+        yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', rangemode:'tozero', showgrid:false,
+                 title:{{text:'produced a proposal', font:{{size:11}}}}}}}}), CFG);
+  }}
+
   // GAIN by provenance -- same three categories as c-lede, same colours, so the two panels read as
   // a pair. Bars can be NEGATIVE here (a provenance whose picks lost money), which the article-count
   // twin can never show, so the axis is not forced to zero.
