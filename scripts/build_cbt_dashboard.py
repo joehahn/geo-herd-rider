@@ -132,6 +132,15 @@ def main(argv=None) -> int:
 
     # ---- attribution: join each pick's evidence urls back to the corpus ---------------------------
     src_c, lede_c, beat_c = collections.Counter(), collections.Counter(), collections.Counter()
+    # Per-TICKER provenance mix, for the gain-by-provenance panel. Counting evidence articles says
+    # where the curator's reading came from; it does not say where the MONEY came from, and those can
+    # differ sharply if the archived arm supplies most of the reading but the picks that paid were
+    # argued off live pages (or vice versa).
+    tick_lede: dict = collections.defaultdict(collections.Counter)
+    # Default here, not inside the portfolio-math block: that block is wrapped in a try and HAS
+    # skipped before ("portfolio math skipped (NameError...)"), which would leave this undefined and
+    # take the whole build down at payload time.
+    _prov_gain: dict = {}
     n_ev_urls = n_matched = 0
     for p in PICKS:
         for u in (p.get("evidence_urls") or "").split(";"):
@@ -144,8 +153,11 @@ def main(argv=None) -> int:
                 continue
             n_matched += 1
             src_c[art.get("source", "?")] += 1
-            lede_c["archived" if art.get("lede") else
-                   "live page" if art.get("lede_live") else "headline only"] += 1
+            _prov = ("archived" if art.get("lede") else
+                     "live page" if art.get("lede_live") else "headline only")
+            lede_c[_prov] += 1
+            if p.get("ticker"):
+                tick_lede[p["ticker"]][_prov] += 1
             for b in (art.get("queries") or []):
                 beat_c[b] += 1
 
@@ -247,6 +259,15 @@ def main(argv=None) -> int:
         _cull_bind = sum(1 for n in _live_n for _ in [0] if _wcap and n > _wcap)
         _cull_med = sorted(_live_n)[len(_live_n) // 2] if _live_n else 0
         book = {"final": _bt.get("final"), "spy": _bt.get("spy_final"), "weeks": _bt.get("weeks")}
+        _pg: dict = collections.Counter()
+        for _tk, _mix in tick_lede.items():
+            _g = float((_d0 := (_bt.get("daily") or {}).get("gain") or {}).get(_tk) or 0)
+            _tot = sum(_mix.values())
+            if not _g or not _tot:
+                continue
+            for _p, _n in _mix.items():
+                _pg[_p] += _g * _n / _tot
+        _prov_gain = dict(_pg)
         _d = _bt.get("daily") or {}
         # PWR's CBT plots 2-7, as GHR equivalents. PWR groups by WAVE BUCKET (its thesis unit);
         # GHR's unit is the EVENT, so the two "by wave" panels become "by event" -- same question,
@@ -690,6 +711,13 @@ def main(argv=None) -> int:
                    and (v["entries"][0].get("date") != v["entries"][-1].get("date"))],
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
+        # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
+        # evidence, in proportion to how many of its cited articles came from each. A proportional
+        # split, not an assignment: a pick argued off six archived articles and two live pages cannot
+        # be said to have been "caused" by either, so it contributes 75%/25%. Tickers with no resolved
+        # evidence are dropped rather than parked in an "unknown" bar -- they would dominate it
+        # without saying anything about provenance.
+        "ledegain": {"k": list(_prov_gain), "n": [round(v, 2) for v in _prov_gain.values()]},
         "beat": {"b": [b for b, _ in beat_c.most_common(20)], "n": [n for _, n in beat_c.most_common(20)]},
         "cov": {"t": [t for t, _ in top_cov], "n": [n for _, n in top_cov],
                 "picked": [t in picked for t, _ in top_cov]},
@@ -863,7 +891,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>22. Curation log</h2>'
+        f'<section class="panel"><h2>23. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1078,28 +1106,37 @@ def main(argv=None) -> int:
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(17, "Evidence by lede provenance",
+        panel(17, "Gain per lede provenance",
+              "Dollars earned, split by where the text behind each pick came from. The money twin of "
+              "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
+              "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
+              "own evidence in proportion &mdash; a pick argued off six archived articles and two live "
+              "pages contributes 75%/25%, since neither can be said to have caused it. Read against "
+              "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
+              "most of the money, the quotable arm is not the one earning.",
+              "c-ledegain", 300),
+        panel(18, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(18, "Evidence by source",
+        panel(19, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(19, "Evidence by beat",
+        panel(20, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(20, "Event storyboard",
+        panel(21, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(21, "Text provenance of what the curator read",
+        panel(22, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1359,6 +1396,23 @@ function draw() {{
   }})();
 
   const LD = DATA.lede;
+  // GAIN by provenance -- same three categories as c-lede, same colours, so the two panels read as
+  // a pair. Bars can be NEGATIVE here (a provenance whose picks lost money), which the article-count
+  // twin can never show, so the axis is not forced to zero.
+  const LG = DATA.ledegain;
+  if (LG && LG.k && LG.k.length) {{
+    Plotly.react('c-ledegain', [{{
+      type:'bar', x:LG.k, y:LG.n,
+      marker:{{color:LG.k.map(k=>k==='archived'?ST.good:k==='live page'?p.s2:p.grid),
+               line:{{width:2,color:p.surface}}}},
+      text:LG.n.map(v=>'$'+Math.round(v).toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:11}}, cliponaxis:false,
+      hovertemplate:'%{{x}}<br>$%{{y:,.0f}} of realised gain<extra></extra>'
+    }}], base(p, {{margin:{{l:74,r:24,t:16,b:44}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', zeroline:true, zerolinecolor:p.text2,
+               title:{{text:'realised gain', font:{{size:11}}}}}}}}), CFG);
+  }}
+
   Plotly.react('c-lede', [{{
     type:'bar', x:LD.k, y:LD.n,
     marker:{{color:LD.k.map(k=>k==='archived'?ST.good:k==='live page'?p.s2:p.grid),
