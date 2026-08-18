@@ -593,7 +593,9 @@ def main(argv=None) -> int:
               "<b>Final value barely moves, and every bar lands inside the shaded band</b> &mdash; "
               "the noise floor I measured beforehand by curating the same settings twice, which came "
               "out 1.86&times; apart. So on this evidence a pricier judgment model buys no return I "
-              "can actually measure, and that band is what lets me say so rather than guess.",
+              "can actually measure, and that band is what lets me say so rather than guess. The gold "
+              "line is wall-clock: <b>price and speed are unrelated here</b> &mdash; the cheapest arm "
+              "was also the slowest.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
               "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
@@ -944,8 +946,18 @@ function draw(){{
         text:BO.map(r => '$' + Math.round(r.final / 1000) + 'K'), textposition:'outside',
         textfont:{{size:11, color:p.fg}}, cliponaxis:false,
         hovertext:BO.map(r => 'event_agent_model = ' + r.arm + '  (LLM $' + r.cost.toFixed(2) + ')'),
-        hovertemplate:'%{{hovertext}}<br>final $%{{y:,.0f}}<extra></extra>'}}
-    ], base(p, {{margin:{{l:70,r:20,t:40,b:82}}, showlegend:false,
+        hovertemplate:'%{{hovertext}}<br>final $%{{y:,.0f}}<extra></extra>'}},
+      // WALL-CLOCK on a second axis. This is a dual-axis chart, which the house rule normally
+      // forbids -- but the two series answer ONE question here ("what does this model cost me?") in
+      // the two currencies that matter, dollars and hours, and splitting them would break the
+      // comparison the panel exists to make. The line is deliberately thin and unfilled so the bars
+      // stay the primary read.
+      {{type:'scatter', mode:'lines+markers', x:nm, y:BO.map(r => r.minutes), yaxis:'y2',
+        name:'wall-clock (min)', line:{{width:2, color:'#fbbf24'}},
+        marker:{{size:9, color:'#fbbf24', line:{{width:1.5, color:p.surface}}}},
+        hovertemplate:'%{{x}}<br>%{{y:.0f}} min to curate 3 years<extra></extra>'}}
+    ], base(p, {{margin:{{l:70,r:62,t:40,b:82}}, showlegend:true,
+        legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
         shapes:[{{type:'rect', xref:'paper', x0:0, x1:1, yref:'y', y0:lo, y1:hi, layer:'below',
                  fillcolor:(dark ? 'rgba(148,163,184,.22)' : 'rgba(100,116,139,.16)'), line:{{width:0}}}}],
         annotations:[{{xref:'paper', x:0.995, xanchor:'right', yref:'y', y:hi, yanchor:'bottom',
@@ -954,7 +966,9 @@ function draw(){{
         xaxis:{{type:'category',
                title:{{text:'event_agent_model', font:{{size:11}}}}}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000, 260000],
-               title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
+               title:{{text:'final portfolio value', font:{{size:11}}}}}},
+        yaxis2:{{overlaying:'y', side:'right', showgrid:false, rangemode:'tozero',
+                ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);
 
     Plotly.react('s-bo-quality', [
       {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean),
