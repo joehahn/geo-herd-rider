@@ -577,20 +577,14 @@ def main(argv=None) -> int:
               "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
         panel(16, "Portfolio value vs LLM spend",
-              "Five complete re-curations that differ in <b>one parameter only</b> &mdash; "
-              "<code>event_agent_model</code>, the model that runs the per-event judgment stage "
-              "(is this thesis still live? has its catalyst resolved?). Same scout (llama-4-maverick), same 99,117-article corpus, "
-              "same optimizer config, same 1,248 scout chunks. The horizontal is what that model cost "
-              "for one 3-year curation, <b>ascending left to right</b>; the vertical is what the book "
-              "finished at.<br><br>"
-              "<b>The line is flat, and that is the finding.</b> A 4.6&times; spread in AI spend "
-              "($5.96 &rarr; $27.31) produces a 1.52&times; spread in final value &mdash; and the "
-              "shaded band is the measured noise floor: two curations at <b>identical</b> settings, "
-              "differing only in LLM sampling, came out <b>1.86&times;</b> apart. Every arm sits "
-              "inside it. On this evidence, paying more for the judgment model buys <b>no measurable "
-              "return</b>. That is not a null result &mdash; it is the number that says where to stop "
-              "spending, and it is only credible because the noise floor was measured first rather "
-              "than assumed.",
+              "I swept <b><code>event_agent_model</code></b> &mdash; the LLM that judges, every scan, "
+              "whether each thesis is still live &mdash; across five models spanning 4.6&times; in "
+              "price, and re-ran the whole 3-year curation for each. Everything else is identical: "
+              "same scout, same 99,117-article corpus, same optimizer settings. "
+              "<b>Final value barely moves, and every bar lands inside the shaded band</b> &mdash; "
+              "the noise floor I measured beforehand by curating the same settings twice, which came "
+              "out 1.86&times; apart. So on this evidence a pricier judgment model buys no return I "
+              "can actually measure, and that band is what lets me say so rather than guess.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
               "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
@@ -950,7 +944,7 @@ function draw(){{
                       showarrow:false, font:{{size:10, color:p.fg}}}}],
         xaxis:{{type:'category',
                title:{{text:'event_agent_model  (the swept parameter), ordered by its LLM cost per 3-year curation \u2192', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000, 260000],
                title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
 
     Plotly.react('s-bo-quality', [
