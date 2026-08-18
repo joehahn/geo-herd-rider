@@ -380,6 +380,8 @@ def main(argv=None) -> int:
         for r in bo:
             r["disp"] = _DISP.get(r["arm"], r["arm"])
     payload["bo"] = bo
+    _ja = ROOT / "data/judge_audit.json"
+    payload["ja"] = json.loads(_ja.read_text()) if _ja.exists() else None
 
     cols = ["#Sharpe", "robust", "plateau", "cancelled", "months to lead", "days behind",
             "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
@@ -600,8 +602,9 @@ def main(argv=None) -> int:
         panel(17, "What the money actually buys: decision quality vs spend",
               "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
               "vertical is now <b>decision "
-              "quality</b>: the share of that arm's ~570 event-agent calls that a <b>Claude Fable-5 "
-              "judge</b> found clean on all three process tests &mdash; the catalyst was specific and "
+              "quality</b>: the share of that arm's ~570 event-agent calls rated clean on all three "
+              "process tests by the two-tier judge below (a cheap screen over every call, "
+              "<b>Claude Fable-5</b> re-reading a sample of what it flagged) &mdash; the catalyst was specific and "
               "datable, the written assessment did not outrun the evidence it cited, and the live/exit "
               "call was coherent with the analyst's own stated exit condition. The judge sees "
               "<b>no prices and no outcomes</b>, and is blind to which model produced the decision.<br><br>"
@@ -639,6 +642,23 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['clean_adj']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
+        panel(20, "Is the judge any good?",
+              "The obvious objection to panels 17&ndash;19 is that an LLM graded the LLMs, so here is "
+              "the grader's own audit. <b>Left bars: how often the cheap screen and Fable-5 reached "
+              "the same verdict</b>, per process test. They agree 95% of the time on "
+              "<code>consistent</code> (did the call contradict its own stated exit condition? &mdash; "
+              "nearly mechanical), 84% on <code>dated</code>, and only <b>65% on "
+              "<code>supported</code></b> &mdash; deciding whether a write-up asserts more than its "
+              "citations carry is exactly the judgment a cheap model gets wrong, which is the thesis "
+              "of this whole exercise showing up inside its own measurement.<br><br>"
+              "<b>Right bars are the load-bearing number: how much of each arm's flagged pile Fable-5 "
+              "threw out.</b> The tier-1 ranking only survives correction because those rates are "
+              "SIMILAR across arms (24&ndash;33%). Had one arm been overturned at 60% and another at "
+              "10%, the ordering in panel 17 would be an artefact of the cheap screen's biases rather "
+              "than a real difference between models. <b>Caveat stated rather than buried:</b> 500 of "
+              "the 1,673 flagged decisions were re-read, stratified 100 per arm &mdash; enough to "
+              "estimate these rates, but a sample. A full pass would have cost $59 against $25 budgeted.",
+              "s-judge-audit", 420),
     ] if bo else []))
 
     nknob1 = 1 + len(keys)          # last knob column index, for the narrow-column CSS rule
@@ -1007,6 +1027,30 @@ function draw(){{
         yaxis:{{gridcolor:p.grid, title:{{text:'clean % per $', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
                 title:{{text:'process test pass rate', font:{{size:11}}}}}}}}), CFG);
+
+    // PANEL 20 -- the judge auditing itself. Two grouped series on ONE percentage axis (both are
+    // rates, so no second scale is needed): agreement per rubric test, and per-arm overturn.
+    const JA = DATA.ja;
+    if (JA) {{
+      const axk = ['consistent', 'dated', 'supported'];
+      Plotly.react('s-judge-audit', [
+        {{type:'bar', name:'cheap screen agrees with Fable-5', x:axk.map(k => 'test:<br>' + k),
+          y:axk.map(k => JA.agree[k]), marker:{{color:'#34d399'}},
+          text:axk.map(k => JA.agree[k].toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+          textfont:{{size:11, color:p.fg}},
+          hovertemplate:'%{{x}}<br>agreement %{{y:.1f}}%<extra></extra>'}},
+        {{type:'bar', name:'Fable-5 OVERTURNED the screen', marker:{{color:'#f472b6'}},
+          x:JA.per_arm.map(r => (r.disp || r.arm).replace('<br>', ' ')),
+          y:JA.per_arm.map(r => r.overturn),
+          text:JA.per_arm.map(r => r.overturn.toFixed(0) + '%'), textposition:'outside',
+          cliponaxis:false, textfont:{{size:11, color:p.fg}},
+          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its flags overturned<extra></extra>'}}
+      ], base(p, {{barmode:'group', margin:{{l:60,r:20,t:38,b:86}},
+          legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
+          xaxis:{{type:'category', tickfont:{{size:10}}}},
+          yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 105],
+                 title:{{text:'percent', font:{{size:11}}}}}}}}), CFG);
+    }}
   }}
 }}
 draw();
