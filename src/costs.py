@@ -23,6 +23,14 @@ _LOCK = threading.Lock()
 # $ per token (input, output). Substring-matched so aliases/snapshots resolve. OpenRouter
 # open-weight rates are approximate (they vary by sub-provider; ~2026-06).
 PRICES = {
+    # ORDER MATTERS: cost_usd() substring-matches and takes the FIRST hit, so a specific model id must
+    # sit above the family key it contains ("deepseek-v4-flash" before "deepseek", or V4 Flash would
+    # silently bill at V3.2's rate). Added 2026-08-17 for the event-agent bake-off.
+    "deepseek-v4-flash": (0.14e-6, 0.28e-6),   # OpenRouter
+    "minimax-m3":  (0.60e-6, 2.40e-6),   # OpenRouter
+    "kimi-k3":     (2.60e-6, 13.00e-6),  # OpenRouter, 2.8T MoE
+    "gpt-5.6-luna": (1.00e-6, 6.00e-6),  # OpenRouter (price cut 80% 2026-07-30)
+    "gpt-5.6-sol": (5.00e-6, 30.00e-6),  # OpenRouter, cross-family judge check
     "fable-5":    (10e-6, 50e-6),
     "opus":       (5e-6, 25e-6),
     "sonnet":     (3e-6, 15e-6),

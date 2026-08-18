@@ -235,6 +235,13 @@ CURATOR_MODELS: dict[str, tuple[str, str]] = {
     "deepseek4": ("deepseek/deepseek-v4-flash",        "openrouter"),  # cheap JUDGMENT candidate
     "deepseek": ("deepseek/deepseek-chat",        "openrouter"),  # V3, 671B MoE / 37B active
     "grok4":    ("x-ai/grok-4.3",                 "openrouter"),  # grok-4 deprecated -> 4.3 (frontier reasoning)
+    # EVENT-AGENT BAKE-OFF ARMS (2026-08-17). Deliberately all NON-Anthropic: Fable-5 is the judge, so
+    # keeping the candidate pool out of the judge's own family removes family-affinity by construction
+    # rather than trying to measure around it.
+    "minimax":  ("minimax/minimax-m3",           "openrouter"),  # cheapest capable open-weight
+    "luna":     ("openai/gpt-5.6-luna",          "openrouter"),  # proprietary mid tier
+    "kimi":     ("moonshotai/kimi-k3",           "openrouter"),  # 2.8T MoE, #3 Artificial Analysis index
+    "fable":    ("claude-fable-5",               "anthropic"),   # THE JUDGE, never a candidate
 }
 
 

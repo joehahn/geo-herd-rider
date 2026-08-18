@@ -138,7 +138,7 @@ class OpenRouterClient(LLMClient):
         self._c = OpenAI(base_url=self.BASE_URL, api_key=key, timeout=90.0, max_retries=4)
 
     def complete(self, system, user, *, use_web_search, label, stage="ladder",
-                 json_schema=None, search_query=None, before_date=None, effort="high") -> str:  # effort: Anthropic-only, ignored here
+                 json_schema=None, search_query=None, before_date=None, effort="high") -> str:
         # Real, look-ahead-safe web search via Tavily (end_date filter), injected as context —
         # OpenRouter's :online has no date control, so we don't use it.
         if use_web_search and search_query:
@@ -157,6 +157,15 @@ class OpenRouterClient(LLMClient):
             # rate-limited primary doesn't fall back to one that 400s on structured output (the
             # StreamLake/DeepInfra failure that crashed deepseek BWET mid-scan).
             kw["extra_body"] = {"provider": {"require_parameters": True}}
+        # REASONING EFFORT, previously DROPPED on this path (the signature said "Anthropic-only,
+        # ignored here"). OpenRouter normalises `reasoning.effort` across the reasoning models --
+        # Kimi, DeepSeek, GLM, the GPT-5.x family -- so the knob the profile already carries now
+        # reaches them. Wired 2026-08-17 for the low-vs-high reasoning arm of the event-agent bake-off:
+        # without it "does more thinking beat a bigger model" is unaskable outside Anthropic.
+        # 'none' is passed through as OFF rather than silently becoming 'low'.
+        if effort in ("none", "low", "medium", "high"):
+            kw.setdefault("extra_body", {})["reasoning"] = (
+                {"enabled": False} if effort == "none" else {"effort": effort})
         # RETRY. This path had NO retry: one bad response killed the caller. A 3-year curation died at
         # scan 18/37 (2026-08-12) when OpenRouter returned a non-JSON body and the SDK's .json()
         # raised JSONDecodeError straight through. The Anthropic path above already backs off; this

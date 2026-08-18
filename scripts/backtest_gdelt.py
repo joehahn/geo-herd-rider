@@ -80,6 +80,22 @@ def main(argv=None):
     ap.add_argument("--news-cap", type=int, default=None, dest="news_cap",
                     help="per-week cap on articles the scout reads (most-recent kept); 0 = UNCAPPED. "
                          "Omit to use the profile's news_cap.")
+    # BAKE-OFF OVERRIDES (2026-08-17). The event-agent stage is the one being swept, so its model and
+    # reasoning effort have to be settable per RUN -- editing investor_profile.backtest.md between arms
+    # would make the live config depend on whichever arm finished last. Both expose existing profile
+    # knobs, exactly as --news-cap and --event-news-cap already do.
+    ap.add_argument("--event-agent-model", default=None, dest="event_agent_model",
+                    help="override the profile's event_agent_model (a CURATOR_MODELS short name)")
+    ap.add_argument("--event-agent-effort", default=None, dest="event_agent_effort",
+                    choices=["none", "low", "medium", "high"],
+                    help="reasoning effort for the per-event JUDGMENT call; omit to use the profile's "
+                         "event_agent_effort")
+    # Exposes an EXISTING profile knob on the CLI, exactly as --news-cap and --event-news-cap already
+    # do; it is not a new profile parameter. Added 2026-08-17 so the news window can be varied for a
+    # side experiment without editing investor_profile.backtest.md, which the live config depends on.
+    ap.add_argument("--news-lookback-days", type=int, default=None, dest="news_lookback_days",
+                    help="trailing days of news each scan READS, decoupled from the trading cadence; "
+                         "0 = track the cadence. Omit to use the profile's news_lookback_days.")
     ap.add_argument("--wayback-cap", type=int, default=0, help="enrich only the top-N/week (0 = all in news-cap)")
     ap.add_argument("--trace", nargs="?", const="__default__", default=None,
                     help="log every LLM prompt/response + search query to <out>/transcript.jsonl (or PATH)")
@@ -143,7 +159,8 @@ def main(argv=None):
           flush=True)
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
-    news_win = int(fm.get("news_lookback_days") or 0) or cadence
+    news_win = int(a.news_lookback_days if a.news_lookback_days is not None
+                   else (fm.get("news_lookback_days") or 0)) or cadence
     anchors = scan_anchors(a.start, a.end, cadence)
     win_start = anchors[0] - pd.Timedelta(days=10)
     cache_f = str(OUT / "gdelt_pool.json")
@@ -179,6 +196,9 @@ def main(argv=None):
     else:                                                    # per-week: pull inside the loop (all beats/week, then process)
         print("  BY-WEEK pull: all beats per week, each processed before the next (incremental)", flush=True)
 
+    if a.event_agent_model:                      # bake-off arm: swap only the JUDGMENT stage
+        fm = {**fm, "event_agent_model": a.event_agent_model}
+    ev_effort = a.event_agent_effort or str(fm.get("event_agent_effort") or "high")
     (scout_id, scout_prov), (event_id, event_prov) = resolve_stage_models(fm)
     memw = int(fm.get("curator_memory_weeks", 8))
     # The event-concurrency picker. Built once; None unless BOTH knobs are set, so an unset picker_model
@@ -201,6 +221,7 @@ def main(argv=None):
     scout_cli = llm.make_client(scout_prov, scout_id)         # cheap extraction/routing (scout + matcher)
     event_cli = llm.make_client(event_prov, event_id)         # judgment (event agents)
     print(f"  scout={scout_id} ({scout_prov}) · event_agent={event_id} ({event_prov}) · news_cap={news_cap or 'uncapped'} · event_news_cap={ev_cap or 'uncapped'}", flush=True)
+    print(f"  ARM: event_agent={event_id} @ effort={ev_effort}", flush=True)
 
     # RESUME: reload journal state + skip weeks already scanned
     events, retired, nid, rows, done = {}, {}, 0, [], set()
@@ -268,7 +289,8 @@ def main(argv=None):
                                         discovery_filter=bool(fm.get('discovery_filter')),
                                         max_events=int(fm.get('max_events') or 0), picker=_picker,
                                         event_news_cap=ev_cap, max_event_scans=max_ev_scans,
-                                        max_new_events=max_new, workers=a.workers)
+                                        max_new_events=max_new, workers=a.workers,
+                                        event_agent_effort=ev_effort)
         live = [p for p in picks if p["thesis_live"]]
         print(f"  {wk} ({i + 1}/{len(anchors)}): {len(gslice):3} arts -> "
               f"{[p['ticker'] for p in live] or 'none'}", flush=True)
