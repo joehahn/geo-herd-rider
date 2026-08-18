@@ -606,8 +606,8 @@ def main(argv=None) -> int:
               "call was coherent with the analyst's own stated exit condition. The judge sees "
               "<b>no prices and no outcomes</b>, and is blind to which model produced the decision.<br><br>"
               "<b>Quality varies where P&amp;L does not, and it peaks in the middle.</b> The "
-              "mid-priced arm scores <b>54.5%</b> clean against 33.8% for the cheapest and 37.0% for "
-              "the most expensive &mdash; so this is not a curve you can buy your way up. Note the "
+              "mid-priced arm scores <b>69.5%</b> clean against 55.0% for the cheapest and <b>52.1% for "
+              "the most expensive, which finishes LAST</b> &mdash; not a curve you can buy your way up. Note the "
               "unit of analysis: <b>2,849 individually judged decisions</b> instead of five aggregate "
               "P&amp;L numbers, which is precisely why this panel can resolve differences panel 16 "
               "cannot.",
@@ -631,11 +631,12 @@ def main(argv=None) -> int:
          "exists to let you check for yourself."
          '</p><div class="scroll">'
          + table_html(["arm", "LLM $", "final value", "cancelled", "max DD", "Sharpe",
-                       "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean"],
+                       "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean (screen)", "overturned", "CLEAN (Fable-5)"],
                       [[r.get("disp", r["arm"]).replace("<br>", " "), f"${r['cost']:.2f}", f"${r['final']:,.0f}", f"{r['cancelled']:.1f}%",
                         f"{r['max_drawdown']:.1f}%", f"{r['sharpe']:.2f}", f"${r['focus_gain']:,.0f}",
                         str(r["events"]), str(r["examined"]), str(r["decisions"]),
-                        f"{r['dated']:.0f}%", f"{r['supported']:.0f}%", f"{r['clean']:.0f}%"]
+                        f"{r['dated']:.0f}%", f"{r['supported']:.0f}%", f"{r['clean']:.0f}%",
+                        f"{r['overturn']:.0f}%", f"{r['clean_adj']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
     ] if bo else []))
@@ -971,22 +972,29 @@ function draw(){{
                 ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);
 
     Plotly.react('s-bo-quality', [
-      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean),
-        text:BO.map(r => r.clean.toFixed(0) + '%'), textposition:'top center',
+      {{type:'scatter', mode:'lines+markers', x:cost, y:BO.map(r => r.clean),
+        name:'cheap screen alone', line:{{width:2, dash:'dot', color:'#94a3b8'}},
+        marker:{{size:8, color:'#94a3b8'}},
+        hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ')),
+        hovertemplate:'%{{hovertext}}<br>screen-only %{{y:.1f}}%<extra></extra>'}},
+      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean_adj),
+        name:'Fable-5 corrected',
+        text:BO.map(r => r.clean_adj.toFixed(0) + '%'), textposition:'top center',
         textfont:{{size:10, color:p.fg}},
         marker:{{size:13, color:'#34d399', line:{{width:1.5, color:p.surface}}}},
         line:{{width:2, color:'#34d399'}},
         hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ') + ' - ' + r.decisions + ' decisions judged'),
         hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>clean %{{y:.1f}}%<extra></extra>'}}
-    ], base(p, {{margin:{{l:70,r:20,t:16,b:52}},
-        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'LLM cost of one 3-year curation', font:{{size:11}}}}}},
+    ], base(p, {{margin:{{l:70,r:20,t:34,b:52}},
+        legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
+        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'event_agent_model, by LLM cost of one 3-year curation', font:{{size:11}}}}}},
         yaxis:{{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
                title:{{text:'decisions clean on all 3 process tests', font:{{size:11}}}}}}}}), CFG);
 
     // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
     // interpolation between models that does not exist.
     Plotly.react('s-bo-perdollar', [
-      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean / r.cost),
+      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean_adj / r.cost),
         marker:{{color:'#7dd3fc'}}, yaxis:'y',
         hovertemplate:'%{{x}}<br>%{{y:.2f}} clean-%% per $<extra></extra>'}},
       {{type:'bar', name:'dated %', x:nm, y:BO.map(r => r.dated), marker:{{color:'#fbbf24'}}, yaxis:'y2',

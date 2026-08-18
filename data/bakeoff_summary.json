@@ -17,7 +17,10 @@
   "decisions": 565,
   "events": 322,
   "examined": 153,
-  "minutes": 181.4
+  "minutes": 181.4,
+  "overturn": 32.0,
+  "clean_adj": 55.0,
+  "t2_n": 100
  },
  {
   "arm": "minimax",
@@ -37,7 +40,10 @@
   "decisions": 572,
   "events": 387,
   "examined": 107,
-  "minutes": 48.2
+  "minutes": 48.2,
+  "overturn": 31.0,
+  "clean_adj": 57.8,
+  "t2_n": 100
  },
  {
   "arm": "luna",
@@ -57,7 +63,10 @@
   "decisions": 561,
   "events": 441,
   "examined": 202,
-  "minutes": 50.3
+  "minutes": 50.3,
+  "overturn": 33.0,
+  "clean_adj": 69.5,
+  "t2_n": 100
  },
  {
   "arm": "kimi-high",
@@ -77,7 +86,10 @@
   "decisions": 571,
   "events": 406,
   "examined": 129,
-  "minutes": 137.6
+  "minutes": 137.6,
+  "overturn": 24.0,
+  "clean_adj": 52.1,
+  "t2_n": 100
  },
  {
   "arm": "kimi-low",
@@ -97,6 +109,9 @@
   "decisions": 568,
   "events": 445,
   "examined": 135,
-  "minutes": 107.4
+  "minutes": 107.4,
+  "overturn": 26.0,
+  "clean_adj": 56.5,
+  "t2_n": 100
  }
 ]
