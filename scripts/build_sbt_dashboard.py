@@ -370,6 +370,15 @@ def main(argv=None) -> int:
     bo = json.loads(_bo.read_text()) if _bo.exists() else None
     if bo:
         bo = sorted(bo, key=lambda r: r["cost"])      # ORDER BY LLM SPEND -- the x-axis of every panel
+        # DISPLAY NAMES carry the VERSION, because "deepseek4" or "luna" dates badly and means nothing
+        # to an outside reader. The Kimi pair is labelled by REASONING EFFORT, not by size: they are
+        # the SAME 2.8T model and "kimi-low" reads as a smaller variant, which is the opposite of what
+        # that arm tests (does more thinking beat a bigger model?).
+        _DISP = {"deepseek4": "DeepSeek<br>V4 Flash", "minimax": "MiniMax<br>M3",
+                 "luna": "GPT-5.6<br>Luna", "kimi-high": "Kimi K3<br>HIGH reasoning",
+                 "kimi-low": "Kimi K3<br>LOW reasoning"}
+        for r in bo:
+            r["disp"] = _DISP.get(r["arm"], r["arm"])
     payload["bo"] = bo
 
     cols = ["#Sharpe", "robust", "plateau", "cancelled", "months to lead", "days behind",
@@ -577,9 +586,9 @@ def main(argv=None) -> int:
               "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
         panel(16, "Portfolio value vs LLM spend",
-              "I swept <b><code>event_agent_model</code></b> &mdash; the LLM that judges, every scan, "
-              "whether each thesis is still live &mdash; across five models spanning 4.6&times; in "
-              "price, and re-ran the whole 3-year curation for each. Everything else is identical: "
+              "Portfolio value after <b><code>event_agent_model</code></b> is swept &mdash; the LLM that "
+              "judges, every scan, whether each thesis is still live. Five models spanning "
+              "4.6&times; in price, each with the whole 3-year curation re-run. Everything else is identical: "
               "same scout, same 99,117-article corpus, same optimizer settings. "
               "<b>Final value barely moves, and every bar lands inside the shaded band</b> &mdash; "
               "the noise floor I measured beforehand by curating the same settings twice, which came "
@@ -621,7 +630,7 @@ def main(argv=None) -> int:
          '</p><div class="scroll">'
          + table_html(["arm", "LLM $", "final value", "cancelled", "max DD", "Sharpe",
                        "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean"],
-                      [[r["arm"], f"${r['cost']:.2f}", f"${r['final']:,.0f}", f"{r['cancelled']:.1f}%",
+                      [[r.get("disp", r["arm"]).replace("<br>", " "), f"${r['cost']:.2f}", f"${r['final']:,.0f}", f"{r['cancelled']:.1f}%",
                         f"{r['max_drawdown']:.1f}%", f"{r['sharpe']:.2f}", f"${r['focus_gain']:,.0f}",
                         str(r["events"]), str(r["examined"]), str(r["decisions"]),
                         f"{r['dated']:.0f}%", f"{r['supported']:.0f}%", f"{r['clean']:.0f}%"]
@@ -914,7 +923,7 @@ function draw(){{
   // to a reader arriving from outside the project -- the money is the axis that travels.
   const BO = DATA.bo || [];
   if (BO.length) {{
-    const nm = BO.map(r => r.arm + '<br>$' + r.cost.toFixed(2));
+    const nm = BO.map(r => (r.disp || r.arm) + '<br>$' + r.cost.toFixed(2));
     const cost = BO.map(r => r.cost);
     const fin = BO.map(r => r.final);
     // THE NOISE FLOOR, measured not assumed: two curations at IDENTICAL settings finished 1.86x apart.
@@ -953,7 +962,7 @@ function draw(){{
         textfont:{{size:10, color:p.fg}},
         marker:{{size:13, color:'#34d399', line:{{width:1.5, color:p.surface}}}},
         line:{{width:2, color:'#34d399'}},
-        hovertext:BO.map(r => r.arm + ' - ' + r.decisions + ' decisions judged'),
+        hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ') + ' - ' + r.decisions + ' decisions judged'),
         hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>clean %{{y:.1f}}%<extra></extra>'}}
     ], base(p, {{margin:{{l:70,r:20,t:16,b:52}},
         xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'LLM cost of one 3-year curation', font:{{size:11}}}}}},
