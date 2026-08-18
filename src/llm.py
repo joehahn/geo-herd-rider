@@ -118,6 +118,19 @@ class AnthropicClient(LLMClient):
         return text
 
 
+# OpenRouter model ids VERIFIED to accept `reasoning.effort` alongside structured output. Substring
+# match. Adding a model here without smoke-testing it re-opens the silent-zero-output failure above.
+_REASONING_OK = ("kimi", "deepseek-v4", "gpt-5.6", "glm-5", "minimax-m3", "qwen3")
+
+# OpenRouter models whose providers REJECT an explicit temperature -- the same constraint the Anthropic
+# client already handles for its adaptive-thinking models (see GREEDY DECODING above). Sending it anyway
+# is not a soft failure: combined with require_parameters:True (set whenever json_schema is used)
+# OpenRouter finds NO provider satisfying every parameter and returns 404 "No endpoints found that can
+# handle the requested parameters" -- which reads like the model does not exist. Isolated 2026-08-17 on
+# gpt-5.6-luna by bisecting the kwargs: dropping temperature ALONE fixed it.
+_NO_TEMPERATURE = ("gpt-5.6",)
+
+
 class OpenRouterClient(LLMClient):
     """Any OpenRouter model via the OpenAI-compatible API. Web search uses OpenRouter's
     `:online` plugin (Exa-backed). Caveat: `:online` has no clean before:<date> control, so
@@ -146,9 +159,11 @@ class OpenRouterClient(LLMClient):
             ctx = websearch.context(search_query, before_date)
             if ctx:
                 user = ctx + "\n\n" + user
-        kw = {"model": self.model, "max_tokens": 8000, "temperature": 0,   # greedy: see AnthropicClient
+        kw = {"model": self.model, "max_tokens": 8000,
               "messages": [{"role": "system", "content": system},
                            {"role": "user", "content": user}]}
+        if not any(k in self.model for k in _NO_TEMPERATURE):
+            kw["temperature"] = 0            # greedy: see AnthropicClient
         if json_schema is not None:  # structured outputs: guarantees parseable JSON (fixes the
             kw["response_format"] = {"type": "json_schema",            # ~27% JSON-format failures)
                                      "json_schema": {"name": "mapping", "strict": True,
@@ -158,12 +173,18 @@ class OpenRouterClient(LLMClient):
             # StreamLake/DeepInfra failure that crashed deepseek BWET mid-scan).
             kw["extra_body"] = {"provider": {"require_parameters": True}}
         # REASONING EFFORT, previously DROPPED on this path (the signature said "Anthropic-only,
-        # ignored here"). OpenRouter normalises `reasoning.effort` across the reasoning models --
-        # Kimi, DeepSeek, GLM, the GPT-5.x family -- so the knob the profile already carries now
-        # reaches them. Wired 2026-08-17 for the low-vs-high reasoning arm of the event-agent bake-off:
-        # without it "does more thinking beat a bigger model" is unaskable outside Anthropic.
-        # 'none' is passed through as OFF rather than silently becoming 'low'.
-        if effort in ("none", "low", "medium", "high"):
+        # ignored here"). OpenRouter normalises `reasoning.effort` across the reasoning models, so the
+        # knob the profile already carries now reaches them. Wired 2026-08-17 for the low-vs-high arm
+        # of the event-agent bake-off: without it "does more thinking beat a bigger model" cannot be
+        # asked outside Anthropic.
+        #
+        # ALLOWLIST, NOT BLANKET -- and this is not caution, it is a measured bug. The first version
+        # sent `reasoning` on EVERY OpenRouter call. llama-4-maverick is not a reasoning model, and
+        # `reasoning` together with the require_parameters:True set just above leaves OpenRouter with no
+        # provider supporting BOTH json_schema and reasoning, so every scout chunk 404'd. The run did
+        # not crash: it completed all 37 scans in 10 minutes at $0.00 with zero candidates, which reads
+        # exactly like a finished curation. Only send this to models verified to take it.
+        if any(k in self.model for k in _REASONING_OK) and effort in ("none", "low", "medium", "high"):
             kw.setdefault("extra_body", {})["reasoning"] = (
                 {"enabled": False} if effort == "none" else {"effort": effort})
         # RETRY. This path had NO retry: one bad response killed the caller. A 3-year curation died at
