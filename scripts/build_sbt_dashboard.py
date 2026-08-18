@@ -952,7 +952,7 @@ function draw(){{
                       text:'measured noise floor \u2014 the SAME settings re-run land 1.86x apart',
                       showarrow:false, font:{{size:10, color:p.fg}}}}],
         xaxis:{{type:'category',
-               title:{{text:'event_agent_model  (the swept parameter), ordered by its LLM cost per 3-year curation \u2192', font:{{size:11}}}}}},
+               title:{{text:'event_agent_model', font:{{size:11}}}}}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000, 260000],
                title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
 
