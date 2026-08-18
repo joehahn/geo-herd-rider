@@ -577,8 +577,9 @@ def main(argv=None) -> int:
               "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
         panel(16, "Portfolio value vs LLM spend",
-              "Five complete re-curations that differ in <b>one thing only</b>: which model runs the "
-              "event-agent judgment stage. Same scout (llama-4-maverick), same 99,117-article corpus, "
+              "Five complete re-curations that differ in <b>one parameter only</b> &mdash; "
+              "<code>event_agent_model</code>, the model that runs the per-event judgment stage "
+              "(is this thesis still live? has its catalyst resolved?). Same scout (llama-4-maverick), same 99,117-article corpus, "
               "same optimizer config, same 1,248 scout chunks. The horizontal is what that model cost "
               "for one 3-year curation, <b>ascending left to right</b>; the vertical is what the book "
               "finished at.<br><br>"
@@ -592,7 +593,8 @@ def main(argv=None) -> int:
               "than assumed.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "The same five arms, same horizontal axis, but the vertical is now <b>decision "
+              "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
+              "vertical is now <b>decision "
               "quality</b>: the share of that arm's ~570 event-agent calls that a <b>Claude Fable-5 "
               "judge</b> found clean on all three process tests &mdash; the catalyst was specific and "
               "datable, the written assessment did not outrun the evidence it cited, and the live/exit "
@@ -606,7 +608,8 @@ def main(argv=None) -> int:
               "cannot.",
               "s-bo-quality", 430),
         panel(18, "Decision quality per dollar of AI spend",
-              "Panel 17 divided by panel 16's horizontal &mdash; clean decisions bought per dollar, "
+              "Panel 17 divided by panel 16's horizontal &mdash; clean decisions per dollar of "
+              "<code>event_agent_model</code> spend, "
               "the efficiency frontier stated as one bar per arm. This is the number to carry into a "
               "budget conversation: it says which model to run <b>for this task</b>, not which model "
               "is best in general. The three process tests are broken out beneath, because they do "
@@ -925,23 +928,30 @@ function draw(){{
     // resolvable. Without it panel 16 invites exactly the over-reading it exists to prevent.
     const mid = fin.reduce((a, b) => a + b, 0) / fin.length;
     const lo = mid / Math.sqrt(1.86), hi = mid * Math.sqrt(1.86);
+    // BARS, not a line. Five discrete `event_agent_model` choices are not a continuum, and the line
+    // drawn here first implied an interpolation between (say) MiniMax and Luna that has no meaning.
+    // Ordered by spend left-to-right, with the MODEL NAME on the mark so the panel reads standalone:
+    // arm labels mean nothing to a reader arriving from outside the project, so the name and the
+    // price both ride on the bar rather than hiding in a legend.
+    // The noise band is a horizontal SHAPE, not a filled trace -- on a category axis a scatter-fill
+    // has no continuous x to lie along and would silently vanish.
     Plotly.react('s-bo-pnl', [
-      {{type:'scatter', mode:'lines', x:cost, y:cost.map(() => hi), line:{{width:0}},
-        hoverinfo:'skip', showlegend:false}},
-      {{type:'scatter', mode:'lines', x:cost, y:cost.map(() => lo), fill:'tonexty',
-        fillcolor:(dark ? 'rgba(148,163,184,.20)' : 'rgba(100,116,139,.16)'), line:{{width:0}},
-        name:'1.86x noise floor (same settings, re-run)', hoverinfo:'skip'}},
-      {{type:'scatter', mode:'lines+markers+text', x:cost, y:fin,
-        text:BO.map(r => '$' + Math.round(r.final / 1000) + 'K'), textposition:'top center',
-        textfont:{{size:10, color:p.fg}},
-        marker:{{size:13, color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
-        line:{{width:2, color:'#7dd3fc'}}, name:'final portfolio value',
-        hovertext:BO.map(r => r.arm),
-        hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>final $%{{y:,.0f}}<extra></extra>'}}
-    ], base(p, {{margin:{{l:70,r:20,t:34,b:52}},
-        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'LLM cost of one 3-year curation (HIGHER = more AI spend)', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
+      {{type:'bar', x:nm, y:fin, name:'final portfolio value',
+        marker:{{color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
+        text:BO.map(r => '$' + Math.round(r.final / 1000) + 'K'), textposition:'outside',
+        textfont:{{size:11, color:p.fg}}, cliponaxis:false,
+        hovertext:BO.map(r => 'event_agent_model = ' + r.arm + '  (LLM $' + r.cost.toFixed(2) + ')'),
+        hovertemplate:'%{{hovertext}}<br>final $%{{y:,.0f}}<extra></extra>'}}
+    ], base(p, {{margin:{{l:70,r:20,t:40,b:82}}, showlegend:false,
+        shapes:[{{type:'rect', xref:'paper', x0:0, x1:1, yref:'y', y0:lo, y1:hi, layer:'below',
+                 fillcolor:(dark ? 'rgba(148,163,184,.22)' : 'rgba(100,116,139,.16)'), line:{{width:0}}}}],
+        annotations:[{{xref:'paper', x:0.995, xanchor:'right', yref:'y', y:hi, yanchor:'bottom',
+                      text:'measured noise floor \u2014 the SAME settings re-run land 1.86x apart',
+                      showarrow:false, font:{{size:10, color:p.fg}}}}],
+        xaxis:{{type:'category',
+               title:{{text:'event_agent_model  (the swept parameter), ordered by its LLM cost per 3-year curation \u2192', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
+               title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
 
     Plotly.react('s-bo-quality', [
       {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean),
