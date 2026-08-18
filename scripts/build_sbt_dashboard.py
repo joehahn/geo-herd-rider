@@ -363,6 +363,14 @@ def main(argv=None) -> int:
     # page RECOMMENDS actually get paid on the no-brainer names? -- so those five are labelled with
     # their rank rather than left for the reader to hunt in a hover.
     payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
+    # THE LLM BAKE-OFF (panels 16-19). Five full re-curations that differ ONLY in which model runs the
+    # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
+    # -> the panels are simply omitted, exactly like the max_events series.
+    _bo = ROOT / "data/bakeoff_summary.json"
+    bo = json.loads(_bo.read_text()) if _bo.exists() else None
+    if bo:
+        bo = sorted(bo, key=lambda r: r["cost"])      # ORDER BY LLM SPEND -- the x-axis of every panel
+    payload["bo"] = bo
 
     cols = ["#Sharpe", "robust", "plateau", "cancelled", "months to lead", "days behind",
             "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
@@ -567,7 +575,62 @@ def main(argv=None) -> int:
               "the agent half of the bill scales with the cap; the scout reads the same ticker-groups "
               "either way, which is why the left bars flatten while the cap keeps rising.",
               "s-me-cost", 380),
-    ] if me and me.get("rows") else []))
+    ] if me and me.get("rows") else []) + ([
+        panel(16, "Portfolio value vs LLM spend",
+              "Five complete re-curations that differ in <b>one thing only</b>: which model runs the "
+              "event-agent judgment stage. Same scout (llama-4-maverick), same 99,117-article corpus, "
+              "same optimizer config, same 1,248 scout chunks. The horizontal is what that model cost "
+              "for one 3-year curation, <b>ascending left to right</b>; the vertical is what the book "
+              "finished at.<br><br>"
+              "<b>The line is flat, and that is the finding.</b> A 4.6&times; spread in AI spend "
+              "($5.96 &rarr; $27.31) produces a 1.52&times; spread in final value &mdash; and the "
+              "shaded band is the measured noise floor: two curations at <b>identical</b> settings, "
+              "differing only in LLM sampling, came out <b>1.86&times;</b> apart. Every arm sits "
+              "inside it. On this evidence, paying more for the judgment model buys <b>no measurable "
+              "return</b>. That is not a null result &mdash; it is the number that says where to stop "
+              "spending, and it is only credible because the noise floor was measured first rather "
+              "than assumed.",
+              "s-bo-pnl", 430),
+        panel(17, "What the money actually buys: decision quality vs spend",
+              "The same five arms, same horizontal axis, but the vertical is now <b>decision "
+              "quality</b>: the share of that arm's ~570 event-agent calls that a <b>Claude Fable-5 "
+              "judge</b> found clean on all three process tests &mdash; the catalyst was specific and "
+              "datable, the written assessment did not outrun the evidence it cited, and the live/exit "
+              "call was coherent with the analyst's own stated exit condition. The judge sees "
+              "<b>no prices and no outcomes</b>, and is blind to which model produced the decision.<br><br>"
+              "<b>Quality varies where P&amp;L does not, and it peaks in the middle.</b> The "
+              "mid-priced arm scores <b>54.5%</b> clean against 33.8% for the cheapest and 37.0% for "
+              "the most expensive &mdash; so this is not a curve you can buy your way up. Note the "
+              "unit of analysis: <b>2,849 individually judged decisions</b> instead of five aggregate "
+              "P&amp;L numbers, which is precisely why this panel can resolve differences panel 16 "
+              "cannot.",
+              "s-bo-quality", 430),
+        panel(18, "Decision quality per dollar of AI spend",
+              "Panel 17 divided by panel 16's horizontal &mdash; clean decisions bought per dollar, "
+              "the efficiency frontier stated as one bar per arm. This is the number to carry into a "
+              "budget conversation: it says which model to run <b>for this task</b>, not which model "
+              "is best in general. The three process tests are broken out beneath, because they do "
+              "not move together &mdash; <code>consistent</code> passes at 95&ndash;98% everywhere and "
+              "cannot discriminate, so the real signal lives in <b>dated</b> (was the catalyst a "
+              "resolvable event or an open-ended trend?) and <b>supported</b> (did the write-up assert "
+              "more than its own citations carry?).",
+              "s-bo-perdollar", 430),
+        ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
+         "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
+         "book behaviour; dated / supported / clean are decision quality; final value is the number "
+         "that cannot be trusted alone.</b> Read the last three columns against the first: the "
+         "correlation between what an arm costs and what its book returns is the thing this table "
+         "exists to let you check for yourself."
+         '</p><div class="scroll">'
+         + table_html(["arm", "LLM $", "final value", "cancelled", "max DD", "Sharpe",
+                       "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean"],
+                      [[r["arm"], f"${r['cost']:.2f}", f"${r['final']:,.0f}", f"{r['cancelled']:.1f}%",
+                        f"{r['max_drawdown']:.1f}%", f"{r['sharpe']:.2f}", f"${r['focus_gain']:,.0f}",
+                        str(r["events"]), str(r["examined"]), str(r["decisions"]),
+                        f"{r['dated']:.0f}%", f"{r['supported']:.0f}%", f"{r['clean']:.0f}%"]
+                       for r in bo])
+         + "</div></section>"),
+    ] if bo else []))
 
     nknob1 = 1 + len(keys)          # last knob column index, for the narrow-column CSS rule
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
@@ -847,6 +910,68 @@ function draw(){{
         xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
                type:'category', categoryorder:'array', categoryarray:xs}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'USD', font:{{size:11}}}}}}}}), CFG);
+  }}
+  // ---- LLM BAKE-OFF (panels 16-19) --------------------------------------------------------------
+  // Already sorted by LLM spend python-side, so every panel shares one left-to-right ordering: the
+  // cheapest judgment model first. Labels carry the dollar figure because the arm NAMES mean nothing
+  // to a reader arriving from outside the project -- the money is the axis that travels.
+  const BO = DATA.bo || [];
+  if (BO.length) {{
+    const nm = BO.map(r => r.arm + '<br>$' + r.cost.toFixed(2));
+    const cost = BO.map(r => r.cost);
+    const fin = BO.map(r => r.final);
+    // THE NOISE FLOOR, measured not assumed: two curations at IDENTICAL settings finished 1.86x apart.
+    // Drawn as a band around the arms' midpoint so a reader sees at a glance which differences are
+    // resolvable. Without it panel 16 invites exactly the over-reading it exists to prevent.
+    const mid = fin.reduce((a, b) => a + b, 0) / fin.length;
+    const lo = mid / Math.sqrt(1.86), hi = mid * Math.sqrt(1.86);
+    Plotly.react('s-bo-pnl', [
+      {{type:'scatter', mode:'lines', x:cost, y:cost.map(() => hi), line:{{width:0}},
+        hoverinfo:'skip', showlegend:false}},
+      {{type:'scatter', mode:'lines', x:cost, y:cost.map(() => lo), fill:'tonexty',
+        fillcolor:(dark ? 'rgba(148,163,184,.20)' : 'rgba(100,116,139,.16)'), line:{{width:0}},
+        name:'1.86x noise floor (same settings, re-run)', hoverinfo:'skip'}},
+      {{type:'scatter', mode:'lines+markers+text', x:cost, y:fin,
+        text:BO.map(r => '$' + Math.round(r.final / 1000) + 'K'), textposition:'top center',
+        textfont:{{size:10, color:p.fg}},
+        marker:{{size:13, color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
+        line:{{width:2, color:'#7dd3fc'}}, name:'final portfolio value',
+        hovertext:BO.map(r => r.arm),
+        hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>final $%{{y:,.0f}}<extra></extra>'}}
+    ], base(p, {{margin:{{l:70,r:20,t:34,b:52}},
+        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'LLM cost of one 3-year curation (HIGHER = more AI spend)', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}}}}), CFG);
+
+    Plotly.react('s-bo-quality', [
+      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean),
+        text:BO.map(r => r.clean.toFixed(0) + '%'), textposition:'top center',
+        textfont:{{size:10, color:p.fg}},
+        marker:{{size:13, color:'#34d399', line:{{width:1.5, color:p.surface}}}},
+        line:{{width:2, color:'#34d399'}},
+        hovertext:BO.map(r => r.arm + ' - ' + r.decisions + ' decisions judged'),
+        hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>clean %{{y:.1f}}%<extra></extra>'}}
+    ], base(p, {{margin:{{l:70,r:20,t:16,b:52}},
+        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'LLM cost of one 3-year curation', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
+               title:{{text:'decisions clean on all 3 process tests', font:{{size:11}}}}}}}}), CFG);
+
+    // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
+    // interpolation between models that does not exist.
+    Plotly.react('s-bo-perdollar', [
+      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean / r.cost),
+        marker:{{color:'#7dd3fc'}}, yaxis:'y',
+        hovertemplate:'%{{x}}<br>%{{y:.2f}} clean-%% per $<extra></extra>'}},
+      {{type:'bar', name:'dated %', x:nm, y:BO.map(r => r.dated), marker:{{color:'#fbbf24'}}, yaxis:'y2',
+        hovertemplate:'%{{x}}<br>dated %{{y:.0f}}%<extra></extra>'}},
+      {{type:'bar', name:'supported %', x:nm, y:BO.map(r => r.supported), marker:{{color:'#f472b6'}}, yaxis:'y2',
+        hovertemplate:'%{{x}}<br>supported %{{y:.0f}}%<extra></extra>'}}
+    ], base(p, {{barmode:'group', margin:{{l:64,r:56,t:34,b:60}},
+        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+        xaxis:{{type:'category', title:{{text:'arm, ordered by LLM spend', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'clean % per $', font:{{size:11}}}}}},
+        yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
+                title:{{text:'process test pass rate', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 draw();
