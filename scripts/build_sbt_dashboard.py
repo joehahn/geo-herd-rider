@@ -618,7 +618,7 @@ def main(argv=None) -> int:
               "it is my prompt at fault, not them. <b><code>supported</code></b> asks whether the "
               "write-up follows from the evidence it actually cited or claims more certainty than "
               "those sources carry &mdash; the only axis that really separates models, GPT-5.6 Luna "
-              "at 98% against DeepSeek's 82%. <b><code>consistent</code></b> asks whether the "
+              "at 97% against DeepSeek's 75%. <b><code>consistent</code></b> asks whether the "
               "live/exit call contradicts the analyst's own stated exit condition; nobody does, so at "
               "94&ndash;100% it separates nothing and can be retired.",
               "s-bo-perdollar", 430),
