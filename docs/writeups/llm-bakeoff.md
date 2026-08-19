@@ -3,28 +3,24 @@
 *Joe Hahn · [JMH Data Sciences](https://jmh-datasciences.com) · August 2026*
 
 
-Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
-brought in to grade the work.
+Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
+model to grade those decisions.
 
 ## Why point AI at 100,000 news articles
 
-Every business is exposed to events it did not cause and cannot control. A supplier's plant goes
-down. A tariff is proposed. A safety agency schedules a vote that could pull a rival’s product off the shelf. A competitor
-recalls a product and demand moves to you. Some of those events are threats and some are openings, and
-many are **reported publicly before they show up in anyone's numbers**.
+Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
+proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
+and openings both, and many are **reported publicly before they reach anyone's numbers**.
 
-The information is not the hard part. The hard part is that nobody has time to read a hundred
-thousand articles a month and work out which twelve of them matter to *you*. That is the gap I
-wanted to test: **can a language model do the reading, and make the routine calls that follow, well
-enough to act on?**
+The information is not the hard part. Nobody has time to read a hundred thousand articles a month
+and find the twelve that matter to *you*. So: **can a language model do that reading, and make
+the routine calls that follow, well enough to act on?**
 
-I built one to find out. It reads business news as it is published, flags situations that could
-help or hurt, and then — the part that actually matters — **keeps deciding what to do about them as
-the story develops**. It is deliberately mundane work. Most of what determines a bottom line is
-mundane: hedging early enough, buying before a price move, not staying committed to something that is
-already played out. The exercise below is run on a market portfolio because that provides me with an unambiguous
-scorecard, but nothing about the machinery is specific to markets — swap the feed and the same system
-watches your supply chain, your regulatory exposure, or your competitors.
+I built one to find out. It reads business news as it is published, flags what could help or hurt,
+and — the part that matters — **keeps deciding what to do as the story develops**. Mundane work,
+which is the point: most of what moves a bottom line is mundane. I run it on a market portfolio for
+the unambiguous scorecard, but swap the feed and it watches your supply chain, your regulators, or
+your competitors.
 
 ## The decision being automated
 
