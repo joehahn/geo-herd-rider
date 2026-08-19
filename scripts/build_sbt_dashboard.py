@@ -609,9 +609,9 @@ def main(argv=None) -> int:
               "&mdash; rather than an open-ended trend like \u201cAI demand grows\u201d; every model "
               "is weakest here (46&ndash;66%), and since that holds across eight runs and six vendors "
               "it is my prompt at fault, not them. <b><code>supported</code></b> asks whether the "
-              "write-up follows from the evidence it actually cited or claims more certainty than "
-              "those sources carry &mdash; the only axis that really separates models, GPT-5.6 Luna "
-              "at 97% against DeepSeek's 75%. <b><code>consistent</code></b> asks whether the "
+              "write-up claims more than its cited sources establish &mdash; asserting something "
+              "the sources do not reach, or citing nothing at all &mdash; the only axis that really "
+              "separates models, GPT-5.6 Luna at 97% against DeepSeek's 75%. <b><code>consistent</code></b> asks whether the "
               "live/exit call contradicts the analyst's own stated exit condition; nobody does, so at "
               "94&ndash;100% it separates nothing and can be retired.",
               "s-bo-perdollar", 430),
