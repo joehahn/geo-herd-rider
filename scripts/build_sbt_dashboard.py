@@ -616,7 +616,9 @@ def main(argv=None) -> int:
               "is whether the write-up stayed within what its own cited sources establish. "
               "<b><code>consistent</code></b> is whether that period's live-or-exit call cohered "
               "with the model's own stated exit condition &mdash; it applies to every call, not "
-              "only the exits.",
+              "only the exits. A call counts as clean in panel 17 only if it passes all three, which "
+              "is close to but not the product of these bars &mdash; the failures overlap, since a "
+              "vague catalyst tends to come with thin sourcing.",
               "s-bo-perdollar", 430),
         ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
@@ -1013,7 +1015,7 @@ function draw(){{
         text:BO.map(r => r.dated_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>dated %{{y:.0f}}%<extra></extra>'}},
-      {{type:'bar', name:'supported', x:nm, y:BO.map(r => r.supported_adj), marker:{{color:'#f472b6'}},
+      {{type:'bar', name:'supported', x:nm, y:BO.map(r => r.supported_adj), marker:{{color:'#60a5fa'}},
         text:BO.map(r => r.supported_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>supported %{{y:.0f}}%<extra></extra>'}},
