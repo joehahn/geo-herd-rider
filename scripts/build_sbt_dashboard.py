@@ -609,14 +609,16 @@ def main(argv=None) -> int:
               "middle: the $13 model beats the $6 one and the $27 one, which finish last and fourth.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
-              "Panel 17 collapsed three tests into one pass/fail; here they are split out, corrected "
-              "the same way. <b>Every model is weakest on <code>dated</code></b> (52&ndash;66%) "
-              "&mdash; a third to a half of theses rest on an open-ended trend rather than a datable "
-              "event &mdash; and since that holds across five very different models it is my prompt "
-              "at fault, not the model, which makes it the next thing I fix. The only axis that "
-              "really separates them is <b><code>supported</code></b>, where GPT-5.6 Luna hits 98% "
-              "against DeepSeek's 82%: what the extra money bought me was a model that stops claiming "
-              "more than its evidence carries.",
+              "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
+              "is a specific resolvable event &mdash; a contract award, a ruling, an FDA decision "
+              "&mdash; rather than an open-ended trend like \u201cAI demand grows\u201d; every model "
+              "is weakest here (52&ndash;66%), and since that holds across five very different models "
+              "it is my prompt at fault, not them. <b><code>supported</code></b> asks whether the "
+              "write-up follows from the evidence it actually cited or claims more certainty than "
+              "those sources carry &mdash; the only axis that really separates models, GPT-5.6 Luna "
+              "at 98% against DeepSeek's 82%. <b><code>consistent</code></b> asks whether the "
+              "live/exit call contradicts the analyst's own stated exit condition; nobody does, so at "
+              "94&ndash;100% it separates nothing and can be retired.",
               "s-bo-perdollar", 430),
         ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
