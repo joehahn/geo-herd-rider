@@ -594,15 +594,12 @@ def main(argv=None) -> int:
               "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "Each arm made ~565 keep-or-exit calls over the 3-year curation. Every call was "
-              "graded on three tests &mdash; was the catalyst datable, did the write-up claim more "
-              "than its cited sources establish, did the live/exit call contradict its own stated exit "
-              "condition &mdash; and a call is <b>clean</b> only if it passes all three. "
-              "<b>Grey</b> is the share a cheap <b>judge</b> model rated clean after reading every "
-              "call; <b>green</b> is that share re-estimated after <b>Claude Fable-5</b> re-read "
-              "samples of the calls the cheap judge flagged and the calls it passed. Both bars are "
-              "a grader's verdict on the swept model &mdash; <b>the swept model is the analyst "
-              "here and never scores its own work</b>. Neither judge saw a price or an outcome.",
+              "Each arm made ~565 keep-or-exit calls over its 3-year curation, graded on three "
+              "tests: was the catalyst datable, did the write-up claim more than its cited sources "
+              "establish, did the live/exit call contradict its own stated exit condition. The bar "
+              "is the share <b>Claude Fable-5</b> judged clean on all three, estimated from a "
+              "stratified sample of each arm's calls. The judge saw no prices and no outcomes, and "
+              "was blind to which model produced the decision.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
               "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
@@ -989,32 +986,23 @@ function draw(){{
 
     // GROUPED BARS on a category axis, matching panel 16. Two rates over five discrete models is
     // not a curve, and the earlier line invited reading a trend between points that do not connect.
+    // ONE series, not two. The grey bar was the cheap screening judge's own rate, which measures
+    // how wrong THAT judge was about each arm -- a property of the screen, not evidence about the
+    // arm, and panel 20 is where it belongs. Two readers in a row took grey for the swept model's
+    // self-assessment and concluded the best arm was the one whose bars MATCHED, which inverts the
+    // panel. Dropping it also removes the need to name the screening model here at all.
     Plotly.react('s-bo-quality', [
-      {{type:'bar', name:'cheap screen alone', x:nm, y:BO.map(r => r.clean),
-        marker:{{color:'#94a3b8', line:{{width:1.5, color:p.surface}}}},
-        text:BO.map(r => r.clean.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
-        textfont:{{size:10, color:p.fg}},
-        hovertemplate:'%{{x}}<br>screen alone %{{y:.1f}}%<extra></extra>'}},
-      {{type:'bar', name:'after Fable-5 (two-sided)', x:nm, y:BO.map(r => r.clean_2s),
+      {{type:'bar', x:nm, y:BO.map(r => r.clean_2s),
         marker:{{color:'#34d399', line:{{width:1.5, color:p.surface}}}},
         text:BO.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:11, color:p.fg}},
-        hovertemplate:'%{{x}}<br>two-sided %{{y:.1f}}%<extra></extra>'}}
-    ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:38,b:86}},
-        legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
+        hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ') + ' - ' + r.decisions + ' calls'),
+        hovertemplate:'%{{hovertext}}<br>clean %{{y:.1f}}%<extra></extra>'}}
+    ], base(p, {{margin:{{l:64,r:20,t:20,b:86}}, showlegend:false,
         xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
         yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[25, 75],
-               title:{{text:'decisions clean on all 3 process tests', font:{{size:11}}}}}}}}), CFG);
+               title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}}}}), CFG);
 
-    // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
-    // interpolation between models that does not exist.
-    // Three CORRECTED axes per model. The per-dollar bar is gone: cost spans 4.6x and quality 1.4x,
-    // so quality/cost was essentially 1/cost -- it ranked by cheapness and crowned the model with the
-    // WORST decisions, quietly contradicting panels 16-17 instead of extending them.
-    // These rubric rates are stratified estimates on the same footing as panel 17's green bars:
-    // P(screen passed) x Fable-5's rate in the passed sample + P(flagged) x its rate in the flagged
-    // sample. Previously they were RAW screen rates sitting beside a corrected bar, mixing two
-    // different measurements in one frame.
     Plotly.react('s-bo-perdollar', [
       {{type:'bar', name:'dated', x:nm, y:BO.map(r => r.dated_adj), marker:{{color:'#fbbf24'}},
         text:BO.map(r => r.dated_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
