@@ -1,0 +1,242 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>What does a smarter model actually buy you? · JMH Data Sciences</title>
+<meta name="description" content="Eight LLMs, one repeated decision over 100,000 documents, and a
+frontier model brought in to grade the work. Spending 5.3x more bought no measurable return.">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>:root {
+  --surface:#fcfcfb; --card:#ffffff; --text:#0b0b0b; --text2:#52514e;
+  --grid:#e6e5e1; --line:#e6e5e1;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7;
+    --grid:#33322f; --line:#33322f;
+  }
+}
+:root[data-theme="dark"] {
+  --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7;
+  --grid:#33322f; --line:#33322f;
+}
+* { box-sizing:border-box; }
+body { margin:0; background:var(--surface); color:var(--text);
+  font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }
+.wrap { max-width:1180px; margin:0 auto; padding:28px 20px 80px; }
+header h1 { font-size:26px; margin:0 0 4px; letter-spacing:-.01em; }
+.sub { color:var(--text2); font-size:14px; margin:0 0 6px; }
+.nav { font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
+  padding-bottom:12px; margin-bottom:22px; }
+.nav a { color:var(--text2); }
+.tiles { display:grid; grid-template-columns:repeat(auto-fit,minmax(238px,1fr)); gap:12px; margin-bottom:30px; }
+.tile { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:13px 14px; }
+.tile-h { display:flex; align-items:center; gap:7px; margin-bottom:5px; }
+.dot { font-size:11px; }
+.tl { font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--text2); flex:1; }
+.badge { font-size:10px; text-transform:uppercase; letter-spacing:.05em; border:1px solid;
+  border-radius:20px; padding:1px 7px; }
+.tv { font-size:27px; font-weight:600; letter-spacing:-.02em; }
+.ts { font-size:12.5px; color:var(--text2); margin-bottom:7px; }
+.tw { font-size:12.5px; color:var(--text2); line-height:1.5; }
+.panel { margin:0 0 34px; }
+.panel h2 { font-size:17px; margin:0 0 5px; font-weight:600; }
+.lead { color:var(--text2); font-size:13.5px; margin:0 0 12px; max-width:80ch; }
+.plot { background:var(--card); border:1px solid var(--line); border-radius:10px; }
+details.tbl { margin-top:9px; font-size:13px; color:var(--text2); }
+details.tbl summary { cursor:pointer; }
+table { border-collapse:collapse; margin-top:9px; width:100%; font-size:12.5px; }
+th,td { text-align:left; padding:5px 9px; border-bottom:1px solid var(--line); }
+th { color:var(--text2); font-weight:600; }
+.params { width:auto; } .params td:first-child { color:var(--text2); }
+.scroll { overflow-x:auto; }
+footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
+  font-size:12.5px; color:var(--text2); }
+body { max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; line-height: 1.62; }
+.kicker { text-transform: uppercase; letter-spacing: .09em; font-size: 12px; opacity: .7; margin: 0 0 6px; }
+h1 { font-size: 2.05rem; line-height: 1.18; margin: 0 0 10px; }
+.sub { font-size: 1.12rem; opacity: .85; margin: 0 0 6px; }
+header { border-bottom: 1px solid rgba(127,127,127,.28); padding-bottom: 22px; margin-bottom: 30px; }
+section { margin: 0 0 42px; }
+h2 { font-size: 1.32rem; margin: 34px 0 12px; }
+.plot { width: 100%; margin: 18px 0 20px; }
+p { margin: 0 0 13px; }
+.takeaway { border-left: 3px solid #34d399; padding-left: 18px; }
+.cost { opacity: .72; font-size: .95rem; }
+.cta { border-top: 1px solid rgba(127,127,127,.28); padding-top: 26px; }
+.btn a { display: inline-block; margin-top: 8px; padding: 11px 20px; border-radius: 9px;
+          background: #34d399; color: #06281c; font-weight: 650; text-decoration: none; }
+</style></head><body>
+
+<header>
+  <p class="kicker">JMH Data Sciences · August 2026</p>
+  <h1>What does a smarter model actually buy you?</h1>
+  <p class="sub">Eight LLMs, one repeated decision, 100,000 documents, and a frontier model
+     brought in to grade the work.</p>
+</header>
+
+<section>
+<h2>The setup</h2>
+<p>A system reads a rolling corpus of <b>99,117 financial news articles</b> and, every month for three
+years, makes the same judgment call about every thesis it is tracking: <i>is this still true, has the
+thing I was waiting for happened, should I still be exposed to it?</i></p>
+<p>That is <b>565 judgment calls per run</b> — the repetitive, evidence-weighing decision organisations
+increasingly hand to a language model. A manufacturer deciding whether to pre-buy raw material ahead of
+a supply shock is making the same shape of call against a different feed.</p>
+<p>So I ran the entire three-year pipeline <b>eight times</b>, changing exactly one thing each time: the
+model making that judgment. Same documents, same retrieval, same downstream logic. Prices spanned
+<b>5.3&times;</b>, from $5.96 to $31.66 per complete run.</p>
+</section>
+
+<section>
+<h2>1. More spend bought no measurable return</h2>
+<div id="c1" class="plot"></div>
+<p>A <b>5.3&times; spread in spend</b> produced a <b>1.92&times; spread in outcome</b> — and that is
+where most analyses stop and misreport.</p>
+<p>Before running any of it I measured the <b>noise floor</b>: the identical configuration, run twice,
+differing only in the model's own sampling randomness. Those two runs finished <b>1.86&times; apart</b>
+— the shaded band. The entire spread across eight <i>different</i> models is barely wider than the gap
+between one model and <i>itself</i>.</p>
+<p><b>On outcome alone, this experiment cannot tell these models apart.</b> Most bake-offs never measure
+that band. They report the winner.</p>
+</section>
+
+<section>
+<h2>2. Decision quality varies sharply — and peaks in the middle</h2>
+<div id="c2" class="plot"></div>
+<p>Outcome is one number per run, hostage to a few lucky calls. So I changed the unit of analysis:
+<b>4,527 individually graded decisions</b> instead of eight outcomes.</p>
+<p>Each was scored on <b>process only</b>, with no prices and no outcomes in front of the grader. Was the
+trigger a specific, datable, resolvable event rather than an open-ended trend? Did the write-up claim
+more than its own cited sources establish? Was the keep-or-drop call consistent with the stated exit
+condition? A decision is <b>clean</b> only if it passes all three.</p>
+<p><b>Quality separates where outcome did not</b> — a 23-point spread, far outside anything noise
+explains — and the curve <b>peaks in the middle</b>. The most expensive model finished last. A $6.42
+model landed within three points of the leader.</p>
+<p>This is <i>not</i> "cheaper is better": the cheapest model is near the bottom too. It is that
+<b>price predicts almost nothing about fitness for a specific task</b>.</p>
+</section>
+
+<section>
+<h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
+<div id="c3" class="plot"></div>
+<p>Three things fall out, none visible in an aggregate score.</p>
+<p><b>Internal consistency is solved.</b> Every model scores 93–100%. That test can be retired — it
+costs money and separates nothing.</p>
+<p><b>Every model is weakest on the same axis.</b> Datable triggers run 46–66% across eight models from
+six vendors. When everything fails the same way, <b>the prompt is at fault, not the model</b> — and
+that is worth more than any model swap.</p>
+<p><b>One axis separates the field:</b> staying inside your sources, 75% to 97%. That is what the extra
+money bought where it bought anything. The most expensive model is the instructive case — it writes
+well-evidenced analysis of things that are <i>not events</i>. Not a bad model; a <b>mismatch between a
+model's habits and a task's requirements</b>, invisible on any leaderboard.</p>
+</section>
+
+<section>
+<h2>4. The grader was graded</h2>
+<div id="c4" class="plot"></div>
+<p>Using an LLM to grade LLMs invites one obvious objection, so the design answers it up front. A
+frontier model did the grading, blind to which model produced each decision. A cheap model screened all
+4,527 calls and the frontier model re-read <b>1,200</b> — both the ones the screen condemned <i>and</i>
+the ones it cleared, so the correction runs in both directions.</p>
+<p>Then the screen itself was audited. It agreed with the frontier grader <b>93%</b>
+on consistency and <b>85%</b> on datable triggers, but only
+<b>66%</b> on whether a claim exceeded its sources — the hardest judgment,
+and exactly where a cheap grader should not be trusted. The study's own thesis, appearing inside its own
+instrument.</p>
+</section>
+
+<section class="takeaway">
+<h2>If you are building one of these</h2>
+<p><b>Measure your noise floor first.</b> Run the same configuration twice. That gap is the smallest
+difference your evaluation can honestly detect — and most comparisons report differences smaller than
+their own noise.</p>
+<p><b>Grade decisions, not outcomes.</b> Eight outcomes cannot separate eight models. Four thousand
+graded decisions can.</p>
+<p><b>Spend frontier money on the judge, not the worker.</b> The most valuable model here never touched
+the production path. It graded it.</p>
+<p><b>Expect the answer to be task-specific.</b> Best was mid-priced, worst was dearest, runner-up cost
+$6.42. None of that is predictable from a leaderboard.</p>
+<p class="cost">The whole study cost under $200 and took two days.</p>
+</section>
+
+<section class="cta">
+<h2>Work with us</h2>
+<p>JMH Data Sciences builds and evaluates AI systems that make repeated decisions over unstructured
+information — news, filings, reports, tickets, claims — where being <i>approximately right, reliably</i>
+matters more than being brilliant occasionally.</p>
+<p>If you are automating judgment over a document feed and want to know whether it is actually working,
+we would like to hear from you.</p>
+<p class="btn"><a href="https://jmhdatasciences.com">jmhdatasciences.com &rarr;</a></p>
+</section>
+
+<script>
+const DATA = {"bo": [{"arm": "deepseek4", "disp": "DeepSeek<br>V4 Flash", "cost": 5.96, "minutes": 181.4, "final": 208065, "cancelled": 48.7, "sharpe": 1.45, "max_drawdown": 40.0, "focus_gain": 52428, "focus_held": 3, "l1": 2201.5, "decisions": 562, "clean": 33.3, "overturn": 27.0, "fn_rate": 26.0, "clean_2s": 42.6, "t2_n": 100, "t3_n": 50, "dated": 50.2, "dated_adj": 52.0, "supported": 63.3, "supported_adj": 75.3, "consistent": 97.0, "consistent_adj": 99.3, "events": 322, "examined": 153, "label": "DeepSeek V4 Flash", "mult": 1.0}, {"arm": "grok-low", "disp": "Grok 4.3<br>LOW reasoning", "cost": 6.42, "minutes": 45.1, "final": 272336, "cancelled": 43.8, "sharpe": 1.52, "max_drawdown": 33.0, "focus_gain": 67713, "focus_held": 3, "l1": 2098.6, "decisions": 555, "clean": 50.3, "overturn": 34.0, "fn_rate": 12.0, "clean_2s": 61.1, "t2_n": 100, "t3_n": 50, "dated": 67.4, "dated_adj": 65.6, "supported": 76.0, "supported_adj": 94.0, "consistent": 94.2, "consistent_adj": 96.0, "events": 397, "examined": 172, "label": "Grok 4.3 LOW reasoning", "mult": 1.1}, {"arm": "grok-high", "disp": "Grok 4.3<br>HIGH reasoning", "cost": 6.85, "minutes": 47.1, "final": 155950, "cancelled": 55.4, "sharpe": 1.1, "max_drawdown": 32.1, "focus_gain": 57749, "focus_held": 3, "l1": 2177.3, "decisions": 570, "clean": 49.1, "overturn": 27.0, "fn_rate": 10.0, "clean_2s": 57.9, "t2_n": 100, "t3_n": 50, "dated": 63.3, "dated_adj": 59.9, "supported": 76.7, "supported_adj": 89.9, "consistent": 94.2, "consistent_adj": 99.5, "events": 365, "examined": 175, "label": "Grok 4.3 HIGH reasoning", "mult": 1.1}, {"arm": "minimax", "disp": "MiniMax<br>M3", "cost": 8.16, "minutes": 48.2, "final": 151642, "cancelled": 56.1, "sharpe": 0.94, "max_drawdown": 37.1, "focus_gain": 51853, "focus_held": 2, "l1": 2182.9, "decisions": 574, "clean": 37.6, "overturn": 25.0, "fn_rate": 26.0, "clean_2s": 43.4, "t2_n": 100, "t3_n": 50, "dated": 59.2, "dated_adj": 59.1, "supported": 66.7, "supported_adj": 79.8, "consistent": 98.6, "consistent_adj": 92.9, "events": 387, "examined": 107, "label": "MiniMax M3", "mult": 1.4}, {"arm": "luna", "disp": "GPT-5.6<br>Luna", "cost": 13.46, "minutes": 50.3, "final": 142054, "cancelled": 57.7, "sharpe": 1.08, "max_drawdown": 34.7, "focus_gain": 73818, "focus_held": 2, "l1": 2276.4, "decisions": 558, "clean": 54.8, "overturn": 32.0, "fn_rate": 10.0, "clean_2s": 63.8, "t2_n": 100, "t3_n": 50, "dated": 63.4, "dated_adj": 66.0, "supported": 88.4, "supported_adj": 97.4, "consistent": 95.2, "consistent_adj": 100.0, "events": 441, "examined": 202, "label": "GPT-5.6 Luna", "mult": 2.3}, {"arm": "kimi-high", "disp": "Kimi K3<br>HIGH reasoning", "cost": 25.67, "minutes": 137.6, "final": 173320, "cancelled": 43.0, "sharpe": 1.44, "max_drawdown": 34.6, "focus_gain": 101789, "focus_held": 3, "l1": 2226.0, "decisions": 570, "clean": 38.9, "overturn": 28.0, "fn_rate": 10.0, "clean_2s": 52.1, "t2_n": 100, "t3_n": 50, "dated": 50.2, "dated_adj": 58.8, "supported": 80.5, "supported_adj": 92.8, "consistent": 97.4, "consistent_adj": 98.6, "events": 406, "examined": 129, "label": "Kimi K3 HIGH reasoning", "mult": 4.3}, {"arm": "kimi-low", "disp": "Kimi K3<br>LOW reasoning", "cost": 27.31, "minutes": 107.4, "final": 215799, "cancelled": 46.7, "sharpe": 1.38, "max_drawdown": 29.8, "focus_gain": 46376, "focus_held": 3, "l1": 2202.0, "decisions": 568, "clean": 44.2, "overturn": 23.0, "fn_rate": 12.0, "clean_2s": 51.7, "t2_n": 100, "t3_n": 50, "dated": 54.0, "dated_adj": 56.9, "supported": 83.3, "supported_adj": 90.9, "consistent": 97.2, "consistent_adj": 99.4, "events": 445, "examined": 135, "label": "Kimi K3 LOW reasoning", "mult": 4.6}, {"arm": "sonnet5", "disp": "Claude<br>Sonnet 5", "cost": 31.66, "minutes": 70.5, "final": 142780, "cancelled": 68.0, "sharpe": 1.07, "max_drawdown": 42.3, "focus_gain": 17435, "focus_held": 1, "l1": 2138.5, "decisions": 570, "clean": 36.8, "overturn": 18.0, "fn_rate": 20.0, "clean_2s": 40.8, "t2_n": 100, "t3_n": 50, "dated": 45.4, "dated_adj": 46.1, "supported": 79.1, "supported_adj": 89.6, "consistent": 99.3, "consistent_adj": 99.4, "events": 323, "examined": 128, "label": "Claude Sonnet 5", "mult": 5.3}], "ja": {"n_tier1": 4527, "n_failed": 29, "n_flagged": 2576, "n_tier2": 800, "n_tier3": 400, "n_upheld": 586, "precision": 73.2, "fn_overall": 15.8, "agree": {"dated": 85.4, "supported": 66.5, "consistent": 92.9}, "per_arm": [{"arm": "deepseek4", "disp": "DeepSeek<br>V4 Flash", "overturn": 27.0, "fn_rate": 26.0, "clean": 33.3, "clean_2s": 42.6}, {"arm": "grok-low", "disp": "Grok 4.3<br>LOW reasoning", "overturn": 34.0, "fn_rate": 12.0, "clean": 50.3, "clean_2s": 61.1}, {"arm": "grok-high", "disp": "Grok 4.3<br>HIGH reasoning", "overturn": 27.0, "fn_rate": 10.0, "clean": 49.1, "clean_2s": 57.9}, {"arm": "minimax", "disp": "MiniMax<br>M3", "overturn": 25.0, "fn_rate": 26.0, "clean": 37.6, "clean_2s": 43.4}, {"arm": "luna", "disp": "GPT-5.6<br>Luna", "overturn": 32.0, "fn_rate": 10.0, "clean": 54.8, "clean_2s": 63.8}, {"arm": "kimi-high", "disp": "Kimi K3<br>HIGH reasoning", "overturn": 28.0, "fn_rate": 10.0, "clean": 38.9, "clean_2s": 52.1}, {"arm": "kimi-low", "disp": "Kimi K3<br>LOW reasoning", "overturn": 23.0, "fn_rate": 12.0, "clean": 44.2, "clean_2s": 51.7}, {"arm": "sonnet5", "disp": "Claude<br>Sonnet 5", "overturn": 18.0, "fn_rate": 20.0, "clean": 36.8, "clean_2s": 40.8}]}};
+const L = {"surface": "#fcfcfb", "text": "#0b0b0b", "text2": "#52514e", "grid": "#e6e5e1", "s1": "#2a78d6", "s2": "#eb6834", "s3": "#1baf7a", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}, D = {"surface": "#1a1a19", "text": "#ffffff", "text2": "#c3c2b7", "grid": "#33322f", "s1": "#3987e5", "s2": "#d95926", "s3": "#199e70", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]};
+const CFG = {displayModeBar:false, responsive:true};
+function draw() {
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches
+            && document.documentElement.getAttribute('data-theme') !== 'light';
+  const p = dark ? D : L;
+  const base = extra => Object.assign({paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
+    font:{color:p.fg, size:12}, hoverlabel:{bgcolor:p.surface, font:{color:p.fg}}}, extra);
+  const BO = DATA.bo, nm = BO.map(r => r.label + '<br>$' + r.cost.toFixed(2));
+  const fin = BO.map(r => r.final), mid = fin.reduce((a,b)=>a+b,0)/fin.length;
+  const lo = mid/Math.sqrt(1.86), hi = mid*Math.sqrt(1.86);
+
+  // 1. outcome vs spend, with the measured noise band behind it
+  Plotly.react('c1', [{type:'bar', x:nm, y:fin, marker:{color:'#7dd3fc'},
+      text:fin.map(v=>'$'+Math.round(v/1000)+'K'), textposition:'outside', cliponaxis:false,
+      hovertemplate:'%{x}<br>$%{y:,.0f}<extra></extra>'}],
+    base({margin:{l:66,r:16,t:34,b:84}, showlegend:false,
+      shapes:[{type:'rect', xref:'paper', x0:0, x1:1, yref:'y', y0:lo, y1:hi, layer:'below',
+               fillcolor: dark?'rgba(148,163,184,.22)':'rgba(100,116,139,.16)', line:{width:0}}],
+      annotations:[{xref:'paper', x:.99, xanchor:'right', yref:'y', y:hi, yanchor:'bottom',
+        text:'measured noise floor — the SAME setup re-run lands 1.86× apart',
+        showarrow:false, font:{size:10.5}}],
+      xaxis:{type:'category', tickfont:{size:10}},
+      yaxis:{gridcolor:p.grid, tickprefix:'$', range:[90000,300000],
+             title:{text:'outcome after 3 years', font:{size:11}}}}), CFG);
+
+  // 2. quality vs spend -- horizontal, dearest on top, shade = price
+  const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
+  Plotly.react('c2', [{type:'bar', orientation:'h',
+      x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   '+r.mult+'×'),
+      marker:{color:byCost.map(r=>r.cost),
+              colorscale:[[0,'#fde68a'],[.45,'#fb923c'],[1,'#b45309']], cmin:0,
+              cmax:Math.max(...byCost.map(r=>r.cost)),
+              colorbar:{title:{text:'cost per<br>run', font:{size:10}}, tickprefix:'$',
+                        thickness:9, len:.6}},
+      text:byCost.map(r=>r.clean_2s.toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
+      hovertemplate:'%{y}<br>%{x:.1f}%% of decisions clean<extra></extra>'}],
+    base({margin:{l:196,r:60,t:14,b:46}, showlegend:false,
+      xaxis:{gridcolor:p.grid, ticksuffix:'%', range:[0,78],
+             title:{text:'decisions clean on all 3 tests', font:{size:11}}},
+      yaxis:{automargin:true, tickfont:{size:11}}}), CFG);
+
+  // 3. the three tests, broken out
+  const mk = (n,k,c) => ({type:'bar', name:n, x:nm, y:BO.map(r=>r[k]), marker:{color:c},
+      text:BO.map(r=>r[k].toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
+      textfont:{size:9.5}, hovertemplate:'%{x}<br>'+n+' %{y:.0f}%<extra></extra>'});
+  Plotly.react('c3', [mk('datable trigger','dated_adj','#fbbf24'),
+                      mk('claims within sources','supported_adj','#34d399'),
+                      mk('internally consistent','consistent_adj','#60a5fa')],
+    base({barmode:'group', margin:{l:56,r:16,t:38,b:84},
+      legend:{orientation:'h', y:1.16, x:0, font:{size:11}},
+      xaxis:{type:'category', tickfont:{size:10}},
+      yaxis:{gridcolor:p.grid, ticksuffix:'%', range:[35,108],
+             title:{text:'pass rate', font:{size:11}}}}), CFG);
+
+  // 4. the grader auditing itself
+  const A = DATA.ja.agree, ax = ['consistent','dated','supported'];
+  Plotly.react('c4', [{type:'bar', x:ax.map(k=>k==='dated'?'datable trigger':
+                          k==='supported'?'claims within sources':'internally consistent'),
+      y:ax.map(k=>A[k]), marker:{color:['#60a5fa','#fbbf24','#34d399']},
+      text:ax.map(k=>A[k].toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
+      hovertemplate:'%{x}<br>cheap screen agreed %{y:.1f}%% of the time<extra></extra>'}],
+    base({margin:{l:56,r:16,t:16,b:52}, showlegend:false,
+      xaxis:{type:'category'},
+      yaxis:{gridcolor:p.grid, ticksuffix:'%', range:[0,108],
+             title:{text:'cheap screen agreed with the frontier grader', font:{size:11}}}}), CFG);
+}
+draw();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+</script></body></html>
