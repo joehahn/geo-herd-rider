@@ -23,7 +23,10 @@
   "t2_n": 100,
   "fn_rate": 28.0,
   "clean_2s": 45.5,
-  "t3_n": 50
+  "t3_n": 50,
+  "dated_adj": 52.2,
+  "supported_adj": 82.1,
+  "consistent_adj": 99.3
  },
  {
   "arm": "minimax",
@@ -49,7 +52,10 @@
   "t2_n": 100,
   "fn_rate": 18.0,
   "clean_2s": 50.8,
-  "t3_n": 50
+  "t3_n": 50,
+  "dated_adj": 63.9,
+  "supported_adj": 85.4,
+  "consistent_adj": 94.0
  },
  {
   "arm": "luna",
@@ -75,7 +81,10 @@
   "t2_n": 100,
   "fn_rate": 8.0,
   "clean_2s": 65.2,
-  "t3_n": 50
+  "t3_n": 50,
+  "dated_adj": 66.3,
+  "supported_adj": 98.5,
+  "consistent_adj": 100.0
  },
  {
   "arm": "kimi-high",
@@ -101,7 +110,10 @@
   "t2_n": 100,
   "fn_rate": 12.0,
   "clean_2s": 47.7,
-  "t3_n": 50
+  "t3_n": 50,
+  "dated_adj": 54.5,
+  "supported_adj": 93.2,
+  "consistent_adj": 98.1
  },
  {
   "arm": "kimi-low",
@@ -127,6 +139,9 @@
   "t2_n": 100,
   "fn_rate": 8.0,
   "clean_2s": 53.2,
-  "t3_n": 50
+  "t3_n": 50,
+  "dated_adj": 57.2,
+  "supported_adj": 91.9,
+  "consistent_adj": 100.0
  }
 ]

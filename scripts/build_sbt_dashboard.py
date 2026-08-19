@@ -608,16 +608,25 @@ def main(argv=None) -> int:
               "separates here where portfolio value in panel 16 did not</b>, and it peaks in the "
               "middle: the $13 model beats the $6 one and the $27 one, which finish last and fourth.",
               "s-bo-quality", 430),
-        panel(18, "Decision quality per dollar of AI spend",
-              "Panel 17 divided by panel 16's horizontal &mdash; clean decisions per dollar of "
-              "<code>event_agent_model</code> spend, "
-              "the efficiency frontier stated as one bar per arm. This is the number to carry into a "
-              "budget conversation: it says which model to run <b>for this task</b>, not which model "
-              "is best in general. The three process tests are broken out beneath, because they do "
-              "not move together &mdash; <code>consistent</code> passes at 95&ndash;98% everywhere and "
-              "cannot discriminate, so the real signal lives in <b>dated</b> (was the catalyst a "
-              "resolvable event or an open-ended trend?) and <b>supported</b> (did the write-up assert "
-              "more than its own citations carry?).",
+        panel(18, "Where each model actually fails",
+              "Panel 17 collapses three tests into one pass/fail; this is the breakdown, corrected "
+              "the same way. <b><code>dated</code></b> asks whether the catalyst was a specific "
+              "resolvable event rather than an open-ended trend, <b><code>supported</code></b> whether "
+              "the write-up asserted more than its own citations carry, <b><code>consistent</code></b> "
+              "whether the live/exit call contradicted its own stated exit condition.<br><br>"
+              "<b>They do not move together, and that is the useful part.</b> "
+              "<code>consistent</code> is near-100% everywhere &mdash; no model contradicts itself, so "
+              "it separates nothing. <code>dated</code> is where <b>every</b> model is weakest "
+              "(52&ndash;66%): a third to a half of theses rest on a trend rather than a datable "
+              "event, which is a <b>prompt</b> problem rather than a model one, and the biggest thing "
+              "to fix next. The axis that genuinely separates models is <b><code>supported</code></b>, "
+              "where GPT-5.6 Luna reaches <b>98%</b> against DeepSeek's 82% &mdash; what the extra "
+              "money bought was a model that stops claiming more than its evidence carries.<br><br>"
+              "<b>Cost-efficiency is deliberately not plotted.</b> Quality spans 1.4&times; while cost "
+              "spans 4.6&times;, so quality-per-dollar is essentially 1&divide;cost: it would rank by "
+              "cheapness and crown the model that is worst on two of these three axes. The honest "
+              "version is one line &mdash; on this task Luna at $13.46 buys the best decisions, and "
+              "everything above it is wasted money.",
               "s-bo-perdollar", 430),
         ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
@@ -1011,20 +1020,31 @@ function draw(){{
 
     // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
     // interpolation between models that does not exist.
+    // Three CORRECTED axes per model. The per-dollar bar is gone: cost spans 4.6x and quality 1.4x,
+    // so quality/cost was essentially 1/cost -- it ranked by cheapness and crowned the model with the
+    // WORST decisions, quietly contradicting panels 16-17 instead of extending them.
+    // These rubric rates are stratified estimates on the same footing as panel 17's green bars:
+    // P(screen passed) x Fable-5's rate in the passed sample + P(flagged) x its rate in the flagged
+    // sample. Previously they were RAW screen rates sitting beside a corrected bar, mixing two
+    // different measurements in one frame.
     Plotly.react('s-bo-perdollar', [
-      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean_2s / r.cost),
-        marker:{{color:'#7dd3fc'}}, yaxis:'y',
-        hovertemplate:'%{{x}}<br>%{{y:.2f}} clean-%% per $<extra></extra>'}},
-      {{type:'bar', name:'dated %', x:nm, y:BO.map(r => r.dated), marker:{{color:'#fbbf24'}}, yaxis:'y2',
+      {{type:'bar', name:'dated', x:nm, y:BO.map(r => r.dated_adj), marker:{{color:'#fbbf24'}},
+        text:BO.map(r => r.dated_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+        textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>dated %{{y:.0f}}%<extra></extra>'}},
-      {{type:'bar', name:'supported %', x:nm, y:BO.map(r => r.supported), marker:{{color:'#f472b6'}}, yaxis:'y2',
-        hovertemplate:'%{{x}}<br>supported %{{y:.0f}}%<extra></extra>'}}
-    ], base(p, {{barmode:'group', margin:{{l:64,r:56,t:34,b:60}},
-        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-        xaxis:{{type:'category', title:{{text:'arm, ordered by LLM spend', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, title:{{text:'clean % per $', font:{{size:11}}}}}},
-        yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', range:[0,100], showgrid:false,
-                title:{{text:'process test pass rate', font:{{size:11}}}}}}}}), CFG);
+      {{type:'bar', name:'supported', x:nm, y:BO.map(r => r.supported_adj), marker:{{color:'#f472b6'}},
+        text:BO.map(r => r.supported_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+        textfont:{{size:10, color:p.fg}},
+        hovertemplate:'%{{x}}<br>supported %{{y:.0f}}%<extra></extra>'}},
+      {{type:'bar', name:'consistent', x:nm, y:BO.map(r => r.consistent_adj), marker:{{color:'#34d399'}},
+        text:BO.map(r => r.consistent_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+        textfont:{{size:10, color:p.fg}},
+        hovertemplate:'%{{x}}<br>consistent %{{y:.0f}}%<extra></extra>'}}
+    ], base(p, {{barmode:'group', margin:{{l:60,r:20,t:38,b:86}},
+        legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
+        xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 112],
+               title:{{text:'process test pass rate (Fable-5 corrected)', font:{{size:11}}}}}}}}), CFG);
 
     // PANEL 20 -- the judge auditing itself. Two grouped series on ONE percentage axis (both are
     // rates, so no second scale is needed): agreement per rubric test, and per-arm overturn.
