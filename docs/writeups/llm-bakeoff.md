@@ -1,6 +1,6 @@
 # What does a smarter model actually buy you?
 
-*Joe Hahn · [JMH Data Sciences](https://jmhdatasciences.com) · August 2026*
+*Joe Hahn · [JMH Data Sciences](https://jmh-datasciences.com) · August 2026*
 
 
 Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
@@ -136,4 +136,4 @@ beats being brilliant occasionally.
 If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.
 
-**→ [jmhdatasciences.com →](https://jmhdatasciences.com)**
+**→ [jmh-datasciences.com →](https://jmh-datasciences.com)**

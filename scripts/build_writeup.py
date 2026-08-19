@@ -8,7 +8,7 @@ looks like an engineer's workspace:
   * PROSE FIRST, chart second. The dashboards assume you already care; this has to earn it.
   * The charts are the SAME data as SBT panels 15-19, redrawn without the internal vocabulary
     (`event_agent_model`, arms, curations) that means nothing outside the project.
-  * Ends at jmhdatasciences.com. That is the point of the page.
+  * Ends at jmh-datasciences.com. That is the point of the page.
 
     python scripts/build_writeup.py
 """
@@ -20,7 +20,11 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from build_fbt_dashboard import CSS, DARK, LIGHT, PLOTLY_CDN  # noqa: E402
 
-SITE = "https://jmhdatasciences.com"
+# THE HYPHEN IS LOAD-BEARING. This was published as jmhdatasciences.com -- a domain that does not
+# exist (NXDOMAIN) -- because the URL was inferred from the phrase "JMH Data Sci website" instead
+# of being asked for. Every reader who clicked the byline or the closing button got a browser
+# error, on the one page whose entire purpose is to send them here.
+SITE = "https://jmh-datasciences.com"
 
 
 def main() -> int:
@@ -163,7 +167,7 @@ information — news, filings, reports, tickets, claims — where being <i>appro
 beats being brilliant occasionally.</p>
 <p>If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.</p>
-<p class="btn"><a href="{SITE}">jmhdatasciences.com &rarr;</a></p>
+<p class="btn"><a href="{SITE}">jmh-datasciences.com &rarr;</a></p>
 </section>
 """
 
