@@ -109,7 +109,7 @@ max_article_chars: 800            # how much of ONE article's text the curator s
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
-max_events: 16  # how many events may be LIVE AT ONCE. When it binds, the lowest-ranked are
+max_events: 16                    # how many events may be LIVE AT ONCE. When it binds, the lowest-ranked are
                                   #   retired -- ranked by PRESS COVERAGE (src/evscore.py): independent-source
                                   #   breadth, superlative count, coverage velocity, author breadth. No forecast.
 picker_model:                     # BLANK = use the arithmetic coverage-rank (src/evscore.py). An LLM ranker
