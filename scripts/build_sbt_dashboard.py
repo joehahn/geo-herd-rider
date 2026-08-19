@@ -595,8 +595,8 @@ def main(argv=None) -> int:
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
               "Each arm made ~565 keep-or-exit calls over the 3-year curation. Every call was "
-              "graded on three tests &mdash; was the catalyst datable, did the write-up outrun "
-              "the evidence it cited, did the live/exit call contradict its own stated exit "
+              "graded on three tests &mdash; was the catalyst datable, did the write-up claim more "
+              "than its cited sources establish, did the live/exit call contradict its own stated exit "
               "condition &mdash; and a call is <b>clean</b> only if it passes all three. "
               "<b>Grey</b> is the share rated clean by a cheap screening model that read every "
               "call; <b>green</b> is that share re-estimated after <b>Claude Fable-5</b> re-read "
