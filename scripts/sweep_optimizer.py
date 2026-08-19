@@ -245,6 +245,12 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     # block (n, sum r, sum r^2, sum of positive r, sum of negative r) is 300x smaller and lets mean,
     # stdev and a cancellation analogue be reconstructed EXACTLY on any union of blocks -- because all
     # five are additive. Nothing here is a new metric; it is the same daily series, pre-summed.
+    # THE DAILY RETURN SERIES ITSELF, for PURGED CSCV. Block sums are additive and so are exact on any
+    # union of BLOCKS, but purging works at DAY granularity -- it removes observations whose holding
+    # window overlaps the test half, and that boundary falls inside a block. So the daily series has to
+    # be kept too. 6,300 configs x ~753 days is 19MB as float32, which is nothing; stored rounded to
+    # 6dp as a flat list because JSON has no float32.
+    daily_r = [round(x, 6) for x in rets]
     NB = 16                                    # even, so CSCV can split 8 train / 8 test
     blocks = []
     if len(rets) >= NB * 4:
@@ -256,7 +262,7 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
                            round(sum(x for x in r if x < 0), 8)])
     focus = round(sum(v for t, v in g.items() if t in FOCUS), 2)
     return {"final": round(b.get("final", 0), 2),
-            "blocks": blocks,
+            "blocks": blocks, "daily_r": daily_r,
             "capital_hit": capital_hit, "edge": edge,
             "focus_gain": focus,
             "lead_months": lead_m,
@@ -302,8 +308,25 @@ def main(argv=None) -> int:
                  | set(fm0.get("starter_watchlist") or []) | anchors | {score.BENCHMARK, "BWET"})
     lo = (min(scans) - pd.Timedelta(days=max(GRID["lookback_period_days"]) + 90)).strftime("%Y-%m-%d")
     hi = (max(scans) + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
-    print(f"  fetching one frozen panel: {len(uni)} tickers {lo}..{hi}", flush=True)
-    panel = score.fetch_panel(uni, lo, hi, use_cache=False)   # ONE fetch, reused by every cell
+    # THE PANEL IS FROZEN TO DISK, per run, and reused. `use_cache=False` here meant every sweep
+    # re-downloaded prices, and two sweeps of the SAME journal with the SAME code then disagreed on
+    # 919 of 6,300 cells (15%) -- median 1.17x apart, 274 cells over 1.5x, one at 36x ($2,914 vs
+    # $106,328 for [8, 0.25, 21, 2, 0.5, 0.3]). Small differences in adjusted closes cascade through
+    # the covariance and the min_trade_size threshold, and knife-edge cells flip their whole book.
+    # That is a SECOND noise source stacked on the curation noise floor of CLAUDE.md #6, and it sat
+    # underneath every cross-sweep comparison made before 2026-08-19.
+    # The panel is written next to the RUN, not to the shared price cache, so a sweep is reproducible
+    # against its own curation for as long as that directory exists, and re-fetching is an explicit
+    # choice (delete the file) rather than the default.
+    _pf = run / "panel.csv"
+    if _pf.exists():
+        panel = pd.read_csv(_pf, index_col=0, parse_dates=True)
+        print(f"  panel: reusing frozen {_pf} ({panel.shape[1]} tickers)", flush=True)
+    else:
+        print(f"  fetching one frozen panel: {len(uni)} tickers {lo}..{hi}", flush=True)
+        panel = score.fetch_panel(uni, lo, hi, use_cache=False)
+        panel.to_csv(_pf)
+        print(f"  panel: froze {panel.shape[1]} tickers -> {_pf}", flush=True)
 
     keys = list(GRID)
     cells = list(itertools.product(*(GRID[k] for k in keys)))

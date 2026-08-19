@@ -1,183 +1,137 @@
 # What does a smarter model actually buy you?
 
-**Eight LLMs, one decision, 100,000 documents, and a frontier model brought in to grade the work.**
-
 *JMH Data Sciences · August 2026*
 
----
 
-## The setup
+Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
+brought in to grade the work.
 
-A system reads a rolling corpus of **99,117 financial news articles** and, every month for three
-years, makes the same judgment call about each live thesis it is tracking:
+## Why point AI at 100,000 news articles
 
-> *Is this still true? Has the thing I was waiting for happened yet? Should I still be exposed to it?*
+Every business is exposed to events it did not cause and cannot control. A supplier's plant goes
+down. A tariff is proposed. A regulator opens a consultation that will land in six weeks. A competitor
+recalls a product and demand moves to you. Some of those events are threats and some are openings, and
+almost all of them are **reported publicly before they show up in anyone's numbers**.
 
-That is 565 judgment calls per run — the kind of repetitive, evidence-weighing decision that
-organisations increasingly hand to a language model. A manufacturer deciding whether to pre-buy
-raw material ahead of a supply shock is making the same shape of call against a different feed.
+The information is not the hard part. The hard part is that nobody has time to read a hundred
+thousand articles a month and work out which twelve of them matter to *you*. That is the gap I
+wanted to test: **can a language model do the reading, and make the routine calls that follow, well
+enough to act on?**
 
-The obvious question when you build one of these: **which model should read the documents, and does
-paying more for a better one actually pay?**
+I built one to find out. It reads business news as it is published, flags situations that could
+help or hurt, and then — the part that actually matters — **keeps deciding what to do about them as
+the story develops**. It is deliberately mundane work. Most of what determines a bottom line is
+mundane: hedging early enough, buying before a price move, not staying committed to something that
+already played out. The exercise below is run on a market portfolio because that gives an unambiguous
+scorecard, but nothing about the machinery is specific to markets — swap the feed and the same system
+watches your supply chain, your regulatory exposure, or your competitors.
 
-So I ran the whole three-year pipeline **eight times**, changing exactly one thing each time — the
-model that makes that judgment. Same documents, same retrieval, same downstream logic, same
-everything else. Prices ranged over **5.3×**, from $5.96 to $31.66 per complete run.
+## The decision being automated
 
----
+For every situation it is tracking, the system revisits three questions each month:
 
-## Finding 1 — More spend bought no measurable return
+- **Is this still true?** — the situation I flagged is still developing, and the reasoning I
+wrote down still holds.
+- **Has the thing I was waiting for already happened?** — most situations turn on one
+identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
+the uncertainty is gone and so is the reason to act. *A manufacturer watching a proposed tariff
+cares enormously up to the signing and not at all afterwards — by then the price has moved.*
+- **Should I still be committed to it?** — should capital, inventory or capacity still be tied
+up on the strength of this, or is that commitment now doing nothing.
 
-<!-- SBT panel 15: Portfolio value vs LLM spend -->
+That is roughly **600 judgment calls per run**, where a **run** means one complete pass of the
+system over three years of news — month by month, from scratch, making every call in sequence exactly
+as it would have at the time. A run takes under two hours and costs between $6 and $32 depending on
+which model is doing the reading.
 
-| model | cost | vs cheapest | wall clock | outcome |
-|---|---|---|---|---|
-| Claude Sonnet 5 | $31.66 | 5.3× | 70 min | $142,780 |
-| Kimi K3 *(low reasoning)* | $27.31 | 4.6× | 107 min | $215,799 |
-| Kimi K3 *(high reasoning)* | $25.67 | 4.3× | 138 min | $173,320 |
-| GPT-5.6 Luna | $13.46 | 2.3× | 50 min | $142,054 |
-| MiniMax M3 | $8.16 | 1.4× | 48 min | $151,642 |
-| Grok 4.3 *(high reasoning)* | $6.85 | 1.1× | 47 min | $155,950 |
-| Grok 4.3 *(low reasoning)* | $6.42 | 1.1× | 45 min | $272,336 |
-| DeepSeek V4 Flash | $5.96 | 1.0× | 181 min | $208,065 |
+Which raises the obvious question: **does paying for a better model pay?** So I ran the whole
+thing **eight times**, changing exactly one thing each time — the model making those calls. Same
+articles, same retrieval, same downstream logic. Prices spanned **5×**.
 
-A **5.3× spread in spend** produced a **1.92× spread in outcome** — and that is the part most
-analyses would stop at and misreport.
+## 1. Cost tells you nothing about speed
 
-Before running any of this I measured the **noise floor**: I ran the identical configuration twice,
-changing nothing but the model's own sampling randomness. The two runs finished **1.86× apart.**
+The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
+the *slowest* by a factor of four — three hours against forty-five minutes. Two models within
+seven cents of each other differed by more than two hours of wall clock.
 
-So the entire spread across eight different models is barely larger than the spread between one model
-and *itself*. **On outcome alone, this experiment cannot distinguish any of these models from any
-other.** Seven of the eight sit inside the noise band.
+If you are running this hourly against a live feed rather than monthly against an archive, that
+difference decides whether the system is usable at all, and it is invisible on a price list.
 
-Most model bake-offs never measure that band. They report the winner.
+## 2. A frontier model graded every decision — and quality peaks in the middle
 
-**Also worth noting: price and speed are unrelated.** The cheapest model was also the slowest — four
-times slower than the fastest.
+Comparing the models on the portfolio's final value would be close to meaningless: one number per
+run, decided by a handful of lucky calls. So I changed the unit of analysis. **Claude Fable 5 — the
+strongest model available, and one that never touched the production path — re-read the decisions the
+eight working models had made and graded them, blind to which model produced which.**
 
----
+Each decision was scored on **process only**, with no prices and no outcomes in front of the
+grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
+write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
+exit condition the model itself had written down? A decision is **clean** only if it passes all
+three.
 
-## Finding 2 — Decision *quality* varies sharply, and peaks in the middle
+**The score below is the percentage of that model's ~600 decisions that came back clean —
+higher is better.** Quality separates sharply where the portfolio value could not: a 23-point spread
+across the eight. And the curve **peaks in the middle**. The most expensive model finished
+*last*. A $6.42 model landed within three points of the leader.
 
-<!-- SBT panels 16 and 17: decision quality vs spend; quality ranked by cost -->
+This is not "cheaper is better" — the cheapest model is near the bottom too. It is that
+**price predicts almost nothing about fitness for a particular job**, and the only way to find out
+is to grade the work.
 
-Outcome is a single number per run, hostage to a handful of lucky calls. So I changed the unit of
-analysis: instead of eight outcomes, **4,527 individually graded decisions**.
+## 3. Knowing *how* a model fails beats knowing *that* it does
 
-Every decision was scored on **process only**, with no prices and no outcomes in front of the grader:
+Breaking the same grades out by test — again, higher is better on all three — says three things no
+aggregate score can.
 
-- **Was the trigger a specific, datable, resolvable event** — a contract award, a ruling, a regulatory
-  decision — rather than an open-ended trend like *"AI demand is growing"*?
-- **Did the write-up claim more than its own cited sources establish?**
-- **Was the keep-or-drop call consistent with the analyst's own stated exit condition?**
+**Internal consistency is a solved problem.** Every model scores 93–100%: none of them
+contradicts reasoning it wrote down itself. That test can be retired.
 
-A decision is *clean* only if it passes all three.
+**Every model is weakest on the same thing.** Identifying a specific, datable trigger runs
+46–66% across eight models from six vendors. When everything fails the same way, **the instructions
+are at fault, not the model** — and fixing that is worth more than any model swap.
 
-| model | cost | clean decisions |
-|---|---|---|
-| **GPT-5.6 Luna** | $13.46 | **63.8%** |
-| **Grok 4.3** *(low reasoning)* | **$6.42** | **61.1%** |
-| Grok 4.3 *(high reasoning)* | $6.85 | 57.9% |
-| Kimi K3 *(high reasoning)* | $25.67 | 52.1% |
-| Kimi K3 *(low reasoning)* | $27.31 | 51.7% |
-| MiniMax M3 | $8.16 | 43.4% |
-| DeepSeek V4 Flash | $5.96 | 42.6% |
-| **Claude Sonnet 5** | **$31.66** | **40.8%** ← most expensive, worst |
+**One test actually separates the field:** staying inside your sources, 75% to 97%. That is what
+the extra money bought, where it bought anything. The most expensive model is the instructive case — it
+writes well-evidenced analysis of things that *are not events*. Not a bad model; a
+**mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
 
-**Quality separates where outcome did not** — a 23-point spread, far outside anything noise explains.
-And the curve **peaks in the middle**. The most expensive model finished last. A $6.42 model landed
-within three points of the leader, at a fifth of the price of the worst.
+## 4. The grader was graded too
 
-**This is not "cheaper is better."** The cheapest model is also near the bottom. The finding is that
-**price predicts almost nothing about fitness for a specific task**, and the only way to know is to
-grade the work.
+Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
+screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them — both the ones the screen
+condemned *and* the ones it cleared, so the correction ran in both directions rather than only
+rescuing false accusations.
 
----
+Then the cheap screen was itself audited against the frontier grader. It agreed
+**93%** of the time on consistency and **85%**
+on datable triggers — but only **66%** on whether a claim outran its
+sources. That is the hardest judgment of the three, and precisely where a cheap grader should not be
+trusted. The study's own conclusion, turning up inside its own instrument.
 
-## Finding 3 — Knowing *how* a model fails is worth more than knowing *that* it does
+## If you are building something like this
 
-<!-- SBT panel 18: Where each model actually fails -->
+**Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. Four thousand
+graded decisions can. One is a sample of one; the other is a sample of thousands.
 
-| model | datable trigger | claims within sources | internally consistent |
-|---|---|---|---|
-| GPT-5.6 Luna | 66% | 97% | 100% |
-| Grok 4.3 *(low)* | 66% | 94% | 96% |
-| Grok 4.3 *(high)* | 60% | 90% | 100% |
-| Kimi K3 *(high)* | 59% | 93% | 99% |
-| MiniMax M3 | 59% | 80% | 93% |
-| Kimi K3 *(low)* | 57% | 91% | 99% |
-| DeepSeek V4 Flash | 52% | 75% | 99% |
-| Claude Sonnet 5 | 46% | 90% | 99% |
+**Spend frontier money on the judge, not the worker.** The most valuable model in this study
+never ran in production. It graded what did.
 
-Three things fall out, and none is visible in an aggregate score:
+**Measure inference time, not just price.** A four-fold speed difference decides whether a
+system can run at the cadence your business actually needs.
 
-**Internal consistency is solved.** Every model scores 93–100%. No model contradicts its own stated
-reasoning. That test can be retired — it costs money to run and separates nothing.
+**Expect the answer to be specific to your job.** Best here was mid-priced, worst was the most
+expensive, runner-up cost $6.42. None of that is predictable from a benchmark.
 
-**Every model is weakest on the same axis.** *Datable trigger* runs 46–66% across eight models from
-six vendors. When every model fails the same way, **the prompt is at fault, not the model** — and
-that is the highest-value fix available, worth more than any model swap.
-
-**One axis separates the field: staying inside your sources.** 75% to 97%. That is what the extra
-money bought where it bought anything — a model that stops asserting more than its evidence carries.
-
-Claude Sonnet 5 is the instructive case. It writes **well-evidenced analysis (90%) of things that are
-not events (46%)**. That is not a bad model; it is a **mismatch between a model's habits and a task's
-requirements** — invisible in any benchmark, and exactly what an evaluation like this exists to catch.
-
----
-
-## Finding 4 — The grader was graded
-
-<!-- SBT panel 19: the full comparison table -->
-
-Using an LLM to grade LLMs invites one obvious objection, so the design answers it up front:
-
-- **A frontier model did the grading** (Claude Fable 5), blind to which model produced each decision.
-- **Two tiers.** A cheap model screened all 4,527 calls; the frontier model re-read **1,200** of them
-  — both the ones the screen condemned *and* the ones it cleared, so the correction runs in both
-  directions rather than only rescuing false accusations.
-- **The screen was itself audited.** It agreed with the frontier grader **93%** on consistency, **85%**
-  on datable triggers, and only **67%** on whether a claim exceeded its sources — the hardest
-  judgment, and precisely where a cheap grader should not be trusted. That is this study's own thesis
-  appearing inside its own instrument.
-- **Contamination was tested, not assumed.** Decisions about the best-performing assets were graded
-  *slightly harsher*, not softer — so no hindsight leaked into a process-only rubric.
-
----
-
-## What this means if you are building one of these
-
-**Measure your noise floor before you measure anything else.** Run the same configuration twice. The
-gap between those two runs is the smallest difference your evaluation can honestly detect. Most
-model comparisons report differences smaller than their own noise.
-
-**Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. Four thousand graded
-decisions can. Outcome is one sample; process is thousands.
-
-**Spend frontier money on the judge, not the worker.** The most valuable model in this study never
-touched the production path. It graded it.
-
-**Expect the answer to be task-specific.** The best model here was mid-priced, the worst was the most
-expensive, and the runner-up cost $6.42. None of that is predictable from a leaderboard.
-
-The whole study cost **under $200** and took two days.
-
----
+The whole study cost under $200 and took two days.
 
 ## Work with us
 
 JMH Data Sciences builds and evaluates AI systems that make repeated decisions over unstructured
 information — news, filings, reports, tickets, claims — where being *approximately right, reliably*
-matters more than being brilliant occasionally.
+beats being brilliant occasionally.
 
 If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.
 
-**→ [jmhdatasciences.com](https://jmhdatasciences.com)**
-
----
-
-<sub>Methodology and every underlying number are published in full, including the runs that failed and
-the two analysis bugs found and corrected along the way.</sub>
+**→ [jmhdatasciences.com →](https://jmhdatasciences.com)**

@@ -31,94 +31,90 @@ from __future__ import annotations
 import argparse, itertools, json, math, sys
 from pathlib import Path
 
+import numpy as np
+
 ROOT = Path(__file__).resolve().parent.parent
-
-
-def _agg(blocks, idx):
-    """Exact (n, mean, stdev, pos, neg) over a union of blocks -- every stored field is additive."""
-    n = s1 = s2 = pos = neg = 0.0
-    for i in idx:
-        b = blocks[i]
-        n += b[0]; s1 += b[1]; s2 += b[2]; pos += b[3]; neg += b[4]
-    if n < 3:
-        return None
-    mu = s1 / n
-    var = max(s2 / n - mu * mu, 1e-18)
-    return n, mu, math.sqrt(var), pos, neg
-
-
-def sharpe(blocks, idx):
-    a = _agg(blocks, idx)
-    return None if a is None else a[1] / a[2] * math.sqrt(252)
-
-
-def cancel(blocks, idx):
-    """Portfolio-level analogue of the cancellation metric: |down moves| / up moves, on these blocks."""
-    a = _agg(blocks, idx)
-    return None if a is None or a[3] <= 0 else abs(a[4]) / a[3]
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--sweep", default="data/sweep_v9.json")
-    ap.add_argument("--splits", type=int, default=0, help="0 = all C(S,S/2); else sample this many")
     a = ap.parse_args(argv)
     S = json.loads((ROOT / a.sweep).read_text())
     cells = [c for c in S["cells"] if c.get("blocks")]
     if not cells:
-        print("  no block stats in this sweep -- re-run sweep_optimizer.py", file=sys.stderr)
+        print("  no block stats -- re-run sweep_optimizer.py", file=sys.stderr)
         return 1
     NB = len(cells[0]["blocks"])
-    keys = list(S["grid"])
-    print(f"  {len(cells):,} configs · {NB} blocks · C({NB},{NB//2}) = "
-          f"{math.comb(NB, NB//2):,} balanced splits", flush=True)
-
-    # candidate rankers, each a function of (cell, block-index-list) -> score, HIGHER IS BETTER
-    RANKERS = {
-        "Sharpe":            lambda c, i: sharpe(c["blocks"], i),
-        "-cancellation":     lambda c, i: (lambda v: None if v is None else -v)(cancel(c["blocks"], i)),
-        "robust (canc+DD)":  None,     # needs cross-config ranks; handled below
-        "winners (whole-run)": lambda c, i: c.get("winners"),
-        "capital_hit (whole-run)": lambda c, i: c.get("capital_hit"),
-    }
+    # (config, block, stat) where stat = n, sum r, sum r^2, sum r+, sum r-.  All ADDITIVE, so any
+    # union of blocks is a plain sum along axis 1 -- which is what makes 12,870 splits tractable.
+    B = np.array([c["blocks"] for c in cells], dtype=np.float64)
+    N = B.shape[0]
     combos = list(itertools.combinations(range(NB), NB // 2))
+    print(f"  {N:,} configs · {NB} blocks · {len(combos):,} balanced splits", flush=True)
+
+    def stats(idx):
+        """(n, mean, sd, pos, neg) for every config over the given block indices."""
+        s = B[:, list(idx), :].sum(axis=1)
+        n = np.maximum(s[:, 0], 1.0)
+        mu = s[:, 1] / n
+        var = np.maximum(s[:, 2] / n - mu * mu, 1e-18)
+        return n, mu, np.sqrt(var), s[:, 3], s[:, 4]
+
+    def sharpe(idx):
+        _, mu, sd, _, _ = stats(idx)
+        return mu / sd * math.sqrt(252)
+
+    def rank01(v, hi=True):
+        """0..1 rank, 1 = best. NaNs sink to worst."""
+        v = np.where(np.isfinite(v), v, -np.inf if hi else np.inf)
+        o = np.argsort(v if hi else -v, kind="stable")
+        r = np.empty(N); r[o] = np.arange(N) / (N - 1)
+        return r
+
+    def sel_sharpe(idx):   return sharpe(idx)
+    def sel_negcanc(idx):
+        _, _, _, pos, neg = stats(idx)
+        return -np.abs(neg) / np.maximum(pos, 1e-12)
+    def sel_robust(idx):
+        _, _, _, pos, neg = stats(idx)
+        canc = np.abs(neg) / np.maximum(pos, 1e-12)
+        return -(rank01(-canc) + rank01(neg)) / 2      # low cancellation AND small downside sum
+    WHOLE = {"winners": np.array([c.get("winners") or 0 for c in cells], dtype=float),
+             "capital_hit": np.array([c.get("capital_hit") or 0 for c in cells], dtype=float)}
+
+    RANKERS = {
+        "Sharpe (in-sample)":  sel_sharpe,
+        "-cancellation":       sel_negcanc,
+        "robust (canc+downside)": sel_robust,
+        # WHOLE-RUN metrics do not vary with the split, so their "selection" is the same config every
+        # time. That is not a bug: it is exactly what picking a config off a whole-history number DOES,
+        # and CSCV then measures how that single choice fares out-of-sample across 12,870 test halves.
+        "winners (whole-run)":     lambda idx: WHOLE["winners"],
+        "capital_hit (whole-run)": lambda idx: WHOLE["capital_hit"],
+    }
     out = {}
     for name, fn in RANKERS.items():
-        lam, below = [], 0
-        for tr in combos:
+        lam = np.empty(len(combos)); below = 0
+        for j, tr in enumerate(combos):
             te = [i for i in range(NB) if i not in tr]
-            if name == "robust (canc+DD)":
-                # rank-average of cancellation and drawdown-proxy on the TRAIN blocks. Drawdown is not
-                # additive across blocks, so its stand-in is the block-set's downside sum -- the same
-                # quantity the real metric is trying to punish.
-                cc = [(cancel(c["blocks"], tr), c) for c in cells]
-                dd = [(-_agg(c["blocks"], tr)[4] if _agg(c["blocks"], tr) else None, c) for c in cells]
-                ok = [i for i in range(len(cells)) if cc[i][0] is not None and dd[i][0] is not None]
-                rc = {i: r for r, i in enumerate(sorted(ok, key=lambda i: cc[i][0]))}
-                rd = {i: r for r, i in enumerate(sorted(ok, key=lambda i: dd[i][0]))}
-                best = min(ok, key=lambda i: rc[i] + rd[i])
-            else:
-                sc = [(fn(c, tr), i) for i, c in enumerate(cells)]
-                sc = [(v, i) for v, i in sc if v is not None]
-                if not sc:
-                    continue
-                best = max(sc)[1]
-            oos = [(sharpe(c["blocks"], te), i) for i, c in enumerate(cells)]
-            oos = [(v, i) for v, i in oos if v is not None]
-            oos.sort()
-            rank = next(r for r, (_, i) in enumerate(oos) if i == best)
-            w = (rank + 1) / (len(oos) + 1)
-            lam.append(math.log(w / (1 - w)))
-            below += (w < 0.5)
-        out[name] = {"pbo": 100 * below / len(lam), "median_lambda": sorted(lam)[len(lam) // 2],
-                     "n_splits": len(lam)}
-        print(f"    {name:<26} PBO {out[name]['pbo']:5.1f}%   median lambda {out[name]['median_lambda']:+.2f}",
-              flush=True)
+            best = int(np.nanargmax(fn(tr)))
+            oos = sharpe(te)
+            oos = np.where(np.isfinite(oos), oos, -np.inf)
+            rank = int((oos < oos[best]).sum())          # how many it beat out-of-sample
+            w = (rank + 1) / (N + 1)
+            lam[j] = math.log(w / (1 - w)); below += (w < 0.5)
+        out[name] = {"pbo": round(100 * below / len(combos), 1),
+                     "median_lambda": round(float(np.median(lam)), 3),
+                     "n_splits": len(combos)}
+        print(f"    {name:<26} PBO {out[name]['pbo']:5.1f}%   median lambda "
+              f"{out[name]['median_lambda']:+.2f}", flush=True)
     (ROOT / "data/pbo.json").write_text(json.dumps(out, indent=1))
-    print(f"\n  wrote data/pbo.json")
-    print("  PBO = share of splits where the in-sample winner landed BELOW the out-of-sample median.")
-    print("  ~50% means the ranker carries no information. Lower is better. Not purged, so read as a floor.")
+    print("\n  wrote data/pbo.json")
+    print("  PBO = share of splits where the in-sample pick landed BELOW the out-of-sample median.")
+    print("  50% = the ranker carries no information. Lower is better.")
+    print("  Blocks are NOT purged, so train and test share live positions -- read PBO as a FLOOR.")
     return 0
 
 

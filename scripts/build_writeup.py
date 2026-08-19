@@ -37,92 +37,122 @@ def main() -> int:
 <header>
   <p class="kicker">JMH Data Sciences · August 2026</p>
   <h1>What does a smarter model actually buy you?</h1>
-  <p class="sub">Eight LLMs, one repeated decision, 100,000 documents, and a frontier model
+  <p class="sub">Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
      brought in to grade the work.</p>
 </header>
 
 <section>
-<h2>The setup</h2>
-<p>A system reads a rolling corpus of <b>99,117 financial news articles</b> and, every month for three
-years, makes the same judgment call about every thesis it is tracking: <i>is this still true, has the
-thing I was waiting for happened, should I still be exposed to it?</i></p>
-<p>That is <b>565 judgment calls per run</b> — the repetitive, evidence-weighing decision organisations
-increasingly hand to a language model. A manufacturer deciding whether to pre-buy raw material ahead of
-a supply shock is making the same shape of call against a different feed.</p>
-<p>So I ran the entire three-year pipeline <b>eight times</b>, changing exactly one thing each time: the
-model making that judgment. Same documents, same retrieval, same downstream logic. Prices spanned
-<b>5.3&times;</b>, from $5.96 to $31.66 per complete run.</p>
+<h2>Why point AI at 100,000 news articles</h2>
+<p>Every business is exposed to events it did not cause and cannot control. A supplier's plant goes
+down. A tariff is proposed. A regulator opens a consultation that will land in six weeks. A competitor
+recalls a product and demand moves to you. Some of those events are threats and some are openings, and
+almost all of them are <b>reported publicly before they show up in anyone's numbers</b>.</p>
+<p>The information is not the hard part. The hard part is that nobody has time to read a hundred
+thousand articles a month and work out which twelve of them matter to <i>you</i>. That is the gap I
+wanted to test: <b>can a language model do the reading, and make the routine calls that follow, well
+enough to act on?</b></p>
+<p>I built one to find out. It reads business news as it is published, flags situations that could
+help or hurt, and then — the part that actually matters — <b>keeps deciding what to do about them as
+the story develops</b>. It is deliberately mundane work. Most of what determines a bottom line is
+mundane: hedging early enough, buying before a price move, not staying committed to something that
+already played out. The exercise below is run on a market portfolio because that gives an unambiguous
+scorecard, but nothing about the machinery is specific to markets — swap the feed and the same system
+watches your supply chain, your regulatory exposure, or your competitors.</p>
 </section>
 
 <section>
-<h2>1. More spend bought no measurable return</h2>
+<h2>The decision being automated</h2>
+<p>For every situation it is tracking, the system revisits three questions each month:</p>
+<ul>
+  <li><b>Is this still true?</b> — the situation I flagged is still developing, and the reasoning I
+      wrote down still holds.</li>
+  <li><b>Has the thing I was waiting for already happened?</b> — most situations turn on one
+      identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
+      the uncertainty is gone and so is the reason to act. <i>A manufacturer watching a proposed tariff
+      cares enormously up to the signing and not at all afterwards — by then the price has moved.</i></li>
+  <li><b>Should I still be committed to it?</b> — should capital, inventory or capacity still be tied
+      up on the strength of this, or is that commitment now doing nothing.</li>
+</ul>
+<p>That is roughly <b>600 judgment calls per run</b>, where a <b>run</b> means one complete pass of the
+system over three years of news — month by month, from scratch, making every call in sequence exactly
+as it would have at the time. A run takes under two hours and costs between $6 and $32 depending on
+which model is doing the reading.</p>
+<p>Which raises the obvious question: <b>does paying for a better model pay?</b> So I ran the whole
+thing <b>eight times</b>, changing exactly one thing each time — the model making those calls. Same
+articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.</p>
+</section>
+
+<section>
+<h2>1. Cost tells you nothing about speed</h2>
 <div id="c1" class="plot"></div>
-<p>A <b>5.3&times; spread in spend</b> produced a <b>1.92&times; spread in outcome</b> — and that is
-where most analyses stop and misreport.</p>
-<p>Before running any of it I measured the <b>noise floor</b>: the identical configuration, run twice,
-differing only in the model's own sampling randomness. Those two runs finished <b>1.86&times; apart</b>
-— the shaded band. The entire spread across eight <i>different</i> models is barely wider than the gap
-between one model and <i>itself</i>.</p>
-<p><b>On outcome alone, this experiment cannot tell these models apart.</b> Most bake-offs never measure
-that band. They report the winner.</p>
+<p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
+the <i>slowest</i> by a factor of four — three hours against forty-five minutes. Two models within
+seven cents of each other differed by more than two hours of wall clock.</p>
+<p>If you are running this hourly against a live feed rather than monthly against an archive, that
+difference decides whether the system is usable at all, and it is invisible on a price list.</p>
 </section>
 
 <section>
-<h2>2. Decision quality varies sharply — and peaks in the middle</h2>
+<h2>2. A frontier model graded every decision — and quality peaks in the middle</h2>
 <div id="c2" class="plot"></div>
-<p>Outcome is one number per run, hostage to a few lucky calls. So I changed the unit of analysis:
-<b>4,527 individually graded decisions</b> instead of eight outcomes.</p>
-<p>Each was scored on <b>process only</b>, with no prices and no outcomes in front of the grader. Was the
-trigger a specific, datable, resolvable event rather than an open-ended trend? Did the write-up claim
-more than its own cited sources establish? Was the keep-or-drop call consistent with the stated exit
-condition? A decision is <b>clean</b> only if it passes all three.</p>
-<p><b>Quality separates where outcome did not</b> — a 23-point spread, far outside anything noise
-explains — and the curve <b>peaks in the middle</b>. The most expensive model finished last. A $6.42
-model landed within three points of the leader.</p>
-<p>This is <i>not</i> "cheaper is better": the cheapest model is near the bottom too. It is that
-<b>price predicts almost nothing about fitness for a specific task</b>.</p>
+<p>Comparing the models on the portfolio's final value would be close to meaningless: one number per
+run, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5 — the
+strongest model available, and one that never touched the production path — re-read the decisions the
+eight working models had made and graded them, blind to which model produced which.</b></p>
+<p>Each decision was scored on <b>process only</b>, with no prices and no outcomes in front of the
+grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
+write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
+exit condition the model itself had written down? A decision is <b>clean</b> only if it passes all
+three.</p>
+<p><b>The score below is the percentage of that model's ~600 decisions that came back clean —
+higher is better.</b> Quality separates sharply where the portfolio value could not: a 23-point spread
+across the eight. And the curve <b>peaks in the middle</b>. The most expensive model finished
+<i>last</i>. A $6.42 model landed within three points of the leader.</p>
+<p>This is not "cheaper is better" — the cheapest model is near the bottom too. It is that
+<b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
+is to grade the work.</p>
 </section>
 
 <section>
 <h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
 <div id="c3" class="plot"></div>
-<p>Three things fall out, none visible in an aggregate score.</p>
-<p><b>Internal consistency is solved.</b> Every model scores 93–100%. That test can be retired — it
-costs money and separates nothing.</p>
-<p><b>Every model is weakest on the same axis.</b> Datable triggers run 46–66% across eight models from
-six vendors. When everything fails the same way, <b>the prompt is at fault, not the model</b> — and
-that is worth more than any model swap.</p>
-<p><b>One axis separates the field:</b> staying inside your sources, 75% to 97%. That is what the extra
-money bought where it bought anything. The most expensive model is the instructive case — it writes
-well-evidenced analysis of things that are <i>not events</i>. Not a bad model; a <b>mismatch between a
-model's habits and a task's requirements</b>, invisible on any leaderboard.</p>
+<p>Breaking the same grades out by test — again, higher is better on all three — says three things no
+aggregate score can.</p>
+<p><b>Internal consistency is a solved problem.</b> Every model scores 93–100%: none of them
+contradicts reasoning it wrote down itself. That test can be retired.</p>
+<p><b>Every model is weakest on the same thing.</b> Identifying a specific, datable trigger runs
+46–66% across eight models from six vendors. When everything fails the same way, <b>the instructions
+are at fault, not the model</b> — and fixing that is worth more than any model swap.</p>
+<p><b>One test actually separates the field:</b> staying inside your sources, 75% to 97%. That is what
+the extra money bought, where it bought anything. The most expensive model is the instructive case — it
+writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a
+<b>mismatch between a model's habits and a job's requirements</b>, invisible on any leaderboard.</p>
 </section>
 
 <section>
-<h2>4. The grader was graded</h2>
+<h2>4. The grader was graded too</h2>
 <div id="c4" class="plot"></div>
-<p>Using an LLM to grade LLMs invites one obvious objection, so the design answers it up front. A
-frontier model did the grading, blind to which model produced each decision. A cheap model screened all
-4,527 calls and the frontier model re-read <b>1,200</b> — both the ones the screen condemned <i>and</i>
-the ones it cleared, so the correction runs in both directions.</p>
-<p>Then the screen itself was audited. It agreed with the frontier grader <b>{ja['agree']['consistent']:.0f}%</b>
-on consistency and <b>{ja['agree']['dated']:.0f}%</b> on datable triggers, but only
-<b>{ja['agree']['supported']:.0f}%</b> on whether a claim exceeded its sources — the hardest judgment,
-and exactly where a cheap grader should not be trusted. The study's own thesis, appearing inside its own
-instrument.</p>
+<p>Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
+screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them — both the ones the screen
+condemned <i>and</i> the ones it cleared, so the correction ran in both directions rather than only
+rescuing false accusations.</p>
+<p>Then the cheap screen was itself audited against the frontier grader. It agreed
+<b>{ja['agree']['consistent']:.0f}%</b> of the time on consistency and <b>{ja['agree']['dated']:.0f}%</b>
+on datable triggers — but only <b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its
+sources. That is the hardest judgment of the three, and precisely where a cheap grader should not be
+trusted. The study's own conclusion, turning up inside its own instrument.</p>
 </section>
 
 <section class="takeaway">
-<h2>If you are building one of these</h2>
-<p><b>Measure your noise floor first.</b> Run the same configuration twice. That gap is the smallest
-difference your evaluation can honestly detect — and most comparisons report differences smaller than
-their own noise.</p>
+<h2>If you are building something like this</h2>
 <p><b>Grade decisions, not outcomes.</b> Eight outcomes cannot separate eight models. Four thousand
-graded decisions can.</p>
-<p><b>Spend frontier money on the judge, not the worker.</b> The most valuable model here never touched
-the production path. It graded it.</p>
-<p><b>Expect the answer to be task-specific.</b> Best was mid-priced, worst was dearest, runner-up cost
-$6.42. None of that is predictable from a leaderboard.</p>
+graded decisions can. One is a sample of one; the other is a sample of thousands.</p>
+<p><b>Spend frontier money on the judge, not the worker.</b> The most valuable model in this study
+never ran in production. It graded what did.</p>
+<p><b>Measure inference time, not just price.</b> A four-fold speed difference decides whether a
+system can run at the cadence your business actually needs.</p>
+<p><b>Expect the answer to be specific to your job.</b> Best here was mid-priced, worst was the most
+expensive, runner-up cost $6.42. None of that is predictable from a benchmark.</p>
 <p class="cost">The whole study cost under $200 and took two days.</p>
 </section>
 
@@ -130,7 +160,7 @@ $6.42. None of that is predictable from a leaderboard.</p>
 <h2>Work with us</h2>
 <p>JMH Data Sciences builds and evaluates AI systems that make repeated decisions over unstructured
 information — news, filings, reports, tickets, claims — where being <i>approximately right, reliably</i>
-matters more than being brilliant occasionally.</p>
+beats being brilliant occasionally.</p>
 <p>If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.</p>
 <p class="btn"><a href="{SITE}">jmhdatasciences.com &rarr;</a></p>
@@ -176,29 +206,25 @@ function draw() {{
   const base = extra => Object.assign({{paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
     font:{{color:p.fg, size:12}}, hoverlabel:{{bgcolor:p.surface, font:{{color:p.fg}}}}}}, extra);
   const BO = DATA.bo, nm = BO.map(r => r.label + '<br>$' + r.cost.toFixed(2));
-  const fin = BO.map(r => r.final), mid = fin.reduce((a,b)=>a+b,0)/fin.length;
-  const lo = mid/Math.sqrt({noise}), hi = mid*Math.sqrt({noise});
 
-  // 1. outcome vs spend, with the measured noise band behind it
-  Plotly.react('c1', [{{type:'bar', x:nm, y:fin, marker:{{color:'#7dd3fc'}},
-      text:fin.map(v=>'$'+Math.round(v/1000)+'K'), textposition:'outside', cliponaxis:false,
-      hovertemplate:'%{{x}}<br>$%{{y:,.0f}}<extra></extra>'}}],
-    base({{margin:{{l:66,r:16,t:34,b:84}}, showlegend:false,
-      shapes:[{{type:'rect', xref:'paper', x0:0, x1:1, yref:'y', y0:lo, y1:hi, layer:'below',
-               fillcolor: dark?'rgba(148,163,184,.22)':'rgba(100,116,139,.16)', line:{{width:0}}}}],
-      annotations:[{{xref:'paper', x:.99, xanchor:'right', yref:'y', y:hi, yanchor:'bottom',
-        text:'measured noise floor — the SAME setup re-run lands 1.86× apart',
-        showarrow:false, font:{{size:10.5}}}}],
+  // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
+  // about an outcome the piece then tells you to ignore, so it undercut its own next section. Wall
+  // clock is a fact a reader can act on and it is genuinely uncorrelated with price -- the cheapest
+  // model is the slowest by 4x, which no price list shows.
+  Plotly.react('c1', [{{type:'bar', x:nm, y:BO.map(r=>r.minutes), marker:{{color:'#22d3ee'}},
+      text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
+      hovertemplate:'%{{x}}<br>%{{y:.0f}} minutes per run<extra></extra>'}}],
+    base({{margin:{{l:62,r:16,t:20,b:84}}, showlegend:false,
       xaxis:{{type:'category', tickfont:{{size:10}}}},
-      yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000,300000],
-             title:{{text:'outcome after 3 years', font:{{size:11}}}}}}}}), CFG);
+      yaxis:{{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
+             title:{{text:'time to complete one run', font:{{size:11}}}}}}}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
   Plotly.react('c2', [{{type:'bar', orientation:'h',
       x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   '+r.mult+'×'),
       marker:{{color:byCost.map(r=>r.cost),
-              colorscale:[[0,'#fde68a'],[.45,'#fb923c'],[1,'#b45309']], cmin:0,
+              colorscale:'Plasma', reversescale:true, cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
               colorbar:{{title:{{text:'cost per<br>run', font:{{size:10}}}}, tickprefix:'$',
                         thickness:9, len:.6}}}},
