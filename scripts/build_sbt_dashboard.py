@@ -600,17 +600,13 @@ def main(argv=None) -> int:
               "was also the slowest.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "The dotted line is what a cheap model made of all 2,849 event-agent decisions; the "
-              "solid line is that verdict after <b>Claude Fable-5</b> re-read samples of both what it "
-              "flagged and what it passed. I scored <b>process only</b> &mdash; was the catalyst "
-              "datable, did the write-up outrun the evidence it cited, did the live/exit call "
-              "contradict its own stated exit condition &mdash; with no prices in front of the judge. "
-              "<b>Quality separates here where portfolio value in panel 16 did not</b>, and it peaks "
-              "in the middle: the $13 model beats the $6 one and the $27 one, which finish last and "
-              "fourth. You cannot buy your way up this curve. <b>The correction is near-constant "
-              "(+10.7 to +12.0 points) by coincidence, not construction</b> &mdash; a weak arm has "
-              "many flags to rescue but also many false clearances to lose, a strong arm has few of "
-              "each, and the two terms very nearly cancel.",
+              "Grey bars are what a cheap model made of all 2,849 event-agent decisions; green bars are "
+              "that verdict after <b>Claude Fable-5</b> re-read samples of both what it flagged and "
+              "what it passed. I scored <b>process only</b> &mdash; was the catalyst datable, did the "
+              "write-up outrun the evidence it cited, did the live/exit call contradict its own "
+              "stated exit condition &mdash; with no prices in front of the judge. <b>Quality "
+              "separates here where portfolio value in panel 16 did not</b>, and it peaks in the "
+              "middle: the $13 model beats the $6 one and the $27 one, which finish last and fourth.",
               "s-bo-quality", 430),
         panel(18, "Decision quality per dollar of AI spend",
               "Panel 17 divided by panel 16's horizontal &mdash; clean decisions per dollar of "
