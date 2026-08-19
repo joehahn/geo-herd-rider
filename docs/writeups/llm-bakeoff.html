@@ -72,7 +72,7 @@ p { margin: 0 0 13px; }
 </style></head><body>
 
 <header>
-  <p class="kicker">JMH Data Sciences · August 2026</p>
+  <p class="kicker">Joe Hahn · <a href="https://jmhdatasciences.com">JMH Data Sciences</a> · August 2026</p>
   <h1>What does a smarter model actually buy you?</h1>
   <p class="sub">Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
      brought in to grade the work.</p>
@@ -81,9 +81,9 @@ p { margin: 0 0 13px; }
 <section>
 <h2>Why point AI at 100,000 news articles</h2>
 <p>Every business is exposed to events it did not cause and cannot control. A supplier's plant goes
-down. A tariff is proposed. A regulator opens a consultation that will land in six weeks. A competitor
+down. A tariff is proposed. A safety agency schedules a vote that could pull a rival’s product off the shelf. A competitor
 recalls a product and demand moves to you. Some of those events are threats and some are openings, and
-almost all of them are <b>reported publicly before they show up in anyone's numbers</b>.</p>
+many are <b>reported publicly before they show up in anyone's numbers</b>.</p>
 <p>The information is not the hard part. The hard part is that nobody has time to read a hundred
 thousand articles a month and work out which twelve of them matter to <i>you</i>. That is the gap I
 wanted to test: <b>can a language model do the reading, and make the routine calls that follow, well
@@ -91,15 +91,15 @@ enough to act on?</b></p>
 <p>I built one to find out. It reads business news as it is published, flags situations that could
 help or hurt, and then — the part that actually matters — <b>keeps deciding what to do about them as
 the story develops</b>. It is deliberately mundane work. Most of what determines a bottom line is
-mundane: hedging early enough, buying before a price move, not staying committed to something that
-already played out. The exercise below is run on a market portfolio because that gives an unambiguous
+mundane: hedging early enough, buying before a price move, not staying committed to something that is
+already played out. The exercise below is run on a market portfolio because that provides me with an unambiguous
 scorecard, but nothing about the machinery is specific to markets — swap the feed and the same system
 watches your supply chain, your regulatory exposure, or your competitors.</p>
 </section>
 
 <section>
 <h2>The decision being automated</h2>
-<p>For every situation it is tracking, the system revisits three questions each month:</p>
+<p>For each situation this solution is monitoring, it uses AI to revisit three questions every month:</p>
 <ul>
   <li><b>Is this still true?</b> — the situation I flagged is still developing, and the reasoning I
       wrote down still holds.</li>
@@ -213,7 +213,7 @@ function draw() {
   const p = dark ? D : L;
   const base = extra => Object.assign({paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
     font:{color:p.fg, size:12}, hoverlabel:{bgcolor:p.surface, font:{color:p.fg}}}, extra);
-  const BO = DATA.bo, nm = BO.map(r => r.label + '<br>$' + r.cost.toFixed(2));
+  const BO = DATA.bo, nm = BO.map(r => r.label + '<br>' + r.mult + '×');
 
   // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
   // about an outcome the piece then tells you to ignore, so it undercut its own next section. Wall

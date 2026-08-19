@@ -1,6 +1,6 @@
 # What does a smarter model actually buy you?
 
-*JMH Data Sciences · August 2026*
+*Joe Hahn · [JMH Data Sciences](https://jmhdatasciences.com) · August 2026*
 
 
 Eight LLMs, one repeated decision, 100,000 news articles, and a frontier model
@@ -9,9 +9,9 @@ brought in to grade the work.
 ## Why point AI at 100,000 news articles
 
 Every business is exposed to events it did not cause and cannot control. A supplier's plant goes
-down. A tariff is proposed. A regulator opens a consultation that will land in six weeks. A competitor
+down. A tariff is proposed. A safety agency schedules a vote that could pull a rival’s product off the shelf. A competitor
 recalls a product and demand moves to you. Some of those events are threats and some are openings, and
-almost all of them are **reported publicly before they show up in anyone's numbers**.
+many are **reported publicly before they show up in anyone's numbers**.
 
 The information is not the hard part. The hard part is that nobody has time to read a hundred
 thousand articles a month and work out which twelve of them matter to *you*. That is the gap I
@@ -21,21 +21,23 @@ enough to act on?**
 I built one to find out. It reads business news as it is published, flags situations that could
 help or hurt, and then — the part that actually matters — **keeps deciding what to do about them as
 the story develops**. It is deliberately mundane work. Most of what determines a bottom line is
-mundane: hedging early enough, buying before a price move, not staying committed to something that
-already played out. The exercise below is run on a market portfolio because that gives an unambiguous
+mundane: hedging early enough, buying before a price move, not staying committed to something that is
+already played out. The exercise below is run on a market portfolio because that provides me with an unambiguous
 scorecard, but nothing about the machinery is specific to markets — swap the feed and the same system
 watches your supply chain, your regulatory exposure, or your competitors.
 
 ## The decision being automated
 
-For every situation it is tracking, the system revisits three questions each month:
+For each situation this solution is monitoring, it uses AI to revisit three questions every month:
 
 - **Is this still true?** — the situation I flagged is still developing, and the reasoning I
 wrote down still holds.
+
 - **Has the thing I was waiting for already happened?** — most situations turn on one
 identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
 the uncertainty is gone and so is the reason to act. *A manufacturer watching a proposed tariff
 cares enormously up to the signing and not at all afterwards — by then the price has moved.*
+
 - **Should I still be committed to it?** — should capital, inventory or capacity still be tied
 up on the strength of this, or is that commitment now doing nothing.
 
