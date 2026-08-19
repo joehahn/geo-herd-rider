@@ -589,30 +589,32 @@ def main(argv=None) -> int:
     ] if me and me.get("rows") else []) + ([
         panel(16, "Portfolio value vs LLM spend",
               "Portfolio value after <b><code>event_agent_model</code></b> is swept &mdash; the LLM that "
-              "judges, every scan, whether each thesis is still live. Five models spanning "
-              "4.6&times; in price, each with the whole 3-year curation re-run. Everything else is identical: "
+              "judges, every scan, whether each thesis is still live. <b>Eight runs spanning "
+              "5.3&times; in price</b> ($5.96 to $31.66), each a whole 3-year curation re-run. Everything else is identical: "
               "same scout, same 99,117-article corpus, same optimizer settings. "
-              "<b>Final value barely moves, and every bar lands inside the shaded band</b> &mdash; "
-              "the noise floor I measured beforehand by curating the same settings twice, which came "
-              "out 1.86&times; apart. So on this evidence a pricier judgment model buys no return I "
-              "can actually measure, and that band is what lets me say so rather than guess. The gold "
-              "line is wall-clock: <b>price and speed are unrelated here</b> &mdash; the cheapest arm "
-              "was also the slowest.",
+              "<b>Final value barely tracks price, and seven of the eight bars land inside the "
+              "shaded band</b> &mdash; the noise floor I measured beforehand by curating the same "
+              "settings twice, which came out 1.86&times; apart. The one exception is Grok 4.3 at "
+              "low reasoning, the second-cheapest arm. So a pricier judgment model buys no return "
+              "I can measure here, and that band is what lets me say so rather than guess. The "
+              "gold line is wall-clock: <b>price and speed are unrelated</b> &mdash; the cheapest "
+              "arm was also the slowest, by 4&times;.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "Grey bars are what a cheap model made of all 2,849 event-agent decisions; green bars are "
+              "Grey bars are what a cheap model made of all 4,527 event-agent decisions; green bars are "
               "that verdict after <b>Claude Fable-5</b> re-read samples of both what it flagged and "
               "what it passed. I scored <b>process only</b> &mdash; was the catalyst datable, did the "
               "write-up outrun the evidence it cited, did the live/exit call contradict its own "
               "stated exit condition &mdash; with no prices in front of the judge. <b>Quality "
               "separates here where portfolio value in panel 16 did not</b>, and it peaks in the "
-              "middle: the $13 model beats the $6 one and the $27 one, which finish last and fourth.",
+              "middle: <b>GPT-5.6 Luna at $13 leads on 63.8%, Grok 4.3 at $6 is within three points, and "
+              "Claude Sonnet 5 &mdash; the priciest arm at $32 &mdash; finishes LAST</b>.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
               "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
               "is a specific resolvable event &mdash; a contract award, a ruling, an FDA decision "
               "&mdash; rather than an open-ended trend like \u201cAI demand grows\u201d; every model "
-              "is weakest here (52&ndash;66%), and since that holds across five very different models "
+              "is weakest here (46&ndash;66%), and since that holds across eight runs and six vendors "
               "it is my prompt at fault, not them. <b><code>supported</code></b> asks whether the "
               "write-up follows from the evidence it actually cited or claims more certainty than "
               "those sources carry &mdash; the only axis that really separates models, GPT-5.6 Luna "
@@ -986,7 +988,7 @@ function draw(){{
                       showarrow:false, font:{{size:10, color:p.fg}}}}],
         xaxis:{{type:'category',
                title:{{text:'event_agent_model', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000, 260000],
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', range:[90000, 300000],
                title:{{text:'final portfolio value', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', showgrid:false, rangemode:'tozero',
                 ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);

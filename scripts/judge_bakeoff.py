@@ -39,7 +39,9 @@ import llm                            # noqa: E402
 from optimizer import resolve_curator_model  # noqa: E402
 
 ARMS = {"deepseek4": "bakeoff_deepseek4", "minimax": "bakeoff_minimax", "luna": "bakeoff_luna",
-        "kimi-high": "bakeoff_kimi_high", "kimi-low": "bakeoff_kimi_low"}
+        "kimi-high": "bakeoff_kimi_high", "kimi-low": "bakeoff_kimi_low",
+        "grok-high": "bakeoff_grok43", "grok-low": "bakeoff_grok43_low",
+        "sonnet5": "bakeoff_sonnet5"}
 OUT = ROOT / "data/judge_bakeoff.json"
 
 SYS = """You audit the PROCESS of an analyst's written call on a live news-driven thesis. You are NOT
