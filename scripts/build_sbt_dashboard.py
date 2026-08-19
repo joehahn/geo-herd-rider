@@ -598,10 +598,11 @@ def main(argv=None) -> int:
               "graded on three tests &mdash; was the catalyst datable, did the write-up claim more "
               "than its cited sources establish, did the live/exit call contradict its own stated exit "
               "condition &mdash; and a call is <b>clean</b> only if it passes all three. "
-              "<b>Grey</b> is the share rated clean by a cheap screening model that read every "
+              "<b>Grey</b> is the share a cheap <b>judge</b> model rated clean after reading every "
               "call; <b>green</b> is that share re-estimated after <b>Claude Fable-5</b> re-read "
-              "samples of the calls the screen flagged and the calls it passed. Neither judge "
-              "saw a price or an outcome.",
+              "samples of the calls the cheap judge flagged and the calls it passed. Both bars are "
+              "a grader's verdict on the swept model &mdash; <b>the swept model is the analyst "
+              "here and never scores its own work</b>. Neither judge saw a price or an outcome.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
               "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
