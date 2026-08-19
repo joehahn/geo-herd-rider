@@ -588,17 +588,10 @@ def main(argv=None) -> int:
               "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
         panel(16, "Portfolio value vs LLM spend",
-              "Portfolio value after <b><code>event_agent_model</code></b> is swept &mdash; the LLM that "
-              "judges, every scan, whether each thesis is still live. <b>Eight runs spanning "
-              "5.3&times; in price</b> ($5.96 to $31.66), each a whole 3-year curation re-run. Everything else is identical: "
-              "same scout, same 99,117-article corpus, same optimizer settings. "
-              "<b>Final value barely tracks price, and seven of the eight bars land inside the "
-              "shaded band</b> &mdash; the noise floor I measured beforehand by curating the same "
-              "settings twice, which came out 1.86&times; apart. The one exception is Grok 4.3 at "
-              "low reasoning, the second-cheapest arm. So a pricier judgment model buys no return "
-              "I can measure here, and that band is what lets me say so rather than guess. The "
-              "gold line is wall-clock: <b>price and speed are unrelated</b> &mdash; the cheapest "
-              "arm was also the slowest, by 4&times;.",
+              "Final portfolio value from eight complete 3-year curations that differ only in "
+              "<b><code>event_agent_model</code></b>, ordered left to right by what that model "
+              "cost, with wall-clock per curation on the right axis. The shaded band is the "
+              "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
               "Grey bars are what a cheap model made of all 4,527 event-agent decisions; green bars are "
