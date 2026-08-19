@@ -594,14 +594,14 @@ def main(argv=None) -> int:
               "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "Grey bars are what a cheap model made of all 4,527 event-agent decisions; green bars are "
-              "that verdict after <b>Claude Fable-5</b> re-read samples of both what it flagged and "
-              "what it passed. I scored <b>process only</b> &mdash; was the catalyst datable, did the "
-              "write-up outrun the evidence it cited, did the live/exit call contradict its own "
-              "stated exit condition &mdash; with no prices in front of the judge. <b>Quality "
-              "separates here where portfolio value in panel 16 did not</b>, and it peaks in the "
-              "middle: <b>GPT-5.6 Luna at $13 leads on 63.8%, Grok 4.3 at $6 is within three points, and "
-              "Claude Sonnet 5 &mdash; the priciest arm at $32 &mdash; finishes LAST</b>.",
+              "Each arm made ~565 keep-or-exit calls over the 3-year curation. Every call was "
+              "graded on three tests &mdash; was the catalyst datable, did the write-up outrun "
+              "the evidence it cited, did the live/exit call contradict its own stated exit "
+              "condition &mdash; and a call is <b>clean</b> only if it passes all three. "
+              "<b>Grey</b> is the share rated clean by a cheap screening model that read every "
+              "call; <b>green</b> is that share re-estimated after <b>Claude Fable-5</b> re-read "
+              "samples of the calls the screen flagged and the calls it passed. Neither judge "
+              "saw a price or an outcome.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
               "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
@@ -1002,7 +1002,7 @@ function draw(){{
     ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:38,b:86}},
         legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
         xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
-        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 80],
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[25, 75],
                title:{{text:'decisions clean on all 3 process tests', font:{{size:11}}}}}}}}), CFG);
 
     // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
