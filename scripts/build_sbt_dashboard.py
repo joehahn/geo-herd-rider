@@ -612,7 +612,9 @@ def main(argv=None) -> int:
               "The same numbers as panel 17, arranged for reading rather than for the sweep: most "
               "expensive model at the top, cheapest at the bottom, bar length is the share of calls "
               "judged clean, and the shade of each bar is that model\u2019s price &mdash; dark is "
-              "dear. If spending more bought better decisions the dark bars would be the long ones.",
+              "dear, and each label carries both the dollar cost of that curation and its multiple of the "
+              "cheapest arm. If spending more bought better decisions the dark bars would be the "
+              "long ones.",
               "s-bo-rank", 560),
         panel(19, "Where each model actually fails",
               "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
@@ -1026,7 +1028,16 @@ function draw(){{
     // and the bars get LONGER, which is the finding.
     {{
       const byCost = BO.slice().sort((a, b) => a.cost - b.cost);          // cheapest first...
-      const lab = byCost.map(r => (r.disp || r.arm).replace('<br>', ' ') + '  $' + r.cost.toFixed(2));
+      const base$ = Math.min(...byCost.map(r => r.cost));      // CHEAPEST arm = the 1x anchor
+      // Dollars AND a multiple. The dollars are the receipt -- concrete, checkable, and dated;
+      // the multiple is what travels to a reader whose workload is a different size, and it
+      // survives the price cuts that make an absolute figure stale within months.
+      // ANCHORED ON THE CHEAPEST, not on the winner: baselining against the best model would
+      // describe every other arm as 'dearer than the good one', which builds the conclusion
+      // into the axis labels.
+      const lab = byCost.map(r => (r.disp || r.arm).replace('<br>', ' ')
+                                  + '  $' + r.cost.toFixed(2)
+                                  + '  (' + (r.cost / base$).toFixed(1) + 'x)');
       Plotly.react('s-bo-rank', [
         {{type:'bar', orientation:'h', x:byCost.map(r => r.clean_2s), y:lab,
           marker:{{color:byCost.map(r => r.cost), colorscale:'Blues', reversescale:false,
