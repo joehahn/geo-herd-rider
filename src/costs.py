@@ -31,6 +31,8 @@ PRICES = {
     "kimi-k3":     (2.60e-6, 13.00e-6),  # OpenRouter, 2.8T MoE
     "gpt-5.6-luna": (1.00e-6, 6.00e-6),  # OpenRouter (price cut 80% 2026-07-30)
     "gpt-5.6-sol": (5.00e-6, 30.00e-6),  # OpenRouter, cross-family judge check
+    "grok-4.3":   (0.30e-6, 0.50e-6),   # OpenRouter; xAI's finance-benchmark leader
+    "sonnet-5":   (3.00e-6, 15.00e-6),  # sibling of the Fable-5 judge -- affinity is measured, see judge_bakeoff
     "fable-5":    (10e-6, 50e-6),
     "opus":       (5e-6, 25e-6),
     "sonnet":     (3e-6, 15e-6),
