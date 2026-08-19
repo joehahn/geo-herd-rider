@@ -602,15 +602,18 @@ def main(argv=None) -> int:
         panel(17, "What the money actually buys: decision quality vs spend",
               "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
               "vertical is now <b>decision "
-              "quality</b>: the share of that arm's ~570 event-agent calls rated clean on all three "
-              "process tests by the two-tier judge below (a cheap screen over every call, "
-              "<b>Claude Fable-5</b> re-reading a sample of what it flagged) &mdash; the catalyst was specific and "
+              "quality</b> &mdash; an <b>estimate</b>, not a raw count: a cheap model screened all "
+              "2,849 event-agent calls, then <b>Claude Fable-5</b> re-read samples of BOTH what it "
+              "flagged and what it passed, and the plotted rate is the screen corrected by both. "
+              "The three process tests are: the catalyst was specific and datable, the assessment "
+              "did not outrun the evidence it cited, and the live/exit call was coherent with the "
+              "analyst's own stated exit condition &mdash; the catalyst was specific and "
               "datable, the written assessment did not outrun the evidence it cited, and the live/exit "
               "call was coherent with the analyst's own stated exit condition. The judge sees "
               "<b>no prices and no outcomes</b>, and is blind to which model produced the decision.<br><br>"
               "<b>Quality varies where P&amp;L does not, and it peaks in the middle.</b> The "
-              "mid-priced arm scores <b>69.5%</b> clean against 55.0% for the cheapest and <b>52.1% for "
-              "the most expensive, which finishes LAST</b> &mdash; not a curve you can buy your way up. Note the "
+              "mid-priced arm scores <b>65.2%</b> against 53.2%, 50.8%, 47.7% and <b>45.5% for the "
+              "CHEAPEST, which finishes last</b> &mdash; not a curve you can buy your way up. Note the "
               "unit of analysis: <b>2,849 individually judged decisions</b> instead of five aggregate "
               "P&amp;L numbers, which is precisely why this panel can resolve differences panel 16 "
               "cannot.",
@@ -634,12 +637,12 @@ def main(argv=None) -> int:
          "exists to let you check for yourself."
          '</p><div class="scroll">'
          + table_html(["arm", "LLM $", "final value", "cancelled", "max DD", "Sharpe",
-                       "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean (screen)", "overturned", "CLEAN (Fable-5)"],
+                       "FOCUS $", "events", "examined", "decisions", "dated", "supported", "clean (screen)", "overturned", "wrongly passed", "CLEAN (2-sided)"],
                       [[r.get("disp", r["arm"]).replace("<br>", " "), f"${r['cost']:.2f}", f"${r['final']:,.0f}", f"{r['cancelled']:.1f}%",
                         f"{r['max_drawdown']:.1f}%", f"{r['sharpe']:.2f}", f"${r['focus_gain']:,.0f}",
                         str(r["events"]), str(r["examined"]), str(r["decisions"]),
                         f"{r['dated']:.0f}%", f"{r['supported']:.0f}%", f"{r['clean']:.0f}%",
-                        f"{r['overturn']:.0f}%", f"{r['clean_adj']:.0f}%"]
+                        f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
         panel(20, "Is the judge any good?",
@@ -655,9 +658,15 @@ def main(argv=None) -> int:
               "threw out.</b> The tier-1 ranking only survives correction because those rates are "
               "SIMILAR across arms (24&ndash;33%). Had one arm been overturned at 60% and another at "
               "10%, the ordering in panel 17 would be an artefact of the cheap screen's biases rather "
-              "than a real difference between models. <b>Caveat stated rather than buried:</b> 500 of "
-              "the 1,673 flagged decisions were re-read, stratified 100 per arm &mdash; enough to "
-              "estimate these rates, but a sample. A full pass would have cost $59 against $25 budgeted.",
+              "than a real difference between models.<br><br>"
+              "<b>Gold bars are why the audit had to be two-sided.</b> Re-reading only what the screen "
+              "FLAGGED corrects false accusations and is blind to false clearances, so every rate would "
+              "have been an upper bound. Fable-5 also read 250 decisions the screen PASSED and condemned "
+              "<b>15%</b> of them &mdash; but that rate runs <b>8% to 28% by arm</b>, and correcting it "
+              "moved the cheapest model from 4th place to LAST. A one-sided audit would have published "
+              "the wrong ranking. <b>Caveat, stated not buried:</b> 500 of 1,673 flags and 250 of 1,164 "
+              "passes were re-read, stratified per arm &mdash; enough to estimate these rates, but "
+              "samples. Reading every flagged decision alone would have cost $59 against $25 budgeted.",
               "s-judge-audit", 420),
     ] if bo else []))
 
@@ -997,9 +1006,9 @@ function draw(){{
         marker:{{size:8, color:'#94a3b8'}},
         hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ')),
         hovertemplate:'%{{hovertext}}<br>screen-only %{{y:.1f}}%<extra></extra>'}},
-      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean_adj),
-        name:'Fable-5 corrected',
-        text:BO.map(r => r.clean_adj.toFixed(0) + '%'), textposition:'top center',
+      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean_2s),
+        name:'Fable-5 corrected (two-sided)',
+        text:BO.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'top center',
         textfont:{{size:10, color:p.fg}},
         marker:{{size:13, color:'#34d399', line:{{width:1.5, color:p.surface}}}},
         line:{{width:2, color:'#34d399'}},
@@ -1014,7 +1023,7 @@ function draw(){{
     // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
     // interpolation between models that does not exist.
     Plotly.react('s-bo-perdollar', [
-      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean_adj / r.cost),
+      {{type:'bar', name:'clean % per $ of LLM spend', x:nm, y:BO.map(r => r.clean_2s / r.cost),
         marker:{{color:'#7dd3fc'}}, yaxis:'y',
         hovertemplate:'%{{x}}<br>%{{y:.2f}} clean-%% per $<extra></extra>'}},
       {{type:'bar', name:'dated %', x:nm, y:BO.map(r => r.dated), marker:{{color:'#fbbf24'}}, yaxis:'y2',
@@ -1039,12 +1048,18 @@ function draw(){{
           text:axk.map(k => JA.agree[k].toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
           textfont:{{size:11, color:p.fg}},
           hovertemplate:'%{{x}}<br>agreement %{{y:.1f}}%<extra></extra>'}},
-        {{type:'bar', name:'Fable-5 OVERTURNED the screen', marker:{{color:'#f472b6'}},
+        {{type:'bar', name:'screen FLAGGED it, Fable-5 disagreed', marker:{{color:'#f472b6'}},
           x:JA.per_arm.map(r => (r.disp || r.arm).replace('<br>', ' ')),
           y:JA.per_arm.map(r => r.overturn),
           text:JA.per_arm.map(r => r.overturn.toFixed(0) + '%'), textposition:'outside',
           cliponaxis:false, textfont:{{size:11, color:p.fg}},
-          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its flags overturned<extra></extra>'}}
+          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its flags overturned<extra></extra>'}},
+        {{type:'bar', name:'screen PASSED it, Fable-5 condemned it', marker:{{color:'#fbbf24'}},
+          x:JA.per_arm.map(r => (r.disp || r.arm).replace('<br>', ' ')),
+          y:JA.per_arm.map(r => r.fn_rate),
+          text:JA.per_arm.map(r => r.fn_rate.toFixed(0) + '%'), textposition:'outside',
+          cliponaxis:false, textfont:{{size:11, color:p.fg}},
+          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its passes condemned<extra></extra>'}}
       ], base(p, {{barmode:'group', margin:{{l:60,r:20,t:38,b:86}},
           legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
           xaxis:{{type:'category', tickfont:{{size:10}}}},

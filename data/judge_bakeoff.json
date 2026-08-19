@@ -33456,5 +33456,2507 @@
    "consistent": true,
    "why": "Hedge-fund accumulation is an open-ended trend, not a datable event; assessment matches thin evidence; exit condition untriggered, staying live is coherent."
   }
+ ],
+ "tier3": [
+  {
+   "arm": "deepseek4",
+   "eid": "ev255",
+   "i": 4,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Hormuz closure is a specific resolvable event; assessment tracks cited milestones (offers/frameworks \u2260 deal); staying live matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev217",
+   "i": 1,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Announced $2B expansion is a specific datable event; modest 'no news' assessment matches empty claims; exit condition untriggered, hold coheres."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev13",
+   "i": 10,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific resolvable event; assessment matches cited no-news evidence; staying live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev227",
+   "i": 2,
+   "date": "2026-02-26",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst names no specific chipmaker, chip, or date \u2014 unresolvable trend. Assessment honestly notes no news; keeping live matches unresolved catalyst."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev253",
+   "i": 3,
+   "date": "2026-06-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Strait disruption is a resolvable chokepoint event; cited sources confirm reopening; exit matches triggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev227",
+   "i": 7,
+   "date": "2026-07-26",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst names no specific chipmaker, chip, or date\u2014open-ended waiting. Assessment matches cited evidence; holding live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev160",
+   "i": 7,
+   "date": "2025-11-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific dated export-control event; assessment tracks cited reports; exiting when own exit condition triggered is coherent."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev6",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is an open-ended policy trend, not a datable event; modest assessment matches cited evidence; live call fits untriggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev227",
+   "i": 6,
+   "date": "2026-06-26",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst names no specific chipmaker, chip, or date\u2014unresolvable as stated. Assessment honestly matches cited evidence; holding live coheres with unresolved catalyst."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev122",
+   "i": 8,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": false,
+   "why": "Election is a datable event and claims match sources, but per own milestones the catalyst resolved in Nov 2024; marking unresolved and holding indefinitely is incoherent."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev147",
+   "i": 0,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a specific datable event; assessment matches cited milestone; exit decision matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev175",
+   "i": 0,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Deal signing is a specific dated event; assessment matches cited announcement; exiting when own exit condition triggered is coherent."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev21",
+   "i": 0,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Spin-off completion is a resolvable event; assessment matches cited evidence; keeping thesis live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev321",
+   "i": 0,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Government backing announcement is a specific resolvable event; assessment claims nothing beyond cited evidence; staying live matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev148",
+   "i": 4,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 2 results/cancellation is a resolvable event; assessment claims only that nothing happened; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev215",
+   "i": 0,
+   "date": "2025-11-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific dated order award; assessment matches cited claim; exiting after resolution matches the analyst's own exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev89",
+   "i": 0,
+   "date": "2024-07-06",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "A pledge is open-ended political advocacy, not a resolvable event; assessment matches cited claims; live call fits unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev129",
+   "i": 0,
+   "date": "2025-02-01",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "No pending SEC proceeding or timeline exists\u2014only a CEO's plea\u2014so catalyst is open-ended. Assessment matches cited claim; live decision fits unresolved catalyst."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev141",
+   "i": 6,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a specific resolvable event; assessment correctly notes cited news is unrelated; holding live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev148",
+   "i": 0,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 2 trial results/cancellation is a specific resolvable event; assessment hedges appropriately and matches sources; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev23",
+   "i": 8,
+   "date": "2024-06-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Mining lease grant is a specific resolvable event; assessment correctly distinguishes exploration license from lease; holding live matches unmet exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev7",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific Sep 11 launch date; assessment reasonably infers resolution from elapsed date; exit matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev315",
+   "i": 0,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Catalyst is a specific dated announcement; exit matches resolved catalyst and exit condition; but 'stock surged' is asserted without any cited evidence."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev141",
+   "i": 1,
+   "date": "2025-05-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a specific resolvable event; assessment matches cited absence of news; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev13",
+   "i": 5,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Award decision is a datable event; assessment claims only absence of news; holding live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev178",
+   "i": 11,
+   "date": "2026-05-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Nvidia supplier announcement is a specific resolvable event; assessment matches cited claims (no confirmation); holding coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev93",
+   "i": 0,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "PT raise is a specific dated event; assessment matches cited milestone; exiting after catalyst resolved matches own exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev121",
+   "i": 0,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "AWS announcement is a specific dated event; QUBT offering claim uncited (plus irrelevant uranium source); staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev141",
+   "i": 9,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific contract award catalyst; assessment matches cited sources (unrelated wins); live call coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev207",
+   "i": 1,
+   "date": "2025-11-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Admin backing is a datable event; assessment tracks cited claims (Nov 6 lift, 45% plunge); exit matches its own triggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev185",
+   "i": 0,
+   "date": "2025-08-30",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst names no specific project or date\u2014analyst guesses 'likely LAC or similar'\u2014so unresolvable. Assessment matches cited note; live call fits unresolved catalyst."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev121",
+   "i": 2,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "AWS program announcement is a specific event; assessment matches cited claims; exit condition untriggered, so staying live is coherent."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev187",
+   "i": 0,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Partnership announcement is a specific dated event; assessment matches cited claims; exiting on a pre-entry resolved catalyst matches the stated exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev6",
+   "i": 3,
+   "date": "2023-12-09",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is an open-ended policy trend, not a single resolvable event; assessment tracks cited claims; live call matches unreversed controls."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev174",
+   "i": 0,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signed deal is a specific resolvable event; sources confirm signing; exiting when own exit condition triggered is coherent."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev52",
+   "i": 3,
+   "date": "2024-05-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options approval is a specific resolvable event; assessment matches cited unrelated news; live call coheres with untriggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev160",
+   "i": 4,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "April 4 export controls are a specific datable event; assessment tracks cited claims; controls remain, so staying live matches the exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev141",
+   "i": 3,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a specific datable event; 'no news, hold' matches empty evidence; live decision fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev11",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Fund launch is a resolvable event; hold coheres with unresolved catalyst; but Nvidia/rare-earth claims aren't in cited claims or sources."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev3",
+   "i": 2,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approval is a specific resolvable event; assessment matches cited talks milestone; staying live coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev3",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approval is a specific resolvable event; assessment claims nothing beyond cited evidence; holding while unresolved matches stated exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev160",
+   "i": 6,
+   "date": "2025-10-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Apr 4 controls are a datable event; cited claims show controls intact despite framework; staying live matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev230",
+   "i": 0,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Acquisition closing is a datable event; assessment claims only what milestones support (no news noted); live decision matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev11",
+   "i": 5,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Official fund launch/abandonment is a specific resolvable event; assessment matches cited claims; staying live fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev52",
+   "i": 7,
+   "date": "2024-09-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options approval is a specific resolvable decision; assessment matches cited filings; no decision yet, so staying live fits the exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev5",
+   "i": 3,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "SEC approval is a specific resolvable event; VanEck 'HODL' claim isn't in cited milestones/sources; live decision matches unresolved catalyst."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev106",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Study readout is a specific datable event; assessment matches cited news; exiting on resolved catalyst matches stated exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev115",
+   "i": 7,
+   "date": "2025-07-01",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is an open-ended trade-war impact trend, not a datable event; assessment matches cited claims; exit correctly follows triggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev261",
+   "i": 1,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Closure is a specific resolvable event; assessment tracks cited claims; hold coheres with untriggered exit condition."
+  },
+  {
+   "arm": "deepseek4",
+   "eid": "ev30",
+   "i": 0,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial results release is a specific dated event; assessment matches cited claims; exiting after catalyst resolution coheres with the resolved binary event."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev325",
+   "i": 0,
+   "date": "2026-03-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Deal signing/termination is a discrete resolvable event; assessment matches cited milestones without overreach; staying live fits unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev377",
+   "i": 0,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Placement announcement is a specific dated event; assessment matches cited claims; live call coheres since closing/issuance (exit trigger) hasn't occurred."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev4",
+   "i": 2,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FAA clearance is a specific datable event; cited claims back the no-delay reading; no exit trigger fired, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev285",
+   "i": 5,
+   "date": "2026-05-27",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "A price-target raise already occurred; the real thesis is open-ended price drift, not a resolvable event. Claims match sources; live call fits exit terms."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev3",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approval is a specific datable event; assessment matches cited approval news; exit correctly taken as own exit condition triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev28",
+   "i": 6,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a specific resolvable event; assessment accurately notes cited news is unrelated; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev287",
+   "i": 0,
+   "date": "2026-01-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific storm event is datable/resolvable; assessment mirrors cited claims; staying live coheres with unresolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev285",
+   "i": 1,
+   "date": "2026-01-27",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "A broker price-target raise resolving only when price drifts to target is open-ended, not a datable event; assessment tracks cited claims; hold matches exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev59",
+   "i": 1,
+   "date": "2024-06-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options ruling is a specific resolvable event; assessment matches cited milestones showing no decision; staying live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev274",
+   "i": 0,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": false,
+   "why": "Award is a specific datable event; claims match sources; but analyst admits catalyst resolved yet marks it unresolved and keeps thesis live."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev28",
+   "i": 10,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a specific resolvable event; assessment correctly notes cited news is unrelated; staying live matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev136",
+   "i": 6,
+   "date": "2025-07-31",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "'Imposes new tariffs' is a rolling open-ended trend, not one resolvable event; claims match cited sources; exit condition unmet so live is coherent."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev209",
+   "i": 7,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Merger close is a datable event; assessment tracks cited claims; exit correctly follows the analyst's own stalled-momentum trigger."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev56",
+   "i": 5,
+   "date": "2024-10-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approve/deny of Bitcoin options is resolvable; assessment tracks cited sources; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev198",
+   "i": 9,
+   "date": "2026-02-26",
+   "dated": true,
+   "supported": true,
+   "consistent": false,
+   "why": "Raise is a datable event; facts match cited claims; but BTC down ~50% plainly meets 'thesis reverses' exit, yet thesis kept live."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev5",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC ETF approval is a specific binary event; assessment matches cited news flow; holding while unresolved fits stated exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev54",
+   "i": 0,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signed Mitsui deal (3/28) is a datable event; assessment matches cited claims; live call fits 6-month exit condition not yet triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev51",
+   "i": 3,
+   "date": "2024-05-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "German reimbursement decision is a resolvable event; assessment matches cited claims; staying live coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev282",
+   "i": 3,
+   "date": "2026-03-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial readout is a datable event; assessment matches cited 400mg failure and 54% drop; exit correctly follows the triggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev28",
+   "i": 3,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a resolvable event; assessment honestly notes cited news is unrelated; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev129",
+   "i": 6,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Tariff effective dates (Feb 1, Aug 1) are datable events; assessment mirrors cited claims; escalation pending so exit condition not triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev15",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Drill-intersection catalyst is a specific resolvable event; assessment matches cited lithium-price sources; neither exit trigger fired, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev28",
+   "i": 5,
+   "date": "2024-03-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a specific resolvable event; assessment correctly separates unrelated approvals from the catalyst; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev51",
+   "i": 2,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "German reimbursement decision is a resolvable event; assessment matches cited sources; catalyst pending and exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev198",
+   "i": 6,
+   "date": "2025-11-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is a specific $2.5B raise; assessment weighs cited bearish/bullish claims; exit condition addressed head-on, 20% correction not plainly a thesis reversal."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev209",
+   "i": 1,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Merger close is datable; but assessment claims catalyst 'not resolving' despite cited milestone that the deal closed; exit needs re-rating fully priced, unshown."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev5",
+   "i": 3,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC ETF approval is a datable event; assessment tracks cited filings/statements; catalyst unresolved and exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev103",
+   "i": 1,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a resolvable event; assessment correctly distinguishes CHIPS award from NASA procurement; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev103",
+   "i": 3,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific resolvable event; assessment correctly filters unrelated news; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev13",
+   "i": 5,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a resolvable event; assessment matches cited news showing no award; keeping thesis live fits unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev162",
+   "i": 2,
+   "date": "2025-06-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial launch is a datable event; assessment matches cited QMENTA partnership news; exit condition (delay past late 2025) not yet triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev323",
+   "i": 1,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Hormuz closure is a specific resolvable event; assessment matches cited claims; strait still blocked and no deal, so staying live fits exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev1",
+   "i": 0,
+   "date": "2023-08-11",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a specific resolvable event; assessment tracks cited SELECT/GLP-1 claims; staying live matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev311",
+   "i": 0,
+   "date": "2026-02-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Citi upgrade is a specific datable event; assessment tracks cited milestones; no downgrade or retrace triggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev290",
+   "i": 0,
+   "date": "2026-01-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a specific resolvable event; cited sources confirm approval; exit matches own exit condition after resolution."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev48",
+   "i": 0,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a specific datable event; assessment stays within single-source evidence; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev13",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a datable event; assessment correctly notes no award news and unrelated source; live call matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev103",
+   "i": 2,
+   "date": "2025-01-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Contract award is a resolvable event; assessment matches cited pending status; hold coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev285",
+   "i": 6,
+   "date": "2026-06-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "BoA target raise is a specific datable event; cited chip-cost/scarcity sources back the assessment; exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev15",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Drill-result announcement is a specific dated event; assessment matches cited claims; staying live coheres since Phase 3 exit condition hasn't triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev64",
+   "i": 0,
+   "date": "2024-05-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Earnings report is a specific resolvable event; assessment matches cited claim; exit condition triggered and analyst exited accordingly."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev72",
+   "i": 2,
+   "date": "2024-09-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Senate passage is a discrete datable event; assessment tracks cited claims; exit condition (signature/House failure) untriggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev4",
+   "i": 6,
+   "date": "2024-03-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FAA clearance is a specific datable event; assessment tracks cited evidence; Q1 deadline not yet passed, so staying live matches exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev13",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific resolvable event; assessment matches cited items as unrelated; live call fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev17",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "HHS recommendation is a specific dated event; assessment matches cited claims; no exit condition triggered, so staying live coheres."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev7",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC ETF ruling is a specific resolvable event; assessment matches cited miner/macro news; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev162",
+   "i": 9,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial launch is a specific datable event; assessment matches cited absence of news; Dec 28 is not yet past late 2025, so exit not triggered."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev19",
+   "i": 1,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Acquisition is a datable event; but assessment asserts 'deal closed' when sources only show a definitive agreement; live call matches un-triggered exit condition."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev198",
+   "i": 11,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Specific capital raise is datable; but no assessment, sources, or claims back keeping it live after 12 periods; no exit condition contradicted."
+  },
+  {
+   "arm": "minimax",
+   "eid": "ev136",
+   "i": 5,
+   "date": "2025-07-01",
+   "dated": false,
+   "supported": true,
+   "consistent": false,
+   "why": "Catalyst is open-ended rolling tariff action, unresolved after multiple impositions. Evidence matches claims. Tariff rollback/truce plainly triggered analyst's own exit condition, yet held live."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev95",
+   "i": 0,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Senate passage is a specific datable event; cited coverage confirms it; exiting once the stated exit condition triggered is coherent."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev325",
+   "i": 0,
+   "date": "2025-11-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst resolved via a specific, verifiable Visa announcement; assessment matches cited claim; exit correctly follows own exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev129",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Shareholder vote is a datable event; assessment correctly notes no evidence of resolution; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev251",
+   "i": 0,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Executive orders are a datable event; assessment matches cited coverage; exit correctly follows the resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev4",
+   "i": 3,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approval is a specific resolvable event; assessment matches cited claims (no approval yet); staying live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev387",
+   "i": 2,
+   "date": "2026-06-26",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "'Tariffs boost demand' is an open-ended trend, not a datable event; assessment matches cited news; staying live fits untriggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev51",
+   "i": 10,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "German reimbursement decision is a specific resolvable event; assessment matches cited claims; staying live fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev342",
+   "i": 0,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst anchored to the scheduled Dec. 10 Fed decision; assessment matches cited coverage; exit correctly follows resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev131",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options ruling is a datable event; assessment matches cited evidence; staying live with catalyst unresolved fits the exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev44",
+   "i": 4,
+   "date": "2024-06-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options ruling is a datable event; assessment matches cited evidence; staying live coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev66",
+   "i": 1,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 3 readout is a resolvable event; assessment correctly treats Amylyx news as unrelated; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev30",
+   "i": 0,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA IND decision is a specific resolvable event; assessment matches cited submission news; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev51",
+   "i": 2,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "German reimbursement decision is a specific resolvable event; assessment matches cited news; staying live coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev200",
+   "i": 0,
+   "date": "2025-05-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Halt is a specific datable event; assessment matches cited claims; exiting a catalyst already resolved pre-entry coheres despite exit condition not triggering."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev399",
+   "i": 0,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Report's publication is a specific resolvable event; assessment matches cited Benzinga claims; exit correctly follows the triggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev293",
+   "i": 0,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 3 readout is a datable event; assessment correctly notes cited trial was diabetes, not obesity; staying live matches unresolved catalyst."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev339",
+   "i": 0,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Feasibility study announcement is a datable event; cited news supports resolution; exiting matches the triggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev2",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific datable export-restriction event; assessment matches cited Reuters report; exit correctly follows resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev164",
+   "i": 0,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Coverage initiation is a specific dated event; cited CNBC reports support resolution; exit matches the triggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev114",
+   "i": 10,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Takeover is a resolvable event; assessment matches cited claims; exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev15",
+   "i": 0,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Coverage initiation is a specific datable event; assessment matches cited claims; exiting after resolved catalyst matches the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev371",
+   "i": 1,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Grid allocation award is a specific resolvable event; assessment matches absent evidence; staying live fits unresolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev13",
+   "i": 5,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Award is a specific resolvable event; assessment matches cited unrelated news; staying live coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev76",
+   "i": 0,
+   "date": "2024-05-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signing of a specific bill is datable; assessment matches cited Senate-approval claims; staying live pre-signature fits the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev51",
+   "i": 5,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "German reimbursement decision is a resolvable event; assessment correctly treats U.S. news as non-resolving; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev176",
+   "i": 5,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Tariff imposition is a datable event; cited claims show no steel-specific cancellation; staying live matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev244",
+   "i": 0,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signed PPA is a specific datable event; cited reports confirm it; exiting after the signing matches the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev136",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Earnings date Nov 4 is specific and datable; live call matches unresolved catalyst; but MYRG-already-reported claim is uncited by any source."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev59",
+   "i": 5,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 2 readout is a datable event; assessment correctly notes cited news is unrelated; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev20",
+   "i": 0,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "IPO pricing is a datable event; cited reports confirm pricing and valuation; exit matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev134",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Earnings report is a datable, resolvable event; assessment matches cited Apple Pay news; live call coheres with unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev13",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific resolvable event; assessment matches cited no-news claim; staying live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev70",
+   "i": 1,
+   "date": "2024-05-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Halving is a specific datable event; assessment matches cited milestones; exiting after halving matches the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev77",
+   "i": 6,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "DOE loan closing is a specific datable event; assessment matches cited sources; exit correctly follows the triggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev221",
+   "i": 0,
+   "date": "2025-06-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "A signed trade deal is a resolvable event; assessment matches cited claims; staying live fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev261",
+   "i": 0,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signed EO is a datable event; assessment matches cited claims; exit correctly taken since the stated exit condition (signing) resolved."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev157",
+   "i": 0,
+   "date": "2025-01-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is a specific December tightening event; cited reporting backs the assessment; exiting matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev360",
+   "i": 0,
+   "date": "2026-02-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Earnings date is a specific event; cited source confirms Feb 19 report; exiting matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev121",
+   "i": 0,
+   "date": "2024-10-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA hold-lift is a specific resolvable event; cited source backs the claim; exiting a fully resolved catalyst coheres with the record."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev10",
+   "i": 9,
+   "date": "2024-06-06",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Theft-driven earnings blame is an open-ended trend, not a datable event; assessment matches cited absence of contrary news; live call fits unmet exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev59",
+   "i": 6,
+   "date": "2024-09-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Phase 2 readout is a resolvable event; cited news shows no VK2735 data, so staying live matches the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev132",
+   "i": 0,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Options launch/denial by Q1 2025 is datable; assessment matches cited coverage; keeping live while unresolved fits stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev1",
+   "i": 2,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval is a datable event; assessment matches cited news of no approval; staying live fits unresolved catalyst and exit rule."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev114",
+   "i": 5,
+   "date": "2025-03-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Takeover bid is a resolvable event; assessment matches cited claims (rumors, no bid); exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev280",
+   "i": 0,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Preferred issuance is a specific dated event; assessment matches cited announcement; exiting aligns with resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev4",
+   "i": 4,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC ETF approval is a datable event; cited news confirms approval; exiting on approval matches the stated exit condition."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev114",
+   "i": 0,
+   "date": "2024-10-04",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Rumored takeover exploration has no datable resolution event; assessment matches cited reports; exit condition (abandonment/formal rejection) hasn't triggered, so live is coherent."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev421",
+   "i": 0,
+   "date": "2026-06-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific resolvable event; assessment matches cited claims; catalyst unresolved and exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev233",
+   "i": 0,
+   "date": "2025-06-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Resolves via the specific May 23 executive-order signing; assessment matches cited reports; exiting once the stated signing condition triggered is coherent."
+  },
+  {
+   "arm": "luna",
+   "eid": "ev71",
+   "i": 0,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Smelter cut agreement is a specific resolvable event; assessment matches cited March 13 report; exiting on triggered exit condition is coherent."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev86",
+   "i": 2,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Approval and five-month launch window are datable; assessment reasons from cited milestones and dates; staying live matches unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev319",
+   "i": 1,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Hormuz closure is a specific resolvable event; claims match cited milestones; staying live fits unresolved catalyst and un-triggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev193",
+   "i": 3,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "$750M raise is a specific datable event; cited news backs no-collapse/no-deployment reading; staying live matches unfired exit triggers."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev102",
+   "i": 1,
+   "date": "2024-11-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Strike is a specific datable event; milestones document the Oct 3 deal cited; exiting matches the triggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev37",
+   "i": 0,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "SEC options approval/denial is a resolvable binary; but GBTC ~$21B AUM and volume-lead claims aren't in cited evidence; live call matches unresolved catalyst."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev213",
+   "i": 0,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "IPO is a specific datable event; assessment matches cited sources; exit matches resolved catalyst and analyst's own exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev103",
+   "i": 2,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "CagriSema Phase 3 readout is a specific, resolvable event; assessment matches cited milestones; staying live coheres with unfired exit trigger."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev13",
+   "i": 2,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA double-launch award is a specific event; assessment matches cited RKLB items; exit condition unfired, so staying live is coherent."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev104",
+   "i": 3,
+   "date": "2025-01-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Partnership-to-committed-investment is a resolvable event; assessment claims only silence, matching cited evidence; staying live fits unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev140",
+   "i": 4,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Steel tariff imposition is a datable event; cited news confirms Section 232 duties untouched; keeping thesis live matches unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev11",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III endgame finalization is a resolvable rulemaking event; assessment matches cited downgrade claims; staying live coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev128",
+   "i": 1,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Arctic blast is a discrete datable event; exit coheres with resolution, but cited sources show oil declines only, not gas below pre-surge levels."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev187",
+   "i": 2,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NMPA approval is a specific datable event; assessment matches cited noise; exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev378",
+   "i": 0,
+   "date": "2026-06-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Bill filing/legislative outcome is a resolvable event; assessment tracks cited evidence honestly; exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev166",
+   "i": 0,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial readout is a specific datable event; assessment matches cited milestone; live call fits unresolved regulatory exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev21",
+   "i": 0,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Strike/tentative agreement is a datable, resolvable event; assessment tracks cited milestones and admits news silence; first-period live call fits unresolved catalyst."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev242",
+   "i": 1,
+   "date": "2025-10-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Deal announce/close/denial is a specific resolvable event; assessment correctly notes no trigger in cited news; staying live matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev166",
+   "i": 6,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Trial readout is a specific resolvable event; assessment claims only absence of news; live call matches untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev280",
+   "i": 5,
+   "date": "2026-05-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Definitive JV signing is a resolvable event; assessment honestly notes theme-only news; staying live matches unfired exit condition and pre-set Q2 deadline."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev11",
+   "i": 7,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III finalization is a specific resolvable event; claims match cited BTFP/rate coverage; live call matches untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev66",
+   "i": 2,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC ruling on Valkyrie is a datable event; claims trace to cited crash/launch coverage; live call matches unresolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev242",
+   "i": 0,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Testing deal is a specific announceable event; inference of supply-chain diversification matches cited news; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev83",
+   "i": 0,
+   "date": "2024-09-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Sept FOMC decision is a specific datable event; assessment tracks cited claims; catalyst pending, so staying live matches the exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev5",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC decision is a specific resolvable event; assessment tracks cited ruling and pending status; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev140",
+   "i": 6,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Steel tariff imposition is a datable event; assessment tracks cited Section 232 vs reciprocal distinction; live call matches untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev20",
+   "i": 1,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Spinoff completion/cancellation is a resolvable event; assessment modestly matches cited coverage; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev7",
+   "i": 2,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Sept 11 launch is a specific datable event; assessment tracks cited evidence; exiting on resolved catalyst matches stated exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev79",
+   "i": 0,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Q2 earnings report is a specific datable event; cited Benzinga claim backs the beat; exit matches resolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev129",
+   "i": 2,
+   "date": "2025-03-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Signed offtake deal is a specific datable event; quiet-week assessment claims nothing beyond cited absence of news; live call matches unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev172",
+   "i": 2,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is a specific Apr 4 export restriction; cited sources corroborate the announced deal; exit matches the analyst's own trigger firing."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev393",
+   "i": 0,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "JLWS award is a specific datable event; cited sources (Oracle software IDIQ, Hormuz incident) don't substantiate JLWS claims; live call matches untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev318",
+   "i": 2,
+   "date": "2026-05-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Hormuz closure is a specific datable event; claims mirror cited news; exit condition (signed deal or ~120/day) hasn't fired, so staying live coheres."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev308",
+   "i": 0,
+   "date": "2026-02-26",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Medicare coverage effective date is a resolvable event; live call fits pending catalyst; but $36B sales and Mounjaro shortage claims are uncited."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev22",
+   "i": 0,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "IPO is a datable resolved event; assessment matches cited pricing/debut facts; exiting after own exit condition triggered is coherent."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev20",
+   "i": 2,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Spinoff/IPO is a resolvable event; assessment correctly treats cited news as adjacent; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev104",
+   "i": 2,
+   "date": "2024-12-03",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "Exploratory partnership with no committed, datable conversion event is open-ended; assessment matches cited silence; hold coheres with unfired exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev248",
+   "i": 0,
+   "date": "2025-10-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Token launch/airdrop is a specific resolvable event; assessment tracks cited Benzinga reports; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev35",
+   "i": 0,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Deal close/termination is a resolvable event; assessment matches cited announcement; staying live is coherent since deal is signed but unclosed."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev322",
+   "i": 1,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Section 301 determination is a resolvable event; assessment matches cited absence of USTR news; staying live fits unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev20",
+   "i": 6,
+   "date": "2024-04-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "PSG spinoff/IPO is a specific resolvable event; assessment matches cited adjacent news; staying live coheres with untriggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev48",
+   "i": 0,
+   "date": "2024-03-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Q2 energization is a specific resolvable milestone; assessment matches cited press release; live call fits unresolved catalyst and stated exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev317",
+   "i": 2,
+   "date": "2026-05-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "$816M SDA award is a specific resolvable event; sources back confirmation and pricing; exiting after catalyst resolved and priced coheres with stated conditions."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev11",
+   "i": 2,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III finalization is a datable regulatory event; assessment tracks cited earnings claims; rule unresolved and exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev21",
+   "i": 1,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Strike/tentative agreements are datable events; assessment tracks cited milestones; exit decision matches the analyst's own triggered exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev193",
+   "i": 5,
+   "date": "2025-10-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "The $750M raise is a specific datable event; assessment tracks cited ghosting/no-deployment evidence; exit matches analyst's own premium-collapse trigger."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev13",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA award is a specific datable event; assessment matches cited claims and flags adjacent news as noise; live call fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev59",
+   "i": 10,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Phase 2 completion is a resolvable event; but assessment cites uncited facts (Barreiro license) and sources cover unrelated companies; exit logic coheres."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev140",
+   "i": 2,
+   "date": "2025-05-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Steel tariff imposition is a datable event; assessment matches cited claims (pause excluded Section 232); staying live fits unmet exit condition."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev37",
+   "i": 10,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options approval/denial is a datable binary; cited claims show no decision; keeping thesis live matches unfired exit condition and unresolved catalyst."
+  },
+  {
+   "arm": "kimi-high",
+   "eid": "ev11",
+   "i": 11,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III endgame rule is a specific resolvable event; assessment tracks cited claims; exit condition unfired, so staying live is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev4",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC approve/deny is a discrete resolvable event; assessment tracks cited ruling and letter without overreach; live call matches unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev16",
+   "i": 1,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Munitions delivery is a specific, datable event; assessment tracks cited claims; no ceasefire, so staying live matches the stated exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev103",
+   "i": 0,
+   "date": "2024-09-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "October launch is a specific resolvable event; assessment tracks cited shipment/board milestones; catalyst pending and no exit trigger, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev152",
+   "i": 0,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Announcement is a datable event; hold matches untriggered exit condition; but 25% auto tariffs and automaker beneficiary claims exceed cited evidence."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev1",
+   "i": 0,
+   "date": "2023-08-11",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Select study readout is a specific event; assessment matches cited CNBC claims; exit condition (LLY/NVO leadership shift) not triggered, so live is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev218",
+   "i": 2,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Curb rollback is a specific, datable policy act; claims match cited sources; exit condition (reimposition or full finalization) untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev22",
+   "i": 3,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Strike is a specific resolvable event; milestones confirm tentative deals and ratification; exit matches the analyst's own triggered condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev69",
+   "i": 0,
+   "date": "2024-06-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "S-1 effectiveness is a specific resolvable gate; assessment matches cited news; holding while exit condition (trading begins) untriggered is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev407",
+   "i": 0,
+   "date": "2026-05-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "PT lift is a specific datable event; empty news backs the 'nothing further' claim; exiting matches resolved catalyst and own exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev158",
+   "i": 6,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Tariff effective date is a specific event; assessment tracks cited claims; exit condition untriggered (Section 232 intact), so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev139",
+   "i": 1,
+   "date": "2025-01-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Acquisition confirmation is a resolvable event; assessment claims only absence of news; staying live matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev267",
+   "i": 0,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Preferred issuance is a discrete datable event; assessment tracks cited claims; exit matches the analyst's own met exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev147",
+   "i": 11,
+   "date": "2025-12-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Proposal outcome is a resolvable binary; assessment matches cited silence; hold coheres with exit condition since no withdrawal/rejection/close occurred."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev12",
+   "i": 10,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel rulemaking is a resolvable event; assessment matches cited Moody's/CRE evidence; live call coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev158",
+   "i": 10,
+   "date": "2026-01-27",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Section 232 auto tariffs effective April 3 is a datable event; assessment tracks cited milestones; live call matches untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev149",
+   "i": 0,
+   "date": "2025-03-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "SEC options decision is a specific resolvable event; assessment tracks cited claims; catalyst pending and exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev12",
+   "i": 5,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III proposal/finalization is a datable, resolvable event; NYCB claims match cited sources; rules unfinalized so staying live matches exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev45",
+   "i": 0,
+   "date": "2024-02-07",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Options-approval comment process is a specific resolvable event; assessment matches cited claims; holding while unresolved fits stated exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev37",
+   "i": 3,
+   "date": "2024-03-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Special meeting vote is a resolvable event; assessment matches cited milestones and absence of news; live call fits unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev111",
+   "i": 4,
+   "date": "2025-02-01",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "A price threshold is not a datable event. Assessment stays within cited evidence; staying live matches unresolved catalyst and untriggered exit."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev37",
+   "i": 8,
+   "date": "2024-08-05",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Special meeting vote is a specific resolvable event; assessment claims only absence of news; exit condition unfired, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev155",
+   "i": 5,
+   "date": "2025-08-30",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Tariff imposition is a datable event; assessment tracks cited rulings (duties in force pending appeal); staying live matches unmet reversal exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev165",
+   "i": 0,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Copper tariff imposition is a resolvable event; assessment matches cited claims (copper omitted); staying live fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev152",
+   "i": 10,
+   "date": "2026-01-27",
+   "dated": false,
+   "supported": true,
+   "consistent": true,
+   "why": "'Imposes new tariffs' is an open-ended escalation pattern, not one resolvable event; assessment tracks cited claims; exit condition plainly not triggered."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev12",
+   "i": 0,
+   "date": "2023-09-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III endgame finalization is a resolvable event; assessment matches cited S&P/Moody's downgrades; live call fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev118",
+   "i": 2,
+   "date": "2024-12-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "EU label adoption is a datable regulatory event; claims match cited milestones; exit condition unmet, so staying live is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev142",
+   "i": 3,
+   "date": "2025-03-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Delayed 10-K/restatement is a resolvable filing event; empty news matches 'no trigger' reading; staying live fits unmet exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev335",
+   "i": 2,
+   "date": "2026-02-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "JV signing is a specific resolvable event; assessment matches cited theme-level news; live call coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev43",
+   "i": 0,
+   "date": "2024-01-08",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Deal closing is a specific resolvable event; assessment matches cited announcement; live call fits unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev23",
+   "i": 2,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Permit grant is a specific datable event; assessment matches cited drilling/policy claims; exit condition unfired, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev147",
+   "i": 4,
+   "date": "2025-06-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Proposal receipt is a datable event; assessment claims only silence, matching unrelated sources; hold coheres with unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev155",
+   "i": 3,
+   "date": "2025-07-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Tariff imposition is a datable event; assessment tracks cited claims; staying live is right since 55% duties persist, no reversal or auto carve-out."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev7",
+   "i": 1,
+   "date": "2023-10-10",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Sept 11 launch is a datable event; milestones confirm it occurred; exiting after own exit condition fired is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev123",
+   "i": 5,
+   "date": "2025-04-02",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Catalyst is a specific NASA award; assessment matches cited claims; exit condition unmet (launches unflown, new work pending), so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev147",
+   "i": 9,
+   "date": "2025-10-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Go-private proposal is a specific resolvable event; assessment matches cited absence of news; hold coheres with untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev158",
+   "i": 2,
+   "date": "2025-06-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Auto tariffs effective April 3 are a datable event; assessment tracks cited rulings; brief court halt was stayed, so staying live matches the exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev28",
+   "i": 2,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "FDA approval decision is a datable event; assessment matches cited news (no GH decision); staying live fits unresolved catalyst and exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev12",
+   "i": 3,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Basel III endgame rulemaking is a specific resolvable event; assessment matches cited quiet news; live call fits untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev22",
+   "i": 2,
+   "date": "2023-12-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "UAW strike is a specific resolvable event; cited evidence shows no settlement, so keeping thesis live matches the unresolved catalyst and stated exit trigger."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev376",
+   "i": 0,
+   "date": "2026-04-27",
+   "dated": true,
+   "supported": false,
+   "consistent": true,
+   "why": "Closure is a specific resolvable event; live call matches untriggered exit; but assessment leans on an uncited Fortune piece not in sources."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev142",
+   "i": 2,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Restatement/10-K filing is a resolvable event; assessment matches cited news; exit trigger unmet, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev123",
+   "i": 4,
+   "date": "2025-03-03",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA double launch award is a specific event; assessment matches cited milestones; exit condition unmet on both prongs, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev123",
+   "i": 3,
+   "date": "2025-02-01",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "NASA double launch award is a specific datable event; assessment tracks cited claims; live call matches unresolved catalyst and untriggered exit condition."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev107",
+   "i": 1,
+   "date": "2024-10-04",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Specific launch event; cited milestones confirm Sept 12 launch; exit matches own trigger with catalyst resolved."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev37",
+   "i": 7,
+   "date": "2024-07-06",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Special-meeting vote is a resolvable event; assessment matches cited claims; keeping live with catalyst unresolved and exit untriggered coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev23",
+   "i": 1,
+   "date": "2023-11-09",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Permit grant is a specific resolvable event; claims match cited LAC/ReElement sources; exit condition untriggered, so staying live coheres."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev443",
+   "i": 0,
+   "date": "2026-07-26",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "LCD finalization is a specific dated event; assessment matches cited RTTNews claims; exiting after own trigger fired is coherent."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev235",
+   "i": 3,
+   "date": "2025-09-29",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Rights issue is a time-bound, resolvable corporate action; assessment reasons from acknowledged silence; exit after window elapsed matches resolved catalyst."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev368",
+   "i": 0,
+   "date": "2026-03-28",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "The Mar 12 $7M disclosure is a specific datable event; assessment stays within cited claims and flags risks; live call matches untriggered exit conditions."
+  },
+  {
+   "arm": "kimi-low",
+   "eid": "ev165",
+   "i": 4,
+   "date": "2025-07-31",
+   "dated": true,
+   "supported": true,
+   "consistent": true,
+   "why": "Copper tariff imposition is a datable event; cited source reports the 50% duty and pricing; exit matches triggered exit condition."
+  }
  ]
 }

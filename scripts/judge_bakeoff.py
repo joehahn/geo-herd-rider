@@ -145,6 +145,29 @@ def main(argv=None) -> int:
         OUT.write_text(json.dumps({"tier1": res}, indent=1))
         ok = [r for r in res if "error" not in r]
         print(f"  tier 1: {len(ok):,} judged, {len(res)-len(ok)} failed -> {OUT}")
+    elif a.tier == 3:
+        # FALSE-NEGATIVE PASS. Tier 2 only re-reads what the cheap screen FLAGGED, so it corrects
+        # false positives and is blind to false negatives -- decisions the screen waved through that
+        # Fable-5 would condemn. That makes every published clean rate an UPPER BOUND, and the bias is
+        # not guaranteed uniform across arms, which is the property the ranking depends on. This pass
+        # samples what the screen PASSED and has Fable-5 read those, making the estimate two-sided.
+        d = json.loads(OUT.read_text())
+        passed = {(r["arm"], r["eid"], r["i"]) for r in d["tier1"]
+                  if "error" not in r and r["dated"] and r["supported"] and r["consistent"]}
+        random.seed(37)
+        sel = []
+        per = (a.limit2 or 250) // len(ARMS)
+        for arm in ARMS:
+            c = [q for q in pk if q["arm"] == arm and (q["arm"], q["eid"], q["i"]) in passed]
+            sel += random.sample(c, min(per, len(c)))
+        print(f"  tier 3: Fable-5 re-reads {len(sel)} screen-PASSED decisions ({per}/arm)", flush=True)
+        res = run(sel, "fable", "3", max(4, a.workers // 2))
+        d["tier3"] = res
+        OUT.write_text(json.dumps(d, indent=1))
+        ok = [r for r in res if "error" not in r]
+        bad = [r for r in ok if not (r["dated"] and r["supported"] and r["consistent"])]
+        print(f"  tier 3: {len(ok)} judged; Fable-5 CONDEMNS {len(bad)} "
+              f"({100*len(bad)/max(len(ok),1):.0f}%) of what the cheap screen passed")
     else:
         d = json.loads(OUT.read_text())
         flagged = [r for r in d["tier1"]
