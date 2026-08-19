@@ -69,7 +69,12 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--run", default="data/cbt_1yr")
-    ap.add_argument("--corpus", default="data/backtest_1yr")
+    # DEFAULTED TO THE 1-YEAR POOL UNTIL 2026-08-19, while every curation since v5 read the 3-year
+    # one. Built without --corpus, this page therefore reported 38,896 articles from
+    # data/backtest_1yr when the curator had actually read 99,117 from data/backtest_3yr_v5 -- so
+    # the beat-bundle, coverage and article-count panels were computed off a pool the curator
+    # never saw. The row below now names the path explicitly so the mismatch is visible.
+    ap.add_argument("--corpus", default="data/backtest_3yr_v5")
     ap.add_argument("--out", default="docs/cbt.html")
     a = ap.parse_args(argv)
     run, corpus = ROOT / a.run, ROOT / a.corpus
@@ -646,7 +651,22 @@ def main(argv=None) -> int:
 
     med_live = statistics.median([r["events_live"] for r in M]) if M else 0
     med_cat = statistics.median([r["distinct_catalysts"] for r in M]) if M else 0
+    # READ ABOVE THE TILES, not beside the parameters table where it used to live: the Beats card
+    # needs it and Python has no forward references inside a function body.
+    cfgp = json.loads((ROOT / "retrieval_config.json").read_text())
     tiles = "".join(tile(v) for v in [
+        # CORPUS SIZE AND BEAT COUNT AS CARDS. They used to ride along inside the parameters
+        # table's corpus row ("path · N articles · X+Y beats"), where the path -- the one thing
+        # that identifies WHICH pool this page was built from -- was the least visible part of
+        # the string. The row is now the path alone; the magnitudes belong up here.
+        dict(label="Corpus articles", value=f"{len(ARTS):,}",
+             sub=f"{a.corpus}", status="good",
+             why="Articles in the pool the curator read. The sub-line is the local path it "
+                 "came from -- this page derives every corpus metric from that one directory."),
+        dict(label="Beats", value=f"{len(cfgp['gem_beats'])}+{len(cfgp['coverage_beats'])}",
+             sub="early-framing + sector-coverage", status="good",
+             why="Search beats behind the corpus: gem beats hunt early framing, coverage beats "
+                 "sweep a sector broadly. Defined in retrieval_config.json."),
         dict(label="Weeks curated", value=f"{len(M)}", sub=f"{weeks[0]} → {weeks[-1]}" if weeks else "",
              status="good", why="Rebalances the curator ran across the backtest window."),
         dict(label="Events opened", value=f"{J.get('nid', 0)}", sub=f"{len(live_now)} still live at the end",
@@ -873,7 +893,6 @@ def main(argv=None) -> int:
     # Raw profile TEXT, for the self-audit below: load_financial_model returns defaults
     # merged in, so it cannot tell a knob the profile DECLARES from one it merely defaults.
     PROFILE_TEXT = (ROOT / "investor_profile.backtest.md").read_text()
-    cfgp = json.loads((ROOT / "retrieval_config.json").read_text())
     arm_used = "fuller (archived lede, falling back to live page)"
     # A knob's value, named by its investor_profile key. NO commentary: the profile itself carries the
     # explanation, and repeating it here just makes the table unreadable. The ONE exception is a
@@ -910,10 +929,11 @@ def main(argv=None) -> int:
     params = [
         ("— window (this run) —", ""),
         ("backtest window", f"{weeks[0]} → {weeks[-1]}" if weeks else "?"),
-        ("curator calls", f"{len(M)} curations, every {_cad} days as run"
-         + ("" if _cad == _cad_profile else f" — profile now says {_cad_profile}d; this run predates that")),
-        ("corpus", f"{a.corpus} · {len(ARTS):,} articles · "
-                   f"{len(cfgp['gem_beats'])}+{len(cfgp['coverage_beats'])} beats"),
+        # "every N days as run" dropped 2026-08-19: rebalance_period states the cadence two rows
+        # down. The MISMATCH note stays -- surfacing that is the only reason the clause existed.
+        ("curator calls", f"{len(M)} curations"
+         + ("" if _cad == _cad_profile else f" — run at {_cad}d; profile now says {_cad_profile}d")),
+        ("corpus (local path)", f"{a.corpus}"),
         ("lede arm", arm_used),
         ("— investor_profile.backtest.md · cadence —", ""),
         _pv("rebalance_period"),

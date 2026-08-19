@@ -595,6 +595,12 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
 
     g = stats.get("gkg", {})
     params = [
+        # THE CORPUS PATH, first row. Every number below is derived from one directory on disk and
+        # the page never said which, so a reader could not tell a 1-year corpus from a 3-year one
+        # -- the exact confusion that let CBT render a whole dashboard off the wrong pool.
+        # Repo-RELATIVE, matching CBT. The absolute path leaks a home directory into a page that
+        # gets shared, and the part a reader needs is which pool under data/, not where it lives.
+        ("Corpus", str(Path(run).resolve()).replace(str(ROOT) + "/", "")),
         ("Window", win), ("Articles", f"{n:,}"),
         ("Discovery engine", "GKG on BigQuery (gdelt-bq.gdeltv2.gkg_partitioned)"),
         ("Rows scanned", f"{g.get('rows_scanned', 0):,}"),

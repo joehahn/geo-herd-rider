@@ -87,7 +87,18 @@
 scout_model: llama4               # OPENS events. Reads the whole week's news (~1,500 headlines in ~10 chunked
                                   #   calls) and proposes ticker + catalyst. Also runs the matcher, ticker guard
                                   #   and relevance filter. ~90% of the AI bill, so keep it cheap.
-event_agent_model: deepseek4      # CLOSES events. Once per live event per scan: still live? catalyst resolved?
+event_agent_model: grok4          # CLOSES events: is this thesis still live, has its catalyst resolved?
+                                  #   Grok 4.3, swapped from deepseek4 2026-08-19 on the 8-model bake-off
+                                  #   (SBT panels 16-21). Fable-5 audited 4,527 event-agent calls on PROCESS
+                                  #   only -- catalyst datable / write-up within its sources / exit call
+                                  #   coherent -- with no prices in front of the judge. Grok 4.3 low scored
+                                  #   61.1% clean at $6.42/curation against deepseek4's 42.6% at $5.96, and
+                                  #   posted the best `dated` rate of the eight. NOT chosen on P&L: final
+                                  #   value across the 8 arms sat inside the 1.86x noise floor (#6), so the
+                                  #   switch rests on decision quality, which reproduces.
+event_agent_effort: low           # Grok 4.3's reasoning knob measured as a NULL: low scored 61.1% vs
+                                  #   high's 57.9% at the same cost and runtime, so low is chosen for
+                                  #   being no worse and marginally cheaper -- not for being better.
                                   #   which tickers? Decides how long the book holds things.
 
 # ---------- CURATOR: what gets discovered, and when it is dropped ----------
