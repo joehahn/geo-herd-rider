@@ -607,7 +607,10 @@ def main(argv=None) -> int:
               "contradict its own stated exit condition &mdash; with no prices in front of the judge. "
               "<b>Quality separates here where portfolio value in panel 16 did not</b>, and it peaks "
               "in the middle: the $13 model beats the $6 one and the $27 one, which finish last and "
-              "fourth. You cannot buy your way up this curve.",
+              "fourth. You cannot buy your way up this curve. <b>The correction is near-constant "
+              "(+10.7 to +12.0 points) by coincidence, not construction</b> &mdash; a weak arm has "
+              "many flags to rescue but also many false clearances to lose, a strong arm has few of "
+              "each, and the two terms very nearly cancel.",
               "s-bo-quality", 430),
         panel(18, "Decision quality per dollar of AI spend",
               "Panel 17 divided by panel 16's horizontal &mdash; clean decisions per dollar of "
@@ -991,24 +994,23 @@ function draw(){{
         yaxis2:{{overlaying:'y', side:'right', showgrid:false, rangemode:'tozero',
                 ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);
 
+    // GROUPED BARS on a category axis, matching panel 16. Two rates over five discrete models is
+    // not a curve, and the earlier line invited reading a trend between points that do not connect.
     Plotly.react('s-bo-quality', [
-      {{type:'scatter', mode:'lines+markers', x:cost, y:BO.map(r => r.clean),
-        name:'cheap screen alone', line:{{width:2, dash:'dot', color:'#94a3b8'}},
-        marker:{{size:8, color:'#94a3b8'}},
-        hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ')),
-        hovertemplate:'%{{hovertext}}<br>screen-only %{{y:.1f}}%<extra></extra>'}},
-      {{type:'scatter', mode:'lines+markers+text', x:cost, y:BO.map(r => r.clean_2s),
-        name:'Fable-5 corrected (two-sided)',
-        text:BO.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'top center',
+      {{type:'bar', name:'cheap screen alone', x:nm, y:BO.map(r => r.clean),
+        marker:{{color:'#94a3b8', line:{{width:1.5, color:p.surface}}}},
+        text:BO.map(r => r.clean.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
-        marker:{{size:13, color:'#34d399', line:{{width:1.5, color:p.surface}}}},
-        line:{{width:2, color:'#34d399'}},
-        hovertext:BO.map(r => (r.disp || r.arm).replace('<br>', ' ') + ' - ' + r.decisions + ' decisions judged'),
-        hovertemplate:'%{{hovertext}}<br>LLM $%{{x:.2f}}<br>clean %{{y:.1f}}%<extra></extra>'}}
-    ], base(p, {{margin:{{l:70,r:20,t:34,b:52}},
+        hovertemplate:'%{{x}}<br>screen alone %{{y:.1f}}%<extra></extra>'}},
+      {{type:'bar', name:'after Fable-5 (two-sided)', x:nm, y:BO.map(r => r.clean_2s),
+        marker:{{color:'#34d399', line:{{width:1.5, color:p.surface}}}},
+        text:BO.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+        textfont:{{size:11, color:p.fg}},
+        hovertemplate:'%{{x}}<br>two-sided %{{y:.1f}}%<extra></extra>'}}
+    ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:38,b:86}},
         legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
-        xaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'event_agent_model, by LLM cost of one 3-year curation', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
+        xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 80],
                title:{{text:'decisions clean on all 3 process tests', font:{{size:11}}}}}}}}), CFG);
 
     // Five discrete choices, not a continuum -- bars on a category axis, since a line would imply an
