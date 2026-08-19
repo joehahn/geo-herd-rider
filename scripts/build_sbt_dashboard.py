@@ -608,7 +608,13 @@ def main(argv=None) -> int:
               "stratified sample of each arm's calls. The judge saw no prices and no outcomes, and "
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
-        panel(18, "Where each model actually fails",
+        panel(18, "Decision quality, ranked by what the model costs",
+              "The same numbers as panel 17, arranged for reading rather than for the sweep: most "
+              "expensive model at the top, cheapest at the bottom, bar length is the share of calls "
+              "judged clean, and the shade of each bar is that model\u2019s price &mdash; dark is "
+              "dear. If spending more bought better decisions the dark bars would be the long ones.",
+              "s-bo-rank", 560),
+        panel(19, "Where each model actually fails",
               "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
               "Fable-5's verdict on the catalyst the model chose to open an event on: a specific "
               "resolvable event such as a contract award, a ruling or an FDA decision, rather than "
@@ -620,7 +626,7 @@ def main(argv=None) -> int:
               "is close to but not the product of these bars &mdash; the failures overlap, since a "
               "vague catalyst tends to come with thin sourcing.",
               "s-bo-perdollar", 430),
-        ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
+        ('<section class="panel"><h2>20. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
          "book behaviour; dated / supported / clean are decision quality; final value is the number "
          "that cannot be trusted alone.</b> Read the last three columns against the first: the "
@@ -636,7 +642,7 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
-        panel(20, "Is the judge any good?",
+        panel(21, "Is the judge any good?",
               "The obvious objection to panels 17&ndash;19 is that an LLM graded the LLMs, so here is "
               "the grader's own audit. <b>Left bars: how often the cheap screen and Fable-5 reached "
               "the same verdict</b>, per process test. They agree 95% of the time on "
@@ -1009,6 +1015,33 @@ function draw(){{
         xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
         yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[25, 75],
                title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}}}}), CFG);
+
+    // PANEL 18 -- the same numbers as 17, laid out for a feed rather than for the sweep. HORIZONTAL
+    // bars in a tall frame: model names read left-to-right at full size instead of being rotated or
+    // wrapped under a category axis, which is what makes this the shareable version.
+    // COST IS ENCODED TWICE, deliberately -- position (most expensive on top) and shade (dark = dear).
+    // One sequential hue, light to dark, because price is a MAGNITUDE; a categorical palette here
+    // would imply the models are unordered, which is the one thing this chart is arguing they are not.
+    // Reversed y so the dearest model sits at the TOP: the eye then travels down through falling price
+    // and the bars get LONGER, which is the finding.
+    {{
+      const byCost = BO.slice().sort((a, b) => a.cost - b.cost);          // cheapest first...
+      const lab = byCost.map(r => (r.disp || r.arm).replace('<br>', ' ') + '  $' + r.cost.toFixed(2));
+      Plotly.react('s-bo-rank', [
+        {{type:'bar', orientation:'h', x:byCost.map(r => r.clean_2s), y:lab,
+          marker:{{color:byCost.map(r => r.cost), colorscale:'Blues', reversescale:false,
+                  cmin:0, cmax:Math.max(...byCost.map(r => r.cost)),
+                  line:{{width:1.5, color:p.surface}},
+                  colorbar:{{title:{{text:'LLM $ per<br>curation', font:{{size:10}}}}, thickness:10,
+                            tickprefix:'$', len:0.55, y:0.5}}}},
+          text:byCost.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
+          textfont:{{size:12, color:p.fg}},
+          hovertemplate:'%{{y}}<br>%{{x:.1f}}%% of calls clean<extra></extra>'}}
+      ], base(p, {{margin:{{l:210, r:64, t:16, b:48}}, showlegend:false,
+          xaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 78],
+                 title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}},
+          yaxis:{{automargin:true, tickfont:{{size:11}}}}}}), CFG);
+    }}
 
     Plotly.react('s-bo-perdollar', [
       {{type:'bar', name:'dated', x:nm, y:BO.map(r => r.dated_adj), marker:{{color:'#fbbf24'}},
