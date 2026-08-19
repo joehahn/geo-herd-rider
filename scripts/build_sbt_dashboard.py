@@ -148,7 +148,7 @@ def main(argv=None) -> int:
                         nb.append(n["cancelled"])
         c["plateau"] = round(0.5 * c["cancelled"] + 0.5 * (sum(nb) / len(nb) if nb else c["cancelled"]), 1)
 
-    # ---- ROBUST: the rank table 9 actually sorts on ------------------------------------------------
+    # ---- ROBUST: the rank table 8 actually sorts on ------------------------------------------------
     # Mean of a config's CANCELLATION rank and its DRAWDOWN rank, both 0 (best) .. 1 (worst), taken
     # over every cell in the sweep. Ranks rather than raw values, because the two are on unrelated
     # scales (cancellation runs 4-269%, drawdown 0-100%) and averaging them directly would let
@@ -161,7 +161,7 @@ def main(argv=None) -> int:
     #
     #     rank(canc)+rank(DD)   86th   $189,137   <- this
     #     + rank(sharpe)        85th   $160,259
-    #     plateau(cancellation) 83rd   $156,393   <- what table 9 used before
+    #     plateau(cancellation) 83rd   $156,393   <- what table 8 used before
     #     drawdown alone        67th   $ 94,531
     #     SHARPE                54th   $ 64,075   <- a coin flip
     #     slope_2h              53rd   $ 75,001
@@ -298,7 +298,7 @@ def main(argv=None) -> int:
              ("L2", "l2", lambda v: 750 < v < 1350, "750&ndash;1350/yr"),
              ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
              ("cancelled", "cancelled", lambda v: v < 65, "&lt; 65%")]
-    # Rows shown in table 9 AND marked as light-blue squares in panels 2-7. Raised 30 -> 50
+    # Rows shown in table 8 AND marked as light-blue squares in panels 2-7. Raised 30 -> 50
     # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
     # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
     # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
@@ -309,9 +309,9 @@ def main(argv=None) -> int:
     # where the ACCEPTABLE region sits -- only its tip. 100 restores a readable band without marking
     # so much of the cloud that the highlight stops meaning anything.
     #
-    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 9's visible rows,
+    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 8's visible rows,
     # the `topn` payload behind the blue squares in panels 2-7, and the "show the remaining N" fold.
-    # Panel 8 is deliberately NOT on it -- it marks `top5` only, so its squares mean something
+    # Panel 8 (the FOCUS panel) was deleted 2026-08-19 -- it marks `top5` only, so its squares mean something
     # narrower than the same-coloured squares elsewhere on the page.
     TOP_N = 100
     short = [c for c in cells
@@ -351,18 +351,13 @@ def main(argv=None) -> int:
     def _st(c, col):
         return " ★" if stars.get(col) is c else ""
 
-    # The rows table 9 shows, keyed the same way the JS keys a cell, so panels 2-7 can mark exactly
+    # The rows table 8 shows, keyed the same way the JS keys a cell, so panels 2-7 can mark exactly
     # the configs the table recommends. Without this the table and the scatters are two separate
     # arguments about the same grid and you have to hold one in your head while reading the other.
     # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
     payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
-    # Table 9's top 5, called out separately for panel 8. The other scatters mark all TOP_N as
-    # anonymous squares; on the shortlist-gain panel the question is narrower -- do the configs this
-    # page RECOMMENDS actually get paid on the no-brainer names? -- so those five are labelled with
-    # their rank rather than left for the reader to hunt in a hover.
-    payload["top5"] = [_pos[id(c)] for c in short[:5] if id(c) in _pos]
     # THE LLM BAKE-OFF (panels 16-19). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
     # -> the panels are simply omitted, exactly like the max_events series.
@@ -502,22 +497,10 @@ def main(argv=None) -> int:
               "two axes are computed off <b>different equity curves</b> &mdash; annualized return "
               "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
               "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
-              "is unaffected, but do not read a ratio off this panel. Blue squares are table 9\'s top "
+              "is unaffected, but do not read a ratio off this panel. Blue squares are table 8\'s top "
               "100 &mdash; all 100 have a positive slope, median <b>$151,140</b>/yr.",
               "s-slope", 470),
-        panel(8, "Gains on the no-brainer shortlist",
-              "What each config made on seven names that were obvious in hindsight &mdash; big "
-              "multi-year rises where the press named <b>dated</b> catalysts, not narrative: RKLB, "
-              "DRUG, MU, BE, IREN, MP, QUBT, one per sector so nothing wins by loading a single "
-              "theme. Vertical is dollars on those seven, horizontal is Sharpe, colour is "
-              "cancellation &mdash; upper-right and pale earns well, keeps it, and gets paid for the "
-              "obvious ones; below the zero line it <b>lost</b> money on names that rose "
-              "120&ndash;3,590%. <b>No robotics</b>: our corpus carries 1 article on RCAT (+868%), 0 "
-              "on UMAC (+762%) and 3 on ONDS (+699%) but 90 on PATH (&minus;1%), so that sector is a "
-              "hole in our news feed, not a config failure. Blue squares are table 9's top five "
-              "(rank on hover); the purple &#9733; is the live config.",
-              "s-focus", 470),
-        ('<section class="panel"><h2>9. Recommended settings</h2><p class="lead">'
+        ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
          "The shortlist: every config clearing <b>all five gates</b> &mdash; "
          + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
          f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
@@ -540,18 +523,18 @@ def main(argv=None) -> int:
          f"against a &lt; 20% bar; a <b>&#9733;</b> marks the best survivor per column, top {TOP_N} "
          "shown, current config on the last row."
          f'</p>{rec}</section>'),
-        panel(10, f"{heat['ky']} × {heat['kx']}",
+        panel(9, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
               "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
               "interactions hide — a value that looks harmless on average can be the worst choice "
               "in one corner of the grid.",
               "s-heat", 420),
-        panel(11, "Each knob on its own",
+        panel(10, "Each knob on its own",
               "For every value of every knob: the MEDIAN cancellation across all cells holding that "
               "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
               "knob only pays in combination with something else. The live setting is outlined.",
               "s-marg", 620),
-    ] + ([panel(12, "Portfolio value vs max_events",
+    ] + ([panel(11, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
               "FIXED curation through different book math, so 6,300 cells cost nothing; "
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
@@ -566,15 +549,15 @@ def main(argv=None) -> int:
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
               "s-me", 460),
-        panel(13, "Risk-adjusted quality vs max_events",
+        panel(12, "Risk-adjusted quality vs max_events",
               "Sharpe per cap, against the <b>&gt; 0.8 floor</b> the current gate set uses. Read it "
-              "beside panel 12: a cap that wins on final value while dropping below the floor has not "
-              "won anything the shortlist would admit. <b>Sharpe is NOT what table 9 ranks by</b> "
+              "beside panel 11: a cap that wins on final value while dropping below the floor has not "
+              "won anything the shortlist would admit. <b>Sharpe is NOT what table 8 ranks by</b> "
               "&mdash; that is <code>robust</code>, cancellation rank + drawdown rank &mdash; and "
               "Sharpe measured at the <b>54th percentile</b> on the re-curation transfer test, i.e. a "
               "coin flip. It is kept here as a gate and a sanity column, not as a ranking.",
               "s-me-sharpe", 380),
-        panel(14, "Where the money sits, and what it gives back",
+        panel(13, "Where the money sits, and what it gives back",
               "Three percentages on ONE axis, all of them defects: <b>max drawdown</b> (the hole the "
               "book digs), <b>cancellation</b> (winners' gains handed back by losers) and <b>idle "
               "days</b> (days holding NO position at all &mdash; the cash band in CBT plot 9). Dashed "
@@ -584,7 +567,7 @@ def main(argv=None) -> int:
               "allowed to open them. All three are better LOW, so a cap whose three bars are all "
               "short is the one to want.",
               "s-me-risk", 400),
-        panel(15, "What the cap costs, and what it buys",
+        panel(14, "What the cap costs, and what it buys",
               "Left bars: the <b>LLM bill for that curation</b> &mdash; the only thing on this page "
               "that is not free, since each point is a full re-curation rather than a replay. Right "
               "bars: the same money divided by <b>tickers that actually got funded</b>, which is the "
@@ -594,13 +577,13 @@ def main(argv=None) -> int:
               "either way, which is why the left bars flatten while the cap keeps rising.",
               "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
-        panel(16, "Portfolio value vs LLM spend",
+        panel(15, "Portfolio value vs LLM spend",
               "Final portfolio value from eight complete 3-year curations that differ only in "
               "<b><code>event_agent_model</code></b>, ordered left to right by what that model "
               "cost, with wall-clock per curation on the right axis. The shaded band is the "
               "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
-        panel(17, "What the money actually buys: decision quality vs spend",
+        panel(16, "What the money actually buys: decision quality vs spend",
               "Each arm made ~565 keep-or-exit calls over its 3-year curation, graded on three "
               "tests: was the catalyst datable, did the write-up claim more than its cited sources "
               "establish, did the live/exit call contradict its own stated exit condition. The bar "
@@ -608,29 +591,29 @@ def main(argv=None) -> int:
               "stratified sample of each arm's calls. The judge saw no prices and no outcomes, and "
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
-        panel(18, "Decision quality, ranked by what the model costs",
-              "Panel 17's numbers, arranged to be read on their own: dearest model at the top, "
+        panel(17, "Decision quality, ranked by what the model costs",
+              "Panel 16's numbers, arranged to be read on their own: dearest model at the top, "
               "cheapest at the bottom, bar length is the share of calls judged clean, and the "
               "shade is price &mdash; dark is dear. Labels give each model's cost as a multiple "
               "of the cheapest arm; the colour bar carries the dollars. <b>If spending more "
               "bought better decisions, the dark bars would be the long ones.</b> Six models "
               "rather than eight: the two arms that re-ran a model at a different reasoning "
-              "effort are kept in panels 17, 19 and 20 but dropped here, where they would cost a "
+              "effort are kept in panels 16, 18 and 19 but dropped here, where they would cost a "
               "sentence of explanation without changing the picture.",
               "s-bo-rank", 560),
-        panel(19, "Where each model actually fails",
-              "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
+        panel(18, "Where each model actually fails",
+              "Panel 16's three tests, split out, same estimate. <b><code>dated</code></b> is "
               "Fable-5's verdict on the catalyst the model chose to open an event on: a specific "
               "resolvable event such as a contract award, a ruling or an FDA decision, rather than "
               "an open-ended trend like \u201cAI demand grows\u201d. <b><code>supported</code></b> "
               "is whether the write-up stayed within what its own cited sources establish. "
               "<b><code>consistent</code></b> is whether that period's live-or-exit call cohered "
               "with the model's own stated exit condition &mdash; it applies to every call, not "
-              "only the exits. A call counts as clean in panel 17 only if it passes all three, which "
+              "only the exits. A call counts as clean in panel 16 only if it passes all three, which "
               "is close to but not the product of these bars &mdash; the failures overlap, since a "
               "vague catalyst tends to come with thin sourcing.",
               "s-bo-perdollar", 430),
-        ('<section class="panel"><h2>20. The bake-off, in full</h2><p class="lead">'
+        ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
          "book behaviour; dated / supported / clean are decision quality; final value is the number "
          "that cannot be trusted alone.</b> Read the last three columns against the first: the "
@@ -646,7 +629,7 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
-        panel(21, "Is the judge any good?",
+        panel(20, "Is the judge any good?",
               "The obvious objection to panels 17&ndash;19 is that an LLM graded the LLMs, so here is "
               "the grader's own audit. <b>Left bars: how often the cheap screen and Fable-5 reached "
               "the same verdict</b>, per process test. They agree 95% of the time on "
@@ -658,7 +641,7 @@ def main(argv=None) -> int:
               "<b>Right bars are the load-bearing number: how much of each arm's flagged pile Fable-5 "
               "threw out.</b> The tier-1 ranking only survives correction because those rates are "
               "SIMILAR across arms (24&ndash;33%). Had one arm been overturned at 60% and another at "
-              "10%, the ordering in panel 17 would be an artefact of the cheap screen's biases rather "
+              "10%, the ordering in panel 16 would be an artefact of the cheap screen's biases rather "
               "than a real difference between models.<br><br>"
               "<b>Gold bars are why the audit had to be two-sided.</b> Re-reading only what the screen "
               "FLAGGED corrects false accusations and is blind to false clearances, so every rate would "
@@ -759,43 +742,6 @@ function draw(){{
              title:{{text:'annualized return', font:{{size:11}}}}}}}}), CFG);
   }}
   const CANC = c=>c.cancelled, DD = c=>c.max_drawdown;
-  // 7. shortlist gain vs Sharpe. NOT built on scat(): that helper fixes the y-axis to annualized
-  // return, and the whole point here is a different y.
-  {{
-    const F = C.filter(c => c.focus_gain !== undefined && c.focus_gain !== null);
-    if (F.length) {{
-      const isCur = c => K.map(k=>c[k]).join('|') === curKey;
-      const body = F.filter(c=>!isCur(c)), me = F.filter(isCur);
-      const tr = [{{
-        type:'scatter', mode:'markers', x:body.map(c=>c.sharpe), y:body.map(c=>c.focus_gain),
-        marker:{{size:7, color:body.map(CANC), colorscale:'YlOrRd', showscale:true, cmin:0, cmax:120,
-                 colorbar:{{title:{{text:'cancelled %', font:{{size:10}}}}, thickness:10}},
-                 line:{{width:1, color:p.surface}}}},
-        text:body.map(c=>K.map(k=>k+'='+c[k]).join('<br>')),
-        hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
-        showlegend:false}}];
-      // table-9 top 5, labelled with their rank and drawn UNDER the star
-      const T5 = (DATA.top5 || []).map(i => C[i]).filter(c => c && !isCur(c));
-      if (T5.length) tr.push({{
-        type:'scatter', mode:'markers', x:T5.map(c=>c.sharpe), y:T5.map(c=>c.focus_gain),
-        marker:{{size:13, symbol:'square', color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
-        hovertext:T5.map((c,i)=>'<b>table-9 rank '+(i+1)+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
-        hovertemplate:'%{{hovertext}}<br>shortlist $%{{y:,.0f}}<br>Sharpe %{{x:.2f}}<extra></extra>',
-        showlegend:false}});
-      if (me.length) tr.push({{
-        type:'scatter', mode:'markers', x:me.map(c=>c.sharpe), y:me.map(c=>c.focus_gain),
-        marker:{{size:20, color:PUR, symbol:'star', line:{{width:1.5, color:p.surface}}}},
-        text:me.map(c=>'<b>CURRENT CONFIG</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
-        hovertemplate:'%{{text}}<br>shortlist $%{{y:,.0f}}<extra></extra>', showlegend:false}});
-      Plotly.react('s-focus', tr, base(p, {{margin:{{l:78,r:20,t:16,b:48}},
-        xaxis:{{gridcolor:p.grid, title:{{text:'Sharpe (higher is better)', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$',
-               title:{{text:'$ made on the 7 shortlist names', font:{{size:11}}}}}},
-        // zero line: below it a config LOST money on names that rose 120-3,590%
-        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:0, y1:0,
-                  line:{{color:ST.critical, width:1.5, dash:'dash'}}}}]}}), CFG);
-    }}
-  }}
   scat('s-dd',   DD,   'max drawdown',         '%', CANC, 'cancelled %');
   // L1/L2 get SHARPE, not cancellation: neither axis carries any risk, so colour is doing real work
   // here, and Sharpe answers the question churn actually poses -- is the extra trading buying
@@ -961,7 +907,7 @@ function draw(){{
     const fin = BO.map(r => r.final);
     // THE NOISE FLOOR, measured not assumed: two curations at IDENTICAL settings finished 1.86x apart.
     // Drawn as a band around the arms' midpoint so a reader sees at a glance which differences are
-    // resolvable. Without it panel 16 invites exactly the over-reading it exists to prevent.
+    // resolvable. Without it panel 15 invites exactly the over-reading it exists to prevent.
     const mid = fin.reduce((a, b) => a + b, 0) / fin.length;
     const lo = mid / Math.sqrt(1.86), hi = mid * Math.sqrt(1.86);
     // BARS, not a line. Five discrete `event_agent_model` choices are not a continuum, and the line
@@ -1001,7 +947,7 @@ function draw(){{
         yaxis2:{{overlaying:'y', side:'right', showgrid:false, rangemode:'tozero',
                 ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);
 
-    // GROUPED BARS on a category axis, matching panel 16. Two rates over five discrete models is
+    // GROUPED BARS on a category axis, matching panel 15. Two rates over five discrete models is
     // not a curve, and the earlier line invited reading a trend between points that do not connect.
     // ONE series, not two. The grey bar was the cheap screening judge's own rate, which measures
     // how wrong THAT judge was about each arm -- a property of the screen, not evidence about the
