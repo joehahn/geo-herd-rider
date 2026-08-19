@@ -221,8 +221,43 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     # version: is this book still compounding in its back half, or did it make its money early and
     # then coast? A high final value with a flat second half is a config that got lucky once.
     half = round(((vals[-1] - vals[len(vals) // 2]) / 1.5), 2) if len(vals) > 2 else None
+    # ---- DID THE CAPITAL GO WHERE THE MONEY WAS? -------------------------------------------------
+    # `robust` (cancellation + drawdown) scores a book on what it GAVE BACK, and both inputs are
+    # scale-free ratios -- so a config that funds little and risks little can rank well without ever
+    # having picked a rising ticker. These two measure the picking directly, and neither is a P&L
+    # number, so both survive the noise floor that sinks final value.
+    #   capital_hit  the share of allocated capital-days that sat in tickers which ENDED UP PROFITABLE.
+    #                Capital-weighted on purpose: a config that funds ten winners at 1% and one loser
+    #                at 40% has not picked well, and an unweighted count would say it had.
+    #   edge         the same idea in dollars per unit of exposure: total gain divided by total
+    #                capital-days. Answers "what did each dollar-day of risk actually earn?", which
+    #                separates a book that earns a lot by holding a lot from one that earns a lot per
+    #                unit held.
+    cap_days = {t: sum(al[t]) for t in al}
+    tot_cd = sum(cap_days.values())
+    win_cd = sum(cd for t, cd in cap_days.items() if g.get(t, 0) > 0)
+    capital_hit = round(100 * win_cd / tot_cd, 1) if tot_cd else None
+    edge = round(sum(g.values()) / tot_cd, 2) if tot_cd else None
+    # ---- BLOCK STATISTICS, for CSCV / PBO -----------------------------------------------------------
+    # Bailey-Borwein-Lopez de Prado's Combinatorially Symmetric Cross-Validation needs a performance
+    # matrix over TIME BLOCKS, so that a config can be scored on any half of the history and checked on
+    # the complement. Storing the whole daily return series for 6,300 cells would be ~38MB; storing per
+    # block (n, sum r, sum r^2, sum of positive r, sum of negative r) is 300x smaller and lets mean,
+    # stdev and a cancellation analogue be reconstructed EXACTLY on any union of blocks -- because all
+    # five are additive. Nothing here is a new metric; it is the same daily series, pre-summed.
+    NB = 16                                    # even, so CSCV can split 8 train / 8 test
+    blocks = []
+    if len(rets) >= NB * 4:
+        edges = [round(i * len(rets) / NB) for i in range(NB + 1)]
+        for i in range(NB):
+            r = rets[edges[i]:edges[i + 1]]
+            blocks.append([len(r), round(sum(r), 8), round(sum(x * x for x in r), 10),
+                           round(sum(x for x in r if x > 0), 8),
+                           round(sum(x for x in r if x < 0), 8)])
     focus = round(sum(v for t, v in g.items() if t in FOCUS), 2)
     return {"final": round(b.get("final", 0), 2),
+            "blocks": blocks,
+            "capital_hit": capital_hit, "edge": edge,
             "focus_gain": focus,
             "lead_months": lead_m,
             "slope_2h": half,
