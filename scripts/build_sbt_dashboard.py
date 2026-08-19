@@ -1037,7 +1037,7 @@ function draw(){{
     ], base(p, {{barmode:'group', margin:{{l:60,r:20,t:38,b:86}},
         legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
         xaxis:{{type:'category', title:{{text:'event_agent_model', font:{{size:11}}}}, tickfont:{{size:10}}}},
-        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 112],
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[35, 105],
                title:{{text:'process test pass rate (Fable-5 corrected)', font:{{size:11}}}}}}}}), CFG);
 
     // PANEL 20 -- the judge auditing itself. Two grouped series on ONE percentage axis (both are
