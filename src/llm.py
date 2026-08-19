@@ -120,7 +120,7 @@ class AnthropicClient(LLMClient):
 
 # OpenRouter model ids VERIFIED to accept `reasoning.effort` alongside structured output. Substring
 # match. Adding a model here without smoke-testing it re-opens the silent-zero-output failure above.
-_REASONING_OK = ("kimi", "deepseek-v4", "gpt-5.6", "glm-5", "minimax-m3", "qwen3")
+_REASONING_OK = ("kimi", "deepseek-v4", "gpt-5.6", "glm-5", "minimax-m3", "qwen3", "grok-4")
 
 # OpenRouter models whose providers REJECT an explicit temperature -- the same constraint the Anthropic
 # client already handles for its adaptive-thinking models (see GREEDY DECODING above). Sending it anyway
