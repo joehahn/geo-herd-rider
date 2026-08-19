@@ -151,7 +151,12 @@ h1 {{ font-size: 2.05rem; line-height: 1.18; margin: 0 0 10px; }}
 header {{ border-bottom: 1px solid rgba(127,127,127,.28); padding-bottom: 22px; margin-bottom: 30px; }}
 section {{ margin: 0 0 42px; }}
 h2 {{ font-size: 1.32rem; margin: 34px 0 12px; }}
-.plot {{ width: 100%; margin: 18px 0 20px; }}
+/* EXPLICIT HEIGHT IS LOAD-BEARING. The inherited .plot rule sets only background/border, and a
+   div with no height collapses to 0px -- Plotly then draws into a zero-height box and the page
+   renders with four invisible charts and no error anywhere. The dashboards never hit this
+   because panel() passes a height per panel. */
+.plot {{ width: 100%; height: 430px; margin: 18px 0 22px; }}
+#c2 {{ height: 480px; }}   /* horizontal, 8 categories -- needs more vertical room */
 p {{ margin: 0 0 13px; }}
 .takeaway {{ border-left: 3px solid #34d399; padding-left: 18px; }}
 .cost {{ opacity: .72; font-size: .95rem; }}
