@@ -609,12 +609,14 @@ def main(argv=None) -> int:
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
         panel(18, "Decision quality, ranked by what the model costs",
-              "The same numbers as panel 17, arranged for reading rather than for the sweep: most "
-              "expensive model at the top, cheapest at the bottom, bar length is the share of calls "
-              "judged clean, and the shade of each bar is that model\u2019s price &mdash; dark is "
-              "dear, and each label carries both the dollar cost of that curation and its multiple of the "
-              "cheapest arm. If spending more bought better decisions the dark bars would be the "
-              "long ones.",
+              "Panel 17's numbers, arranged to be read on their own: dearest model at the top, "
+              "cheapest at the bottom, bar length is the share of calls judged clean, and the "
+              "shade is price &mdash; dark is dear. Labels give each model's cost as a multiple "
+              "of the cheapest arm; the colour bar carries the dollars. <b>If spending more "
+              "bought better decisions, the dark bars would be the long ones.</b> Six models "
+              "rather than eight: the two arms that re-ran a model at a different reasoning "
+              "effort are kept in panels 17, 19 and 20 but dropped here, where they would cost a "
+              "sentence of explanation without changing the picture.",
               "s-bo-rank", 560),
         panel(19, "Where each model actually fails",
               "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
@@ -1027,31 +1029,37 @@ function draw(){{
     // Reversed y so the dearest model sits at the TOP: the eye then travels down through falling price
     // and the bars get LONGER, which is the finding.
     {{
-      const byCost = BO.slice().sort((a, b) => a.cost - b.cost);          // cheapest first...
-      const base$ = Math.min(...byCost.map(r => r.cost));      // CHEAPEST arm = the 1x anchor
-      // Dollars AND a multiple. The dollars are the receipt -- concrete, checkable, and dated;
-      // the multiple is what travels to a reader whose workload is a different size, and it
-      // survives the price cuts that make an absolute figure stale within months.
-      // ANCHORED ON THE CHEAPEST, not on the winner: baselining against the best model would
-      // describe every other arm as 'dearer than the good one', which builds the conclusion
-      // into the axis labels.
-      const lab = byCost.map(r => (r.disp || r.arm).replace('<br>', ' ')
-                                  + '  $' + r.cost.toFixed(2)
-                                  + '  (' + (r.cost / base$).toFixed(1) + 'x)');
+      // SIX BARS, NOT EIGHT. The two HIGH-reasoning arms are dropped from this view only -- panels 17,
+      // 19 and 20 keep all eight. This is the chart meant to travel on its own, and "same model twice
+      // at different reasoning effort" costs a sentence of explanation that a reader scrolling a feed
+      // will not spend. With the pair gone the surviving arm needs no effort suffix either.
+      const DROP = new Set(['kimi-high', 'grok-high']);
+      const SHORT = {{'grok-low': 'Grok 4.3', 'kimi-low': 'Kimi K3'}};
+      const byCost = BO.filter(r => !DROP.has(r.arm)).slice().sort((a, b) => a.cost - b.cost);
+      const base$ = Math.min(...byCost.map(r => r.cost));          // CHEAPEST arm = the 1x anchor
+      // MULTIPLES ONLY on the axis; the dollars live on the colourbar. A reader whose workload is a
+      // different size can use 5.3x; they cannot use $31.66, and repeating both crowds the label.
+      const lab = byCost.map(r => (SHORT[r.arm] || (r.disp || r.arm).replace('<br>', ' '))
+                                  + '   ' + (r.cost / base$).toFixed(1) + 'x');
+      // WARM ramp, not blue. This chart is built to be read in a LinkedIn feed, whose own chrome is
+      // blue -- a blue chart there reads as part of the UI rather than as content. Amber to deep
+      // orange contrasts with that surround, and hot = expensive needs no legend. Still ONE hue
+      // family light-to-dark, because price is a magnitude.
       Plotly.react('s-bo-rank', [
         {{type:'bar', orientation:'h', x:byCost.map(r => r.clean_2s), y:lab,
-          marker:{{color:byCost.map(r => r.cost), colorscale:'Blues', reversescale:false,
+          marker:{{color:byCost.map(r => r.cost),
+                  colorscale:[[0, '#fde68a'], [0.45, '#fb923c'], [1, '#b45309']],
                   cmin:0, cmax:Math.max(...byCost.map(r => r.cost)),
                   line:{{width:1.5, color:p.surface}},
                   colorbar:{{title:{{text:'LLM $ per<br>curation', font:{{size:10}}}}, thickness:10,
                             tickprefix:'$', len:0.55, y:0.5}}}},
           text:byCost.map(r => r.clean_2s.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
-          textfont:{{size:12, color:p.fg}},
+          textfont:{{size:13, color:p.fg}},
           hovertemplate:'%{{y}}<br>%{{x:.1f}}%% of calls clean<extra></extra>'}}
-      ], base(p, {{margin:{{l:210, r:64, t:16, b:48}}, showlegend:false,
+      ], base(p, {{margin:{{l:170, r:64, t:16, b:48}}, showlegend:false,
           xaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 78],
                  title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}},
-          yaxis:{{automargin:true, tickfont:{{size:11}}}}}}), CFG);
+          yaxis:{{automargin:true, tickfont:{{size:12}}}}}}), CFG);
     }}
 
     Plotly.react('s-bo-perdollar', [
