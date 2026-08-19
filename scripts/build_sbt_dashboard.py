@@ -1015,11 +1015,11 @@ function draw(){{
         text:BO.map(r => r.dated_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>dated %{{y:.0f}}%<extra></extra>'}},
-      {{type:'bar', name:'supported', x:nm, y:BO.map(r => r.supported_adj), marker:{{color:'#60a5fa'}},
+      {{type:'bar', name:'supported', x:nm, y:BO.map(r => r.supported_adj), marker:{{color:'#34d399'}},
         text:BO.map(r => r.supported_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>supported %{{y:.0f}}%<extra></extra>'}},
-      {{type:'bar', name:'consistent', x:nm, y:BO.map(r => r.consistent_adj), marker:{{color:'#34d399'}},
+      {{type:'bar', name:'consistent', x:nm, y:BO.map(r => r.consistent_adj), marker:{{color:'#60a5fa'}},
         text:BO.map(r => r.consistent_adj.toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
         textfont:{{size:10, color:p.fg}},
         hovertemplate:'%{{x}}<br>consistent %{{y:.0f}}%<extra></extra>'}}
