@@ -600,23 +600,14 @@ def main(argv=None) -> int:
               "was also the slowest.",
               "s-bo-pnl", 430),
         panel(17, "What the money actually buys: decision quality vs spend",
-              "The same five <code>event_agent_model</code> values on the same horizontal axis, but the "
-              "vertical is now <b>decision "
-              "quality</b> &mdash; an <b>estimate</b>, not a raw count: a cheap model screened all "
-              "2,849 event-agent calls, then <b>Claude Fable-5</b> re-read samples of BOTH what it "
-              "flagged and what it passed, and the plotted rate is the screen corrected by both. "
-              "The three process tests are: the catalyst was specific and datable, the assessment "
-              "did not outrun the evidence it cited, and the live/exit call was coherent with the "
-              "analyst's own stated exit condition &mdash; the catalyst was specific and "
-              "datable, the written assessment did not outrun the evidence it cited, and the live/exit "
-              "call was coherent with the analyst's own stated exit condition. The judge sees "
-              "<b>no prices and no outcomes</b>, and is blind to which model produced the decision.<br><br>"
-              "<b>Quality varies where P&amp;L does not, and it peaks in the middle.</b> The "
-              "mid-priced arm scores <b>65.2%</b> against 53.2%, 50.8%, 47.7% and <b>45.5% for the "
-              "CHEAPEST, which finishes last</b> &mdash; not a curve you can buy your way up. Note the "
-              "unit of analysis: <b>2,849 individually judged decisions</b> instead of five aggregate "
-              "P&amp;L numbers, which is precisely why this panel can resolve differences panel 16 "
-              "cannot.",
+              "The dotted line is what a cheap model made of all 2,849 event-agent decisions; the "
+              "solid line is that verdict after <b>Claude Fable-5</b> re-read samples of both what it "
+              "flagged and what it passed. I scored <b>process only</b> &mdash; was the catalyst "
+              "datable, did the write-up outrun the evidence it cited, did the live/exit call "
+              "contradict its own stated exit condition &mdash; with no prices in front of the judge. "
+              "<b>Quality separates here where portfolio value in panel 16 did not</b>, and it peaks "
+              "in the middle: the $13 model beats the $6 one and the $27 one, which finish last and "
+              "fourth. You cannot buy your way up this curve.",
               "s-bo-quality", 430),
         panel(18, "Decision quality per dollar of AI spend",
               "Panel 17 divided by panel 16's horizontal &mdash; clean decisions per dollar of "
