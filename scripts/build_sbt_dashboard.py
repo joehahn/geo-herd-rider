@@ -376,9 +376,16 @@ def main(argv=None) -> int:
         # that arm tests (does more thinking beat a bigger model?).
         _DISP = {"deepseek4": "DeepSeek<br>V4 Flash", "minimax": "MiniMax<br>M3",
                  "luna": "GPT-5.6<br>Luna", "kimi-high": "Kimi K3<br>HIGH reasoning",
-                 "kimi-low": "Kimi K3<br>LOW reasoning"}
+                 "kimi-low": "Kimi K3<br>LOW reasoning",
+                 "grok-high": "Grok 4.3<br>HIGH reasoning", "grok-low": "Grok 4.3<br>LOW reasoning",
+                 "sonnet5": "Claude<br>Sonnet 5"}
+        # FALL BACK TO THE SUMMARY'S OWN `disp`, not the raw slug. This line used to end
+        # `.get(r["arm"], r["arm"])`, so the three arms added after the map was written rendered as
+        # "grok-low" / "sonnet5" on every axis and in the table -- the version number, and the fact
+        # that the Grok pair differ only in REASONING EFFORT, both silently lost. bakeoff_summary.json
+        # already carries a correct `disp`; preferring it means a new arm is named in one place.
         for r in bo:
-            r["disp"] = _DISP.get(r["arm"], r["arm"])
+            r["disp"] = _DISP.get(r["arm"]) or r.get("disp") or r["arm"]
     payload["bo"] = bo
     _ja = ROOT / "data/judge_audit.json"
     payload["ja"] = json.loads(_ja.read_text()) if _ja.exists() else None
