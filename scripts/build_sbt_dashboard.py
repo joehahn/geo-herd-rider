@@ -609,16 +609,14 @@ def main(argv=None) -> int:
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
-              "Panel 17's three tests, split out. <b><code>dated</code></b> asks whether the catalyst "
-              "is a specific resolvable event &mdash; a contract award, a ruling, an FDA decision "
-              "&mdash; rather than an open-ended trend like \u201cAI demand grows\u201d; every model "
-              "is weakest here (46&ndash;66%), and since that holds across eight runs and six vendors "
-              "it is my prompt at fault, not them. <b><code>supported</code></b> asks whether the "
-              "write-up claims more than its cited sources establish &mdash; asserting something "
-              "the sources do not reach, or citing nothing at all &mdash; the only axis that really "
-              "separates models, GPT-5.6 Luna at 97% against DeepSeek's 75%. <b><code>consistent</code></b> asks whether the "
-              "live/exit call contradicts the analyst's own stated exit condition; nobody does, so at "
-              "94&ndash;100% it separates nothing and can be retired.",
+              "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
+              "Fable-5's verdict on the catalyst the model chose to open an event on: a specific "
+              "resolvable event such as a contract award, a ruling or an FDA decision, rather than "
+              "an open-ended trend like \u201cAI demand grows\u201d. <b><code>supported</code></b> "
+              "is whether the write-up stayed within what its own cited sources establish. "
+              "<b><code>consistent</code></b> is whether that period's live-or-exit call cohered "
+              "with the model's own stated exit condition &mdash; it applies to every call, not "
+              "only the exits.",
               "s-bo-perdollar", 430),
         ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
