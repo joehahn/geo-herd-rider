@@ -609,24 +609,14 @@ def main(argv=None) -> int:
               "middle: the $13 model beats the $6 one and the $27 one, which finish last and fourth.",
               "s-bo-quality", 430),
         panel(18, "Where each model actually fails",
-              "Panel 17 collapses three tests into one pass/fail; this is the breakdown, corrected "
-              "the same way. <b><code>dated</code></b> asks whether the catalyst was a specific "
-              "resolvable event rather than an open-ended trend, <b><code>supported</code></b> whether "
-              "the write-up asserted more than its own citations carry, <b><code>consistent</code></b> "
-              "whether the live/exit call contradicted its own stated exit condition.<br><br>"
-              "<b>They do not move together, and that is the useful part.</b> "
-              "<code>consistent</code> is near-100% everywhere &mdash; no model contradicts itself, so "
-              "it separates nothing. <code>dated</code> is where <b>every</b> model is weakest "
-              "(52&ndash;66%): a third to a half of theses rest on a trend rather than a datable "
-              "event, which is a <b>prompt</b> problem rather than a model one, and the biggest thing "
-              "to fix next. The axis that genuinely separates models is <b><code>supported</code></b>, "
-              "where GPT-5.6 Luna reaches <b>98%</b> against DeepSeek's 82% &mdash; what the extra "
-              "money bought was a model that stops claiming more than its evidence carries.<br><br>"
-              "<b>Cost-efficiency is deliberately not plotted.</b> Quality spans 1.4&times; while cost "
-              "spans 4.6&times;, so quality-per-dollar is essentially 1&divide;cost: it would rank by "
-              "cheapness and crown the model that is worst on two of these three axes. The honest "
-              "version is one line &mdash; on this task Luna at $13.46 buys the best decisions, and "
-              "everything above it is wasted money.",
+              "Panel 17 collapsed three tests into one pass/fail; here they are split out, corrected "
+              "the same way. <b>Every model is weakest on <code>dated</code></b> (52&ndash;66%) "
+              "&mdash; a third to a half of theses rest on an open-ended trend rather than a datable "
+              "event &mdash; and since that holds across five very different models it is my prompt "
+              "at fault, not the model, which makes it the next thing I fix. The only axis that "
+              "really separates them is <b><code>supported</code></b>, where GPT-5.6 Luna hits 98% "
+              "against DeepSeek's 82%: what the extra money bought me was a model that stops claiming "
+              "more than its evidence carries.",
               "s-bo-perdollar", 430),
         ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
