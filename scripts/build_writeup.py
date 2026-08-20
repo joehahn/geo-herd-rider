@@ -27,6 +27,43 @@ from build_fbt_dashboard import CSS, DARK, LIGHT, PLOTLY_CDN  # noqa: E402
 SITE = "https://jmh-datasciences.com"
 
 
+def _markdown(body: str) -> str:
+    """Render the same body as Markdown, so the .md and the .html cannot tell different stories.
+
+    They already did: the .md was written by hand alongside the page, so when the page's opening was
+    rewritten the .md kept publishing the superseded version. One source, two renderings, no drift.
+    Handles only the tags this page actually uses; a chart div becomes a bracketed placeholder,
+    because a Markdown reader cannot see Plotly.
+    """
+    import re
+    t = body
+    t = re.sub(r'<div id="c(\d)"[^>]*></div>', lambda m: f"\n*[chart {m.group(1)}]*\n", t)
+    t = re.sub(r'<p class="kicker">(.*?)</p>', r"*\1*\n", t, flags=re.S)
+    t = re.sub(r"<h1>(.*?)</h1>", r"# \1\n", t, flags=re.S)
+    t = re.sub(r'<p class="sub">(.*?)</p>', r"\1\n", t, flags=re.S)
+    t = re.sub(r"<h2>(.*?)</h2>", r"\n## \1\n", t, flags=re.S)
+    t = re.sub(r"<h3>(.*?)</h3>", r"\n### \1\n", t, flags=re.S)
+    t = re.sub(r"<li>(.*?)</li>", r"- \1\n", t, flags=re.S)
+    t = re.sub(r"<p[^>]*>(.*?)</p>", r"\1\n", t, flags=re.S)
+    t = re.sub(r"<b>(.*?)</b>", r"**\1**", t, flags=re.S)
+    t = re.sub(r"<i>(.*?)</i>", r"*\1*", t, flags=re.S)
+    t = re.sub(r'<a href="(.*?)"[^>]*>(.*?)</a>', r"[\2](\1)", t, flags=re.S)
+    t = re.sub(r"<[^>]+>", "", t)
+    for a, b in (("&mdash;", "\u2014"), ("&ndash;", "\u2013"), ("&times;", "\u00d7"),
+                 ("&plusmn;", "\u00b1"), ("&minus;", "\u2212"), ("&rarr;", "\u2192"),
+                 ("&nbsp;", " "), ("&amp;", "&"), ("&lt;", "<"), ("&gt;", ">")):
+        t = t.replace(a, b)
+    t = "\n".join(" ".join(ln.split()) for ln in t.splitlines())
+    t = re.sub(r"\n{3,}", "\n\n", t).strip()
+    # The <header> puts the byline above the <h1>, which is right on a rendered page and wrong in
+    # Markdown, where the H1 is the document's name. Swap them back.
+    lines = t.split("\n")
+    nz = [i for i, ln in enumerate(lines[:6]) if ln.strip()]
+    if len(nz) >= 2 and lines[nz[0]].startswith("*") and lines[nz[1]].startswith("# "):
+        lines[nz[0]], lines[nz[1]] = lines[nz[1]], lines[nz[0]]
+    return "\n".join(lines) + "\n"
+
+
 def main() -> int:
     bo = sorted(json.loads((ROOT / "data/bakeoff_summary.json").read_text()), key=lambda r: r["cost"])
     ja = json.loads((ROOT / "data/judge_audit.json").read_text())
@@ -46,28 +83,38 @@ def main() -> int:
 </header>
 
 <section>
-<h2>Why point AI at 100,000 news articles</h2>
-<p>Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
-proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
-and openings both, and many are <b>reported publicly before they reach anyone's numbers</b>.</p>
-<p>The information is not the hard part. But nobody has time to read many thousands of articles per
-month and find the twelve that matter to <i>you</i>. So: <b>can a language model do that reading, and
-make the routine calls that follow, well enough to act on?</b></p>
-<p>That is what this solution was built to answer. It reads business news as it is published, flags
-what could help or hurt, and then keeps deciding what to do <b>as the story evolves over time</b>.
-This is mundane work, which is exactly where AI earns its keep: most of what moves a bottom line is
-mundane. I run this solution on a market portfolio for the unambiguous scorecard, but swap the feed
-and the same machinery watches your supply chain, your regulators, or your competitors.</p>
+<h2>Why point AI at 100,000 documents</h2>
+<p>Some decisions are not hard, they are just <b>endless</b>. A stream of documents arrives faster
+than anyone can read it, most of it is irrelevant, a little of it matters a lot, and the handful that
+mattered last month may not matter now. Nobody has time, so the reading either does not happen or it
+happens badly.</p>
+<p>That shape is everywhere. <b>Business news</b>: a supplier's plant goes down, a tariff is proposed,
+a safety agency schedules a vote that could pull a rival's product off the shelf &mdash; reported
+publicly before it reaches anyone's numbers. <b>Issue and support tickets</b>: which of this week's
+600 is the one failure that is actually spreading, and is last week's fire still burning? Contracts
+coming up for renewal, adverse-event reports, filings, claims, security advisories. Same job every
+time: <b>read the stream, decide what is worth acting on, and keep revisiting that call as the story
+moves</b>.</p>
+<p>So: <b>can a language model do that reading, and make the routine calls that follow, well enough
+to act on?</b> That is mundane work, which is exactly where AI earns its keep &mdash; most of what
+moves a bottom line is mundane.</p>
+<p>To answer it you need a scoreboard, and that is the awkward part: on most document streams there
+is no clean way to tell a good call from a lucky one. So I built the system on <b>market news</b>,
+where the scorecard is unambiguous and public, and pointed it at 100,000 articles. The domain is the
+worked example. The machinery does not care what the documents are.</p>
 
 <h2>The decision being automated</h2>
-<p>For each situation this solution is monitoring, it uses AI to revisit three questions every month:</p>
+<p>For each situation this solution is monitoring, it uses AI to revisit three questions on a
+schedule. Nothing in them is specific to news &mdash; they are what you ask of any live item in a
+queue:</p>
 <ul>
   <li><b>Is this still true?</b>: the situation I flagged is still developing, and the reasoning I
       wrote down still holds.</li>
   <li><b>Has the thing I was waiting for already happened?</b>: most situations turn on one
       identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
       the uncertainty is gone and so is the reason to act. <i>A manufacturer watching a proposed tariff
-      cares enormously up to the signing and not at all afterwards, because by then the price has moved.</i></li>
+      cares enormously up to the signing and not at all afterwards, because by then the price has moved.
+      An on-call engineer watching a spreading failure cares until the fix ships.</i></li>
   <li><b>Should I still be committed to it?</b>: should capital, inventory or capacity still be tied
       up on the strength of this, or is that commitment now doing nothing.</li>
 </ul>
@@ -149,8 +196,11 @@ graded decisions can. One is a sample of one; the other is a sample of thousands
 never ran in production. It graded what did.</p>
 <p><b>Measure inference time, not just price.</b> A four-fold speed difference decides whether a
 system can run at the cadence your business actually needs.</p>
-<p><b>Expect the answer to be specific to your job.</b> Best here was mid-priced, worst was the most
-expensive, runner-up cost $6.42. None of that is predictable from a benchmark.</p>
+<p><b>Expect the answer to be specific to your job, and do not port this leaderboard to yours.</b>
+Best here was mid-priced, worst was the most expensive, runner-up cost $6.42 &mdash; none of it
+predictable from a benchmark, and none of it measured on your documents. What transfers is the
+method: run the arms, grade the decisions blind, audit the grader. That costs a few hundred dollars
+and answers the question for <i>your</i> task, which no published benchmark can.</p>
 <p class="cost">The whole study cost under $200 and took two days.</p>
 </section>
 
@@ -265,6 +315,9 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html)
     print(f"  wrote {out}")
+    md = out.with_suffix(".md")
+    md.write_text(_markdown(body))
+    print(f"  wrote {md}")
     return 0
 
 

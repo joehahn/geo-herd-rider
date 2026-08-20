@@ -2,30 +2,38 @@
 
 *Joe Hahn · [JMH Data Sciences](https://jmh-datasciences.com) · August 2026*
 
-
 Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
 model to grade those decisions.
 
-## Why point AI at 100,000 news articles
+## Why point AI at 100,000 documents
 
-Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
-proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
-and openings both, and many are **reported publicly before they reach anyone's numbers**.
+Some decisions are not hard, they are just **endless**. A stream of documents arrives faster
+than anyone can read it, most of it is irrelevant, a little of it matters a lot, and the handful that
+mattered last month may not matter now. Nobody has time, so the reading either does not happen or it
+happens badly.
 
-The information is not the hard part. But nobody has time to read many thousands of articles per
-month and find the twelve that matter to *you*. So: **can a language model do that reading, and
-make the routine calls that follow, well enough to act on?**
+That shape is everywhere. **Business news**: a supplier's plant goes down, a tariff is proposed,
+a safety agency schedules a vote that could pull a rival's product off the shelf — reported
+publicly before it reaches anyone's numbers. **Issue and support tickets**: which of this week's
+600 is the one failure that is actually spreading, and is last week's fire still burning? Contracts
+coming up for renewal, adverse-event reports, filings, claims, security advisories. Same job every
+time: **read the stream, decide what is worth acting on, and keep revisiting that call as the story
+moves**.
 
-That is what this solution was built to answer. It reads business news as it is published, flags
-what could help or hurt, and then keeps deciding what to do **as the story evolves over time**.
+So: **can a language model do that reading, and make the routine calls that follow, well enough
+to act on?** That is mundane work, which is exactly where AI earns its keep — most of what
+moves a bottom line is mundane.
 
-This is mundane work, which is exactly where AI earns its keep: most of what moves a bottom line is
-mundane. I run this solution on a market portfolio for the unambiguous scorecard, but swap the feed
-and the same machinery watches your supply chain, your regulators, or your competitors.
+To answer it you need a scoreboard, and that is the awkward part: on most document streams there
+is no clean way to tell a good call from a lucky one. So I built the system on **market news**,
+where the scorecard is unambiguous and public, and pointed it at 100,000 articles. The domain is the
+worked example. The machinery does not care what the documents are.
 
 ## The decision being automated
 
-For each situation this solution is monitoring, it uses AI to revisit three questions every month:
+For each situation this solution is monitoring, it uses AI to revisit three questions on a
+schedule. Nothing in them is specific to news — they are what you ask of any live item in a
+queue:
 
 - **Is this still true?**: the situation I flagged is still developing, and the reasoning I
 wrote down still holds.
@@ -33,7 +41,8 @@ wrote down still holds.
 - **Has the thing I was waiting for already happened?**: most situations turn on one
 identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
 the uncertainty is gone and so is the reason to act. *A manufacturer watching a proposed tariff
-cares enormously up to the signing and not at all afterwards, because by then the price has moved.*
+cares enormously up to the signing and not at all afterwards, because by then the price has moved.
+An on-call engineer watching a spreading failure cares until the fix ships.*
 
 - **Should I still be committed to it?**: should capital, inventory or capacity still be tied
 up on the strength of this, or is that commitment now doing nothing.
@@ -49,6 +58,8 @@ articles, same retrieval, same downstream logic. Prices spanned **5×**.
 
 ## 1. Cost tells you nothing about speed
 
+*[chart 1]*
+
 The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
 the *slowest* by a factor of four: three hours against forty-five minutes. Two models within
 seven cents of each other differed by more than two hours of wall clock.
@@ -57,6 +68,8 @@ If you are running this hourly against a live feed rather than monthly against a
 difference decides whether the system is usable at all, and it is invisible on a price list.
 
 ## 2. A frontier model graded every decision, and quality peaks in the middle
+
+*[chart 2]*
 
 Comparing the models on the portfolio's final value would be close to meaningless: one number per
 run, decided by a handful of lucky calls. So I changed the unit of analysis. **Claude Fable 5, the strongest model available and one that never the
@@ -70,7 +83,6 @@ exit condition the model itself had written down? A decision is **clean** only i
 three.
 
 **The score below is the percentage of that model's ~600 decisions that came back clean.
-
 Higher is better.** Quality separates sharply where the portfolio value could not, a 23-point spread
 across the eight. And the curve **peaks in the middle**. The most expensive model finished
 *last*. A $6.42 model landed within three points of the leader.
@@ -80,6 +92,8 @@ This is not "cheaper is better": the cheapest model is near the bottom too. It i
 is to grade the work.
 
 ## 3. Knowing *how* a model fails beats knowing *that* it does
+
+*[chart 3]*
 
 Breaking the same grades out by test, higher being better on all three, says three things no
 aggregate score can.
@@ -97,6 +111,8 @@ writes well-evidenced analysis of things that *are not events*. Not a bad model;
 **mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
 
 ## 4. The grader was graded too
+
+*[chart 4]*
 
 Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
 screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the ones the screen
@@ -120,8 +136,11 @@ never ran in production. It graded what did.
 **Measure inference time, not just price.** A four-fold speed difference decides whether a
 system can run at the cadence your business actually needs.
 
-**Expect the answer to be specific to your job.** Best here was mid-priced, worst was the most
-expensive, runner-up cost $6.42. None of that is predictable from a benchmark.
+**Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
+Best here was mid-priced, worst was the most expensive, runner-up cost $6.42 — none of it
+predictable from a benchmark, and none of it measured on your documents. What transfers is the
+method: run the arms, grade the decisions blind, audit the grader. That costs a few hundred dollars
+and answers the question for *your* task, which no published benchmark can.
 
 The whole study cost under $200 and took two days.
 
@@ -134,4 +153,4 @@ beats being brilliant occasionally.
 If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.
 
-**→ [jmh-datasciences.com →](https://jmh-datasciences.com)**
+[jmh-datasciences.com →](https://jmh-datasciences.com)
