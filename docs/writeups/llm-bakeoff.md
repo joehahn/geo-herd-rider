@@ -68,7 +68,7 @@ the *slowest* by a factor of four: three hours against forty-five minutes. Two m
 seven cents of each other differed by more than two hours of wall clock.
 
 If you are running this hourly against a live feed rather than monthly against an archive, that
-difference decides whether the system is usable at all, and it is invisible on a price list.
+difference decides which LLM is usable at all, and that factor is invisible on a price list.
 
 ## 2. A frontier model graded every decision, and quality peaks in the middle
 
