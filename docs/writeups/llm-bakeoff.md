@@ -23,9 +23,9 @@ keep: most of what moves a bottom line is mundane.
 
 News is one feed among many. Support tickets, contracts coming up for renewal, incident and safety
 reports, regulatory filings, vendor advisories: same problem in different clothes, too much arriving
-for anyone to read, a little of it consequential, and the call worth revisiting a month later. I run
-this on a market portfolio because the scorecard is unambiguous, but swap the feed and the same
-machinery watches your supply chain, your regulators, or your competitors.
+for anyone to read and a little of it consequential. This experiment uses AI to read a flood of
+financial news to optimize a market portfolio, because there the scorecard is unambiguous, but swap
+the feed and the same machinery watches your supply chain, your regulators, or your competitors.
 
 ## The decision being automated
 
