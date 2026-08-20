@@ -56,6 +56,8 @@ Which raises the obvious question: **does paying for a better model pay?** So I 
 thing **eight times**, changing exactly one thing each time, the model making those calls. Same
 articles, same retrieval, same downstream logic. Prices spanned **5×**.
 
+Here are the four main findings.
+
 ## 1. For this use case, cost says nothing about speed
 
 *[chart 1]*
