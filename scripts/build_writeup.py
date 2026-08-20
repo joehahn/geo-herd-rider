@@ -219,7 +219,7 @@ six vendors. Internal consistency (blue bars) sits at {r_consistent} for every o
 everything fails the same way the model is unlikely to be the problem. Rather, <b>the instructions
 might be at fault</b>, or a datable trigger may simply be hard to pin down and this close to the
 ceiling. Either way that is where to look, and looking there is worth more than any model swap.</p>
-<p><b>One test separates the field</b>, the <b>green bars</b>: staying inside your sources,
+<p><b>But one test (green bars) separates the field:</b> staying inside your sources,
 {r_supported}. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a

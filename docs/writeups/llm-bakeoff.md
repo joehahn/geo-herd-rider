@@ -126,7 +126,7 @@ everything fails the same way the model is unlikely to be the problem. Rather, *
 might be at fault**, or a datable trigger may simply be hard to pin down and this close to the
 ceiling. Either way that is where to look, and looking there is worth more than any model swap.
 
-**One test separates the field**, the **green bars**: staying inside your sources,
+**But one test (green bars) separates the field:** staying inside your sources,
 75–97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that *are not events*. Not a bad model; a
