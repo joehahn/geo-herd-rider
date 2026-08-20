@@ -53,10 +53,10 @@ scratch, making every call in sequence exactly as it would have at the time. In 
 hours for AI to process and costs about $5-30 depending on which model is doing the reading.
 
 Which raises the obvious question: **does paying for a better model pay?** So I ran the whole
-thing **eight times**, changing exactly one thing each time, the model making those calls. Same
-articles, same retrieval, same downstream logic. Prices spanned **5×**.
+thing **eight times**, changing only the model making those calls: same articles, same retrieval,
+same downstream logic. Prices spanned **5×**.
 
-Here are the four main findings.
+Here are the main findings.
 
 ## 1. For this use case, cost says nothing about speed
 

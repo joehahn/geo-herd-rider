@@ -123,9 +123,9 @@ complete pass across three years of business news, about 100,000 articles: month
 scratch, making every call in sequence exactly as it would have at the time. In this experiment, a scan takes about 1-3
 hours for AI to process and costs about $5-30 depending on which model is doing the reading.</p>
 <p>Which raises the obvious question: <b>does paying for a better model pay?</b> So I ran the whole
-thing <b>eight times</b>, changing exactly one thing each time, the model making those calls. Same
-articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.</p>
-<p>Here are the four main findings.</p>
+thing <b>eight times</b>, changing only the model making those calls: same articles, same retrieval,
+same downstream logic. Prices spanned <b>5&times;</b>.</p>
+<p>Here are the main findings.</p>
 </section>
 
 <section>
