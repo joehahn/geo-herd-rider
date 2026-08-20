@@ -49,14 +49,14 @@ up on the strength of this, or is that commitment now doing nothing.
 
 That results in roughly **600 AI judgment calls per scan**, where a **scan** means one
 complete pass across three years of business news, about 100,000 articles: month by month, from
-scratch, making every call in sequence exactly as it would have at the time. A scan takes under two
-hours and costs between $6 and $32 depending on which model is doing the reading.
+scratch, making every call in sequence exactly as it would have at the time. In this experiment, a scan takes about 1-3
+hours for AI to process and costs about $5-30 depending on which model is doing the reading.
 
 Which raises the obvious question: **does paying for a better model pay?** So I ran the whole
 thing **eight times**, changing exactly one thing each time, the model making those calls. Same
 articles, same retrieval, same downstream logic. Prices spanned **5×**.
 
-## 1. Cost tells you nothing about speed
+## 1. For this use case, cost says nothing about speed
 
 *[chart 1]*
 
