@@ -28,12 +28,12 @@ read a flood of financial news to optimize a market portfolio, because there the
 unambiguous. But swap the feed and the same machinery watches your supply chain, your regulators, or
 your competitors.
 
-## The decision being automated
+## The decisions being automated
 
 The AI reads the stream as it arrives, watching for a just-published event that is about to
 affect the business: a ruling, a supply shock, a plant going down, a competitor stumbling. Finding it
-once is not the job, though, because the situation keeps moving and the reason to act can expire. So
-for every situation it is already tracking, it revisits three questions on a schedule:
+once is not the job though, because the situation keeps moving and the reason to act can expire. So
+for every situation it is already tracking, the solution revisits three questions per schedule:
 
 - **Is this still true?**: the situation I flagged is still developing, and the reasoning I
 wrote down still holds.
