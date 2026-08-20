@@ -105,9 +105,10 @@ This is not "cheaper is better": the cheapest model is near the bottom too. It i
 is to grade the work.
 
 **And the judge was checked too.** Using an LLM to grade LLMs invites an obvious objection, so
-a cheap model screened all 4,500 decisions first and Fable 5 re-read 1,200 of them, both the
-ones the screen condemned *and* the ones it cleared. Audited against the frontier judge, that
-cheap screen agreed **93%** of the time on consistency and
+the grading itself ran in two tiers. The eight benchmarked models produced 4,500 decisions
+between them; a cheap model graded all of those first, and Fable 5 then re-read 1,200 of them,
+both the ones the cheap pass condemned *and* the ones it cleared. Measured against Fable 5, that
+cheap pass agreed **93%** of the time on consistency and
 **85%** on datable triggers, but only
 **66%** on whether a claim outran its sources: the hardest of the
 three, and exactly where a cheap judge should not be trusted.
