@@ -11,20 +11,25 @@ Every business is exposed to events it did not cause. A supplier's plant goes do
 proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
 and openings both, and many are **reported publicly before they reach anyone's numbers**.
 
-The information is not the hard part. But nobody has time to read many thousands of articles per
-month and find the twelve that matter to *you*. So: **can a language model do that reading, and
+The information is not the hard part. But nobody has time to read many thousands of possibly
+relevant documents per month and find the twelve that matter to *you*. So: **can a language model do that reading, and
 make the routine calls that follow, well enough to act on?**
 
-That is what this solution was built to answer. It reads business news as it is published, flags
-what could help or hurt, and then keeps deciding what to do **as the story evolves over time**.
-This is mundane work, which is exactly where AI earns its keep: most of what moves a bottom line is
-mundane. I run this solution on a market portfolio for the unambiguous scorecard, but swap the feed
-and the same machinery watches your supply chain, your regulators, or your competitors.
+That is what this solution was built to answer. And in this application the solution reads
+business news as it is published, flags what could help or hurt, and then keeps deciding what to do
+**as the story evolves over time**. This is mundane work, which is exactly where AI earns its
+keep: most of what moves a bottom line is mundane.
+
+News is one feed among many. Support tickets, contracts coming up for renewal, incident and safety
+reports, regulatory filings, vendor advisories: same problem in different clothes, too much arriving
+for anyone to read, a little of it consequential, and the call worth revisiting a month later. I run
+this on a market portfolio because the scorecard is unambiguous, but swap the feed and the same
+machinery watches your supply chain, your regulators, or your competitors.
 
 ## The decision being automated
 
 For each situation this solution is monitoring, it uses AI to revisit three questions on a
-schedule. Nothing in them is specific to news — they are what you ask of any live item in a
+schedule. Nothing in them is specific to news; they are what you ask of any live item in a
 queue:
 
 - **Is this still true?**: the situation I flagged is still developing, and the reasoning I
@@ -129,7 +134,7 @@ never ran in production. It graded what did.
 system can run at the cadence your business actually needs.
 
 **Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
-Best here was mid-priced, worst was the most expensive, runner-up cost $6.42 — none of it
+Best here was mid-priced, worst was the most expensive, runner-up cost $6.42, none of it
 predictable from a benchmark, and none of it measured on your documents. What transfers is the
 method: run the arms, grade the decisions blind, audit the grader. That costs a few hundred dollars
 and answers the question for *your* task, which no published benchmark can.
