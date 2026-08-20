@@ -135,7 +135,7 @@ study never ran in production, rather it graded what did.
 **Measure inference time, not just price.** A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.
 
-**Transfer the method used here to your use case, not my results.** My scores depend upon my
+**Transfer the method used here to your use case, rather than my results.** My scores depend upon my
 prompts and my documents. The recipe is what carries over: run the document corpus through every
 candidate model, grade the AI decisions blind, and audit those grades with a separate judge.
 
