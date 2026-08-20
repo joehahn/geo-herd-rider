@@ -130,13 +130,13 @@ would have told you so.
 4,500 graded decisions can.
 
 **Spend frontier money on the judge and not the worker.** The most valuable model in this
-study never ran in production. It graded what did.
+study never ran in production, rather it graded what did.
 
 **Measure inference time, not just price.** A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.
 
-**Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
-None of it was measured on your documents. What transfers is the method: run the arms, grade the
+**Expect a different answer for your job.** None of these results was measured on your
+documents. What transfers is the method: run the arms, grade the
 decisions blind, audit the judge. A few hundred dollars answers it for *your* task.
 
 This study took two days to quantify and $200 in inference costs.

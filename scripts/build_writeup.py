@@ -225,11 +225,11 @@ would have told you so.</p>
 <p><b>Grade on decisions, not outcomes.</b> Eight outcomes cannot separate eight models, but
 {n_tot_r} graded decisions can.</p>
 <p><b>Spend frontier money on the judge and not the worker.</b> The most valuable model in this
-study never ran in production. It graded what did.</p>
+study never ran in production, rather it graded what did.</p>
 <p><b>Measure inference time, not just price.</b> A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.</p>
-<p><b>Expect the answer to be specific to your job, and do not port this leaderboard to yours.</b>
-None of it was measured on your documents. What transfers is the method: run the arms, grade the
+<p><b>Expect a different answer for your job.</b> None of these results was measured on your
+documents. What transfers is the method: run the arms, grade the
 decisions blind, audit the judge. A few hundred dollars answers it for <i>your</i> task.</p>
 <p class="cost">This study took two days to quantify and $200 in inference costs.</p>
 </section>
