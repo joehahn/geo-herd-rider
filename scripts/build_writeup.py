@@ -88,6 +88,13 @@ def main() -> int:
     n_arm = round(round(n_tot / len(bo)) / 10) * 10          # 566 -> 570
     n_tot_r = f"{round(n_tot, -2):,}"                        # 4,527 -> 4,500
     n_judged = f"{ja['n_tier2'] + ja['n_tier3']:,}"
+    # WHO LED, WHO COST MOST, WHO CAME CLOSE. Named in the prose rather than left to the chart, and
+    # derived so a re-run of the bake-off cannot leave the sentence naming last month's winner.
+    _rank = sorted(bo, key=lambda r: -r["clean_2s"])
+    best, runner = _rank[0], _rank[1]
+    dearest = max(bo, key=lambda r: r["cost"])
+    spread = round(_rank[0]["clean_2s"] - _rank[-1]["clean_2s"])
+    gap = round(best["clean_2s"] - runner["clean_2s"])
     noise = 1.86
 
     body = f"""
@@ -172,10 +179,13 @@ well-reasoned call that happened to go wrong loses nothing. Three tests: was the
 AI model's write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
 exit condition the model itself had written down? A decision is <b>clean</b> only if it passes all
 three.</p>
-<p><b>The score below is the percentage of that model's ~{n_arm} decisions that came back clean.
-Higher is better.</b> Quality separates sharply where the portfolio value could not, a 23-point spread
-across the eight. And the curve <b>peaks in the middle</b>. The most expensive model finished
-<i>last</i>. A $6.42 model landed within three points of the leader.</p>
+<p><b>The chart above gives the percentage of each model's ~{n_arm} decisions that came back clean.
+Higher is better.</b> Quality separates sharply where the portfolio value could not, a
+{spread}-point spread across the eight. And the curve <b>peaks in the middle</b>:
+<b>{best['label']}</b> leads at {best['clean_2s']:.1f}% for ${best['cost']:.2f}, while
+<b>{dearest['label']}</b>, the most expensive of the eight at ${dearest['cost']:.2f}, finished
+<i>last</i> at {min(r['clean_2s'] for r in bo):.1f}%. <b>{runner['label']}</b> landed within
+{gap} points of the leader for ${runner['cost']:.2f}.</p>
 <p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>

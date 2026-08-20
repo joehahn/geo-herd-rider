@@ -91,10 +91,13 @@ AI model's write-up claim more than its own cited sources support? Was the keep-
 exit condition the model itself had written down? A decision is **clean** only if it passes all
 three.
 
-**The score below is the percentage of that model's ~570 decisions that came back clean.
-Higher is better.** Quality separates sharply where the portfolio value could not, a 23-point spread
-across the eight. And the curve **peaks in the middle**. The most expensive model finished
-*last*. A $6.42 model landed within three points of the leader.
+**The chart above gives the percentage of each model's ~570 decisions that came back clean.
+Higher is better.** Quality separates sharply where the portfolio value could not, a
+23-point spread across the eight. And the curve **peaks in the middle**:
+**GPT-5.6 Luna** leads at 63.8% for $13.46, while
+**Claude Sonnet 5**, the most expensive of the eight at $31.66, finished
+*last* at 40.8%. **Grok 4.3 LOW reasoning** landed within
+3 points of the leader for $6.42.
 
 This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 **price predicts almost nothing about fitness for a particular job**, and the only way to find out
