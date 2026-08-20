@@ -336,6 +336,8 @@ def main(argv=None) -> int:
     stars = {}
     if short:
         stars = {"robust": min(short, key=lambda c: c["robust"]),
+                 "capital hit": max(short, key=lambda c: (c.get("capital_hit") is not None,
+                                                          c.get("capital_hit") or 0)),
                  "plateau": min(short, key=lambda c: c["plateau"]),
                  "cancelled": min(short, key=lambda c: c["cancelled"]),
                  "ann": max(short, key=lambda c: c["ann"]),
@@ -357,6 +359,49 @@ def main(argv=None) -> int:
     # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
+    # ---- THE REGION, measured across every stored curation ----------------------------------------
+    # WHY THIS REPLACED A RANKED LIST. The same sweep run twice on the SAME journal reproduces only
+    # 85.1% of its cells, but the VALUE ORDERING of every knob reproduces 27/27 and no knob's median
+    # shifts by more than 0.8 points. So the sweep is trustworthy about WHICH REGION of config space
+    # is good and untrustworthy about which individual cell wins -- and with 6,300 cells drawn from one
+    # history, the top cell is by construction the one that best fits that history's accidents. Reading
+    # row 1 as a recommendation was a multiple-comparisons error, and it is what sent five candidate
+    # ranking metrics flipping sign for an afternoon: they were being scored against a target that is
+    # itself noise.
+    import glob as _glob
+    _reg, _cur = {}, {}
+    _all = []
+    # NOT `_f`: that name is the module-level number formatter used by the table rows below, and
+    # rebinding it here shadowed it for the rest of the function -- the build died on
+    # "'str' object is not callable" four hundred lines away from the cause.
+    for _sf in sorted(_glob.glob(str(ROOT / "data/sweep_*.json"))):
+        if any(x in _sf for x in ("max_events", "check")):
+            continue
+        try:
+            _d = json.loads(Path(_sf).read_text())
+        except Exception:  # noqa: BLE001
+            continue
+        if list(_d.get("grid") or {}) != keys:
+            continue
+        _cs = [c for c in _d["cells"] if c.get("cancelled") is not None]
+        if len(_cs) >= 3000:
+            _all.append(_cs)
+    for k in keys:
+        vals = list(S["grid"][k])
+        rows = []
+        for v in vals:
+            ranks, meds = [], []
+            for _cs in _all:
+                m = {vv: statistics.median([c["cancelled"] for c in _cs if c[k] == vv]) for vv in vals}
+                ranks.append(sorted(vals, key=lambda x: m[x]).index(v) + 1)
+                meds.append(m[v])
+            rows.append({"value": str(v), "median": round(statistics.median(meds), 1),
+                         "rank": round(statistics.median(ranks), 1),
+                         "lo": min(ranks), "hi": max(ranks),
+                         "in_region": statistics.median(ranks) <= 2,
+                         "live": v == base[k]})
+        _reg[k] = sorted(rows, key=lambda r: r["rank"])
+    payload["region"] = {"knobs": _reg, "n_curations": len(_all)}
     payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
     # THE LLM BAKE-OFF (panels 16-19). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
@@ -385,7 +430,7 @@ def main(argv=None) -> int:
     _ja = ROOT / "data/judge_audit.json"
     payload["ja"] = json.loads(_ja.read_text()) if _ja.exists() else None
 
-    cols = ["#Sharpe", "robust", "plateau", "cancelled", "months to lead", "days behind",
+    cols = ["#Sharpe", "robust", "capital hit", "plateau", "cancelled", "months to lead", "days behind",
             "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
             "final"]
 
@@ -393,6 +438,15 @@ def main(argv=None) -> int:
         return ([label] + [str(c[k]) for k in keys]
                 + [f"{_sh_rank.get(id(c), 0)}",
                    f"{c['robust']:.0f}" + _st(c, "robust"),
+                   # SHOWN BESIDE `robust`, NOT FOLDED INTO IT. capital_hit answers the objection
+                   # cancellation cannot: did the CAPITAL go into tickers that rose? Adding it to the
+                   # ranker measured as an instability rather than an improvement -- on the
+                   # noise-experiment pair it was worth -5.6pp ranking from one curation and +13.9pp
+                   # from the other, tight CIs both ways. Large, real, and direction-dependent, so with
+                   # n=2 curations there is no basis for switching. It rides as a COLUMN until a third
+                   # pair breaks the tie.
+                   (f"{c['capital_hit']:.0f}%" if c.get("capital_hit") is not None else "—")
+                   + _st(c, "capital hit"),
                    f"{c['plateau']:.0f}%" + _st(c, "plateau"),
                    f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
                    (f"{c['lead_months']:.0f}" if c.get("lead_months") is not None else "never")
@@ -500,28 +554,20 @@ def main(argv=None) -> int:
               "is unaffected, but do not read a ratio off this panel. Blue squares are table 8\'s top "
               "100 &mdash; all 100 have a positive slope, median <b>$151,140</b>/yr.",
               "s-slope", 470),
-        ('<section class="panel"><h2>8. Recommended settings</h2><p class="lead">'
-         "The shortlist: every config clearing <b>all five gates</b> &mdash; "
-         + " &middot; ".join(f"{n} {d}" for n, _, _, d in GATES) +
-         f" &mdash; <b>{len(short)} of {len(cells):,}</b> survive. "
-         "<b>Ranked by <code>robust</code></b> &mdash; the mean of a config's cancellation rank and "
-         "its drawdown rank across the whole sweep, 0 = best. This ordering was <b>chosen by "
-         "measurement, not argument</b>: the only clean test available is the noise-experiment pair "
-         "(<code>me16</code> and <code>rep</code>, the same settings curated twice, differing only in "
-         "LLM sampling). Ranking all 6,300 configs on one and scoring that top 50 on the other puts "
-         "<b>cancellation+drawdown at the 86th percentile</b> of the re-curation, plateau at the 83rd, "
-         "<b>Sharpe at the 54th &mdash; a coin flip</b> &mdash; and <b>final value at the 43rd, worse "
-         "than random</b>. Ranking a shortlist by P&amp;L selects one curation's luck. The "
-         "<code>plateau</code> and <code>#Sharpe</code> columns are kept beside it: where they "
-         "disagree with the order is exactly where the overfit risk lives."
-         "neighbours'), <b>not Sharpe</b>: every row here already passed the bars, so the question is "
-         "not which is best in sample but which still works on the NEXT curation &mdash; and "
-         "Sharpe-ranking put a cell at row 1 whose own 1.93 falls to <b>1.29</b> one step away, in a "
-         "project that has had three sweep winners fail to survive a re-curation. The <b>#Sharpe</b> "
-         "column keeps both views, because where the two disagree is where the overfit risk is. "
-         "Note the live config [8, 0.25, 14, 0, 4.0, 0.20] misses by 0.0 &mdash; cancellation 20.0 "
-         f"against a &lt; 20% bar; a <b>&#9733;</b> marks the best survivor per column, top {TOP_N} "
-         "shown, current config on the last row."
+        ('<section class="panel"><h2>8. Where the good region is</h2><p class="lead">'
+         "<b>This panel used to rank 6,300 configs and recommend row 1. That was a mistake.</b> "
+         "Running the SAME sweep twice on the SAME curation reproduces only <b>85.1%</b> of its cells "
+         "&mdash; but the value ORDERING of every knob reproduces <b>27 times out of 27</b>, and no "
+         "knob's median moves by more than 0.8 points. The sweep is reliable about <b>which region of "
+         "config space is good</b> and unreliable about which individual cell wins. With 6,300 cells "
+         "drawn from a single history, the top cell is by construction the one that best fit that "
+         "history's accidents.<br><br>"
+         "So read the table below, not the one under it. It shows each knob's values ordered by median "
+         "cancellation across <b>every curation on disk</b>, with the rank each value took in each. "
+         "A value marked <b>region</b> placed 1st or 2nd in most of them; the live setting is starred. "
+         "The config list underneath still passes the gates and is still ordered, but treat that "
+         "ordering as arbitrary within the region &mdash; it is the part that does not reproduce."
+         '</p><div id="s-region"></div><div class="scroll">'
          f'</p>{rec}</section>'),
         panel(9, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
@@ -1058,6 +1104,29 @@ function draw(){{
     }}
   }}
 }}
+
+  // PANEL 8 -- the REGION. Median cancellation per knob VALUE across every curation on disk, which is
+  // the resolution the sweep actually reproduces at (27/27 orderings stable, vs 85% of cells). Bars
+  // are coloured by whether the value ranks 1st-2nd in most curations; the live setting is outlined.
+  const RG = DATA.region;
+  if (RG) {{
+    const knobs = Object.keys(RG.knobs);
+    const x = [], y = [], col = [], lw = [], txt = [];
+    knobs.forEach(k => RG.knobs[k].forEach(r => {{
+      x.push(k.replace(/_/g, ' ') + '<br>' + r.value); y.push(r.median);
+      col.push(r.in_region ? '#34d399' : (dark ? '#475569' : '#cbd5e1'));
+      lw.push(r.live ? 3 : 1); txt.push(r.live ? '\u2605' : '');
+    }}));
+    Plotly.react('s-region', [{{type:'bar', x:x, y:y, marker:{{color:col,
+        line:{{width:lw, color:(dark ? '#f8fafc' : '#0f172a')}}}},
+        text:txt, textposition:'outside', cliponaxis:false, textfont:{{size:15}},
+        hovertemplate:'%{{x}}<br>median cancellation %{{y:.1f}}%<extra></extra>'}}],
+      base(p, {{margin:{{l:58,r:14,t:26,b:96}}, showlegend:false,
+        xaxis:{{type:'category', tickfont:{{size:9}}}},
+        yaxis:{{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
+               title:{{text:'median cancellation across ' + RG.n_curations + ' curations (lower better)',
+                      font:{{size:11}}}}}}}}), CFG);
+  }}
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""

@@ -136,7 +136,13 @@ max_event_scans: 12               # retires the whole EVENT at this age (~1 year
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 8                  # how many tickers may hold capital at once.
+max_watchlist: 6                  # REGION-CHOSEN 2026-08-19, not sweep-rank-chosen. Across 15
+                                  #   curations the value ORDERING of every knob reproduces (27/27),
+                                  #   while individual cells reproduce only 85% of the time -- so the
+                                  #   sweep is trustworthy about WHICH REGION is good and not about
+                                  #   which cell wins. 6 posts the lowest median cancellation (58.9%)
+                                  #   and ranks 1st or 2nd in most curations; 8 ranks 3rd. Every other
+                                  #   knob here was already inside the region.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
 drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
