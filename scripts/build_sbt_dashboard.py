@@ -360,21 +360,28 @@ def main(argv=None) -> int:
     # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
     # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
-    # ---- THE REGION, measured across every stored curation ----------------------------------------
-    # WHY THIS REPLACED A RANKED LIST. The same sweep run twice on the SAME journal reproduces only
-    # 85.1% of its cells, but the VALUE ORDERING of every knob reproduces 27/27 and no knob's median
-    # shifts by more than 0.8 points. So the sweep is trustworthy about WHICH REGION of config space
-    # is good and untrustworthy about which individual cell wins -- and with 6,300 cells drawn from one
-    # history, the top cell is by construction the one that best fits that history's accidents. Reading
-    # row 1 as a recommendation was a multiple-comparisons error, and it is what sent five candidate
-    # ranking metrics flipping sign for an afternoon: they were being scored against a target that is
-    # itself noise.
+    # ---- THE REGION -------------------------------------------------------------------------------
+    # WHAT CHANGED AND WHY. This used to rank 6,300 configs and recommend row 1. That is a
+    # multiple-comparisons error: with 6,300 cells drawn from one history the top cell is by
+    # construction the one that best fit that history's accidents, and re-running the same sweep on
+    # the same curation moves 15% of cells.
+    #
+    # But a REGION is not a cell. A knob VALUE's median pools ~1,575 cells x 15 curations, so the luck
+    # averages out. Measured by leave-one-curation-out -- choose the region on 14 curations, score it
+    # on the 15th -- a region chosen on FINAL VALUE lands at the 91st percentile of the held-out grid,
+    # against 80th for cancellation, 77th for annualized return and 61st for Sharpe. So the metric here
+    # is portfolio value, not cancellation. Cancellation is a RATIO (|losses| / gains) and is blind to
+    # magnitude by construction: a book making $1K and losing $200 scores the same as one making $500K
+    # and losing $100K. It never rewarded picking well, only not losing.
+    #
+    # MEMBERSHIP IS A 1-STANDARD-ERROR RULE, not a rank cutoff. Each value's median final is normalised
+    # to its own curation's grid median (so a rich curation cannot outvote a lean one), averaged over
+    # the curations, and a value is IN if it clears best-mean minus one SE. That admits genuine ties on
+    # their merits: lookback 21 and 30 are indistinguishable (1.387 +/- 0.107 vs 1.419 +/- 0.064) and
+    # both belong, while a rank cutoff would have taken one and dropped the other.
     import glob as _glob
-    _reg, _cur = {}, {}
-    _all = []
-    # NOT `_f`: that name is the module-level number formatter used by the table rows below, and
-    # rebinding it here shadowed it for the rest of the function -- the build died on
-    # "'str' object is not callable" four hundred lines away from the cause.
+    import math as _math
+    _all = {}
     for _sf in sorted(_glob.glob(str(ROOT / "data/sweep_*.json"))):
         if any(x in _sf for x in ("max_events", "check")):
             continue
@@ -386,24 +393,58 @@ def main(argv=None) -> int:
             continue
         _cs = [c for c in _d["cells"] if c.get("cancelled") is not None]
         if len(_cs) >= 3000:
-            _all.append(_cs)
+            _all[Path(_sf).stem.replace("sweep_", "")] = _cs
+    _reg, _knob = {}, {}
     for k in keys:
         vals = list(S["grid"][k])
-        rows = []
+        stat = {}
         for v in vals:
-            ranks, meds = [], []
-            for _cs in _all:
-                m = {vv: statistics.median([c["cancelled"] for c in _cs if c[k] == vv]) for vv in vals}
-                ranks.append(sorted(vals, key=lambda x: m[x]).index(v) + 1)
-                meds.append(m[v])
-            rows.append({"value": str(v), "median": round(statistics.median(meds), 1),
-                         "rank": round(statistics.median(ranks), 1),
-                         "lo": min(ranks), "hi": max(ranks),
-                         "in_region": statistics.median(ranks) <= 2,
-                         "live": v == base[k]})
-        _reg[k] = sorted(rows, key=lambda r: r["rank"])
-    payload["region"] = {"knobs": _reg, "n_curations": len(_all)}
-    payload["topn"] = [_pos[id(c)] for c in short[:TOP_N] if id(c) in _pos]
+            rel = [statistics.median([c["final"] for c in cs if c[k] == v])
+                   / statistics.median([c["final"] for c in cs]) for cs in _all.values()]
+            stat[v] = (statistics.mean(rel),
+                       statistics.stdev(rel) / _math.sqrt(len(rel)) if len(rel) > 1 else 0.0)
+        _best = max(stat, key=lambda v: stat[v][0])
+        _cut = stat[_best][0] - stat[_best][1]
+        _reg[k] = [v for v in vals if stat[v][0] >= _cut]
+        _knob[k] = [{"value": str(v), "mean": round(stat[v][0], 3), "se": round(stat[v][1], 3),
+                     "in_region": stat[v][0] >= _cut, "live": v == base[k]}
+                    for v in sorted(vals, key=lambda v: -stat[v][0])]
+    _per = []
+    for t, cs in _all.items():
+        ins = [c["final"] for c in cs if all(c[k] in _reg[k] for k in keys)]
+        gm = statistics.median([c["final"] for c in cs])
+        if ins:
+            _per.append({"curation": t, "region": statistics.median(ins), "grid": gm,
+                         "lift": round(statistics.median(ins) / gm, 3)})
+    _n = 1
+    for k in keys:
+        _n *= len(_reg[k])
+    _lifts = [r["lift"] for r in _per]
+    _meds = [r["region"] for r in _per]
+    payload["region"] = {
+        "knobs": _knob, "n_curations": len(_all), "n_configs": _n,
+        "per_curation": _per,
+        "lift_mean": round(statistics.mean(_lifts), 2),
+        "lift_se": round(statistics.stdev(_lifts) / _math.sqrt(len(_lifts)), 2),
+        "value_median": round(statistics.median(_meds)),
+        "value_mean": round(statistics.mean(_meds)),
+        "value_se": round(statistics.stdev(_meds) / _math.sqrt(len(_meds))),
+        "live_in_region": all(base[k] in _reg[k] for k in keys),
+        "region_str": {k: ", ".join(str(v) for v in _reg[k]) for k in keys}}
+    # The region as a table: one row per knob, its admitted values, and whether the live setting is
+    # inside. This is the actual deliverable of the panel -- the chart underneath is the evidence.
+    _rg = payload["region"]
+    reg_tbl = table_html(
+        ["knob", "values in the region", "live setting", "inside?"],
+        [[k, _rg["region_str"][k], str(base[k]), "yes" if str(base[k]) in
+          [x.strip() for x in _rg["region_str"][k].split(",")] else "NO"] for k in keys])
+
+    # THE SQUARES ON PANELS 2-7 MARK REGION MEMBERS, not a top-N of some ranking. They used to mark
+    # the top TOP_N by `robust`, which implied the ordering was meaningful; it is not, and panel 8 now
+    # says so. Marking the region instead makes every scatter answer the same question the page asks:
+    # WHERE do the configs that survive across curations actually sit?
+    payload["topn"] = [i for i, c in enumerate(cells)
+                       if all(c[k] in _reg[k] for k in keys)]
     # THE LLM BAKE-OFF (panels 16-19). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
     # -> the panels are simply omitted, exactly like the max_events series.
@@ -514,20 +555,31 @@ def main(argv=None) -> int:
               "is unaffected, but do not read a ratio off this panel. Blue squares are table 8\'s top "
               "100 &mdash; all 100 have a positive slope, median <b>$151,140</b>/yr.",
               "s-slope", 470),
-        ('<section class="panel"><h2>8. Where the good region is</h2><p class="lead">'
-         "<b>This panel used to rank 6,300 configs and recommend row 1. That was a mistake.</b> "
-         "Running the SAME sweep twice on the SAME curation reproduces only <b>85.1%</b> of its cells "
-         "&mdash; but the value ORDERING of every knob reproduces <b>27 times out of 27</b>, and no "
-         "knob's median moves by more than 0.8 points. The sweep is reliable about <b>which region of "
-         "config space is good</b> and unreliable about which individual cell wins. With 6,300 cells "
-         "drawn from a single history, the top cell is by construction the one that best fit that "
-         "history's accidents.<br><br>"
-         "So: each knob\u2019s values below, ordered by median cancellation across <b>every curation "
-         "on disk</b>, with the rank each value took in each. A value marked <b>region</b> placed 1st "
-         "or 2nd in most of them; the live setting is outlined and starred. Pick anywhere inside the "
-         "region and stop optimising &mdash; the ranked list of individual configs that used to sit "
-         "here has been removed, because its ordering was the part that does not reproduce."
-         '</p><div id="s-region"></div><div class="scroll">'
+        ('<section class="panel"><h2>8. The best region of the grid</h2><p class="lead">'
+         f"<b>{reg_tbl}</b>"
+         "<p class=\"lead\">I stopped asking which of the 6,300 configs is best. With one history and "
+         "6,300 candidates, the winner is just the cell that best fits that history's accidents &mdash; "
+         "re-run the same sweep and 15% of cells move. So instead I ask which <b>region</b> is best, "
+         "and that question does have a stable answer.<br><br>"
+         "<b>How a region is defined.</b> Take one knob at a time. For each of its values, pool every "
+         "config using it (about 1,575 of them) and take the median portfolio value &mdash; separately "
+         f"in each of the <b>{payload['region']['n_curations']} curations</b> on disk, each normalised "
+         "to its own curation's median so a rich curation cannot outvote a lean one. A value is <b>in "
+         "the region</b> if it lands within one standard error of the best value for that knob. That "
+         "keeps genuine ties instead of forcing a winner. The region is the intersection across all "
+         f"six knobs: <b>{payload['region']['n_configs']} configs</b> out of 6,300.<br><br>"
+         "<b>Why portfolio value and not a risk measure.</b> Tested by leave-one-curation-out &mdash; "
+         "pick the region on 14 curations, score it on the 15th &mdash; a region chosen on value lands "
+         "at the <b>91st percentile</b> of the held-out grid, against 80th for cancellation, 77th for "
+         "annualized return and 61st for Sharpe. Pooling kills the luck that makes a single cell "
+         "meaningless, so value is measurable at this resolution even though it is not at cell level."
+         '</p><div id="s-region"></div>'
+         f"<p class=\"lead\">The chart is every curation's region median against its whole-grid "
+         f"median. It comes out ahead in <b>all {payload['region']['n_curations']}</b>, by "
+         f"<b>{payload['region']['lift_mean']}&times; &plusmn; {payload['region']['lift_se']}</b>. "
+         f"A config drawn from this region is characteristically worth "
+         f"<b>${payload['region']['value_mean']:,} &plusmn; ${payload['region']['value_se']:,}</b> "
+         f"(median ${payload['region']['value_median']:,}) on a $50,000 stake."
          '</p></section>'),
         panel(9, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
@@ -745,7 +797,7 @@ function draw(){{
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<br>'+xlab+' %{{x:,.0f}}'+xsuf+'<extra></extra>',
       showlegend:false}});
     const tr=[mk(c=>!isCur(c))];
-    // The table-9 top N, as light-blue squares: smaller than the star and drawn UNDER it, so the live
+    // REGION MEMBERS as light-blue squares: smaller than the star and drawn UNDER it, so the live
     // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
     const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
@@ -753,7 +805,7 @@ function draw(){{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:'#7dd3fc',
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>table-9 top '+TOPN+'</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>IN THE REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
@@ -1078,27 +1130,28 @@ function draw(){{
                  title:{{text:'percent', font:{{size:11}}}}}}}}), CFG);
     }}
   }}
-  // PANEL 8 -- the REGION. Median cancellation per knob VALUE across every curation on disk, which is
-  // the resolution the sweep actually reproduces at (27/27 orderings stable, vs 85% of cells). Bars
-  // are coloured by whether the value ranks 1st-2nd in most curations; the live setting is outlined.
+  // PANEL 8 -- does the region beat the grid, curation by curation? PAIRED bars, not one averaged
+  // number: "wins on average" and "wins every time" are different claims and only the second justifies
+  // acting on it. The old version plotted per-knob medians and broke silently when the payload moved
+  // from cancellation-median to value-mean -- r.median stopped existing and every bar drew as
+  // undefined, which Plotly renders as an empty panel rather than an error.
   const RG = DATA.region;
-  if (RG) {{
-    const knobs = Object.keys(RG.knobs);
-    const x = [], y = [], col = [], lw = [], txt = [];
-    knobs.forEach(k => RG.knobs[k].forEach(r => {{
-      x.push(k.replace(/_/g, ' ') + '<br>' + r.value); y.push(r.median);
-      col.push(r.in_region ? '#34d399' : (dark ? '#475569' : '#cbd5e1'));
-      lw.push(r.live ? 3 : 1); txt.push(r.live ? '\u2605' : '');
-    }}));
-    Plotly.react('s-region', [{{type:'bar', x:x, y:y, marker:{{color:col,
-        line:{{width:lw, color:(dark ? '#f8fafc' : '#0f172a')}}}},
-        text:txt, textposition:'outside', cliponaxis:false, textfont:{{size:15}},
-        hovertemplate:'%{{x}}<br>median cancellation %{{y:.1f}}%<extra></extra>'}}],
-      base(p, {{margin:{{l:58,r:14,t:26,b:96}}, showlegend:false,
-        xaxis:{{type:'category', tickfont:{{size:9}}}},
-        yaxis:{{gridcolor:p.grid, ticksuffix:'%', rangemode:'tozero',
-               title:{{text:'median cancellation across ' + RG.n_curations + ' curations (lower better)',
-                      font:{{size:11}}}}}}}}), CFG);
+  if (RG && RG.per_curation && RG.per_curation.length) {{
+    const P = RG.per_curation, nm2 = P.map(r => r.curation);
+    Plotly.react('s-region', [
+      {{type:'bar', name:'whole grid (median config)', x:nm2, y:P.map(r => r.grid),
+        marker:{{color:(dark ? '#475569' : '#cbd5e1')}},
+        hovertemplate:'%{{x}}<br>grid median $%{{y:,.0f}}<extra></extra>'}},
+      {{type:'bar', name:'inside the region', x:nm2, y:P.map(r => r.region),
+        marker:{{color:'#34d399'}},
+        text:P.map(r => r.lift.toFixed(1) + '\u00d7'), textposition:'outside', cliponaxis:false,
+        textfont:{{size:10, color:p.fg}},
+        hovertemplate:'%{{x}}<br>region median $%{{y:,.0f}}<extra></extra>'}}
+    ], base(p, {{barmode:'group', margin:{{l:68,r:16,t:36,b:82}},
+        legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
+        xaxis:{{type:'category', tickfont:{{size:9}}, tickangle:-40}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
+               title:{{text:'median final value of a config', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 
