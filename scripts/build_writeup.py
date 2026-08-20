@@ -199,7 +199,7 @@ offer, at a fraction of the price of the models either side of it.</p>
 <p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>
-<p><b>The grading was audited too.</b> Fable 5 re-read a sample of a cheap first pass in both directions, the condemned and the cleared alike. The two agreed on the easy tests and diverged most on the hardest one, which is exactly where a cheap judge should not be trusted.</p>
+
 </section>
 
 <section>
@@ -218,6 +218,10 @@ ceiling. Either way that is where to look, and looking there is worth more than 
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a
 <b>mismatch between a model's habits and a job's requirements</b>, invisible on any leaderboard.</p>
+<p><b>The grading was audited too.</b> Fable 5 re-read a sample of a cheap first pass in both
+directions, the condemned and the cleared alike. The two agreed closely on the easy tests and
+diverged on that same sources test, which is both what separates the models and where a cheap judge
+should not be trusted.</p>
 </section>
 
 <section class="takeaway">
