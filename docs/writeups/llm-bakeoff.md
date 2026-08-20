@@ -126,22 +126,20 @@ would have told you so.
 
 ## If you are building something like this
 
-**Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. About 4,500
-graded decisions can. One is a sample of one; the other is a sample of thousands.
+**Grade on decisions, not outcomes.** Eight outcomes cannot separate eight models, but
+4,500 graded decisions can.
 
-**Spend frontier money on the judge, not the worker.** The most valuable model in this study
-never ran in production. It graded what did.
+**Spend frontier money on the judge and not the worker.** The most valuable model in this
+study never ran in production. It graded what did.
 
-**Measure inference time, not just price.** A four-fold speed difference decides whether a
+**Measure inference time, not just price.** A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.
 
 **Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
-Best here was mid-priced, worst was the most expensive, runner-up cost 1.1× the
-cheapest, none of it predictable from a benchmark, and none of it measured on your documents. What transfers is the
-method: run the arms, grade the decisions blind, audit the judge. That costs a few hundred dollars
-and answers the question for *your* task, which no published benchmark can.
+None of it was measured on your documents. What transfers is the method: run the arms, grade the
+decisions blind, audit the judge. A few hundred dollars answers it for *your* task.
 
-The whole study cost under $200 and took two days.
+This study took two days to quantify and $200 in inference costs.
 
 ## Work with us
 
