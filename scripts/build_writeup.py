@@ -50,33 +50,33 @@ def main() -> int:
 <p>Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
 proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
 and openings both, and many are <b>reported publicly before they reach anyone's numbers</b>.</p>
-<p>The information is not the hard part. Nobody has time to read a hundred thousand articles a month
-and find the twelve that matter to <i>you</i>. So: <b>can a language model do that reading, and make
-the routine calls that follow, well enough to act on?</b></p>
-<p>I built one to find out. It reads business news as it is published, flags what could help or hurt,
-and — the part that matters — <b>keeps deciding what to do as the story develops</b>. Mundane work,
-which is the point: most of what moves a bottom line is mundane. I run it on a market portfolio for
-the unambiguous scorecard, but swap the feed and it watches your supply chain, your regulators, or
-your competitors.</p>
+<p>The information is not the hard part. But nobody has time to read many thousands of articles per
+month and find the twelve that matter to <i>you</i>. So: <b>can a language model do that reading, and
+make the routine calls that follow, well enough to act on?</b></p>
+<p>That is what this solution was built to answer. It reads business news as it is published, flags
+what could help or hurt, and then keeps deciding what to do <b>as the story evolves over time</b>.
+This is mundane work, which is exactly where AI earns its keep: most of what moves a bottom line is
+mundane. I run this solution on a market portfolio for the unambiguous scorecard, but swap the feed
+and the same machinery watches your supply chain, your regulators, or your competitors.</p>
 
 <h2>The decision being automated</h2>
 <p>For each situation this solution is monitoring, it uses AI to revisit three questions every month:</p>
 <ul>
-  <li><b>Is this still true?</b> — the situation I flagged is still developing, and the reasoning I
+  <li><b>Is this still true?</b>: the situation I flagged is still developing, and the reasoning I
       wrote down still holds.</li>
-  <li><b>Has the thing I was waiting for already happened?</b> — most situations turn on one
+  <li><b>Has the thing I was waiting for already happened?</b>: most situations turn on one
       identifiable event: a ruling, a signed act, a contract award, a plant restart. Once it happens,
       the uncertainty is gone and so is the reason to act. <i>A manufacturer watching a proposed tariff
-      cares enormously up to the signing and not at all afterwards — by then the price has moved.</i></li>
-  <li><b>Should I still be committed to it?</b> — should capital, inventory or capacity still be tied
+      cares enormously up to the signing and not at all afterwards, because by then the price has moved.</i></li>
+  <li><b>Should I still be committed to it?</b>: should capital, inventory or capacity still be tied
       up on the strength of this, or is that commitment now doing nothing.</li>
 </ul>
 <p>That is roughly <b>600 judgment calls per run</b>, where a <b>run</b> means one complete pass of the
-system over three years of news — month by month, from scratch, making every call in sequence exactly
+system over three years of news: month by month, from scratch, making every call in sequence exactly
 as it would have at the time. A run takes under two hours and costs between $6 and $32 depending on
 which model is doing the reading.</p>
 <p>Which raises the obvious question: <b>does paying for a better model pay?</b> So I ran the whole
-thing <b>eight times</b>, changing exactly one thing each time — the model making those calls. Same
+thing <b>eight times</b>, changing exactly one thing each time, the model making those calls. Same
 articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.</p>
 </section>
 
@@ -84,29 +84,29 @@ articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.
 <h2>1. Cost tells you nothing about speed</h2>
 <div id="c1" class="plot"></div>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
-the <i>slowest</i> by a factor of four — three hours against forty-five minutes. Two models within
+the <i>slowest</i> by a factor of four: three hours against forty-five minutes. Two models within
 seven cents of each other differed by more than two hours of wall clock.</p>
 <p>If you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides whether the system is usable at all, and it is invisible on a price list.</p>
 </section>
 
 <section>
-<h2>2. A frontier model graded every decision — and quality peaks in the middle</h2>
+<h2>2. A frontier model graded every decision, and quality peaks in the middle</h2>
 <div id="c2" class="plot"></div>
 <p>Comparing the models on the portfolio's final value would be close to meaningless: one number per
-run, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5 — the
-strongest model available, and one that never touched the production path — re-read the decisions the
+run, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one that never the
+strongest model available, and one that never touched the production path, re-read the decisions the
 eight working models had made and graded them, blind to which model produced which.</b></p>
 <p>Each decision was scored on <b>process only</b>, with no prices and no outcomes in front of the
 grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
 write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
 exit condition the model itself had written down? A decision is <b>clean</b> only if it passes all
 three.</p>
-<p><b>The score below is the percentage of that model's ~600 decisions that came back clean —
-higher is better.</b> Quality separates sharply where the portfolio value could not: a 23-point spread
+<p><b>The score below is the percentage of that model's ~600 decisions that came back clean.
+Higher is better.</b> Quality separates sharply where the portfolio value could not, a 23-point spread
 across the eight. And the curve <b>peaks in the middle</b>. The most expensive model finished
 <i>last</i>. A $6.42 model landed within three points of the leader.</p>
-<p>This is not "cheaper is better" — the cheapest model is near the bottom too. It is that
+<p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>
 </section>
@@ -114,15 +114,15 @@ is to grade the work.</p>
 <section>
 <h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
 <div id="c3" class="plot"></div>
-<p>Breaking the same grades out by test — again, higher is better on all three — says three things no
+<p>Breaking the same grades out by test, higher being better on all three, says three things no
 aggregate score can.</p>
 <p><b>Internal consistency is a solved problem.</b> Every model scores 93–100%: none of them
 contradicts reasoning it wrote down itself. That test can be retired.</p>
 <p><b>Every model is weakest on the same thing.</b> Identifying a specific, datable trigger runs
 46–66% across eight models from six vendors. When everything fails the same way, <b>the instructions
-are at fault, not the model</b> — and fixing that is worth more than any model swap.</p>
+are at fault, not the model</b>, and fixing that is worth more than any model swap.</p>
 <p><b>One test actually separates the field:</b> staying inside your sources, 75% to 97%. That is what
-the extra money bought, where it bought anything. The most expensive model is the instructive case — it
+the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a
 <b>mismatch between a model's habits and a job's requirements</b>, invisible on any leaderboard.</p>
 </section>
@@ -131,12 +131,12 @@ writes well-evidenced analysis of things that <i>are not events</i>. Not a bad m
 <h2>4. The grader was graded too</h2>
 <div id="c4" class="plot"></div>
 <p>Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
-screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them — both the ones the screen
+screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the ones the screen
 condemned <i>and</i> the ones it cleared, so the correction ran in both directions rather than only
 rescuing false accusations.</p>
 <p>Then the cheap screen was itself audited against the frontier grader. It agreed
 <b>{ja['agree']['consistent']:.0f}%</b> of the time on consistency and <b>{ja['agree']['dated']:.0f}%</b>
-on datable triggers — but only <b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its
+on datable triggers, but only <b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its
 sources. That is the hardest judgment of the three, and precisely where a cheap grader should not be
 trusted. The study's own conclusion, turning up inside its own instrument.</p>
 </section>
@@ -157,7 +157,7 @@ expensive, runner-up cost $6.42. None of that is predictable from a benchmark.</
 <section class="cta">
 <h2>Work with us</h2>
 <p>JMH Data Sciences builds and evaluates AI systems that make repeated decisions over unstructured
-information — news, filings, reports, tickets, claims — where being <i>approximately right, reliably</i>
+information (news, filings, reports, tickets, claims) where being <i>approximately right, reliably</i>
 beats being brilliant occasionally.</p>
 <p>If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.</p>
