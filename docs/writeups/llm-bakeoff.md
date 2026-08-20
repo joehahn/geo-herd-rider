@@ -78,9 +78,9 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 
 *[chart 2]*
 
-This is a cost-optimization exercise. The goal is not to crown the best model, it is to find the
-most capability per dollar. So I used a top-of-the-line frontier model to judge the other models'
-decisions. **Claude Fable 5 never touched the production path. It re-read the decisions the eight
+This is also a cost-optimization exercise, so our goal is not to crown the best model, but to find
+the most capable AI per dollar spent. To do that I used a top-of-the-line frontier model to judge
+the other models' decisions. **Claude Fable 5 never touched the production path. It re-read the decisions the eight
 working models had made and graded them, blind to which model produced which.**
 
 Each decision was scored on **process only**, with no prices and no outcomes in front of the
