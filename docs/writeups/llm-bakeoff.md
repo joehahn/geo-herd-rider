@@ -5,29 +5,21 @@
 Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
 model to grade those decisions.
 
-## Why point AI at 100,000 documents
+## Why point AI at 100,000 news articles
 
-Some decisions are not hard, they are just **endless**. A stream of documents arrives faster
-than anyone can read it, most of it is irrelevant, a little of it matters a lot, and the handful that
-mattered last month may not matter now. Nobody has time, so the reading either does not happen or it
-happens badly.
+Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
+proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
+and openings both, and many are **reported publicly before they reach anyone's numbers**.
 
-That shape is everywhere. **Business news**: a supplier's plant goes down, a tariff is proposed,
-a safety agency schedules a vote that could pull a rival's product off the shelf — reported
-publicly before it reaches anyone's numbers. **Issue and support tickets**: which of this week's
-600 is the one failure that is actually spreading, and is last week's fire still burning? Contracts
-coming up for renewal, adverse-event reports, filings, claims, security advisories. Same job every
-time: **read the stream, decide what is worth acting on, and keep revisiting that call as the story
-moves**.
+The information is not the hard part. But nobody has time to read many thousands of articles per
+month and find the twelve that matter to *you*. So: **can a language model do that reading, and
+make the routine calls that follow, well enough to act on?**
 
-So: **can a language model do that reading, and make the routine calls that follow, well enough
-to act on?** That is mundane work, which is exactly where AI earns its keep — most of what
-moves a bottom line is mundane.
-
-To answer it you need a scoreboard, and that is the awkward part: on most document streams there
-is no clean way to tell a good call from a lucky one. So I built the system on **market news**,
-where the scorecard is unambiguous and public, and pointed it at 100,000 articles. The domain is the
-worked example. The machinery does not care what the documents are.
+That is what this solution was built to answer. It reads business news as it is published, flags
+what could help or hurt, and then keeps deciding what to do **as the story evolves over time**.
+This is mundane work, which is exactly where AI earns its keep: most of what moves a bottom line is
+mundane. I run this solution on a market portfolio for the unambiguous scorecard, but swap the feed
+and the same machinery watches your supply chain, your regulators, or your competitors.
 
 ## The decision being automated
 
