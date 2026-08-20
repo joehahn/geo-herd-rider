@@ -124,11 +124,6 @@ writes well-evidenced analysis of things that *are not events*. That tells us **
 expensive model considered here is not well suited to this particular job**, and no leaderboard
 would have told you so.
 
-**The grading was audited too.** Fable 5 re-read a sample of a cheap first pass in both
-directions, the condemned and the cleared alike. The two agreed closely on the easy tests and
-diverged on that same sources test, which is both what separates the models and where a cheap judge
-should not be trusted.
-
 ## If you are building something like this
 
 **Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. About 4,500
@@ -141,8 +136,8 @@ never ran in production. It graded what did.
 system can run at the cadence your business actually needs.
 
 **Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
-Best here was mid-priced, worst was the most expensive, runner-up cost $6.42, none of it
-predictable from a benchmark, and none of it measured on your documents. What transfers is the
+Best here was mid-priced, worst was the most expensive, runner-up cost 1.1× the
+cheapest, none of it predictable from a benchmark, and none of it measured on your documents. What transfers is the
 method: run the arms, grade the decisions blind, audit the judge. That costs a few hundred dollars
 and answers the question for *your* task, which no published benchmark can.
 
