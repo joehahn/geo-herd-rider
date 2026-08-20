@@ -155,9 +155,9 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 <h2>2. Quality peaks in the middle</h2>
 <div id="c2" class="plot"></div>
 <p>Comparing the models on the portfolio's final value would be close to meaningless: one number per
-scan, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one that never the
-strongest model available, and one that never touched the production path, re-read the decisions the
-eight working models had made and graded them, blind to which model produced which.</b></p>
+scan, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one
+that never touched the production path, re-read the decisions the eight working models had made and
+graded them, blind to which model produced which.</b></p>
 <p>Each decision was scored on <b>process only</b>, with no prices and no outcomes in front of the
 grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
 write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
