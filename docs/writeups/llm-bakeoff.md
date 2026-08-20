@@ -62,9 +62,10 @@ Here are the main findings.
 
 *[chart 1]*
 
-Each bar is one AI model, showing how long it took that model to read the 100,000-article corpus
-and make every call that followed. The models are ordered by price, cheapest on the left, and the
-figure under each name is what it costs relative to the cheapest of the eight.
+Each bar is one AI model indicating how long it took that model to read and decide upon the
+100,000-article corpus and make every call that followed. The models are ordered by price, least
+expensive on the left, and the figure under each name is what it costs relative to the cheapest of
+the eight.
 
 The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
 the *slowest* by a factor of four: three hours against forty-five minutes. Two models within

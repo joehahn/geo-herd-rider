@@ -131,9 +131,10 @@ same downstream logic. Prices spanned <b>5&times;</b>.</p>
 <section>
 <h2>1. For this use case, cost says nothing about speed</h2>
 <div id="c1" class="plot"></div>
-<p>Each bar is one AI model, showing how long it took that model to read the 100,000-article corpus
-and make every call that followed. The models are ordered by price, cheapest on the left, and the
-figure under each name is what it costs relative to the cheapest of the eight.</p>
+<p>Each bar is one AI model indicating how long it took that model to read and decide upon the
+100,000-article corpus and make every call that followed. The models are ordered by price, least
+expensive on the left, and the figure under each name is what it costs relative to the cheapest of
+the eight.</p>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
 the <i>slowest</i> by a factor of four: three hours against forty-five minutes. Two models within
 seven cents of each other differed by more than two hours of wall clock.</p>
@@ -270,13 +271,21 @@ p {{ margin: 0 0 13px; }}
 <script>
 const DATA = {json.dumps(payload)};
 const L = {json.dumps(LIGHT)}, D = {json.dumps(DARK)};
-const CFG = {{displayModeBar:false, responsive:true}};
+// The mode bar is on for one button only: "download as PNG", at 3x scale and 1500x850, so a chart
+// can be dropped into a deck without being re-drawn. Everything else is stripped -- zoom and lasso
+// on a static bar chart are noise for this audience.
+const CFG = {{responsive:true, displaylogo:false,
+  modeBarButtonsToRemove:['zoom2d','pan2d','select2d','lasso2d','zoomIn2d','zoomOut2d',
+                          'autoScale2d','resetScale2d','toggleSpikelines',
+                          'hoverClosestCartesian','hoverCompareCartesian'],
+  toImageButtonOptions:{{format:'png', filename:'llm-bakeoff', scale:3,
+                        width:1500, height:850}}}};
 function draw() {{
   const dark = matchMedia('(prefers-color-scheme: dark)').matches
             && document.documentElement.getAttribute('data-theme') !== 'light';
   const p = dark ? D : L;
   const base = extra => Object.assign({{paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{{color:p.fg, size:12}}, hoverlabel:{{bgcolor:p.surface, font:{{color:p.fg}}}}}}, extra);
+    font:{{color:p.fg, size:13.5}}, hoverlabel:{{bgcolor:p.surface, font:{{color:p.fg}}}}}}, extra);
   const BO = DATA.bo, nm = BO.map(r => r.label + '<br>cost ' + r.mult + '\u00d7');
 
   // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
@@ -286,10 +295,10 @@ function draw() {{
   Plotly.react('c1', [{{type:'bar', x:nm, y:BO.map(r=>r.minutes), marker:{{color:'#22d3ee'}},
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{{x}}<br>%{{y:.0f}} minutes per scan<extra></extra>'}}],
-    base({{margin:{{l:62,r:16,t:20,b:84}}, showlegend:false,
-      xaxis:{{type:'category', tickfont:{{size:10}}}},
+    base({{margin:{{l:76,r:16,t:20,b:92}}, showlegend:false,
+      xaxis:{{type:'category', tickfont:{{size:11.5}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{{text:'analysis time', font:{{size:11}}}}}}}}), CFG);
+             title:{{text:'analysis time', font:{{size:13}}, standoff:14}}}}}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
@@ -298,14 +307,14 @@ function draw() {{
       marker:{{color:byCost.map(r=>r.cost),
               colorscale:'Plasma', reversescale:true, cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
-              colorbar:{{title:{{text:'cost per<br>scan', font:{{size:10}}}}, tickprefix:'$',
+              colorbar:{{title:{{text:'cost per<br>scan', font:{{size:12}}}}, tickprefix:'$',
                         thickness:9, len:.6}}}},
       text:byCost.map(r=>r.clean_2s.toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{{y}}<br>%{{x:.1f}}%% of decisions clean<extra></extra>'}}],
     base({{margin:{{l:196,r:60,t:14,b:46}}, showlegend:false,
       xaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0,78],
-             title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}},
-      yaxis:{{automargin:true, tickfont:{{size:11}}}}}}), CFG);
+             title:{{text:'decisions clean on all 3 tests', font:{{size:13}}, standoff:14}}}},
+      yaxis:{{automargin:true, tickfont:{{size:12}}}}}}), CFG);
 
   // 3. the three tests, broken out
   const mk = (n,k,c) => ({{type:'bar', name:n, x:nm, y:BO.map(r=>r[k]), marker:{{color:c}},
@@ -315,10 +324,10 @@ function draw() {{
                       mk('claims within sources','supported_adj','#34d399'),
                       mk('internally consistent','consistent_adj','#60a5fa')],
     base({{barmode:'group', margin:{{l:56,r:16,t:38,b:84}},
-      legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-      xaxis:{{type:'category', tickfont:{{size:10}}}},
+      legend:{{orientation:'h', y:1.16, x:0, font:{{size:12.5}}}},
+      xaxis:{{type:'category', tickfont:{{size:11.5}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[35,108],
-             title:{{text:'pass rate', font:{{size:11}}}}}}}}), CFG);
+             title:{{text:'pass rate', font:{{size:13}}, standoff:14}}}}}}), CFG);
 
   // 4. the grader auditing itself
   const A = DATA.ja.agree, ax = ['consistent','dated','supported'];
@@ -330,7 +339,7 @@ function draw() {{
     base({{margin:{{l:56,r:16,t:16,b:52}}, showlegend:false,
       xaxis:{{type:'category'}},
       yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0,108],
-             title:{{text:'cheap screen agreed with the frontier grader', font:{{size:11}}}}}}}}), CFG);
+             title:{{text:'cheap screen agreed with the frontier grader', font:{{size:13}}, standoff:14}}}}}}), CFG);
 }}
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);

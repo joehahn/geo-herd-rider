@@ -141,9 +141,10 @@ same downstream logic. Prices spanned <b>5&times;</b>.</p>
 <section>
 <h2>1. For this use case, cost says nothing about speed</h2>
 <div id="c1" class="plot"></div>
-<p>Each bar is one AI model, showing how long it took that model to read the 100,000-article corpus
-and make every call that followed. The models are ordered by price, cheapest on the left, and the
-figure under each name is what it costs relative to the cheapest of the eight.</p>
+<p>Each bar is one AI model indicating how long it took that model to read and decide upon the
+100,000-article corpus and make every call that followed. The models are ordered by price, least
+expensive on the left, and the figure under each name is what it costs relative to the cheapest of
+the eight.</p>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
 the <i>slowest</i> by a factor of four: three hours against forty-five minutes. Two models within
 seven cents of each other differed by more than two hours of wall clock.</p>
@@ -237,13 +238,21 @@ we would like to hear from you.</p>
 <script>
 const DATA = {"bo": [{"arm": "deepseek4", "disp": "DeepSeek<br>V4 Flash", "cost": 5.96, "minutes": 181.4, "final": 208065, "cancelled": 48.7, "sharpe": 1.45, "max_drawdown": 40.0, "focus_gain": 52428, "focus_held": 3, "l1": 2201.5, "decisions": 562, "clean": 33.3, "overturn": 27.0, "fn_rate": 26.0, "clean_2s": 42.6, "t2_n": 100, "t3_n": 50, "dated": 50.2, "dated_adj": 52.0, "supported": 63.3, "supported_adj": 75.3, "consistent": 97.0, "consistent_adj": 99.3, "events": 322, "examined": 153, "label": "DeepSeek V4 Flash", "mult": 1.0}, {"arm": "grok-low", "disp": "Grok 4.3<br>LOW reasoning", "cost": 6.42, "minutes": 45.1, "final": 272336, "cancelled": 43.8, "sharpe": 1.52, "max_drawdown": 33.0, "focus_gain": 67713, "focus_held": 3, "l1": 2098.6, "decisions": 555, "clean": 50.3, "overturn": 34.0, "fn_rate": 12.0, "clean_2s": 61.1, "t2_n": 100, "t3_n": 50, "dated": 67.4, "dated_adj": 65.6, "supported": 76.0, "supported_adj": 94.0, "consistent": 94.2, "consistent_adj": 96.0, "events": 397, "examined": 172, "label": "Grok 4.3 LOW reasoning", "mult": 1.1}, {"arm": "grok-high", "disp": "Grok 4.3<br>HIGH reasoning", "cost": 6.85, "minutes": 47.1, "final": 155950, "cancelled": 55.4, "sharpe": 1.1, "max_drawdown": 32.1, "focus_gain": 57749, "focus_held": 3, "l1": 2177.3, "decisions": 570, "clean": 49.1, "overturn": 27.0, "fn_rate": 10.0, "clean_2s": 57.9, "t2_n": 100, "t3_n": 50, "dated": 63.3, "dated_adj": 59.9, "supported": 76.7, "supported_adj": 89.9, "consistent": 94.2, "consistent_adj": 99.5, "events": 365, "examined": 175, "label": "Grok 4.3 HIGH reasoning", "mult": 1.1}, {"arm": "minimax", "disp": "MiniMax<br>M3", "cost": 8.16, "minutes": 48.2, "final": 151642, "cancelled": 56.1, "sharpe": 0.94, "max_drawdown": 37.1, "focus_gain": 51853, "focus_held": 2, "l1": 2182.9, "decisions": 574, "clean": 37.6, "overturn": 25.0, "fn_rate": 26.0, "clean_2s": 43.4, "t2_n": 100, "t3_n": 50, "dated": 59.2, "dated_adj": 59.1, "supported": 66.7, "supported_adj": 79.8, "consistent": 98.6, "consistent_adj": 92.9, "events": 387, "examined": 107, "label": "MiniMax M3", "mult": 1.4}, {"arm": "luna", "disp": "GPT-5.6<br>Luna", "cost": 13.46, "minutes": 50.3, "final": 142054, "cancelled": 57.7, "sharpe": 1.08, "max_drawdown": 34.7, "focus_gain": 73818, "focus_held": 2, "l1": 2276.4, "decisions": 558, "clean": 54.8, "overturn": 32.0, "fn_rate": 10.0, "clean_2s": 63.8, "t2_n": 100, "t3_n": 50, "dated": 63.4, "dated_adj": 66.0, "supported": 88.4, "supported_adj": 97.4, "consistent": 95.2, "consistent_adj": 100.0, "events": 441, "examined": 202, "label": "GPT-5.6 Luna", "mult": 2.3}, {"arm": "kimi-high", "disp": "Kimi K3<br>HIGH reasoning", "cost": 25.67, "minutes": 137.6, "final": 173320, "cancelled": 43.0, "sharpe": 1.44, "max_drawdown": 34.6, "focus_gain": 101789, "focus_held": 3, "l1": 2226.0, "decisions": 570, "clean": 38.9, "overturn": 28.0, "fn_rate": 10.0, "clean_2s": 52.1, "t2_n": 100, "t3_n": 50, "dated": 50.2, "dated_adj": 58.8, "supported": 80.5, "supported_adj": 92.8, "consistent": 97.4, "consistent_adj": 98.6, "events": 406, "examined": 129, "label": "Kimi K3 HIGH reasoning", "mult": 4.3}, {"arm": "kimi-low", "disp": "Kimi K3<br>LOW reasoning", "cost": 27.31, "minutes": 107.4, "final": 215799, "cancelled": 46.7, "sharpe": 1.38, "max_drawdown": 29.8, "focus_gain": 46376, "focus_held": 3, "l1": 2202.0, "decisions": 568, "clean": 44.2, "overturn": 23.0, "fn_rate": 12.0, "clean_2s": 51.7, "t2_n": 100, "t3_n": 50, "dated": 54.0, "dated_adj": 56.9, "supported": 83.3, "supported_adj": 90.9, "consistent": 97.2, "consistent_adj": 99.4, "events": 445, "examined": 135, "label": "Kimi K3 LOW reasoning", "mult": 4.6}, {"arm": "sonnet5", "disp": "Claude<br>Sonnet 5", "cost": 31.66, "minutes": 70.5, "final": 142780, "cancelled": 68.0, "sharpe": 1.07, "max_drawdown": 42.3, "focus_gain": 17435, "focus_held": 1, "l1": 2138.5, "decisions": 570, "clean": 36.8, "overturn": 18.0, "fn_rate": 20.0, "clean_2s": 40.8, "t2_n": 100, "t3_n": 50, "dated": 45.4, "dated_adj": 46.1, "supported": 79.1, "supported_adj": 89.6, "consistent": 99.3, "consistent_adj": 99.4, "events": 323, "examined": 128, "label": "Claude Sonnet 5", "mult": 5.3}], "ja": {"n_tier1": 4527, "n_failed": 29, "n_flagged": 2576, "n_tier2": 800, "n_tier3": 400, "n_upheld": 586, "precision": 73.2, "fn_overall": 15.8, "agree": {"dated": 85.4, "supported": 66.5, "consistent": 92.9}, "per_arm": [{"arm": "deepseek4", "disp": "DeepSeek<br>V4 Flash", "overturn": 27.0, "fn_rate": 26.0, "clean": 33.3, "clean_2s": 42.6}, {"arm": "grok-low", "disp": "Grok 4.3<br>LOW reasoning", "overturn": 34.0, "fn_rate": 12.0, "clean": 50.3, "clean_2s": 61.1}, {"arm": "grok-high", "disp": "Grok 4.3<br>HIGH reasoning", "overturn": 27.0, "fn_rate": 10.0, "clean": 49.1, "clean_2s": 57.9}, {"arm": "minimax", "disp": "MiniMax<br>M3", "overturn": 25.0, "fn_rate": 26.0, "clean": 37.6, "clean_2s": 43.4}, {"arm": "luna", "disp": "GPT-5.6<br>Luna", "overturn": 32.0, "fn_rate": 10.0, "clean": 54.8, "clean_2s": 63.8}, {"arm": "kimi-high", "disp": "Kimi K3<br>HIGH reasoning", "overturn": 28.0, "fn_rate": 10.0, "clean": 38.9, "clean_2s": 52.1}, {"arm": "kimi-low", "disp": "Kimi K3<br>LOW reasoning", "overturn": 23.0, "fn_rate": 12.0, "clean": 44.2, "clean_2s": 51.7}, {"arm": "sonnet5", "disp": "Claude<br>Sonnet 5", "overturn": 18.0, "fn_rate": 20.0, "clean": 36.8, "clean_2s": 40.8}]}};
 const L = {"surface": "#fcfcfb", "text": "#0b0b0b", "text2": "#52514e", "grid": "#e6e5e1", "s1": "#2a78d6", "s2": "#eb6834", "s3": "#1baf7a", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}, D = {"surface": "#1a1a19", "text": "#ffffff", "text2": "#c3c2b7", "grid": "#33322f", "s1": "#3987e5", "s2": "#d95926", "s3": "#199e70", "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]};
-const CFG = {displayModeBar:false, responsive:true};
+// The mode bar is on for one button only: "download as PNG", at 3x scale and 1500x850, so a chart
+// can be dropped into a deck without being re-drawn. Everything else is stripped -- zoom and lasso
+// on a static bar chart are noise for this audience.
+const CFG = {responsive:true, displaylogo:false,
+  modeBarButtonsToRemove:['zoom2d','pan2d','select2d','lasso2d','zoomIn2d','zoomOut2d',
+                          'autoScale2d','resetScale2d','toggleSpikelines',
+                          'hoverClosestCartesian','hoverCompareCartesian'],
+  toImageButtonOptions:{format:'png', filename:'llm-bakeoff', scale:3,
+                        width:1500, height:850}};
 function draw() {
   const dark = matchMedia('(prefers-color-scheme: dark)').matches
             && document.documentElement.getAttribute('data-theme') !== 'light';
   const p = dark ? D : L;
   const base = extra => Object.assign({paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:p.fg, size:12}, hoverlabel:{bgcolor:p.surface, font:{color:p.fg}}}, extra);
+    font:{color:p.fg, size:13.5}, hoverlabel:{bgcolor:p.surface, font:{color:p.fg}}}, extra);
   const BO = DATA.bo, nm = BO.map(r => r.label + '<br>cost ' + r.mult + '×');
 
   // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
@@ -253,10 +262,10 @@ function draw() {
   Plotly.react('c1', [{type:'bar', x:nm, y:BO.map(r=>r.minutes), marker:{color:'#22d3ee'},
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{x}<br>%{y:.0f} minutes per scan<extra></extra>'}],
-    base({margin:{l:62,r:16,t:20,b:84}, showlegend:false,
-      xaxis:{type:'category', tickfont:{size:10}},
+    base({margin:{l:76,r:16,t:20,b:92}, showlegend:false,
+      xaxis:{type:'category', tickfont:{size:11.5}},
       yaxis:{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{text:'analysis time', font:{size:11}}}}), CFG);
+             title:{text:'analysis time', font:{size:13}, standoff:14}}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
@@ -265,14 +274,14 @@ function draw() {
       marker:{color:byCost.map(r=>r.cost),
               colorscale:'Plasma', reversescale:true, cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
-              colorbar:{title:{text:'cost per<br>scan', font:{size:10}}, tickprefix:'$',
+              colorbar:{title:{text:'cost per<br>scan', font:{size:12}}, tickprefix:'$',
                         thickness:9, len:.6}},
       text:byCost.map(r=>r.clean_2s.toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{y}<br>%{x:.1f}%% of decisions clean<extra></extra>'}],
     base({margin:{l:196,r:60,t:14,b:46}, showlegend:false,
       xaxis:{gridcolor:p.grid, ticksuffix:'%', range:[0,78],
-             title:{text:'decisions clean on all 3 tests', font:{size:11}}},
-      yaxis:{automargin:true, tickfont:{size:11}}}), CFG);
+             title:{text:'decisions clean on all 3 tests', font:{size:13}, standoff:14}},
+      yaxis:{automargin:true, tickfont:{size:12}}}), CFG);
 
   // 3. the three tests, broken out
   const mk = (n,k,c) => ({type:'bar', name:n, x:nm, y:BO.map(r=>r[k]), marker:{color:c},
@@ -282,10 +291,10 @@ function draw() {
                       mk('claims within sources','supported_adj','#34d399'),
                       mk('internally consistent','consistent_adj','#60a5fa')],
     base({barmode:'group', margin:{l:56,r:16,t:38,b:84},
-      legend:{orientation:'h', y:1.16, x:0, font:{size:11}},
-      xaxis:{type:'category', tickfont:{size:10}},
+      legend:{orientation:'h', y:1.16, x:0, font:{size:12.5}},
+      xaxis:{type:'category', tickfont:{size:11.5}},
       yaxis:{gridcolor:p.grid, ticksuffix:'%', range:[35,108],
-             title:{text:'pass rate', font:{size:11}}}}), CFG);
+             title:{text:'pass rate', font:{size:13}, standoff:14}}}), CFG);
 
   // 4. the grader auditing itself
   const A = DATA.ja.agree, ax = ['consistent','dated','supported'];
@@ -297,7 +306,7 @@ function draw() {
     base({margin:{l:56,r:16,t:16,b:52}, showlegend:false,
       xaxis:{type:'category'},
       yaxis:{gridcolor:p.grid, ticksuffix:'%', range:[0,108],
-             title:{text:'cheap screen agreed with the frontier grader', font:{size:11}}}}), CFG);
+             title:{text:'cheap screen agreed with the frontier grader', font:{size:13}, standoff:14}}}), CFG);
 }
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
