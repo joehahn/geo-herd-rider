@@ -113,15 +113,15 @@ Section 2's scores are a synthesis of the three tests detailed here, higher is b
 **In this experiment every model is weakest on the same thing.** The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
 six vendors. Internal consistency (blue bars) sits at 93–100% for every one of them. When
-everything fails the same way the model is unlikely to be the problem. Rather, **the instructions
-might be at fault**, or a datable trigger may simply be hard to pin down and this close to the
+everything fails the same way the model is unlikely to be the problem. Rather, the instructions
+might be at fault, or a datable trigger may simply be hard to pin down and this close to the
 ceiling. Either way that is where to look, and looking there is worth more than any model swap.
 
 **But one test (green bars) separates the field:** staying inside your sources,
 75–97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
-writes well-evidenced analysis of things that *are not events*. Not a bad model; a
-**mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
+writes well-evidenced analysis of things that *are not events*. That is not a bad model, it is
+a model **not well suited to this particular job**, and no leaderboard would have told you so.
 
 **The grading was audited too.** Fable 5 re-read a sample of a cheap first pass in both
 directions, the condemned and the cleared alike. The two agreed closely on the easy tests and
