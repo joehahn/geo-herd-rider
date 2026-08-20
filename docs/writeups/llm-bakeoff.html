@@ -160,8 +160,9 @@ the most capable AI per dollar spent. To do that I used a top-of-the-line fronti
 the other models' decisions, Claude Fable 5, which never touched the production path. <b>The judge re-read
 the decisions the eight working models had made and graded them, blind to which model produced
 which.</b></p>
-<p>Each decision was scored on <b>process only</b>, with no prices and no outcomes in front of the
-grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
+<p>Each decision was scored on <b>process only</b>, with no post-AI outcomes in front of the judge.
+It never saw whether a call made money or lost it, so <b>a lucky guess earns nothing</b> and a
+well-reasoned call that happened to go wrong loses nothing. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
 AI model's write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
 exit condition the model itself had written down? A decision is <b>clean</b> only if it passes all
 three.</p>
@@ -191,16 +192,16 @@ writes well-evidenced analysis of things that <i>are not events</i>. Not a bad m
 </section>
 
 <section>
-<h2>4. The grader was graded too</h2>
+<h2>4. The judge was judged too</h2>
 <div id="c4" class="plot"></div>
 <p>Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
 screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the ones the screen
 condemned <i>and</i> the ones it cleared, so the correction ran in both directions rather than only
 rescuing false accusations.</p>
-<p>Then the cheap screen was itself audited against the frontier grader. It agreed
+<p>Then the cheap screen was itself audited against the frontier judge. It agreed
 <b>93%</b> of the time on consistency and <b>85%</b>
 on datable triggers, but only <b>66%</b> on whether a claim outran its
-sources. That is the hardest judgment of the three, and precisely where a cheap grader should not be
+sources. That is the hardest judgment of the three, and precisely where a cheap judge should not be
 trusted. The study's own conclusion, turning up inside its own instrument.</p>
 </section>
 
@@ -215,7 +216,7 @@ system can run at the cadence your business actually needs.</p>
 <p><b>Expect the answer to be specific to your job, and do not port this leaderboard to yours.</b>
 Best here was mid-priced, worst was the most expensive, runner-up cost $6.42, none of it
 predictable from a benchmark, and none of it measured on your documents. What transfers is the
-method: run the arms, grade the decisions blind, audit the grader. That costs a few hundred dollars
+method: run the arms, grade the decisions blind, audit the judge. That costs a few hundred dollars
 and answers the question for <i>your</i> task, which no published benchmark can.</p>
 <p class="cost">The whole study cost under $200 and took two days.</p>
 </section>

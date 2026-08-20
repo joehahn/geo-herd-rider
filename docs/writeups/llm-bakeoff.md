@@ -84,8 +84,9 @@ the other models' decisions, Claude Fable 5, which never touched the production 
 the decisions the eight working models had made and graded them, blind to which model produced
 which.**
 
-Each decision was scored on **process only**, with no prices and no outcomes in front of the
-grader. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
+Each decision was scored on **process only**, with no post-AI outcomes in front of the judge.
+It never saw whether a call made money or lost it, so **a lucky guess earns nothing** and a
+well-reasoned call that happened to go wrong loses nothing. Three tests: was the trigger a specific, datable event rather than a vague trend? Did the
 AI model's write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
 exit condition the model itself had written down? A decision is **clean** only if it passes all
 three.
@@ -118,7 +119,7 @@ the extra money bought, where it bought anything. The most expensive model is th
 writes well-evidenced analysis of things that *are not events*. Not a bad model; a
 **mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
 
-## 4. The grader was graded too
+## 4. The judge was judged too
 
 *[chart 4]*
 
@@ -127,10 +128,10 @@ screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the
 condemned *and* the ones it cleared, so the correction ran in both directions rather than only
 rescuing false accusations.
 
-Then the cheap screen was itself audited against the frontier grader. It agreed
+Then the cheap screen was itself audited against the frontier judge. It agreed
 **93%** of the time on consistency and **85%**
 on datable triggers, but only **66%** on whether a claim outran its
-sources. That is the hardest judgment of the three, and precisely where a cheap grader should not be
+sources. That is the hardest judgment of the three, and precisely where a cheap judge should not be
 trusted. The study's own conclusion, turning up inside its own instrument.
 
 ## If you are building something like this
@@ -147,7 +148,7 @@ system can run at the cadence your business actually needs.
 **Expect the answer to be specific to your job, and do not port this leaderboard to yours.**
 Best here was mid-priced, worst was the most expensive, runner-up cost $6.42, none of it
 predictable from a benchmark, and none of it measured on your documents. What transfers is the
-method: run the arms, grade the decisions blind, audit the grader. That costs a few hundred dollars
+method: run the arms, grade the decisions blind, audit the judge. That costs a few hundred dollars
 and answers the question for *your* task, which no published benchmark can.
 
 The whole study cost under $200 and took two days.
