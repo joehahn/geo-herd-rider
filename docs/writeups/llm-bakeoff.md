@@ -121,10 +121,10 @@ aggregate score cannot.
 
 **In this experiment every model is weakest on the same thing.** The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
-six vendors. Internal consistency, in blue, sits at 93–100% for every one of them. When
-everything fails the same way the model is unlikely to be the problem: **the instructions might be
-at fault**, or a datable trigger may simply be hard to pin down and this close to the ceiling.
-Either way that is where to look, and looking there is worth more than any model swap.
+six vendors. Internal consistency (blue bars) sits at 93–100% for every one of them. When
+everything fails the same way the model is unlikely to be the problem. Rather, **the instructions
+might be at fault**, or a datable trigger may simply be hard to pin down and this close to the
+ceiling. Either way that is where to look, and looking there is worth more than any model swap.
 
 **One test separates the field**, the **green bars**: staying inside your sources,
 75–97%. That is what
