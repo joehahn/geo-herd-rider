@@ -33,7 +33,7 @@ your competitors.
 The AI reads the stream as it arrives, watching for a just-published event that is about to
 affect the business: a ruling, a supply shock, a plant going down, a competitor stumbling. Finding it
 once is not the job though, because the situation keeps moving and the reason to act can expire. So
-for every situation it is already tracking, the solution revisits three questions per schedule:
+for every situation it is already tracking, the solution revisits three questions on a schedule:
 
 - **Is this still true?**: the situation I flagged is still developing, and the reasoning I
 wrote down still holds.
@@ -47,10 +47,10 @@ An on-call engineer watching a spreading failure cares until the fix ships.*
 - **Should I still be committed to it?**: should capital, inventory or capacity still be tied
 up on the strength of this, or is that commitment now doing nothing.
 
-That is roughly **600 judgment calls per run**, where a **run** means one complete pass of the
-system over three years of news: month by month, from scratch, making every call in sequence exactly
-as it would have at the time. A run takes under two hours and costs between $6 and $32 depending on
-which model is doing the reading.
+That results in roughly **600 AI judgment calls per scan**, where a **scan** means one
+complete pass across three years of business news, about 100,000 articles: month by month, from
+scratch, making every call in sequence exactly as it would have at the time. A scan takes under two
+hours and costs between $6 and $32 depending on which model is doing the reading.
 
 Which raises the obvious question: **does paying for a better model pay?** So I ran the whole
 thing **eight times**, changing exactly one thing each time, the model making those calls. Same
@@ -76,7 +76,7 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 *[chart 2]*
 
 Comparing the models on the portfolio's final value would be close to meaningless: one number per
-run, decided by a handful of lucky calls. So I changed the unit of analysis. **Claude Fable 5, the strongest model available and one that never the
+scan, decided by a handful of lucky calls. So I changed the unit of analysis. **Claude Fable 5, the strongest model available and one that never the
 strongest model available, and one that never touched the production path, re-read the decisions the
 eight working models had made and graded them, blind to which model produced which.**
 

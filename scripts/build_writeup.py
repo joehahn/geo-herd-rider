@@ -106,7 +106,7 @@ your competitors.</p>
 <p>The AI reads the stream as it arrives, watching for a just-published event that is about to
 affect the business: a ruling, a supply shock, a plant going down, a competitor stumbling. Finding it
 once is not the job though, because the situation keeps moving and the reason to act can expire. So
-for every situation it is already tracking, the solution revisits three questions per schedule:</p>
+for every situation it is already tracking, the solution revisits three questions on a schedule:</p>
 <ul>
   <li><b>Is this still true?</b>: the situation I flagged is still developing, and the reasoning I
       wrote down still holds.</li>
@@ -118,10 +118,10 @@ for every situation it is already tracking, the solution revisits three question
   <li><b>Should I still be committed to it?</b>: should capital, inventory or capacity still be tied
       up on the strength of this, or is that commitment now doing nothing.</li>
 </ul>
-<p>That is roughly <b>600 judgment calls per run</b>, where a <b>run</b> means one complete pass of the
-system over three years of news: month by month, from scratch, making every call in sequence exactly
-as it would have at the time. A run takes under two hours and costs between $6 and $32 depending on
-which model is doing the reading.</p>
+<p>That results in roughly <b>600 AI judgment calls per scan</b>, where a <b>scan</b> means one
+complete pass across three years of business news, about 100,000 articles: month by month, from
+scratch, making every call in sequence exactly as it would have at the time. A scan takes under two
+hours and costs between $6 and $32 depending on which model is doing the reading.</p>
 <p>Which raises the obvious question: <b>does paying for a better model pay?</b> So I ran the whole
 thing <b>eight times</b>, changing exactly one thing each time, the model making those calls. Same
 articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.</p>
@@ -144,7 +144,7 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 <h2>2. A frontier model graded every decision, and quality peaks in the middle</h2>
 <div id="c2" class="plot"></div>
 <p>Comparing the models on the portfolio's final value would be close to meaningless: one number per
-run, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one that never the
+scan, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one that never the
 strongest model available, and one that never touched the production path, re-read the decisions the
 eight working models had made and graded them, blind to which model produced which.</b></p>
 <p>Each decision was scored on <b>process only</b>, with no prices and no outcomes in front of the
@@ -284,7 +284,7 @@ function draw() {{
   // model is the slowest by 4x, which no price list shows.
   Plotly.react('c1', [{{type:'bar', x:nm, y:BO.map(r=>r.minutes), marker:{{color:'#22d3ee'}},
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
-      hovertemplate:'%{{x}}<br>%{{y:.0f}} minutes per run<extra></extra>'}}],
+      hovertemplate:'%{{x}}<br>%{{y:.0f}} minutes per scan<extra></extra>'}}],
     base({{margin:{{l:62,r:16,t:20,b:84}}, showlegend:false,
       xaxis:{{type:'category', tickfont:{{size:10}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
@@ -297,7 +297,7 @@ function draw() {{
       marker:{{color:byCost.map(r=>r.cost),
               colorscale:'Plasma', reversescale:true, cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
-              colorbar:{{title:{{text:'cost per<br>run', font:{{size:10}}}}, tickprefix:'$',
+              colorbar:{{title:{{text:'cost per<br>scan', font:{{size:10}}}}, tickprefix:'$',
                         thickness:9, len:.6}}}},
       text:byCost.map(r=>r.clean_2s.toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{{y}}<br>%{{x:.1f}}%% of decisions clean<extra></extra>'}}],
