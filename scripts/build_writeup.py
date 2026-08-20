@@ -81,6 +81,13 @@ def main() -> int:
         r["reason"] = _m.group(1) if _m else ""
         r["base"] = _re.sub(r"\s*(LOW|HIGH) reasoning\s*", "", r["label"]).strip()
     payload = {"bo": bo, "ja": ja}
+    # DECISION COUNTS, DERIVED. These were hand-written in four places and had drifted to three
+    # different values (600/scan, 4,500 total, "four thousand") against an actual 4,527 and 566.
+    # Rounded here for prose, computed once, interpolated everywhere.
+    n_tot = sum(r["decisions"] for r in bo)
+    n_arm = round(round(n_tot / len(bo)) / 10) * 10          # 566 -> 570
+    n_tot_r = f"{round(n_tot, -2):,}"                        # 4,527 -> 4,500
+    n_judged = f"{ja['n_tier2'] + ja['n_tier3']:,}"
     noise = 1.86
 
     body = f"""
@@ -127,7 +134,7 @@ for every situation it is already tracking, the solution revisits three question
   <li><b>Should I still be committed to it?</b>: should capital, inventory or capacity still be tied
       up on the strength of this, or is that commitment now doing nothing.</li>
 </ul>
-<p>That results in roughly <b>600 AI judgment calls per scan</b>, where a <b>scan</b> means one
+<p>That results in roughly <b>{n_arm} AI judgment calls per scan</b>, where a <b>scan</b> means one
 complete pass across three years of business news, about 100,000 articles: month by month, from
 scratch, making every call in sequence exactly as it would have at the time. In this experiment, a scan takes about 1-3
 hours for AI to process and costs about $5-30 depending on which model is doing the reading.</p>
@@ -164,7 +171,7 @@ grader. Three tests: was the trigger a specific, datable event rather than a vag
 AI model's write-up claim more than its own cited sources support? Was the keep-or-drop call consistent with the
 exit condition the model itself had written down? A decision is <b>clean</b> only if it passes all
 three.</p>
-<p><b>The score below is the percentage of that model's ~600 decisions that came back clean.
+<p><b>The score below is the percentage of that model's ~{n_arm} decisions that came back clean.
 Higher is better.</b> Quality separates sharply where the portfolio value could not, a 23-point spread
 across the eight. And the curve <b>peaks in the middle</b>. The most expensive model finished
 <i>last</i>. A $6.42 model landed within three points of the leader.</p>
@@ -193,7 +200,7 @@ writes well-evidenced analysis of things that <i>are not events</i>. Not a bad m
 <h2>4. The grader was graded too</h2>
 <div id="c4" class="plot"></div>
 <p>Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
-screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the ones the screen
+screened all {n_tot_r} decisions first; Fable 5 then re-read {n_judged} of them, both the ones the screen
 condemned <i>and</i> the ones it cleared, so the correction ran in both directions rather than only
 rescuing false accusations.</p>
 <p>Then the cheap screen was itself audited against the frontier grader. It agreed
@@ -205,7 +212,7 @@ trusted. The study's own conclusion, turning up inside its own instrument.</p>
 
 <section class="takeaway">
 <h2>If you are building something like this</h2>
-<p><b>Grade decisions, not outcomes.</b> Eight outcomes cannot separate eight models. Four thousand
+<p><b>Grade decisions, not outcomes.</b> Eight outcomes cannot separate eight models. About {n_tot_r}
 graded decisions can. One is a sample of one; the other is a sample of thousands.</p>
 <p><b>Spend frontier money on the judge, not the worker.</b> The most valuable model in this study
 never ran in production. It graded what did.</p>

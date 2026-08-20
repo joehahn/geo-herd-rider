@@ -47,7 +47,7 @@ An on-call engineer watching a spreading failure cares until the fix ships.*
 - **Should I still be committed to it?**: should capital, inventory or capacity still be tied
 up on the strength of this, or is that commitment now doing nothing.
 
-That results in roughly **600 AI judgment calls per scan**, where a **scan** means one
+That results in roughly **570 AI judgment calls per scan**, where a **scan** means one
 complete pass across three years of business news, about 100,000 articles: month by month, from
 scratch, making every call in sequence exactly as it would have at the time. In this experiment, a scan takes about 1-3
 hours for AI to process and costs about $5-30 depending on which model is doing the reading.
@@ -90,7 +90,7 @@ AI model's write-up claim more than its own cited sources support? Was the keep-
 exit condition the model itself had written down? A decision is **clean** only if it passes all
 three.
 
-**The score below is the percentage of that model's ~600 decisions that came back clean.
+**The score below is the percentage of that model's ~570 decisions that came back clean.
 Higher is better.** Quality separates sharply where the portfolio value could not, a 23-point spread
 across the eight. And the curve **peaks in the middle**. The most expensive model finished
 *last*. A $6.42 model landed within three points of the leader.
@@ -135,7 +135,7 @@ trusted. The study's own conclusion, turning up inside its own instrument.
 
 ## If you are building something like this
 
-**Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. Four thousand
+**Grade decisions, not outcomes.** Eight outcomes cannot separate eight models. About 4,500
 graded decisions can. One is a sample of one; the other is a sample of thousands.
 
 **Spend frontier money on the judge, not the worker.** The most valuable model in this study
