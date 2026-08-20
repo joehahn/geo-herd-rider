@@ -205,8 +205,9 @@ is to grade the work.</p>
 <section>
 <h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
 <div id="c3" class="plot"></div>
-<p>Breaking the same grades out by test, higher being better on all three, says two things the
-aggregate score cannot.</p>
+<p>The score in section 2 was a single pass rate, all three tests at once. The chart above splits it
+back into the three, higher being better on each, and two things show up that the aggregate
+hides.</p>
 <p><b>In this experiment every model is weakest on the same thing.</b> The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs {r_dated} across eight models from
 six vendors. Internal consistency (blue bars) sits at {r_consistent} for every one of them. When

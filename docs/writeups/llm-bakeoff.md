@@ -108,8 +108,9 @@ is to grade the work.
 
 *[chart 3]*
 
-Breaking the same grades out by test, higher being better on all three, says two things the
-aggregate score cannot.
+The score in section 2 was a single pass rate, all three tests at once. The chart above splits it
+back into the three, higher being better on each, and two things show up that the aggregate
+hides.
 
 **In this experiment every model is weakest on the same thing.** The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
