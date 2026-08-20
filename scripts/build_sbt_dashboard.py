@@ -1192,7 +1192,7 @@ function draw(){{
       Plotly.react('s-bo-rank', [
         {{type:'bar', orientation:'h', x:byCost.map(r => r.clean_2s), y:lab,
           marker:{{color:byCost.map(r => r.cost),
-                  colorscale:[[0, '#fde68a'], [0.45, '#fb923c'], [1, '#b45309']],
+                  colorscale:[[0,'#cfe3f2'],[0.28,'#8ab6da'],[0.55,'#c193ac'],[0.8,'#d05f5f'],[1,'#8f1d1d']],
                   cmin:0, cmax:Math.max(...byCost.map(r => r.cost)),
                   line:{{width:1.5, color:p.surface}},
                   colorbar:{{title:{{text:'LLM $ per<br>curation', font:{{size:10}}}}, thickness:10,

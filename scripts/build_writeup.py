@@ -323,7 +323,10 @@ function draw() {{
   Plotly.react('c2', [{{type:'bar', orientation:'h',
       x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   cost '+r.mult+'×'),
       marker:{{color:byCost.map(r=>r.cost),
-              colorscale:'Plasma', reversescale:true, cmin:0,
+              // COST RAMP: light blue cheap -> deep red costly. Plasma ran yellow-to-purple, which
+              // carries no intuition about price; blue-to-red does, and the lightness falls
+              // monotonically along it so the order survives greyscale and colour blindness.
+              colorscale:[[0,'#cfe3f2'],[0.28,'#8ab6da'],[0.55,'#c193ac'],[0.8,'#d05f5f'],[1,'#8f1d1d']], cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
               colorbar:{{title:{{text:'cost per<br>scan', font:{{size:12}}}}, tickprefix:'$',
                         thickness:9, len:.6}}}},
