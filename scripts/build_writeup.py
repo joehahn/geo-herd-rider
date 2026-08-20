@@ -214,6 +214,12 @@ beats being brilliant occasionally.</p>
 <p>If you are automating judgment over a document feed and want to know whether it is actually working,
 we would like to hear from you.</p>
 <p class="btn"><a href="{SITE}">jmh-datasciences.com &rarr;</a></p>
+<!-- THE REPO LINK SITS BELOW THE CTA ON PURPOSE. This page has one job and one exit; a GitHub link
+     placed higher would leak a cold reader into an engineer's workspace before they convert. Down
+     here it serves the one reader who has already read the whole thing and wants to check the work,
+     which for a technical audience is a credibility signal rather than a distraction. -->
+<p class="repo">The code, the corpus and the grading harness are public:
+<a href="https://github.com/joehahn/geo-herd-rider">github.com/joehahn/geo-herd-rider</a>.</p>
 </section>
 """
 
@@ -238,6 +244,7 @@ frontier model brought in to grade the work. Spending 5.3x more bought no measur
 <script src="{PLOTLY_CDN}"></script>
 <style>{CSS}
 body {{ max-width: 860px; margin: 0 auto; padding: 28px 20px 60px; line-height: 1.62; }}
+.repo {{ font-size: .92rem; opacity: .68; margin-top: 26px; }}
 .kicker {{ text-transform: uppercase; letter-spacing: .09em; font-size: 12px; opacity: .7; margin: 0 0 6px; }}
 h1 {{ font-size: 2.05rem; line-height: 1.18; margin: 0 0 10px; }}
 .sub {{ font-size: 1.12rem; opacity: .85; margin: 0 0 6px; }}

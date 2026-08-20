@@ -157,3 +157,6 @@ If you are automating judgment over a document feed and want to know whether it 
 we would like to hear from you.
 
 [jmh-datasciences.com →](https://jmh-datasciences.com)
+
+The code, the corpus and the grading harness are public:
+[github.com/joehahn/geo-herd-rider](https://github.com/joehahn/geo-herd-rider).
