@@ -135,10 +135,9 @@ study never ran in production, rather it graded what did.
 **Measure inference time, not just price.** A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.
 
-**Expect a different answer for your job.** Don't carry these charts and scores into your use
-case, which depends upon your prompts and documents. Instead, **transfer the method**: run the
-same job through every candidate model, grade the AI decisions blind, and audit those grades with a
-second AI judge.
+**Transfer the method to your use case, not the results.** These scores depend on my prompts
+and my documents. The recipe is what carries over: run the same job through every candidate model,
+grade the decisions blind, audit those grades with a second judge.
 
 This study took two days to quantify and $200 in inference costs.
 
