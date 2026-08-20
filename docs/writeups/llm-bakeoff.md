@@ -108,9 +108,9 @@ is to grade the work.
 
 *[chart 3]*
 
-Section 2's scores are a synthesis of the three tests detailed below. The chart above splits that
-composite back into its parts, higher being better on each, and two things show up that the
-aggregate hides.
+Section 2's scores are a synthesis of the three tests detailed here. The chart above segregates
+that composite across three measures of success, higher being better on each, and two things show up
+that the aggregate hides.
 
 **In this experiment every model is weakest on the same thing.** The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
