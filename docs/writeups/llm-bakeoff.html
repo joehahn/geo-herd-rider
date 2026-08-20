@@ -135,11 +135,11 @@ hours for AI to process and costs about $5-30 depending on which model is doing 
 <p>Which raises the obvious question: <b>does paying for a better model pay?</b> So I ran the whole
 thing <b>eight times</b>, changing only the model making those calls: same articles, same retrieval,
 same downstream logic. Prices spanned <b>5&times;</b>.</p>
-<p>Here are the main findings.</p>
+<p>Here are the main findings, all of them specific to this use case.</p>
 </section>
 
 <section>
-<h2>1. For this use case, cost says nothing about speed</h2>
+<h2>1. Cost says nothing about speed</h2>
 <div id="c1" class="plot"></div>
 <p>Each bar indicates how long that AI model took to read and decide upon the
 100,000-article corpus and make every call that followed. The models are ordered by price, least
@@ -153,7 +153,7 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 </section>
 
 <section>
-<h2>2. A frontier model graded every decision, and quality peaks in the middle</h2>
+<h2>2. Quality peaks in the middle</h2>
 <div id="c2" class="plot"></div>
 <p>Comparing the models on the portfolio's final value would be close to meaningless: one number per
 scan, decided by a handful of lucky calls. So I changed the unit of analysis. <b>Claude Fable 5, the strongest model available and one that never the

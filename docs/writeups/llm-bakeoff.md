@@ -56,9 +56,9 @@ Which raises the obvious question: **does paying for a better model pay?** So I 
 thing **eight times**, changing only the model making those calls: same articles, same retrieval,
 same downstream logic. Prices spanned **5×**.
 
-Here are the main findings.
+Here are the main findings, all of them specific to this use case.
 
-## 1. For this use case, cost says nothing about speed
+## 1. Cost says nothing about speed
 
 *[chart 1]*
 
@@ -74,7 +74,7 @@ within seven cents of each other differing by more than two hours of wall clock.
 So if you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides which LLM is usable at all, and that factor is invisible on a price list.
 
-## 2. A frontier model graded every decision, and quality peaks in the middle
+## 2. Quality peaks in the middle
 
 *[chart 2]*
 
