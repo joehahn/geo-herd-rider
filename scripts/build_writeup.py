@@ -77,7 +77,7 @@ def main() -> int:
     body = f"""
 <header>
   <p class="kicker">Joe Hahn · <a href="{SITE}">JMH Data Sciences</a> · August 2026</p>
-  <h1>What does a smarter model actually buy you?</h1>
+  <h1>AI to automate routine business decisions: what does a smarter model actually buy you?</h1>
   <p class="sub">Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
      model to grade those decisions.</p>
 </header>

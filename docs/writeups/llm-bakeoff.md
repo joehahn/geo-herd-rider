@@ -1,4 +1,4 @@
-# What does a smarter model actually buy you?
+# AI to automate routine business decisions: what does a smarter model actually buy you?
 
 *Joe Hahn · [JMH Data Sciences](https://jmh-datasciences.com) · August 2026*
 
