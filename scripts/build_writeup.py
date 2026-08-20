@@ -95,6 +95,9 @@ def main() -> int:
     dearest = max(bo, key=lambda r: r["cost"])
     spread = round(_rank[0]["clean_2s"] - _rank[-1]["clean_2s"])
     gap = round(best["clean_2s"] - runner["clean_2s"])
+    _ratio = runner["cost"] / best["cost"]
+    ratio_txt = ("less than half the leader's cost" if _ratio < 0.5
+                 else f"{_ratio:.0%} of the leader's cost")
     noise = 1.86
 
     body = f"""
@@ -182,10 +185,11 @@ three.</p>
 <p><b>The chart above gives the percentage of each model's ~{n_arm} decisions that came back clean.
 Higher is better.</b> Quality separates sharply where the portfolio value could not, a
 {spread}-point spread across the eight. And the curve <b>peaks in the middle</b>:
-<b>{best['label']}</b> leads at {best['clean_2s']:.1f}% for ${best['cost']:.2f}, while
-<b>{dearest['label']}</b>, the most expensive of the eight at ${dearest['cost']:.2f}, finished
-<i>last</i> at {min(r['clean_2s'] for r in bo):.1f}%. <b>{runner['label']}</b> landed within
-{gap} points of the leader for ${runner['cost']:.2f}.</p>
+<b>{best['label']}</b> leads at {best['clean_2s']:.1f}%, while <b>{dearest['label']}</b>, the
+dearest of the eight at {dearest['mult']}&times; the cheapest, finished <i>last</i> at
+{min(r['clean_2s'] for r in bo):.1f}%. <b>{runner['label']}</b> came within {gap} points of the
+leader for {ratio_txt}, and that is the configuration this study picks: nearly the best work on
+offer, at a fraction of the price of the models either side of it.</p>
 <p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>

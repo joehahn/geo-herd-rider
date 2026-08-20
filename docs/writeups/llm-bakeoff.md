@@ -94,10 +94,11 @@ three.
 **The chart above gives the percentage of each model's ~570 decisions that came back clean.
 Higher is better.** Quality separates sharply where the portfolio value could not, a
 23-point spread across the eight. And the curve **peaks in the middle**:
-**GPT-5.6 Luna** leads at 63.8% for $13.46, while
-**Claude Sonnet 5**, the most expensive of the eight at $31.66, finished
-*last* at 40.8%. **Grok 4.3 LOW reasoning** landed within
-3 points of the leader for $6.42.
+**GPT-5.6 Luna** leads at 63.8%, while **Claude Sonnet 5**, the
+dearest of the eight at 5.3× the cheapest, finished *last* at
+40.8%. **Grok 4.3 LOW reasoning** came within 3 points of the
+leader for less than half the leader's cost, and that is the configuration this study picks: nearly the best work on
+offer, at a fraction of the price of the models either side of it.
 
 This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 **price predicts almost nothing about fitness for a particular job**, and the only way to find out
