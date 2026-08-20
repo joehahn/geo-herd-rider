@@ -103,9 +103,10 @@ unambiguous. But swap the feed and the same machinery watches your supply chain,
 your competitors.</p>
 
 <h2>The decision being automated</h2>
-<p>For each situation this solution is monitoring, it uses AI to revisit three questions on a
-schedule. Nothing in them is specific to news; they are what you ask of any live item in a
-queue:</p>
+<p>The AI reads the stream as it arrives, watching for a just-published event that is about to
+affect the business: a ruling, a supply shock, a plant going down, a competitor stumbling. Finding it
+once is not the job, though, because the situation keeps moving and the reason to act can expire. So
+for every situation it is already tracking, it revisits three questions on a schedule:</p>
 <ul>
   <li><b>Is this still true?</b>: the situation I flagged is still developing, and the reasoning I
       wrote down still holds.</li>
