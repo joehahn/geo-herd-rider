@@ -444,20 +444,67 @@ def main(argv=None) -> int:
         "value_se": round(statistics.stdev(_meds) / _math.sqrt(len(_meds))),
         "live_in_region": all(base[k] in _reg[k] for k in keys),
         "region_str": {k: ", ".join(str(v) for v in _reg[k]) for k in keys}}
-    # The region as a table: one row per knob, its admitted values, and whether the live setting is
-    # inside. This is the actual deliverable of the panel -- the chart underneath is the evidence.
+    # The region as a table of CONFIGS, not of knobs. A reader wants to know what to actually run,
+    # and the knob-marginal view could not show that a config's dollars and its risk profile travel
+    # together. Each row pools that exact 6-tuple across every curation, so the +/- is again "how much
+    # does this move when the news changes". Rival rows come from elsewhere in the grid: the best
+    # distinct corners, at Hamming distance >= 3 from the region and from each other, so they are
+    # genuinely different setups rather than one-knob neighbours of the winner.
     _rg = payload["region"]
-    _rows = []
-    for k in keys:
-        for r in _rg["knobs"][k]:
-            _rows.append([
-                k if r is _rg["knobs"][k][0] else "",
-                ("★ " if r["live"] else "") + r["value"],
-                f"${r['final']:,} ± {r['final_se']:,}",
-                f"{r['ann']:.0f} ± {r['ann_se']:.0f}%",
-                "IN" if r["in_region"] else ""])
-    reg_tbl = table_html(
-        ["knob", "value", "final value (mean ± SE)", "annualized (mean ± SE)", "region"], _rows)
+    _cfg = {}
+    for cs in _all.values():
+        _med = statistics.median([c["final"] for c in cs])
+        for c in cs:
+            e = _cfg.setdefault(tuple(c[k] for k in keys), {})
+            e.setdefault("rel", []).append(c["final"] / _med)
+            for _m in ("final", "ann", "sharpe", "max_drawdown", "cancelled"):
+                if c.get(_m) is not None:
+                    e.setdefault(_m, []).append(c[_m])
+
+    def _ms(v):
+        return (statistics.mean(v),
+                statistics.stdev(v) / _math.sqrt(len(v)) if len(v) > 1 else 0.0)
+
+    _members = [t for t in _cfg if all(t[i] in _reg[k] for i, k in enumerate(keys))]
+    _rank = sorted(_cfg, key=lambda t: -statistics.median(_cfg[t]["rel"]))
+    _rivals = []
+    for t in _rank:
+        if len(_rivals) == 5:
+            break
+        if all(sum(1 for a, b in zip(t, u) if a != b) >= 3 for u in _members + _rivals):
+            _rivals.append(t)
+    _mid = _rank[len(_rank) // 2]
+
+    def _crow(t, tag):
+        e = _cfg[t]
+        fm, fs = _ms(e["final"])
+        am, asd = _ms(e["ann"])
+        return [tag + " · ".join(str(x) for x in t),
+                f"${round(fm):,} ± {round(fs):,}",
+                f"${round(statistics.median(e['final'])):,}",
+                f"${round(min(e['final'])):,}",
+                f"{am:.0f} ± {asd:.0f}%",
+                f"{statistics.mean(e['sharpe']):.2f}",
+                f"{statistics.mean(e['max_drawdown']):.0f}%",
+                f"{statistics.mean(e['cancelled']):.0f}%"]
+
+    _rows = [_crow(t, "★ " if all(t[i] == base[k] for i, k in enumerate(keys)) else "")
+             for t in sorted(_members, key=lambda t: -statistics.median(_cfg[t]["rel"]))]
+    _rows += [_crow(t, "") for t in _rivals]
+    _rows.append(_crow(_mid, ""))
+    def _ctable(headers, rows, cls):
+        """table_html plus a per-row class, so the region / rival / grid-median bands are visible
+        without a column that just repeats what the banding already says."""
+        h = "".join(f"<th>{x}</th>" for x in headers)
+        b = "".join(f'<tr class="{c}">' + "".join(f"<td>{esc(x)}</td>" for x in r) + "</tr>"
+                    for r, c in zip(rows, cls))
+        return f'<table class="cfg"><thead><tr>{h}</tr></thead><tbody>{b}</tbody></table>'
+
+    reg_tbl = _ctable(
+        ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
+         "&middot; trade", "final (mean &plusmn; SE)", "median", "worst curation",
+         "annualized (mean &plusmn; SE)", "sharpe", "max DD", "cancelled"], _rows,
+        ["reg"] * len(_members) + ["riv"] * len(_rivals) + ["mid"])
 
     # THE SQUARES ON PANELS 2-7 MARK REGION MEMBERS, not a top-N of some ranking. They used to mark
     # the top TOP_N by `robust`, which implied the ordering was meaningful; it is not, and panel 8 now
@@ -588,22 +635,43 @@ def main(argv=None) -> int:
          "the region</b> if it lands within one standard error of the best value for that knob. That "
          "keeps genuine ties instead of forcing a winner. The region is the intersection across all "
          f"six knobs: <b>{payload['region']['n_configs']} configs</b> out of 6,300.<br><br>"
-         "<b>Why portfolio value and not a risk measure.</b> Tested by leave-one-curation-out &mdash; "
-         "pick the region on 14 curations, score it on the 15th &mdash; a region chosen on value lands "
-         "at the <b>91st percentile</b> of the held-out grid, against 80th for cancellation, 77th for "
-         "annualized return and 61st for Sharpe. Pooling kills the luck that makes a single cell "
-         "meaningless, so value is measurable at this resolution even though it is not at cell "
-         "level.<br><br>"
-         "<b>Reading the table.</b> Every &plusmn; is the standard error <b>across the "
-         f"{payload['region']['n_curations']} curations</b> &mdash; how much that value's typical "
-         "result moves when the NEWS changes, not a spread inside one run. Dollars are the median "
-         "config using that value, on a $50,000 stake. Two cautions. <code>lookback</code> 14, 21 and "
-         "30 finish within $3,300 of each other carrying the widest error bars on this page, so the "
-         "region taking 21 and 30 but not 14 is where the cut happened to fall, not a real "
-         "difference &mdash; read all three as equivalent. <code>min_trade_size</code> is the same "
-         "story: everything below 0.2 is within $1,200, and the only claim the data supports is "
-         "<b>not 0.3</b>. What does separate cleanly: <code>risk_aversion</code> 4.0 over 0.5, and "
-         "<code>lookback</code> 7 or 10 days, which are ruinous."
+         "The knob evidence behind it, briefly: <code>risk_aversion</code> is monotone (4.0 returns "
+         "$104,522 against 0.5's $71,998, pooled), <code>lookback</code> under 14 days is ruinous "
+         "(7 days annualizes at 7%), <code>lookback</code> 14/21/30 are indistinguishable, and "
+         "<code>min_trade_size</code> only matters at 0.3, which costs about $17,000.<br><br>"
+         "<b>Why portfolio value.</b> Leave one curation out, build the region on the other 14, "
+         "score it on the held-out one (<code>scripts/loo_region.py</code>). A region built on value "
+         "lands at the <b>74th percentile</b> of the held-out grid; on Sharpe, 77th; cancellation "
+         "73rd; gain/pain 70th; annualized return 67th; drawdown 59th. Value and Sharpe are within "
+         "each other's error and <b>select nearly the same region</b> &mdash; Sharpe additionally "
+         "admits <code>lookback 14</code> and drops <code>min_trade_size 0.05</code>, and nothing "
+         "else &mdash; so the choice of objective barely matters here. Value stays because it is the "
+         "quantity actually being maximised.<br><br>"
+         "<b>Reading the table.</b> Blue-ruled rows are the region. Below them are the five best "
+         "<b>rival corners</b>: the highest-scoring configs that differ from the region and from each "
+         "other on at least three knobs, so they are separate setups rather than one-knob neighbours "
+         "of the winner. The last row is the grid's median config &mdash; the floor. Every &plusmn; is "
+         "the standard error <b>across the "
+         f"{payload['region']['n_curations']} curations</b>: how much that exact config moves when the "
+         "NEWS changes, not a spread inside one run. <b>Worst curation</b> is its single worst "
+         "outcome of the 15, on a $50,000 stake &mdash; the pain column, and the one that separates "
+         "these rows most sharply.<br><br>"
+         "<b>Why these columns.</b> Across the 6,300 config means, annualized return correlates "
+         "<b>+0.93</b> with final value, Sharpe +0.87, gain/pain +0.86 and second-half slope +0.87 "
+         "&mdash; they are one axis viewed six ways. Gain/pain and Sharpe correlate <b>+0.985</b> "
+         "with each other, so gain/pain is dropped as a duplicate, and slope is dropped as +0.84 with "
+         "annualized. Drawdown (&minus;0.36) and cancellation (&minus;0.75) are the only two that "
+         "carry information value does not, so both stay.<br><br>"
+         "<b>The rivals look better and mostly are not.</b> They out-earn the region on median &mdash; "
+         "they were chosen as the best of 6,300 on the same 15 curations, which is exactly the "
+         "in-sample trap this panel exists to avoid. Out of sample, picking the single best cell lands "
+         "at the <b>62nd percentile with a worst fold at the 1st</b>, against the region's 74th and "
+         "53rd. But the same test says a <b>wider</b> pick does better still &mdash; the top 50 cells "
+         f"reach the 80th percentile &mdash; so this {payload['region']['n_configs']}-config region is "
+         "probably drawn a little too "
+         "tight, and the honest read of the rival rows is that some of them belong. What does survive "
+         "cleanly is the pain column: three of the five rivals can finish a curation under $50,000, "
+         "and one under $14,000, where every region member's worst is above $68,000.<br><br>"
          '</p><div id="s-region"></div>'
          f"<p class=\"lead\">The chart is every curation's region median against its whole-grid "
          f"median. It comes out ahead in <b>all {payload['region']['n_curations']}</b>, by "
@@ -765,6 +833,19 @@ def main(argv=None) -> int:
 <script src="{PLOTLY_CDN}"></script>
 <style>{CSS}
 .plot{{width:100%}} .scroll{{overflow-x:auto}}
+/* PANEL 8's config table. Three bands -- region members, rival corners, the grid's median config --
+   distinguished by a left rule and weight instead of a "region: IN/out" column, which spent a whole
+   column restating the row order. Numbers right-aligned so the error bars line up and the eye can
+   compare magnitudes down a column. */
+table.cfg{{border-collapse:collapse;width:100%;font-size:13px;margin-top:9px}}
+table.cfg th{{text-align:right;padding:5px 9px;border-bottom:1px solid var(--line);
+  color:var(--text2);font-weight:600;white-space:nowrap}}
+table.cfg td{{text-align:right;padding:5px 9px;border-bottom:1px solid var(--line);white-space:nowrap}}
+table.cfg th:first-child,table.cfg td:first-child{{text-align:left;font-variant-numeric:tabular-nums}}
+table.cfg tr.reg td{{font-weight:600;border-left:3px solid {LIGHT['s1']}}}
+table.cfg tr.riv td{{color:var(--text2);border-left:3px solid transparent}}
+table.cfg tr.mid td{{color:var(--text2);border-left:3px solid transparent;font-style:italic;
+  border-top:1px solid var(--line)}}
 /* HORIZONTAL headers, with the long knob names broken onto their underscores. Stacking
    `concentration_cap` as concentration/cap over two short lines costs less width than rotating it did,
    and reads straight on instead of at an angle. */
