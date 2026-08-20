@@ -78,8 +78,10 @@ difference decides which LLM is usable at all, and that factor is invisible on a
 
 *[chart 2]*
 
-Comparing the models on the portfolio's final value would be close to meaningless: one number per
-scan, decided by a handful of lucky calls. So I changed the unit of analysis. **Claude Fable 5, the strongest model available and one
+This is a cost-optimization exercise. The goal is not to crown the best model, it is to find the
+most capability per dollar, and that needs a measure of capability finer than the portfolio's final
+value, which is one number per scan decided by a handful of lucky calls. So I hired a judge, and
+spent frontier money on it rather than on the work. **Claude Fable 5, the strongest model available and one
 that never touched the production path, re-read the decisions the eight working models had made and
 graded them, blind to which model produced which.**
 
