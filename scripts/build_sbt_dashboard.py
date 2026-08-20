@@ -346,31 +346,13 @@ def main(argv=None) -> int:
     # in-sample peak is ranking on the quantity that has misled it every time.
     # The Sharpe rank is kept as its own column: where it disagrees with the order IS the overfit
     # risk, and hiding one of them would just move the blind spot.
-    _sh_rank = {id(c): i + 1 for i, c in enumerate(
-        sorted(short, key=lambda c: -(c["sharpe"] if c.get("sharpe") is not None else -9)))}
+    # RANKED BY `robust` still, because the blue squares on panels 2-7 mark the top TOP_N and the
+    # marking has to be in some order. The rendered TABLE that used to sit under panel 8 is gone
+    # (2026-08-19): a hundred ordered rows implied a precision the sweep does not have, since cell
+    # ordering reproduces only 85% of the time while knob-value ordering reproduces 27/27. Panel 8
+    # now shows the REGION instead. The per-column stars, the #Sharpe rank column and the row
+    # formatter went with the table -- nothing else read them.
     short.sort(key=lambda c: c["robust"])
-
-    # A star per column-winner AMONG THE SURVIVORS, on the four measures worth optimising. Four stars
-    # rarely land on one row -- where they scatter IS the trade-off, and reading that is the point.
-    stars = {}
-    if short:
-        stars = {"robust": min(short, key=lambda c: c["robust"]),
-                 "capital hit": max(short, key=lambda c: (c.get("capital_hit") is not None,
-                                                          c.get("capital_hit") or 0)),
-                 "plateau": min(short, key=lambda c: c["plateau"]),
-                 "cancelled": min(short, key=lambda c: c["cancelled"]),
-                 "ann": max(short, key=lambda c: c["ann"]),
-                 "Sharpe": max(short, key=lambda c: (c.get("sharpe") is not None, c.get("sharpe"))),
-                 # fastest to a lead it never gives back -- the only timing measure on the page
-                 "months to lead": min(short, key=lambda c: (c.get("lead_months") is None,
-                                                      c.get("lead_months") or 1e9)),
-                 # still compounding in the back half, vs made its money early and coasted
-                 "slope (per year)": max(short, key=lambda c: (c.get("slope_2h") is not None,
-                                                       c.get("slope_2h") or -1e18))}
-    starred = {id(v) for v in stars.values()}
-
-    def _st(c, col):
-        return " ★" if stars.get(col) is c else ""
 
     # The rows table 8 shows, keyed the same way the JS keys a cell, so panels 2-7 can mark exactly
     # the configs the table recommends. Without this the table and the scatters are two separate
@@ -449,47 +431,6 @@ def main(argv=None) -> int:
     _ja = ROOT / "data/judge_audit.json"
     payload["ja"] = json.loads(_ja.read_text()) if _ja.exists() else None
 
-    cols = ["#Sharpe", "robust", "capital hit", "plateau", "cancelled", "months to lead", "days behind",
-            "slope (per year)", "ann", "Sharpe", "Gain/Pain", "max DD", "L1", "L2",
-            "final"]
-
-    def _row(c, label):
-        return ([label] + [str(c[k]) for k in keys]
-                + [f"{_sh_rank.get(id(c), 0)}",
-                   f"{c['robust']:.0f}" + _st(c, "robust"),
-                   # SHOWN BESIDE `robust`, NOT FOLDED INTO IT. capital_hit answers the objection
-                   # cancellation cannot: did the CAPITAL go into tickers that rose? Adding it to the
-                   # ranker measured as an instability rather than an improvement -- on the
-                   # noise-experiment pair it was worth -5.6pp ranking from one curation and +13.9pp
-                   # from the other, tight CIs both ways. Large, real, and direction-dependent, so with
-                   # n=2 curations there is no basis for switching. It rides as a COLUMN until a third
-                   # pair breaks the tie.
-                   (f"{c['capital_hit']:.0f}%" if c.get("capital_hit") is not None else "—")
-                   + _st(c, "capital hit"),
-                   f"{c['plateau']:.0f}%" + _st(c, "plateau"),
-                   f"{c['cancelled']:.0f}%" + _st(c, "cancelled"),
-                   (f"{c['lead_months']:.0f}" if c.get("lead_months") is not None else "never")
-                   + _st(c, "months to lead"),
-                   f"{c.get('worst_behind', 0):.0f}",
-                   (f"${c['slope_2h']:,.0f}" if c.get("slope_2h") is not None else "-")
-                   + _st(c, "slope (per year)"),
-                   _f(c.get("ann"), "%", 0) + _st(c, "ann"),
-                   _f(c.get("sharpe")) + _st(c, "Sharpe"),
-                   _f(c.get("gain_pain")), f"{c['max_drawdown']:.0f}%",
-                   f"{c['l1']:,.0f}%", f"{c['l2']:,.0f}", f"${c['final']:,.0f}"])
-    hdr = ["rank"] + keys + cols
-    top = _rot_table(hdr, [_row(c, ("★ " if id(c) in starred else "") + f"{i+1}")
-                           for i, c in enumerate(short[:TOP_N])])
-    rest = ""
-    if len(short) > TOP_N:
-        rest = (f'<details><summary>show the remaining {len(short) - TOP_N} surviving configs</summary>'
-                f'<div class="scroll">'
-                + _rot_table(hdr, [_row(c, ("★ " if id(c) in starred else "") + f"{i+TOP_N+1}")
-                                   for i, c in enumerate(short[TOP_N:])])
-                + '</div></details>')
-    cur_tbl = (f'<div class="scroll">{_rot_table(hdr, [_row(cur, "current")])}</div>'
-               if cur else "")
-    rec = f'<div class="scroll">{top}</div>{rest}{cur_tbl}'
 
     panels = "".join([
         # table-only panels: no plot div, so the render check does not report a phantom blank chart
@@ -581,13 +522,13 @@ def main(argv=None) -> int:
          "config space is good</b> and unreliable about which individual cell wins. With 6,300 cells "
          "drawn from a single history, the top cell is by construction the one that best fit that "
          "history's accidents.<br><br>"
-         "So read the table below, not the one under it. It shows each knob's values ordered by median "
-         "cancellation across <b>every curation on disk</b>, with the rank each value took in each. "
-         "A value marked <b>region</b> placed 1st or 2nd in most of them; the live setting is starred. "
-         "The config list underneath still passes the gates and is still ordered, but treat that "
-         "ordering as arbitrary within the region &mdash; it is the part that does not reproduce."
+         "So: each knob\u2019s values below, ordered by median cancellation across <b>every curation "
+         "on disk</b>, with the rank each value took in each. A value marked <b>region</b> placed 1st "
+         "or 2nd in most of them; the live setting is outlined and starred. Pick anywhere inside the "
+         "region and stop optimising &mdash; the ranked list of individual configs that used to sit "
+         "here has been removed, because its ordering was the part that does not reproduce."
          '</p><div id="s-region"></div><div class="scroll">'
-         f'</p>{rec}</section>'),
+         '</p></section>'),
         panel(9, f"{heat['ky']} × {heat['kx']}",
               "Median cancellation at each combination of the two knobs whose marginals span the "
               "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
