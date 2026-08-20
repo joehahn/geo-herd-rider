@@ -406,9 +406,22 @@ def main(argv=None) -> int:
         _best = max(stat, key=lambda v: stat[v][0])
         _cut = stat[_best][0] - stat[_best][1]
         _reg[k] = [v for v in vals if stat[v][0] >= _cut]
-        _knob[k] = [{"value": str(v), "mean": round(stat[v][0], 3), "se": round(stat[v][1], 3),
-                     "in_region": stat[v][0] >= _cut, "live": v == base[k]}
-                    for v in sorted(vals, key=lambda v: -stat[v][0])]
+        # ABSOLUTE dollars and annualized return per value, alongside the normalised score the region
+        # rule uses. The normalised figure is what makes curations comparable; the absolute one is what
+        # a reader actually wants to see, so the table carries both and the region rule keeps using the
+        # first. Errors are the standard error ACROSS CURATIONS, i.e. how much the value's typical
+        # result moves when the news changes -- not a within-curation spread.
+        _knob[k] = []
+        for v in sorted(vals, key=lambda vv: -stat[vv][0]):
+            fin = [statistics.median([c["final"] for c in cs if c[k] == v]) for cs in _all.values()]
+            ann = [statistics.median([c["ann"] for c in cs if c[k] == v and c.get("ann") is not None])
+                   for cs in _all.values()]
+            _sef = statistics.stdev(fin) / _math.sqrt(len(fin)) if len(fin) > 1 else 0.0
+            _sea = statistics.stdev(ann) / _math.sqrt(len(ann)) if len(ann) > 1 else 0.0
+            _knob[k].append({"value": str(v), "mean": round(stat[v][0], 3), "se": round(stat[v][1], 3),
+                             "final": round(statistics.mean(fin)), "final_se": round(_sef),
+                             "ann": round(statistics.mean(ann), 1), "ann_se": round(_sea, 1),
+                             "in_region": stat[v][0] >= _cut, "live": v == base[k]})
     _per = []
     for t, cs in _all.items():
         ins = [c["final"] for c in cs if all(c[k] in _reg[k] for k in keys)]
@@ -434,10 +447,17 @@ def main(argv=None) -> int:
     # The region as a table: one row per knob, its admitted values, and whether the live setting is
     # inside. This is the actual deliverable of the panel -- the chart underneath is the evidence.
     _rg = payload["region"]
+    _rows = []
+    for k in keys:
+        for r in _rg["knobs"][k]:
+            _rows.append([
+                k if r is _rg["knobs"][k][0] else "",
+                ("★ " if r["live"] else "") + r["value"],
+                f"${r['final']:,} ± {r['final_se']:,}",
+                f"{r['ann']:.0f} ± {r['ann_se']:.0f}%",
+                "IN" if r["in_region"] else ""])
     reg_tbl = table_html(
-        ["knob", "values in the region", "live setting", "inside?"],
-        [[k, _rg["region_str"][k], str(base[k]), "yes" if str(base[k]) in
-          [x.strip() for x in _rg["region_str"][k].split(",")] else "NO"] for k in keys])
+        ["knob", "value", "final value (mean ± SE)", "annualized (mean ± SE)", "region"], _rows)
 
     # THE SQUARES ON PANELS 2-7 MARK REGION MEMBERS, not a top-N of some ranking. They used to mark
     # the top TOP_N by `robust`, which implied the ordering was meaningful; it is not, and panel 8 now
