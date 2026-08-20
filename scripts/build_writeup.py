@@ -199,14 +199,7 @@ offer, at a fraction of the price of the models either side of it.</p>
 <p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>
-<p><b>And the judge was checked too.</b> Using an LLM to grade LLMs invites an obvious objection, so
-the grading itself ran in two tiers. The eight benchmarked models produced {n_tot_r} decisions
-between them; a cheap model graded all of those first, and Fable 5 then re-read {n_judged} of them,
-both the ones the cheap pass condemned <i>and</i> the ones it cleared. Measured against Fable 5, that
-cheap pass agreed <b>{ja['agree']['consistent']:.0f}%</b> of the time on consistency and
-<b>{ja['agree']['dated']:.0f}%</b> on datable triggers, but only
-<b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its sources: the hardest of the
-three, and exactly where a cheap judge should not be trusted.</p>
+<p><b>The grading was audited too.</b> Fable 5 re-read a sample of a cheap first pass in both directions, the condemned and the cleared alike. The two agreed on the easy tests and diverged most on the hardest one, which is exactly where a cheap judge should not be trusted.</p>
 </section>
 
 <section>
