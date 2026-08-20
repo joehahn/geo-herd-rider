@@ -68,9 +68,18 @@ def main() -> int:
     bo = sorted(json.loads((ROOT / "data/bakeoff_summary.json").read_text()), key=lambda r: r["cost"])
     ja = json.loads((ROOT / "data/judge_audit.json").read_text())
     lo = min(r["cost"] for r in bo)
+    import re as _re
     for r in bo:
         r["label"] = r["disp"].replace("<br>", " ")
-        r["mult"] = round(r["cost"] / lo, 1)
+        # a STRING, not a float: round(1.0, 1) serialises as 1.0 and JS prints it "1", so the
+        # cheapest model read "cost 1x" beside seven neighbours reading "cost 1.1x", "cost 4.6x".
+        r["mult"] = f"{r['cost'] / lo:.1f}"
+        # "Grok 4.3 LOW reasoning" -> base "Grok 4.3", reason "LOW". Chart 1 puts the base name and
+        # the cost under the bar and the reasoning level INSIDE it, so the axis carries one short
+        # line per model instead of a name long enough that Plotly angles it.
+        _m = _re.search(r"\b(LOW|HIGH) reasoning", r["label"])
+        r["reason"] = _m.group(1) if _m else ""
+        r["base"] = _re.sub(r"\s*(LOW|HIGH) reasoning\s*", "", r["label"]).strip()
     payload = {"bo": bo, "ja": ja}
     noise = 1.86
 
@@ -287,18 +296,27 @@ function draw() {{
   const base = extra => Object.assign({{paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
     font:{{color:p.fg, size:13.5}}, hoverlabel:{{bgcolor:p.surface, font:{{color:p.fg}}}}}}, extra);
   const BO = DATA.bo, nm = BO.map(r => r.label + '<br>cost ' + r.mult + '\u00d7');
+  // Chart 1 plots against an INDEX, not the name. Once the reasoning level moves inside the bar the
+  // two Grok arms carry the same label, and identical category strings make Plotly merge them into
+  // one bar. Indexed x with explicit ticktext keeps eight bars and lets the labels repeat.
+  const ix = BO.map((_, i) => i);
+  const nm1 = BO.map(r => r.base + '<br>cost ' + r.mult + '\u00d7');
 
   // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
   // about an outcome the piece then tells you to ignore, so it undercut its own next section. Wall
   // clock is a fact a reader can act on and it is genuinely uncorrelated with price -- the cheapest
   // model is the slowest by 4x, which no price list shows.
-  Plotly.react('c1', [{{type:'bar', x:nm, y:BO.map(r=>r.minutes), marker:{{color:'#22d3ee'}},
+  Plotly.react('c1', [{{type:'bar', x:ix, y:BO.map(r=>r.minutes), marker:{{color:'#22d3ee'}},
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
-      hovertemplate:'%{{x}}<br>%{{y:.0f}} minutes per scan<extra></extra>'}}],
+      customdata:BO.map(r=>r.label),
+      hovertemplate:'%{{customdata}}<br>%{{y:.0f}} minutes per scan<extra></extra>'}}],
     base({{margin:{{l:76,r:16,t:20,b:92}}, showlegend:false,
-      xaxis:{{type:'category', tickfont:{{size:11.5}}}},
+      xaxis:{{tickmode:'array', tickvals:ix, ticktext:nm1, tickangle:0,
+             range:[-0.6, BO.length-0.4], tickfont:{{size:11.5}}, zeroline:false}},
       yaxis:{{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{{text:'analysis time', font:{{size:13}}, standoff:14}}}}}}), CFG);
+             title:{{text:'analysis time', font:{{size:13}}, standoff:14}}}},
+      annotations:BO.map((r,i)=> r.reason ? {{x:i, y:r.minutes/2, text:r.reason+'<br>reasoning',
+             showarrow:false, font:{{size:10.5, color:'#083344'}}}} : null).filter(Boolean)}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
