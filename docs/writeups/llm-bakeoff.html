@@ -138,6 +138,9 @@ articles, same retrieval, same downstream logic. Prices spanned <b>5&times;</b>.
 <section>
 <h2>1. Cost tells you nothing about speed</h2>
 <div id="c1" class="plot"></div>
+<p>Each bar is one AI model, showing how long it took that model to read the 100,000-article corpus
+and make every call that followed. The models are ordered by price, cheapest on the left, and the
+figure under each name is what it costs relative to the cheapest of the eight.</p>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
 the <i>slowest</i> by a factor of four: three hours against forty-five minutes. Two models within
 seven cents of each other differed by more than two hours of wall clock.</p>
@@ -244,8 +247,7 @@ function draw() {
     base({margin:{l:62,r:16,t:20,b:84}, showlegend:false,
       xaxis:{type:'category', tickfont:{size:10}},
       yaxis:{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{text:'time to analyze the 100,000-article corpus',
-                    font:{size:11}}}}), CFG);
+             title:{text:'analysis time', font:{size:11}}}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
