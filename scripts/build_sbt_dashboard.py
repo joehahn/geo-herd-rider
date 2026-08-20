@@ -123,6 +123,25 @@ def main(argv=None) -> int:
             if "max_events" in base else
             ("0 = uncapped" if not _fm.get("max_events") else str(_fm.get("max_events"))),
             f"${_cost:.2f} — {len(_mer)} re-curations"])
+    # THE MODEL SWEEP (panels 15-20). Listed here because a reader looking for "what was varied"
+    # looks at this table, and the eight-arm bake-off is otherwise invisible until panel 15.
+    #
+    # IT WAS event_agent_model THAT MOVED, NOT scout_model. The scout was held FIXED at llama4 in all
+    # eight arms -- every arm read the same 1,248 scout chunks off the same corpus -- and that is
+    # exactly what makes the comparison controlled: any difference downstream is attributable to the
+    # judgment stage. Both rows are shown so the held-fixed one is as visible as the varied one.
+    _bof = ROOT / "data/bakeoff_summary.json"
+    if _bof.exists():
+        _bo = sorted(json.loads(_bof.read_text()), key=lambda r: r["cost"])
+        ps_rows.append([
+            "event_agent_model",
+            ", ".join(r["disp"].replace("<br>", " ") for _bo_i, r in enumerate(_bo)),
+            str(_fm.get("event_agent_model")),
+            f"${sum(r['cost'] for r in _bo):.2f} — {len(_bo)} re-curations"])
+        ps_rows.append([
+            "scout_model",
+            "not swept — held fixed in all 8 arms, which is what makes them comparable",
+            str(_fm.get("scout_model")), "—"])
     param_tbl = table_html(["parameter", "values swept", "current (profile)", "cost to sweep"], ps_rows)
 
     # ---- PLATEAU: the anti-overfit rank, ported from PWR ------------------------------------------
@@ -1118,8 +1137,6 @@ function draw(){{
                  title:{{text:'percent', font:{{size:11}}}}}}}}), CFG);
     }}
   }}
-}}
-
   // PANEL 8 -- the REGION. Median cancellation per knob VALUE across every curation on disk, which is
   // the resolution the sweep actually reproduces at (27/27 orderings stable, vs 85% of cells). Bars
   // are coloured by whether the value ranks 1st-2nd in most curations; the live setting is outlined.
@@ -1142,6 +1159,8 @@ function draw(){{
                title:{{text:'median cancellation across ' + RG.n_curations + ' curations (lower better)',
                       font:{{size:11}}}}}}}}), CFG);
   }}
+}}
+
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""
