@@ -76,7 +76,7 @@ h2 { font-size: 1.32rem; margin: 34px 0 12px; }
    renders with four invisible charts and no error anywhere. The dashboards never hit this
    because panel() passes a height per panel. */
 .plot { width: 100%; height: 430px; margin: 18px 0 22px; }
-#c2 { height: 480px; }   /* horizontal, 8 categories -- needs more vertical room */
+#c1 { height: 480px; }   /* horizontal, 8 categories -- needs more vertical room */
 p { margin: 0 0 13px; }
 .takeaway { border-left: 3px solid #34d399; padding-left: 18px; }
 .cost { opacity: .72; font-size: .95rem; }
@@ -88,12 +88,12 @@ p { margin: 0 0 13px; }
 <header>
   <p class="kicker">Joe Hahn · <a href="https://jmh-datasciences.com">JMH Data Sciences</a> · August 2026</p>
   <h1>AI to automate routine business decisions: what does a smarter model actually buy you?</h1>
-  <p class="sub">Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
-     model to grade those decisions.</p>
+  <p class="sub">Eight LLMs made the same 570 decisions over 100,000 articles, graded blind by a
+     frontier model. The most expensive one finished last.</p>
 </header>
 
 <section>
-<h2>Why point AI at 100,000 news articles</h2>
+<h2>Why point AI at 100,000 documents</h2>
 <p>Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
 proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
 and openings both, and many are <b>reported publicly before they reach anyone's numbers</b>.</p>
@@ -139,22 +139,8 @@ same downstream logic. Prices spanned <b>5&times;</b>.</p>
 </section>
 
 <section>
-<h2>1. Cost says nothing about speed</h2>
+<h2>1. Quality peaks in the middle</h2>
 <div id="c1" class="plot"></div>
-<p>Each bar indicates how long that AI model took to read and decide upon the
-100,000-article corpus and make every call that followed. The models are ordered by price, least
-expensive on the left, and the figure under each name is what it costs relative to the cheapest of
-the eight.</p>
-<p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
-the <i>slowest</i> by a factor of four: three hours against forty-five minutes, with two models
-within $0.46 of each other differing by more than 2 hours of wall clock.</p>
-<p>So if you are running this hourly against a live feed rather than monthly against an archive, that
-difference decides which LLM is usable at all, and that factor is invisible on a price list.</p>
-</section>
-
-<section>
-<h2>2. Quality peaks in the middle</h2>
-<div id="c2" class="plot"></div>
 <p>This is also a cost-optimization exercise, so my goal is not to crown the best model, but to find
 the most capable AI per dollar spent. To do that I used a top-of-the-line frontier model to judge
 the other models' decisions, Claude Fable 5, which never touched the production path. <b>The judge re-read
@@ -181,9 +167,23 @@ is to grade the work.</p>
 </section>
 
 <section>
+<h2>2. Cost says nothing about speed</h2>
+<div id="c2" class="plot"></div>
+<p>Each bar indicates how long that AI model took to read and decide upon the
+100,000-article corpus and make every call that followed. The models are ordered by price, least
+expensive on the left, and the figure under each name is what it costs relative to the cheapest of
+the eight.</p>
+<p>The second surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
+the <i>slowest</i> by a factor of four: three hours against forty-five minutes, with two models
+within $0.46 of each other differing by more than 2 hours of wall clock.</p>
+<p>So if you are running this hourly against a live feed rather than monthly against an archive, that
+difference decides which LLM is usable at all, and that factor is invisible on a price list.</p>
+</section>
+
+<section>
 <h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
 <div id="c3" class="plot"></div>
-<p>Section 2's scores are a synthesis of the three tests detailed here, higher is better.</p>
+<p>Section 1's scores are a synthesis of the three tests detailed here, higher is better.</p>
 <p><b>In this experiment every model is weakest on the same thing.</b> The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
 six vendors. Internal consistency (blue bars) sits at 93–100% for every one of them. When
@@ -257,7 +257,7 @@ function draw() {
   // about an outcome the piece then tells you to ignore, so it undercut its own next section. Wall
   // clock is a fact a reader can act on and it is genuinely uncorrelated with price -- the cheapest
   // model is the slowest by 4x, which no price list shows.
-  Plotly.react('c1', [{type:'bar', x:ix, y:BO.map(r=>r.minutes), marker:{color:'#22d3ee'},
+  Plotly.react('c2', [{type:'bar', x:ix, y:BO.map(r=>r.minutes), marker:{color:'#22d3ee'},
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
       customdata:BO.map(r=>r.label),
       hovertemplate:'%{customdata}<br>%{y:.0f} minutes per scan<extra></extra>'}],
@@ -271,7 +271,7 @@ function draw() {
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
-  Plotly.react('c2', [{type:'bar', orientation:'h',
+  Plotly.react('c1', [{type:'bar', orientation:'h',
       x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   cost '+r.mult+'×'),
       marker:{color:byCost.map(r=>r.cost),
               // COST RAMP: light blue cheap -> deep red costly. Plasma ran yellow-to-purple, which

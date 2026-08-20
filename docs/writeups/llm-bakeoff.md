@@ -2,10 +2,10 @@
 
 *Joe Hahn · [JMH Data Sciences](https://jmh-datasciences.com) · August 2026*
 
-Eight LLMs, one decision repeated across 100,000 news articles, and a frontier
-model to grade those decisions.
+Eight LLMs made the same 570 decisions over 100,000 articles, graded blind by a
+frontier model. The most expensive one finished last.
 
-## Why point AI at 100,000 news articles
+## Why point AI at 100,000 documents
 
 Every business is exposed to events it did not cause. A supplier's plant goes down. A tariff is
 proposed. A safety agency schedules a vote that could pull a rival's product off the shelf. Threats
@@ -58,25 +58,9 @@ same downstream logic. Prices spanned **5×**.
 
 Here are the main findings, all of them specific to this use case.
 
-## 1. Cost says nothing about speed
+## 1. Quality peaks in the middle
 
 *[chart 1]*
-
-Each bar indicates how long that AI model took to read and decide upon the
-100,000-article corpus and make every call that followed. The models are ordered by price, least
-expensive on the left, and the figure under each name is what it costs relative to the cheapest of
-the eight.
-
-The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
-the *slowest* by a factor of four: three hours against forty-five minutes, with two models
-within $0.46 of each other differing by more than 2 hours of wall clock.
-
-So if you are running this hourly against a live feed rather than monthly against an archive, that
-difference decides which LLM is usable at all, and that factor is invisible on a price list.
-
-## 2. Quality peaks in the middle
-
-*[chart 2]*
 
 This is also a cost-optimization exercise, so my goal is not to crown the best model, but to find
 the most capable AI per dollar spent. To do that I used a top-of-the-line frontier model to judge
@@ -104,11 +88,27 @@ This is not "cheaper is better": the cheapest model is near the bottom too. It i
 **price predicts almost nothing about fitness for a particular job**, and the only way to find out
 is to grade the work.
 
+## 2. Cost says nothing about speed
+
+*[chart 2]*
+
+Each bar indicates how long that AI model took to read and decide upon the
+100,000-article corpus and make every call that followed. The models are ordered by price, least
+expensive on the left, and the figure under each name is what it costs relative to the cheapest of
+the eight.
+
+The second surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
+the *slowest* by a factor of four: three hours against forty-five minutes, with two models
+within $0.46 of each other differing by more than 2 hours of wall clock.
+
+So if you are running this hourly against a live feed rather than monthly against an archive, that
+difference decides which LLM is usable at all, and that factor is invisible on a price list.
+
 ## 3. Knowing *how* a model fails beats knowing *that* it does
 
 *[chart 3]*
 
-Section 2's scores are a synthesis of the three tests detailed here, higher is better.
+Section 1's scores are a synthesis of the three tests detailed here, higher is better.
 
 **In this experiment every model is weakest on the same thing.** The yellow bars score how well
 the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
