@@ -228,9 +228,9 @@ would have told you so.</p>
 study never ran in production, rather it graded what did.</p>
 <p><b>Measure inference time, not just price.</b> A four-fold speed difference can decide whether a
 system can run at the cadence your business actually needs.</p>
-<p><b>Transfer the method to your use case, not the results.</b> These scores depend on my prompts
-and my documents. The recipe is what carries over: run the same job through every candidate model,
-grade the decisions blind, audit those grades with a second judge.</p>
+<p><b>Transfer the method used here to your use case, not our results.</b> My scores depend upon my
+prompts and my documents. The recipe is what carries over: run the document corpus through every
+candidate model, grade the AI decisions blind, and audit those grades with a separate judge.</p>
 <p class="cost">This study took two days to quantify and $200 in inference costs.</p>
 </section>
 
