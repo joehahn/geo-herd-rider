@@ -700,6 +700,21 @@ def main(argv=None) -> int:
               "s-judge-audit", 420),
     ] if bo else []))
 
+    def _slim(pl):
+        """Drop the analysis-only arrays before the payload is inlined into the HTML.
+
+        `daily_r` (753 returns per cell) and `blocks` (16x5 per cell) exist for the CSCV/PBO harness
+        in scripts/pbo*.py and are never read by this page. Left in, they took docs/sbt.html to 56 MB
+        -- past GitHub's file-size warning and far past what a browser should be asked to parse. A
+        dashboard nobody can load is worse than one missing a panel.
+
+        Done HERE, at serialisation, rather than by rebinding `cells` earlier: the table rows, the
+        shortlist and `_pos` all key off the ORIGINAL cell objects by identity, and copying them
+        mid-function silently detached the `robust` and `plateau` values computed after that point.
+        """
+        drop = ("daily_r", "blocks")
+        return {**pl, "cells": [{k: v for k, v in c.items() if k not in drop} for c in pl["cells"]]}
+
     nknob1 = 1 + len(keys)          # last knob column index, for the narrow-column CSS rule
     html = f"""<!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -736,7 +751,7 @@ no LLM, no re-curation &middot; knobs from {_LINK(PROFILE_URL, 'investor_profile
 {panels}
 </div>
 <script>
-const DATA = {json.dumps(payload)};
+const DATA = {json.dumps(_slim(payload))};
 const LIGHT = {json.dumps(LIGHT)}, DARK = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
 const TOPN = {TOP_N};
 const CFG = {{displayModeBar:false, responsive:true}};
