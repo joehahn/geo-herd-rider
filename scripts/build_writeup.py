@@ -104,6 +104,14 @@ def main() -> int:
         v = [r[k] for r in bo]
         return f"{min(v):.0f}\u2013{max(v):.0f}%"
     r_dated, r_supported, r_consistent = _rng("dated_adj"), _rng("supported_adj"), _rng("consistent_adj")
+    # The closest-priced pair that still differs sharply in wall clock. Was hand-written as "within
+    # seven cents", which no pair in this field satisfies: the tightest gap is $0.43, and the pair the
+    # sentence is actually about is $0.46 apart. Derived so it cannot be wrong again.
+    import itertools as _it
+    _pair = min((p for p in _it.combinations(bo, 2) if abs(p[0]["minutes"] - p[1]["minutes"]) > 60),
+                key=lambda p: abs(p[0]["cost"] - p[1]["cost"]))
+    pair_cost = f"{abs(_pair[0]['cost'] - _pair[1]['cost']):.2f}"
+    pair_hours = abs(_pair[0]["minutes"] - _pair[1]["minutes"]) / 60
     noise = 1.86
 
     body = f"""
@@ -169,7 +177,7 @@ expensive on the left, and the figure under each name is what it costs relative 
 the eight.</p>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
 the <i>slowest</i> by a factor of four: three hours against forty-five minutes, with two models
-within seven cents of each other differing by more than two hours of wall clock.</p>
+within ${pair_cost} of each other differing by more than {pair_hours:.0f} hours of wall clock.</p>
 <p>So if you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides which LLM is usable at all, and that factor is invisible on a price list.</p>
 </section>

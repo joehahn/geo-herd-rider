@@ -69,7 +69,7 @@ the eight.
 
 The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
 the *slowest* by a factor of four: three hours against forty-five minutes, with two models
-within seven cents of each other differing by more than two hours of wall clock.
+within $0.46 of each other differing by more than 2 hours of wall clock.
 
 So if you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides which LLM is usable at all, and that factor is invisible on a price list.
