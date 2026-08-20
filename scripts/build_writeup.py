@@ -265,7 +265,7 @@ function draw() {{
   const p = dark ? D : L;
   const base = extra => Object.assign({{paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
     font:{{color:p.fg, size:12}}, hoverlabel:{{bgcolor:p.surface, font:{{color:p.fg}}}}}}, extra);
-  const BO = DATA.bo, nm = BO.map(r => r.label + '<br>' + r.mult + '\u00d7');
+  const BO = DATA.bo, nm = BO.map(r => r.label + '<br>cost ' + r.mult + '\u00d7');
 
   // 1. COST vs INFERENCE TIME. Was portfolio value with a noise band behind it; that chart argued
   // about an outcome the piece then tells you to ignore, so it undercut its own next section. Wall
@@ -277,12 +277,13 @@ function draw() {{
     base({{margin:{{l:62,r:16,t:20,b:84}}, showlegend:false,
       xaxis:{{type:'category', tickfont:{{size:10}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{{text:'time to complete one run', font:{{size:11}}}}}}}}), CFG);
+             title:{{text:'time to analyze the 100,000-article corpus',
+                    font:{{size:11}}}}}}}}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
   Plotly.react('c2', [{{type:'bar', orientation:'h',
-      x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   '+r.mult+'×'),
+      x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   cost '+r.mult+'×'),
       marker:{{color:byCost.map(r=>r.cost),
               colorscale:'Plasma', reversescale:true, cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
