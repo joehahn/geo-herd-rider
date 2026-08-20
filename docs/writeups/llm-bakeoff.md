@@ -12,8 +12,9 @@ proposed. A safety agency schedules a vote that could pull a rival's product off
 and openings both, and many are **reported publicly before they reach anyone's numbers**.
 
 The information is not the hard part. But nobody has time to read many thousands of possibly
-relevant documents per month and find the twelve that matter to *you*. So: **can a language model do that reading, and
-make the routine calls that follow, well enough to act on?**
+relevant documents per month to find the twelve that definitely matter to *you*. So: **can a
+language model do that reading for you, and then execute the routine actions that would naturally
+follow?**
 
 That is what this solution was built to answer. And in this application the solution reads
 business news as it is published, flags what could help or hurt, and then keeps deciding what to do
