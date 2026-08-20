@@ -98,6 +98,12 @@ def main() -> int:
     _ratio = runner["cost"] / best["cost"]
     ratio_txt = ("less than half the leader's cost" if _ratio < 0.5
                  else f"{_ratio:.0%} of the leader's cost")
+    # Per-test ranges across the eight arms, for the section-3 prose. Hardcoded before, and the kind
+    # of number that silently goes stale the next time an arm is added.
+    def _rng(k):
+        v = [r[k] for r in bo]
+        return f"{min(v):.0f}\u2013{max(v):.0f}%"
+    r_dated, r_supported, r_consistent = _rng("dated_adj"), _rng("supported_adj"), _rng("consistent_adj")
     noise = 1.86
 
     body = f"""
@@ -207,11 +213,12 @@ three, and exactly where a cheap judge should not be trusted.</p>
 <div id="c3" class="plot"></div>
 <p>Breaking the same grades out by test, higher being better on all three, says two things the
 aggregate score cannot.</p>
-<p><b>Every model is weakest on the same thing.</b> Identifying a specific, datable trigger runs
-46–66% across eight models from six vendors, while internal consistency sits at 93–100% for every one
-of them. When everything fails the same way, <b>the instructions are at fault, not the model</b>, and
-fixing that is worth more than any model swap.</p>
-<p><b>One test separates the field:</b> staying inside your sources, 75% to 97%. That is what
+<p><b>Every model is weakest on the same thing.</b> The <b>yellow bars</b>: identifying a specific,
+datable trigger runs {r_dated} across eight models from six vendors, while internal consistency, in
+blue, sits at {r_consistent} for every one of them. When everything fails the same way, <b>the
+instructions are at fault, not the model</b>, and fixing that is worth more than any model swap.</p>
+<p><b>One test separates the field</b>, the <b>green bars</b>: staying inside your sources,
+{r_supported}. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a
 <b>mismatch between a model's habits and a job's requirements</b>, invisible on any leaderboard.</p>

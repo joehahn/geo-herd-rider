@@ -119,12 +119,13 @@ three, and exactly where a cheap judge should not be trusted.
 Breaking the same grades out by test, higher being better on all three, says two things the
 aggregate score cannot.
 
-**Every model is weakest on the same thing.** Identifying a specific, datable trigger runs
-46–66% across eight models from six vendors, while internal consistency sits at 93–100% for every one
-of them. When everything fails the same way, **the instructions are at fault, not the model**, and
-fixing that is worth more than any model swap.
+**Every model is weakest on the same thing.** The **yellow bars**: identifying a specific,
+datable trigger runs 46–66% across eight models from six vendors, while internal consistency, in
+blue, sits at 93–100% for every one of them. When everything fails the same way, **the
+instructions are at fault, not the model**, and fixing that is worth more than any model swap.
 
-**One test separates the field:** staying inside your sources, 75% to 97%. That is what
+**One test separates the field**, the **green bars**: staying inside your sources,
+75–97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that *are not events*. Not a bad model; a
 **mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
