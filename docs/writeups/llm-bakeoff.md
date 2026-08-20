@@ -119,10 +119,12 @@ three, and exactly where a cheap judge should not be trusted.
 Breaking the same grades out by test, higher being better on all three, says two things the
 aggregate score cannot.
 
-**Every model is weakest on the same thing.** The **yellow bars**: identifying a specific,
-datable trigger runs 46–66% across eight models from six vendors, while internal consistency, in
-blue, sits at 93–100% for every one of them. When everything fails the same way, **the
-instructions are at fault, not the model**, and fixing that is worth more than any model swap.
+**In this experiment every model is weakest on the same thing.** The yellow bars score how well
+the AI identifies a specific, datable trigger, and that score runs 46–66% across eight models from
+six vendors. Internal consistency, in blue, sits at 93–100% for every one of them. When
+everything fails the same way the model is unlikely to be the problem: **the instructions might be
+at fault**, or a datable trigger may simply be hard to pin down and this close to the ceiling.
+Either way that is where to look, and looking there is worth more than any model swap.
 
 **One test separates the field**, the **green bars**: staying inside your sources,
 75–97%. That is what

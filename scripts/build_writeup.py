@@ -213,10 +213,12 @@ three, and exactly where a cheap judge should not be trusted.</p>
 <div id="c3" class="plot"></div>
 <p>Breaking the same grades out by test, higher being better on all three, says two things the
 aggregate score cannot.</p>
-<p><b>Every model is weakest on the same thing.</b> The <b>yellow bars</b>: identifying a specific,
-datable trigger runs {r_dated} across eight models from six vendors, while internal consistency, in
-blue, sits at {r_consistent} for every one of them. When everything fails the same way, <b>the
-instructions are at fault, not the model</b>, and fixing that is worth more than any model swap.</p>
+<p><b>In this experiment every model is weakest on the same thing.</b> The yellow bars score how well
+the AI identifies a specific, datable trigger, and that score runs {r_dated} across eight models from
+six vendors. Internal consistency, in blue, sits at {r_consistent} for every one of them. When
+everything fails the same way the model is unlikely to be the problem: <b>the instructions might be
+at fault</b>, or a datable trigger may simply be hard to pin down and this close to the ceiling.
+Either way that is where to look, and looking there is worth more than any model swap.</p>
 <p><b>One test separates the field</b>, the <b>green bars</b>: staying inside your sources,
 {r_supported}. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
