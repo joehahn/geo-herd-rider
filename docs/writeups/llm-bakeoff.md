@@ -62,14 +62,14 @@ Here are the main findings.
 
 *[chart 1]*
 
-Each bar is one AI model indicating how long it took that model to read and decide upon the
+Each bar indicates how long that AI model took to read and decide upon the
 100,000-article corpus and make every call that followed. The models are ordered by price, least
 expensive on the left, and the figure under each name is what it costs relative to the cheapest of
 the eight.
 
 The first surprise is a practical one. **Price and speed are unrelated.** The cheapest model was
-the *slowest* by a factor of four: three hours against forty-five minutes. Two models within
-seven cents of each other differed by more than two hours of wall clock.
+the *slowest* by a factor of four: three hours against forty-five minutes, with two models
+within seven cents of each other differing by more than two hours of wall clock.
 
 If you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides which LLM is usable at all, and that factor is invisible on a price list.

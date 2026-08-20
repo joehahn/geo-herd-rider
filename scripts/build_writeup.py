@@ -140,13 +140,13 @@ same downstream logic. Prices spanned <b>5&times;</b>.</p>
 <section>
 <h2>1. For this use case, cost says nothing about speed</h2>
 <div id="c1" class="plot"></div>
-<p>Each bar is one AI model indicating how long it took that model to read and decide upon the
+<p>Each bar indicates how long that AI model took to read and decide upon the
 100,000-article corpus and make every call that followed. The models are ordered by price, least
 expensive on the left, and the figure under each name is what it costs relative to the cheapest of
 the eight.</p>
 <p>The first surprise is a practical one. <b>Price and speed are unrelated.</b> The cheapest model was
-the <i>slowest</i> by a factor of four: three hours against forty-five minutes. Two models within
-seven cents of each other differed by more than two hours of wall clock.</p>
+the <i>slowest</i> by a factor of four: three hours against forty-five minutes, with two models
+within seven cents of each other differing by more than two hours of wall clock.</p>
 <p>If you are running this hourly against a live feed rather than monthly against an archive, that
 difference decides which LLM is usable at all, and that factor is invisible on a price list.</p>
 </section>
