@@ -193,36 +193,28 @@ offer, at a fraction of the price of the models either side of it.</p>
 <p>This is not "cheaper is better": the cheapest model is near the bottom too. It is that
 <b>price predicts almost nothing about fitness for a particular job</b>, and the only way to find out
 is to grade the work.</p>
+<p><b>And the judge was checked too.</b> Using an LLM to grade LLMs invites an obvious objection, so
+a cheap model screened all {n_tot_r} decisions first and Fable 5 re-read {n_judged} of them, both the
+ones the screen condemned <i>and</i> the ones it cleared. Audited against the frontier judge, that
+cheap screen agreed <b>{ja['agree']['consistent']:.0f}%</b> of the time on consistency and
+<b>{ja['agree']['dated']:.0f}%</b> on datable triggers, but only
+<b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its sources: the hardest of the
+three, and exactly where a cheap judge should not be trusted.</p>
 </section>
 
 <section>
 <h2>3. Knowing <i>how</i> a model fails beats knowing <i>that</i> it does</h2>
 <div id="c3" class="plot"></div>
-<p>Breaking the same grades out by test, higher being better on all three, says three things no
-aggregate score can.</p>
-<p><b>Internal consistency is a solved problem.</b> Every model scores 93–100%: none of them
-contradicts reasoning it wrote down itself. That test can be retired.</p>
+<p>Breaking the same grades out by test, higher being better on all three, says two things the
+aggregate score cannot.</p>
 <p><b>Every model is weakest on the same thing.</b> Identifying a specific, datable trigger runs
-46–66% across eight models from six vendors. When everything fails the same way, <b>the instructions
-are at fault, not the model</b>, and fixing that is worth more than any model swap.</p>
-<p><b>One test actually separates the field:</b> staying inside your sources, 75% to 97%. That is what
+46–66% across eight models from six vendors, while internal consistency sits at 93–100% for every one
+of them. When everything fails the same way, <b>the instructions are at fault, not the model</b>, and
+fixing that is worth more than any model swap.</p>
+<p><b>One test separates the field:</b> staying inside your sources, 75% to 97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that <i>are not events</i>. Not a bad model; a
 <b>mismatch between a model's habits and a job's requirements</b>, invisible on any leaderboard.</p>
-</section>
-
-<section>
-<h2>4. The judge was judged too</h2>
-<div id="c4" class="plot"></div>
-<p>Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
-screened all {n_tot_r} decisions first; Fable 5 then re-read {n_judged} of them, both the ones the screen
-condemned <i>and</i> the ones it cleared, so the correction ran in both directions rather than only
-rescuing false accusations.</p>
-<p>Then the cheap screen was itself audited against the frontier judge. It agreed
-<b>{ja['agree']['consistent']:.0f}%</b> of the time on consistency and <b>{ja['agree']['dated']:.0f}%</b>
-on datable triggers, but only <b>{ja['agree']['supported']:.0f}%</b> on whether a claim outran its
-sources. That is the hardest judgment of the three, and precisely where a cheap judge should not be
-trusted. The study's own conclusion, turning up inside its own instrument.</p>
 </section>
 
 <section class="takeaway">
@@ -373,17 +365,6 @@ function draw() {{
       yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[35,108],
              title:{{text:'pass rate', font:{{size:13}}, standoff:14}}}}}}), CFG);
 
-  // 4. the grader auditing itself
-  const A = DATA.ja.agree, ax = ['consistent','dated','supported'];
-  Plotly.react('c4', [{{type:'bar', x:ax.map(k=>k==='dated'?'datable trigger':
-                          k==='supported'?'claims within sources':'internally consistent'),
-      y:ax.map(k=>A[k]), marker:{{color:['#60a5fa','#fbbf24','#34d399']}},
-      text:ax.map(k=>A[k].toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
-      hovertemplate:'%{{x}}<br>cheap screen agreed %{{y:.1f}}%% of the time<extra></extra>'}}],
-    base({{margin:{{l:56,r:16,t:16,b:52}}, showlegend:false,
-      xaxis:{{type:'category'}},
-      yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0,108],
-             title:{{text:'cheap screen agreed with the frontier grader', font:{{size:13}}, standoff:14}}}}}}), CFG);
 }}
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);

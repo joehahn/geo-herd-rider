@@ -104,39 +104,30 @@ This is not "cheaper is better": the cheapest model is near the bottom too. It i
 **price predicts almost nothing about fitness for a particular job**, and the only way to find out
 is to grade the work.
 
+**And the judge was checked too.** Using an LLM to grade LLMs invites an obvious objection, so
+a cheap model screened all 4,500 decisions first and Fable 5 re-read 1,200 of them, both the
+ones the screen condemned *and* the ones it cleared. Audited against the frontier judge, that
+cheap screen agreed **93%** of the time on consistency and
+**85%** on datable triggers, but only
+**66%** on whether a claim outran its sources: the hardest of the
+three, and exactly where a cheap judge should not be trusted.
+
 ## 3. Knowing *how* a model fails beats knowing *that* it does
 
 *[chart 3]*
 
-Breaking the same grades out by test, higher being better on all three, says three things no
-aggregate score can.
-
-**Internal consistency is a solved problem.** Every model scores 93–100%: none of them
-contradicts reasoning it wrote down itself. That test can be retired.
+Breaking the same grades out by test, higher being better on all three, says two things the
+aggregate score cannot.
 
 **Every model is weakest on the same thing.** Identifying a specific, datable trigger runs
-46–66% across eight models from six vendors. When everything fails the same way, **the instructions
-are at fault, not the model**, and fixing that is worth more than any model swap.
+46–66% across eight models from six vendors, while internal consistency sits at 93–100% for every one
+of them. When everything fails the same way, **the instructions are at fault, not the model**, and
+fixing that is worth more than any model swap.
 
-**One test actually separates the field:** staying inside your sources, 75% to 97%. That is what
+**One test separates the field:** staying inside your sources, 75% to 97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
 writes well-evidenced analysis of things that *are not events*. Not a bad model; a
 **mismatch between a model's habits and a job's requirements**, invisible on any leaderboard.
-
-## 4. The judge was judged too
-
-*[chart 4]*
-
-Using an LLM to grade LLMs invites an obvious objection, so the design answers it. A cheap model
-screened all 4,500 decisions first; Fable 5 then re-read 1,200 of them, both the ones the screen
-condemned *and* the ones it cleared, so the correction ran in both directions rather than only
-rescuing false accusations.
-
-Then the cheap screen was itself audited against the frontier judge. It agreed
-**93%** of the time on consistency and **85%**
-on datable triggers, but only **66%** on whether a claim outran its
-sources. That is the hardest judgment of the three, and precisely where a cheap judge should not be
-trusted. The study's own conclusion, turning up inside its own instrument.
 
 ## If you are building something like this
 
