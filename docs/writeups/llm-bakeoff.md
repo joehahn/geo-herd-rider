@@ -120,8 +120,9 @@ ceiling. Either way that is where to look, and looking there is worth more than 
 **But one test (green bars) separates the field:** staying inside your sources,
 75–97%. That is what
 the extra money bought, where it bought anything. The most expensive model is the instructive case: it
-writes well-evidenced analysis of things that *are not events*. That is not a bad model, it is
-a model **not well suited to this particular job**, and no leaderboard would have told you so.
+writes well-evidenced analysis of things that *are not events*. That tells us **the most
+expensive model considered here is not well suited to this particular job**, and no leaderboard
+would have told you so.
 
 **The grading was audited too.** Fable 5 re-read a sample of a cheap first pass in both
 directions, the condemned and the cleared alike. The two agreed closely on the easy tests and
