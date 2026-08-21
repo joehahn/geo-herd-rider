@@ -111,3 +111,11 @@ data/spot*/
 data/windows/picker_cache.json
 # sweep grids: free to regenerate (scripts/sweep_optimizer.py, ~12 min, no LLM calls)
 data/sweep_*.json
+
+# LLM bakeoff: per-arm run dirs (regenerable; the graded results are baked into
+# docs/writeups/llm-bakeoff.html, which embeds everything it needs to render)
+data/bakeoff_*/
+
+# local cost ledger, appended by every run (src/costs.py reads it, scripts/ write it);
+# same treatment as bigquery_cost.jsonl above -- personal spend record, not a repo artifact
+data/llm_costs.csv
