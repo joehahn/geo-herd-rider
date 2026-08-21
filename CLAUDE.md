@@ -79,6 +79,42 @@ test, since retrospective retrieval can't be de-contaminated (non-negotiable #4)
 firehose sources (Fed, Musk, Dimon, congressional trades) until the forward scoreboard shows the
 news firehose pays. Confirm scope before jumping ahead.
 
+## The canonical book — corpus, curation, profile (`src/provenance.py`)
+
+A published dashboard claims to describe ONE book, and that book is a function of three inputs that
+live in three places: **corpus** -> **curation** -> **profile**. Each has silently drifted at least
+once (a 1-year pool rebuilt as if 3-year; a stale journal left inside a run dir by `cp -R`; a
+`--run` default ~50 commits behind the published page; a page built 5 hours before
+`max_watchlist: 8 -> 6` and never rebuilt, which read as a $272K -> $112K regression). Every one was
+caught by eye, late.
+
+- **`src/provenance.py` is the single source of truth.** `CANON_CORPUS` / `CANON_RUN` /
+  `CANON_SWEEP`. Promoting anything is an edit to those three lines; every builder default derives
+  from them. Do NOT hard-code a run or corpus path in a builder again.
+- **Profile knobs are partitioned by WHERE THEY ACT.** `CURATION_KNOBS` act upstream of the journal
+  — change one and the existing curation could never have been produced under it, so it must be
+  **re-curated** (LLM cost, hours). `BOOK_KNOBS` act at replay time over a fixed journal — change one
+  and the page just needs a **rebuild** (seconds, free). `max_watchlist` is the type specimen:
+  `watchlist_cap()` is called ONLY in `firehose.backtest`, never in the scan path.
+  `check_partition_covers_profile()` fails the build while any knob is unclassified, so **adding a
+  profile knob now forces you to decide its blast radius** — the question the rule below already asks.
+- **Every curation stamps `provenance.json` at creation** (`backtest_gdelt.py`), recording the
+  EFFECTIVE config — the profile after CLI overrides. Legacy runs: `scripts/stamp_legacy_run.py`
+  reconstructs a PARTIAL stamp from `archive/`, omitting (never inventing) what was not recorded.
+- **The gate refuses to publish a non-canonical page.** `require_publishable` hard-stops writes to
+  `docs/{cbt,fbt,sbt,fbs}.html` when the inputs do not match, and merely warns for any other `--out`.
+  Building an off-canon page is normal — an old curation, a bake-off arm, a news-reading sweep — so
+  send it to `docs_preview/` and it is waved through.
+- **A sweep that re-reads the news cannot be confused with the canonical curation.** It varies a
+  CURATION knob by definition, so its fingerprint differs from the profile's by construction, the
+  gate reports it as non-canonical, and SBT additionally refuses any grid that intersects
+  `CURATION_KNOBS`. No naming convention to remember.
+- **CBT prices from the sweep's frozen `data/<run>/panel.csv`**, so CBT and SBT cannot price the same
+  book differently. Re-fetching is an explicit choice (delete the file), never the default — live
+  yfinance drift made two sweeps of one journal disagree on 919 of 6,300 cells.
+- **`python scripts/check_canon.py`** answers "is everything consistent?" in one command; exit 1 if
+  not. Run it before trusting a page or committing dashboards.
+
 ## Conventions
 
 - Python 3.12, std `venv`, deps in `requirements.txt`. Match the terse,

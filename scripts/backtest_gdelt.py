@@ -239,6 +239,15 @@ def main(argv=None):
             rows = pd.read_csv(sf).fillna("").to_dict("records")
         print(f"  RESUME: {len(done)} weeks done, {len(events)} events in state", flush=True)
 
+    # STAMP THE RUN WITH THE INPUTS IT IS ABOUT TO BE CURATED UNDER, before any week is processed.
+    # `fm` here is the EFFECTIVE config -- the profile after every CLI override above (--news-cap,
+    # --event-agent-model, --relevance-filter, ...), which is how bake-off arms and any sweep that
+    # re-reads the news are produced. Recording the effective values is the whole point: an arm's
+    # fingerprint then differs from the profile's by construction, so the dashboards recognise it as
+    # non-canonical and refuse to publish it. See src/provenance.py.
+    import provenance as _prov
+    _prov.stamp(OUT, fm, a.corpus or "(gdelt-live)", arm=a.arm, argv=sys.argv[1:])
+
     ts = datetime.now(timezone.utc).isoformat()
 
     def flush():                                             # incremental -> partial dashboards buildable anytime

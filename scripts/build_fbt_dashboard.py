@@ -21,7 +21,9 @@ per-author bylines. Added for GHR, because our funnel differs:
 Reads data/<run>/pool.json + retrieval_stats.json. Render-only: no LLM, no network, no cost, so the
 retrieval-iteration loop (edit retrieval_config.json -> re-ingest from cache -> re-render) is free.
 
-    python scripts/build_fbt_dashboard.py --run data/backtest_1yr --out docs/fbt.html
+    python scripts/build_fbt_dashboard.py                 # the canonical corpus -> docs/fbt.html
+    python scripts/build_fbt_dashboard.py --run data/backtest_1yr \\
+        --out docs_preview/fbt_1yr.html                   # any other corpus: NOT to docs/
 """
 from __future__ import annotations
 
@@ -39,6 +41,7 @@ sys.path.insert(0, str(ROOT / "src"))       # gkg: specialty/blocklist domain ma
 sys.path.insert(0, str(ROOT / "scripts"))   # dash_nav: shared cross-page nav
 
 import dash_nav  # noqa: E402  shared cross-page nav (Backtest | Bootstrap | Forwardtest)
+import provenance as _canon  # noqa: E402  canonical-inputs gate
 import gkg as _gkg  # noqa: E402  specialty/blocklist domain matching, shared with the pipeline
 import orgs as _orgs  # noqa: E402  entity normalisation + grouping, the same code the scout uses
 
@@ -1062,15 +1065,25 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', dra
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    # The 3-year corpus is what the curator actually reads; the 1-year dir is a stale leftover.
-    # Defaulting to it silently rebuilt this dashboard on 1/3 of the data (caught 2026-08-12).
-    ap.add_argument("--run", default="data/backtest_3yr")
+    # --run IS the corpus dir here (this page reads its pool.json). The default has drifted twice:
+    # to data/backtest_1yr, which silently rebuilt the page on 1/3 of the data (caught 2026-08-12),
+    # and then to data/backtest_3yr while the curator had already moved to the _v5 pool. It comes
+    # from dash_nav now, so the corpus is named in ONE place for every page that reads one.
+    ap.add_argument("--run", default=_canon.CANON_CORPUS)
     ap.add_argument("--out", default="")
     ap.add_argument("--bootstrap", action="store_true",
                     help="render FBS (docs/fbs.html) off the assembled bootstrap corpus "
                          "(src/bootstrap_corpus) instead of a single run's pool.json")
     a = ap.parse_args(argv)
     out = a.out or ("docs/fbs.html" if a.bootstrap else "docs/fbt.html")
+    # THE GATE. FBT describes ONE corpus, so that is the whole check -- there is no curation and no
+    # book here. --bootstrap is exempt: FBS renders the assembled bootstrap corpus by design, which
+    # is a different corpus on purpose rather than a drifted one.
+    if not a.bootstrap:
+        _p = []
+        if a.run != _canon.CANON_CORPUS:
+            _p.append(f"corpus is {a.run}, canonical is {_canon.CANON_CORPUS}")
+        _canon.require_publishable(out, "FBT", _p)
     build(ROOT / a.run if not Path(a.run).is_absolute() else Path(a.run),
           ROOT / out if not Path(out).is_absolute() else Path(out),
           bootstrap=a.bootstrap)

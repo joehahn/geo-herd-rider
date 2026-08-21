@@ -16,7 +16,11 @@
 #
 # usage: scripts/wayback_supervisor.sh [corpus_dir] [log]
 set -u
-CORPUS=${1:-data/backtest_3yr}
+# DEFAULT = the canonical corpus (scripts/dash_nav.py CANON_CORPUS), which is what the curator
+# reads and what FBT/CBT name. It said data/backtest_3yr until 2026-08-21, a generation behind
+# the _v5 pool -- a bare launch would have spent ~11 hours enriching a corpus nothing reads.
+# The completed 2026-08-21 run was safe only because it was invoked with the path spelled out.
+CORPUS=${1:-data/backtest_3yr_v5}
 LOG=${2:-/tmp/wayback_supervised.log}
 STALL_MIN=20
 cd "$(dirname "$0")/.."

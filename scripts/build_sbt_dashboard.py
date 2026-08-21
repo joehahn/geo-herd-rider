@@ -30,6 +30,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "scripts"))
 import dash_nav  # noqa: E402
+import provenance as _canon  # noqa: E402  canonical-inputs gate
 from build_fbt_dashboard import (CSS, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL, STATUS,  # noqa: E402
                                  _LINK, esc, panel, table_html, tile)
 
@@ -37,10 +38,24 @@ from build_fbt_dashboard import (CSS, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL, STAT
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--sweep", default="data/sweep_v7.json")
+    ap.add_argument("--sweep", default=_canon.CANON_SWEEP)
     ap.add_argument("--out", default="docs/sbt.html")
     a = ap.parse_args(argv)
     S = json.loads((ROOT / a.sweep).read_text())
+    # THE GATE, two parts. (1) The sweep records the curation it was computed on, so this checks the
+    # BOOK rather than the filename. (2) The GRID must vary book knobs only. A sweep that varies a
+    # CURATION knob is a different thing entirely -- it re-reads the news and produces one new
+    # curation per cell -- and its cells are not comparable to the canonical book at all. Publishing
+    # one here would put re-curated results on the page that claims to sweep the canonical curation.
+    _p = []
+    _srun = S.get("run", "(unrecorded)")
+    if _srun != _canon.CANON_RUN:
+        _p.append(f"sweep was computed on {_srun}, canonical curation is {_canon.CANON_RUN}")
+    _cur_knobs = sorted(set(S.get("grid") or {}) & _canon.CURATION_KNOBS)
+    if _cur_knobs:
+        _p.append(f"grid varies CURATION knobs {_cur_knobs}, which re-read the news -- every cell is "
+                  f"its own curation, so these are not sweeps of {_canon.CANON_RUN}")
+    _canon.require_publishable(a.out, "SBT", _p)
     cells = [c for c in S["cells"] if c.get("cancelled") is not None]
     keys = list(S["grid"])
     # `base` = where the LIVE profile sits in the grid (the star in panels 2-7, the "current" row).

@@ -44,6 +44,8 @@ from util import load_dotenv  # noqa: E402
 load_dotenv()          # the picker needs ANTHROPIC_API_KEY; a render-only build otherwise has no env
 import dash_nav  # noqa: E402
 import score as _score  # noqa: E402
+import provenance as _canon  # noqa: E402  canonical-inputs gate
+import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,  # noqa: E402
                                  STATUS, _LINK, esc, panel, table_html, tile)
 
@@ -68,23 +70,51 @@ def load(run: Path, corpus: Path):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--run", default="data/cbt_1yr")
+    # The CANONICAL curation, kept in step with whatever the published page shows. Was
+    # data/cbt_1yr until 2026-08-21, ~50 commits after the page had moved to the 3yr grok
+    # run -- so a bare `python scripts/build_cbt_dashboard.py` quietly rebuilt docs/cbt.html
+    # off a 52-week/26-event curation. It is rendered into the params table now, so the
+    # next time this drifts the page says so instead of looking merely disappointing.
+    ap.add_argument("--run", default=_canon.CANON_RUN)
     # DEFAULTED TO THE 1-YEAR POOL UNTIL 2026-08-19, while every curation since v5 read the 3-year
     # one. Built without --corpus, this page therefore reported 38,896 articles from
     # data/backtest_1yr when the curator had actually read 99,117 from data/backtest_3yr_v5 -- so
     # the beat-bundle, coverage and article-count panels were computed off a pool the curator
     # never saw. The row below now names the path explicitly so the mismatch is visible.
-    ap.add_argument("--corpus", default="data/backtest_3yr_v5")
+    ap.add_argument("--corpus", default=_canon.CANON_CORPUS)
     ap.add_argument("--out", default="docs/cbt.html")
     a = ap.parse_args(argv)
     run, corpus = ROOT / a.run, ROOT / a.corpus
+    # THE GATE. CBT's claim is "this is the book the current profile produces on the canonical
+    # curation", so all three inputs are checked before anything is rendered: the corpus, the
+    # curation's recorded curation-knobs, and that every profile knob is classified. BOOK knobs are
+    # deliberately NOT checked -- max_watchlist 8 -> 6 is a rebuild, not an invalidation.
+    _problems = []
+    _unclassified = _canon.check_partition_covers_profile()
+    if _unclassified:
+        _problems.append(f"profile knobs nobody has classified as curation-or-book: {_unclassified}. "
+                         f"Add them to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
+    if a.corpus != _canon.CANON_CORPUS:
+        _problems.append(f"corpus is {a.corpus}, canonical is {_canon.CANON_CORPUS}")
+    _lfm_gate = _opt_gate.load_financial_model(str(ROOT / "investor_profile.backtest.md"))
+    _v = _canon.verify(a.run, _lfm_gate, a.corpus)
+    if not _v["ok"]:
+        if _v["reason"] == "unstamped":
+            _problems.append(_v["detail"] + "  Stamp it: python scripts/stamp_legacy_run.py " + a.run)
+        for _k, _got, _want in _v["diffs"]:
+            _problems.append(f"{_k}: curation ran under {_got!r}, profile now says {_want!r} "
+                             f"-> this curation would have to be RE-RUN, not just rebuilt")
+    _canon.require_publishable(a.out, "CBT", _problems)
+    if _v.get("unverifiable"):
+        print(f"  note: {len(_v['unverifiable'])} curation knobs were never recorded by {a.run} "
+              f"and cannot be checked ({', '.join(_v['unverifiable'][:4])}, ...)", file=sys.stderr)
     M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus)
     try:
         from sweep_optimizer import FOCUS as _FOCUS_TICKERS
     except Exception:  # noqa: BLE001 -- emphasis is a nicety, never a build blocker
         _FOCUS_TICKERS = ()
 
-    # ARTICLES PER BEAT over the whole corpus -- the denominator for beat efficiency (panel 6) and
+    # ARTICLES PER BEAT over the whole corpus -- the denominator for beat efficiency (panel 7) and
     # the reason panel 5 can now list beats that produced NOTHING. `queries` is a stringified list.
     _beat_arts: dict = collections.Counter()
     for _a in ARTS:
@@ -220,7 +250,6 @@ def main(argv=None) -> int:
     # skipped before ("portfolio math skipped (NameError...)"), which would leave this undefined and
     # take the whole build down at payload time.
     _prov_gain: dict = {}
-    hold_rows: list = []
     n_ev_urls = n_matched = 0
     for p in PICKS:
         for u in (p.get("evidence_urls") or "").split(";"):
@@ -326,7 +355,24 @@ def main(argv=None) -> int:
             except Exception as _e:  # noqa: BLE001
                 print(f"  picker unavailable ({type(_e).__name__}: {_e}); cull falls back to keep-first-N",
                       file=sys.stderr)
-        _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick)
+        # THE FROZEN PRICE PANEL, shared with the sweep. Without it this page re-downloaded prices
+        # on every build and was NOT reproducible: the same curation, the same code and the same
+        # corpus rendered $272,336 on 2026-08-19 and $112,435 on 2026-08-21, because live adjusted
+        # closes drift and small drifts cascade through the covariance and the min_trade_size
+        # threshold. sweep_optimizer.py hit exactly this (919 of 6,300 cells disagreed, one by 36x)
+        # and fixed it by freezing one panel per run; CBT was left fetching live, so CBT and SBT
+        # could describe the same book with different numbers. Same file, so they cannot any more.
+        # Re-fetching is an explicit choice -- delete data/<run>/panel.csv -- not the default.
+        _panel = None
+        _pf = run / "panel.csv"
+        if _pf.exists():
+            import pandas as _pdp
+            _panel = _pdp.read_csv(_pf, index_col=0, parse_dates=True)
+            print(f"  panel: reusing frozen {_pf} ({_panel.shape[1]} tickers)")
+        else:
+            print(f"  panel: no frozen {_pf}; fetching live -- this build is NOT reproducible",
+                  file=sys.stderr)
+        _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel)
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
@@ -348,19 +394,6 @@ def main(argv=None) -> int:
             for _p, _n in _mix.items():
                 _pg[_p] += _g * _n / _tot
         _prov_gain = dict(_pg)
-        # HOLD LENGTH vs EARN RATE. The strategy's premise is that a position is held while its
-        # catalyst is live, so how long the book actually holds things is a first-order check on
-        # whether that is happening. Measured here rather than asserted: days funded, total gain, and
-        # gain per funded day, per ticker.
-        _al = (_bt.get("daily") or {}).get("alloc") or {}
-        _hold = []
-        for _t, _gv in ((_bt.get("daily") or {}).get("gain") or {}).items():
-            _ser = _al.get(_t) or []
-            _dd = sum(1 for w in _ser if w > 0.005)
-            if _dd:
-                _hold.append({"t": _t, "d": _dd, "g": round(float(_gv), 2),
-                              "r": round(float(_gv) / _dd, 2)})
-        hold_rows = _hold
         # GAINS PER BUNDLE SIZE -- attach the book's per-ticker P&L to the size class that proposed
         # each ticker. Done here because it needs the book, which does not exist where the buckets
         # are built.
@@ -855,7 +888,6 @@ def main(argv=None) -> int:
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "bundle": bundle_buckets,
-        "hold": hold_rows,
         "focus": list(_FOCUS_TICKERS),   # the no-brainer tickers, bolded in plot 5
         # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
         # evidence, in proportion to how many of its cited articles came from each. A proportional
@@ -933,6 +965,17 @@ def main(argv=None) -> int:
         # down. The MISMATCH note stays -- surfacing that is the only reason the clause existed.
         ("curator calls", f"{len(M)} curations"
          + ("" if _cad == _cad_profile else f" — run at {_cad}d; profile now says {_cad_profile}d")),
+        # BOTH INPUT PATHS ARE NAMED HERE ON PURPOSE. The page has been built off the wrong
+        # curation twice: once when a stray `cp -R` left a stale journal inside cbt_3yr_v9
+        # (ca5aee6), and once when the --run DEFAULT went stale and a bare run silently
+        # rendered a 26-event throwaway. Neither was visible on the page.
+        ("curation (local path)", f"{a.run}"),
+        # The page attests to its OWN inputs. A reader months from now should not have to
+        # reconstruct which corpus and which curation-knobs produced the numbers below --
+        # that reconstruction is what cost a full investigation on 2026-08-21.
+        ("curation fingerprint", _canon.curation_key(_lfm_gate, a.corpus)["hash"]
+         + (" \u2713 canonical" if not _problems else " \u2717 NOT canonical")
+         + (f" ({len(_v['unverifiable'])} knobs unrecorded)" if _v.get("unverifiable") else "")),
         ("corpus (local path)", f"{a.corpus}"),
         ("lede arm", arm_used),
         ("— investor_profile.backtest.md · cadence —", ""),
@@ -1037,7 +1080,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>27. Curation log</h2>'
+        f'<section class="panel"><h2>26. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1193,22 +1236,12 @@ def main(argv=None) -> int:
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
               "moments the optimizer funded and unfunded it.",
               "c-gainh", 560),
-        panel(6, "How long a position is held, and what it earns",
-              "Each dot is a funded ticker: <b>days funded</b> against <b>gain per funded day</b>, "
-              "sized by total gain and coloured by whether it made money. The strategy\u2019s premise "
-              "is that a position is held while its catalyst is live \u2014 so this is the check on "
-              "whether that is what happens. The dashed line is the "
-              f"<code>rebalance_period</code> ({_cad0} days): dots left of it are positions that did "
-              "not survive from one rebalance to the next. <b>A flat cloud means holding longer buys "
-              "nothing</b> \u2014 the book would be earning by cycling capital rather than by riding "
-              "a thesis, which is a different strategy from the one described.",
-              "c-hold", 420),
-        panel(7, "Cumulative $ gain per beat",
+        panel(6, "Cumulative $ gain per beat",
               "The same dollars as the panel above, rolled up to the BEAT that surfaced each ticker\u2019s "
               "evidence \u2014 i.e. which part of the firehose paid. A beat that costs money is a "
               "retrieval-vocabulary problem, not a curator one.",
               "c-gainb", max(460, 18 * _n_beats)),
-        panel(8, "Gain per article read, by beat",
+        panel(7, "Gain per article read, by beat",
               "The same dollars divided by how many of that beat's articles actually REACHED THE SCOUT "
               "&mdash; i.e. survived the discovery gate. That is the cost that binds: the scout is 91% of "
               "the LLM bill and reads only gate-passed articles. The corpus count and the pass rate are "
@@ -1219,26 +1252,26 @@ def main(argv=None) -> int:
               "pure cost. Read it against panel 5 &mdash; a tall bar there with a short bar here is a "
               "beat carried by volume rather than by quality.",
               "c-beateff", max(420, 18 * _n_beats_eff)),
-        panel(9, "Cumulative $ gain per event",
+        panel(8, "Cumulative $ gain per event",
               "The same gains grouped by the EVENT that motivated them. PWR groups this by wave "
               "bucket; GHR's unit of thesis is the event, so this is its analogue. It answers whether "
               "the curator's <i>ideas</i> paid, independently of which vehicle expressed them.",
               "c-gaine", 480),
-        panel(10, "Portfolio value by event over time",
+        panel(9, "Portfolio value by event over time",
               "How the book was distributed across events as the year ran. Wide bands that persist "
               "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating.",
               "c-evtime", 420),
-        panel(11, "Allocation over time",
+        panel(10, "Allocation over time",
                 "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
                 "<code>always_include</code> anchors (SPY, BIL) sit outside the watchlist cap and are "
                 "where idle capital parks; a grey anchor stretch is the book in SPY/BIL, not a "
                 "decision to hold cash. " + _cash_note,
                 "c-alloc", 580),
-        panel(12, "Thesis concentration",
+        panel(11, "Thesis concentration",
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
                 "day parked in SPY/BIL reads 0%; the dashed line is the per-ticker cap, for scale.",
                 "c-evconc", 380),
-        panel(13, "Curator funnel",
+        panel(12, "Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "<b>Log x-axis.</b> Two things to watch: the <b>discovery gate</b> is the largest cut in "
               "the whole pipeline (~19&times;), and it is <b>scout-only</b> — event agents still read "
@@ -1248,7 +1281,7 @@ def main(argv=None) -> int:
               "are the de-duplicated views. NOT shown: the ticker guard, which resolves names to "
               "symbols and drops unresolvable ones before these counters see them.",
               "c-funnel", 340),
-        panel(14, "Breadth over time",
+        panel(13, "Breadth over time",
               "Events live, distinct tickers named, and how many separate catalysts those events "
               "represent — per rebalance. Several events on one theme is concentration wearing a "
               "diversity costume, which is why catalysts are drawn separately from events. The dashed "
@@ -1258,13 +1291,13 @@ def main(argv=None) -> int:
               "an active knob. What used to sit between the solid and dashed lines was inventory the "
               "optimizer was never going to fund.",
               "c-breadth", 380),
-        panel(15, "Scout inflow vs admissions",
+        panel(14, "Scout inflow vs admissions",
                 f"Candidate <b>tickers</b> the scout proposed each <code>rebalance_period</code> "
                 f"({_cad0} days here), against what was admitted. Each candidate is a (ticker, thesis) "
                 f"pair, not an event — several can collapse into one event later (176 admissions became "
                 f"{J.get('nid', 0)} events).",
                 "c-inflow", 340),
-        panel(16, "Does a bigger bundle make the scout act?",
+        panel(15, "Does a bigger bundle make the scout act?",
               "The design\u2019s central claim, tested. Articles are bundled by company so a ticker\u2019s "
               "move-signal and its DRIVER arrive together \u2014 a move with no cause is correctly "
               "refused, which is why RKLB produced nothing for so long. If that is right, bigger "
@@ -1272,7 +1305,7 @@ def main(argv=None) -> int:
               "each size; the line is the share that produced a proposal. <b>Watch the 1-article "
               "bar</b>: a bundle of one cannot corroborate anything, so it is the control.",
               "c-bundle", 380),
-        panel(17, "Gains per bundle size",
+        panel(16, "Gains per bundle size",
               "The money twin of the panel above: that one asks whether a bigger bundle makes the "
               "scout ACT, this asks whether those proposals were worth acting on. Each bar is the "
               "realised P&amp;L of every ticker proposed out of a bundle of that size. <b>A ticker "
@@ -1280,7 +1313,7 @@ def main(argv=None) -> int:
               "total \u2014 the question is what proposals of each size earned, not how the book "
               "decomposes.",
               "c-bundlegain", 340),
-        panel(18, "Gains per bundle",
+        panel(17, "Gains per bundle",
               "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
               "bundles actually paid. A bundle is credited with the realised P&amp;L of every ticker "
               "proposed out of it, so a name here earned its money by putting a ticker in front of "
@@ -1293,17 +1326,17 @@ def main(argv=None) -> int:
               "taller than the largest named bundle and would flatten everything here, the same way "
               "they did in plot 5.",
               "c-bundlename", 620),
-        panel(19, "Coverage vs picks, per ticker",
+        panel(18, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(20, "Gain per article, per ticker",
+        panel(19, "Gain per article, per ticker",
               "For the picked tickers above: dollars earned per article the press wrote about them. "
-              "The per-ticker twin of plot 6. A name that paid a lot on little coverage sits far right; "
+              "The per-ticker twin of plot 7. A name that paid a lot on little coverage sits far right; "
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(21, "Gain per lede provenance",
+        panel(20, "Gain per lede provenance",
               "Dollars earned, split by where the text behind each pick came from. The money twin of "
               "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
               "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
@@ -1312,28 +1345,28 @@ def main(argv=None) -> int:
               "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
               "most of the money, the quotable arm is not the one earning.",
               "c-ledegain", 300),
-        panel(22, "Evidence by lede provenance",
+        panel(21, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(23, "Evidence by source",
+        panel(22, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(24, "Evidence by beat",
+        panel(23, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(25, "Event storyboard",
+        panel(24, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(26, "Text provenance of what the curator read",
+        panel(25, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1414,7 +1447,6 @@ th {{ color:var(--text2); font-weight:600; }}
 <script>
 const DATA = {json.dumps(payload, default=str)};
 const L = {json.dumps(LIGHT)}, D = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
-const CAD = {_cad0};   // rebalance_period in days, for the hold-length panel
 function pal() {{
   const dark = document.documentElement.dataset.theme === 'dark' ||
     (document.documentElement.dataset.theme !== 'light' &&
@@ -1617,31 +1649,6 @@ function draw() {{
         yaxis:{{gridcolor:p.grid, type:'log', title:{{text:'bundles shown (log)', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', rangemode:'tozero', showgrid:false,
                  title:{{text:'produced a proposal', font:{{size:11}}}}}}}}), CFG);
-  }}
-
-  // HOLD LENGTH vs EARN RATE. Marker AREA carries total gain, so a big dot is a big winner (or, in
-  // the critical colour, a big loser) -- size is the third variable here because both axes are
-  // already spoken for and a colour ramp would fight the win/lose colouring.
-  const HD = DATA.hold || [];
-  if (HD.length) {{
-    const _mx = Math.max(...HD.map(d=>Math.abs(d.g))) || 1;
-    const _sz = g => 6 + 26 * Math.sqrt(Math.abs(g) / _mx);
-    const _w = HD.filter(d=>d.g > 0), _l = HD.filter(d=>d.g <= 0);
-    const _tr = (arr, nm, col) => ({{
-      type:'scatter', mode:'markers', name:nm, x:arr.map(d=>d.d), y:arr.map(d=>d.r),
-      marker:{{size:arr.map(d=>_sz(d.g)), color:col, line:{{width:1.5, color:p.surface}}, opacity:0.75}},
-      text:arr.map(d=>d.t),
-      hovertemplate:'%{{text}}<br>%{{x}} days funded<br>$%{{y:,.0f}}/day<extra></extra>'}});
-    Plotly.react('c-hold', [_tr(_w,'made money',p.s1), _tr(_l,'lost money',ST.critical)],
-      base(p, {{showlegend:true, margin:{{l:74,r:24,t:34,b:48}},
-        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{gridcolor:p.grid, title:{{text:'days funded', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', zeroline:true, zerolinecolor:p.text2,
-               title:{{text:'gain per funded day', font:{{size:11}}}}}},
-        shapes:[{{type:'line', x0:CAD, x1:CAD, yref:'paper', y0:0, y1:1,
-                  line:{{color:ST.warning, width:1.5, dash:'dash'}}}}],
-        annotations:[{{x:CAD, xanchor:'left', yref:'paper', y:0.98, yanchor:'top', showarrow:false,
-                       font:{{size:10.5, color:p.text2}}, text:' one rebalance'}}]}}), CFG);
   }}
 
   // GAINS PER BUNDLE SIZE -- the money twin of c-bundle, same buckets and same x-axis so the two
