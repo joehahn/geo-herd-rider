@@ -136,13 +136,24 @@ max_event_scans: 12               # retires the whole EVENT at this age (~1 year
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # REGION-CHOSEN 2026-08-19, not sweep-rank-chosen. Across 15
-                                  #   curations the value ORDERING of every knob reproduces (27/27),
-                                  #   while individual cells reproduce only 85% of the time -- so the
-                                  #   sweep is trustworthy about WHICH REGION is good and not about
-                                  #   which cell wins. 6 posts the lowest median cancellation (58.9%)
-                                  #   and ranks 1st or 2nd in most curations; 8 ranks 3rd. Every other
-                                  #   knob here was already inside the region.
+max_watchlist: 12                 # NEIGHBOURHOOD-CHOSEN 2026-08-21 on the canonical curation alone.
+                                  #   Was 6, chosen 2026-08-19 by pooling 15 sweeps across as many
+                                  #   curations. That pooling was withdrawn: those curations are not
+                                  #   repeat draws of one setup -- the text they read ranges from 9.6%
+                                  #   to 45.3% clean archived lede, one fed the curator 41.7% bare
+                                  #   headlines, four read a different article pool, and three of the
+                                  #   15 were the same curation swept twice. It averaged over
+                                  #   RETRIEVAL REGIMES, not over news noise.
+                                  #   The replacement scores a config by its own 22-cell one-knob
+                                  #   NEIGHBOURHOOD (SBT panel 8), trimming the luckiest and
+                                  #   unluckiest member: a knife-edge cell cannot win, because its
+                                  #   neighbours are inside its score. [12, 0.25, 21, 0, 4.0, 0.05]
+                                  #   ranks 1 of 6,300 at a regional median of $278,249 +/- 38,560
+                                  #   against 6's $105,442 +/- 10,667 -- non-overlapping.
+                                  #   TWO CAVEATS, both live. 12 is the TOP of the swept grid, so the
+                                  #   optimum may lie outside it and this is a ceiling, not a maximum.
+                                  #   And the top-50 regions favour 8 (33 of 50) over 12 (16 of 50),
+                                  #   so the best single row and the weight of the band disagree.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
 drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
@@ -156,11 +167,16 @@ concentration_cap: 0.25           # most of the book any one ticker may take. Ti
                                   #   2026-08-15: at max_watchlist 8 the sweep's whole top-Sharpe cluster
                                   #   sits at 0.25, i.e. spread the risk and let the curator's breadth,
                                   #   not a single name, carry the return.
-min_trade_size: 0.10              # positions smaller than this are dropped. At max_watchlist 8 an equal book
-                                  #   is 12.5% a name, so at 0.20 this still BITES -- a concentration lever,
-                                  #   not a dust filter. Watch it: paired with the old [6, 0.40, 45, 4] cell
-                                  #   it cancelled 32% of trades and left the book in cash 53% of days,
-                                  #   because positions under the floor are DROPPED rather than shrunk.
+min_trade_size: 0.05              # positions smaller than this are dropped. NOT a dust filter -- a
+                                  #   concentration lever, because positions under the floor are DROPPED
+                                  #   rather than shrunk. Loosened from 0.10 2026-08-21 with the
+                                  #   max_watchlist move: at 12 names an equal book is 8.3% each, so a
+                                  #   0.10 floor would cancel most of the book's intended positions.
+                                  #   0.05 is the winning region's value and the grid is nearly flat
+                                  #   across 0.0-0.2 there (regional median $273K-$298K), so this is
+                                  #   the least load-bearing of the six. Watch it: paired with the old
+                                  #   [6, 0.40, 45, 4] cell a 0.20 floor cancelled 32% of trades and
+                                  #   left the book in cash 53% of days.
 risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
 optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
                                   #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book

@@ -1903,8 +1903,13 @@ function draw() {{
       if (!g || !g.on || g._tkBound) return !(g && g._tkBound);   // not ready yet -> keep waiting
       g._tkBound = true;                                          // idempotent: never bind twice
       g.on('plotly_click', ev => {{
-        const tk = ev.points[0].x;
-        if (!String(tk).startsWith('other (')) window._showTk(tk);   // the rolled bar is not a name
+        // STRIP THE TICK MARKUP. Plotly renders HTML in tick labels, which is how the FOCUS
+        // shortlist gets bolded -- so a bolded bar's x is "<b>MU</b>", not "MU", and PX.p has no
+        // such key. _showTk returns silently on a miss, so the click did nothing and only for the
+        // emphasised names: the six the emphasis exists to draw attention to, MU (the largest
+        // gainer, and therefore the FIRST bar) among them. Found 2026-08-21.
+        const tk = String(ev.points[0].x).replace(/<[^>]*>/g, '');
+        if (!tk.startsWith('other (')) window._showTk(tk);           // the rolled bar is not a name
       }});
       return false;
     }});

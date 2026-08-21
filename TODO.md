@@ -15,6 +15,32 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
 
+## Extend the sweep grid past `max_watchlist 12` (parked 2026-08-21)
+
+**Zero-cost: no LLM, no re-curation.** `scripts/sweep_optimizer.py` on the canonical curation.
+
+The profile moved to `max_watchlist: 12` on 2026-08-21, chosen by SBT panel 8's neighbourhood
+ranking (rank 1 of 6,300, regional median $278,249 ± 38,560 against 6's $105,442 ± 10,667,
+non-overlapping). **12 is the TOP of the swept grid** `[4, 6, 8, 12]`, so it is a ceiling we hit,
+not a maximum we found — the optimum may lie outside the grid entirely.
+
+Add `16, 20, 24` (and widen `concentration_cap` upward too — 0.25 is likewise the low edge of
+`[0.25, 0.4, 0.6]`, and `risk_aversion 4.0` the high edge of `[0.5 … 4.0]`; all three winners sit
+on a boundary). Then rebuild SBT and re-read panel 8.
+
+**Watch for two things.**
+1. **The band already disagrees with the peak.** The top-50 regions favour `max_watchlist 8`
+   (33 of 50) over 12 (16 of 50). If extending the grid moves the peak further out while the mass
+   stays at 8, that is evidence the peak is drifting with the grid edge rather than locating an
+   optimum — read the `±` columns, not the ordering.
+2. **`min_trade_size` has to travel with it.** At 12 names an equal book is 8.3% each; at 20 it is
+   5%. The floor DROPS positions rather than shrinking them, so a floor left at 0.05 starts
+   cancelling the book's intended positions somewhere past ~20 names. Sweep the two together or the
+   larger watchlists will be scored while silently half-funded.
+
+Do NOT re-freeze `investor_profile.forward.md` on a boundary config before this runs — that sync is
+still outstanding (CLAUDE.md requires the strategy knobs to match across both profiles).
+
 ## DONE 2026-08-14 — Decouple the news window from the rebalance cadence: `news_lookback_days`
 
 **Shipped in c0c8dda.** `optimizer` had documented this as live behaviour all along, but only

@@ -5,17 +5,20 @@ Renders the FULL-FACTORIAL optimizer grid from scripts/sweep_optimizer.py. Zero 
 network: the curation is fixed and only the book math varies, so every number here is reproducible
 by re-running the sweep.
 
-Borrowed from PWR's sweep dashboard: the return-vs-drawdown frontier, the per-knob marginal panels
-with the live setting called out, and a recommended-settings table. Added because a GRID makes it
-possible and 1-D sweeps cannot show it: a HEATMAP over the two dominant knobs, which is where the
-interactions live (concentration_cap 0.60 is harmless at max_watchlist 6 and catastrophic at 10 --
-a one-at-a-time sweep reports whichever slice it happened to hold fixed).
+Borrowed from PWR's sweep dashboard: the return-vs-drawdown frontier and a recommended-settings
+table. The per-knob marginal panels and the two-knob heatmap were DROPPED 2026-08-21 along with the
+max_events risk/cost pair and the judge audit -- the recommendation no longer comes from reading one
+knob at a time, so panels showing knobs in isolation invited a way of choosing the page no longer
+supports.
 
-THE HEADLINE MEASURE IS CANCELLATION, not return: the share of the winners' gains handed back by the
-losers. That is the defect this sweep exists to fix, and unlike final value it is not dominated by
-one lucky name.
+THE HEADLINE MEASURE IS THE REGION (panel 8): a config scored on its own one-knob neighbourhood
+rather than on its single cell, over ten metrics turned into percentile ranks. Cancellation is one
+of the ten, not the headline it used to be -- it is a RATIO and blind to magnitude, so it never
+rewarded picking well, only not losing.
 
-    python scripts/build_sbt_dashboard.py --sweep data/sweep_v7.json
+    python scripts/build_sbt_dashboard.py                     # canonical sweep -> docs/sbt.html
+    python scripts/build_sbt_dashboard.py --sweep data/sweep_v7.json \
+        --out docs_preview/sbt_v7.html                        # any other sweep: NOT to docs/
 """
 from __future__ import annotations
 
@@ -73,29 +76,6 @@ def main(argv=None) -> int:
     by_canc = sorted(cells, key=lambda c: c["cancelled"])
     by_ret = sorted(cells, key=lambda c: -c["final"])
 
-    # ---- marginals: for each knob, the distribution of cancellation at each of its values --------
-    marg = {}
-    for k in keys:
-        d = collections.defaultdict(list)
-        for c in cells:
-            d[c[k]].append(c["cancelled"])
-        marg[k] = {"vals": [str(v) for v in S["grid"][k]],
-                   "med": [round(statistics.median(d[v]), 1) for v in S["grid"][k]],
-                   "best": [round(min(d[v]), 1) for v in S["grid"][k]],
-                   "base": str(base[k])}
-
-    # ---- heatmap over the two knobs the marginals show dominating ---------------------------------
-    spread = {k: max(marg[k]["med"]) - min(marg[k]["med"]) for k in keys}
-    kx, ky = sorted(spread, key=lambda k: -spread[k])[:2]
-    cellmap = collections.defaultdict(list)
-    for c in cells:
-        cellmap[(str(c[kx]), str(c[ky]))].append(c["cancelled"])
-    heat = {"x": [str(v) for v in S["grid"][kx]], "y": [str(v) for v in S["grid"][ky]],
-            "kx": kx, "ky": ky,
-            "z": [[round(statistics.median(cellmap[(str(xv), str(yv))]), 1)
-                   if cellmap[(str(xv), str(yv))] else None
-                   for xv in S["grid"][kx]] for yv in S["grid"][ky]]}
-
     # THE max_events SERIES (panel 10), if it has been collected. Optional on purpose: it is the one
     # thing on this page that is NOT free -- max_events is a CURATION knob, so each point cost a full
     # re-curation (~$3-4.50, ~45 min) rather than a replay of fixed book math. Absent -> panel omitted.
@@ -103,14 +83,12 @@ def main(argv=None) -> int:
     me = json.loads(_me.read_text()) if _me.exists() else None
     # ORDER THE SERIES ONCE, HERE. max_events=0 means "uncapped", i.e. the LIMIT of the series, so it
     # belongs at the right-hand end -- sorting numerically puts it at the left where it reads as the
-    # smallest cap, the exact opposite of what it is. Done at load so panel 1's table and panels 10-13
+    # smallest cap, the exact opposite of what it is. Done at load so panel 1's table and panels 9-10
     # cannot disagree: they did, the table showing 4..20,uncapped and the plots uncapped,4..20.
     if me and me.get("rows"):
         me["rows"] = sorted(me["rows"], key=lambda r: (r["max_events"] == 0, r["max_events"]))
 
-    payload = {"cells": cells, "keys": keys, "marg": marg, "heat": heat,
-               "spy": cells[0]["spy"] if cells else 0,
-               "cur": cur, "me": me}
+    payload = {"cells": cells, "keys": keys, "cur": cur, "me": me}
 
     # What was swept, and what the profile currently says -- PWR's "Parameter settings" panel. The
     # `current` column is what makes it readable: without it the grid is a list of numbers with no
@@ -122,7 +100,7 @@ def main(argv=None) -> int:
     _CANON = {"lookback_period_days": "optimizer_lookback_days"}
     ps_rows = [[_CANON.get(k, k), ", ".join(str(v) for v in S["grid"][k]), str(base[k]),
                 "free — book replay"] for k in keys]
-    # max_events belongs in this table -- it IS swept on this page (panels 10-13) -- but it is swept
+    # max_events belongs in this table -- it IS swept on this page (panels 9-10) -- but it is swept
     # on completely different terms and listing it beside the six without saying so would be the
     # misleading part. The six are FREE: they re-weight a fixed curation, so 6,300 cells cost nothing.
     # max_events is a CURATION knob, so each value needed its own re-curation and its own LLM bill.
@@ -139,7 +117,7 @@ def main(argv=None) -> int:
             ("0 = uncapped" if not _fm.get("max_events") else str(_fm.get("max_events"))),
             f"${_cost:.2f} — {len(_mer)} re-curations"])
     # THE MODEL SWEEP (panels 15-20). Listed here because a reader looking for "what was varied"
-    # looks at this table, and the eight-arm bake-off is otherwise invisible until panel 15.
+    # looks at this table, and the eight-arm bake-off is otherwise invisible until panel 11.
     #
     # IT WAS event_agent_model THAT MOVED, NOT scout_model. The scout was held FIXED at llama4 in all
     # eight arms -- every arm read the same 1,248 scout chunks off the same corpus -- and that is
@@ -332,184 +310,106 @@ def main(argv=None) -> int:
              ("L2", "l2", lambda v: 750 < v < 1350, "750&ndash;1350/yr"),
              ("Sharpe", "sharpe", lambda v: v > 0.8, "&gt; 0.8"),
              ("cancelled", "cancelled", lambda v: v < 65, "&lt; 65%")]
-    # Rows shown in table 8 AND marked as light-blue squares in panels 2-7. Raised 30 -> 50
-    # 2026-08-16: with 319 survivors the top 30 was cutting off cells that lead on PLATEAU
-    # rather than Sharpe -- the table ranks by Sharpe, so a robust cell can sit well down it
-    # (the [8, 0.60, 21, 0, 3.0, 0.10] block is 3rd by plateau and 37th by Sharpe, i.e. it
-    # was invisible in the table AND unmarked in the scatters).
-    # Raised 50 -> 100 on 2026-08-17, following the gate loosening the same day: the sixth set
-    # (DD/L1/L2/cancellation, no Sharpe bar) leaves 1,787 survivors where earlier cuts left 332-599,
-    # so 50 squares had shrunk to the top 2.8% of the shortlist and the scatters no longer showed
-    # where the ACCEPTABLE region sits -- only its tip. 100 restores a readable band without marking
-    # so much of the cloud that the highlight stops meaning anything.
-    #
-    # THIS CONSTANT DRIVES THREE THINGS AT ONCE and they must not be split: table 8's visible rows,
-    # the `topn` payload behind the blue squares in panels 2-7, and the "show the remaining N" fold.
-    # Panel 8 (the FOCUS panel) was deleted 2026-08-19 -- it marks `top5` only, so its squares mean something
-    # narrower than the same-coloured squares elsewhere on the page.
-    TOP_N = 100
-    short = [c for c in cells
-             if all(c.get(f) is not None and t(c[f]) for _, f, t, _ in GATES)]
-    # RANKED BY `robust` (2026-08-17; was plateau 2026-08-16, Sharpe before that). Every cell here has
-    # already cleared the gates, so the shortlist is a set of configs that are all ACCEPTABLE. The
-    # question the ordering should answer is therefore not "which is best in sample" but "which is
-    # likeliest to still work on the NEXT curation" -- and that question now has a measured answer
-    # rather than an argued one. See the `robust` block above for the transfer test: ranking by
-    # cancellation+drawdown rank puts its top 50 at the 86th percentile of the re-curation, plateau at
-    # the 83rd, Sharpe at the 54th (a coin flip), and final value at the 43rd (worse than random).
-    # This repo has had THREE sweep winners fail to survive the next curation, so ranking on the
-    # in-sample peak is ranking on the quantity that has misled it every time.
-    # The Sharpe rank is kept as its own column: where it disagrees with the order IS the overfit
-    # risk, and hiding one of them would just move the blind spot.
-    # RANKED BY `robust` still, because the blue squares on panels 2-7 mark the top TOP_N and the
-    # marking has to be in some order. The rendered TABLE that used to sit under panel 8 is gone
-    # (2026-08-19): a hundred ordered rows implied a precision the sweep does not have, since cell
-    # ordering reproduces only 85% of the time while knob-value ordering reproduces 27/27. Panel 8
-    # now shows the REGION instead. The per-column stars, the #Sharpe rank column and the row
-    # formatter went with the table -- nothing else read them.
-    short.sort(key=lambda c: c["robust"])
-
-    # The rows table 8 shows, keyed the same way the JS keys a cell, so panels 2-7 can mark exactly
-    # the configs the table recommends. Without this the table and the scatters are two separate
-    # arguments about the same grid and you have to hold one in your head while reading the other.
-    # INDICES into `cells`, not a formatted key. Building the key python-side gave "3.0" where JSON/JS
-    # gives "3", so only 2 of 20 ever matched -- a silent near-miss that LOOKED like the feature working.
     _pos = {id(c): i for i, c in enumerate(cells)}
-    # ---- THE REGION -------------------------------------------------------------------------------
-    # WHAT CHANGED AND WHY. This used to rank 6,300 configs and recommend row 1. That is a
-    # multiple-comparisons error: with 6,300 cells drawn from one history the top cell is by
-    # construction the one that best fit that history's accidents, and re-running the same sweep on
-    # the same curation moves 15% of cells.
+    # ---- THE REGION: ONE CURATION, LOCAL NEIGHBOURHOODS ------------------------------------------
+    # WHAT CHANGED AND WHY (2026-08-21). This used to pool 15 sweeps across as many curations, on the
+    # argument that averaging over draws of the news beats trusting one. The premise did not survive
+    # being checked. Those curations are not repeat draws of one setup: measured from their own
+    # archives, the text they read ranges from 9.6% to 45.3% clean (wayback) lede, and one fed the
+    # curator 41.7% bare headlines. Four read a different article pool entirely and one varied
+    # max_events. Three of the "15" were the same curation swept twice, which inflated n and shrank
+    # the standard error the region width is built from. Averaging over that is averaging over
+    # RETRIEVAL REGIMES, not over curation noise.
     #
-    # But a REGION is not a cell. A knob VALUE's median pools ~1,575 cells x 15 curations, so the luck
-    # averages out. Measured by leave-one-curation-out -- choose the region on 14 curations, score it
-    # on the 15th -- a region chosen on FINAL VALUE lands at the 91st percentile of the held-out grid,
-    # against 80th for cancellation, 77th for annualized return and 61st for Sharpe. So the metric here
-    # is portfolio value, not cancellation. Cancellation is a RATIO (|losses| / gains) and is blind to
-    # magnitude by construction: a book making $1K and losing $200 scores the same as one making $500K
-    # and losing $100K. It never rewarded picking well, only not losing.
+    # So the population is now ONE curation -- the canonical one, which read the best text of any of
+    # them -- and the noise control moves inside the grid instead. A config's REGION is itself plus
+    # every config differing in exactly ONE knob: 1 + 3+2+6+2+4+4 = 22 cells. The luckiest and
+    # unluckiest member BY FINAL VALUE are dropped, and each metric is summarised as the median and
+    # standard error of the mean over the surviving 20.
     #
-    # MEMBERSHIP IS A 1-STANDARD-ERROR RULE, not a rank cutoff. Each value's median final is normalised
-    # to its own curation's grid median (so a rich curation cannot outvote a lean one), averaged over
-    # the curations, and a value is IN if it clears best-mean minus one SE. That admits genuine ties on
-    # their merits: lookback 21 and 30 are indistinguishable (1.387 +/- 0.107 vs 1.419 +/- 0.064) and
-    # both belong, while a rank cutoff would have taken one and dropped the other.
-    import glob as _glob
+    # This is a different defence against the same error, and it is the one that fits a single
+    # history. Ranking cells picks the cell that best fits this history's accidents. Ranking
+    # NEIGHBOURHOODS cannot: a knife-edge cell whose neighbours are bad scores badly, because its
+    # neighbours are in its own score. A config only ranks well if the settings AROUND it also work,
+    # which is the property you actually want when the number will be run forward on new news.
+    #
+    # RANKING is the mean of per-metric percentile ranks across all 6,300 regions, each metric
+    # oriented so higher is better. Percentiles because the metrics have incomparable units; the mean
+    # because no weighting is defensible without evidence for one. Ranking instead on each metric's
+    # conservative (median - 1 SE) bound picks the SAME top config and shares 18 of its top 20, so the
+    # simpler form is kept and the SE is shown rather than folded in.
     import math as _math
-    _all = {}
-    for _sf in sorted(_glob.glob(str(ROOT / "data/sweep_*.json"))):
-        if any(x in _sf for x in ("max_events", "check")):
-            continue
-        try:
-            _d = json.loads(Path(_sf).read_text())
-        except Exception:  # noqa: BLE001
-            continue
-        if list(_d.get("grid") or {}) != keys:
-            continue
-        _cs = [c for c in _d["cells"] if c.get("cancelled") is not None]
-        if len(_cs) >= 3000:
-            _all[Path(_sf).stem.replace("sweep_", "")] = _cs
-    _reg, _knob = {}, {}
-    for k in keys:
-        vals = list(S["grid"][k])
-        stat = {}
-        for v in vals:
-            rel = [statistics.median([c["final"] for c in cs if c[k] == v])
-                   / statistics.median([c["final"] for c in cs]) for cs in _all.values()]
-            stat[v] = (statistics.mean(rel),
-                       statistics.stdev(rel) / _math.sqrt(len(rel)) if len(rel) > 1 else 0.0)
-        _best = max(stat, key=lambda v: stat[v][0])
-        _cut = stat[_best][0] - stat[_best][1]
-        _reg[k] = [v for v in vals if stat[v][0] >= _cut]
-        # ABSOLUTE dollars and annualized return per value, alongside the normalised score the region
-        # rule uses. The normalised figure is what makes curations comparable; the absolute one is what
-        # a reader actually wants to see, so the table carries both and the region rule keeps using the
-        # first. Errors are the standard error ACROSS CURATIONS, i.e. how much the value's typical
-        # result moves when the news changes -- not a within-curation spread.
-        _knob[k] = []
-        for v in sorted(vals, key=lambda vv: -stat[vv][0]):
-            fin = [statistics.median([c["final"] for c in cs if c[k] == v]) for cs in _all.values()]
-            ann = [statistics.median([c["ann"] for c in cs if c[k] == v and c.get("ann") is not None])
-                   for cs in _all.values()]
-            _sef = statistics.stdev(fin) / _math.sqrt(len(fin)) if len(fin) > 1 else 0.0
-            _sea = statistics.stdev(ann) / _math.sqrt(len(ann)) if len(ann) > 1 else 0.0
-            _knob[k].append({"value": str(v), "mean": round(stat[v][0], 3), "se": round(stat[v][1], 3),
-                             "final": round(statistics.mean(fin)), "final_se": round(_sef),
-                             "ann": round(statistics.mean(ann), 1), "ann_se": round(_sea, 1),
-                             "in_region": stat[v][0] >= _cut, "live": v == base[k]})
-    _per = []
-    for t, cs in _all.items():
-        ins = [c["final"] for c in cs if all(c[k] in _reg[k] for k in keys)]
-        gm = statistics.median([c["final"] for c in cs])
-        if ins:
-            _per.append({"curation": t, "region": statistics.median(ins), "grid": gm,
-                         "lift": round(statistics.median(ins) / gm, 3)})
-    _n = 1
-    for k in keys:
-        _n *= len(_reg[k])
-    _lifts = [r["lift"] for r in _per]
-    _meds = [r["region"] for r in _per]
-    payload["region"] = {
-        "knobs": _knob, "n_curations": len(_all), "n_configs": _n,
-        "per_curation": _per,
-        "lift_mean": round(statistics.mean(_lifts), 2),
-        "lift_se": round(statistics.stdev(_lifts) / _math.sqrt(len(_lifts)), 2),
-        "value_median": round(statistics.median(_meds)),
-        "value_mean": round(statistics.mean(_meds)),
-        "value_se": round(statistics.stdev(_meds) / _math.sqrt(len(_meds))),
-        "live_in_region": all(base[k] in _reg[k] for k in keys),
-        "region_str": {k: ", ".join(str(v) for v in _reg[k]) for k in keys}}
-    # The region as a table of CONFIGS, not of knobs. A reader wants to know what to actually run,
-    # and the knob-marginal view could not show that a config's dollars and its risk profile travel
-    # together. Each row pools that exact 6-tuple across every curation, so the +/- is again "how much
-    # does this move when the news changes". Rival rows come from elsewhere in the grid: the best
-    # distinct corners, at Hamming distance >= 3 from the region and from each other, so they are
-    # genuinely different setups rather than one-knob neighbours of the winner.
-    _rg = payload["region"]
-    _cfg = {}
-    for cs in _all.values():
-        _med = statistics.median([c["final"] for c in cs])
-        for c in cs:
-            e = _cfg.setdefault(tuple(c[k] for k in keys), {})
-            e.setdefault("rel", []).append(c["final"] / _med)
-            for _m in ("final", "ann", "sharpe", "max_drawdown", "cancelled"):
-                if c.get(_m) is not None:
-                    e.setdefault(_m, []).append(c[_m])
+    _pos = {id(c): i for i, c in enumerate(cells)}
+    _by = {tuple(c[k] for k in keys): c for c in cells}
+    # metric -> +1 higher is better, -1 lower is better
+    _MET = {"final": 1, "ann": 1, "sharpe": 1, "gain_pain": 1, "slope_2h": 1, "capital_hit": 1,
+            "edge": 1, "cancelled": -1, "max_drawdown": -1, "worst_behind": -1}
 
-    def _ms(v):
-        return (statistics.mean(v),
-                statistics.stdev(v) / _math.sqrt(len(v)) if len(v) > 1 else 0.0)
+    def _neigh(t):
+        yield t
+        for i, k in enumerate(keys):
+            for v in S["grid"][k]:
+                if v != t[i]:
+                    yield t[:i] + (v,) + t[i + 1:]
 
-    _members = [t for t in _cfg if all(t[i] in _reg[k] for i, k in enumerate(keys))]
-    _rank = sorted(_cfg, key=lambda t: -statistics.median(_cfg[t]["rel"]))
-    _rivals = []
-    for t in _rank:
-        if len(_rivals) == 5:
-            break
-        if all(sum(1 for a, b in zip(t, u) if a != b) >= 3 for u in _members + _rivals):
-            _rivals.append(t)
-    _mid = _rank[len(_rank) // 2]
+    _reg_stat, _reg_mem = {}, {}
+    for _t in _by:
+        _mem = [_by[n] for n in _neigh(_t) if n in _by]
+        _mem = [c for c in _mem if c.get("final") is not None]
+        if len(_mem) < 5:
+            continue
+        _reg_mem[_t] = _mem
+        _keep = sorted(_mem, key=lambda c: c["final"])[1:-1]   # drop luckiest + unluckiest
+        _st = {}
+        for _m in _MET:
+            _v = [c[_m] for c in _keep if c.get(_m) is not None]
+            if len(_v) > 1:
+                _st[_m] = (statistics.median(_v),
+                           statistics.stdev(_v) / _math.sqrt(len(_v)))
+        _st["_n"] = len(_keep)
+        _reg_stat[_t] = _st
 
-    def _crow(t, tag):
-        e = _cfg[t]
-        fm, fs = _ms(e["final"])
-        am, asd = _ms(e["ann"])
+    import bisect as _bis
+    _score = {}
+    for _m, _sgn in _MET.items():
+        _sorted = sorted(r[_m][0] for r in _reg_stat.values() if _m in r)
+        for _t, r in _reg_stat.items():
+            if _m not in r:
+                continue
+            _p = 100 * _bis.bisect_left(_sorted, r[_m][0]) / len(_sorted)
+            _score.setdefault(_t, []).append(_p if _sgn > 0 else 100 - _p)
+    _score = {t: statistics.mean(v) for t, v in _score.items()}
+    _rank = sorted(_reg_stat, key=lambda t: -_score[t])
+    _best = _rank[0]
+    _live = tuple(base[k] for k in keys)
+
+    def _pm(t, m, fmt, scale=1.0):
+        r = _reg_stat[t].get(m)
+        if not r:
+            return "\u2014"
+        return f"{fmt.format(r[0] * scale)} \u00b1 {fmt.format(r[1] * scale)}"
+
+    def _rrow(t, tag):
         return [tag + " · ".join(str(x) for x in t),
-                f"${round(fm):,} ± {round(fs):,}",
-                f"${round(statistics.median(e['final'])):,}",
-                f"${round(min(e['final'])):,}",
-                f"{am:.0f} ± {asd:.0f}%",
-                f"{statistics.mean(e['sharpe']):.2f}",
-                f"{statistics.mean(e['max_drawdown']):.0f}%",
-                f"{statistics.mean(e['cancelled']):.0f}%"]
+                f"{_score[t]:.1f}",
+                _pm(t, "final", "{:,.0f}"),
+                _pm(t, "ann", "{:.0f}") + "%",
+                _pm(t, "sharpe", "{:.2f}"),
+                _pm(t, "slope_2h", "{:,.0f}"),
+                _pm(t, "cancelled", "{:.0f}") + "%",
+                _pm(t, "max_drawdown", "{:.0f}") + "%"]
 
-    _rows = [_crow(t, "★ " if all(t[i] == base[k] for i, k in enumerate(keys)) else "")
-             for t in sorted(_members, key=lambda t: -statistics.median(_cfg[t]["rel"]))]
-    _rows += [_crow(t, "") for t in _rivals]
-    _rows.append(_crow(_mid, ""))
+    _TOPR = 12
+    _shown = _rank[:_TOPR]
+    _rows = [_rrow(t, "★ " if t == _live else "") for t in _shown]
+    _cls = ["reg"] * len(_shown)
+    if _live in _reg_stat and _live not in _shown:      # always show where the LIVE config lands
+        _rows.append(_rrow(_live, "★ "))
+        _cls.append("mid")
+
     def _ctable(headers, rows, cls):
-        """table_html plus a per-row class, so the region / rival / grid-median bands are visible
-        without a column that just repeats what the banding already says."""
+        """table_html plus a per-row class, so the winning band and the live row are visible without
+        a column that just repeats what the banding already says."""
         h = "".join(f"<th>{x}</th>" for x in headers)
         b = "".join(f'<tr class="{c}">' + "".join(f"<td>{esc(x)}</td>" for x in r) + "</tr>"
                     for r, c in zip(rows, cls))
@@ -517,17 +417,29 @@ def main(argv=None) -> int:
 
     reg_tbl = _ctable(
         ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
-         "&middot; trade", "final (mean &plusmn; SE)", "median", "worst curation",
-         "annualized (mean &plusmn; SE)", "sharpe", "max DD", "cancelled"], _rows,
-        ["reg"] * len(_members) + ["riv"] * len(_rivals) + ["mid"])
+         "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
+         "2nd-half slope $/yr", "cancelled", "max DD"], _rows, _cls)
 
-    # THE SQUARES ON PANELS 2-7 MARK REGION MEMBERS, not a top-N of some ranking. They used to mark
-    # the top TOP_N by `robust`, which implied the ordering was meaningful; it is not, and panel 8 now
-    # says so. Marking the region instead makes every scatter answer the same question the page asks:
-    # WHERE do the configs that survive across curations actually sit?
-    payload["topn"] = [i for i, c in enumerate(cells)
-                       if all(c[k] in _reg[k] for k in keys)]
-    # THE LLM BAKE-OFF (panels 16-19). Five full re-curations that differ ONLY in which model runs the
+    _live_rank = (_rank.index(_live) + 1) if _live in _reg_stat else None
+    _live_str = " \u00b7 ".join(str(x) for x in _live)
+    payload["region"] = {
+        "best": [str(x) for x in _best], "best_score": round(_score[_best], 1),
+        "n_members": len(_reg_mem[_best]), "n_kept": _reg_stat[_best]["_n"],
+        "live": [str(x) for x in _live], "live_rank": _live_rank,
+        "live_score": round(_score[_live], 1) if _live in _score else None,
+        "n_regions": len(_reg_stat), "n_metrics": len(_MET),
+        "best_final": round(_reg_stat[_best]["final"][0]),
+        "best_final_se": round(_reg_stat[_best]["final"][1]),
+        "live_final": round(_reg_stat[_live]["final"][0]) if _live in _reg_stat else None,
+        "live_final_se": round(_reg_stat[_live]["final"][1]) if _live in _reg_stat else None}
+
+    # THE SQUARES ON PANELS 2-7 MARK THE BEST REGION -- all 22 of its members, the two trimmed cells
+    # included. The trim exists to keep one lucky or unlucky neighbour out of the MEDIANS; it does not
+    # make those cells non-members, and hiding them would misdraw the neighbourhood's true extent.
+    _bestset = {id(c) for c in _reg_mem[_best]}
+    payload["topn"] = [i for i, c in enumerate(cells) if id(c) in _bestset]
+
+    # THE LLM BAKE-OFF (panels 11-15). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
     # -> the panels are simply omitted, exactly like the max_events series.
     _bo = ROOT / "data/bakeoff_summary.json"
@@ -551,8 +463,6 @@ def main(argv=None) -> int:
         for r in bo:
             r["disp"] = _DISP.get(r["arm"]) or r.get("disp") or r["arm"]
     payload["bo"] = bo
-    _ja = ROOT / "data/judge_audit.json"
-    payload["ja"] = json.loads(_ja.read_text()) if _ja.exists() else None
 
 
     panels = "".join([
@@ -565,7 +475,7 @@ def main(argv=None) -> int:
          "<b>max_events is the exception</b> and is listed last: it is a CURATION knob, deciding which "
          "events stay live and therefore which tickers ever reach the optimizer, so each of its values "
          "needed a full re-curation rather than a replay &mdash; see the cost column, and panels "
-         "10&ndash;13. Every other optimizer / curator parameter is held at its "
+         "9 and 10. Every other optimizer / curator parameter is held at its "
          f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} value."
          f'</p><div class="scroll">{param_tbl}</div></section>'),
         panel(2, "Return vs drawdown",
@@ -592,7 +502,7 @@ def main(argv=None) -> int:
               "s-l2", 470),
         panel(5, "Return vs Sharpe",
               "The same cloud with <b>Sharpe on the horizontal</b> &mdash; return per unit of "
-              "volatility, the measure table 6 actually ranks by. This is the one panel here where "
+              "volatility, one of the ten measures table 8 ranks on. This is the one panel here where "
               "<b>upper-RIGHT is best</b>, since higher Sharpe is better; every other risk axis on "
               "this page reads the other way. Colour is max drawdown, pinned to the same 20&ndash;120% "
               "band as panel 6 so the two are comparable. The cloud is a tight rising diagonal "
@@ -634,92 +544,21 @@ def main(argv=None) -> int:
               "two axes are computed off <b>different equity curves</b> &mdash; annualized return "
               "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
               "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
-              "is unaffected, but do not read a ratio off this panel. Blue squares are table 8\'s top "
-              "100 &mdash; all 100 have a positive slope, median <b>$151,140</b>/yr.",
+              "is unaffected, but do not read a ratio off this panel. Blue squares are table 8\'s "
+              "winning region &mdash; 21 of its 22 members have a positive slope, median "
+              "<b>$121,181</b>/yr.",
               "s-slope", 470),
         ('<section class="panel"><h2>8. The best region of the grid</h2><p class="lead">'
-         f"<b>{reg_tbl}</b>"
-         "<p class=\"lead\">I stopped asking which of the 6,300 configs is best. With one history and "
-         "6,300 candidates, the winner is just the cell that best fits that history's accidents &mdash; "
-         "re-run the same sweep and 15% of cells move. So instead I ask which <b>region</b> is best, "
-         "and that question does have a stable answer.<br><br>"
-         "<b>How a region is defined.</b> Take one knob at a time. For each of its values, pool every "
-         "config using it (about 1,575 of them) and take the median portfolio value &mdash; separately "
-         f"in each of the <b>{payload['region']['n_curations']} curations</b> on disk, each normalised "
-         "to its own curation's median so a rich curation cannot outvote a lean one. A value is <b>in "
-         "the region</b> if it lands within one standard error of the best value for that knob. That "
-         "keeps genuine ties instead of forcing a winner. The region is the intersection across all "
-         f"six knobs: <b>{payload['region']['n_configs']} configs</b> out of 6,300.<br><br>"
-         "<b>None of this is invented, which is worth saying.</b> Control factors (the six knobs) "
-         "crossed against a noise factor (which curation &mdash; which draw of the news) is Taguchi's "
-         "<b>robust parameter design</b>. Scoring one knob's values by pooling over the others is a "
-         "factorial <b>main effect</b>, read off what Taguchi calls a response table. Keeping every "
-         "value within one standard error of the best is the <b>one-standard-error rule</b> from CART. "
-         "Holding out a curation is leave-one-group-out cross-validation. Only the choice of an LLM "
-         "curation as the replication unit is new, and statistically that is just a random block.<br><br>"
-         "That matters because of the caveat the name carries. Taking each knob's best level "
-         "separately and intersecting them assumes the knobs act <b>additively</b>, with no "
-         "interactions &mdash; and Taguchi's own answer to that assumption is a confirmation run. The "
-         "rival rows and the out-of-sample test below are that confirmation, and they <b>do not come "
-         "back clean</b>: the rivals sit at watchlist 8&ndash;12 with a loose cap, a corner no "
-         "single-knob marginal can see.<br><br>"
-         "The knob evidence behind it, briefly: <code>risk_aversion</code> is monotone (4.0 returns "
-         "$104,522 against 0.5's $71,998, pooled), <code>lookback</code> under 14 days is ruinous "
-         "(7 days annualizes at 7%), <code>lookback</code> 14/21/30 are indistinguishable, and "
-         "<code>min_trade_size</code> only matters at 0.3, which costs about $17,000.<br><br>"
-         "<b>Why portfolio value.</b> Leave one curation out, build the region on the other 14, "
-         "score it on the held-out one (<code>scripts/loo_region.py</code>). A region built on value "
-         "lands at the <b>74th percentile</b> of the held-out grid; on Sharpe, 77th; cancellation "
-         "73rd; gain/pain 70th; annualized return 67th; drawdown 59th. Value and Sharpe are within "
-         "each other's error and <b>select nearly the same region</b> &mdash; Sharpe additionally "
-         "admits <code>lookback 14</code> and drops <code>min_trade_size 0.05</code>, and nothing "
-         "else &mdash; so the choice of objective barely matters here. Value stays because it is the "
-         "quantity actually being maximised.<br><br>"
-         "<b>Reading the table.</b> Blue-ruled rows are the region. Below them are the five best "
-         "<b>rival corners</b>: the highest-scoring configs that differ from the region and from each "
-         "other on at least three knobs, so they are separate setups rather than one-knob neighbours "
-         "of the winner. The last row is the grid's median config &mdash; the floor. Every &plusmn; is "
-         "the standard error <b>across the "
-         f"{payload['region']['n_curations']} curations</b>: how much that exact config moves when the "
-         "NEWS changes, not a spread inside one run. <b>Worst curation</b> is its single worst "
-         "outcome of the 15, on a $50,000 stake &mdash; the pain column, and the one that separates "
-         "these rows most sharply.<br><br>"
-         "<b>Why these columns.</b> Across the 6,300 config means, annualized return correlates "
-         "<b>+0.93</b> with final value, Sharpe +0.87, gain/pain +0.86 and second-half slope +0.87 "
-         "&mdash; they are one axis viewed six ways. Gain/pain and Sharpe correlate <b>+0.985</b> "
-         "with each other, so gain/pain is dropped as a duplicate, and slope is dropped as +0.84 with "
-         "annualized. Drawdown (&minus;0.36) and cancellation (&minus;0.75) are the only two that "
-         "carry information value does not, so both stay.<br><br>"
-         "<b>The rivals look better and mostly are not.</b> They out-earn the region on median &mdash; "
-         "they were chosen as the best of 6,300 on the same 15 curations, which is exactly the "
-         "in-sample trap this panel exists to avoid. Out of sample, picking the single best cell lands "
-         "at the <b>62nd percentile with a worst fold at the 1st</b>, against the region's 74th and "
-         "53rd. But the same test says a <b>wider</b> pick does better still &mdash; the top 50 cells "
-         f"reach the 80th percentile &mdash; so this {payload['region']['n_configs']}-config region is "
-         "probably drawn a little too "
-         "tight, and the honest read of the rival rows is that some of them belong. What does survive "
-         "cleanly is the pain column: three of the five rivals can finish a curation under $50,000, "
-         "and one under $14,000, where every region member's worst is above $68,000.<br><br>"
-         '</p><div id="s-region"></div>'
-         f"<p class=\"lead\">The chart is every curation's region median against its whole-grid "
-         f"median. It comes out ahead in <b>all {payload['region']['n_curations']}</b>, by "
-         f"<b>{payload['region']['lift_mean']}&times; &plusmn; {payload['region']['lift_se']}</b>. "
-         f"A config drawn from this region is characteristically worth "
-         f"<b>${payload['region']['value_mean']:,} &plusmn; ${payload['region']['value_se']:,}</b> "
-         f"(median ${payload['region']['value_median']:,}) on a $50,000 stake."
-         '</p></section>'),
-        panel(9, f"{heat['ky']} × {heat['kx']}",
-              "Median cancellation at each combination of the two knobs whose marginals span the "
-              "widest range. This is the panel a 1-D sweep cannot produce, and it is where the "
-              "interactions hide — a value that looks harmless on average can be the worst choice "
-              "in one corner of the grid.",
-              "s-heat", 420),
-        panel(10, "Each knob on its own",
-              "For every value of every knob: the MEDIAN cancellation across all cells holding that "
-              "value (the bar) and the BEST single cell (the dot). A wide gap between them means the "
-              "knob only pays in combination with something else. The live setting is outlined.",
-              "s-marg", 620),
-    ] + ([panel(11, "Portfolio value vs max_events",
+         "A config\u2019s region is itself plus every config one setting away \u2014 "
+         f"{payload['region']['n_members']} in all. I drop the luckiest and unluckiest member by "
+         f"final value, then report the median and standard error of the remaining "
+         f"{payload['region']['n_kept']}. Each region is scored on "
+         f"{payload['region']['n_metrics']} metrics, each turned into a percentile rank and "
+         "averaged. Ranking neighbourhoods instead of cells means a config only wins if the "
+         "settings around it work too.</p>"
+         f"{reg_tbl}</section>"),
+
+    ] + ([panel(9, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
               "FIXED curation through different book math, so 6,300 cells cost nothing; "
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
@@ -734,41 +573,22 @@ def main(argv=None) -> int:
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
               "s-me", 460),
-        panel(12, "Risk-adjusted quality vs max_events",
+        panel(10, "Risk-adjusted quality vs max_events",
               "Sharpe per cap, against the <b>&gt; 0.8 floor</b> the current gate set uses. Read it "
-              "beside panel 11: a cap that wins on final value while dropping below the floor has not "
+              "beside panel 9: a cap that wins on final value while dropping below the floor has not "
               "won anything the shortlist would admit. <b>Sharpe is NOT what table 8 ranks by</b> "
               "&mdash; that is <code>robust</code>, cancellation rank + drawdown rank &mdash; and "
               "Sharpe measured at the <b>54th percentile</b> on the re-curation transfer test, i.e. a "
               "coin flip. It is kept here as a gate and a sanity column, not as a ranking.",
               "s-me-sharpe", 380),
-        panel(13, "Where the money sits, and what it gives back",
-              "Three percentages on ONE axis, all of them defects: <b>max drawdown</b> (the hole the "
-              "book digs), <b>cancellation</b> (winners' gains handed back by losers) and <b>idle "
-              "days</b> (days holding NO position at all &mdash; the cash band in CBT plot 9). Dashed "
-              "lines are the shortlist bars, DD &lt; 35% and cancellation &lt; 25%. Idle days is the "
-              "one that ties this knob to the optimizer: a tight cap starves the watchlist, so the "
-              "book sits in cash not because the curator ran out of theses but because it was never "
-              "allowed to open them. All three are better LOW, so a cap whose three bars are all "
-              "short is the one to want.",
-              "s-me-risk", 400),
-        panel(14, "What the cap costs, and what it buys",
-              "Left bars: the <b>LLM bill for that curation</b> &mdash; the only thing on this page "
-              "that is not free, since each point is a full re-curation rather than a replay. Right "
-              "bars: the same money divided by <b>tickers that actually got funded</b>, which is the "
-              "efficiency question &mdash; a cap that opens hundreds of events the optimizer never "
-              "funds is paying the event-agent bill for reading it may as well not have done. Only "
-              "the agent half of the bill scales with the cap; the scout reads the same ticker-groups "
-              "either way, which is why the left bars flatten while the cap keeps rising.",
-              "s-me-cost", 380),
     ] if me and me.get("rows") else []) + ([
-        panel(15, "Portfolio value vs LLM spend",
+        panel(11, "Portfolio value vs LLM spend",
               "Final portfolio value from eight complete 3-year curations that differ only in "
               "<b><code>event_agent_model</code></b>, ordered left to right by what that model "
               "cost, with wall-clock per curation on the right axis. The shaded band is the "
               "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
-        panel(16, "What the money actually buys: decision quality vs spend",
+        panel(12, "What the money actually buys: decision quality vs spend",
               "Each arm made ~565 keep-or-exit calls over its 3-year curation, graded on three "
               "tests: was the catalyst datable, did the write-up claim more than its cited sources "
               "establish, did the live/exit call contradict its own stated exit condition. The bar "
@@ -776,17 +596,17 @@ def main(argv=None) -> int:
               "stratified sample of each arm's calls. The judge saw no prices and no outcomes, and "
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
-        panel(17, "Decision quality, ranked by what the model costs",
+        panel(13, "Decision quality, ranked by what the model costs",
               "Panel 16's numbers, arranged to be read on their own: dearest model at the top, "
               "cheapest at the bottom, bar length is the share of calls judged clean, and the "
               "shade is price &mdash; dark is dear. Labels give each model's cost as a multiple "
               "of the cheapest arm; the colour bar carries the dollars. <b>If spending more "
               "bought better decisions, the dark bars would be the long ones.</b> Six models "
               "rather than eight: the two arms that re-ran a model at a different reasoning "
-              "effort are kept in panels 16, 18 and 19 but dropped here, where they would cost a "
+              "effort are kept in panels 12, 14 and 15 but dropped here, where they would cost a "
               "sentence of explanation without changing the picture.",
               "s-bo-rank", 560),
-        panel(18, "Where each model actually fails",
+        panel(14, "Where each model actually fails",
               "Panel 16's three tests, split out, same estimate. <b><code>dated</code></b> is "
               "Fable-5's verdict on the catalyst the model chose to open an event on: a specific "
               "resolvable event such as a contract award, a ruling or an FDA decision, rather than "
@@ -794,11 +614,11 @@ def main(argv=None) -> int:
               "is whether the write-up stayed within what its own cited sources establish. "
               "<b><code>consistent</code></b> is whether that period's live-or-exit call cohered "
               "with the model's own stated exit condition &mdash; it applies to every call, not "
-              "only the exits. A call counts as clean in panel 16 only if it passes all three, which "
+              "only the exits. A call counts as clean in panel 12 only if it passes all three, which "
               "is close to but not the product of these bars &mdash; the failures overlap, since a "
               "vague catalyst tends to come with thin sourcing.",
               "s-bo-perdollar", 430),
-        ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
+        ('<section class="panel"><h2>15. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
          "book behaviour; dated / supported / clean are decision quality; final value is the number "
          "that cannot be trusted alone.</b> Read the last three columns against the first: the "
@@ -814,29 +634,6 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
-        panel(20, "Is the judge any good?",
-              "The obvious objection to panels 17&ndash;19 is that an LLM graded the LLMs, so here is "
-              "the grader's own audit. <b>Left bars: how often the cheap screen and Fable-5 reached "
-              "the same verdict</b>, per process test. They agree 95% of the time on "
-              "<code>consistent</code> (did the call contradict its own stated exit condition? &mdash; "
-              "nearly mechanical), 84% on <code>dated</code>, and only <b>65% on "
-              "<code>supported</code></b> &mdash; deciding whether a write-up asserts more than its "
-              "citations carry is exactly the judgment a cheap model gets wrong, which is the thesis "
-              "of this whole exercise showing up inside its own measurement.<br><br>"
-              "<b>Right bars are the load-bearing number: how much of each arm's flagged pile Fable-5 "
-              "threw out.</b> The tier-1 ranking only survives correction because those rates are "
-              "SIMILAR across arms (24&ndash;33%). Had one arm been overturned at 60% and another at "
-              "10%, the ordering in panel 16 would be an artefact of the cheap screen's biases rather "
-              "than a real difference between models.<br><br>"
-              "<b>Gold bars are why the audit had to be two-sided.</b> Re-reading only what the screen "
-              "FLAGGED corrects false accusations and is blind to false clearances, so every rate would "
-              "have been an upper bound. Fable-5 also read 250 decisions the screen PASSED and condemned "
-              "<b>15%</b> of them &mdash; but that rate runs <b>8% to 28% by arm</b>, and correcting it "
-              "moved the cheapest model from 4th place to LAST. A one-sided audit would have published "
-              "the wrong ranking. <b>Caveat, stated not buried:</b> 500 of 1,673 flags and 250 of 1,164 "
-              "passes were re-read, stratified per arm &mdash; enough to estimate these rates, but "
-              "samples. Reading every flagged decision alone would have cost $59 against $25 budgeted.",
-              "s-judge-audit", 420),
     ] if bo else []))
 
     def _slim(pl):
@@ -905,7 +702,6 @@ no LLM, no re-curation &middot; knobs from {_LINK(PROFILE_URL, 'investor_profile
 <script>
 const DATA = {json.dumps(_slim(payload))};
 const LIGHT = {json.dumps(LIGHT)}, DARK = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
-const TOPN = {TOP_N};
 const CFG = {{displayModeBar:false, responsive:true}};
 function base(p, o){{ return Object.assign({{
   paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
@@ -981,38 +777,6 @@ function draw(){{
   // readable. xmin -160K keeps the single deeply-negative cell on the page.
   scat('s-slope', c=>c.slope_2h, 'second-half slope', '', DD, 'max DD %', 500000, 20, 120, -160000);
 
-  // 3. the interaction the 1-D sweeps cannot show
-  const H = DATA.heat;
-  Plotly.react('s-heat', [{{
-    type:'heatmap', x:H.x, y:H.y, z:H.z, colorscale:'YlOrRd', reversescale:false,
-    colorbar:{{title:{{text:'cancelled %', font:{{size:10}}}}, thickness:10}},
-    hovertemplate:H.kx+'=%{{x}}<br>'+H.ky+'=%{{y}}<br>%{{z:.0f}}% cancelled<extra></extra>'
-  }}], base(p, {{margin:{{l:80,r:20,t:16,b:52}},
-      xaxis:{{title:{{text:H.kx, font:{{size:11}}}}, type:'category'}},
-      yaxis:{{title:{{text:H.ky, font:{{size:11}}}}, type:'category'}}}}), CFG);
-
-  // 4. per-knob marginals, live setting outlined
-  const M = DATA.marg, tr = [];
-  let row = 0;
-  const nk = K.length;
-  K.forEach((k, i) => {{
-    const m = M[k], ax = i === 0 ? '' : (i + 1);
-    tr.push({{type:'bar', x:m.vals, y:m.med, name:k, xaxis:'x'+ax, yaxis:'y'+ax,
-      marker:{{color:m.vals.map(v => v === m.base ? ST.warning : p.s1),
-               line:{{width:2, color:p.surface}}}},
-      hovertemplate:k+'=%{{x}}<br>median %{{y:.0f}}%<extra></extra>', showlegend:false}});
-    tr.push({{type:'scatter', mode:'markers', x:m.vals, y:m.best, xaxis:'x'+ax, yaxis:'y'+ax,
-      marker:{{size:9, color:ST.good, line:{{width:1.5, color:p.surface}}}},
-      hovertemplate:k+'=%{{x}}<br>best cell %{{y:.0f}}%<extra></extra>', showlegend:false}});
-  }});
-  const lay = {{grid:{{rows:Math.ceil(nk/2), columns:2, pattern:'independent'}},
-                margin:{{l:52,r:16,t:26,b:34}}, annotations:[]}};
-  K.forEach((k,i)=>{{
-    lay['xaxis'+(i===0?'':(i+1))] = {{type:'category', gridcolor:'rgba(0,0,0,0)', tickfont:{{size:10}}}};
-    lay['yaxis'+(i===0?'':(i+1))] = {{gridcolor:p.grid, ticksuffix:'%', tickfont:{{size:10}}}};
-  }});
-  Plotly.react('s-marg', tr, base(p, lay), CFG);
-
   // 5. max_events: value (bars) against cull-at-birth (line). TWO y-axes is normally forbidden, and
   // is legitimate here only because the second series is a PERCENTAGE OF A DIFFERENT THING (events
   // culled), not a second measure of the same book on a rescaled money axis -- the trap that makes
@@ -1076,40 +840,8 @@ function draw(){{
                        showarrow:false, font:{{size:10.5, color:p.text2}},
                        text:'shortlist floor 1.2'}}]}}), CFG);
 
-    // 12. three DEFECT percentages, one axis (they share a unit, so no second scale is needed)
-    const PCT = [['max drawdown','max_drawdown',ST.critical],
-                 ['cancellation','cancelled',ST.warning],
-                 ['idle days','idle_pct',p.s2]];
-    Plotly.react('s-me-risk', PCT.map(([nm,f,col])=>({{
-      type:'bar', name:nm, x:xs, y:ME.rows.map(r=>r[f]||0),
-      marker:{{color:col, line:{{width:2, color:p.surface}}}},
-      hovertemplate:nm+' %{{y:.1f}}%<extra></extra>'}})),
-      base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
-        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
-               type:'category', categoryorder:'array', categoryarray:xs}},
-        yaxis:{{gridcolor:p.grid, ticksuffix:'%', title:{{text:'percent (all better LOW)', font:{{size:11}}}}}},
-        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:35, y1:35,
-                  line:{{color:ST.critical, width:1.2, dash:'dash'}}}},
-                {{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:25, y1:25,
-                  line:{{color:ST.warning, width:1.2, dash:'dot'}}}}]}}), CFG);
-
-    // 13. bill, and bill per funded ticker -- both DOLLARS, so one axis is honest
-    Plotly.react('s-me-cost', [
-      {{type:'bar', name:'curation cost', x:xs, y:ME.rows.map(r=>r.cost_usd||0),
-        marker:{{color:p.s1, line:{{width:2, color:p.surface}}}},
-        hovertemplate:'$%{{y:.2f}} to curate<extra></extra>'}},
-      {{type:'bar', name:'cost per funded ticker', x:xs,
-        y:ME.rows.map(r=>r.funded ? (r.cost_usd||0)/r.funded : 0),
-        marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
-        hovertemplate:'$%{{y:.2f}} per funded ticker<extra></extra>'}}
-    ], base(p, {{barmode:'group', margin:{{l:64,r:20,t:34,b:46}},
-        legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
-        xaxis:{{title:{{text:'max_events', font:{{size:11}}}},
-               type:'category', categoryorder:'array', categoryarray:xs}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'USD', font:{{size:11}}}}}}}}), CFG);
   }}
-  // ---- LLM BAKE-OFF (panels 16-19) --------------------------------------------------------------
+  // ---- LLM BAKE-OFF (panels 11-15) --------------------------------------------------------------
   // Already sorted by LLM spend python-side, so every panel shares one left-to-right ordering: the
   // cheapest judgment model first. Labels carry the dollar figure because the arm NAMES mean nothing
   // to a reader arriving from outside the project -- the money is the axis that travels.
@@ -1120,7 +852,7 @@ function draw(){{
     const fin = BO.map(r => r.final);
     // THE NOISE FLOOR, measured not assumed: two curations at IDENTICAL settings finished 1.86x apart.
     // Drawn as a band around the arms' midpoint so a reader sees at a glance which differences are
-    // resolvable. Without it panel 15 invites exactly the over-reading it exists to prevent.
+    // resolvable. Without it panel 11 invites exactly the over-reading it exists to prevent.
     const mid = fin.reduce((a, b) => a + b, 0) / fin.length;
     const lo = mid / Math.sqrt(1.86), hi = mid * Math.sqrt(1.86);
     // BARS, not a line. Five discrete `event_agent_model` choices are not a continuum, and the line
@@ -1160,11 +892,12 @@ function draw(){{
         yaxis2:{{overlaying:'y', side:'right', showgrid:false, rangemode:'tozero',
                 ticksuffix:' min', title:{{text:'wall-clock per curation', font:{{size:11}}}}}}}}), CFG);
 
-    // GROUPED BARS on a category axis, matching panel 15. Two rates over five discrete models is
+    // GROUPED BARS on a category axis, matching panel 11. Two rates over five discrete models is
     // not a curve, and the earlier line invited reading a trend between points that do not connect.
     // ONE series, not two. The grey bar was the cheap screening judge's own rate, which measures
     // how wrong THAT judge was about each arm -- a property of the screen, not evidence about the
-    // arm, and panel 20 is where it belongs. Two readers in a row took grey for the swept model's
+    // arm, not evidence about it (it lived in the judge-audit panel, dropped 2026-08-21). Two
+    // readers in a row took grey for the swept model's
     // self-assessment and concluded the best arm was the one whose bars MATCHED, which inverts the
     // panel. Dropping it also removes the need to name the screening model here at all.
     Plotly.react('s-bo-quality', [
@@ -1188,7 +921,7 @@ function draw(){{
     // Reversed y so the dearest model sits at the TOP: the eye then travels down through falling price
     // and the bars get LONGER, which is the finding.
     {{
-      // SIX BARS, NOT EIGHT. The two HIGH-reasoning arms are dropped from this view only -- panels 17,
+      // SIX BARS, NOT EIGHT. The two HIGH-reasoning arms are dropped from this view only -- panels 13,
       // 19 and 20 keep all eight. This is the chart meant to travel on its own, and "same model twice
       // at different reasoning effort" costs a sentence of explanation that a reader scrolling a feed
       // will not spend. With the pair gone the surviving arm needs no effort suffix either.
@@ -1240,58 +973,6 @@ function draw(){{
         yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[35, 105],
                title:{{text:'process test pass rate (Fable-5 corrected)', font:{{size:11}}}}}}}}), CFG);
 
-    // PANEL 20 -- the judge auditing itself. Two grouped series on ONE percentage axis (both are
-    // rates, so no second scale is needed): agreement per rubric test, and per-arm overturn.
-    const JA = DATA.ja;
-    if (JA) {{
-      const axk = ['consistent', 'dated', 'supported'];
-      Plotly.react('s-judge-audit', [
-        {{type:'bar', name:'cheap screen agrees with Fable-5', x:axk.map(k => 'test:<br>' + k),
-          y:axk.map(k => JA.agree[k]), marker:{{color:'#34d399'}},
-          text:axk.map(k => JA.agree[k].toFixed(0) + '%'), textposition:'outside', cliponaxis:false,
-          textfont:{{size:11, color:p.fg}},
-          hovertemplate:'%{{x}}<br>agreement %{{y:.1f}}%<extra></extra>'}},
-        {{type:'bar', name:'screen FLAGGED it, Fable-5 disagreed', marker:{{color:'#f472b6'}},
-          x:JA.per_arm.map(r => (r.disp || r.arm).replace('<br>', ' ')),
-          y:JA.per_arm.map(r => r.overturn),
-          text:JA.per_arm.map(r => r.overturn.toFixed(0) + '%'), textposition:'outside',
-          cliponaxis:false, textfont:{{size:11, color:p.fg}},
-          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its flags overturned<extra></extra>'}},
-        {{type:'bar', name:'screen PASSED it, Fable-5 condemned it', marker:{{color:'#fbbf24'}},
-          x:JA.per_arm.map(r => (r.disp || r.arm).replace('<br>', ' ')),
-          y:JA.per_arm.map(r => r.fn_rate),
-          text:JA.per_arm.map(r => r.fn_rate.toFixed(0) + '%'), textposition:'outside',
-          cliponaxis:false, textfont:{{size:11, color:p.fg}},
-          hovertemplate:'%{{x}}<br>%{{y:.0f}}%% of its passes condemned<extra></extra>'}}
-      ], base(p, {{barmode:'group', margin:{{l:60,r:20,t:38,b:86}},
-          legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
-          xaxis:{{type:'category', tickfont:{{size:10}}}},
-          yaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 105],
-                 title:{{text:'percent', font:{{size:11}}}}}}}}), CFG);
-    }}
-  }}
-  // PANEL 8 -- does the region beat the grid, curation by curation? PAIRED bars, not one averaged
-  // number: "wins on average" and "wins every time" are different claims and only the second justifies
-  // acting on it. The old version plotted per-knob medians and broke silently when the payload moved
-  // from cancellation-median to value-mean -- r.median stopped existing and every bar drew as
-  // undefined, which Plotly renders as an empty panel rather than an error.
-  const RG = DATA.region;
-  if (RG && RG.per_curation && RG.per_curation.length) {{
-    const P = RG.per_curation, nm2 = P.map(r => r.curation);
-    Plotly.react('s-region', [
-      {{type:'bar', name:'whole grid (median config)', x:nm2, y:P.map(r => r.grid),
-        marker:{{color:(dark ? '#475569' : '#cbd5e1')}},
-        hovertemplate:'%{{x}}<br>grid median $%{{y:,.0f}}<extra></extra>'}},
-      {{type:'bar', name:'inside the region', x:nm2, y:P.map(r => r.region),
-        marker:{{color:'#34d399'}},
-        text:P.map(r => r.lift.toFixed(1) + '\u00d7'), textposition:'outside', cliponaxis:false,
-        textfont:{{size:10, color:p.fg}},
-        hovertemplate:'%{{x}}<br>region median $%{{y:,.0f}}<extra></extra>'}}
-    ], base(p, {{barmode:'group', margin:{{l:68,r:16,t:36,b:82}},
-        legend:{{orientation:'h', y:1.15, x:0, font:{{size:11}}}},
-        xaxis:{{type:'category', tickfont:{{size:9}}, tickangle:-40}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
-               title:{{text:'median final value of a config', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 
