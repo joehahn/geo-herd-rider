@@ -78,6 +78,19 @@ h2 { font-size: 1.32rem; margin: 34px 0 12px; }
 .plot { width: 100%; height: 430px; margin: 18px 0 22px; }
 #c1 { height: 480px; }   /* horizontal, 8 categories -- needs more vertical room */
 p { margin: 0 0 13px; }
+/* PHONE. The desktop heights are the other half of the crowding problem: eight categories get the
+   same vertical room at 390px as at 1180px, so every chart has to grow rather than shrink. The
+   margin, tick and legend changes that go with these live in draw(), keyed off the same 640px. */
+@media (max-width: 640px) {
+  body { padding: 20px 14px 48px; }
+  h1 { font-size: 1.62rem; }
+  .sub { font-size: 1rem; }
+  .plot { height: 520px; margin: 14px 0 18px; }
+  #c1 { height: 600px; }   /* horizontal bars need room per category, not less */
+  #c3 { height: 560px; }   /* grouped bars plus a legend that now sits underneath */
+  table { font-size: 11.5px; }
+  th, td { padding: 4px 6px; }
+}
 .takeaway { border-left: 3px solid #34d399; padding-left: 18px; }
 .cost { opacity: .72; font-size: .95rem; }
 .cta { border-top: 1px solid rgba(127,127,127,.28); padding-top: 26px; }
@@ -244,8 +257,13 @@ function draw() {
   const dark = matchMedia('(prefers-color-scheme: dark)').matches
             && document.documentElement.getAttribute('data-theme') !== 'light';
   const p = dark ? D : L;
+  // PHONE LAYOUT. responsive:true rescales width on resize but never revisits the margins, and the
+  // desktop margins are what break on a 390px screen: chart 2 reserves 196px of left gutter for
+  // model names, leaving ~150px for the bars themselves. Recompute margins, tick sizes and legend
+  // placement from the viewport instead, and let the resize handler redraw when the flag flips.
+  const NARROW = window.innerWidth < 640;
   const base = extra => Object.assign({paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)',
-    font:{color:p.fg, size:13.5}, hoverlabel:{bgcolor:p.surface, font:{color:p.fg}}}, extra);
+    font:{color:p.text, size:NARROW?12:13.5}, hoverlabel:{bgcolor:p.surface, font:{color:p.text}}}, extra);
   const BO = DATA.bo, nm = BO.map(r => r.label + '<br>cost ' + r.mult + '×');
   // Chart 1 plots against an INDEX, not the name. Once the reasoning level moves inside the bar the
   // two Grok arms carry the same label, and identical category strings make Plotly merge them into
@@ -261,47 +279,74 @@ function draw() {
       text:BO.map(r=>Math.round(r.minutes)+' min'), textposition:'outside', cliponaxis:false,
       customdata:BO.map(r=>r.label),
       hovertemplate:'%{customdata}<br>%{y:.0f} minutes per scan<extra></extra>'}],
-    base({margin:{l:76,r:16,t:20,b:92}, showlegend:false,
-      xaxis:{tickmode:'array', tickvals:ix, ticktext:nm1, tickangle:0,
-             range:[-0.6, BO.length-0.4], tickfont:{size:11.5}, zeroline:false},
+    base({margin:{l:NARROW?48:76, r:NARROW?10:16, t:20, b:NARROW?128:92}, showlegend:false,
+      xaxis:{tickmode:'array', tickvals:ix, ticktext:nm1, tickangle:NARROW?-45:0,
+             range:[-0.6, BO.length-0.4], tickfont:{size:NARROW?9.5:11.5}, zeroline:false},
+      // The axis title collides with the tick labels once the left margin shrinks, and it is
+      // redundant on a phone anyway: every tick already ends in " min".
       yaxis:{gridcolor:p.grid, ticksuffix:' min', rangemode:'tozero',
-             title:{text:'analysis time', font:{size:13}, standoff:14}},
-      annotations:BO.map((r,i)=> r.reason ? {x:i, y:r.minutes/2, text:r.reason+'<br>reasoning',
-             showarrow:false, font:{size:10.5, color:'#083344'}} : null).filter(Boolean)}), CFG);
+             title:NARROW ? null : {text:'analysis time', font:{size:13}, standoff:14}},
+      // Two lines of horizontal text will not fit inside a 28px bar, and the two Grok bars sit
+      // close enough that the labels ran into each other. Vertical, single word, inside the bar.
+      annotations:BO.map((r,i)=> r.reason ? {x:i, y:r.minutes/2,
+             text:NARROW ? r.reason : r.reason+'<br>reasoning',
+             textangle:NARROW?-90:0, showarrow:false,
+             font:{size:NARROW?9:10.5, color:'#083344'}} : null).filter(Boolean)}), CFG);
 
   // 2. quality vs spend -- horizontal, dearest on top, shade = price
   const byCost = BO.slice().sort((a,b)=>a.cost-b.cost);
   Plotly.react('c1', [{type:'bar', orientation:'h',
-      x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>r.label+'   cost '+r.mult+'×'),
+      // On a phone the "cost N×" suffix is what blows out the left gutter, and the colorbar already
+      // encodes price. Fall back to `disp`, which pre-wraps at <br> and stays unique per arm -- the
+      // two Grok rows share a cost multiple, so a shortened label built from base+mult would collide
+      // and Plotly would merge them into one bar.
+      x:byCost.map(r=>r.clean_2s), y:byCost.map(r=>NARROW ? r.disp : r.label+'   cost '+r.mult+'×'),
       marker:{color:byCost.map(r=>r.cost),
               // COST RAMP: light blue cheap -> deep red costly. Plasma ran yellow-to-purple, which
               // carries no intuition about price; blue-to-red does, and the lightness falls
               // monotonically along it so the order survives greyscale and colour blindness.
               colorscale:[[0,'#cfe3f2'],[0.28,'#8ab6da'],[0.55,'#c193ac'],[0.8,'#d05f5f'],[1,'#8f1d1d']], cmin:0,
               cmax:Math.max(...byCost.map(r=>r.cost)),
-              colorbar:{title:{text:'cost per<br>scan', font:{size:12}}, tickprefix:'$',
-                        thickness:9, len:.6}},
+              colorbar:{title:{text:'cost per<br>scan', font:{size:NARROW?10:12}}, tickprefix:'$',
+                        thickness:NARROW?7:9, len:NARROW?.45:.6, x:NARROW?1.02:1.02}},
       text:byCost.map(r=>r.clean_2s.toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
       hovertemplate:'%{y}<br>%{x:.1f}%% of decisions clean<extra></extra>'}],
-    base({margin:{l:196,r:60,t:14,b:46}, showlegend:false,
+    base({margin:{l:NARROW?92:196, r:NARROW?44:60, t:14, b:46}, showlegend:false,
       xaxis:{gridcolor:p.grid, ticksuffix:'%', range:[0,78],
-             title:{text:'decisions clean on all 3 tests', font:{size:13}, standoff:14}},
-      yaxis:{automargin:true, tickfont:{size:12}}}), CFG);
+             title:{text:NARROW?'decisions clean, all 3 tests':'decisions clean on all 3 tests',
+                    font:{size:NARROW?11:13}, standoff:NARROW?10:14}},
+      yaxis:{automargin:true, tickfont:{size:NARROW?9.5:12}}}), CFG);
 
   // 3. the three tests, broken out
+  // 24 bars across 390px cannot carry printed values as well as bars; the numbers collide into a
+  // grey smear and cost more legibility than they add. Drop them on narrow and keep the hover.
   const mk = (n,k,c) => ({type:'bar', name:n, x:nm, y:BO.map(r=>r[k]), marker:{color:c},
-      text:BO.map(r=>r[k].toFixed(0)+'%'), textposition:'outside', cliponaxis:false,
+      text:BO.map(r=>r[k].toFixed(0)+'%'), textposition:NARROW?'none':'outside', cliponaxis:false,
       textfont:{size:9.5}, hovertemplate:'%{x}<br>'+n+' %{y:.0f}%<extra></extra>'});
   Plotly.react('c3', [mk('datable trigger','dated_adj','#fbbf24'),
                       mk('claims within sources','supported_adj','#34d399'),
                       mk('internally consistent','consistent_adj','#60a5fa')],
-    base({barmode:'group', margin:{l:56,r:16,t:38,b:84},
-      legend:{orientation:'h', y:1.16, x:0, font:{size:12.5}},
-      xaxis:{type:'category', tickfont:{size:11.5}},
+    base({barmode:'group', margin:{l:NARROW?44:56, r:NARROW?8:16, t:NARROW?14:38, b:NARROW?128:84},
+      // Three legend entries will not fit on one 390px row, so move the legend under the plot where
+      // it can wrap, and give the bottom margin room for both it and the angled tick labels.
+      legend:NARROW ? {orientation:'h', y:-0.30, x:0, font:{size:10.5}}
+                    : {orientation:'h', y:1.16, x:0, font:{size:12.5}},
+      xaxis:{type:'category', tickangle:NARROW?-45:0, tickfont:{size:NARROW?9:11.5}},
       yaxis:{gridcolor:p.grid, ticksuffix:'%', range:[35,108],
-             title:{text:'pass rate', font:{size:13}, standoff:14}}}), CFG);
+             title:{text:'pass rate', font:{size:NARROW?11:13}, standoff:NARROW?8:14}}}), CFG);
 
 }
 draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
+// responsive:true rescales width but never recomputes the margins, so crossing the 640px line needs
+// a real redraw. Debounced, and only fired when the flag actually flips, because mobile browsers
+// emit a resize every time the URL bar hides and redrawing on each one would thrash.
+let wasNarrow = window.innerWidth < 640, resizeTimer;
+addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    const isNarrow = window.innerWidth < 640;
+    if (isNarrow !== wasNarrow) { wasNarrow = isNarrow; draw(); }
+  }, 180);
+});
 </script></body></html>
