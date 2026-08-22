@@ -384,7 +384,18 @@ def main(argv=None) -> int:
         if len(_mem) < 5:
             continue
         _reg_mem[_t] = _mem
-        _keep = sorted(_mem, key=lambda c: c["final"])[1:-1]   # drop luckiest + unluckiest
+        # NO TRIM (2026-08-22). The region statistic is a MEDIAN, and a median already ignores the
+        # extremes -- that is what it is for. Dropping the luckiest and unluckiest member before
+        # taking one was advertised as protecting the medians and measured as doing nothing: across
+        # all 6,300 regions the median moved by EXACTLY 0 at every trim level from +-0 to +-3, and
+        # the rankings correlate 0.998-0.9995 with each other.
+        # What the trim DID change was the error bar, in the wrong direction. Taking a standard
+        # deviation over a deliberately truncated sample shrinks it mechanically -- median SE(final)
+        # ran 9,781 at +-0, 7,459 at +-1, 5,228 at +-3 -- so trimming made the +- column look
+        # tighter without the underlying uncertainty changing at all. Since the panel tells readers
+        # to trust the errors over the ordering, an artificially narrow error bar is the worst
+        # failure available here. The whole neighbourhood is used.
+        _keep = _mem
         _st = {}
         for _m in (*_MET, *_SHOW):
             _v = [c[_m] for c in _keep if c.get(_m) is not None]
@@ -468,11 +479,21 @@ def main(argv=None) -> int:
     # 662nd on v9 and v9's ranks 2,003rd on mb2 -- so the profile is deliberately set to the config
     # that survives BOTH (best combined rank), which is not the in-sample peak. Highlighting the peak
     # while running something else would point every scatter at a config we looked at and declined.
-    # All members are drawn, the two trimmed cells included: the trim keeps one lucky or unlucky
-    # neighbour out of the MEDIANS, it does not make those cells non-members.
+    # All members are drawn. There is no trim any more -- see the note at _keep.
     _markset = _live if _live in _reg_mem else _best
     _bestset = {id(c) for c in _reg_mem[_markset]}
     payload["topn"] = [i for i, c in enumerate(cells) if id(c) in _bestset]
+    # THE TOP-100 REGIONS' CENTRES, for the scatters. The raw cloud shows real dispersion, which is
+    # its job -- but it HIDES where the good neighbourhoods are, because they sit at the edge of the
+    # cloud rather than in its dense middle and read as sparse outliers. Measured on this grid the
+    # top-100 regions occupy 25-43% of the axis on Sharpe, capital hit-rate, cancellation and
+    # drawdown, and on Sharpe (1.0-1.2 against the grid's 0.1-0.7) they barely overlap the
+    # interquartile range at all. Smoothing the cloud to reveal them would be worse -- regional
+    # medians shrink the visible spread to 63-83% of the truth, and adjacent regions share 21 of 22
+    # members, so it would draw 6,300 points that are ~95% the same data as their neighbours.
+    # Marking them keeps the honest dispersion AND shows the sweet spot.
+    _topidx = {id(by_t) for by_t in (_by[t] for t in _rank[:100]) }
+    payload["topreg"] = [i for i, c in enumerate(cells) if id(c) in _topidx]
 
     # THE LLM BAKE-OFF (panels 11-15). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
@@ -519,15 +540,28 @@ def main(argv=None) -> int:
               "The horizontal axis is max drawdown &mdash; the book's biggest peak-to-trough loss as a "
               "fraction of its running peak; further right = deeper loss. The vertical axis is "
               "annualized return, so <b>upper-left is best</b>. Each point is one config; colour is "
-              "the share of the winners' gains handed back by the losers, so a pale point in the "
-              "upper-left is the whole objective at once. The live config is the purple &#9733; star.",
+              "<b>capital hit-rate</b> \u2014 the share of exposure that sat in tickers which ended "
+              "profitable. It was cancellation until 2026-08-22, but cancellation is <b>83% return</b> "
+              "across the grid, so it merely recoloured the y-axis. Hit-rate is +0.45, independent "
+              "enough to add a third dimension: a dark point in the upper-left earned its return "
+              "WITHOUT the money sitting in winners, which is luck rather than picking. The live "
+              "config is the magenta &#9733; star; amber squares are the recommended region\u2019s members, "
+              "and <b>hollow rings are the centres of the 100 best-scoring regions</b>.<br><br>"
+              "<b>These are RAW per-config values.</b> Table 8 reports the median across each "
+              "config\u2019s 22-cell neighbourhood, so a point here and its row there are not the "
+              "same number. The raw cloud is kept on purpose: regional medians would shrink the "
+              "visible spread to 63\u201383% of the truth, and adjacent regions share 21 of 22 "
+              "members, so smoothing would draw 6,300 points that are ~95% the same data as their "
+              "neighbours. The rings are how the good neighbourhoods stay visible without "
+              "flattering the picture \u2014 they sit at the EDGE of the cloud, not in its dense "
+              "middle, which is exactly why dispersion hides them.",
               "s-dd", 470),
         panel(3, "Return vs Sharpe",
               "The same cloud with <b>Sharpe on the horizontal</b> &mdash; return per unit of "
-              "volatility, one of the ten measures table 8 ranks on. This is the one panel here where "
+              "volatility, one of the eight measures table 8 ranks on. This is the one panel here where "
               "<b>upper-RIGHT is best</b>, since higher Sharpe is better; every other risk axis on "
-              "this page reads the other way. Colour is max drawdown, pinned to the same 20&ndash;120% "
-              "band as panel 4 so the two are comparable. The cloud is a tight rising diagonal "
+              "this page reads the other way. Colour is <b>safe-park</b> &mdash; of the capital that did NOT end in a winner, the share parked in anchors rather than sunk in a loser. It is the only metric here orthogonal to return (\u22120.07), so it is the one colour showing something neither axis can. "
+              " The cloud is a tight rising diagonal "
               "&mdash; return and Sharpe correlate <b>+0.92</b> across the grid, so for most configs "
               "they say the same thing and there is no return/risk trade to agonise over. <b>The "
               "divergence is all in the tail, which is exactly where a config gets picked.</b> On "
@@ -540,7 +574,7 @@ def main(argv=None) -> int:
         panel(4, "Return vs cancellation",
               "The fourth view of the same points, and the one that matters most: the horizontal axis "
               "is the share of the winners' gains handed back by the losers, so <b>upper-left is "
-              "best</b> &mdash; a book that earns and keeps it. Colour is max drawdown, so a pale "
+              "best</b> &mdash; a book that earns and keeps it. Colour is <b>safe-park</b> &mdash; of the capital that did NOT end in a winner, the share parked in anchors rather than sunk in a loser. It is the only metric here orthogonal to return (\u22120.07), so it is the one colour showing something neither axis can. A pale "
               "upper-left point earns well, keeps it, and does so without a deep hole. The cloud's "
               "shape is itself the finding: if it were a tight rising diagonal these knobs would only "
               "be trading return against cancellation, and it is not one.",
@@ -550,7 +584,10 @@ def main(argv=None) -> int:
               "(final &minus; midpoint) &divide; 1.5 years, in dollars per year &mdash; so a point far "
               "right was still compounding in the back half of the run, and a point at or left of zero "
               "made its money early and then coasted or gave it back. <b>Upper-right is best.</b> "
-              "Colour is max drawdown, on the same 20&ndash;120% band as panels 2 and 4.<br><br>"
+              "Colour is <b>safe-park</b> \u2014 of the capital that did not end in a winner, the share "
+              "parked in anchors rather than sunk in a loser. It is the only metric here that is "
+              "orthogonal to return (-0.07), so it is the one colour that shows something the two "
+              "axes cannot.<br><br>"
               "The cloud is a tight rising diagonal &mdash; return and slope correlate <b>+0.95</b>, "
               "tighter even than return and Sharpe &mdash; so for almost every config the two say the "
               "same thing. <b>That tightness is the finding, and it is a warning about slope, not a "
@@ -561,8 +598,10 @@ def main(argv=None) -> int:
               "made-it-early-then-coasted failure this panel was built to expose barely happens on "
               "this book. <b>863 cells (14%) do have a negative slope</b>, but they are the low-return "
               "cells you would drop anyway.<br><br>"
-              "Two things to read carefully. The 95 cells above $500K/yr are <b>clipped</b> at the "
-              "right edge rather than allowed to flatten the rest (the maximum is $2.0M/yr). And the "
+              "Two things to read carefully. The axis runs <b>p0.2 to p99.8</b> of the cells, not the full "
+              "range \u2014 a handful of extremes would otherwise squash the middle 90% into a fifth "
+              "of the plot. However many cells fall outside is stated in the panel\u2019s top-right "
+              "corner rather than silently dropped. And the "
               "two axes are computed off <b>different equity curves</b> &mdash; annualized return "
               "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
               "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
@@ -573,57 +612,29 @@ def main(argv=None) -> int:
         panel(6, "Return vs capital hit-rate",
               "The share of allocated capital-days that sat in tickers which ended up profitable. "
               "Capital-WEIGHTED on purpose: ten winners at 1% and one loser at 40% is not good "
-              "picking, and an unweighted count would say it was. Colour is <b>cancellation</b> "
+              "picking, and an unweighted count would say it was. Colour is <b>safe-park</b> &mdash; of the capital that did NOT end in a winner, the share parked in anchors rather than sunk in a loser. It is the only metric here orthogonal to return (\u22120.07), so it is the one colour showing something neither axis can. "
               "\u2014 what the winners handed back \u2014 so the corner you want is right and pale: "
               "the money sat in the right names AND kept the gains.",
               "s-hit", 470),
         panel(7, "Return vs edge",
               "Dollars earned per unit of exposure: total gain divided by total capital-days. It "
               "separates a book that earns a lot by HOLDING a lot from one that earns a lot per "
-              "dollar-day of risk. Colour is <b>capital hit-rate</b>, so a dark dot far right earns "
+              "dollar-day of risk. Colour is <b>safe-park</b> &mdash; of the capital that did NOT end in a winner, the share parked in anchors rather than sunk in a loser. It is the only metric here orthogonal to return (\u22120.07), so it is the one colour showing something neither axis can. A dark dot far right earns "
               "well per unit of exposure without that exposure being in winners \u2014 which is luck, "
               "not picking.",
               "s-edge", 470),
         ('<section class="panel"><h2>8. The best region of the grid</h2><p class="lead">'
          "A config\u2019s region is itself plus every config one setting away \u2014 "
-         f"{payload['region']['n_members']} in all. I drop the luckiest and unluckiest member by "
-         f"final value, then report the median and standard error of the remaining "
-         f"{payload['region']['n_kept']}. Each region is scored on "
-         f"{payload['region']['n_metrics']} metrics, each turned into a percentile rank and "
-         "averaged. Ranking neighbourhoods instead of cells means a config only wins if the "
-         "settings around it work too.<br><br>"
-         "<b>MEASURED 2026-08-21, and it limits everything below.</b> Three curations now exist: two "
-         "at IDENTICAL settings (mb2, mb2rep) and one differing (v9). The same-config pair agrees on "
-         "its top 200 at <b>1.7\u00d7 chance</b> \u2014 and so does the different-config pair. Two runs "
-         "of the SAME configuration disagree about the best region exactly as much as two runs of "
-         "different ones, so this ranking is driven by which news the scout happened to read, not by "
-         "the settings. Each sweep\u2019s winner ranks 662nd, 1,016th, 3,231st or 5,398th on the "
-         "others; the config this profile currently runs ranks 112 / 78 / <b>3,973</b>. "
-         "<b>Table 8 identifies the best region WITHIN one curation. It does not identify a config "
-         "that will still be good on the next one</b>, and no metric set fixes that \u2014 the "
-         "instability is upstream of the scoring.<br><br>"
-         "<b>The eight, in full:</b> Sharpe, gain/pain, second-half slope, capital hit-rate, edge and "
-         "safe-park (higher is better), against cancellation and max drawdown (lower is better). "
-         "Every one is a column, so nothing votes invisibly.<br><br>"
-         "<b>capital hit-rate and edge now EXCLUDE the anchors.</b> SPY and BIL were in both "
-         "denominators and distorted them in opposite directions \u2014 parking inflated hit-rate "
-         "(both anchors end profitable, so idle capital counted as a WIN) and deflated edge (anchors "
-         "earn $25/capital-day against the picks\u2019 $176). A config\u2019s score partly reflected "
-         "how much it parked rather than how well it picked, which is the opposite of what both "
-         "measure.<br><br>"
-         "<b>safe-park</b> is where the anchors went instead: of the capital that did NOT end in a "
-         "winner, the share parked in anchors rather than sunk in a losing pick. Parking when nothing "
-         "is worth funding is a correct decision; holding a loser is a mistake, and every other metric "
-         "treats them alike. It measures RESTRAINT, not picking \u2014 and it earns its place "
-         "empirically: it correlates <b>\u22120.02</b> with capital hit-rate across the 6,300 cells "
-         "despite sharing a denominator, and no higher than \u22120.12 with anything except max "
-         "drawdown (\u22120.56). A genuinely new axis, not a restatement.<br><br>"
-         "<b>Final value and annualized return are shown but do NOT vote.</b> They are the same axis "
-         "as each other (+0.93 across the grid) and largely as Sharpe and slope, so scoring on them "
-         "counted return three or four times and let one lucky book carry a region. What is left is "
-         "one return-shape measure, two risk-adjusted, two about whether the capital sat in the right "
-         "names, and two about what the book gave back. The mean is still unweighted by choice, not "
-         "by derivation.</p>"
+         f"{payload['region']['n_members']} in all, and every number here is the median and standard "
+         "error across them. The score is the mean of "
+         f"{payload['region']['n_metrics']} percentile ranks: Sharpe, gain/pain, second-half slope, "
+         "capital hit-rate, edge and safe-park (higher is better), against cancellation and max "
+         "drawdown (lower is better). Final value and annualized return are shown but do NOT vote "
+         "\u2014 they are the same axis as Sharpe and slope, so scoring on them counted return three "
+         "times over. Ranking neighbourhoods instead of cells means a config only wins if the "
+         "settings around it work too. <b>But two runs of the SAME config disagree about the best "
+         "region as much as two different configs do, so this finds the best region within ONE "
+         "curation \u2014 not one that will still be good on the next.</b></p>"
          f"{reg_tbl}</section>"),
 
     ] + ([panel(9, "Portfolio value vs max_events",
@@ -786,12 +797,41 @@ function draw(){{
             && document.documentElement.getAttribute('data-theme') !== 'light';
   const p = dark ? DARK : LIGHT;
   const C = DATA.cells, K = DATA.keys;
-  const PUR = dark ? '#c084fc' : '#7c3aed';   // star marking the live config
+  // THE TWO ANNOTATION MARKS MUST NOT BE BLUE. The cloud became a single blue hue on 2026-08-22,
+  // which left the light-blue region squares and the purple star sitting INSIDE their own colour
+  // family -- both read as just another dot. Annotations are not part of the sequential encoding and
+  // should sit as far from it in hue as possible, so: amber squares (the recommendation) and a
+  // magenta star (where you actually are). Amber and magenta are ~120 degrees apart from each other
+  // and from blue, so the three stay separable in colour-vision deficiency as well as in normal
+  // vision, and neither is a reserved status colour. Both carry the existing 1.5px surface ring, so
+  // they stay legible where the cloud is dense.
+  const PUR = dark ? '#f472b6' : '#db2777';   // star marking the LIVE config (magenta)
+  const REGSQ = dark ? '#fbbf24' : '#d97706'; // squares marking the recommended region (amber)
 
   // PWR panels 1-3: annualized return against risk, then against each churn norm. One builder,
   // three x-axes -- they differ only in what is on the horizontal.
   const curKey = DATA.cur ? K.map(k=>DATA.cur[k]).join('|') : null;
+  // SEQUENTIAL = ONE HUE, and NEITHER END MAY VANISH INTO THE SURFACE. The old ramp was YlOrRd, a
+  // three-hue yellow-orange-red whose low end is very nearly white: on a white page most of the cloud
+  // simply disappeared, which is what a reader sees as "the dots are almost white". A single blue
+  // hue, floored at a visible light step and stopped short of black, keeps every point on the page.
+  // The dark-theme ramp is CHOSEN, not an automatic flip -- same hue, run the other way, so the light
+  // end does not glare against a dark surface.
+  const SEQ = dark ? [[0,'#1e3a8a'],[0.5,'#3b82f6'],[1,'#bfdbfe']]
+                   : [[0,'#c7dcf5'],[0.5,'#3b82f6'],[1,'#12306e']];
+  function _pctl(a, q) {{
+    const v = a.filter(x => x !== null && x !== undefined && isFinite(x)).sort((m,n) => m-n);
+    return v.length ? v[Math.min(v.length-1, Math.max(0, Math.round(q*(v.length-1))))] : 0;
+  }}
   function scat(div, xf, xlab, xsuf, cf, clab, xmax, cmin, cmax, xmin) {{
+    const _cv = C.map(cf).filter(x => x !== null && x !== undefined && isFinite(x)).sort((m,n)=>m-n);
+    const _rank = (v, x) => {{                     // fraction of the cloud at or below x
+      let lo = 0, hi = v.length;
+      while (lo < hi) {{ const m = (lo+hi)>>1; if (v[m] < x) lo = m+1; else hi = m; }}
+      return v.length > 1 ? lo/(v.length-1) : 0;
+    }};
+    const _fmtq = x => Math.abs(x) >= 1000 ? Math.round(x).toLocaleString()
+                     : (Math.abs(x) >= 10 ? x.toFixed(0) : x.toFixed(1));
     const isCur = c => K.map(k=>c[k]).join('|') === curKey;
     const mk = sel => ({{
       type:'scatter', mode:'markers',
@@ -799,34 +839,77 @@ function draw(){{
       marker: sel === isCur
         ? {{size:20, color:PUR, symbol:'star',
            line:{{width:1.5, color:p.surface}}}}
-        : {{size:7, color:C.filter(sel).map(cf), colorscale:'YlOrRd', reversescale:(['Sharpe','capital hit-rate %','edge $/exposure'].includes(clab)), showscale:true,
-           cmin:(cmin!==undefined?cmin:Math.min(...C.map(cf))),
-           cmax:(cmax!==undefined?cmax:Math.max(...C.map(cf))),
-           colorbar:{{title:{{text:clab, font:{{size:10}}}}, thickness:10}},
+        : {{size:7, color:C.filter(sel).map(c=>_rank(_cv, cf(c))), colorscale:SEQ, reversescale:(['Sharpe','capital hit-rate %','edge $/exposure','safe-park %'].includes(clab)), showscale:true,
+           // COLOUR BY RANK, NOT BY VALUE. These metrics are not merely right-skewed, they pile
+           // up at zero: safe_park runs p25=1.2, median=6.2, p75=22 against a 65% max. Clipping to
+           // p2..p98 still left the MEDIAN dot at 11% of the ramp, so most of 6,300 points shared
+           // one colour and the cloud read as a single wash. Ranking is the only mapping that
+           // spreads an arbitrary distribution evenly by construction -- the median lands at 50%
+           // whatever the shape. Order is preserved (rank is monotone in value), so a darker dot
+           // still means more; only the SPACING changes. The colourbar is relabelled with the real
+           // values at each quartile so the reader never has to think in percentiles.
+           cmin:0, cmax:1,
+           colorbar:{{title:{{text:clab, font:{{size:10}}}}, thickness:10,
+                     tickvals:[0,0.25,0.5,0.75,1],
+                     ticktext:[0,0.25,0.5,0.75,1].map(q => _fmtq(_pctl(_cv, q)))}},
            line:{{width:1, color:p.surface}}}},
       text:C.filter(sel).map(c=>(sel===isCur?'<b>CURRENT CONFIG</b><br>':'')+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<br>'+xlab+' %{{x:,.0f}}'+xsuf+'<extra></extra>',
       showlegend:false}});
+    const _xv = C.map(xf).filter(x => x !== null && x !== undefined && isFinite(x)).sort((m,n)=>m-n);
+    const _xlo = (xmin !== undefined) ? xmin : _pctl(_xv, 0.002);
+    const _xhi = (xmax !== undefined) ? xmax : _pctl(_xv, 0.998);
+    const _nclip = _xv.filter(x => x < _xlo || x > _xhi).length;
     const tr=[mk(c=>!isCur(c))];
-    // REGION MEMBERS as light-blue squares: smaller than the star and drawn UNDER it, so the live
+    // REGION MEMBERS as amber squares: smaller than the star and drawn UNDER it, so the live
     // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
+    // TOP-100 REGION CENTRES: hollow rings, no fill, drawn UNDER the region squares and the star.
+    // A ring reads as "highlighted" without spending a fourth hue on a page that already carries a
+    // blue cloud, amber squares and a magenta star. This is the layer that answers "is there a sweet
+    // spot the dispersion hides" -- and there is: these cluster in 25-43% of the axis on most panels.
+    const TREG = new Set(DATA.topreg || []);
+    const treg = C.filter((c,i) => TREG.has(i));
+    if (treg.length) tr.push({{
+      type:'scatter', mode:'markers', x:treg.map(xf), y:treg.map(c=>c.ann),
+      marker:{{size:9, symbol:'circle-open', color:p.text2, line:{{width:1.4}}}},
+      text:treg.map(c=>'<b>TOP-100 REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
     if (top.length) tr.push({{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
-      marker:{{size:11, symbol:'square', color:'#7dd3fc',
+      marker:{{size:11, symbol:'square', color:REGSQ,
                line:{{width:1.5, color:p.surface}}}},
       text:top.map(c=>'<b>IN THE REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
-      xaxis:{{gridcolor:p.grid, ticksuffix:xsuf, range:(xmax ? [(xmin!==undefined?xmin:0), xmax] : undefined),
+      annotations: _nclip ? [{{xref:'paper', x:1, xanchor:'right', yref:'paper', y:1.02,
+        yanchor:'bottom', showarrow:false, font:{{size:10, color:p.text2}},
+        text:_nclip + ' of ' + _xv.length.toLocaleString() + ' cells fall outside this axis'}}] : [],
+      // AXIS RANGE IS DATA-DRIVEN, p0.2..p99.8 -- neither pegged nor fully dynamic.
+      // It was pegged to constants tuned for an older curation, and the data moved out from under
+      // them: panel 7 lost 21 cells off the LEFT edge because edge now reaches -80 against a
+      // hard-coded -60. Plotly clips silently, so those points were simply gone.
+      // Fully dynamic is worse: a handful of extremes squash the bulk into a fifth of the plot --
+      // measured on this curation the middle 90% of cells would occupy 17-24% of the axis.
+      // p0.2..p99.8 drops 26 of 6,300 and roughly doubles the axis the bulk actually uses. Whatever
+      // IS dropped is stated in the corner rather than vanishing.
+      xaxis:{{gridcolor:p.grid, ticksuffix:xsuf, range:[_xlo, _xhi],
              title:{{text:xlab+(div==='s-sharpe'||div==='s-slope'||div==='s-hit'||div==='s-edge'?' (HIGHER is better)':(div==='s-dd'||div==='s-canc'?' (lower is better)':' (lower = steadier)')), font:{{size:11}}}}}},
       yaxis:{{gridcolor:p.grid, ticksuffix:'%',
              title:{{text:'annualized return', font:{{size:11}}}}}}}}), CFG);
   }}
-  const CANC = c=>c.cancelled, DD = c=>c.max_drawdown;
-  scat('s-dd',   DD,   'max drawdown',         '%', CANC, 'cancelled %');
+  const CANC = c=>c.cancelled, DD = c=>c.max_drawdown, SP = c=>c.safe_park;
+  // COLOUR CHOICE IS MEASURED, NOT AESTHETIC (2026-08-22). A colour is only worth a channel if it
+  // is orthogonal to BOTH axes -- otherwise it recolours a position the reader can already see.
+  // Four of the eight metrics are RETURN wearing a hat: sharpe +0.88 with annualized, edge +0.92,
+  // slope +0.85, cancelled -0.83. Colouring a return chart by any of them says nothing. Only
+  // max_drawdown (-0.30), capital_hit (+0.45) and safe_park (-0.07) are independent enough.
+  // Panels 2 and 6 were the worst offenders, coloured by `cancelled` (83% return) on charts whose
+  // y-axis IS return. max_drawdown is now the colour NOWHERE -- it is already an axis on panel 2.
+  scat('s-dd',   DD,   'max drawdown',         '%', c=>c.capital_hit, 'capital hit-rate %',
+       undefined, 30, 81);
   // L1/L2 get SHARPE, not cancellation: neither axis carries any risk, so colour is doing real work
   // here, and Sharpe answers the question churn actually poses -- is the extra trading buying
   // risk-adjusted quality or just noise? Both panels use the same channel so the two norms stay
@@ -844,19 +927,19 @@ function draw(){{
   // Return vs SHARPE. The only panel whose x-axis is better HIGHER, so the axis label is
   // switched below rather than inheriting the shared 'lower is better' suffix. Drawdown
   // colour is pinned to 20-120 to match panel 6, so the two read as one picture.
-  scat('s-sharpe', SH, 'Sharpe', '', DD, 'max DD %', undefined, 20, 120);
-  scat('s-canc', CANC, 'gains cancelled',      '%', DD,   'max DD %', 250, 20, 120, 0);
-  // slope in $/yr: clipped at 500K (95 of 6,300 cells run past it, to $2.0M) so the bulk stays
+  scat('s-sharpe', SH, 'Sharpe', '', SP, 'safe-park %', undefined, 0, 60);
+  scat('s-canc', CANC, 'gains cancelled',      '%', SP, 'safe-park %', undefined, 0, 60);
+  // slope in $/yr: the axis is p0.2..p99.8 like every other scatter, so the bulk stays
   // readable. xmin -160K keeps the single deeply-negative cell on the page.
-  scat('s-slope', c=>c.slope_2h, 'second-half slope', '', DD, 'max DD %', 500000, 20, 120, -160000);
+  scat('s-slope', c=>c.slope_2h, 'second-half slope', '', SP, 'safe-park %', undefined, 0, 60);
   // DID THE CAPITAL GO WHERE THE MONEY WAS? Both x-axes measure PICKING rather than give-back, which
   // is what cancellation and drawdown cannot see: a config that funds little and risks little scores
   // well on those without ever having held a rising ticker.
   // Coloured by the OTHER half of the pair on purpose -- hit-rate against what it gave back, edge
   // against whether the exposure was in winners -- so each panel carries two independent readings
   // instead of repeating the max-DD colour a fourth time.
-  scat('s-hit',  c=>c.capital_hit, 'capital hit-rate', '%', CANC, 'cancelled %', undefined, 0, 150);
-  scat('s-edge', c=>c.edge, 'edge $/exposure', '', c=>c.capital_hit, 'capital hit-rate %', 1200, 30, 81, -60);
+  scat('s-hit',  c=>c.capital_hit, 'capital hit-rate', '%', SP, 'safe-park %', undefined, 0, 60);
+  scat('s-edge', c=>c.edge, 'edge $/exposure', '', SP, 'safe-park %', undefined, 0, 60);
 
   // 5. max_events: value (bars) against cull-at-birth (line). TWO y-axes is normally forbidden, and
   // is legitimate here only because the second series is a PERCENTAGE OF A DIFFERENT THING (events
@@ -981,7 +1064,7 @@ function draw(){{
     // has no continuous x to lie along and would silently vanish.
     Plotly.react('s-bo-pnl', [
       {{type:'bar', x:nm, y:fin, name:'final portfolio value',
-        marker:{{color:'#7dd3fc', line:{{width:1.5, color:p.surface}}}},
+        marker:{{color:REGSQ, line:{{width:1.5, color:p.surface}}}},
         text:BO.map(r => '$' + Math.round(r.final / 1000) + 'K'), textposition:'outside',
         textfont:{{size:11, color:p.fg}}, cliponaxis:false,
         hovertext:BO.map(r => 'event_agent_model = ' + r.arm + '  (LLM $' + r.cost.toFixed(2) + ')'),

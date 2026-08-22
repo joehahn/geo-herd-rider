@@ -15,6 +15,70 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
 
+## Entry is systematically late and exit discards continuation (measured 2026-08-22)
+
+**The single most substantive finding of the 2026-08-22 session.** Measured on `data/cbt_3yr_v18`,
+62 funded tickers. Everything below is a COUNT off the journal, the corpus and the price panel — no
+P&L, so it survives the noise floor that sinks final value.
+
+### What was measured
+
+| | median |
+|---|---|
+| 6 months BEFORE we bought | **+33.0%** (p75 +85%) |
+| DURING our ~1-month hold | +3.9% |
+| 6 months AFTER we sold | +4.4% |
+
+- **42%** of funded tickers were already up >50% before entry; **21%** up >100%.
+- Post-exit return (+4.4%) is **indistinguishable from** during-hold return (+3.9%) — so the exit
+  timing carries no information. 21% kept rising >25% after we sold.
+- The corpus held these names long before we acted: **BE 609 days**, **CORZ 205d**, **NVTS 447d**,
+  **BKSY 451d**, **WPM 930d**, **INTC 988d** — with 27–1,379 articles each. **Retrieval was never the
+  constraint.**
+
+### The cause: `agent.SUPERLATIVE` is an OR where its own docstring specifies an AND
+
+The gate's header says the tell is a large sustained move **plus** language saying the crowd has not
+arrived. The regex ORs the two halves:
+
+    gate passes 5,166 of 99,117 articles
+      early framing (under-the-radar / little-known / hidden gem) :   427  ( 8.3%)
+      move-scale superlative ONLY (surge / soar / 300% / doubled) : 4,739  (91.7%)
+
+**92% of everything the scout ever sees is momentum language.** The design describes four rungs —
+under-the-radar → skyrocketing-but-still-under-the-radar → 1,300% rally → mainstream — and says
+naming it on the first or second "is the whole edge". The implementation admits all four and mostly
+serves rungs three and four. WPM is the type specimen: bought after its peak because the press only
+reached for surge language once the move was over.
+
+### The exit side, and why BE/CORZ could not come back
+
+- **67%** of events exit on `catalyst_resolved`, with reasons like *"already announced and priced
+  in"*, *"SEC approved… resolving rally driver"*. The agent correctly sees the EVENT is over and
+  wrongly concludes the RE-RATING is over.
+- `SCOUT_SYSTEM` forbids the fix: *"do NOT re-propose that ticker unless a genuinely NEW, distinct
+  catalyst has since emerged."* Continuation is not a new catalyst, so BE at +122% over the six
+  months after we sold, and CORZ at +118%, were unreachable by construction.
+
+### Three edits, ranked, and how to judge them
+
+1. **Make the gate an AND** (or two-tier it, admitting move-only articles at much lower priority).
+   The one change that could move entry timing. NOTE the risk: 427 articles may be too few, so it
+   likely needs the early vocabulary BROADENED rather than the AND applied naively.
+2. **Split `catalyst_resolved` into resolved-and-exhausted vs resolved-but-re-rating** in
+   `AGENT_SYSTEM`. One flag currently does both jobs. An ETF approval is the first kind; Bloom's
+   AI-datacentre demand and Core Scientific's HPC pivot are the second.
+3. **Add a continuation re-entry route.** `unfunded_reentry_on_new_catalyst` needs a DIFFERENT
+   thesis; there is no path back for "same thesis, still compounding".
+
+**Order matters** — fix the gate first, because if entry timing improves the exit problem may shrink
+on its own.
+
+**JUDGE ON MECHANISM, NOT P&L** (CLAUDE.md #6, and the 2026-08-22 measurement that same-config
+curations disagree about the best region as much as different-config ones do): lead time from first
+corpus mention to first proposal, share of entries already up >50%, share of exits that are
+resolved-and-exhausted vs resolved-but-re-rating. Each arm is ~$7 and ~45 min.
+
 ## Extend the sweep grid past `max_watchlist 12` (parked 2026-08-21)
 
 **Zero-cost: no LLM, no re-curation.** `scripts/sweep_optimizer.py` on the canonical curation.

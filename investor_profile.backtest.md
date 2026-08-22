@@ -147,20 +147,35 @@ max_event_scans: 6                # retires an EVENT at this age, in scans. CURA
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once. Set 2026-08-22 with the five
-                                  #   knobs below as ONE config, reverting to the settings this session started
-                                  #   from. The sweep-derived alternatives were withdrawn: across three
-                                  #   curations, two at IDENTICAL settings, the top-200 regions agree at 1.7x
-                                  #   chance whether or not the config differs -- so the sweep ranks curation
-                                  #   luck, not settings, and cannot justify moving any of these.
+max_watchlist: 4                  # how many tickers may hold capital at once. Set 2026-08-22 with the three
+                                  #   knobs below as ONE config: 4 · 0.6 · 21 · 4 · 4.0 · 0.05.
+                                  #   CHOSEN AS THE CENTRE OF THE SWEET SPOT, NOT ITS PEAK. Of its 22 one-knob
+                                  #   neighbours, 11 are themselves top-100 regions -- the densest overlap in
+                                  #   the grid. The top-SCORING config (4 · 0.6 · 30 · 2 · 4.0 · 0.1, score
+                                  #   93.5) has only 8, so it sits on the shoulder of its own good region,
+                                  #   which is where a noise-driven peak tends to sit. This one scores 92.9 at
+                                  #   rank 7 -- marginally lower, materially better surrounded.
+                                  #   The whole top band shares max_watchlist 4 with cap 0.4-0.6 and risk 3-4:
+                                  #   a narrow, coherent corner (concentrate hard in few names), not scattered
+                                  #   lucky cells.
+                                  #   TWO CAVEATS, both live. The overlap measure is SCALE-DEPENDENT -- at
+                                  #   top-500 a different family wins (4 · 0.4 · 30 · 4, 17/22 but rank 164).
+                                  #   And it is all WITHIN ONE CURATION: two runs of the same config disagree
+                                  #   about the best region as much as two different configs do, so this corner
+                                  #   keeps winning single sweeps and has not yet survived the next one.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
-                                  #   0 = NEVER drop for being unfunded; the curator's exit switch handles it.
+drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+                                  #   Was 0 (never drop).
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.25           # most of the book any one ticker may take.
-min_trade_size: 0.10              # positions smaller than this are DROPPED, not shrunk -- a concentration
-                                  #   lever, not a dust filter.
+concentration_cap: 0.6            # most of the book any one ticker may take. Loosened from 0.25 with the
+                                  #   move to max_watchlist 4 -- at four names an equal book is 25% each, so a
+                                  #   0.25 cap would force exactly equal weights and give the optimizer nothing
+                                  #   to do.
+min_trade_size: 0.05              # positions smaller than this are DROPPED, not shrunk -- a concentration
+                                  #   lever, not a dust filter. At four names an equal book is 25% each, so a
+                                  #   0.05 floor is far below the smallest intended position and effectively
+                                  #   inert here.
 risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
 optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
                                   #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book
