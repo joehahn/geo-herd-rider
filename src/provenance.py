@@ -69,7 +69,7 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
 CANON_RUN = "data/cbt_3yr_v18"
-CANON_SWEEP = "data/sweep_mb2rep.json"
+CANON_SWEEP = "data/sweep_v18.json"
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
