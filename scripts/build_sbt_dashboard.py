@@ -365,7 +365,7 @@ def main(argv=None) -> int:
     # (cancelled, max_drawdown). final and ann are still COLUMNS -- they are what a reader wants to
     # see -- they just no longer vote.
     _MET = {"sharpe": 1, "gain_pain": 1, "slope_2h": 1, "capital_hit": 1,
-            "edge": 1, "cancelled": -1, "max_drawdown": -1}
+            "edge": 1, "safe_park": 1, "cancelled": -1, "max_drawdown": -1}
     # SHOWN BUT NOT SCORED. Summarised per region exactly like the scored ones so the columns and the
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann")
@@ -425,7 +425,8 @@ def main(argv=None) -> int:
                 _pm(t, "max_drawdown", "{:.0f}") + "%",
                 _pm(t, "gain_pain", "{:.2f}"),
                 _pm(t, "capital_hit", "{:.0f}") + "%",
-                _pm(t, "edge", "{:,.0f}")]
+                _pm(t, "edge", "{:,.0f}"),
+                _pm(t, "safe_park", "{:.0f}") + "%"]
 
     _TOPR = 12
     _shown = _rank[:_TOPR]
@@ -447,7 +448,7 @@ def main(argv=None) -> int:
         ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
          "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
-         "gain/pain", "capital hit-rate", "edge $/exposure"], _rows, _cls)
+         "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %"], _rows, _cls)
 
     _live_rank = (_rank.index(_live) + 1) if _live in _reg_stat else None
     _live_str = " \u00b7 ".join(str(x) for x in _live)
@@ -601,9 +602,22 @@ def main(argv=None) -> int:
          "<b>Table 8 identifies the best region WITHIN one curation. It does not identify a config "
          "that will still be good on the next one</b>, and no metric set fixes that \u2014 the "
          "instability is upstream of the scoring.<br><br>"
-         "<b>The seven, in full:</b> Sharpe, gain/pain, second-half slope, capital hit-rate and edge "
-         "(higher is better), against cancellation and max drawdown (lower is better). Every one is a "
-         "column, so nothing votes invisibly.<br><br>"
+         "<b>The eight, in full:</b> Sharpe, gain/pain, second-half slope, capital hit-rate, edge and "
+         "safe-park (higher is better), against cancellation and max drawdown (lower is better). "
+         "Every one is a column, so nothing votes invisibly.<br><br>"
+         "<b>capital hit-rate and edge now EXCLUDE the anchors.</b> SPY and BIL were in both "
+         "denominators and distorted them in opposite directions \u2014 parking inflated hit-rate "
+         "(both anchors end profitable, so idle capital counted as a WIN) and deflated edge (anchors "
+         "earn $25/capital-day against the picks\u2019 $176). A config\u2019s score partly reflected "
+         "how much it parked rather than how well it picked, which is the opposite of what both "
+         "measure.<br><br>"
+         "<b>safe-park</b> is where the anchors went instead: of the capital that did NOT end in a "
+         "winner, the share parked in anchors rather than sunk in a losing pick. Parking when nothing "
+         "is worth funding is a correct decision; holding a loser is a mistake, and every other metric "
+         "treats them alike. It measures RESTRAINT, not picking \u2014 and it earns its place "
+         "empirically: it correlates <b>\u22120.02</b> with capital hit-rate across the 6,300 cells "
+         "despite sharing a denominator, and no higher than \u22120.12 with anything except max "
+         "drawdown (\u22120.56). A genuinely new axis, not a restatement.<br><br>"
          "<b>Final value and annualized return are shown but do NOT vote.</b> They are the same axis "
          "as each other (+0.93 across the grid) and largely as Sharpe and slope, so scoring on them "
          "counted return three or four times and let one lucky book carry a region. What is left is "

@@ -234,10 +234,32 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     #                separates a book that earns a lot by holding a lot from one that earns a lot per
     #                unit held.
     cap_days = {t: sum(al[t]) for t in al}
-    tot_cd = sum(cap_days.values())
-    win_cd = sum(cd for t, cd in cap_days.items() if g.get(t, 0) > 0)
+    # ANCHORS ARE EXCLUDED FROM BOTH PICKING METRICS (2026-08-22). They were in the denominators, and
+    # they distorted the two in OPPOSITE directions, so a config's score partly reflected how much
+    # idle capital it parked rather than how well it picked -- the opposite of what both measure.
+    # Measured on the canonical book: anchors take 8.1% of capital-days and contribute 1.3% of the
+    # gain, earning $25.47 per capital-day against the picks' $175.91. Including them inflated
+    # capital_hit by +2.8pt (SPY and BIL both end profitable, so parking counts as a WIN) and
+    # deflated edge by 12.17 (~7%). Small here; on a capped curation that parks far more it is not,
+    # and a config sitting 50% in SPY would collect ~50 points of free capital_hit.
+    pick_days = {t: cd for t, cd in cap_days.items() if t not in anchors}
+    tot_cd = sum(pick_days.values())
+    win_cd = sum(cd for t, cd in pick_days.items() if g.get(t, 0) > 0)
+    los_cd = sum(cd for t, cd in pick_days.items() if g.get(t, 0) <= 0)
+    anc_cd = sum(cd for t, cd in cap_days.items() if t in anchors)
+    pick_gain = sum(v for t, v in g.items() if t not in anchors)
     capital_hit = round(100 * win_cd / tot_cd, 1) if tot_cd else None
-    edge = round(sum(g.values()) / tot_cd, 2) if tot_cd else None
+    edge = round(pick_gain / tot_cd, 2) if tot_cd else None
+    # SAFE-PARKING SHARE (user's proposal, 2026-08-22). Of the capital that did NOT end up in a
+    # winner, how much sat in the anchors rather than in a losing pick? Parking in SPY when nothing
+    # is worth funding is a correct decision; holding a loser is a mistake, and every other metric
+    # here treats the two as the same "not a winner".
+    # BOUNDED FORM ON PURPOSE. The proposal was anchors/losers, which is rank-IDENTICAL to this
+    # (x/(1+x) is strictly increasing) but unbounded: a config with no losing capital-days divides by
+    # zero and lands at infinity, which a percentile rank cannot order. This form gives it 100%.
+    # NOT SCORED, deliberately -- see the note in build_sbt_dashboard: taken alone it is maximised by
+    # not participating at all.
+    safe_park = round(100 * anc_cd / (anc_cd + los_cd), 1) if (anc_cd + los_cd) else None
     # ---- BLOCK STATISTICS, for CSCV / PBO -----------------------------------------------------------
     # Bailey-Borwein-Lopez de Prado's Combinatorially Symmetric Cross-Validation needs a performance
     # matrix over TIME BLOCKS, so that a config can be scored on any half of the history and checked on
@@ -263,7 +285,7 @@ def metrics(b: dict, anchors: set, fm: dict) -> dict:
     focus = round(sum(v for t, v in g.items() if t in FOCUS), 2)
     return {"final": round(b.get("final", 0), 2),
             "blocks": blocks, "daily_r": daily_r,
-            "capital_hit": capital_hit, "edge": edge,
+            "capital_hit": capital_hit, "edge": edge, "safe_park": safe_park,
             "focus_gain": focus,
             "lead_months": lead_m,
             "slope_2h": half,
