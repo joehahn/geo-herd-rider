@@ -1280,7 +1280,15 @@ def main(argv=None) -> int:
               "c-gaine", 480),
         panel(9, "Portfolio value by event over time",
               "How the book was distributed across events as the year ran. Wide bands that persist "
-              "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating.",
+              "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating."
+              "<br><br><b>Two non-event bands.</b> Grey is the real <code>always_include</code> anchors "
+              "(SPY, BIL). Amber is money still funded after every event naming that ticker had "
+              "terminated \u2014 the same dollars plot 8 buckets as <i>(unassigned)</i>. Until "
+              "2026-08-22 the two were drawn as one band labelled \u201canchors\u201d, which read "
+              "17.3% of the book against plot 10\u2019s 8.1% for the same thing."
+              "<br><br>Only the <b>8 largest events by peak holding</b> are named in the legend \u2014 "
+              "about 70 hold dollars at some point, and that many swatches cannot be matched to bands "
+              "by eye. <b>Hover any band</b> to identify it; every event is hoverable, labelled or not.",
               "c-evtime", 420),
         panel(10, "Allocation over time",
                 "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
@@ -2015,17 +2023,39 @@ function draw() {{
     }}).filter(e => e[1].some(v => v > 0));
     const _evSum = new Array(_nd).fill(0);
     _evDollars.forEach(e => {{ for (let i = 0; i < _nd; i++) _evSum[i] += e[1][i]; }});
-    const _rest = BK.value.map((v, i) => Math.max(0, v - _evSum[i]));
+    // SPLIT THE RESIDUAL. This band was labelled 'anchors' and was NOT: it is value minus everything
+    // an event claims, which is anchors PLUS every dollar held while no event naming that ticker was
+    // live. Measured 2026-08-22 on the canonical book, the band ran 17.3% of the portfolio while the
+    // real SPY/BIL holding was 8.1% -- so plot 9 and plot 10 disagreed by better than 2x about the
+    // same quantity, and the honest half of the gap was invisible. The remainder is the SAME money
+    // plot 8 buckets as '(unassigned)': positions the optimizer still funds after the curator has
+    // retired the thesis. Two different stories, so two bands.
+    const _ANC = new Set(BK.anchors || []);
+    const _ancD = BK.value.map((v, i) =>
+      Object.keys(_DOL).reduce((s, t) => s + (_ANC.has(t) ? (_DOL[t][i] || 0) : 0), 0));
+    const _rest = BK.value.map((v, i) => Math.max(0, v - _evSum[i] - _ancD[i]));
+    // LEGEND: ONLY THE LARGEST EVENTS GET AN ENTRY. ~72 events hold dollars at some point, and a
+    // horizontal legend of 72 names wraps into a dozen rows that run down over the plot -- no value
+    // of `y` fixes that, there is simply not room. 72 colour swatches are unreadable anyway: nobody
+    // matches a band to a swatch at that cardinality. The 8 biggest by peak holding are labelled and
+    // everything else stays hoverable, which is how the band is identified in practice.
+    const _peak = _evDollars.map(e => Math.max(...e[1]));
+    const _cut = [..._peak].sort((a,b)=>b-a)[Math.min(7, _peak.length-1)] ?? 0;
     Plotly.react('c-evtime', [
-      {{type:'scatter', mode:'lines', stackgroup:'one', name:'anchors', x:BK.dates, y:_rest,
+      {{type:'scatter', mode:'lines', stackgroup:'one', name:'anchors (SPY, BIL)', x:BK.dates, y:_ancD,
         line:{{width:0.5, color:GREY}}, fillcolor:GREY,
         hovertemplate:'%{{x}}<br>anchors %{{y:$,.0f}}<extra></extra>'}},
+      {{type:'scatter', mode:'lines', stackgroup:'one', name:'held, no live event', x:BK.dates, y:_rest,
+        line:{{width:0.5, color:ST.warning}}, fillcolor:ST.warning, opacity:0.55,
+        hovertemplate:'%{{x}}<br>held past event exit %{{y:$,.0f}}<extra></extra>'}},
       ..._evDollars.map((e,i)=>({{
         type:'scatter', mode:'lines', stackgroup:'one', name:e[0], x:BK.dates, y:e[1],
         line:{{width:0.5, color:PALS[i % PALS.length]}}, fillcolor:PALS[i % PALS.length],
+        showlegend: _peak[i] >= _cut,
         hovertemplate:'%{{x}}<br>'+e[0]+' %{{y:$,.0f}}<extra></extra>'}}))
-    ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.1, x:0, font:{{size:10}}}},
-        margin:{{l:70,r:24,t:40,b:44}},
+    ], base(p, {{showlegend:true,
+        legend:{{orientation:'h', y:1.14, yanchor:'bottom', x:0, font:{{size:10}}}},
+        margin:{{l:70,r:24,t:62,b:44}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value', font:{{size:11}}}}}}}}), CFG);
 
     // 8. THESIS CONCENTRATION. Share of the FUNDED book held by its largest single event, per day.
