@@ -399,6 +399,47 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # admits the gap, because the reader cannot tell the funnel is missing its three largest stages.
     _has_prefilter = (run / "prefilter_scale.json").exists()
     _has_audit = (bool(audits(run)) if not bootstrap else False)
+    # ---- FBS-ONLY: THE SEAM. Everything else on this page aggregates the corpus into one blob, which
+    # is exactly wrong for the bootstrap: it is deliberately TWO regimes with a clean cut, and only the
+    # post-handoff half resembles production. These three payloads split at the handoff so the
+    # forward-use half can be read on its own.
+    era = None
+    if bootstrap:
+        import datetime as _dt
+        _H = meta["handoff"]
+        _by_day = collections.Counter()
+        _pre_days, _post_days = collections.Counter(), collections.Counter()
+        _chars = {"pre": [], "post": []}
+        for _a in arts:
+            _d = (_a.get("published_date") or "")[:10]
+            if not _d:
+                continue
+            _by_day[_d] += 1
+            (_pre_days if _d < _H else _post_days)[_d] += 1
+            _chars["pre" if _d < _H else "post"].append(len(_a.get("snippet") or ""))
+        _days = sorted(_by_day)
+        # calendar-complete axis: a MISSING day must draw as a hole, not be skipped. Two days were
+        # lost on 2026-07-11/12 when cron did not fire, and a day-index axis would hide that.
+        _d0, _d1 = _dt.date.fromisoformat(_days[0]), _dt.date.fromisoformat(_days[-1])
+        _cal = [( _d0 + _dt.timedelta(days=i)).isoformat() for i in range((_d1 - _d0).days + 1)]
+        _post_cal = [d for d in _cal if d >= _H]
+        _zero = [d for d in _post_cal if _by_day.get(d, 0) == 0]
+        _lastpull = _post_cal[-1] if _post_cal else None
+        def _q(v):
+            v = sorted(v)
+            return {"med": v[len(v) // 2], "p10": v[len(v) // 10], "p90": v[9 * len(v) // 10]} if v else {}
+        era = {
+            "handoff": _H, "cal": _cal, "counts": [_by_day.get(d, 0) for d in _cal],
+            "pre_n": sum(_pre_days.values()), "post_n": sum(_post_days.values()),
+            "pre_per_day": round(sum(_pre_days.values()) / max(len(_pre_days), 1), 1),
+            "post_per_day": round(sum(_post_days.values()) / max(len(_post_days), 1), 1),
+            "zero_days": _zero, "n_missing": sum(1 for d in _post_cal if d not in _by_day),
+            "last_day": _lastpull, "post_days": len(_post_cal),
+            "chars_pre": _q(_chars["pre"]), "chars_post": _q(_chars["post"]),
+            # what the scout is handed, per era, AFTER lede.apply has filled snippet
+            "trailing": [(d, _by_day.get(d, 0)) for d in _cal[-21:]],
+        }
+
     if bootstrap:
         # An assembled corpus has no ingest funnel -- there is no BigQuery scan to narrow. What matters
         # instead is COMPOSITION: how much came from each era, and where the seam is. Same panel slot,
@@ -557,7 +598,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # ---- payload ---------------------------------------------------------
     payload = {
         "grouping": grouping,
-        "bundles": bundles,
+        "bundles": bundles, "era": era,
         "funnel": {"labels": [r[0] for r in fun], "values": [r[1] for r in fun],
                    "notes": [r[2] for r in fun]},
         "backfill": {**(stats.get("wayback_overlay") or {}),
@@ -754,7 +795,43 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "corpus totals \u2014 a company bundle is filtered to the curation window before it is "
               "read, and is never split.",
               "p-group", 1500),
-    ])
+    ] + ([
+        panel(15, "The handoff seam",
+              f"The bootstrap is deliberately TWO regimes with a clean cut at <b>{meta['handoff']}</b>, "
+              "not a blend: GKG with the wayback backfill before it, the daily websearch pull after. "
+              "Every other panel on this page aggregates the two, which is exactly wrong for judging "
+              "forward readiness \u2014 only the post-handoff half resembles production.<br><br>"
+              f"Blue is GKG ({era['pre_per_day']}/day), amber is websearch "
+              f"({era['post_per_day']}/day). The axis is CALENDAR-COMPLETE, so a day the pull missed "
+              "draws as a hole rather than being skipped. <b>Known confound:</b> the run-up across "
+              "07-25..07-29 (15 &rarr; 33 &rarr; 48 &rarr; 85 &rarr; 102) is unexplained, plausibly a "
+              "Tavily quota or config change, so any before/after comparison spanning that date is "
+              "not a retrieval result.",
+              "p-seam", 380),
+        panel(16, "What the curator actually reads, per era",
+              "The sharpest difference on this page, and it is not visible anywhere else. Post-handoff "
+              "articles carry <b>no lede at all</b> \u2014 0% archived, 0% live \u2014 so the scout "
+              "sees only the search snippet. Pre-handoff articles get a wayback lede written into the "
+              "same field.<br><br>"
+              f"Median characters the scout is handed: <b>{era['chars_pre'].get('med','?')}</b> before "
+              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after. The forward test "
+              "therefore reads a DIFFERENT amount of text per article than the backtest that "
+              "validated it \u2014 in this corpus more, because a Tavily snippet is longer than a raw "
+              "GKG one, but capped and never enriched. If the wayback backfill is what makes the "
+              "backtest work, the forward era does not have it.",
+              "p-chars", 360),
+        panel(17, "Daily pull health",
+              "The operational card: is the morning cron actually firing? Bars are the trailing three "
+              "weeks; the dashed line is the post-handoff median. "
+              f"<b>Last day in the corpus: {era['last_day']}.</b> "
+              f"Zero-article days since the handoff: <b>{len(era['zero_days'])}</b>"
+              + (f" ({', '.join(era['zero_days'][:5])})" if era['zero_days'] else "")
+              + f". Days absent entirely: <b>{era['n_missing']}</b>. "
+              "Two days were already lost on 2026-07-11/12 when cron did not fire, and a silent gap "
+              "is the failure mode this panel exists to catch \u2014 the corpus simply stops growing "
+              "and every downstream number keeps looking reasonable.",
+              "p-pull", 340),
+    ] if bootstrap and era else []))
 
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -1052,6 +1129,59 @@ function draw() {{
       xaxis:{{type:'log', autorange:true, gridcolor:p.grid,
               title:{{text:'articles (log scale)', font:{{size:11}}}}}}}}), CFG);
 }}
+  // ---- FBS-ONLY PANELS. Guarded on DATA.era, which only the bootstrap build emits.
+  const ERA = DATA.era;
+  if (ERA) {{
+    const H = ERA.handoff;
+    const pre = ERA.cal.map((d,i) => d <  H ? ERA.counts[i] : null);
+    const post= ERA.cal.map((d,i) => d >= H ? ERA.counts[i] : null);
+    Plotly.react('p-seam', [
+      {{type:'bar', name:'GKG + wayback', x:ERA.cal, y:pre,
+        marker:{{color:p.s1}}, hovertemplate:'%{{x}}<br>%{{y}} articles<extra>GKG</extra>'}},
+      {{type:'bar', name:'websearch daily', x:ERA.cal, y:post,
+        marker:{{color:ST.warning}}, hovertemplate:'%{{x}}<br>%{{y}} articles<extra>websearch</extra>'}}
+    ], base(p, {{barmode:'overlay', showlegend:true,
+        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+        margin:{{l:60,r:20,t:38,b:44}},
+        shapes:[{{type:'line', x0:H, x1:H, yref:'paper', y0:0, y1:1,
+                  line:{{color:p.text2, width:1.5, dash:'dash'}}}}],
+        annotations:[{{x:H, xanchor:'left', yref:'paper', y:0.98, yanchor:'top', showarrow:false,
+                       font:{{size:10.5, color:p.text2}}, text:' handoff'}}],
+        xaxis:{{type:'category', tickangle:-45, tickfont:{{size:8}}, nticks:22}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'articles that day', font:{{size:11}}}}}}}}), CFG);
+
+    // chars the scout is handed, per era -- p10/median/p90 as a grouped bar
+    const CP=ERA.chars_pre, CQ=ERA.chars_post;
+    Plotly.react('p-chars', [
+      {{type:'bar', name:'GKG + wayback', x:['p10','median','p90'], y:[CP.p10,CP.med,CP.p90],
+        marker:{{color:p.s1}}, text:[CP.p10,CP.med,CP.p90], textposition:'outside',
+        textfont:{{size:11,color:p.fg}}, cliponaxis:false,
+        hovertemplate:'%{{x}}: %{{y}} chars<extra>GKG</extra>'}},
+      {{type:'bar', name:'websearch daily', x:['p10','median','p90'], y:[CQ.p10,CQ.med,CQ.p90],
+        marker:{{color:ST.warning}}, text:[CQ.p10,CQ.med,CQ.p90], textposition:'outside',
+        textfont:{{size:11,color:p.fg}}, cliponaxis:false,
+        hovertemplate:'%{{x}}: %{{y}} chars<extra>websearch</extra>'}}
+    ], base(p, {{barmode:'group', showlegend:true,
+        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+        margin:{{l:64,r:20,t:38,b:44}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'characters the scout reads', font:{{size:11}}}}}}}}), CFG);
+
+    // trailing three weeks -- the operational card. A ZERO day is drawn in the critical colour so a
+    // silent cron failure is the loudest thing on the panel.
+    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]);
+    const med=ERA.post_per_day;
+    Plotly.react('p-pull', [{{
+      type:'bar', x:tx, y:ty,
+      marker:{{color:ty.map(v => v===0 ? ST.critical : (v < med*0.5 ? ST.warning : p.s1)),
+               line:{{width:2,color:p.surface}}}},
+      hovertemplate:'%{{x}}<br>%{{y}} articles<extra></extra>'}}],
+      base(p, {{margin:{{l:60,r:20,t:24,b:60}},
+        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:med, y1:med,
+                  line:{{color:p.text2, width:1.2, dash:'dot'}}}}],
+        xaxis:{{type:'category', tickangle:-45, tickfont:{{size:9}}}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'articles pulled', font:{{size:11}}}}}}}}), CFG);
+  }}
+
 draw();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script>
