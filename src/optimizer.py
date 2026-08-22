@@ -196,7 +196,8 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   produces is 274 articles = 2.2% of the model's context, so
                                        #   that cap was shaving cost by discarding news.
 
-    "max_article_chars": 800,          # LIVE: how much of ONE article's text the curator sees. Was
+    "max_article_chars": 800,
+    "min_bundle_articles": 1,          # LIVE: how much of ONE article's text the curator sees. Was
                                        #   hardcoded in THREE disagreeing places -- lede.enrich_live and
                                        #   lede.apply cut at 280, then agent._block cut again at 200,
                                        #   which was the binding limit. 200 chars of an insidermonkey

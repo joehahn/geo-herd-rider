@@ -289,6 +289,11 @@ def main(argv=None) -> int:
     ap.add_argument("--run", default="data/cbt_3yr_v7")
     ap.add_argument("--out", default="data/sweep_v7.json")
     ap.add_argument("--workers", type=int, default=10)
+    ap.add_argument("--panel-only", action="store_true",
+                    help="freeze data/<run>/panel.csv and stop, without running the 6,300-cell grid. "
+                         "CBT needs the frozen panel to be reproducible but does NOT need the sweep, "
+                         "and the grid saturates every core -- so this lets the price panel be built "
+                         "while something else (a curation) is still running.")
     ap.add_argument("--every", type=int, default=1,
                     help="keep every Nth scan -- proxies a slower rebalance cadence on the SAME "
                          "curation (2 turns a biweekly run into a monthly one). A lower bound on a "
@@ -326,7 +331,20 @@ def main(argv=None) -> int:
         print(f"  fetching one frozen panel: {len(uni)} tickers {lo}..{hi}", flush=True)
         panel = score.fetch_panel(uni, lo, hi, use_cache=False)
         panel.to_csv(_pf)
-        print(f"  panel: froze {panel.shape[1]} tickers -> {_pf}", flush=True)
+        # RE-READ WHAT WE JUST WROTE. to_csv/read_csv is NOT lossless -- measured 2026-08-22, a
+        # round-trip moves float64 closes by ~6e-14 (last-bit decimal repr). That is nothing on its
+        # own and everything here: this file's own header records small close differences cascading
+        # through the covariance and the min_trade_size threshold to flip a knife-edge cell from
+        # $2,914 to $106,328. Handing the workers the IN-MEMORY frame while storing the round-tripped
+        # one made the sweep's own numbers unreproducible from its own frozen panel -- SBT's cell for
+        # the live config recorded $44,405 where recomputing off panel.csv gave $40,498, a 10% gap on
+        # what is supposed to be a deterministic replay, and CBT (which reads the CSV) could never
+        # agree with SBT. Re-reading makes the fetch path byte-identical to the reuse path.
+        panel = pd.read_csv(_pf, index_col=0, parse_dates=True)
+        print(f"  panel: froze {panel.shape[1]} tickers -> {_pf} (re-read for exactness)", flush=True)
+    if a.panel_only:
+        print(f"  --panel-only: stopping before the grid.", flush=True)
+        return 0
 
     keys = list(GRID)
     cells = list(itertools.product(*(GRID[k] for k in keys)))

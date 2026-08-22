@@ -90,6 +90,9 @@ def main(argv=None) -> int:
     # curation's recorded curation-knobs, and that every profile knob is classified. BOOK knobs are
     # deliberately NOT checked -- max_watchlist 8 -> 6 is a rebuild, not an invalidation.
     _problems = []
+    _interp = _canon.check_interpreter()
+    if _interp:
+        _problems.append(_interp)
     _unclassified = _canon.check_partition_covers_profile()
     if _unclassified:
         _problems.append(f"profile knobs nobody has classified as curation-or-book: {_unclassified}. "
@@ -97,17 +100,17 @@ def main(argv=None) -> int:
     if a.corpus != _canon.CANON_CORPUS:
         _problems.append(f"corpus is {a.corpus}, canonical is {_canon.CANON_CORPUS}")
     _lfm_gate = _opt_gate.load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    _v = _canon.verify(a.run, _lfm_gate, a.corpus)
-    if not _v["ok"]:
-        if _v["reason"] == "unstamped":
-            _problems.append(_v["detail"] + "  Stamp it: python scripts/stamp_legacy_run.py " + a.run)
-        for _k, _got, _want in _v["diffs"]:
+    _vfy = _canon.verify(a.run, _lfm_gate, a.corpus)
+    if not _vfy["ok"]:
+        if _vfy["reason"] == "unstamped":
+            _problems.append(_vfy["detail"] + "  Stamp it: python scripts/stamp_legacy_run.py " + a.run)
+        for _k, _got, _want in _vfy["diffs"]:
             _problems.append(f"{_k}: curation ran under {_got!r}, profile now says {_want!r} "
                              f"-> this curation would have to be RE-RUN, not just rebuilt")
     _canon.require_publishable(a.out, "CBT", _problems)
-    if _v.get("unverifiable"):
-        print(f"  note: {len(_v['unverifiable'])} curation knobs were never recorded by {a.run} "
-              f"and cannot be checked ({', '.join(_v['unverifiable'][:4])}, ...)", file=sys.stderr)
+    if _vfy.get("unverifiable"):
+        print(f"  note: {len(_vfy['unverifiable'])} curation knobs were never recorded by {a.run} "
+              f"and cannot be checked ({', '.join(_vfy['unverifiable'][:4])}, ...)", file=sys.stderr)
     M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus)
     try:
         from sweep_optimizer import FOCUS as _FOCUS_TICKERS
@@ -973,9 +976,15 @@ def main(argv=None) -> int:
         # The page attests to its OWN inputs. A reader months from now should not have to
         # reconstruct which corpus and which curation-knobs produced the numbers below --
         # that reconstruction is what cost a full investigation on 2026-08-21.
-        ("curation fingerprint", _canon.curation_key(_lfm_gate, a.corpus)["hash"]
-         + (" \u2713 canonical" if not _problems else " \u2717 NOT canonical")
-         + (f" ({len(_v['unverifiable'])} knobs unrecorded)" if _v.get("unverifiable") else "")),
+        # STATE THE RUN'S OWN STAMP, and the expected one only when they DIFFER. Printing just the
+        # expected hash was misleading off the canonical path: a --out docs_preview build of some
+        # other curation still printed the hash the PROFILE implies, i.e. a fingerprint belonging to
+        # no run on disk. On a published page the two are necessarily equal (the gate blocks
+        # otherwise), so this changes nothing there and stops the preview builds from lying.
+        ("curation fingerprint", (_vfy.get("hash_run") or "(unstamped)")
+         + (" \u2713 canonical" if not _problems else
+            f" \u2717 NOT canonical \u2014 profile+corpus imply {_vfy.get('hash_want')}")
+         + (f" ({len(_vfy['unverifiable'])} knobs unrecorded)" if _vfy.get("unverifiable") else "")),
         ("corpus (local path)", f"{a.corpus}"),
         ("lede arm", arm_used),
         ("— investor_profile.backtest.md · cadence —", ""),
@@ -1184,6 +1193,18 @@ def main(argv=None) -> int:
         f"dropped rather than shrunk."
         if _cash_days and _bv else
         "The weights sum to 1 on every day, so the book is never actually in cash.")
+    # Panels 14/16/17 and three funnel bars are fed by decisions.jsonl, which backtest_gdelt writes
+    # ONLY under --decisions. Rather than render an empty plot -- which reads as "measured nothing" --
+    # each says so in its own lead. The counts are not recoverable after the fact: proposed-but-culled
+    # candidates are persisted nowhere else.
+    _NODEC = ("" if DEC else
+              "<br><br><b>Not available for this curation.</b> This panel is built from "
+              "<code>decisions.jsonl</code>, which <code>backtest_gdelt.py</code> writes only when run "
+              "with <code>--decisions</code>. " + esc(str(a.run)) + " was curated without it, so the "
+              "proposed-and-culled candidates were never recorded \u2014 and they are not recoverable "
+              "afterwards, since the archive keeps only the articles and the scan log keeps only what "
+              "was ADMITTED. The plot is empty because the data is MISSING, not because the counts "
+              "are zero.")
     panels = ptable + "".join([
         panel(1, "Realized portfolio value",
               "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
@@ -1279,7 +1300,7 @@ def main(argv=None) -> int:
               "<br><br>Units change mid-funnel: <i>admissions</i> counts ticker-curations, so a ticker "
               "re-admitted in a later curation is counted again; <i>distinct tickers</i> and <i>events</i> "
               "are the de-duplicated views. NOT shown: the ticker guard, which resolves names to "
-              "symbols and drops unresolvable ones before these counters see them.",
+              "symbols and drops unresolvable ones before these counters see them." + _NODEC,
               "c-funnel", 340),
         panel(13, "Breadth over time",
               "Events live, distinct tickers named, and how many separate catalysts those events "
@@ -1295,7 +1316,7 @@ def main(argv=None) -> int:
                 f"Candidate <b>tickers</b> the scout proposed each <code>rebalance_period</code> "
                 f"({_cad0} days here), against what was admitted. Each candidate is a (ticker, thesis) "
                 f"pair, not an event — several can collapse into one event later (176 admissions became "
-                f"{J.get('nid', 0)} events).",
+                f"{J.get('nid', 0)} events)." + _NODEC,
                 "c-inflow", 340),
         panel(15, "Does a bigger bundle make the scout act?",
               "The design\u2019s central claim, tested. Articles are bundled by company so a ticker\u2019s "
@@ -1311,7 +1332,7 @@ def main(argv=None) -> int:
               "realised P&amp;L of every ticker proposed out of a bundle of that size. <b>A ticker "
               "proposed from two different sizes counts in both</b>, so these do not sum to the book "
               "total \u2014 the question is what proposals of each size earned, not how the book "
-              "decomposes.",
+              "decomposes." + _NODEC,
               "c-bundlegain", 340),
         panel(17, "Gains per bundle",
               "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
@@ -1324,7 +1345,7 @@ def main(argv=None) -> int:
               f"<b>{bundle_buckets.get('rest_los_n', 0)} more worth "
               f"\u2212${bundle_buckets.get('rest_los', 0):,.0f}</b>. Rolled into bars they would be "
               "taller than the largest named bundle and would flatten everything here, the same way "
-              "they did in plot 5.",
+              "they did in plot 5." + _NODEC,
               "c-bundlename", 620),
         panel(18, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "

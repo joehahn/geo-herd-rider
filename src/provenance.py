@@ -56,8 +56,20 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # ONE place. Promoting a new corpus, curation or sweep is an edit here and nothing else; every
 # builder default derives from these, and every publish is checked against them.
 CANON_CORPUS = "data/backtest_3yr_v5"
-CANON_RUN = "data/cbt_3yr_v9"
-CANON_SWEEP = "data/sweep_v9_daily.json"
+# Promoted 2026-08-22 to v18, the first curation at the current config (min_bundle_articles 1,
+# max_events 0 = uncapped, max_event_scans 6). Curated with --decisions, as mb2rep was and
+# as mb1/mb2/mb3 were not.
+# Earlier note, on why --decisions is not optional:
+# mb1/mb2/mb3 were not. Proposed-and-culled candidates are persisted nowhere else, so
+# without it CBT's funnel loses three bars and panels 12/14/16/17 render empty.
+# Earlier note, still true of why v9 was dropped: Same config, but v9 was curated when the corpus held
+# 56.9% archived lede; the wayback backfill completed 2026-08-21 and mb1 read ~72%. v9 also
+# predates provenance stamping, so 16 of its 24 curation knobs were never recorded -- it passes
+# `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
+# NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
+# so nothing here could have told you v9 was stale. That wants a text-state digest.
+CANON_RUN = "data/cbt_3yr_v18"
+CANON_SWEEP = "data/sweep_mb2rep.json"
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
@@ -68,6 +80,7 @@ CURATION_KNOBS = frozenset({
     "news_cap", "news_lookback_days", "event_news_cap",
     "relevance_filter", "relevance_keep",
     "scout_articles_per_call", "max_article_chars",
+    "min_bundle_articles",
     "max_events", "max_new_events",
     "curator_memory_weeks", "exit_patience_scans", "max_stale_scans", "max_event_scans",
     "rebalance_period",                        # sets the scan cadence -> which weeks exist at all
@@ -90,6 +103,33 @@ BOOK_KNOBS = frozenset({
 # Excluded from the fingerprint so a forward retrieval change does not falsely invalidate a backtest
 # curation -- but still classified, so it counts toward the completeness check below.
 FORWARD_ONLY_KNOBS = frozenset({"gather_model"})
+
+
+def check_interpreter() -> str:
+    """Refuse to publish from an interpreter other than the project venv.
+
+    CLAUDE.md specifies Python 3.12 + .venv, but nothing enforced it, and every dashboard built on
+    2026-08-21 used the SYSTEM python (3.9.6, numpy 2.0.2, pandas 2.3.3) while every sweep ran under
+    .venv (3.12.13, numpy 2.4.6, pandas 3.0.3). Same journal, same profile, same frozen price panel,
+    byte-identical inputs -- and the mean-variance optimiser returned $54,960 on one stack and
+    $40,498 on the other, a 36% gap. CBT and SBT therefore disagreed all day about the same book for
+    a reason no amount of checking the DATA could ever have found; it took hashing every input,
+    proving them equal, and only then looking at the interpreter.
+
+    Numerical libraries are part of the provenance. Returns "" when fine, else the complaint.
+    """
+    import sys
+    venv = REPO_ROOT / ".venv"
+    if not venv.exists():
+        return ""                       # no venv in this checkout; nothing to enforce against
+    try:
+        inside = Path(sys.prefix).resolve() == venv.resolve()
+    except Exception:  # noqa: BLE001
+        return ""
+    if inside:
+        return ""
+    return (f"running under {sys.executable} (Python {sys.version.split()[0]}), not the project venv. "
+            f"Numerical results DIFFER between stacks -- rebuild with .venv/bin/python.")
 
 
 def check_partition_covers_profile() -> list[str]:
@@ -115,15 +155,32 @@ def _norm(v):
 
 
 def corpus_id(corpus: str | Path) -> dict:
-    """Identify a corpus by path AND article count -- the count is what catches a swapped pool.json."""
+    """Identify a corpus by path, article count AND TEXT STATE.
+
+    THE TEXT STATE IS NOT DECORATION, it is the part that works. Path plus article count was the
+    original fingerprint and it is blind to the change that matters most: `ingest.py --wayback`
+    rewrites pool.json IN PLACE, filling `lede` from archive.org without adding or removing a single
+    article. Measured on 2026-08-21, the backfill moved the canonical corpus from 56.9% to 75.1%
+    archived lede while the count sat at 99,117 both sides. So data/cbt_3yr_v9 -- curated against the
+    thinner text -- kept verifying as canonical for as long as anyone cared to ask, and the staleness
+    was found by REASONING about it rather than by any check here. That is the failure this module
+    exists to make impossible, reappearing one level down.
+
+    `clean` / `live` / `none` are the three lede provenances FBT plots, so a corpus that has been
+    re-enriched fingerprints differently from the one a curation actually read.
+    """
     p = REPO_ROOT / corpus if not Path(corpus).is_absolute() else Path(corpus)
     rel = str(Path(corpus)) if not Path(corpus).is_absolute() else str(p.relative_to(REPO_ROOT))
-    out = {"path": rel, "articles": None}
+    out = {"path": rel, "articles": None, "text": None}
     pool = p / "pool.json"
     if pool.exists():
         try:
             d = json.loads(pool.read_text())
-            out["articles"] = len(d.get("articles", d) if isinstance(d, dict) else d)
+            arts = d.get("articles", d) if isinstance(d, dict) else d
+            out["articles"] = len(arts)
+            clean = sum(1 for a in arts if a.get("lede"))
+            live = sum(1 for a in arts if a.get("lede_live") and not a.get("lede"))
+            out["text"] = {"clean": clean, "live": live, "none": len(arts) - clean - live}
         except Exception:  # noqa: BLE001 -- an unreadable pool is reported as unknown, not fatal
             pass
     return out
@@ -167,12 +224,22 @@ def verify(run_dir: str | Path, fm: dict, corpus: str | Path | None = None,
         return {"ok": False, "reason": "unstamped", "diffs": [], "unverifiable": sorted(CURATION_KNOBS),
                 "detail": f"{run.name} has no provenance.json, so what it ran under is unknown."}
     got = json.loads(f.read_text())
-    diffs, unver = [], []
+    diffs, unver, unver_corpus = [], [], False
     gc, wc = got.get("corpus") or {}, want["corpus"]
     if gc.get("path") != wc.get("path"):
         diffs.append(("corpus", gc.get("path"), wc.get("path")))
     elif gc.get("articles") != wc.get("articles"):
         diffs.append(("corpus articles", gc.get("articles"), wc.get("articles")))
+    elif gc.get("text") != wc.get("text"):
+        # A run stamped before text state was recorded reports None -- unverifiable, not a mismatch.
+        if gc.get("text") is None:
+            unver_corpus = True
+        else:
+            def _pct(t):
+                n = sum(t.values()) or 1
+                return f"{100*t['clean']/n:.1f}% clean / {100*t['live']/n:.1f}% live"
+            diffs.append(("corpus TEXT STATE (re-enriched since this run)",
+                          _pct(gc["text"]), _pct(wc["text"])))
     if got.get("arm") != want["arm"]:
         diffs.append(("lede arm", got.get("arm"), want["arm"]))
     gk = got.get("knobs") or {}
@@ -182,6 +249,8 @@ def verify(run_dir: str | Path, fm: dict, corpus: str | Path | None = None,
         if _norm(gk[k]) != want["knobs"][k]:
             diffs.append((k, gk[k], want["knobs"][k]))
     ok = not diffs
+    if unver_corpus:
+        unver.append("corpus text state (not recorded by this run)")
     return {"ok": ok, "reason": "" if ok else "curation-knob mismatch", "diffs": diffs,
             "unverifiable": unver, "hash_run": got.get("hash"), "hash_want": want["hash"]}
 

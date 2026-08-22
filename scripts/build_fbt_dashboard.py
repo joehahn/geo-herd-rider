@@ -1081,6 +1081,9 @@ def main(argv=None) -> int:
     # is a different corpus on purpose rather than a drifted one.
     if not a.bootstrap:
         _p = []
+        _iv = _canon.check_interpreter()
+        if _iv:
+            _p.append(_iv)
         if a.run != _canon.CANON_CORPUS:
             _p.append(f"corpus is {a.run}, canonical is {_canon.CANON_CORPUS}")
         _canon.require_publishable(out, "FBT", _p)

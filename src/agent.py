@@ -509,6 +509,20 @@ GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout in
 
 BEAT_PREFIX = "\x00beat:"      # marks a topical bundle, so _group_block can label it as one
 UNGROUPED = "\x00ungrouped"     # sentinel key; never collides with a real org name
+# MIN_BUNDLE_ARTICLES -- a company bundle needs at least this many articles to be shown AS a company
+# bundle. 1 = every bundle qualifies, i.e. the behaviour this file has always had; NO 0-sentinel, so
+# there is no "0 means uncapped" trap (four bugs in one day, see CLAUDE.md). Overridden per-run from
+# the profile, like MAX_ARTICLE_CHARS.
+#
+# IT DEMOTES, IT DOES NOT DROP. A bundle under the floor is simply not created, so its article is
+# never marked covered and falls through to the orphan path -- beat-bundled if it has no company,
+# shown standalone in the UNCLUSTERED block if it has one. The article still reaches the scout; what
+# it loses is the "here is company X's news" framing. That distinction is the whole point: the
+# hypothesis under test is that a LONE article dressed as a company bundle invites a proposal on an
+# uncorroborated move (bundles of 1 propose at 5.7% against 19% overall), NOT that the article is
+# junk. Dropping it would also break the invariant this function is built around -- grouping must be
+# ADDITIVE, never subtractive -- and would trip the self-check at the end of _scout_groups.
+MIN_BUNDLE_ARTICLES = 1
 
 
 def _group_block(key: str, arts: list[dict], max_chars: int) -> str:
@@ -583,7 +597,8 @@ def _date_slices(beat: str, arts: list[dict], budget: int) -> list[tuple]:
 
 
 def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
-                  articles_per_call: int, tmap: dict | None = None) -> list[list[tuple]]:
+                  articles_per_call: int, tmap: dict | None = None,
+                  min_bundle: int | None = None) -> list[list[tuple]]:
     """[[(org, [articles]), ...], ...] -- ticker-groups packed into per-call batches.
 
     SEEDED BY THE GATE, FILLED FROM THE FULL POOL. Only entities the gate flagged get a group (so the
@@ -598,12 +613,20 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
     full = _orgs.group(full_pool, canon=canon, tmap=tmap)
     groups = []
     covered: set = set()
+    _floor = MIN_BUNDLE_ARTICLES if min_bundle is None else min_bundle
+    _demoted = 0
     for k in seeds:
         arts = full.get(k) or []
         if not arts:
             continue
+        if len(arts) < _floor:
+            _demoted += 1                   # DEMOTED, not dropped: left uncovered -> orphan path
+            continue
         groups.append((k, arts))            # WHOLE group: never drop a ticker's news
         covered.update(id(a) for a in arts)
+    if _demoted:
+        print(f"  scout: {_demoted} company bundle(s) under min_bundle_articles={_floor} demoted to "
+              f"the unclustered/beat path (articles still shown)", file=sys.stderr, flush=True)
     # THE UNCLUSTERED CATCH-ALL -- grouping must be ADDITIVE, never subtractive.
     # Measured 2026-08-15 on one 30-day window: of 149 gated articles, 74 (50%) produce no usable org
     # key, so under grouping alone they would join no bundle and the scout would NEVER SEE THEM --

@@ -27,6 +27,23 @@ def _optimized_weights(event_tickers: list[str], panel: pd.DataFrame, entry_date
     biasing membership by basket size."""
     lb_start = entry_date - pd.Timedelta(days=lookback_days)
     fit = panel.loc[(panel.index >= lb_start) & (panel.index < entry_date), event_tickers]
+    # DROP NON-TRADING ROWS BEFORE THE all() CHECK. A panel row where almost nothing is priced is a
+    # US market holiday, not data -- it exists only because some ticker in the universe trades on a
+    # foreign exchange. On the 2026-08-22 canonical book that was ONE London listing, SATS.L, which
+    # put 21 holiday rows (July 4th, Labor Day, Thanksgiving, MLK, Presidents' Day) into the panel
+    # with every one of the other 437 tickers NaN.
+    #
+    # That was catastrophic against `notna().all()` below: a single NaN anywhere in the window
+    # disqualifies a ticker, so a window containing one holiday row disqualified EVERY US ticker at
+    # once -- the anchors included -- leaving `usable` empty, returning None, and parking the entire
+    # book in cash for that whole rebalance period. 46% of possible windows contain such a row; 11
+    # rebalances landed on one, which is 267 of 753 days (35% of the backtest) holding nothing.
+    # It never crashed and never warned: the equity curve simply went flat for a month, flattering
+    # drawdown and Sharpe while depressing return.
+    if len(fit.columns):
+        _live_rows = fit.notna().mean(axis=1) > 0.5      # majority priced == a real trading day
+        if _live_rows.any():
+            fit = fit.loc[_live_rows]
     usable = [t for t in event_tickers if t in fit.columns and fit[t].notna().all()]
     if not usable:
         return None

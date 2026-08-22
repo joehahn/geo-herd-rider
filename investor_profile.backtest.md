@@ -84,9 +84,13 @@
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
-scout_model: llama4               # OPENS events. Reads the whole week's news (~1,500 headlines in ~10 chunked
-                                  #   calls) and proposes ticker + catalyst. Also runs the matcher, ticker guard
-                                  #   and relevance filter. ~90% of the AI bill, so keep it cheap.
+scout_model: llama4               # OPENS events. Reads the whole week's news in chunked calls (~1,600 per
+                                  #   curation), so this is where the token cost lives -- 85% of a curation's
+                                  #   bill, measured on mb2rep: $6.08 of $7.17 at $3.76/1k calls.
+                                  #   KEEP IT CHEAP. grok4 was set here briefly on 2026-08-22 and reverted
+                                  #   the same day: grok-4.3 has measured $41.96/1k on this stage, ~11x, which
+                                  #   projects a curation at ~$69 against $7.17 and would have taken the
+                                  #   3-arm min_bundle_articles sweep from $20 to ~$200.
 event_agent_model: grok4          # CLOSES events: is this thesis still live, has its catalyst resolved?
                                   #   Grok 4.3, swapped from deepseek4 2026-08-19 on the 8-model bake-off
                                   #   (SBT panels 16-21). Fable-5 audited 4,527 event-agent calls on PROCESS
@@ -114,15 +118,20 @@ scout_articles_per_call: 30       # BATCHING ONLY: how many articles' worth of t
                                   #   it was caught dropping the one Rocket Lab article the whole
                                   #   grouping design exists to surface.
 max_article_chars: 800            # how much of ONE article's text the curator sees. Caps the article,
-                                  #   NOT the ticker-group total -- the signal is corroboration across
-                                  #   articles, so a group cap would hide the very article that explains
-                                  #   the move. Was hardcoded at 200 in agent._block.
+min_bundle_articles: 1            # a company bundle needs >= this many articles to be shown AS a company
+                                  #   bundle; 1 = every bundle qualifies. CURATION knob.
+                                  #   Back to 1 on 2026-08-22. The 2 was chosen on mechanism (events opened
+                                  #   12.2x the same-config noise floor, evidence-cited picks 22.1x) and
+                                  #   those measurements stand -- but 2 also opens more events that are
+                                  #   never read (cull-at-birth 7.1x noise), and with max_events now
+                                  #   uncapped that trade no longer applies.
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
-max_events: 16                    # how many events may be LIVE AT ONCE. When it binds, the lowest-ranked are
-                                  #   retired -- ranked by PRESS COVERAGE (src/evscore.py): independent-source
-                                  #   breadth, superlative count, coverage velocity, author breadth. No forecast.
+max_events: 0                     # how many events may be LIVE at once. 0 = UNCAPPED (the code tests
+                                  #   `if max_events:`), so no limit on concurrency. CURATION knob.
+                                  #   Was 16. Uncapping removes the cull that made cull-at-birth 52-61% of
+                                  #   events across the mb sweep -- work paid for and thrown away.
 picker_model:                     # BLANK = use the arithmetic coverage-rank (src/evscore.py). An LLM ranker
                                   #   has failed to beat its own null three times here. Set to a STRONG model only
                                   #   to re-test that.  # ranks live events by catalyst ARC (early/building over crested) and emits an ordered
@@ -130,53 +139,28 @@ picker_model:                     # BLANK = use the arithmetic coverage-rank (sr
                                   #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
 max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
-max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). 
+max_event_scans: 6                # retires an EVENT at this age, in scans. CURATION knob.
+                                  #   Halved from 12 on 2026-08-22: at monthly cadence 12 scans is a year,
+                                  #   which is a long time to keep re-reading a catalyst that has resolved.
 
 # ---------- OPTIMIZER: what gets funded, and how much ----------
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 12                 # NEIGHBOURHOOD-CHOSEN 2026-08-21 on the canonical curation alone.
-                                  #   Was 6, chosen 2026-08-19 by pooling 15 sweeps across as many
-                                  #   curations. That pooling was withdrawn: those curations are not
-                                  #   repeat draws of one setup -- the text they read ranges from 9.6%
-                                  #   to 45.3% clean archived lede, one fed the curator 41.7% bare
-                                  #   headlines, four read a different article pool, and three of the
-                                  #   15 were the same curation swept twice. It averaged over
-                                  #   RETRIEVAL REGIMES, not over news noise.
-                                  #   The replacement scores a config by its own 22-cell one-knob
-                                  #   NEIGHBOURHOOD (SBT panel 8), trimming the luckiest and
-                                  #   unluckiest member: a knife-edge cell cannot win, because its
-                                  #   neighbours are inside its score. [12, 0.25, 21, 0, 4.0, 0.05]
-                                  #   ranks 1 of 6,300 at a regional median of $278,249 +/- 38,560
-                                  #   against 6's $105,442 +/- 10,667 -- non-overlapping.
-                                  #   TWO CAVEATS, both live. 12 is the TOP of the swept grid, so the
-                                  #   optimum may lie outside it and this is a ceiling, not a maximum.
-                                  #   And the top-50 regions favour 8 (33 of 50) over 12 (16 of 50),
-                                  #   so the best single row and the weight of the band disagree.
+max_watchlist: 6                  # how many tickers may hold capital at once. Set 2026-08-22 with the five
+                                  #   knobs below as ONE config, reverting to the settings this session started
+                                  #   from. The sweep-derived alternatives were withdrawn: across three
+                                  #   curations, two at IDENTICAL settings, the top-200 regions agree at 1.7x
+                                  #   chance whether or not the config differs -- so the sweep ranks curation
+                                  #   luck, not settings, and cannot justify moving any of these.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
 drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
-                                  #   0 = NEVER drop for being unfunded. Every top-Sharpe cell on the v4
-                                  #   sweep sets this to 0: with 191 events competing for 8 slots a name is
-                                  #   often unfunded because something else outranked it this month, not
-                                  #   because its thesis died -- the curator's exit switch already handles
-                                  #   that. Dropping on 4 kept evicting names the optimizer then re-bought.
+                                  #   0 = NEVER drop for being unfunded; the curator's exit switch handles it.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.25           # most of the book any one ticker may take. Tightened from 0.40
-                                  #   2026-08-15: at max_watchlist 8 the sweep's whole top-Sharpe cluster
-                                  #   sits at 0.25, i.e. spread the risk and let the curator's breadth,
-                                  #   not a single name, carry the return.
-min_trade_size: 0.05              # positions smaller than this are dropped. NOT a dust filter -- a
-                                  #   concentration lever, because positions under the floor are DROPPED
-                                  #   rather than shrunk. Loosened from 0.10 2026-08-21 with the
-                                  #   max_watchlist move: at 12 names an equal book is 8.3% each, so a
-                                  #   0.10 floor would cancel most of the book's intended positions.
-                                  #   0.05 is the winning region's value and the grid is nearly flat
-                                  #   across 0.0-0.2 there (regional median $273K-$298K), so this is
-                                  #   the least load-bearing of the six. Watch it: paired with the old
-                                  #   [6, 0.40, 45, 4] cell a 0.20 floor cancelled 32% of trades and
-                                  #   left the book in cash 53% of days.
+concentration_cap: 0.25           # most of the book any one ticker may take.
+min_trade_size: 0.10              # positions smaller than this are DROPPED, not shrunk -- a concentration
+                                  #   lever, not a dust filter.
 risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
 optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
                                   #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book

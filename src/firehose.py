@@ -670,6 +670,18 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             uni = list(dict.fromkeys(ev + [t for t in always if t in valid]))
             watch[a] = ev
             w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
+            # ANCHOR FALLBACK. The comment above says idle capital "always has a home", and until
+            # 2026-08-22 that was not true: the anchors ride in `uni` but go through the SAME
+            # all()-history filter as everything else, so whatever killed the optimizer killed them
+            # too, and `or {}` then discarded the lot. The book held NOTHING -- not even BIL -- for
+            # 35% of the backtest. Park in the anchors instead, which is what always_include is for.
+            if not w:
+                _anc = [t for t in always if t in valid and t in panel.columns
+                        and pd.notna(panel.loc[days[i], t])]
+                if _anc:
+                    w = {t: 1.0 / len(_anc) for t in _anc}
+                    print(f"  {days[i].date()}: optimizer returned nothing -- parking in anchors "
+                          f"{_anc}", file=sys.stderr)
             week_w[k] = w
             if drop_unfunded > 0:               # an event unfunded (optimizer weight ~0) for N straight weeks is culled
                 funded = {t for t in w if w.get(t, 0) > 0.01}

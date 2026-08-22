@@ -77,6 +77,9 @@ def main(argv=None):
     ap.add_argument("--event-news-cap", type=int, default=None, dest="event_news_cap",
                     help="articles handed to EACH event-agent per scan (the cost knob); "
                          "omit to use the profile's event_news_cap")
+    ap.add_argument("--min-bundle-articles", type=int, default=None, dest="min_bundle_articles",
+                    help="company bundles smaller than this are DEMOTED to the unclustered/beat path "
+                         "(articles still shown). 1 = every bundle qualifies (default).")
     ap.add_argument("--news-cap", type=int, default=None, dest="news_cap",
                     help="per-week cap on articles the scout reads (most-recent kept); 0 = UNCAPPED. "
                          "Omit to use the profile's news_cap.")
@@ -153,7 +156,11 @@ def main(argv=None):
     # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
     agent.MAX_ARTICLE_CHARS = int(fm.get('max_article_chars') or agent.MAX_ARTICLE_CHARS)
     agent.SCOUT_ARTICLES_PER_CALL = int(fm.get('scout_articles_per_call') or agent.SCOUT_ARTICLES_PER_CALL)
-    print(f"  max_article_chars={agent.MAX_ARTICLE_CHARS} · "
+    if a.min_bundle_articles is not None:            # sweep arm: override the profile
+        fm = {**fm, "min_bundle_articles": a.min_bundle_articles}
+    agent.MIN_BUNDLE_ARTICLES = int(fm.get('min_bundle_articles') or 1)
+    print(f"  min_bundle_articles={agent.MIN_BUNDLE_ARTICLES} · "
+          f"max_article_chars={agent.MAX_ARTICLE_CHARS} · "
           f"scout_articles_per_call={agent.SCOUT_ARTICLES_PER_CALL} · "
           f"group_by_ticker={agent.GROUP_BY_TICKER}",
           flush=True)
