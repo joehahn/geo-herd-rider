@@ -235,6 +235,8 @@ Decide:
                  the event is SOLELY a theme/secular-momentum story, a valuation call ("undervalued",
                  "13F"), a technical signal ("golden cross"), generic macro, hype, or a one-off mention
                  with no resolvable catalyst at all.
+                 (A "first read is an ENTRY decision, not an exit one" clause was added and REVERTED
+                 on 2026-08-22 — it did not move the mechanism it targeted. See TODO.md.)
   exit_advice  — <=20 words: the OBSERVABLE EVENT whose OCCURRENCE ends the thesis, and roughly WHEN
                  it is due ("Q3 earnings confirm DRAM pricing", "FDA decision by ~Mar 2026", "mine
                  reaches commercial output ~mid-2026"). Name the thing the thesis is WAITING FOR.

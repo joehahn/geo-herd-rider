@@ -15,6 +15,63 @@ Actionable ideas parked here until promoted into a scoreboard-gated step. See
 
 **Dropped (not must-have; revisit only if forward proves out):** regime-contrast study, seedless backtest v1, structural-graph curator features, telegraphers/influencers roster, Fable-5 eval, resolved-catalyst-ledger windowing.
 
+## TESTED AND REJECTED 2026-08-22 — the "first read is an entry decision" prompt edit
+
+**The hypothesis was well-supported and the intervention did nothing.** Recorded so nobody re-runs it.
+
+### The finding that motivated it (this part STANDS)
+
+A vehicle enters the book only when first read `thesis_live=True`; there is no patience on a first
+read, because patience only applies to names already held. On `cbt_3yr_v18`, **193 of 374 events were
+killed on read 1** (93% of those with `catalyst_resolved=True`). Splitting those killed vehicles by
+whether the catalyst text NAMES a concrete event:
+
+| | n | median 6mo forward | >25% |
+|---|---|---|---|
+| KEPT by the agent | 1002 | **+11.8%** | 33% |
+| KILLED, catalyst names a recognisable event | 116 | **+8.9%** | 41% |
+| KILLED, catalyst is VAGUE | 308 | **−1.3%** | 26% |
+
+Killed-but-named behaves like kept; killed-and-vague is flat to negative. **The kill rule is right on
+average and wrong on the specific-catalyst tail** — which is the BE (+122% after we sold) and CORZ
+(+118%) case.
+
+### The edit, and why it looked right
+
+`AGENT_SYSTEM` already says entry needs a "SPECIFIC, DATABLE, RESOLVABLE catalyst". The problem
+looked like a COLLISION: the exit rule ("flip FALSE the WEEK that catalyst RESOLVES") also fires on a
+first read, and by the time news arrives the announcement has usually already happened. So the edit
+said: on a first read apply the entry test only; resolution means the catalyst you ENTERED ON has
+since completed, which cannot be true on the read where you enter.
+
+### Result: no effect (`data/cbt_3yr_v19`, $7, 45 min)
+
+| measure | v18 | v19 |
+|---|---|---|
+| **one-read share** (the primary criterion) | 53% | **51%** |
+| events / agent reads | 374 / 1,069 | 420 / 1,226 |
+| median run in the 6mo BEFORE entry | +33.0% | +33.5% |
+| entries already up >50% | 41% | 34% |
+| final book (NOT a criterion) | $244,393 | $114,793 |
+
+The agent kept 46 more events alive and did 157 more reads, so the sentence WAS read — but the
+one-read share barely moved and entry timing did not change at all. The >50% drop is ~5 names on 64,
+inside sampling noise. The book fall is not evidence: same-config curations differ by more.
+
+**Reverted in `src/agent.py`.** Either the agent's notion of "specific catalyst" does not align with
+what the regex detected, or one sentence cannot outweigh the surrounding exit instructions, which are
+emphatic and repeated.
+
+### What this belongs to
+
+FIVE hypotheses were tested against measurement on 2026-08-22 and none survived: the discovery gate
+(already surfaces the winners early — BE +18d, WPM +296d, INTC +913d), the admission cull (96% of
+proposals are admitted), the optimizer (funds within ~1 week of a ticker reaching the watchlist),
+point-vs-regime catalysts (point did BETTER, +12.0% vs +6.5%), and this one. Meanwhile the OUTPUT
+swings ~2x on resampling alone. Behaviour stable against every intervention, outputs unstable against
+none: that is a noise-dominated backtest, and the strongest available argument for prioritising the
+forward eval over further backtest tuning.
+
 ## Entry is systematically late and exit discards continuation (measured 2026-08-22)
 
 **The single most substantive finding of the 2026-08-22 session.** Measured on `data/cbt_3yr_v18`,
