@@ -403,6 +403,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     # is exactly wrong for the bootstrap: it is deliberately TWO regimes with a clean cut, and only the
     # post-handoff half resembles production. These three payloads split at the handoff so the
     # forward-use half can be read on its own.
+    import ast as _ast
     era = None
     if bootstrap:
         import datetime as _dt
@@ -439,6 +440,45 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             # what the scout is handed, per era, AFTER lede.apply has filled snippet
             "trailing": [(d, _by_day.get(d, 0)) for d in _cal[-21:]],
         }
+        # ---- SOURCE OVERLAP and BEAT FIRING across the seam --------------------------------------
+        # NORMALISE THE HOSTNAME FIRST. The two gatherers disagree: 58% of websearch sources carry a
+        # "www." prefix and 0% of GKG's do, so a raw comparison reported 17 shared sources when the
+        # true figure is 58, and 14% of post-handoff articles from a shared source when it is 41%.
+        # That is a display defect, not a functional one -- specialty_allow and mill_block match by
+        # SUBSTRING, so both lists hit identically either way (verified: 521 of 2,144 post articles
+        # match specialty_allow under both spellings). It still corrupts every per-source count on
+        # this page, panel 10 included, by splitting a publisher into two rows.
+        import re as _re
+        _nsrc = lambda a: _re.sub(r"^www\.", "", (a.get("source") or "?").strip().lower())
+        _sp, _sq = collections.Counter(), collections.Counter()
+        _bp, _bq = collections.Counter(), collections.Counter()
+        for _a in arts:
+            _d = (_a.get("published_date") or "")[:10]
+            if not _d:
+                continue
+            _isPre = _d < _H
+            (_sp if _isPre else _sq)[_nsrc(_a)] += 1
+            _q = _a.get("queries")
+            if isinstance(_q, str):
+                try: _q = _ast.literal_eval(_q)
+                except Exception: _q = []
+            for _b in (_q or []):
+                (_bp if _isPre else _bq)[_b] += 1
+        _shared = set(_sp) & set(_sq)
+        _postN = sum(_sq.values()) or 1
+        era["src"] = {
+            "n_pre": len(_sp), "n_post": len(_sq), "shared": len(_shared),
+            "post_from_shared": round(100 * sum(_sq[x] for x in _shared) / _postN, 1),
+            "www_post": round(100 * sum(1 for a in arts
+                              if (a.get("published_date") or "")[:10] >= _H
+                              and (a.get("source") or "").startswith("www.")) / _postN, 0),
+            "top_new": [[x, _sq[x]] for x, _ in _sq.most_common(60) if x not in _shared][:12],
+            "top_shared": [[x, _sq[x], _sp.get(x, 0)] for x, _ in _sq.most_common(60)
+                           if x in _shared][:12]}
+        era["beat"] = {
+            "n_pre": len(_bp), "n_post": len(_bq), "shared": len(set(_bp) & set(_bq)),
+            "stopped": [[b, _bp[b]] for b in sorted(set(_bp) - set(_bq))],
+            "new_only": len(set(_bq) - set(_bp))}
 
     if bootstrap:
         # An assembled corpus has no ingest funnel -- there is no BigQuery scan to narrow. What matters
@@ -831,6 +871,34 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "is the failure mode this panel exists to catch \u2014 the corpus simply stops growing "
               "and every downstream number keeps looking reasonable.",
               "p-pull", 340),
+        panel(18, "Which publishers the forward half reads",
+              f"Only <b>{era['src']['shared']}</b> hostnames appear in both eras, and just "
+              f"<b>{era['src']['post_from_shared']}%</b> of post-handoff articles come from a "
+              "publisher GKG also carried. Amber bars are the biggest websearch sources GKG NEVER "
+              "had \u2014 Reuters, WSJ, Barron\u2019s and the rest of the mainstream desks; blue "
+              "bars are the ones both eras share, with the GKG count beside them.<br><br>"
+              "<b>This confounds any forward-vs-backtest comparison.</b> A difference in results "
+              "between the two halves may be the method or may simply be a different set of "
+              f"publishers. Note also that <b>{era['src']['www_post']:.0f}%</b> of websearch sources "
+              "carry a <code>www.</code> prefix and none of GKG\u2019s do; the counts here are "
+              "normalised, but the RAW strings are not, which splits a publisher into two rows on "
+              "panel 10. It is display-only \u2014 <code>specialty_allow</code> and "
+              "<code>mill_block</code> match by substring and hit identically either way.",
+              "p-srcera", 420),
+        panel(19, "Which beats survive the handoff",
+              f"<b>{era['beat']['shared']}</b> of the {era['beat']['n_pre']} pre-handoff beats still "
+              f"fire after it, and <b>{era['beat']['new_only']}</b> more appear that GKG never used "
+              "\u2014 the websearch gather runs a wider standing-query vocabulary. So the beat set "
+              "EXPANDED rather than rotated, which is the reassuring reading.<br><br>"
+              + (f"<b>{len(era['beat']['stopped'])} beat(s) stopped entirely:</b> "
+                 + ", ".join(f"<code>{b}</code> ({n:,} pre-articles)"
+                             for b, n in era['beat']['stopped'][:3])
+                 + ". A beat that produced articles before the handoff and none after is a forward "
+                   "BLIND SPOT \u2014 the thesis it was written to catch is no longer being looked "
+                   "for."
+                 if era['beat']['stopped'] else
+                 "No beat stopped at the handoff \u2014 everything GKG reached is still covered."),
+              "p-beatera", 380),
     ] if bootstrap and era else []))
 
     doc = f"""<!doctype html>
@@ -1180,6 +1248,35 @@ function draw() {{
                   line:{{color:p.text2, width:1.2, dash:'dot'}}}}],
         xaxis:{{type:'category', tickangle:-45, tickfont:{{size:9}}}},
         yaxis:{{gridcolor:p.grid, title:{{text:'articles pulled', font:{{size:11}}}}}}}}), CFG);
+  }}
+
+  if (ERA && ERA.src) {{
+    const S1=ERA.src.top_shared, S2=ERA.src.top_new;
+    Plotly.react('p-srcera', [
+      {{type:'bar', orientation:'h', name:'in BOTH eras', x:S1.map(r=>r[1]), y:S1.map(r=>r[0]),
+        marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
+        customdata:S1.map(r=>r[2]),
+        hovertemplate:'%{{y}}<br>%{{x:,}} post-handoff<br>%{{customdata:,}} pre-handoff<extra></extra>'}},
+      {{type:'bar', orientation:'h', name:'websearch ONLY (GKG never had it)',
+        x:S2.map(r=>r[1]), y:S2.map(r=>r[0]),
+        marker:{{color:ST.warning, line:{{width:2,color:p.surface}}}},
+        hovertemplate:'%{{y}}<br>%{{x:,}} post-handoff<br>absent from GKG<extra></extra>'}}
+    ], base(p, {{barmode:'group', showlegend:true,
+        legend:{{orientation:'h', y:1.10, x:0, font:{{size:11}}}},
+        margin:{{l:150,r:24,t:38,b:44}},
+        yaxis:{{automargin:true, tickfont:{{size:10}}}},
+        xaxis:{{gridcolor:p.grid, title:{{text:'post-handoff articles', font:{{size:11}}}}}}}}), CFG);
+
+    const B=ERA.beat;
+    Plotly.react('p-beatera', [{{
+      type:'bar', x:['shared by both','websearch only','stopped at handoff'],
+      y:[B.shared, B.new_only, B.stopped.length],
+      marker:{{color:[p.s1, ST.warning, ST.critical], line:{{width:2,color:p.surface}}}},
+      text:[B.shared, B.new_only, B.stopped.length], textposition:'outside',
+      textfont:{{size:12,color:p.fg}}, cliponaxis:false,
+      hovertemplate:'%{{x}}<br>%{{y}} beats<extra></extra>'}}],
+      base(p, {{margin:{{l:60,r:20,t:26,b:52}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'beats', font:{{size:11}}}}}}}}), CFG);
   }}
 
 draw();
