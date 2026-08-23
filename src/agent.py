@@ -379,6 +379,56 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
 
 _NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happened",
                     "nothing pending", "no pending catalyst", "resolved", "unknown"}
+# Content words shared by almost any catalyst sentence; they carry no identifying signal, so leaving
+# them in would make every re-proposal look like a restatement of the old one.
+_CATALYST_STOP = {"the", "and", "for", "with", "from", "that", "this", "will", "into", "over", "its",
+                  "compani", "stock", "share", "market", "announc", "expect", "report", "result",
+                  "next", "new", "more", "after", "amid",
+                  # HYPE MODIFIERS. These are how a restatement dresses itself up as news --
+                  # "CONTINUED datacenter demand", "FURTHER gains from the surge". Without them in
+                  # here a restatement scores as 50% fresh and is admitted (measured on the unit
+                  # cases below), which defeats the gate.
+                  "continu", "further", "addit", "ongo", "more", "growth", "gain", "rise", "risen",
+                  "increas", "strong", "higher", "lift", "boost", "driven", "drive", "demand",
+                  "momentum", "sentiment", "outlook", "upsid", "rally", "surg", "soar"}
+
+
+def _stem(w: str) -> str:
+    """Crude suffix strip so `lift`/`lifts`/`lifting` are one token. Not linguistics -- just enough
+    that a restatement cannot dodge the gate on an inflection."""
+    for suf in ("ingly", "edly", "ing", "ies", "ed", "es", "s", "y", "e"):
+        if len(w) > len(suf) + 2 and w.endswith(suf):
+            return w[: -len(suf)]
+    return w
+
+
+def _restates_resolved(pending: str, resolved: str) -> bool:
+    """Is this `pending_next` just the RESOLVED catalyst said again?
+
+    The gate that lets a retired ticker back in. It FAILS OPEN by design -- when in doubt the
+    candidate is admitted and the event agent (which kills 70% of these, measured 2026-08-22) makes
+    the real call. The repo's own history is the reason: `max_group_articles` and `max_article_orgs`
+    were both subtractive filters added to fix something else and both deleted the same day for
+    deleting real news. This one only fires on a near-verbatim restatement.
+
+    Rejects when the new catalyst's distinctive words are almost entirely contained in the old one
+    AND it introduces no new number or date -- "expects continued datacenter demand" against a
+    resolved "datacenter demand surge". Admits anything naming a new counterparty, figure, or date.
+    """
+    import re as _re
+    def _w(t):
+        return {y for y in (_stem(x) for x in _re.findall(r"[a-z0-9$%.]{3,}", str(t or "").lower()))
+                if y not in _CATALYST_STOP}
+    new, old = _w(pending), _w(resolved)
+    if not new:
+        return False
+    fresh = new - old
+    # a number, a date, or a $ figure the resolved catalyst did not carry = new information
+    if any(_re.search(r"\d", f) for f in fresh):
+        return False
+    return (len(fresh) / len(new)) < 0.34      # <34% of it is new -> a restatement
+
+
 _SCOUT_DEADLINE = 420    # seconds for ALL scout chunks of one scan; a wedged call must not stall a run
 SCOUT_CHUNK = 200        # headlines per scout call; 0 = one call over the whole pool (pre-2026-08-10)
 
@@ -720,13 +770,32 @@ def _scout_groups(gated: list[dict], full_pool: list[dict], canon: dict,
 def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
           max_new_events: int = CANDIDATE_CAP, chunk_size: int = SCOUT_CHUNK,
           full_pool: list[dict] | None = None, canon: dict | None = None,
-          tmap: dict | None = None) -> list[dict]:
+          tmap: dict | None = None, retired_map: dict | None = None) -> list[dict]:
     """`arts` is the GATED slice (what earns attention). When `full_pool` is given the scout reads
     TICKER-GROUPS built from it instead of a flat headline list -- see _scout_groups."""
     if not arts:
         return []
-    rblock = (f"\nALREADY-RESOLVED — DO NOT RE-PROPOSE these on lingering hype (the catalyst already "
-              f"happened/ended, so the edge is GONE even if the press keeps citing it):\n{retired}\n"
+    # RAISED BAR, NOT A BAR. This block used to read "DO NOT RE-PROPOSE these ... even if the press
+    # keeps citing it", keyed by TICKER. Measured 2026-08-22 on the v18 curation: the roster holds a
+    # median 58 tickers per scan for ~8 months, and the weeks it suppressed carried NEW dated corporate
+    # events at 42% -- statistically identical to the 40% in the weeks the scout was allowed to admit
+    # (n=113, judge blind to prices). It walked past Oracle contracting for 2.8 GW of Bloom fuel cells,
+    # CoreWeave acquiring Core Scientific, and Greenland approving the Tanbreez licence transfer.
+    #
+    # The roster is still WORTH KEEPING: proposals that leaked past it despite the instruction were
+    # killed by the event agent 70% of the time, against 5% for un-banned proposals. It genuinely
+    # tracks dead theses. But the event agent is what kills them, so as a bar this only pre-saves
+    # ~$2/curation of agent calls (at $0.0092 each) while discarding real catalysts -- the exact
+    # trade CLAUDE.md's knob rule warns about ("does it DISCARD news?").
+    #
+    # So: bar the OLD catalyst, not the ticker. A genuinely new dated catalyst is a NEW event.
+    rblock = (f"\nRESOLVED CATALYSTS — these tickers already PAID OUT on the catalyst named below. "
+              f"Continued coverage OF THAT SAME CATALYST is lingering hype and the edge is gone; do "
+              f"NOT re-propose on it.\nBUT a ticker here is NOT banned. If the press names a NEW, "
+              f"DATED catalyst that is DISTINCT from the one listed — a fresh contract or customer "
+              f"award, an acquisition, a regulatory approval, a new plant or capacity decision — that "
+              f"is a NEW EVENT and you SHOULD propose it. Put the NEW catalyst in `pending_next`; "
+              f"restating the resolved one there will be rejected.\n{retired}\n"
               if retired else "")
     batches = (_scout_groups(arts, full_pool, canon or {}, SCOUT_ARTICLES_PER_CALL, tmap)
                if full_pool else [])
@@ -850,7 +919,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
             print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
                   f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
                   file=sys.stderr)
-    out, _dropped_resolved = [], []
+    out, _dropped_resolved, _restated = [], [], []
     for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
         # ENFORCED, not merely instructed. Measured 2026-08-11: 8 of 9 one-scan events were past-tense
         # catalysts ("contract awarded", "merger announced", "earnings reported") that the event agent
@@ -860,6 +929,14 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
         _pn = str(c.get("pending_next") or "").strip().lower()
         if (not _pn) or _pn in _NOTHING_PENDING or len(_pn) < 8:
             _dropped_resolved.append(str(c.get("ticker", "")))
+            continue
+        # RETIRED-TICKER GATE. The prompt above now invites a retired ticker back on a NEW catalyst;
+        # this is the enforced half, because "ENFORCED, not merely instructed" is what made the
+        # pending_next rule above actually bind. A retired ticker must name something its resolved
+        # catalyst did not -- otherwise it is the lingering hype the roster exists to stop.
+        _rt = (retired_map or {}).get(str(c.get("ticker", "")).strip().upper())
+        if _rt and _restates_resolved(_pn, _rt):
+            _restated.append(str(c.get("ticker", "")))
             continue
         try:
             m = ScoutCandidate(**{k: v for k, v in c.items() if not k.startswith("_")})
@@ -877,11 +954,16 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
             out.append(m.model_dump())
         elif tk:
             print(f"  scope: dropped unresolved foreign ticker {tk} ({anchor.date()})", file=sys.stderr)
+    if _restated:
+        print(f"  scout: dropped {len(_restated)} retired ticker(s) restating a resolved catalyst "
+              f"({', '.join(_restated[:6])}) ({anchor.date()})", file=sys.stderr)
     if _dropped_resolved:
         print(f"  scout: dropped {len(_dropped_resolved)} already-resolved candidate(s) "
               f"({', '.join(_dropped_resolved[:6])}) ({anchor.date()})", file=sys.stderr)
     picker_log.log("scout", {"context": str(anchor.date()), "max_new_events": max_new_events,   # OFF unless enabled
                              "chunks": len(chunks), "dropped_resolved": _dropped_resolved,
+                             "restated_resolved": _restated,
+                             "retired_roster": sorted((retired_map or {}).keys()),
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
                                            "thesis": c.get("thesis", "")} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
@@ -1465,10 +1547,15 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     scout_client = scout_client or client
     src_fn = src_fn or (lambda tk: "live")
     if curator_memory_weeks == 0:                          # 0 = feature OFF (scout not reminded at all)
-        rmem = ""
+        rmem, rmap = "", {}
     else:                                                  # <0 = whole history; >0 = last N weeks only
-        rmem = "\n".join(f"- {t}: {c}" for t, (c, ri) in retired.items()
-                         if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks)
+        _in = {t: c for t, (c, ri) in retired.items()
+               if curator_memory_weeks < 0 or (week_idx - int(ri)) < curator_memory_weeks}
+        rmem = "\n".join(f"- {t}: {c}" for t, c in _in.items())
+        # The SAME roster as data. The prose invites a retired ticker back on a new catalyst; the
+        # code gate in scout() checks it actually named one. Both must see one roster or the prompt
+        # and the filter disagree about who is on it.
+        rmap = {str(t).strip().upper(): c for t, c in _in.items()}
     # The scout sees only the superlative slice; `pool` itself is untouched, so the event agents below
     # still call _filter_event over the FULL corpus.
     spool = superlative_pool(pool) if discovery_filter else pool
@@ -1496,7 +1583,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         except Exception as e:  # noqa: BLE001 -- fall back to the flat path rather than lose the scan
             print(f"  scout: grouping unavailable ({type(e).__name__}: {e})", file=sys.stderr)
     cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events,
-                  full_pool=(pool if _canon else None), canon=_canon, tmap=_tmap)
+                  full_pool=(pool if _canon else None), canon=_canon, tmap=_tmap, retired_map=rmap)
     # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
     # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
