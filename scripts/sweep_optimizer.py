@@ -48,13 +48,24 @@ import score  # noqa: E402
 # Worth re-adding as a periodic NULL CONTROL: on the v8 book trend and alphabetical tied, which was
 # the tell that the trend ranker was doing nothing, and only a null could have shown that.
 GRID = {
-    "max_watchlist":        [4, 6, 8, 12],
-    "concentration_cap":    [0.25, 0.40, 0.60],
+    # EXTENDED 2026-08-22 past the old [4,6,8,12]. The canonical config sat on THREE grid edges
+    # at once (max_watchlist 4 = bottom, concentration_cap 0.60 = top, risk_aversion 4.0 = top), so
+    # the sweep could not tell "this is the optimum" from "this is as far as the grid goes".
+    # The question this axis now answers: ~52 names are declared LIVE each week and only ~2 get
+    # funded (3.6%, measured 2026-08-22). Does funding MORE of them capture the headroom, or does it
+    # dilute toward an index? A 4-slot book cannot answer that; a 20-slot one can.
+    "max_watchlist":        [4, 6, 8, 12, 16, 20],
+    "concentration_cap":    [0.25, 0.40, 0.60, 0.80, 1.00],   # 0.60 was the top edge
     # 7/10/14 added 2026-08-12: 21 was the grid's LOWER EDGE and won 20/20 of the shortlist top-20,
     # which is the signature of a sweep that wants to go further than it is allowed to.
     "lookback_period_days": [7, 10, 14, 21, 30, 45, 60],
     "drop_unfunded_weeks":  [0, 2, 4],
-    "risk_aversion":        [0.5, 1.0, 2.0, 3.0, 4.0],
+    # EXTENDED TWICE. [.5..4] then [.5..6], and BOTH times the sweet spot sat on the top edge --
+    # not convergence, just the ceiling. A 1-D probe at the sweet-spot config (2026-08-22) found the
+    # real shape: `final` peaks at ra=16 ($130,300) and falls to $99,257 by 80, Sharpe plateaus near
+    # 24, and max drawdown falls MONOTONICALLY 32% -> 9%. The optimizer was hugging the edge because
+    # more aversion was buying real risk reduction the grid would not allow. 24 puts the turn inside.
+    "risk_aversion":        [0.5, 1.0, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0, 16.0, 24.0],
     # Extended to 0.2/0.3. Over [0.0 .. 0.10] this knob was DEAD (13/13/13/12 across the shortlist) --
     # every value was below a typical position, so it only ever swept dust. At max_watchlist 8 an equal
     # book is 12.5% a name, so 0.2/0.3 finally BITE: they force the book down to its 3-4 largest

@@ -80,6 +80,14 @@ def main(argv=None):
     ap.add_argument("--min-bundle-articles", type=int, default=None, dest="min_bundle_articles",
                     help="company bundles smaller than this are DEMOTED to the unclustered/beat path "
                          "(articles still shown). 1 = every bundle qualifies (default).")
+    ap.add_argument("--max-event-scans", type=int, default=None, dest="max_event_scans",
+                    help="force-retire an event after this many scans. A CURATION knob that lives in "
+                         "the profile; exposed here so an arm can vary it WITHOUT editing "
+                         "investor_profile.backtest.md and moving the canonical fingerprint. "
+                         "Measured 2026-08-22: at the profile's 6, 55.5%% of events die pinned at "
+                         "exactly the cap (span histogram is a wall at 6) -- the timer, not the "
+                         "thesis, is what ends the median event. At 12 only ~15%% hit it, "
+                         "reproduced across cbt_3yr_mb1/mb2/mb3.")
     ap.add_argument("--news-cap", type=int, default=None, dest="news_cap",
                     help="per-week cap on articles the scout reads (most-recent kept); 0 = UNCAPPED. "
                          "Omit to use the profile's news_cap.")
@@ -158,6 +166,10 @@ def main(argv=None):
     agent.SCOUT_ARTICLES_PER_CALL = int(fm.get('scout_articles_per_call') or agent.SCOUT_ARTICLES_PER_CALL)
     if a.min_bundle_articles is not None:            # sweep arm: override the profile
         fm = {**fm, "min_bundle_articles": a.min_bundle_articles}
+    if a.max_event_scans is not None:               # sweep arm: override the profile
+        print(f"  max_event_scans={a.max_event_scans} (CLI override of profile "
+              f"{fm.get('max_event_scans')})", flush=True)
+        fm = {**fm, "max_event_scans": a.max_event_scans}
     agent.MIN_BUNDLE_ARTICLES = int(fm.get('min_bundle_articles') or 1)
     print(f"  min_bundle_articles={agent.MIN_BUNDLE_ARTICLES} · "
           f"max_article_chars={agent.MAX_ARTICLE_CHARS} · "
