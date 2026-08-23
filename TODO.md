@@ -1189,3 +1189,33 @@ ZERO-COST sweep over the existing journal, no re-curation. Suggested ranges:
   cull_fresh_scans  [1, 2, 3, 4]
 Confirm they are classified in BOOK_KNOBS in provenance.py before adding them to GRID (adding a
 CURATION knob to the grid is refused by design).
+
+## TODO — log each proposal's BUNDLE SIZE at scout time (revives CBT panel "Gains per bundle size")
+
+CBT's "Gains per bundle size" was DELETED 2026-08-23. It plotted -$2,499 against a book that made
+$243,973 -- i.e. -1% of the money -- while its caption claimed the only discrepancy was
+double-counting. Decomposed:
+
+  sum of bars                                   -$2,499
+  double-counting (72 tickers, the stated cause) -$6,808   ~3% of the gap, and the WRONG DIRECTION
+  funded tickers in NO size bucket (49)        $239,664   98% of the gap
+  bars - double-count + never-plotted = $243,973 = book total
+
+ROOT CAUSE, and why panel 17 is fine. Panel 17 credits bundles from `_tick_by`, RECORDED LIVE at
+proposal time, and covers 95.1% of realised P&L over distinct tickers. The size panel additionally
+needs each proposal's bundle SIZE, which nothing records -- so it re-derived bundles POST-HOC by
+replaying `_scout_groups` over the corpus and matching on canonical company name (`_k in _P`). That
+match failed for 36 funded tickers worth $227,734 (AMZN, CME, COPX, BNTX...): 93% of the book.
+Reconstruction cannot reproduce what the scout actually saw.
+
+THE FIX (needs a curation to populate, cannot repair existing runs). Add the bundle size to each
+proposal in `agent.py`'s `picker_log.log("scout", ...)` payload, beside the ticker and company that
+are already there. Then the panel needs no reconstruction at all.
+
+AND ATTRIBUTE TO THE FIRST BUNDLE, not to every one. Bundle size is a PER-WEEK property (article
+counts move week to week) while P&L is a per-ticker total, so a ticker proposed across several weeks
+lands in several size classes -- 25% of bucketed tickers already do. Crediting each ticker to the
+size of the bundle that FIRST proposed it gives exactly one assignment per ticker, zero
+double-counting, and asks the better question: what size of bundle DISCOVERS the winners?
+
+`bundle_buckets["gain"]` is still computed (cheap) so the panel can be restored without re-plumbing.

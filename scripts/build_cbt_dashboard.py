@@ -397,7 +397,12 @@ def main(argv=None) -> int:
             for _p, _n in _mix.items():
                 _pg[_p] += _g * _n / _tot
         _prov_gain = dict(_pg)
-        # GAINS PER BUNDLE SIZE -- attach the book's per-ticker P&L to the size class that proposed
+        # GAINS PER BUNDLE SIZE. The PANEL was deleted 2026-08-23 -- it attributed only -1% of the
+        # book because the bundle->proposal join is reconstructed post-hoc by replaying
+        # _scout_groups and matching on company name, and that match failed for 93% of realised
+        # P&L (36 funded tickers, $227,734). The key is still computed because it is cheap and
+        # because the panel can return correctly once agent.py logs each proposal's BUNDLE SIZE
+        # at scout time -- see TODO.md. Attach the book's per-ticker P&L to the size class that proposed
         # each ticker. Done here because it needs the book, which does not exist where the buckets
         # are built.
         _gg = (_bt.get("daily") or {}).get("gain") or {}
@@ -1089,7 +1094,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>26. Curation log</h2>'
+        f'<section class="panel"><h2>25. Curation log</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1334,15 +1339,7 @@ def main(argv=None) -> int:
               "each size; the line is the share that produced a proposal. <b>Watch the 1-article "
               "bar</b>: a bundle of one cannot corroborate anything, so it is the control.",
               "c-bundle", 380),
-        panel(16, "Gains per bundle size",
-              "The money twin of the panel above: that one asks whether a bigger bundle makes the "
-              "scout ACT, this asks whether those proposals were worth acting on. Each bar is the "
-              "realised P&amp;L of every ticker proposed out of a bundle of that size. <b>A ticker "
-              "proposed from two different sizes counts in both</b>, so these do not sum to the book "
-              "total \u2014 the question is what proposals of each size earned, not how the book "
-              "decomposes." + _NODEC,
-              "c-bundlegain", 340),
-        panel(17, "Gains per bundle",
+        panel(16, "Gains per bundle",
               "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
               "bundles actually paid. A bundle is credited with the realised P&amp;L of every ticker "
               "proposed out of it, so a name here earned its money by putting a ticker in front of "
@@ -1353,19 +1350,19 @@ def main(argv=None) -> int:
               f"<b>{bundle_buckets.get('rest_los_n', 0)} more worth "
               f"\u2212${bundle_buckets.get('rest_los', 0):,.0f}</b>. Rolled into bars they would be "
               "taller than the largest named bundle and would flatten everything here, the same way "
-              "they did in plot 5." + _NODEC,
+              "they did in plot 5. <b>A ticker proposed from two bundles is credited to both</b>, so the bars total ~107% of the book \u2014 measured 12.3% double-counted, of which COPX alone is $21,445; over DISTINCT tickers the panel covers 95.1% of realised P&amp;L." + _NODEC,
               "c-bundlename", 620),
-        panel(18, "Coverage vs picks, per ticker",
+        panel(17, "Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(19, "Gain per article, per ticker",
+        panel(18, "Gain per article, per ticker",
               "For the picked tickers above: dollars earned per article the press wrote about them. "
               "The per-ticker twin of plot 7. A name that paid a lot on little coverage sits far right; "
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(20, "Gain per lede provenance",
+        panel(19, "Gain per lede provenance",
               "Dollars earned, split by where the text behind each pick came from. The money twin of "
               "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
               "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
@@ -1374,28 +1371,28 @@ def main(argv=None) -> int:
               "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
               "most of the money, the quotable arm is not the one earning.",
               "c-ledegain", 300),
-        panel(21, "Evidence by lede provenance",
+        panel(20, "Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(22, "Evidence by source",
+        panel(21, "Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(23, "Evidence by beat",
+        panel(22, "Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(24, "Event storyboard",
+        panel(23, "Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(25, "Text provenance of what the curator read",
+        panel(24, "Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1678,22 +1675,6 @@ function draw() {{
         yaxis:{{gridcolor:p.grid, type:'log', title:{{text:'bundles shown (log)', font:{{size:11}}}}}},
         yaxis2:{{overlaying:'y', side:'right', ticksuffix:'%', rangemode:'tozero', showgrid:false,
                  title:{{text:'produced a proposal', font:{{size:11}}}}}}}}), CFG);
-  }}
-
-  // GAINS PER BUNDLE SIZE -- the money twin of c-bundle, same buckets and same x-axis so the two
-  // read as a pair. Bars can be NEGATIVE (proposals of that size lost money), so the axis is not
-  // forced to zero.
-  if (BU && BU.gain && BU.gain.some(v=>v)) {{
-    Plotly.react('c-bundlegain', [{{
-      type:'bar', x:BU.labels, y:BU.gain,
-      marker:{{color:BU.gain.map(v=>v>=0?p.s1:ST.critical), line:{{width:2,color:p.surface}}}},
-      text:BU.gain.map(v=>'$'+Math.round(v).toLocaleString()), textposition:'outside',
-      textfont:{{color:p.text2, size:10}}, cliponaxis:false,
-      hovertemplate:'bundles of %{{x}} article(s)<br>$%{{y:,.0f}} realised<extra></extra>'
-    }}], base(p, {{margin:{{l:74,r:24,t:16,b:48}},
-        xaxis:{{title:{{text:'articles in the bundle', font:{{size:11}}}}}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', zeroline:true, zerolinecolor:p.text2,
-               title:{{text:'realised gain', font:{{size:11}}}}}}}}), CFG);
   }}
 
   // GAINS PER BUNDLE NAME -- horizontal, like the per-event panel, because the labels are names.
