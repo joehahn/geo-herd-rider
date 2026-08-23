@@ -68,8 +68,8 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v18"
-CANON_SWEEP = "data/sweep_v18.json"
+CANON_RUN = "data/cbt_3yr_v21_evscans12"
+CANON_SWEEP = "data/sweep_v21.json"
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
@@ -82,7 +82,15 @@ CURATION_KNOBS = frozenset({
     "scout_articles_per_call", "max_article_chars",
     "min_bundle_articles",
     "max_events", "max_new_events",
-    "curator_memory_weeks", "exit_patience_scans", "max_stale_scans", "max_event_scans",
+    "curator_memory_weeks", "max_event_scans",
+    # exit_patience_scans / max_stale_scans WERE here until 2026-08-22 and were MISFILED. The test
+    # is not what a knob sounds like, it is WHERE IT IS CALLED: both are read only by
+    # firehose._watch_clocks, which is called only by firehose._stateful_watch, which is called only
+    # inside firehose.backtest() -- the replay path. Proven empirically, not by reading: holding the
+    # v18 journal FIXED and varying only those two produced books from $95,170 to $345,968. A
+    # curation knob cannot do that, because the journal never changes. Misfiling them meant any
+    # change to exit behaviour would have demanded an unnecessary ~$7 re-curation, and it hid two
+    # free levers. They are BOOK_KNOBS; see the max_watchlist type specimen.
     "rebalance_period",                        # sets the scan cadence -> which weeks exist at all
     "specialty_allow", "mill_block",           # source filters applied as the corpus is read
 })
@@ -90,6 +98,7 @@ CURATION_KNOBS = frozenset({
 # REPLAY-time only. Free to change; the page just needs a rebuild.
 BOOK_KNOBS = frozenset({
     "max_watchlist", "max_agents",             # max_agents is the legacy alias (firehose.watchlist_cap)
+    "exit_patience_scans", "max_stale_scans",  # firehose._watch_clocks, reached only from backtest()
     "concentration_cap", "risk_aversion",
     "lookback_period_days", "optimizer_lookback_days",
     "min_trade_size", "t_update_days", "risk_free_rate",
@@ -195,12 +204,48 @@ def curation_key(fm: dict, corpus: str | Path, arm: str = "fuller") -> dict:
     return key
 
 
+def curator_code_id() -> dict:
+    """A digest of the CURATOR CODE that produced a curation -- the prompts and the gates.
+
+    WHY THIS EXISTS. `curation_key` hashes profile knobs + corpus + arm, and that is the right key
+    for "could this curation have been produced under this profile". But a curation is also a
+    function of the SCOUT PROMPT and the code-side gates, and those live in src/agent.py, which the
+    fingerprint cannot see. On 2026-08-22 the retired-ticker guard was rewritten from a categorical
+    ban into a raised evidentiary bar -- a change that alters which tickers the scout may propose
+    while leaving every profile knob untouched. The re-curation would have fingerprinted IDENTICALLY
+    to the run it was meant to be compared against, and the only thing separating them would have
+    been a directory name and somebody's memory. That is the exact failure mode CLAUDE.md's
+    provenance section catalogues ("Every one was caught by eye, late").
+
+    RECORDED, NOT HASHED. This is deliberately NOT folded into the fingerprint: doing so would make
+    every existing stamp mismatch on the next whitespace edit to agent.py, and would conflate "ran
+    under a different config" (which must block a publish) with "ran under different code" (which
+    must be visible but is often intended). It is written alongside so a comparison of two runs can
+    always answer "same code?" without anybody having to remember.
+    """
+    import subprocess
+    out = {}
+    for rel in ("src/agent.py", "src/firehose.py"):
+        f = REPO_ROOT / rel
+        if f.exists():
+            out[rel] = hashlib.md5(f.read_bytes()).hexdigest()[:12]
+    try:
+        out["git"] = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=REPO_ROOT,
+                                    capture_output=True, text=True, timeout=10).stdout.strip() or "?"
+        out["dirty"] = bool(subprocess.run(["git", "status", "--porcelain", "src"], cwd=REPO_ROOT,
+                                           capture_output=True, text=True, timeout=10).stdout.strip())
+    except Exception:  # noqa: BLE001 -- provenance must never sink a curation
+        out["git"] = "?"
+    return out
+
+
 def stamp(run_dir: str | Path, fm: dict, corpus: str | Path, arm: str = "fuller",
           argv: list[str] | None = None, note: str = "") -> Path:
     """Write run_dir/provenance.json. Called by the curation producer as the run is created."""
     run = REPO_ROOT / run_dir if not Path(run_dir).is_absolute() else Path(run_dir)
     run.mkdir(parents=True, exist_ok=True)
     rec = curation_key(fm, corpus, arm)
+    rec["code"] = curator_code_id()
     rec["argv"] = argv or []
     if note:
         rec["note"] = note
