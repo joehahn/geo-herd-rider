@@ -138,8 +138,35 @@ picker_model:                     # BLANK = use the arithmetic coverage-rank (sr
                                   #   keep-list only -- never weights or returns. MUST be a strong model: sonnet5 hit the
                                   #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
-max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
-max_event_scans: 6                # retires an EVENT at this age, in scans. CURATION knob.
+max_stale_scans: 8                # SCANS a held name may go UNMENTIONED before it is dropped.
+                                 # BOOK knob (replay-time; reclassified 2026-08-22) -- free to
+                                 # change, rebuild only, no re-curation.
+                                 # 2 -> 8 on 2026-08-22. At 2, with ~monthly scans, TWO MONTHS OF
+                                 # PRESS SILENCE ended a position -- the cause of the 1-2 month
+                                 # watchlist tenure on BE/CORZ. At 8: BE 7->11 scans, CORZ 5->11,
+                                 # NVTS 5->21, IREN 10->20 (reproduces across all 7 curations).
+                                 # CHOSEN ON 7-DRAW POOLING, not one book: rank-sum 15 vs 20 for
+                                 # ms=2, medians tied (111K vs 115K), and ONE THIRD the dispersion
+                                 # (4.9x vs 14.7x) -- ms=2's higher MEAN is one lucky draw.
+                                 # TRAP: 0 does NOT disable -- `int(fm.get(...) or MAX_STALE)`
+                                 # falls back to 4. Negative drops everything. Use a big number.
+max_event_scans: 12               # retires an EVENT at this age, in scans. CURATION knob.
+                                 # UNCHANGED. A 12 arm was tried and reverted 2026-08-22: the
+                                 # mechanism finding is real (55.5% of events die pinned at
+                                 # exactly this cap -- the timer, not the thesis, ends the median
+                                 # event) but the one clean 12-draw was not publishable. See
+                                 # TODO.md 2026-08-22 (c). NEVER set negative: the test is
+                                 # `len(entries) >= max_event_scans`, so -1 retires every event at
+                                 # its FIRST scan. 0 disables the timer entirely.
+curator_memory_weeks: 8          # SCANS a RETIRED ticker stays on the scout's do-not-re-propose
+                                 # list. 0 = off, <0 = whole history. Scans are ~monthly, so 8 is an
+                                 # ~8-MONTH ban. Was inherited silently from optimizer defaults until
+                                 # 2026-08-22; written out here because it is a CURATION knob and the
+                                 # forward profile sets it to 4 -- an unsynced strategy knob nobody
+                                 # could see by reading this file. Value unchanged (8), so the
+                                 # canonical curation fingerprint is untouched. See TODO.md
+                                 # 'retired-ticker guard' -- the guard is keyed by TICKER, not by
+                                 # catalyst, so a new dated catalyst on a retired name is barred too.
                                   #   Halved from 12 on 2026-08-22: at monthly cadence 12 scans is a year,
                                   #   which is a long time to keep re-reading a catalyst that has resolved.
 
@@ -147,7 +174,7 @@ max_event_scans: 6                # retires an EVENT at this age, in scans. CURA
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 4                  # how many tickers may hold capital at once. Set 2026-08-22 with the three
+max_watchlist: 6                  # how many tickers may hold capital at once. Set 2026-08-22 with the three
                                   #   knobs below as ONE config: 4 · 0.6 · 21 · 4 · 4.0 · 0.05.
                                   #   CHOSEN AS THE CENTRE OF THE SWEET SPOT, NOT ITS PEAK. Of its 22 one-knob
                                   #   neighbours, 11 are themselves top-100 regions -- the densest overlap in
@@ -165,18 +192,18 @@ max_watchlist: 4                  # how many tickers may hold capital at once. S
                                   #   keeps winning single sweeps and has not yet survived the next one.
 cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
                                   #   Was 0 (never drop).
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.6            # most of the book any one ticker may take. Loosened from 0.25 with the
+concentration_cap: 0.25            # most of the book any one ticker may take. Loosened from 0.25 with the
                                   #   move to max_watchlist 4 -- at four names an equal book is 25% each, so a
                                   #   0.25 cap would force exactly equal weights and give the optimizer nothing
                                   #   to do.
-min_trade_size: 0.05              # positions smaller than this are DROPPED, not shrunk -- a concentration
+min_trade_size: 0.2              # positions smaller than this are DROPPED, not shrunk -- a concentration
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
                                   #   inert here.
-risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+risk_aversion: 16.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
 optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
                                   #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book
                                   #   rebalanced monthly averages over two regimes of a fast-moving

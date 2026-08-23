@@ -952,3 +952,240 @@ Not yet root-caused. Two candidates:
 If (1), the fix is either widening the Anthropic window (it is not a same-day engine) or dropping
 Anthropic from the daily pull and running it weekly, where its reach-back actually produces articles.
 Either way: stop paying $1-5/day for zero articles.
+
+## Finding 2026-08-22 — the live/exit call controls ~4% of the book
+
+Measured on the canonical run (`data/cbt_3yr_v18`, config `4 · 0.6 · 21 · 4 · 4.0 · 0.05`),
+deterministic, no LLM sampling involved, so it reproduces:
+
+  live names per week      median 52  (min 2, max 74)
+  funded positions/week    median  2  (max 3; 15% of slot-weeks go to SPY/BIL anchors)
+  non-anchor slot-weeks    70   vs   1,927 live ticker-weeks competing for them
+  => a live name's chance of being funded: 3.6%
+
+307 distinct tickers are declared live at some point; **64 ever receive money**. Of the 13
+hand-picked target tickers, 8 of their 79 live weeks were funded (10%).
+
+WHAT THIS MEANS. The LLM's live/exit judgement decides membership in a ~52-name pool from which
+mean-variance then picks ~2 — and mean-variance never reads the thesis. So prompt work aimed at
+*when to declare an event* or *when to exit* is tuning the gate into a pool it mostly does not
+get funded from. BE's missing +241pp is not because the agent exited in 2026-02: BE was funded
+**1 of its 6 live weeks** while still live.
+
+CONSEQUENCE FOR ORDERING. The high-leverage stage (watchlist width / concentration / selection)
+is deterministic and free to sweep. Do that BEFORE spending on any prompt-optimisation loop.
+`max_watchlist` is already known to sit on a grid edge (see the grid-extension item above) --
+that sweep now has a specific hypothesis to test, not just an edge to fill.
+
+CAVEAT. The 13 targets were chosen post-hoc *because* they rose, so "fund more live names" will
+flatter itself on that list by construction. Judge the width sweep on the existing sweep metrics,
+which do not know about the target list.
+
+## Finding 2026-08-22 (b) — the retired-ticker guard suppresses genuinely new catalysts
+
+Follow-up to the finding above. The exit call was NOT what held us out of BE/CORZ/NVTS/BKSY/GNENF:
+the scout never put them back in front of the event agent (recall 0-20% of the gap weeks that HAD
+press coverage). The design says that is correct -- `agent.py:224`, after the catalyst fires "the
+early-gem edge is gone". So the question was whether those weeks carried real events or only momentum.
+
+MEASURED (`scripts/catalyst_recheck.py`, judge grok-4.3, 113 articles, 0 parse failures). Each
+ticker scored over its ENTRY window (weeks the scout admitted) and its GAP window (exit -> peak),
+same judge, same rubric, blind to prices and to the fact we exited:
+
+  entry windows  26/65 = 40% carry a new dated corporate/regulatory event
+  gap windows    20/48 = 42%
+  difference     +2pp +/- 18pp (95%)
+
+The gap weeks are NOT momentum. Walked past, verbatim: Oracle agreeing to buy up to 2.8 GW of
+fuel-cell power from Bloom (2026-04-14); CoreWeave acquiring Core Scientific for $9B (2025-07-07);
+Greenland approving the Tanbreez licence transfer (2026-04-17); Navitas/Cyient GaN partnership.
+
+THE MECHANISM, exactly. `agent.py:729` injects into every scout call:
+
+    ALREADY-RESOLVED -- DO NOT RE-PROPOSE these on lingering hype (the catalyst already
+    happened/ended, so the edge is GONE even if the press keeps citing it)
+
+It is keyed by TICKER (`retired[tk] = (catalyst, week_idx)`, lines 1534/1577/1600), not by CATALYST.
+So a ticker retired for catalyst A is banned when unrelated catalyst B arrives -- and the wording
+"even if the press keeps citing it" tells the scout to discount exactly the new coverage that would
+signal B. `curator_memory_weeks: 8` is 8 SCANS, and scans are monthly (median 30d), so the ban runs
+~8 months. **6 of the 8 walked-past events above fall inside it.**
+
+HYPOTHESIS (one edit, testable): key the guard to the CATALYST, not the ticker -- a genuinely new,
+dated catalyst on a retired name is a NEW event and may be re-proposed; lingering hype about the OLD
+catalyst is still barred. Judge on MECHANISM per CLAUDE.md #6, not P&L: scout recall on gap weeks
+that carry a dated event (today 0% BE / 8% CORZ / 20% NVTS / 0% BKSY / 0% GNENF). Cost: one
+re-curation, ~$7 and ~45 min. `curator_memory_weeks` is a CURATION knob and has NEVER been swept.
+
+LIMITS. n=48 gap articles; the rubric is loose at the margin (it counted a board appointment as an
+event); and CORZ's two largest events (+366d, +664d) fell OUTSIDE the ban, so the guard is the
+dominant mechanism for the near-term cases but not the whole story.
+
+## Finding 2026-08-22 (c) — the catalyst-keying test was INVALID, and the real cause is a timer
+
+The (b) experiment ran (`data/cbt_3yr_v20_catalystkey`, 37/37, clean). Pre-registered result:
+
+  scout recall on gap weeks   base 3/29 (10%)  ->  new 2/29 (7%)     DID NOT RISE
+  kill-rate separation        +65pp -> +66pp                          preserved
+  inflow                      1339 -> 1241 proposals, 24 gate-drops   gate is gating
+
+But the null is UNINTERPRETABLE, because the inputs never reached the scout. The discovery gate
+(`SUPERLATIVE` regex on headlines, `agent.py:313`) passes only 18% of the gap articles, and 0% of
+the specific catalysts the change was built around:
+
+  BLOCKED  Critical Metals to Acquire Tanbreez, One of the World's Largest Known Rare Earth...
+  BLOCKED  Core Scientific (CORZ) to Expand Pecos Campus to 1.5 GW for AI Data Center Infra...
+  BLOCKED  CoreWeave stokes GPU fire with $8.6B war chest
+
+CEILING: of 29 gap weeks carrying press, only 11 have ANY article passing the gate. **38% is the
+most any scout-prompt change could ever score.** BKSY and GNENF are at 0% -- impossible by prompt.
+The gate admits MOVE language ("soar", "surge", "1,300% rally") and rejects EVENT language, which is
+backwards from non-negotiable #2. Do not re-test the keying until this is addressed.
+
+### THE DOMINANT CAUSE: max_event_scans is a timer that kills live theses
+
+  v18 retirements: 374 (57.8%) "aged out" TIMER  vs  273 (42.2%) "resolved" for cause
+
+  span histogram @ cap 6    1:26 2:9 3:20 4:13 5:13 6:101      <- a WALL at the cap
+  span histogram @ cap 12   1:32 2:15 3:9 ... 11:2 12:16       <- natural decay
+  pinned at cap: v18 55.5%, v20 56.9%  |  mb1 16.7%, mb2 13.6%, mb3 15.8%
+
+Reproduces across 5 curations, so it is not sampling noise. BE, BKSY, INTC, IREN and CORZ were ALL
+killed by the counter, not by an exit judgement -- BE while its thesis was live, before it tripled.
+`max_event_scans` is a CURATION knob and is NOT in the sweep grid.
+
+mb1 already ran at 12 but ALSO sets `max_events: 16` (concurrent-event cap), which dominates: 96
+events vs v18's 182, and target live-weeks FELL 79 -> 52. So mb1 cannot answer the question.
+Clean arm launched: `data/cbt_3yr_v21_evscans12` (max_event_scans 12, max_events 0), baselined
+against v20 (same code at cap 6) not v18. `--max-event-scans` added to backtest_gdelt.py so an arm
+can vary it without editing the profile and moving the canonical fingerprint.
+
+### ANSWERED: curator_memory_weeks = -1 would do nothing
+
+It sits DOWNSTREAM of both real constraints. It cannot resurrect an event a timer killed, and it
+cannot make the scout see an article the discovery gate filtered out. This retires the earlier
+suggestion that -1 was the interesting setting -- that assumed the guard was the bottleneck.
+
+### Incidental defect
+CORZ's v18 event carries the catalyst string "Biotech innovations surge as global cancer diagnosis
+rates continue to climb" -- Core Scientific attached to an oncology thesis. A mis-grouping, separate
+from everything above.
+
+## Finding 2026-08-22 (d) — audit: aging, re-proposal blocks, and a measured prompt/gate PINCER
+
+### Partition fix (DONE)
+`exit_patience_scans` + `max_stale_scans` moved CURATION -> BOOK. They are read only by
+`firehose._watch_clocks` <- `_stateful_watch` <- `firehose.backtest()`. Proven, not argued: the v18
+journal held FIXED, varying only those two, gives books from $95,170 to $345,968. `check_canon` is
+green; `scripts/restamp_partition.py` re-derived 8 stamps FROM THEIR OWN RECORDED VALUES (never from
+today's profile -- that would relabel a differently-curated run as if it were this one) and kept the
+demoted values under `book_knobs_at_curation`. cbt_3yr_v9 skipped: partial legacy stamp.
+
+### VALUE TRAPS -- "set it to 0" does NOT disable these
+  max_event_scans      0 = DISABLED (falsy).  -1 = `len(entries) >= -1` ALWAYS TRUE -> every event
+                       retired at its FIRST scan. NEVER USE -1.
+  max_stale_scans      0 does NOT disable -- `int(fm.get(...) or MAX_STALE)` makes 0 fall back to
+                       the DEFAULT 4. -1 -> `stale >= -1` always true -> drops everything.
+                       To disable, use a LARGE number (999).
+  exit_patience_scans  identical `or EXIT_PATIENCE` trap; 0 -> 2.
+  curator_memory_weeks 0 DOES disable (explicit `== 0` test). -1 = whole history.
+
+### Every mechanism that ages out an event
+  1. max_event_scans=6      TIMER, kills 58% of events (finding (c))
+  2. max_stale_scans        SILENCE clock, replay-time (BOOK)
+  3. exit_patience_scans    consecutive-thesis-dead clock, replay-time (BOOK)
+  4. max_events picker-cull INACTIVE at max_events=0
+  5. agent thesis_live=False the judgment path
+
+### Every mechanism that blocks a re-proposal
+  1. THE DISCOVERY GATE (dominant -- see below)   2. curator_memory_weeks roster
+  3. pending_next hard gate   4. _restates_resolved (new)   5. ticker guard (318 rejections in v21:
+  no yfinance history / not US-symbol shape)   6. foreign-ticker scope guard (a "." = dropped)
+  7. same-ticker guard (correct: a live event already owns its ticker)
+
+### THE PINCER, measured on the 113 judged articles
+The discovery gate admits a headline only if it carries a superlative. The scout prompt then says
+"a superlative ALONE is momentum and is rejected" and lists REJECT examples that are exactly what
+the gate lets through.
+
+  real catalysts reaching the scout :  2/46 =  4%
+  price-talk reaching the scout     : 15/67 = 22%
+  => of everything the gate ADMITS, 88% is the price talk the prompt is told to reject.
+
+The gate is 5.5x more likely to admit price talk than a real catalyst -- INVERTED against
+non-negotiable #2. This is upstream of every knob above, which is why doubling event lifetime
+(finding (c)) moved journal live-weeks 56 -> 88 but left BOOK held-weeks at 0-2 for all 13 targets.
+
+### Do NOT bother turning the aging knobs off first
+Held-weeks in the book were 0-2 per target at cap 6 AND at cap 12. With ~52 live names competing for
+~2 funded slots (3.6%, finding (a)), keeping events alive longer only lengthens a queue we are not
+served from. Order: discovery gate -> funding width -> aging knobs.
+
+## Finding 2026-08-22 (e) — the watchlist clock, the width negative, and an unresolvable conflict
+
+### THE ANSWER to "why are BE/CORZ only watchlisted 1-2 months"
+Not the event timer, not funding. `max_stale_scans: 2` in `firehose._stateful_watch` drops a held
+name after 2 scans with NO press mention -- and scans are monthly, so **2 months of press silence
+ends the position**. Three distinct stages had been conflated all session:
+  1 event live-ness (journal)  max_event_scans, thesis_live
+  2 WATCHLIST membership       exit_patience_scans, max_stale_scans   <- what plot 5 shows
+  3 funding/weights            max_watchlist, concentration_cap, risk_aversion
+
+Tenure vs the clock, on v18 (scans ~= months):
+        BE  CORZ  NVTS  IREN  BKSY   CCJ
+  ms=2   7     5     5    10     7    18
+  ms=8  11    11    21    20    13    28
+  ms=99 11    29    22    27    19    28
+REPRODUCES across all 7 curations (v18/v19/v20/v21/mb1/mb2/mb3): median tenure 5-8 -> 17-21 scans,
+90th percentile 13-21 -> 35-36. Monotone in every draw.
+
+### THE WIDTH SWEEP IS A CLEAN NEGATIVE (18,900 cells, 0 errors, sweep_v21)
+  slots    4       6       8      12      16      20
+  final  72,185  66,490  65,093  57,219  57,016  49,867
+  sharpe   0.70    0.71    0.68    0.60    0.59    0.46
+  edge     87.9    90.5    81.9    57.7    55.1    27.5
+Monotonically worse. `max_watchlist: 4` was NOT a grid-edge artifact -- funding more of the ~52 live
+names DILUTES. This closes the 3.6%-funding thread from finding (a): the answer is that we should
+NOT fund more live names. Grid extended permanently (6,300 -> 18,900) so the edges are now interior.
+
+### AND THE CONFLICT: tenure reproduces, its PAYOFF does not
+                    v18                       v21
+  ms=2   $244,393  sharpe 1.19  cancel 47.5%   $53,719  0.47  75.7%
+  ms=8   $114,843  sharpe 0.65  cancel 70.0%   $68,874  0.69  59.9%
+The two curations disagree IN SIGN, on P&L *and* on cancellation. Raising the clock reliably
+lengthens tenure and does NOT reliably improve outcomes. Plausible mechanism: max_stale_scans exists
+to drop names the press stopped confirming; holding through silence is holding without thesis
+confirmation. DO NOT adopt a max_stale_scans change on this evidence (fails CLAUDE.md #3, and #6
+says a sign-unstable metric cannot adjudicate). Needs the forward eval, or several draws per arm.
+
+### max_event_scans 12 REVERTED
+Promoted then reverted the same day. The mechanism claim stands (see (c)), but the 12-arm draw
+`cbt_3yr_v21_evscans12` names BE once and NEVER names BKSY/GNENF/WPM, vs 6/6/5/2 in v18 -- draw
+noise, but not a curation to publish. Canonical is v18 again; check_canon green.
+
+## TODO — sweep `cull_fresh_slots` and `cull_fresh_scans`
+
+Both are real profile knobs (`optimizer.py:136,139`, defaults 3 and 2) and NEITHER is in the sweep
+grid. They set the two-tier split in `firehose._ranked_cull`, which decides WHICH live tickers hold
+capital once the live set outnumbers `max_watchlist`:
+  tier 1  up to `cull_fresh_slots` reserved for tickers first seen within `cull_fresh_scans` scans
+  tier 2  the rest by trailing risk-adjusted return (`_trend_rank`)
+
+WHY IT MATTERS. At `max_watchlist: 6` three of six slots are reserved for names under 2 scans old;
+at `max_watchlist: 4` it is three of four, so the trend tier gets ONE slot and the book is almost
+entirely brand-new names. That is a plausible cause of the mw=4 result measured 2026-08-22 at the
+canonical config: final $123,400 at mw=4 against $281,556 at mw=12, with position count identical
+(median 3, max 4) in every case -- `max_watchlist` is a CANDIDATE-POOL size here, not a holdings cap
+(holdings are capped by `concentration_cap 0.25` x `min_trade_size 0.2` at 4-5 names).
+
+THE FRESHNESS TIER IS UNPROVEN. Its own docstring records the measurement against a 60-seed random
+null: alphabetical 67th percentile, trailing-return 83rd, freshness+trend 83rd, oldest-first 53rd.
+Freshness+trend TIES trend alone -- the tier is kept on principle (non-negotiable #2: do not evict
+the early gems) rather than on evidence. A sweep can say whether it earns its slots.
+
+BOTH ARE BOOK KNOBS -- `_ranked_cull` is reached only from `firehose.backtest`, so this is a
+ZERO-COST sweep over the existing journal, no re-curation. Suggested ranges:
+  cull_fresh_slots  [0, 1, 2, 3, 4]      0 = pure trend rank, the null this tier must beat
+  cull_fresh_scans  [1, 2, 3, 4]
+Confirm they are classified in BOOK_KNOBS in provenance.py before adding them to GRID (adding a
+CURATION knob to the grid is refused by design).
