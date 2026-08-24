@@ -203,7 +203,16 @@ min_trade_size: 0.2              # positions smaller than this are DROPPED, not 
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
                                   #   inert here.
-risk_aversion: 16.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+risk_aversion: 8.0                 # λ in mean-variance. Higher = spreads wider, chases returns less.
+                                  #   16.0 -> 8.0 on 2026-08-24, promoting row 2 of SBT's region table.
+                                  #   The only knob that changed: row 2 is 6 / 0.25 / 21 / 0 / 8.0 / 0.2
+                                  #   against the previous 6 / 0.25 / 21 / 0 / 16.0 / 0.2. Row 2 ties row 1
+                                  #   on score (99.79 vs 99.79) but reaches it from the OTHER side of the
+                                  #   lambda range -- row 1 is lambda 24, the grid's top EDGE, where
+                                  #   "best" and "as far as the grid goes" cannot be told apart. Row 2 sits
+                                  #   interior, so it is the defensible half of a tie.
+                                  #   BOOK knob (src/provenance.py): acts at replay time over the fixed
+                                  #   journal, so this costs a rebuild, not a re-curation and not a re-sweep.
 optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
                                   #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book
                                   #   rebalanced monthly averages over two regimes of a fast-moving
