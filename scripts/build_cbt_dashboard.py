@@ -102,7 +102,12 @@ def main(argv=None) -> int:
     # under a bootstrap label.
     if a.bootstrap:
         if a.run == _canon.CANON_RUN:
-            a.run = "data/cbs_v1"
+            # cbs_v2, not v1: v1 was curated WITHOUT --decisions, so decisions.jsonl was absent and
+            # four panels rendered as zeros rather than as empty -- the funnel's proposed/admitted
+            # rows, scout inflow, does-a-bigger-bundle-make-the-scout-act, and gains-per-bundle. An
+            # absent input drawn as zero states something false ("bigger bundles never made the
+            # scout act"), which is worse than an empty chart.
+            a.run = "data/cbs_v2"
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
@@ -426,7 +431,7 @@ def main(argv=None) -> int:
                 print(f"  CBS book seeded from CBT {_seed_at}: {len(_seed_tk)} tickers carried into "
                       f"{str(_first.date())}", flush=True)
                 _scans = dict(sorted(_post.items()))
-                book_seed = {"from": _seed_at, "n": len(_seed_tk)}
+                book_seed = {"from": _seed_at, "n": len(_seed_tk), "tickers": _seed_tk}
         # ONE capital figure for every curve on the value panel -- the curated book, the
         # buy-and-hold of starter_watchlist, and SPY all start at initial_investment_usd.
         _wcap = _fh.watchlist_cap(_lfm0)
@@ -1226,6 +1231,27 @@ def main(argv=None) -> int:
             f"{pr}\u2192{ad}" if pr != "" else "—",
         ])
     book["changed_weeks"] = [r[0] for r in log_rows]
+    # WHERE THE BOOK'S P&L CAME FROM. On the bootstrap arm the book is SEEDED with the backtest's
+    # recommendation, so a headline "curated $X vs SPY $Y" reads as curator skill when a share of it
+    # is the inherited positions drifting. Measured on the first CBS run: of +$7,302 realised,
+    # +$7,792 came from tickers inherited from CBT and never re-picked, against +$1,942 from the
+    # curator's own names -- i.e. the majority was carried in, not earned here. Splitting it is the
+    # difference between reporting a result and reporting a fact.
+    try:
+        _bseed = set((book_seed or {}).get("tickers") or [])
+    except NameError:
+        _bseed = set()
+    if _bseed:
+        _own = {str(p_["ticker"]).strip().upper() for p_ in PICKS if (p_.get("ticker") or "").strip()}
+        _g = book.get("gain") or {}
+        _split = {"inherited": 0.0, "curator": 0.0, "both": 0.0, "anchor": 0.0}
+        for _t, _v in _g.items():
+            _in_seed, _in_own = _t in _bseed, _t in _own
+            _k = ("both" if (_in_seed and _in_own) else "inherited" if _in_seed
+                  else "curator" if _in_own else "anchor")
+            _split[_k] += float(_v or 0)
+        book["seed"] = {**(book_seed or {}), "tickers": sorted(_bseed),
+                        "split": {k: round(v, 2) for k, v in _split.items()}}
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
@@ -1263,6 +1289,21 @@ def main(argv=None) -> int:
                       + ("beat " + " and ".join(_beat) if _beat else "")
                       + (" but " if _beat and _lost else "")
                       + ("trailed " + " and ".join(_lost) if _lost else "") + ".")
+        # ...BUT SAY WHERE IT CAME FROM. On the bootstrap arm the book is seeded with the backtest's
+        # recommendation, so that sentence reads as curator skill when part of the move is inherited
+        # positions drifting. The split is the honest qualifier and it belongs beside the claim, not
+        # in a panel further down that a reader may never reach.
+        _sp_ = (book.get("seed") or {}).get("split") or {}
+        if _sp_:
+            _inh = _sp_.get("inherited", 0) + _sp_.get("both", 0)
+            _own_ = _sp_.get("curator", 0)
+            bh_verdict += (
+                f" <b>Read that with the split:</b> of the ${sum(_sp_.values()):+,.0f} realised, "
+                f"${_inh:+,.0f} came from the {(book.get('seed') or {}).get('n', 0)} tickers "
+                f"INHERITED from the backtest at {(book.get('seed') or {}).get('from', '?')} and "
+                f"${_own_:+,.0f} from names this curator picked itself. The book starts as the "
+                f"backtest's recommendation, so a rising curve is not by itself evidence the "
+                f"bootstrap curator added anything.")
 
     # ---- event storyboard: the journal, rendered ---------------------------------------------------
     _ret = {x["ticker"]: x["ret"] for x in prec}
