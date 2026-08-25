@@ -433,6 +433,15 @@ _SCOUT_DEADLINE = 420    # seconds for ALL scout chunks of one scan; a wedged ca
 SCOUT_CHUNK = 200        # headlines per scout call; 0 = one call over the whole pool (pre-2026-08-10)
 
 
+def _gkg_canon(q: str) -> str:
+    """gkg.canon_beat, imported lazily so agent.py keeps no hard import of the GKG module."""
+    try:
+        import gkg as _g
+        return _g.canon_beat(q)
+    except Exception:  # noqa: BLE001 -- never let beat bookkeeping sink a scan
+        return q
+
+
 def _gem_beats() -> set:
     """The gem-beat query strings from retrieval_config.json -- the strategy's own early-gem
     vocabulary (uranium squeeze, rare-earth curbs, export bans, war chokepoints, under-the-radar
@@ -1373,7 +1382,10 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
             continue
         s = (3 if any(v in title for v in veh) else 0)
         s += (2 if any(k in title for k in kws) else 0)
-        s += (1 if gem & set(a.get("queries") or []) else 0)
+        # canonicalise the tag before intersecting: `gem` holds the CONFIGURED names, the article
+        # holds whatever it was tagged with when retrieved. Renaming three beats on 2026-08-24
+        # silently dropped this bonus for 8,077 of 20,941 gem-scored articles. See gkg.canon_beat.
+        s += (1 if gem & {_gkg_canon(q) for q in (a.get("queries") or [])} else 0)
         scored.append((-s, a.get("published_date", "") or "", a))
     scored.sort(key=lambda x: (x[0], [-ord(c) for c in x[1]]))   # score desc, then newest first
     hits = [a for _, _, a in scored]

@@ -391,9 +391,38 @@ def beat_parent() -> dict:
     return dict(config().get("beat_parent") or {})
 
 
+_BEFORE_OP = re.compile(r"\s*\bbefore:\S+")
+
+
+def canon_beat(q: str) -> str:
+    """A raw article query-tag reduced to its CURRENT canonical beat name.
+
+    THE ONE PLACE that reconciles a corpus tag with the configured beat list. An article carries
+    whatever the beat was called, and in whatever shape the engine wrote it, at the moment it was
+    retrieved -- so two things drift apart from retrieval_config.json over time:
+
+      1. Anthropic's gather appends `before:<date>` to every query (it has no recency operator), so
+         the same beat arrives under a different tag every day it fires.
+      2. A beat gets RENAMED. `beat_renames` maps the old name forward.
+
+    Both were live defects. The `before:` form inflated "distinct beats" without bound and split one
+    bundle per beat per day. The 2026-08-24 rename was worse and silent: `_gem_beats() & queries` is
+    a set intersection against the CONFIGURED names, so renaming three beats stripped the gem bonus
+    from 8,077 of 20,941 gem-scored articles (38.6%) in any re-curation over the existing corpus,
+    while the frozen journal and every published number stayed unchanged. Nothing failed loudly.
+
+    Anything comparing an article tag to a configured beat MUST go through here."""
+    b = _BEFORE_OP.sub("", q or "").strip()
+    return (config().get("beat_renames") or {}).get(b, b)
+
+
 def bundle_beat(q: str) -> str:
-    """The bundle key for one beat -- itself, unless it merges into a parent."""
-    return beat_parent().get(q, q)
+    """The bundle key for one beat -- itself, unless it merges into a parent.
+
+    Canonicalises FIRST: a stale tag missed every beat_parent entry and fell through to itself,
+    which silently splits a bundle (see canon_beat)."""
+    b = canon_beat(q)
+    return beat_parent().get(b, b)
 
 
 def _specialty(profile: str | None = None) -> list[str]:

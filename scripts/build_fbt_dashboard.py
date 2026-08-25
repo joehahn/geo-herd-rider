@@ -31,6 +31,7 @@ import argparse
 import collections
 import html
 import json
+import re
 import statistics
 import sys
 from datetime import date, datetime, timedelta
@@ -40,6 +41,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))       # gkg: specialty/blocklist domain matching
 sys.path.insert(0, str(ROOT / "scripts"))   # dash_nav: shared cross-page nav
 
+import bootstrap_corpus as _bc  # noqa: E402  owns the query-tag convention (beat / engine)
 import dash_nav  # noqa: E402  shared cross-page nav (Backtest | Bootstrap | Forwardtest)
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import gkg as _gkg  # noqa: E402  specialty/blocklist domain matching, shared with the pipeline
@@ -61,11 +63,17 @@ def _LINK(href: str, label: str) -> str:
 # categorical light #2a78d6/#eb6834/#1baf7a -> all checks pass (worst adjacent CVD dE 9.2)
 # categorical dark  #3987e5/#d95926/#199e70 -> all checks pass (worst adjacent CVD dE 9.4)
 # ordinal blue 5-step -> monotone L, all adjacent dL >= 0.06, light end 2.06:1 vs surface
+# s4 ADDED 2026-08-24. A fourth categorical hue was needed once green stopped being available for
+# ordinary series: under the CBT colour convention green means GAIN and red means LOSS, so `s3` is
+# reserved and any panel with 3+ non-polarity series had nothing left to reach for. Purple validated
+# with the dataviz palette checker against both surfaces -- ALL CHECKS PASS as {s1, s2, s4} in light
+# (#2a78d6/#eb6834/#7c5cd6) and dark (#3987e5/#d95926/#9b7ce8). #a78bfa was tried first for dark and
+# FAILED the lightness band at 0.709.
 LIGHT = {"surface": "#fcfcfb", "text": "#0b0b0b", "text2": "#52514e", "grid": "#e6e5e1",
-         "s1": "#2a78d6", "s2": "#eb6834", "s3": "#1baf7a",
+         "s1": "#2a78d6", "s2": "#eb6834", "s3": "#1baf7a", "s4": "#7c5cd6",
          "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}
 DARK = {"surface": "#1a1a19", "text": "#ffffff", "text2": "#c3c2b7", "grid": "#33322f",
-        "s1": "#3987e5", "s2": "#d95926", "s3": "#199e70",
+        "s1": "#3987e5", "s2": "#d95926", "s3": "#199e70", "s4": "#9b7ce8",
         "ord": ["#86b6ef", "#3987e5", "#256abf", "#184f95", "#0d366b"]}
 # Status palette is FIXED (never themed) and always ships with a label, never colour alone.
 STATUS = {"good": "#0ca30c", "warning": "#fab219", "serious": "#ec835a", "critical": "#d03b3b"}
@@ -213,14 +221,43 @@ def funnel_rows(stats: dict, n_corpus: int, run: Path) -> list[tuple[str, int, s
 
 
 
-def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
+def beat_counts(arts) -> collections.Counter:
+    """Articles per BEAT, normalised and de-duplicated per article.
+
+    NOT a count of raw query tags. See bootstrap_corpus.beat_of: Anthropic tags every search with
+    `before:<date>`, so the raw counter holds one key per beat PER DAY. Counting those made the
+    "Beats firing" tile read 160/43 -- 160 distinct tags against 43 configured beats, i.e. "-117
+    beats returned nothing" -- while every per-beat total simultaneously missed its Anthropic half."""
+    c = collections.Counter()
+    for a in arts:
+        c.update(_bc.beats_of(a))
+    return c
+
+
+def verdicts(arts, stats, gem, all_beats, aud: dict, handoff: str = "") -> list[dict]:
     """The headline judgements. Each is (label, value, status, why) -- the page leads with these so a
-    reader sees what is WRONG before they see a pretty time series."""
+    reader sees what is WRONG before they see a pretty time series.
+
+    `handoff` (bootstrap only) SCOPES THE THREE TEXT TILES to the pre-handoff era. `lede`, `author`
+    and the wayback arm are GKG-side fields that websearch articles do not carry at all, so averaged
+    over a corpus that is a fifth websearch they describe neither era -- "has body text 77%" would be
+    reporting the era MIX, and would move whenever the forward half grows. Scoped, they are the same
+    GKG measurement the FBT page makes, over an honest denominator."""
     n = len(arts)
     days = {a.get("published_date", "")[:10] for a in arts if a.get("published_date")}
-    lede = sum(1 for a in arts if a.get("lede_live") or a.get("lede"))
-    auth = sum(1 for a in arts if a.get("author"))
-    beats = collections.Counter(q for a in arts for q in (a.get("queries") or []))
+    # the population the text tiles are computed over: pre-handoff only when there is a handoff
+    txt = [a for a in arts if (a.get("published_date") or "")[:10] < handoff] if handoff else arts
+    n_txt = max(len(txt), 1)
+    txt_of = f" of the {len(txt):,} pre-handoff" if handoff else f" of {n:,}"
+    lede = sum(1 for a in txt if a.get("lede_live") or a.get("lede"))
+    auth = sum(1 for a in txt if a.get("author"))
+    beats = beat_counts(arts)
+    n_beats = len(all_beats)
+    # only CONFIGURED beats count as "firing" -- the corpus also carries beats from earlier
+    # vocabularies and a handful of free-form Anthropic searches, and scoring those against today's
+    # 43-beat denominator is what produced a negative silent-beat count.
+    fired = sum(1 for b in all_beats if beats.get(b))
+    retired = sum(1 for b in beats if b not in all_beats)
     gem_n = sum(beats.get(q, 0) for q in gem)
     srcs = collections.Counter(a.get("source", "") for a in arts)
     # SPECIALTY-DESK REACH. These are the outlets hand-picked in the profile as the ones carrying the
@@ -240,8 +277,8 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
     # which is look-ahead BIASED. backtest_gdelt.py marks the clean arm as the ONLY one whose numbers
     # are quotable, so this share is the ceiling on how much of any backtest figure is defensible --
     # which makes it worth a tile of its own.
-    clean_n = sum(1 for a in arts if a.get("lede"))
-    clean_pct = 100 * clean_n / max(n, 1)
+    clean_n = sum(1 for a in txt if a.get("lede"))
+    clean_pct = 100 * clean_n / n_txt
 
     def st(v, good, warn):      # higher is better
         return "good" if v >= good else ("warning" if v >= warn else "critical")
@@ -254,12 +291,14 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         # still showing a GREEN status -- a tile claiming health from a number it did not have. If the
         # audit is ever revived the tile can come back with it; an empty tile on the status strip is
         # worse than no tile, because the strip is read as a checklist.
-        dict(label="Has body text", value=f"{100 * lede / max(n, 1):.0f}%", sub=f"{lede:,} of {n:,}",
-             status=st(100 * lede / max(n, 1), 85, 60),
-             why="Share with real article text. The rest reach the curator as a headline only."),
-        dict(label="Has byline", value=f"{100 * auth / max(n, 1):.0f}%", sub=f"{auth:,} named authors",
-             status=st(100 * auth / max(n, 1), 60, 30),
-             why="Share with a named human author. Wire and PR copy have none by design."),
+        dict(label="Has body text", value=f"{100 * lede / n_txt:.0f}%", sub=f"{lede:,}{txt_of}",
+             status=st(100 * lede / n_txt, 85, 60),
+             why="Share with real article text. The rest reach the curator as a headline only."
+                 + (" GKG era only — websearch articles carry no lede." if handoff else "")),
+        dict(label="Has byline", value=f"{100 * auth / n_txt:.0f}%", sub=f"{auth:,} named authors",
+             status=st(100 * auth / n_txt, 60, 30),
+             why="Share with a named human author. Wire and PR copy have none by design."
+                 + (" GKG era only — websearch articles carry no author." if handoff else "")),
         # REPLACED the "Volume floor" tile 2026-08-16. That one compared a thin day (p10) against a
         # typical day and sat permanently at CRITICAL -- but the thinnest 10% of days were 71 Sundays
         # and 39 Saturdays out of ~112. Pooling weekends with weekdays makes the distribution bimodal,
@@ -268,13 +307,18 @@ def verdicts(arts, stats, gem, n_beats: int, aud: dict) -> list[dict]:
         # healthy either way: weekdays 73%, weekends 58%. A permanently-red tile that is measuring the
         # calendar trains you to ignore the light.
         dict(label="Clean text", value=f"{clean_pct:.0f}%",
-             sub=f"{clean_n:,} of {n:,} via wayback",
+             sub=f"{clean_n:,}{txt_of} via wayback",
              status=st(clean_pct, 75, 50),
-             why="Fraction of articles whose text was retrieved via wayback."),
-        dict(label="Beats firing", value=f"{len(beats)}/{n_beats}",
-             sub=f"{n_beats - len(beats)} beat(s) returned nothing all year",
-             status=st(100 * len(beats) / max(n_beats, 1), 100, 85),
-             why="Standing weekly searches that returned at least one article this year."),
+             why="Fraction of articles whose text was retrieved via wayback."
+                 + (" GKG era only — the wayback pass never ran on the websearch half."
+                    if handoff else "")),
+        dict(label="Beats firing", value=f"{fired}/{n_beats}",
+             sub=(f"{n_beats - fired} configured beat(s) returned nothing"
+                  + (f" · {retired} retired/ad-hoc also present" if retired else "")),
+             status=st(100 * fired / max(n_beats, 1), 100, 85),
+             why="Configured standing searches that returned at least one article. Counted per "
+                 "beat, not per query tag — Anthropic dates every search, so one beat arrives "
+                 "under a different tag each day."),
         dict(label="Early-framing beats", value=f"{gem_n:,}", sub=f"{100 * gem_n / max(n, 1):.1f}% of corpus",
              status=st(100 * gem_n / max(n, 1), 15, 8),
              why="Articles from the 10 under-the-radar beats — the ones this strategy bets on."),
@@ -352,9 +396,36 @@ def tile(v: dict) -> str:
 
 
 def panel(num: int, title: str, lead: str, div_id: str, height: int, table: str = "") -> str:
+    """One EXPLICITLY numbered panel, rendered straight to HTML.
+
+    Kept as-is because build_cbt_dashboard.py and build_sbt_dashboard.py import this name and pass
+    a leading number. Changing this signature in place on 2026-08-24 broke both of them -- they are
+    separate entry points, so nothing in an FBT/FBS build exercises them. FBT/FBS itself uses
+    `panel_rec` + `render_panels` (positional numbering); see that docstring for why."""
     t = (f'<details class="tbl"><summary>data table</summary>{table}</details>') if table else ""
     return (f'<section class="panel"><h2>{num}. {esc(title)}</h2><p class="lead">{lead}</p>'
             f'<div id="{div_id}" class="plot" style="height:{height}px"></div>{t}</section>')
+
+
+def panel_rec(title: str, lead: str, div_id: str, height: int, table: str = "") -> dict:
+    """One panel, NOT yet numbered. `render_panels` assigns the number from list position.
+
+    Panels used to carry a hard-coded number, which meant dropping one silently renumbered every
+    panel after it while the prose kept pointing at the OLD numbers ("see panel 10"). Numbering by
+    position and writing cross-references as `@@div-id@@` makes both correct by construction --
+    the FBS arm drops five panels the FBT arm keeps, so the two pages number differently."""
+    return {"title": title, "lead": lead, "id": div_id, "h": height, "t": table}
+
+
+def render_panels(items: list[dict]) -> str:
+    idx = {it["id"]: i for i, it in enumerate(items, 1)}
+    out = []
+    for i, it in enumerate(items, 1):
+        lead = re.sub(r"@@([a-z0-9-]+)@@", lambda m: str(idx.get(m.group(1), "?")), it["lead"])
+        t = (f'<details class="tbl"><summary>data table</summary>{it["t"]}</details>') if it["t"] else ""
+        out.append(f'<section class="panel"><h2>{i}. {esc(it["title"])}</h2><p class="lead">{lead}</p>'
+                   f'<div id="{it["id"]}" class="plot" style="height:{it["h"]}px"></div>{t}</section>')
+    return "".join(out)
 
 
 def table_html(headers: list[str], rows: list[list]) -> str:
@@ -424,8 +495,19 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         _d0, _d1 = _dt.date.fromisoformat(_days[0]), _dt.date.fromisoformat(_days[-1])
         _cal = [( _d0 + _dt.timedelta(days=i)).isoformat() for i in range((_d1 - _d0).days + 1)]
         _post_cal = [d for d in _cal if d >= _H]
+        # PULL HEALTH IS A COLLECTION-DATE QUESTION, not a publication-date one. Both live here so
+        # the difference is explicit: `_zero` below is publication-side (a day nothing was PUBLISHED
+        # under), while the `_pull_*` fields are collection-side (a morning the cron did or did not
+        # FIRE). Scoring cron health on publication dates hides exactly the failure the panel exists
+        # to catch -- 2026-08-15's cron never ran, yet its publication bucket holds 4 articles that
+        # later pulls backfilled through Anthropic's week-long lookback, so it reads as a thin day
+        # rather than a dead one.
+        _pull_days = set(meta.get("pull_days") or [])
+        _pull_kept = meta.get("pull_kept") or {}
+        _pull_missing = [d for d in _post_cal if d not in _pull_days]          # cron did not fire
+        _pull_dead = [d for d in _post_cal if d in _pull_days and not _pull_kept.get(d)]
         _zero = [d for d in _post_cal if _by_day.get(d, 0) == 0]
-        _lastpull = _post_cal[-1] if _post_cal else None
+        _lastpull = max(_pull_days) if _pull_days else (_post_cal[-1] if _post_cal else None)
         def _q(v):
             v = sorted(v)
             return {"med": v[len(v) // 2], "p10": v[len(v) // 10], "p90": v[9 * len(v) // 10]} if v else {}
@@ -436,9 +518,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "post_per_day": round(sum(_post_days.values()) / max(len(_post_days), 1), 1),
             "zero_days": _zero, "n_missing": sum(1 for d in _post_cal if d not in _by_day),
             "last_day": _lastpull, "post_days": len(_post_cal),
+            # collection-side pull health
+            "pull_missing": _pull_missing, "pull_dead": _pull_dead,
+            "pull_n": len(_post_cal) - len(_pull_missing),
             "chars_pre": _q(_chars["pre"]), "chars_post": _q(_chars["post"]),
             # what the scout is handed, per era, AFTER lede.apply has filled snippet
-            "trailing": [(d, _by_day.get(d, 0)) for d in _cal[-21:]],
+            # trailing three weeks BY COLLECTION DATE: (day, articles kept, cron fired?)
+            "trailing": [(d, _pull_kept.get(d, 0), d in _pull_days) for d in _post_cal[-21:]],
         }
         # ---- SOURCE OVERLAP and BEAT FIRING across the seam --------------------------------------
         # NORMALISE THE HOSTNAME FIRST. The two gatherers disagree: 58% of websearch sources carry a
@@ -447,7 +533,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # That is a display defect, not a functional one -- specialty_allow and mill_block match by
         # SUBSTRING, so both lists hit identically either way (verified: 521 of 2,144 post articles
         # match specialty_allow under both spellings). It still corrupts every per-source count on
-        # this page, panel 10 included, by splitting a publisher into two rows.
+        # this page, the per-source panel included, by splitting a publisher into two rows.
         import re as _re
         _nsrc = lambda a: _re.sub(r"^www\.", "", (a.get("source") or "?").strip().lower())
         _sp, _sq = collections.Counter(), collections.Counter()
@@ -462,7 +548,11 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             if isinstance(_q, str):
                 try: _q = _ast.literal_eval(_q)
                 except Exception: _q = []
-            for _b in (_q or []):
+            # NORMALISE. Comparing raw tags across the seam compares GKG's bare beat names against
+            # Anthropic's dated ones, which invents a "new" beat per beat per day and simultaneously
+            # reports a beat as STOPPED when it fired the whole time under a dated tag. Both errors
+            # ran on this panel: 117 phantom new beats, and a false blind-spot call on the FDA beat.
+            for _b in {_bc.beat_of(_x) for _x in (_q or []) if _bc.beat_of(_x)}:
                 (_bp if _isPre else _bq)[_b] += 1
         _shared = set(_sp) & set(_sq)
         _postN = sum(_sq.values()) or 1
@@ -480,16 +570,21 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "stopped": [[b, _bp[b]] for b in sorted(set(_bp) - set(_bq))],
             "new_only": len(set(_bq) - set(_bp))}
 
+    comp = None
     if bootstrap:
         # An assembled corpus has no ingest funnel -- there is no BigQuery scan to narrow. What matters
-        # instead is COMPOSITION: how much came from each era, and where the seam is. Same panel slot,
-        # honest content, rather than a funnel chart with nothing to put in it.
-        fun = [(f"GKG + wayback (to {meta['handoff']})", meta["n_gkg"],
-                f"{meta['start']} → {meta['handoff']}, ~3 months of retrospective depth"),
-               (f"websearch daily (from {meta['handoff']})", meta["n_websearch"],
-                f"{meta['handoff']} → {meta['end']}, deduped by URL; grows every morning"),
-               ("title-spam dropped from the websearch era", meta["spam_dropped"],
-                "the backtest's filter re-applied, so both eras are filtered to one standard")]
+        # instead is COMPOSITION: how much came from each era, which ENGINE fetched the websearch half,
+        # and where the seam is. Same panel slot, honest content, rather than a funnel chart with
+        # nothing to put in it. VERTICAL + LINEAR, deliberately: the two things the panel has to say
+        # are "the GKG era is ~4x the websearch era" and "Anthropic is a sliver of the websearch era",
+        # and both are RATIOS -- a log axis would flatten the first and a horizontal bar buries the
+        # engine stack in a 200px label gutter. The 15 spam drops SHOULD look like nothing.
+        comp = {"handoff": meta["handoff"],
+                "total": meta["n_gkg"] + meta["n_websearch"],
+                "gkg": meta["n_gkg"], "websearch": meta["n_websearch"],
+                "tavily": meta["n_tavily"], "anthropic": meta["n_anthropic"],
+                "both": meta["n_both"], "spam": meta["spam_dropped"]}
+        fun = []
     else:
         fun = funnel_rows(stats, n, run)
 
@@ -536,10 +631,61 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         except ValueError:
             pass
 
-    beats = collections.Counter(q for a in arts for q in (a.get("queries") or []))
+    # SOURCE MIX PER BUCKET, at all three resolutions. Bootstrap only: the point is to see WHICH
+    # retrieval path supplied each day, so the era seam and the engine mix read off the same bars the
+    # coverage panel already draws -- which is what made the standalone seam panel redundant.
+    # Series are exclusive and sum to the flat count, so the stack equals the plain total.
+    def _series(a):
+        return "gkg" if a.get("era") != "websearch" else a.get("engine", "tavily")
+    MIX = ("gkg", "tavily", "both", "anthropic")
+    mix = {k: {"d": collections.Counter(), "w": collections.Counter(), "m": collections.Counter()}
+           for k in MIX}
+    mix_ready = bootstrap and any(a.get("pull_date") for a in arts)
+    if bootstrap:
+        for a in arts:
+            d = (a.get("published_date") or "")[:10]
+            if not d:
+                continue
+            k = _series(a)
+            if k not in mix:
+                continue
+            mix[k]["d"][d] += 1
+            mix[k]["m"][d[:7]] += 1
+            try:
+                _dt_ = date.fromisoformat(d)
+                mix[k]["w"][(_dt_ - timedelta(days=_dt_.weekday())).isoformat()] += 1
+            except ValueError:
+                pass
+
+    # THE UNSETTLED TAIL. Anthropic's gather looks back a week, so an article published today is
+    # usually caught by a LATER pull -- measured on this corpus, Tavily is same-day for 100% of what
+    # it finds while Anthropic's p90 lag is 6 days. The most recent published-dates therefore have
+    # not finished collecting their Anthropic share, and shading them stops the tail being read as
+    # Anthropic going dark. Measured, not hard-coded, so it tracks the real gather config.
+    settle = None
+    if bootstrap and mix_ready:
+        _lag = sorted((date.fromisoformat(a["pull_date"])
+                       - date.fromisoformat(a["published_date"][:10])).days
+                      for a in arts
+                      if a.get("era") == "websearch" and a.get("engine") != "tavily"
+                      and a.get("pull_date") and a.get("published_date"))
+        _lag = [d for d in _lag if 0 <= d <= 30]         # a mis-parsed date must not blow up the band
+        if _lag:
+            # MAX, not a percentile. The band's job is to cover every publication-date that can still
+            # gain articles, and UNDER-covering is the dangerous direction -- an unshaded day the
+            # reader trusts is the failure. Max cannot run away here because the gather's lookback is
+            # a hard ceiling on the lag (a 7-day lookback can only reach 6 days back from its anchor),
+            # so on this corpus max == p90 == 6 and the band is COMPLETE rather than probabilistic.
+            _win = _lag[-1]
+            _end = date.fromisoformat(meta["end"])
+            settle = {"from": (_end - timedelta(days=_win)).isoformat(), "days": _win,
+                      "anchor": meta["end"]}
+
+    beats = beat_counts(arts)   # normalised per-beat article counts; see beat_counts()
     cfg = json.loads((ROOT / "retrieval_config.json").read_text())
     all_beats = [b["query"] for b in cfg["gem_beats"]] + [b["query"] for b in cfg["coverage_beats"]]
-    tiles = "".join(tile(v) for v in verdicts(arts, stats, gem, len(all_beats), audits(run)))
+    tiles = "".join(tile(v) for v in verdicts(arts, stats, gem, all_beats, audits(run),
+                                              handoff=meta.get("handoff", "") if bootstrap else ""))
     beat_rows = sorted(((q, beats.get(q, 0), q in gem) for q in all_beats), key=lambda r: r[1])
 
     srcs = collections.Counter(a.get("source", "") for a in arts)
@@ -598,7 +744,11 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     _beat = collections.Counter()
     for a in _noorg:
         for q in (a.get("queries") or []):
-            _beat[_gkg.bundle_beat(q)] += 1
+            # NORMALISE FIRST. bundle_beat looks the query up in the parent map, and a raw Anthropic
+            # tag carries `before:<date>`, so it misses every entry and falls through to itself --
+            # which split one beat's bundle into one bundle PER DAY. 93 of the labels on this panel
+            # were dated fragments, and 30 of them were spurious one-article bundles.
+            _beat[_gkg.bundle_beat(_bc.beat_of(q))] += 1
             break                                   # median beats/article is 1; count each once
     _orphan_left = sum(1 for a in _noorg if not (a.get("queries") or []))
     labels = [b[2] for b in _BUCK] + ["beat\nbundles", "no bundle\nat all"]
@@ -641,6 +791,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         "bundles": bundles, "era": era,
         "funnel": {"labels": [r[0] for r in fun], "values": [r[1] for r in fun],
                    "notes": [r[2] for r in fun]},
+        "comp": comp,          # bootstrap only -- panel 1 draws composition instead of a funnel
         "backfill": {**(stats.get("wayback_overlay") or {}),
                      "m": months,
                      "none": [bymonth[m]["none"] for m in months],
@@ -659,6 +810,11 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         "daily": {"d": day_keys, "n": [byday[d] for d in day_keys]},
         "weekly": {"d": week_keys, "n": [byweek[w] for w in week_keys]},
         "monthly": {"m": months, "n": [bymonth[m]["n"] for m in months]},
+        # bootstrap only -- per-bucket counts for each retrieval path, same keys/order as above
+        "settle": settle,
+        "mix": ({k: {"d": [mix[k]["d"][x] for x in day_keys],
+                     "w": [mix[k]["w"][x] for x in week_keys],
+                     "m": [mix[k]["m"][x] for x in months]} for k in MIX} if bootstrap else None),
         "dow": {"k": DOW, "n": [dow.get(k, 0) for k in DOW]},
         "beats": {"q": [r[0] for r in beat_rows], "n": [r[1] for r in beat_rows],
                   "gem": [r[2] for r in beat_rows]},
@@ -701,17 +857,21 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     ptable = "".join(f"<tr><td>{esc(k)}</td><td>{v if '<a ' in str(v) else esc(v)}</td></tr>"
                      for k, v in params)
 
-    panels = "".join([
-        panel(1, ("How the bootstrap corpus is assembled" if bootstrap
+    panels = render_panels([
+        panel_rec(("How the bootstrap corpus is assembled" if bootstrap
                   else "Filtering the ingestion funnel"),
-              (f"A CLEAN CUT at {meta.get('handoff','?')}, not a blend: GKG + the wayback lede backfill "
-               f"before it, the daily websearch pull ONLY after it. GKG is not used past the handoff even "
-               f"though it has coverage there, because the forward test this leads to runs on websearch "
-               f"alone — blending would make the bootstrap richer than the thing it predicts. The seam is "
-               f"nearly invisible by volume (~101/day before, ~97/day after), but the eras are otherwise "
-               f"<b>97.7% disjoint by URL</b>, so treat any metric that moves at the handoff as a corpus "
-               f"change first and a signal second. Defined in src/bootstrap_corpus.py."
-               if bootstrap else
+              ((f"A CLEAN CUT at <b>{meta.get('handoff','?')}</b>, never a blend: GKG + wayback before "
+                f"it, the daily websearch pull only after it — the forward test this leads to runs on "
+                f"websearch alone, and blending would make the bootstrap richer than the thing it "
+                f"predicts. The websearch half is itself a union of two engines: Tavily fetched "
+                f"<b>{100 * (comp['tavily'] + comp['both']) / max(comp['websearch'], 1):.0f}%</b> of it "
+                f"and is the only one that reaches the Dow Jones desks, Anthropic the rest, and they "
+                f"overlap on <b>{100 * comp['both'] / max(comp['websearch'], 1):.1f}%</b> — all but "
+                f"disjoint, so a silently dead engine is a hole, not a rounding error. Engine is "
+                f"<b>inferred</b> from the query tags, not recorded (<code>bootstrap_corpus.engine_of</code>). "
+                f"<br><br><b>Log y-axis</b> — the only way 9 and 15 are visible beside 9,269. "
+                f"One bar per source, so every height is that source's own count."
+                if bootstrap and comp else
                "Each bar is what REMAINS; the arithmetic reconciles to the corpus count. "
                "<b>Log x-axis</b>."
                + ("<br><br>The top four stages run inside the BigQuery query, scaled from four sampled weeks. "
@@ -726,62 +886,75 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                   "")
                + ""
                + f"<br><br>Configured in {_LINK(CONFIG_URL, 'retrieval_config.json')} and "
-                 f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')}."),
-              "p-funnel", 460),
-        panel(2, "Coverage over time",
-              "The same corpus at three resolutions: per month, per ISO week, and per day. Month shows "
-              "whether any stretch of calendar is under-served; week is the scout's actual cadence, so "
-              "a thin week is a thin decision; day exposes individual holes the coarser views average "
-              "away. Flat and gap-free is the goal.",
+                 f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')}.")),
+              "p-funnel", 420 if bootstrap else 460),
+        panel_rec("Coverage over time",
+              "The same corpus at three resolutions: per month, per ISO week, and per day. Month "
+              "shows whether any stretch of calendar is under-served, week is the scout's actual "
+              "cadence, and day exposes the individual holes the coarser views average away."
+              + ((f" Bars are stacked by which path fetched the article — blue is GKG + wayback "
+                  f"(<b>{era['pre_per_day']}/day</b>) before the dashed handoff, orange Tavily and "
+                  f"purple Anthropic (<b>{era['post_per_day']}/day</b>) after it. Anthropic searches "
+                  f"a week back rather than a day, so the shaded tail has not finished filling and "
+                  f"is not a gap." if era else "") if bootstrap else "")
+              + " Flat and gap-free is the goal.",
               "p-vol", 700),
-        panel(3, "Articles by day of week",
+        panel_rec("Articles by day of week",
               "Where the volume sits across the week. A weekend trough is normal market-news "
               "behaviour, not a retrieval fault — this panel exists so a real gap is distinguishable "
               "from the ordinary weekly cycle.",
               "p-dow", 300),
-        panel(4, "Body text vs time",
-              "Fraction of articles containing text rather than just a bare headline. Older articles "
-              "score worse because their links have rotted.",
-              "p-text", 360),
-        panel(5, "Lede provenance by month",
-              "Counts of where each month's text came from. <b>Clean</b> is the Wayback copy pulled "
-              "from archive.org as written when crawled soon after publication. <b>Biased</b> is the "
-              "current text (pulled via the GKG-provided url) which may have been edited since. "
-              "<b>None</b> is a bare headline.",
-              "p-prov", 380),
-        panel(6, "Wayback hit rate (of URLs attempted)",
-              "A Wayback pass fills the articles that reached the curator as a bare headline — dead "
-              "links, 5xx, paywalls. Grey is the remaining hole per month, green is text recovered. "
-              "The hole concentrates in the oldest months, where links have rotted, and in the "
-              "NEWEST, where archive.org has not crawled yet. This panel reads the backfill's cache "
-              "directly rather than the corpus file, so it moves on every rebuild instead of waiting "
-              "for the multi-day pass to finish."
-              "<br><br><b>Mind the denominator.</b> The headline percentage here is hits &divide; URLs "
-              "<b>ATTEMPTED</b> — only the articles that lacked text and were queued for Wayback. It "
-              "is NOT the share of the corpus carrying text, which is the stat tile above and panel 5. "
-              "The two are easily confused because they currently sit a tenth of a point apart by "
-              "coincidence: the hit rate is 63.3% of attempted URLs, while live-page text happens to "
-              "be 63.4% of the corpus. Corpus text coverage is 87% (23% archived + 63% live).",
-              "p-backfill", 360),
-        panel(7, "Live vs archived text divergence",
-              "Most of this corpus was read from the article's page <b>as it looks today</b>, "
-              "because that is ~2,600&times; faster than pulling an archived copy. The risk: today's "
-              "page may no longer be what ran on the decision date."
-              "<br><br>A month-stratified sample was fetched BOTH ways — today's page and the "
-              "archive.org snapshot from on-or-before that date. This plots the share where the two "
-              "differ materially: a spot check on the ~87% we could not afford to fetch cleanly. Flat "
-              "and low means today's page is a faithful stand-in at every age.",
-              "p-drift", 360),
-        panel(8, "Why text is missing",
-              "The recorded reason each headline-only article failed, straight from the fetch — all "
-              "code, no AI. <b>url_recycled</b> is a real test: the page loaded and produced text, but "
-              "shared too few words with the stored headline, so that URL now serves a different "
-              "story. <b>removed</b> is HTTP 404/410. <b>blocked_or_paywalled</b> is 401/403 — a "
-              "paywall and a bot-wall are indistinguishable to an anonymous client, so they share one "
-              "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
-              "are genuine walls and 18% our parser failing.",
-              "p-miss", 340),
-        panel(9, "Articles per beat",
+        # THE LEDE/WAYBACK FAMILY -- FBT ONLY. All five measure the wayback text backfill, which by
+        # construction exists only before the handoff: websearch articles carry no `lede`, `author`
+        # or `text_miss` field at all, so on the bootstrap corpus every one of these plots a GKG-era
+        # quantity that cliffs to zero in its last month for a structural reason, not a retrieval
+        # one. FBT already measures the same machinery over the full 3-year GKG corpus, where it is
+        # the point of the page. What the curator reads AFTER the handoff is panel @@p-chars@@.
+        ] + ([] if bootstrap else [
+            panel_rec("Body text vs time",
+                  "Fraction of articles containing text rather than just a bare headline. Older articles "
+                  "score worse because their links have rotted.",
+                  "p-text", 360),
+            panel_rec("Lede provenance by month",
+                  "Counts of where each month's text came from. <b>Clean</b> is the Wayback copy pulled "
+                  "from archive.org as written when crawled soon after publication. <b>Biased</b> is the "
+                  "current text (pulled via the GKG-provided url) which may have been edited since. "
+                  "<b>None</b> is a bare headline.",
+                  "p-prov", 380),
+            panel_rec("Wayback hit rate (of URLs attempted)",
+                  "A Wayback pass fills the articles that reached the curator as a bare headline — dead "
+                  "links, 5xx, paywalls. Grey is the remaining hole per month, green is text recovered. "
+                  "The hole concentrates in the oldest months, where links have rotted, and in the "
+                  "NEWEST, where archive.org has not crawled yet. This panel reads the backfill's cache "
+                  "directly rather than the corpus file, so it moves on every rebuild instead of waiting "
+                  "for the multi-day pass to finish."
+                  "<br><br><b>Mind the denominator.</b> The headline percentage here is hits &divide; URLs "
+                  "<b>ATTEMPTED</b> — only the articles that lacked text and were queued for Wayback. It "
+                  "is NOT the share of the corpus carrying text, which is the stat tile above and panel @@p-prov@@. "
+                  "The two are easily confused because they currently sit a tenth of a point apart by "
+                  "coincidence: the hit rate is 63.3% of attempted URLs, while live-page text happens to "
+                  "be 63.4% of the corpus. Corpus text coverage is 87% (23% archived + 63% live).",
+                  "p-backfill", 360),
+            panel_rec("Live vs archived text divergence",
+                  "Most of this corpus was read from the article's page <b>as it looks today</b>, "
+                  "because that is ~2,600&times; faster than pulling an archived copy. The risk: today's "
+                  "page may no longer be what ran on the decision date."
+                  "<br><br>A month-stratified sample was fetched BOTH ways — today's page and the "
+                  "archive.org snapshot from on-or-before that date. This plots the share where the two "
+                  "differ materially: a spot check on the ~87% we could not afford to fetch cleanly. Flat "
+                  "and low means today's page is a faithful stand-in at every age.",
+                  "p-drift", 360),
+            panel_rec("Why text is missing",
+                  "The recorded reason each headline-only article failed, straight from the fetch — all "
+                  "code, no AI. <b>url_recycled</b> is a real test: the page loaded and produced text, but "
+                  "shared too few words with the stored headline, so that URL now serves a different "
+                  "story. <b>removed</b> is HTTP 404/410. <b>blocked_or_paywalled</b> is 401/403 — a "
+                  "paywall and a bot-wall are indistinguishable to an anonymous client, so they share one "
+                  "honest label. <b>no_text_on_page</b> is a 200 with no prose; audited separately, 82% "
+                  "are genuine walls and 18% our parser failing.",
+                  "p-miss", 340),
+        ]) + [
+        panel_rec("Articles per beat",
               "A <b>beat</b> is one standing weekly search; all 46 live in "
               f"{_LINK(CONFIG_URL, 'retrieval_config.json')}, each with a plain-English query (used "
               "verbatim on the forward path) and keyword atoms (matched against headline and URL "
@@ -794,31 +967,31 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               f"sources in {_LINK(SOURCES_URL, 'news_sources.md')}. The English-origin gate (plot 1) "
               "is still in code — a wart.",
               "p-beats", 900),
-        panel(10, "Articles per source",
+        panel_rec("Articles per source",
               "The 50 largest outlets, plus everything else folded into one grey bar. A sweep "
               "dominated by a handful of publishers inherits their editorial priorities; a long tail "
               "means genuine breadth.",
               "p-src", 1050),
-        panel(11, "Specialty-desk reach",
+        panel_rec("Specialty-desk reach",
               "The outlets hand-picked in "
               f"{_LINK(PROFILE_URL, 'investor_profile.backtest.md')} as <code>specialty_allow</code> — "
               "the desks expected to carry the early call. On the forward path a whole search pass is "
               "restricted to them; BigQuery cannot do that, so here they are simply measured. Desks "
               "with <b>zero</b> articles are shown, not omitted — that is the finding.",
               "p-spec", 620),
-        panel(12, "News replication",
+        panel_rec("News replication",
               "The same story often runs on many sites at once; ingest merges those copies and "
               "counts how many outlets ran each one (plot 1 calls this step <i>syndication</i>). Most "
               "sit at 1 — a story only one outlet carried is one the market probably has not priced "
               "yet. Widest this year: 122 outlets. Log axis.",
               "p-syn", 320),
-        panel(13, "Articles per author",
+        panel_rec("Articles per author",
               "The 25 most frequent named writers, with the no-byline bucket shown in grey for scale. "
               "Wire copy, PR releases and the publisher's own name are excluded by design, so a "
               "byline here is a real person. Most of the corpus has none — that is normal for market "
               "news, not a fault. Log axis.",
               "p-auth", 640),
-        panel(14, "Articles per bundle",
+        panel_rec("Articles per bundle",
               "Articles are bundled before the scout reads them, so a ticker\u2019s move-signal and "
               f"its driver arrive together. The <b>{bundles['top_n']} largest</b> bundles are named; "
               f"the grey bar at the bottom is every other bundle combined \u2014 "
@@ -836,19 +1009,12 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "read, and is never split.",
               "p-group", 1500),
     ] + ([
-        panel(15, "The handoff seam",
-              f"The bootstrap is deliberately TWO regimes with a clean cut at <b>{meta['handoff']}</b>, "
-              "not a blend: GKG with the wayback backfill before it, the daily websearch pull after. "
-              "Every other panel on this page aggregates the two, which is exactly wrong for judging "
-              "forward readiness \u2014 only the post-handoff half resembles production.<br><br>"
-              f"Blue is GKG ({era['pre_per_day']}/day), amber is websearch "
-              f"({era['post_per_day']}/day). The axis is CALENDAR-COMPLETE, so a day the pull missed "
-              "draws as a hole rather than being skipped. <b>Known confound:</b> the run-up across "
-              "07-25..07-29 (15 &rarr; 33 &rarr; 48 &rarr; 85 &rarr; 102) is unexplained, plausibly a "
-              "Tavily quota or config change, so any before/after comparison spanning that date is "
-              "not a retrieval result.",
-              "p-seam", 380),
-        panel(16, "What the curator actually reads, per era",
+        # "The handoff seam" RETIRED 2026-08-24. It was a daily bar chart of the calendar
+        # coloured by era -- the same bars panel @@p-vol@@ draws, which now stacks by
+        # retrieval path and carries the handoff line, so the seam is visible there at all
+        # three resolutions instead of only one. Its two load-bearing facts (the per-day
+        # rates and the 07-25..07-29 confound) moved into that panel's prose.
+        panel_rec("What the curator actually reads, per era",
               "The sharpest difference on this page, and it is not visible anywhere else. Post-handoff "
               "articles carry <b>no lede at all</b> \u2014 0% archived, 0% live \u2014 so the scout "
               "sees only the search snippet. Pre-handoff articles get a wayback lede written into the "
@@ -860,18 +1026,24 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "GKG one, but capped and never enriched. If the wayback backfill is what makes the "
               "backtest work, the forward era does not have it.",
               "p-chars", 360),
-        panel(17, "Daily pull health",
-              "The operational card: is the morning cron actually firing? Bars are the trailing three "
-              "weeks; the dashed line is the post-handoff median. "
-              f"<b>Last day in the corpus: {era['last_day']}.</b> "
-              f"Zero-article days since the handoff: <b>{len(era['zero_days'])}</b>"
-              + (f" ({', '.join(era['zero_days'][:5])})" if era['zero_days'] else "")
-              + f". Days absent entirely: <b>{era['n_missing']}</b>. "
-              "Two days were already lost on 2026-07-11/12 when cron did not fire, and a silent gap "
-              "is the failure mode this panel exists to catch \u2014 the corpus simply stops growing "
-              "and every downstream number keeps looking reasonable.",
+        panel_rec("Daily pull health",
+              "The operational card: is the morning cron actually firing? Each bar is one morning's "
+              "pull over the trailing three weeks, and the dotted line is the median. "
+              "<b>This is the one panel keyed to COLLECTION date</b> \u2014 every other panel here "
+              "buckets by publication date, which is the wrong axis for this question: a morning the "
+              "cron missed still fills its publication bucket from later pulls (Anthropic searches a "
+              "week back), so it reads as a thin day rather than a dead one.<br><br>"
+              f"<b>Last pull: {era['last_day']}.</b> Mornings the cron fired since the handoff: "
+              f"<b>{era['pull_n']} of {era['post_days']}</b>. "
+              + (f"<b>Missed entirely: {', '.join(era['pull_missing'])}</b> \u2014 no pull file was "
+                 f"written, so nothing was collected that morning."
+                 if era['pull_missing'] else "None missed.")
+              + (f" Pulls that ran but collected nothing: <b>{len(era['pull_dead'])}</b>."
+                 if era['pull_dead'] else " Every pull that ran collected something.")
+              + " A silent gap is the failure mode this panel exists to catch \u2014 the corpus "
+                "stops growing and every downstream number keeps looking reasonable.",
               "p-pull", 340),
-        panel(18, "Which publishers the forward half reads",
+        panel_rec("Which publishers the forward half reads",
               f"Only <b>{era['src']['shared']}</b> hostnames appear in both eras, and just "
               f"<b>{era['src']['post_from_shared']}%</b> of post-handoff articles come from a "
               "publisher GKG also carried. Amber bars are the biggest websearch sources GKG NEVER "
@@ -882,10 +1054,10 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               f"publishers. Note also that <b>{era['src']['www_post']:.0f}%</b> of websearch sources "
               "carry a <code>www.</code> prefix and none of GKG\u2019s do; the counts here are "
               "normalised, but the RAW strings are not, which splits a publisher into two rows on "
-              "panel 10. It is display-only \u2014 <code>specialty_allow</code> and "
+              "panel @@p-src@@. It is display-only \u2014 <code>specialty_allow</code> and "
               "<code>mill_block</code> match by substring and hit identically either way.",
               "p-srcera", 420),
-        panel(19, "Which beats survive the handoff",
+        panel_rec("Which beats survive the handoff",
               f"<b>{era['beat']['shared']}</b> of the {era['beat']['n_pre']} pre-handoff beats still "
               f"fire after it, and <b>{era['beat']['new_only']}</b> more appear that GKG never used "
               "\u2014 the websearch gather runs a wider standing-query vocabulary. So the beat set "
@@ -942,13 +1114,67 @@ function base(p, extra) {{
   }}, extra || {{}});
 }}
 const CFG = {{displayModeBar:false, responsive:true}};
+// DRAW ONLY WHAT THIS PAGE HAS. The two arms ship different panel sets (FBS drops the lede/wayback
+// family, FBT has no era panels), and Plotly.react on an id that is not in the DOM THROWS -- which
+// aborts draw() and leaves every panel after it blank. That exact failure blanked the whole FBS
+// page once already. Missing div -> silently skip; every call below goes through here.
+function react(id, data, layout, cfg) {{
+  if (document.getElementById(id)) Plotly.react(id, data, layout, cfg);
+}}
 
 function draw() {{
   const p = pal();
 
-  // 1. funnel — horizontal bars, ordinal blue (magnitude down a fixed sequence of stages)
+  // 1a. BOOTSTRAP: corpus COMPOSITION, not a funnel -- VERTICAL bars on a LINEAR axis, with the
+  //     websearch bar stacked by which engine fetched it. Vertical because the two readings the panel
+  //     owes the reader are both ratios (GKG era vs websearch era; Tavily vs Anthropic inside it) and
+  //     height differences read as ratios where a 200px label gutter and a log axis do not. Linear
+  //     because a log axis would flatten the 4x era gap AND lie about stacked segment heights; the
+  //     15 spam drops are SUPPOSED to look like nothing. Only ONE date appears anywhere here: the
+  //     handoff, which is the only one the composition depends on.
+  if (DATA.comp) {{
+    const c = DATA.comp, H = c.handoff;
+    // ONE BAR PER SOURCE, not a stack. A stack cannot survive the log axis: the three engine
+    // boundaries land at log10(2064/2073/2232), which is 0.8% of the bar's height, so the segments
+    // collapse into the 2px borders and the engine split -- the thing this panel exists to show --
+    // disappears. Flat bars are each sized by their own value, so log renders all five honestly,
+    // 9 and 15 included. The websearch three are bracketed by a tinted band and named once above it.
+    const X = ['GKG + wayback<br>before ' + H, 'Tavily only', 'both engines', 'Anthropic only',
+               'title-spam dropped'];
+    const V = [c.gkg, c.tavily, c.both, c.anthropic, c.spam];
+    const C = [p.s1, p.s2, p.text2, p.s4, p.text2];
+    const NOTE = ['pre-handoff: GKG + the wayback lede backfill',
+                  'websearch: Tavily reached it, Anthropic did not',
+                  'websearch: BOTH engines reached it',
+                  'websearch: Anthropic reached it, Tavily did not',
+                  'excluded from the ' + c.total.toLocaleString() + ' -- the backtest filter, re-applied'];
+    react('p-funnel', [{{
+      type:'bar', x:X, y:V,
+      marker:{{color:C, line:{{width:2, color:p.surface}}}},
+      text:V.map(v=>v.toLocaleString()), textposition:'outside',
+      textfont:{{color:p.text2, size:12.5}}, cliponaxis:false,
+      customdata:NOTE, hovertemplate:'%{{y:,}} articles<br>%{{customdata}}<extra></extra>'
+    }}], base(p, {{bargap:0.4, margin:{{l:70, r:24, t:52, b:62}},
+        shapes:[{{  // the bracket: these three bars are one era, subdivided
+          type:'rect', xref:'x', x0:0.5, x1:3.5, yref:'paper', y0:0, y1:1,
+          fillcolor:p.grid, opacity:0.4, line:{{width:0}}, layer:'below'}}],
+        annotations:[{{
+          x:2, xref:'x', y:1.0, yref:'paper', yanchor:'bottom', yshift:8, showarrow:false,
+          font:{{size:11.5, color:p.text2}},
+          text:'websearch daily, from ' + H + ' \u2014 <b>' + c.websearch.toLocaleString()
+               + '</b> articles, a union of two engines'}}],
+        xaxis:{{type:'category', gridcolor:'rgba(0,0,0,0)', linecolor:p.grid, tickfont:{{size:11.5}}}},
+        // LOG, requested: it is what makes 9 and 15 visible at all next to 9,269. Each bar is its
+        // own value, so nothing here is a misleading share of a whole. Range starts at 1 because a
+        // log axis has no zero, and clears the tallest bar so its label is not clipped.
+        yaxis:{{type:'log', gridcolor:p.grid, zerolinecolor:p.grid,
+                range:[0, Math.log10(c.gkg) + 0.18],
+                title:{{text:'articles (log scale)', font:{{size:11}}}}}}
+    }}), CFG);
+  }} else {{
+  // 1b. funnel — horizontal bars, ordinal blue (magnitude down a fixed sequence of stages)
   const f = DATA.funnel, nst = f.labels.length;
-  Plotly.react('p-funnel', [{{
+  react('p-funnel', [{{
     type:'bar', orientation:'h', x:f.values, y:f.labels,
     marker:{{color:f.labels.map((_,i)=>p.ord[Math.min(Math.floor(i*p.ord.length/nst), p.ord.length-1)]),
              line:{{width:2, color:p.surface}}}},
@@ -960,36 +1186,79 @@ function draw() {{
       xaxis:{{type:'log', gridcolor:p.grid, zerolinecolor:p.grid,
               title:{{text:'articles remaining (log scale)', font:{{size:11}}}}}}
   }}), CFG);
+  }}
 
   // 2. volume at three resolutions -- SMALL MULTIPLES, one shared measure (articles), never a
   //    second y-scale on one frame. Each row is its own subplot with its own count axis.
-  Plotly.react('p-vol', [
-    {{type:'bar', x:DATA.monthly.m, y:DATA.monthly.n, marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
-      xaxis:'x', yaxis:'y', hovertemplate:'%{{x}}<br>%{{y:,}} articles<extra>month</extra>'}},
-    {{type:'bar', x:DATA.weekly.d, y:DATA.weekly.n, marker:{{color:p.s1}},
-      xaxis:'x2', yaxis:'y2', hovertemplate:'week of %{{x}}<br>%{{y:,}} articles<extra>week</extra>'}},
-    {{type:'bar', x:DATA.daily.d, y:DATA.daily.n, marker:{{color:p.s1}},
-      xaxis:'x3', yaxis:'y3', hovertemplate:'%{{x}}<br>%{{y}} articles<extra>day</extra>'}}
-  ], base(p, {{
+  // the handoff, marked on all three resolutions. Bootstrap-only -- a single-pool FBT corpus has no
+  // seam to mark, so DATA.comp gates it. All three subplots are DATE axes, so the date goes in raw.
+  const HOFF = DATA.comp ? DATA.comp.handoff : null;
+  const hline = ax => ({{type:'line', xref:ax, x0:HOFF, x1:HOFF, yref:ax.replace('x','y') + ' domain',
+    y0:0, y1:1, line:{{color:p.text2, width:1.5, dash:'dash'}}, layer:'above'}});
+  // STACKED BY RETRIEVAL PATH when the corpus has more than one. This is what retired the standalone
+  // seam panel: the era cut and the engine mix are properties of the SAME bars this panel already
+  // draws, so drawing them twice was two panels disagreeing waiting to happen. The four series are
+  // exclusive and sum to the flat total, so every bar is still the day's article count.
+  const MIX = DATA.mix, SRC = MIX ? [
+    ['gkg',       'GKG + wayback', p.s1],
+    ['tavily',    'Tavily',        p.s2],
+    ['both',      'both engines',  p.text2],
+    ['anthropic', 'Anthropic',     p.s4]] : [];
+  const volTrace = (res, xs, ax, unit) => MIX
+    ? SRC.map(([k, name, col]) => ({{
+        type:'bar', name:name, x:xs, y:MIX[k][res], legendgroup:k, showlegend:ax === 'x',
+        // 2px surface gap between stacked segments -- but NOT on the daily row, where 119 bars
+        // are only a few px wide each and a 2px border would eat the bar it is separating
+        marker:{{color:col, line:{{width:res === 'd' ? 0 : 2, color:p.surface}}}},
+        xaxis:ax, yaxis:ax.replace('x','y'),
+        hovertemplate:'%{{x}}<br>%{{y:,}} from ' + name + '<extra>' + unit + '</extra>'}}))
+    : [{{type:'bar', x:xs, y:res === 'm' ? DATA.monthly.n : res === 'w' ? DATA.weekly.n : DATA.daily.n,
+        marker:{{color:p.s1}}, xaxis:ax, yaxis:ax.replace('x','y'),
+        hovertemplate:'%{{x}}<br>%{{y:,}} articles<extra>' + unit + '</extra>'}}];
+  react('p-vol', [].concat(
+    volTrace('m', DATA.monthly.m, 'x',  'month'),
+    volTrace('w', DATA.weekly.d,  'x2', 'week'),
+    volTrace('d', DATA.daily.d,   'x3', 'day')
+  ), base(p, {{
     grid:{{rows:3, columns:1, pattern:'independent', roworder:'top to bottom'}},
-    margin:{{l:64,r:24,t:26,b:40}}, bargap:0.15,
-    annotations:[
+    barmode:'stack', showlegend:!!MIX,
+    legend:{{orientation:'h', y:1.10, x:0, font:{{size:11}}, traceorder:'normal'}},
+    margin:{{l:64,r:24,t:MIX ? 46 : 26,b:58}}, bargap:0.15,
+    shapes: (HOFF ? ['x','x2','x3'].map(hline) : []).concat(
+      // the unsettled tail, daily row only -- at month and week resolution it is a sliver of one bar
+      DATA.settle ? [{{type:'rect', xref:'x3', x0:DATA.settle.from, x1:DATA.daily.d[DATA.daily.d.length-1],
+        yref:'y3 domain', y0:0, y1:1, fillcolor:p.text2, opacity:0.10, line:{{width:0}},
+        layer:'below'}}] : []),
+    annotations:(HOFF ? [{{  // named once, on the top row -- three copies would just be noise
+      x:HOFF, xref:'x', xanchor:'left', yref:'y domain', y:1, yanchor:'top', showarrow:false,
+      font:{{size:10.5, color:p.text2}}, text:' handoff ' + HOFF}}] : []).concat(
+      DATA.settle ? [{{x:DATA.settle.from, xref:'x3', xanchor:'right', yref:'y3 domain', y:1,
+        yanchor:'top', showarrow:false, font:{{size:10, color:p.text2}},
+        text:'Anthropic still filling \u2192 '}}] : []).concat([
       {{text:'per month', x:0, xref:'paper', y:1.0,  yref:'paper', showarrow:false,
         font:{{size:11.5, color:p.text2}}, xanchor:'left'}},
       {{text:'per ISO week', x:0, xref:'paper', y:0.635, yref:'paper', showarrow:false,
         font:{{size:11.5, color:p.text2}}, xanchor:'left'}},
       {{text:'per day', x:0, xref:'paper', y:0.27, yref:'paper', showarrow:false,
         font:{{size:11.5, color:p.text2}}, xanchor:'left'}}
-    ],
+    ]),
     xaxis:{{gridcolor:p.grid}},  yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}},
     xaxis2:{{gridcolor:p.grid}}, yaxis2:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}},
-    xaxis3:{{gridcolor:p.grid}}, yaxis3:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}
+    // NAME THE AXIS. All three rows bucket by PUBLICATION date, not by the day the article was
+    // fetched -- that is what makes the panel a statement about news-calendar coverage, and it is
+    // also the only axis both eras share (GKG's half came out of one BigQuery batch and has no
+    // meaningful per-day collection date). It is also why the tail is unsettled: a slow engine's
+    // articles arrive under an OLD publication date. Titled on the bottom row only, for the stack.
+    xaxis3:{{gridcolor:p.grid,
+             title:{{text:'publication date — the day the news ran, not the day it was fetched',
+                     font:{{size:11}}}}}},
+    yaxis3:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}
   }}), CFG);
 
   // 4. body text vs article age -- connected dots (a trend over an ordered axis), single series so
   //    no legend box; the title names it. Markers >= 8px with a surface ring so overlaps stay legible.
   const M = DATA.months, share = M.n.map((tot,i)=>100*M.text[i]/tot);
-  Plotly.react('p-text', [{{
+  react('p-text', [{{
     type:'scatter', mode:'lines+markers', x:M.m, y:share,
     line:{{color:p.s1, width:2}},
     marker:{{color:p.s1, size:10, line:{{width:2, color:p.surface}}}},
@@ -1008,7 +1277,7 @@ function draw() {{
   // 5. lede provenance -- stacked COUNTS. Green=clean is the status "good" colour deliberately: this
   //    is the only band a quotable number may rest on. Orange=biased, grey=none.
   const PR = DATA.prov;
-  Plotly.react('p-prov', [
+  react('p-prov', [
     {{type:'bar', name:'clean (as-of archive)', x:PR.m, y:PR.clean,
       marker:{{color:ST.good, line:{{width:2,color:p.surface}}}},
       hovertemplate:'%{{x}}<br>%{{y:,}} clean<extra></extra>'}},
@@ -1027,7 +1296,7 @@ function draw() {{
   // 6. wayback backfill -- reads the backfill's own cache, so this moves on every rebuild instead
   //    of waiting for the multi-day pass to rewrite pool.json. Stacked: recovered vs still missing.
   const BF = DATA.backfill;
-  Plotly.react('p-backfill', [
+  react('p-backfill', [
     {{type:'bar', name:'text recovered from archive.org', x:BF.m, y:BF.clean,
       marker:{{color:ST.good, line:{{width:2, color:p.surface}}}},
       hovertemplate:'%{{x}}<br>%{{y:,}} recovered<extra></extra>'}},
@@ -1043,7 +1312,7 @@ function draw() {{
   // 7. measured drift -- connected dots over an ordered axis, single series (no legend box; the
   //    title names it). Nulls where a month had no both-arms sample rather than an implied zero.
   const DR = DATA.drift;
-  Plotly.react('p-drift', [{{
+  react('p-drift', [{{
     type:'scatter', mode:'lines+markers+text', x:DR.m, y:DR.pct, connectgaps:false,
     line:{{color:p.s1, width:2}},
     marker:{{color:p.s1, size:10, line:{{width:2, color:p.surface}}}},
@@ -1058,7 +1327,7 @@ function draw() {{
 
   // 5. why text is missing -- measured reasons, horizontal bars, labelled (never colour alone)
   const MS = DATA.miss;
-  Plotly.react('p-miss', [{{
+  react('p-miss', [{{
     type:'bar', orientation:'h', x:MS.n.slice().reverse(), y:MS.k.slice().reverse(),
     marker:{{color:p.s2, line:{{width:2, color:p.surface}}}},
     text:MS.n.slice().reverse().map(v=>v.toLocaleString()), textposition:'outside',
@@ -1078,7 +1347,7 @@ function draw() {{
   const BU = DATA.bundles;
   const _ci = BU.kind.map((k,i)=>[k,i]).filter(t=>t[0]==='company').map(t=>t[1]).reverse();
   const _bi = BU.kind.map((k,i)=>[k,i]).filter(t=>t[0]==='beat').map(t=>t[1]).reverse();
-  Plotly.react('p-group', [
+  react('p-group', [
     {{type:'bar', orientation:'h', name:'company bundle', x:_ci.map(i=>BU.n[i]), y:_ci.map(i=>BU.q[i]),
       marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
       text:_ci.map(i=>BU.n[i].toLocaleString()), textposition:'outside',
@@ -1112,7 +1381,7 @@ function draw() {{
   //    the legend plus the y-axis label both name the beat)
   const B = DATA.beats;
   const gi = B.q.map((_,i)=>i).filter(i=>B.gem[i]), ci = B.q.map((_,i)=>i).filter(i=>!B.gem[i]);
-  Plotly.react('p-beats', [
+  react('p-beats', [
     {{type:'bar', orientation:'h', name:'sector-coverage beat (36)', x:ci.map(i=>B.n[i]), y:ci.map(i=>B.q[i]),
       marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
       text:ci.map(i=>B.n[i].toLocaleString()), textposition:'outside',
@@ -1133,7 +1402,7 @@ function draw() {{
 
   // 5. sources
   const S = DATA.sources;
-  Plotly.react('p-src', [{{
+  react('p-src', [{{
     type:'bar', orientation:'h', x:S.n.slice().reverse(), y:S.s.slice().reverse(),
     marker:{{color:S.s.slice().reverse().map(s=>s.startsWith('(')?p.grid:p.s1),
              line:{{width:2,color:p.surface}}}},
@@ -1148,7 +1417,7 @@ function draw() {{
   // 10. specialty-desk reach. Zero-yield desks are drawn as status-critical, with a visible marker,
   //     because a bar of length zero on a log axis is invisible -- and those are the whole point.
   const SP = DATA.spec;
-  Plotly.react('p-spec', [{{
+  react('p-spec', [{{
     type:'bar', orientation:'h', x:SP.n.map(v=>v===0?null:v), y:SP.d,
     marker:{{color:SP.n.map(v=>v===0?ST.critical:p.s3), line:{{width:2,color:p.surface}}}},
     text:SP.n.map(v=>v===0?'0 — never reached':v.toLocaleString()), textposition:'outside',
@@ -1161,7 +1430,7 @@ function draw() {{
                      ' desks returned nothing', font:{{size:11}}}}}}}}), CFG);
 
   // 6. syndication
-  Plotly.react('p-syn', [{{
+  react('p-syn', [{{
     type:'bar', x:DATA.syn.k, y:DATA.syn.n,
     marker:{{color:DATA.syn.k.map(k=>k==='1'?p.s3:p.s1), line:{{width:2,color:p.surface}}}},
     text:DATA.syn.n.map(v=>v.toLocaleString()), textposition:'outside',
@@ -1176,14 +1445,14 @@ function draw() {{
                         gridcolor:p.grid}}}}), CFG);
 
   // 7. day of week
-  Plotly.react('p-dow', [{{
+  react('p-dow', [{{
     type:'bar', x:DATA.dow.k, y:DATA.dow.n, marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
     hovertemplate:'%{{x}}<br>%{{y:,}} articles<extra></extra>'
   }}], base(p, {{yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}}}), CFG);
 
   // 8. authors
   const A = DATA.authors;
-  Plotly.react('p-auth', [{{
+  react('p-auth', [{{
     type:'bar', orientation:'h', x:A.n.slice().reverse(), y:A.a.slice().reverse(),
     marker:{{color:A.a.slice().reverse().map(s=>s.startsWith('(')?p.grid:p.s3),
              line:{{width:2,color:p.surface}}}},
@@ -1196,31 +1465,12 @@ function draw() {{
       // author as a zero-length stub against it
       xaxis:{{type:'log', autorange:true, gridcolor:p.grid,
               title:{{text:'articles (log scale)', font:{{size:11}}}}}}}}), CFG);
-}}
   // ---- FBS-ONLY PANELS. Guarded on DATA.era, which only the bootstrap build emits.
   const ERA = DATA.era;
   if (ERA) {{
-    const H = ERA.handoff;
-    const pre = ERA.cal.map((d,i) => d <  H ? ERA.counts[i] : null);
-    const post= ERA.cal.map((d,i) => d >= H ? ERA.counts[i] : null);
-    Plotly.react('p-seam', [
-      {{type:'bar', name:'GKG + wayback', x:ERA.cal, y:pre,
-        marker:{{color:p.s1}}, hovertemplate:'%{{x}}<br>%{{y}} articles<extra>GKG</extra>'}},
-      {{type:'bar', name:'websearch daily', x:ERA.cal, y:post,
-        marker:{{color:ST.warning}}, hovertemplate:'%{{x}}<br>%{{y}} articles<extra>websearch</extra>'}}
-    ], base(p, {{barmode:'overlay', showlegend:true,
-        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-        margin:{{l:60,r:20,t:38,b:44}},
-        shapes:[{{type:'line', x0:H, x1:H, yref:'paper', y0:0, y1:1,
-                  line:{{color:p.text2, width:1.5, dash:'dash'}}}}],
-        annotations:[{{x:H, xanchor:'left', yref:'paper', y:0.98, yanchor:'top', showarrow:false,
-                       font:{{size:10.5, color:p.text2}}, text:' handoff'}}],
-        xaxis:{{type:'category', tickangle:-45, tickfont:{{size:8}}, nticks:22}},
-        yaxis:{{gridcolor:p.grid, title:{{text:'articles that day', font:{{size:11}}}}}}}}), CFG);
-
     // chars the scout is handed, per era -- p10/median/p90 as a grouped bar
     const CP=ERA.chars_pre, CQ=ERA.chars_post;
-    Plotly.react('p-chars', [
+    react('p-chars', [
       {{type:'bar', name:'GKG + wayback', x:['p10','median','p90'], y:[CP.p10,CP.med,CP.p90],
         marker:{{color:p.s1}}, text:[CP.p10,CP.med,CP.p90], textposition:'outside',
         textfont:{{size:11,color:p.fg}}, cliponaxis:false,
@@ -1236,23 +1486,36 @@ function draw() {{
 
     // trailing three weeks -- the operational card. A ZERO day is drawn in the critical colour so a
     // silent cron failure is the loudest thing on the panel.
-    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]);
-    const med=ERA.post_per_day;
-    Plotly.react('p-pull', [{{
+    // BY COLLECTION DATE (see the era block): each bar is one morning's pull. A morning the cron
+    // never ran has no bar to colour -- zero height is invisible -- so it gets a full-height tinted
+    // band instead, which is the only state on this panel that is an outright failure.
+    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]), tf=T.map(r=>r[2]);
+    const fired=ty.filter((v,i)=>tf[i]), med=fired.length
+      ? fired.slice().sort((a,b)=>a-b)[Math.floor(fired.length/2)] : 0;
+    react('p-pull', [{{
       type:'bar', x:tx, y:ty,
-      marker:{{color:ty.map(v => v===0 ? ST.critical : (v < med*0.5 ? ST.warning : p.s1)),
+      marker:{{color:ty.map((v,i) => !tf[i] ? ST.critical
+                       : (v===0 ? ST.critical : (v < med*0.5 ? ST.warning : p.s1))),
                line:{{width:2,color:p.surface}}}},
-      hovertemplate:'%{{x}}<br>%{{y}} articles<extra></extra>'}}],
-      base(p, {{margin:{{l:60,r:20,t:24,b:60}},
+      customdata:tf.map(f => f ? 'cron fired' : 'CRON DID NOT FIRE — no pull file for this day'),
+      hovertemplate:'%{{x}}<br>%{{y}} articles collected<br>%{{customdata}}<extra></extra>'}}],
+      base(p, {{margin:{{l:60,r:20,t:24,b:74}},
         shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:med, y1:med,
-                  line:{{color:p.text2, width:1.2, dash:'dot'}}}}],
-        xaxis:{{type:'category', tickangle:-45, tickfont:{{size:9}}}},
-        yaxis:{{gridcolor:p.grid, title:{{text:'articles pulled', font:{{size:11}}}}}}}}), CFG);
+                  line:{{color:p.text2, width:1.2, dash:'dot'}}}}].concat(
+          tx.map((d,i) => tf[i] ? null : ({{type:'rect', xref:'x', x0:i-0.5, x1:i+0.5,
+            yref:'y domain', y0:0, y1:1, fillcolor:ST.critical, opacity:0.13,
+            line:{{width:0}}, layer:'below'}})).filter(Boolean)),
+        annotations:tx.map((d,i) => tf[i] ? null : ({{x:i, xref:'x', yref:'y domain', y:1,
+          yanchor:'top', showarrow:false, font:{{size:10, color:ST.critical}},
+          text:'cron<br>missed'}})).filter(Boolean),
+        xaxis:{{type:'category', tickangle:-45, tickfont:{{size:9}},
+                title:{{text:'collection date — the morning the pull ran', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'articles collected', font:{{size:11}}}}}}}}), CFG);
   }}
 
   if (ERA && ERA.src) {{
     const S1=ERA.src.top_shared, S2=ERA.src.top_new;
-    Plotly.react('p-srcera', [
+    react('p-srcera', [
       {{type:'bar', orientation:'h', name:'in BOTH eras', x:S1.map(r=>r[1]), y:S1.map(r=>r[0]),
         marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
         customdata:S1.map(r=>r[2]),
@@ -1268,7 +1531,7 @@ function draw() {{
         xaxis:{{gridcolor:p.grid, title:{{text:'post-handoff articles', font:{{size:11}}}}}}}}), CFG);
 
     const B=ERA.beat;
-    Plotly.react('p-beatera', [{{
+    react('p-beatera', [{{
       type:'bar', x:['shared by both','websearch only','stopped at handoff'],
       y:[B.shared, B.new_only, B.stopped.length],
       marker:{{color:[p.s1, ST.warning, ST.critical], line:{{width:2,color:p.surface}}}},
@@ -1279,6 +1542,7 @@ function draw() {{
         yaxis:{{gridcolor:p.grid, title:{{text:'beats', font:{{size:11}}}}}}}}), CFG);
   }}
 
+}}
 draw();
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script>
@@ -1304,16 +1568,25 @@ def main(argv=None) -> int:
     a = ap.parse_args(argv)
     out = a.out or ("docs/fbs.html" if a.bootstrap else "docs/fbt.html")
     # THE GATE. FBT describes ONE corpus, so that is the whole check -- there is no curation and no
-    # book here. --bootstrap is exempt: FBS renders the assembled bootstrap corpus by design, which
-    # is a different corpus on purpose rather than a drifted one.
-    if not a.bootstrap:
-        _p = []
-        _iv = _canon.check_interpreter()
-        if _iv:
-            _p.append(_iv)
-        if a.run != _canon.CANON_CORPUS:
-            _p.append(f"corpus is {a.run}, canonical is {_canon.CANON_CORPUS}")
-        _canon.require_publishable(out, "FBT", _p)
+    # book here. --bootstrap is exempt from the CORPUS half: FBS renders the assembled bootstrap
+    # corpus by design, which is a different corpus on purpose rather than a drifted one.
+    #
+    # THE INTERPRETER CHECK IS NOT EXEMPT, and used to be by accident. It lived inside this same
+    # `if not a.bootstrap` block, so exempting FBS from the corpus check silently exempted it from
+    # the interpreter check too -- and docs/fbs.html IS a published page. The two questions are
+    # orthogonal: WHICH CORPUS you render has nothing to do with WHICH PYTHON renders it. Caught
+    # 2026-08-24 after a whole session of FBS builds ran on the system 3.9.6 (numpy 2.0.2, pandas
+    # 2.3.3) instead of .venv 3.12.13 (numpy 2.4.6, pandas 3.0.3) with nothing warning. It was
+    # harmless THAT time -- FBS runs no optimizer, and the two builds diffed to the timestamp alone
+    # -- but that is luck, not a guarantee, and it is the same hole that let CBT and SBT disagree by
+    # 36% on 2026-08-21. cbt/sbt already check unconditionally; this was the only outlier.
+    _p = []
+    _iv = _canon.check_interpreter()
+    if _iv:
+        _p.append(_iv)
+    if not a.bootstrap and a.run != _canon.CANON_CORPUS:
+        _p.append(f"corpus is {a.run}, canonical is {_canon.CANON_CORPUS}")
+    _canon.require_publishable(out, "FBS" if a.bootstrap else "FBT", _p)
     build(ROOT / a.run if not Path(a.run).is_absolute() else Path(a.run),
           ROOT / out if not Path(out).is_absolute() else Path(out),
           bootstrap=a.bootstrap)

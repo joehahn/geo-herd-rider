@@ -52,14 +52,16 @@
 scout_model: llama4               # OPENS events. Reads the whole week's news (~1,500 headlines in ~10 chunked
                                   #   calls) and proposes ticker + catalyst. Also runs the matcher, ticker guard
                                   #   and relevance filter. ~90% of the AI bill, so keep it cheap.
-event_agent_model: deepseek4      # CLOSES events. Once per live event per scan: still live? catalyst resolved?
+event_agent_model: grok4          # CLOSES events. Once per live event per scan: still live? catalyst resolved?  
                                   #   which tickers? Decides how long the book holds things.
 
 # ---------- CURATOR: what gets discovered, and when it is dropped ----------
 discovery_filter: true            # gate the SCOUT to headlines carrying the gem tell (superlative + under-the-radar
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
-news_lookback_days: 30            # trailing days of news each scan READS -- DECOUPLED from the trading
+news_lookback_days: 30            # trailing days of news each scan READS -- DECOUPLED from the trading.  # INTENT PORT 2026-08-24: .backtest uses 0 = 'track the rebalance period', which under MONTHLY
+                                  # scans means ~30 days. Under WEEKLY scans 0 would mean 7 days, so the
+                                  # equivalent forward setting is an EXPLICIT 30, not the literal 0.
                                   #   cadence (rebalance_period: weekly). 0 would follow the cadence, and at
                                   #   weekly that gives each article exactly ONE scan before it ages out for
                                   #   good; 30 keeps it readable across ~4 scans, so an article published on a
@@ -67,7 +69,7 @@ news_lookback_days: 30            # trailing days of news each scan READS -- DEC
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
-max_events: 8                     # how many events may be LIVE AT ONCE. When it binds, the lowest-ranked are
+max_events: 0                     # 0 = UNCAPPED. How many events may be LIVE AT ONCE; when it binds, lowest-ranked are 
                                   #   retired -- ranked by PRESS COVERAGE (src/evscore.py): independent-source
                                   #   breadth, superlative count, coverage velocity, author breadth. No forecast.
 picker_model:                     # BLANK = use the arithmetic coverage-rank (src/evscore.py). An LLM ranker
@@ -76,24 +78,27 @@ picker_model:                     # BLANK = use the arithmetic coverage-rank (sr
                                   #   keep-list only -- never weights or returns. MUST be a strong model: sonnet5 hit the
                                   #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
-max_stale_scans: 2                # drops a TICKER after this many scans with NO coverage at all.
-max_event_scans: 12               # retires the whole EVENT at this age (~1 year of monthly scans). 
+max_stale_scans: 32               # drops a TICKER after this many scans with NO coverage at all.  # x4 CADENCE PORT 2026-08-24: backtest scans are MONTHLY, forward scans are WEEKLY
+max_event_scans: 48               # retires the whole EVENT at this age (~1 year: 48 WEEKLY scans).  # x4 CADENCE PORT 2026-08-24: backtest scans are MONTHLY, forward scans are WEEKLY 
 
 # ---------- OPTIMIZER: what gets funded, and how much ----------
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
 max_watchlist: 6                  # how many tickers may hold capital at once.
-cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
-cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet 
+cull_fresh_scans: 2               # how new counts as new, in scans. NOT x4'd (2026-08-24): this one pairs
+                                  # with cull_fresh_slots to hold slots for names too NEW to have price
+                                  # history. 2 WEEKLY scans is already enough history to judge; x4 would
+                                  # keep a name 'new' for two months.
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.  # SYNCED to .backtest 2026-08-24
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.40           # most of the book any one ticker may take.
+concentration_cap: 0.25           # most of the book any one ticker may take.  # SYNCED to .backtest 2026-08-24
 min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
                                   #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
                                   #   it holds only the strongest 2-3 convictions.
-risk_aversion: 4.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
-optimizer_lookback_days: 45       # days of price history behind μ and Σ.
+risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.  # SYNCED to .backtest 2026-08-24
+optimizer_lookback_days: 21       # days of price history behind μ and Σ.  # SYNCED to .backtest 2026-08-24
 rebalance_period: weekly         # weekly | biweekly | monthly | quarterly. The trading cadence.
 t_update_days: 1                  # trading days between the signal and the trade.
 risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
@@ -170,8 +175,8 @@ mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" l
 
 # ---------- forward-only retrieval/operational knobs ----------
 cull_rank: trend                  # trend = trailing risk-adjusted return + freshness reserve; keep-first = legacy alphabetical
-curator_memory_weeks: 4           # SCANS of resolved catalysts the scout is reminded of; 0 = off, <0 = all
-event_agent_effort: high           # keep FULL reasoning for the live forward candidate (quality). (forward_engine
+curator_memory_weeks: 32          # SCANS of resolved catalysts the scout is reminded of; 0 = off, <0 = all  # x4 CADENCE PORT 2026-08-24: backtest scans are MONTHLY, forward scans are WEEKLY  # SYNCED to .backtest 2026-08-24
+event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning knob measured as a NULL. (forward_engine  # SYNCED to .backtest 2026-08-24
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
 news_cap: 0                       # articles the scout reads per scan; 0 = UNCAPPED (the daily --pull always is).
                                   #   Was 500, which silently defeated news_lookback_days: 30 -- measured
@@ -180,7 +185,7 @@ news_cap: 0                       # articles the scout reads per scan; 0 = UNCAP
                                   #   reached the scout from 149 to 38. discovery_filter is the real read budget
                                   #   now (~9% of the pool carries the gem tell), so a second cap only re-narrows
                                   #   the window we just widened. Matches the backtest, which is uncapped.
-picker_effort: high               # forward = 1 picker call/week, trivial cost, so keep full reasoning (its likely only edge).
+picker_effort: low                # matches .backtest. Was high on a cost argument, but an unmeasured quality claim.  # SYNCED to .backtest 2026-08-24
 relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
 relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)
 unfunded_cooldown_weeks: 0        # scans after a prune before a name is eligible again; 0 = never (release on evidence)

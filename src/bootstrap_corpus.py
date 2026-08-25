@@ -33,8 +33,10 @@ date is confounded and should not be read as a retrieval improvement.
 """
 from __future__ import annotations
 
+import collections
 import datetime as _dt
 import json
+import re as _re
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -50,15 +52,91 @@ def day_zero(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS) -> str:
     return (_dt.date.fromisoformat(handoff) - _dt.timedelta(days=history_days)).isoformat()
 
 
+_BEFORE = _re.compile(r"\s*\bbefore:\S+")
+
+
+def _renames() -> dict:
+    """OLD beat query -> current name, from retrieval_config.json (cached)."""
+    global _RENAMES
+    if _RENAMES is None:
+        try:
+            _RENAMES = json.loads((REPO_ROOT / "retrieval_config.json").read_text()).get("beat_renames") or {}
+        except Exception:  # noqa: BLE001 -- a missing map must not break corpus loading
+            _RENAMES = {}
+    return _RENAMES
+
+
+_RENAMES: dict | None = None
+
+
+def beat_of(query: str) -> str:
+    """A query tag reduced to the BEAT it came from, by stripping Anthropic's `before:<date>`.
+
+    Same tagging convention `engine_of` reads, used the other way. Anthropic is told to append
+    `before:<anchor>` to every search, so the SAME beat arrives tagged differently on every day it
+    fires -- `technology stocks` from Tavily, `technology stocks before:2026-08-19` from Anthropic.
+    Counting raw tags therefore counts a beat once per day per engine instead of once, which inflates
+    "distinct beats" without bound and simultaneously UNDERCOUNTS any per-beat article total that
+    looks a beat up by its bare name.
+
+    Measured on the bootstrap corpus: 160 raw distinct tags collapse to 106 real beats, and the
+    operator is a clean suffix in all 106 cases (0 inline), so the strip is unambiguous."""
+    # DELEGATES to gkg.canon_beat -- one definition, because this exact reconciliation is also
+    # needed by the curator (agent.py) and the bundler, and a second copy here is the duplication
+    # this module's own docstring warns about.
+    try:
+        import gkg as _g
+        return _g.canon_beat(query)
+    except Exception:  # noqa: BLE001 -- fall back to the local strip if gkg is unavailable
+        b = _BEFORE.sub("", query or "").strip()
+        return _renames().get(b, b)
+
+
+def beats_of(a: dict) -> set[str]:
+    """The DISTINCT beats that surfaced one article. A set, because an article both engines found
+    carries the same beat twice -- once bare, once `before:`-suffixed -- and it is still one
+    article of that beat."""
+    return {b for b in (beat_of(q) for q in (a.get("queries") or [])) if b}
+
+
+def engine_of(a: dict) -> str:
+    """Which web-search engine surfaced a POST-handoff article: "tavily" | "anthropic" | "both".
+
+    INFERRED, not recorded. `forward.pull_day` unions the two engines through `merge_pools`, which
+    dedups by URL and merges the beat tags but stamps no provenance field, so the engine has to be
+    read back off the tags. The tell is mechanical and comes from the engines' different date
+    handling (see forward.py's _ANTHROPIC_LOOKBACK note): Anthropic's web_search has no recency
+    operator, so the gather prompt makes it write `before:<anchor>` into every query, while Tavily
+    bounds dates through the API and tags the BARE beat string. So `before:` in a tag == Anthropic.
+
+    ACCURACY. Measured over the 2,232 post-handoff articles in the corpus: every one carries at
+    least one tag, so nothing falls through. The one leak is an Anthropic query the model wrote
+    freely without the operator (2 seen, both article-title-shaped) — those read as Tavily. ~0.1%,
+    and it can only UNDERSTATE Anthropic, which is the direction that matters least given Anthropic
+    is already the small half. Stamping the engine at pull time would retire the heuristic, but only
+    for days pulled after the change; the accumulated corpus would still need this.
+
+    Pre-handoff (GKG) articles have no engine — they did not come from a web search at all."""
+    qs = a.get("queries") or []
+    anth = any("before:" in q for q in qs)
+    tav = any("before:" not in q for q in qs)
+    return "both" if anth and tav else ("anthropic" if anth else "tavily")
+
+
 def _norm(a: dict, era: str) -> dict:
     """One article shape for both eras.
 
     `era` is stamped on every article because it is the single most important thing to be able to
-    slice by downstream: a metric that moves at the handoff is a corpus change, not a signal."""
+    slice by downstream: a metric that moves at the handoff is a corpus change, not a signal.
+    `engine` is the same idea one level down, and only for the websearch era: the post-handoff side
+    is a UNION of two engines with very different reach, so "which engine" is a provenance change
+    exactly the way "which era" is."""
     a = dict(a)
     a["era"] = era
     a.setdefault("snippet", "")
     a.setdefault("queries", [])
+    if era == "websearch":
+        a["engine"] = engine_of(a)
     return a
 
 
@@ -106,12 +184,33 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
             u = (a.get("url") or "").split("?")[0].rstrip("/").lower()
             if u and u not in post:
                 post[u] = _norm(a, "websearch")
+                # WHICH PULL FIRST CAUGHT IT, not when it was published. The two engines have very
+                # different lag: Tavily runs a 1-day window so it is same-day 100% of the time, while
+                # Anthropic looks back a week (forward._ANTHROPIC_LOOKBACK) and lands a median 1 day
+                # late. So a recent published-date has NOT finished collecting its Anthropic share,
+                # and anything plotting engine mix against published date has to know that or it
+                # reads the unsettled tail as Anthropic going dark.
+                post[u]["pull_date"] = f.stem
+
+    # PULL-SIDE PROVENANCE, keyed by COLLECTION date rather than publication date. "Did the cron
+    # fire?" is a question about the pull, and answering it off published dates conflates a morning
+    # the cron missed with a morning that simply had less news -- and hides the reverse, since a
+    # slow engine backfills a missed day's publication bucket from later pulls. `pull_days` is every
+    # daily file that exists; `pull_kept` is how many NEW post-handoff articles each contributed.
+    pull_kept = collections.Counter()
+    for a in post.values():
+        pull_kept[a["pull_date"]] += 1
+    pull_days = sorted(f.stem for f in (root / daily_dir).glob("*.json"))
 
     arts = pre + list(post.values())
     arts.sort(key=lambda a: (a.get("published_date") or ""))
     last = arts[-1]["published_date"][:10] if arts else handoff
+    eng = collections.Counter(a["engine"] for a in post.values())
     meta = {"start": d0, "end": last, "handoff": handoff,
             "n_gkg": len(pre), "n_websearch": len(post), "spam_dropped": dropped_spam,
+            # the websearch era's engine split -- exclusive buckets that sum to n_websearch
+            "n_tavily": eng["tavily"], "n_anthropic": eng["anthropic"], "n_both": eng["both"],
+            "pull_days": pull_days, "pull_kept": dict(pull_kept),
             "gkg_run": gkg_run, "history_days": history_days}
     return arts, meta
 

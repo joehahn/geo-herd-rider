@@ -1,713 +1,720 @@
 {
- "description": "ONE retrieval vocabulary, TWO engine renderings. The single source of truth for what the firehose looks for, shared by the GKG/BigQuery backtest and the Anthropic/Tavily forward gather -- so the backtest stays a valid proxy for the forward (CLAUDE.md: keep the strategy knobs synced across both).",
- "_how_it_is_rendered": [
-  "query    -> the natural-language beat, run VERBATIM as one web search by forward_gather (Anthropic) and forward_gather_tavily. These strings are FROZEN: the forward paper trade is live and its beats must not drift. Lifted byte-for-byte out of forward_gather.GEM_BEATS / COVERAGE_BEATS.",
-  "keywords -> the atoms GKG matches, as a case-insensitive regex alternation against the article's URL (DocumentIdentifier) and page title (Extras). A multi-word atom matches a space, hyphen OR underscore, so 'rare earth' also hits the URL slug 'rare-earth'.",
-  "The old src/firehose.GDELT_QUERIES boolean strings are the DOC API's rendering and stay in firehose.py; the DOC API remains the keyless fallback for recent windows."
- ],
- "_atom_specificity_rule": "MEASURED 2026-08-07, and the reason this file was rewritten once already. An atom must be a term that essentially ONLY occurs in a market or industry context. Bare sector words do NOT qualify: the first draft used generic atoms and the 56-day pool came back at 320,798 articles, of which the beat 'war chokepoint stock beneficiary' alone claimed 91,053 -- the atom `war` matching every war story on earth, and `energy`/`oil`/`gas` claiming another 59,882. Top source was a radio network. The rule that replaced it: prefer a multi-word compound ('crude oil', 'regional bank', 'tanker rates') over the bare noun ('oil', 'bank', 'shipping'); prefer the industry term over the everyday word. Note this is the OPPOSITE pressure from the natural-language `query` strings, which a semantic engine reads as intent -- a regex reads them literally, which is exactly the mistake the first draft made.",
- "_why_no_vehicle_clause": "firehose.GDELT_QUERIES ANDs every sector beat with _VEHICLE = (stock OR ETF OR shares OR equities), because the DOC API is lexical and had no other way to ask 'is this article about a listed company'. Deliberately NOT reproduced as an atom requirement here -- a headline that never says the word 'stock' is exactly the early coverage worth having, and a Boolean AND can only shrink recall. The job is done instead by engine.market_themes (GDELT's own topic classification) AND the subject-org test, both of which are semantic rather than lexical. NOTE: an earlier version of this file claimed the subject-org test ALONE replaced the vehicle clause. It does not -- 'names an organization' is not 'is about a listed company', and without the theme gate the pool filled with general news that happened to name an org.",
- "_origin_tags": "Each beat carries an `origin`. 'vetted' = it maps onto the gem-AGNOSTIC vocabulary in firehose.py (_MOVERS / _EARLY / _SECTORS / _CATALYSTS), which was deliberately scrubbed of gem sub-niches reverse-engineered from known winners. 'forward' = added later on the forward side, and its atoms sit closer to a specific gem's thesis (rare earth, DRAM, uranium). Tagged, not dropped: the forward runs these beats today, so the backtest must run them too or it stops being a proxy. The tag is here so the hindsight question stays auditable -- when reading a backtest number, check how much of it came through a 'forward'-origin beat.",
- "_named_chokepoints_note": "The chokepoint beat names Hormuz / Suez / Panama / Malacca / Bab el-Mandeb. These are the standard enumerated list of global maritime chokepoints in any trade-geography reference, NOT terms reverse-engineered from this repo's gems -- the alternative (the bare word 'war') was measured above as the single worst source of noise in the pool. Flagged here because one of them does coincide with the BWET tanker thesis.",
- "engine": {
-  "project": "geo-herd-rider",
-  "table": "gdelt-bq.gdeltv2.gkg_partitioned",
-  "english_only": true,
-  "key_path": "gcp-key.json",
-  "ontopic_offset": 500,
-  "max_scan_gb": 60.0,
-  "market_themes": [
-   "ECON_STOCKMARKET",
-   "ECON_EARNINGSREPORT",
-   "ECON_IPO",
-   "ECON_BUBBLE",
-   "ECON_TRADE_DISPUTE",
-   "ECON_SUBSIDIES",
-   "ECON_OILGASPRICE",
-   "ECON_INTEREST_RATE",
-   "BUS_MARKET_CLOSE",
-   "BUS_STOCK_MARKET"
-  ]
- },
- "gem_beats": [
-  {
-   "query": "under the radar small cap stock",
-   "origin": "vetted",
-   "keywords": [
-    "under the radar",
-    "small cap",
-    "small-cap",
-    "micro cap",
-    "microcap",
-    "nano cap"
-   ]
+  "description": "ONE retrieval vocabulary, TWO engine renderings. The single source of truth for what the firehose looks for, shared by the GKG/BigQuery backtest and the Anthropic/Tavily forward gather -- so the backtest stays a valid proxy for the forward (CLAUDE.md: keep the strategy knobs synced across both).",
+  "_how_it_is_rendered": [
+    "query    -> the natural-language beat, run VERBATIM as one web search by forward_gather (Anthropic) and forward_gather_tavily. These strings are FROZEN: the forward paper trade is live and its beats must not drift. Lifted byte-for-byte out of forward_gather.GEM_BEATS / COVERAGE_BEATS.",
+    "keywords -> the atoms GKG matches, as a case-insensitive regex alternation against the article's URL (DocumentIdentifier) and page title (Extras). A multi-word atom matches a space, hyphen OR underscore, so 'rare earth' also hits the URL slug 'rare-earth'.",
+    "The old src/firehose.GDELT_QUERIES boolean strings are the DOC API's rendering and stay in firehose.py; the DOC API remains the keyless fallback for recent windows."
+  ],
+  "_atom_specificity_rule": "MEASURED 2026-08-07, and the reason this file was rewritten once already. An atom must be a term that essentially ONLY occurs in a market or industry context. Bare sector words do NOT qualify: the first draft used generic atoms and the 56-day pool came back at 320,798 articles, of which the beat 'war chokepoint stock beneficiary' alone claimed 91,053 -- the atom `war` matching every war story on earth, and `energy`/`oil`/`gas` claiming another 59,882. Top source was a radio network. The rule that replaced it: prefer a multi-word compound ('crude oil', 'regional bank', 'tanker rates') over the bare noun ('oil', 'bank', 'shipping'); prefer the industry term over the everyday word. Note this is the OPPOSITE pressure from the natural-language `query` strings, which a semantic engine reads as intent -- a regex reads them literally, which is exactly the mistake the first draft made.",
+  "_why_no_vehicle_clause": "firehose.GDELT_QUERIES ANDs every sector beat with _VEHICLE = (stock OR ETF OR shares OR equities), because the DOC API is lexical and had no other way to ask 'is this article about a listed company'. Deliberately NOT reproduced as an atom requirement here -- a headline that never says the word 'stock' is exactly the early coverage worth having, and a Boolean AND can only shrink recall. The job is done instead by engine.market_themes (GDELT's own topic classification) AND the subject-org test, both of which are semantic rather than lexical. NOTE: an earlier version of this file claimed the subject-org test ALONE replaced the vehicle clause. It does not -- 'names an organization' is not 'is about a listed company', and without the theme gate the pool filled with general news that happened to name an org.",
+  "_origin_tags": "Each beat carries an `origin`. 'vetted' = it maps onto the gem-AGNOSTIC vocabulary in firehose.py (_MOVERS / _EARLY / _SECTORS / _CATALYSTS), which was deliberately scrubbed of gem sub-niches reverse-engineered from known winners. 'forward' = added later on the forward side, and its atoms sit closer to a specific gem's thesis (rare earth, DRAM, uranium). Tagged, not dropped: the forward runs these beats today, so the backtest must run them too or it stops being a proxy. The tag is here so the hindsight question stays auditable -- when reading a backtest number, check how much of it came through a 'forward'-origin beat.",
+  "_named_chokepoints_note": "The chokepoint beat names Hormuz / Suez / Panama / Malacca / Bab el-Mandeb. These are the standard enumerated list of global maritime chokepoints in any trade-geography reference, NOT terms reverse-engineered from this repo's gems -- the alternative (the bare word 'war') was measured above as the single worst source of noise in the pool. Flagged here because one of them does coincide with the BWET tanker thesis.",
+  "engine": {
+    "project": "geo-herd-rider",
+    "table": "gdelt-bq.gdeltv2.gkg_partitioned",
+    "english_only": true,
+    "key_path": "gcp-key.json",
+    "ontopic_offset": 500,
+    "max_scan_gb": 60.0,
+    "market_themes": [
+      "ECON_STOCKMARKET",
+      "ECON_EARNINGSREPORT",
+      "ECON_IPO",
+      "ECON_BUBBLE",
+      "ECON_TRADE_DISPUTE",
+      "ECON_SUBSIDIES",
+      "ECON_OILGASPRICE",
+      "ECON_INTEREST_RATE",
+      "BUS_MARKET_CLOSE",
+      "BUS_STOCK_MARKET"
+    ]
   },
-  {
-   "query": "overlooked stock catalyst",
-   "origin": "vetted",
-   "keywords": [
-    "overlooked stock",
-    "undiscovered stock",
-    "under-followed",
-    "underfollowed",
-    "hidden gem stock",
-    "overlooked opportunity",
-    "unloved stock"
-   ]
-  },
-  {
-   "query": "niche ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "niche etf",
-    "little known etf",
-    "little-known etf",
-    "obscure etf",
-    "thematic etf",
-    "under-the-radar etf"
-   ]
-  },
-  {
-   "query": "war chokepoint stock beneficiary",
-   "origin": "vetted",
-   "keywords": [
-    "chokepoint",
-    "choke point",
-    "strait of hormuz",
-    "suez canal",
-    "panama canal",
-    "strait of malacca",
-    "bab el-mandeb",
-    "naval blockade",
-    "maritime blockade",
-    "shipping lane",
-    "war premium",
-    "wartime demand"
-   ]
-  },
-  {
-   "query": "export ban tariff sanctions stock beneficiary",
-   "origin": "vetted",
-   "keywords": [
-    "export ban",
-    "export control",
-    "export curb",
-    "export restriction",
-    "import tariff",
-    "tariff rate",
-    "new tariffs",
-    "sanctions package",
-    "trade embargo",
-    "trade war",
-    "import quota",
-    "entity list"
-   ]
-  },
-  {
-   "query": "supply shortage supply shock stock",
-   "origin": "vetted",
-   "keywords": [
-    "supply shock",
-    "supply crunch",
-    "supply squeeze",
-    "supply shortage",
-    "global shortage",
-    "production cut",
-    "output cut",
-    "capacity constraint",
-    "stockpiling"
-   ]
-  },
-  {
-   "query": "rare earth critical minerals stock",
-   "origin": "forward",
-   "keywords": [
-    "rare earth",
-    "critical mineral",
-    "critical minerals",
-    "permanent magnet",
-    "magnet metals",
-    "neodymium"
-   ]
-  },
-  {
-   "query": "memory chip DRAM shortage stock",
-   "origin": "forward",
-   "keywords": [
-    "dram",
-    "nand flash",
-    "memory chip",
-    "hbm memory",
-    "memory prices",
-    "memory maker"
-   ]
-  },
-  {
-   "query": "uranium nuclear fuel supply squeeze stock",
-   "origin": "forward",
-   "keywords": [
-    "uranium",
-    "nuclear fuel",
-    "uranium enrichment",
-    "yellowcake",
-    "haleu",
-    "conversion capacity"
-   ]
-  },
-  {
-   "query": "upcoming FDA decision clinical readout stock anticipation",
-   "origin": "forward",
-   "keywords": [
-    "fda approval",
-    "fda decision",
-    "pdufa",
-    "phase 3 trial",
-    "phase 2 trial",
-    "advisory committee",
-    "topline results",
-    "breakthrough designation",
-    "orphan drug",
-    "fast track designation",
-    "nda filing",
-    "bla filing"
-   ]
-  }
- ],
- "coverage_beats": [
-  {
-   "query": "technology stocks",
-   "origin": "vetted",
-   "keywords": [
-    "semiconductor",
-    "chipmaker",
-    "chip maker",
-    "software company",
-    "cloud computing",
-    "enterprise software"
-   ]
-  },
-  {
-   "query": "energy stocks",
-   "origin": "vetted",
-   "keywords": [
-    "crude oil",
-    "natural gas",
-    "oil refinery",
-    "refiner",
-    "shale",
-    "oilfield",
+  "gem_beats": [
+    {
+      "query": "little-known small cap stock catalyst",
+      "origin": "vetted",
+      "keywords": [
+        "under the radar",
+        "small cap",
+        "small-cap",
+        "micro cap",
+        "microcap",
+        "nano cap"
+      ]
+    },
+    {
+      "query": "overlooked stock catalyst",
+      "origin": "vetted",
+      "keywords": [
+        "overlooked stock",
+        "undiscovered stock",
+        "under-followed",
+        "underfollowed",
+        "hidden gem stock",
+        "overlooked opportunity",
+        "unloved stock"
+      ]
+    },
+    {
+      "query": "niche ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "niche etf",
+        "little known etf",
+        "little-known etf",
+        "obscure etf",
+        "thematic etf",
+        "under-the-radar etf"
+      ]
+    },
+    {
+      "query": "war chokepoint stock beneficiary",
+      "origin": "vetted",
+      "keywords": [
+        "chokepoint",
+        "choke point",
+        "strait of hormuz",
+        "suez canal",
+        "panama canal",
+        "strait of malacca",
+        "bab el-mandeb",
+        "naval blockade",
+        "maritime blockade",
+        "shipping lane",
+        "war premium",
+        "wartime demand"
+      ]
+    },
+    {
+      "query": "export ban tariff sanctions stock beneficiary",
+      "origin": "vetted",
+      "keywords": [
+        "export ban",
+        "export control",
+        "export curb",
+        "export restriction",
+        "import tariff",
+        "tariff rate",
+        "new tariffs",
+        "sanctions package",
+        "trade embargo",
+        "trade war",
+        "import quota",
+        "entity list"
+      ]
+    },
+    {
+      "query": "supply shortage supply shock stock",
+      "origin": "vetted",
+      "keywords": [
+        "supply shock",
+        "supply crunch",
+        "supply squeeze",
+        "supply shortage",
+        "global shortage",
+        "production cut",
+        "output cut",
+        "capacity constraint",
+        "stockpiling"
+      ]
+    },
+    {
+      "query": "rare earth critical minerals stock",
+      "origin": "forward",
+      "keywords": [
+        "rare earth",
+        "critical mineral",
+        "critical minerals",
+        "permanent magnet",
+        "magnet metals",
+        "neodymium"
+      ]
+    },
+    {
+      "query": "memory chip DRAM shortage stock",
+      "origin": "forward",
+      "keywords": [
+        "dram",
+        "nand flash",
+        "memory chip",
+        "hbm memory",
+        "memory prices",
+        "memory maker"
+      ]
+    },
+    {
+      "query": "uranium supply shortage stocks",
+      "origin": "forward",
+      "keywords": [
+        "uranium",
+        "nuclear fuel",
+        "uranium enrichment",
+        "yellowcake",
+        "haleu",
+        "conversion capacity"
+      ]
+    },
+    {
+      "query": "biotech stock ahead of FDA decision",
+      "origin": "forward",
+      "keywords": [
+        "fda approval",
+        "fda decision",
+        "pdufa",
+        "phase 3 trial",
+        "phase 2 trial",
+        "advisory committee",
+        "topline results",
+        "breakthrough designation",
+        "orphan drug",
+        "fast track designation",
+        "nda filing",
+        "bla filing"
+      ]
+    }
+  ],
+  "coverage_beats": [
+    {
+      "query": "technology stocks",
+      "origin": "vetted",
+      "keywords": [
+        "semiconductor",
+        "chipmaker",
+        "chip maker",
+        "software company",
+        "cloud computing",
+        "enterprise software"
+      ]
+    },
+    {
+      "query": "energy stocks",
+      "origin": "vetted",
+      "keywords": [
+        "crude oil",
+        "natural gas",
+        "oil refinery",
+        "refiner",
+        "shale",
+        "oilfield",
+        "opec",
+        "oil producer",
+        "gas producer"
+      ]
+    },
+    {
+      "query": "financial stocks",
+      "origin": "vetted",
+      "keywords": [
+        "regional bank",
+        "investment bank",
+        "fintech",
+        "insurer",
+        "mortgage lender",
+        "asset manager",
+        "payments company"
+      ]
+    },
+    {
+      "query": "healthcare stocks",
+      "origin": "vetted",
+      "keywords": [
+        "drugmaker",
+        "medical device",
+        "health insurer",
+        "hospital operator",
+        "diagnostics company"
+      ]
+    },
+    {
+      "query": "industrial stocks",
+      "origin": "vetted",
+      "keywords": [
+        "industrial machinery",
+        "capital goods",
+        "factory automation",
+        "aerospace supplier",
+        "equipment maker"
+      ]
+    },
+    {
+      "query": "materials stocks",
+      "origin": "vetted",
+      "keywords": [
+        "mining company",
+        "commodity producer",
+        "chemical producer",
+        "specialty chemicals",
+        "cement maker"
+      ]
+    },
+    {
+      "query": "consumer stocks",
+      "origin": "vetted",
+      "keywords": [
+        "retailer",
+        "e-commerce",
+        "consumer goods",
+        "restaurant chain",
+        "apparel brand",
+        "beverage maker"
+      ]
+    },
+    {
+      "query": "utility stocks",
+      "origin": "vetted",
+      "keywords": [
+        "electric utility",
+        "power utility",
+        "water utility",
+        "utility company"
+      ]
+    },
+    {
+      "query": "real estate stocks",
+      "origin": "vetted",
+      "keywords": [
+        "reit",
+        "homebuilder",
+        "commercial real estate",
+        "data center reit",
+        "property developer"
+      ]
+    },
+    {
+      "query": "telecom stocks",
+      "origin": "vetted",
+      "keywords": [
+        "telecom carrier",
+        "wireless carrier",
+        "broadband provider",
+        "fiber network"
+      ]
+    },
+    {
+      "query": "shipping maritime stocks",
+      "origin": "vetted",
+      "keywords": [
+        "tanker rates",
+        "dry bulk",
+        "container shipping",
+        "freight rate",
+        "shipyard",
+        "vlcc",
+        "product tanker",
+        "crude tanker",
+        "shipping line",
+        "charter rates"
+      ]
+    },
+    {
+      "query": "cryptocurrency stocks",
+      "origin": "vetted",
+      "keywords": [
+        "bitcoin",
+        "cryptocurrency",
+        "blockchain",
+        "stablecoin",
+        "crypto mining",
+        "hashrate",
+        "bitcoin miner",
+        "digital asset"
+      ]
+    },
+    {
+      "query": "space stocks",
+      "origin": "vetted",
+      "keywords": [
+        "rocket",
+        "satellite",
+        "spacecraft",
+        "launch vehicle",
+        "orbit"
+      ]
+    },
+    {
+      "query": "robotics stocks",
+      "origin": "vetted",
+      "keywords": [
+        "humanoid robot",
+        "industrial robot",
+        "warehouse automation",
+        "robotics company",
+        "robotic surgery",
+        "robotics",
+        "humanoid",
+        "automation"
+      ]
+    },
+    {
+      "query": "quantum stocks",
+      "origin": "vetted",
+      "keywords": [
+        "quantum computing",
+        "qubit",
+        "quantum processor",
+        "quantum computer"
+      ]
+    },
+    {
+      "query": "nuclear stocks",
+      "origin": "vetted",
+      "keywords": [
+        "small modular reactor",
+        "microreactor",
+        "nuclear reactor",
+        "nuclear power plant",
+        "reactor design",
+        "nuclear power",
+        "nuclear energy",
+        "nuclear fuel",
+        "smr",
+        "fusion energy",
+        "data center power"
+      ]
+    },
+    {
+      "query": "defense aerospace stocks",
+      "origin": "vetted",
+      "keywords": [
+        "defense contractor",
+        "missile defense",
+        "hypersonic",
+        "munitions",
+        "warship",
+        "military drone",
+        "loitering munition",
+        "defense budget",
+        "fighter jet"
+      ]
+    },
+    {
+      "query": "artificial intelligence semiconductor stocks",
+      "origin": "vetted",
+      "keywords": [
+        "ai chip",
+        "ai data center",
+        "ai datacenter",
+        "gpu",
+        "accelerator chip",
+        "advanced packaging",
+        "inference chip"
+      ]
+    },
+    {
+      "query": "biotech pharma stocks",
+      "origin": "vetted",
+      "keywords": [
+        "biotech",
+        "biopharma",
+        "gene therapy",
+        "oncology drug",
+        "obesity drug",
+        "drug pipeline"
+      ]
+    },
+    {
+      "query": "gold silver mining stocks",
+      "origin": "vetted",
+      "keywords": [
+        "gold miner",
+        "gold mining",
+        "gold price",
+        "bullion",
+        "precious metals",
+        "gold producer"
+      ]
+    },
+    {
+      "query": "silver mining stocks",
+      "origin": "vetted",
+      "keywords": [
+        "silver miner",
+        "silver mining",
+        "silver price"
+      ]
+    },
+    {
+      "query": "freight trucking rail air cargo logistics stocks",
+      "origin": "vetted",
+      "keywords": [
+        "trucking",
+        "railroad",
+        "air cargo",
+        "freight forwarder",
+        "logistics provider",
+        "intermodal"
+      ]
+    },
+    {
+      "query": "steel copper lithium aluminum titanium coal mining stocks",
+      "origin": "vetted",
+      "keywords": [
+        "steel producer",
+        "steelmaker",
+        "copper price",
+        "copper mine",
+        "lithium",
+        "aluminum smelter",
+        "titanium",
+        "coal miner",
+        "nickel",
+        "cobalt"
+      ]
+    },
+    {
+      "query": "electric power grid pipeline energy infrastructure stocks",
+      "origin": "vetted",
+      "keywords": [
+        "power grid",
+        "transmission line",
+        "pipeline operator",
+        "lng terminal",
+        "grid operator",
+        "data center power",
+        "energy infrastructure"
+      ]
+    },
+    {
+      "query": "best performing ETF little-known skyrocketing surging",
+      "origin": "vetted",
+      "keywords": [
+        "best performing etf",
+        "top performing etf",
+        "etf surges",
+        "etf soars",
+        "best-performing etf"
+      ]
+    },
+    {
+      "query": "gold silver miners ETF surging record high",
+      "origin": "vetted",
+      "keywords": [
+        "gold miners etf",
+        "silver miners etf",
+        "precious metals etf",
+        "gold etf"
+      ]
+    },
+    {
+      "query": "nuclear uranium ETF surging",
+      "origin": "forward",
+      "keywords": [
+        "uranium etf",
+        "nuclear etf"
+      ]
+    },
+    {
+      "query": "robotics automation ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "robotics etf",
+        "automation etf"
+      ]
+    },
+    {
+      "query": "quantum computing ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "quantum etf",
+        "quantum computing etf"
+      ]
+    },
+    {
+      "query": "space defense ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "space etf",
+        "defense etf",
+        "aerospace etf"
+      ]
+    },
+    {
+      "query": "crypto blockchain ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "crypto etf",
+        "bitcoin etf",
+        "blockchain etf",
+        "ethereum etf"
+      ]
+    },
+    {
+      "query": "semiconductor memory chip ETF surging",
+      "origin": "forward",
+      "keywords": [
+        "semiconductor etf",
+        "chip etf",
+        "memory etf"
+      ]
+    },
+    {
+      "query": "power grid AI datacenter energy ETF surging",
+      "origin": "vetted",
+      "keywords": [
+        "grid etf",
+        "infrastructure etf",
+        "utilities etf",
+        "clean energy etf"
+      ]
+    }
+  ],
+  "spam_title_patterns": [
+    "^\\s*$",
+    "(?i)\\b\\d+\\s+(best|top|cheap|hot|safe)\\s+(stocks?|etfs?)\\b",
+    "(?i)\\b(stocks?|etfs?) to (buy|watch|own) (now|today|in \\d{4})\\b",
+    "(?i)\\b(zacks|marketbeat) (rank|consensus|analyst)\\b",
+    "(?i)\\b(13f|form 4|insider (buying|selling)) (filing|activity|roundup)\\b",
+    "(?i)^\\s*(quotes?|quote|watchlist|screener|markets?)\\s*$",
+    "(?i)\\bshares?\\s+(purchased|sold|acquired|bought|held)\\s+by\\b",
+    "(?i)\\b(buys|sells|acquires|purchases)\\s+[\\d,]+\\s+shares?\\s+of\\b",
+    "(?i)\\b(buys|sells)\\s+new\\s+stake\\s+in\\b",
+    "(?i)\\b[\\d,]+\\s+shares?\\s+in\\b.*\\b(acquired|purchased|bought|sold)\\s+by\\b",
+    "(?i)\\binsider\\s+(selling|buying)\\b",
+    "(?i)\\bstake\\s+(raised|lowered|boosted|trimmed|increased|reduced)\\s+by\\b",
+    "(?i)\\bhead-to-head\\s+(comparison|contrast|survey)\\b",
+    "(?i)\\bearnings\\s+call\\s+transcript\\b",
+    "(?i)\\b(grows|trims|cuts|lifts)\\s+(position|stake|holdings)\\s+in\\b",
+    "(?i)\\b(shares? (gap|gaps) (up|down)|trading (up|down) [\\d.]+%|crosses above)\\b",
+    "(?i)\\b(moving average|golden cross|death cross|rsi) (crosses|signal)\\b",
+    "(?i)\\b(class action|lead plaintiff|securities fraud|securities law violations)\\b",
+    "(?i)\\b(shareholder|investor)\\s+(alert|reminder|deadline|notice|rights)\\b",
+    "(?i)\\bdeadline\\s+(alert|approaching|reminder)\\b",
+    "(?i)\\b(investigates?\\s+claims|sued for securities|reminds investors|notifies\\s+\\w+.{0,24}investors)\\b",
+    "(?i)\\b(lost money on|with (substantial|large) losses)\\b",
+    "(?i)\\b(faruqi|pomerantz|berger montague|levi\\s*&?\\s*korsinsky|kirby mcinerney|bernstein liebhard|lowey dannenberg|portnoy|gross law|schall law|hagens berman|kahn swick|block leviton|robbins geller|glancy prongay|bragar eagel|rosen law|bronstein.{0,12}gewirtz)\\b",
+    "(?i)\\b(opportunity to lead|lead the .{0,24}class action|contact the .{0,20}(law )?firm)\\b"
+  ],
+  "spam_title_patterns_soft": [
+    "(?i)\\b(price target|average target|consensus (rating|estimate)|analysts? (expect|forecast))\\b",
+    "(?i)\\bhits?\\s+new\\s+52-week\\s+(high|low)\\b",
+    "(?i)\\bsets new 52-week\\b",
+    "(?i)\\bshort\\s+interest\\b.*\\b(drops?|rises?|expands?|shrinks?|up|down)\\s+by\\b",
+    "(?i)\\bsees\\s+large\\s+(increase|decline|drop|growth)\\s+in\\s+short\\s+interest\\b",
+    "(?i)\\bgiven\\s+(a\\s+)?(average|consensus)\\s+(rating|recommendation)\\s+of\\b"
+  ],
+  "catalyst_exemption": "(?i)\\b(fda|approval|approved|clearance|pdufa|phase\\s*[123]|trial|readout|deal|agreement|partnership|contract|award|awarded|wins|acquisition|acquires|merger|takeover|divest|divestiture|sale of|spin-?off|stake in|expansion|talks|tariff|sanction|export ban|export control|embargo|shortage|supply|outage|strike|recall|lawsuit|ruling|licen[sc]e|launch|unveil|breakthrough|guidance|earnings|outlook|results beat|tops estimates|rally|rallies|surge|surges|soar|soars|jump|jumps|plunge|plunges|skyrocket)\\b",
+  "_spam_two_tier_note": "SPLIT 2026-08-08 after an LLM audit of what the filter threw away (scripts/judge_dropped.py). A blind judge re-read 200 dropped headlines and confirmed 11 (5.5%) were real catalyst reporting -- 'NVIDIA Price Target Raised to $225 After $100B OpenAI Deal', 'Regeneron Scores FDA Approval, JP Morgan Reaffirms $800 Price Target', 'SQM Stock Gets $53 Price Target From BofA as Lithium Prices Rally'. Extrapolated, one over-broad regex was discarding ~240 real articles a year, and they are exactly the class this strategy exists to catch. spam_title_patterns = HARD: pure machine plumbing (13F churn, Form-4, listicles, transcripts, quote pages) that is never salvageable. spam_title_patterns_soft = an ANALYST ACTION or a TECHNICAL-SIGNAL template, which is boilerplate ONLY when it is the whole story -- a soft match is spared when the headline also names a catalyst (catalyst_exemption). Judge the filter by what it DROPS, not by whether the regex matches: testing a regex with a regex is circular, which is why the audit uses a model that is never told a filter was involved. The exemption vocabulary was widened twice against measured false positives (earnings/outlook, then agreement/divestiture/expansion/talks). It is inherently open-ended -- catalyst language is not enumerable -- so this was stopped at a measured ~3% residual rather than chased to zero, since every added term also admits more boilerplate. Extended 2026-08-08 from a strong-model FALSE-NEGATIVE audit of the CORPUS (not the drops): ~52% of surviving articles were judged noise, concentrated in template-shaped categories the original patterns never covered -- earnings previews, IPO lot-size/GMP pages, conference and webinar invitations, dividend declarations, technical-signal bots, volume rankings and 'Should You Buy X After Its N% Rally' listicles. Those went to the HARD tier because no catalyst redeems them; offerings and all-time-high templates went SOFT because a real deal can make them news. Two of those additions were reverted the same day after measurement: a '(what|why) you need to know$' rule was matching a Benzinga headline SUFFIX rather than a story type (883 real articles), and 'should you buy' was demoted to soft. Net lesson: a pattern must describe the STORY, never a publisher's house style -- and every pattern addition needs an FP re-measure, because this batch raised the spam stage's false-positive rate 2.7% -> 6.7% before correction. THE WHOLE 2026-08-08 junk batch was then REVERTED. Measured across three passes the spam stage's false-positive rate went 2.7% -> 6.7% -> 11.3% while the corpus junk rate did not measurably move (removing ~2.5k of 39k articles cannot shift a ~52% rate by more than ~3pp, which is inside the sampling error at n=300). The batch bought no measurable precision and cost real recall, so it is gone. Recorded so it is not re-attempted: the corpus's residual noise is NOT template-shaped enough for headline regex, and the scout -- which reads the whole pool and judges -- is the intended backstop for it. MEASURED 2026-08-10 and FIXED: `expands?` was removed from catalyst_exemption. It directly cancelled the soft pattern `short interest ... expands`, which exists to kill 'Short Interest in X Expands By 21.5%'. Of the 62 soft-matched survivors that term spared, 62 were short-interest boilerplate and ZERO were genuine catalysts -- so the deletion costs no recall. `expansion` is kept: it carries the capacity/capex sense that IS a catalyst.",
+  "_spam_pattern_note": "A/B'd 2026-08-07 against domain-blocking. These domain-AGNOSTIC patterns remove the automated-filing headline CLASS (13F churn, Form-4 insider moves, 52-week-high bots, short-interest bots) wherever it appears, and they are correctly SURGICAL on real outlets -- insidermonkey.com kept 99% of its articles and financialcontent.com 100%, because those sites' boilerplate is a small minority of genuine reporting. What patterns CANNOT do is clear a site that is nothing BUT boilerplate: tickerreport / dailypolitical / themarketsdaily still had 66-72% of their articles survive, because the bots have unbounded template variants ('Sees Large Decline', 'Grows Position in', 'Stock Price Up 9.4%'). Those three are handled by mill_block instead. Patterns for the class, domain-block for the source -- each doing the job the other can't.",
+  "org_stoplist": [
+    "reuters",
+    "associated press",
+    "bloomberg",
+    "cnbc",
+    "cnn",
+    "bbc",
+    "fox news",
+    "msnbc",
+    "wall street journal",
+    "financial times",
+    "new york times",
+    "washington post",
+    "guardian",
+    "yahoo",
+    "google",
+    "seeking alpha",
+    "motley fool",
+    "benzinga",
+    "marketwatch",
+    "barron",
+    "zacks",
+    "marketbeat",
+    "investing.com",
+    "business insider",
+    "forbes",
+    "fortune",
+    "nasdaq",
+    "nyse",
+    "new york stock exchange",
+    "s&p",
+    "standard & poor",
+    "dow jones",
+    "russell 2000",
+    "ftse",
+    "msci",
+    "cboe",
+    "morningstar",
+    "refinitiv",
+    "factset",
+    "federal reserve",
+    "european central bank",
+    "bank of england",
+    "bank of japan",
+    "treasury department",
+    "white house",
+    "congress",
+    "senate",
+    "house of representatives",
+    "supreme court",
+    "european union",
+    "united nations",
+    "nato",
     "opec",
-    "oil producer",
-    "gas producer"
-   ]
+    "world bank",
+    "international monetary fund",
+    "sec",
+    "securities and exchange commission",
+    "ftc",
+    "doj",
+    "department of defense",
+    "pentagon",
+    "department of energy",
+    "epa",
+    "fda",
+    "university",
+    "institute",
+    "foundation",
+    "association",
+    "chamber of commerce",
+    "getty images",
+    "shutterstock",
+    "pr newswire",
+    "business wire",
+    "globenewswire",
+    "accesswire",
+    "department",
+    "ministry",
+    "agency",
+    "commission",
+    "bureau",
+    "authority",
+    "select sector",
+    "software sector",
+    "national security",
+    "task force",
+    "secretariat",
+    "congressional",
+    "depository"
+  ],
+  "_english_only_note": "engine.english_only maps to the SQL predicate `TranslationInfo IS NULL`, which keeps only English-ORIGIN articles (GDELT machine-translates foreign coverage and marks it here). It is the LARGEST single filter in the pipeline -- measured at 88.5M rows/year, 64.6% of everything GDELT indexes -- and until 2026-08-09 it was a bare condition in the SQL with no knob, no note, and no audit, so it never appeared in the funnel dashboard at all. Promoted to config because a scope decision of that size should be visible and switchable, not buried. Set false to admit foreign-origin coverage, e.g. to reach non-US press writing about US-listed ADRs -- but expect roughly 3x the rows and note that the beat keywords are English, so recall on translated text will be poor until they are too.",
+  "_org_stoplist_note": "MATCHED ON WORD BOUNDARIES, not as substrings (src/gkg._stoplist_re). The substring form silently discarded real listed companies whose names merely CONTAIN a stop token: `sec` killed SecureWorks / Secure Energy Services / Second Sight Medical, `epa` killed EPAM Systems, `russell` killed Russell Metals. Fixed 2026-08-10. Note some entries ARE themselves listed companies (Nasdaq/NDAQ, Cboe/CBOE, MSCI, FactSet/FDS, Morningstar/MORN) -- they stay because they appear far more often as index/data providers than as subjects, but an article genuinely about one of them as a company is collateral damage. MEASURED 2026-08-10, and the reason the generic-institution tokens below exist: switching to word boundaries removed an ACCIDENT that was load-bearing -- `epa` had been matching 'd-EPA-rtment', which is what kept Defense Department / Department of Government Efficiency / state banking departments out of the pool. Without a replacement the fix readmitted 1,457 rows per 24 chunks of which 82% were government-only subjects, i.e. exactly the general news the org test exists to exclude. So `department`/`ministry`/`agency`/... are now EXPLICIT, and the index-sector artifacts ('Select Sector', 'Software Sector') with them. Lesson: before removing a filter that looks wrong, measure what it was actually catching.",
+  "_pruned_beats_note": "Removed 2026-08-13: 'stock surges skyrockets all-time high record', 'best performing stock', 'biggest stock gainers'. Their atoms (stock surges / shares soar / all-time high / best performing stock) ARE the discovery gate's own vocabulary, so they passed the gate at 31% and 94% against 3-8% elsewhere -- selected FOR, not filtered. Together they were 56% of everything the scout read and returned -$10,503. They retrieve articles ABOUT a price move rather than its CAUSE, which is the NVTS failure mode (bought the top on 'Stock Soared Today'). Safe for the gem class: of 476 under-the-radar-framed articles in the corpus they surfaced 3. The framing lives in 'under the radar small cap stock' (386) and 'niche ETF surging', both retained.",
+  "_fda_beat_note": "Renamed + re-atomised 2026-08-13. Was 'upcoming FDA election vote stock anticipation': a two-topic name whose election half rested on ONE atom ('ballot measure', 58 hits, pulling politics with no tradeable name), and whose 'clinical readout' atom fired ONCE in 3 years. It is really an FDA-catalyst beat, and a good one -- 1,293 articles, only 37 gated (2.9%, so nearly free), and only 6% overlap with 'biotech pharma stocks'. It retrieves exactly the DATED milestone the event-agent exit prompt now asks for (PDUFA date, Phase 3 readout, approval).",
+  "_atom_broadening_note": "2026-08-13. robotics/nuclear/space were specified as narrow COMPOUND phrases ('humanoid robot', 'small modular reactor') while crypto and AI used bare high-frequency nouns ('bitcoin', 'gpu'). GKG matches atoms against the URL and title, so 'Robotics stocks surge' matched NOTHING in the robotics list. Result: robotics retrieved 266 articles in 3 years (7/month) against crypto's 16,796, and those beats produced ZERO gains -- a retrieval-vocabulary defect, not a curator one. Added the bare nouns, measured on the existing corpus: robotics +500 articles, nuclear +306, space +95. 'data center power' sits in the NUCLEAR beat deliberately, so AI-datacenter demand reaches the nuclear thesis and not only the semis one (170 AI x nuclear crossover articles already exist). SKIPPED for collisions/near-zero: bare 'quantum' (matches Quantum Solutions, a crypto firm), bare 'fission' (matches Fission Uranium Corp, TSE-listed), 'grid capacity' (0), 'power purchase agreement' (3, top hit is a biopharma PPA), 'space launch' (3).",
+  "_beat_vocabulary_note": "2026-08-13, aligned to portfolio-wave-rider's wave_keywords: GENERIC DOMAIN VOCABULARY, never named firms. A roster of launch companies goes stale (Stoke/Relativity return 0 today and will matter in two years); generic nouns do not, and it keeps GHR's beats comparable with PWR's wave buckets. Atoms are word-bounded with an optional plural (gkg._atom_regex), so 'rocket' CANNOT match 'sky-rocket' -- an earlier scare came from a looser hand-rolled regex, not the production one. DELIBERATE DEVIATIONS from PWR: no bare 'uranium' in nuclear (2,543 articles here, and the dedicated uranium gem beat already carries them -- it would swamp the reactor/SMR signal); 'orbit' instead of 'in orbit' (25 real space articles vs 10, at the cost of 8 Ultragenyx/Mereo 'Orbit' TRIAL hits, 24% noise); dropped lunar lander / starship / spaceflight / space station (0-15 hits each); kept 'fusion energy' -- 'fusion reactor' returns ZERO. 'data center power' sits in NUCLEAR so AI-datacenter demand reaches the nuclear thesis, not only the semis one. Dropped 'orbital launch', 'space company', 'satellite operator' 2026-08-13: each is subsumed by the bare 'satellite' / 'orbit' atoms, so they added nothing but length.",
+  "_spam_hard_tier_note": "The HARD tier is five classes, not just listicles: (1) listicles ('N best stocks', 'stocks to buy now'); (2) institutional-filing churn -- 13F, Form 4, insider buys/sells, 'stake raised by', 'grows position in' -- which is EIGHT of the 17 patterns and the largest class; (3) EARNINGS CALL TRANSCRIPTS; (4) chart-signal templates (gap up/down, golden cross, RSI); (5) empty/quote pages. TRANSCRIPTS ARE EXCLUDED DELIBERATELY (decided 2026-08-14): a transcript is a PRIMARY DOCUMENT, not press coverage, and this strategy bets on what the press CHOOSES to write about -- if an earnings result matters, the press writes about it and that article enters the corpus on its own merits. Do NOT 'fix' this by moving the transcript pattern to the soft tier: catalyst_exemption contains the bare word 'earnings', which every transcript headline carries, so the soft rule would readmit ALL of them including ones with no catalyst at all (checked 2026-08-14).",
+  "_class_action_note": "SECURITIES-LITIGATION NOTICES are hard-tier spam (added 2026-08-15). Every stock that falls far enough attracts a wave of near-identical law-firm press releases -- Faruqi, Pomerantz, Berger Montague, Levi & Korsinsky, Kirby McInerney -- repeating DEADLINE ALERT and Lead Plaintiff. They are legal plumbing, not press coverage of a catalyst, the same call already made for earnings transcripts. Measured on the 6-month corpus: 322 articles (1.5%), NONE caught by the existing patterns, and they concentrate on precisely the names under investigation -- 83 on Rocket Lab and 70 on Quantum Computing. Once news is grouped per ticker they are not merely noise: they were ~30 of the 51 articles in Rocket Lab's group, so they would crowd the driver articles out of the scout's context window and cost tokens for zero signal. Extended 2026-08-15 with a LAW-FIRM-NAME pattern: these titles are often truncated mid-sentence by the wire ('Lowey Dannenberg Notifies Rocket Lab USA, Inc. (\"Rocket'), leaving no action phrase to match, but the firm name always survives.",
+  "_beat_parent_note": "BUNDLE-TIME beat merge, added 2026-08-17. The beats above stay SEPARATE SEARCHES -- they have different vocabulary and different hit rates, and this file is the record of what we actually query. This map only says which beats are the SAME SUBJECT when articles are bundled for the scout. Several splits were artifacts of how the searches were written rather than real distinctions: `uranium nuclear fuel supply squeeze stock` (2,093 articles) is the nuclear thesis under another name, `defense aerospace stocks` (920) overlaps `space stocks`, and each `... ETF surging` beat is its sector's superlative variant. Merging takes 43 bundle keys to 29. GEM beats are NOT merged into sectors: they are FRAMINGS ('under the radar', 'war chokepoint') that cut across every sector, and folding them into one would discard the distinction the whole strategy rests on. The two exceptions are `niche ETF surging` (25 articles in 3 years) and `overlooked stock catalyst` (34) -- the same framing as `under the radar small cap stock` at volumes too small to ever form a bundle, so they join it.",
+  "beat_parent": {
+    "quantum computing ETF surging": "quantum stocks",
+    "nuclear uranium ETF surging": "nuclear stocks",
+    "uranium supply shortage stocks": "nuclear stocks",
+    "robotics automation ETF surging": "robotics stocks",
+    "space defense ETF surging": "space stocks",
+    "defense aerospace stocks": "space stocks",
+    "crypto blockchain ETF surging": "cryptocurrency stocks",
+    "gold silver miners ETF surging record high": "gold silver mining stocks",
+    "silver mining stocks": "gold silver mining stocks",
+    "semiconductor memory chip ETF surging": "artificial intelligence semiconductor stocks",
+    "memory chip DRAM shortage stock": "artificial intelligence semiconductor stocks",
+    "power grid AI datacenter energy ETF surging": "electric power grid pipeline energy infrastructure stocks",
+    "niche ETF surging": "little-known small cap stock catalyst",
+    "overlooked stock catalyst": "little-known small cap stock catalyst"
   },
-  {
-   "query": "financial stocks",
-   "origin": "vetted",
-   "keywords": [
-    "regional bank",
-    "investment bank",
-    "fintech",
-    "insurer",
-    "mortgage lender",
-    "asset manager",
-    "payments company"
-   ]
+  "_beat_query_reword_note": "REWORDED 2026-08-24, `query` ONLY -- every `keywords` list is untouched, so GKG matching and the 3-year backtest corpus are unaffected and no re-curation is implied. Measured across the bootstrap handoff, these three were the worst websearch performers (0.15, 0.67, 1.19 articles/day post vs 1.36, 2.22, 4.89 pre) while query-shaped beats went the other way (overlooked stock catalyst 0.03 -> 2.26/day). Cause is the split this file already names in _atom_specificity_rule: `keywords` are read literally by a regex and want narrow compounds, while `query` is read as INTENT by a semantic engine -- and these three queries had been written in atom style, as keyword bags. 'catalyst' was carried into the small-cap query deliberately: it anchors on the CAUSE rather than the price move, the distinction _pruned_beats_note records at -$10,503. 'surge/surging' was deliberately NOT used in the uranium reword for the same reason. beat_parent was remapped in the same edit -- the small-cap beat is the PARENT of niche ETF surging + overlooked stock catalyst, and a stale key or value there falls through gkg.bundle_beat to itself and silently splits a bundle.",
+  "beat_renames": {
+    "under the radar small cap stock": "little-known small cap stock catalyst",
+    "uranium nuclear fuel supply squeeze stock": "uranium supply shortage stocks",
+    "upcoming FDA decision clinical readout stock anticipation": "biotech stock ahead of FDA decision"
   },
-  {
-   "query": "healthcare stocks",
-   "origin": "vetted",
-   "keywords": [
-    "drugmaker",
-    "medical device",
-    "health insurer",
-    "hospital operator",
-    "diagnostics company"
-   ]
-  },
-  {
-   "query": "industrial stocks",
-   "origin": "vetted",
-   "keywords": [
-    "industrial machinery",
-    "capital goods",
-    "factory automation",
-    "aerospace supplier",
-    "equipment maker"
-   ]
-  },
-  {
-   "query": "materials stocks",
-   "origin": "vetted",
-   "keywords": [
-    "mining company",
-    "commodity producer",
-    "chemical producer",
-    "specialty chemicals",
-    "cement maker"
-   ]
-  },
-  {
-   "query": "consumer stocks",
-   "origin": "vetted",
-   "keywords": [
-    "retailer",
-    "e-commerce",
-    "consumer goods",
-    "restaurant chain",
-    "apparel brand",
-    "beverage maker"
-   ]
-  },
-  {
-   "query": "utility stocks",
-   "origin": "vetted",
-   "keywords": [
-    "electric utility",
-    "power utility",
-    "water utility",
-    "utility company"
-   ]
-  },
-  {
-   "query": "real estate stocks",
-   "origin": "vetted",
-   "keywords": [
-    "reit",
-    "homebuilder",
-    "commercial real estate",
-    "data center reit",
-    "property developer"
-   ]
-  },
-  {
-   "query": "telecom stocks",
-   "origin": "vetted",
-   "keywords": [
-    "telecom carrier",
-    "wireless carrier",
-    "broadband provider",
-    "fiber network"
-   ]
-  },
-  {
-   "query": "shipping maritime stocks",
-   "origin": "vetted",
-   "keywords": [
-    "tanker rates",
-    "dry bulk",
-    "container shipping",
-    "freight rate",
-    "shipyard",
-    "vlcc",
-    "product tanker",
-    "crude tanker",
-    "shipping line",
-    "charter rates"
-   ]
-  },
-  {
-   "query": "cryptocurrency stocks",
-   "origin": "vetted",
-   "keywords": [
-    "bitcoin",
-    "cryptocurrency",
-    "blockchain",
-    "stablecoin",
-    "crypto mining",
-    "hashrate",
-    "bitcoin miner",
-    "digital asset"
-   ]
-  },
-  {
-   "query": "space stocks",
-   "origin": "vetted",
-   "keywords": [
-    "rocket",
-    "satellite",
-    "spacecraft",
-    "launch vehicle",
-    "orbit"
-   ]
-  },
-  {
-   "query": "robotics stocks",
-   "origin": "vetted",
-   "keywords": [
-    "humanoid robot",
-    "industrial robot",
-    "warehouse automation",
-    "robotics company",
-    "robotic surgery",
-    "robotics",
-    "humanoid",
-    "automation"
-   ]
-  },
-  {
-   "query": "quantum stocks",
-   "origin": "vetted",
-   "keywords": [
-    "quantum computing",
-    "qubit",
-    "quantum processor",
-    "quantum computer"
-   ]
-  },
-  {
-   "query": "nuclear stocks",
-   "origin": "vetted",
-   "keywords": [
-    "small modular reactor",
-    "microreactor",
-    "nuclear reactor",
-    "nuclear power plant",
-    "reactor design",
-    "nuclear power",
-    "nuclear energy",
-    "nuclear fuel",
-    "smr",
-    "fusion energy",
-    "data center power"
-   ]
-  },
-  {
-   "query": "defense aerospace stocks",
-   "origin": "vetted",
-   "keywords": [
-    "defense contractor",
-    "missile defense",
-    "hypersonic",
-    "munitions",
-    "warship",
-    "military drone",
-    "loitering munition",
-    "defense budget",
-    "fighter jet"
-   ]
-  },
-  {
-   "query": "artificial intelligence semiconductor stocks",
-   "origin": "vetted",
-   "keywords": [
-    "ai chip",
-    "ai data center",
-    "ai datacenter",
-    "gpu",
-    "accelerator chip",
-    "advanced packaging",
-    "inference chip"
-   ]
-  },
-  {
-   "query": "biotech pharma stocks",
-   "origin": "vetted",
-   "keywords": [
-    "biotech",
-    "biopharma",
-    "gene therapy",
-    "oncology drug",
-    "obesity drug",
-    "drug pipeline"
-   ]
-  },
-  {
-   "query": "gold silver mining stocks",
-   "origin": "vetted",
-   "keywords": [
-    "gold miner",
-    "gold mining",
-    "gold price",
-    "bullion",
-    "precious metals",
-    "gold producer"
-   ]
-  },
-  {
-   "query": "silver mining stocks",
-   "origin": "vetted",
-   "keywords": [
-    "silver miner",
-    "silver mining",
-    "silver price"
-   ]
-  },
-  {
-   "query": "freight trucking rail air cargo logistics stocks",
-   "origin": "vetted",
-   "keywords": [
-    "trucking",
-    "railroad",
-    "air cargo",
-    "freight forwarder",
-    "logistics provider",
-    "intermodal"
-   ]
-  },
-  {
-   "query": "steel copper lithium aluminum titanium coal mining stocks",
-   "origin": "vetted",
-   "keywords": [
-    "steel producer",
-    "steelmaker",
-    "copper price",
-    "copper mine",
-    "lithium",
-    "aluminum smelter",
-    "titanium",
-    "coal miner",
-    "nickel",
-    "cobalt"
-   ]
-  },
-  {
-   "query": "electric power grid pipeline energy infrastructure stocks",
-   "origin": "vetted",
-   "keywords": [
-    "power grid",
-    "transmission line",
-    "pipeline operator",
-    "lng terminal",
-    "grid operator",
-    "data center power",
-    "energy infrastructure"
-   ]
-  },
-  {
-   "query": "best performing ETF little-known skyrocketing surging",
-   "origin": "vetted",
-   "keywords": [
-    "best performing etf",
-    "top performing etf",
-    "etf surges",
-    "etf soars",
-    "best-performing etf"
-   ]
-  },
-  {
-   "query": "gold silver miners ETF surging record high",
-   "origin": "vetted",
-   "keywords": [
-    "gold miners etf",
-    "silver miners etf",
-    "precious metals etf",
-    "gold etf"
-   ]
-  },
-  {
-   "query": "nuclear uranium ETF surging",
-   "origin": "forward",
-   "keywords": [
-    "uranium etf",
-    "nuclear etf"
-   ]
-  },
-  {
-   "query": "robotics automation ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "robotics etf",
-    "automation etf"
-   ]
-  },
-  {
-   "query": "quantum computing ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "quantum etf",
-    "quantum computing etf"
-   ]
-  },
-  {
-   "query": "space defense ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "space etf",
-    "defense etf",
-    "aerospace etf"
-   ]
-  },
-  {
-   "query": "crypto blockchain ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "crypto etf",
-    "bitcoin etf",
-    "blockchain etf",
-    "ethereum etf"
-   ]
-  },
-  {
-   "query": "semiconductor memory chip ETF surging",
-   "origin": "forward",
-   "keywords": [
-    "semiconductor etf",
-    "chip etf",
-    "memory etf"
-   ]
-  },
-  {
-   "query": "power grid AI datacenter energy ETF surging",
-   "origin": "vetted",
-   "keywords": [
-    "grid etf",
-    "infrastructure etf",
-    "utilities etf",
-    "clean energy etf"
-   ]
-  }
- ],
- "spam_title_patterns": [
-  "^\\s*$",
-  "(?i)\\b\\d+\\s+(best|top|cheap|hot|safe)\\s+(stocks?|etfs?)\\b",
-  "(?i)\\b(stocks?|etfs?) to (buy|watch|own) (now|today|in \\d{4})\\b",
-  "(?i)\\b(zacks|marketbeat) (rank|consensus|analyst)\\b",
-  "(?i)\\b(13f|form 4|insider (buying|selling)) (filing|activity|roundup)\\b",
-  "(?i)^\\s*(quotes?|quote|watchlist|screener|markets?)\\s*$",
-  "(?i)\\bshares?\\s+(purchased|sold|acquired|bought|held)\\s+by\\b",
-  "(?i)\\b(buys|sells|acquires|purchases)\\s+[\\d,]+\\s+shares?\\s+of\\b",
-  "(?i)\\b(buys|sells)\\s+new\\s+stake\\s+in\\b",
-  "(?i)\\b[\\d,]+\\s+shares?\\s+in\\b.*\\b(acquired|purchased|bought|sold)\\s+by\\b",
-  "(?i)\\binsider\\s+(selling|buying)\\b",
-  "(?i)\\bstake\\s+(raised|lowered|boosted|trimmed|increased|reduced)\\s+by\\b",
-  "(?i)\\bhead-to-head\\s+(comparison|contrast|survey)\\b",
-  "(?i)\\bearnings\\s+call\\s+transcript\\b",
-  "(?i)\\b(grows|trims|cuts|lifts)\\s+(position|stake|holdings)\\s+in\\b",
-  "(?i)\\b(shares? (gap|gaps) (up|down)|trading (up|down) [\\d.]+%|crosses above)\\b",
-  "(?i)\\b(moving average|golden cross|death cross|rsi) (crosses|signal)\\b",
-  "(?i)\\b(class action|lead plaintiff|securities fraud|securities law violations)\\b",
-  "(?i)\\b(shareholder|investor)\\s+(alert|reminder|deadline|notice|rights)\\b",
-  "(?i)\\bdeadline\\s+(alert|approaching|reminder)\\b",
-  "(?i)\\b(investigates?\\s+claims|sued for securities|reminds investors|notifies\\s+\\w+.{0,24}investors)\\b",
-  "(?i)\\b(lost money on|with (substantial|large) losses)\\b",
-  "(?i)\\b(faruqi|pomerantz|berger montague|levi\\s*&?\\s*korsinsky|kirby mcinerney|bernstein liebhard|lowey dannenberg|portnoy|gross law|schall law|hagens berman|kahn swick|block leviton|robbins geller|glancy prongay|bragar eagel|rosen law|bronstein.{0,12}gewirtz)\\b",
-  "(?i)\\b(opportunity to lead|lead the .{0,24}class action|contact the .{0,20}(law )?firm)\\b"
- ],
- "spam_title_patterns_soft": [
-  "(?i)\\b(price target|average target|consensus (rating|estimate)|analysts? (expect|forecast))\\b",
-  "(?i)\\bhits?\\s+new\\s+52-week\\s+(high|low)\\b",
-  "(?i)\\bsets new 52-week\\b",
-  "(?i)\\bshort\\s+interest\\b.*\\b(drops?|rises?|expands?|shrinks?|up|down)\\s+by\\b",
-  "(?i)\\bsees\\s+large\\s+(increase|decline|drop|growth)\\s+in\\s+short\\s+interest\\b",
-  "(?i)\\bgiven\\s+(a\\s+)?(average|consensus)\\s+(rating|recommendation)\\s+of\\b"
- ],
- "catalyst_exemption": "(?i)\\b(fda|approval|approved|clearance|pdufa|phase\\s*[123]|trial|readout|deal|agreement|partnership|contract|award|awarded|wins|acquisition|acquires|merger|takeover|divest|divestiture|sale of|spin-?off|stake in|expansion|talks|tariff|sanction|export ban|export control|embargo|shortage|supply|outage|strike|recall|lawsuit|ruling|licen[sc]e|launch|unveil|breakthrough|guidance|earnings|outlook|results beat|tops estimates|rally|rallies|surge|surges|soar|soars|jump|jumps|plunge|plunges|skyrocket)\\b",
- "_spam_two_tier_note": "SPLIT 2026-08-08 after an LLM audit of what the filter threw away (scripts/judge_dropped.py). A blind judge re-read 200 dropped headlines and confirmed 11 (5.5%) were real catalyst reporting -- 'NVIDIA Price Target Raised to $225 After $100B OpenAI Deal', 'Regeneron Scores FDA Approval, JP Morgan Reaffirms $800 Price Target', 'SQM Stock Gets $53 Price Target From BofA as Lithium Prices Rally'. Extrapolated, one over-broad regex was discarding ~240 real articles a year, and they are exactly the class this strategy exists to catch. spam_title_patterns = HARD: pure machine plumbing (13F churn, Form-4, listicles, transcripts, quote pages) that is never salvageable. spam_title_patterns_soft = an ANALYST ACTION or a TECHNICAL-SIGNAL template, which is boilerplate ONLY when it is the whole story -- a soft match is spared when the headline also names a catalyst (catalyst_exemption). Judge the filter by what it DROPS, not by whether the regex matches: testing a regex with a regex is circular, which is why the audit uses a model that is never told a filter was involved. The exemption vocabulary was widened twice against measured false positives (earnings/outlook, then agreement/divestiture/expansion/talks). It is inherently open-ended -- catalyst language is not enumerable -- so this was stopped at a measured ~3% residual rather than chased to zero, since every added term also admits more boilerplate. Extended 2026-08-08 from a strong-model FALSE-NEGATIVE audit of the CORPUS (not the drops): ~52% of surviving articles were judged noise, concentrated in template-shaped categories the original patterns never covered -- earnings previews, IPO lot-size/GMP pages, conference and webinar invitations, dividend declarations, technical-signal bots, volume rankings and 'Should You Buy X After Its N% Rally' listicles. Those went to the HARD tier because no catalyst redeems them; offerings and all-time-high templates went SOFT because a real deal can make them news. Two of those additions were reverted the same day after measurement: a '(what|why) you need to know$' rule was matching a Benzinga headline SUFFIX rather than a story type (883 real articles), and 'should you buy' was demoted to soft. Net lesson: a pattern must describe the STORY, never a publisher's house style -- and every pattern addition needs an FP re-measure, because this batch raised the spam stage's false-positive rate 2.7% -> 6.7% before correction. THE WHOLE 2026-08-08 junk batch was then REVERTED. Measured across three passes the spam stage's false-positive rate went 2.7% -> 6.7% -> 11.3% while the corpus junk rate did not measurably move (removing ~2.5k of 39k articles cannot shift a ~52% rate by more than ~3pp, which is inside the sampling error at n=300). The batch bought no measurable precision and cost real recall, so it is gone. Recorded so it is not re-attempted: the corpus's residual noise is NOT template-shaped enough for headline regex, and the scout -- which reads the whole pool and judges -- is the intended backstop for it. MEASURED 2026-08-10 and FIXED: `expands?` was removed from catalyst_exemption. It directly cancelled the soft pattern `short interest ... expands`, which exists to kill 'Short Interest in X Expands By 21.5%'. Of the 62 soft-matched survivors that term spared, 62 were short-interest boilerplate and ZERO were genuine catalysts -- so the deletion costs no recall. `expansion` is kept: it carries the capacity/capex sense that IS a catalyst.",
- "_spam_pattern_note": "A/B'd 2026-08-07 against domain-blocking. These domain-AGNOSTIC patterns remove the automated-filing headline CLASS (13F churn, Form-4 insider moves, 52-week-high bots, short-interest bots) wherever it appears, and they are correctly SURGICAL on real outlets -- insidermonkey.com kept 99% of its articles and financialcontent.com 100%, because those sites' boilerplate is a small minority of genuine reporting. What patterns CANNOT do is clear a site that is nothing BUT boilerplate: tickerreport / dailypolitical / themarketsdaily still had 66-72% of their articles survive, because the bots have unbounded template variants ('Sees Large Decline', 'Grows Position in', 'Stock Price Up 9.4%'). Those three are handled by mill_block instead. Patterns for the class, domain-block for the source -- each doing the job the other can't.",
- "org_stoplist": [
-  "reuters",
-  "associated press",
-  "bloomberg",
-  "cnbc",
-  "cnn",
-  "bbc",
-  "fox news",
-  "msnbc",
-  "wall street journal",
-  "financial times",
-  "new york times",
-  "washington post",
-  "guardian",
-  "yahoo",
-  "google",
-  "seeking alpha",
-  "motley fool",
-  "benzinga",
-  "marketwatch",
-  "barron",
-  "zacks",
-  "marketbeat",
-  "investing.com",
-  "business insider",
-  "forbes",
-  "fortune",
-  "nasdaq",
-  "nyse",
-  "new york stock exchange",
-  "s&p",
-  "standard & poor",
-  "dow jones",
-  "russell 2000",
-  "ftse",
-  "msci",
-  "cboe",
-  "morningstar",
-  "refinitiv",
-  "factset",
-  "federal reserve",
-  "european central bank",
-  "bank of england",
-  "bank of japan",
-  "treasury department",
-  "white house",
-  "congress",
-  "senate",
-  "house of representatives",
-  "supreme court",
-  "european union",
-  "united nations",
-  "nato",
-  "opec",
-  "world bank",
-  "international monetary fund",
-  "sec",
-  "securities and exchange commission",
-  "ftc",
-  "doj",
-  "department of defense",
-  "pentagon",
-  "department of energy",
-  "epa",
-  "fda",
-  "university",
-  "institute",
-  "foundation",
-  "association",
-  "chamber of commerce",
-  "getty images",
-  "shutterstock",
-  "pr newswire",
-  "business wire",
-  "globenewswire",
-  "accesswire",
-  "department",
-  "ministry",
-  "agency",
-  "commission",
-  "bureau",
-  "authority",
-  "select sector",
-  "software sector",
-  "national security",
-  "task force",
-  "secretariat",
-  "congressional",
-  "depository"
- ],
- "_english_only_note": "engine.english_only maps to the SQL predicate `TranslationInfo IS NULL`, which keeps only English-ORIGIN articles (GDELT machine-translates foreign coverage and marks it here). It is the LARGEST single filter in the pipeline -- measured at 88.5M rows/year, 64.6% of everything GDELT indexes -- and until 2026-08-09 it was a bare condition in the SQL with no knob, no note, and no audit, so it never appeared in the funnel dashboard at all. Promoted to config because a scope decision of that size should be visible and switchable, not buried. Set false to admit foreign-origin coverage, e.g. to reach non-US press writing about US-listed ADRs -- but expect roughly 3x the rows and note that the beat keywords are English, so recall on translated text will be poor until they are too.",
- "_org_stoplist_note": "MATCHED ON WORD BOUNDARIES, not as substrings (src/gkg._stoplist_re). The substring form silently discarded real listed companies whose names merely CONTAIN a stop token: `sec` killed SecureWorks / Secure Energy Services / Second Sight Medical, `epa` killed EPAM Systems, `russell` killed Russell Metals. Fixed 2026-08-10. Note some entries ARE themselves listed companies (Nasdaq/NDAQ, Cboe/CBOE, MSCI, FactSet/FDS, Morningstar/MORN) -- they stay because they appear far more often as index/data providers than as subjects, but an article genuinely about one of them as a company is collateral damage. MEASURED 2026-08-10, and the reason the generic-institution tokens below exist: switching to word boundaries removed an ACCIDENT that was load-bearing -- `epa` had been matching 'd-EPA-rtment', which is what kept Defense Department / Department of Government Efficiency / state banking departments out of the pool. Without a replacement the fix readmitted 1,457 rows per 24 chunks of which 82% were government-only subjects, i.e. exactly the general news the org test exists to exclude. So `department`/`ministry`/`agency`/... are now EXPLICIT, and the index-sector artifacts ('Select Sector', 'Software Sector') with them. Lesson: before removing a filter that looks wrong, measure what it was actually catching.",
- "_pruned_beats_note": "Removed 2026-08-13: 'stock surges skyrockets all-time high record', 'best performing stock', 'biggest stock gainers'. Their atoms (stock surges / shares soar / all-time high / best performing stock) ARE the discovery gate's own vocabulary, so they passed the gate at 31% and 94% against 3-8% elsewhere -- selected FOR, not filtered. Together they were 56% of everything the scout read and returned -$10,503. They retrieve articles ABOUT a price move rather than its CAUSE, which is the NVTS failure mode (bought the top on 'Stock Soared Today'). Safe for the gem class: of 476 under-the-radar-framed articles in the corpus they surfaced 3. The framing lives in 'under the radar small cap stock' (386) and 'niche ETF surging', both retained.",
- "_fda_beat_note": "Renamed + re-atomised 2026-08-13. Was 'upcoming FDA election vote stock anticipation': a two-topic name whose election half rested on ONE atom ('ballot measure', 58 hits, pulling politics with no tradeable name), and whose 'clinical readout' atom fired ONCE in 3 years. It is really an FDA-catalyst beat, and a good one -- 1,293 articles, only 37 gated (2.9%, so nearly free), and only 6% overlap with 'biotech pharma stocks'. It retrieves exactly the DATED milestone the event-agent exit prompt now asks for (PDUFA date, Phase 3 readout, approval).",
- "_atom_broadening_note": "2026-08-13. robotics/nuclear/space were specified as narrow COMPOUND phrases ('humanoid robot', 'small modular reactor') while crypto and AI used bare high-frequency nouns ('bitcoin', 'gpu'). GKG matches atoms against the URL and title, so 'Robotics stocks surge' matched NOTHING in the robotics list. Result: robotics retrieved 266 articles in 3 years (7/month) against crypto's 16,796, and those beats produced ZERO gains -- a retrieval-vocabulary defect, not a curator one. Added the bare nouns, measured on the existing corpus: robotics +500 articles, nuclear +306, space +95. 'data center power' sits in the NUCLEAR beat deliberately, so AI-datacenter demand reaches the nuclear thesis and not only the semis one (170 AI x nuclear crossover articles already exist). SKIPPED for collisions/near-zero: bare 'quantum' (matches Quantum Solutions, a crypto firm), bare 'fission' (matches Fission Uranium Corp, TSE-listed), 'grid capacity' (0), 'power purchase agreement' (3, top hit is a biopharma PPA), 'space launch' (3).",
- "_beat_vocabulary_note": "2026-08-13, aligned to portfolio-wave-rider's wave_keywords: GENERIC DOMAIN VOCABULARY, never named firms. A roster of launch companies goes stale (Stoke/Relativity return 0 today and will matter in two years); generic nouns do not, and it keeps GHR's beats comparable with PWR's wave buckets. Atoms are word-bounded with an optional plural (gkg._atom_regex), so 'rocket' CANNOT match 'sky-rocket' -- an earlier scare came from a looser hand-rolled regex, not the production one. DELIBERATE DEVIATIONS from PWR: no bare 'uranium' in nuclear (2,543 articles here, and the dedicated uranium gem beat already carries them -- it would swamp the reactor/SMR signal); 'orbit' instead of 'in orbit' (25 real space articles vs 10, at the cost of 8 Ultragenyx/Mereo 'Orbit' TRIAL hits, 24% noise); dropped lunar lander / starship / spaceflight / space station (0-15 hits each); kept 'fusion energy' -- 'fusion reactor' returns ZERO. 'data center power' sits in NUCLEAR so AI-datacenter demand reaches the nuclear thesis, not only the semis one. Dropped 'orbital launch', 'space company', 'satellite operator' 2026-08-13: each is subsumed by the bare 'satellite' / 'orbit' atoms, so they added nothing but length.",
- "_spam_hard_tier_note": "The HARD tier is five classes, not just listicles: (1) listicles ('N best stocks', 'stocks to buy now'); (2) institutional-filing churn -- 13F, Form 4, insider buys/sells, 'stake raised by', 'grows position in' -- which is EIGHT of the 17 patterns and the largest class; (3) EARNINGS CALL TRANSCRIPTS; (4) chart-signal templates (gap up/down, golden cross, RSI); (5) empty/quote pages. TRANSCRIPTS ARE EXCLUDED DELIBERATELY (decided 2026-08-14): a transcript is a PRIMARY DOCUMENT, not press coverage, and this strategy bets on what the press CHOOSES to write about -- if an earnings result matters, the press writes about it and that article enters the corpus on its own merits. Do NOT 'fix' this by moving the transcript pattern to the soft tier: catalyst_exemption contains the bare word 'earnings', which every transcript headline carries, so the soft rule would readmit ALL of them including ones with no catalyst at all (checked 2026-08-14).",
- "_class_action_note": "SECURITIES-LITIGATION NOTICES are hard-tier spam (added 2026-08-15). Every stock that falls far enough attracts a wave of near-identical law-firm press releases -- Faruqi, Pomerantz, Berger Montague, Levi & Korsinsky, Kirby McInerney -- repeating DEADLINE ALERT and Lead Plaintiff. They are legal plumbing, not press coverage of a catalyst, the same call already made for earnings transcripts. Measured on the 6-month corpus: 322 articles (1.5%), NONE caught by the existing patterns, and they concentrate on precisely the names under investigation -- 83 on Rocket Lab and 70 on Quantum Computing. Once news is grouped per ticker they are not merely noise: they were ~30 of the 51 articles in Rocket Lab's group, so they would crowd the driver articles out of the scout's context window and cost tokens for zero signal. Extended 2026-08-15 with a LAW-FIRM-NAME pattern: these titles are often truncated mid-sentence by the wire ('Lowey Dannenberg Notifies Rocket Lab USA, Inc. (\"Rocket'), leaving no action phrase to match, but the firm name always survives.",
- "_beat_parent_note": "BUNDLE-TIME beat merge, added 2026-08-17. The beats above stay SEPARATE SEARCHES -- they have different vocabulary and different hit rates, and this file is the record of what we actually query. This map only says which beats are the SAME SUBJECT when articles are bundled for the scout. Several splits were artifacts of how the searches were written rather than real distinctions: `uranium nuclear fuel supply squeeze stock` (2,093 articles) is the nuclear thesis under another name, `defense aerospace stocks` (920) overlaps `space stocks`, and each `... ETF surging` beat is its sector's superlative variant. Merging takes 43 bundle keys to 29. GEM beats are NOT merged into sectors: they are FRAMINGS ('under the radar', 'war chokepoint') that cut across every sector, and folding them into one would discard the distinction the whole strategy rests on. The two exceptions are `niche ETF surging` (25 articles in 3 years) and `overlooked stock catalyst` (34) -- the same framing as `under the radar small cap stock` at volumes too small to ever form a bundle, so they join it.",
- "beat_parent": {
-  "quantum computing ETF surging": "quantum stocks",
-  "nuclear uranium ETF surging": "nuclear stocks",
-  "uranium nuclear fuel supply squeeze stock": "nuclear stocks",
-  "robotics automation ETF surging": "robotics stocks",
-  "space defense ETF surging": "space stocks",
-  "defense aerospace stocks": "space stocks",
-  "crypto blockchain ETF surging": "cryptocurrency stocks",
-  "gold silver miners ETF surging record high": "gold silver mining stocks",
-  "silver mining stocks": "gold silver mining stocks",
-  "semiconductor memory chip ETF surging": "artificial intelligence semiconductor stocks",
-  "memory chip DRAM shortage stock": "artificial intelligence semiconductor stocks",
-  "power grid AI datacenter energy ETF surging": "electric power grid pipeline energy infrastructure stocks",
-  "niche ETF surging": "under the radar small cap stock",
-  "overlooked stock catalyst": "under the radar small cap stock"
- }
+  "_beat_renames_note": "OLD beat query -> its CURRENT name, applied when reading HISTORICAL article tags (bootstrap_corpus.beat_of). A corpus article carries whatever the beat was CALLED when it was retrieved, so renaming a query in this file silently breaks every panel that joins corpus tags to the configured beat list -- the 2026-08-24 reword made all three renamed beats read ZERO on FBT, a page describing a 3-year corpus the reword did not touch. Keep every rename here forever; the map is append-only and costs one dict lookup. CAVEAT: it makes the beat's time series CONTINUOUS across the rename, which is right for identity (same keywords, same beat_parent slot, same intent) but means a rate comparison spanning the rename date is comparing two different QUERIES -- treat it like the handoff seam, a config change first and a signal second."
 }

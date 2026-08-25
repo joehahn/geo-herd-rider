@@ -46,6 +46,20 @@ def main(argv=None) -> int:
         print(f"\n  {BAD} UNCLASSIFIED PROFILE KNOBS: {unclassified}")
         print(f"      Add each to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
 
+    # BEAT VOCABULARY. Not covered by the fingerprint (retrieval_config.json is an INGEST-time
+    # input, while a replay reads the corpus), but a beat name is also a JOIN KEY -- so a rename
+    # breaks the curator's gem scoring against an unchanged corpus, silently. See
+    # provenance.check_beat_vocabulary.
+    vocab = P.check_beat_vocabulary()
+    print("\nBEAT VOCABULARY")
+    if vocab:
+        bad += 1
+        print(f"  {BAD} beat references do not resolve:")
+        for _c in vocab:
+            print(f"      - {_c}")
+    else:
+        print(f"  {OK} every beat_parent entry and every corpus beat tag resolves to a live beat")
+
     print("\nCANONICAL CURATION")
     v = P.verify(P.CANON_RUN, fm)
     if v["ok"]:

@@ -46,6 +46,7 @@ import dash_nav  # noqa: E402
 import score as _score  # noqa: E402
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
+import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
 from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,  # noqa: E402
                                  STATUS, _LINK, esc, panel, table_html, tile)
 
@@ -127,7 +128,7 @@ def main(argv=None) -> int:
                 _q = ast.literal_eval(_q)
             except Exception:  # noqa: BLE001
                 _q = []
-        for _b in (_q or []):
+        for _b in {_gkg.canon_beat(_x) for _x in (_q or [])}:   # canonical + de-duped per article
             _beat_arts[_b] += 1
     _beat_arts = dict(_beat_arts)
 
@@ -150,7 +151,7 @@ def main(argv=None) -> int:
                     _q = ast.literal_eval(_q)
                 except Exception:  # noqa: BLE001
                     _q = []
-            for _b in (_q or []):
+            for _b in {_gkg.canon_beat(_x) for _x in (_q or [])}:
                 _beat_gated[_b] += 1
     except Exception as _e:  # noqa: BLE001 - the gate is optional; fall back to corpus counts
         print(f"  gated beat counts unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
@@ -270,7 +271,7 @@ def main(argv=None) -> int:
             lede_c[_prov] += 1
             if p.get("ticker"):
                 tick_lede[p["ticker"]][_prov] += 1
-            for b in (art.get("queries") or []):
+            for b in {_gkg.canon_beat(x) for x in (art.get("queries") or [])}:
                 beat_c[b] += 1
 
     # ---- the deferred FBT chart, built here because it needs curator output -----------------------
@@ -387,6 +388,10 @@ def main(argv=None) -> int:
         _held_per_week = [min(n, _wcap) if _wcap else n for n in _live_n]
         _cull_bind = sum(1 for n in _live_n for _ in [0] if _wcap and n > _wcap)
         _cull_med = sorted(_live_n)[len(_live_n) // 2] if _live_n else 0
+        # Span of the breadth panel's series, for its lead and to justify its log axis.
+        _bser = ([r['events_live'] for r in M] + [r['vehicles_live'] for r in M]
+                 + [r['distinct_catalysts'] for r in M])
+        _bmin, _bmax = (min(_bser), max(_bser)) if _bser else (0, 0)
         book = {"final": _bt.get("final"), "spy": _bt.get("spy_final"), "weeks": _bt.get("weeks")}
         _pg: dict = collections.Counter()
         for _tk, _mix in tick_lede.items():
@@ -513,7 +518,10 @@ def main(argv=None) -> int:
                 _a = BYURL.get(_u.strip())
                 if _a:
                     for _bq in (_a.get("queries") or []):
-                        _tb[_p["ticker"]][_bq] += 1
+                        # canonicalise: corpus tags carry whatever the beat was CALLED when the
+                        # article was retrieved, so after a rename this page labelled the same beat
+                        # differently from FBT -- two published pages disagreeing about one corpus.
+                        _tb[_p["ticker"]][_gkg.canon_beat(_bq)] += 1
         _dom = {tk: c.most_common(1)[0][0] for tk, c in _tb.items() if c}
         # KEEP EVERY BEAT THAT MOVED MONEY. A flat top-8-by-ticker-count cap silently misattributed the
         # book: measured 2026-08-14 on v15, RKLB's $36,886 -- the single largest gain in the run, and a
@@ -1316,14 +1324,12 @@ def main(argv=None) -> int:
               "symbols and drops unresolvable ones before these counters see them." + _NODEC,
               "c-funnel", 340),
         panel(13, "Breadth over time",
-              "Events live, distinct tickers named, and how many separate catalysts those events "
-              "represent — per rebalance. Several events on one theme is concentration wearing a "
-              "diversity costume, which is why catalysts are drawn separately from events. The dashed "
-              f"line is <code>max_watchlist</code> = {_wcap}. Since the unfunded prune was turned on "
-              f"(2026-08-09) it binds in only <b>{_cull_bind} of {len(_held_per_week)}</b> weeks — the "
-              "prune keeps the live set under the cap by itself, so the cap is a backstop rather than "
-              "an active knob. What used to sit between the solid and dashed lines was inventory the "
-              "optimizer was never going to fund.",
+              "Events live, distinct tickers named, and the distinct catalysts behind those events, "
+              "per rebalance. Catalysts are drawn separately because several events on one theme is "
+              "concentration wearing a diversity costume. The dashed line is "
+              f"<code>max_watchlist</code> = {_wcap}, which binds in <b>{_cull_bind} of "
+              f"{len(_held_per_week)}</b> weeks, and the green line is what actually held capital. "
+              f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
               "c-breadth", 380),
         panel(14, "Scout inflow vs admissions",
                 f"Candidate <b>tickers</b> the scout proposed each <code>rebalance_period</code> "
@@ -1565,20 +1571,40 @@ function draw() {{
              text:'max_events 0 = uncapped, no ceiling to draw'}}]}}), CFG);
   }}
 
+  // LOG y (2026-08-24). The three curator series span 1 to ~194 on this curation, so on a linear
+  // axis `distinct catalysts` and the funded line are pinned to the baseline and the panel reads as
+  // one curve plus some noise at the bottom -- which is the opposite of its point, since the whole
+  // panel is about the GAP between events and the catalysts behind them.
+  // ZEROS. A zero has no position on a log axis (the same reason panel 14's all-zero cap trace was
+  // dropped outright rather than drawn at 0), so every series is mapped 0 -> null and GAPS there
+  // instead. Gapping rather than substituting 0.5 or clamping: a fabricated positive value would
+  // draw a week with no live events as if it had one. Nothing gaps on the current curation -- the
+  // series minima are 1, 1, 1 and 4 -- so this is a guard against a future one, not a repair.
+  const _lg = a => a.map(v => (v > 0 ? v : null));
+  // COLOUR CONVENTION (2026-08-24, pilot panel). Green means GAIN and red means LOSS everywhere on
+  // this page, so neither is available to an ordinary series. This panel had TWO green counts --
+  // `distinct catalysts` on s3 and `actually funded` on ST.good -- either of which read as a P&L
+  // series at a glance. Now: the three curator-breadth counts take categorical hues s1/s2/s4
+  // (blue / orange / purple, validated together against both surfaces), and the two lines that are
+  // NOT curator breadth take INK rather than a hue -- `actually funded` is the outcome everything
+  // else is compared against, and the cap is a reference line, not a series. Spending a categorical
+  // hue on a horizontal constant would have been a hue wasted on a threshold.
   Plotly.react('c-breadth', [
-    {{type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:B.events,
+    {{type:'scatter', mode:'lines+markers', name:'events live', x:B.w, y:_lg(B.events),
       line:{{color:p.s1,width:2}}, marker:{{size:6,color:p.s1,line:{{width:1.5,color:p.surface}}}}}},
-    {{type:'scatter', mode:'lines+markers', name:'tickers named', x:B.w, y:B.vehicles,
+    {{type:'scatter', mode:'lines+markers', name:'tickers named', x:B.w, y:_lg(B.vehicles),
       line:{{color:p.s2,width:2}}, marker:{{size:6,color:p.s2,line:{{width:1.5,color:p.surface}}}}}},
-    {{type:'scatter', mode:'lines+markers', name:'distinct catalysts', x:B.w, y:B.catalysts,
-      line:{{color:p.s3,width:2,dash:'dot'}}, marker:{{size:6,color:p.s3,line:{{width:1.5,color:p.surface}}}}}},
-    {{type:'scatter', mode:'lines', name:'max_watchlist cap', x:B.w, y:B.w.map(()=>B.cap),
-      line:{{color:ST.serious,width:2,dash:'dash'}}, hovertemplate:'cap %{{y}}<extra></extra>'}},
-    {{type:'scatter', mode:'lines', name:'actually funded', x:B.w, y:B.held,
-      line:{{color:ST.good,width:2}}, hovertemplate:'%{{x}}<br>%{{y}} funded<extra></extra>'}}
+    {{type:'scatter', mode:'lines+markers', name:'distinct catalysts', x:B.w, y:_lg(B.catalysts),
+      line:{{color:p.s4,width:2,dash:'dot'}}, marker:{{size:6,color:p.s4,line:{{width:1.5,color:p.surface}}}}}},
+    ...(B.cap > 0 ? [{{type:'scatter', mode:'lines', name:'max_watchlist cap',
+      x:B.w, y:B.w.map(()=>B.cap),
+      line:{{color:p.text2,width:1.8,dash:'dash'}}, hovertemplate:'cap %{{y}}<extra></extra>'}}] : []),
+    {{type:'scatter', mode:'lines', name:'actually funded', x:B.w, y:_lg(B.held),
+      line:{{color:p.s3,width:2.5}}, hovertemplate:'%{{x}}<br>%{{y}} funded<extra></extra>'}}
   ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.13, x:0, font:{{size:11.5}}}},
       margin:{{l:60,r:24,t:36,b:60}},
-      yaxis:{{gridcolor:p.grid, rangemode:'tozero', title:{{text:'count', font:{{size:11}}}}}}}}), CFG);
+      yaxis:{{gridcolor:p.grid, type:'log',
+              title:{{text:'count (log)', font:{{size:11}}}}}}}}), CFG);
 
   const I = DATA.inflow;
   // LINEAR y, and no cap line. The log axis was justified when max_new_events was SET: proposed ran
@@ -1622,7 +1648,7 @@ function draw() {{
   const C = DATA.cov;
   Plotly.react('c-cov', [{{
     type:'bar', orientation:'h', x:C.n.slice().reverse(), y:C.t.slice().reverse(),
-    marker:{{color:C.picked.slice().reverse().map(b=>b?ST.good:p.grid), line:{{width:2,color:p.surface}}}},
+    marker:{{color:C.picked.slice().reverse().map(b=>b?p.s1:p.grid), line:{{width:2,color:p.surface}}}},
     text:C.n.slice().reverse().map(v=>v.toLocaleString()),   // colour already carries picked/not
     textposition:'outside', textfont:{{color:p.text2, size:10}}, cliponaxis:false,
     hovertemplate:'%{{y}}<br>%{{x:,}} articles<extra></extra>'
@@ -1686,7 +1712,7 @@ function draw() {{
     const _isBeat = BU.names.map(k => k.startsWith(_BP));
     Plotly.react('c-bundlename', [{{
       type:'bar', orientation:'h', x:BU.ngain, y:_nm,
-      marker:{{color:BU.ngain.map((v,i)=> v < 0 ? ST.critical : (_isBeat[i] ? ST.good : p.s1)),
+      marker:{{color:BU.ngain.map(v => v < 0 ? ST.critical : ST.good),
                line:{{width:2,color:p.surface}}}},
       customdata:BU.nticks,
       hovertemplate:'%{{y}}<br>$%{{x:,.0f}}<br>proposed: %{{customdata}}<extra></extra>'
@@ -1736,7 +1762,7 @@ function draw() {{
   const BT = DATA.beat;
   Plotly.react('c-beat', [{{
     type:'bar', orientation:'h', x:BT.n.slice().reverse(), y:BT.b.slice().reverse(),
-    marker:{{color:p.s3, line:{{width:2,color:p.surface}}}},
+    marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
     text:BT.n.slice().reverse().map(v=>v.toLocaleString()), textposition:'outside',
     textfont:{{color:p.text2, size:10}}, cliponaxis:false,
     hovertemplate:'%{{y}}<br>%{{x:,}} cited<extra></extra>'

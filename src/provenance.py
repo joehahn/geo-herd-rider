@@ -47,6 +47,7 @@ the published pages even if someone points a builder straight at one.
 from __future__ import annotations
 
 import hashlib
+import collections
 import json
 from pathlib import Path
 
@@ -156,6 +157,68 @@ def check_partition_covers_profile() -> list[str]:
 
 
 # --------------------------------------------------------------------------- fingerprint
+def check_beat_vocabulary(corpus: str | Path | None = None) -> list[str]:
+    """Every beat reference must resolve to a LIVE beat. Returns the complaints.
+
+    THE HOLE THIS CLOSES. retrieval_config.json is not in the curation fingerprint, and it cannot
+    simply be added: it is an INGEST-time input, and the corpus -- not the config -- is what a replay
+    reads. But a beat name is also a JOIN KEY. Every article carries the beat name it was retrieved
+    under, and the curator later intersects those tags with the CONFIGURED names
+    (agent._gem_beats() & queries) and looks them up in beat_parent. Rename a beat and the join
+    silently matches nothing, which is indistinguishable from a beat that found nothing.
+
+    Measured on 2026-08-24: renaming three beats stripped the gem-score bonus from 8,077 of 20,941
+    gem-scored articles (38.6%) in any re-curation over the existing corpus, and dropped one beat out
+    of its bundle parent -- while the fingerprint matched, the frozen journal was untouched, every
+    published number was unchanged, and check_canon reported ALL CONSISTENT. Nothing failed loudly.
+
+    Two invariants, both pure reads:
+      1. every beat_parent key and value names a live beat;
+      2. every distinct query tag in the corpus resolves, via gkg.canon_beat, to a live beat.
+    Invariant 2 is the one with teeth -- it counts the ORPHANED ARTICLES, so a rename shows up as
+    thousands of articles the curator can no longer score rather than as a config diff nobody reads.
+    The fix for a legitimate rename is an entry in retrieval_config's `beat_renames`; the fix for a
+    changed QUERY is to retire the old beat and add a new one, because it is not the same search."""
+    out: list[str] = []
+    try:
+        import gkg as _g
+    except Exception as e:  # noqa: BLE001 -- never let this check crash the report
+        return [f"could not import gkg to check the beat vocabulary: {e}"]
+    live = {b["query"] for b in _g.beats()}
+
+    bp = _g.beat_parent()
+    for k, v in bp.items():
+        if _g.canon_beat(k) not in live:
+            out.append(f"beat_parent KEY does not name a live beat: {k!r}")
+        if _g.canon_beat(v) not in live:
+            out.append(f"beat_parent VALUE does not name a live beat: {v!r} (parent of {k!r})")
+
+    path = Path(corpus or (REPO_ROOT / CANON_CORPUS))
+    pool = path if path.suffix == ".json" else path / "pool.json"
+    if not pool.exists():
+        return out
+    try:
+        d = json.loads(pool.read_text())
+        arts = d.get("articles", d) if isinstance(d, dict) else d
+    except Exception as e:  # noqa: BLE001
+        return out + [f"could not read {pool} to check beat tags: {e}"]
+    orphan_arts: dict = collections.Counter()
+    for a in arts:
+        if not isinstance(a, dict):
+            continue
+        for q in {_g.canon_beat(x) for x in (a.get("queries") or [])}:
+            if q and q not in live:
+                orphan_arts[q] += 1
+    if orphan_arts:
+        n = sum(orphan_arts.values())
+        top = ", ".join(f"{q!r} ({c:,})" for q, c in orphan_arts.most_common(3))
+        out.append(f"{len(orphan_arts)} corpus beat tag(s) resolve to NO live beat, orphaning "
+                   f"{n:,} article-tags in {pool.parent.name}: {top}"
+                   + ("" if len(orphan_arts) <= 3 else f", +{len(orphan_arts)-3} more")
+                   + ". Add a `beat_renames` entry, or retire-and-add if the query itself changed.")
+    return out
+
+
 def _norm(v):
     """Normalise for comparison: lists become sorted tuples so ordering is not a false difference."""
     if isinstance(v, (list, tuple)):
