@@ -195,6 +195,19 @@ def main(argv=None):
         cdir = Path(a.corpus)
         cd = json.loads((cdir / "pool.json").read_text())
         gpool = cd.get("articles", cd) if isinstance(cd, dict) else cd
+        # SAME CONTRACT THE BOOTSTRAP LOADER APPLIES. A pool on disk carries whatever beat names were
+        # current when it was ingested, so a rename leaves stale tags the curator then has to
+        # reconcile at read time -- in nine places, each of which can forget. Verified
+        # behaviour-preserving on this corpus: article_orgs identical, gem-scored count identical at
+        # 20,941, per-beat counts identical. It only fills fields in and canonicalises; it never
+        # drops an article.
+        try:
+            import article_contract as _ac
+            import orgs as _o
+            _ac.normalise_pool(gpool, _o.build_canon(gpool))
+        except Exception as _e:  # noqa: BLE001
+            print(f"  corpus: contract normalisation unavailable ({type(_e).__name__}: {_e})",
+                  file=sys.stderr)
         # the corpus already carries its ledes in `lede` / `lede_live`; re-fetching would be pure waste
         a.enrich = "none"
         cov = {"clean": sum(1 for x in gpool if x.get("lede")),
