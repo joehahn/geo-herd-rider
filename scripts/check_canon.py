@@ -46,6 +46,23 @@ def main(argv=None) -> int:
         print(f"\n  {BAD} UNCLASSIFIED PROFILE KNOBS: {unclassified}")
         print(f"      Add each to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
 
+    # WHAT BUILT THE CANONICAL CORPUS. Reported, not enforced: the corpus predates ingest_stamp, so
+    # an absent stamp is expected and harmless -- a replay reads articles, not the config that found
+    # them. A stamp that DISAGREES with today's retrieval_config is the interesting case.
+    try:
+        import article_contract as _ac
+        _pool = json.loads((P.REPO_ROOT / P.CANON_CORPUS / "pool.json").read_text())
+        _sc = _ac.check_stamp(_pool if isinstance(_pool, dict) else {})
+        _st = (_pool or {}).get("ingest") if isinstance(_pool, dict) else None
+        print("\nCORPUS INGEST STAMP")
+        if _st:
+            print(f"  {OK} {_st.get('source','?')} · {_st.get('n_beats','?')} beats · "
+                  f"vocab {_st.get('beat_vocab','?')} · {_st.get('stamped_at','?')[:10]}")
+        for _c in _sc:
+            print(f"  {WARN} {_c}")
+    except Exception as _e:  # noqa: BLE001
+        print(f"\n  {WARN} could not read the corpus ingest stamp: {_e}")
+
     # THE BOOTSTRAP'S GKG HALF must come from the canonical corpus. bootstrap_corpus.GKG_RUN now
     # DERIVES from CANON_CORPUS, so this cannot drift without someone re-hard-coding it -- which is
     # exactly what happened before (it sat on v3 after the promotion to v5, and FBS/CBS therefore

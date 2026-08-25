@@ -247,6 +247,16 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
             "n_tavily": eng["tavily"], "n_anthropic": eng["anthropic"], "n_both": eng["both"],
             "pull_days": pull_days, "pull_kept": dict(pull_kept),
             "gkg_run": gkg_run, "history_days": history_days}
+    # SAME INGEST STAMP THE GKG POOL CARRIES. The bootstrap is assembled in memory rather than
+    # written to disk, but it is still a corpus a curation will read, so it records what built it on
+    # the same terms -- and names BOTH sources, which is the fact that distinguishes it.
+    try:
+        import article_contract as _ac
+        meta["ingest"] = _ac.ingest_stamp("gkg+wayback | anthropic+tavily", handoff=handoff,
+                                          gkg_run=gkg_run, history_days=history_days)
+    except Exception as _e:  # noqa: BLE001 -- provenance, never a gate
+        import sys as _s
+        print(f"  bootstrap: ingest stamp unavailable ({type(_e).__name__}: {_e})", file=_s.stderr)
     return arts, meta
 
 

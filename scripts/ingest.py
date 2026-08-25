@@ -126,6 +126,15 @@ def main(argv=None) -> int:
                                   cache_path=None,
                                   stats_path=str(out / "retrieval_stats.json"))
         meta = {"start": a.start, "end": a.end, "chunk_days": a.chunk_days}
+        # RECORD WHAT BUILT THIS CORPUS, INTO the corpus. A pool.json used to carry only its date
+        # span, so "which beats produced this?" was unanswerable from the corpus itself and the only
+        # link to the ingest config was the profile fingerprint -- which covers the PROFILE, not
+        # retrieval_config.json. See article_contract.ingest_stamp.
+        try:
+            import article_contract as _ac
+            meta["ingest"] = _ac.ingest_stamp("gkg+wayback", chunk_days=a.chunk_days)
+        except Exception as _e:  # noqa: BLE001 -- a stamp is provenance; never block an ingest
+            print(f"  ingest stamp not written ({_e})", file=sys.stderr)
         # RE-APPLY CACHED ENRICHMENT. Discovery returns FRESH article records, so writing them
         # straight out silently discards every lede fetched on a previous run -- which is exactly
         # what happened: a re-derive wiped 3,985 archived ledes (hours of archive.org time) out of

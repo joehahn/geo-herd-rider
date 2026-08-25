@@ -33,7 +33,12 @@ belongs to the ingests (each owns its own quality control) and selection belongs
 """
 from __future__ import annotations
 
+import datetime as _dt
+import json
 import sys
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent.parent
 
 REQUIRED = ("url", "title", "published_date", "source")
 CURATOR_FACING = ("snippet", "queries", "orgs")
@@ -104,4 +109,51 @@ def check_contract(arts: list[dict], sample: int = 0) -> list[str]:
                        f"-- normalise_pool was not run on this pool")
     except Exception:  # noqa: BLE001
         pass
+    return out
+
+
+# --------------------------------------------------------------------------- ingest provenance
+def ingest_stamp(source: str, **extra) -> dict:
+    """What produced a corpus, recorded INTO the corpus. Returns a dict for pool.json's meta.
+
+    THE GAP THIS CLOSES. A pool.json held `start`, `end`, `chunk_days`, `articles` and nothing else --
+    no record of the vocabulary or the ingest settings that built it. So "which beats produced this
+    corpus?" was unanswerable from the corpus, and the only link between a curation and its ingest
+    config was the profile fingerprint, which covers the PROFILE and not retrieval_config.json.
+
+    That matters for more than tidiness. Ingest parameters belong with the ingest, not in the
+    investor profile -- but they can only move once the corpus itself records what it was built
+    with, or the link is lost entirely rather than merely indirect.
+
+    `beat_vocab` is a HASH, not the beat list: the list is long, it changes for reasons unrelated to
+    the corpus, and what a reader needs is "same or different", answerable by comparison. The names
+    are in retrieval_config.json and git history if the difference needs explaining.
+    """
+    import hashlib
+    out = {"source": source, "stamped_at": _dt.datetime.now(_dt.timezone.utc).isoformat()}
+    try:
+        cfg = json.loads((REPO_ROOT / "retrieval_config.json").read_text())
+        beats = [b["query"] for b in (cfg.get("gem_beats") or [])] + \
+                [b["query"] for b in (cfg.get("coverage_beats") or [])]
+        out["n_beats"] = len(beats)
+        out["beat_vocab"] = hashlib.sha256("\n".join(sorted(beats)).encode()).hexdigest()[:12]
+    except Exception as e:  # noqa: BLE001 -- a stamp is provenance; never block an ingest
+        out["beat_vocab_error"] = f"{type(e).__name__}: {e}"
+    out.update(extra)
+    return out
+
+
+def check_stamp(meta: dict) -> list[str]:
+    """Complaints about a corpus's ingest stamp: absent, or built on a different beat vocabulary."""
+    out: list[str] = []
+    st = (meta or {}).get("ingest")
+    if not st:
+        return ["corpus has no `ingest` stamp -- it predates ingest_stamp(), so what built it is "
+                "unrecorded. Harmless for an existing corpus; every NEW ingest should carry one."]
+    now = ingest_stamp(st.get("source", "?"))
+    if st.get("beat_vocab") and now.get("beat_vocab") and st["beat_vocab"] != now["beat_vocab"]:
+        out.append(f"corpus was ingested on beat vocabulary {st['beat_vocab']} "
+                   f"({st.get('n_beats','?')} beats); retrieval_config.json is now "
+                   f"{now['beat_vocab']} ({now.get('n_beats','?')}). Re-ingesting would give a "
+                   f"DIFFERENT corpus; a replay of this one is unaffected.")
     return out
