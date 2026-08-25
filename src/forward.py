@@ -232,6 +232,20 @@ def _scans_dict(log: pd.DataFrame) -> dict:
 # Widening looks BACKWARD only (hi stays at the anchor), so it cannot leak future news -- non-negotiable
 # #4 is intact. The cost is that consecutive days re-surface the same articles, so _drop_already_pulled
 # removes any URL an earlier daily file already stored.
+#
+# DO NOT READ THE 3d/7d/14d LADDER ABOVE AS CURRENT. Re-measured 2026-08-25, same code, live gather,
+# anchor 2026-08-25, lookback=14: 37 in-window, of which 34 were 0-7 days old and THREE were 8-14.
+# Widening 7 -> 14 buys +8.8%, not the +57% the ladder implies. The ladder was one measurement on one
+# sweep and it has not held; it stays recorded because it explains why lookback=1 was abandoned, which
+# is still true, but it is not evidence for widening further.
+#
+# THE BINDING CONSTRAINT IS forward_gather's `freeze_cap`, NOT THIS WINDOW. Same run:
+#   438 raw -> 434 triaged -> 160 FETCHED -> 37 in-window   (93 out-of-window, 30 undateable)
+# 434 candidates were triaged and only 160 fetched (`survivors = triaged[:freeze_cap]`); the other
+# ~274 are discarded before their date is ever read. At the 23% in-window yield of what IS fetched,
+# that is roughly 60 more articles -- a ~2.6x lever on the higher-quality engine, against this
+# window's 1.09x. Unlike a date filter it is not free: freeze_cap bounds one HTTP fetch per article.
+# A further 30 (8% of fetched) died as UNDATEABLE, already paid for -- a cheaper lever still.
 _ANTHROPIC_LOOKBACK = 7
 
 

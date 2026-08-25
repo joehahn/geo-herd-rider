@@ -258,140 +258,6 @@ def ticker_map(arts: list, canon: dict | None = None) -> dict:
     return out
 
 
-_TITLE_RX: dict = {}          # id(canon) -> (len(canon), compiled alternation); see _title_orgs
-_SECTOR: set | None = None
-
-
-def _sector_terms() -> set:
-    """Sector/domain words that must never be matched as a COMPANY name in a title.
-
-    Not a hand-written stoplist -- it is the project's own beat vocabulary (every `keywords` atom and
-    every word of every beat `query` in retrieval_config.json). GKG's V2Organizations genuinely emits
-    bare sector words as organisations: `energy`, `materials`, `uranium`, `nuclear` and `mining` are
-    all canon keys here, each with exactly ONE variant, i.e. GDELT called them companies. Harmless
-    while attachment came from GKG's own per-article org list; catastrophic for a title matcher,
-    because "Energy is Crushing the Market" would attach to the company `energy`.
-
-    Reusing the beat vocabulary means the block list cannot drift from the sectors we actually search,
-    and it needs no maintenance. Measured: blocks 45 of 3,834 canon names -- every sector word in the
-    audit, and no real company (micron, nvidia, samsung, novo nordisk, aris mining all survive)."""
-    global _SECTOR
-    if _SECTOR is None:
-        out: set = set()
-        try:
-            cfg = json.loads((REPO_ROOT / "retrieval_config.json").read_text())
-            for b in list(cfg.get("gem_beats") or []) + list(cfg.get("coverage_beats") or []):
-                for k in b.get("keywords") or []:
-                    k = k.lower().strip()
-                    out.add(k)
-                    out.update(k.split())
-                out.update((b.get("query") or "").lower().split())
-        except Exception:  # noqa: BLE001 -- a missing config must not break org attachment
-            pass
-        _SECTOR = out
-    return _SECTOR
-
-
-_SUBJECT_COUNTS: dict = {}   # id(canon) -> (len(canon), Counter); filled by build_canon
-_TITLE_MIN_SUBJECT = 10   # articles GKG must have called a name the SUBJECT of, before a bare title
-                          # match may attach to it. See _title_orgs; measured, not guessed.
-
-
-def _subject_counts(canon: dict, arts: list) -> collections.Counter:
-    """{canonical org: how many articles GKG named it the SUBJECT of} -- the evidence a title match
-    is allowed to lean on."""
-    c: collections.Counter = collections.Counter()
-    for a in arts:
-        for o in (a.get("orgs") or []):
-            n = normalise(o)
-            if n:
-                c[canon.get(n, n)] += 1
-    return c
-
-
-_WIDE_RX: dict = {}
-
-
-def _wide_rx(canon: dict):
-    """Alternation over EVERY canon name -- used only to detect that a title names several companies."""
-    hit = _WIDE_RX.get(id(canon))
-    if hit is None or hit[0] != len(canon):
-        names = sorted({n for n in canon if len(n) >= 5}, key=len, reverse=True)
-        rx = re.compile(r"\b(" + "|".join(re.escape(n) for n in names) + r")\b", re.I) if names else None
-        hit = (len(canon), rx)
-        _WIDE_RX[id(canon)] = hit
-    return hit[1]
-
-
-def _title_orgs(a: dict, canon: dict, counts: collections.Counter | None = None) -> list:
-    """Canonical companies named in the TITLE, for articles that arrived with no `orgs` field.
-
-    WHY. GKG hands every article a subject-company list (V2Organizations, offset-gated), and
-    `article_orgs` was built around it. The websearch gather supplies NOTHING equivalent, so on the
-    forward half the only path left was the single-ticker title fallback -- which fires on 10% of
-    titles and resolves on 1%, because `ticker_map` is learned per-window and knew 33 symbols.
-    Measured 2026-08-25 on the bootstrap corpus: 63.2% of websearch titles name a company the canon
-    ALREADY knows, and 1.0% were being attached. The vocabulary was there; nothing matched it.
-
-    TITLE ONLY, deliberately. GKG counts an org as the subject only if it appears before
-    `ontopic_offset` characters -- being NAMED is not being ABOUT. A title match is the closest
-    honest analogue we have; a further 25.4% of articles name a company only in the snippet and are
-    left alone, because that bucket is where a mention gets mistaken for a subject.
-
-    EXACTLY ONE, or nothing -- the same rule the ticker fallback already applies, and for the same
-    reason: a title naming two companies is ambiguous about which it is ABOUT, and this module's
-    standing lesson is that a mis-map is worse than no map, since it files the article under the
-    wrong bundle where it can push the scout to propose a name the article was never about."""
-    title = a.get("title") or ""
-    if not title or not canon:
-        return []
-    key = (id(canon), id(counts))
-    hit = _TITLE_RX.get(key)
-    if hit is None or hit[0] != len(canon):
-        # Longest-first so `taiwan semiconductor manufacturing` wins over `taiwan semiconductor`.
-        # Cached on the canon object: this is called per article, and the corpus builds one canon.
-        if counts is None:
-            return []                     # fail closed: no evidence, no bare-title attachment
-        sect = _sector_terms()
-        # plural-tolerant: the atom list holds `data center`, titles say `data centers`
-        ok = {n for n in canon if len(n) >= 6
-              and n not in sect and n.rstrip("s") not in sect and n + "s" not in sect}
-        if counts is not None:
-            # EVIDENCE FLOOR. The sector filter kills `energy`/`uranium`; it does not kill the other
-            # noise class -- generic English words GKG emitted as organisations and that survived
-            # suffix-stripping: `holdings` (8 subject-articles), `exploration` (1), `driver` (1),
-            # against nvidia 646, spacex 547, micron 120, serve robotics 11. Requiring the name to be
-            # something GKG repeatedly called an article's SUBJECT is the same kind of guard
-            # ticker_map already uses (n>=3 and 80% dominance) and for the same stated reason: a
-            # mis-map is worse than no map. It is deliberately conservative -- it also drops real but
-            # rarely-covered names (`circle`, 1) -- because a wrong bundle can push the scout to
-            # propose a ticker the article was never about.
-            ok = {n for n in ok if counts.get(canon.get(n, n), 0) >= _TITLE_MIN_SUBJECT}
-        names = sorted(ok, key=len, reverse=True)
-        rx = re.compile(r"\b(" + "|".join(re.escape(n) for n in names) + r")\b", re.I) if names else None
-        hit = (len(canon), rx)
-        _TITLE_RX[key] = hit
-    rx = hit[1]
-    if rx is None:
-        return []
-    found = {canon.get(m.group(1).lower(), m.group(1).lower()) for m in rx.finditer(title)}
-    if len(found) != 1:
-        return []
-    # AMBIGUITY CHECK against the WIDER vocabulary. `found` only sees names that cleared the evidence
-    # floor, so a title naming five companies of which one is well-covered looked unambiguous
-    # ("Kulicke and Soffa, Applied Materials, AMD, Intel, and KLA ..." attached to applied materials).
-    # Re-scan with every canon name, and with the title's own ticker symbols: if the headline names
-    # more than one company by ANY measure, it is not about one of them -- leave it alone.
-    wide = _wide_rx(canon)
-    if wide is not None:
-        names = {canon.get(m.group(1).lower(), m.group(1).lower()) for m in wide.finditer(title)}
-        if len(names) > 1:
-            return []
-    if len(title_tickers(a)) > 1:
-        return []
-    return [next(iter(found))]
-
-
 def article_orgs(a: dict, canon: dict | None = None, tmap: dict | None = None) -> list:
     """The usable, canonical org keys for one article (dropped non-companies removed).
 
@@ -412,36 +278,24 @@ def article_orgs(a: dict, canon: dict | None = None, tmap: dict | None = None) -
             k = tmap.get(next(iter(ts)))
             if k:
                 out.append(k)
-    if not out and canon and "orgs" not in a:  # noqa: SIM102
-        # GATED ON THE KEY BEING ABSENT, not on it being empty, and the distinction is the whole
-        # safety argument. `orgs: []` means GKG RAN its subject-org extraction and found nothing --
-        # a real finding, and overriding it would silently rewrite the backtest. A MISSING key means
-        # no extractor ever ran, which is true of every websearch article and no GKG one.
-        # Measured 2026-08-25: key absent on 0 of 99,117 backtest articles, 0 of 9,215 bootstrap GKG
-        # articles, and 2,280 of 2,280 websearch articles. Gating on `not a.get("orgs")` instead
-        # changed attachment for 6.4% of the backtest corpus -- caught before it shipped.
-        _ev = _SUBJECT_COUNTS.get(id(canon))
-        out = _title_orgs(a, canon, _ev[1]) if _ev and _ev[0] == len(canon) else []
+    # NO SOURCE-SPECIFIC TIER HERE, deliberately. A title-name fallback briefly lived at this point,
+    # gated on the `orgs` key being absent -- i.e. the curator sniffing which INGEST an article came
+    # from. It moved to websearch_orgs.attach_orgs, which stamps `orgs` at ingest so both sources
+    # hand this function the same shape. This module reads a field; it does not know about engines.
     return out
 
 
 def build_canon(arts: list) -> dict:
     """The variant->canonical map for a corpus. Built once per run, not per article.
 
-    Also records, against the returned map, how many articles GKG named each canonical org the
-    SUBJECT of. `_title_orgs` needs that evidence and only ever sees one article at a time, so
-    caching it here means no caller has to change and no caller can forget: a canon built the normal
-    way arrives with its evidence attached. A canon assembled some other way simply has none, and
-    title matching then stays OFF -- fail closed, which is this module's standing preference."""
+"""
     c = collections.Counter()
     for a in arts:
         for o in (a.get("orgs") or []):
             n = normalise(o)
             if n:
                 c[n] += 1
-    canon = _canonical_map(c)
-    _SUBJECT_COUNTS[id(canon)] = (len(canon), _subject_counts(canon, arts))
-    return canon
+    return _canonical_map(c)
 
 
 def group(arts: list, canon: dict | None = None, min_articles: int = 1,

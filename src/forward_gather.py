@@ -235,7 +235,7 @@ def _page_age_date(page_age, ref: pd.Timestamp | None = None) -> str | None:
 
 
 def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
-           workers: int = 12, cap: int = 80, freeze_cap: int = 160) -> list[dict]:
+           workers: int = 12, cap: int = 80, freeze_cap: int = 0) -> list[dict]:
     """Live firehose gather -> a date-clean, window-filtered arts pool for the scout.
 
     client: a raw anthropic.Anthropic() (web search is Anthropic-only). Returns arts sorted
@@ -245,6 +245,24 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     first TRIAGE by URL date (no fetch): drop anything whose URL date is confirmably out of window,
     keep in-window (priority) + undated (need a fetch to decide), cap at `freeze_cap`, and only then
     fetch/freeze that subset. The full window filter still runs on the fetched dates (fail closed).
+
+    `freeze_cap` IS A SAFETY CEILING, NOT A TARGET -- 0 = no ceiling, and 0 is the intended setting.
+    It was 160, which made the pool size a CONSTANT when it should float with how much news there
+    was. Measured 2026-08-25, same anchor, same lookback, only the cap differing:
+
+        freeze_cap=160   401 raw -> 397 triaged -> 160 fetched -> 41 in-window    471s
+        freeze_cap=500   418 raw -> 409 triaged -> 409 fetched -> 109 in-window   556s
+
+    +166% articles for +18% wall-clock, because the fetches are parallel across `workers` -- the cap
+    was guarding a cost that barely exists. Deliberately NOT re-tuned to 500: replacing one magic
+    number with a bigger one ages exactly like the 3d/7d/14d ladder in forward.py did. Same shape as
+    relevance.rank_pool's `keep` ("a SAFETY CEILING, not a target ... an earlier version made it a
+    quota, which is wrong in both directions") and the `0 = uncapped` convention of news_cap and
+    max_events. Pass a positive value only as a runaway guard.
+
+    CAVEAT worth carrying: undateable drops scale with fetches too (13 -> 76 in the run above), and
+    they are discarded fail-closed. The honest gain is 41 -> 109 with a larger fail-closed pile
+    behind it, and that pile is its own (cheaper) lever, since those articles are already paid for.
     """
     _WS = "web_search_20260209"
 
@@ -311,7 +329,7 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
             triaged.append((0, r))                 # in-window by URL -> priority
         # else: URL date is out of window (stale or future leak) -> DROP without fetching
     triaged.sort(key=lambda t: t[0])
-    survivors = [r for _, r in triaged[:freeze_cap]]
+    survivors = [r for _, r in (triaged[:freeze_cap] if freeze_cap else triaged)]
 
     def build(r):
         lede, date = _freeze(r["url"])

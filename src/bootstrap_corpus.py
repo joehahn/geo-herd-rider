@@ -223,6 +223,20 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
     pull_days = sorted(f.stem for f in (root / daily_dir).glob("*.json"))
 
     arts = pre + list(post.values())
+    # ONE ARTICLE SHAPE FOR BOTH SOURCES. The GKG half arrives with `orgs` from V2Organizations; the
+    # websearch half arrives with none, and the curator must not have to know which is which. Stamp
+    # it here, at the ingest boundary, using the GKG half's own vocabulary -- which is why this runs
+    # AFTER the two halves are joined and not inside the websearch loop. GKG articles are never
+    # touched (attach_orgs skips anything that already has the key).
+    try:
+        import orgs as _o
+        import websearch_orgs as _wo
+        _canon = _o.build_canon(arts)
+        _wo.attach_orgs(arts, _canon)
+    except Exception as _e:  # noqa: BLE001 -- attribution is an enrichment; never block corpus loading
+        import sys as _s
+        print(f"  bootstrap: websearch org attribution unavailable ({type(_e).__name__}: {_e})",
+              file=_s.stderr)
     arts.sort(key=lambda a: (a.get("published_date") or ""))
     last = arts[-1]["published_date"][:10] if arts else handoff
     eng = collections.Counter(a["engine"] for a in post.values())
