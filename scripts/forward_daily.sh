@@ -21,3 +21,8 @@ set -uo pipefail
 cd "$(dirname "$0")/.." || exit 1
 
 .venv/bin/python src/forward.py --pull || echo "  daily pull failed"
+
+# MIRROR IT IMMEDIATELY. The pull is unrepeatable -- Tavily re-serves a window it has already served
+# with a smaller and partly different set -- so a daily file lost to a bad experiment or a stray rm
+# cannot be rebuilt. Append-only; a changed file's previous copy is kept under superseded/.
+.venv/bin/python scripts/backup_daily.py || echo "  daily backup reported a problem"

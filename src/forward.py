@@ -283,10 +283,27 @@ def pull_day(model: str, gather_engine: str = "both") -> None:
         arts = forward_gather_tavily.gather(None, model, day, 1, capture=cap, cap=0)
     elif gather_engine == "both":                           # UNION: Anthropic + Tavily, deduped by URL
         acap, tcap = {}, {}
-        a_arts = forward_gather.gather(anthropic.Anthropic(), model, day, _ANTHROPIC_LOOKBACK,
-                                       capture=acap, cap=0)
+        # PER-ENGINE ISOLATION. These are two independent retrievals unioned by URL, and a failure in
+        # one says nothing about the other -- but an exception used to escape pull_day entirely and
+        # lose BOTH. That is what happened on 2026-08-15: the Anthropic pass raised a 400
+        # (`container_id is required ...`), the pull died with "daily pull failed", no file was
+        # written, and Tavily's articles -- which had been fetched fine -- went with it. The pull is
+        # unrepeatable, so the day is gone permanently. It read afterwards as a cron that never fired.
+        # A dead engine is already reported loudly below; this makes the report TRUE for the crash
+        # case, not just the empty case.
+        def _try(engine_name, fn):
+            try:
+                return fn()
+            except Exception as e:  # noqa: BLE001
+                print(f"  !! {engine_name} gather RAISED ({type(e).__name__}: {str(e)[:200]}). "
+                      f"Continuing on the other engine so this day is not lost.", file=sys.stderr,
+                      flush=True)
+                return []
+        a_arts = _try("anthropic", lambda: forward_gather.gather(
+            anthropic.Anthropic(), model, day, _ANTHROPIC_LOOKBACK, capture=acap, cap=0))
         a_arts = _drop_already_pulled(a_arts, daily_dir, dk)
-        t_arts = forward_gather_tavily.gather(None, model, day, 1, capture=tcap, cap=0)
+        t_arts = _try("tavily", lambda: forward_gather_tavily.gather(
+            None, model, day, 1, capture=tcap, cap=0))
         arts = forward_gather.merge_pools(a_arts, t_arts)
         cap["arts"] = arts
         cap["queries"] = (acap.get("queries") or []) + (tcap.get("queries") or [])

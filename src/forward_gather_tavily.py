@@ -65,9 +65,21 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
                 d = _pdate(r)
                 url = r.get("url")
                 if url and d and lo < d <= hi:          # (anchor-lookback, anchor], fail closed on undateable
+                    # `score` is Tavily's own relevance for this result, PROVENANCE ONLY -- nothing
+                    # reads it and nothing is filtered on it. It was being discarded here, which is
+                    # why "how much of the pool is filler" was unanswerable. Measured on 2026-08-24:
+                    # the best result for `uranium supply shortage stocks` scored 0.19 and the tail
+                    # was Kinross Gold ownership filings at 0.073 -- Tavily RANKS but never
+                    # THRESHOLDS, so a thin beat gets its 8 slots filled regardless. That refutes
+                    # relevance.py's premise that the forward needs no relevance stage because "the
+                    # search INDEX has already judged every article relevant". Recording the number
+                    # is the measurement that premise was never tested against.
+                    # NOT a knob: no tuning, no config, no behaviour. _block() renders only
+                    # published_date/source/title/snippet/url, so an extra key cannot reach a prompt.
                     ex_r = pool.setdefault(url, {"title": r.get("title", ""), "url": url, "published_date": d,
                                                  "source": urlparse(url).netloc,
-                                                 "snippet": (r.get("content", "") or "")[:300], "queries": []})
+                                                 "snippet": (r.get("content", "") or "")[:300],
+                                                 "score": r.get("score"), "queries": []})
                     if beat not in ex_r["queries"]:     # tag which beat(s) surfaced it (Plot 13/14 attribution)
                         ex_r["queries"].append(beat)
 

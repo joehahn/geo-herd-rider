@@ -46,6 +46,19 @@ def main(argv=None) -> int:
         print(f"\n  {BAD} UNCLASSIFIED PROFILE KNOBS: {unclassified}")
         print(f"      Add each to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
 
+    # THE BOOTSTRAP'S GKG HALF must come from the canonical corpus. bootstrap_corpus.GKG_RUN now
+    # DERIVES from CANON_CORPUS, so this cannot drift without someone re-hard-coding it -- which is
+    # exactly what happened before (it sat on v3 after the promotion to v5, and FBS/CBS therefore
+    # read a pool with NO `orgs` at all while FBT/CBT read one with 93%).
+    try:
+        import bootstrap_corpus as _bc
+        if _bc.GKG_RUN != P.CANON_CORPUS:
+            bad += 1
+            print(f"\n  {BAD} bootstrap GKG half reads {_bc.GKG_RUN}, canonical is {P.CANON_CORPUS}")
+            print(f"      src/bootstrap_corpus.py must DERIVE this, never name a corpus.")
+    except Exception as _e:  # noqa: BLE001
+        print(f"\n  {WARN} could not check the bootstrap corpus source: {_e}")
+
     # BEAT VOCABULARY. Not covered by the fingerprint (retrieval_config.json is an INGEST-time
     # input, while a replay reads the corpus), but a beat name is also a JOIN KEY -- so a rename
     # breaks the curator's gem scoring against an unchanged corpus, silently. See

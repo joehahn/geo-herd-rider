@@ -44,7 +44,27 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 # --- the three knobs that define the corpus -------------------------------------------------------
 HANDOFF = "2026-07-28"          # first websearch-only day (see the docstring for why this date)
 HISTORY_DAYS = 92               # ~3 months of GKG before the handoff -> day 0
-GKG_RUN = "data/backtest_3yr_v3"   # the GKG corpus + its wayback backfill
+def _canon_corpus() -> str:
+    """The canonical GKG corpus, DERIVED from provenance rather than named here.
+
+    It used to be the literal "data/backtest_3yr_v3". When the canonical corpus was promoted to v5
+    the bootstrap silently stayed on v3 -- the exact drift CLAUDE.md forbids ("Do NOT hard-code a run
+    or corpus path in a builder again"), in the one module sitting outside the canon machinery. It
+    hid well because the two are nearly the same articles: over the bootstrap window v5 is a strict
+    SUBSET of v3, 9,125 of 9,179 URLs, so every count looked plausible. What differed was the field
+    that matters most to the curator -- v5 carries GKG's subject-company extraction (`orgs`) on 93%
+    of articles and v3 carries it on NONE, so FBS/CBS were reading a corpus from which
+    orgs.article_orgs() can return nothing at all, while FBT/CBT read one where it works.
+
+    Derived, so the NEXT promotion carries automatically instead of needing to be remembered."""
+    try:
+        import provenance as _p
+        return _p.CANON_CORPUS
+    except Exception:  # noqa: BLE001 -- a standalone checkout without provenance still loads
+        return "data/backtest_3yr_v5"
+
+
+GKG_RUN = _canon_corpus()          # the GKG corpus + its wayback backfill
 DAILY_DIR = "data/forward/daily"   # the accumulated websearch pulls
 
 
