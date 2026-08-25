@@ -228,6 +228,25 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
     # it here, at the ingest boundary, using the GKG half's own vocabulary -- which is why this runs
     # AFTER the two halves are joined and not inside the websearch loop. GKG articles are never
     # touched (attach_orgs skips anything that already has the key).
+    # CANONICAL BEAT TAGS, at the boundary rather than at nine read sites. An article is tagged with
+    # whatever the beat was CALLED and in whatever SHAPE the engine wrote it: Anthropic appends
+    # `before:<date>` to every query, and beats get renamed. Measured here: the websearch half holds
+    # 172 distinct raw tags of which 119 need reconciling, the GKG half 43 of which 3 do. That
+    # reconciliation was happening at read time in agent.py, provenance.py, bootstrap_corpus and four
+    # sites in the CBT builder -- and every one of them was a place it could be FORGOTTEN, which is
+    # exactly how a rename silently stripped the gem bonus from 38.6% of gem-scored articles.
+    # The RAW tags are preserved in `queries_raw`: they are the immutable record of which query
+    # actually fired, and `engine` is inferred from their shape, so they are never overwritten.
+    try:
+        import gkg as _g
+        for _a in arts:
+            _raw = list(_a.get("queries") or [])
+            if _raw:
+                _a["queries_raw"] = _raw
+                _a["queries"] = sorted({_c for _c in (_g.canon_beat(_q) for _q in _raw) if _c})
+    except Exception as _e:  # noqa: BLE001 -- never block corpus loading on tag bookkeeping
+        import sys as _s
+        print(f"  bootstrap: beat canonicalisation unavailable ({type(_e).__name__}: {_e})", file=_s.stderr)
     try:
         import orgs as _o
         import websearch_orgs as _wo
