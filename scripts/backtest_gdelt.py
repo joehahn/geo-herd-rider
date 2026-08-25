@@ -58,8 +58,13 @@ def rebuild_dashboard(sandbox, out: str, wk: str) -> None:
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
-    ap.add_argument("--start", required=True)
-    ap.add_argument("--end", required=True)
+    ap.add_argument("--start", default=None)
+    ap.add_argument("--end", default=None)
+    ap.add_argument("--bootstrap", action="store_true",
+                    help="curate the BOOTSTRAP corpus (src/bootstrap_corpus: GKG+wayback before the "
+                         "handoff, the daily websearch pull after) instead of a --corpus dir, and "
+                         "read investor_profile.forward.md. This is CBS. --start/--end default to "
+                         "the corpus's own span.")
     ap.add_argument("--out", required=True)
     ap.add_argument("--max-new-events", type=int, default=None, dest="max_new_events_cli",
                     help="override the profile's max_new_events (the per-scan quality gate); 0 = uncapped")
@@ -158,7 +163,13 @@ def main(argv=None):
         print(f"  TRACE ON -> {tp} (every LLM prompt/response + search query)", flush=True)
     # Cadence comes from the profile (rebalance_period / rebalance_days). This was HARDCODED to 7
     # until 2026-08-09, which quietly made the profile's cadence knob decorative for the backtest.
-    fm = load_financial_model(str(ROOT / "investor_profile.backtest.md"))
+    # ONE CURATOR, THREE CORPORA. The profile is an INPUT to a curation, not a constant: CBT
+    # curates the GKG backtest under .backtest.md, CBS curates the bootstrap under .forward.md --
+    # because CBS exists to rehearse the settings the FORWARD will actually run under, and curating
+    # it under backtest settings would rehearse the wrong thing (monthly scans, for one).
+    _profile = "investor_profile.forward.md" if a.bootstrap else "investor_profile.backtest.md"
+    fm = load_financial_model(str(ROOT / _profile))
+    print(f"  profile: {_profile}", flush=True)
     cadence = a.rebalance_days if a.rebalance_days else resolve_cadence(fm)
     # One knob for how much of ONE article the curator sees. Set on the module so every call
     # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
@@ -176,6 +187,15 @@ def main(argv=None):
           f"scout_articles_per_call={agent.SCOUT_ARTICLES_PER_CALL} · "
           f"group_by_ticker={agent.GROUP_BY_TICKER}",
           flush=True)
+    if a.bootstrap and not (a.start and a.end):
+        import bootstrap_corpus as _bs0
+        _m = _bs0.load()[1]
+        a.start = a.start or _m["start"]
+        a.end = a.end or _m["end"]
+        print(f"  bootstrap span: {a.start} .. {a.end}", flush=True)
+    if not (a.start and a.end):
+        ap.error("--start and --end are required unless --bootstrap supplies them")
+
     # The news window is decoupled from the trading cadence: `news_lookback_days` > cadence reads an
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
     news_win = int(a.news_lookback_days if a.news_lookback_days is not None
@@ -191,7 +211,15 @@ def main(argv=None):
           f"{anchors[0].date()} .. {anchors[-1].date()}", flush=True)
 
     gpool = None
-    if a.corpus:
+    if a.bootstrap:
+        import bootstrap_corpus as _bs
+        gpool, _bmeta = _bs.load()
+        # bootstrap_corpus.load() already applies the article contract (canonical beat tags, `orgs`
+        # stamped by each ingest's own adapter), so nothing source-specific reaches the curator.
+        a.enrich = "none"                      # the corpus carries its ledes; re-fetching is waste
+        print(f"  {_bs.describe(_bmeta)}", flush=True)
+        print(f"  ingest: {_bmeta.get('ingest', {}).get('source', '?')}", flush=True)
+    elif a.corpus:
         cdir = Path(a.corpus)
         cd = json.loads((cdir / "pool.json").read_text())
         gpool = cd.get("articles", cd) if isinstance(cd, dict) else cd
