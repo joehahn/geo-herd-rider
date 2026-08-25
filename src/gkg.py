@@ -117,9 +117,7 @@ def _mill_block(profile: str | None = None) -> list[str]:
     """Domains to drop, read from the investor profile's `mill_block` -- the SAME list the forward
     gather passes to web_search as blocked_domains, so backtest and forward exclude the same mills.
     Deliberately NOT duplicated into retrieval_config.json: one home per knob (CLAUDE.md)."""
-    from optimizer import load_financial_model
-    p = profile or str(REPO_ROOT / "investor_profile.backtest.md")
-    return list(load_financial_model(p).get("mill_block") or [])
+    return list(config().get("mill_block") or [])
 
 
 def _theme_regex() -> str:
@@ -429,9 +427,7 @@ def _specialty(profile: str | None = None) -> list[str]:
     """Specialty-desk domains from the profile's `specialty_allow` -- the same allowlist the forward
     gather's GEM pass uses. Here it only breaks ties when picking a syndicated story's representative
     copy, never to filter."""
-    from optimizer import load_financial_model
-    p = profile or str(REPO_ROOT / "investor_profile.backtest.md")
-    return list(load_financial_model(p).get("specialty_allow") or [])
+    return list(config().get("specialty_allow") or [])
 
 
 def _norm_title(t: str) -> str:

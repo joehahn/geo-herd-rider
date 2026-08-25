@@ -258,9 +258,25 @@ def corpus_id(corpus: str | Path) -> dict:
     return out
 
 
+# INGEST-OWNED knobs that no longer live in the investor profile. They are still part of what a
+# curation is a function of -- moving a parameter to its proper owner must not change what the
+# fingerprint MEANS -- so curation_key reads their VALUES from retrieval_config.json instead.
+# Because the values were carried over unchanged, the canonical fingerprint is unchanged too, which
+# is the test that the move was a relocation and not an edit.
+INGEST_OWNED = frozenset({"specialty_allow", "mill_block"})
+
+
+def _ingest_knob(k: str):
+    try:
+        return json.loads((REPO_ROOT / "retrieval_config.json").read_text()).get(k)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def curation_key(fm: dict, corpus: str | Path, arm: str = "fuller") -> dict:
     """The inputs a curation is a function of. Two runs with equal keys are the same experiment."""
-    knobs = {k: _norm(fm.get(k)) for k in sorted(CURATION_KNOBS)}
+    knobs = {k: _norm(fm.get(k) if k not in INGEST_OWNED else _ingest_knob(k))
+             for k in sorted(CURATION_KNOBS)}
     key = {"corpus": corpus_id(corpus), "arm": arm, "knobs": knobs}
     key["hash"] = hashlib.sha256(
         json.dumps(key, sort_keys=True, default=str).encode()).hexdigest()[:12]

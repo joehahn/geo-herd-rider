@@ -39,8 +39,12 @@ from optimizer import load_financial_model
 # see what the firehose steers to; optimizer._FINANCIAL_MODEL_DEFAULTS is the fallback. Curate by OUTLET
 # TYPE (specialty desk vs listicle mill), NEVER by "this outlet named a winner" (that's leaked-signal tuning).
 _FGM = load_financial_model(str(Path(__file__).resolve().parent.parent / "investor_profile.forward.md"))
-_SPECIALTY_ALLOW = list(_FGM.get("specialty_allow") or [])   # GEM pass allowlist (reaches Cloudflare-walled etf.com)
-_MILL_BLOCK = list(_FGM.get("mill_block") or [])             # COVERAGE pass blocklist (kills listicle mills)
+# INGEST PARAMS, from retrieval_config.json -- the same file gkg.py reads, so the two ingests
+# cannot drift apart. They used to be duplicated in both investor_profiles with nothing keeping the
+# copies equal. See that file's _domain_steering_note.
+_STEER = _json.loads((Path(__file__).resolve().parent.parent / "retrieval_config.json").read_text())
+_SPECIALTY_ALLOW = list(_STEER.get("specialty_allow") or [])  # GEM pass allowlist (reaches Cloudflare-walled etf.com)
+_MILL_BLOCK = list(_STEER.get("mill_block") or [])            # COVERAGE pass blocklist (kills listicle mills)
 
 # SHARED BEAT SET — the SINGLE SOURCE OF TRUTH for BOTH engines, so the Tavily backtest is a valid proxy
 # for the Anthropic forward (SAME queries, different engine). Phrased as plain natural-language (no boolean

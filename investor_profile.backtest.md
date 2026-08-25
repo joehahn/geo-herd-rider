@@ -222,72 +222,8 @@ t_update_days: 1                  # trading days between the signal and the trad
 risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
 
 # ---------- SOURCES: which outlets the forward gather prefers and avoids ----------
-specialty_allow:                  # GEM pass allowlist: specialty desks that carry the early gem call
-  # generalist stock/ETF desks (all sectors):
-  - etf.com
-  - benzinga.com
-  - seekingalpha.com
-  - etftrends.com
-  - stocktitan.net
-  - tipranks.com
-  - barchart.com
-  - zerohedge.com                 # macro/markets commentary (added 2026-07-14 per request); wide-reach, contrarian
-  - semianalysis.com
-  - spacenews.com
-  - payloadspace.com
-  - therobotreport.com
-  - endpts.com
-  - statnews.com
-  - biopharmadive.com
-  - quantumcomputingreport.com
-  - world-nuclear-news.org
-  - breakingdefense.com
-  - defensenews.com
-  # maritime + commodities specialty desks (surfaced the early BWET-tanker + gold theses in the backtest):
-  - seatrade-maritime.com
-  # commodities / critical minerals -- the rare-earth + uranium beats are the top evidence producers
-  # and had 0 and 1 desks. mining.com scores 347 evidence-hits/1k articles, ~2x benzinga.
-  - mining.com
-  - northernminer.com
-  - argusmedia.com
-  - benchmarkminerals.com          # lithium/battery price authority; not crawled by GDELT, forward-only
-  # memory / semis pricing (semianalysis does analysis, not prices):
-  - digitimes.com
-  - trendforce.com                 # DRAM/NAND price authority; not crawled by GDELT, forward-only
-  # power grid / datacenter energy -- an uncovered sector the AI-datacenter theme keeps hitting:
-  - utilitydive.com
-  - powermag.com
-  # tanker/shipping desks (seatrade-maritime is conference-focused):
-  - splash247.com                  # not crawled by GDELT, forward-only
-mill_block:                       # COVERAGE pass blocklist: "N stocks to buy" listicle mills
-  - fool.com
-  - 247wallst.com
-  - nerdwallet.com
-  - kiplinger.com
-  - money.usnews.com
-  - stockstory.org
-  - defenseworld.net              # automated aggregator / content farm (122 low-quality hits in the backtest)
-  - ts2.tech                      # AI-generated content farm
-  - marketbeat.com                # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
-  # MarketBeat-network syndication clones of the above -- same bot templates, different masthead. A/B'd
-  # 2026-08-07 on a 14d GKG pool: 374 articles (19.8% of the pool) and a hand read of a random sample
-  # found ZERO pieces of real reporting. Title patterns alone left 66-72% of them standing (the bots have
-  # unbounded variants), so the domain block is what clears them. insidermonkey.com and financialcontent.com
-  # were candidates in the same A/B and are deliberately NOT blocked -- they carry genuine catalyst
-  # reporting that names tickers, which is exactly what the firehose is for.
-  - tickerreport.com
-  - dailypolitical.com
-  - themarketsdaily.com
-  # MarketBeat-network clones (2026-08-10): 13,447 articles = 10.5% of the 3-year pool, 100% bot
-  # templates (13F position changes, "Stock Price Down 8.3%"), 13.8 curator-evidence hits per 1k vs
-  # benzinga's 179. Blocking costs 1.8% of evidence.
-  - wkrb13.com
-  - modernreaders.com
-  - theenterpriseleader.com
-  - etfdailynews.com
-  # Motley Fool international editions -- foreign-exchange listicles, no US-listed relevance.
-  # fool.co.uk produced ZERO curator evidence in 3 years. fool.ca is deliberately NOT blocked (small
-  # volume, 81.6/1k, covers US-listed names).
-  - fool.com.au
-  - fool.co.uk
+# specialty_allow: MOVED to retrieval_config.json 2026-08-25 -- an INGEST parameter,
+#   read by forward_gather.py and gkg.py. See that file's _domain_steering_note.
+# mill_block: MOVED to retrieval_config.json 2026-08-25 -- an INGEST parameter,
+#   read by forward_gather.py and gkg.py. See that file's _domain_steering_note.
 ---

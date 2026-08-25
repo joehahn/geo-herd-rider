@@ -119,15 +119,14 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   SURFACE they match (DOC = full text, GKG = title+URL), so the two
                                        #   pools are NOT interchangeable article-for-article.
     # forward web-search domain steering (forward_gather two-pass). Curate by OUTLET TYPE, never by outcome.
-    "specialty_allow": ["etf.com", "benzinga.com", "seekingalpha.com", "etftrends.com", "stocktitan.net",
-                        "tipranks.com", "barchart.com", "zerohedge.com",   # generalist stock/ETF + macro desks (all sectors)
-                        "semianalysis.com", "spacenews.com", "payloadspace.com", "therobotreport.com",
-                        "endpts.com", "statnews.com", "biopharmadive.com", "quantumcomputingreport.com",
-                        "world-nuclear-news.org", "breakingdefense.com", "defensenews.com",  # sector trade press (tech-growth/defense)
-                        "seatrade-maritime.com", "kitco.com"],  # maritime + commodities desks (early tanker/gold theses)
-    "mill_block": ["fool.com", "247wallst.com", "nerdwallet.com", "kiplinger.com", "money.usnews.com",
-                   "stockstory.org", "defenseworld.net", "ts2.tech",   # listicle mills + content farms
-                   "marketbeat.com"],  # 64% automated boilerplate (13F churn / consensus ratings / moving-avg crosses)
+    # "specialty_allow" MOVED to retrieval_config.json 2026-08-25 (an INGEST param).
+    #   Deliberately NOT left as a default: a stale reader must get None and fail
+    #   loudly, not a plausible-but-wrong list. gkg.py and forward_gather.py read
+    #   the ingest config directly.
+    # "mill_block" MOVED to retrieval_config.json 2026-08-25 (an INGEST param).
+    #   Deliberately NOT left as a default: a stale reader must get None and fail
+    #   loudly, not a plausible-but-wrong list. gkg.py and forward_gather.py read
+    #   the ingest config directly.
     "cull_rank": "trend",              # how the max_watchlist cull chooses who holds capital:
                                        #   "trend"      = trailing risk-adjusted return + a freshness reserve (free,
                                        #                  deterministic; 83rd %ile vs a 60-seed random null)

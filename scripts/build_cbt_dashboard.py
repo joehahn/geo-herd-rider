@@ -1042,6 +1042,13 @@ def main(argv=None) -> int:
         _pv("drop_unfunded_weeks"),
         _pv("unfunded_reentry_on_new_catalyst"),
         _pv("unfunded_cooldown_weeks"),
+        # INGEST PARAMS, from retrieval_config.json rather than the profile (moved 2026-08-25). The
+        # self-audit below scans the PROFILE TEXT, so once these left that file they stopped being
+        # "declared" and silently dropped off this table -- the audit working correctly, but the page
+        # losing a real setting. Shown explicitly, and attributed to the file that now owns them.
+        ("— retrieval_config.json · ingest —", ""),
+        ("specialty_allow", f"{len(_gkg._specialty())} entries"),
+        ("mill_block", f"{len(_gkg._mill_block())} entries"),
     ]
     # SELF-AUDIT. This table is hand-maintained, so every knob added to the profile has to be added
     # here too -- and on 2026-08-15 eleven were not, including max_events and the two knobs that
