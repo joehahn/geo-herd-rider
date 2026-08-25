@@ -24,6 +24,7 @@ State : data/forward/firehose_scans.csv  (append-only: decision_ts, week, ticker
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import json
 import os
 import sys
@@ -273,7 +274,7 @@ def _drop_already_pulled(arts: list, daily_dir: Path, today_key: str, back: int 
     return out
 
 
-def pull_day(model: str, gather_engine: str = "both") -> None:
+def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False) -> None:
     """DAILY past-24h news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
     The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
 
@@ -288,9 +289,22 @@ def pull_day(model: str, gather_engine: str = "both") -> None:
     daily_dir = SCANS_CSV.parent / "daily"
     daily_dir.mkdir(parents=True, exist_ok=True)
     out = daily_dir / f"{dk}.json"
+    # MERGE, NEVER SKIP AND NEVER OVERWRITE. This used to return early when the day already had a
+    # file, which meant a throwaway TEST pull permanently blocked that day's scheduled pull: on
+    # 2026-08-24 a manual run captured 29 articles at 21:25 and the 06:30 cron would have skipped
+    # the day, where re-pulling later actually got 51. Overwriting is no better in the other
+    # direction -- measured the same day, re-querying a window Tavily had already served returned
+    # FEWER and PARTLY DIFFERENT results (2 back, 1 of them one the first pull never had), so the
+    # later pull is not a superset. The pull is unrepeatable, so BOTH skip and overwrite throw away
+    # articles that cannot be re-fetched. Union by URL keeps whatever either run found, and strictly
+    # dominates both. Same shape as PWR's forward corpus: unique articles + one row per sighting.
+    _prior: list = []
     if out.exists():
-        print(f"  daily pull {dk}: already pulled, skipping (dedup).")
-        return
+        try:
+            _prior = json.loads(out.read_text()).get("pool") or []
+            print(f"  daily pull {dk}: {len(_prior)} article(s) already on file; MERGING, not replacing.")
+        except Exception as _e:  # noqa: BLE001 -- a corrupt file must not block today's pull
+            print(f"  daily pull {dk}: existing file unreadable ({_e}); starting fresh.", file=sys.stderr)
     print(f"  daily {gather_engine} pull for {dk} (past-24h window) ...", flush=True)
     cap: dict = {}
     if gather_engine == "tavily":
@@ -345,10 +359,30 @@ def pull_day(model: str, gather_engine: str = "both") -> None:
     _kept = [a for a in _pool if not gkg._spam_title(a.get("title") or "")]
     if len(_kept) != len(_pool):
         print(f"    spam-title filter: dropped {len(_pool) - len(_kept)} of {len(_pool)}")
-    cap["arts"] = _kept
-    out.write_text(json.dumps({"date": dk, "model": model, "pool": _kept,
+    _merged = forward_gather.merge_pools(_prior, _kept) if _prior else _kept
+    _added = len(_merged) - len(_prior)
+    cap["arts"] = _merged
+    out.write_text(json.dumps({"date": dk, "model": model, "pool": _merged,
                                "queries": cap.get("queries", [])}, indent=2, default=str))
-    print(f"  pulled {len(_kept)} articles -> {out}")
+    # PER-PULL MANIFEST, so a day's provenance is queryable rather than inferred. PWR keeps one row
+    # per pull for exactly this reason ("GAPS are first-class ... a missed/empty pull is recorded,
+    # not silent"), and this repo learned the same lesson the hard way: 2026-08-15 read all week as
+    # a cron that never fired when in fact the pull crashed. `scheduled` distinguishes the cron from
+    # a hand-run so a test pull's contribution stays visible in the record instead of being
+    # indistinguishable from production.
+    try:
+        with (daily_dir.parent / "pulls.jsonl").open("a") as _f:
+            _f.write(json.dumps({
+                "ts": _dt.datetime.now(_dt.timezone.utc).isoformat(), "anchor": dk,
+                "scheduled": bool(scheduled), "engine": gather_engine, "model": model,
+                "prior": len(_prior), "found": len(_kept), "added": _added, "total": len(_merged),
+            }) + "\n")
+    except Exception as _e:  # noqa: BLE001 -- the manifest is provenance, never a gate
+        print(f"    pulls manifest not written ({_e})", file=sys.stderr)
+    if _prior:
+        print(f"  pulled {len(_kept)} articles, {_added} new -> {len(_merged)} total in {out}")
+    else:
+        print(f"  pulled {len(_merged)} articles -> {out}")
 
 
 def report() -> None:
@@ -436,6 +470,10 @@ def main(argv: list[str] | None = None) -> int:
                          "(e.g. sonnet5 -> claude-sonnet-5). Must be an Anthropic model (web search).")
     ap.add_argument("--explain", nargs="?", const="", default=None, metavar="WEEK",
                     help="audit why the scout kept few/no gems for a week (default: latest archive); no web search")
+    ap.add_argument("--scheduled", action="store_true",
+                    help="mark this pull as the CRON's, not a hand-run, in data/forward/pulls.jsonl. "
+                         "Provenance only -- it changes nothing about what is fetched or kept. Use "
+                         "--sandbox DIR for throwaway TEST pulls so they never touch the live series.")
     ap.add_argument("--sandbox", default=None, metavar="DIR",
                     help="THROWAWAY run: redirect journal/scan-log/archive under DIR (isolates from the live series)")
     ap.add_argument("--lookback-days", type=int, default=None, dest="lookback_days",
@@ -501,7 +539,8 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         fm = load_financial_model(str(PROFILE))
         gather_id, _gp = resolve_gather_model(fm)                   # daily pull is gather-ONLY (Anthropic web search)
-        pull_day(args.model or gather_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))))
+        pull_day(args.model or gather_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))),
+                 scheduled=args.scheduled)
 
     if args.report:
         report()

@@ -78,7 +78,18 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
                     # published_date/source/title/snippet/url, so an extra key cannot reach a prompt.
                     ex_r = pool.setdefault(url, {"title": r.get("title", ""), "url": url, "published_date": d,
                                                  "source": urlparse(url).netloc,
-                                                 "snippet": (r.get("content", "") or "")[:300],
+                                                 # NO INGEST TRUNCATION. This was [:300], discarding
+                                                 # text already paid for that the curator wanted:
+                                                 # measured 2026-08-25, Tavily returns a median 960
+                                                 # chars of `content` (min 666, max 1081; 20 of 20
+                                                 # over 300) while max_article_chars -- how much of
+                                                 # ONE article the curator sees -- is 800. The INGEST
+                                                 # cap sat BELOW the READ cap, so ~66% of every
+                                                 # article was thrown away before anything could ask
+                                                 # for it. Capture raw at pull time, cap at
+                                                 # SELECTION (max_article_chars already does) --
+                                                 # which removes a magic number instead of tuning it.
+                                                 "snippet": (r.get("content", "") or ""),
                                                  "score": r.get("score"), "queries": []})
                     if beat not in ex_r["queries"]:     # tag which beat(s) surfaced it (Plot 13/14 attribution)
                         ex_r["queries"].append(beat)
