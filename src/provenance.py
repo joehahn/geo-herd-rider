@@ -258,6 +258,26 @@ def corpus_id(corpus: str | Path) -> dict:
     return out
 
 
+def corpus_id_from_articles(arts: list, label: str, **extra) -> dict:
+    """corpus_id() for a corpus that is ASSEMBLED IN MEMORY and has no pool.json on disk.
+
+    The bootstrap corpus is deliberately never materialised -- "a copy of two sources is a third
+    thing that can drift from both" -- so corpus_id() found no pool.json, left `articles` and `text`
+    as None, and stamped the path as "(gdelt-live)". A curation whose recorded inputs do not describe
+    what produced it is precisely the drift this module exists to prevent, so the bootstrap
+    identifies itself by the same three things a corpus dir does -- count and text state -- plus the
+    span and the ingest stamp, which are what make a bootstrap corpus what it is.
+
+    Measures TEXT STATE identically to corpus_id, so a bootstrap curated before a wayback backfill
+    fingerprints differently from one curated after."""
+    clean = sum(1 for a in arts if a.get("lede"))
+    live = sum(1 for a in arts if a.get("lede_live") and not a.get("lede"))
+    out = {"path": label, "articles": len(arts),
+           "text": {"clean": clean, "live": live, "none": len(arts) - clean - live}}
+    out.update({k: v for k, v in extra.items() if v is not None})
+    return out
+
+
 # INGEST-OWNED knobs that no longer live in the investor profile. They are still part of what a
 # curation is a function of -- moving a parameter to its proper owner must not change what the
 # fingerprint MEANS -- so curation_key reads their VALUES from retrieval_config.json instead.
@@ -273,11 +293,15 @@ def _ingest_knob(k: str):
         return None
 
 
-def curation_key(fm: dict, corpus: str | Path, arm: str = "fuller") -> dict:
-    """The inputs a curation is a function of. Two runs with equal keys are the same experiment."""
+def curation_key(fm: dict, corpus: "str | Path | dict", arm: str = "fuller") -> dict:
+    """The inputs a curation is a function of. Two runs with equal keys are the same experiment.
+
+    `corpus` may be a path OR an already-built identity dict (corpus_id_from_articles), for a corpus
+    that is assembled in memory and has no pool.json to point at."""
     knobs = {k: _norm(fm.get(k) if k not in INGEST_OWNED else _ingest_knob(k))
              for k in sorted(CURATION_KNOBS)}
-    key = {"corpus": corpus_id(corpus), "arm": arm, "knobs": knobs}
+    key = {"corpus": corpus if isinstance(corpus, dict) else corpus_id(corpus),
+           "arm": arm, "knobs": knobs}
     key["hash"] = hashlib.sha256(
         json.dumps(key, sort_keys=True, default=str).encode()).hexdigest()[:12]
     return key
@@ -318,7 +342,7 @@ def curator_code_id() -> dict:
     return out
 
 
-def stamp(run_dir: str | Path, fm: dict, corpus: str | Path, arm: str = "fuller",
+def stamp(run_dir: str | Path, fm: dict, corpus: "str | Path | dict", arm: str = "fuller",
           argv: list[str] | None = None, note: str = "") -> Path:
     """Write run_dir/provenance.json. Called by the curation producer as the run is created."""
     run = REPO_ROOT / run_dir if not Path(run_dir).is_absolute() else Path(run_dir)

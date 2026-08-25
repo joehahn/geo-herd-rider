@@ -306,7 +306,17 @@ def main(argv=None):
     # fingerprint then differs from the profile's by construction, so the dashboards recognise it as
     # non-canonical and refuse to publish it. See src/provenance.py.
     import provenance as _prov
-    _prov.stamp(OUT, fm, a.corpus or "(gdelt-live)", arm=a.arm, argv=sys.argv[1:])
+    # THE BOOTSTRAP DESCRIBES ITSELF. It is assembled in memory with no pool.json, so corpus_id()
+    # found nothing and stamped "(gdelt-live)" with a null article count -- a curation whose recorded
+    # inputs did not describe what produced it, which is the drift provenance.py exists to prevent.
+    _corpus_ident = a.corpus or "(gdelt-live)"
+    if a.bootstrap:
+        _corpus_ident = _prov.corpus_id_from_articles(
+            gpool, "bootstrap(gkg+wayback|websearch)",
+            span=f"{a.start}..{a.end}", handoff=_bmeta.get("handoff"),
+            ingest=(_bmeta.get("ingest") or {}).get("beat_vocab"),
+            n_gkg=_bmeta.get("n_gkg"), n_websearch=_bmeta.get("n_websearch"))
+    _prov.stamp(OUT, fm, _corpus_ident, arm=a.arm, argv=sys.argv[1:])
 
     ts = datetime.now(timezone.utc).isoformat()
 

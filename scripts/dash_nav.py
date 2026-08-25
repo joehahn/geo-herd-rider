@@ -25,7 +25,7 @@ BACKTEST = [
 ]
 BOOTSTRAP = [
     ("fbs.html", "Firehose", True),      # built 2026-08-14
-    ("cbs.html", "Curator", False),
+    ("cbs.html", "Curator", True),       # built 2026-08-25 -- the bootstrap curation
 ]
 FORWARDTEST = [
     ("fft.html", "Firehose", False),

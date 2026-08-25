@@ -51,7 +51,7 @@ from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_UR
                                  STATUS, _LINK, esc, panel, table_html, tile)
 
 
-def load(run: Path, corpus: Path):
+def load(run: Path, corpus: Path, bootstrap: bool = False):
     m = json.loads((run / "curator_metrics.json").read_text())
     j = json.loads((run / "journal.json").read_text())
     dec = []
@@ -63,7 +63,15 @@ def load(run: Path, corpus: Path):
     sf = run / "firehose_scans.csv"
     if sf.exists():
         picks = [r for r in csv.DictReader(sf.open()) if (r.get("ticker") or "").strip()]
-    cd = json.loads((corpus / "pool.json").read_text())
+    if bootstrap:
+        # ASSEMBLED, not read from disk: the bootstrap corpus is deliberately never materialised
+        # ("a copy of two sources is a third thing that can drift from both"), and load() already
+        # applies the article contract, so the curator-facing shape is identical to a pool.json.
+        import bootstrap_corpus as _bs
+        _arts, _bm = _bs.load()
+        cd = {"articles": _arts, **{k: v for k, v in _bm.items() if k != "ingest"}}
+    else:
+        cd = json.loads((corpus / "pool.json").read_text())
     arts = cd.get("articles", cd) if isinstance(cd, dict) else cd
     return m, j, dec, picks, {a.get("url", ""): a for a in arts}, arts
 
@@ -83,8 +91,20 @@ def main(argv=None) -> int:
     # the beat-bundle, coverage and article-count panels were computed off a pool the curator
     # never saw. The row below now names the path explicitly so the mismatch is visible.
     ap.add_argument("--corpus", default=_canon.CANON_CORPUS)
-    ap.add_argument("--out", default="docs/cbt.html")
+    ap.add_argument("--out", default=None)
+    ap.add_argument("--bootstrap", action="store_true",
+                    help="render CBS (docs/cbs.html) -- the curation of the BOOTSTRAP corpus "
+                         "(src/bootstrap_corpus) under investor_profile.forward.md. Reads the "
+                         "assembled corpus instead of a --corpus pool.json.")
     a = ap.parse_args(argv)
+    # CBS defaults: its own run dir, its own page, its own profile. CBT's defaults are canonical
+    # constants, so --bootstrap has to redirect all three or it would render the backtest curation
+    # under a bootstrap label.
+    if a.bootstrap:
+        if a.run == _canon.CANON_RUN:
+            a.run = "data/cbs_v1"
+        a.out = a.out or "docs/cbs.html"
+    a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
     # THE GATE. CBT's claim is "this is the book the current profile produces on the canonical
     # curation", so all three inputs are checked before anything is rendered: the corpus, the
@@ -93,26 +113,52 @@ def main(argv=None) -> int:
     _problems = []
     _interp = _canon.check_interpreter()
     if _interp:
-        _problems.append(_interp)
-    _unclassified = _canon.check_partition_covers_profile()
-    if _unclassified:
-        _problems.append(f"profile knobs nobody has classified as curation-or-book: {_unclassified}. "
-                         f"Add them to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
-    if a.corpus != _canon.CANON_CORPUS:
-        _problems.append(f"corpus is {a.corpus}, canonical is {_canon.CANON_CORPUS}")
-    _lfm_gate = _opt_gate.load_financial_model(str(ROOT / "investor_profile.backtest.md"))
-    _vfy = _canon.verify(a.run, _lfm_gate, a.corpus)
-    if not _vfy["ok"]:
-        if _vfy["reason"] == "unstamped":
-            _problems.append(_vfy["detail"] + "  Stamp it: python scripts/stamp_legacy_run.py " + a.run)
-        for _k, _got, _want in _vfy["diffs"]:
-            _problems.append(f"{_k}: curation ran under {_got!r}, profile now says {_want!r} "
-                             f"-> this curation would have to be RE-RUN, not just rebuilt")
-    _canon.require_publishable(a.out, "CBT", _problems)
+        _problems.append(_interp)          # NEVER exempt: orthogonal to which corpus is rendered
+    # THE ARM'S PROFILE, used by EVERY profile read on this page. It was hard-coded to
+    # .backtest.md in four places, so CBS -- which is CURATED under .forward.md -- displayed the
+    # backtest's parameters AND replayed its book with the backtest's BOOK knobs. That is not a
+    # label bug: max_stale_scans is 8 in .backtest and 32 in .forward, so the CBS book was being
+    # replayed under a different holding rule than the curation ran with. Caught by reading the
+    # rendered page against the profile: it showed news_lookback_days=0 where .forward says 30.
+    _gate_profile = "investor_profile.forward.md" if a.bootstrap else "investor_profile.backtest.md"
+    _bs_handoff, _bs_stamp = None, {}
+    if a.bootstrap:
+        try:
+            _bs_stamp = json.loads((ROOT / a.run / "provenance.json").read_text())
+        except Exception:  # noqa: BLE001 -- an unstamped run still renders, it just says so
+            _bs_stamp = {}
+        try:
+            import bootstrap_corpus as _bsh
+            _bs_handoff = _bsh.HANDOFF
+        except Exception:  # noqa: BLE001
+            pass
+    PROFILE_FILE = _gate_profile
+    # CBS SKIPS THE CANONICAL-CURATION CHECKS, exactly as FBS does and for the same reason: it
+    # renders a DIFFERENT corpus under a DIFFERENT profile by design, not a drifted one. The
+    # interpreter check above sits OUTSIDE this guard on purpose -- exempting the corpus check must
+    # never silently exempt the numerical stack, which is how a whole session of FBS builds once ran
+    # on the system python with nothing warning.
+    _vfy = {}
+    if not a.bootstrap:
+        _unclassified = _canon.check_partition_covers_profile()
+        if _unclassified:
+            _problems.append(f"profile knobs nobody has classified as curation-or-book: {_unclassified}. "
+                             f"Add them to CURATION_KNOBS or BOOK_KNOBS in src/provenance.py.")
+        if a.corpus != _canon.CANON_CORPUS:
+            _problems.append(f"corpus is {a.corpus}, canonical is {_canon.CANON_CORPUS}")
+        _lfm_gate = _opt_gate.load_financial_model(str(ROOT / _gate_profile))
+        _vfy = _canon.verify(a.run, _lfm_gate, a.corpus)
+        if not _vfy["ok"]:
+            if _vfy["reason"] == "unstamped":
+                _problems.append(_vfy["detail"] + "  Stamp it: python scripts/stamp_legacy_run.py " + a.run)
+            for _k, _got, _want in _vfy["diffs"]:
+                _problems.append(f"{_k}: curation ran under {_got!r}, profile now says {_want!r} "
+                                 f"-> this curation would have to be RE-RUN, not just rebuilt")
+    _canon.require_publishable(a.out, "CBS" if a.bootstrap else "CBT", _problems)
     if _vfy.get("unverifiable"):
         print(f"  note: {len(_vfy['unverifiable'])} curation knobs were never recorded by {a.run} "
               f"and cannot be checked ({', '.join(_vfy['unverifiable'][:4])}, ...)", file=sys.stderr)
-    M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus)
+    M, J, DEC, PICKS, BYURL, ARTS = load(run, corpus, bootstrap=a.bootstrap)
     try:
         from sweep_optimizer import FOCUS as _FOCUS_TICKERS
     except Exception:  # noqa: BLE001 -- emphasis is a nicety, never a build blocker
@@ -193,7 +239,7 @@ def main(argv=None) -> int:
         # before. Two extra file reads cost nothing.
         from optimizer import load_financial_model as _lfmb
         from util import resolve_cadence as _rc
-        _win_days = int(_rc(_lfmb(str(ROOT / "investor_profile.backtest.md"))) or 30)
+        _win_days = int(_rc(_lfmb(str(ROOT / PROFILE_FILE))) or 30)
         _prop_by = collections.defaultdict(set)
         _tick_by: dict = {}          # bundle key -> tickers proposed from it, for gains-per-bundle
         for _d in DEC:
@@ -294,7 +340,7 @@ def main(argv=None) -> int:
 
     from optimizer import load_financial_model as _lfm
     from util import resolve_cadence as _resolve_cadence
-    _lfm0 = _lfm(str(ROOT / "investor_profile.backtest.md"))
+    _lfm0 = _lfm(str(ROOT / PROFILE_FILE))
 
     # ---- portfolio math: only for SKILL measures, never as the headline ---------------------------
     # This page deliberately does not lead with an equity curve (2026-08-07 redirect). But three of
@@ -339,6 +385,41 @@ def main(argv=None) -> int:
                                             "catalyst_resolved": bool(_x.get("catalyst_resolved")),
                                             "evidence_urls": []})
         _scans = dict(sorted(_scans.items()))
+        # CBS CONTINUES CBT'S BOOK. The bootstrap exists to bridge the backtest to the forward, so
+        # its portfolio starts where the backtest's recommendation left off rather than from cash:
+        # the value curve begins at the handoff holding what CBT recommended at its last scan on or
+        # before that date. PWR does the same ("Day-0 portfolio = the CBT RECOMMENDED weights on the
+        # nearest rebalance <= SINCE"), and without it the two pages describe unrelated books that
+        # happen to share an axis.
+        #
+        # The CURATION is untouched -- all 17 scans, both eras, still drive every other panel. Only
+        # the BOOK is re-based, which is a replay-time concern and costs no re-curation.
+        if a.bootstrap and _bs_handoff:
+            _seed_tk, _seed_at = [], None
+            try:
+                import csv as _csvs
+                _cbt_rows = list(_csvs.DictReader((ROOT / _canon.CANON_RUN / "firehose_scans.csv").open()))
+                _cbt_wks = sorted({r["week"] for r in _cbt_rows if (r.get("ticker") or "").strip()})
+                _before = [w for w in _cbt_wks if w <= _bs_handoff]
+                if _before:
+                    _seed_at = _before[-1]
+                    _seed_tk = sorted({r["ticker"].strip().upper() for r in _cbt_rows
+                                       if r["week"] == _seed_at and (r.get("ticker") or "").strip()})
+            except Exception as _e:  # noqa: BLE001 -- no CBT log -> fall back to starting from cash
+                print(f"  CBS seed unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
+            _post = {k: v for k, v in _scans.items() if str(k.date()) >= _bs_handoff}
+            if _seed_tk and _post:
+                _first = min(_post)
+                _have = {p["ticker"] for p in _post[_first]}
+                for _t in _seed_tk:
+                    if _t not in _have:
+                        _post[_first].append({"ticker": _t, "thesis": f"carried from CBT {_seed_at}",
+                                              "thesis_live": True, "catalyst_resolved": False,
+                                              "evidence_urls": []})
+                print(f"  CBS book seeded from CBT {_seed_at}: {len(_seed_tk)} tickers carried into "
+                      f"{str(_first.date())}", flush=True)
+                _scans = dict(sorted(_post.items()))
+                book_seed = {"from": _seed_at, "n": len(_seed_tk)}
         # ONE capital figure for every curve on the value panel -- the curated book, the
         # buy-and-hold of starter_watchlist, and SPY all start at initial_investment_usd.
         _wcap = _fh.watchlist_cap(_lfm0)
@@ -557,6 +638,9 @@ def main(argv=None) -> int:
                 _fspans.append({"t": _tk, "s": _dts[_run], "e": _dts[-1], "ev": _t2e.get(_tk, ""), "b": _beat_of(_tk)})
         book.update({
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
+            # BOOTSTRAP ONLY: the date the news source changes under the curator's feet. Absent on
+            # CBT, whose corpus has no seam, so the chart simply draws no line there.
+            "handoff": (_bs_handoff if a.bootstrap else None),
             "tickerbeat": {tk: _beat_of(tk) for tk in
                            ({p["ticker"] for p in PICKS} | set(_gain) | set(_dom))},
             # ARTICLES PER BEAT across the whole corpus -- the denominator for beat efficiency, and
@@ -688,12 +772,30 @@ def main(argv=None) -> int:
 
     # ---- cost -------------------------------------------------------------------------------------
     cost = 0.0
+    _cost_note = ""
     cf = ROOT / "data" / "llm_costs.csv"
     if cf.exists():
-        import csv as _csv
+        import csv as _csv, datetime as _dtc
         rows = list(_csv.DictReader(cf.open()))
-        # the run's own window: everything logged while it was executing
-        cost = sum(float(r.get("cost_usd") or 0) for r in rows[-max(len(scout) * 6, 200):])
+        # THE RUN'S OWN WINDOW, from the run's own files. This used to be `rows[-max(len(scout)*6,
+        # 200):]` -- the last N rows of the GLOBAL ledger as a proxy for "logged while it ran". That
+        # silently truncates any run that made more calls than the window: CBS made 1,427 and the
+        # tile summed 200 of them, reporting $0.51 for a run that cost $16.99, a 33x understatement
+        # on a published page. The archive files are written one per scan as the run executes, so
+        # their mtimes ARE the window -- no schema change, no tagging, and it cannot silently
+        # truncate.
+        _arch = sorted((run / "archive").glob("*.json"), key=lambda f: f.stat().st_mtime)
+        if _arch:
+            _t0 = _dtc.datetime.fromtimestamp(_arch[0].stat().st_mtime, _dtc.timezone.utc)
+            _t1 = _dtc.datetime.fromtimestamp(_arch[-1].stat().st_mtime, _dtc.timezone.utc)
+            _lo = (_t0 - _dtc.timedelta(minutes=10)).isoformat()   # the first scan's calls precede its file
+            _hi = (_t1 + _dtc.timedelta(minutes=5)).isoformat()
+            _in = [r for r in rows if _lo <= (r.get("ts") or "") <= _hi]
+            cost = sum(float(r.get("cost_usd") or 0) for r in _in)
+            _cost_note = f" · {len(_in):,} calls in the run window"
+        else:
+            cost = sum(float(r.get("cost_usd") or 0) for r in rows[-max(len(scout) * 6, 200):])
+            _cost_note = " · window unknown (no archive files); last-N-rows estimate"
 
     def st(v, good, warn):
         return "good" if v >= good else ("warning" if v >= warn else "critical")
@@ -709,7 +811,8 @@ def main(argv=None) -> int:
         # that identifies WHICH pool this page was built from -- was the least visible part of
         # the string. The row is now the path alone; the magnitudes belong up here.
         dict(label="Corpus articles", value=f"{len(ARTS):,}",
-             sub=f"{a.corpus}", status="good",
+             sub=("bootstrap (gkg+wayback | websearch)" if a.bootstrap else f"{a.corpus}"),
+             status="good",
              why="Articles in the pool the curator read. The sub-line is the local path it "
                  "came from -- this page derives every corpus metric from that one directory."),
         dict(label="Beats", value=f"{len(cfgp['gem_beats'])}+{len(cfgp['coverage_beats'])}",
@@ -752,7 +855,8 @@ def main(argv=None) -> int:
                      else "critical"),
              why="Share of the curator's theses that made money standalone over their live span. A "
                  "HIT RATE, not a return — breadth without precision is noise."),
-        dict(label="LLM cost", value=f"${cost:.2f}", sub=f"${cost/max(len(M),1):.3f} per week",
+        dict(label="LLM cost", value=f"${cost:.2f}",
+             sub=f"${cost/max(len(M),1):.3f} per week{_cost_note}",
              status="good", why="Curator spend for the run: scout, matcher and event agents."),
     ])
 
@@ -940,7 +1044,7 @@ def main(argv=None) -> int:
     fmp = _lfm0
     # Raw profile TEXT, for the self-audit below: load_financial_model returns defaults
     # merged in, so it cannot tell a knob the profile DECLARES from one it merely defaults.
-    PROFILE_TEXT = (ROOT / "investor_profile.backtest.md").read_text()
+    PROFILE_TEXT = (ROOT / PROFILE_FILE).read_text()
     arm_used = "fuller (archived lede, falling back to live page)"
     # A knob's value, named by its investor_profile key. NO commentary: the profile itself carries the
     # explanation, and repeating it here just makes the table unreadable. The ONE exception is a
@@ -994,15 +1098,24 @@ def main(argv=None) -> int:
         # other curation still printed the hash the PROFILE implies, i.e. a fingerprint belonging to
         # no run on disk. On a published page the two are necessarily equal (the gate blocks
         # otherwise), so this changes nothing there and stops the preview builds from lying.
-        ("curation fingerprint", (_vfy.get("hash_run") or "(unstamped)")
-         + (" \u2713 canonical" if not _problems else
-            f" \u2717 NOT canonical \u2014 profile+corpus imply {_vfy.get('hash_want')}")
-         + (f" ({len(_vfy['unverifiable'])} knobs unrecorded)" if _vfy.get("unverifiable") else "")),
-        ("corpus (local path)", f"{a.corpus}"),
+        # CBS reads its own stamp rather than the CBT verifier's: `verify()` compares a curation
+        # against the CANONICAL profile+corpus, which CBS is not and does not claim to be, so it is
+        # skipped for this arm (see the gate). Reporting "(unstamped)" for a run that IS stamped was
+        # the visible cost of that skip.
+        ("curation fingerprint",
+         ((_bs_stamp.get("hash") or "(unstamped)") + " \u00b7 bootstrap (not the canonical book)")
+         if a.bootstrap else
+         ((_vfy.get("hash_run") or "(unstamped)")
+          + (" \u2713 canonical" if not _problems else
+             f" \u2717 NOT canonical \u2014 profile+corpus imply {_vfy.get('hash_want')}")
+          + (f" ({len(_vfy['unverifiable'])} knobs unrecorded)" if _vfy.get("unverifiable") else ""))),
+        ("corpus (local path)",
+         (f"{(_bs_stamp.get('corpus') or {}).get('path', 'bootstrap')} \u00b7 "
+          f"{(_bs_stamp.get('corpus') or {}).get('span', '')}") if a.bootstrap else f"{a.corpus}"),
         ("lede arm", arm_used),
-        ("— investor_profile.backtest.md · cadence —", ""),
+        (f"— {PROFILE_FILE} · cadence —", ""),
         _pv("rebalance_period"),
-        ("— investor_profile.backtest.md · curator —", ""),
+        (f"— {PROFILE_FILE} · curator —", ""),
         _pv("model"),
         _pv("scout_model"),
         _pv("event_agent_model"),
@@ -1024,7 +1137,7 @@ def main(argv=None) -> int:
         _pv("exit_patience_scans"),
         _pv("max_stale_scans"),
         _pv("max_event_scans"),
-        ("— investor_profile.backtest.md · optimizer —", ""),
+        (f"— {PROFILE_FILE} · optimizer —", ""),
         _pv("initial_investment_usd"),
         _pv("starter_watchlist"),
         _pv("always_include"),
@@ -1072,7 +1185,7 @@ def main(argv=None) -> int:
         for k, v in params)
     ptable = (f'<section class="panel"><h2>Parameter settings</h2>'
               f'<p class="lead">The exact knobs behind every number on this page, read from '
-              f'{_LINK(PROFILE_URL, "investor_profile.backtest.md")} and '
+              f'{_LINK(PROFILE_URL, PROFILE_FILE)} and '
               f'{_LINK(CONFIG_URL, "retrieval_config.json")}. The two <b>CAP</b> rows bound the breadth '
               f'this dashboard measures, so read them alongside <i>Breadth over time</i> and <i>Watchlist composition</i>.</p>'
               f'<div class="scroll"><table class="params">{prows}</table></div></section>')
@@ -1417,10 +1530,16 @@ def main(argv=None) -> int:
     ])
     panels += log_panel          # the log is a reference table, not a headline -- it reads last
 
+    # ONE IDENTITY FOR THE ARM. Title, header and the nav's current-page marker all derive from it;
+    # hard-coding "CBT" in three places meant the CBS page announced itself as the backtest AND told
+    # dash_nav that CBT was the page you were on -- so the nav greyed out CBT and offered CBS as a
+    # link while you were already looking at CBS.
+    _name = "Curator Bootstrap (CBS)" if a.bootstrap else "Curator Backtest (CBT)"
+    _page = "cbs.html" if a.bootstrap else "cbt.html"
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Curator Backtest (CBT)</title>
+<title>{_name}</title>
 <script src="{PLOTLY_CDN}"></script>
 <style>
 :root {{ --surface:{LIGHT['surface']}; --card:#ffffff; --text:{LIGHT['text']}; --text2:{LIGHT['text2']};
@@ -1474,9 +1593,9 @@ th {{ color:var(--text2); font-weight:600; }}
   </div>
 </div>
 <div class="wrap">
-{dash_nav.render('cbt.html')}
+{dash_nav.render(_page)}
 <header>
-  <h1>Curator Backtest (CBT)</h1>
+  <h1>{_name}</h1>
   <p class="sub">{esc(weeks[0] if weeks else '?')} &rarr; {esc(weeks[-1] if weeks else '?')}
      &middot; {len(M)} rebalances &middot; {J.get('nid', 0)} events &middot; {len(all_veh)} tickers</p>
 </header>
@@ -1810,6 +1929,16 @@ function draw() {{
         hovertemplate:'%{{x}}<br>an event opened or closed<extra></extra>'}}
     ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
         margin:{{l:74,r:24,t:40,b:44}},
+        // THE HANDOFF, on the bootstrap arm only (BK.handoff is emitted just for CBS). Left of it
+        // the curator reads GKG+wayback, right of it the daily websearch pull -- so the book to the
+        // LEFT is what the backtest's own news produces, and any divergence to the RIGHT is the
+        // news source changing rather than the method. Without the line the two halves of this
+        // curve look like one continuous experiment, which is exactly the reading to avoid.
+        shapes: BK.handoff ? [{{type:'line', xref:'x', x0:BK.handoff, x1:BK.handoff,
+          yref:'paper', y0:0, y1:1, line:{{color:p.text2, width:1.5, dash:'dash'}}}}] : [],
+        annotations: BK.handoff ? [{{x:BK.handoff, xref:'x', xanchor:'left', yref:'paper', y:1,
+          yanchor:'top', showarrow:false, font:{{size:10.5, color:p.text2}},
+          text:' handoff ' + BK.handoff + ' \u2014 websearch from here'}}] : [],
         // LOG y-axis: the book grows ~11x, so linearly the first two years flatten onto the baseline
           // and only the last leg is legible. On a log scale equal vertical distances are equal
           // PERCENTAGE moves, which is what makes the curator line comparable to SPY anywhere on it.
