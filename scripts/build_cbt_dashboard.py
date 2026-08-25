@@ -121,7 +121,7 @@ def main(argv=None) -> int:
     # replayed under a different holding rule than the curation ran with. Caught by reading the
     # rendered page against the profile: it showed news_lookback_days=0 where .forward says 30.
     _gate_profile = "investor_profile.forward.md" if a.bootstrap else "investor_profile.backtest.md"
-    _bs_handoff, _bs_stamp = None, {}
+    _bs_handoff, _bs_start, _bs_stamp = None, None, {}
     if a.bootstrap:
         try:
             _bs_stamp = json.loads((ROOT / a.run / "provenance.json").read_text())
@@ -130,6 +130,7 @@ def main(argv=None) -> int:
         try:
             import bootstrap_corpus as _bsh
             _bs_handoff = _bsh.HANDOFF
+            _bs_start = _bsh.day_zero()
         except Exception:  # noqa: BLE001
             pass
     PROFILE_FILE = _gate_profile
@@ -387,27 +388,33 @@ def main(argv=None) -> int:
         _scans = dict(sorted(_scans.items()))
         # CBS CONTINUES CBT'S BOOK. The bootstrap exists to bridge the backtest to the forward, so
         # its portfolio starts where the backtest's recommendation left off rather than from cash:
-        # the value curve begins at the handoff holding what CBT recommended at its last scan on or
-        # before that date. PWR does the same ("Day-0 portfolio = the CBT RECOMMENDED weights on the
+        # the curve begins on the corpus's FIRST day holding what CBT recommended at its last scan
+        # on or before it, and the curator then updates that one portfolio weekly through the
+        # handoff to today. PWR does the same ("Day-0 portfolio = the CBT RECOMMENDED weights on the
         # nearest rebalance <= SINCE"), and without it the two pages describe unrelated books that
         # happen to share an axis.
         #
         # The CURATION is untouched -- all 17 scans, both eras, still drive every other panel. Only
         # the BOOK is re-based, which is a replay-time concern and costs no re-curation.
-        if a.bootstrap and _bs_handoff:
+        if a.bootstrap and _bs_start:
             _seed_tk, _seed_at = [], None
             try:
                 import csv as _csvs
                 _cbt_rows = list(_csvs.DictReader((ROOT / _canon.CANON_RUN / "firehose_scans.csv").open()))
                 _cbt_wks = sorted({r["week"] for r in _cbt_rows if (r.get("ticker") or "").strip()})
-                _before = [w for w in _cbt_wks if w <= _bs_handoff]
+                _before = [w for w in _cbt_wks if w <= _bs_start]
                 if _before:
                     _seed_at = _before[-1]
                     _seed_tk = sorted({r["ticker"].strip().upper() for r in _cbt_rows
                                        if r["week"] == _seed_at and (r.get("ticker") or "").strip()})
             except Exception as _e:  # noqa: BLE001 -- no CBT log -> fall back to starting from cash
                 print(f"  CBS seed unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
-            _post = {k: v for k, v in _scans.items() if str(k.date()) >= _bs_handoff}
+            # SEED AT DAY ZERO, NOT AT THE HANDOFF. The bootstrap corpus deliberately begins ~3
+            # months BEFORE the handoff so the curator is exercised on backtest-era news and
+            # websearch news in one continuous run. Seeding at the handoff threw the first 13 scans
+            # away from the book and left a 4-point curve; the point is to watch ONE portfolio be
+            # updated weekly straight through the seam.
+            _post = dict(_scans)
             if _seed_tk and _post:
                 _first = min(_post)
                 _have = {p["ticker"] for p in _post[_first]}
