@@ -1137,8 +1137,13 @@ def main(argv=None) -> int:
              for t, n in top_cov if t in picked and t in _gain and n],
             key=lambda r: r["per"]),
         "book": book,
+        # Runs curated before 2026-08-26 have no `lede_search` key: those genuinely had zero, since
+        # the class did not exist and their websearch snippets were being overwritten by the title.
+        # .get(...,0) is therefore the TRUE value for them, not a fallback that hides anything.
         "text": {"w": weeks, "clean": [r["lede_clean"] for r in M],
-                 "live": [r["lede_live"] for r in M], "none": [r["lede_headline_only"] for r in M]},
+                 "live": [r["lede_live"] for r in M],
+                 "search": [r.get("lede_search", 0) for r in M],
+                 "none": [r["lede_headline_only"] for r in M]},
     }
 
     # ---- parameter table: the exact knobs behind every number on this page ------------------------
@@ -1732,12 +1737,18 @@ def main(argv=None) -> int:
               "c-story", 0, story_html),
         panel_rec("Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
-              "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
+              "text, a <b>search snippet</b>, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
               "the article's own date), which is the only look-ahead-CLEAN text here: a live page is "
               "fetched today and may have been edited, extended or corrected since publication, so it can "
               "carry knowledge the curator could not have had. A week leaning on live text is a week "
-              "whose result is an upper bound.",
+              "whose result is an upper bound. <b>Search snippet</b> is the text the retrieval engine "
+              "itself returned &mdash; the only text a websearch article ever has &mdash; captured at "
+              "PULL time, which for the daily forward pull is within ~24h of publication, so it is "
+              "cleaner than a live fetch without being an archive. Until 2026-08-26 this class did not "
+              "exist and those snippets were OVERWRITTEN BY THE TITLE before the curator read them, "
+              "which is why every pre-2026-08-26 curation shows the post-handoff era as headline-only: "
+              "the chart was right, the pipeline was throwing the text away.",
               "c-text", 340),
     ]
     panels = ptable + render_panels(_P)
@@ -2577,6 +2588,11 @@ function draw() {{
   Plotly.react('c-text', [
     {{type:'bar', name:'archived', x:T.w, y:T.clean, marker:{{color:ST.good, line:{{width:2,color:p.surface}}}}}},
     {{type:'bar', name:'live page', x:T.w, y:T.live, marker:{{color:p.s2, line:{{width:2,color:p.surface}}}}}},
+    // SEARCH SNIPPET -- its own band, never folded into 'archived'. Different provenance: archived is
+    // archive.org as of the article's own date; a search snippet is what the engine returned at PULL
+    // time, which for the daily forward pull is within ~24h of publication.
+    ...(T.search && T.search.some(v=>v>0) ? [{{type:'bar', name:'search snippet', x:T.w, y:T.search,
+      marker:{{color:p.s4, line:{{width:2,color:p.surface}}}}}}] : []),
     {{type:'bar', name:'headline only', x:T.w, y:T.none, marker:{{color:p.grid, line:{{width:2,color:p.surface}}}}}}
   ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), barmode:'stack', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},

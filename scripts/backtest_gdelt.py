@@ -427,7 +427,8 @@ def main(argv=None):
         # Render-time arm selection: this is what fills `snippet`, the field the curator reads.
         _arm = lede.apply(gslice, arm=a.arm)
         print(f"    ledes[{a.arm}]: {_arm['coverage_pct']}% covered "
-              f"({_arm['wayback']} clean, {_arm['live']} live, {_arm['headline_only']} headline-only)",
+              f"({_arm['wayback']} clean, {_arm['live']} live, {_arm.get('search', 0)} search, "
+              f"{_arm['headline_only']} headline-only)",
               flush=True)
         for x in gslice:
             x["engine"] = "gdelt"
@@ -476,6 +477,11 @@ def main(argv=None):
                                if fm.get("discovery_filter") else len(gslice)),
             "articles_with_text": sum(1 for x in gslice if x.get("snippet") != x.get("title")),
             "lede_clean": _arm["wayback"], "lede_live": _arm["live"],
+            # SEARCH SNIPPETS are their own provenance class -- the text the retrieval engine
+            # returned, which is all a websearch article ever has. Folding them into `clean` would
+            # claim archive.org provenance they do not have; folding them into headline-only is what
+            # the pipeline used to do, and it was destroying them.
+            "lede_search": _arm.get("search", 0),
             "lede_headline_only": _arm["headline_only"],
             "events_live": len(_liveev),
             "events_opened_total": nid,

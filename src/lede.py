@@ -398,11 +398,26 @@ def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dic
       fast       lede_live, falling back to lede. Maximum coverage, mostly biased. Prototype only.
       live-only  lede_live only. The "do we even need Wayback" control.
 
-    Articles with nothing for the chosen arm keep `snippet = title` (headline-only), exactly as
-    before, and are counted in the returned tally so a dashboard can show the headline-only band."""
+    An article that arrived WITH its own `snippet` and no lede keeps that snippet -- it is a SEARCH
+    SNIPPET, the text the retrieval engine itself returned, and it is the only text a websearch
+    article ever has. Overwriting it with the title (which is what happened until 2026-08-26)
+    silently reduced the entire post-handoff corpus to headlines: measured on the bootstrap, all
+    2,416 websearch articles had lede=0 and lede_live=0, so 2,287 of them had a 300-character
+    snippet replaced by a 65-character title BEFORE THE CURATOR READ IT. The dashboard was not
+    wrong to draw them as headline-only; the pipeline had genuinely thrown the text away.
+
+    Search snippets are tallied SEPARATELY, never folded into `wayback`. Provenance differs: a
+    wayback lede is archive.org's snapshot as of the article's own date, while a search snippet is
+    whatever the engine returned at PULL time. For the daily forward pull that is within ~24h of
+    publication -- cleaner than a live fetch, which is read today and may have been edited since --
+    but it is its own thing and the page says so.
+
+    Articles with nothing at all keep `snippet = title` (headline-only) and are counted so a
+    dashboard can show the headline-only band."""
     if arm not in ARMS:
         raise ValueError(f"arm must be one of {ARMS}, got {arm!r}")
-    tally = {"arm": arm, "total": len(articles), "wayback": 0, "live": 0, "headline_only": 0}
+    tally = {"arm": arm, "total": len(articles), "wayback": 0, "live": 0, "search": 0,
+             "headline_only": 0}
     for a in articles:
         clean, live = a.get("lede"), a.get("lede_live")
         if arm == "clean":
@@ -413,15 +428,25 @@ def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dic
             pick, src = (live, "live") if live else (clean, "wayback")
         else:
             pick, src = live, "live"
+        # The engine's own snippet, kept only when there is no lede to prefer and it actually says
+        # something the title does not. Compared against the title so a snippet that IS the title
+        # (some engines echo it) is still honestly counted as headline-only.
+        _own = (a.get("snippet") or "").strip()
+        _tit = (a.get("title") or "").strip()
         if pick:
             a["snippet"] = pick[:max_chars]
             a["snippet_source"] = src
             tally[src] += 1
+        elif _own and _own != _tit:
+            a["snippet"] = _own[:max_chars]
+            a["snippet_source"] = "search"
+            tally["search"] += 1
         else:
             a["snippet"] = a.get("title", "")
             a["snippet_source"] = "headline"
             tally["headline_only"] += 1
-    tally["coverage_pct"] = round(100 * (tally["wayback"] + tally["live"]) / max(len(articles), 1), 1)
+    tally["coverage_pct"] = round(
+        100 * (tally["wayback"] + tally["live"] + tally["search"]) / max(len(articles), 1), 1)
     return tally
 
 
