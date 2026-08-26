@@ -33,8 +33,13 @@
 #               during the bootstrap smoketest.
 #               Kept forward-side (retrieval-operational): gather_model (Anthropic-only, the live
 #               web-search stage), news_cap, and the effort/relevance knobs the backtest file lacks.
-#               retrieval_engine is deliberately ABSENT: it is the backtest's gkg selector, and
-#               firehose.py would otherwise read 'gkg' for a web-search run.
+#               retrieval_engine is ABSENT -- correctly, but NOT for the reason recorded here until
+#               2026-08-26. Omitting it does not stop anything reading 'gkg': that IS the default in
+#               optimizer._FINANCIAL_MODEL_DEFAULTS, so load_financial_model fills it in either way.
+#               It is inert on the forward path for a different reason -- firehose.pool() resolves the
+#               knob against `investor_profile.backtest.md` explicitly, never this file. So the knob
+#               is genuinely backtest-only and absence is right; the old justification just did not
+#               hold, and a wrong reason in a config header is a trap for whoever edits it next.
 #               Sync with the backtest is a GOAL, not a gate, while this is in development.
 #   2026-08-14  news_lookback_days 0 -> 30 with rebalance_period held at WEEKLY: the news window is now
 #               DECOUPLED from the trading cadence. optimizer.py documented this as live behaviour all
@@ -128,6 +133,20 @@ cull_rank: trend                  # trend = trailing risk-adjusted return + fres
 curator_memory_weeks: 8           # SCANS of resolved catalysts the scout is reminded of; 0 = off.
 event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning knob measured as a NULL. (forward_engine  # SYNCED to .backtest 2026-08-24
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
+# THESE THREE ARE STATED, NOT INHERITED (2026-08-26). Each is a CURATION knob the backtest file
+# states explicitly while this file used to leave it to optimizer's default -- so the two agreed only
+# because the default happened to equal the backtest's value. Change the backtest and this file
+# follows silently, in the one direction that matters: it changes what the CURATOR READS. Stating
+# them makes a divergence show up in a diff of the two files, which is the only place anyone looks.
+# All three are honoured by forward.py as of today; before that, writing them here would have been a
+# claim the live path did not keep.
+max_article_chars: 800            # how much of ONE article's text the curator sees. Also the cap
+                                  #   lede.apply() uses, so it bounds a SEARCH SNIPPET's only copy --
+                                  #   at the old 280 the curator saw 39% of what the pull paid for.
+scout_articles_per_call: 30       # BATCHING ONLY: how many articles' worth of ticker-groups share one
+                                  #   scout call. Never truncates a group.
+min_bundle_articles: 1            # a company bundle needs >= this many articles to be shown AS a
+                                  #   company bundle; under it, demoted. 1 = nothing is demoted.
 news_cap: 0                       # articles the scout reads per scan; 0 = UNCAPPED (the daily --pull always is).
                                   #   Was 500, which silently defeated news_lookback_days: 30 -- measured
                                   #   2026-08-14, a 30d window holds 1,676 articles and the cap truncated it to
@@ -135,9 +154,9 @@ news_cap: 0                       # articles the scout reads per scan; 0 = UNCAP
                                   #   reached the scout from 149 to 38. discovery_filter is the real read budget
                                   #   now (~9% of the pool carries the gem tell), so a second cap only re-narrows
                                   #   the window we just widened. Matches the backtest, which is uncapped.
-picker_effort: low                # matches .backtest. Was high on a cost argument, but an unmeasured quality claim.  # SYNCED to .backtest 2026-08-24
-relevance_filter: false                     # OFF: the forward's search index already does this, so the stage is inert relevance filter at pool assembly, standing in for the forward's
-relevance_keep: 0                         # SAFETY CEILING on the filtered pool; 0 = none (intended)
+picker_effort: low                # matches .backtest. Was high on a cost argument, but an unmeasured quality claim.  
+relevance_filter: false           # OFF: the forward's search index already does this, so the stage is inert relevance filter
+relevance_keep: 0                 # SAFETY CEILING on the filtered pool; 0 = none (intended)
 unfunded_cooldown_weeks: 0        # scans after a prune before a name is eligible again; 0 = never (release on evidence)
 
 ---

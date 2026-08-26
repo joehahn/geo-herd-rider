@@ -531,6 +531,7 @@ def main(argv: list[str] | None = None) -> int:
         _ag.MAX_ARTICLE_CHARS = int(fm.get("max_article_chars") or _ag.MAX_ARTICLE_CHARS)
         _ag.SCOUT_ARTICLES_PER_CALL = int(fm.get("scout_articles_per_call")
                                           or _ag.SCOUT_ARTICLES_PER_CALL)
+        _ag.MIN_BUNDLE_ARTICLES = int(fm.get("min_bundle_articles") or _ag.MIN_BUNDLE_ARTICLES)
         rebal = args.rebalance_days or resolve_cadence(fm)
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
