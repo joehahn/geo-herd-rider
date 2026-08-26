@@ -1,0 +1,31 @@
+{
+ "embargo_days": 21,
+ "blocks": 16,
+ "rankers": {
+  "Sharpe (in-sample)": {
+   "pbo": 48.2,
+   "median_lambda": 0.081,
+   "n_splits": 12870
+  },
+  "-cancellation": {
+   "pbo": 55.2,
+   "median_lambda": -0.234,
+   "n_splits": 12870
+  },
+  "robust (canc+downside)": {
+   "pbo": 70.6,
+   "median_lambda": -0.745,
+   "n_splits": 12870
+  },
+  "winners (whole-run)": {
+   "pbo": 0.0,
+   "median_lambda": 4.77,
+   "n_splits": 12870
+  },
+  "capital_hit (whole-run)": {
+   "pbo": 13.3,
+   "median_lambda": 1.091,
+   "n_splits": 12870
+  }
+ }
+}
