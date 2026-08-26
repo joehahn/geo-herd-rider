@@ -637,11 +637,9 @@ def main(argv=None) -> int:
                     for _k in _live:
                         _evgain[_k] += _inc / len(_live)
         # BUY-AND-HOLD baseline, PWR's blue curve: the profile's `starter_watchlist`, equal-DOLLAR at
-        # inception and never touched again. ON THE BOOTSTRAP IT IS NOT THAT: seed_holdings replace
-        # the starter as the inception position, so the curve is the INHERITED BOOK at its inherited
-        # WEIGHTS, left alone -- which is the benchmark a continuation book actually has to beat.
-        # The label follows the arm; calling it starter_watchlist on CBS named three tickers
-        # (AAPL/GOOGL/AMZN) that book has never held. The honest control for "did curating add anything, or
+        # inception and never touched again. THE SAME BASKET ON BOTH ARMS: it is the control, not
+        # the inception holding, so it does not follow seed_holdings -- CBT and CBS are only
+        # comparable if they are measured against the same boring basket. The honest control for "did curating add anything, or
         # would holding a boring opening basket have done as well?" firehose.backtest computes it off
         # the same price panel and the same initial_investment_usd, so both curves start at the same $.
         # WATCHLIST COMPOSITION (PWR's CBT plot 2, as a GHR equivalent). Two spans per ticker: when it
@@ -1398,15 +1396,10 @@ def main(argv=None) -> int:
     bh_names = ", ".join(book.get("bh_tickers") or []) or "none"
     bh_verdict = ""
     if _bhf:
-        # NAME IT FOR THE ARM. On the bootstrap the buy-and-hold curve is the INHERITED book left
-        # alone, not `starter_watchlist` -- seed_holdings replace the starter as the inception
-        # position, so the same code path produces a different benchmark and calling it "the starter
-        # basket" told the reader it was AAPL/GOOGL/AMZN when it was BIL/CC/SMMT/SQM.
-        _bhname = "the inherited book held flat" if a.bootstrap else "the starter basket"
-        _pairs = ((_bhname, _bhf), ("SPY", _sp))
+        _pairs = (("the starter basket", _bhf), ("SPY", _sp))
         _beat = [n for n, v in _pairs if _cv > v]
         _lost = [n for n, v in _pairs if _cv <= v]
-        bh_verdict = (f"Over this window the curated book ended at ${_cv:,.0f}, {_bhname} at "
+        bh_verdict = (f"Over this window the curated book ended at ${_cv:,.0f}, the starter basket at "
                       f"${_bhf:,.0f}, SPY at ${_sp:,.0f} — curating "
                       + ("beat " + " and ".join(_beat) if _beat else "")
                       + (" but " if _beat and _lost else "")
@@ -1515,14 +1508,12 @@ def main(argv=None) -> int:
     # somewhere else. FBT hit this by dropping panels and solved it the same way.
     _P = [
         panel_rec("Realized portfolio value",
-              "Three books that all start at the same dollar: the curated one, a buy-and-hold "
-              + (f"of the INHERITED BOOK ({bh_names}) &mdash; the positions and weights carried over "
-                 "from the backtest at the handover, then left alone. That is the benchmark this page "
-                 "has to beat: not a generic basket, but doing nothing. "
-                 if a.bootstrap else
-                 f"of the <code>starter_watchlist</code> ({bh_names}) bought equal-dollar on day 1 "
-                 "and never touched. ")
-              + "And SPY. Squares mark the weekly rebalances — dark red where an event actually "
+              "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
+              f"<code>starter_watchlist</code> ({bh_names}) bought equal-dollar on this book's FIRST "
+              "day and never touched, and SPY. The control is the SAME basket on every page &mdash; "
+              "it is what the curated book is measured against, not what the book starts holding, so "
+              "it does not follow the seed. "
+              "Squares mark the weekly rebalances — dark red where an event actually "
               "opened or closed, orange where the curator rebalanced but changed nothing. "
               + bh_verdict +
               " Kept OUT of the headline on purpose: a backtest steered by returns on known history is "
@@ -2161,9 +2152,7 @@ function draw() {{
     Plotly.react('c-value', [
       {{type:'scatter', mode:'lines', name:'Curator-driven', x:BK.dates, y:BK.value,
         line:{{color:'#d97706', width:2.5}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>curator</extra>'}},
-      {{type:'scatter', mode:'lines',
-        name:(DATA.handoff ? 'Buy-and-hold (inherited book)' : 'Buy-and-hold (starter_watchlist)'),
-        x:BK.dates, y:BK.bh,
+      {{type:'scatter', mode:'lines', name:'Buy-and-hold (starter_watchlist)', x:BK.dates, y:BK.bh,
         line:{{color:'#3b82f6', width:2}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>buy &amp; hold</extra>'}},
       {{type:'scatter', mode:'lines', name:'SPY benchmark', x:BK.dates, y:BK.spyser,
         line:{{color:'#10b981', width:2, dash:'dash'}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>SPY</extra>'}},

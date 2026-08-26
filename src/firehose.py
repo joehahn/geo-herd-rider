@@ -593,11 +593,18 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     # inherited from the backtest went unfunded.
     seed_holdings = {str(t).strip().upper(): float(w)
                      for t, w in (seed_holdings or {}).items() if str(t).strip() and w}
-    starter = ([str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
-               if not seed_holdings else sorted(seed_holdings))
+    # THE BUY-AND-HOLD CONTROL IS NOT THE INCEPTION HOLDING. `starter_watchlist` plays two roles
+    # that used to share one variable: it is where day-0 capital parks in a book starting from cash,
+    # AND it is the boring-basket control the curated book is measured against. `seed_holdings`
+    # replace the FIRST role on a continuation book -- but not the second: the control has to be the
+    # same basket on every page or CBT and CBS are not comparable. Sharing the variable silently
+    # swapped CBS's control to the inherited book while the label still said starter_watchlist.
+    bh_basket = [str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
+    starter = bh_basket if not seed_holdings else sorted(seed_holdings)
     anchors = list(scans)
     watch = _stateful_watch(scans, seed=starter, fm=fm)  # inception holdings + sticky hold + hard-exit on catalyst_resolved
-    tickers = {score.BENCHMARK, overlay} | set(always) | set(starter) | {t for w in watch.values() for t in w}
+    tickers = ({score.BENCHMARK, overlay} | set(always) | set(starter) | set(bh_basket)
+               | {t for w in watch.values() for t in w})
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
@@ -744,16 +751,12 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
            "agent_precision": _agent_precision(scans, panel, fm)}   # unmasked curator-skill metric
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor,
-                                     buyhold=[t for t in starter if t in valid],
-                                     # WEIGHTS, when this is a continuation book. The curve claims to
-                                     # be "the inherited book held flat", and that book was not
-                                     # equal-weighted -- CBT held 26/26/26/21.9, not 25 each.
-                                     bh_weights=(seed_holdings or None))
+                                     buyhold=[t for t in bh_basket if t in valid])
     return out
 
 
 def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_anchor=OVERLAY_ANCHOR,
-                  buyhold: list[str] | None = None, bh_weights: dict | None = None) -> dict | None:
+                  buyhold: list[str] | None = None) -> dict | None:
     """Daily value/alloc: hold each week's weights from its rebalance day until the next."""
     starts = [r for r in reb if r is not None]
     if not starts:
@@ -803,18 +806,7 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
         base = norm.iloc[0]
         held = [t for t in held if pd.notna(base[t]) and base[t] > 0]
         if held:
-            # equal-dollar at inception == mean of price relatives. With `bh_weights` (a continuation
-            # book) it is the WEIGHTED mean instead: the benchmark is the inherited book left alone,
-            # so it must start from the weights that book actually held.
-            if bh_weights:
-                _w = {t: float(bh_weights.get(t, 0.0)) for t in held}
-                _tot = sum(_w.values())
-                if _tot > 0:
-                    bh = sum((norm[t] / base[t]) * (_w[t] / _tot) for t in held)
-                else:
-                    bh = (norm[held] / base[held]).mean(axis=1)
-            else:
-                bh = (norm[held] / base[held]).mean(axis=1)
+            bh = (norm[held] / base[held]).mean(axis=1)     # equal-dollar at inception == mean of price relatives
             bh_val = [None if pd.isna(v) else round(capital * float(v), 2) for v in bh.tolist()]
 
     alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]
