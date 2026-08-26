@@ -204,6 +204,24 @@ class OpenRouterClient(LLMClient):
                 break
             except Exception as _e:  # noqa: BLE001 - classified below, re-raised if not transient
                 _n = type(_e).__name__
+                # CLASSIFY BY STATUS CODE, NOT CLASS NAME. `APIStatusError` is the base class for
+                # EVERY http error the SDK raises -- 400, 401, 402, 403 as well as 429 and 5xx -- so
+                # matching the string "APIStatus" made an out-of-credits 402 look transient. Measured
+                # 2026-08-26: a 78-scan curation retried a 402 `in_flight_budget_exhausted` five
+                # times, then died at scan 33 having burned the backoff window for nothing. Retrying
+                # a billing error cannot help; it can only delay the failure and waste the run.
+                _code = getattr(_e, "status_code", None)
+                _PERMANENT = {400, 401, 402, 403, 404, 422}
+                if _code in _PERMANENT:
+                    if _code in (401, 402, 403):
+                        print(f"  llm FATAL http {_code} for {label} -- this is a KEY or BILLING "
+                              f"error and will not resolve on retry. Check the balance:\n"
+                              f"    curl -s -H \"Authorization: Bearer $OPENROUTER_API_KEY\" "
+                              f"https://openrouter.ai/api/v1/credits\n"
+                              f"  (a 402 `in_flight_budget_exhausted` can also mean too many "
+                              f"concurrent --workers for the remaining balance)",
+                              file=_sys.stderr, flush=True)
+                    raise
                 _transient = isinstance(_e, _json.JSONDecodeError) or any(
                     k in _n for k in ("APIConnection", "APITimeout", "RateLimit", "InternalServer",
                                       "APIStatus", "ReadTimeout", "ConnectError", "RemoteProtocol"))
