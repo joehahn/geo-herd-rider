@@ -48,7 +48,8 @@ import provenance as _canon  # noqa: E402  canonical-inputs gate
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
 from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,  # noqa: E402
-                                 STATUS, _LINK, esc, panel, table_html, tile)
+                                 STATUS, _LINK, esc, panel_rec, render_panels,
+                                 table_html, tile)
 
 
 def load(run: Path, corpus: Path, bootstrap: bool = False):
@@ -1077,7 +1078,7 @@ def main(argv=None) -> int:
         "src": {"s": [s for s, _ in src_c.most_common(25)], "n": [n for _, n in src_c.most_common(25)]},
         "lede": {"k": list(lede_c), "n": list(lede_c.values())},
         "bundle": bundle_buckets,
-        "focus": list(_FOCUS_TICKERS),   # the no-brainer tickers, bolded in plot 5
+        "focus": list(_FOCUS_TICKERS),   # the no-brainer tickers, bolded in the gain-per-holding panel
         # GAIN by provenance. Each ticker's P&L is split across the provenance classes of ITS OWN
         # evidence, in proportion to how many of its cited articles came from each. A proportional
         # split, not an assignment: a pick argued off six archived articles and two live pages cannot
@@ -1349,7 +1350,7 @@ def main(argv=None) -> int:
                               "Rejected by the cap/guard"], _tick_rows)
                 + '</div>')
     tick_panel = (
-        f'<section class="panel"><h2>25. Curation log &mdash; tickers</h2>'
+        f'<section class="panel"><h2>@@N1@@. Curation log &mdash; tickers</h2>'
         f'<p class="lead">The same {len(_tick_rows)} changed weeks as the event log below, projected '
         f'onto TICKERS: an event opening contributes its vehicles as adds, an event exiting '
         f'contributes them as removes. Nothing here is new data &mdash; it is the event log read as a '
@@ -1360,7 +1361,7 @@ def main(argv=None) -> int:
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>26. Curation log &mdash; events</h2>'
+        f'<section class="panel"><h2>@@N2@@. Curation log &mdash; events</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1493,8 +1494,11 @@ def main(argv=None) -> int:
               "afterwards, since the archive keeps only the articles and the scan log keeps only what "
               "was ADMITTED. The plot is empty because the data is MISSING, not because the counts "
               "are zero.")
-    panels = ptable + "".join([
-        panel(1, "Realized portfolio value",
+    # NUMBERED BY POSITION, cross-referenced by DIV ID (@@c-breadth@@). Hard-coded numbers were
+    # fine until a panel MOVED: the numbers renumber and every prose reference silently points
+    # somewhere else. FBT hit this by dropping panels and solved it the same way.
+    _P = [
+        panel_rec("Realized portfolio value",
               "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
               f"<code>starter_watchlist</code> ({bh_names}) bought equal-dollar on day 1 and never "
               "touched, and SPY. Squares mark the weekly rebalances — dark red where an event actually "
@@ -1503,18 +1507,18 @@ def main(argv=None) -> int:
               " Kept OUT of the headline on purpose: a backtest steered by returns on known history is "
               "how you overfit, which is why this page leads with breadth and precision.",
               "c-value", 380),
-        panel(2, "Watchlist composition over time",
+        panel_rec("Watchlist composition over time",
               "One row per ticker. The pale bar is the span the curator kept it WATCHLISTED — it held "
               "the thesis; the solid bar is the span the optimizer actually FUNDED it. The gap between "
               "them is the honest part: a name the curator believed in and the math never backed. "
               "Colour is the ticker&rsquo;s dominant BEAT &mdash; which part of the firehose its evidence "
               "came from. Grey means no beat-attributable evidence.",
               "c-wcomp", _wcomp_h),
-        panel(3, "Event timeline",
+        panel_rec("Event timeline",
               f"The {_n_lived} events that RAN. The pale bar spans proposed &rarr; terminated; the "
               "solid overlay is when the optimizer actually FUNDED it, coloured by beat. A bar with "
               "no solid section is a thesis the curator held and the math never backed. "
-              f"<b>Two classes are not drawn, and both are counted in panel 4:</b> {_n_culled} events "
+              f"<b>Two classes are not drawn, and both are counted in panel @@c-evcount@@:</b> {_n_culled} events "
               "with no agent read at all, and "
               f"{_n_zero} that opened and terminated on the SAME curation &mdash; those draw as hairlines "
               "indistinguishable from the axis and would bury the theses that ran."
@@ -1524,7 +1528,7 @@ def main(argv=None) -> int:
                  "The caret means the thesis was already running when this book opened."
                  if a.bootstrap else ""),
               "c-gantt", max(700, 14 * _n_gantt)),
-        panel(4, "Live events vs the cap",
+        panel_rec("Live events vs the cap",
               "Theses the curator tracked at once, split by whether the optimizer put capital behind "
               "them, against the <code>max_events</code> ceiling (dashed). The stack\u2019s top edge is "
               "the live count &mdash; where it touches the dashed line the cap is binding and the "
@@ -1533,13 +1537,19 @@ def main(argv=None) -> int:
               "the math never backed, and across the run "
               f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero}</b> events with an agent read died never "
               "funded. The dotted line is a flow, not part of the stack &mdash; events opened and "
-              "closed in a single curation, dropped from panel 3 as hairlines. "
-              "<b>The purple line counts TICKERS, not events</b>, and is on the same axis only "
-              "because both are counts &mdash; a ticker can carry several theses and usually does. "
-              "It is not <code>max_watchlist</code>, which caps the tickers allowed to HOLD "
-              "CAPITAL; that number is far smaller and is drawn in panel @@c-breadth@@.",
+              "closed in a single curation, dropped from panel @@c-gantt@@ as hairlines. "
+              "Ticker counts live in the panel directly below &mdash; this panel counts THESES.",
               "c-evcount", 380),
-        panel(5, "Cumulative $ gain per holding",
+        panel_rec("Breadth over time",
+              "The COUNTS behind the panel above, per rebalance: events live, tickers with a live "
+              "thesis, every ticker named by a live event, and the distinct catalysts. "
+              "per rebalance. Catalysts are drawn separately because several events on one theme is "
+              "concentration wearing a diversity costume. The dashed line is "
+              f"<code>max_watchlist</code> = {_wcap}, which binds in <b>{_cull_bind} of "
+              f"{len(_held_per_week)}</b> weeks, and the green line is what actually held capital. "
+              f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
+              "c-breadth", 380),
+        panel_rec("Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names. Every other funded name is left OFF the "
               f"chart and stated here instead: <b>{_roll_nw} more winners worth "
               f"${_roll_w:,.0f}</b> and <b>{_roll_nl} more losers worth ${abs(_roll_l):,.0f}</b>. "
@@ -1554,12 +1564,12 @@ def main(argv=None) -> int:
               "named bar</b> for that ticker&rsquo;s price history, with &#9650;/&#9660; marking the "
               "moments the optimizer funded and unfunded it.",
               "c-gainh", 560),
-        panel(6, "Cumulative $ gain per beat",
+        panel_rec("Cumulative $ gain per beat",
               "The same dollars as the panel above, rolled up to the BEAT that surfaced each ticker\u2019s "
               "evidence \u2014 i.e. which part of the firehose paid. A beat that costs money is a "
               "retrieval-vocabulary problem, not a curator one.",
               "c-gainb", max(460, 18 * _n_beats)),
-        panel(7, "Gain per article read, by beat",
+        panel_rec("Gain per article read, by beat",
               "The same dollars divided by how many of that beat's articles actually REACHED THE SCOUT "
               "&mdash; i.e. survived the discovery gate. That is the cost that binds: the scout is 91% of "
               "the LLM bill and reads only gate-passed articles. The corpus count and the pass rate are "
@@ -1567,37 +1577,40 @@ def main(argv=None) -> int:
               "elsewhere, because its atoms ARE the gate's vocabulary, so it is 17% of the corpus but 35% "
               "of everything the scout reads. "
               "Beats that retrieved articles but never produced a funded position sit at zero: they are "
-              "pure cost. Read it against panel 5 &mdash; a tall bar there with a short bar here is a "
+              "pure cost. Read it against panel @@c-gainb@@ &mdash; a tall bar there with a short bar here is a "
               "beat carried by volume rather than by quality.",
               "c-beateff", max(420, 18 * _n_beats_eff)),
-        panel(8, "Cumulative $ gain per event",
+        panel_rec("Cumulative $ gain per event",
               "The same gains grouped by the EVENT that motivated them. PWR groups this by wave "
               "bucket; GHR's unit of thesis is the event, so this is its analogue. It answers whether "
               "the curator's <i>ideas</i> paid, independently of which vehicle expressed them.",
               "c-gaine", 480),
-        panel(9, "Portfolio value by event over time",
+        panel_rec("Portfolio value by event over time",
               "How the book was distributed across events as the year ran. Wide bands that persist "
               "mean concentrated conviction; a churn of thin bands means the optimizer kept rotating."
               "<br><br><b>Two non-event bands.</b> Grey is the real <code>always_include</code> anchors "
               "(SPY, BIL). Amber is money still funded after every event naming that ticker had "
-              "terminated \u2014 the same dollars plot 8 buckets as <i>(unassigned)</i>. Until "
-              "2026-08-22 the two were drawn as one band labelled \u201canchors\u201d, which read "
-              "17.3% of the book against plot 10\u2019s 8.1% for the same thing."
+              "terminated \u2014 the same dollars panel @@c-gaine@@ buckets as <i>(unassigned)</i>. Until "
+              "2026-08-22 the two were drawn as one band labelled \u201canchors\u201d. The 17.3%-vs-8.1% "
+              "disagreement once reported here was not a disagreement at all: this panel attributed "
+              "dollars off a vehicle list TRUNCATED TO 6 for the timeline\u2019s row labels, so every "
+              "ticker past the sixth fell into the amber band. Measured on the full list, amber is "
+              "<b>0.0%</b> of the backtest book and 2.9% of the bootstrap\u2019s."
               "<br><br>Only the <b>8 largest events by peak holding</b> are named in the legend \u2014 "
               "about 70 hold dollars at some point, and that many swatches cannot be matched to bands "
               "by eye. <b>Hover any band</b> to identify it; every event is hoverable, labelled or not.",
               "c-evtime", 420),
-        panel(10, "Allocation over time",
+        panel_rec("Allocation over time",
                 "Dollars held per ticker, stacked — the top edge is the portfolio value. The "
                 "<code>always_include</code> anchors (SPY, BIL) sit outside the watchlist cap and are "
                 "where idle capital parks; a grey anchor stretch is the book in SPY/BIL, not a "
                 "decision to hold cash. " + _cash_note,
                 "c-alloc", 580),
-        panel(11, "Thesis concentration",
+        panel_rec("Thesis concentration",
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
                 "day parked in SPY/BIL reads 0%; the dashed line is the per-ticker cap, for scale.",
                 "c-evconc", 380),
-        panel(12, "Curator funnel",
+        panel_rec("Curator funnel",
               "Everything the curator touched, from the articles it read down to the picks it logged. "
               "<b>Log x-axis.</b> Two things to watch: the <b>discovery gate</b> is the largest cut in "
               "the whole pipeline (~19&times;), and it is <b>scout-only</b> — event agents still read "
@@ -1607,21 +1620,13 @@ def main(argv=None) -> int:
               "are the de-duplicated views. NOT shown: the ticker guard, which resolves names to "
               "symbols and drops unresolvable ones before these counters see them." + _NODEC,
               "c-funnel", 340),
-        panel(13, "Breadth over time",
-              "Events live, distinct tickers named, and the distinct catalysts behind those events, "
-              "per rebalance. Catalysts are drawn separately because several events on one theme is "
-              "concentration wearing a diversity costume. The dashed line is "
-              f"<code>max_watchlist</code> = {_wcap}, which binds in <b>{_cull_bind} of "
-              f"{len(_held_per_week)}</b> weeks, and the green line is what actually held capital. "
-              f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
-              "c-breadth", 380),
-        panel(14, "Scout inflow vs admissions",
+        panel_rec("Scout inflow vs admissions",
                 f"Candidate <b>tickers</b> the scout proposed each <code>rebalance_period</code> "
                 f"({_cad0} days here), against what was admitted. Each candidate is a (ticker, thesis) "
                 f"pair, not an event — several can collapse into one event later (176 admissions became "
                 f"{J.get('nid', 0)} events)." + _NODEC,
                 "c-inflow", 340),
-        panel(15, "Does a bigger bundle make the scout act?",
+        panel_rec("Does a bigger bundle make the scout act?",
               "The design\u2019s central claim, tested. Articles are bundled by company so a ticker\u2019s "
               "move-signal and its DRIVER arrive together \u2014 a move with no cause is correctly "
               "refused, which is why RKLB produced nothing for so long. If that is right, bigger "
@@ -1629,7 +1634,7 @@ def main(argv=None) -> int:
               "each size; the line is the share that produced a proposal. <b>Watch the 1-article "
               "bar</b>: a bundle of one cannot corroborate anything, so it is the control.",
               "c-bundle", 380),
-        panel(16, "Gains per bundle",
+        panel_rec("Gains per bundle",
               "The same dollars as the panel above, by bundle NAME rather than by size \u2014 which "
               "bundles actually paid. A bundle is credited with the realised P&amp;L of every ticker "
               "proposed out of it, so a name here earned its money by putting a ticker in front of "
@@ -1640,19 +1645,19 @@ def main(argv=None) -> int:
               f"<b>{bundle_buckets.get('rest_los_n', 0)} more worth "
               f"\u2212${bundle_buckets.get('rest_los', 0):,.0f}</b>. Rolled into bars they would be "
               "taller than the largest named bundle and would flatten everything here, the same way "
-              "they did in plot 5. <b>A ticker proposed from two bundles is credited to both</b>, so the bars total ~107% of the book \u2014 measured 12.3% double-counted, of which COPX alone is $21,445; over DISTINCT tickers the panel covers 95.1% of realised P&amp;L." + _NODEC,
+              "they did in panel @@c-gainh@@. <b>A ticker proposed from two bundles is credited to both</b>, so the bars total ~107% of the book \u2014 measured 12.3% double-counted, of which COPX alone is $21,445; over DISTINCT tickers the panel covers 95.1% of realised P&amp;L." + _NODEC,
               "c-bundlename", 620),
-        panel(17, "Coverage vs picks, per ticker",
+        panel_rec("Coverage vs picks, per ticker",
               "Article counts for the 40 most-covered tickers in the corpus. <b>Green</b> got "
               "watchlisted at some point; <b>grey</b> was named in the news but never watchlisted.",
               "c-cov", 720),
-        panel(18, "Gain per article, per ticker",
+        panel_rec("Gain per article, per ticker",
               "For the picked tickers above: dollars earned per article the press wrote about them. "
-              "The per-ticker twin of plot 7. A name that paid a lot on little coverage sits far right; "
+              "The per-ticker twin of panel @@c-beateff@@. A name that paid a lot on little coverage sits far right; "
               "a heavily-covered loser sits far left. Only tickers that were both in the top-40 by "
               "coverage AND funded appear, so this is a subset of the bars above.",
               "c-covgain", 420),
-        panel(19, "Gain per lede provenance",
+        panel_rec("Gain per lede provenance",
               "Dollars earned, split by where the text behind each pick came from. The money twin of "
               "the panel below: that one counts ARTICLES the curator cited, this one counts what those "
               "picks actually paid. Each ticker\u2019s P&amp;L is divided across the provenance of its "
@@ -1661,28 +1666,28 @@ def main(argv=None) -> int:
               "the panel below: if <b>archived</b> supplies most of the reading but <b>live page</b> "
               "most of the money, the quotable arm is not the one earning.",
               "c-ledegain", 300),
-        panel(20, "Evidence by lede provenance",
+        panel_rec("Evidence by lede provenance",
               "For every article the curator cited as evidence, where its text came from. If picks "
               "cluster on <b>archived</b> text (Wayback, look-ahead-clean) the clean arm is earning its cost; if they cluster on "
               "<b>live page</b> text the corpus is leaning on look-ahead-biased material.",
               "c-lede", 300),
-        panel(21, "Evidence by source",
+        panel_rec("Evidence by source",
               "Which outlets actually produced the articles behind the picks. Compare with the "
               "firehose dashboard's source panel: an outlet supplying much of the corpus but little of "
               "the evidence is volume without signal.",
               "c-src", 620),
-        panel(22, "Evidence by beat",
+        panel_rec("Evidence by beat",
               f"Which standing searches ({_LINK(CONFIG_URL, 'retrieval_config.json')}) produced the "
               "articles behind the picks. A beat that fills the corpus but never appears here is "
               "paying rent without earning it.",
               "c-beat", 560),
-        panel(23, "Event storyboard",
+        panel_rec("Event storyboard",
               "Each event's week-by-week journal: what the agent concluded, and why it eventually "
               "exited. The qualitative counterpart to the curation log — the only place you can see "
               "whether the exit logic is REASONING about a catalyst resolving or just pattern-matching "
               "on a price move. Funded events first, then those that never held capital.",
               "c-story", 0, story_html),
-        panel(24, "Text provenance of what the curator read",
+        panel_rec("Text provenance of what the curator read",
               "Per week, how much of the pool reached the curator as <b>archived</b> text, <b>live-page</b> "
               "text, or a bare <b>headline</b>. This is the firehose's provenance panel restricted to the "
               "slices the curator actually read. <b>Archived = Wayback</b> (archive.org's snapshot as of "
@@ -1691,8 +1696,12 @@ def main(argv=None) -> int:
               "carry knowledge the curator could not have had. A week leaning on live text is a week "
               "whose result is an upper bound.",
               "c-text", 340),
-    ])
-    panels += tick_panel + log_panel   # reference tables, not headlines -- they read last
+    ]
+    panels = ptable + render_panels(_P)
+    # the two logs are reference tables, not headlines -- they read last, and their numbers continue
+    # the panel sequence rather than being hard-coded.
+    panels += (tick_panel.replace("@@N1@@", str(len(_P) + 1))
+               + log_panel.replace("@@N2@@", str(len(_P) + 2)))
 
     # ONE IDENTITY FOR THE ARM. Title, header and the nav's current-page marker all derive from it;
     # hard-coding "CBT" in three places meant the CBS page announced itself as the backtest AND told
@@ -1858,34 +1867,30 @@ function draw() {{
     ];
     // Same-curation events are a FLOW, not part of the live stock, so they stay a line on top of the
     // stack rather than a third band -- adding them to the stack would double-count.
-    // WATCHLIST SIZE. A LINE, never a band: it counts TICKERS while the stack counts EVENTS, and
-    // stacking two different units would make the stack's top edge stop meaning "live events".
-    // It sits well above the stack (one event names several vehicles), so it also sets the y-range.
-    if (B.picks && B.picks.some(v => v > 0)) tr.push({{
-      type:'scatter', mode:'lines', name:'tickers with a live thesis',
-      x:B.w, y:B.picks, line:{{width:2, color:p.s4}},
-      hovertemplate:'%{{x}}<br>%{{y}} distinct tickers with a live thesis<extra></extra>'}});
     if (B.zerospan) tr.push({{
       type:'scatter', mode:'lines+markers', name:'opened & closed same curation',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
       hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same curation<extra></extra>'}});
     Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
       legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-      margin:{{l:60,r:24,t:16,b:52}}, shapes:_hoff(), annotations:_hoffAnn(),
+      margin:{{l:60,r:24,t:16,b:52}},
       // type:'date' -- x is scan dates, which Plotly would otherwise treat as CATEGORIES, and
       // the handoff falls BETWEEN two scans (a Tuesday; scans are Fridays) so on a category
       // axis it matches nothing and the line silently does not draw.
       xaxis:{{gridcolor:p.grid, tickangle:-40, automargin:true, type:'date'}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
              title:{{text:'events live at once', font:{{size:11}}}}}},
-      shapes: (ME && ME > 0) ? [{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:ME, y1:ME,
-                line:{{color:ST.critical, width:1.8, dash:'dash'}}}}] : [],
-      annotations: (ME && ME > 0)
+      // CONCAT onto these, never a second `shapes:`/`annotations:` key earlier in the literal --
+      // a duplicate key in an object literal silently wins, so the earlier one is simply discarded.
+      // That is how the handoff line went missing here twice.
+      shapes: ((ME && ME > 0) ? [{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:ME, y1:ME,
+                line:{{color:ST.critical, width:1.8, dash:'dash'}}}}] : []).concat(_hoff()),
+      annotations: ((ME && ME > 0)
         ? [{{xref:'paper', x:0.99, xanchor:'right', yref:'y', y:ME, yanchor:'bottom',
              showarrow:false, font:{{size:11, color:p.text2}}, text:'max_events '+ME}}]
         : [{{xref:'paper', x:0.99, xanchor:'right', yref:'paper', y:0.02, yanchor:'bottom',
              showarrow:false, font:{{size:11, color:p.text2}},
-             text:'max_events 0 = uncapped, no ceiling to draw'}}]}}), CFG);
+             text:'max_events 0 = uncapped, no ceiling to draw'}}]).concat(_hoffAnn())}}), CFG);
   }}
 
   // LOG y (2026-08-24). The three curator series span 1 to ~194 on this curation, so on a linear
@@ -1911,6 +1916,12 @@ function draw() {{
       line:{{color:p.s1,width:2}}, marker:{{size:6,color:p.s1,line:{{width:1.5,color:p.surface}}}}}},
     {{type:'scatter', mode:'lines+markers', name:'tickers named', x:B.w, y:_lg(B.vehicles),
       line:{{color:p.s2,width:2}}, marker:{{size:6,color:p.s2,line:{{width:1.5,color:p.surface}}}}}},
+    // DISTINCT TICKERS WITH A LIVE THESIS. Not the same as 'tickers named' above: that counts every
+    // vehicle any live event names, this counts the tickers actually emitted as live picks. The gap
+    // between them is vehicles the curator lists on a thesis but does not currently pick.
+    ...(B.picks && B.picks.some(v=>v>0) ? [{{type:'scatter', mode:'lines+markers',
+      name:'tickers with a live thesis', x:B.w, y:_lg(B.picks),
+      line:{{color:p.s4,width:2}}, marker:{{size:6,color:p.s4,line:{{width:1.5,color:p.surface}}}}}}] : []),
     {{type:'scatter', mode:'lines+markers', name:'distinct catalysts', x:B.w, y:_lg(B.catalysts),
       line:{{color:p.s4,width:2,dash:'dot'}}, marker:{{size:6,color:p.s4,line:{{width:1.5,color:p.surface}}}}}},
     ...(B.cap > 0 ? [{{type:'scatter', mode:'lines', name:'max_watchlist cap',
