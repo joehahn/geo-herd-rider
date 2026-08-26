@@ -20,6 +20,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import urlparse
 
+import lede as _lede   # the ONE text-provenance definition
+
 import pandas as pd
 
 import costs
@@ -109,12 +111,28 @@ def merge_pools(*pools) -> list[dict]:
             u = a.get("url")
             if not u:
                 continue
-            if u not in seen:
+            cur = seen.get(u)
+            if cur is None:
                 seen[u] = a
-            else:                                    # same URL from both engines -> merge beat tags
-                for q in a.get("queries", []):
-                    if q not in seen[u].setdefault("queries", []):
-                        seen[u]["queries"].append(q)
+                continue
+            qs = cur.setdefault("queries", [])       # same URL from both engines -> merge beat tags
+            for q in a.get("queries", []):
+                if q not in qs:
+                    qs.append(q)
+            # PREFER THE COPY THAT ACTUALLY HAS TEXT. This used to keep whichever pool was passed
+            # FIRST, wholesale, and every caller passes Anthropic first -- so when both engines
+            # returned a URL we kept Anthropic's snippet and discarded Tavily's. Anthropic's snippet
+            # comes from our own _freeze() fetch, which fails on Benzinga, Seeking Alpha and Yahoo;
+            # Tavily returns the body itself. Measured on the bootstrap: the `both` bucket was
+            # 57.9% text-less, the WORST of any engine, which is only possible if the merge is
+            # choosing the worse copy. Third instance of the same pattern -- text already paid for,
+            # thrown away -- after the [:300] ingest cap and lede.apply's 280.
+            if _lede.provenance(cur) == "headline only" and _lede.provenance(a) != "headline only":
+                win = {**a, "queries": qs}
+                for k, v in cur.items():             # never lose a field the winner happens to lack
+                    if k != "queries" and v and not win.get(k):
+                        win[k] = v
+                seen[u] = win
     return list(seen.values())
 
 _UA = {"User-Agent": "Mozilla/5.0 (geo-herd-rider forward gather)"}
