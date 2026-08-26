@@ -744,12 +744,16 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
            "agent_precision": _agent_precision(scans, panel, fm)}   # unmasked curator-skill metric
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor,
-                                     buyhold=[t for t in starter if t in valid])
+                                     buyhold=[t for t in starter if t in valid],
+                                     # WEIGHTS, when this is a continuation book. The curve claims to
+                                     # be "the inherited book held flat", and that book was not
+                                     # equal-weighted -- CBT held 26/26/26/21.9, not 25 each.
+                                     bh_weights=(seed_holdings or None))
     return out
 
 
 def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_anchor=OVERLAY_ANCHOR,
-                  buyhold: list[str] | None = None) -> dict | None:
+                  buyhold: list[str] | None = None, bh_weights: dict | None = None) -> dict | None:
     """Daily value/alloc: hold each week's weights from its rebalance day until the next."""
     starts = [r for r in reb if r is not None]
     if not starts:
@@ -799,7 +803,18 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
         base = norm.iloc[0]
         held = [t for t in held if pd.notna(base[t]) and base[t] > 0]
         if held:
-            bh = (norm[held] / base[held]).mean(axis=1)     # equal-dollar at inception == mean of price relatives
+            # equal-dollar at inception == mean of price relatives. With `bh_weights` (a continuation
+            # book) it is the WEIGHTED mean instead: the benchmark is the inherited book left alone,
+            # so it must start from the weights that book actually held.
+            if bh_weights:
+                _w = {t: float(bh_weights.get(t, 0.0)) for t in held}
+                _tot = sum(_w.values())
+                if _tot > 0:
+                    bh = sum((norm[t] / base[t]) * (_w[t] / _tot) for t in held)
+                else:
+                    bh = (norm[held] / base[held]).mean(axis=1)
+            else:
+                bh = (norm[held] / base[held]).mean(axis=1)
             bh_val = [None if pd.isna(v) else round(capital * float(v), 2) for v in bh.tolist()]
 
     alloc = alloc.loc[:, (alloc.abs().sum() > 1e-9)]
