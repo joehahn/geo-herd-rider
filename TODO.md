@@ -3,6 +3,45 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## AUTOMATE THE BOOTSTRAP CURATION — deferred until focus returns to the bootstrap (2026-08-26)
+
+**Decided deliberately, not forgotten.** Cron currently pulls news daily and rebuilds FBS + CBS
+(render-only, ~15s, no LLM). It does NOT curate and does NOT push. Curation stays a hand-run for now
+because the plan is to iterate on the BACKTEST next and pivot back to the bootstrap after — and
+automating a curation while the code that produces it is changing destroys attribution. Every
+unattended run under shifting code yields a book nobody can explain, which is non-negotiable #6; the
+same settings run twice have already given $117,200 and $62,997 on this project. A manual curation is
+a dated, deliberate act tied to a known commit, and at MONTHLY cadence there is roughly one of them
+in a several-week backtest sprint anyway.
+
+When focus returns to the bootstrap, build it as PWR does — do not invent a scheme:
+
+- **Cadence logic lives IN the script, not in the crontab.** `review_curation.sh` takes `--if-due` and
+  exits immediately unless a scheduled date is missing its curation output. That makes the job
+  idempotent (safe to run twice) and gives free catch-up, which is why PWR has TWO identical cron
+  lines — Sunday 19:00 and Monday 08:00 — and why the Monday one is not a duplicate.
+- **A GHR-specific guard PWR does not need:** refuse to curate when `scripts/check_canon.py` fails, or
+  when the run's stamped CURATION knobs have drifted from the profile (the warning added to
+  `build_cbt_dashboard` on 2026-08-26). An unattended curation must not be able to silently produce an
+  off-canon book.
+- **Do NOT put `git push` in the cron script.** PWR's three cron scripts contain no git commands at
+  all; pushing is `scripts/autopush_docs.sh`, a Claude Code STOP HOOK. The reason is mechanical: the
+  remote is SSH (`git@github.com:...`) and cron has no ssh-agent or keychain access, so a push from
+  cron fails or hangs on a passphrase. GHR has no autopush script yet — writing one is the actual
+  task, and it belongs to the session lifecycle, not to cron.
+
+Until then the two manual steps are, in order:
+
+```
+python scripts/backtest_gdelt.py --bootstrap --decisions --seed-journal <CANON_RUN> --out data/cbs_vN
+python scripts/build_cbt_dashboard.py --bootstrap      # after pointing the builder at data/cbs_vN
+```
+
+Note the daily cron already runs the OPTIMIZER: `build_cbt_dashboard --bootstrap` calls
+`firehose.backtest`, which re-solves `curator._optimized_weights` at every rebalance on fresh prices.
+So sizing and mark-to-market ARE automatic and daily; only the THESIS SET (new scan dates) is frozen
+between hand-runs. Worth remembering before assuming a stale-looking book means cron is broken.
+
 ## FORWARD-SIDE AUDIT, 2026-08-26 — findings not yet acted on
 
 Full audit of the websearch half: beats, filters, corpus, and what reaches the curator. **Four
