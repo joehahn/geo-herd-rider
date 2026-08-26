@@ -2263,9 +2263,18 @@ function draw() {{
     const traces = [{{type:'scatter', mode:'lines', name:tk, x:PX.d, y:ser,
                       line:{{color:p.text2, width:1.6}}, hovertemplate:'%{{x}}<br>$%{{y:.2f}}<extra></extra>'}}];
     const _onX = [], _onY = [], _offX = [], _offY = [];
+    // CLAMP, never indexOf. A funded span's endpoints are BOOK dates and need not be trading days:
+    // exact lookup returns -1 and the whole funded overlay is dropped in silence, leaving a modal
+    // that shows the watchlisted shading only -- i.e. it says "watched, never funded" about a
+    // position that WAS funded. Measured on cbs_v4: 4 of 45 spans, and all four were spans ending on
+    // the last book day, so the names it misreported were precisely the ones still held TODAY
+    // (AEM, +$1,886, was the one that surfaced it). i1 >= i0 rather than > so a span that opened on
+    // the final day still draws its entry marker.
+    const _fst = t => {{ for (let i = 0; i < PX.d.length; i++) if (PX.d[i] >= t) return i; return -1; }};
+    const _lst = t => {{ for (let i = PX.d.length - 1; i >= 0; i--) if (PX.d[i] <= t) return i; return -1; }};
     fd.forEach(s => {{
-      const i0 = PX.d.indexOf(s.s), i1 = PX.d.indexOf(s.e);
-      if (i0 >= 0 && i1 > i0) {{
+      const i0 = _fst(s.s), i1 = _lst(s.e);
+      if (i0 >= 0 && i1 >= i0) {{
         traces.push({{
           type:'scatter', mode:'lines', name:'funded', showlegend:false,
           x:PX.d.slice(i0, i1+1), y:ser.slice(i0, i1+1),
