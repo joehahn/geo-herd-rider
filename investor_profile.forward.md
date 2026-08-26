@@ -28,11 +28,9 @@
 #               0.1->0.2, always_include GLD->BIL, event_agent_model sonnet5->deepseek4). The
 #               optimizer six are the cross-curation-robust cell [6, 0.40, 45, 4, 4.0, 0.20]; see the
 #               backtest profile's header for how it was chosen and why single-sweep fitting failed.
-#               EXCEPTION: rebalance_period is WEEKLY, deliberately out of sync with the backtest's
-#               monthly, to exercise the rebalance machinery often during the bootstrap smoketest.
-#               That cadence was NEVER SWEPT (rebalance_period is not in the grid), so CBS performance
-#               is not evidence for the config -- it is a MECHANICS test. Dial back to monthly if the
-#               smoketest gives no reason to keep it.
+#               EXCEPTION (RETIRED 2026-08-26, see below): rebalance_period was WEEKLY, deliberately
+#               out of sync with the backtest's monthly, to exercise the rebalance machinery often
+#               during the bootstrap smoketest.
 #               Kept forward-side (retrieval-operational): gather_model (Anthropic-only, the live
 #               web-search stage), news_cap, and the effort/relevance knobs the backtest file lacks.
 #               retrieval_engine is deliberately ABSENT: it is the backtest's gkg selector, and
@@ -46,6 +44,26 @@
 #               news_cap 500 -> 0 in the same breath: the cap truncated the 30d window (1,676 articles)
 #               back to the newest 500, a ~5-day window, cutting scout intake from 149 to 38 and undoing
 #               the widening. discovery_filter (~9% pass) is the read budget now, as in the backtest.
+#   2026-08-26  rebalance_period WEEKLY -> MONTHLY, and the x4 CADENCE PORT UNWOUND with it:
+#               max_event_scans 48->12, max_stale_scans 32->8, curator_memory_weeks 32->8,
+#               news_lookback_days 30->0. The x4 existed only to preserve elapsed behaviour across a
+#               cadence mismatch; with both files monthly a scan means the same thing again, so the
+#               scan-counted knobs are literally equal rather than equal-after-arithmetic. That is
+#               strictly safer: every x4 was a place the two files could drift apart silently, and
+#               two of them already had to be exempted by hand (exit_patience_scans, cull_fresh_scans,
+#               which count SLOTS/READS rather than elapsed time and were never x4'd).
+#               news_lookback_days 30 -> 0 is a NO-OP TODAY: 0 tracks rebalance_period, which at
+#               monthly is 30 days. It is the backtest's spelling of the same window, and it follows
+#               the cadence if that ever changes instead of silently decoupling from it.
+#               THE PROFILES NOW DIFFER IN EXACTLY ONE KNOB: gather_model (Anthropic-only, the live
+#               web-search stage, inert in the backtest) -- i.e. the only remaining difference is one
+#               the CLAUDE.md rule explicitly permits.
+#               COST, measured before making the change: on the current bootstrap span
+#               (2026-04-27..2026-08-25, handoff 07-28) monthly gives 5 scans of which 1 is
+#               post-handoff, where weekly gave 17 of which 4. So CBS exercises the websearch era far
+#               less until the post-handoff window is a few months long -- one more post-handoff scan
+#               per month from here. That is the price of making the backtest a valid proxy, which is
+#               the thing the forward eval actually depends on.
 # ==========================================================================
 
 # ---------- AI MODELS: who does what, and what it costs ----------
@@ -59,9 +77,10 @@ event_agent_model: grok4          # CLOSES events. Once per live event per scan:
 discovery_filter: true            # gate the SCOUT to headlines carrying the gem tell (superlative + under-the-radar
                                   #   framing). Event agents still read the full corpus, so an event's ordinary
                                   #   follow-up coverage is never withheld from the agent tracking it.
-news_lookback_days: 30            # trailing days of news each scan READS -- DECOUPLED from the
-                                  #   cadence, so a weekly scan still reads a MONTH of news and a boundary-
-                                  #   straddling article is not lost to the gap.
+news_lookback_days: 0             # trailing days of news each scan reads. 0 = track rebalance_period,
+                                  #   which at MONTHLY is 30 days -- the SAME window the explicit 30 gave,
+                                  #   now expressed the way the backtest expresses it, and it follows the
+                                  #   cadence if that changes again instead of silently decoupling.
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
@@ -74,18 +93,8 @@ picker_model:                     # BLANK = use the arithmetic coverage-rank (sr
                                   #   keep-list only -- never weights or returns. MUST be a strong model: sonnet5 hit the
                                   #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
-max_stale_scans: 32               # drops a TICKER after this many scans with NO coverage at all.
-  # x4 CADENCE PORT: a forward scan is a WEEK, a backtest scan is a MONTH, so the scan-counted
-                                  #   knobs are x4 to preserve the same ELAPSED behaviour. Reverted to monthly
-                                  #   2026-08-25 and back to weekly the same day: weekly is kept for now so the
-                                  #   bootstrap gets scans on BOTH sides of the handoff (monthly gives ONE).
-                                  #   Revisit once the websearch era is a few months long.
-max_event_scans: 48               # retires the whole EVENT at this age, in scans (~1 year weekly).
-  # x4 CADENCE PORT: a forward scan is a WEEK, a backtest scan is a MONTH, so the scan-counted
-                                  #   knobs are x4 to preserve the same ELAPSED behaviour. Reverted to monthly
-                                  #   2026-08-25 and back to weekly the same day: weekly is kept for now so the
-                                  #   bootstrap gets scans on BOTH sides of the handoff (monthly gives ONE).
-                                  #   Revisit once the websearch era is a few months long.
+max_stale_scans: 8                # drops a TICKER after this many scans with NO coverage at all.
+max_event_scans: 12               # retires the whole EVENT at this age, in scans (~1 year monthly).
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
@@ -103,7 +112,7 @@ min_trade_size: 0.20              # positions smaller than this are dropped. At 
                                   #   it holds only the strongest 2-3 convictions.
 risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.  # SYNCED to .backtest 2026-08-24
 optimizer_lookback_days: 21       # days of price history behind μ and Σ.  # SYNCED to .backtest 2026-08-24
-rebalance_period: weekly         # weekly | biweekly | monthly | quarterly. The trading cadence.
+rebalance_period: monthly        # weekly | biweekly | monthly | quarterly. The trading cadence.
                                   # WEEKLY 2026-08-25: monthly puts ZERO scan anchors after the handoff while the
                                   #   websearch era is only 27 days old, so the bootstrap could not see it at all.
 t_update_days: 1                  # trading days between the signal and the trade.
@@ -116,12 +125,7 @@ risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
 #   read by forward_gather.py and gkg.py. See that file's _domain_steering_note.
 # ---------- forward-only retrieval/operational knobs ----------
 cull_rank: trend                  # trend = trailing risk-adjusted return + freshness reserve; keep-first = legacy alphabetical
-curator_memory_weeks: 32          # SCANS of resolved catalysts the scout is reminded of; 0 = off.
-  # x4 CADENCE PORT: a forward scan is a WEEK, a backtest scan is a MONTH, so the scan-counted
-                                  #   knobs are x4 to preserve the same ELAPSED behaviour. Reverted to monthly
-                                  #   2026-08-25 and back to weekly the same day: weekly is kept for now so the
-                                  #   bootstrap gets scans on BOTH sides of the handoff (monthly gives ONE).
-                                  #   Revisit once the websearch era is a few months long.
+curator_memory_weeks: 8           # SCANS of resolved catalysts the scout is reminded of; 0 = off.
 event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning knob measured as a NULL. (forward_engine  # SYNCED to .backtest 2026-08-24
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
 news_cap: 0                       # articles the scout reads per scan; 0 = UNCAPPED (the daily --pull always is).

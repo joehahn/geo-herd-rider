@@ -149,12 +149,43 @@ def main(argv=None) -> int:
         except Exception:  # noqa: BLE001
             pass
     PROFILE_FILE = _gate_profile
+    _lfm0_probe = _opt_gate.load_financial_model(str(ROOT / _gate_profile))
     # CBS SKIPS THE CANONICAL-CURATION CHECKS, exactly as FBS does and for the same reason: it
     # renders a DIFFERENT corpus under a DIFFERENT profile by design, not a drifted one. The
     # interpreter check above sits OUTSIDE this guard on purpose -- exempting the corpus check must
     # never silently exempt the numerical stack, which is how a whole session of FBS builds once ran
     # on the system python with nothing warning.
     _vfy = {}
+    # CBS IS EXEMPT FROM THE CORPUS CHECK, NOT FROM THE KNOB CHECK. The exemption below was reasoned
+    # about the CORPUS -- the bootstrap assembles a different one on purpose. It silently exempted the
+    # PROFILE too, and those are not the same thing: cbs_v4 was curated under whatever
+    # investor_profile.forward.md said at the time, so once a CURATION knob there moves, this page
+    # reports settings the curation could never have run under. Live case: rebalance_period went
+    # weekly -> monthly on 2026-08-26 and a rebuild would have printed "monthly" over 17 WEEKLY scans
+    # with nothing objecting. Warn, do not hard-stop: an off-profile bootstrap build is a legitimate
+    # thing to want, it just must never be silent.
+    if a.bootstrap and _bs_stamp:
+        _gk = _bs_stamp.get("knobs") or {}
+        # A knob the profile no longer carries AT ALL is RELOCATED, not drifted: `specialty_allow`
+        # and `mill_block` moved to retrieval_config.json this month, so the stamp remembers values
+        # the profile has legitimately stopped owning. Reported separately -- calling that "drift"
+        # buries the four real ones under two false positives, and a warning nobody can trust gets
+        # ignored, which is the whole failure this guard exists to prevent.
+        _cmp = [(k, _gk[k], _lfm0_probe.get(k)) for k in sorted(_canon.CURATION_KNOBS) if k in _gk]
+        _moved = [k for k, _g, _w in _cmp if _w is None and _g is not None]
+        _drift = [(k, g, _canon._norm(w)) for k, g, w in _cmp
+                  if w is not None and _canon._norm(g) != _canon._norm(w)]
+        if _moved:
+            print(f"  note: {len(_moved)} knob(s) recorded by {a.run} are no longer profile knobs "
+                  f"({', '.join(_moved)}) -- relocated, not drifted.", file=sys.stderr)
+        if _drift:
+            print(f"  !! {a.run} was CURATED under different settings than {_gate_profile} now has.",
+                  file=sys.stderr)
+            for _k, _got, _want in _drift:
+                print(f"       {_k}: curated under {_got!r}, profile now says {_want!r}", file=sys.stderr)
+            print("     These are CURATION knobs: the page's parameter table will describe a curation "
+                  "that could not have produced this journal. RE-CURATE to make them agree.",
+                  file=sys.stderr)
     if not a.bootstrap:
         _unclassified = _canon.check_partition_covers_profile()
         if _unclassified:
