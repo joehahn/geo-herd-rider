@@ -17,12 +17,26 @@
 #
 # Billable Anthropic + Tavily (~$0.25-0.50/day). Dedups by date, so a re-run is a no-op.
 # Data under data/forward/ stays LOCAL (gitignored); this script no longer touches git at all.
+#
+# SELF-LOGGING, mirroring portfolio-wave-rider's news_pull.sh. The crontab ALSO redirects to this
+# same file, and that redundancy is deliberate rather than sloppy: the block below cannot capture a
+# failure that happens BEFORE it -- an unresolvable PROJ, a bad cd, a missing interpreter -- and
+# those went to cron's mail, which on this machine means nowhere. Belt (script) and braces (crontab)
+# put every outcome in one file. It also makes a hand-run identical to a cron run, which is how the
+# 2026-08-15 crash was eventually read: the traceback was in the log all along.
 set -uo pipefail
-cd "$(dirname "$0")/.." || exit 1
-
-.venv/bin/python src/forward.py --pull --scheduled || echo "  daily pull failed"
-
-# MIRROR IT IMMEDIATELY. The pull is unrepeatable -- Tavily re-serves a window it has already served
-# with a smaller and partly different set -- so a daily file lost to a bad experiment or a stray rm
-# cannot be rebuilt. Append-only; a changed file's previous copy is kept under superseded/.
-.venv/bin/python scripts/backup_daily.py || echo "  daily backup reported a problem"
+PROJ="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)" || { echo "forward_daily: cannot resolve repo root"; exit 1; }
+cd "$PROJ" || { echo "forward_daily: cannot cd to $PROJ"; exit 1; }
+mkdir -p data/forward
+{
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily pull start"
+  .venv/bin/python src/forward.py --pull --scheduled \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily pull FAILED (tolerated)"
+  # MIRROR IT IMMEDIATELY. The pull is unrepeatable -- Tavily re-serves a window it has already
+  # served with a smaller and partly different set -- so a daily file lost to a bad experiment or a
+  # stray rm cannot be rebuilt. Append-only; a changed file's previous copy is kept under superseded/.
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup start"
+  .venv/bin/python scripts/backup_daily.py \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup reported a problem (tolerated)"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily pull done"
+} >> data/forward/cron.log 2>&1
