@@ -117,7 +117,13 @@ def main(argv=None) -> int:
             #       run held 29; 56 were already out of span, median 300 days stale, max 660.
             #   v4  carries an event iff the run re-judged it AT its last scan on or before the
             #       handover and that judgement was live. Reproduces the run's own events_live (29).
-            a.run = "data/cbs_v4"
+            #   v5  the re-curation at MONTHLY cadence (the profile's, matching the backtest),
+            #       with the warm-up month so scan 1 reads a full window (2,809 articles, not 101),
+            #       the wall-clock age offset on seeded events, and -- the big one -- search
+            #       snippets preserved: scan 5 reads 2,290 search snippets where v4 read 2,171
+            #       headlines, because lede.apply used to overwrite every websearch snippet with
+            #       the title before the curator saw it.
+            a.run = "data/cbs_v5"
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
