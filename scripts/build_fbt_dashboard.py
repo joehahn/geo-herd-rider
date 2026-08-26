@@ -42,6 +42,7 @@ sys.path.insert(0, str(ROOT / "src"))       # gkg: specialty/blocklist domain ma
 sys.path.insert(0, str(ROOT / "scripts"))   # dash_nav: shared cross-page nav
 
 import bootstrap_corpus as _bc  # noqa: E402  owns the query-tag convention (beat / engine)
+import lede as _lede  # noqa: E402  the ONE provenance definition, shared with the curator pages
 import dash_nav  # noqa: E402  shared cross-page nav (Backtest | Bootstrap | Forwardtest)
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import gkg as _gkg  # noqa: E402  specialty/blocklist domain matching, shared with the pipeline
@@ -590,7 +591,10 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
 
     import difflib
     bymonth = collections.defaultdict(
-        lambda: {"n": 0, "text": 0, "auth": 0, "clean": 0, "live": 0, "none": 0, "both": 0, "div": 0})
+        lambda: {"n": 0, "text": 0, "auth": 0, "clean": 0, "live": 0, "none": 0, "both": 0, "div": 0,
+                 # the search class and its per-engine split; zero for a GKG-only month
+                 "search": 0, "search_tavily": 0, "search_anthropic": 0,
+                 "search_both": 0, "search_unknown": 0})
     for a in arts:
         m = (a.get("published_date") or "")[:7]
         if not m:
@@ -602,12 +606,16 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # PROVENANCE, not just presence. `clean` counts articles read from an AS-OF archived capture;
         # `live` counts today's page, which is look-ahead-biased. A backtest number is only defensible
         # to the extent it rests on the clean band, so the two are never merged into one "has text".
-        if a.get("lede"):
-            d["clean"] += 1
-        elif a.get("lede_live"):
-            d["live"] += 1
-        else:
-            d["none"] += 1
+        # SEARCH is its own class -- shared with lede.apply and the curator dashboards via
+        # lede.provenance(), because a third private copy of this rule is how the first two
+        # diverged. Without it every websearch article lands in `none`, which reads as "a bare
+        # headline" about an article carrying a 300-1500 char engine snippet.
+        _pv = _lede.provenance(a)
+        d["clean" if _pv == "archived" else
+          "live" if _pv == "live page" else
+          "search" if _pv == "search snippet" else "none"] += 1
+        if _pv == "search snippet":
+            d[f"search_{a.get('engine') or 'unknown'}"] += 1
         if a.get("lede") and a.get("lede_live"):     # the bias sample: both arms on the same article
             d["both"] += 1
             if difflib.SequenceMatcher(None, a["lede"], a["lede_live"]).ratio() <= 0.80:
@@ -799,6 +807,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         "prov": {"m": months,
                  "clean": [bymonth[m]["clean"] for m in months],
                  "live": [bymonth[m]["live"] for m in months],
+                 "search": [bymonth[m]["search"] for m in months],
+                 # the search band SPLIT BY ENGINE: the question "is Anthropic supplying text
+                 # Tavily does not" is a COUNT question and answerable; the P&L version is not
+                 # (all websearch evidence so far comes from a single scan).
+                 "search_tavily": [bymonth[m]["search_tavily"] for m in months],
+                 "search_anthropic": [bymonth[m]["search_anthropic"] for m in months],
+                 "search_both": [bymonth[m]["search_both"] for m in months],
                  "none": [bymonth[m]["none"] for m in months]},
         "drift": {"m": months, "both": [bymonth[m]["both"] for m in months],
                   "div": [bymonth[m]["div"] for m in months],
@@ -1014,18 +1029,28 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # retrieval path and carries the handoff line, so the seam is visible there at all
         # three resolutions instead of only one. Its two load-bearing facts (the per-day
         # rates and the 07-25..07-29 confound) moved into that panel's prose.
-        panel_rec("What the curator actually reads, per era",
-              "The sharpest difference on this page, and it is not visible anywhere else. Post-handoff "
-              "articles carry <b>no lede at all</b> \u2014 0% archived, 0% live \u2014 so the scout "
-              "sees only the search snippet. Pre-handoff articles get a wayback lede written into the "
-              "same field.<br><br>"
+        # REPLACES the per-era chars panel. That drew the same fact as two bars and stated it as
+        # "0% archived, 0% live", which is true and reads as a text blackout; the corpus-side truth
+        # is a PROVENANCE FLIP, and a flip is a time series, not a pair of eras. The char medians it
+        # carried are one sentence, kept below.
+        panel_rec("Text provenance over time",
+              "Where each month's text came from, and the sharpest fact on this page. <b>Archived</b> "
+              "is the Wayback copy as written soon after publication \u2014 the only look-ahead-clean "
+              "band. <b>Live page</b> is today's page, which may have been edited since. <b>Search "
+              "snippet</b> is what the retrieval engine returned at PULL time, split by which engine "
+              "returned it. <b>Headline only</b> is a bare title.<br><br>"
+              "The handoff is a clean substitution, not a blackout: archived and live go to zero and "
+              "search takes over the whole bar. Post-handoff articles genuinely have no lede \u2014 "
+              "nothing archives them as-of their own date \u2014 but they are not headlines either. "
               f"Median characters the scout is handed: <b>{era['chars_pre'].get('med','?')}</b> before "
-              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after. The forward test "
-              "therefore reads a DIFFERENT amount of text per article than the backtest that "
-              "validated it \u2014 in this corpus more, because a Tavily snippet is longer than a raw "
-              "GKG one, but capped and never enriched. If the wayback backfill is what makes the "
-              "backtest work, the forward era does not have it.",
-              "p-chars", 360),
+              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after, so the forward era reads "
+              "MORE text per article than the backtest that validated it, not less.<br><br>"
+              "<b>The engine split is a COUNT, deliberately not a P&amp;L.</b> Tavily supplies the "
+              "overwhelming majority and Anthropic almost no overlap with it \u2014 which is the "
+              "argument for keeping Anthropic (it is additive, not redundant) and also the reason a "
+              "gain attribution would be worthless: every websearch pick so far comes from a single "
+              "curation.",
+              "p-provtime", 400),
         panel_rec("Daily pull health",
               "The operational card: is the morning cron actually firing? Each bar is one morning's "
               "pull over the trailing three weeks, and the dotted line is the median. "
@@ -1232,8 +1257,11 @@ function draw() {{
     annotations:(HOFF ? [{{  // named once, on the top row -- three copies would just be noise
       x:HOFF, xref:'x', xanchor:'left', yref:'y domain', y:1, yanchor:'top', showarrow:false,
       font:{{size:10.5, color:p.text2}}, text:' handoff ' + HOFF}}] : []).concat(
+      // PURPLE, the Anthropic series colour (p.s4), not the neutral text grey. The label names one
+      // series, so it should be readable as belonging to that series rather than to the chart
+      // furniture -- the shaded band it annotates is the tail Anthropic has not backfilled yet.
       DATA.settle ? [{{x:DATA.settle.from, xref:'x3', xanchor:'right', yref:'y3 domain', y:1,
-        yanchor:'top', showarrow:false, font:{{size:10, color:p.text2}},
+        yanchor:'top', showarrow:false, font:{{size:10, color:p.s4}},
         text:'Anthropic still filling \u2192 '}}] : []).concat([
       {{text:'per month', x:0, xref:'paper', y:1.0,  yref:'paper', showarrow:false,
         font:{{size:11.5, color:p.text2}}, xanchor:'left'}},
@@ -1468,21 +1496,32 @@ function draw() {{
   // ---- FBS-ONLY PANELS. Guarded on DATA.era, which only the bootstrap build emits.
   const ERA = DATA.era;
   if (ERA) {{
-    // chars the scout is handed, per era -- p10/median/p90 as a grouped bar
-    const CP=ERA.chars_pre, CQ=ERA.chars_post;
-    react('p-chars', [
-      {{type:'bar', name:'GKG + wayback', x:['p10','median','p90'], y:[CP.p10,CP.med,CP.p90],
-        marker:{{color:p.s1}}, text:[CP.p10,CP.med,CP.p90], textposition:'outside',
-        textfont:{{size:11,color:p.fg}}, cliponaxis:false,
-        hovertemplate:'%{{x}}: %{{y}} chars<extra>GKG</extra>'}},
-      {{type:'bar', name:'websearch daily', x:['p10','median','p90'], y:[CQ.p10,CQ.med,CQ.p90],
-        marker:{{color:ST.warning}}, text:[CQ.p10,CQ.med,CQ.p90], textposition:'outside',
-        textfont:{{size:11,color:p.fg}}, cliponaxis:false,
-        hovertemplate:'%{{x}}: %{{y}} chars<extra>websearch</extra>'}}
-    ], base(p, {{barmode:'group', showlegend:true,
-        legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-        margin:{{l:64,r:20,t:38,b:44}},
-        yaxis:{{gridcolor:p.grid, title:{{text:'characters the scout reads', font:{{size:11}}}}}}}}), CFG);
+    // text provenance over time -- stacked COUNTS by month, with the search band split by engine.
+  // Stacked because the classes are EXCLUSIVE and sum to the month's article count, so the bar's
+  // height stays the corpus and the composition is the story. The handoff line is the same helper
+  // every other time panel uses, so the flip lines up with the volume panel above it.
+  {{
+    const PR = DATA.prov;
+    const _sb = [
+      ['clean',            'archived (as-of)',   ST.good],
+      ['live',             'live page',          p.s2],
+      ['search_tavily',    'search \u00b7 Tavily',    p.s4],
+      ['search_anthropic', 'search \u00b7 Anthropic', p.s1],
+      ['search_both',      'search \u00b7 both',      p.s3],
+      ['none',             'headline only',      p.grid],
+    ].filter(([k]) => (PR[k] || []).some(v => v > 0));
+    react('p-provtime', _sb.map(([k, name, col]) => ({{
+      type:'bar', name:name, x:PR.m, y:PR[k],
+      marker:{{color:col, line:{{width:2, color:p.surface}}}},
+      hovertemplate:'%{{x}}<br>%{{y:,}} ' + name + '<extra></extra>'}})),
+      base(p, {{barmode:'stack', showlegend:true,
+        legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
+        margin:{{l:64,r:24,t:40,b:52}},
+        shapes: HOFF ? [{{type:'line', xref:'x', x0:HOFF.slice(0,7), x1:HOFF.slice(0,7),
+          yref:'paper', y0:0, y1:1, line:{{color:p.text2, width:1.5, dash:'dash'}}}}] : [],
+        xaxis:{{gridcolor:p.grid}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}}}), CFG);
+  }}
 
     // trailing three weeks -- the operational card. A ZERO day is drawn in the critical colour so a
     // silent cron failure is the loudest thing on the panel.
