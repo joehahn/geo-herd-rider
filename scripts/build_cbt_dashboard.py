@@ -394,6 +394,16 @@ def main(argv=None) -> int:
     from optimizer import load_financial_model as _lfm
     from util import resolve_cadence as _resolve_cadence
     _lfm0 = _lfm(str(ROOT / PROFILE_FILE))
+    # THE CADENCE WORD, derived ONCE from rebalance_period. Every "per week" on this page was
+    # hardcoded, and BOTH arms have run MONTHLY for as long as the knob has existed -- so the tiles
+    # were dividing by SCANS and calling them weeks on CBT too, not only on the re-based CBS.
+    # Deriving it means the label cannot drift from the knob again, the same reason panel numbers
+    # became positional. Defined at function level, never inside a try: an undefined name swallowed
+    # by a broad except is how `book_seed` failed 600 lines downstream of its real cause.
+    _PERIOD_WORD = {"weekly": "week", "biweekly": "fortnight",
+                    "monthly": "month", "quarterly": "quarter"}
+    _per = _PERIOD_WORD.get(str(_lfm0.get("rebalance_period", "weekly")).lower(), "scan")
+    _pers = _per + ("s" if not _per.endswith("s") else "")
 
     # ---- portfolio math: only for SKILL measures, never as the headline ---------------------------
     # This page deliberately does not lead with an equity curve (2026-08-07 redirect). But three of
@@ -913,16 +923,16 @@ def main(argv=None) -> int:
              sub="early-framing + sector-coverage", status="good",
              why="Search beats behind the corpus: gem beats hunt early framing, coverage beats "
                  "sweep a sector broadly. Defined in retrieval_config.json."),
-        dict(label="Weeks curated", value=f"{len(M)}", sub=f"{weeks[0]} → {weeks[-1]}" if weeks else "",
+        dict(label=f"{_pers.capitalize()} curated", value=f"{len(M)}", sub=f"{weeks[0]} → {weeks[-1]}" if weeks else "",
              status="good", why="Rebalances the curator ran across the backtest window."),
         dict(label="Events opened", value=f"{J.get('nid', 0)}", sub=f"{len(live_now)} still live at the end",
              status=st(J.get("nid", 0), 30, 12),
              why="Distinct catalysts the curator opened an event on over the whole run."),
-        dict(label="Events live / week", value=f"{med_live:.0f}",
+        dict(label=f"Events live / {_per}", value=f"{med_live:.0f}",
              sub=f"cap max_watchlist = {_wcap or 'uncapped'}",
              status=st(med_live, 4, 2),
              why="Typical number of events holding capital at once — the breadth the optimizer can spread across."),
-        dict(label="Distinct catalysts", value=f"{med_cat:.0f}", sub="median per week",
+        dict(label="Distinct catalysts", value=f"{med_cat:.0f}", sub=f"median per {_per}",
              status=st(med_cat, 4, 2),
              why="Separate stories behind those events. Several events on one theme is not diversity."),
         dict(label="Vehicles named", value=f"{len(all_veh)}", sub=f"across {J.get('nid',0)} events",
@@ -950,7 +960,7 @@ def main(argv=None) -> int:
              why="Share of the curator's theses that made money standalone over their live span. A "
                  "HIT RATE, not a return — breadth without precision is noise."),
         dict(label="LLM cost", value=f"${cost:.2f}",
-             sub=f"${cost/max(len(M),1):.3f} per week{_cost_note}",
+             sub=f"${cost/max(len(M),1):.3f} per {_per}{_cost_note}",
              status="good", why="Curator spend for the run: scout, matcher and event agents."),
     ])
 
@@ -1488,7 +1498,7 @@ def main(argv=None) -> int:
             f"<details style='margin:.5em 0;border:1px solid var(--line);border-radius:8px;padding:8px 12px'>"
             f"<summary style='cursor:pointer'><b>{esc(eid)}</b> {badge} &nbsp;{esc(e.get('catalyst','')[:80])} "
             f"<span style='color:#999'>[{esc(', '.join(sorted(e.get('vehicles', []))[:8]))}]</span> "
-            f"&middot; {len(ents)} weeks</summary><ul style='font-size:12.5px;margin:.6em 0'>{li}</ul></details>")
+            f"&middot; {len(ents)} {_per if len(ents) == 1 else _pers}</summary><ul style='font-size:12.5px;margin:.6em 0'>{li}</ul></details>")
     story_html = "".join(_blocks)
 
     # ~14px a row keeps every event legible; a fixed 700px gave 4px at 175 events.
@@ -1555,7 +1565,7 @@ def main(argv=None) -> int:
               "day and never touched, and SPY. The control is the SAME basket on every page &mdash; "
               "it is what the curated book is measured against, not what the book starts holding, so "
               "it does not follow the seed. "
-              "Squares mark the weekly rebalances — dark red where an event actually "
+              "Squares mark the rebalances — dark red where an event actually "
               "opened or closed, orange where the curator rebalanced but changed nothing. "
               + bh_verdict +
               " Kept OUT of the headline on purpose: a backtest steered by returns on known history is "
@@ -1600,7 +1610,7 @@ def main(argv=None) -> int:
               "per rebalance. Catalysts are drawn separately because several events on one theme is "
               "concentration wearing a diversity costume. The dashed line is "
               f"<code>max_watchlist</code> = {_wcap}, which binds in <b>{_cull_bind} of "
-              f"{len(_held_per_week)}</b> weeks, and the green line is what actually held capital. "
+              f"{len(_held_per_week)}</b> {_pers}, and the green line is what actually held capital. "
               f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
               "c-breadth", 380),
         panel_rec("Cumulative $ gain per holding",
