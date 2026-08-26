@@ -3,6 +3,66 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## FORWARD-SIDE AUDIT, 2026-08-26 — findings not yet acted on
+
+Full audit of the websearch half: beats, filters, corpus, and what reaches the curator. **Four
+findings were fixed the same day** (commit `46deac7`): the coverage sweep now runs as two passes
+(`max_uses` 24 vs 33 beats meant beats 25-33 — every ETF beat — were searched **0/23 days**); a beat's
+NAME and its SEARCH STRING are now separable (`war chokepoint stock beneficiary` is not a headline —
+its entity atoms return 32 results against the concept string's 6); a catalyst admission route was
+added to the discovery gate (shipped OFF); and undateable drops are now logged rather than counted.
+
+**Also confirmed working:** websearch closes the documented retrieval ceiling. etf.com, stocktitan,
+barchart, tipranks and statnews were 0/1k in the GKG era and are live now; seekingalpha is 9x.
+
+The rest is parked HERE and not started, deliberately: four changes to the forward pipeline shipped
+on 2026-08-26 and **none has run unattended yet**. Changing more before a clean cron makes attribution
+impossible, which is non-negotiable #6 applied to ourselves. Read tomorrow's funnel line and
+`data/forward/undateable.jsonl` first.
+
+1. **`evscore` is dead code, and it is half the design.** `evscore.rank` is called only inside
+   `if max_events:` in `agent.curate`, and `max_events: 0` in both profiles — so the velocity/breadth
+   ranker has never executed at the current config. That ranker IS the project's measured definition
+   of under-owned ("a name the press has started naming while it is still under-owned", velocity 4.0)
+   and it is the intended partner to the catalyst gate: **gate on catalyst, rank by under-owned-ness**.
+   The gate alone widens intake without the mechanism that decides whether the herd has arrived.
+   Re-enabling means a positive `max_events` — a CURATION knob, so its own bake-off.
+
+2. **Half the undateable drops are recoverable; 15 of 65 are SEC filings.** The log settled a question
+   I had answered wrongly from the code path: 34 of 65 drops HAD text — pages read successfully that
+   carry no machine-readable date. `sec.gov` is the top source, and a filing always carries its date in
+   the document. 8-K/10-Q is exactly the catalyst material a portfolio manager wants.
+
+3. **The catalyst gate needs its bake-off.** Wired and OFF in `retrieval_config.discovery_catalysts`.
+   Measured +141 articles, 1.60x, on the one post-handoff scan. Costs a re-curation to evaluate.
+
+4. **Anthropic's 46% text loss is recoverable but not free.** 94% of its failures are on domains Tavily
+   extracts from successfully (seekingalpha: 34 Anthropic failures vs 236 Tavily successes on the same
+   domain). A Tavily fallback fetch where `_freeze` returns nothing recovers ~109/month at one credit
+   each — and the Tavily plan is already exhausted/metered, so this is a cost decision, not a free fix.
+
+5. **Nine `specialty_allow` domains are near-dead in BOTH eras** — world-nuclear-news, breakingdefense,
+   defensenews, seatrade-maritime, endpts, trendforce, powermag, utilitydive, northernminer produce ~1
+   article each. The gem pass restricts itself to that allowlist, so dead entries narrow it for nothing.
+   Free to check whether they are unindexed by the engines or simply unmatched by the gem beats.
+
+6. **Two small ones.** (a) Anthropic issues ~15 DUPLICATE searches per pull out of ~69 (~$0.15/day at
+   $10/1k) — probably `pause_turn` resumption re-issuing. (b) `search.search` returns `[]` silently when
+   the API key is missing, which is indistinguishable from a genuine miss — the same shape as the
+   `kept[:0]` scar that reported "anthropic 0" for 32 days. It fooled me mid-audit.
+
+7. **Five of six beat regressions are STRUCTURAL, not wording.** GKG matches `keywords` atoms against a
+   crawled corpus (unbounded recall); websearch returns a ranked top-N per query. A beat whose atoms are
+   common words (bitcoin, satellite, lithium) harvests thousands in GKG and ~20 per query in websearch.
+   Per 1k: space 92.6 -> 25.8, crypto 121.2 -> 37.2, steel/copper 32.5 -> 6.1. Closing them needs MORE,
+   NARROWER queries — a search-budget question, and it interacts with 6(a).
+
+**The strategic tension underneath 1 and 3, stated plainly:** the firehose is not a portfolio manager's
+news feed and is not built to be one. The gate selects for FRAMING ("under the radar", "surge"), which
+is non-negotiable #2, not an oversight. A PM wants earnings, guidance, approvals, M&A, contracts,
+downgrades. Reconciling them is exactly 1+3 — gate on what happened, rank by how crowded it is — but
+that is a strategy change and belongs to a scoreboard, not to a judgement call.
+
 ## Current plan — ordered (2026-07-07, soonest first)
 
 1. **Review agent-conviction mechanics** — verify conviction assignment + the max_agents / spy-floor ranking do what we think; never leaks into sizing.
