@@ -1839,7 +1839,10 @@ function draw() {{
     Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
       legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
       margin:{{l:60,r:24,t:16,b:52}}, shapes:_hoff(), annotations:_hoffAnn(),
-      xaxis:{{gridcolor:p.grid, tickangle:-40, automargin:true}},
+      // type:'date' -- x is scan dates, which Plotly would otherwise treat as CATEGORIES, and
+      // the handoff falls BETWEEN two scans (a Tuesday; scans are Fridays) so on a category
+      // axis it matches nothing and the line silently does not draw.
+      xaxis:{{gridcolor:p.grid, tickangle:-40, automargin:true, type:'date'}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
              title:{{text:'events live at once', font:{{size:11}}}}}},
       shapes: (ME && ME > 0) ? [{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:ME, y1:ME,
@@ -1929,7 +1932,10 @@ function draw() {{
   // same as every other time panel on the page, so the three of them can be read against each other.
   // The clipped bars are MARKED, not silently truncated: a caret at the left edge says "this thesis
   // was already running when the book opened", which is exactly what inheriting it means.
-  const _g0 = BK.dates[0], _g1 = BK.dates[BK.dates.length - 1];
+  // DATA.book, not BK: `const BK` is declared further down this function, and reading a const
+  // before its declaration throws (temporal dead zone) rather than giving undefined -- which
+  // killed this panel and every panel drawn after it.
+  const _gd = DATA.book.dates, _g0 = _gd[0], _g1 = _gd[_gd.length - 1];
   const _gpre = G.filter(g => g.start < _g0);
   const _gcar = _gpre.length ? [{{
     type:'scatter', mode:'markers', x:_gpre.map(()=>_g0), y:_gpre.map(g=>g.id),
