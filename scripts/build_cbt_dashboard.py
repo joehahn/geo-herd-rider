@@ -1032,6 +1032,10 @@ def main(argv=None) -> int:
                    "cap": [d.get("max_new_events", 0) for d in scout]},
         "ceiling": ceil_rows[:40],
         "px": px_hist,
+        # THE SEAM, for the time panels to mark. Bootstrap only: CBT is one retrieval path end to
+        # end and a line on it would mark nothing. Read from bootstrap_corpus so the page and the
+        # corpus assembly cannot drift to two different dates.
+        "handoff": (__import__("bootstrap_corpus").HANDOFF if a.bootstrap else None),
         "cap_pct": float(_lfm0.get("concentration_cap", 0.25)),
         "max_events": _lfm0.get("max_events"),
         "gantt": [{"id": k, "cat": v.get("catalyst", "")[:70],
@@ -1499,7 +1503,12 @@ def main(argv=None) -> int:
               f"<b>Two classes are not drawn, and both are counted in panel 4:</b> {_n_culled} events "
               "with no agent read at all, and "
               f"{_n_zero} that opened and terminated on the SAME curation &mdash; those draw as hairlines "
-              "indistinguishable from the axis and would bury the theses that ran.",
+              "indistinguishable from the axis and would bury the theses that ran."
+              + (" <b>The axis spans this book, not the theses.</b> An inherited event carries its "
+                 "history from before the handover &mdash; the oldest reaches back eleven months "
+                 "&mdash; so its bar runs off the left edge and is marked there with a caret. "
+                 "The caret means the thesis was already running when this book opened."
+                 if a.bootstrap else ""),
               "c-gantt", max(700, 14 * _n_gantt)),
         panel(4, "Live events vs the cap",
               "Theses the curator tracked at once, split by whether the optimizer put capital behind "
@@ -1792,6 +1801,15 @@ function draw() {{
       xaxis:{{type:'log', gridcolor:p.grid, title:{{text:'count (log scale)', font:{{size:11}}}}}}}}), CFG);
 
   const B = DATA.breadth;
+  // THE HANDOFF SEAM. Every panel with a date axis gets the same dashed line at the same date, so
+  // "did this change at the seam?" is answered by looking straight down the page rather than by
+  // remembering a date between panels. Bootstrap only -- CBT is GKG end to end and has no seam.
+  const HOFF = DATA.handoff || null;
+  const _hoff = (lbl) => HOFF ? [{{type:'line', xref:'x', x0:HOFF, x1:HOFF, yref:'y domain',
+    y0:0, y1:1, line:{{color:p.text2, width:1.5, dash:'dash'}}, layer:'above'}}] : [];
+  const _hoffAnn = () => HOFF ? [{{x:HOFF, xref:'x', xanchor:'left', yref:'y domain', y:1,
+    yanchor:'top', showarrow:false, font:{{size:10.5, color:p.text2}},
+    text:' handoff ' + HOFF}}] : [];
 
   // Panel 4: the live-event stack against the max_events ceiling. STACKED rather than three
   // separate lines because the two bands are PARTS OF ONE WHOLE -- unfunded + funded = live -- so the
@@ -1820,7 +1838,7 @@ function draw() {{
       hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same curation<extra></extra>'}});
     Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
       legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
-      margin:{{l:60,r:24,t:16,b:52}},
+      margin:{{l:60,r:24,t:16,b:52}}, shapes:_hoff(), annotations:_hoffAnn(),
       xaxis:{{gridcolor:p.grid, tickangle:-40, automargin:true}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
              title:{{text:'events live at once', font:{{size:11}}}}}},
@@ -1904,9 +1922,27 @@ function draw() {{
       hovertext:`${{g.id}} &mdash; ${{g.cat}}<br>${{g.beat}}<br>FUNDED ${{fr[0]}} &rarr; ${{fr[1]}}`
     }});
   }}));
-  Plotly.react('c-gantt', [..._gspan, ..._gfund], base(p, {{margin:{{l:70,r:30,t:10,b:44}},
+  // CLAMP THE AXIS TO THE BOOK. A SEEDED event carries its entries from BEFORE the handover, so on
+  // the bootstrap its `start` is the date the BACKTEST first proposed it -- the 29 inherited theses
+  // reach back to 2025-06-01, eleven months before this book opens. Autoscaling to that squeezed the
+  // four months CBS actually covers into the right quarter of the panel. The axis now spans the book,
+  // same as every other time panel on the page, so the three of them can be read against each other.
+  // The clipped bars are MARKED, not silently truncated: a caret at the left edge says "this thesis
+  // was already running when the book opened", which is exactly what inheriting it means.
+  const _g0 = BK.dates[0], _g1 = BK.dates[BK.dates.length - 1];
+  const _gpre = G.filter(g => g.start < _g0);
+  const _gcar = _gpre.length ? [{{
+    type:'scatter', mode:'markers', x:_gpre.map(()=>_g0), y:_gpre.map(g=>g.id),
+    marker:{{symbol:'triangle-left', size:9, color:p.text2,
+             line:{{width:1.5, color:p.surface}}}},
+    showlegend:false, hoverinfo:'text',
+    hovertext:_gpre.map(g=>`${{g.id}} &mdash; inherited<br>running since ${{g.start}}, `
+                          + `before this book opened`)
+  }}] : [];
+  Plotly.react('c-gantt', [..._gspan, ..._gfund, ..._gcar], base(p, {{margin:{{l:70,r:30,t:10,b:44}},
+      shapes:_hoff(), annotations:_hoffAnn(),
       yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}}},
-      xaxis:{{gridcolor:p.grid}}}}), CFG);
+      xaxis:{{gridcolor:p.grid, range:[_g0, _g1]}}}}), CFG);
 
   const C = DATA.cov;
   Plotly.react('c-cov', [{{
@@ -2106,7 +2142,7 @@ function draw() {{
     base(p, {{showlegend:true,
       legend:{{orientation:'v', x:1.01, xanchor:'left', y:1, font:{{size:10}},
                title:{{text:'dominant beat', font:{{size:10}}}}}},
-      margin:{{l:78, r:260, t:16, b:44}},
+      margin:{{l:78, r:260, t:16, b:44}}, shapes:_hoff(), annotations:_hoffAnn(),
       yaxis:{{type:'category', categoryorder:'array', categoryarray:_order.slice().reverse(),
               // tickmode linear + dtick 1 = one label PER ROW. Without it Plotly thins the labels
               // whenever rows outnumber the pixels it thinks it has, silently hiding half the tickers.
