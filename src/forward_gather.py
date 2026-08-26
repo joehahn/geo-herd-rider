@@ -322,6 +322,29 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
             _time.sleep(wait)
         return r
 
+    # allowed_callers: LEFT AT THE DEFAULT, deliberately. Tried and reverted 2026-08-26.
+    #
+    # On web_search_20260209 this defaults to ["code_execution_20260120"] -- "dynamic filtering",
+    # where Claude writes and runs code that filters results before they reach its context. The
+    # theory was that this discards articles a FIREHOSE wants: we would rather our own gate and the
+    # scout judged relevance, not the gather model. Setting ["direct"] bypasses it.
+    #
+    # MEASURED, and the theory did not survive. On the comparable metric -- RAW results the search
+    # returned, before any of our filtering -- direct gave 342 against dynamic's 389. No gain, if
+    # anything slightly worse. Anthropic's own numbers point the same way for their intended use:
+    # dynamic filtering is +11% performance on BrowseComp/DeepsearchQA at 24% fewer input tokens.
+    #
+    # And it is not the binding constraint anyway. Of a day's raw results, 68% are dropped
+    # OUT-OF-WINDOW because the tool has no recency parameter at all (max_uses, allowed_domains,
+    # blocked_domains, user_location -- that is the whole list; Tavily has `days`). That loss is
+    # structural and no caller setting touches it.
+    #
+    # What DID move the number was ours: removing our own freeze_cap of 160 took in-window yield
+    # from a median of 33 to 79 on the first uncapped day. One variable, 2.4x, free.
+    #
+    # Do not re-try this without an alternating-day design -- a same-day A/B is confounded, since one
+    # pass already trips the web-search rate limit ("22 searches returned 0 results") and whichever
+    # arm ran second would look worse for reasons unrelated to filtering.
     gem = _search_with_backoff(GEM_SYSTEM,                                     # pass 1: specialty-allowlisted gem sweep
                                {"type": _WS, "name": "web_search", "max_uses": 24,
                                 "allowed_domains": _SPECIALTY_ALLOW}, "gem")
