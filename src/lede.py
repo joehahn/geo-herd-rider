@@ -386,6 +386,27 @@ def enrich_wayback(articles: list[dict], cutoff: str, cache_path: str | None = N
 ARMS = ("clean", "fuller", "fast", "live-only")
 
 
+PROVENANCE = ("archived", "live page", "search snippet", "headline only")
+
+
+def provenance(a: dict) -> str:
+    """Which text source an article's snippet came from — the ONE definition.
+
+    `apply()` decides this at render time and stamps `snippet_source`; the dashboards re-derive it
+    from the raw article because they read the pool, not the rendered slice. Those two used to be
+    written out separately and DID diverge: the dashboard's copy knew only lede/lede_live, so every
+    websearch article -- which has neither, and carries its text in `snippet` -- was reported as
+    "headline only". Measured on cbs_v5, that mislabelled 67 of 110 evidence articles and credited
+    their P&L to a bucket meaning "the curator saw nothing but a headline".
+    """
+    if a.get("lede"):
+        return "archived"
+    if a.get("lede_live"):
+        return "live page"
+    own, tit = (a.get("snippet") or "").strip(), (a.get("title") or "").strip()
+    return "search snippet" if (own and own != tit) else "headline only"
+
+
 def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dict:
     # NOTE ON max_chars: 280 is the WAYBACK LEDE length and a sane default for GKG text, which is
     # stored at <=280 anyway (measured: median 161, max 280), so this cap never binds there.

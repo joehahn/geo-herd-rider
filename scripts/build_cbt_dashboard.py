@@ -44,6 +44,7 @@ from util import load_dotenv  # noqa: E402
 load_dotenv()          # the picker needs ANTHROPIC_API_KEY; a render-only build otherwise has no env
 import dash_nav  # noqa: E402
 import score as _score  # noqa: E402
+import lede as _lede
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
@@ -365,8 +366,11 @@ def main(argv=None) -> int:
                 continue
             n_matched += 1
             src_c[art.get("source", "?")] += 1
-            _prov = ("archived" if art.get("lede") else
-                     "live page" if art.get("lede_live") else "headline only")
+            # ONE definition, shared with lede.apply -- this copy used to know only lede/lede_live,
+            # so every websearch article (neither field; its text is in `snippet`) was reported as
+            # "headline only". 67 of 110 evidence articles on cbs_v5, with their P&L credited to a
+            # bucket that means "the curator saw nothing but a headline".
+            _prov = _lede.provenance(art)
             lede_c[_prov] += 1
             if p.get("ticker"):
                 tick_lede[p["ticker"]][_prov] += 1
