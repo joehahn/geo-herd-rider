@@ -257,7 +257,7 @@ def _page_age_date(page_age, ref: pd.Timestamp | None = None) -> str | None:
 
 
 def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
-           workers: int = 12, cap: int = 80, freeze_cap: int = 0) -> list[dict]:
+           workers: int = 12, cap: int = 0, freeze_cap: int = 0) -> list[dict]:
     """Live firehose gather -> a date-clean, window-filtered arts pool for the scout.
 
     client: a raw anthropic.Anthropic() (web search is Anthropic-only). Returns arts sorted

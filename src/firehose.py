@@ -426,7 +426,11 @@ def _ranked_cull(ev: list[str], keep: int, panel, asof, lookback: int,
 
     NON-DESTRUCTIVE: _stateful_watch recomputes the full live set every scan, so a name culled here
     returns next scan if its trend turns. This is rotation, not eviction."""
-    if len(ev) <= keep:
+    # keep=0 is UNCAPPED (watchlist_cap: "0 = uncapped"), not "keep nothing". Without this the
+    # function falls through to `[:0]` and returns an empty watchlist -- the same slice that returned
+    # "anthropic 0" on 32 consecutive daily pulls before it was found. Safe today only because the
+    # sole caller guards with `if max_watch and ...`; a second caller would not know to.
+    if not keep or len(ev) <= keep:
         return ev
     fresh = [t for t in ev if (k - first_k.get(t, k)) < fresh_scans]
     fresh = sorted(fresh, key=lambda t: first_k.get(t, k), reverse=True)[:max(0, fresh_slots)]

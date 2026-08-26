@@ -40,7 +40,7 @@ def _pdate(r: dict) -> str | None:
 
 
 def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture: dict | None = None,
-           workers: int = 8, cap: int = 80, freeze_cap: int = 160, dated: bool = False,
+           workers: int = 8, cap: int = 0, freeze_cap: int = 0, dated: bool = False,
            max_results: int = 8) -> list[dict]:
     """Date-bounded Tavily beat sweep -> a window-filtered arts pool for the scout. `client`/`model`/
     `dated`/`freeze_cap` are accepted for interface parity with forward_gather but unused (Tavily needs
