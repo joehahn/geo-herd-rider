@@ -43,7 +43,21 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 
 # --- the three knobs that define the corpus -------------------------------------------------------
 HANDOFF = "2026-07-28"          # first websearch-only day (see the docstring for why this date)
-HISTORY_DAYS = 92               # ~3 months of GKG before the handoff -> day 0
+HISTORY_DAYS = 92               # ~3 months of GKG before the handoff -> day 0 (the FIRST SCAN)
+# WARM-UP: extra GKG kept BEFORE day zero so the first scan has a full news window to read. It is
+# corpus, never scanned -- day_zero() is unchanged and no anchor lands in it.
+#
+# Without it the first anchor sits ON the corpus's first day, so its `news_lookback_days` window
+# extends into nothing and it reads a fraction of a normal scan. Measured on the weekly curation:
+# 509 articles at 2026-05-01 against ~3,100 settled, tracking days-available almost exactly
+# (509 ~ 5 days x ~101/day) -- a window artefact, NOT missing news; the corpus's own first day
+# already carries 101 articles. It costs one MONTHLY scan out of five (20% of the run) versus one
+# weekly scan out of seventeen, so it matters far more at the cadence the profile now uses.
+#
+# FREE: the pre-handoff half is a date SLICE of the canonical GKG corpus, which already runs back
+# to 2023-08-11 -- widening the slice fetches nothing. Text coverage in the extra month is
+# comparable (92.7% with a lede, against 95.3% in the scanned era), so it is real reading material.
+WARMUP_DAYS = 30                # >= news_lookback_days; see corpus_start()
 def _canon_corpus() -> str:
     """The canonical GKG corpus, DERIVED from provenance rather than named here.
 
@@ -66,6 +80,13 @@ def _canon_corpus() -> str:
 
 GKG_RUN = _canon_corpus()          # the GKG corpus + its wayback backfill
 DAILY_DIR = "data/forward/daily"   # the accumulated websearch pulls
+
+
+def corpus_start(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
+                 warmup_days: int = WARMUP_DAYS) -> str:
+    """First day of CORPUS, which is `warmup_days` BEFORE the first scan. Read, never scanned."""
+    return (_dt.date.fromisoformat(day_zero(handoff, history_days))
+            - _dt.timedelta(days=warmup_days)).isoformat()
 
 
 def day_zero(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS) -> str:
@@ -178,8 +199,11 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
     # --- pre-handoff: GKG + wayback -------------------------------------------------------------
     gkg_pool = json.loads((root / gkg_run / "pool.json").read_text())
     gkg_arts = gkg_pool.get("articles", gkg_pool) if isinstance(gkg_pool, dict) else gkg_pool
+    # from CORPUS start, not scan start: the warm-up month is here to be READ by the first scan's
+    # lookback window, never to be scanned itself.
+    c0 = corpus_start(handoff, history_days)
     pre = [_norm(a, "gkg") for a in gkg_arts
-           if d0 <= (a.get("published_date") or "")[:10] < handoff]
+           if c0 <= (a.get("published_date") or "")[:10] < handoff]
 
     # --- post-handoff: websearch only ------------------------------------------------------------
     post: dict[str, dict] = {}                      # keyed by URL: the same story recurs across days
@@ -241,7 +265,9 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
     arts.sort(key=lambda a: (a.get("published_date") or ""))
     last = arts[-1]["published_date"][:10] if arts else handoff
     eng = collections.Counter(a["engine"] for a in post.values())
-    meta = {"start": d0, "end": last, "handoff": handoff,
+    # `start` stays the SCAN start -- backtest_gdelt reads it as --start and the dashboard seeds the
+    # book from it, and neither should move because the corpus grew a read-only warm-up.
+    meta = {"start": d0, "corpus_start": c0, "end": last, "handoff": handoff,
             "n_gkg": len(pre), "n_websearch": len(post), "spam_dropped": dropped_spam,
             # the websearch era's engine split -- exclusive buckets that sum to n_websearch
             "n_tavily": eng["tavily"], "n_anthropic": eng["anthropic"], "n_both": eng["both"],
@@ -261,7 +287,13 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
 
 
 def describe(meta: dict) -> str:
-    return (f"bootstrap corpus {meta['start']} .. {meta['end']} · handoff {meta['handoff']} · "
+    # THE CORPUS SPAN, not the scan span. They differ by the warm-up month, and this line is
+    # describing articles -- quoting the scan start next to an article COUNT that includes the
+    # warm-up would understate the span the count belongs to.
+    _c0 = meta.get("corpus_start", meta["start"])
+    _sp = (f"{_c0} .. {meta['end']}" if _c0 == meta["start"]
+           else f"{_c0} .. {meta['end']} (scans from {meta['start']})")
+    return (f"bootstrap corpus {_sp} · handoff {meta['handoff']} · "
             f"GKG {meta['n_gkg']:,} + websearch {meta['n_websearch']:,} "
             f"= {meta['n_gkg'] + meta['n_websearch']:,} articles")
 
