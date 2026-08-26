@@ -992,6 +992,9 @@ def main(argv=None) -> int:
                     "events": [r["events_live"] for r in M],
                     "vehicles": [r["vehicles_live"] for r in M],
                     "catalysts": [r["distinct_catalysts"] for r in M],
+                    # TICKERS ON THE WATCHLIST per scan. Distinct from `vehicles`: that counts the
+                    # vehicles named by live events, this is the list the curator actually carries.
+                    "picks": [r.get("picks_live", 0) for r in M],
                     # Events that opened and terminated on the SAME scan, by scan. Dropped from the
                     # timeline (they draw as hairlines) so they are counted here instead -- the point
                     # of panel 4 is what the cap is doing, and a one-scan life is the cap's signature.
@@ -1327,13 +1330,17 @@ def main(argv=None) -> int:
         _rej = (_pr - _ad) if isinstance(_pr, int) and isinstance(_ad, int) else ""
         _tick_rows.append([
             wk,
+            f"{len(_op)} opened / {len(_ex)} exited",
             ", ".join(_adds) or "\u2014",
             ", ".join(_rems) or "\u2014",
             f"{_rej}" if _rej != "" else "\u2014",
-            f"{len(_op)} opened / {len(_ex)} exited",
         ])
-    tick_log = table_html(["Week", "Adds (tickers)", "Removes (tickers)",
-                           "Rejected by the cap/guard", "Events"], _tick_rows)
+    # Column order is load-bearing for the CSS below, which colours by nth-child: adds is 3rd,
+    # removes is 4th. Reorder these and the colours follow the position, not the meaning.
+    tick_log = ('<div class="curation-log">'
+                + table_html(["Week", "Events", "Adds (tickers)", "Removes (tickers)",
+                              "Rejected by the cap/guard"], _tick_rows)
+                + '</div>')
     tick_panel = (
         f'<section class="panel"><h2>25. Curation log &mdash; tickers</h2>'
         f'<p class="lead">The same {len(_tick_rows)} changed weeks as the event log below, projected '
@@ -1689,12 +1696,20 @@ def main(argv=None) -> int:
 <script src="{PLOTLY_CDN}"></script>
 <style>
 :root {{ --surface:{LIGHT['surface']}; --card:#ffffff; --text:{LIGHT['text']}; --text2:{LIGHT['text2']};
-  --grid:{LIGHT['grid']}; --line:#e6e5e1; }}
+  --grid:{LIGHT['grid']}; --line:#e6e5e1;
+  /* Status colours are FIXED, not themed -- their meaning must not shift with the theme, and both
+     read on either surface. Only ever used ALONGSIDE a word, never as the sole carrier. */
+  --good:{STATUS['good']}; --critical:{STATUS['critical']}; }}
 @media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{
   --surface:{DARK['surface']}; --card:#222220; --text:{DARK['text']}; --text2:{DARK['text2']};
   --grid:{DARK['grid']}; --line:#33322f; }} }}
 :root[data-theme="dark"] {{ --surface:{DARK['surface']}; --card:#222220; --text:{DARK['text']};
   --text2:{DARK['text2']}; --grid:{DARK['grid']}; --line:#33322f; }}
+/* CURATION LOG: adds green, removes red. Coloured per COLUMN rather than per cell, because
+   table_html escapes its cells -- markup pushed through it renders as literal text. Both columns
+   keep their word headers, so colour is redundant reinforcement and never the only signal. */
+.curation-log td:nth-child(3) {{ color:var(--good); }}
+.curation-log td:nth-child(4) {{ color:var(--critical); }}
 * {{ box-sizing:border-box; }}
 body {{ margin:0; background:var(--surface); color:var(--text);
   font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }}
@@ -1832,6 +1847,13 @@ function draw() {{
     ];
     // Same-curation events are a FLOW, not part of the live stock, so they stay a line on top of the
     // stack rather than a third band -- adding them to the stack would double-count.
+    // WATCHLIST SIZE. A LINE, never a band: it counts TICKERS while the stack counts EVENTS, and
+    // stacking two different units would make the stack's top edge stop meaning "live events".
+    // It sits well above the stack (one event names several vehicles), so it also sets the y-range.
+    if (B.picks && B.picks.some(v => v > 0)) tr.push({{
+      type:'scatter', mode:'lines', name:'tickers on the watchlist',
+      x:B.w, y:B.picks, line:{{width:2, color:p.s4}},
+      hovertemplate:'%{{x}}<br>%{{y}} tickers watchlisted<extra></extra>'}});
     if (B.zerospan) tr.push({{
       type:'scatter', mode:'lines+markers', name:'opened & closed same curation',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
@@ -1885,7 +1907,7 @@ function draw() {{
       line:{{color:p.text2,width:1.8,dash:'dash'}}, hovertemplate:'cap %{{y}}<extra></extra>'}}] : []),
     {{type:'scatter', mode:'lines', name:'actually funded', x:B.w, y:_lg(B.held),
       line:{{color:p.s3,width:2.5}}, hovertemplate:'%{{x}}<br>%{{y}} funded<extra></extra>'}}
-  ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.13, x:0, font:{{size:11.5}}}},
+  ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), showlegend:true, legend:{{orientation:'h', y:1.13, x:0, font:{{size:11.5}}}},
       margin:{{l:60,r:24,t:36,b:60}},
       yaxis:{{gridcolor:p.grid, type:'log',
               title:{{text:'count (log)', font:{{size:11}}}}}}}}), CFG);
@@ -1902,7 +1924,7 @@ function draw() {{
       hovertemplate:'%{{x}}<br>proposed %{{y}}<extra></extra>'}},
     {{type:'bar', name:'admitted', x:I.w, y:I.adm, marker:{{color:p.s3, line:{{width:2,color:p.surface}}}},
       hovertemplate:'%{{x}}<br>admitted %{{y}}<extra></extra>'}}
-  ], base(p, {{barmode:'group', showlegend:true,
+  ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), barmode:'group', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},
       yaxis:{{gridcolor:p.grid, rangemode:'tozero',
               title:{{text:'candidate tickers per rebalance_period', font:{{size:11}}}}}}}}), CFG);
@@ -1948,7 +1970,7 @@ function draw() {{
   Plotly.react('c-gantt', [..._gspan, ..._gfund, ..._gcar], base(p, {{margin:{{l:70,r:30,t:10,b:44}},
       shapes:_hoff(), annotations:_hoffAnn(),
       yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:10}}}},
-      xaxis:{{gridcolor:p.grid, range:[_g0, _g1]}}}}), CFG);
+      xaxis:{{gridcolor:p.grid, type:'date', range:[_g0, _g1]}}}}), CFG);
 
   const C = DATA.cov;
   Plotly.react('c-cov', [{{
@@ -2379,7 +2401,7 @@ function draw() {{
         line:{{width:0.5, color:PALS[i % PALS.length]}}, fillcolor:PALS[i % PALS.length],
         showlegend: _peak[i] >= _cut,
         hovertemplate:'%{{x}}<br>'+e[0]+' %{{y:$,.0f}}<extra></extra>'}}))
-    ], base(p, {{showlegend:true,
+    ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), showlegend:true,
         legend:{{orientation:'h', y:1.14, yanchor:'bottom', x:0, font:{{size:10}}}},
         margin:{{l:70,r:24,t:62,b:44}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value', font:{{size:11}}}}}}}}), CFG);
@@ -2420,13 +2442,16 @@ function draw() {{
           hovertemplate:'%{{x}}<br>largest thesis = %{{y:.0f}}% of the PORTFOLIO<extra></extra>'}},
         {{type:'scatter', mode:'lines', name:'per-TICKER cap (for scale)', x:BK.dates, y:capline,
           line:{{color:p.text2, width:1.5, dash:'dash'}}, hoverinfo:'skip'}}
-      ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
+      ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), showlegend:true, legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           margin:{{l:60,r:24,t:44,b:44}},
           yaxis:{{gridcolor:p.grid, range:[0,105], ticksuffix:'%',
                   title:{{text:'largest thesis, % of portfolio', font:{{size:11}}}}}},
           annotations:[{{xref:'paper', yref:'paper', x:0.01, y:0.06, showarrow:false,
             font:{{size:11.5, color:p.text2}},
-            text:`one thesis held &ge;80% of the book on <b>${{above}}</b> of ${{live}} funded days`}}]}}), CFG);
+            text:`one thesis held &ge;80% of the book on <b>${{above}}</b> of ${{live}} funded days`}}]
+            // CONCAT, never assign -- this panel already owns an annotation and assigning would
+            // silently replace it.
+            .concat(_hoffAnn())}}), CFG);
 
     }}
 
@@ -2465,7 +2490,7 @@ function draw() {{
       // anchors out of the ramp doesn't leave holes or shift every other series' colour.
       line:{{width:0.5, color: ANCH.has(e[0]) ? _ANCHC : PALS[_nonAnchor.indexOf(e[0]) % PALS.length]}},
       fillcolor: ANCH.has(e[0]) ? _ANCHC : PALS[_nonAnchor.indexOf(e[0]) % PALS.length]
-    }}))], base(p, {{showlegend:true,
+    }}))], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), showlegend:true,
         // ~47 series wrap to several legend rows; anchoring the legend's BOTTOM just above the plot
         // and reserving real top margin keeps it fully clear instead of spilling back over the area.
         legend:{{orientation:'h', yanchor:'bottom', y:1.02, xanchor:'left', x:0, font:{{size:10}}}},
@@ -2479,7 +2504,7 @@ function draw() {{
     {{type:'bar', name:'archived', x:T.w, y:T.clean, marker:{{color:ST.good, line:{{width:2,color:p.surface}}}}}},
     {{type:'bar', name:'live page', x:T.w, y:T.live, marker:{{color:p.s2, line:{{width:2,color:p.surface}}}}}},
     {{type:'bar', name:'headline only', x:T.w, y:T.none, marker:{{color:p.grid, line:{{width:2,color:p.surface}}}}}}
-  ], base(p, {{barmode:'stack', showlegend:true,
+  ], base(p, {{xaxis:{{gridcolor:p.grid, type:'date'}}, shapes:_hoff(), annotations:_hoffAnn(), barmode:'stack', showlegend:true,
       legend:{{orientation:'h', y:1.15, x:0, font:{{size:11.5}}}}, margin:{{l:60,r:24,t:36,b:60}},
       yaxis:{{gridcolor:p.grid, title:{{text:'articles read', font:{{size:11}}}}}}}}), CFG);
 }}

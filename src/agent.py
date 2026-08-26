@@ -318,6 +318,17 @@ SUPERLATIVE = re.compile(
     r"\bmultiplied\b|\bdoubl(?:e|ed|ing)\b|\btripl(?:e|ed|ing)\b", re.I)
 
 
+def event_age(ev: dict) -> int:
+    """Age of an event in SCANS of the current run's cadence.
+
+    `len(entries)` plus `age_offset`. The offset is zero for an event this run opened, and is set by
+    the bootstrap seeder for an inherited one, where the entries were written at a different cadence
+    (see the AGE CAP block in `curate`). Both the cull and the picker read this, so the two cannot
+    disagree about how old an event is.
+    """
+    return len(ev.get("entries") or []) + int(ev.get("age_offset", 0) or 0)
+
+
 def superlative_pool(arts: list[dict]) -> list[dict]:
     """The scout's DISCOVERY slice: articles whose headline carries the gem tell.
 
@@ -1625,13 +1636,24 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # and never exits. Measured 2026-08-10: events ran 68 and 78 scans (2.5-3 YEARS) on exactly that
     # failure. This retires them without an LLM call, which also stops paying for them.
     # The scout may re-propose the thesis on fresh evidence; that is the intended escape hatch.
+    #
+    # AGE IS len(entries) PLUS `age_offset`, WHICH IS NORMALLY ZERO. A seeded event (bootstrap) carries
+    # its entries from the run it was inherited from, and those were written at THAT run's cadence --
+    # CBT's are monthly, 30 days apart; this run's are weekly. The cap counts entries, so without the
+    # offset each inherited entry under-states the event's age by the cadence ratio (measured 4.29x),
+    # and a seeded thesis gets a longer real lease than the knob grants. Measured on cbs_v4: ev202
+    # reached the handover having really lived 47 weeks of its 48-week lease while the count said 12.
+    # The offset is set ONCE by the seeder from calendar dates, so it needs no cadence ratio and no
+    # profile knob. Padding the entry LIST would have been the obvious fix and is wrong: the list is
+    # rendered as the thesis history the event agent reads, and duplicated entries would be a lie
+    # told to the LLM.
     if max_event_scans:
         for ev in list(events.values()):
-            if ev["status"] == "live" and len(ev.get("entries") or []) >= max_event_scans:
+            if ev["status"] == "live" and event_age(ev) >= max_event_scans:
                 ev["status"] = "exited"
                 for tk in ev["vehicles"]:
                     retired[tk] = (f"{ev['catalyst']} (aged out after {max_event_scans} scans)", week_idx)
-                print(f"  aged out after {len(ev['entries'])} scans: {ev['catalyst'][:60]}", file=sys.stderr)
+                print(f"  aged out after {event_age(ev)} scans: {ev['catalyst'][:60]}", file=sys.stderr)
     # CONCURRENCY CAP. `max_events` bounds how many events may be LIVE at once, and the picker decides
     # which survive. This is deliberately NOT `max_new_events`: an admission cap discards candidates
     # permanently and unexamined at the door (measured 2026-08-12: 1,412 of 1,556 proposals binned, and
@@ -1653,7 +1675,9 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                      "catalyst": ev["catalyst"],
                      "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
                      "exit_condition": (ev.get("entries") or [{}])[-1].get("exit_advice", ""),
-                     "weeks_alive": len(ev.get("entries") or [])} for ev in _live]
+                     # the SAME age the cull uses -- the picker must not think a seeded event is
+                     # younger than the mechanism that retires it does.
+                     "weeks_alive": event_age(ev)} for ev in _live]
             if picker is not None:
                 keep = set(picker(meta, max_events, context=str(anchor.date())))
                 _how = "picker"

@@ -218,6 +218,9 @@ def main(argv=None):
                          for _e in (_src.get("events") or {}).values()
                          for x in (_e.get("entries") or [])
                          if str(x.get("date", ""))[:10] <= _seedd), default="")
+            import datetime as _dt
+            from util import REBALANCE_PERIODS as _RP
+            _perd = _RP.get(str(fm.get("rebalance_period", "weekly")).lower(), 7)
             _keep, _nid = {}, 0
             for _eid, _e in (_src.get("events") or {}).items():
                 _ents = [x for x in (_e.get("entries") or []) if str(x.get("date", "")) <= _seedd]
@@ -228,7 +231,18 @@ def main(argv=None):
                     continue                       # not re-judged at the handover scan: already gone
                 if not _last.get("thesis_live", True) or _last.get("catalyst_resolved"):
                     continue                       # dead or resolved at the handover: do not carry
-                _keep[_eid] = {**_e, "entries": _ents, "status": "live"}
+                # AGE OFFSET, so the age cap means the same wall-clock lease for an inherited
+                # thesis as for one this run opened. The seed run's entries are at ITS cadence
+                # (CBT: monthly, 30d apart); this run counts scans at its own (weekly). Without the
+                # offset each inherited entry under-states the age by the cadence ratio -- 4.29x
+                # measured -- so ev202 arrived having really lived 47 weeks of a 48-week lease while
+                # `len(entries)` said 12. Derived from CALENDAR DATES, so no cadence ratio is
+                # assumed anywhere and no profile knob is added: `age_offset` replaces the inherited
+                # entries' contribution with the wall-clock age they actually represent.
+                _age_w = round((_dt.date.fromisoformat(_seedd)
+                                - _dt.date.fromisoformat(str(_ents[0]["date"])[:10])).days / _perd)
+                _keep[_eid] = {**_e, "entries": _ents, "status": "live",
+                               "age_offset": int(_age_w - len(_ents))}
                 try:
                     _nid = max(_nid, int(str(_eid).replace("ev", "")))
                 except ValueError:
