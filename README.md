@@ -229,18 +229,56 @@ python scripts/backtest_gdelt.py --start 2026-03-01 --end 2026-04-30 --out data/
 
 Read it back one record per line (`json.loads`), or filter with `jq` (e.g. `jq 'select(.kind=="llm") | .system' transcript.jsonl`).
 
-**Automate the weekly scan with cron** — accumulates the frozen news + decisions over time (the forward scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and add these two lines (substitute your repo path):
+**Automate the daily pull with cron** — accumulates the frozen news over time (the forward
+scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and
+paste this block, changing **only** the `GHR_path` line to your own repo path:
 
 ```
-# Daily forward — past-24h Anthropic news pull (builds the week's coverage day by day) + mark portfolio to market + dashboard. 6:30am local
-30 6 * * * /path/to/geo-herd-rider/scripts/forward_daily.sh >> /path/to/geo-herd-rider/data/forward/cron.log 2>&1
-# Weekly forward — scout + rebalance on the week's accumulated pulls + preserve dashboard + push. Sunday 1pm local
-0 13 * * 0 /path/to/geo-herd-rider/scripts/forward_cron.sh >> /path/to/geo-herd-rider/data/forward/cron.log 2>&1
+# geo-herd-rider: set the repo path once; both jobs below reuse it
+GHR_path=/path/to/geo-herd-rider
+# GHR: Daily forward — 1-day Anthropic+Tavily news pull + append-only backup + FBS/CBS refresh. 6:30am local
+30 6 * * *  $GHR_path/scripts/forward_daily.sh >> $GHR_path/data/forward/cron.log 2>&1
+# GHR: Weekly forward — scout + rebalance + dashboard + push. DISABLED during the rewrite (see TODO.md phase 5)
+#0 13 * * 0  $GHR_path/scripts/forward_cron.sh >> $GHR_path/data/forward/cron.log 2>&1
 ```
 
-**Daily** (`forward_daily.sh`, 6:30am): pulls just the **past ~24 hours** of Anthropic news and appends that day's articles to `data/forward/daily/`. Over the week the seven one-day pulls *build up* the week's coverage — denser than one weekly pull, and each day's news is captured fresh so early-week gems aren't buried by recency bias — plus a mark-to-market of the paper portfolio and a dashboard refresh. Billable Anthropic (**~$0.80/day** — each pull runs the full beat sweep — so ~$300/yr daily, or ~$214/yr with weekdays-only `30 6 * * 1-6`; vs ~$43/yr for one weekly pull). Dedups by date, so a re-run is a no-op.
+`GHR_path` is a cron variable, so the path is written once instead of four times. It must appear
+**above** the jobs that use it — cron applies a variable only to lines that follow it. Confirm with
+`crontab -l`.
 
-**Weekly** (`forward_cron.sh`, Sunday 1pm): the scout + optimizer run **once** on the week's accumulated daily pulls (no separate weekly gather), produce the recommended portfolio, then build + **preserve** the dated dashboard (`docs/forward/<week>.html` + a landing) and push. All news under `data/forward/` stays local; only `docs/forward/` is committed. A missed run is harmless (the pulls stay accumulated). Confirm both with `crontab -l`; the push needs non-interactive git auth.
+**Daily** (`forward_daily.sh`, 6:30am) does four things, and is the ONLY job currently enabled:
+
+1. **Pulls the past ~24 hours** from both engines into `data/forward/daily/<date>.json`. Daily rather
+   than per-scan because the pull is *unrepeatable*: search results are not re-queryable and articles
+   get edited, paywalled or deleted, so a skipped day is a permanent hole. Tavily is same-day 99.8% of
+   the time; Anthropic looks back a week and lands a median 1 day late (p90 six days), so a recent
+   publication date has not finished collecting its Anthropic share.
+2. **Mirrors the new file** (`backup_daily.py`), append-only, keeping any superseded copy.
+3. **Rebuilds FBS**, which describes the corpus that just grew.
+4. **Rebuilds CBS**, whose book is priced daily from live quotes.
+
+Steps 3-4 are render-only — no LLM, ~15s combined — and each step is tolerated on failure so one bad
+step never skips the next. Everything is timestamped into `data/forward/cron.log`.
+
+Billable: Anthropic web search is **$10 per 1,000 searches** and the sweep runs ~69 of them, plus
+Tavily credits and tokens — roughly **$1/day**. Dedups by date, so a re-run is a no-op.
+
+**Re-curating the bootstrap is NOT in cron.** It costs money (~$1.30) and rewrites the published book,
+so it stays a deliberate hand-run:
+
+```
+python scripts/backtest_gdelt.py --bootstrap --decisions --seed-journal <CANON_RUN> --out data/cbs_vN
+python scripts/build_cbt_dashboard.py --bootstrap        # after pointing the builder at the new run
+```
+
+The curation cadence (`rebalance_period`, currently **monthly**) is independent of the daily pull:
+news is captured daily whatever the curator's rhythm, and both dashboards move every day regardless
+of when the curator last ran.
+
+**Weekly** (`forward_cron.sh`, Sunday 1pm) is **commented out** — it is phase-5 work (`TODO.md`). It
+runs the scout + optimizer on the accumulated pulls, builds a dated dashboard under `docs/forward/`
+and pushes. All news under `data/forward/` stays local; only `docs/` is committed, and the push needs
+non-interactive git auth.
 
 ## Notes
 

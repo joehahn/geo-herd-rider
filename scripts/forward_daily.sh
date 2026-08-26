@@ -38,5 +38,21 @@ mkdir -p data/forward
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup start"
   .venv/bin/python scripts/backup_daily.py \
     || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup reported a problem (tolerated)"
+  # REFRESH THE TWO PAGES THE PULL JUST CHANGED. Render-only: 0 LLM calls, ~15s combined, so this
+  # is free and belongs on the DAILY job even though the bootstrap now re-curates MONTHLY. The two
+  # cadences are independent and it is worth being explicit about why:
+  #   FBS describes the CORPUS, which grows every single day this job runs.
+  #   CBS's book is priced DAILY from live quotes; only its curation (the journal) is monthly.
+  # So a monthly curation cadence does NOT make a daily refresh wasteful -- the numbers on both pages
+  # move every day regardless of when the curator last ran. This mirrors portfolio-wave-rider, where
+  # the daily news_pull refreshes RBS/RFT and the LLM curation is a separate biweekly job.
+  # NOT the monthly re-curation: that spends money and rewrites the published book, so it stays a
+  # deliberate hand-run until it has an --if-due guard of its own.
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] FBS refresh start"
+  .venv/bin/python scripts/build_fbt_dashboard.py --bootstrap \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] FBS refresh FAILED (tolerated)"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] CBS refresh start"
+  .venv/bin/python scripts/build_cbt_dashboard.py --bootstrap \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] CBS refresh FAILED (tolerated)"
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily pull done"
 } >> data/forward/cron.log 2>&1
