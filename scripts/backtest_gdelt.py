@@ -425,7 +425,15 @@ def main(argv=None):
                                 stats_path=stats)
         # a.enrich == "none": GDELT headlines only, no enrichment.
         # Render-time arm selection: this is what fills `snippet`, the field the curator reads.
-        _arm = lede.apply(gslice, arm=a.arm)
+        # max_chars FROM THE PROFILE, not lede.apply's 280 default. This call runs BEFORE
+        # process_week's, and for a SEARCH SNIPPET the truncation it makes is PERMANENT: a GKG
+        # article's snippet is re-derived from `lede` on the second call and loses nothing, but a
+        # websearch article's only source IS the snippet, so once this call cuts it there is nothing
+        # left to re-derive from. Two hardcoded limits disagreeing and the smaller winning silently
+        # is the exact bug the MAX_ARTICLE_CHARS comment in agent.py records; this was the same bug
+        # one call site over. Measured on uncapped pulls: at 280 the curator sees 39% of the text
+        # already paid for, at 800 it sees 72%.
+        _arm = lede.apply(gslice, arm=a.arm, max_chars=agent.MAX_ARTICLE_CHARS)
         print(f"    ledes[{a.arm}]: {_arm['coverage_pct']}% covered "
               f"({_arm['wayback']} clean, {_arm['live']} live, {_arm.get('search', 0)} search, "
               f"{_arm['headline_only']} headline-only)",

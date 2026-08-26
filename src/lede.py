@@ -387,6 +387,10 @@ ARMS = ("clean", "fuller", "fast", "live-only")
 
 
 def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dict:
+    # NOTE ON max_chars: 280 is the WAYBACK LEDE length and a sane default for GKG text, which is
+    # stored at <=280 anyway (measured: median 161, max 280), so this cap never binds there.
+    # It DOES bind on search snippets, whose only copy is the one this function truncates.
+    # Callers that know the profile should pass max_article_chars; both in-tree callers now do.
     """Fill each article's `snippet` — the field every downstream consumer reads — from the chosen
     arm, and return a coverage tally. This is the ONE place the clean/biased tradeoff is made, and it
     is made at RENDER time, not at fetch time, so the same pool can be re-rendered either way without

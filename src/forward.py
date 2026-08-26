@@ -522,6 +522,15 @@ def main(argv: list[str] | None = None) -> int:
                   f"resolves to provider '{gather_prov}'. Pass --model <anthropic-id>. "
                   f"(event_agent_model and scout_model may be any provider.)", file=sys.stderr)
             return 2
+        # SET THE READ CAPS FROM THE PROFILE, as backtest_gdelt does. forward.py never did, so it ran
+        # on agent.py's module defaults and the profile knobs were silently inert on the LIVE path --
+        # they happen to agree today (both 800), which is exactly why nobody noticed. A knob the
+        # backtest honours and the forward ignores makes the backtest a proxy for something the
+        # forward is not running.
+        import agent as _ag                     # noqa: PLC0415
+        _ag.MAX_ARTICLE_CHARS = int(fm.get("max_article_chars") or _ag.MAX_ARTICLE_CHARS)
+        _ag.SCOUT_ARTICLES_PER_CALL = int(fm.get("scout_articles_per_call")
+                                          or _ag.SCOUT_ARTICLES_PER_CALL)
         rebal = args.rebalance_days or resolve_cadence(fm)
         anch = pd.Timestamp(args.anchor, tz="America/New_York") if args.anchor else None
         scan_and_log(event_id, rebal, int(fm.get("curator_memory_weeks", 8)), anchor=anch,
