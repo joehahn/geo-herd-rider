@@ -24,11 +24,27 @@ import trace
 # same domain steering, only the engine differs. (Residual gap: Anthropic spawns adaptive follow-ups;
 # Tavily runs the fixed list -> conservative proxy.)
 from forward_gather import GEM_BEATS, COVERAGE_BEATS, _SPECIALTY_ALLOW, _MILL_BLOCK
+from forward_gather import _STEER            # the parsed retrieval_config, one reader for both engines
 
 BEATS = list(GEM_BEATS) + list(COVERAGE_BEATS)   # full sweep, for capture/reporting
 # (beat, include_domains, exclude_domains) — mirrors forward_gather's two passes
-_TASKS = ([(b, _SPECIALTY_ALLOW, None) for b in GEM_BEATS]
-          + [(b, None, _MILL_BLOCK) for b in COVERAGE_BEATS])
+# A task is (BEAT, SEARCH STRING, include, exclude). The two are usually the same string -- but a beat
+# whose name is a CONCEPT DESCRIPTION rather than a phrase anyone writes gets `search_queries` in
+# retrieval_config, and each of those runs as its own search while still being TAGGED with the parent
+# beat. Tagging by parent keeps the beat vocabulary (and check_canon's invariants) unchanged: the
+# override changes what we TYPE, never what an article is filed under.
+def _tasks_for(beats: list[str], inc, exc) -> list[tuple]:
+    out = []
+    for b in beats:
+        for q in (_SEARCH_QUERIES.get(b) or [b]):
+            out.append((b, q, inc, exc))
+    return out
+
+
+_SEARCH_QUERIES = {b["query"]: b.get("search_queries")
+                   for b in (_STEER.get("gem_beats", []) + _STEER.get("coverage_beats", []))
+                   if b.get("search_queries")}
+_TASKS = _tasks_for(GEM_BEATS, _SPECIALTY_ALLOW, None) + _tasks_for(COVERAGE_BEATS, None, _MILL_BLOCK)
 
 
 def _pdate(r: dict) -> str | None:
@@ -54,8 +70,8 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     pool: dict[str, dict] = {}
 
     def _q(task: tuple):
-        beat, inc, exc = task
-        return beat, search.search(beat, before_date=hi, start_date=lo, max_results=max_results,
+        beat, query, inc, exc = task          # tagged by BEAT, searched by QUERY
+        return beat, search.search(query, before_date=hi, start_date=lo, max_results=max_results,
                                    include_domains=inc, exclude_domains=exc)
 
     with cf.ThreadPoolExecutor(max_workers=workers) as ex:

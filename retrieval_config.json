@@ -83,6 +83,12 @@
         "shipping lane",
         "war premium",
         "wartime demand"
+      ],
+      "search_queries": [
+        "Strait of Hormuz shipping stocks",
+        "Red Sea Suez Canal shipping rates stocks",
+        "Panama Canal drought shipping stocks",
+        "naval blockade war premium tanker stocks"
       ]
     },
     {
@@ -768,5 +774,22 @@
     "fool.com.au",
     "fool.co.uk"
   ],
-  "_domain_steering_note": "MOVED HERE FROM investor_profile 2026-08-25. These are INGEST parameters: specialty_allow is the GEM pass allowlist and mill_block the COVERAGE pass blocklist, read by forward_gather.py (the websearch ingest) AND gkg.py (the GKG ingest). They were duplicated in investor_profile.backtest and .forward with nothing enforcing the two copies stayed equal -- and their differing between the two profiles would not even have been drift, since the two ingests legitimately differ. One copy here removes the class of bug and lets 'the two profiles must match exactly' become a checkable rule instead of a judgement call. The VALUES are unchanged by the move: 29 specialty domains, 18 mills, byte-identical to what both profiles held, which is why the curation fingerprint is unchanged at 15d410602059."
+  "_domain_steering_note": "MOVED HERE FROM investor_profile 2026-08-25. These are INGEST parameters: specialty_allow is the GEM pass allowlist and mill_block the COVERAGE pass blocklist, read by forward_gather.py (the websearch ingest) AND gkg.py (the GKG ingest). They were duplicated in investor_profile.backtest and .forward with nothing enforcing the two copies stayed equal -- and their differing between the two profiles would not even have been drift, since the two ingests legitimately differ. One copy here removes the class of bug and lets 'the two profiles must match exactly' become a checkable rule instead of a judgement call. The VALUES are unchanged by the move: 29 specialty domains, 18 mills, byte-identical to what both profiles held, which is why the curation fingerprint is unchanged at 15d410602059.",
+  "_search_queries_note": "OPTIONAL per-beat override for the WEBSEARCH engines only. `query` stays FROZEN -- it is the beat's identity, what articles are tagged with, and what check_canon's vocabulary invariants match on. `search_queries` is what actually gets TYPED INTO A SEARCH BOX, and articles it returns are still tagged with the parent `query`. WHY: `query` is run VERBATIM as a web search, and some beats are CONCEPT DESCRIPTIONS nobody writes -- 'war chokepoint stock beneficiary' is not a headline. GKG does not care, because it matches the `keywords` ATOMS against a crawled corpus; websearch types the string and gets what a search engine makes of it. Measured 2026-08-26: that beat ran at 68.3 articles per 1k in the GKG era against 3.3 in websearch -- 1/20th, on a founding thesis of the project. Its atoms (strait of hormuz, suez canal, panama canal, naval blockade) are named entities that make excellent queries; the concept string does not. Use this ONLY where the beat name is unsearchable. It does not fix the other structural gap: GKG sweeps a whole corpus by atom while websearch returns a ranked top-N per query, so a beat whose atoms are common words (bitcoin, satellite, lithium) cannot be matched by wording alone -- that needs MORE, NARROWER queries, which is a search-budget question.",
+  "discovery_catalysts": {
+    "enabled": false,
+    "patterns": [
+      "\\bFDA (approv|clear|accept|decision)|\\bPDUFA\\b|advisory committee|topline (data|results)",
+      "\\b(raises?|cuts?|lifts?|lowers?|withdraws?) (its )?(FY\\d*\\s*)?(guidance|outlook|forecast)",
+      "\\bearnings (beat|miss|call)\\b|\\b(beats?|misses) (on )?(estimates|expectations|consensus)",
+      "\\b(acquir\\w+|merger|takeover|buyout|to buy|stake in|tender offer)\\b",
+      "\\b(wins?|awarded|secures?|lands?) (a |the )?(\\$[\\d.]+\\s*(million|billion) )?(contract|order|deal|award)",
+      "\\b(upgrade[sd]?|downgrade[sd]?) (to|from)\\b|price target (raise|cut|hike)",
+      "\\b(tariff|sanction|export (ban|control|licen[cs]e)|quota|embargo)\\b",
+      "\\b(recall|SEC (probe|investigation|charges)|DOJ|antitrust|class action)\\b",
+      "\\b(IPO|spin-?off|split|buyback|special dividend|lockup expir)\\b",
+      "\\b(bankrupt|Chapter 11|restructur|going concern|delist)\\w*"
+    ]
+  },
+  "_discovery_catalysts_note": "A SECOND admission route for the discovery gate, OFF by default. The existing gate (agent.SUPERLATIVE) matches the TITLE for momentum and gem FRAMING -- 'under the radar', 'surge', '300%'. It asks whether the journalist reached for an exciting adjective, not whether anything happened. Measured 2026-08-26 on the post-handoff scan: the gate rejected 91% of websearch articles, and 306 of those rejects (14%) named a classic catalyst in the title -- 'FDA stomach cancer approval triggers cash milestone for Zymeworks (ZYME)', 'Honeywell Aerospace Cuts Full-Year Growth Guidance'. Those are discrete, datable, resolvable catalysts naming a US-listed ticker, which is the design's own definition of what it wants. THE POINT IS NOT TO ABANDON 'UNDER THE RADAR' -- it is to stop inferring it from adjectives. src/evscore.py already measures it properly (velocity 4.0, breadth saturating: 'a name the press has started naming while it is still under-owned'), which is also the exit signal, the herd arriving. So the intended split is: GATE ON CATALYST (what happened), RANK BY UNDER-OWNED-NESS (whether the herd is here). OFF by default because it widens what the curator reads and therefore changes the book -- non-negotiable #3 says the scoreboard decides, so this must be a measured bake-off arm, never a silent flip. Turning it on requires a re-curation to evaluate."
 }

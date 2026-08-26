@@ -318,6 +318,30 @@ SUPERLATIVE = re.compile(
     r"\bmultiplied\b|\bdoubl(?:e|ed|ing)\b|\btripl(?:e|ed|ing)\b", re.I)
 
 
+_CATALYST_RE = None
+
+
+def _catalyst_re():
+    """The OPTIONAL second admission route -- see retrieval_config `discovery_catalysts`. None = off.
+
+    SUPERLATIVE asks whether the headline is EXCITED. This asks whether something HAPPENED. The two
+    are different questions and the project wants both: gate on the catalyst, then let evscore's
+    velocity/breadth decide whether the name is still under-owned. Compiled lazily and cached so a
+    per-article call costs nothing when the feature is off.
+    """
+    global _CATALYST_RE
+    if _CATALYST_RE is None:
+        try:
+            import gkg  # noqa: PLC0415 -- gkg owns the parsed retrieval_config
+            cfg = (gkg.config().get("discovery_catalysts") or {})
+            pats = cfg.get("patterns") or []
+            _CATALYST_RE = (re.compile("|".join(f"(?:{p})" for p in pats), re.I)
+                            if cfg.get("enabled") and pats else False)
+        except Exception:  # noqa: BLE001 -- a config problem must not silently widen the gate
+            _CATALYST_RE = False
+    return _CATALYST_RE or None
+
+
 def event_age(ev: dict) -> int:
     """Age of an event in SCANS of the current run's cadence.
 
@@ -337,7 +361,11 @@ def superlative_pool(arts: list[dict]) -> list[dict]:
     And an added source can no longer be CROWDED OUT -- adding etf.com to the raw pool made discovery
     worse (48 tickers lost, including QUBT/RGTI/HL) because more candidates chased the same admission
     slots; filtered, etf.com and etftrends become the #2 and #6 contributors to what the scout sees."""
-    return [a for a in arts if SUPERLATIVE.search((a.get("title") or ""))]
+    cat = _catalyst_re()
+    if cat is None:
+        return [a for a in arts if SUPERLATIVE.search((a.get("title") or ""))]
+    return [a for a in arts
+            if SUPERLATIVE.search((a.get("title") or "")) or cat.search((a.get("title") or ""))]
 
 
 # The binding truncation on what the curator reads. Was a bare [:200] here, BELOW the 280 that

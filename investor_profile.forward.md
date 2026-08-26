@@ -89,6 +89,13 @@ news_lookback_days: 0             # trailing days of news each scan reads. 0 = t
 event_news_cap: 20                # articles each event-agent re-reads per scan. Raising it costs ~13% per 20.
 max_new_events: 0                 # new events ADMITTED per scan; 0 = uncapped. Superseded by max_events: an admission
                                   #   cap bins candidates unexamined and forever, a concurrency cap keeps them rankable.
+# NOTE (2026-08-26): max_events: 0 also DISABLES src/evscore.py entirely. The concurrency cull sits
+# behind `if max_events:` in agent.curate, and evscore.rank is called only inside it -- so the
+# velocity/breadth ranker ("a name the press has started naming while it is still under-owned",
+# weights: velocity 4.0, source_breadth 2.0) never executes at the current config. That ranker is
+# the project's MEASURED definition of under-the-radar, and it is the intended partner to the
+# catalyst gate in retrieval_config `discovery_catalysts`. Re-enabling it means setting max_events
+# to a positive value, which is a CURATION knob and its own bake-off.
 max_events: 0                     # 0 = UNCAPPED. How many events may be LIVE AT ONCE; when it binds, lowest-ranked are 
                                   #   retired -- ranked by PRESS COVERAGE (src/evscore.py): independent-source
                                   #   breadth, superlative count, coverage velocity, author breadth. No forecast.

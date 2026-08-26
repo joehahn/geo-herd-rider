@@ -16,6 +16,7 @@ import re
 import sys as _sys
 import time as _time
 import urllib.request
+from pathlib import Path as _Path
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from urllib.parse import urlparse
@@ -93,12 +94,26 @@ GEM_SYSTEM = (
     "THEN spawn a FEW targeted follow-ups on each specific name/catalyst that surfaces, to pull the article "
     "that explicitly names the ticker. Cap every search to news on/before the week-ending date."
 )
-COVERAGE_SYSTEM = (
-    "You are the news firehose running the broad sector sweep so no theme is missed. Surface articles where "
-    "the press NAMES a specific US-listed stock, ETF, or ADR as a mover on a catalyst. Run ONE web search "
-    "for EACH of these beats:\n  " + " | ".join(COVERAGE_BEATS) + "\n"
-    "THEN a FEW targeted follow-ups on names that surface. Cap every search to news on/before the week-ending date."
-)
+# COVERAGE RUNS AS TWO PASSES, NOT ONE. `max_uses` is 24 and there are 33 coverage beats, so a single
+# pass ran beats 1-24 in issue order and stopped: measured across 23 days, beats 25-33 were searched
+# 0/23 times -- and those nine are EVERY ETF beat in the config. The failure was silent because the
+# model simply stops; nothing errors. Splitting is preferred over raising max_uses because a bigger
+# number leaves the same failure one beat-addition away, and because a rate-limited pass now costs
+# half the sweep instead of all of it (the coverage pass returned zero beats on 8 of 14 days).
+# The beat STRINGS are untouched -- only how many requests they are spread across.
+_COV_HALVES = [COVERAGE_BEATS[:len(COVERAGE_BEATS) // 2], COVERAGE_BEATS[len(COVERAGE_BEATS) // 2:]]
+
+
+def _coverage_system(beats: list[str]) -> str:
+    return (
+        "You are the news firehose running the broad sector sweep so no theme is missed. Surface articles where "
+        "the press NAMES a specific US-listed stock, ETF, or ADR as a mover on a catalyst. Run ONE web search "
+        "for EACH of these beats:\n  " + " | ".join(beats) + "\n"
+        "THEN a FEW targeted follow-ups on names that surface. Cap every search to news on/before the week-ending date."
+    )
+
+
+COVERAGE_SYSTEM = _coverage_system(COVERAGE_BEATS)     # kept: imported by forward_gather_tavily
 
 
 def merge_pools(*pools) -> list[dict]:
@@ -349,9 +364,15 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
                                {"type": _WS, "name": "web_search", "max_uses": 24,
                                 "allowed_domains": _SPECIALTY_ALLOW}, "gem")
     _time.sleep(20)          # let the web-search allowance recover before pass 2 (see _search_with_backoff)
-    cov = _search_with_backoff(COVERAGE_SYSTEM,                                # pass 2: broad sweep, mills blocked
-                               {"type": _WS, "name": "web_search", "max_uses": 24,
-                                "blocked_domains": _MILL_BLOCK}, "coverage")
+    _covs = []
+    for _i, _half in enumerate(_COV_HALVES, 1):                               # passes 2-3: broad sweep, mills blocked
+        if _i > 1:
+            _time.sleep(20)      # same allowance recovery as between passes 1 and 2
+        _covs.append(_search_with_backoff(_coverage_system(_half),
+                                          {"type": _WS, "name": "web_search", "max_uses": 24,
+                                           "blocked_domains": _MILL_BLOCK}, f"coverage{_i}"))
+    cov = {"queries": [q for c in _covs for q in c["queries"]],
+           "results": [r for c in _covs for r in c["results"]]}
     merged: dict[str, dict] = {}                                               # merge both passes, UNIONing query tags
     for r in gem["results"] + cov["results"]:
         ex = merged.get(r["url"])
@@ -380,7 +401,9 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
         lede, date = _freeze(r["url"])
         date = date or _url_date(r["url"]) or _page_age_date(r.get("page_age"))   # walled desks: page_age saves them
         return {"title": r.get("title", ""), "url": r["url"], "published_date": date or "",
-                "source": urlparse(r["url"]).netloc, "snippet": lede, "queries": r.get("queries", [])}
+                "source": urlparse(r["url"]).netloc, "snippet": lede, "queries": r.get("queries", []),
+                # kept only to explain a DROP; stripped before the article is returned.
+                "_had_page_age": bool(r.get("page_age")), "_had_text": bool(lede)}
 
     with ThreadPoolExecutor(max_workers=workers) as ex:
         built = list(ex.map(build, survivors))
@@ -394,6 +417,26 @@ def gather(client, model: str, anchor: pd.Timestamp, lookback_days: int, capture
     # engine returns -- and they are indistinguishable from the outside. That ambiguity is what let the
     # daily pull report "anthropic 0" for 32 days without anyone being able to say why. One line, every run.
     _undated = sum(1 for a in built if not a["published_date"])
+    # WRITE THE DROPS DOWN, do not merely count them. "Undateable" has two very different causes and
+    # the count cannot tell them apart: a page we never FETCHED (paywall/403 -> _freeze returns
+    # ("", None), so no text AND no date), versus a page we read that carries no machine-readable
+    # date. The first is a retrieval failure worth recovering; the second is not. `_had_text`
+    # separates them, and `_had_page_age` says whether the engine gave us a date we failed to parse.
+    # Same reason relevance.rank_pool writes dropped_path rather than a tally.
+    try:
+        _dp = _Path(__file__).resolve().parent.parent / "data" / "forward" / "undateable.jsonl"
+        _dp.parent.mkdir(parents=True, exist_ok=True)
+        with _dp.open("a") as _fh:
+            for _a in built:
+                if not _a["published_date"]:
+                    _fh.write(_json.dumps({"anchor": hi, "url": _a["url"], "source": _a["source"],
+                                          "title": _a["title"][:160],
+                                          "had_text": _a["_had_text"],
+                                          "had_page_age": _a["_had_page_age"]}) + "\n")
+    except Exception as _e:  # noqa: BLE001 -- diagnostics must never break a pull
+        print(f"    undateable log skipped ({type(_e).__name__}: {_e})", flush=True)
+    for _a in built:                       # strip the diagnostic keys before anything downstream
+        _a.pop("_had_text", None); _a.pop("_had_page_age", None)
     _out = len(built) - len(kept) - _undated
     print(f"    gather funnel [{lo}..{hi}]: {len(raw['results'])} raw -> {len(triaged)} triaged -> "
           f"{len(survivors)} fetched -> {len(kept)} in-window "
