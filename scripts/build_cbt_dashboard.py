@@ -102,12 +102,15 @@ def main(argv=None) -> int:
     # under a bootstrap label.
     if a.bootstrap:
         if a.run == _canon.CANON_RUN:
-            # cbs_v2, not v1: v1 was curated WITHOUT --decisions, so decisions.jsonl was absent and
+            # cbs_v3: v1 lacked --decisions, and v1+v2 both seeded only the WATCHLIST, so the
+            # backtest's 85 live theses were dropped at the handover and their capital sat in one
+            # undifferentiated "held, no live event" band (69.1% of the book; 22.8% once migrated).
+            # v1 also lacked --decisions, so decisions.jsonl was absent and
             # four panels rendered as zeros rather than as empty -- the funnel's proposed/admitted
             # rows, scout inflow, does-a-bigger-bundle-make-the-scout-act, and gains-per-bundle. An
             # absent input drawn as zero states something false ("bigger bundles never made the
             # scout act"), which is worse than an empty chart.
-            a.run = "data/cbs_v2"
+            a.run = "data/cbs_v3"
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
@@ -469,7 +472,33 @@ def main(argv=None) -> int:
         else:
             print(f"  panel: no frozen {_pf}; fetching live -- this build is NOT reproducible",
                   file=sys.stderr)
-        _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel)
+        # THE WEIGHTS, NOT JUST THE TICKERS. Seeding the WATCHLIST let CBS's optimizer re-choose from
+        # the inherited candidate set and it picked a different book: CBT held SOXX/SMH/MRVL at a
+        # third each on 2026-05-01, CBS opened STM/SOXX/QTUM/AAPL -- one name in common, and AAPL
+        # arrived from starter_watchlist, which a continuation book should not have at all. Handing
+        # the opening ALLOCATION over makes "the bootstrap portfolio matches the backtest's on day
+        # zero" true rather than approximate.
+        _seed_w = None
+        if a.bootstrap and _bs_start:
+            try:
+                _cbt_page = ROOT / "docs" / "cbt.html"
+                _cd = json.loads(re.search(r'const DATA = (\{.*?\});\n',
+                                           _cbt_page.read_text(), re.S).group(1))
+                _cb = _cd["book"]; _cdates = _cb["dates"]
+                import bisect as _bis
+                _ix = min(_bis.bisect_left(_cdates, _bs_start), len(_cdates) - 1)
+                _seed_w = {t: float(wv[_ix]) for t, wv in _cb["alloc"].items()
+                           if _ix < len(wv) and wv[_ix] > 1e-6}
+                if _seed_w:
+                    print(f"  CBS opens with CBT's allocation at {_cdates[_ix]}: "
+                          + ", ".join(f"{t} {100*v:.1f}%" for t, v in sorted(_seed_w.items(),
+                                                                            key=lambda kv: -kv[1])),
+                          flush=True)
+            except Exception as _e:  # noqa: BLE001 -- no CBT page -> fall back to ticker-only seeding
+                print(f"  CBS weight seed unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
+                _seed_w = None
+        _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
+                           seed_holdings=_seed_w)
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
@@ -1242,20 +1271,64 @@ def main(argv=None) -> int:
     except NameError:
         _bseed = set()
     if _bseed:
+        # INHERITED WINS TIES, and the reason matters. The first cut used a "both" bucket for tickers
+        # that were seeded AND later re-proposed -- which was fine while only the WATCHLIST was
+        # seeded, but once the EVENTS are migrated the agents re-propose the inherited names every
+        # scan, so "both" swallowed nearly everything and `inherited` read $0. The question the split
+        # answers is "did this capital arrive with the backtest's book, or did this curator find it?"
+        # -- and a ticker that arrived seeded arrived seeded, whatever happened afterwards. So the
+        # test is ORIGIN, not membership: seeded tickers are inherited, full stop, and only names the
+        # curator introduced count as its own.
         _own = {str(p_["ticker"]).strip().upper() for p_ in PICKS if (p_.get("ticker") or "").strip()}
         _g = book.get("gain") or {}
-        _split = {"inherited": 0.0, "curator": 0.0, "both": 0.0, "anchor": 0.0}
+        _anch = set(book.get("anchors") or [])
+        _split = {"inherited": 0.0, "curator": 0.0, "anchor": 0.0}
+        _n = {"inherited": 0, "curator": 0, "anchor": 0}
         for _t, _v in _g.items():
-            _in_seed, _in_own = _t in _bseed, _t in _own
-            _k = ("both" if (_in_seed and _in_own) else "inherited" if _in_seed
-                  else "curator" if _in_own else "anchor")
+            _k = ("anchor" if _t in _anch else "inherited" if _t in _bseed
+                  else "curator" if _t in _own else "anchor")
             _split[_k] += float(_v or 0)
+            _n[_k] += 1
+        book["seed"] = {}          # replaced below; keeps the shape explicit
         book["seed"] = {**(book_seed or {}), "tickers": sorted(_bseed),
-                        "split": {k: round(v, 2) for k, v in _split.items()}}
+                        "split": {k: round(v, 2) for k, v in _split.items()}, "n_split": _n}
+    # A COMPACT TICKER-LEVEL LOG, above the event-level one. GHR's native unit is the EVENT (one
+    # catalyst, a basket of tickers), and the log below reads that way -- but the question "what did
+    # the curator ADD and REMOVE this week" is answered in tickers, and PWR's CBT leads with exactly
+    # that table (Date | Adds | Removes | Rejections | Retries). Same rows, the other projection: an
+    # event opening contributes its vehicles as adds, an event exiting contributes its vehicles as
+    # removes, so nothing here is new data -- it is the event log read as a portfolio diff.
+    _tick_rows = []
+    for wk in weeks:
+        _op, _ex = opened.get(wk, []), exited.get(wk, [])
+        if not _op and not _ex:
+            continue
+        _adds = sorted({v for _, e in _op for v in (e.get("vehicles") or [])})
+        _rems = sorted({v for _, e in _ex for v in (e.get("vehicles") or [])})
+        _pr, _ad = prop_by_wk.get(wk, ("", ""))
+        _rej = (_pr - _ad) if isinstance(_pr, int) and isinstance(_ad, int) else ""
+        _tick_rows.append([
+            wk,
+            ", ".join(_adds) or "\u2014",
+            ", ".join(_rems) or "\u2014",
+            f"{_rej}" if _rej != "" else "\u2014",
+            f"{len(_op)} opened / {len(_ex)} exited",
+        ])
+    tick_log = table_html(["Week", "Adds (tickers)", "Removes (tickers)",
+                           "Rejected by the cap/guard", "Events"], _tick_rows)
+    tick_panel = (
+        f'<section class="panel"><h2>25. Curation log &mdash; tickers</h2>'
+        f'<p class="lead">The same {len(_tick_rows)} changed weeks as the event log below, projected '
+        f'onto TICKERS: an event opening contributes its vehicles as adds, an event exiting '
+        f'contributes them as removes. Nothing here is new data &mdash; it is the event log read as a '
+        f'portfolio diff, which is the form PWR\'s curator log takes and the form the question "what '
+        f'changed this week" is usually asked in. <b>Rejected</b> is proposed minus admitted: '
+        f'candidates the scout put forward that the cap or the ticker guard dropped.</p>'
+        f'<div class="scroll">{tick_log}</div></section>')
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
-        f'<section class="panel"><h2>25. Curation log</h2>'
+        f'<section class="panel"><h2>26. Curation log &mdash; events</h2>'
         f'<p class="lead">The {len(log_rows)} of {len(M)} weekly calls that CHANGED something — a week '
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
@@ -1295,13 +1368,15 @@ def main(argv=None) -> int:
         # in a panel further down that a reader may never reach.
         _sp_ = (book.get("seed") or {}).get("split") or {}
         if _sp_:
-            _inh = _sp_.get("inherited", 0) + _sp_.get("both", 0)
+            _inh = _sp_.get("inherited", 0)
             _own_ = _sp_.get("curator", 0)
+            _nn = (book.get("seed") or {}).get("n_split") or {}
             bh_verdict += (
                 f" <b>Read that with the split:</b> of the ${sum(_sp_.values()):+,.0f} realised, "
-                f"${_inh:+,.0f} came from the {(book.get('seed') or {}).get('n', 0)} tickers "
-                f"INHERITED from the backtest at {(book.get('seed') or {}).get('from', '?')} and "
-                f"${_own_:+,.0f} from names this curator picked itself. The book starts as the "
+                f"${_inh:+,.0f} came from {_nn.get('inherited', 0)} tickers INHERITED from the "
+                f"backtest at {(book.get('seed') or {}).get('from', '?')} and ${_own_:+,.0f} from "
+                f"{_nn.get('curator', 0)} names this curator introduced itself (origin decides: a "
+                f"seeded ticker stays inherited even after the curator re-proposes it). The book starts as the "
                 f"backtest's recommendation, so a rising curve is not by itself evidence the "
                 f"bootstrap curator added anything.")
 
@@ -1576,7 +1651,7 @@ def main(argv=None) -> int:
               "whose result is an upper bound.",
               "c-text", 340),
     ])
-    panels += log_panel          # the log is a reference table, not a headline -- it reads last
+    panels += tick_panel + log_panel   # reference tables, not headlines -- they read last
 
     # ONE IDENTITY FOR THE ARM. Title, header and the nav's current-page marker all derive from it;
     # hard-coding "CBT" in three places meant the CBS page announced itself as the backtest AND told

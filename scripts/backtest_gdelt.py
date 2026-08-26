@@ -60,6 +60,10 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--start", default=None)
     ap.add_argument("--end", default=None)
+    ap.add_argument("--seed-journal", default=None, dest="seed_journal", metavar="RUN",
+                    help="pre-seed <out>/journal.json with the events RUN had LIVE at --start, so the "
+                         "bootstrap CONTINUES the backtest's theses instead of only its tickers. "
+                         "Entries are trimmed to the seed date. Ignored if the journal already exists.")
     ap.add_argument("--bootstrap", action="store_true",
                     help="curate the BOOTSTRAP corpus (src/bootstrap_corpus: GKG+wayback before the "
                          "handoff, the daily websearch pull after) instead of a --corpus dir, and "
@@ -187,6 +191,41 @@ def main(argv=None):
           f"scout_articles_per_call={agent.SCOUT_ARTICLES_PER_CALL} · "
           f"group_by_ticker={agent.GROUP_BY_TICKER}",
           flush=True)
+    # MIGRATE THE BACKTEST'S LIVE EVENTS INTO THE BOOTSTRAP. Seeding the WATCHLIST alone carried the
+    # backtest's tickers but discarded its REASONING: an event is the thesis behind a position and
+    # what the event-agent re-reads each scan to decide live-or-exit, so 89 inherited tickers sat in
+    # the book that no agent ever re-judged. They also fell outside every event band on the value
+    # panel, showing up as one undifferentiated "held, no live event" slab.
+    #
+    # Pre-seeding the journal instead means the agents INHERIT those theses and re-judge them against
+    # bootstrap news from scan one -- which is what "continue the backtest's book" has to mean.
+    # Entries are TRIMMED to the seed date: an event carries its history up to the handover and
+    # nothing after, so nothing about the future rides in with it.
+    if a.bootstrap and a.seed_journal and not (OUT / "journal.json").exists():
+        try:
+            _src = json.loads((ROOT / a.seed_journal / "journal.json").read_text())
+            _seedd = a.start or __import__("bootstrap_corpus").day_zero()
+            _keep, _nid = {}, 0
+            for _eid, _e in (_src.get("events") or {}).items():
+                _ents = [x for x in (_e.get("entries") or []) if str(x.get("date", "")) <= _seedd]
+                if not _ents:
+                    continue
+                _last = _ents[-1]
+                if not _last.get("thesis_live", True) or _last.get("catalyst_resolved"):
+                    continue                       # dead or resolved at the handover: do not carry
+                _keep[_eid] = {**_e, "entries": _ents, "status": "live"}
+                try:
+                    _nid = max(_nid, int(str(_eid).replace("ev", "")))
+                except ValueError:
+                    pass
+            (OUT / "journal.json").write_text(json.dumps(
+                {"events": _keep, "nid": _nid, "retired": {}, "week_seq": []}, default=str))
+            print(f"  SEEDED JOURNAL from {a.seed_journal}: {len(_keep)} events live at {_seedd} "
+                  f"carried in (nid={_nid})", flush=True)
+        except Exception as _e:  # noqa: BLE001 -- an unseeded run is valid, just not a continuation
+            print(f"  journal seed failed ({type(_e).__name__}: {_e}); starting from an empty journal",
+                  file=sys.stderr)
+
     if a.bootstrap and not (a.start and a.end):
         import bootstrap_corpus as _bs0
         _m = _bs0.load()[1]

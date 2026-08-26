@@ -560,7 +560,8 @@ OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->
 
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
-             overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None) -> dict:
+             overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None,
+             seed_holdings: dict | None = None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
@@ -569,6 +570,10 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     price-trend rank (conviction, the original ranker, was retired 2026-08-14), and
     the always_include anchors are dropped as competing agents — they're appended to the optimizer AFTER
     the cull. When None (default: all dashboards/sweeps), behavior is byte-identical to before (no LLM).
+
+    `seed_holdings` = {ticker: weight} the book OPENS with, for a run that continues a prior book
+    rather than starting from cash. It replaces `starter_watchlist` as the inception holding (see
+    below) and fixes the FIRST rebalance's weights, after which the optimizer re-weights normally.
 
     `panel` lets a caller inject a FROZEN adjusted-close panel (DatetimeIndex, tz-naive) instead of
     fetching live — used by the golden-snapshot regression replay so results are deterministic
@@ -579,7 +584,17 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     fresh_scans = int(fm.get("cull_fresh_scans", 2) or 0)
     max_watch = watchlist_cap(fm)          # PORTFOLIO cull: keep top-N tickers/event-agents. 0 = uncapped.
     always = anchor_tickers(fm)            # permanent anchors, appended AFTER the cull; idle capital parks here
-    starter = [str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
+    # SEED HOLDINGS REPLACE THE STARTER WATCHLIST, when supplied. `starter_watchlist` exists so that
+    # DAY-0 CAPITAL HAS A HOME in a book that starts from cash -- "the curator's own picks displace it
+    # over the first few weeks rather than by fiat" (see _stateful_watch). A bootstrap CONTINUING a
+    # prior book has no such gap: its day-0 capital is the inherited position. Leaving the starter in
+    # let AAPL/GOOGL/AMZN compete for slots against the very book being continued, and on the first
+    # CBS rebalance AAPL took a quarter of the portfolio while two of the three names actually
+    # inherited from the backtest went unfunded.
+    seed_holdings = {str(t).strip().upper(): float(w)
+                     for t, w in (seed_holdings or {}).items() if str(t).strip() and w}
+    starter = ([str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
+               if not seed_holdings else sorted(seed_holdings))
     anchors = list(scans)
     watch = _stateful_watch(scans, seed=starter, fm=fm)  # inception holdings + sticky hold + hard-exit on catalyst_resolved
     tickers = {score.BENCHMARK, overlay} | set(always) | set(starter) | {t for w in watch.values() for t in w}
@@ -669,7 +684,20 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     ev = ev[:max_watch]         # legacy keep-first-N over sorted(holding) = ALPHABETICAL
             uni = list(dict.fromkeys(ev + [t for t in always if t in valid]))
             watch[a] = ev
-            w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
+            if seed_holdings and k == 0:
+                # THE FIRST REBALANCE IS THE HANDOVER, not an optimisation. A continuation book opens
+                # holding what the prior book held; the optimizer takes over from the NEXT rebalance.
+                # Only names with a price on the day survive -- a seeded ticker the panel cannot price
+                # would silently take a weight and never move.
+                _sd = {t: v for t, v in seed_holdings.items()
+                       if t in panel.columns and pd.notna(panel.loc[days[i], t])}
+                _tot = sum(_sd.values()) or 1.0
+                w = {t: v / _tot for t, v in _sd.items()}
+                if len(_sd) != len(seed_holdings):
+                    print(f"  seed: {len(seed_holdings) - len(_sd)} of {len(seed_holdings)} seeded "
+                          f"tickers had no price on {days[i].date()} and were dropped", flush=True)
+            else:
+                w = (curator._optimized_weights(uni, panel, days[i], fm, lookback) or {}) if uni else {}
             # ANCHOR FALLBACK. The comment above says idle capital "always has a home", and until
             # 2026-08-22 that was not true: the anchors ride in `uni` but go through the SAME
             # all()-history filter as everything else, so whatever killed the optimizer killed them
