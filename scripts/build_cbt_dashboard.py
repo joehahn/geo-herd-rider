@@ -992,9 +992,16 @@ def main(argv=None) -> int:
                     "events": [r["events_live"] for r in M],
                     "vehicles": [r["vehicles_live"] for r in M],
                     "catalysts": [r["distinct_catalysts"] for r in M],
-                    # TICKERS ON THE WATCHLIST per scan. Distinct from `vehicles`: that counts the
-                    # vehicles named by live events, this is the list the curator actually carries.
-                    "picks": [r.get("picks_live", 0) for r in M],
+                    # DISTINCT TICKERS CARRYING A LIVE THESIS per scan. NOT `picks_live`, which is
+                    # len(live) -- the per-EVENT pick rows, so a ticker named by three events counts
+                    # three times (measured 1.13x inflation; ATYR, RAPP, MU and ALB each appear 3x on
+                    # the last scan). And NOT "the watchlist" in the sizing sense: `max_watchlist`
+                    # caps tickers that may HOLD CAPITAL, which is 3-4 here. Four different numbers
+                    # get called the watchlist on this page, so this one says exactly what it counts.
+                    "picks": [len({(r.get("ticker") or "").strip().upper() for r in PICKS
+                                   if r.get("week") == w
+                                   and str(r.get("thesis_live", "")).lower() in ("true", "1")})
+                              for w in weeks],
                     # Events that opened and terminated on the SAME scan, by scan. Dropped from the
                     # timeline (they draw as hairlines) so they are counted here instead -- the point
                     # of panel 4 is what the cap is doing, and a one-scan life is the cap's signature.
@@ -1526,7 +1533,11 @@ def main(argv=None) -> int:
               "the math never backed, and across the run "
               f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero}</b> events with an agent read died never "
               "funded. The dotted line is a flow, not part of the stack &mdash; events opened and "
-              "closed in a single curation, dropped from panel 3 as hairlines.",
+              "closed in a single curation, dropped from panel 3 as hairlines. "
+              "<b>The purple line counts TICKERS, not events</b>, and is on the same axis only "
+              "because both are counts &mdash; a ticker can carry several theses and usually does. "
+              "It is not <code>max_watchlist</code>, which caps the tickers allowed to HOLD "
+              "CAPITAL; that number is far smaller and is drawn in panel @@c-breadth@@.",
               "c-evcount", 380),
         panel(5, "Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names. Every other funded name is left OFF the "
@@ -1851,9 +1862,9 @@ function draw() {{
     // stacking two different units would make the stack's top edge stop meaning "live events".
     // It sits well above the stack (one event names several vehicles), so it also sets the y-range.
     if (B.picks && B.picks.some(v => v > 0)) tr.push({{
-      type:'scatter', mode:'lines', name:'tickers on the watchlist',
+      type:'scatter', mode:'lines', name:'tickers with a live thesis',
       x:B.w, y:B.picks, line:{{width:2, color:p.s4}},
-      hovertemplate:'%{{x}}<br>%{{y}} tickers watchlisted<extra></extra>'}});
+      hovertemplate:'%{{x}}<br>%{{y}} distinct tickers with a live thesis<extra></extra>'}});
     if (B.zerospan) tr.push({{
       type:'scatter', mode:'lines+markers', name:'opened & closed same curation',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
