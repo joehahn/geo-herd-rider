@@ -205,12 +205,27 @@ def main(argv=None):
         try:
             _src = json.loads((ROOT / a.seed_journal / "journal.json").read_text())
             _seedd = a.start or __import__("bootstrap_corpus").day_zero()
+            # WHICH EVENTS WAS THE SEED RUN ACTUALLY CARRYING AT THE HANDOVER?
+            # NOT "its last entry on or before the handover says thesis_live" -- that was the first
+            # cut and it was wrong by 3x (85 carried where the run held 29). An event the curator
+            # STOPPED re-judging keeps its final entry forever, so one retired for staleness a year
+            # earlier still passes that test: 56 of the 85 were already out of span, median 300 days
+            # since their last entry, max 660. They are zombies, and the bootstrap agents then spent
+            # every scan re-reading theses the backtest had long since abandoned.
+            # An event is carried iff the run RE-JUDGED IT at its last scan on or before the handover
+            # and that judgement was live -- which reproduces the run's own events_live exactly (29).
+            _scan = max((str(x.get("date", ""))[:10]
+                         for _e in (_src.get("events") or {}).values()
+                         for x in (_e.get("entries") or [])
+                         if str(x.get("date", ""))[:10] <= _seedd), default="")
             _keep, _nid = {}, 0
             for _eid, _e in (_src.get("events") or {}).items():
                 _ents = [x for x in (_e.get("entries") or []) if str(x.get("date", "")) <= _seedd]
                 if not _ents:
                     continue
                 _last = _ents[-1]
+                if str(_last.get("date", ""))[:10] != _scan:
+                    continue                       # not re-judged at the handover scan: already gone
                 if not _last.get("thesis_live", True) or _last.get("catalyst_resolved"):
                     continue                       # dead or resolved at the handover: do not carry
                 _keep[_eid] = {**_e, "entries": _ents, "status": "live"}

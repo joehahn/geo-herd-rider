@@ -102,15 +102,21 @@ def main(argv=None) -> int:
     # under a bootstrap label.
     if a.bootstrap:
         if a.run == _canon.CANON_RUN:
-            # cbs_v3: v1 lacked --decisions, and v1+v2 both seeded only the WATCHLIST, so the
-            # backtest's 85 live theses were dropped at the handover and their capital sat in one
-            # undifferentiated "held, no live event" band (69.1% of the book; 22.8% once migrated).
-            # v1 also lacked --decisions, so decisions.jsonl was absent and
-            # four panels rendered as zeros rather than as empty -- the funnel's proposed/admitted
-            # rows, scout inflow, does-a-bigger-bundle-make-the-scout-act, and gains-per-bundle. An
-            # absent input drawn as zero states something false ("bigger bundles never made the
-            # scout act"), which is worse than an empty chart.
-            a.run = "data/cbs_v3"
+            # cbs_v4. The history, because each version fixed a way of MISREPRESENTING the handover:
+            #   v1  no --decisions -> decisions.jsonl absent and four panels drew ZEROS rather than
+            #       empty (funnel proposed/admitted, scout inflow, bundle-vs-scout, gains-per-bundle).
+            #       An absent input drawn as zero asserts something false ("bigger bundles never made
+            #       the scout act"), which is worse than an empty chart.
+            #   v2  seeded the WATCHLIST only, so the backtest's live theses were dropped at the
+            #       handover and their capital sat in one undifferentiated "held, no live event"
+            #       band -- 69.1% of the book.
+            #   v3  seeded the journal, but on the wrong test: "the last entry on or before the
+            #       handover says thesis_live". That is not "still being carried" -- an event the
+            #       curator STOPPED re-judging keeps its final entry forever. It carried 85 where the
+            #       run held 29; 56 were already out of span, median 300 days stale, max 660.
+            #   v4  carries an event iff the run re-judged it AT its last scan on or before the
+            #       handover and that judgement was live. Reproduces the run's own events_live (29).
+            a.run = "data/cbs_v4"
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
@@ -1029,7 +1035,15 @@ def main(argv=None) -> int:
         "cap_pct": float(_lfm0.get("concentration_cap", 0.25)),
         "max_events": _lfm0.get("max_events"),
         "gantt": [{"id": k, "cat": v.get("catalyst", "")[:70],
+                   # `veh` is TRUNCATED for the storyboard label -- 33 vehicles will not fit on a
+                   # gantt row. `vehall` is the real list, and panel 9 must use it: that panel
+                   # attributes DOLLARS to events off this same record, so with `veh` alone every
+                   # ticker past the 6th alphabetically was invisible to the attribution and its
+                   # money fell into the "held, no live event" residual. It put SMMT -- 21.9% of the
+                   # opening book and named by a seeded event -- in the orphan band, and inflated
+                   # that band to 41.4% of book-days. A display cap must never reach a measurement.
                    "veh": sorted(v.get("vehicles", []))[:6],
+                   "vehall": sorted(v.get("vehicles", [])),
                    "start": ((v.get("entries") or [{}])[0].get("date", "") or _opened.get(k, "")),
                    "end": ((v.get("entries") or [{}])[-1].get("date", "") or _opened.get(k, "")),
                    "beat": _ev_beat.get(k, "no beat"), "fund": _ev_fund.get(k, []),
@@ -2274,7 +2288,7 @@ function draw() {{
     // implied some of it was a deliberate cash position -- it never is. Measured 2026-08-14: the daily
     // weights sum to 1 within 1e-4 on every one of 734 days, because always_include [SPY, BIL]
     // guarantees idle capital a home. The band is 100% anchors.
-    const _evVeh = Object.fromEntries((DATA.gantt || []).map(g => [g.id, g.veh || []]));
+    const _evVeh = Object.fromEntries((DATA.gantt || []).map(g => [g.id, g.vehall || g.veh || []]));
     const _nd = BK.dates.length;
     const _owners = {{}};                       // ticker -> how many events claim it
     Object.values(_evVeh).forEach(vs => vs.forEach(t => {{ _owners[t] = (_owners[t] || 0) + 1; }}));
@@ -2291,11 +2305,15 @@ function draw() {{
     _evDollars.forEach(e => {{ for (let i = 0; i < _nd; i++) _evSum[i] += e[1][i]; }});
     // SPLIT THE RESIDUAL. This band was labelled 'anchors' and was NOT: it is value minus everything
     // an event claims, which is anchors PLUS every dollar held while no event naming that ticker was
-    // live. Measured 2026-08-22 on the canonical book, the band ran 17.3% of the portfolio while the
-    // real SPY/BIL holding was 8.1% -- so plot 9 and plot 10 disagreed by better than 2x about the
-    // same quantity, and the honest half of the gap was invisible. The remainder is the SAME money
-    // plot 8 buckets as '(unassigned)': positions the optimizer still funds after the curator has
-    // retired the thesis. Two different stories, so two bands.
+    // live. Two different stories, so two bands.
+    // MOST OF WHAT THE RESIDUAL USED TO SHOW WAS AN ARTEFACT, not a holding. Until 2026-08-25 the
+    // attribution above read `g.veh`, the vehicle list TRUNCATED TO 6 for the gantt row label, so
+    // every ticker past the 6th alphabetically in its event was unattributable and its dollars
+    // landed here. Re-measured on `vehall`: CBT's residual 12.6% -> 0.0%, CBS's 41.4% -> 2.9%.
+    // So the band is now what it claims -- and on the canonical book it is EMPTY, because
+    // always_include gives idle capital a home and the curator does not hold past an exit.
+    // The earlier "17.3% vs a real 8.1% SPY/BIL holding" reading was this bug, not a disagreement
+    // between panels 9 and 10. A display cap must never reach a measurement.
     const _ANC = new Set(BK.anchors || []);
     const _ancD = BK.value.map((v, i) =>
       Object.keys(_DOL).reduce((s, t) => s + (_ANC.has(t) ? (_DOL[t][i] || 0) : 0), 0));
