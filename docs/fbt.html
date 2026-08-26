@@ -52,7 +52,7 @@ footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
   font-size:12.5px; color:var(--text2); }
 </style></head><body>
 <div class="wrap">
-<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-26 12:41</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <a href="cbs.html">Curator</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
+<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-26 13:12</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <a href="cbs.html">Curator</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
 <header>
   <h1>Firehose Backtest (FBT)</h1>
   <p class="sub">2023-08-11 → 2026-08-09 &middot; 99,117 articles &middot; GKG on BigQuery</p>
@@ -473,19 +473,26 @@ function draw() {
     // BY COLLECTION DATE (see the era block): each bar is one morning's pull. A morning the cron
     // never ran has no bar to colour -- zero height is invisible -- so it gets a full-height tinted
     // band instead, which is the only state on this panel that is an outright failure.
-    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]), tf=T.map(r=>r[2]);
-    const fired=ty.filter((v,i)=>tf[i]), med=fired.length
-      ? fired.slice().sort((a,b)=>a-b)[Math.floor(fired.length/2)] : 0;
+    // r[3] is the per-day AMBER THRESHOLD, computed server-side against this day-type's own median
+    // (see _pull_thr). Amber therefore means "poor for a day like this", not "poor for a Tuesday"
+    // applied to a Sunday -- which is what a single flat median was doing to every weekend.
+    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]), tf=T.map(r=>r[2]),
+          tt=T.map(r=>r[3] || 0);
+    const MED=ERA.pull_med || {};
     react('p-pull', [{
       type:'bar', x:tx, y:ty,
       marker:{color:ty.map((v,i) => !tf[i] ? ST.critical
-                       : (v===0 ? ST.critical : (v < med*0.5 ? ST.warning : p.s1))),
+                       : (v===0 ? ST.critical : (v < tt[i] ? ST.warning : p.s1))),
                line:{width:2,color:p.surface}},
-      customdata:tf.map(f => f ? 'cron fired' : 'CRON DID NOT FIRE — no pull file for this day'),
+      customdata:tx.map((d,i) => (tf[i] ? 'cron fired' : 'CRON DID NOT FIRE — no pull file for this day')
+                        + ' · amber below ' + tt[i]),
       hovertemplate:'%{x}<br>%{y} articles collected<br>%{customdata}<extra></extra>'}],
       base(p, {margin:{l:60,r:20,t:24,b:74},
-        shapes:[{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:med, y1:med,
-                  line:{color:p.text2, width:1.2, dash:'dot'}}].concat(
+        // one dotted line PER DAY-TYPE: a single line across both was a median of neither.
+        shapes:[['weekday', MED.weekday], ['weekend', MED.weekend]]
+          .filter(([, m]) => m > 0)
+          .map(([, m]) => ({type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:m, y1:m,
+                             line:{color:p.text2, width:1.2, dash:'dot'}})).concat(
           tx.map((d,i) => tf[i] ? null : ({type:'rect', xref:'x', x0:i-0.5, x1:i+0.5,
             yref:'y domain', y0:0, y1:1, fillcolor:ST.critical, opacity:0.13,
             line:{width:0}, layer:'below'})).filter(Boolean)),

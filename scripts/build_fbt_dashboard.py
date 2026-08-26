@@ -505,6 +505,29 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # rather than a dead one.
         _pull_days = set(meta.get("pull_days") or [])
         _pull_kept = meta.get("pull_kept") or {}
+        # AMBER MEANS "POOR FOR THIS KIND OF DAY". Two medians -- weekday and weekend -- taken over
+        # the pulls that actually FIRED (a missed cron is red and must not drag the bar it is judged
+        # against down). Weekend is Sat/Sun by ISO weekday; the corpus runs ~38/day then against
+        # ~120 on weekdays, so one flat median mislabels almost every weekend as under-collection.
+        def _is_we(d: str) -> bool:
+            return date.fromisoformat(d).isoweekday() >= 6
+
+        def _med(vals: list[int]) -> float:
+            v = sorted(vals)
+            return v[len(v) // 2] if v else 0.0
+
+        _pull_med = {
+            "weekday": _med([_pull_kept.get(d, 0) for d in _post_cal
+                             if d in _pull_days and not _is_we(d)]),
+            "weekend": _med([_pull_kept.get(d, 0) for d in _post_cal
+                             if d in _pull_days and _is_we(d)]),
+        }
+
+        def _pull_thr(d: str) -> float:
+            """Half the median for THIS day-type; falls back to the other if a type has no pulls."""
+            m = _pull_med["weekend" if _is_we(d) else "weekday"] or \
+                _pull_med["weekday" if _is_we(d) else "weekend"]
+            return round(0.5 * m, 1)
         _pull_missing = [d for d in _post_cal if d not in _pull_days]          # cron did not fire
         _pull_dead = [d for d in _post_cal if d in _pull_days and not _pull_kept.get(d)]
         _zero = [d for d in _post_cal if _by_day.get(d, 0) == 0]
@@ -525,7 +548,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "chars_pre": _q(_chars["pre"]), "chars_post": _q(_chars["post"]),
             # what the scout is handed, per era, AFTER lede.apply has filled snippet
             # trailing three weeks BY COLLECTION DATE: (day, articles kept, cron fired?)
-            "trailing": [(d, _pull_kept.get(d, 0), d in _pull_days) for d in _post_cal[-21:]],
+            # (day, articles kept, cron fired?, the threshold amber is judged against).
+            # PER DAY-TYPE, not one flat median. A weekend collects about a third of a weekday --
+            # measured on this corpus, ~38 vs ~120 -- so a single median taken across mixed days sits
+            # near the weekday level and half of it still lands ABOVE a normal Saturday. Every
+            # weekend then draws amber, six of them in a trailing three weeks, which trains the
+            # reader to ignore the colour that is supposed to mean "this pull under-collected".
+            "trailing": [(d, _pull_kept.get(d, 0), d in _pull_days, _pull_thr(d))
+                         for d in _post_cal[-21:]],
+            "pull_med": _pull_med,
         }
         # ---- SOURCE OVERLAP and BEAT FIRING across the seam --------------------------------------
         # NORMALISE THE HOSTNAME FIRST. The two gatherers disagree: 58% of websearch sources carry a
@@ -1053,7 +1084,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "p-provtime", 400),
         panel_rec("Daily pull health",
               "The operational card: is the morning cron actually firing? Each bar is one morning's "
-              "pull over the trailing three weeks, and the dotted line is the median. "
+              "pull over the trailing three weeks. <b>Red</b> is a cron that did not fire or "
+              "collected nothing; <b>amber</b> is a pull that ran but under-collected. "
+              f"There are TWO dotted medians because there are two kinds of day: weekday "
+              f"<b>{era['pull_med']['weekday']:.0f}</b> and weekend "
+              f"<b>{era['pull_med']['weekend']:.0f}</b> articles, and each bar is judged against "
+              "half of its OWN. A single median across both sits at the weekday level, so half of "
+              "it still lands above a normal Saturday and every weekend drew amber \u2014 six of "
+              "them in a trailing three weeks, which teaches the reader to ignore the one colour "
+              "that is supposed to mean something. "
               "<b>This is the one panel keyed to COLLECTION date</b> \u2014 every other panel here "
               "buckets by publication date, which is the wrong axis for this question: a morning the "
               "cron missed still fills its publication bucket from later pulls (Anthropic searches a "
@@ -1528,19 +1567,26 @@ function draw() {{
     // BY COLLECTION DATE (see the era block): each bar is one morning's pull. A morning the cron
     // never ran has no bar to colour -- zero height is invisible -- so it gets a full-height tinted
     // band instead, which is the only state on this panel that is an outright failure.
-    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]), tf=T.map(r=>r[2]);
-    const fired=ty.filter((v,i)=>tf[i]), med=fired.length
-      ? fired.slice().sort((a,b)=>a-b)[Math.floor(fired.length/2)] : 0;
+    // r[3] is the per-day AMBER THRESHOLD, computed server-side against this day-type's own median
+    // (see _pull_thr). Amber therefore means "poor for a day like this", not "poor for a Tuesday"
+    // applied to a Sunday -- which is what a single flat median was doing to every weekend.
+    const T=ERA.trailing, tx=T.map(r=>r[0]), ty=T.map(r=>r[1]), tf=T.map(r=>r[2]),
+          tt=T.map(r=>r[3] || 0);
+    const MED=ERA.pull_med || {{}};
     react('p-pull', [{{
       type:'bar', x:tx, y:ty,
       marker:{{color:ty.map((v,i) => !tf[i] ? ST.critical
-                       : (v===0 ? ST.critical : (v < med*0.5 ? ST.warning : p.s1))),
+                       : (v===0 ? ST.critical : (v < tt[i] ? ST.warning : p.s1))),
                line:{{width:2,color:p.surface}}}},
-      customdata:tf.map(f => f ? 'cron fired' : 'CRON DID NOT FIRE — no pull file for this day'),
+      customdata:tx.map((d,i) => (tf[i] ? 'cron fired' : 'CRON DID NOT FIRE — no pull file for this day')
+                        + ' · amber below ' + tt[i]),
       hovertemplate:'%{{x}}<br>%{{y}} articles collected<br>%{{customdata}}<extra></extra>'}}],
       base(p, {{margin:{{l:60,r:20,t:24,b:74}},
-        shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:med, y1:med,
-                  line:{{color:p.text2, width:1.2, dash:'dot'}}}}].concat(
+        // one dotted line PER DAY-TYPE: a single line across both was a median of neither.
+        shapes:[['weekday', MED.weekday], ['weekend', MED.weekend]]
+          .filter(([, m]) => m > 0)
+          .map(([, m]) => ({{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:m, y1:m,
+                             line:{{color:p.text2, width:1.2, dash:'dot'}}}})).concat(
           tx.map((d,i) => tf[i] ? null : ({{type:'rect', xref:'x', x0:i-0.5, x1:i+0.5,
             yref:'y domain', y0:0, y1:1, fillcolor:ST.critical, opacity:0.13,
             line:{{width:0}}, layer:'below'}})).filter(Boolean)),
