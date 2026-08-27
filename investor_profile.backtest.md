@@ -200,10 +200,21 @@ cull_fresh_scans: 2               # how new counts as new, in scans.
 drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
                                   #   Was 0 (never drop).
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.25            # most of the book any one ticker may take. Loosened from 0.25 with the
-                                  #   move to max_watchlist 4 -- at four names an equal book is 25% each, so a
-                                  #   0.25 cap would force exactly equal weights and give the optimizer nothing
-                                  #   to do.
+concentration_cap: 0.6             # most of the book any one ticker may take.
+                                  # 0.25 -> 0.6 on 2026-08-27, from SBT table 20. It is the single
+                                  # change that moves the live config into panel 19's green cluster
+                                  # on its own: worst-arm percentile 73.5 -> 81.9 across THREE
+                                  # independent curations (monthly / biweekly / weekly), and it
+                                  # appears in eleven of the twelve top regions. Chosen over the
+                                  # other one-knob move (risk_aversion 8 -> 16, worst-arm 81.7)
+                                  # because that one rides the timidity tilt panel 9 documents --
+                                  # Sharpe rewards a low-volatility book by construction, so part of
+                                  # its gain is the metric preferring a book that does less.
+                                  # A BOOK knob: rebuild only, no re-curation, fingerprint unchanged.
+                                  #   Prior note: loosened from 0.25 with the move to max_watchlist 4
+                                  #   -- at four names an equal book is 25% each, so a 0.25 cap would
+                                  #   force exactly equal weights and give the optimizer nothing to do.
+
 min_trade_size: 0.2              # positions smaller than this are DROPPED, not shrunk -- a concentration
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
