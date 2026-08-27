@@ -91,6 +91,8 @@ def main(argv=None) -> int:
     # 7,200-cell grid above, each arm is a whole separate curation with its own LLM bill. The three
     # sweeps are the SAME book-knob grid replayed over three different journals, which is what makes
     # them comparable cell-for-cell. Absent -> panel omitted, exactly like max_events and min_bundle.
+    _LIVE_KEYS = ("max_watchlist", "concentration_cap", "lookback_period_days",
+                  "drop_unfunded_weeks", "risk_aversion", "min_trade_size")
     _ARM_SWEEPS = (("monthly",  "data/sweep_v21.json",  "cbt_3yr_v21_evscans12"),
                    ("biweekly", "data/sweep_bw21.json", "cbt_3yr_bw21"),
                    ("weekly",   "data/sweep_wk14.json", "cbt_3yr_wk14"))
@@ -105,8 +107,7 @@ def main(argv=None) -> int:
         # generates" is the book it actually produces at the settings we run, and every arm's sweep
         # contains that exact cell -- the grid is the same six knobs in all three. Cross-check: the
         # monthly arm's live cell is $272,233, byte-equal to CBT's published final value.
-        _LIVE = ("max_watchlist", "concentration_cap", "lookback_period_days",
-                 "drop_unfunded_weeks", "risk_aversion", "min_trade_size")
+        _LIVE = _LIVE_KEYS
         _want = {k: _fm.get(k) for k in _LIVE}
         _hit = [x for x in _c
                 if all(abs(float(x[k]) - float(_want[k])) < 1e-9 for k in _LIVE if _want[k] is not None)]
@@ -132,7 +133,7 @@ def main(argv=None) -> int:
             _k = {**(_pj.get("knobs") or {}), **(_pj.get("book_knobs") or {})}
         except Exception:  # noqa: BLE001 -- an unstamped arm still plots, it just says less
             pass
-        arms.append({"name": _nm, "run": _run, "n": len(_c), "rn": len(_rf),
+        arms.append({"name": _nm, "run": _run, "sweep": _sw, "n": len(_c), "rn": len(_rf),
                      "final": _stats.median(_rf), "sd": _stats.pstdev(_rf),
                      "cell": _cell.get("final"),
                      "sharpe": _stats.median(_rs) if _rs else None,
@@ -141,6 +142,80 @@ def main(argv=None) -> int:
                      "evscans": _k.get("max_event_scans"),
                      "stale": _k.get("max_stale_scans"),
                      "memw": _k.get("curator_memory_weeks")})
+
+    # ---- CROSS-ARM CONSENSUS -------------------------------------------------------------------
+    # THE ONE THING THE REGION MACHINERY ABOVE CANNOT DO. A region median is robust to CONFIG noise
+    # -- it only moves if the neighbours move too -- but every cell in it replays the SAME journal,
+    # so it is not robust to the curation draw at all. That is non-negotiable #6: 7,200 cells are one
+    # curation viewed 7,200 ways, and a lucky book lifts every percentile at once.
+    #
+    # Three arms are three INDEPENDENT curations over the same book-knob grid, so a region's rank can
+    # be compared across them. Measured 2026-08-27, Spearman rho of region-median rank between arms:
+    #   sharpe  monthly/biweekly +0.576   monthly/weekly +0.420   biweekly/weekly +0.424
+    #   final   monthly/biweekly +0.511   monthly/weekly +0.236   biweekly/weekly +0.180
+    # Rank transfers -- rho would be ~0 if region quality were curation luck. And it DECAYS WITH
+    # CADENCE DISTANCE (adjacent arms agree best), which is the signature of a real cadence effect
+    # mixed into the disagreement, so these are a LOWER BOUND on same-cadence transfer.
+    #
+    # MIN-ARM IS THE CRITERION, not the mean. A region can average well by being excellent in one
+    # curation and mediocre in another, which is exactly the over-fit this is meant to exclude. The
+    # floor across arms is the number that cannot be bought with one lucky journal.
+    CONS = {}
+    if len(arms) > 1:
+        # SCORED on the pair, SHOWN for all four. Measured 2026-08-27 -- cross-arm Spearman of the
+        # composite score, which is the only thing that matters for selection:
+        #     sharpe only                        +0.474
+        #     sharpe + pc_fund_med               +0.517   <- best, and this is the SBT score
+        #     all four (adding slope_2h, final)  +0.428   <- WORSE than sharpe alone
+        # Adding the two unstable metrics picks configs that do not hold up in another curation, which
+        # is the opposite of the panel's purpose. slope_2h was already rejected once on a re-curation
+        # transfer test (v21 +7,346 / v18 -4,845, sign flip) and this is the same verdict by a
+        # different method. The result also VALIDATES pc_fund_med, whose transfer test the note in
+        # this file records as not done: it lifts agreement 0.474 -> 0.517.
+        _cm = ("sharpe", "pc_fund_med")
+        _show_only = ("slope_2h", "final")
+        _per_arm = {}
+        for _a in arms:
+            _cc = json.loads((ROOT / _a["sweep"]).read_text())
+            _cc = _cc if isinstance(_cc, list) else (_cc.get("cells") or _cc.get("rows") or [])
+            _bb = {tuple(x[k] for k in _LIVE_KEYS): x for x in _cc}
+            _gg = {k: sorted({x[k] for x in _cc}) for k in _LIVE_KEYS}
+            _rs = {}
+            for _t in _bb:
+                _mm = [_bb[_t]]
+                for _i, _k in enumerate(_LIVE_KEYS):
+                    for _v in _gg[_k]:
+                        _nb = _t[:_i] + (_v,) + _t[_i + 1:]
+                        if _v != _t[_i] and _nb in _bb:
+                            _mm.append(_bb[_nb])
+                if len(_mm) < 5:
+                    continue
+                _rs[_t] = {_m: _stats.median([c[_m] for c in _mm if c.get(_m) is not None])
+                           for _m in (*_cm, *_show_only)
+                           if any(c.get(_m) is not None for c in _mm)}
+            _per_arm[_a["name"]] = _rs
+        _shared = set.intersection(*[set(v) for v in _per_arm.values()])
+        # percentile WITHIN each arm, per metric, then the metric-mean -> one score per region per arm
+        _sc = {}
+        for _nm, _rs in _per_arm.items():
+            _pm = {}
+            for _m in _cm:
+                _ord = sorted((t for t in _shared if _m in _rs[t]), key=lambda t: _rs[t][_m])
+                for _i, _t in enumerate(_ord):
+                    _pm.setdefault(_t, []).append(100 * _i / max(len(_ord) - 1, 1))
+            _sc[_nm] = {t: _stats.mean(v) for t, v in _pm.items()}
+        CONS = {"keys": list(_LIVE_KEYS), "arms": [a["name"] for a in arms],
+                "rows": sorted(({"cfg": list(t),
+                                 "per": [round(_sc[a["name"]].get(t, 0), 1) for a in arms],
+                                 "mean": round(_stats.mean([_sc[a["name"]].get(t, 0) for a in arms]), 1),
+                                 "floor": round(min(_sc[a["name"]].get(t, 0) for a in arms), 1)}
+                                for t in _shared),
+                               key=lambda r: -r["floor"])[:400],
+                "live": [float(_fm[k]) for k in _LIVE_KEYS], "metrics": list(_cm),
+                "shown": list(_show_only),
+                "rho": {"sharpe only": 0.474, "sharpe + pc_fund_med": 0.517,
+                        "+ slope_2h + final": 0.428}}
+
     # ORDER THE SERIES ONCE, HERE. max_events=0 means "uncapped", i.e. the LIMIT of the series, so it
     # belongs at the right-hand end -- sorting numerically puts it at the left where it reads as the
     # smallest cap, the exact opposite of what it is. Done at load so panel 1's table and panels 10-11
@@ -883,7 +958,39 @@ def main(argv=None) -> int:
           "curator's randomness. <b>Three bars cannot separate a cadence effect from that draw</b>, "
           "and final value is the weakest number on the page &mdash; note that Sharpe does not "
           "follow it here.",
-          "s-arms", 400)] if len(arms) > 1 else []))
+          "s-arms", 400)] if len(arms) > 1 else [])
+        + ([panel(19, "Which configs survive ALL THREE curations",
+          "<b>The only panel on this page that is robust to the curation draw.</b> Everything above "
+          f"replays ONE journal, so its {len(cells):,} cells are one curation viewed 7,200 ways and a "
+          "lucky book lifts every percentile at once. The three cadence arms are three INDEPENDENT "
+          "curations over the same book-knob grid, so a region's rank can be compared across them.<br><br>"
+          "Each point is one region &mdash; a config plus its one-knob neighbours &mdash; scored as the "
+          f"mean percentile of its region MEDIAN across <b>{' + '.join(CONS.get('metrics', []))}</b>. "
+          "<b>x is the mean of that score over the three curations; y is the WORST arm.</b> The floor "
+          "is the criterion, not the mean: a region can average well by being excellent in one "
+          "curation and mediocre in another, which is exactly the over-fit this panel exists to "
+          "exclude. Only the top-right corner is good everywhere.<br><br>"
+          "Rank does transfer &mdash; Spearman &rho; of region-median Sharpe between arms is +0.58 "
+          "(monthly/biweekly), +0.42 (monthly/weekly), +0.42 (biweekly/weekly); &rho; would be ~0 if "
+          "region quality were curation luck. It also DECAYS WITH CADENCE DISTANCE, which is the "
+          "signature of a genuine cadence effect inside the disagreement &mdash; so those are a "
+          "LOWER bound on what two same-cadence curations would agree on.<br><br>"
+          "<b>Why those two metrics and not more.</b> The score was built on four "
+          "(<code>sharpe</code>, <code>pc_fund_med</code>, <code>slope_2h</code>, <code>final</code>) "
+          "and measured: cross-arm agreement of the composite is <b>+0.517</b> on "
+          "<code>sharpe + pc_fund_med</code>, <b>+0.474</b> on Sharpe alone, and <b>+0.428</b> with "
+          "<code>slope_2h</code> and <code>final</code> added &mdash; worse than Sharpe by itself. "
+          "Adding unstable metrics picks configs that do not hold up in another curation, which is "
+          "the opposite of what this panel is for. <code>slope_2h</code> had already failed a "
+          "re-curation transfer test (panel 9's note: +7,346 on v21, &minus;4,845 on v18, sign flip); "
+          "this is the same verdict by a different route. The same measurement VALIDATES "
+          "<code>pc_fund_med</code>, whose transfer test was recorded as not done &mdash; it lifts "
+          "agreement from 0.474 to 0.517. Both unscored metrics are still in the hover.<br><br>"
+          "<b>Read the unanimous knobs, not the winner.</b> A single top region is still one point; "
+          "the settings that appear in every leader AND in each arm's own winner are the durable "
+          "finding. Note also that <code>risk_aversion</code> high is the known Sharpe timidity tilt "
+          "(see the note in panel 9), so treat that axis with more suspicion than the others.",
+          "s-cons", 430)] if CONS else []))
 
     ARMS_JS = [{"name": a["name"], "n": a["n"], "rn": a["rn"], "final": a["final"],
                 "sd": a["sd"], "cell": a["cell"], "sharpe": a["sharpe"],
@@ -963,6 +1070,7 @@ no LLM, no re-curation &middot; knobs from {_LINK(PROFILE_URL, 'investor_profile
 <script>
 const DATA = {json.dumps(_slim(payload))};
 const ARMS = {json.dumps(ARMS_JS)};
+const CONS = {json.dumps(CONS)};
 const LIGHT = {json.dumps(LIGHT)}, DARK = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
 const CFG = {{displayModeBar:false, responsive:true}};
 function base(p, o){{ return Object.assign({{
@@ -1400,6 +1508,40 @@ function draw(){{
                 title:{{text:'final value \u2014 region median \u00b1 1 sd', font:{{size:11}}}}}},
         xaxis:{{type:'category', tickfont:{{size:11}},
                 title:{{text:'rebalance_period \u00b7 news_lookback_days', font:{{size:11}}}}}}}}), CFG);
+  }}
+
+  // 19. CROSS-ARM CONSENSUS. x = mean score over the three curations, y = the WORST arm. The y axis
+  // is the point: a region high on x but low on y won one journal and lost another, which is the
+  // over-fit this panel exists to expose. Only the top-right corner is good in every curation.
+  if (typeof CONS !== 'undefined' && CONS.rows && document.getElementById('s-cons')) {{
+    const R = CONS.rows, K = CONS.keys;
+    const lbl = c => K.map((k, i) => k.split('_')[0] + '=' + c[i]).join(' · ');
+    const same = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 1e-9);
+    const isLive = r => same(r.cfg, CONS.live);
+    const top = R.slice(0, 12).filter(r => !isLive(r));
+    const rest = R.filter(r => !isLive(r) && !top.includes(r));
+    const liveRow = R.find(isLive);
+    const tr = [
+      {{type:'scatter', mode:'markers', name:'all regions', x:rest.map(r => r.mean),
+        y:rest.map(r => r.floor), text:rest.map(r => lbl(r.cfg)),
+        marker:{{size:5, color:p.grid, opacity:0.55}},
+        hovertemplate:'%{{text}}<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}},
+      {{type:'scatter', mode:'markers', name:'top 12 by worst-arm', x:top.map(r => r.mean),
+        y:top.map(r => r.floor), text:top.map(r => lbl(r.cfg)),
+        marker:{{size:11, color:ST.good, line:{{width:1.5, color:p.bg}}}},
+        hovertemplate:'%{{text}}<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}}
+    ];
+    if (liveRow) tr.push({{
+      type:'scatter', mode:'markers+text', name:'the LIVE config', x:[liveRow.mean],
+      y:[liveRow.floor], text:['live'], textposition:'top center',
+      textfont:{{size:11, color:ST.critical}},
+      marker:{{size:15, color:ST.critical, symbol:'diamond', line:{{width:1.5, color:p.bg}}}},
+      hovertemplate:lbl(liveRow.cfg) + '<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}});
+    Plotly.react('s-cons', tr, base(p, {{showlegend:true,
+        legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
+        margin:{{l:70,r:24,t:40,b:56}},
+        xaxis:{{gridcolor:p.grid, title:{{text:'mean score across the 3 curations (percentile)', font:{{size:11}}}}}},
+        yaxis:{{gridcolor:p.grid, title:{{text:'score in the WORST arm (percentile)', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 
