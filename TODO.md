@@ -3,6 +3,32 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## RENAME `curator_memory_weeks` -> `curator_memory_scans` (2026-08-26, deferred)
+
+**The name is wrong and the comment is right.** `agent.process_week` tests
+`(week_idx - retired_idx) < curator_memory_weeks`, where `week_idx` is the enumerate index over SCAN
+ANCHORS. So the unit is a scan, not a week, and its elapsed meaning follows `rebalance_period`:
+8 is an 8-MONTH ban at monthly and an 8-WEEK ban at weekly. The backtest profile already spelled the
+consequence out ("Scans are ~monthly, so 8 is an ~8-MONTH ban"); the NAME contradicted it, and
+`optimizer.py`'s default said "weeks" outright. All three are now annotated, not renamed.
+
+**Why not renamed now:** the key is a member of `provenance.CURATION_KNOBS`, so the fingerprint is a
+hash over its NAME as well as its value. Renaming rehashes every curation on disk -- including
+CANON_RUN -- and would have to be done when no experiment is mid-flight. Three cadence arms were
+curated under this name on 2026-08-26.
+
+**How to do it, when the time comes** -- the repo already has the pattern, in `firehose.watchlist_cap`:
+`max_watchlist` is the current name and `max_agents` "the deprecated alias still written by the sweeps,
+the gem dashboards and the frozen forward profile", resolved in one place. Same shape here:
+`load_financial_model` accepts either key and normalises to one; CURATION_KNOBS carries the new name;
+every existing stamp is re-hashed in the same commit, or the old hashes are recorded as superseded.
+
+**Why it matters beyond tidiness:** the misnaming is load-bearing for cadence work. Anyone porting
+knobs across cadences reads "weeks" as an absolute unit and concludes it should NOT scale with
+rebalance_period -- the exact opposite of the truth. It scaled x2/x4 on the 2026-08-26 arms precisely
+because it counts scans; a reader trusting the name would have left it at 8 and confounded the
+comparison.
+
 ## AUTOMATE THE BOOTSTRAP CURATION — deferred until focus returns to the bootstrap (2026-08-26)
 
 **Decided deliberately, not forgotten.** Cron currently pulls news daily and rebuilds FBS + CBS

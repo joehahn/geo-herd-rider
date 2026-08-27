@@ -215,7 +215,9 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   resolved in 26 scans (~1yr biweekly) is a THEME by the design's own
                                        #   definition. max_stale_scans only fires on SILENCE, which a well-covered
                                        #   theme never triggers. The scout may re-propose on fresh evidence. 0 = OFF.
-    "curator_memory_weeks": 8,         # LIVE (scan): weeks of RESOLVED catalysts the scout is reminded of
+    # MISNAMED: counts SCANS, not weeks -- so its elapsed meaning follows rebalance_period (8 =
+    # 8 months at monthly, 8 weeks at weekly). Renaming rehashes every curation; see TODO.md.
+    "curator_memory_weeks": 8,         # LIVE (scan): SCANS of RESOLVED catalysts the scout is reminded of
                                        #   (so it won't re-chase a done thesis): 0 = off, <0 = whole history, >0 = last N.
 }
 

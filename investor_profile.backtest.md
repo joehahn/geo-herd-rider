@@ -158,6 +158,11 @@ max_event_scans: 12               # retires an EVENT at this age, in scans. CURA
                                  # TODO.md 2026-08-22 (c). NEVER set negative: the test is
                                  # `len(entries) >= max_event_scans`, so -1 retires every event at
                                  # its FIRST scan. 0 disables the timer entirely.
+# NAME IS WRONG, KEPT DELIBERATELY: this counts SCANS, not weeks. agent.process_week tests
+# `(week_idx - retired_idx) < curator_memory_weeks` where week_idx is the enumerate index over
+# scan anchors, so the unit is whatever the cadence is -- 8 means 8 MONTHS at monthly and 8
+# WEEKS at weekly. It is renamed only when a fingerprint break is acceptable: the key is a
+# member of provenance.CURATION_KNOBS, so changing it rehashes every curation. See TODO.md.
 curator_memory_weeks: 8          # SCANS a RETIRED ticker stays on the scout's do-not-re-propose
                                  # list. 0 = off, <0 = whole history. Scans are ~monthly, so 8 is an
                                  # ~8-MONTH ban. Was inherited silently from optimizer defaults until

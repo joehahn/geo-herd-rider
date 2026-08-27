@@ -137,6 +137,11 @@ risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
 #   read by forward_gather.py and gkg.py. See that file's _domain_steering_note.
 # ---------- forward-only retrieval/operational knobs ----------
 cull_rank: trend                  # trend = trailing risk-adjusted return + freshness reserve; keep-first = legacy alphabetical
+# NAME IS WRONG, KEPT DELIBERATELY: this counts SCANS, not weeks. agent.process_week tests
+# `(week_idx - retired_idx) < curator_memory_weeks` where week_idx is the enumerate index over
+# scan anchors, so the unit is whatever the cadence is -- 8 means 8 MONTHS at monthly and 8
+# WEEKS at weekly. It is renamed only when a fingerprint break is acceptable: the key is a
+# member of provenance.CURATION_KNOBS, so changing it rehashes every curation. See TODO.md.
 curator_memory_weeks: 8           # SCANS of resolved catalysts the scout is reminded of; 0 = off.
 event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning knob measured as a NULL. (forward_engine  # SYNCED to .backtest 2026-08-24
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
