@@ -86,6 +86,34 @@ def main(argv=None) -> int:
     mb = json.loads(_mb.read_text()) if _mb.exists() else None
     _me = ROOT / "data/sweep_max_events.json"
     me = json.loads(_me.read_text()) if _me.exists() else None
+    # CADENCE ARMS. rebalance_period is a CURATION knob -- it sets the scan anchors -- so unlike the
+    # 7,200-cell grid above, each arm is a whole separate curation with its own LLM bill. The three
+    # sweeps are the SAME book-knob grid replayed over three different journals, which is what makes
+    # them comparable cell-for-cell. Absent -> panel omitted, exactly like max_events and min_bundle.
+    _ARM_SWEEPS = (("monthly",  "data/sweep_v21.json",  "cbt_3yr_v21_evscans12"),
+                   ("biweekly", "data/sweep_bw21.json", "cbt_3yr_bw21"),
+                   ("weekly",   "data/sweep_wk14.json", "cbt_3yr_wk14"))
+    arms = []
+    for _nm, _sw, _run in _ARM_SWEEPS:
+        _f = ROOT / _sw
+        if not _f.exists():
+            continue
+        _c = json.loads(_f.read_text())
+        _c = _c if isinstance(_c, list) else (_c.get("cells") or _c.get("rows") or [])
+        _fin = sorted(x["final"] for x in _c if x.get("final") is not None)
+        if not _fin:
+            continue
+        _k = {}
+        try:
+            _pj = json.loads((ROOT / "data" / _run.split("/")[-1] / "provenance.json").read_text())
+            _k = {**(_pj.get("knobs") or {}), **(_pj.get("book_knobs") or {})}
+        except Exception:  # noqa: BLE001 -- an unstamped arm still plots, it just says less
+            pass
+        arms.append({"name": _nm, "run": _run, "n": len(_fin), "final": _fin,
+                     "lookback": _k.get("news_lookback_days"),
+                     "evscans": _k.get("max_event_scans"),
+                     "stale": _k.get("max_stale_scans"),
+                     "memw": _k.get("curator_memory_weeks")})
     # ORDER THE SERIES ONCE, HERE. max_events=0 means "uncapped", i.e. the LIMIT of the series, so it
     # belongs at the right-hand end -- sorting numerically puts it at the left where it reads as the
     # smallest cap, the exact opposite of what it is. Done at load so panel 1's table and panels 10-11
@@ -806,7 +834,25 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
-    ] if bo else []))
+    ] if bo else []) + ([panel(18, "Portfolio value vs rebalance cadence",
+          "<b>A placeholder, and a reminder that <code>rebalance_period</code> is now swept.</b> One box "
+          f"per cadence arm over that arm's {len(arms[0]['final']) if arms else 0:,}-cell grid: the box is "
+          "the interquartile range, the line the median, the whiskers the 5th-95th percentile. "
+          "Everything else on this page replays ONE curation; these are THREE, because "
+          "<code>rebalance_period</code> sets the scan anchors and so cannot be swept for free "
+          "&mdash; each arm is its own curation with its own LLM bill.<br><br>"
+          "<b>Do not read a winner off this plot.</b> The spread within one arm is book math over a "
+          "fixed journal; the difference BETWEEN arms is one curation against one curation, and this "
+          "project has measured identical settings producing $117,200 and $62,997. Final value is also "
+          "the weakest measure on the page &mdash; one lucky name moves it, which is why panel 9 ranks "
+          "on Sharpe and not on this. The arms are matched on everything except cadence and the "
+          "scan-counted knobs scaled with it, so the honest comparisons are cell-paired differences "
+          "and per-arm PBO, not these boxes.",
+          "s-arms", 400)] if len(arms) > 1 else []))
+
+    ARMS_JS = [{"name": a["name"], "n": a["n"], "final": a["final"],
+                "lookback": a["lookback"], "evscans": a["evscans"],
+                "stale": a["stale"], "memw": a["memw"]} for a in arms]
 
     def _slim(pl):
         """Drop the analysis-only arrays before the payload is inlined into the HTML.
@@ -880,6 +926,7 @@ no LLM, no re-curation &middot; knobs from {_LINK(PROFILE_URL, 'investor_profile
 </div>
 <script>
 const DATA = {json.dumps(_slim(payload))};
+const ARMS = {json.dumps(ARMS_JS)};
 const LIGHT = {json.dumps(LIGHT)}, DARK = {json.dumps(DARK)}, ST = {json.dumps(STATUS)};
 const CFG = {{displayModeBar:false, responsive:true}};
 function base(p, o){{ return Object.assign({{
@@ -1283,9 +1330,28 @@ function draw(){{
                title:{{text:'process test pass rate (Fable-5 corrected)', font:{{size:11}}}}}}}}), CFG);
 
   }}
+
+  // 18. CADENCE ARMS -- one box per curation. A BOX, not a bar: each arm is a DISTRIBUTION over the
+  // same 7,200-cell book grid, and drawing a single number would hide that the within-arm spread is
+  // wider than anything between arms. Boxes are ordered monthly -> weekly so the x axis reads as
+  // increasing scan frequency rather than alphabetically.
+  if (typeof ARMS !== 'undefined' && ARMS.length > 1 && document.getElementById('s-arms')) {{
+    const COL = [p.s1, p.s2, p.s4];
+    Plotly.react('s-arms', ARMS.map((a, i) => ({{
+      type:'box', name:a.name, y:a.final, boxpoints:false, whiskerwidth:0.6,
+      marker:{{color:COL[i % COL.length]}}, line:{{width:1.5}}, fillcolor:COL[i % COL.length],
+      opacity:0.55,
+      hovertemplate:'<b>'+a.name+'</b><br>%{{y:$,.0f}}<extra></extra>'}})),
+      base(p, {{showlegend:false, margin:{{l:76,r:24,t:16,b:64}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}},
+        xaxis:{{gridcolor:p.grid,
+                ticktext:ARMS.map(a => a.name + '<br><span style="font-size:9px">' + a.n.toLocaleString()
+                         + ' cells · lookback ' + (a.lookback === 0 ? '30' : a.lookback) + 'd</span>'),
+                tickvals:ARMS.map(a => a.name)}}}}), CFG);
+  }}
 }}
 
-draw();
+  draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""
     out = ROOT / a.out
