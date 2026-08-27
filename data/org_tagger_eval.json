@@ -1,0 +1,19 @@
+{
+ "model": "deepseek/deepseek-v4-flash",
+ "n": 150,
+ "scoreable": 122,
+ "precision": 0.4526,
+ "recall": 0.2606,
+ "exact": 29,
+ "gkg_blank": 28,
+ "llm_named_on_blank": 10,
+ "max_chars": 800,
+ "seed": 11,
+ "judge": "claude-sonnet-4-6",
+ "adjudicated": {
+  "tagger": 68,
+  "gkg": 15,
+  "neither": 15,
+  "both": 5
+ }
+}
