@@ -119,7 +119,20 @@ on 2026-08-26 and **none has run unattended yet**. Changing more before a clean 
 impossible, which is non-negotiable #6 applied to ourselves. Read tomorrow's funnel line and
 `data/forward/undateable.jsonl` first.
 
-1. **`evscore` is dead code, and it is half the design.** `evscore.rank` is called only inside
+1. ~~**`evscore` is dead code, and it is half the design.**~~ **CLOSED 2026-08-27 -- overstated, and
+   the evidence says leave it.** It is dormant because `max_events: 0`, and that setting is
+   well-supported: the max_events sweep already exists (six separate curations, `data/sweep_max_events.json`)
+   and shows no trend, a 12x range in final value, with the apparent winner `me=16` at $588,538 being
+   the exact cell CLAUDE.md names as a lucky book ("one cell swung $588,538 -> $75,132"). The MECHANISM
+   column is the real result: capping at 4 kills **91.3% of events AT BIRTH** -- opened and retired
+   without one agent read, work paid for and thrown away -- against 2.1% uncapped. That argues against
+   capping regardless of the P&L scatter, so `evscore` having no job is the correct outcome, not a bug.
+   It becomes live again ONLY if the catalyst gate (item 3) is switched on: intake widens ~1.6x, a
+   concurrency cap may then matter, and evscore's velocity/breadth ranking is the right way to choose
+   what survives. Tied to that decision, not independent of it.
+
+   ORIGINAL NOTE, kept because the mechanism claim in it still stands:
+   **`evscore` is not reachable at the current config.** `evscore.rank` is called only inside
    `if max_events:` in `agent.curate`, and `max_events: 0` in both profiles — so the velocity/breadth
    ranker has never executed at the current config. That ranker IS the project's measured definition
    of under-owned ("a name the press has started naming while it is still under-owned", velocity 4.0)
