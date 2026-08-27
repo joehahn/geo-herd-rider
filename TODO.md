@@ -29,6 +29,40 @@ rebalance_period -- the exact opposite of the truth. It scaled x2/x4 on the 2026
 because it counts scans; a reader trusting the name would have left it at 8 and confounded the
 comparison.
 
+## TESTED AND REJECTED 2026-08-27 — recovering dates for the "undateable" SEC filings
+
+**Do not build this.** The reasoning was sound at every step and the measurement killed it at the end.
+
+The daily pull drops articles it cannot date (fail-closed: never show the scout an article whose
+publication date is unconfirmable). Logging added 2026-08-26 showed ~80/day dropped, and answered a
+question I had previously answered WRONGLY from the code path — I assumed they were failed fetches
+with no content to infer a date from. They are not: **~51% had readable text**, consistently across
+two independent days (34/65 and 41/80). And `sec.gov` was the largest single source, 33 of 145, with
+titles like `Form 8-K`, `Form 4`, `Form 497K`. An 8-K is a company announcing a material event, which
+is precisely the catalyst class the curator wants, and every EDGAR filing carries its filing date in a
+fixed, parseable place. The case for recovering them looked strong.
+
+**It fails on the last check.** `https://www.sec.gov/Archives/edgar/data/{cik}/{accession}/index.json`
+returns the filing timestamp reliably. Resolved for 10 distinct filings from the drop log:
+
+    2022-02 (1)  2022-10 (1)  2024-11 (1)  2025-08 (1)  2025-11 (2)  2026-01 (1)  2026-03 (3)
+    IN the 7-day pull window: 0 of 10
+
+Every one is an OLD document, some four years old. The search surfaces them as topically relevant, not
+as news. Recovering their dates would reclassify them from "dropped: undateable" to "dropped:
+out-of-window" and change the corpus by ZERO articles. The fail-closed drop is already reaching the
+right answer.
+
+**What the exercise DID establish, and this part stands:** ~23% of Anthropic's returned results are
+stale documents with no usable date, on top of the ~68% already dropped as out-of-window by URL date.
+That is a retrieval-quality fact about the engine -- asked about current catalysts it returns old
+filings -- and it strengthens the audit's finding that Anthropic's raw yield needs heavy filtering,
+rather than the reverse reading that our filters are too aggressive.
+
+If anyone revisits: the remaining ~half of the drops are non-SEC pages that were READ successfully but
+carry no machine-readable date. Inferring a date from prose is what fail-closed exists to prevent, so
+that half is not obviously recoverable either. Measure the in-window rate BEFORE building anything.
+
 ## AUTOMATE THE BOOTSTRAP CURATION — deferred until focus returns to the bootstrap (2026-08-26)
 
 **Decided deliberately, not forgotten.** Cron currently pulls news daily and rebuilds FBS + CBS
