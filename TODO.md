@@ -1391,3 +1391,49 @@ size of the bundle that FIRST proposed it gives exactly one assignment per ticke
 double-counting, and asks the better question: what size of bundle DISCOVERS the winners?
 
 `bundle_buckets["gain"]` is still computed (cheap) so the panel can be restored without re-plumbing.
+
+---
+
+## Forward-side: GKG `orgs` collapse disables company bundling in production (found 2026-08-27)
+
+Investigating why CBS panel 4 ramps post-handoff. The ramp itself is benign (see below), but the
+measurement surfaced a separate, real gap.
+
+`orgs.article_orgs()` resolves a company-bundle key for **82.4% of pre-handoff (GKG) articles and
+9.0% of post-handoff (websearch) articles** (measured over the bootstrap corpus, 11,923 pre /
+2,585 post). GKG stamps `orgs` from V2Organizations; the websearch gather stamps none, and
+`article_contract` correctly refuses to guess.
+
+Consequence: `agent._scout_batches` seeds company bundles from `article_orgs`, so post-handoff
+**91% of articles fall to the beat/orphan path**. Company bundling -- built so the scout sees a
+ticker's ENTIRE news window in one block, "never drop a ticker's news" -- is effectively OFF in the
+configuration the forward test actually runs. The beat path is a real fallback and articles are not
+lost, but they arrive as date-sliced TOPICAL groups rather than per-company context.
+
+This is the repo's recurring failure mode (a designed capability silently inert), so it is worth a
+decision rather than drift. Options, cheapest first:
+  - Accept it: the beat path already covers the orphans additively, and post-handoff cull-at-birth
+    is LOWER (37% vs 54%), so there is no evidence of harm yet.
+  - Attach orgs to websearch articles from the existing company vocabulary (`orgs.build_canon`)
+    rather than from a source field. `article_contract.normalise(attach_orgs=True, canon=...)`
+    already has the hook; the question is precision.
+  - Measure first: what fraction of post-handoff articles WOULD get a key from canon matching, and
+    does bundling them change which events open?
+Do NOT treat this as a P&L question (non-negotiable #6) -- judge on coverage and bundle composition.
+
+### Why panel 4 ramps post-handoff -- ANSWERED, no action needed
+NOT more news: 86.2 articles/day post vs 97.7 pre; the post-handoff scan read 2,637 articles, the
+FEWEST of the five. NOT ticker-denser: bodies name a ticker symbol 14.8% post vs 21.3% pre.
+It is TEXT PER ARTICLE -> the gate. Median body text 157 -> 300 chars (GKG ledes are mostly short,
+18% reach lede.apply's 280 ceiling; websearch snippets are 80.4% EXACTLY 300, the ingest ceiling).
+Gate pass rate 5.2/7.4/5.2/6.3% -> 9.1%, i.e. 240 gated on fewer articles read. More seeds ->
+more bundles -> 19 events opened vs 4-8.
+The extra events are neither double-counted nor junk: events-per-ticker 0.21 sits inside the
+pre-handoff range (0.15-0.46), ticker reuse across events FELL (11% -> 2%), one post-handoff scan
+named 92 distinct tickers against 98 across all four pre-handoff scans, and cull-at-birth is 37%
+post vs 54% pre.
+CAVEAT: bootstrap_corpus.py already documents an unexplained provenance jump on 2026-07-27, so this
+before/after is confounded by construction and must NOT be read as a retrieval improvement.
+CAVEAT 2: the [:300] ingest truncation was fixed ~2026-08-24; days 08-25/08-26 arrive at median
+893/968 chars. The 19-event scan read mostly truncated days, so this is a PARTIAL view and yield
+will likely rise again.
