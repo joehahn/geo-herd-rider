@@ -563,6 +563,7 @@ OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->
 
 
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
+             freeze_panel=None,
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
              overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None,
              seed_holdings: dict | None = None) -> dict:
@@ -613,6 +614,24 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     end = (anchors[-1] + pd.Timedelta(days=21)).strftime("%Y-%m-%d")
     if panel is None:
         panel = score.fetch_panel(sorted(tickers), start, end, use_cache=False)
+        # FREEZE IT ON FIRST USE. A book priced from a LIVE fetch is not reproducible: the same
+        # curation, code and corpus rendered $272,336 on 2026-08-19 and $112,435 on 2026-08-21 purely
+        # from adjusted-close drift, and sweep_optimizer hit the same thing (919 of 6,300 cells
+        # disagreed, one by 36x). sweep_optimizer already freezes one panel per run; the dashboards
+        # only ever READ that file, so a run that was never swept -- every bootstrap curation -- kept
+        # refetching. That is also why 2026-08-27's cron logged 68 spurious "possibly delisted"
+        # warnings for RTX, HAL, KMI and TM: a transient yfinance outage reaching a build that had no
+        # frozen prices to fall back on.
+        # Re-fetching stays an explicit choice: delete data/<run>/panel.csv.
+        if freeze_panel is not None:
+            try:
+                _fp = Path(freeze_panel)
+                if not _fp.exists():
+                    _fp.parent.mkdir(parents=True, exist_ok=True)
+                    panel.to_csv(_fp)
+                    print(f"  panel: froze {panel.shape[1]} tickers -> {_fp}", flush=True)
+            except Exception as _e:  # noqa: BLE001 -- freezing is an optimisation, never a blocker
+                print(f"  panel freeze skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
     days = panel[score.BENCHMARK].dropna().index
 
     # ticker validation: drop names with no price data (hallucinated/delisted, e.g. the GDELT BBRD)

@@ -567,7 +567,7 @@ def main(argv=None) -> int:
                 print(f"  CBS weight seed unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
                 _seed_w = None
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
-                           seed_holdings=_seed_w)
+                           seed_holdings=_seed_w, freeze_panel=_pf)
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
