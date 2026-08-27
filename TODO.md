@@ -1421,6 +1421,44 @@ decision rather than drift. Options, cheapest first:
     does bundling them change which events open?
 Do NOT treat this as a P&L question (non-negotiable #6) -- judge on coverage and bundle composition.
 
+### MEASURED 2026-08-27: a cheap LLM tagger beats GKG's own extraction, ~2.8 to 1
+`scripts/validate_org_tagger.py`. Total spend $0.24. Two samples of 150 pre-handoff articles,
+tagger = deepseek-v4-flash ($0.078/M), every GKG/tagger disagreement judged BLIND by
+claude-sonnet-4-6 (article + two unlabelled candidate lists in randomised order).
+
+    stratum `all`  (uniform over the corpus)      tagger 80.0% right-or-tied, GKG 44.7%
+    stratum `top`  (bundles of 2+, reaches scout) tagger 82.0% right-or-tied, GKG 29.3%
+      -> of 117 disagreements on `top`: tagger 73.5%, GKG 6.0%, both 3.4%, neither 17.1%
+
+THE RAW AGREEMENT NUMBERS ARE MEANINGLESS AND MUST NOT BE QUOTED: precision 0.538 /
+recall 0.283 / exact-match 22% on `top`. That is not the tagger failing, it is GKG being wrong
+-- GKG labels a Rocket Lab article `spacex`, an Alphabet article `spacex`, an ARMOUR Residential
+REIT filing `company common stock`, a Moderna FDA story `products advisory committee`, and a
+gold-price story `federation of nepal gold`. GKG is a NOISY LABEL, not ground truth. This is why
+the adjudication phase exists and why any future eval here must keep it.
+
+Three harness bugs found and fixed while measuring, all of the same family (a missing thing
+scoring as a real answer):
+  - llm.py's Anthropic path IGNORES json_schema, so the first judge pass died on every batch and
+    reported 0 adjudications rather than an error. json_from() now extracts JSON from prose.
+  - A dead tagger batch fell through as an EMPTY answer rather than a missing one. Two failures
+    out of six put ~50 articles in the wrong column and cost the tagger ~17 points (a run read
+    64.7% where the clean re-run reads 82.0%). Batches now split-and-retry 3x and anything still
+    unanswered is EXCLUDED from scoring and reported.
+  - The tagger prompt said "PUBLICLY TRADED companies", so it correctly returned nothing on three
+    SpaceX articles and scored as a miss. A bundle key does not care about listing status.
+
+CAVEAT, unresolved: the judge is an LLM scoring an LLM against a rule-based extractor and may
+simply prefer clean company names to GKG's noisy strings. Blind randomised order controls for
+incumbency, not for that. Before adopting, re-judge a slice with a different judge family and
+check the margin holds.
+
+NOT YET A DECISION. An org tagger is a CURATION knob -- it changes what the scout reads, so
+adopting it means a full re-curation, and it needs a profile knob (ASK FIRST, standing rule).
+The open design questions: it must be allowed to return nothing (the beat/orphan path stays, or
+policy articles get forced into a bogus company bundle); union it with the explicit-ticker regex
+(23% of post-handoff articles, near-perfect precision, free) rather than replacing it.
+
 ### Why panel 4 ramps post-handoff -- ANSWERED, no action needed
 NOT more news: 86.2 articles/day post vs 97.7 pre; the post-handoff scan read 2,637 articles, the
 FEWEST of the five. NOT ticker-denser: bodies name a ticker symbol 14.8% post vs 21.3% pre.

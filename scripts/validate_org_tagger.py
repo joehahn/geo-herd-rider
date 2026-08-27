@@ -143,26 +143,52 @@ def main():
         chunk = samp[s:s + a.batch]
         user = ("\n\n".join(_blocks(chunk, a.max_chars)) +
                 f"\n\nReturn one entry per article, i = 0..{len(chunk)-1}.")
-        try:
-            r = cli.complete(SYSTEM, user, use_web_search=False, label="org-tagger-eval",
-                             stage="scout", json_schema=SCHEMA, effort="low")
-            for it in (json_from(r).get("items") or []):
-                i = int(it.get("i", -1))
-                if 0 <= i < len(chunk):
-                    got[s + i] = keys_for(it.get("companies"), canon)
-        except Exception as e:  # noqa: BLE001 -- a dead batch scores as "no answer", never crashes
-            print(f"  batch {s//a.batch}: {type(e).__name__}: {str(e)[:120]}", file=sys.stderr)
+        # A DEAD BATCH IS A MISSING ANSWER, NOT AN EMPTY ONE. It used to fall through and leave
+        # every article in the batch with no entry, which scored identically to the tagger saying
+        # "no company" -- so 2 failed batches out of 6 put ~50 articles into the wrong column and
+        # made a run look 15 points worse than it was. Now: retry the batch in smaller pieces, and
+        # whatever still has no answer is EXCLUDED from scoring and reported as coverage.
+        for _sub, _lo in [(chunk, 0)] if True else []:
+            pass
+        _todo = [(0, chunk)]
+        for _attempt in range(3):
+            _next = []
+            for _off, _ch in _todo:
+                _u = ("\n\n".join(_blocks(_ch, a.max_chars)) +
+                      f"\n\nReturn one entry per article, i = 0..{len(_ch)-1}.")
+                try:
+                    r = cli.complete(SYSTEM, _u, use_web_search=False, label="org-tagger-eval",
+                                     stage="scout", json_schema=SCHEMA, effort="low")
+                    for it in (json_from(r).get("items") or []):
+                        i = int(it.get("i", -1))
+                        if 0 <= i < len(_ch):
+                            got[s + _off + i] = keys_for(it.get("companies"), canon)
+                except Exception as e:  # noqa: BLE001
+                    print(f"  batch {s//a.batch}+{_off} attempt {_attempt}: "
+                          f"{type(e).__name__}: {str(e)[:90]}", file=sys.stderr)
+                    if len(_ch) > 1:                     # split and retry: smaller asks parse better
+                        _h = len(_ch) // 2
+                        _next += [(_off, _ch[:_h]), (_off + _h, _ch[_h:])]
+            if not _next:
+                break
+            _todo = _next
         print(f"  {min(s+a.batch, len(samp))}/{len(samp)}  {time.time()-t0:.0f}s", flush=True)
 
     detail = [{"title": x.get("title"), "body": _l.scout_text(x)[:a.max_chars],
-               "gkg": sorted(T), "llm": sorted(got.get(i, []))}
+               "gkg": sorted(T), "llm": sorted(got.get(i, [])), "answered": i in got}
               for i, (x, T) in enumerate(zip(samp, truth))]
+    _miss = [i for i, d in enumerate(detail) if not d["answered"]]
+    if _miss:
+        print(f"\n  !! {len(_miss)} of {len(detail)} articles got NO tagger answer after retries — "
+              f"EXCLUDED from scoring, not counted as an empty answer", flush=True)
+    detail = [d for d in detail if d["answered"]]
     tp = fp = fn = 0
     exact = both = 0
     rec_hits = collections.Counter()
     only_llm, only_gkg = [], []
-    for i, (x, T) in enumerate(zip(samp, truth)):
-        G, L = set(T), set(got.get(i, []))
+    for i, d0 in enumerate(detail):
+        x, T = {"title": d0["title"]}, d0["gkg"]
+        G, L = set(T), set(d0["llm"])
         if T:                                   # articles GKG could bundle: the scoreable ones
             both += 1
             tp += len(G & L); fp += len(L - G); fn += len(G - L)
