@@ -960,36 +960,13 @@ def main(argv=None) -> int:
           "follow it here.",
           "s-arms", 400)] if len(arms) > 1 else [])
         + ([panel(19, "Which configs survive ALL THREE curations",
-          "<b>The only panel on this page that is robust to the curation draw.</b> Everything above "
-          f"replays ONE journal, so its {len(cells):,} cells are one curation viewed 7,200 ways and a "
-          "lucky book lifts every percentile at once. The three cadence arms are three INDEPENDENT "
-          "curations over the same book-knob grid, so a region's rank can be compared across them.<br><br>"
-          "Each point is one region &mdash; a config plus its one-knob neighbours &mdash; scored as the "
-          f"mean percentile of its region MEDIAN across <b>{' + '.join(CONS.get('metrics', []))}</b>. "
-          "<b>x is the mean of that score over the three curations; y is the WORST arm.</b> The floor "
-          "is the criterion, not the mean: a region can average well by being excellent in one "
-          "curation and mediocre in another, which is exactly the over-fit this panel exists to "
-          "exclude. Only the top-right corner is good everywhere.<br><br>"
-          "Rank does transfer &mdash; Spearman &rho; of region-median Sharpe between arms is +0.58 "
-          "(monthly/biweekly), +0.42 (monthly/weekly), +0.42 (biweekly/weekly); &rho; would be ~0 if "
-          "region quality were curation luck. It also DECAYS WITH CADENCE DISTANCE, which is the "
-          "signature of a genuine cadence effect inside the disagreement &mdash; so those are a "
-          "LOWER bound on what two same-cadence curations would agree on.<br><br>"
-          "<b>Why those two metrics and not more.</b> The score was built on four "
-          "(<code>sharpe</code>, <code>pc_fund_med</code>, <code>slope_2h</code>, <code>final</code>) "
-          "and measured: cross-arm agreement of the composite is <b>+0.517</b> on "
-          "<code>sharpe + pc_fund_med</code>, <b>+0.474</b> on Sharpe alone, and <b>+0.428</b> with "
-          "<code>slope_2h</code> and <code>final</code> added &mdash; worse than Sharpe by itself. "
-          "Adding unstable metrics picks configs that do not hold up in another curation, which is "
-          "the opposite of what this panel is for. <code>slope_2h</code> had already failed a "
-          "re-curation transfer test (panel 9's note: +7,346 on v21, &minus;4,845 on v18, sign flip); "
-          "this is the same verdict by a different route. The same measurement VALIDATES "
-          "<code>pc_fund_med</code>, whose transfer test was recorded as not done &mdash; it lifts "
-          "agreement from 0.474 to 0.517. Both unscored metrics are still in the hover.<br><br>"
-          "<b>Read the unanimous knobs, not the winner.</b> A single top region is still one point; "
-          "the settings that appear in every leader AND in each arm's own winner are the durable "
-          "finding. Note also that <code>risk_aversion</code> high is the known Sharpe timidity tilt "
-          "(see the note in panel 9), so treat that axis with more suspicion than the others.",
+          "Each point is one config&rsquo;s neighbourhood, scored on "
+          f"{' + '.join(CONS.get('metrics', []))} across all three cadence curations. "
+          "A single curation can&rsquo;t separate a good config from a lucky one, so a config only "
+          "counts here if it scores well in every arm. The x axis is its average score across the "
+          "three, the y axis is its worst &mdash; read the y. Settings that rank high in all three "
+          "arms are probably real; a config that wins one arm and trails another is just fitted to "
+          "that journal.",
           "s-cons", 430)] if CONS else []))
 
     ARMS_JS = [{"name": a["name"], "n": a["n"], "rn": a["rn"], "final": a["final"],
