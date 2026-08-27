@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import collections
 import json
+import statistics as _stats
 import statistics
 import sys
 from pathlib import Path
@@ -112,14 +113,29 @@ def main(argv=None) -> int:
         if not _hit:
             continue
         _cell = _hit[0]
+        # THE LIVE REGION, not the live cell alone: the cell plus every ONE-KNOB neighbour, the same
+        # neighbourhood panel 9 ranks on. A single cell is one book and one lucky name; a region
+        # median only moves if the settings AROUND it work too.
+        _by = {tuple(x[k] for k in _LIVE): x for x in _c}
+        _grid = {k: sorted({x[k] for x in _c}) for k in _LIVE}
+        _lt = tuple(_want[k] for k in _LIVE)
+        _mem = [_by[_lt]]
+        for _i, _k in enumerate(_LIVE):
+            for _v in _grid[_k]:
+                if _v != _lt[_i] and (_lt[:_i] + (_v,) + _lt[_i + 1:]) in _by:
+                    _mem.append(_by[_lt[:_i] + (_v,) + _lt[_i + 1:]])
+        _rf = [m["final"] for m in _mem if m.get("final") is not None]
+        _rs = [m["sharpe"] for m in _mem if m.get("sharpe") is not None]
         _k = {}
         try:
             _pj = json.loads((ROOT / "data" / _run.split("/")[-1] / "provenance.json").read_text())
             _k = {**(_pj.get("knobs") or {}), **(_pj.get("book_knobs") or {})}
         except Exception:  # noqa: BLE001 -- an unstamped arm still plots, it just says less
             pass
-        arms.append({"name": _nm, "run": _run, "n": len(_c),
-                     "final": _cell.get("final"), "sharpe": _cell.get("sharpe"),
+        arms.append({"name": _nm, "run": _run, "n": len(_c), "rn": len(_rf),
+                     "final": _stats.median(_rf), "sd": _stats.pstdev(_rf),
+                     "cell": _cell.get("final"),
+                     "sharpe": _stats.median(_rs) if _rs else None,
                      "period": _k.get("rebalance_period") or _nm,
                      "lookback": (_k.get("news_lookback_days") or 0) or None,
                      "evscans": _k.get("max_event_scans"),
@@ -847,23 +863,30 @@ def main(argv=None) -> int:
          + "</div></section>"),
     ] if bo else []) + ([panel(18, "Portfolio value vs rebalance cadence",
           "<b>A reminder that <code>rebalance_period</code> is now swept, not a verdict.</b> One bar "
-          "per cadence arm: the final portfolio value that arm's book produces at the LIVE config "
-          f"(<code>{_fm.get('max_watchlist')} &middot; {_fm.get('concentration_cap')} &middot; "
-          f"{_fm.get('lookback_period_days')} &middot; {_fm.get('drop_unfunded_weeks')} &middot; "
-          f"{_fm.get('risk_aversion')} &middot; {_fm.get('min_trade_size')}</code>), the same six "
-          "book knobs in every arm. The two settings that DEFINE an arm are printed under each bar: "
-          "<code>rebalance_period</code>, which sets how often the curator looks, and "
+          "per cadence arm, and the two settings that DEFINE an arm are printed under it: "
+          "<code>rebalance_period</code>, how often the curator looks, and "
           "<code>news_lookback_days</code>, how much news it reads each time.<br><br>"
+          "The bar is the <b>median over the live REGION</b> &mdash; the live config plus every "
+          "one-knob neighbour, 22 cells, the same neighbourhood panel 9 ranks on. A region rather "
+          "than a single cell because one cell is one book and one lucky name; a region only moves "
+          "if the settings around it work too. The live cell alone is in the hover.<br><br>"
+          "<b>The error bar is &plusmn;1 sd across those 22 configs, which is CONFIG sensitivity, "
+          "not re-curation noise.</b> It says how far the book moves when one knob is nudged a "
+          "step. It is drawn anyway because it is the conservative of the two: measured here the "
+          "region CV is 0.40 / 0.44 / 0.73 against a curation-to-curation CV of 0.30 documented for "
+          "this project (identical settings, $117,200 and $62,997), so reading it as re-curation "
+          "spread under-claims rather than over. Measuring re-curation spread properly needs the "
+          "same arm curated twice and both swept.<br><br>"
           "Everything else on this page replays ONE curation through different book math, so its "
           f"{len(cells):,} cells cost nothing. <code>rebalance_period</code> sets the scan anchors, "
-          "so each bar here is a SEPARATE curation with its own LLM bill &mdash; and a separate "
-          "draw of the curator's own randomness. <b>Do not read a winner off three bars.</b> This "
-          "project has measured identical settings producing $117,200 and $62,997, and final value "
-          "is the weakest number on the page: one lucky name moves it, which is why panel 9 ranks "
-          "on Sharpe. Each arm's Sharpe at the same cell is in the hover.",
+          "so each bar is a separate curation with its own LLM bill and its own draw of the "
+          "curator's randomness. <b>Three bars cannot separate a cadence effect from that draw</b>, "
+          "and final value is the weakest number on the page &mdash; note that Sharpe does not "
+          "follow it here.",
           "s-arms", 400)] if len(arms) > 1 else []))
 
-    ARMS_JS = [{"name": a["name"], "n": a["n"], "final": a["final"], "sharpe": a["sharpe"],
+    ARMS_JS = [{"name": a["name"], "n": a["n"], "rn": a["rn"], "final": a["final"],
+                "sd": a["sd"], "cell": a["cell"], "sharpe": a["sharpe"],
                 "period": a["period"], "lookback": a["lookback"],
                 "evscans": a["evscans"], "stale": a["stale"], "memw": a["memw"]} for a in arms]
 
@@ -1355,16 +1378,26 @@ function draw(){{
     Plotly.react('s-arms', [{{
       type:'bar', x:lab, y:ARMS.map(a => a.final),
       marker:{{color:ARMS.map((a, i) => COL[i % COL.length]), line:{{width:2, color:p.bg}}}},
+      // +- ONE STANDARD DEVIATION ACROSS THE REGION. This is CONFIG sensitivity -- how much the book
+      // moves when a single knob is nudged one step -- NOT a re-curation confidence interval, and
+      // the lead says so. It is drawn because it happens to be the CONSERVATIVE of the two: measured
+      // 2026-08-26 the region CV is 0.40/0.44/0.73 against a documented curation-to-curation CV of
+      // 0.30, so a reader who mistakes it for re-curation noise still under-claims rather than over.
+      error_y:{{type:'data', array:ARMS.map(a => a.sd), visible:true,
+                color:p.fg, thickness:1.4, width:8}},
       text:ARMS.map(a => '$' + Math.round(a.final).toLocaleString()),
       textposition:'outside', cliponaxis:false, textfont:{{size:11.5, color:p.fg}},
-      customdata:ARMS.map(a => [a.sharpe, a.evscans, a.stale, a.memw]),
-      hovertemplate:'%{{x}}<br>final %{{y:$,.0f}}<br>Sharpe %{{customdata[0]}}'
-                  + '<br>max_event_scans %{{customdata[1]}}'
-                  + '<br>max_stale_scans %{{customdata[2]}}'
-                  + '<br>curator_memory %{{customdata[3]}} scans<extra></extra>'}}],
+      customdata:ARMS.map(a => [a.sharpe, a.sd, a.cell, a.rn, a.evscans, a.stale, a.memw]),
+      hovertemplate:'%{{x}}<br>region median %{{y:$,.0f}}'
+                  + '<br>region sd $%{{customdata[1]:,.0f}} over %{{customdata[3]}} configs'
+                  + '<br>the live cell alone $%{{customdata[2]:,.0f}}'
+                  + '<br>region Sharpe %{{customdata[0]:.2f}}'
+                  + '<br>max_event_scans %{{customdata[4]}}'
+                  + '<br>max_stale_scans %{{customdata[5]}}'
+                  + '<br>curator_memory %{{customdata[6]}} scans<extra></extra>'}}],
       base(p, {{showlegend:false, margin:{{l:76,r:24,t:26,b:66}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
-                title:{{text:'final portfolio value at the live config', font:{{size:11}}}}}},
+                title:{{text:'final value \u2014 region median \u00b1 1 sd', font:{{size:11}}}}}},
         xaxis:{{type:'category', tickfont:{{size:11}},
                 title:{{text:'rebalance_period \u00b7 news_lookback_days', font:{{size:11}}}}}}}}), CFG);
   }}
