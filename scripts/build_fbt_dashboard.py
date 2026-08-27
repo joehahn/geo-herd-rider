@@ -1127,28 +1127,13 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "gain attribution would be worthless: every websearch pick so far comes from a single "
               "curation.",
               "p-provtime", 400),
-        panel_rec("How much text the scout is handed, per day",
-              "The line is each day’s <b>median</b> characters of article body reaching the scout; the "
-              "band is its middle half. Read the BAND, not just the line — when it collapses onto the "
-              "median, that day is not being described, it is being <b>truncated</b>, and the shaded "
-              "markers underneath say what share of the day sits exactly on that ceiling.<br><br>"
-              f"Three things are visible here and in no other panel. <b>One:</b> the GKG era runs at a "
-              f"median of <b>{era['chars_pre'].get('med','?')}</b> characters with a wide band — real "
-              "variation, only 18% of it anywhere near the 280 lede length. <b>Two:</b> the post-handoff "
-              "era pins to a flat <b>300</b> with the band gone, because 80% of those articles were cut "
-              "to exactly 300 by an ingest cap — while <code>max_article_chars</code> said 800. "
-              "<b>Three:</b> that cap came out on <b>2026-08-24</b> and the line steps up to a median of "
-              "<b>900</b> with the band reopening, so the flat stretch to its left is OUR ceiling, not "
-              "the web’s.<br><br>"
-              "Measured over articles that CARRY body text. A headline-only article contributes no "
-              "length, and averaging its zero in would describe neither population — on 2026-08-25 that "
-              "mixture reads 178 characters where the articles with text read 893. How many arrive "
-              "headline-only is panel @@p-provtime@@’s question, not this one.<br><br>"
-              "<b>Why this panel is not decoration.</b> The era medians alone read as "
-              f"“{era['chars_pre'].get('med','?')} → 300, the forward reads more text”. "
-              "The first half of that is right and the second is an artefact: the true post-cap figure "
-              "is higher still, and the corpus the curator has already run on is a MIX of both regimes. "
-              "Any before/after taken across this page must say which side of 08-24 it sits on.",
+        panel_rec("Article length over time",
+              "Each day\u2019s median article length in characters; the band is the middle half. "
+              "The flat 300 stretch is our own ingest cap rather than shorter news \u2014 a truncated "
+              "day is one where the band collapses onto the line. The GKG era runs at a median of "
+              f"<b>{era['chars_pre'].get('med','?')}</b> characters, and after we removed that cap on "
+              "2026-08-24 the websearch era runs at <b>900</b>. Headline-only articles are left out, "
+              "since counting their zero would describe neither population.",
               "p-chars", 400),
         panel_rec("Daily pull health",
               "The operational card: is the morning cron actually firing? Each bar is one morning's "
