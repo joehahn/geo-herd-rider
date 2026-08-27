@@ -349,6 +349,14 @@ def stamp(run_dir: str | Path, fm: dict, corpus: "str | Path | dict", arm: str =
     run.mkdir(parents=True, exist_ok=True)
     rec = curation_key(fm, corpus, arm)
     rec["code"] = curator_code_id()
+    # BOOK KNOBS ARE RECORDED BUT NOT FINGERPRINTED. The hash covers CURATION_KNOBS only, and that is
+    # correct -- changing a book knob needs a rebuild, not a re-curation, so it must not invalidate an
+    # existing journal. But the stamp claims to record "the EFFECTIVE config", and it was silently
+    # omitting half of it: max_stale_scans, set per-arm on the 2026-08-26 cadence sweep, was nowhere
+    # in the file, so a later reader (and sweep_optimizer, which needs it to replay an arm under the
+    # settings it was curated with) had to parse argv to find out. Separate key, so nothing that reads
+    # `knobs` or the hash changes behaviour.
+    rec["book_knobs"] = {k: _norm(fm.get(k)) for k in sorted(BOOK_KNOBS)}
     rec["argv"] = argv or []
     if note:
         rec["note"] = note

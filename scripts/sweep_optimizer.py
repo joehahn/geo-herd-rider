@@ -432,9 +432,38 @@ def main(argv=None) -> int:
                          "curation (2 turns a biweekly run into a monthly one). A lower bound on a "
                          "true slower run: the skipped scans' news is lost rather than folded into a "
                          "wider window.")
+    ap.add_argument("--set", action="append", metavar="KNOB=VALUE",
+                    help="override a BASE knob the grid does not vary (repeatable). Defaults are taken "
+                         "from the run's own provenance stamp, so a cadence arm is swept under the "
+                         "settings it was curated with.")
     a = ap.parse_args(argv)
     run = ROOT / a.run
     fm0 = optimizer.load_financial_model(str(ROOT / "investor_profile.backtest.md"))
+    # --set: OVERRIDE A BASE KNOB THE GRID DOES NOT VARY.
+    #
+    # The base config is read from investor_profile.backtest.md, which is the MONTHLY arm. That is
+    # right for the canonical sweep and wrong for a cadence arm: max_stale_scans counts SCANS, so the
+    # profile's 8 means eight months for monthly and eight WEEKS for weekly. Sweeping every arm at 8
+    # would hold the number constant while changing what it means, and any difference between arms
+    # would then be partly that artifact rather than cadence.
+    #
+    # Values are read from the RUN'S OWN STAMP by default (provenance.json records the EFFECTIVE
+    # config each curation ran under), so an arm is swept under the settings that produced it without
+    # anyone having to remember them. --set is the manual escape hatch.
+    _stamped = {}
+    try:
+        _pj = json.loads((run / "provenance.json").read_text()).get("knobs") or {}
+        for _k in ("max_stale_scans", "exit_patience_scans", "cull_fresh_scans", "cull_fresh_slots"):
+            if _pj.get(_k) is not None and _pj[_k] != fm0.get(_k):
+                _stamped[_k] = _pj[_k]
+    except Exception as _e:  # noqa: BLE001 -- an unstamped run just uses the profile, as before
+        print(f"  no usable stamp on {a.run} ({type(_e).__name__}); using the profile as-is", flush=True)
+    for _kv in (a.set or []):
+        _k, _, _v = _kv.partition("=")
+        _stamped[_k.strip()] = json.loads(_v) if _v.strip()[:1] in "[{-0123456789" else _v.strip()
+    if _stamped:
+        print(f"  base-knob overrides for this arm: {_stamped}", flush=True)
+        fm0 = {**fm0, **_stamped}
     scans = load_scans(run)
     if a.every > 1:
         ks = sorted(scans)

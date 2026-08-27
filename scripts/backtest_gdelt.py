@@ -89,6 +89,16 @@ def main(argv=None):
     ap.add_argument("--min-bundle-articles", type=int, default=None, dest="min_bundle_articles",
                     help="company bundles smaller than this are DEMOTED to the unclustered/beat path "
                          "(articles still shown). 1 = every bundle qualifies (default).")
+    # CADENCE-ARM OVERRIDES. The scan-counted knobs that must be SCALED when rebalance_period
+    # changes, because they measure ELAPSED time in units of scans: at weekly, 8 scans is 8 weeks; at
+    # monthly it is 8 months. Flags rather than editing investor_profile.backtest.md, which would make
+    # the canonical CBT run off-canon for as long as an arm was being curated.
+    # (exit_patience_scans and cull_fresh_scans are deliberately absent -- they count READS and SLOTS,
+    # not elapsed time, so they do not scale with cadence.)
+    ap.add_argument("--max-stale-scans", type=int, default=None, dest="max_stale_scans",
+                    help="override max_stale_scans (cadence arms; scale with rebalance_period)")
+    ap.add_argument("--curator-memory-weeks", type=int, default=None, dest="curator_memory_weeks",
+                    help="override curator_memory_weeks (cadence arms; scale with rebalance_period)")
     ap.add_argument("--max-event-scans", type=int, default=None, dest="max_event_scans",
                     help="force-retire an event after this many scans. A CURATION knob that lives in "
                          "the profile; exposed here so an arm can vary it WITHOUT editing "
@@ -175,6 +185,16 @@ def main(argv=None):
     fm = load_financial_model(str(ROOT / _profile))
     print(f"  profile: {_profile}", flush=True)
     cadence = a.rebalance_days if a.rebalance_days else resolve_cadence(fm)
+    # WRITE THE CADENCE BACK INTO fm BEFORE THE STAMP. `--rebalance-days` was consumed as a local and
+    # never reached `fm`, so provenance.stamp -- which records the EFFECTIVE config -- wrote
+    # "rebalance_period: monthly" for a run curated at 14-day anchors. The fingerprint stayed distinct
+    # only by accident, because the arm also varied max_event_scans; an arm that varied ONLY the
+    # cadence would have stamped an identical hash to the canonical monthly run and been mistaken for
+    # it. A stamp that does not describe its run is the exact drift provenance.py exists to prevent.
+    if a.rebalance_days:
+        _PER = {7: "weekly", 14: "biweekly", 30: "monthly", 91: "quarterly"}
+        fm = {**fm, "rebalance_period": _PER.get(int(a.rebalance_days), f"{a.rebalance_days}d"),
+              "rebalance_days": int(a.rebalance_days)}
     # One knob for how much of ONE article the curator sees. Set on the module so every call
     # site (scout blocks, event-agent blocks, lede.apply) cuts at the same place.
     agent.MAX_ARTICLE_CHARS = int(fm.get('max_article_chars') or agent.MAX_ARTICLE_CHARS)
@@ -185,6 +205,14 @@ def main(argv=None):
         print(f"  max_event_scans={a.max_event_scans} (CLI override of profile "
               f"{fm.get('max_event_scans')})", flush=True)
         fm = {**fm, "max_event_scans": a.max_event_scans}
+    if a.max_stale_scans is not None:               # cadence arm: scale with rebalance_period
+        print(f"  max_stale_scans={a.max_stale_scans} (CLI override of profile "
+              f"{fm.get('max_stale_scans')})", flush=True)
+        fm = {**fm, "max_stale_scans": a.max_stale_scans}
+    if a.curator_memory_weeks is not None:
+        print(f"  curator_memory_weeks={a.curator_memory_weeks} (CLI override of profile "
+              f"{fm.get('curator_memory_weeks')})", flush=True)
+        fm = {**fm, "curator_memory_weeks": a.curator_memory_weeks}
     agent.MIN_BUNDLE_ARTICLES = int(fm.get('min_bundle_articles') or 1)
     print(f"  min_bundle_articles={agent.MIN_BUNDLE_ARTICLES} · "
           f"max_article_chars={agent.MAX_ARTICLE_CHARS} · "
@@ -268,6 +296,8 @@ def main(argv=None):
     # overlapping stretch so a late-indexed or boundary-straddling article is not lost to the gap.
     news_win = int(a.news_lookback_days if a.news_lookback_days is not None
                    else (fm.get("news_lookback_days") or 0)) or cadence
+    if a.news_lookback_days is not None:            # same reason as the cadence write-back above
+        fm = {**fm, "news_lookback_days": int(a.news_lookback_days)}
     anchors = scan_anchors(a.start, a.end, cadence)
     win_start = anchors[0] - pd.Timedelta(days=10)
     cache_f = str(OUT / "gdelt_pool.json")
