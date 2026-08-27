@@ -52,7 +52,7 @@ footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
   font-size:12.5px; color:var(--text2); }
 </style></head><body>
 <div class="wrap">
-<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-26 13:12</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <a href="cbs.html">Curator</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
+<nav style="font-size:13px;color:var(--text2);border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:22px;line-height:1.9;"><span style="float:right;color:#aaa;font-weight:normal;">built 2026-08-27 15:25</span><div><a href="https://github.com/joehahn/geo-herd-rider/blob/main/README.md">README</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Backtest</span>&nbsp;&nbsp;<b>Firehose</b> &middot; <a href="cbt.html">Curator</a> &middot; <a href="sbt.html">Sweeps</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Bootstrap</span>&nbsp;&nbsp;<a href="fbs.html">Firehose</a> &middot; <a href="cbs.html">Curator</a></div><div><span style="color:#999;display:inline-block;min-width:92px;">Forwardtest</span>&nbsp;&nbsp;<span style="color:#bbb;" title="not built yet">Firehose</span> &middot; <span style="color:#bbb;" title="not built yet">Curator</span></div></nav>
 <header>
   <h1>Firehose Backtest (FBT)</h1>
   <p class="sub">2023-08-11 → 2026-08-09 &middot; 99,117 articles &middot; GKG on BigQuery</p>
@@ -467,6 +467,51 @@ function draw() {
         xaxis:{gridcolor:p.grid},
         yaxis:{gridcolor:p.grid, title:{text:'articles', font:{size:11}}}}), CFG);
   }
+
+    // HOW MUCH TEXT THE SCOUT IS HANDED, per day. Median line + IQR band, because the BAND is the
+    // finding: a truncated day has no spread, so the band closing onto the line IS the ceiling. The
+    // cap-share strip underneath states the same fact numerically for anyone who reads bands
+    // charitably. Drawn on a date axis so it aligns with every other time panel and the handoff dash.
+    {
+      const C = ERA.chars_day || {cal:[]};
+      if (C.cal.length) {
+        react('p-chars', [
+          {type:'scatter', name:'middle half', x:C.cal.concat(C.cal.slice().reverse()),
+            y:C.p75.concat(C.p25.slice().reverse()), fill:'toself', fillcolor:p.s1,
+            opacity:0.16, line:{width:0}, hoverinfo:'skip', showlegend:true},
+          {type:'scatter', name:'median chars', x:C.cal, y:C.med, mode:'lines',
+            line:{color:p.s1, width:2},
+            customdata:C.cal.map((d,i) => [C.n[i], Math.round(C.cap[i]*100), C.mode[i],
+                                           C.p25[i], C.p75[i]]),
+            hovertemplate:'%{x}<br>median <b>%{y}</b> chars  '
+              + '(middle half %{customdata[3]}–%{customdata[4]})<br>'
+              + '%{customdata[0]} articles<br>'
+              + '%{customdata[1]}% sit exactly on %{customdata[2]} chars<extra></extra>'},
+          // the ceiling strip: only days where a single length dominates are worth ink
+          {type:'scatter', name:'share pinned to one length', x:C.cal, y:C.cal.map(() => 0),
+            mode:'markers', yaxis:'y2',
+            marker:{size:C.cap.map(v => 3 + 9*v), color:C.cap.map(v => v >= 0.5 ? ST.warning : p.grid),
+                     line:{width:0}},
+            customdata:C.cap.map(v => Math.round(v*100)),
+            hovertemplate:'%{x}<br>%{customdata}% of the day pinned to one length<extra></extra>'},
+        ], base(p, {showlegend:true,
+          legend:{orientation:'h', y:1.13, x:0, font:{size:11}},
+          margin:{l:64,r:24,t:40,b:56},
+          shapes: (HOFF ? [{type:'line', xref:'x', x0:HOFF, x1:HOFF, yref:'paper', y0:0, y1:1,
+                            line:{color:p.text2, width:1.5, dash:'dash'}}] : []).concat([
+            {type:'line', xref:'x', x0:'2026-08-24', x1:'2026-08-24', yref:'paper', y0:0, y1:1,
+              line:{color:ST.good, width:1.5, dash:'dot'}}]),
+          annotations:(HOFF ? [{x:HOFF, xref:'x', yref:'paper', y:1.02, yanchor:'bottom',
+                                 showarrow:false, font:{size:10, color:p.text2},
+                                 text:'handoff'}] : []).concat([
+            {x:'2026-08-24', xref:'x', yref:'paper', y:1.02, yanchor:'bottom', showarrow:false,
+              font:{size:10, color:ST.good}, text:'[:300] cap removed'}]),
+          xaxis:{type:'date', gridcolor:p.grid},
+          yaxis:{gridcolor:p.grid, rangemode:'tozero',
+                  title:{text:'characters of body text', font:{size:11}}},
+          yaxis2:{overlaying:'y', side:'right', range:[-1, 1], visible:false}}), CFG);
+      }
+    }
 
     // trailing three weeks -- the operational card. A ZERO day is drawn in the critical colour so a
     // silent cron failure is the loudest thing on the panel.

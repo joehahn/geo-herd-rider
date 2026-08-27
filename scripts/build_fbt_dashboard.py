@@ -483,13 +483,28 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         _by_day = collections.Counter()
         _pre_days, _post_days = collections.Counter(), collections.Counter()
         _chars = {"pre": [], "post": []}
+        _clen = collections.defaultdict(list)      # per-day scout-visible text lengths
         for _a in arts:
             _d = (_a.get("published_date") or "")[:10]
             if not _d:
                 continue
             _by_day[_d] += 1
             (_pre_days if _d < _H else _post_days)[_d] += 1
-            _chars["pre" if _d < _H else "post"].append(len(_a.get("snippet") or ""))
+            # len(scout_text), NOT len(snippet). The raw pool keeps GKG text in `lede` and leaves
+            # `snippet` as a short leftover, so the old `len(snippet)` reported the pre-handoff era
+            # at 82 characters when the scout is handed 157 -- and the panel prose drew a 3.7x
+            # conclusion from a 1.9x fact. See lede.scout_text.
+            #
+            # ARTICLES WITH BODY TEXT ONLY. A headline-only article contributes 0, and mixing those
+            # zeros into a length distribution makes the median describe NEITHER population: on
+            # 2026-08-25, 25 of 105 articles carry no body and the median of the mixture is 178
+            # while the median of the articles that HAVE text is 893. Reporting 178 as "what the
+            # scout is handed" would be the exact failure this panel was built to expose. How many
+            # articles arrive headline-only is a real question and it has its own panel (p-provtime).
+            _n = len(_lede.scout_text(_a))
+            if _n:
+                _clen[_d].append(_n)
+                _chars["pre" if _d < _H else "post"].append(_n)
         _days = sorted(_by_day)
         # calendar-complete axis: a MISSING day must draw as a hole, not be skipped. Two days were
         # lost on 2026-07-11/12 when cron did not fire, and a day-index axis would hide that.
@@ -535,6 +550,28 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         def _q(v):
             v = sorted(v)
             return {"med": v[len(v) // 2], "p10": v[len(v) // 10], "p90": v[9 * len(v) // 10]} if v else {}
+        # THE CEILING IS THE POINT, so it is measured rather than described. `cap` is the share of
+        # the day sitting on that day's modal length: a natural spread scores near zero, a day being
+        # truncated scores near 1 and the IQR band collapses onto the median. That is how the
+        # [:300] ingest cap reads on this panel, and how its 2026-08-24 removal reads as a step.
+        def _dstat(v):
+            v = sorted(v)
+            if not v:
+                return None
+            _mode = collections.Counter(v).most_common(1)[0][0]
+            return {"med": v[len(v) // 2], "p25": v[len(v) // 4], "p75": v[3 * len(v) // 4],
+                    "n": len(v), "cap": round(sum(1 for x in v if x == _mode) / len(v), 3),
+                    "mode": _mode}
+        _cd = [(d, _dstat(_clen.get(d) or [])) for d in _cal]
+        _chars_day = {
+            "cal":  [d for d, r in _cd if r],
+            "med":  [r["med"] for _d, r in _cd if r],
+            "p25":  [r["p25"] for _d, r in _cd if r],
+            "p75":  [r["p75"] for _d, r in _cd if r],
+            "n":    [r["n"] for _d, r in _cd if r],
+            "cap":  [r["cap"] for _d, r in _cd if r],
+            "mode": [r["mode"] for _d, r in _cd if r],
+        }
         era = {
             "handoff": _H, "cal": _cal, "counts": [_by_day.get(d, 0) for d in _cal],
             "pre_n": sum(_pre_days.values()), "post_n": sum(_post_days.values()),
@@ -546,6 +583,10 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "pull_missing": _pull_missing, "pull_dead": _pull_dead,
             "pull_n": len(_post_cal) - len(_pull_missing),
             "chars_pre": _q(_chars["pre"]), "chars_post": _q(_chars["post"]),
+            # PER-DAY, because the two era medians hide the two things that matter most: the
+            # post-handoff median sits ON an ingest ceiling rather than describing the source, and
+            # that ceiling MOVED. A median cannot show either; a time series shows both at a glance.
+            "chars_day": _chars_day,
             # what the scout is handed, per era, AFTER lede.apply has filled snippet
             # trailing three weeks BY COLLECTION DATE: (day, articles kept, cron fired?)
             # (day, articles kept, cron fired?, the threshold amber is judged against).
@@ -955,7 +996,10 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # or `text_miss` field at all, so on the bootstrap corpus every one of these plots a GKG-era
         # quantity that cliffs to zero in its last month for a structural reason, not a retrieval
         # one. FBT already measures the same machinery over the full 3-year GKG corpus, where it is
-        # the point of the page. What the curator reads AFTER the handoff is panel @@p-chars@@.
+        # the point of the page. What the curator reads AFTER the handoff is panel `p-chars`, which
+        # is a real panel again as of 2026-08-27 -- this comment pointed at one that had been folded
+        # into p-provtime's prose as a single median, and that median was both mismeasured and, after
+        # the 2026-08-24 ingest-cap removal, three days stale.
         ] + ([] if bootstrap else [
             panel_rec("Body text vs time",
                   "Fraction of articles containing text rather than just a bare headline. Older articles "
@@ -1074,14 +1118,38 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "search takes over the whole bar. Post-handoff articles genuinely have no lede \u2014 "
               "nothing archives them as-of their own date \u2014 but they are not headlines either. "
               f"Median characters the scout is handed: <b>{era['chars_pre'].get('med','?')}</b> before "
-              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after, so the forward era reads "
-              "MORE text per article than the backtest that validated it, not less.<br><br>"
+              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after — but that second "
+              "number is a CEILING, not a property of the source, and panel @@p-chars@@ is where to "
+              "read it.<br><br>"
               "<b>The engine split is a COUNT, deliberately not a P&amp;L.</b> Tavily supplies the "
               "overwhelming majority and Anthropic almost no overlap with it \u2014 which is the "
               "argument for keeping Anthropic (it is additive, not redundant) and also the reason a "
               "gain attribution would be worthless: every websearch pick so far comes from a single "
               "curation.",
               "p-provtime", 400),
+        panel_rec("How much text the scout is handed, per day",
+              "The line is each day’s <b>median</b> characters of article body reaching the scout; the "
+              "band is its middle half. Read the BAND, not just the line — when it collapses onto the "
+              "median, that day is not being described, it is being <b>truncated</b>, and the shaded "
+              "markers underneath say what share of the day sits exactly on that ceiling.<br><br>"
+              f"Three things are visible here and in no other panel. <b>One:</b> the GKG era runs at a "
+              f"median of <b>{era['chars_pre'].get('med','?')}</b> characters with a wide band — real "
+              "variation, only 18% of it anywhere near the 280 lede length. <b>Two:</b> the post-handoff "
+              "era pins to a flat <b>300</b> with the band gone, because 80% of those articles were cut "
+              "to exactly 300 by an ingest cap — while <code>max_article_chars</code> said 800. "
+              "<b>Three:</b> that cap came out on <b>2026-08-24</b> and the line steps up to a median of "
+              "<b>900</b> with the band reopening, so the flat stretch to its left is OUR ceiling, not "
+              "the web’s.<br><br>"
+              "Measured over articles that CARRY body text. A headline-only article contributes no "
+              "length, and averaging its zero in would describe neither population — on 2026-08-25 that "
+              "mixture reads 178 characters where the articles with text read 893. How many arrive "
+              "headline-only is panel @@p-provtime@@’s question, not this one.<br><br>"
+              "<b>Why this panel is not decoration.</b> The era medians alone read as "
+              f"“{era['chars_pre'].get('med','?')} → 300, the forward reads more text”. "
+              "The first half of that is right and the second is an artefact: the true post-cap figure "
+              "is higher still, and the corpus the curator has already run on is a MIX of both regimes. "
+              "Any before/after taken across this page must say which side of 08-24 it sits on.",
+              "p-chars", 400),
         panel_rec("Daily pull health",
               "The operational card: is the morning cron actually firing? Each bar is one morning's "
               "pull over the trailing three weeks. <b>Red</b> is a cron that did not fire or "
@@ -1561,6 +1629,51 @@ function draw() {{
         xaxis:{{gridcolor:p.grid}},
         yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}}}), CFG);
   }}
+
+    // HOW MUCH TEXT THE SCOUT IS HANDED, per day. Median line + IQR band, because the BAND is the
+    // finding: a truncated day has no spread, so the band closing onto the line IS the ceiling. The
+    // cap-share strip underneath states the same fact numerically for anyone who reads bands
+    // charitably. Drawn on a date axis so it aligns with every other time panel and the handoff dash.
+    {{
+      const C = ERA.chars_day || {{cal:[]}};
+      if (C.cal.length) {{
+        react('p-chars', [
+          {{type:'scatter', name:'middle half', x:C.cal.concat(C.cal.slice().reverse()),
+            y:C.p75.concat(C.p25.slice().reverse()), fill:'toself', fillcolor:p.s1,
+            opacity:0.16, line:{{width:0}}, hoverinfo:'skip', showlegend:true}},
+          {{type:'scatter', name:'median chars', x:C.cal, y:C.med, mode:'lines',
+            line:{{color:p.s1, width:2}},
+            customdata:C.cal.map((d,i) => [C.n[i], Math.round(C.cap[i]*100), C.mode[i],
+                                           C.p25[i], C.p75[i]]),
+            hovertemplate:'%{{x}}<br>median <b>%{{y}}</b> chars  '
+              + '(middle half %{{customdata[3]}}\u2013%{{customdata[4]}})<br>'
+              + '%{{customdata[0]}} articles<br>'
+              + '%{{customdata[1]}}% sit exactly on %{{customdata[2]}} chars<extra></extra>'}},
+          // the ceiling strip: only days where a single length dominates are worth ink
+          {{type:'scatter', name:'share pinned to one length', x:C.cal, y:C.cal.map(() => 0),
+            mode:'markers', yaxis:'y2',
+            marker:{{size:C.cap.map(v => 3 + 9*v), color:C.cap.map(v => v >= 0.5 ? ST.warning : p.grid),
+                     line:{{width:0}}}},
+            customdata:C.cap.map(v => Math.round(v*100)),
+            hovertemplate:'%{{x}}<br>%{{customdata}}% of the day pinned to one length<extra></extra>'}},
+        ], base(p, {{showlegend:true,
+          legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
+          margin:{{l:64,r:24,t:40,b:56}},
+          shapes: (HOFF ? [{{type:'line', xref:'x', x0:HOFF, x1:HOFF, yref:'paper', y0:0, y1:1,
+                            line:{{color:p.text2, width:1.5, dash:'dash'}}}}] : []).concat([
+            {{type:'line', xref:'x', x0:'2026-08-24', x1:'2026-08-24', yref:'paper', y0:0, y1:1,
+              line:{{color:ST.good, width:1.5, dash:'dot'}}}}]),
+          annotations:(HOFF ? [{{x:HOFF, xref:'x', yref:'paper', y:1.02, yanchor:'bottom',
+                                 showarrow:false, font:{{size:10, color:p.text2}},
+                                 text:'handoff'}}] : []).concat([
+            {{x:'2026-08-24', xref:'x', yref:'paper', y:1.02, yanchor:'bottom', showarrow:false,
+              font:{{size:10, color:ST.good}}, text:'[:300] cap removed'}}]),
+          xaxis:{{type:'date', gridcolor:p.grid}},
+          yaxis:{{gridcolor:p.grid, rangemode:'tozero',
+                  title:{{text:'characters of body text', font:{{size:11}}}}}},
+          yaxis2:{{overlaying:'y', side:'right', range:[-1, 1], visible:false}}}}), CFG);
+      }}
+    }}
 
     // trailing three weeks -- the operational card. A ZERO day is drawn in the critical colour so a
     // silent cron failure is the loudest thing on the panel.

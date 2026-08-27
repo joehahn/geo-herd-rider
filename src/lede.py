@@ -407,6 +407,23 @@ def provenance(a: dict) -> str:
     return "search snippet" if (own and own != tit) else "headline only"
 
 
+def scout_text(a: dict) -> str:
+    """The text the scout is actually handed for this article -- the ONE definition, and the exact
+    partner to `provenance()` above: same precedence, same reason for existing.
+
+    `apply()` collapses lede/lede_live/snippet into `snippet` before the curator sees the article,
+    so on a RENDERED slice `snippet` is the whole answer. The dashboards read the raw pool, where
+    it is not: a GKG article carries its text in `lede` and its `snippet` is a short leftover.
+    Measuring `len(snippet)` there reports what the scout reads as 82 characters when it is 157 --
+    which is exactly the bug this function was extracted to kill (FBS panel prose, 2026-08-27,
+    where it made the post-handoff era look 3.7x text-richer than the backtest instead of 1.9x).
+
+    Truncation is deliberately NOT applied. This is the material available to the scout; how much of
+    it survives is `max_article_chars`, and conflating the two is what hid the [:300] ingest cap.
+    """
+    return a.get("lede") or a.get("lede_live") or a.get("snippet") or ""
+
+
 def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dict:
     # NOTE ON max_chars: 280 is the WAYBACK LEDE length and a sane default for GKG text, which is
     # stored at <=280 anyway (measured: median 161, max 280), so this cap never binds there.
