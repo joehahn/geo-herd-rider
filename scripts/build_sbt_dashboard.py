@@ -215,6 +215,24 @@ def main(argv=None) -> int:
                 "shown": list(_show_only),
                 "rho": {"sharpe only": 0.474, "sharpe + pc_fund_med": 0.517,
                         "+ slope_2h + final": 0.428}}
+        # THE ACTIONABLE TABLE: what has to change for the live config to reach the green cluster.
+        # Sorted by how FEW knobs move, then by worst-arm floor -- a one-knob change that gets there
+        # is worth more than a three-knob one that scores marginally higher, because every extra knob
+        # is another axis fitted to these three particular curations.
+        _lv = next((r for r in CONS["rows"]
+                    if all(abs(a - b) < 1e-9 for a, b in zip(r["cfg"], CONS["live"]))), None)
+        CONS["live_floor"] = _lv["floor"] if _lv else 0.0
+        CONS["cut"] = CONS["rows"][11]["floor"] if len(CONS["rows"]) > 11 else 0.0
+        _mv = []
+        for _r in CONS["rows"][:12]:
+            # a real arrow, NOT "&rarr;": table_html escapes its cells, so an entity renders as
+            # literal text -- the same trap the curation-log colours hit on 2026-08-26.
+            _d = [f"{_LIVE_KEYS[_i].replace('_', ' ')} {CONS['live'][_i]:g} \u2192 {_r['cfg'][_i]:g}"
+                  for _i in range(len(_LIVE_KEYS))
+                  if abs(_r["cfg"][_i] - CONS["live"][_i]) > 1e-9]
+            _mv.append((len(_d), [str(len(_d)), ", ".join(_d), f"{_r['floor']:.1f}",
+                                  f"{_r['mean']:.1f}"] + [f"{x:.0f}" for x in _r["per"]]))
+        CONS["moves"] = [r for _n, r in sorted(_mv, key=lambda t: (t[0], -float(t[1][2])))]
 
     # ORDER THE SERIES ONCE, HERE. max_events=0 means "uncapped", i.e. the LIMIT of the series, so it
     # belongs at the right-hand end -- sorting numerically puts it at the left where it reads as the
@@ -967,7 +985,22 @@ def main(argv=None) -> int:
           "three, the y axis is its worst &mdash; read the y. Settings that rank high in all three "
           "arms are probably real; a config that wins one arm and trails another is just fitted to "
           "that journal.",
-          "s-cons", 430)] if CONS else []))
+          "s-cons", 430),
+          ('<section class="panel"><h2>20. How to move the live config into the green</h2>'
+           '<p class="lead">'
+           "Every knob in the grid is a BOOK knob, so each of these is a rebuild &mdash; seconds, no "
+           "LLM, no re-curation. The live config floors at "
+           f"<b>{CONS['live_floor']:.1f}</b>; the twelve green points on the plot above start at "
+           f"<b>{CONS['cut']:.1f}</b>. These are the changes that close that gap, fewest knobs first. "
+           "<b>Two single-knob moves get there on their own.</b> "
+           "<code>concentration_cap</code> is the one to trust: it appears in eleven of the twelve "
+           "and lifts the worst arm most per knob changed. Treat <code>risk_aversion</code> "
+           "separately &mdash; panel 9 records that Sharpe alone selects 16&ndash;24 through a "
+           "timidity tilt that rewards a low-volatility book by construction, so some of its gain "
+           "here is the metric preferring a book that does less."
+           '</p><div class="scroll">'
+           + table_html(["knobs", "changes from live", "worst arm", "mean", "monthly", "biweekly", "weekly"],
+                        CONS["moves"]) + "</div></section>")] if CONS else []))
 
     ARMS_JS = [{"name": a["name"], "n": a["n"], "rn": a["rn"], "final": a["final"],
                 "sd": a["sd"], "cell": a["cell"], "sharpe": a["sharpe"],
