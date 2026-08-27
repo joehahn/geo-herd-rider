@@ -12,7 +12,7 @@ const html = fs.readFileSync(file, 'utf8');
 // Only divs that are EMPTY and have real height are expected to be filled by Plotly. A panel can
 // carry pre-rendered server-side content instead (the event storyboard is a static table sitting
 // beside a height:0 placeholder), and those must not be reported as failures.
-const all = [...html.matchAll(/id="(c-[a-z0-9-]+|p-[a-z0-9-]+)"([^>]*)>([\s\S]{0,40})/g)];
+const all = [...html.matchAll(/id="(c-[a-z0-9-]+|p-[a-z0-9-]+|s-[a-z0-9-]+)"([^>]*)>([\s\S]{0,40})/g)];
 const isPlot = m => m[3].trimStart().startsWith('</') && !/height:\s*0(px)?\b/.test(m[2]);
 const ids = all.filter(isPlot).map(m => m[1]);
 const prefilled = all.filter(m => !isPlot(m)).map(m => m[1]);
