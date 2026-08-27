@@ -100,17 +100,28 @@ def main(argv=None) -> int:
             continue
         _c = json.loads(_f.read_text())
         _c = _c if isinstance(_c, list) else (_c.get("cells") or _c.get("rows") or [])
-        _fin = sorted(x["final"] for x in _c if x.get("final") is not None)
-        if not _fin:
+        # THE LIVE CONFIG'S CELL, not a summary of the grid. "The portfolio value this arm
+        # generates" is the book it actually produces at the settings we run, and every arm's sweep
+        # contains that exact cell -- the grid is the same six knobs in all three. Cross-check: the
+        # monthly arm's live cell is $272,233, byte-equal to CBT's published final value.
+        _LIVE = ("max_watchlist", "concentration_cap", "lookback_period_days",
+                 "drop_unfunded_weeks", "risk_aversion", "min_trade_size")
+        _want = {k: _fm.get(k) for k in _LIVE}
+        _hit = [x for x in _c
+                if all(abs(float(x[k]) - float(_want[k])) < 1e-9 for k in _LIVE if _want[k] is not None)]
+        if not _hit:
             continue
+        _cell = _hit[0]
         _k = {}
         try:
             _pj = json.loads((ROOT / "data" / _run.split("/")[-1] / "provenance.json").read_text())
             _k = {**(_pj.get("knobs") or {}), **(_pj.get("book_knobs") or {})}
         except Exception:  # noqa: BLE001 -- an unstamped arm still plots, it just says less
             pass
-        arms.append({"name": _nm, "run": _run, "n": len(_fin), "final": _fin,
-                     "lookback": _k.get("news_lookback_days"),
+        arms.append({"name": _nm, "run": _run, "n": len(_c),
+                     "final": _cell.get("final"), "sharpe": _cell.get("sharpe"),
+                     "period": _k.get("rebalance_period") or _nm,
+                     "lookback": (_k.get("news_lookback_days") or 0) or None,
                      "evscans": _k.get("max_event_scans"),
                      "stale": _k.get("max_stale_scans"),
                      "memw": _k.get("curator_memory_weeks")})
@@ -835,24 +846,26 @@ def main(argv=None) -> int:
                        for r in bo])
          + "</div></section>"),
     ] if bo else []) + ([panel(18, "Portfolio value vs rebalance cadence",
-          "<b>A placeholder, and a reminder that <code>rebalance_period</code> is now swept.</b> One box "
-          f"per cadence arm over that arm's {len(arms[0]['final']) if arms else 0:,}-cell grid: the box is "
-          "the interquartile range, the line the median, the whiskers the 5th-95th percentile. "
-          "Everything else on this page replays ONE curation; these are THREE, because "
-          "<code>rebalance_period</code> sets the scan anchors and so cannot be swept for free "
-          "&mdash; each arm is its own curation with its own LLM bill.<br><br>"
-          "<b>Do not read a winner off this plot.</b> The spread within one arm is book math over a "
-          "fixed journal; the difference BETWEEN arms is one curation against one curation, and this "
-          "project has measured identical settings producing $117,200 and $62,997. Final value is also "
-          "the weakest measure on the page &mdash; one lucky name moves it, which is why panel 9 ranks "
-          "on Sharpe and not on this. The arms are matched on everything except cadence and the "
-          "scan-counted knobs scaled with it, so the honest comparisons are cell-paired differences "
-          "and per-arm PBO, not these boxes.",
+          "<b>A reminder that <code>rebalance_period</code> is now swept, not a verdict.</b> One bar "
+          "per cadence arm: the final portfolio value that arm's book produces at the LIVE config "
+          f"(<code>{_fm.get('max_watchlist')} &middot; {_fm.get('concentration_cap')} &middot; "
+          f"{_fm.get('lookback_period_days')} &middot; {_fm.get('drop_unfunded_weeks')} &middot; "
+          f"{_fm.get('risk_aversion')} &middot; {_fm.get('min_trade_size')}</code>), the same six "
+          "book knobs in every arm. The two settings that DEFINE an arm are printed under each bar: "
+          "<code>rebalance_period</code>, which sets how often the curator looks, and "
+          "<code>news_lookback_days</code>, how much news it reads each time.<br><br>"
+          "Everything else on this page replays ONE curation through different book math, so its "
+          f"{len(cells):,} cells cost nothing. <code>rebalance_period</code> sets the scan anchors, "
+          "so each bar here is a SEPARATE curation with its own LLM bill &mdash; and a separate "
+          "draw of the curator's own randomness. <b>Do not read a winner off three bars.</b> This "
+          "project has measured identical settings producing $117,200 and $62,997, and final value "
+          "is the weakest number on the page: one lucky name moves it, which is why panel 9 ranks "
+          "on Sharpe. Each arm's Sharpe at the same cell is in the hover.",
           "s-arms", 400)] if len(arms) > 1 else []))
 
-    ARMS_JS = [{"name": a["name"], "n": a["n"], "final": a["final"],
-                "lookback": a["lookback"], "evscans": a["evscans"],
-                "stale": a["stale"], "memw": a["memw"]} for a in arms]
+    ARMS_JS = [{"name": a["name"], "n": a["n"], "final": a["final"], "sharpe": a["sharpe"],
+                "period": a["period"], "lookback": a["lookback"],
+                "evscans": a["evscans"], "stale": a["stale"], "memw": a["memw"]} for a in arms]
 
     def _slim(pl):
         """Drop the analysis-only arrays before the payload is inlined into the HTML.
@@ -1331,27 +1344,33 @@ function draw(){{
 
   }}
 
-  // 18. CADENCE ARMS -- one box per curation. A BOX, not a bar: each arm is a DISTRIBUTION over the
-  // same 7,200-cell book grid, and drawing a single number would hide that the within-arm spread is
-  // wider than anything between arms. Boxes are ordered monthly -> weekly so the x axis reads as
-  // increasing scan frequency rather than alphabetically.
+  // 18. CADENCE ARMS -- one BAR per curation at the LIVE book config. Bars, not boxes: the ask was
+  // "the portfolio value each arm generates", which is a single book, not a summary of 7,200
+  // hypothetical ones. The two knobs that define an arm are printed under each bar, because the
+  // whole point of the panel is to remember WHAT is being varied.
   if (typeof ARMS !== 'undefined' && ARMS.length > 1 && document.getElementById('s-arms')) {{
     const COL = [p.s1, p.s2, p.s4];
-    Plotly.react('s-arms', ARMS.map((a, i) => ({{
-      type:'box', name:a.name, y:a.final, boxpoints:false, whiskerwidth:0.6,
-      marker:{{color:COL[i % COL.length]}}, line:{{width:1.5}}, fillcolor:COL[i % COL.length],
-      opacity:0.55,
-      hovertemplate:'<b>'+a.name+'</b><br>%{{y:$,.0f}}<extra></extra>'}})),
-      base(p, {{showlegend:false, margin:{{l:76,r:24,t:16,b:64}},
-        yaxis:{{gridcolor:p.grid, tickprefix:'$', title:{{text:'final portfolio value', font:{{size:11}}}}}},
-        xaxis:{{gridcolor:p.grid,
-                ticktext:ARMS.map(a => a.name + '<br><span style="font-size:9px">' + a.n.toLocaleString()
-                         + ' cells · lookback ' + (a.lookback === 0 ? '30' : a.lookback) + 'd</span>'),
-                tickvals:ARMS.map(a => a.name)}}}}), CFG);
+    const lab = ARMS.map(a => a.period + '<br><span style="font-size:9px">news '
+                              + (a.lookback || 30) + 'd</span>');
+    Plotly.react('s-arms', [{{
+      type:'bar', x:lab, y:ARMS.map(a => a.final),
+      marker:{{color:ARMS.map((a, i) => COL[i % COL.length]), line:{{width:2, color:p.bg}}}},
+      text:ARMS.map(a => '$' + Math.round(a.final).toLocaleString()),
+      textposition:'outside', cliponaxis:false, textfont:{{size:11.5, color:p.fg}},
+      customdata:ARMS.map(a => [a.sharpe, a.evscans, a.stale, a.memw]),
+      hovertemplate:'%{{x}}<br>final %{{y:$,.0f}}<br>Sharpe %{{customdata[0]}}'
+                  + '<br>max_event_scans %{{customdata[1]}}'
+                  + '<br>max_stale_scans %{{customdata[2]}}'
+                  + '<br>curator_memory %{{customdata[3]}} scans<extra></extra>'}}],
+      base(p, {{showlegend:false, margin:{{l:76,r:24,t:26,b:66}},
+        yaxis:{{gridcolor:p.grid, tickprefix:'$', rangemode:'tozero',
+                title:{{text:'final portfolio value at the live config', font:{{size:11}}}}}},
+        xaxis:{{type:'category', tickfont:{{size:11}},
+                title:{{text:'rebalance_period \u00b7 news_lookback_days', font:{{size:11}}}}}}}}), CFG);
   }}
 }}
 
-  draw();
+draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""
     out = ROOT / a.out
