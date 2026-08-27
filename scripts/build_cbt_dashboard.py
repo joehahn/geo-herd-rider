@@ -124,7 +124,13 @@ def main(argv=None) -> int:
             #       snippets preserved: scan 5 reads 2,290 search snippets where v4 read 2,171
             #       headlines, because lede.apply used to overwrite every websearch snippet with
             #       the title before the curator saw it.
-            a.run = "data/cbs_v5"
+            #   v6  re-curated 2026-08-27 to pick up five changes at once: the wall-clock age
+            #       offset on seeded events, search-snippet preservation (the last scan reads 2,358
+            #       search snippets where v5 read 2,171 HEADLINES), lede.apply's cap 280 -> 800,
+            #       min_bundle_articles reaching the live path, and concentration_cap 0.25 -> 0.6.
+            #       Five reasons for any v5/v6 difference, so read the MECHANISM counts (panel 24's
+            #       provenance bands, the seeded-event retirements), never the book value.
+            a.run = "data/cbs_v6"
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
@@ -2332,8 +2338,16 @@ function draw() {{
     // the last book day, so the names it misreported were precisely the ones still held TODAY
     // (AEM, +$1,886, was the one that surfaced it). i1 >= i0 rather than > so a span that opened on
     // the final day still draws its entry marker.
-    const _fst = t => {{ for (let i = 0; i < PX.d.length; i++) if (PX.d[i] >= t) return i; return -1; }};
-    const _lst = t => {{ for (let i = PX.d.length - 1; i >= 0; i--) if (PX.d[i] <= t) return i; return -1; }};
+    // BOTH ENDS CLAMP INTO THE SERIES. The 2026-08-26 fix handled a span whose END fell past the
+    // price data; a span that STARTS past it still vanished. That happens on the newest positions:
+    // the book runs to today, yfinance has no bar for today yet, so a name funded at the last
+    // rebalance has span [today, today] and no trading day is >= it. Falling back to the last index
+    // draws the entry marker on the final priced day -- off by one session, and truthful -- instead
+    // of silently reporting a funded position as never funded, which is the whole bug class.
+    const _fst = t => {{ for (let i = 0; i < PX.d.length; i++) if (PX.d[i] >= t) return i;
+                        return PX.d.length - 1; }};
+    const _lst = t => {{ for (let i = PX.d.length - 1; i >= 0; i--) if (PX.d[i] <= t) return i;
+                        return 0; }};
     fd.forEach(s => {{
       const i0 = _fst(s.s), i1 = _lst(s.e);
       if (i0 >= 0 && i1 >= i0) {{
