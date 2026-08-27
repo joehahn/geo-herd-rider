@@ -235,6 +235,11 @@ def main():
         jcli = _llm.make_client(a.judge_provider, a.judge)
         rnd = random.Random(a.seed + 1)
         flip = {i: rnd.random() < 0.5 for i, _ in pairs}   # True => option A is the TAGGER
+        # SCHEMA DELIBERATELY UNUSED. Passing json_schema sets require_parameters:True on the
+        # OpenRouter path, and a model without structured-output support then 404s with "No
+        # endpoints found" on every batch -- qwen3-235b does exactly that. The Anthropic path
+        # ignores the schema outright. So the judge asks for JSON in the prompt and json_from()
+        # extracts it, which works on every provider. Kept for documentation of the shape.
         JS = {"type": "object", "additionalProperties": False, "required": ["items"],
               "properties": {"items": {"type": "array", "items": {
                   "type": "object", "additionalProperties": False, "required": ["i", "winner"],
@@ -260,7 +265,7 @@ def main():
                                   'Reply with JSON ONLY, no prose: '
                                   '{"items":[{"i":<article number>,"winner":"A"|"B"|"both"|"neither"}]}',
                                   use_web_search=False, label="org-tagger-judge", stage="scout",
-                                  json_schema=JS, effort="low")
+                                  effort="low")   # NO json_schema on purpose -- see JS's comment
                 for it in (json_from(r).get("items") or []):
                     i = int(it.get("i", -1)); w = it.get("winner")
                     if i in flip and w:
@@ -271,6 +276,18 @@ def main():
             print(f"  judged {min(s0+a.batch, len(pairs))}/{len(pairs)}", flush=True)
         v = collections.Counter(adj.values())
         nj = sum(v.values())
+        # THE SUMMARY IS ONLY MEANINGFUL IF THE JUDGE ACTUALLY RAN. When every batch failed, this
+        # block used to print "tagger right or tied on 33/150 = 22.0%" -- a number computed by
+        # treating 117 unjudged disagreements as losses for BOTH sides. Same missing-vs-empty bug
+        # as the tagger path had, one level up. Refuse instead.
+        if nj < 0.9 * len(pairs):
+            print(f"\n  !! JUDGE COVERAGE {nj}/{len(pairs)} — TOO LOW TO REPORT. The accuracy lines "
+                  f"are suppressed: an unjudged disagreement is not a loss, and scoring it as one "
+                  f"understates BOTH sides. Fix the judge and re-run with --from-detail.",
+                  flush=True)
+            Path(a.out.replace(".json", "_detail.json")).write_text(json.dumps(
+                [{**d, "verdict": adj.get(i)} for i, d in enumerate(detail)], indent=1))
+            return
         print(f"\n  of {nj} adjudicated disagreements:")
         for k in ("tagger", "gkg", "both", "neither"):
             print(f"    {k:8} wins {v[k]:4}  ({100*v[k]/max(nj,1):5.1f}%)")

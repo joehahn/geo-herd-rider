@@ -1,0 +1,11 @@
+{
+ "n": 60,
+ "model": "deepseek/deepseek-v4-flash",
+ "baseline_in2": 4,
+ "tagger_in2": 8,
+ "union_in2": 8,
+ "baseline_pct": 6.67,
+ "union_pct": 13.33,
+ "unanswered": 11,
+ "verdict": "CLOSE it \u2014 the beat path is the right home"
+}

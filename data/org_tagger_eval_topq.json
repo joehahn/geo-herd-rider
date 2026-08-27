@@ -1,0 +1,19 @@
+{
+ "model": "deepseek/deepseek-v4-flash",
+ "n": 150,
+ "scoreable": 150,
+ "precision": 0.5385,
+ "recall": 0.2825,
+ "exact": 33,
+ "gkg_blank": 0,
+ "llm_named_on_blank": 0,
+ "max_chars": 800,
+ "seed": 23,
+ "judge": "qwen/qwen3-235b-a22b-2507",
+ "adjudicated": {
+  "neither": 20,
+  "tagger": 88,
+  "gkg": 5,
+  "both": 4
+ }
+}
