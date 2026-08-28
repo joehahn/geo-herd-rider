@@ -736,10 +736,23 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                  # the search class and its per-engine split; zero for a GKG-only month
                  "search": 0, "search_tavily": 0, "search_anthropic": 0,
                  "search_both": 0, "search_unknown": 0})
+    # WEEKLY BINS ON THE BOOTSTRAP, MONTHLY ON THE 3-YEAR CORPUS. The handoff is 2026-07-28, which
+    # falls MID-MONTH, so a calendar-month bar blends 27 days of GKG with 4 of websearch -- and the
+    # provenance panel's whole claim is that the handoff is a CLEAN SUBSTITUTION. Monthly bars
+    # cannot show that; they show a partial one, in the single bar that matters most. Weekly gives
+    # ~22 bars over the bootstrap's five months and puts the seam inside one week instead of one
+    # month. FBT keeps months: three years weekly is 156 bars.
+    def _bin(ds: str) -> str:
+        if not bootstrap:
+            return ds[:7]
+        _d = _dt.date.fromisoformat(ds)
+        return (_d - _dt.timedelta(days=_d.weekday())).isoformat()   # Monday of that week
+
     for a in arts:
-        m = (a.get("published_date") or "")[:7]
-        if not m:
+        _ds = (a.get("published_date") or "")[:10]
+        if not _ds:
             continue
+        m = _bin(_ds)
         d = bymonth[m]
         d["n"] += 1
         d["text"] += 1 if (a.get("lede_live") or a.get("lede")) else 0
@@ -946,6 +959,10 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                      "none": [bymonth[m]["none"] for m in months],
                      "clean": [bymonth[m]["clean"] for m in months]},
         "prov": {"m": months,
+                 # the bin the handoff falls in, computed the same way the bars are, so the dashed
+                 # line lands ON a bar instead of near one
+                 "hoff": (_bin(meta["handoff"]) if bootstrap else meta.get("handoff", "")[:7])
+                         if meta.get("handoff") else "",
                  "clean": [bymonth[m]["clean"] for m in months],
                  "live": [bymonth[m]["live"] for m in months],
                  "search": [bymonth[m]["search"] for m in months],
@@ -1178,23 +1195,12 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         # is a PROVENANCE FLIP, and a flip is a time series, not a pair of eras. The char medians it
         # carried are one sentence, kept below.
         panel_rec("Text provenance over time",
-              "Where each month's text came from, and the sharpest fact on this page. <b>Archived</b> "
-              "is the Wayback copy as written soon after publication \u2014 the only look-ahead-clean "
-              "band. <b>Live page</b> is today's page, which may have been edited since. <b>Search "
-              "snippet</b> is what the retrieval engine returned at PULL time, split by which engine "
-              "returned it. <b>Headline only</b> is a bare title.<br><br>"
-              "The handoff is a clean substitution, not a blackout: archived and live go to zero and "
-              "search takes over the whole bar. Post-handoff articles genuinely have no lede \u2014 "
-              "nothing archives them as-of their own date \u2014 but they are not headlines either. "
-              f"Median characters the scout is handed: <b>{era['chars_pre'].get('med','?')}</b> before "
-              f"the handoff, <b>{era['chars_post'].get('med','?')}</b> after — but that second "
-              "number is a CEILING, not a property of the source, and panel @@p-chars@@ is where to "
-              "read it.<br><br>"
-              "<b>The engine split is a COUNT, deliberately not a P&amp;L.</b> Tavily supplies the "
-              "overwhelming majority and Anthropic almost no overlap with it \u2014 which is the "
-              "argument for keeping Anthropic (it is additive, not redundant) and also the reason a "
-              "gain attribution would be worthless: every websearch pick so far comes from a single "
-              "curation.",
+              "Where each week\u2019s article text came from. <b>Archived</b> is a Wayback copy taken "
+              "near publication, <b>live page</b> is today\u2019s version which may have been edited "
+              "since, and <b>search snippet</b> is what the engine returned when we pulled it. At the "
+              "handoff the archived and live bands go to zero and search takes over the whole bar \u2014 "
+              "a clean swap, not a gap. The search band is split by engine because Tavily and Anthropic "
+              "barely overlap, so each is worth paying for.",
               "p-provtime", 400),
         panel_rec("Article length over time",
               "Each day\u2019s median article length in characters; the band is the middle half. "
@@ -1696,7 +1702,8 @@ function draw() {{
       base(p, {{barmode:'stack', showlegend:true,
         legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
         margin:{{l:64,r:24,t:40,b:52}},
-        shapes: HOFF ? [{{type:'line', xref:'x', x0:HOFF.slice(0,7), x1:HOFF.slice(0,7),
+        shapes: (PR.hoff || HOFF) ? [{{type:'line', xref:'x',
+          x0:(PR.hoff || HOFF.slice(0,7)), x1:(PR.hoff || HOFF.slice(0,7)),
           yref:'paper', y0:0, y1:1, line:{{color:p.text2, width:1.5, dash:'dash'}}}}] : [],
         xaxis:{{gridcolor:p.grid}},
         yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}}}), CFG);
