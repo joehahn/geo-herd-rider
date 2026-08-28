@@ -616,10 +616,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             _pre_arts = [x for x in arts if (x.get("published_date") or "")[:10] < _H]
             _post_arts = [x for x in arts if (x.get("published_date") or "")[:10] >= _H]
             def _sizes(g):
-                b = _og.group(g, canon=_cn, tmap=_tmp)
-                c = collections.Counter(min(len(v), 6) for v in b.values())
-                tot = max(len(b), 1)
-                return [round(100 * c[i] / tot, 1) for i in range(1, 7)]
+                return _og.size_histogram(_og.group(g, canon=_cn, tmap=_tmp), pct=True)
             _tags = {
                 "on": bool(org_tagger), "model": org_tagger or None,
                 "cache": (_otg.cache_path(org_tagger).name if org_tagger else None),
@@ -631,6 +628,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                 "mem": [_mem(_bywin.get(d, [])) for d in _days],
                 "mem_gkg": _mem(_pre_arts), "mem_post": _mem(_post_arts),
                 "sizes_gkg": _sizes(_pre_arts), "sizes_post": _sizes(_post_arts),
+                "size_labels": [b[2] for b in _og.SIZE_BUCKETS],
             }
         except Exception as _e:  # noqa: BLE001 -- a panel must never take the page down
             # PRINTED, not just recorded. The first version referenced an out-of-scope name, raised
@@ -884,7 +882,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     _tmap = _orgs.ticker_map(arts, _canon)
     _grp = _orgs.group(arts, canon=_canon, tmap=_tmap)
     _noorg = [a for a in arts if not _orgs.article_orgs(a, _canon, _tmap)]
-    _BUCK = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 50, "11-50"), (51, 10 ** 9, "51+")]
+    _BUCK = _orgs.SIZE_BUCKETS        # the ONE definition; see orgs.SIZE_BUCKETS
     _gsz, _asz = [], []
     for lo, hi, lab in _BUCK:
         gs = [k for k, v in _grp.items() if lo <= len(v) <= hi]
@@ -1792,7 +1790,7 @@ function draw() {{
           yaxis:{{gridcolor:p.grid, rangemode:'tozero',
                   title:{{text:'bundles joined per article', font:{{size:11}}}}}}}}), CFG);
 
-        const _lab = ['1','2','3','4','5','6+'];
+        const _lab = TG.size_labels;
         react('p-tagsize', [
           {{type:'bar', name:'backtest (GKG)', x:_lab, y:TG.sizes_gkg,
             marker:{{color:p.grid, line:{{width:2,color:p.surface}}}},

@@ -298,6 +298,27 @@ def build_canon(arts: list) -> dict:
     return _canonical_map(c)
 
 
+# BUNDLE SIZE BUCKETS -- the ONE definition, because there were three.
+# build_fbt_dashboard had 1/2-3/4-10/11-50/51+, build_cbt_dashboard had 1/2-3/4-10/11-30/31+, and
+# the FBS org-tagger panel added 1/2/3/4/5/6+. Same quantity, three axes, two pages: a reader
+# cannot compare a bundle-size bar on CBS with one on FBS, which is the whole reason those panels
+# exist. Log-spaced because bundle sizes are power-law -- the largest is 779 articles and the
+# median is 1, so linear buckets put everything interesting in the last bar.
+SIZE_BUCKETS = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"),
+                (11, 30, "11-30"), (31, 100, "31-100"), (101, 10 ** 9, "101+")]
+
+
+def size_histogram(bundles: dict, pct: bool = False) -> list:
+    """Counts (or percentages) of bundles per SIZE_BUCKETS bucket."""
+    out = []
+    for lo, hi, _lab in SIZE_BUCKETS:
+        out.append(sum(1 for v in bundles.values() if lo <= len(v) <= hi))
+    if pct:
+        tot = max(sum(out), 1)
+        return [round(100 * x / tot, 1) for x in out]
+    return out
+
+
 def group(arts: list, canon: dict | None = None, min_articles: int = 1,
           tmap: dict | None = None) -> dict:
     """{org_key: [articles, oldest first]} — the unit the curator judges.

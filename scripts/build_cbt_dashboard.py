@@ -45,6 +45,7 @@ load_dotenv()          # the picker needs ANTHROPIC_API_KEY; a render-only build
 import dash_nav  # noqa: E402
 import score as _score  # noqa: E402
 import lede as _lede
+import orgs as _orgs  # noqa: E402  SIZE_BUCKETS -- one bucket definition, shared with FBS
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
@@ -312,7 +313,7 @@ def main(argv=None) -> int:
                     _prop_by[_d["context"]].add(_kk)
                     if _p.get("ticker"):
                         _tick_by.setdefault(_kk, set()).add(_p["ticker"])
-        _BK = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"), (11, 30, "11-30"), (31, 10 ** 9, "31+")]
+        _BK = _orgs.SIZE_BUCKETS      # the ONE definition; see orgs.SIZE_BUCKETS
         _tot = collections.Counter(); _hit = collections.Counter()
         _bucket_ticks: dict = collections.defaultdict(set)
         _store: dict = {}
