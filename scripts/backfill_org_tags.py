@@ -37,6 +37,9 @@ def main() -> int:
     ap.add_argument("--batch", type=int, default=12)
     ap.add_argument("--limit", type=int, default=0)
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--refresh", action="store_true",
+                    help="re-tag articles ALREADY in the cache (append-only: the new answer wins, "
+                         "the old one stays on disk to diff against)")
     a = ap.parse_args()
 
     short = a.model or _op.load_financial_model("investor_profile.forward.md").get("org_tagger_model")
@@ -60,15 +63,17 @@ def main() -> int:
 
     canon = _o.build_canon(arts)
     cache = _ot.load_cache(short)
-    need = [x for x in arts
-            if not _o.article_orgs(x, canon, None) and x.get("url") not in cache]
+    need = arts if a.refresh else [x for x in arts
+                                   if not _o.article_orgs(x, canon, None)
+                                   and x.get("url") not in cache]
     print(f"corpus {a.corpus}: {len(arts):,} articles · {len(cache):,} already cached · "
           f"{len(need):,} to tag  ->  {_ot.cache_path(short).name}")
     if a.dry_run or not need:
         print("nothing to do." if not need else "dry run — nothing sent.")
         return 0
     t0 = time.time()
-    out = _ot.tag(arts, short, provider, batch=a.batch, workers=a.workers, canon=canon)
+    out = _ot.tag(arts, short, provider, batch=a.batch, workers=a.workers, canon=canon,
+                  refresh=a.refresh)
     print(f"\n{json.dumps(out, indent=1)}\n  {time.time()-t0:.0f}s")
     return 0
 

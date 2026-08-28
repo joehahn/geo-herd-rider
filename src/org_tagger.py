@@ -24,6 +24,7 @@ corpus this touches 19% and on the websearch era 90%.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import sys
 import threading
@@ -34,12 +35,23 @@ from pathlib import Path
 # not silently reuse answers produced by the old wording -- it starts a new cache and the old one
 # stays on disk to compare against. Changing SYSTEM without bumping this is the one way to corrupt
 # the cache, so they are deliberately adjacent.
-PROMPT_VERSION = "v1"
+PROMPT_LABEL = "v1"          # human-readable, for the filename only
 CACHE_DIR = Path(__file__).resolve().parent.parent / "data" / "org_tags"
 
 
+def prompt_id() -> str:
+    """8 hex of the ACTUAL prompt text. The cache filename carries this, so editing SYSTEM starts a
+    new cache automatically and the old answers stay on disk beside it.
+
+    It replaces a hand-maintained PROMPT_VERSION constant. That constant was the kind of thing this
+    repo keeps getting bitten by: correct only while someone remembers to bump it, silent when they
+    do not, and the failure -- answers from two different prompts mixed in one file -- is invisible
+    at every later step. Derived, it cannot be forgotten."""
+    return hashlib.sha256(SYSTEM.encode()).hexdigest()[:8]
+
+
 def cache_path(model: str) -> Path:
-    return CACHE_DIR / f"{model.replace('/', '_')}.{PROMPT_VERSION}.jsonl"
+    return CACHE_DIR / f"{model.replace('/', '_')}.{PROMPT_LABEL}-{prompt_id()}.jsonl"
 
 
 def load_cache(model: str) -> dict[str, list]:
@@ -58,7 +70,8 @@ def load_cache(model: str) -> dict[str, list]:
     return out
 
 
-def attach(articles: list[dict], model: str, canon: dict | None = None) -> int:
+def attach(articles: list[dict], model: str, canon: dict | None = None,
+           force: bool = False) -> int:
     """Fill `orgs` from the CACHE only. No LLM, no network, free.
 
     This is what the curator and the dashboards call. Tagging (below) is a separate, occasional
@@ -71,9 +84,9 @@ def attach(articles: list[dict], model: str, canon: dict | None = None) -> int:
     n = 0
     for a in articles:
         u = a.get("url")
-        if u in cache and not _o.article_orgs(a, canon, None):
+        if u in cache and (force or not _o.article_orgs(a, canon, None)):
             a["orgs"] = cache[u]
-            a["orgs_tagger"] = f"{model}.{PROMPT_VERSION}"
+            a["orgs_tagger"] = f"{model}.{PROMPT_LABEL}-{prompt_id()}"
             n += 1
     return n
 
@@ -122,7 +135,7 @@ def _block(i: int, a: dict, max_chars: int) -> str:
 
 def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
         max_chars: int = 800, batch: int = 12, workers: int = 24,
-        canon: dict | None = None, verbose: bool = True) -> dict:
+        canon: dict | None = None, verbose: bool = True, refresh: bool = False) -> dict:
     """Stamp `orgs` on every article in `articles` that has none. Returns a summary dict.
 
     Mutates in place and marks each tagged article with `orgs_tagger` so a corpus can always say
@@ -133,9 +146,13 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
     'this article has no company'. That distinction cost a measurement run 17 points on 2026-08-27.
     """
     import llm as _llm, orgs as _o
-    cache = load_cache(model)
+    cache = {} if refresh else load_cache(model)
+    # `refresh` re-sends articles ALREADY cached. Safe because the cache is append-only and
+    # load_cache lets the LAST line for a url win, so a re-tag overrides without rewriting the file
+    # and the superseded answer stays on disk to diff against. Without this, "fix the tagging later"
+    # was only true for articles that had never been tagged -- the ones least likely to be wrong.
     todo = [a for a in articles
-            if not _o.article_orgs(a, canon, None) and a.get("url") not in cache]
+            if refresh or (not _o.article_orgs(a, canon, None) and a.get("url") not in cache)]
     if not model:
         return {"sent": 0, "tagged": 0, "unanswered": 0, "cached": len(cache)}
     if not todo:
@@ -204,7 +221,7 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
     # invalidated by anything except a prompt bump, which changes the filename. Nothing is
     # overwritten, so a re-tag is always additive and a bad run can be diffed rather than mourned.
     _fh.close()
-    n = attach(articles, model, canon)
+    n = attach(articles, model, canon, force=refresh)
     out = {"sent": len(todo), "answered": len(done), "unanswered": len(todo) - len(done),
            "attached": n,          # includes articles already in the cache, so it can exceed `sent`
            "model": model, "cache": str(cache_path(model))}
