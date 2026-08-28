@@ -158,6 +158,17 @@ cull_rank: trend                  # trend = trailing risk-adjusted return + fres
 # member of provenance.CURATION_KNOBS, so changing it rehashes every curation. See TODO.md.
 curator_memory_weeks: 8           # SCANS of resolved catalysts the scout is reminded of; 0 = off.
 event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning knob measured as a NULL. (forward_engine  # SYNCED to .backtest 2026-08-24
+# ORG TAGGER -- FORWARD-ONLY, and deliberately absent from .backtest.md.
+# Websearch articles arrive with no `orgs`; GKG articles arrive with it on 82%. Company bundling is
+# seeded from `orgs`, so post-handoff 90% of what this system reads falls to the beat/orphan path
+# and the scout stops seeing a firm's news as one block. Measured 2026-08-27: articles reaching a
+# company bundle of 2+ run at 62.3% in the backtest era and 9.2% post-handoff; tagging takes it to
+# 39.3% (an undercount -- see TODO). This knob exists to close that gap, which is why it does NOT
+# belong in .backtest.md: the backtest already has GKG's orgs and IS the 62.3% baseline. Tagging it
+# too would move the target rather than reach it. Retrieval-operational, like gather_model, so the
+# two profiles are allowed to differ here.
+# `off` (or unset) = no tagging at all, byte-identical to the behaviour before this knob existed.
+org_tagger_model: off              # `deepseek4` to enable — measured 83% right-or-tied vs GKG's 28%
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
 # THESE THREE ARE STATED, NOT INHERITED (2026-08-26). Each is a CURATION knob the backtest file
 # states explicitly while this file used to leave it to optimizer's default -- so the two agreed only

@@ -13,6 +13,14 @@ module exists to prevent.
 
 Nothing is lost: the demoted knobs' recorded values move to `book_knobs_at_curation` so what the
 run actually ran under stays on disk, it simply stops counting toward curation identity.
+
+ADDING A KNOB NEEDS THE SAME TREATMENT, AND A NARROWER LICENCE. `curation_key` iterates ALL of
+CURATION_KNOBS, so a NEW knob changes every hash even when nobody set it. The generic guard below
+refuses to rehash a stamp with unrecorded knobs, which is right -- an unrecorded knob is usually one
+whose value we genuinely do not know. But a knob INTRODUCED after a run is different: the code path
+did not exist, so its value is knowably unset. `--introduced KNOB` says exactly that, for exactly
+the knobs named, and records the claim in `restamped`. It is not a general escape from the guard:
+name the wrong knob and you are asserting something false, in a file that says you asserted it.
 """
 import json, sys, hashlib
 from pathlib import Path
@@ -24,6 +32,11 @@ import provenance as pv  # noqa: E402
 
 def main() -> int:
     apply = "--apply" in sys.argv
+    intro = [sys.argv[i + 1] for i, x in enumerate(sys.argv) if x == "--introduced"]
+    bad = [k for k in intro if k not in pv.CURATION_KNOBS]
+    if bad:
+        print(f"  --introduced names knob(s) not in CURATION_KNOBS: {bad}"); return 2
+    note = sys.argv[sys.argv.index("--note") + 1] if "--note" in sys.argv else None
     n = 0
     for f in sorted(ROOT.glob("data/*/provenance.json")):
         rec = json.loads(f.read_text())
@@ -32,7 +45,9 @@ def main() -> int:
             print(f"  SKIP {f.parent.name}: no knobs recorded"); continue
         demoted = {k: knobs[k] for k in sorted(pv.BOOK_KNOBS) if k in knobs}
         kept = {k: knobs[k] for k in sorted(pv.CURATION_KNOBS) if k in knobs}
-        missing = [k for k in sorted(pv.CURATION_KNOBS) if k not in knobs]
+        for k in intro:                      # knowably unset: it did not exist when this ran
+            kept.setdefault(k, None)
+        missing = [k for k in sorted(pv.CURATION_KNOBS) if k not in kept]
         if missing:
             # a partial legacy stamp -- rehashing it would invent agreement on knobs it never recorded
             print(f"  SKIP {f.parent.name}: partial stamp, {len(missing)} curation knob(s) unrecorded")
@@ -49,7 +64,8 @@ def main() -> int:
             if demoted:
                 rec["book_knobs_at_curation"] = demoted
             rec["hash"] = newhash
-            rec.setdefault("restamped", []).append("2026-08-22 partition: exit_patience_scans, max_stale_scans -> BOOK")
+            rec.setdefault("restamped", []).append(
+                note or "2026-08-22 partition: exit_patience_scans, max_stale_scans -> BOOK")
             f.write_text(json.dumps(rec, indent=1, sort_keys=True, default=str))
         n += 1
     print(f"\n  {n} stamp(s) {'rewritten' if apply else 'would change'}" + ("" if apply else "  -- re-run with --apply"))

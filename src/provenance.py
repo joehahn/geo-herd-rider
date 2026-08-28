@@ -76,6 +76,9 @@ CANON_SWEEP = "data/sweep_v21.json"
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
 CURATION_KNOBS = frozenset({
     "model", "scout_model", "event_agent_model", "event_agent_effort",
+    "org_tagger_model",                        # fills `orgs` at ingest -> changes which company
+                                               # bundles exist -> changes what the scout is shown
+
     "picker_model", "picker_effort",           # backtest_gdelt uses the picker for the max_events cap
     "retrieval_engine", "discovery_filter",
     "news_cap", "news_lookback_days", "event_news_cap",

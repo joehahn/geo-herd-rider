@@ -49,6 +49,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   knobs below override it (chain: scout -> event -> model). Registered
                                        #   here because load_financial_model DROPS any key absent from this dict
                                        #   -- omitting it silently sent judgment back to the sonnet5 default.
+    "org_tagger_model": None,  # unset -> OFF, no tagging, current behaviour exactly
+                               # FORWARD-ONLY (retrieval-operational, like gather_model): fills
+                               # `orgs` on websearch articles, which arrive without it, so company
+                               # bundling works there as it already does on GKG. The backtest keeps
+                               # GKG's native orgs and is deliberately NOT tagged -- it is the
+                               # 62.3% baseline this exists to bring the forward up to.
     "gather_model": None,      # unset -> falls back to event_agent_model, then `model`         # LIVE, FORWARD-ONLY (firehose): the LLM that runs the live web-search
                                        #   gather (forward_gather). Web search is Anthropic-only, so this MUST
                                        #   resolve to an Anthropic model. The backtest has NO gather (its pool
@@ -277,6 +283,19 @@ def resolve_gather_model(fm: dict) -> tuple[str, str]:
     forward.py — validates the provider and errors clearly otherwise). Forward-only: the
     backtest has no gather. Falls back to event_agent_model, then legacy `model:`, if unset."""
     short = fm.get("gather_model") or fm.get("event_agent_model") or fm.get("model") or "sonnet5"
+    return resolve_curator_model(short)
+
+
+def resolve_org_tagger_model(fm: dict) -> tuple[str, str] | None:
+    """The org-tagger model -> (model_id, provider), or None when the stage is OFF.
+
+    NO FALLBACK CHAIN, unlike the curator stages. gather/scout/event all fall back to `model:` so a
+    legacy profile keeps resolving, but this stage did not exist before 2026-08-28: an unset value
+    means "do not tag", not "tag with whatever the curator uses". Inheriting a default here would
+    silently switch on an LLM pass over every ingested article."""
+    short = fm.get("org_tagger_model")
+    if not short or str(short).lower() in ("off", "none", "false", "0"):
+        return None
     return resolve_curator_model(short)
 
 
