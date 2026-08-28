@@ -60,7 +60,7 @@ def main():
     ap.add_argument("--out", default="data/org_bundling_effect.json")
     a = ap.parse_args()
 
-    arts, _m = bs.load()
+    arts, _m = bs.load()          # RAW on purpose: this script measures the tagger's effect
     H = bs.HANDOFF
     post = [x for x in arts if (x.get("published_date") or "")[:10] >= H]
     if a.limit:

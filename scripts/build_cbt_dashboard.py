@@ -70,7 +70,7 @@ def load(run: Path, corpus: Path, bootstrap: bool = False):
         # ("a copy of two sources is a third thing that can drift from both"), and load() already
         # applies the article contract, so the curator-facing shape is identical to a pool.json.
         import bootstrap_corpus as _bs
-        _arts, _bm = _bs.load()
+        _arts, _bm = _bs.load(org_tagger=_bs.profile_org_tagger())
         cd = {"articles": _arts, **{k: v for k, v in _bm.items() if k != "ingest"}}
     else:
         cd = json.loads((corpus / "pool.json").read_text())

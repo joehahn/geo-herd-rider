@@ -446,7 +446,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     (which is precisely how the beat vocabulary drifted). One builder, two corpora."""
     if bootstrap:
         import bootstrap_corpus
-        arts, meta = bootstrap_corpus.load()
+        arts, meta = bootstrap_corpus.load(org_tagger=bootstrap_corpus.profile_org_tagger())
         stats = {}                       # no retrieval_stats.json: the corpus is assembled, not ingested
         print(f"  {bootstrap_corpus.describe(meta)}", flush=True)
     else:

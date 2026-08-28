@@ -113,7 +113,7 @@ def attach(articles: list[dict], model: str, canon: dict | None = None,
     return n
 
 
-def coverage(articles: list[dict], canon: dict | None = None) -> dict:
+def coverage(articles: list[dict], canon: dict | None = None, model: str | None = None) -> dict:
     """How many articles STILL have no org key after attaching -- the number nobody was told.
 
     attach() deliberately never calls an LLM, so an article the cache has not seen stays untagged
@@ -122,9 +122,21 @@ def coverage(articles: list[dict], canon: dict | None = None) -> dict:
     cost nothing), but on its own it is SILENT: a cron that missed a week, or a backfill nobody
     ran, degrades bundling with nothing on screen to say so. This is what the caller prints."""
     import orgs as _o
-    miss = [a for a in articles if not _o.article_orgs(a, canon, None)]
-    return {"n": len(articles), "untagged": len(miss),
-            "pct": round(100 * len(miss) / max(len(articles), 1), 1)}
+    cache = load_cache(model) if model else {}
+    # "NO COMPANY KEY" IS TWO DIFFERENT FACTS AND ONLY ONE IS A PROBLEM:
+    #   unseen     -- the cache has never been asked about this article. A real gap; tag it.
+    #   no_company -- the tagger WAS asked and said the article has no subject firm. That is the
+    #                 correct answer for a macro, policy, commodity or roundup story, and roughly
+    #                 half of them are. It is not a gap and must never be reported as one.
+    # Reported together, the warning cried wolf permanently: 3,629 "untagged" on a corpus where the
+    # tagger had already answered for every article it was asked about.
+    unseen, nocomp = [], []
+    for a in articles:
+        if _o.article_orgs(a, canon, None):
+            continue
+        (nocomp if a.get("url") in cache else unseen).append(a)
+    return {"n": len(articles), "unseen": len(unseen), "no_company": len(nocomp),
+            "pct_unseen": round(100 * len(unseen) / max(len(articles), 1), 1)}
 
 SYSTEM = (
     "You extract company names from financial news. For each numbered article you are given a "

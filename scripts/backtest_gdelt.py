@@ -311,7 +311,7 @@ def main(argv=None):
     gpool = None
     if a.bootstrap:
         import bootstrap_corpus as _bs
-        gpool, _bmeta = _bs.load()
+        gpool, _bmeta = _bs.load(org_tagger=_bs.profile_org_tagger())
         # bootstrap_corpus.load() already applies the article contract (canonical beat tags, `orgs`
         # stamped by each ingest's own adapter), so nothing source-specific reaches the curator.
         a.enrich = "none"                      # the corpus carries its ledes; re-fetching is waste

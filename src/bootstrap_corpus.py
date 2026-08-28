@@ -181,6 +181,20 @@ def _norm(a: dict, era: str) -> dict:
     return a
 
 
+def profile_org_tagger() -> str | None:
+    """`org_tagger_model` from the FORWARD profile, or None when off.
+
+    ONE reader, because the bootstrap corpus has three independent entry points -- the curation
+    (backtest_gdelt --bootstrap), CBS and FBS -- and all three must see the SAME corpus or the page
+    describes a corpus the curation never read. Each having its own copy of this lookup is exactly
+    how `news_lookback_days` came to be implemented in one place and not the other."""
+    try:
+        import optimizer as _op
+        return _op.load_financial_model("investor_profile.forward.md").get("org_tagger_model") or None
+    except Exception:  # noqa: BLE001 -- never block a corpus load on reading a knob
+        return None
+
+
 def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
          gkg_run: str = GKG_RUN, daily_dir: str = DAILY_DIR,
          spam_filter: bool = True, org_tagger: str | None = None) -> tuple[list[dict], dict]:
@@ -272,13 +286,15 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
                 print(f"  bootstrap: org-tagger cache filled `orgs` on {_n:,} articles "
                       f"({org_tagger})", file=_s.stderr)
                 _canon = _o.build_canon(arts)      # the new orgs are vocabulary too
-            _cov = _ot.coverage(arts, _canon)
-            if _cov["untagged"]:
-                import sys as _s
-                print(f"  bootstrap: {_cov['untagged']:,} of {_cov['n']:,} articles "
-                      f"({_cov['pct']}%) still have NO company key — the cache has not seen them. "
-                      f"Bundling is degraded for those. Fix: python scripts/backfill_org_tags.py "
-                      f"--corpus bootstrap --post-handoff-only", file=_s.stderr)
+            _cov = _ot.coverage(arts, _canon, org_tagger)
+            import sys as _s
+            print(f"  bootstrap: org-tagger — {_cov['no_company']:,} articles tagged 'no subject "
+                  f"company' (correct for macro/policy/roundup stories)", file=_s.stderr)
+            if _cov["unseen"]:
+                print(f"  bootstrap: {_cov['unseen']:,} of {_cov['n']:,} articles "
+                      f"({_cov['pct_unseen']}%) the tagger has NEVER SEEN — bundling is degraded "
+                      f"for those. Fix: python scripts/backfill_org_tags.py --corpus bootstrap",
+                      file=_s.stderr)
         _ac.normalise_pool(arts, _canon)
     except Exception as _e:  # noqa: BLE001 -- never block corpus loading on normalisation
         import sys as _s
