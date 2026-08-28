@@ -183,7 +183,7 @@ def _norm(a: dict, era: str) -> dict:
 
 def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
          gkg_run: str = GKG_RUN, daily_dir: str = DAILY_DIR,
-         spam_filter: bool = True) -> tuple[list[dict], dict]:
+         spam_filter: bool = True, org_tagger: str | None = None) -> tuple[list[dict], dict]:
     """(articles, meta) for the bootstrap corpus, assembled IN MEMORY.
 
     Deliberately not materialised to a third pool.json: a copy of two sources is a third thing that can
@@ -258,7 +258,21 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
     try:
         import article_contract as _ac
         import orgs as _o
-        _ac.normalise_pool(arts, _o.build_canon(arts))
+        _canon = _o.build_canon(arts)
+        # ORG-TAGGER CACHE, attached at the SAME boundary and before normalisation so a tagged
+        # article is indistinguishable downstream from one GKG stamped itself. Read-only and free:
+        # attach() is a dict lookup, never an LLM call, so loading the corpus can neither cost money
+        # nor block on a network. An empty or missing cache is the no-op that leaves today's
+        # behaviour exactly as it was, which is what `org_tagger_model: off` means.
+        if org_tagger:
+            import org_tagger as _ot
+            _n = _ot.attach(arts, org_tagger, _canon)
+            if _n:
+                import sys as _s
+                print(f"  bootstrap: org-tagger cache filled `orgs` on {_n:,} articles "
+                      f"({org_tagger})", file=_s.stderr)
+                _canon = _o.build_canon(arts)      # the new orgs are vocabulary too
+        _ac.normalise_pool(arts, _canon)
     except Exception as _e:  # noqa: BLE001 -- never block corpus loading on normalisation
         import sys as _s
         print(f"  bootstrap: contract normalisation unavailable ({type(_e).__name__}: {_e})", file=_s.stderr)
@@ -272,7 +286,8 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
             # the websearch era's engine split -- exclusive buckets that sum to n_websearch
             "n_tavily": eng["tavily"], "n_anthropic": eng["anthropic"], "n_both": eng["both"],
             "pull_days": pull_days, "pull_kept": dict(pull_kept),
-            "gkg_run": gkg_run, "history_days": history_days}
+            "gkg_run": gkg_run, "history_days": history_days,
+            "org_tagger": org_tagger or None}
     # SAME INGEST STAMP THE GKG POOL CARRIES. The bootstrap is assembled in memory rather than
     # written to disk, but it is still a corpus a curation will read, so it records what built it on
     # the same terms -- and names BOTH sources, which is the fact that distinguishes it.

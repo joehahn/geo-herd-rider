@@ -141,7 +141,13 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
         attach(articles, model, canon)
         return {"sent": 0, "tagged": 0, "unanswered": 0, "cached": len(cache),
                 "note": "everything already cached"}
-    cli = _llm.make_client(provider, model)
+    # THE CACHE IS KEYED BY THE ALIAS, THE CLIENT NEEDS THE RESOLVED ID. `deepseek4` is a stable,
+    # human-readable cache filename; `deepseek/deepseek-v4-flash` is what the API accepts. Passing
+    # the alias straight to make_client returns a 400 "not a valid model ID" on every call, which
+    # the retry loop would then swallow as 2,431 unanswered articles.
+    import optimizer as _op
+    _id, _prov = _op.resolve_curator_model(model)
+    cli = _llm.make_client(provider or _prov, _id)
     done: dict[int, list] = {}
 
     def run(lo: int, chunk: list) -> None:
