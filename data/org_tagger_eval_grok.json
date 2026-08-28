@@ -1,0 +1,19 @@
+{
+ "model": "grok4",
+ "n": 150,
+ "scoreable": 150,
+ "precision": 0.5447,
+ "recall": 0.3004,
+ "exact": 29,
+ "gkg_blank": 0,
+ "llm_named_on_blank": 0,
+ "max_chars": 800,
+ "seed": 23,
+ "judge": "claude-sonnet-4-6",
+ "adjudicated": {
+  "neither": 28,
+  "gkg": 6,
+  "tagger": 85,
+  "both": 2
+ }
+}

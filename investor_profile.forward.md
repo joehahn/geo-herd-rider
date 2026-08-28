@@ -168,7 +168,17 @@ event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning kno
 # too would move the target rather than reach it. Retrieval-operational, like gather_model, so the
 # two profiles are allowed to differ here.
 # `off` (or unset) = no tagging at all, byte-identical to the behaviour before this knob existed.
-org_tagger_model: off              # `deepseek4` to enable — measured 83% right-or-tied vs GKG's 28%
+# OFF 2026-08-28 after measuring it, not before. The tagger works -- 1.46 bundle memberships per
+# article against GKG's 1.17, an identical 66/34 singleton-to-multi bundle split -- but the CURATION
+# it produces loses to no-tagger on 5 of 6 mechanism metrics (cbs_v6 vs cbs_v8: events opened 72->64,
+# distinct tickers 386->318, vehicles live 309->219). Only cull-at-birth improved, 27.8%->23.4%.
+# Non-negotiable #3: a curator change is kept only if the scoreboard shows lift. This does not.
+# UNRESOLVED, and the reason this is `off` rather than deleted: fewer events with a BETTER
+# cull-at-birth rate may be bundling working as designed -- consolidating a firm's news into one
+# bundle means one event where three were opened before. That is deduplication, which is the point.
+# Whether fewer-but-better is an improvement is a P&L question and non-negotiable #6 says one
+# curation cannot answer it. Revisit when the forward scoreboard can.
+org_tagger_model: off              # `deepseek4` to enable; see data/cbs_v7 (precision) and cbs_v8 (recall)
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
 # THESE THREE ARE STATED, NOT INHERITED (2026-08-26). Each is a CURATION knob the backtest file
 # states explicitly while this file used to leave it to optimizer's default -- so the two agreed only

@@ -137,7 +137,12 @@ def main():
         # be retried for the judge's cost alone instead of re-running the tagger over the corpus.
         got = {i: d["llm"] for i, d in enumerate(json.loads(_cache.read_text()))}
         print(f"reusing {len(got)} cached tagger results from {_cache} (no tagger spend)", flush=True)
-    cli = None if got else _llm.make_client(a.provider, a.model)
+    # RESOLVE THE ALIAS. This script passes a short name; make_client needs the model id. Fixed in
+    # src/org_tagger.py hours ago and not back-ported here, so `--model grok4` 400'd on all 91 calls
+    # and the run reported "0 disagreements" rather than "the tagger never ran".
+    import org_tagger as _ot
+    _mid, _mprov = _ot.resolve(a.model)
+    cli = None if got else _llm.make_client(a.provider or _mprov, _mid)
     t0 = time.time()
     for s in ([] if got else range(0, len(samp), a.batch)):
         chunk = samp[s:s + a.batch]
@@ -205,6 +210,11 @@ def main():
                 rec_hits["llm_named"] += 1
                 only_llm.append((x.get("title"), [], sorted(L)[0]))
 
+    if not detail:
+        print("\n  !! NO ARTICLE GOT A TAGGER ANSWER — nothing to score. The tagger did not run "
+              "(model id? key? balance?). Refusing to print an accuracy over an empty set.",
+              file=sys.stderr)
+        return
     P = tp / max(tp + fp, 1); R = tp / max(tp + fn, 1)
     print(f"\n=== agreement with GKG on the {both} articles GKG could bundle ===")
     print(f"  precision {P:.3f}   recall {R:.3f}   F1 {2*P*R/max(P+R,1e-9):.3f}")

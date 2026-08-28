@@ -331,7 +331,13 @@ def curator_code_id() -> dict:
     """
     import subprocess
     out = {}
-    for rel in ("src/agent.py", "src/firehose.py"):
+    # src/org_tagger.py ADDED 2026-08-28, and it should never have been missing. cbs_v7 and cbs_v8
+    # are two curations of one corpus produced from COMPLETELY DIFFERENT tag sets -- a subject-only
+    # prompt and an extraction prompt, 0.59 vs 1.46 bundle memberships per article -- and they
+    # stamped IDENTICAL hashes AND identical code digests. Only a directory name separated them,
+    # which is verbatim the failure this function's docstring was written about. The tagger's prompt
+    # is a curator input exactly as the scout prompt is; it just lives in a file nobody listed here.
+    for rel in ("src/agent.py", "src/firehose.py", "src/org_tagger.py"):
         f = REPO_ROOT / rel
         if f.exists():
             out[rel] = hashlib.md5(f.read_bytes()).hexdigest()[:12]
@@ -373,6 +379,13 @@ def stamp(run_dir: str | Path, fm: dict, corpus: "str | Path | dict", arm: str =
         rec["models_resolved"]["gather"] = f"{_g[1]}:{_g[0]}"
         _o = _op.resolve_org_tagger_model(fm)
         rec["models_resolved"]["org_tagger"] = f"{_o[1]}:{_o[0]}" if _o else None
+        if _o:
+            # WHICH TAGS, not just which tagger. The cache filename carries the prompt hash, so
+            # this is the one string that distinguishes two curations tagged by the same model
+            # under different prompts.
+            import org_tagger as _ot
+            rec["models_resolved"]["org_tagger_cache"] = _ot.cache_path(
+                fm.get("org_tagger_model")).name
     except Exception as _e:  # noqa: BLE001 -- provenance enrichment, never a gate on writing a stamp
         rec["models_resolved"] = {"error": f"{type(_e).__name__}: {_e}"}
     rec["argv"] = argv or []

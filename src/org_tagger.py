@@ -138,22 +138,50 @@ def coverage(articles: list[dict], canon: dict | None = None, model: str | None 
     return {"n": len(articles), "unseen": len(unseen), "no_company": len(nocomp),
             "pct_unseen": round(100 * len(unseen) / max(len(articles), 1), 1)}
 
+# THE TASK IS EXTRACTION, NOT IDENTIFICATION. The first version of this prompt asked for the
+# article's SUBJECT company and forbade passing mentions, sectors and commodities. It scored 83%
+# right-or-tied against GKG under a blind judge -- and it made the curation WORSE (events opened
+# 72 -> 59, distinct tickers 386 -> 315, cull-at-birth 27.8% -> 30.5%), because precision is the
+# wrong objective here and the eval that blessed it asked the wrong question.
+#
+# WHAT BUNDLING ACTUALLY RUNS ON is REPLICATION. orgs.group(): "An article joins EVERY org it names.
+# A two-company story is real evidence for both, and assigning it to one arbitrarily would discard
+# signal." GKG's V2Organizations does not identify a subject at all -- it lists every organisation
+# mentioned -- and that generosity is what makes bundles thick:
+#
+#                        memberships/article   articles in 2+ bundles   no key
+#     GKG (backtest)            1.16                   24.9%             17%
+#     subject-only prompt       0.59                    5.8%             49%
+#
+# Half the connective tissue. Thin bundles, 68% singletons, and a singleton company bundle is WORSE
+# than no tag at all: with min_bundle_articles=1 it pulls the article out of its beat bundle and
+# shows it alone, with less context than before tagging.
+#
+# The repo already learned this once. `max_article_orgs` capped orgs-per-article and was deleted the
+# same day as "redundant and harmful" for deleting genuine multi-company catalyst articles. Asking a
+# model for the subject only is that knob again, written as English instead of code.
+#
+# TARGETS, fixed before re-tagging so they cannot be fitted afterwards: >=1.0 memberships/article
+# and >=18% of articles in 2+ bundles. Below that, do not spend a curation on it.
 SYSTEM = (
-    "You extract company names from financial news. For each numbered article you are given a "
-    "headline and the opening of the body -- exactly what a reader would see in a search result.\n\n"
-    "Return the COMPANIES the article is ABOUT: its subject, the firm whose business or stock the "
-    "article concerns. Listed or private both count -- the answer is used to group articles by "
-    "subject firm, and a private company is as groupable as a listed one.\n\n"
+    "You list the companies a financial news article gives information about. This is an EXTRACTION "
+    "task: the output is used to group articles by company, so an article that informs a reader "
+    "about three companies should list all three.\n\n"
+    "List EVERY company the article says something about — the one it centres on AND the ones it "
+    "compares, names as a rival, supplier, customer, acquirer, target, or beneficiary. A company "
+    "does not have to be the subject to belong in the list. Listed or private both count.\n\n"
+    "Also list the SECTOR OR THEME when the article is about one — 'memory chips', 'uranium', "
+    "'data centers', 'gold miners'. Those group commodity and policy stories that name no single "
+    "firm, and they are as useful for grouping as a company name.\n\n"
     "Rules:\n"
-    "- A passing mention is not a subject. 'shares fell alongside the S&P' does not make it about "
-    "the S&P.\n"
-    "- Never return a country, a government body, an exchange, an index, a regulator, a sector, a "
-    "commodity, or a person. 'United States', 'NYSE', 'FDA', 'semiconductors', 'copper' are all "
-    "wrong answers.\n"
-    "- Never return the publisher, the wire service, or the byline.\n"
-    "- Return the company's common name, not its ticker: 'Amgen', not 'AMGN'.\n"
-    "- MOST ARTICLES HAVE ONE SUBJECT OR NONE. Returning an empty list is the correct answer for a "
-    "policy, macro, commodity or market-roundup story. Do not guess to fill the field."
+    "- Do NOT return a country, a government body, an exchange, an index, a regulator, or a person. "
+    "'United States', 'NYSE', 'FDA', 'the Fed' are wrong answers.\n"
+    "- Do NOT return the publisher, the wire service, or the byline.\n"
+    "- Return common names, not tickers: 'Amgen', not 'AMGN'.\n"
+    "- An article naming no company and no clear theme returns an empty list. That is a correct "
+    "answer for a pure macro or market-summary story — but prefer a theme where one is genuinely "
+    "present, since a themed group is more useful than nothing.\n"
+    "- Typical articles yield one to three entries. Do not pad, and do not reduce to one."
 )
 
 SCHEMA = {"type": "object", "additionalProperties": False, "required": ["items"],
