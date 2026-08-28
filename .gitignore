@@ -125,3 +125,6 @@ data/llm_costs.csv
 # org-tagger cache: derived, regenerable, and large. The KNOB and PROMPT_VERSION are versioned;
 # the answers they produce are not, exactly like data/prices_cache/.
 data/org_tags/
+
+# bundle spot-check output: regenerable from the script, and large
+data/bundle_spotcheck.txt
