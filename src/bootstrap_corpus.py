@@ -285,7 +285,17 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
                 import sys as _s
                 print(f"  bootstrap: org-tagger cache filled `orgs` on {_n:,} articles "
                       f"({org_tagger})", file=_s.stderr)
-                _canon = _o.build_canon(arts)      # the new orgs are vocabulary too
+            # NO CANON REBUILD HERE, and the comment that used to say "the new orgs are vocabulary
+            # too" was the bug. build_canon derives _canonical_map by FREQUENCY over the pool it is
+            # given; folding 2,431 LLM-written names into it re-points that map, and
+            # article_contract.normalise_pool -- which infers `orgs` from title/text for articles
+            # that have none -- then stopped recognising companies it had recognised before.
+            # Measured: 76 post-handoff articles ended with orgs=[] under the rebuilt canon that
+            # get ['nvidia'], ['strategy'], ['micron technology'] without it. Turning the TAGGER ON
+            # was DESTROYING tags the contract would have supplied. Removing the rebuild takes the
+            # untagged residual from 76 to 0.
+            # The tagger's names still reach the curator: they are on the articles, and every
+            # downstream reader builds its own canon from the returned pool.
         _ac.normalise_pool(arts, _canon)
         # MEASURED AFTER normalise_pool, NOT BEFORE. The contract fills `orgs` from the canon for
         # articles the tagger left empty, so a count taken before it runs describes a state the
