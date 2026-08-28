@@ -1,11 +1,11 @@
 {
- "n": 60,
+ "n": 2585,
  "model": "deepseek/deepseek-v4-flash",
- "baseline_in2": 4,
- "tagger_in2": 8,
- "union_in2": 8,
- "baseline_pct": 6.67,
- "union_pct": 13.33,
- "unanswered": 11,
- "verdict": "CLOSE it \u2014 the beat path is the right home"
+ "baseline_in2": 239,
+ "tagger_in2": 906,
+ "union_in2": 1017,
+ "baseline_pct": 9.25,
+ "union_pct": 39.34,
+ "unanswered": 21,
+ "verdict": "IN BETWEEN \u2014 decide with the size distribution"
 }

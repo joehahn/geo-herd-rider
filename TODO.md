@@ -1453,6 +1453,31 @@ simply prefer clean company names to GKG's noisy strings. Blind randomised order
 incumbency, not for that. Before adopting, re-judge a slice with a different judge family and
 check the margin holds.
 
+### STEP 2 MEASURED 2026-08-27: tagging closes 57% of the bundling gap (9.2% -> 39.3%, vs 62.3%)
+`scripts/measure_org_bundling.py`, whole 2,585-article post-handoff window, 2,564 answered
+(21 unanswered EXCLUDED, never counted as empty). ~100 min, $0.17.
+
+    articles reaching a company bundle of 2+ (i.e. that the scout can corroborate)
+      backtest era, mean of four 30-day windows        62.3%   <- the benchmark
+      post-handoff today                                9.2%
+      post-handoff with tagger + explicit tickers      39.3%   (4.3x)
+
+The 62.3% is the number that matters and it did not exist before this run: bundling is a property
+of the WINDOW, so the pre-handoff era had to be sliced into equal 30-day windows before it could be
+compared with a 30-day post-handoff one. Against that benchmark 39.3% closes 57% of the gap.
+
+The bundle GRAPH, not just the count: 286 companies with 2+ articles against 32 today, and the big
+bundles are real (spacex 70, nvidia 51, sandisk 33, micron 33, rocket lab 30, sk hynix 28). Today's
+32 include junk keys GKG invented -- `oil prices`, `data center`.
+
+39.3% IS AN UNDERCOUNT. Ticker symbols were used as bundle keys directly, so `spacex`(70) sat beside
+`spcx`(22) and `micron`(33) beside `micron technology`(21) -- one company split into two bundles.
+Fixed: symbol->company merges are now learned from the tagger's own output. Re-running would raise
+the number, never lower it.
+
+PROCESS ERROR worth not repeating: the run did not cache its per-article tags, so the key-merge
+question could not be answered without paying for the whole 100-minute pass again. It caches now.
+
 NOT YET A DECISION. An org tagger is a CURATION knob -- it changes what the scout reads, so
 adopting it means a full re-curation, and it needs a profile knob (ASK FIRST, standing rule).
 The open design questions: it must be allowed to return nothing (the beat/orphan path stays, or

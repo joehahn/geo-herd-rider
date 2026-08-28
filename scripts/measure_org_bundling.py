@@ -114,6 +114,10 @@ def main():
         if (s // a.batch) % 20 == 0:
             print(f"  {min(s+a.batch,N)}/{N}  {time.time()-t0:.0f}s", flush=True)
 
+    _tags = Path(a.out.replace(".json", "_tags.json"))
+    _tags.write_text(json.dumps({"model": a.model, "handoff": H, "n": N,
+                                 "tags": {str(i): got[i] for i in sorted(got)}}, indent=1))
+    print(f"  cached per-article tags -> {_tags}  (re-analysis is now free)", flush=True)
     miss = [i for i in range(N) if i not in got]
     print(f"\n  tagger answered {N-len(miss):,}/{N:,} articles"
           + (f"  ({len(miss)} UNANSWERED — excluded, not counted as empty)" if miss else ""))
@@ -124,10 +128,22 @@ def main():
             tag[k].append(x)
     t_in2 = dist(tag, N, "TAGGER alone")
 
+    vote = collections.defaultdict(collections.Counter)
+    for i, x in enumerate(post):
+        ks, ss = got.get(i, []), sym_keys(x)
+        if len(ks) == 1 and len(ss) == 1:
+            vote[next(iter(ss))][ks[0]] += 1
+    sym2co = {s: c.most_common(1)[0][0] for s, c in vote.items()}
+    print(f"  learned {len(sym2co)} symbol->company merges from the tagger's own output "
+          f"(e.g. {list(sym2co.items())[:3]})", flush=True)
     uni = collections.defaultdict(list)
     for i, x in enumerate(post):
-        ks = set(got.get(i, [])) | {canon.get(_o.normalise(s), _o.normalise(s))
-                                    for s in sym_keys(x) if _o.normalise(s)}
+        ks = set(got.get(i, []))
+        for sy in sym_keys(x):
+            nk = _o.normalise(sy)
+            if not nk:
+                continue
+            ks.add(sym2co.get(sy) or canon.get(nk, nk))
         for k in ks:
             uni[k].append(x)
     u_in2 = dist(uni, N, "UNION (tagger + explicit tickers) — the proposed configuration")
