@@ -446,7 +446,8 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
     (which is precisely how the beat vocabulary drifted). One builder, two corpora."""
     if bootstrap:
         import bootstrap_corpus
-        arts, meta = bootstrap_corpus.load(org_tagger=bootstrap_corpus.profile_org_tagger())
+        org_tagger = bootstrap_corpus.profile_org_tagger()
+        arts, meta = bootstrap_corpus.load(org_tagger=org_tagger)
         stats = {}                       # no retrieval_stats.json: the corpus is assembled, not ingested
         print(f"  {bootstrap_corpus.describe(meta)}", flush=True)
     else:
@@ -572,6 +573,73 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "cap":  [r["cap"] for _d, r in _cd if r],
             "mode": [r["mode"] for _d, r in _cd if r],
         }
+        # ---- ORG TAGGER: three questions, one payload -----------------------------------------
+        # Websearch articles arrive with no `orgs`, so the tagger fills them and company bundling
+        # works post-handoff as it already does on GKG. It runs from cron every morning, which means
+        # it can fail QUIETLY -- a missed day is a day of thinner bundles with nothing on screen.
+        # These are the three numbers that say whether it is working, and each is here because a
+        # specific failure happened while building it:
+        #   coverage  -- distinguishes "tagger said NO COMPANY" (correct, ~16%) from "tagger was
+        #                NEVER ASKED" (a real gap). Reporting them together cried wolf permanently.
+        #   mem/art   -- bundle memberships per article. The number that actually predicts whether
+        #                bundling works: at 0.59 the curation got worse, at 1.46 it did not. GKG
+        #                runs at 1.17, drawn as the benchmark.
+        #   sizes     -- the singleton/multi split against GKG's, i.e. "does this look like the
+        #                corpus the backtest was validated on".
+        _tags = {}
+        try:
+            import org_tagger as _otg, orgs as _og
+            _tcache = _otg.load_cache(org_tagger) if org_tagger else {}
+            _cn = _og.build_canon(arts)
+            _tmp = _og.ticker_map(arts, _cn)
+            _byday = collections.defaultdict(lambda: [0, 0, 0])   # company / no-company / unseen
+            for _a in arts:
+                _d = (_a.get("published_date") or "")[:10]
+                if not _d or _d < _H:
+                    continue
+                if _og.article_orgs(_a, _cn, _tmp):
+                    _byday[_d][0] += 1
+                elif _a.get("url") in _tcache:
+                    _byday[_d][1] += 1
+                else:
+                    _byday[_d][2] += 1
+            _days = [d for d in _cal if d >= _H]
+            def _mem(g):
+                if not g:
+                    return 0.0
+                return round(sum(len(_og.article_orgs(x, _cn, _tmp)) for x in g) / len(g), 3)
+            _bywin = collections.defaultdict(list)
+            for _a in arts:
+                _d = (_a.get("published_date") or "")[:10]
+                if _d:
+                    _bywin[_d].append(_a)
+            _pre_arts = [x for x in arts if (x.get("published_date") or "")[:10] < _H]
+            _post_arts = [x for x in arts if (x.get("published_date") or "")[:10] >= _H]
+            def _sizes(g):
+                b = _og.group(g, canon=_cn, tmap=_tmp)
+                c = collections.Counter(min(len(v), 6) for v in b.values())
+                tot = max(len(b), 1)
+                return [round(100 * c[i] / tot, 1) for i in range(1, 7)]
+            _tags = {
+                "on": bool(org_tagger), "model": org_tagger or None,
+                "cache": (_otg.cache_path(org_tagger).name if org_tagger else None),
+                "days": _days,
+                "company": [_byday[d][0] for d in _days],
+                "nocomp":  [_byday[d][1] for d in _days],
+                "unseen":  [_byday[d][2] for d in _days],
+                "mem_days": _days,
+                "mem": [_mem(_bywin.get(d, [])) for d in _days],
+                "mem_gkg": _mem(_pre_arts), "mem_post": _mem(_post_arts),
+                "sizes_gkg": _sizes(_pre_arts), "sizes_post": _sizes(_post_arts),
+            }
+        except Exception as _e:  # noqa: BLE001 -- a panel must never take the page down
+            # PRINTED, not just recorded. The first version referenced an out-of-scope name, raised
+            # NameError, and this handler turned that into "tagging is off" -- three panels silently
+            # absent on a page whose whole job is to say whether tagging is working.
+            import sys as _s
+            print(f"  FBS: org-tagger panels unavailable ({type(_e).__name__}: {_e})",
+                  file=_s.stderr, flush=True)
+            _tags = {"on": False, "error": f"{type(_e).__name__}: {_e}"}
         era = {
             "handoff": _H, "cal": _cal, "counts": [_by_day.get(d, 0) for d in _cal],
             "pre_n": sum(_pre_days.values()), "post_n": sum(_post_days.values()),
@@ -583,6 +651,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "pull_missing": _pull_missing, "pull_dead": _pull_dead,
             "pull_n": len(_post_cal) - len(_pull_missing),
             "chars_pre": _q(_chars["pre"]), "chars_post": _q(_chars["post"]),
+            "tags": _tags,
             # PER-DAY, because the two era medians hide the two things that matter most: the
             # post-handoff median sits ON an ingest ceiling rather than describing the source, and
             # that ceiling MOVED. A median cannot show either; a time series shows both at a glance.
@@ -1135,6 +1204,24 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "2026-08-24 the websearch era runs at <b>900</b>. Headline-only articles are left out, "
               "since counting their zero would describe neither population.",
               "p-chars", 400),
+        panel_rec("Org tagging, per day",
+              "Websearch articles arrive with no company tags, so we add them each morning after the "
+              "pull. Green is an article tagged with at least one company, grey is one the tagger read "
+              "and correctly found no company in (a macro or roundup story), red is one it never saw. "
+              "Red is the only bad colour \u2014 it means a morning the tagging did not run.",
+              "p-tagcov", 340),
+        panel_rec("Bundle memberships per article",
+              "How many company bundles the average article joins \u2014 the number that decides "
+              "whether bundling works at all. An article that joins none is read alone with no "
+              "corroboration. The dashed line is what GKG gives the backtest, so the websearch era is "
+              "healthy when the solid line sits near or above it.",
+              "p-tagmem", 340),
+        panel_rec("Bundle sizes: websearch vs backtest",
+              "Bundles holding one article, two, three and so on, as a share of all bundles in each "
+              "era. This is the shape check: if the two eras have the same profile then the curator "
+              "reads the websearch corpus the same way it reads the backtest one. A websearch bar "
+              "taller on the left means bundles are too thin.",
+              "p-tagsize", 340),
         panel_rec("Daily pull health",
               "The operational card: is the morning cron actually firing? Each bar is one morning's "
               "pull over the trailing three weeks. <b>Red</b> is a cron that did not fire or "
@@ -1657,6 +1744,61 @@ function draw() {{
           yaxis:{{gridcolor:p.grid, rangemode:'tozero',
                   title:{{text:'characters of body text', font:{{size:11}}}}}},
           yaxis2:{{overlaying:'y', side:'right', range:[-1, 1], visible:false}}}}), CFG);
+      }}
+    }}
+
+    // ---- ORG TAGGER, three panels. Guarded on TG.on so a page built with tagging off simply
+    // draws nothing rather than three empty axes claiming a broken pipeline.
+    {{
+      const TG = ERA.tags || {{}};
+      if (TG.on && (TG.days || []).length) {{
+        react('p-tagcov', [
+          {{type:'bar', name:'tagged with a company', x:TG.days, y:TG.company,
+            marker:{{color:ST.good, line:{{width:2,color:p.surface}}}},
+            hovertemplate:'%{{x}}<br>%{{y}} tagged<extra></extra>'}},
+          {{type:'bar', name:'read, no company in it', x:TG.days, y:TG.nocomp,
+            marker:{{color:p.grid, line:{{width:2,color:p.surface}}}},
+            hovertemplate:'%{{x}}<br>%{{y}} no company<extra></extra>'}},
+          {{type:'bar', name:'NEVER TAGGED', x:TG.days, y:TG.unseen,
+            marker:{{color:ST.critical, line:{{width:2,color:p.surface}}}},
+            hovertemplate:'%{{x}}<br>%{{y}} never tagged<extra></extra>'}},
+        ], base(p, {{barmode:'stack', showlegend:true,
+          legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+          margin:{{l:60,r:20,t:44,b:56}},
+          xaxis:{{type:'date', gridcolor:p.grid}},
+          yaxis:{{gridcolor:p.grid, title:{{text:'articles', font:{{size:11}}}}}}}}), CFG);
+
+        react('p-tagmem', [
+          {{type:'scatter', name:'websearch era', x:TG.mem_days, y:TG.mem, mode:'lines',
+            line:{{color:p.s1, width:2}},
+            hovertemplate:'%{{x}}<br>%{{y:.2f}} bundles per article<extra></extra>'}},
+        ], base(p, {{showlegend:true,
+          legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+          margin:{{l:60,r:20,t:44,b:56}},
+          shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y',
+                    y0:TG.mem_gkg, y1:TG.mem_gkg,
+                    line:{{color:p.text2, width:1.5, dash:'dash'}}}}],
+          annotations:[{{xref:'paper', x:0.01, yref:'y', y:TG.mem_gkg, yanchor:'bottom',
+                         showarrow:false, font:{{size:10, color:p.text2}},
+                         text:'GKG / backtest: ' + TG.mem_gkg.toFixed(2)}}],
+          xaxis:{{type:'date', gridcolor:p.grid}},
+          yaxis:{{gridcolor:p.grid, rangemode:'tozero',
+                  title:{{text:'bundles joined per article', font:{{size:11}}}}}}}}), CFG);
+
+        const _lab = ['1','2','3','4','5','6+'];
+        react('p-tagsize', [
+          {{type:'bar', name:'backtest (GKG)', x:_lab, y:TG.sizes_gkg,
+            marker:{{color:p.grid, line:{{width:2,color:p.surface}}}},
+            hovertemplate:'%{{x}} article(s)<br>%{{y}}% of GKG bundles<extra></extra>'}},
+          {{type:'bar', name:'websearch (tagged)', x:_lab, y:TG.sizes_post,
+            marker:{{color:p.s1, line:{{width:2,color:p.surface}}}},
+            hovertemplate:'%{{x}} article(s)<br>%{{y}}% of websearch bundles<extra></extra>'}},
+        ], base(p, {{barmode:'group', showlegend:true,
+          legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
+          margin:{{l:60,r:20,t:44,b:56}},
+          xaxis:{{type:'category', title:{{text:'articles in the bundle', font:{{size:11}}}}}},
+          yaxis:{{gridcolor:p.grid, ticksuffix:'%',
+                  title:{{text:'share of that era\u2019s bundles', font:{{size:11}}}}}}}}), CFG);
       }}
     }}
 

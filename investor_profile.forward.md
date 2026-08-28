@@ -178,7 +178,13 @@ event_agent_effort: low            # matches .backtest: Grok 4.3's reasoning kno
 # bundle means one event where three were opened before. That is deduplication, which is the point.
 # Whether fewer-but-better is an improvement is a P&L question and non-negotiable #6 says one
 # curation cannot answer it. Revisit when the forward scoreboard can.
-org_tagger_model: off              # `deepseek4` to enable; see data/cbs_v7 (precision) and cbs_v8 (recall)
+org_tagger_model: grok4            # ON. The tagger matches or beats GKG on every structural measure
+                                   # (1.46 bundle memberships/article vs 1.17, identical 66/34
+                                   # singleton-to-multi split, 17.0% vs 16.1% no-key) and 97.8% of its
+                                   # names survive the GKG-era filters unchanged. Whether that improves
+                                   # the BOOK is not answerable yet -- the websearch era is ~31 days old
+                                   # and one curation's mechanism metrics swing 8% on identical input --
+                                   # so it ships on the structural evidence and FBS tracks it daily.
 gather_model: sonnet5              # FIREHOSE stage (live web-search gather). Web search is Anthropic-ONLY,
 # THESE THREE ARE STATED, NOT INHERITED (2026-08-26). Each is a CURATION knob the backtest file
 # states explicitly while this file used to leave it to optimizer's default -- so the two agreed only

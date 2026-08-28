@@ -123,6 +123,11 @@ def main(argv=None):
     # Exposes an EXISTING profile knob on the CLI, exactly as --news-cap and --event-news-cap already
     # do; it is not a new profile parameter. Added 2026-08-17 so the news window can be varied for a
     # side experiment without editing investor_profile.backtest.md, which the live config depends on.
+    ap.add_argument("--org-tagger-model", default=None, dest="org_tagger_model",
+                    help="override the profile's org_tagger_model ('off' to disable). Without this "
+                         "the bootstrap re-read the profile FILE and ignored every CLI override, so "
+                         "an A/B on this knob was impossible without editing the profile between arms "
+                         "-- exactly what --event-agent-model exists to avoid.")
     ap.add_argument("--news-lookback-days", type=int, default=None, dest="news_lookback_days",
                     help="trailing days of news each scan READS, decoupled from the trading cadence; "
                          "0 = track the cadence. Omit to use the profile's news_lookback_days.")
@@ -311,7 +316,15 @@ def main(argv=None):
     gpool = None
     if a.bootstrap:
         import bootstrap_corpus as _bs
-        gpool, _bmeta = _bs.load(org_tagger=_bs.profile_org_tagger())
+        # THE EFFECTIVE VALUE, not the file's. profile_org_tagger() re-reads
+        # investor_profile.forward.md, which silently discarded --org-tagger-model; `fm` is the
+        # profile AFTER CLI overrides and is what provenance stamps, so the corpus and the stamp
+        # now agree by construction.
+        _otm = a.org_tagger_model if a.org_tagger_model is not None else fm.get("org_tagger_model")
+        if str(_otm).lower() in ("off", "none", "false", "0", "none"):
+            _otm = None
+        fm["org_tagger_model"] = _otm
+        gpool, _bmeta = _bs.load(org_tagger=_otm)
         # bootstrap_corpus.load() already applies the article contract (canonical beat tags, `orgs`
         # stamped by each ingest's own adapter), so nothing source-specific reaches the curator.
         a.enrich = "none"                      # the corpus carries its ledes; re-fetching is waste
