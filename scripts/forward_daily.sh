@@ -38,6 +38,20 @@ mkdir -p data/forward
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup start"
   .venv/bin/python scripts/backup_daily.py \
     || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup reported a problem (tolerated)"
+  # TAG THE DAY'S NEW ARTICLES -- a SEPARATE STEP, deliberately NOT inside the pull.
+  # Websearch articles arrive with no `orgs`, and company bundling is seeded from `orgs`, so
+  # untagged days are days the scout cannot see a firm's news as one block. This fills the tagger
+  # cache for whatever arrived today.
+  # WHY IT IS ITS OWN STEP AND NOT PART OF forward.py --pull: the pull must not depend on a SECOND
+  # LLM provider being reachable. If OpenRouter is down we still want the news -- tags can be
+  # filled in tomorrow, a missed pull cannot be (Tavily re-serves a window with a smaller and
+  # partly different set). Failure here is tolerated for exactly that reason.
+  # It is the same command as the historical backfill because it is the same operation: send only
+  # articles that both lack an org key and are absent from the cache. After a normal day that is
+  # ~86 articles, a few seconds. It is a no-op when org_tagger_model is off.
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] org-tag start"
+  .venv/bin/python scripts/backfill_org_tags.py --corpus bootstrap --post-handoff-only \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] org-tag reported a problem (tolerated)"
   # REFRESH THE TWO PAGES THE PULL JUST CHANGED. Render-only: 0 LLM calls, ~15s combined, so this
   # is free and belongs on the DAILY job even though the bootstrap now re-curates MONTHLY. The two
   # cadences are independent and it is worth being explicit about why:

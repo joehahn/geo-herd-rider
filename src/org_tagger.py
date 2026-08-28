@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import json
 import sys
+import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
@@ -150,6 +151,24 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
     cli = _llm.make_client(provider or _prov, _id)
     done: dict[int, list] = {}
 
+    _lock = threading.Lock()
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    _fh = cache_path(model).open("a")
+
+    def _flush(off: int, ch: list, got: dict) -> None:
+        """Persist a batch THE MOMENT IT LANDS, not when the pool drains.
+
+        The first version buffered every answer and wrote once at the end, which made a killed run
+        lose all of it -- and the commit message claimed the opposite. On a 2,400-article corpus
+        that is 7 wasted minutes; on the 18,564-article GKG corpus it is half an hour and a real
+        amount of money, lost to one Ctrl-C. Appending per batch under a lock makes the claim true:
+        whatever finished is on disk, and re-running sends only what is still missing."""
+        with _lock:
+            for k, a in enumerate(ch):
+                if k in got and a.get("url"):
+                    _fh.write(json.dumps({"u": a["url"], "o": got[k]}) + "\n")
+            _fh.flush()
+
     def run(lo: int, chunk: list) -> None:
         stack = [(lo, chunk)]
         for _ in range(3):
@@ -160,10 +179,13 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
                 try:
                     r = cli.complete(SYSTEM, user, use_web_search=False, label="org-tagger",
                                      stage="scout", json_schema=SCHEMA, effort="low")
+                    _got = {}
                     for it in (_json_from(r).get("items") or []):
                         k = int(it.get("i", -1))
                         if 0 <= k < len(ch):
-                            done[off + k] = [c for c in (it.get("companies") or []) if c]
+                            _got[k] = [c for c in (it.get("companies") or []) if c]
+                            done[off + k] = _got[k]
+                    _flush(off, ch, _got)
                 except Exception as e:  # noqa: BLE001
                     if len(ch) > 1:
                         h = len(ch) // 2
@@ -181,16 +203,14 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
     # APPEND-ONLY. A cache line is (url -> companies) for this (model, prompt) and can never be
     # invalidated by anything except a prompt bump, which changes the filename. Nothing is
     # overwritten, so a re-tag is always additive and a bad run can be diffed rather than mourned.
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    with cache_path(model).open("a") as fh:
-        for i, a in enumerate(todo):
-            if i in done and a.get("url"):
-                fh.write(json.dumps({"u": a["url"], "o": done[i]}) + "\n")
+    _fh.close()
     n = attach(articles, model, canon)
-    out = {"sent": len(todo), "tagged": n, "unanswered": len(todo) - len(done),
+    out = {"sent": len(todo), "answered": len(done), "unanswered": len(todo) - len(done),
+           "attached": n,          # includes articles already in the cache, so it can exceed `sent`
            "model": model, "cache": str(cache_path(model))}
     if verbose:
-        print(f"  org_tagger[{model}]: {n:,}/{len(todo):,} articles tagged"
+        print(f"  org_tagger[{model}]: {len(done):,}/{len(todo):,} newly tagged, "
+              f"{n:,} attached"
               + (f", {out['unanswered']:,} unanswered (left untagged, NOT recorded as empty)"
                  if out["unanswered"] else ""), file=sys.stderr, flush=True)
     return out
