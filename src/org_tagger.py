@@ -50,8 +50,30 @@ def prompt_id() -> str:
     return hashlib.sha256(SYSTEM.encode()).hexdigest()[:8]
 
 
+def resolve(model: str) -> tuple[str, str]:
+    """Alias -> (model_id, provider), REFUSING an alias that is not in the table.
+
+    optimizer.resolve_curator_model falls back to mimo for any unknown name -- deliberate for the
+    curator stages, actively wrong here. The cache used to be keyed by the ALIAS, so
+    `org_tagger_model: deepsek4` (one letter out) would have run MIMO and stored its answers in a
+    file named after the typo: a cache lying about what produced it, invisible forever after. Now
+    the alias is validated AND the cache is keyed by the RESOLVED id, so the filename is a fact
+    about what ran rather than about what someone meant to type."""
+    import optimizer as _op
+    key = str(model).strip().lower()
+    if key not in _op.CURATOR_MODELS:
+        raise ValueError(
+            f"org_tagger_model={model!r} is not a known alias. Known: "
+            f"{', '.join(sorted(_op.CURATOR_MODELS))}. Refusing rather than falling back to mimo, "
+            f"which is what optimizer.resolve_curator_model would do.")
+    return _op.CURATOR_MODELS[key]
+
+
 def cache_path(model: str) -> Path:
-    return CACHE_DIR / f"{model.replace('/', '_')}.{PROMPT_LABEL}-{prompt_id()}.jsonl"
+    """Keyed by the RESOLVED model id + a hash of the prompt: both facts about what produced the
+    answers, neither maintained by hand."""
+    mid = resolve(model)[0]
+    return CACHE_DIR / f"{mid.replace('/', '_')}.{PROMPT_LABEL}-{prompt_id()}.jsonl"
 
 
 def load_cache(model: str) -> dict[str, list]:
@@ -86,9 +108,23 @@ def attach(articles: list[dict], model: str, canon: dict | None = None,
         u = a.get("url")
         if u in cache and (force or not _o.article_orgs(a, canon, None)):
             a["orgs"] = cache[u]
-            a["orgs_tagger"] = f"{model}.{PROMPT_LABEL}-{prompt_id()}"
+            a["orgs_tagger"] = f"{resolve(model)[0]}.{PROMPT_LABEL}-{prompt_id()}"
             n += 1
     return n
+
+
+def coverage(articles: list[dict], canon: dict | None = None) -> dict:
+    """How many articles STILL have no org key after attaching -- the number nobody was told.
+
+    attach() deliberately never calls an LLM, so an article the cache has not seen stays untagged
+    and the curation reads it exactly as it did before the tagger existed. That is the right
+    behaviour (a curation must not depend on a provider being reachable, and a re-curation must
+    cost nothing), but on its own it is SILENT: a cron that missed a week, or a backfill nobody
+    ran, degrades bundling with nothing on screen to say so. This is what the caller prints."""
+    import orgs as _o
+    miss = [a for a in articles if not _o.article_orgs(a, canon, None)]
+    return {"n": len(articles), "untagged": len(miss),
+            "pct": round(100 * len(miss) / max(len(articles), 1), 1)}
 
 SYSTEM = (
     "You extract company names from financial news. For each numbered article you are given a "
@@ -163,8 +199,7 @@ def tag(articles: list[dict], model: str, provider: str = "openrouter", *,
     # human-readable cache filename; `deepseek/deepseek-v4-flash` is what the API accepts. Passing
     # the alias straight to make_client returns a 400 "not a valid model ID" on every call, which
     # the retry loop would then swallow as 2,431 unanswered articles.
-    import optimizer as _op
-    _id, _prov = _op.resolve_curator_model(model)
+    _id, _prov = resolve(model)
     cli = _llm.make_client(provider or _prov, _id)
     done: dict[int, list] = {}
 

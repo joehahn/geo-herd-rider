@@ -75,6 +75,15 @@ def main() -> int:
     out = _ot.tag(arts, short, provider, batch=a.batch, workers=a.workers, canon=canon,
                   refresh=a.refresh)
     print(f"\n{json.dumps(out, indent=1)}\n  {time.time()-t0:.0f}s")
+    # A RUN THAT ANSWERED NOTHING IS A FAILURE, NOT A QUIET SUCCESS. Every batch failing (a bad
+    # model id, a dead key, an expired balance) used to exit 0, so the cron line would log its
+    # success message and the tags would simply never appear. Tested with a bogus model: 5 sent,
+    # 0 answered, exit 0. Non-zero now, which the cron step reports as "tolerated" -- visible in
+    # the log without ever taking the pull down with it.
+    if out.get("sent") and not out.get("answered"):
+        print(f"  FAILED: {out['sent']} articles sent, none answered — the tagger is not working "
+              f"(model/key/balance?). Nothing was cached.", file=sys.stderr)
+        return 1
     return 0
 
 

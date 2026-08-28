@@ -272,6 +272,13 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
                 print(f"  bootstrap: org-tagger cache filled `orgs` on {_n:,} articles "
                       f"({org_tagger})", file=_s.stderr)
                 _canon = _o.build_canon(arts)      # the new orgs are vocabulary too
+            _cov = _ot.coverage(arts, _canon)
+            if _cov["untagged"]:
+                import sys as _s
+                print(f"  bootstrap: {_cov['untagged']:,} of {_cov['n']:,} articles "
+                      f"({_cov['pct']}%) still have NO company key — the cache has not seen them. "
+                      f"Bundling is degraded for those. Fix: python scripts/backfill_org_tags.py "
+                      f"--corpus bootstrap --post-handoff-only", file=_s.stderr)
         _ac.normalise_pool(arts, _canon)
     except Exception as _e:  # noqa: BLE001 -- never block corpus loading on normalisation
         import sys as _s
