@@ -113,7 +113,8 @@ def attach(articles: list[dict], model: str, canon: dict | None = None,
     return n
 
 
-def coverage(articles: list[dict], canon: dict | None = None, model: str | None = None) -> dict:
+def coverage(articles: list[dict], canon: dict | None = None, model: str | None = None,
+             tmap: dict | None = None) -> dict:
     """How many articles STILL have no org key after attaching -- the number nobody was told.
 
     attach() deliberately never calls an LLM, so an article the cache has not seen stays untagged
@@ -130,9 +131,15 @@ def coverage(articles: list[dict], canon: dict | None = None, model: str | None 
     #                 half of them are. It is not a gap and must never be reported as one.
     # Reported together, the warning cried wolf permanently: 3,629 "untagged" on a corpus where the
     # tagger had already answered for every article it was asked about.
+    # THE SAME PREDICATE THE BACKFILL USES, or the warning lies. It reported 236 articles "never
+    # seen" on a corpus where backfill_org_tags had exactly 3 left to send, because it asked a
+    # DIFFERENT question: it passed tmap=None where every other caller passes the ticker map, so
+    # articles whose only key comes from the title-ticker fallback counted as untagged. A warning
+    # that names a number the fix cannot reproduce trains you to ignore it -- the third time on
+    # this feature that a count and the thing it counted disagreed.
     unseen, nocomp = [], []
     for a in articles:
-        if _o.article_orgs(a, canon, None):
+        if _o.article_orgs(a, canon, tmap):
             continue
         (nocomp if a.get("url") in cache else unseen).append(a)
     return {"n": len(articles), "unseen": len(unseen), "no_company": len(nocomp),

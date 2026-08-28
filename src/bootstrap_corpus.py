@@ -286,16 +286,24 @@ def load(handoff: str = HANDOFF, history_days: int = HISTORY_DAYS,
                 print(f"  bootstrap: org-tagger cache filled `orgs` on {_n:,} articles "
                       f"({org_tagger})", file=_s.stderr)
                 _canon = _o.build_canon(arts)      # the new orgs are vocabulary too
-            _cov = _ot.coverage(arts, _canon, org_tagger)
+        _ac.normalise_pool(arts, _canon)
+        # MEASURED AFTER normalise_pool, NOT BEFORE. The contract fills `orgs` from the canon for
+        # articles the tagger left empty, so a count taken before it runs describes a state the
+        # curator never sees -- it reported 221 untagged where the real figure is 76 and where
+        # backfill_org_tags had 0 to send. Third time on this feature that a count and the thing
+        # it counts disagreed, and the same cause each time: measuring at the wrong point.
+        if org_tagger:
+            _cov = _ot.coverage(
+                [a for a in arts if (a.get("published_date") or "")[:10] >= handoff],
+                _canon, org_tagger, _o.ticker_map(arts, _canon))
             import sys as _s
-            print(f"  bootstrap: org-tagger — {_cov['no_company']:,} articles tagged 'no subject "
-                  f"company' (correct for macro/policy/roundup stories)", file=_s.stderr)
+            print(f"  bootstrap: org-tagger \u2014 {_cov['no_company']:,} articles tagged 'no "
+                  f"subject company' (correct for macro/policy/roundup stories)", file=_s.stderr)
             if _cov["unseen"]:
                 print(f"  bootstrap: {_cov['unseen']:,} of {_cov['n']:,} articles "
-                      f"({_cov['pct_unseen']}%) the tagger has NEVER SEEN — bundling is degraded "
-                      f"for those. Fix: python scripts/backfill_org_tags.py --corpus bootstrap",
+                      f"({_cov['pct_unseen']}%) the tagger has never seen \u2014 run "
+                      f"scripts/backfill_org_tags.py --corpus bootstrap --post-handoff-only",
                       file=_s.stderr)
-        _ac.normalise_pool(arts, _canon)
     except Exception as _e:  # noqa: BLE001 -- never block corpus loading on normalisation
         import sys as _s
         print(f"  bootstrap: contract normalisation unavailable ({type(_e).__name__}: {_e})", file=_s.stderr)

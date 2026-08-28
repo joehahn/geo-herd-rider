@@ -50,9 +50,11 @@ def main() -> int:
         return 1
     model_id, provider = res
 
+    full = None
     if a.corpus == "bootstrap":
         import bootstrap_corpus as bs
         arts, meta = bs.load()
+        full = arts                       # keep the WHOLE corpus for the canon; see below
         if a.post_handoff_only:
             arts = [x for x in arts if (x.get("published_date") or "")[:10] >= meta["handoff"]]
     else:
@@ -61,7 +63,12 @@ def main() -> int:
     if a.limit:
         arts = arts[:a.limit]
 
-    canon = _o.build_canon(arts)
+    # CANON FROM THE WHOLE CORPUS, not the slice. build_canon derives the company vocabulary from
+    # the articles it is given, so a canon built from the post-handoff slice alone normalises names
+    # differently from the one the curator and the dashboards build from all 14,590 articles. The
+    # two then disagree about which articles already have a key: the FBS warning reported 221
+    # untagged where this script saw 0 to send. Same corpus, same cache, different vocabulary.
+    canon = _o.build_canon(full if full is not None else arts)
     cache = _ot.load_cache(short)
     need = arts if a.refresh else [x for x in arts
                                    if not _o.article_orgs(x, canon, None)

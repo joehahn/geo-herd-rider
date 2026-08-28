@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import ast
 import collections
+import datetime as _dt
 import json
 import re
 import statistics
@@ -875,7 +876,14 @@ def main(argv=None) -> int:
     try:
         _pt = sorted(set(book.get("gain") or {}))
         if _pt and book.get("dates"):
-            _pp = _score.fetch_panel(_pt, book["dates"][0], book["dates"][-1], use_cache=False)
+            # TWO YEARS OF CONTEXT, not just the book's own window. On CBS the book is four months
+            # long, so a ticker's popup showed four months of price and no way to see whether the
+            # move we captured was a break from its own history or the middle of a trend already
+            # running. min() so CBT, whose book already spans three years, is unchanged.
+            _end = book["dates"][-1]
+            _2y = (_dt.date.fromisoformat(str(_end)[:10]) - _dt.timedelta(days=730)).isoformat()
+            _start = min(str(book["dates"][0])[:10], _2y)
+            _pp = _score.fetch_panel(_pt, _start, _end, use_cache=False)
             if _pp.index.tz is not None:
                 _pp.index = _pp.index.tz_localize(None)
             _pp = _pp.ffill()
