@@ -360,6 +360,21 @@ def stamp(run_dir: str | Path, fm: dict, corpus: "str | Path | dict", arm: str =
     # settings it was curated with) had to parse argv to find out. Separate key, so nothing that reads
     # `knobs` or the hash changes behaviour.
     rec["book_knobs"] = {k: _norm(fm.get(k)) for k in sorted(BOOK_KNOBS)}
+    # WHAT ACTUALLY RAN, not what was typed. `knobs` records the ALIAS ("llama4"), which is the
+    # right fingerprint input -- but it cannot answer "which model produced this curation" if the
+    # alias table is ever re-pointed, and before 2026-08-28 an unknown alias silently resolved to
+    # mimo, so a stamp could name a model that never ran. Outside `knobs`, so the hash is unchanged
+    # and no existing curation is invalidated by recording it.
+    try:
+        import optimizer as _op
+        (_s_id, _s_p), (_e_id, _e_p) = _op.resolve_stage_models(fm)
+        rec["models_resolved"] = {"scout": f"{_s_p}:{_s_id}", "event_agent": f"{_e_p}:{_e_id}"}
+        _g = _op.resolve_gather_model(fm)
+        rec["models_resolved"]["gather"] = f"{_g[1]}:{_g[0]}"
+        _o = _op.resolve_org_tagger_model(fm)
+        rec["models_resolved"]["org_tagger"] = f"{_o[1]}:{_o[0]}" if _o else None
+    except Exception as _e:  # noqa: BLE001 -- provenance enrichment, never a gate on writing a stamp
+        rec["models_resolved"] = {"error": f"{type(_e).__name__}: {_e}"}
     rec["argv"] = argv or []
     if note:
         rec["note"] = note

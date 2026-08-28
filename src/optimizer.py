@@ -254,9 +254,31 @@ CURATOR_MODELS: dict[str, tuple[str, str]] = {
 
 
 def resolve_curator_model(short: str) -> tuple[str, str]:
-    """Map a profile `model` short name (mimo|sonnet|opus) to (model_id, provider).
-    Unknown names fall back to mimo (the safe, cheap default)."""
-    return CURATOR_MODELS.get(str(short).strip().lower(), CURATOR_MODELS["mimo"])
+    """Map a profile model short name to (model_id, provider). UNKNOWN NAMES RAISE.
+
+    It used to fall back to mimo for anything unrecognised, described as "the safe, cheap default".
+    It is neither, because the two cases it conflates are not alike:
+
+      UNSET   -- nobody chose, so a documented default is correct, and every caller already
+                 resolves this before calling (`fm.get(...) or ... or "sonnet5"`).
+      UNKNOWN -- somebody chose and MISSPELLED it. Falling back silently runs a different model
+                 than the one asked for, and provenance stamps the ALIAS rather than the resolved
+                 id, so the run is fingerprinted as `scout_model: llama4x` while mimo did the work.
+                 The cost ledger records the truth, but only if somebody thinks to cross-check.
+
+    Checked before changing this: every alias ever recorded in a stamp in this repo (grok4, llama4,
+    sonnet5) is still in the table, so strictness breaks no historical run. The one place a typo was
+    already caught is gather_model, because forward.py validates the provider is Anthropic and mimo
+    is not -- that error is what this makes uniform.
+
+    `stamp()` now also records the RESOLVED ids, so even a legal alias cannot leave a run ambiguous
+    about what actually ran."""
+    key = str(short).strip().lower()
+    if not key or key in ("none", "null"):
+        return CURATOR_MODELS["mimo"]
+    if key not in CURATOR_MODELS:
+        raise ValueError(f"unknown model alias {short!r}. Known: {', '.join(sorted(CURATOR_MODELS))}")
+    return CURATOR_MODELS[key]
 
 
 def resolve_stage_models(fm: dict) -> tuple[tuple[str, str], tuple[str, str]]:
