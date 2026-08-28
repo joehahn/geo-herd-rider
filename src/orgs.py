@@ -305,7 +305,7 @@ def build_canon(arts: list) -> dict:
 # exist. Log-spaced because bundle sizes are power-law -- the largest is 779 articles and the
 # median is 1, so linear buckets put everything interesting in the last bar.
 SIZE_BUCKETS = [(1, 1, "1"), (2, 3, "2-3"), (4, 10, "4-10"),
-                (11, 30, "11-30"), (31, 100, "31-100"), (101, 10 ** 9, "101+")]
+                (11, 30, "11-30"), (31, 10 ** 9, "31+")]
 
 
 def size_histogram(bundles: dict, pct: bool = False) -> list:
