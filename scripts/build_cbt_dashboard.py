@@ -1518,21 +1518,27 @@ def main(argv=None) -> int:
         rej = sorted(prop - adm - live - {""})
         if not rej:
             return "0"
-        # ORDER MATTERS: test the DOT before the length, or DIR.UN.TO and TATASTEEL.NS are longer
-        # than five characters and get filed as unresolved names when they are foreign listings.
-        name, forn, other = [], [], []
+        # THE SCOUT LOGS ITS OWN REASONS -- use them rather than guessing from the string's shape.
+        # `dropped_resolved` and `restated_resolved` are recorded per scan, and together they
+        # explain 78 of the canonical run's 109: the guard refusing to re-chase a catalyst that has
+        # already resolved. Filing those under "other" (as this did for an afternoon) hid the single
+        # largest and most deliberate category behind the vaguest possible label.
+        done = ({str(t).strip().upper() for t in (d.get("dropped_resolved") or [])}
+                | {str(t).strip().upper() for t in (d.get("restated_resolved") or [])})
+        # ORDER MATTERS on the shape tests: check the DOT before the length, or DIR.UN.TO and
+        # TATASTEEL.NS are longer than five characters and get filed as names, not foreign listings.
+        res, name, forn, other = [], [], [], []
         for t in rej:
-            if " " in t:                                   name.append(t)
+            if t in done:                                  res.append(t)
+            elif " " in t:                                 name.append(t)
             elif "." in t:                                 forn.append(t)
             elif len(t) > 5 or not t.isalnum():            name.append(t)
             else:                                          other.append(t)
         bits = []
-        if name:
-            bits.append(f"{len(name)} unresolved name")
-        if forn:
-            bits.append(f"{len(forn)} foreign")
-        if other:
-            bits.append(f"{len(other)} other")
+        for lst, lbl in ((res, "resolved catalyst"), (name, "unresolved name"),
+                         (forn, "foreign"), (other, "other")):
+            if lst:
+                bits.append(f"{len(lst)} {lbl}")
         return f"{len(rej)} ({', '.join(bits)})"
 
     _scout_by_wk = {d["context"]: d for d in scout}
@@ -1567,7 +1573,8 @@ def main(argv=None) -> int:
         f'watchlist &mdash; re-proposing a name the book holds is not a rejection. No cap is '
         f'involved: <code>max_new_events</code> has been uncapped since the coverage-rank cull '
         f'replaced it. <b>Read the split.</b> <i>foreign</i> is correctly outside a US book, and '
-        f'<i>other</i> is mostly names with no usable price history &mdash; but <i>unresolved '
+        f'<i>resolved catalyst</i> is the scout guard refusing to re-chase a catalyst that has '
+        f'already played out, which is the largest category and entirely deliberate &mdash; but <i>unresolved '
         f'name</i> is the scout emitting a company name where a symbol belongs, and those are real '
         f'gems being dropped: on this curation SANDISK, SYMBOTIC, SPACEMOBILE, NuScale Power and '
         f'Intuitive Machines were all discarded rather than read as SNDK, SYM, ASTS, SMR and LUNR. '
