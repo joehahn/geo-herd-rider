@@ -296,6 +296,18 @@ non-interactive git auth.
 
 Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`agent_design.md`](agent_design.md) for the event-agent design, [`TODO.md`](TODO.md) for backlog, [`scripts/`](scripts/README.md) for how to run each script, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
 
+## About the author
+
+I'm Joseph M. Hahn, Ph.D., an independent AI and machine learning consultant. I spent eight years inside Oracle's AI Center of Excellence delivering AI systems for enterprise clients in manufacturing, oil and gas, public sector, and retail, and before that four years building machine learning systems on large data platforms.
+
+This repo is one of several demonstrations of the same underlying pattern: **an AI reads a stream of unstructured input and automates a routine decision, while deterministic code handles whatever has to be auditable.** The hard part is rarely the model. It is drawing the line between the judgment worth delegating and the arithmetic that has to stay reproducible — and then building the scaffolding that proves the system isn't fooling itself, which is most of what the [Status](#status) section above is about. If that shape matches a problem in your business, the work I do and what it costs are at [jmh-datasciences.com](https://jmh-datasciences.com).
+
+**Related work:**
+
+- [**diplomacy-A2A**](https://github.com/joehahn/diplomacy-A2A) — seven Claude-powered agents playing Diplomacy against each other, negotiating over the A2A protocol.
+- [**portfolio-wave-rider**](https://github.com/joehahn/portfolio-wave-rider) — this project's predecessor: a retrieve → curate → optimize pipeline in which only the middle stage is permitted to judge.
+- [**chicago_crime_forecast**](https://github.com/joehahn/chicago_crime_forecast) — monthly Chicago crime counts by type and ward, via an skforecast recursive multi-series forecaster over the city's public dataset.
+
 ## Disclaimer
 
 Technical demo. Not financial advice. Historical performance is not predictive. Do not trade real money on this output.
