@@ -426,7 +426,7 @@ def main(argv=None) -> int:
     # precision is noise, precision without breadth is luck, and only the pair means anything.
     import pandas as _pd
     _wcap = 0
-    _held_per_week, _cull_bind, _cull_med = [], 0, 0
+    _held_per_week, _cull_bind, _cull_med, _held_med = [], 0, 0, 0
     prec, per_agent, book = [], [], {}
     try:
         import firehose as _fh
@@ -580,9 +580,32 @@ def main(argv=None) -> int:
         _w = _fh._stateful_watch(_scans, seed=(_bseed0 if (a.bootstrap and _bseed0) else
                                                [x.upper() for x in (_lfm0.get("starter_watchlist") or [])]))
         _live_n = [len(v) for v in _w.values()]
-        _held_per_week = [min(n, _wcap) if _wcap else n for n in _live_n]
+        # WHAT ACTUALLY HELD CAPITAL, read off the allocation -- not min(live, cap), which is what
+        # this was until 2026-08-28 and which is not a measurement at all. The cap binds in nearly
+        # every period, so min(live, cap) equalled the cap almost everywhere and the green line was
+        # simply redrawing the dashed cap line under a label that claimed it was funding. Measured
+        # on the canonical book the two disagreed in 36 of 36 periods: the old line said 6 every
+        # week, the real count has a median of 2. The panel's whole point is the gap between what
+        # the curator may fund and what the optimizer does fund, and the bug hid exactly that gap.
+        # Anchors are excluded because they sit OUTSIDE the cap (always_include), and >1% is the
+        # same funded threshold sweep_optimizer and panel 5 use, so the three agree.
+        _anch0 = set(_fh.anchor_tickers(_lfm0))
+        _dd0 = _bt.get("daily") or {}
+        _adates, _aal = _dd0.get("dates") or [], _dd0.get("alloc") or {}
+        # None, NOT 0, for a scan that predates the book's first day -- the first rebalance does on
+        # both arms. There is no allocation to count there, and drawing absent data as a zero is the
+        # same false assertion the decisions.jsonl note above objects to. The JS maps null to a gap.
+        def _funded_on(_wk):
+            _i = next((i for i in range(len(_adates) - 1, -1, -1) if _adates[i] <= _wk), -1)
+            if _i < 0:
+                return None
+            return sum(1 for _t, _sv in _aal.items()
+                       if _t not in _anch0 and _i < len(_sv) and _sv[_i] > 0.01)
+        _held_per_week = [_funded_on(_wk) for _wk in weeks]
         _cull_bind = sum(1 for n in _live_n for _ in [0] if _wcap and n > _wcap)
         _cull_med = sorted(_live_n)[len(_live_n) // 2] if _live_n else 0
+        _hpw0 = [n for n in _held_per_week if n is not None]
+        _held_med = sorted(_hpw0)[len(_hpw0) // 2] if _hpw0 else 0
         # Span of the breadth panel's series, for its lead and to justify its log axis.
         _bser = ([r['events_live'] for r in M] + [r['vehicles_live'] for r in M]
                  + [r['distinct_catalysts'] for r in M])
@@ -1663,7 +1686,9 @@ def main(argv=None) -> int:
               "per rebalance. Catalysts are drawn separately because several events on one theme is "
               "concentration wearing a diversity costume. The dashed line is "
               f"<code>max_watchlist</code> = {_wcap}, which binds in <b>{_cull_bind} of "
-              f"{len(_held_per_week)}</b> {_pers}, and the green line is what actually held capital. "
+              f"{len(_held_per_week)}</b> {_pers}. The green line is what actually held capital, "
+              f"read off the allocation: a median of <b>{_held_med}</b> of the {_wcap} slots, so the "
+              f"binding constraint is the optimizer rather than the cap. "
               f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
               "c-breadth", 380),
         panel_rec("Cumulative $ gain per holding",
