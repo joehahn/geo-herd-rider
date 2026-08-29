@@ -406,14 +406,27 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
          + "What is its US-listed ticker symbol? Output the JSON.")
     us = None
     try:
+        # search_query IS REQUIRED, or this silently stops searching. The OpenRouter path gates on
+        # `if use_web_search and search_query`, so omitting it made use_web_search=True a NO-OP and
+        # left a cheap model recalling tickers from memory. On the canonical curation
+        # (scout_model llama4) that is exactly what happened, and it dropped real, liquid names the
+        # press had already surfaced -- SANDISK (SNDK), SYMBOTIC (SYM), SPACEMOBILE (ASTS),
+        # NuScale Power (SMR), Intuitive Machines (LUNR). The Anthropic path ignores the argument
+        # and uses its own server-side search, so passing it is safe on both.
         txt = client.complete(RESOLVER_SYSTEM, q, use_web_search=True, stage="agent",
+                              search_query=f"{company or hint} US listed stock ticker symbol",
                               label=f"resolve-{key[:20]}")
         tk = str(_extract(txt).get("ticker") or "").strip().upper()
         us = tk if (tk and "." not in tk and tk.isalnum()) else None
-    except Exception:  # noqa: BLE001
+    except Exception as e:  # noqa: BLE001
+        # LOUD, not silent. A swallowed failure here is indistinguishable from "no such US listing",
+        # and the name is then dropped from the book with no trace anywhere.
+        print(f"    !! ticker resolve failed for {key!r}: {type(e).__name__}: {e}",
+              file=sys.stderr, flush=True)
         us = None
-    _TICKER_CACHE[key] = us
-    return us
+    if us:
+        _TICKER_CACHE[key] = us   # cache SUCCESSES only: a transient failure must not become a
+    return us                     # permanent verdict for the rest of the run
 
 
 _NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happened",

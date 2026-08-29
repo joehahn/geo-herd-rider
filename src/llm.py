@@ -159,6 +159,14 @@ class OpenRouterClient(LLMClient):
             ctx = websearch.context(search_query, before_date)
             if ctx:
                 user = ctx + "\n\n" + user
+        elif use_web_search:
+            # A CALLER ASKED FOR SEARCH AND IS NOT GETTING IT. This path has no server-side search,
+            # so without a search_query the request silently degrades to the model's parametric
+            # memory -- which is how resolve_us_ticker stopped resolving anything on a non-Anthropic
+            # scout without one line of evidence anywhere. Say so.
+            import sys as _sys
+            print(f"    !! {self.model}: use_web_search=True but no search_query -- "
+                  f"answering from model memory, NOT the web ({label})", file=_sys.stderr, flush=True)
         kw = {"model": self.model, "max_tokens": 8000,
               "messages": [{"role": "system", "content": system},
                            {"role": "user", "content": user}]}

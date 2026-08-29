@@ -577,8 +577,19 @@ def main(argv=None) -> int:
         prec = [x for x in _bt.get("agent_precision", []) if isinstance(x.get("ret"), (int, float))]
         # how hard the max_watchlist cull actually bites: live names vs what may hold capital
         _bseed0 = sorted((book_seed or {}).get("tickers") or [])
+        # fm= IS REQUIRED. Without it _watch_clocks falls back to the MODULE defaults (2, 4) while
+        # the book ran on the profile's (2, 8), so every live-watchlist count on this page described
+        # a shorter-memory portfolio than the one being plotted: median 99 against the book's 126,
+        # a 27% understatement, in panel 6's counts, the cull-bind figure and panel 7's funnel.
+        # firehose.backtest has always passed it; this call was the odd one out.
         _w = _fh._stateful_watch(_scans, seed=(_bseed0 if (a.bootstrap and _bseed0) else
-                                               [x.upper() for x in (_lfm0.get("starter_watchlist") or [])]))
+                                               [x.upper() for x in (_lfm0.get("starter_watchlist") or [])]),
+                                 fm=_lfm0)
+        # SNAPSHOT IT HERE, under a name nothing else uses. `_w` is rebound twice further down this
+        # 2,800-line function (line ~1122, to a list of articles), and because the later binding can
+        # be an EMPTY list, `(_w or {})` degraded to {} with no exception -- so the curation log's
+        # already-live filter silently did nothing and counted 152 rejections instead of 109.
+        _live_by_wk = {str(k.date()): set(v) for k, v in _w.items()}
         _live_n = [len(v) for v in _w.values()]
         # WHAT ACTUALLY HELD CAPITAL, read off the allocation -- not min(live, cap), which is what
         # this was until 2026-08-28 and which is not a measurement at all. The cap binds in nearly
@@ -1481,6 +1492,50 @@ def main(argv=None) -> int:
     # that table (Date | Adds | Removes | Rejections | Retries). Same rows, the other projection: an
     # event opening contributes its vehicles as adds, an event exiting contributes its vehicles as
     # removes, so nothing here is new data -- it is the event log read as a portfolio diff.
+    # WHAT "REJECTED" ACTUALLY MEANS, counted properly (rewritten 2026-08-29). This column used to
+    # print len(proposed) - len(admitted), which was wrong three ways:
+    #   1. It named "the cap". max_new_events has been 0 (uncapped) in every scan since aead17e
+    #      retired it in favour of max_events; nothing is rejected by a cap.
+    #   2. It subtracted DIFFERENT UNITS between NON-NESTED sets -- `proposed` is (ticker, company,
+    #      thesis) records, `admitted` is bare tickers, and 20 admissions across the canonical run
+    #      were never proposed at all (peers joining an event). The printed total was 137 against
+    #      157 actual; a peer-heavy week would have printed a NEGATIVE rejection count.
+    #   3. 43 of those 157 were tickers ALREADY LIVE on the watchlist -- the scout re-proposing a
+    #      name the book already holds is not a rejection, and counting it overstated the guard by
+    #      ~27%.
+    # Now: DISTINCT tickers proposed and not admitted, already-live excluded, split by reason. The
+    # reason matters because one bucket is a bug and the others are not -- a name-shaped reject is
+    # the scout emitting "SANDISK" instead of SNDK, and those were real gems being dropped.
+    _live_by_wk = locals().get("_live_by_wk") or {}   # set above; {} if that block bailed
+
+    def _rej_cell(wk: str) -> str:
+        d = _scout_by_wk.get(wk)
+        if not d:
+            return "\u2014"
+        adm = {str(t).strip().upper() for t in (d.get("admitted") or [])}
+        live = _live_by_wk.get(wk, set())
+        prop = {str(p.get("ticker", "")).strip().upper() for p in (d.get("proposed") or [])}
+        rej = sorted(prop - adm - live - {""})
+        if not rej:
+            return "0"
+        # ORDER MATTERS: test the DOT before the length, or DIR.UN.TO and TATASTEEL.NS are longer
+        # than five characters and get filed as unresolved names when they are foreign listings.
+        name, forn, other = [], [], []
+        for t in rej:
+            if " " in t:                                   name.append(t)
+            elif "." in t:                                 forn.append(t)
+            elif len(t) > 5 or not t.isalnum():            name.append(t)
+            else:                                          other.append(t)
+        bits = []
+        if name:
+            bits.append(f"{len(name)} unresolved name")
+        if forn:
+            bits.append(f"{len(forn)} foreign")
+        if other:
+            bits.append(f"{len(other)} other")
+        return f"{len(rej)} ({', '.join(bits)})"
+
+    _scout_by_wk = {d["context"]: d for d in scout}
     _tick_rows = []
     for wk in weeks:
         _op, _ex = opened.get(wk, []), exited.get(wk, [])
@@ -1488,20 +1543,18 @@ def main(argv=None) -> int:
             continue
         _adds = sorted({v for _, e in _op for v in (e.get("vehicles") or [])})
         _rems = sorted({v for _, e in _ex for v in (e.get("vehicles") or [])})
-        _pr, _ad = prop_by_wk.get(wk, ("", ""))
-        _rej = (_pr - _ad) if isinstance(_pr, int) and isinstance(_ad, int) else ""
         _tick_rows.append([
             wk,
             f"{len(_op)} opened / {len(_ex)} exited",
             ", ".join(_adds) or "\u2014",
             ", ".join(_rems) or "\u2014",
-            f"{_rej}" if _rej != "" else "\u2014",
+            _rej_cell(wk),
         ])
     # Column order is load-bearing for the CSS below, which colours by nth-child: adds is 3rd,
     # removes is 4th. Reorder these and the colours follow the position, not the meaning.
     tick_log = ('<div class="curation-log">'
                 + table_html(["Week", "Events", "Adds (tickers)", "Removes (tickers)",
-                              "Rejected by the cap/guard"], _tick_rows)
+                              "Proposed, not admitted"], _tick_rows)
                 + '</div>')
     tick_panel = (
         f'<section class="panel"><h2>@@N1@@. Curation log &mdash; tickers</h2>'
@@ -1509,8 +1562,17 @@ def main(argv=None) -> int:
         f'onto TICKERS: an event opening contributes its vehicles as adds, an event exiting '
         f'contributes them as removes. Nothing here is new data &mdash; it is the event log read as a '
         f'portfolio diff, which is the form PWR\'s curator log takes and the form the question "what '
-        f'changed this week" is usually asked in. <b>Rejected</b> is proposed minus admitted: '
-        f'candidates the scout put forward that the cap or the ticker guard dropped.</p>'
+        f'changed this week" is usually asked in. <b>Proposed, not admitted</b> counts the DISTINCT '
+        f'tickers the scout put forward that did not enter, excluding names already on the '
+        f'watchlist &mdash; re-proposing a name the book holds is not a rejection. No cap is '
+        f'involved: <code>max_new_events</code> has been uncapped since the coverage-rank cull '
+        f'replaced it. <b>Read the split.</b> <i>foreign</i> is correctly outside a US book, and '
+        f'<i>other</i> is mostly names with no usable price history &mdash; but <i>unresolved '
+        f'name</i> is the scout emitting a company name where a symbol belongs, and those are real '
+        f'gems being dropped: on this curation SANDISK, SYMBOTIC, SPACEMOBILE, NuScale Power and '
+        f'Intuitive Machines were all discarded rather than read as SNDK, SYM, ASTS, SMR and LUNR. '
+        f'The resolver that should have caught them was silently inert (fixed 2026-08-29, but this '
+        f'curation predates the fix and would have to be re-run to benefit).</p>'
         f'<div class="scroll">{tick_log}</div></section>')
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
