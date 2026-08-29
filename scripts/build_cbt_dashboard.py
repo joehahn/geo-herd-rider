@@ -1733,25 +1733,44 @@ def main(argv=None) -> int:
     # reader of book["curstat"] cannot disagree. SE of the MEAN is the coherent error bar; the
     # median is reported beside it as the robust twin, not with the mean's error attached to it.
     # Same clamp as the chart: a scan date need not be a trading day.
-    _cur_r, _cd, _cv, _prev = [], book.get("dates") or [], book.get("value") or [], None
+    # SPY OVER THE SAME PERIODS, on the same clamped indices. Without it a median per-curation
+    # return is a number with no scale: +5% a month is excellent or mediocre depending entirely on
+    # what the market did in those same months, and this panel had no way to say which.
+    _cd, _cv = book.get("dates") or [], book.get("value") or []
+    _sv = book.get("spyser") or []
+    _cur_r, _spy_r, _prev, _sprev = [], [], None, None
     for _w in (book.get("rebal") or []):
         _i = next((i for i in range(len(_cd) - 1, -1, -1) if _cd[i] <= _w), -1)
         if _i < 0:
             continue
         if _prev is not None and _prev > 0:
             _cur_r.append(100.0 * (_cv[_i] / _prev - 1.0))
+            if _sprev and _i < len(_sv) and _sv[_i]:
+                _spy_r.append(100.0 * (_sv[_i] / _sprev - 1.0))
         _prev = _cv[_i]
+        _sprev = _sv[_i] if _i < len(_sv) else None
     _cur_n = len(_cur_r)
     if _cur_n > 1:
         _cur_med = statistics.median(_cur_r)
         _cur_mean = statistics.fmean(_cur_r)
         _cur_sd = statistics.stdev(_cur_r)
         _cur_se = _cur_sd / (_cur_n ** 0.5)
+        _spy_med = statistics.median(_spy_r) if len(_spy_r) > 1 else None
+        # PAIRED, period by period: how often did the book beat SPY in the SAME month? That is the
+        # question two medians cannot answer, because they can both be right and still be won by
+        # different periods.
+        _beat = sum(1 for a, b in zip(_cur_r, _spy_r) if a > b) if _spy_r else 0
         book["curstat"] = {"n": _cur_n, "med": round(_cur_med, 4), "mean": round(_cur_mean, 4),
-                           "sd": round(_cur_sd, 4), "se": round(_cur_se, 4)}
-        _cur_note = (f" Across the {_cur_n} periods the median is {_cur_med:+.1f}% and the mean "
-                     f"{_cur_mean:+.1f}% &plusmn; {_cur_se:.1f}% (standard error); the dashed line "
-                     f"is the median.")
+                           "sd": round(_cur_sd, 4), "se": round(_cur_se, 4),
+                           "spy_med": None if _spy_med is None else round(_spy_med, 4),
+                           "beat": _beat, "n_spy": len(_spy_r)}
+        _cur_note = (f" Across the {_cur_n} periods the book's median is {_cur_med:+.1f}% and its mean "
+                     f"{_cur_mean:+.1f}% &plusmn; {_cur_se:.1f}% (standard error)."
+                     + (f" <b>SPY over the same periods medians {_spy_med:+.1f}%</b>, and the book "
+                        f"beat it in <b>{_beat} of {len(_spy_r)}</b> of them &mdash; a median gap is "
+                        f"not the same as winning the months, so both are given."
+                        if _spy_med is not None else "")
+                     + " The dotted rule is the book's median.")
     else:
         book["curstat"] = None
         _cur_note = (" Too few periods to summarise &mdash; a median and a standard error need "
@@ -2514,22 +2533,33 @@ function draw() {{
       const _bi = t => {{ for (let i = BK.dates.length - 1; i >= 0; i--) if (BK.dates[i] <= t) return i;
                          return -1; }};
       const CS = BK.curstat || null;
-      const dx = [], dy = [];
-      let _prev = null;
+      const dx = [], dy = [], sy = [];
+      let _prev = null, _sprev = null;
       (BK.rebal || []).forEach(w => {{
         const i = _bi(w);
         if (i < 0) return;
-        const v = BK.value[i];
-        if (_prev !== null && _prev > 0) {{ dx.push(w); dy.push(100 * (v / _prev - 1)); }}
-        _prev = v;
+        const v = BK.value[i], s = (BK.spyser || [])[i];
+        if (_prev !== null && _prev > 0) {{
+          dx.push(w); dy.push(100 * (v / _prev - 1));
+          sy.push(_sprev ? 100 * (s / _sprev - 1) : null);
+        }}
+        _prev = v; _sprev = s;
       }});
       if (dx.length) Plotly.react('c-curdelta', [{{
-        type:'scatter', mode:'lines+markers', name:'per-curation change', x:dx, y:dy,
+        // SPY FIRST so the book's markers sit on top of it. Same green dashed convention as panel 1,
+        // so the two panels read as the same benchmark seen two ways -- cumulative there, per period
+        // here.
+        type:'scatter', mode:'lines', name:'SPY, same periods', x:dx, y:sy,
+        line:{{color:'#10b981', width:2, dash:'dash'}},
+        hovertemplate:'%{{x}}<br>SPY %{{y:+.2f}}%<extra></extra>'
+      }}, {{
+        type:'scatter', mode:'lines+markers', name:'the book', x:dx, y:dy,
         line:{{color:'#d97706', width:2}},
         marker:{{size:6, color:dy.map(v => v < 0 ? ST.critical : ST.good),
                  line:{{width:1, color:p.surface}}}},
         hovertemplate:'%{{x}}<br>%{{y:+.2f}}% since the previous curation<extra></extra>'
-      }}], base(p, {{margin:{{l:70,r:24,t:16,b:44}},
+      }}], base(p, {{margin:{{l:70,r:24,t:40,b:44}}, showlegend:true,
+          legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           // The median as a dashed rule. Sourced from book["curstat"], which is what the caption
           // quotes -- computing it a second time here is how the two would drift apart.
           shapes:_hoff().concat(CS ? [{{type:'line', xref:'paper', x0:0, x1:1, yref:'y',
