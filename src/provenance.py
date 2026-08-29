@@ -69,16 +69,15 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v21_evscans12"
-CANON_SWEEP = "data/sweep_v23.json"   # v22 -> v23 on 2026-08-29: re-swept AGAIN after the
-                                      # _daily_series fix -- metrics() reads b["daily"] for sharpe,
-                                      # max_drawdown, ann, l1/l2, churn, capital_hit, edge, safe_park
-                                      # and daily_r, so EVERY column but `final` was computed on the
-                                      # broken daily path, including a SCORED metric. v22 was itself
-                                      # the cull_fresh_slots 3 -> 2 re-sweep. A BOOK knob does not
-                                      # invalidate the curation, but it DOES invalidate every
-                                      # frozen replay in the sweep -- and the canon gate cannot
-                                      # see that, because it fingerprints CURATION knobs only.
+CANON_RUN = "data/cbt_3yr_v22_resolver"   # v21 -> v22 on 2026-08-29: the first curation run
+                                          # with a WORKING ticker resolver. Same corpus, same
+                                          # window, same models, same knobs -- the fingerprint
+                                          # is byte-identical (624c6c2e211c) because it tracks
+                                          # CONFIG, and only the code changed. 19 names were
+                                          # rescued in-run that the old code discarded.
+CANON_SWEEP = "data/sweep_v24.json"   # v23 -> v24 on 2026-08-29, swept over the promoted
+                                      # cbt_3yr_v22_resolver curation. v23 was the same grid
+                                      # over v21 and is kept on disk for the before/after.
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.

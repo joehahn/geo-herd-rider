@@ -652,7 +652,15 @@ def main(argv=None) -> int:
     # set: against all test regions a RANDOM pick scored 74 instead of 50, because the grids differ
     # (7,200 vs 6,300 regions). And the `v21>mb2rep` column is negative for EVERY score -- that
     # curation anti-transfers with everything, so no single pair should carry a conclusion.
-    _MET = {"sharpe": 1, "pc_fund_med": 1}
+    # SCORED ON pc_fund_med ALONE (user's call, 2026-08-29). Sharpe is dropped from the score:
+    # measured under the same pessimistic region rule, sharpe+pc-funded and pc-funded-only
+    # select equally well out of sample (71.7 vs 71.4 median test-final percentile over 12
+    # train/test pairs), while sharpe ALONE is worse (68.5) -- so sharpe was carrying no
+    # weight it could not lose. Dropping it also removes the timidity tilt this file documents:
+    # sharpe rewards a low-volatility book by construction, and every knob move it recommended
+    # (concentration_cap, min_trade_size, risk_aversion) failed a direct one-knob check on
+    # `final` in three curations out of three.
+    _MET = {"pc_fund_med": 1}
     # SHOWN BUT NOT SCORED. Summarised per region exactly like the scored ones so the columns and the
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann", "safe_park", "gain_pain", "slope_2h", "capital_hit",
@@ -733,15 +741,10 @@ def main(argv=None) -> int:
         if _sc:
             _score[_t] = min(_sc)
             _nsz.add(len(_mem))
-    # the OLD median-based score, retained as a displayed column
-    for _m, _sgn in _MET.items():
-        _sorted = sorted(r[_m][0] for r in _reg_stat.values() if _m in r)
-        for _t, r in _reg_stat.items():
-            if _m not in r:
-                continue
-            _p = 100 * _bis.bisect_left(_sorted, r[_m][0]) / len(_sorted)
-            _score_med.setdefault(_t, []).append(_p if _sgn > 0 else 100 - _p)
-    _score_med = {t: statistics.mean(v) for t, v in _score_med.items()}
+    # OLD SCORE = the config's OWN cell score (its pc-funded rank), so the two columns answer
+    # "how good is this cell" against "how good is its worst neighbour" -- the same quantity at two
+    # scopes, which is the comparison the table exists to make. A gap between them IS the knife edge.
+    _score_med = {t: _cell_score[id(_by[t])] for t in _reg_mem if id(_by[t]) in _cell_score}
     _score = {t: v for t, v in _score.items() if t in _reg_stat}
     print(f"  region score = WORST member; region sizes present: {sorted(_nsz)}"
           + ("  <-- RAGGED GRID: min favours the small ones" if len(_nsz) > 1 else ""))
@@ -790,11 +793,53 @@ def main(argv=None) -> int:
 
     reg_tbl = _ctable(
         ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
-         "&middot; trade", "score (worst member)", "old score (median)", "final (median &plusmn; SE)", "annualized", "sharpe",
+         "&middot; trade", "new score (region worst)", "old score (own pc-funded)", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
          "pc-funded", "PCR"], _rows, _cls)
 
+    # WHAT IT WOULD TAKE FOR THE ORANGE REGION TO REACH THE BLUE ONE. Regions are one-knob
+    # neighbourhoods, so two of them SHARE a cell only when their centres differ by at most two
+    # knobs, and the best config sits INSIDE the live region only when they differ by one. The
+    # report is generated from the actual difference rather than written, so it cannot go stale.
+    _dif = [(k, _live[i], _best[i]) for i, k in enumerate(keys) if _live[i] != _best[i]]
+    _same = [k for i, k in enumerate(keys) if _live[i] == _best[i]]
+    if not _dif:
+        _overlap = "The live config IS the best-scoring one -- the two regions are the same 22 cells."
+    elif len(_dif) == 1:
+        k, a, b = _dif[0]
+        _overlap = (f"They differ in ONE knob, <code>{k}</code> ({a} &rarr; {b}), so the best config "
+                    f"already sits INSIDE the live region and the squares overlap on 5 cells.")
+    else:
+        _moves = ", ".join(f"<code>{k}</code> {a}&nbsp;&rarr;&nbsp;{b}" for k, a, b in _dif)
+        _need = len(_dif) - 2
+        _overlap = (f"They differ in <b>{len(_dif)} knobs</b> &mdash; {_moves} &mdash; so the two "
+                    f"regions are DISJOINT: no cell belongs to both. Two one-knob neighbourhoods "
+                    f"touch only when their centres are at most two knobs apart, so "
+                    + ("any ONE of those changes makes them overlap; making both puts the best "
+                       "config inside the live region."
+                       if len(_dif) == 2 else
+                       f"at least {_need} of those {len(_dif)} changes is needed before the squares "
+                       f"share a single cell."))
+    _rep_html = (
+        # UNNUMBERED on purpose: this is commentary on table 10, not a panel of its own, and SBT
+        # numbers its panels by hand -- giving it a number would renumber 11-19 and every prose
+        # reference to them.
+        '<section class="panel"><h2 style="font-size:15px">Closing the gap &mdash; what would move '
+        'the orange squares onto the blue</h2><p class="lead">'
+        f'The live config is <b>{" &middot; ".join(str(x) for x in _live)}</b> and the best-scoring '
+        f'is <b>{" &middot; ".join(str(x) for x in _best)}</b>. '
+        f'{_overlap} They already agree on {len(_same)} of {len(keys)} knobs'
+        + (f' (<code>{"</code>, <code>".join(_same)}</code>).' if _same else '.') +
+        '<br><br><b>Recommendation: change nothing.</b> This ranking scores on '
+        '<code>pc_fund_med</code>, which is a picking measure, not terminal wealth &mdash; and every '
+        'knob move it has recommended so far failed a direct check. Varying '
+        '<code>concentration_cap</code>, <code>min_trade_size</code> and <code>risk_aversion</code> '
+        'one at a time and reading <code>final</code> across all four sweeps, the live value won in '
+        'most arms each time, three for three. The ranking is worth reading as a map of where the '
+        'robust neighbourhoods are; it has not earned the right to move a knob on its own. '
+        'The honest use of the two square sets is to see HOW FAR apart they are, not to close the '
+        'distance.</p></section>')
     _live_rank = (_rank.index(_live) + 1) if _live in _reg_stat else None
     _live_str = " \u00b7 ".join(str(x) for x in _live)
     payload["region"] = {
@@ -1034,6 +1079,8 @@ def main(argv=None) -> int:
          "drawn from the same watchlist (<code>scripts/null_book.py</code>), so it is measuring the "
          "config and not just the curation it was handed.</p>"
          f"{reg_tbl}</section>"),
+        # the gap report sits directly under table 10, which is what it is about
+        _rep_html,
 
     ] + ([panel(11, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
@@ -1141,41 +1188,14 @@ def main(argv=None) -> int:
           "and final value is the weakest number on the page &mdash; note that Sharpe does not "
           "follow it here.",
           "s-arms", 400)] if len(arms) > 1 else [])
-        + ([panel(20, "Which configs survive ALL THREE curations",
-          "Each point is one config&rsquo;s neighbourhood, scored on "
-          f"{' + '.join(CONS.get('metrics', []))} across all three cadence curations. Within an arm "
-          "a region is summarised by the MEDIAN over its ~22 one-knob members; the y axis is then "
-          "the WORST of the three arms, the x axis their mean. A single curation cannot separate a "
-          "good config from a lucky one, so ranking on the worst arm is the right instinct."
-          "<br><br><b>It does not resolve anything here.</b> The shaded band is the live "
-          f"config&rsquo;s floor plus the median spread of a region across the three arms "
-          f"(&plusmn;{CONS.get('noise', 0):.1f} percentile points). "
-          f"<b>{CONS.get('n_clear', 0)} of {len(CONS.get('rows', []))} regions clear it.</b> The "
-          f"live config&rsquo;s own three arms span "
-          f"{max(CONS.get('live_per', [0])) - min(CONS.get('live_per', [0])):.1f} points, and the "
-          "best floor in the grid beats it by less than that. This panel used to highlight the top "
-          "twelve in green; twelve was arbitrary, the cut fell inside a three-way tie, and the "
-          "distribution has no gap. The cloud is a continuum and the live config is inside it.",
-          "s-cons", 430),
-          ('<section class="panel"><h2>21. What the highest-floor configs change, and why it is not a recommendation</h2>'
-           '<p class="lead">'
-           "Every knob here is a BOOK knob, so each row is a rebuild &mdash; seconds, no LLM, no "
-           "re-curation. This table used to be headed &ldquo;how to move the live config into the "
-           f"green&rdquo;. <b>That framing is withdrawn.</b> The live config floors at "
-           f"<b>{CONS['live_floor']:.1f}</b> and the best region in the grid at "
-           f"<b>{CONS['rows'][0]['floor']:.1f}</b> &mdash; a gap smaller than the "
-           f"&plusmn;{CONS.get('noise', 0):.1f} points a single region moves between arms, and far "
-           f"smaller than the live config&rsquo;s own "
-           f"{max(CONS.get('live_per', [0])) - min(CONS.get('live_per', [0])):.1f}-point spread. "
-           f"<b>{CONS.get('n_clear', 0)} of {len(CONS.get('rows', []))} regions</b> are "
-           "distinguishable from it. So read these rows as <i>what the top of the cloud looks "
-           "like</i>, not as changes worth making: every gain listed is inside the measurement "
-           "error. <code>risk_aversion</code> deserves extra suspicion &mdash; panel 10 records "
-           "that Sharpe alone selects 16&ndash;24 through a timidity tilt that rewards a "
-           "low-volatility book by construction."
-           '</p><div class="scroll">'
-           + table_html(["knobs", "changes from live", "worst arm", "mean", "monthly", "biweekly", "weekly"],
-                        CONS["moves"]) + "</div></section>")] if CONS else []))
+        # PANELS 20-21 REMOVED 2026-08-29 (user's call). 20 ranked regions by their worst of
+        # three cadence arms and 21 told you how to reach its top twelve. Neither survived scrutiny:
+        # the twelve was an arbitrary rank cut that fell inside a three-way tie, and ZERO of 400
+        # regions cleared the live config by more than the arm-to-arm noise, so the panel resolved
+        # nothing it claimed to. The three arms are also cadences rather than replicates, which is
+        # a systematic difference, not a sample. The cadence bars (panel 19) stay because that is
+        # what the arms legitimately measure. CONS is still computed and simply unused.
+        )
 
     ARMS_JS = [{"name": a["name"], "n": a["n"], "rn": a["rn"], "final": a["final"],
                 "sd": a["sd"], "cell": a["cell"], "sharpe": a["sharpe"],
@@ -1339,7 +1359,7 @@ function draw(){{
     const tr=[mk(c=>!isCur(c))];
     // REGION MEMBERS as squares: smaller than the star and drawn UNDER it, so the live config
     // still reads first. Layer order is the point -- cloud, then the two neighbourhoods, then you.
-    // TWO NEIGHBOURHOODS: cyan = the BEST-scoring config's region, amber = the LIVE config's.
+    // TWO NEIGHBOURHOODS: blue = the BEST-scoring config's region, orange = the LIVE config's.
     // The top-100 hollow rings that used to sit here are gone -- a third overlay of 100 points on a
     // 7,200-point cloud was noise, and it encoded the same arbitrary rank cut panel 20 just shed.
     // Cyan is drawn FIRST so an overlapping amber square stays visible on top; where the two regions
@@ -1348,8 +1368,8 @@ function draw(){{
     const bestm = C.filter((c,i) => BEST.has(i) && !isCur(c));
     if (bestm.length) tr.push({{
       type:'scatter', mode:'markers', x:bestm.map(xf), y:bestm.map(c=>c.ann),
-      marker:{{size:11, symbol:'square', color:'#22b8cf',
-               line:{{width:1.5, color:p.surface}}}},
+      marker:{{size:12, symbol:'square', color:'#2563eb',
+               line:{{width:2, color:p.surface}}}},
       text:bestm.map(c=>'<b>BEST REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     const TOP = new Set(DATA.topn || []);
