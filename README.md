@@ -298,7 +298,7 @@ Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](
 
 ## About the author
 
-I'm Joseph M. Hahn, Ph.D., an independent AI and machine learning consultant. I spent eight years inside Oracle's AI Center of Excellence delivering AI systems for enterprise clients in manufacturing, oil and gas, public sector, and retail, and before that four years building machine learning systems on large data platforms.
+I am Joseph M. Hahn, Ph.D., an independent AI and machine learning consultant. Through **JMH DataSciences** I build production AI and machine learning systems for clients who need a real decision automated, not a demo. Before going independent I spent eight years inside Oracle's AI Center of Excellence delivering AI systems for enterprise clients in manufacturing, oil and gas, public sector, and retail, and before that four years building machine learning systems on large data platforms.
 
 This repo is one of several demonstrations of the same underlying pattern: **an AI reads a stream of unstructured input and automates a routine decision, while deterministic code handles whatever has to be auditable.** The hard part is rarely the model. It is drawing the line between the judgment worth delegating and the arithmetic that has to stay reproducible — and then building the scaffolding that proves the system isn't fooling itself, which is most of what the [Status](#status) section above is about. If that shape matches a problem in your business, the work I do and what it costs are at [jmh-datasciences.com](https://jmh-datasciences.com).
 
