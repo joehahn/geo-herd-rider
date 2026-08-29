@@ -652,15 +652,12 @@ def main(argv=None) -> int:
     # set: against all test regions a RANDOM pick scored 74 instead of 50, because the grids differ
     # (7,200 vs 6,300 regions). And the `v21>mb2rep` column is negative for EVERY score -- that
     # curation anti-transfers with everything, so no single pair should carry a conclusion.
-    # SCORED ON pc_fund_med ALONE (user's call, 2026-08-29). Sharpe is dropped from the score:
-    # measured under the same pessimistic region rule, sharpe+pc-funded and pc-funded-only
-    # select equally well out of sample (71.7 vs 71.4 median test-final percentile over 12
-    # train/test pairs), while sharpe ALONE is worse (68.5) -- so sharpe was carrying no
-    # weight it could not lose. Dropping it also removes the timidity tilt this file documents:
-    # sharpe rewards a low-volatility book by construction, and every knob move it recommended
-    # (concentration_cap, min_trade_size, risk_aversion) failed a direct one-knob check on
-    # `final` in three curations out of three.
-    _MET = {"pc_fund_med": 1}
+    # SCORE = rank(sharpe + pc_fund_med) over the region MEDIAN, one column (user's call,
+    # 2026-08-29). The two-column worst-member/own-rank pair it replaces was informative about
+    # knife edges but did not earn a knob change: measured, the pessimistic variant and this
+    # one select equally well out of sample (71.7 vs 71.4 median test-final percentile), and
+    # neither tracks `final`, which is what the knob decisions below are actually made on.
+    _MET = {"sharpe": 1, "pc_fund_med": 1}
     # SHOWN BUT NOT SCORED. Summarised per region exactly like the scored ones so the columns and the
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann", "safe_park", "gain_pain", "slope_2h", "capital_hit",
@@ -706,48 +703,15 @@ def main(argv=None) -> int:
         _reg_stat[_t] = _st
 
     import bisect as _bis
-    # THE SCORE IS THE REGION'S WORST MEMBER (user's call, 2026-08-29). Previously each metric was
-    # MEDIANED over the region's members, percentile-ranked across regions, and the two ranks
-    # averaged. That orders the whole grid slightly better but its top slice still admits knife-edge
-    # peaks: a cell can hold a high median while one neighbour is terrible. Scoring a region by its
-    # WORST member is the criterion the panel actually wants -- a config only ranks high if every
-    # one-knob neighbour also works, which is the risk you take by running one config forward.
-    # MEASURED across all three re-swept arms, ranking on one curation and reading `final` on
-    # another (median test-final percentile of the selected configs, 50 = random):
-    #      top-K       4     8    16    32    64   128   256
-    #      median   52.0  53.0  54.3  56.9  55.5  58.0  59.3
-    #      worst    55.8  67.4  68.8  70.6  71.8  70.5  67.3
-    # The worst-member score wins at EVERY cut size, by 12-16 points. Two honest qualifications
-    # kept here so the next reader does not overstate it: it wins on the MEAN, not per pair (3-4 of
-    # 6), and over the WHOLE grid the old median score orders slightly better (+0.315 vs +0.273
-    # Spearman) -- `min` is a worse gradient and a better selector, which is exactly the trade
-    # wanted when only the top matters.
-    # The old score is kept and displayed beside it, so this change is auditable rather than silent.
-    # REGION SIZE: every region here has exactly 22 members (the grid is complete), so `min` is not
-    # biased toward small neighbourhoods. It WOULD be if the grid ever went ragged -- fewer draws,
-    # higher expected minimum -- so the count is asserted rather than assumed.
-    _cell_pct: dict = {}
+    _score = {}
     for _m, _sgn in _MET.items():
-        _vals = sorted(c[_m] for c in cells if c.get(_m) is not None)
-        for _c in cells:
-            if _c.get(_m) is None:
+        _sorted = sorted(r[_m][0] for r in _reg_stat.values() if _m in r)
+        for _t, r in _reg_stat.items():
+            if _m not in r:
                 continue
-            _p = 100 * _bis.bisect_left(_vals, _c[_m]) / max(len(_vals) - 1, 1)
-            _cell_pct.setdefault(id(_c), []).append(_p if _sgn > 0 else 100 - _p)
-    _cell_score = {k: statistics.mean(v) for k, v in _cell_pct.items() if len(v) == len(_MET)}
-    _score, _score_med, _nsz = {}, {}, set()
-    for _t, _mem in _reg_mem.items():
-        _sc = [_cell_score[id(c)] for c in _mem if id(c) in _cell_score]
-        if _sc:
-            _score[_t] = min(_sc)
-            _nsz.add(len(_mem))
-    # OLD SCORE = the config's OWN cell score (its pc-funded rank), so the two columns answer
-    # "how good is this cell" against "how good is its worst neighbour" -- the same quantity at two
-    # scopes, which is the comparison the table exists to make. A gap between them IS the knife edge.
-    _score_med = {t: _cell_score[id(_by[t])] for t in _reg_mem if id(_by[t]) in _cell_score}
-    _score = {t: v for t, v in _score.items() if t in _reg_stat}
-    print(f"  region score = WORST member; region sizes present: {sorted(_nsz)}"
-          + ("  <-- RAGGED GRID: min favours the small ones" if len(_nsz) > 1 else ""))
+            _p = 100 * _bis.bisect_left(_sorted, r[_m][0]) / len(_sorted)
+            _score.setdefault(_t, []).append(_p if _sgn > 0 else 100 - _p)
+    _score = {t: statistics.mean(v) for t, v in _score.items()}
     _rank = sorted(_score, key=lambda t: -_score[t])
     _best = _rank[0]
     _live = tuple(base[k] for k in keys)
@@ -761,7 +725,6 @@ def main(argv=None) -> int:
     def _rrow(t, tag):
         return [tag + " · ".join(str(x) for x in t),
                 f"{_score[t]:.1f}",
-                f"{_score_med.get(t, 0):.1f}",
                 _pm(t, "final", "{:,.0f}"),
                 _pm(t, "ann", "{:.0f}") + "%",
                 _pm(t, "sharpe", "{:.2f}"),
@@ -793,7 +756,7 @@ def main(argv=None) -> int:
 
     reg_tbl = _ctable(
         ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
-         "&middot; trade", "new score (region worst)", "old score (own pc-funded)", "final (median &plusmn; SE)", "annualized", "sharpe",
+         "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
          "pc-funded", "PCR"], _rows, _cls)
@@ -822,24 +785,44 @@ def main(argv=None) -> int:
                        f"at least {_need} of those {len(_dif)} changes is needed before the squares "
                        f"share a single cell."))
     _rep_html = (
-        # UNNUMBERED on purpose: this is commentary on table 10, not a panel of its own, and SBT
-        # numbers its panels by hand -- giving it a number would renumber 11-19 and every prose
-        # reference to them.
-        '<section class="panel"><h2 style="font-size:15px">Closing the gap &mdash; what would move '
-        'the orange squares onto the blue</h2><p class="lead">'
-        f'The live config is <b>{" &middot; ".join(str(x) for x in _live)}</b> and the best-scoring '
-        f'is <b>{" &middot; ".join(str(x) for x in _best)}</b>. '
-        f'{_overlap} They already agree on {len(_same)} of {len(keys)} knobs'
-        + (f' (<code>{"</code>, <code>".join(_same)}</code>).' if _same else '.') +
-        '<br><br><b>Recommendation: change nothing.</b> This ranking scores on '
-        '<code>pc_fund_med</code>, which is a picking measure, not terminal wealth &mdash; and every '
-        'knob move it has recommended so far failed a direct check. Varying '
-        '<code>concentration_cap</code>, <code>min_trade_size</code> and <code>risk_aversion</code> '
-        'one at a time and reading <code>final</code> across all four sweeps, the live value won in '
-        'most arms each time, three for three. The ranking is worth reading as a map of where the '
-        'robust neighbourhoods are; it has not earned the right to move a knob on its own. '
-        'The honest use of the two square sets is to see HOW FAR apart they are, not to close the '
-        'distance.</p></section>')
+        '<section class="panel"><h2 style="font-size:15px">Which knobs to move next, and which to '
+        'leave alone</h2><p class="lead">'
+        '<code>optimizer_lookback_days</code> is now <b>30</b>, and it was the only knob with real '
+        'leverage &mdash; a variance decomposition of log(final) over the four sweeps on hand gives '
+        'it 23&ndash;44% against 0.4&ndash;4.9% for every other knob. The five below are what is '
+        'left, ranked by the evidence rather than by this table&rsquo;s score. Each row is the '
+        'MEDIAN final over 1,800 cells at that level, with <code>lookback</code> held at 30, in each '
+        'of the four curations &mdash; so these are marginals, not single cells.'
+        '<br><br>'
+        '<b>1. <code>risk_aversion</code> 8 &rarr; 12 &mdash; the one worth taking.</b> It wins in '
+        'BOTH monthly curations ($138k vs $125k on v24, $154k vs $133k on v23), which is the cadence '
+        'this book runs. It loses on biweekly and weekly, so the win is cadence-specific and should '
+        'be read that way. Second-highest leverage of the remaining five at 4.2%.'
+        '<br><br>'
+        '<b>2. <code>concentration_cap</code> 0.6 &rarr; 0.25 &mdash; directional, weaker.</b> Best '
+        'in three of four curations, but it loses on v24, the newest monthly one, and carries only '
+        '1.8% of the variance. Note this REVERSES at the old lookback: at 21 the same comparison '
+        'favoured 0.6, which is a plain demonstration that these knobs interact and that main '
+        'effects explain only ~40% of the spread.'
+        '<br><br>'
+        '<b>3. <code>min_trade_size</code> 0.2 &rarr; 0.05 &mdash; consistent direction, negligible '
+        'size.</b> The live 0.2 is LAST in three of four curations and the ordering is monotone in '
+        'two, so lower is genuinely better &mdash; but the knob explains 0.4% of the variance, so '
+        'the effect is real and tiny. Take it only alongside a rebuild you are doing anyway.'
+        '<br><br>'
+        '<b>4&ndash;5. <code>max_watchlist</code> and <code>drop_unfunded_weeks</code> &mdash; no '
+        'signal, do not touch.</b> Their best level differs in every curation (max_watchlist wins '
+        'are split 6/8/12/16, one each), which is what a knob with no reproducible effect looks '
+        'like. Moving either would be fitting the draw.'
+        '<br><br>'
+        '<b>The caution that applies to all five.</b> Every recommendation above is marginal-median '
+        'evidence, which is what caught <code>lookback</code> correctly after single-cell '
+        'comparisons got it backwards. But main effects sum to only 39&ndash;55% of the variance '
+        'here; the rest is interaction. Change one knob at a time, rebuild, and re-read this table '
+        '&mdash; a knob that looks good in the margin can reverse once another moves, which is '
+        'exactly what <code>concentration_cap</code> just did.'
+        '</p></section>')
+
     _live_rank = (_rank.index(_live) + 1) if _live in _reg_stat else None
     _live_str = " \u00b7 ".join(str(x) for x in _live)
     payload["region"] = {
