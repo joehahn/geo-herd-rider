@@ -2250,16 +2250,29 @@ function draw() {{
     // actually CHANGED anything that week -- a rebalance that altered nothing is a different event
     // from one that opened or closed a thesis, and the split is the cheapest way to see cadence.
     const _ch = new Set(BK.changed_weeks || []);
-    const _ri = (BK.rebal || []).map(w => BK.dates.indexOf(w)).filter(i => i >= 0);
+    // CLAMP to the last book day <= the scan date, never indexOf. A scan date is a BOOK date and
+    // need not be a trading day: exact lookup returns -1 and the marker is dropped in silence, so
+    // the caption promises a square at every rebalance and a third of them are absent. Measured on
+    // the pages of 2026-08-28: CBT drew 25 of 36 squares and CBS 3 of 4, and all 12 missing dates
+    // were WEEKENDS. Same bug class the price-modal comment below documents, and the same fix.
+    // The square sits on the clamped day so it lands ON the curve; the hover names the real scan
+    // date, which is the one the curation log and the journal use.
+    const _bi = (t) => {{ for (let i = BK.dates.length - 1; i >= 0; i--) if (BK.dates[i] <= t) return i;
+                         return -1; }};
     const _mk = (want) => {{
-      const xs = [], ys = [];
+      const xs = [], ys = [], ds = [];
       (BK.rebal || []).forEach(w => {{
-        const i = BK.dates.indexOf(w);
-        if (i >= 0 && (_ch.has(w) === want)) {{ xs.push(BK.dates[i]); ys.push(BK.value[i]); }}
+        const i = _bi(w);
+        if (i >= 0 && (_ch.has(w) === want)) {{ xs.push(BK.dates[i]); ys.push(BK.value[i]); ds.push(w); }}
       }});
-      return [xs, ys];
+      return [xs, ys, ds];
     }};
-    const [cx, cy] = _mk(true), [nx, ny] = _mk(false);
+    const [cx, cy, cd] = _mk(true), [nx, ny, nd] = _mk(false);
+    // The scan date is what the curation log and the journal call this rebalance, so the hover
+    // leads with it; the priced day is named only when the clamp actually moved (a weekend scan),
+    // which is also the honest way to say the square sits a session away from the decision.
+    const _lab = (ds, xs, what) => ds.map((w, i) =>
+      w + (w === xs[i] ? '' : ' \u2192 priced ' + xs[i]) + '<br>' + what);
     Plotly.react('c-value', [
       {{type:'scatter', mode:'lines', name:'Curator-driven', x:BK.dates, y:BK.value,
         line:{{color:'#d97706', width:2.5}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>curator</extra>'}},
@@ -2269,10 +2282,10 @@ function draw() {{
         line:{{color:'#10b981', width:2, dash:'dash'}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>SPY</extra>'}},
       {{type:'scatter', mode:'markers', name:'Rebalanced (no change)', x:nx, y:ny,
         marker:{{symbol:'square', size:7, color:'#ea580c', line:{{width:1.5, color:p.surface}}}},
-        hovertemplate:'%{{x}}<br>rebalanced, watchlist unchanged<extra></extra>'}},
+        text:_lab(nd, nx, 'rebalanced, watchlist unchanged'), hoverinfo:'text'}},
       {{type:'scatter', mode:'markers', name:'Watchlist changed', x:cx, y:cy,
         marker:{{symbol:'square', size:9, color:'#dc2626', line:{{width:1.5, color:p.surface}}}},
-        hovertemplate:'%{{x}}<br>an event opened or closed<extra></extra>'}}
+        text:_lab(cd, cx, 'an event opened or closed'), hoverinfo:'text'}}
     ], base(p, {{showlegend:true, legend:{{orientation:'h', y:1.14, x:0, font:{{size:11}}}},
         margin:{{l:74,r:24,t:40,b:44}},
         // THE HANDOFF, on the bootstrap arm only (BK.handoff is emitted just for CBS). Left of it
