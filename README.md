@@ -304,8 +304,8 @@ This repo is one of several demonstrations of the same underlying pattern: **an 
 
 **Related work:**
 
-- [**diplomacy-A2A**](https://github.com/joehahn/diplomacy-A2A) — seven Claude-powered agents playing Diplomacy against each other, negotiating over the A2A protocol.
-- [**portfolio-wave-rider**](https://github.com/joehahn/portfolio-wave-rider) — this project's predecessor: a retrieve → curate → optimize pipeline in which only the middle stage is permitted to judge.
+- [**diplomacy-A2A**](https://github.com/joehahn/diplomacy-A2A) — seven Claude-powered agents play *Diplomacy*, the classic seven-player negotiation board game, against each other: forming alliances, bargaining, and betraying each other over the A2A protocol.
+- [**portfolio-wave-rider**](https://github.com/joehahn/portfolio-wave-rider) — this project's predecessor. A mechanical retriever gathers the articles, an LLM judges which of them matter, and a mean-variance optimizer sizes the result: judgment is confined to the middle stage, the division of labor this repo inherits.
 - [**chicago_crime_forecast**](https://github.com/joehahn/chicago_crime_forecast) — monthly Chicago crime counts by type and ward, via an skforecast recursive multi-series forecaster over the city's public dataset.
 
 ## Disclaimer
