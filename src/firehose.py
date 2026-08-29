@@ -794,29 +794,57 @@ def _daily_series(panel, days, reb, week_w, capital, overlay=OVERLAY, overlay_an
         return None
     d_idx = days[starts[0]:]
     seg = {reb[k]: week_w.get(k, {}) for k in week_w if reb[k] is not None}  # pos -> weights
-    daily_ret = panel.pct_change()
     all_t = sorted({t for w in seg.values() for t in w})
     alloc = pd.DataFrame(0.0, index=d_idx, columns=all_t)
+    # HOLD THE SHARES, do not re-impose the weights (fixed 2026-08-29). This loop used to compound
+    # `val *= 1 + sum(cur[t] * daily_ret[d, t])` with `cur` fixed, which silently REBALANCES to the
+    # target weights every single day -- the opposite of what the docstring above promises, and not
+    # a portfolio anyone could hold: it trades daily at zero cost. On a concentrated two-name book
+    # that is volatility pumping, and it inflated the published curve monotonically, 1.00x at
+    # inception to 1.31x by 2026-07-28 -- against SPY and buy-and-hold lines in this same function
+    # that were always computed correctly as plain price ratios.
+    # `backtest`'s own rebalance loop (`out["rows"]`/`out["final"]`) has always been right:
+    # ret = sum(w * (p1/p0 - 1)) per period IS buy-and-hold. The two disagreed by 35% on the
+    # canonical book. Holding shares here reproduces `final` at every rebalance to 1.0000x.
+    # WATCH THE CASH TERM: weights need not sum to 1, and dropping `cash0` matches NEITHER path.
+    _pf = panel[[t for t in all_t if t in panel.columns]].ffill() if all_t else panel
     cur, val, values = {}, capital, []
-    gain: dict = {}                       # per-ticker cumulative $ P&L (sums to total portfolio gain)
+    base, p0, cash0, held_val = capital, {}, 0.0, {}
+    gain: dict = {}                       # per-ticker cumulative $ P&L, CLOSED segments
+    seg_gain: dict = {}                   # the open segment's unrealised $ P&L per ticker
     gain_series = {t: [] for t in all_t}  # per-DAY cumulative $ gain per ticker (for the per-agent plot)
+    # ORDER MATTERS, and getting it backwards costs one day of return PER PERIOD. Mark the OPEN
+    # segment to today's close FIRST, then rebalance into today's target. Re-basing first throws
+    # away the closing day's move of the segment that is ending -- 37 periods of that compounded to
+    # 0.71x against `rows`, which looks exactly like a modelling choice and is not one.
     for n, d in enumerate(d_idx):
         pos = days.get_loc(d)
-        if pos in seg:
-            cur = seg[pos]
-        if n > 0:
-            vprev = val                   # dollars at start of day d earn day d's price move
-            for t in cur:
-                r = daily_ret.loc[d, t]
-                if pd.notna(r):
-                    gain[t] = gain.get(t, 0.0) + vprev * cur[t] * r
-            val *= 1 + sum(cur.get(t, 0) * daily_ret.loc[d, t] for t in cur
-                           if pd.notna(daily_ret.loc[d, t]))
+        if cur and p0:                    # 1. mark to market at today's close
+            held_val = {t: base * cur[t] * (float(_pf.loc[d, t]) / p0[t])
+                        for t in p0 if pd.notna(_pf.loc[d, t])}
+            val = base * cash0 + sum(held_val.values())
+            seg_gain = {t: held_val[t] - base * cur[t] for t in held_val}
+        if pos in seg:                    # 2. then rebalance, at today's close -- value-neutral
+            for t, g in seg_gain.items():
+                gain[t] = gain.get(t, 0.0) + g
+            seg_gain, cur, base = {}, seg[pos], val
+            p0 = {t: float(_pf.loc[d, t]) for t in cur
+                  if t in _pf.columns and pd.notna(_pf.loc[d, t]) and _pf.loc[d, t] > 0}
+            # UNPRICEABLE WEIGHT IS CASH, NOT LOST. `p0` drops any name with no price here;
+            # subtracting the FULL target sum would delete that weight from the book. The
+            # rebalance loop treats such a name as contributing zero return (it skips NaN
+            # endpoints), i.e. exactly like cash, so this must match or the paths diverge.
+            cash0 = 1.0 - sum(cur[t] for t in p0)
+            held_val = {t: base * cur[t] for t in p0}
         values.append(round(val, 2))
-        for t in cur:
-            alloc.loc[d, t] = cur[t]
+        # ACTUAL weights, not target: the position drifts between rebalances, and the allocation
+        # panel multiplies these by book value, so targets would stop summing to the top edge.
+        for t, hv in (held_val if (cur and p0) else {}).items():
+            alloc.loc[d, t] = (hv / val) if val else 0.0
         for t in all_t:                   # snapshot the running cumulative gain (flatlines after exit)
-            gain_series[t].append(round(gain.get(t, 0.0), 2))
+            gain_series[t].append(round(gain.get(t, 0.0) + seg_gain.get(t, 0.0), 2))
+    for t, g in seg_gain.items():         # bank the final open segment
+        gain[t] = gain.get(t, 0.0) + g
     spy = panel[score.BENCHMARK].reindex(d_idx).ffill()
     spy_val = [round(capital * v, 2) for v in (spy / spy.iloc[0]).tolist()]
     overlay_vals = None
