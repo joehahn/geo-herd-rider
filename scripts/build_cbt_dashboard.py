@@ -1534,12 +1534,13 @@ def main(argv=None) -> int:
             elif "." in t:                                 forn.append(t)
             elif len(t) > 5 or not t.isalnum():            name.append(t)
             else:                                          other.append(t)
-        bits = []
-        for lst, lbl in ((res, "resolved catalyst"), (name, "unresolved name"),
-                         (forn, "foreign"), (other, "other")):
-            if lst:
-                bits.append(f"{len(lst)} {lbl}")
-        return f"{len(rej)} ({', '.join(bits)})"
+        # ONE REASON PER LINE. A newline, not a <br>: table_html escapes its cells, so markup here
+        # would render as literal text. The column's CSS carries white-space:pre-line to turn these
+        # into breaks. The leading total is dropped -- the lines already add up, and the split is
+        # the part worth reading.
+        return "\n".join(f"{len(lst)} {lbl}"
+                          for lst, lbl in ((res, "resolved catalyst"), (name, "unresolved name"),
+                                           (forn, "foreign"), (other, "other")) if lst)
 
     _scout_by_wk = {d["context"]: d for d in scout}
     _tick_rows = []
@@ -1580,7 +1581,10 @@ def main(argv=None) -> int:
         f'Intuitive Machines were all discarded rather than read as SNDK, SYM, ASTS, SMR and LUNR. '
         f'The resolver that should have caught them was silently inert (fixed 2026-08-29, but this '
         f'curation predates the fix and would have to be re-run to benefit).</p>'
-        f'<div class="scroll">{tick_log}</div></section>')
+        # Collapsed by default, matching the event log below: both are REFERENCE tables you open
+        # with a week in mind, not findings you read top to bottom.
+        f'<details class="tbl"><summary>show the {len(_tick_rows)}-week ticker log</summary>'
+        f'<div class="scroll">{tick_log}</div></details></section>')
     curation_log = table_html(["Week", "Events opened (catalyst -> vehicles)", "Events exited",
                                "Proposed\u2192admitted"], log_rows)
     log_panel = (
@@ -1589,7 +1593,10 @@ def main(argv=None) -> int:
         f'where the curator opened or closed an event. No-change weeks are hidden. An <b>event</b> is '
         f'one catalyst and the basket of tickers expressing it, so opening an event is GHR\'s analogue '
         f'of an add. <b>Proposed&rarr;admitted</b> is what the scout put forward versus what survived '
-        f'the inflow cap, so a week where those differ is a week the cap bound.</p>'
+        f'the scout\'s own filters. NOT a cap: <code>max_new_events</code> has been uncapped since '
+        f'the coverage-rank cull replaced it, so a week where those differ is a week the scout '
+        f'refused a candidate &mdash; usually a catalyst it had already seen resolve. The table '
+        f'above splits the reasons.</p>'
         # Collapsed by default. It is the longest table on the page and it is a REFERENCE, not a
           # finding -- you arrive with a particular week in mind rather than reading it through.
           f'<details class="tbl"><summary>show the {len(log_rows)}-week log</summary>'
@@ -2014,6 +2021,9 @@ def main(argv=None) -> int:
    keep their word headers, so colour is redundant reinforcement and never the only signal. */
 .curation-log td:nth-child(3) {{ color:var(--good); }}
 .curation-log td:nth-child(4) {{ color:var(--critical); }}
+/* the reject column is one reason per LINE -- pre-line turns the cell's newlines into breaks
+   without putting raw markup through table_html's escaping. */
+.curation-log td:nth-child(5) {{ white-space:pre-line; line-height:1.45; }}
 * {{ box-sizing:border-box; }}
 body {{ margin:0; background:var(--surface); color:var(--text);
   font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif; }}
