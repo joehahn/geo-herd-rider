@@ -1,9 +1,21 @@
 # geo-herd-rider
 
-**Author:** Joe Hahn  
-**Email:** jmh.datasciences@gmail.com  
-**Date:** 2026-Jun-23 <br>
-**branch:** main
+**An AI agent reads a continuous feed of unstructured news and makes a routine
+judgment call a person would otherwise make by hand, while deterministic code
+handles everything that has to be auditable.** The domain here is investing;
+the pattern is not.
+
+Built end-to-end with [Claude Code](https://claude.com/claude-code) by
+**Joseph M. Hahn, Ph.D.**, an independent AI and machine learning consultant —
+[jmh-datasciences.com](https://jmh-datasciences.com) ·
+[LinkedIn](https://www.linkedin.com/in/hahnjoe/) · jmh.datasciences@gmail.com
+
+> **Not investment advice.** A research project and a demonstration of automated
+> decisioning. Every performance figure below is a hindsight upper bound, not
+> realized return.
+
+**License:** writing & dashboards [CC BY 4.0](LICENSE-docs.md) · code [PolyForm Noncommercial](LICENSE.md) — [details](#license)  
+**Started:** 2026-Jun-23 · **Branch:** `main`
 
 **Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage and interpret that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**. But because we must first discern where the smart money is headed, we inevitably arrive a bit late, but with the goal of arriving early enough to capture some of the move before the slow herd arrives and prices it away. And just as we ride in ahead of the herd, we also ride out as it shows up. Once the herd piles in and flattens the opportunity, that position has done its work and so we pivot off to the next event whose opportunity is still un-grazed.
 
