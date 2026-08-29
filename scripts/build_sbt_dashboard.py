@@ -91,6 +91,7 @@ def main(argv=None) -> int:
     # periods -- the same bug class CBT panel 2 documents.
     _pcr_run = ROOT / _srun
     _pcr_idx: list[int] = []
+    _pcr_spy: list[float] = []
     try:
         import pandas as _pd
         _n_daily = max((len(c.get("daily_r") or []) for c in cells), default=0)
@@ -103,6 +104,15 @@ def main(argv=None) -> int:
                 if _i >= 0 and _i not in _pcr_idx:
                     _pcr_idx.append(_i)
             _pcr_idx.sort()
+            # SPY OVER THE SAME PERIODS, positionally. The panel index is strings here (no
+            # parse_dates), so reindexing it by Timestamp silently yields all-NaN -- which is
+            # exactly how a first pass at this produced a metric that "transferred" at rho 1.000.
+            import score as _sc
+            if _sc.BENCHMARK in _pan.columns:
+                _spyv = _pan[_sc.BENCHMARK].ffill().values[-(_n_daily + 1):].tolist()
+                _pcr_spy = [_spyv[_b] / _spyv[_a] - 1.0
+                            for _a, _b in zip(_pcr_idx, _pcr_idx[1:])
+                            if _spyv[_a] and _spyv[_b]]
     except Exception as _e:                      # a sweep whose run dir is gone still builds
         print(f"  PCR unavailable ({_e.__class__.__name__}: {_e}) -- the column will read em-dash")
     _pcr_n = 0
@@ -117,6 +127,16 @@ def main(argv=None) -> int:
                 if _b < len(_v) and _v[_a] > 0]
         if len(_pts) >= 3:
             _c["pcr"] = 100.0 * statistics.median(_pts)
+            # pcr_excess: the median of the PAIRED per-period differences, book minus SPY.
+            # NOT median(book) - median(SPY): SPY's median is one number per curation, identical
+            # for all 7,200 cells, so that subtraction is a constant offset and reorders NOTHING
+            # (measured: rho 1.0000 with pcr). Subtracting period BY period asks a different
+            # question of each config -- did it beat the market in the months IT was running --
+            # and that reorders (rho 0.65-0.76). Same construction as pc_gap, which pairs
+            # funded-vs-watched within the week rather than comparing two pooled averages.
+            if len(_pcr_spy) >= len(_pts):
+                _c["pcr_excess"] = 100.0 * statistics.median(
+                    [x - y for x, y in zip(_pts, _pcr_spy)])
             _pcr_n += 1
     if _pcr_n:
         print(f"  PCR: {_pcr_n:,} of {len(cells):,} cells over {len(_pcr_idx) - 1} curation periods")
@@ -657,7 +677,21 @@ def main(argv=None) -> int:
     # knife edges but did not earn a knob change: measured, the pessimistic variant and this
     # one select equally well out of sample (71.7 vs 71.4 median test-final percentile), and
     # neither tracks `final`, which is what the knob decisions below are actually made on.
-    _MET = {"sharpe": 1, "pc_fund_med": 1}
+    # pcr_excess ADDED TO THE SCORE 2026-08-29. It is the first addition to clear the bar this
+    # file sets for one: does it make the selection better OUT OF SAMPLE, and does that hold?
+    # Top-K by score on one curation, median test-`final` percentile on another, 12 train/test
+    # pairs over the four sweeps on hand:
+    #        K        4     8    16    32    64   128
+    #   current    63.8  64.0  62.7  60.9  61.4  63.2
+    #   +pcr_ex    78.6  77.2  78.5  75.6  73.3  71.8      won 8-10 of 12 pairs at every K
+    # It wins at EVERY cut size by 10-15 points and raises the worst pair from 31 to 58, so it
+    # removes the catastrophic cases rather than just lifting the average.
+    # WHY IT COMPLEMENTS rather than duplicates: sharpe is risk-adjustment with no market
+    # awareness, pc_fund_med is per-ticker picking irrespective of sizing, and pcr_excess is
+    # portfolio-level return NET OF THE MARKET. None subsumes another.
+    # AND IT IS WEAK ALONE -- 54.2 mean with a floor of 3. This is a complement, not a better
+    # metric, which is a harder pattern to produce by luck than one that looks good by itself.
+    _MET = {"sharpe": 1, "pc_fund_med": 1, "pcr_excess": 1}
     # SHOWN BUT NOT SCORED. Summarised per region exactly like the scored ones so the columns and the
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann", "safe_park", "gain_pain", "slope_2h", "capital_hit",
@@ -736,7 +770,8 @@ def main(argv=None) -> int:
                 _pm(t, "edge", "{:,.0f}"),
                 _pm(t, "safe_park", "{:.0f}") + "%",
                 _pm(t, "pc_fund_med", "{:.2f}") + "%",
-                _pm(t, "pcr", "{:.2f}") + "%"]
+                _pm(t, "pcr", "{:.2f}") + "%",
+                _pm(t, "pcr_excess", "{:.2f}") + "%"]
 
     _TOPR = 16
     _shown = _rank[:_TOPR]
@@ -759,7 +794,7 @@ def main(argv=None) -> int:
          "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
-         "pc-funded", "PCR"], _rows, _cls)
+         "pc-funded", "PCR", "PCR vs SPY"], _rows, _cls)
 
     # WHAT IT WOULD TAKE FOR THE ORANGE REGION TO REACH THE BLUE ONE. Regions are one-knob
     # neighbourhoods, so two of them SHARE a cell only when their centres differ by at most two
@@ -770,8 +805,8 @@ def main(argv=None) -> int:
     if not _dif:
         _overlap = "The live config IS the best-scoring one -- the two regions are the same 22 cells."
     elif len(_dif) == 1:
-        k, a, b = _dif[0]
-        _overlap = (f"They differ in ONE knob, <code>{k}</code> ({a} &rarr; {b}), so the best config "
+        _k1, _a1, _b1 = _dif[0]          # NOT k, a, b -- `a` is the argparse namespace
+        _overlap = (f"They differ in ONE knob, <code>{_k1}</code> ({_a1} &rarr; {_b1}), so the best config "
                     f"already sits INSIDE the live region and the squares overlap on 5 cells.")
     else:
         _moves = ", ".join(f"<code>{k}</code> {a}&nbsp;&rarr;&nbsp;{b}" for k, a, b in _dif)
