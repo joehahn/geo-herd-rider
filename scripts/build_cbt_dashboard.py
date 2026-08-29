@@ -834,8 +834,12 @@ def main(argv=None) -> int:
             # BOOTSTRAP ONLY: the date the news source changes under the curator's feet. Absent on
             # CBT, whose corpus has no seam, so the chart simply draws no line there.
             "handoff": (_bs_handoff if a.bootstrap else None),
+            # sorted(): iterating a SET makes the emitted key order depend on string hashing, so
+            # two builds of the same page produced byte-different JSON for identical data. Harmless
+            # to the charts, but it defeats "did anything actually change?" on a rebuild -- which is
+            # the check that just caught the live-yfinance drift above.
             "tickerbeat": {tk: _beat_of(tk) for tk in
-                           ({p["ticker"] for p in PICKS} | set(_gain) | set(_dom))},
+                           sorted({p["ticker"] for p in PICKS} | set(_gain) | set(_dom))},
             # ARTICLES PER BEAT across the whole corpus -- the denominator for beat efficiency, and
             # the reason gainbeat can now list beats that produced NOTHING. Counting only funded beats
             # (the old behaviour) showed 9 of 46 and hid the expensive failures entirely.
@@ -843,8 +847,8 @@ def main(argv=None) -> int:
             "beatgated": _beat_gated,
             "gainbeat": {b: round(v, 2) for b, v in sorted(
                 {bb: sum(g for tk, g in _gain.items() if _beat_of(tk) == bb)
-                 for bb in ({_beat_of(tk) for tk in _gain} | set(_beat_arts))}.items(),
-                key=lambda kv: kv[1])},
+                 for bb in sorted({_beat_of(tk) for tk in _gain} | set(_beat_arts))}.items(),
+                key=lambda kv: kv[1])},   # sorted() input: ties broke arbitrarily, see above
             "cullfunnel": {"labels": ["live watchlist", "survive the cull",
                                       "\u21b3 freshness tier", "\u21b3 trend tier",
                                       # plain ">", not &gt;: these are Plotly tick labels, not HTML
@@ -923,13 +927,39 @@ def main(argv=None) -> int:
     ceil_rows = []
     try:
         import numpy as _np
+        # PREFER THE FROZEN PANEL FOR THE MODAL TOO. Both price lookups below called
+        # fetch_panel(use_cache=False), which hits yfinance LIVE on every build -- so two builds of the
+        # same page disagreed in the last decimal, and every build needed the network. That is the drift
+        # the frozen panel exists to prevent (CLAUDE.md: "Re-fetching is an explicit choice ... never the
+        # default"; live drift once made two sweeps of one journal disagree on 919 of 6,300 cells).
+        # The book itself was never affected -- it has always priced off the frozen panel -- but the
+        # popup history was, and CBT's frozen panel covers its ENTIRE modal range (2023-03-14 against a
+        # need of 2023-08-15). Only CBS reaches back past its own corpus, because its two-year lookback
+        # predates a four-month book, so only that case still fetches.
+        # ALL-OR-NOTHING on purpose: stitching a frozen slice to a fetched one would join two different
+        # adjusted-close vintages into one series, which is a subtler version of the bug being fixed.
+        _frozen_px = locals().get("_panel")
+
+        def _px_panel(tks, start, end):
+            tks = list(tks)
+            if _frozen_px is not None and len(_frozen_px.index) and tks:
+                _i0 = _frozen_px.index[0]
+                if getattr(_i0, "tzinfo", None) is not None:
+                    _i0 = _i0.tz_localize(None)
+                if _pd.Timestamp(start) >= _i0 and all(t in _frozen_px.columns for t in tks):
+                    print(f"  px: frozen panel covers {len(tks)} tickers from {start} (no live fetch)")
+                    return _frozen_px[tks].loc[_pd.Timestamp(start):_pd.Timestamp(end)].copy()
+            print(f"  px: LIVE fetch, {len(tks)} tickers from {start} -- the frozen panel does not "
+                  f"cover it, so this part of the page is not bit-reproducible", file=sys.stderr)
+            return _score.fetch_panel(tks, start, end, use_cache=False)
+
         _spans = collections.defaultdict(list)
         for _s in ((book.get("wcomp") or {}).get("watch") or []):
             _spans[_s["t"]].append((_s["s"], _s["e"]))
         _anc = set(book.get("anchors") or [])
         _cand = [tk for tk in sorted(_spans) if tk not in _anc]
         if _cand and book.get("dates"):
-            _cp = _score.fetch_panel(_cand, book["dates"][0], book["dates"][-1], use_cache=False)
+            _cp = _px_panel(_cand, book["dates"][0], book["dates"][-1])
             if _cp.index.tz is not None:
                 _cp.index = _cp.index.tz_localize(None)
             for _tk in _cand:
@@ -968,7 +998,7 @@ def main(argv=None) -> int:
             _end = book["dates"][-1]
             _2y = (_dt.date.fromisoformat(str(_end)[:10]) - _dt.timedelta(days=730)).isoformat()
             _start = min(str(book["dates"][0])[:10], _2y)
-            _pp = _score.fetch_panel(_pt, _start, _end, use_cache=False)
+            _pp = _px_panel(_pt, _start, _end)
             if _pp.index.tz is not None:
                 _pp.index = _pp.index.tz_localize(None)
             _pp = _pp.ffill()
