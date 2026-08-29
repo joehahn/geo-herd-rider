@@ -691,11 +691,25 @@ def main(argv=None) -> int:
     # portfolio-level return NET OF THE MARKET. None subsumes another.
     # AND IT IS WEAK ALONE -- 54.2 mean with a floor of 3. This is a complement, not a better
     # metric, which is a harder pattern to produce by luck than one that looks good by itself.
-    _MET = {"sharpe": 1, "pc_fund_med": 1, "pcr_excess": 1}
+    # pc_fund_med DROPPED FROM THE SCORE 2026-08-29, same session it was joined by pcr_excess.
+    # Once the SPY-relative metric is in, pc_fund_med carries nothing -- and past K=16 it
+    # actively costs. Median test-`final` percentile, 12 train/test pairs over four sweeps:
+    #                              K=4     8    16    32    64   128    mean   worst pair
+    #   sharpe + pc-funded        63.8  64.0  62.7  60.9  61.4  63.2    62.7      20
+    #   sharpe + PCRvsSPY         80.7  77.1  76.9  77.5  78.4  77.6    78.0      47
+    #   all three                 78.6  77.2  78.5  75.6  73.3  71.8    75.8      46
+    #   pc-funded + PCRvsSPY      68.8  67.9  67.1  67.0  66.1  70.1    67.8       2
+    # The pair beats all three on the mean and holds flat as the cut widens where the triple
+    # decays (77.6 vs 71.8 at K=128). Both are picking measures; the SPY-relative one measures
+    # picking at the PORTFOLIO level, where the money is, rather than per-ticker unweighted.
+    # SHARPE IS THE LOAD-BEARING ONE, not pc_fund_med: drop sharpe instead and the worst pair
+    # collapses to 2. pc_fund_med stays as a displayed column.
+    _MET = {"sharpe": 1, "pcr_excess": 1}
     # SHOWN BUT NOT SCORED. Summarised per region exactly like the scored ones so the columns and the
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann", "safe_park", "gain_pain", "slope_2h", "capital_hit",
              "edge", "cancelled", "max_drawdown",
+             "pc_fund_med",  # scored until 2026-08-29; redundant once pcr_excess is in, see above
              "pcr",          # per-curation return -- see the PCR note above for why it does not vote
              )
     # pc_watch_med and pc_gap are still computed by the sweep and read by scripts/null_pc_gap.py;
@@ -1090,12 +1104,13 @@ def main(argv=None) -> int:
          "A config\u2019s region is itself plus every config one setting away &mdash; "
          f"{payload['region']['n_members']} in all &mdash; and every number here is the median and "
          "standard error across them. The score is the mean of the region\u2019s percentile rank on "
-         "THREE columns \u2014 <b>Sharpe</b>, <b>pc-funded</b> and <b>PCR vs SPY</b>; every other "
-         "column is shown but does not vote. The three measure different things, which is why "
-         "they are all in: Sharpe is risk-adjustment with no market awareness, pc-funded is "
-         "per-ticker picking irrespective of sizing, and PCR vs SPY is portfolio return NET OF "
-         "THE MARKET. <b>Note the raw PCR column does NOT vote</b> \u2014 only the SPY-relative "
-         "one does. "
+         "TWO columns \u2014 <b>Sharpe</b> and <b>PCR vs SPY</b>; every other column is shown but "
+         "does not vote. They measure different things: Sharpe is risk-adjustment with no market "
+         "awareness, PCR vs SPY is portfolio return NET OF THE MARKET. <b>pc-funded voted until "
+         "2026-08-29 and no longer does</b> \u2014 once the SPY-relative metric is in it carries "
+         "nothing and past K=16 it costs (mean 78.0 for the pair against 75.8 for all three). "
+         "Both are picking measures; the SPY-relative one measures picking where the money is. "
+         "<b>The raw PCR column does not vote either</b> \u2014 only the SPY-relative one. "
          "<b>PCR</b> is the per-curation return \u2014 the book\u2019s median percent change from "
          "one curation to the next, the quantity CBT panel 2 plots. Shown, NOT scored: its median "
          "flips sign across curations, its mean form restates <code>annualized</code>, and its "
