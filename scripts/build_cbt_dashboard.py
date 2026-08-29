@@ -606,6 +606,38 @@ def main(argv=None) -> int:
         _cull_med = sorted(_live_n)[len(_live_n) // 2] if _live_n else 0
         _hpw0 = [n for n in _held_per_week if n is not None]
         _held_med = sorted(_hpw0)[len(_hpw0) // 2] if _hpw0 else 0
+
+        # ---- THE CULL FUNNEL -------------------------------------------------------------------
+        # Panel 14's funnel stops at the journal: it ends with "picks logged" and says nothing about
+        # what happens to those picks afterwards. Everything that decides where capital actually
+        # goes is DOWNSTREAM of that -- the sticky watch, the max_watchlist cull, and the optimizer's
+        # own floor -- and none of it was drawn anywhere on this page.
+        # The freshness split duplicates the tier rule in firehose._ranked_cull. Kept in step by
+        # reading the SAME two knobs off the profile and applying the same expression; if that rule
+        # gains a tier, this needs the matching arm. The alternative (returning the split from
+        # backtest) would thread a chart's needs through the engine, which is worse.
+        _fslots = int(_lfm0.get("cull_fresh_slots", 3) or 0)
+        _fscans = int(_lfm0.get("cull_fresh_scans", 2) or 0)
+        _fk: dict = {}
+        _fresh_n, _kept_n = [], []
+        for _ki, _ai in enumerate(sorted(_scans)):
+            for _p in _scans[_ai]:
+                _fk.setdefault(_p["ticker"], _ki)
+            _evi = _w.get(_ai) or []
+            _kept_n.append(min(len(_evi), _wcap) if _wcap else len(_evi))
+            if _wcap and len(_evi) > _wcap:
+                _fc = [t for t in _evi if t in _fk and (_ki - _fk[t]) < _fscans]
+                _fresh_n.append(min(len(_fc), _fslots, _wcap))
+            else:
+                _fresh_n.append(0)
+
+        def _med(xs):
+            xs = [x for x in xs if x is not None]
+            return sorted(xs)[len(xs) // 2] if xs else 0
+        _cf_live, _cf_kept = _med(_live_n), _med(_kept_n)
+        _cf_fresh = _med(_fresh_n)
+        _cf_trend = max(0, _cf_kept - _cf_fresh)
+        _cf_fund = _med(_held_per_week)
         # Span of the breadth panel's series, for its lead and to justify its log axis.
         _bser = ([r['events_live'] for r in M] + [r['vehicles_live'] for r in M]
                  + [r['distinct_catalysts'] for r in M])
@@ -791,6 +823,14 @@ def main(argv=None) -> int:
                 {bb: sum(g for tk, g in _gain.items() if _beat_of(tk) == bb)
                  for bb in ({_beat_of(tk) for tk in _gain} | set(_beat_arts))}.items(),
                 key=lambda kv: kv[1])},
+            "cullfunnel": {"labels": ["live watchlist", "survive the cull",
+                                      "\u21b3 freshness tier", "\u21b3 trend tier",
+                                      # plain ">", not &gt;: these are Plotly tick labels, not HTML
+                                      "funded (weight > 1%)"],
+                           "values": [_cf_live, _cf_kept, _cf_fresh, _cf_trend, _cf_fund],
+                           "tier": [0, 0, 1, 1, 0],
+                           "cap": _wcap, "slots": _fslots, "scans": _fscans,
+                           "floor": _lfm0.get("min_trade_size")},
             "anchors": _fh.anchor_tickers(_lfm0),
             "rebal": [str(x.date()) for x in sorted(_scans)],
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
@@ -1691,6 +1731,18 @@ def main(argv=None) -> int:
               f"binding constraint is the optimizer rather than the cap. "
               f"The axis is log because the series span {_bmin} to {_bmax}." + _NODEC,
               "c-breadth", 380),
+        panel_rec("The cull funnel",
+              "What happens to the curator&rsquo;s names AFTER the journal is written, per rebalance. "
+              "Panel @@c-funnel@@ funnels the curation and stops at the picks; this one starts there and "
+              "ends at the money. The two indented bars are the two tiers of the cull and sum to the "
+              "bar above them &mdash; the freshness tier is awarded by RECENCY alone, the trend tier "
+              "by trailing return over noise. "
+              "<b>Bars are per-rebalance medians, not run totals</b>, so they do not add up down the "
+              "page the way panel @@c-funnel@@&rsquo;s do. Log axis. "
+              "The drop that matters is the last one: the cull leaves six slots and the optimizer "
+              "typically fills two, so what bounds this book is <code>min_trade_size</code> &mdash; "
+              "which drops a position rather than shrinking it &mdash; not <code>max_watchlist</code>.",
+              "c-cullfunnel", 340),
         panel_rec("Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names. Every other funded name is left OFF the "
               f"chart and stated here instead: <b>{_roll_nw} more winners worth "
@@ -2399,6 +2451,27 @@ function draw() {{
               tickmode:'linear', dtick:1,
               gridcolor:p.grid, tickfont:{{size:10}}, automargin:true}},
       xaxis:{{gridcolor:p.grid, type:'date'}}}}), CFG);
+
+  // THE CULL FUNNEL. Two colours, not five: the two indented bars are a BREAKDOWN of the bar above
+  // them, so they must not read as further stages of the same descent. Log x for the same reason
+  // panel 14 uses one -- the series spans 99 down to 2 and the tail is the whole point.
+  {{
+    const CFN = BK.cullfunnel;
+    if (CFN && CFN.values && CFN.values.length) {{
+      Plotly.react('c-cullfunnel', [{{
+        type:'bar', orientation:'h',
+        x:CFN.values.slice().reverse(), y:CFN.labels.slice().reverse(),
+        marker:{{color:CFN.tier.slice().reverse().map(t => t ? p.s4 : p.s1),
+                 line:{{width:2, color:p.surface}}}},
+        text:CFN.values.slice().reverse().map(v => v.toLocaleString()),
+        textposition:'outside', textfont:{{color:p.text2, size:11}}, cliponaxis:false,
+        hovertemplate:'%{{y}}<br>%{{x}} per rebalance (median)<extra></extra>'
+      }}], base(p, {{margin:{{l:150,r:60,t:16,b:46}},
+          yaxis:{{gridcolor:'rgba(0,0,0,0)', automargin:true, tickfont:{{size:11}}}},
+          xaxis:{{gridcolor:p.grid, type:'log',
+                 title:{{text:'names per rebalance (median, log)', font:{{size:11}}}}}}}}), CFG);
+    }}
+  }}
 
   const TB = BK.tickerbeat || {{}};
   const GB = Object.entries(BK.gainbeat || {{}}).sort((a,b)=>a[1]-b[1]);

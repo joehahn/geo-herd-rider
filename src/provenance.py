@@ -70,7 +70,11 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
 CANON_RUN = "data/cbt_3yr_v21_evscans12"
-CANON_SWEEP = "data/sweep_v21.json"
+CANON_SWEEP = "data/sweep_v22.json"   # v21 -> v22 on 2026-08-29: same curation, re-swept
+                                      # after cull_fresh_slots 3 -> 2. A BOOK knob does not
+                                      # invalidate the curation, but it DOES invalidate every
+                                      # frozen replay in the sweep -- and the canon gate cannot
+                                      # see that, because it fingerprints CURATION knobs only.
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.

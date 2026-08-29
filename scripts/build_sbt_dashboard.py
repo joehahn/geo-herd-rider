@@ -148,9 +148,15 @@ def main(argv=None) -> int:
     # them comparable cell-for-cell. Absent -> panel omitted, exactly like max_events and min_bundle.
     _LIVE_KEYS = ("max_watchlist", "concentration_cap", "lookback_period_days",
                   "drop_unfunded_weeks", "risk_aversion", "min_trade_size")
-    _ARM_SWEEPS = (("monthly",  "data/sweep_v21.json",  "cbt_3yr_v21_evscans12"),
-                   ("biweekly", "data/sweep_bw21.json", "cbt_3yr_bw21"),
-                   ("weekly",   "data/sweep_wk14.json", "cbt_3yr_wk14"))
+    # THE MONTHLY ARM IS THE CANONICAL ONE, so it derives from provenance rather than naming a
+    # path. Hard-coding it here (as this did until 2026-08-29) meant promoting CANON_SWEEP updated
+    # panels 2-19 while THIS panel silently kept reading the old sweep -- one page describing two
+    # books, which is the failure CLAUDE.md's "do NOT hard-code a run or corpus path in a builder
+    # again" rule exists to prevent. The other two arms are non-canonical by construction and stay
+    # explicit.
+    _ARM_SWEEPS = (("monthly",  _canon.CANON_SWEEP, Path(_canon.CANON_RUN).name),
+                   ("biweekly", "data/sweep_bw22.json", "cbt_3yr_bw21"),
+                   ("weekly",   "data/sweep_wk22.json", "cbt_3yr_wk14"))
     arms = []
     for _nm, _sw, _run in _ARM_SWEEPS:
         _f = ROOT / _sw
@@ -161,7 +167,9 @@ def main(argv=None) -> int:
         # THE LIVE CONFIG'S CELL, not a summary of the grid. "The portfolio value this arm
         # generates" is the book it actually produces at the settings we run, and every arm's sweep
         # contains that exact cell -- the grid is the same six knobs in all three. Cross-check: the
-        # monthly arm's live cell is $272,233, byte-equal to CBT's published final value.
+        # monthly arm's live cell equals CBT's published final value -- verified on every build by
+        # eye against the CBT page (the $272,233 quoted here until 2026-08-29 was three profile
+        # changes out of date, which is exactly why the figure is no longer written down).
         _LIVE = _LIVE_KEYS
         _want = {k: _fm.get(k) for k in _LIVE}
         _hit = [x for x in _c
