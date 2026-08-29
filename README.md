@@ -290,4 +290,30 @@ Technical demo. Not financial advice. Historical performance is not predictive. 
 
 ## License
 
-MIT.
+This repository is **dual-licensed**, split by file type.
+
+| What | License | Commercial use |
+|---|---|---|
+| **Documentation and published pages** — every `*.md` file at any path, and everything under [`docs/`](https://joehahn.github.io/geo-herd-rider/) | [CC BY 4.0](LICENSE-docs.md) | **Yes**, with attribution |
+| **Everything else** — `src/`, `scripts/`, `data/`, notebooks, config | [PolyForm Noncommercial 1.0.0](LICENSE.md) | No |
+
+The writing and the dashboards are meant to travel: quote them, adapt them,
+screenshot a chart into your slide deck, commercially or not, as long as you
+credit the source. The requested form is *Joseph M. Hahn,
+Ph.D., JMH DataSciences — https://jmh-datasciences.com — from the
+`geo-herd-rider` project*. The code is free to use, modify, and share for any
+noncommercial purpose — research, experimentation, education, personal projects,
+and use by nonprofit or government organizations. Commercial rights to the code
+are reserved; [get in touch](https://jmh-datasciences.com) if you want them.
+
+Code samples embedded in documentation files stay under the code license, so a
+snippet lifted from this README carries the same terms as the file it came from.
+
+**Third-party content.** `data/` and parts of the documentation and dashboards contain
+headlines, snippets, and URLs from published news articles. That material
+belongs to its publishers, is included here for research and commentary, and is
+not licensed by the author under either license above.
+
+Effective 2026-08-29. Earlier revisions of this README stated MIT; that grant
+stands for anyone who obtained a copy under it, and the terms above apply going
+forward.

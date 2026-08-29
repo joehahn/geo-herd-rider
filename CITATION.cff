@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you reference this work, please cite it as below."
+title: "geo-herd-rider: an AI agent that reads a news firehose and automates a recurring judgment call"
+abstract: >-
+  A research project in automated decisioning. An LLM curator reads a continuous
+  feed of unstructured financial news, names the tickers the press explicitly
+  flags as thesis-driven movers while still framed as early, and rules each week
+  on whether a driving catalyst is still live. The LLM never forecasts magnitude
+  and never sizes a position; a deterministic mean-variance optimizer does that,
+  so every number is auditable and reproducible from code. Dual-licensed:
+  documentation under CC BY 4.0, software under PolyForm Noncommercial 1.0.0.
+type: software
+authors:
+  - family-names: Hahn
+    given-names: "Joseph M."
+    email: jmh.datasciences@gmail.com
+    affiliation: "JMH DataSciences"
+    website: "https://jmh-datasciences.com"
+repository-code: "https://github.com/joehahn/geo-herd-rider"
+url: "https://jmh-datasciences.com"
+license:
+  - CC-BY-4.0
+  - PolyForm-Noncommercial-1.0.0
+keywords:
+  - ai-agents
+  - agentic-ai
+  - large-language-models
+  - automated-decisioning
+  - news-analysis
+  - portfolio-optimization
+  - backtesting
