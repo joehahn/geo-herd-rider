@@ -432,8 +432,16 @@ def _ranked_cull(ev: list[str], keep: int, panel, asof, lookback: int,
     # sole caller guards with `if max_watch and ...`; a second caller would not know to.
     if not keep or len(ev) <= keep:
         return ev
-    fresh = [t for t in ev if (k - first_k.get(t, k)) < fresh_scans]
-    fresh = sorted(fresh, key=lambda t: first_k.get(t, k), reverse=True)[:max(0, fresh_slots)]
+    # `t in first_k` GUARDS THE SEED. first_k is populated only from scan rows, but the live set
+    # also carries `starter_watchlist` names no agent ever named. Under the old `.get(t, k)` those
+    # scored k - k == 0 -- permanently "brand new" -- AND sorted first, because the sort is on
+    # first_k descending and k is its maximum. So the inception placeholders outranked genuinely
+    # new names for the freshness slots they exist to protect: measured on the canonical book,
+    # AAPL took a fresh slot in 6 scans and AMZN in 3. That inverts this tier's whole purpose and
+    # contradicts _stateful_watch's promise that the curator's own picks displace the seed "over
+    # the first few weeks rather than by fiat" -- the seed was displacing THEM.
+    fresh = [t for t in ev if t in first_k and (k - first_k[t]) < fresh_scans]
+    fresh = sorted(fresh, key=lambda t: first_k[t], reverse=True)[:max(0, fresh_slots)]
     rest = [t for t in ev if t not in set(fresh)]
     sc = _trend_rank(rest, panel, asof, lookback)
     rest = sorted(rest, key=lambda t: (-sc.get(t, float("-inf")), t))

@@ -179,23 +179,36 @@ curator_memory_weeks: 8          # SCANS a RETIRED ticker stays on the scout's d
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once. Set 2026-08-22 with the three
-                                  #   knobs below as ONE config: 4 · 0.6 · 21 · 4 · 4.0 · 0.05.
-                                  #   CHOSEN AS THE CENTRE OF THE SWEET SPOT, NOT ITS PEAK. Of its 22 one-knob
-                                  #   neighbours, 11 are themselves top-100 regions -- the densest overlap in
-                                  #   the grid. The top-SCORING config (4 · 0.6 · 30 · 2 · 4.0 · 0.1, score
-                                  #   93.5) has only 8, so it sits on the shoulder of its own good region,
-                                  #   which is where a noise-driven peak tends to sit. This one scores 92.9 at
-                                  #   rank 7 -- marginally lower, materially better surrounded.
-                                  #   The whole top band shares max_watchlist 4 with cap 0.4-0.6 and risk 3-4:
-                                  #   a narrow, coherent corner (concentrate hard in few names), not scattered
-                                  #   lucky cells.
-                                  #   TWO CAVEATS, both live. The overlap measure is SCALE-DEPENDENT -- at
-                                  #   top-500 a different family wins (4 · 0.4 · 30 · 4, 17/22 but rank 164).
-                                  #   And it is all WITHIN ONE CURATION: two runs of the same config disagree
-                                  #   about the best region as much as two different configs do, so this corner
-                                  #   keeps winning single sweeps and has not yet survived the next one.
-cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
+max_watchlist: 6                  # how many tickers may hold capital at once.
+                                  #   RATIONALE REWRITTEN 2026-08-29. The previous block argued this
+                                  #   value as "the centre of the sweet spot" for the config
+                                  #   4 · 0.6 · 21 · 4 · 4.0 · 0.05, chosen 2026-08-22. FOUR of those six
+                                  #   knobs have moved since (concentration_cap 0.25->0.6 on 08-27,
+                                  #   risk_aversion, min_trade_size, drop_unfunded_weeks), so that
+                                  #   argument described a config that is no longer live and is deleted
+                                  #   rather than left to be read as current.
+                                  #   WHERE THE LIVE CONFIG ACTUALLY SITS, measured on sweep_v21 with the
+                                  #   scored pair (sharpe + pc_fund_med): 6 · 0.6 · 21 · 0 · 8.0 · 0.2 is
+                                  #   region rank 128 of 7,200, score 96.6, with 6 of its 21 one-knob
+                                  #   neighbours themselves top-100 regions. The top-scoring regions all
+                                  #   share concentration_cap 0.25, which the live config deliberately
+                                  #   does not (see the concentration_cap note below -- it was raised for
+                                  #   panel 19's cross-curation cluster, not for this sweep's ranking).
+                                  #   So this value is NOT the in-sample peak and is not claimed to be.
+                                  #   STILL TRUE, and the reason the peak is not chased: the ranking is
+                                  #   WITHIN ONE CURATION, and two runs of the same config disagree about
+                                  #   the best region as much as two different configs do.
+cull_fresh_slots: 2               # of those slots, how many are held for brand-new events, which have no price history yet for "trend" to judge.
+                                  #   3 -> 2 on 2026-08-29. At 3 this tier took HALF a six-slot book,
+                                  #   allocated by recency alone with no quality signal, and it saturated
+                                  #   in 36 of 36 scans. Paired replays over 54 book-knob configs, vs 3:
+                                  #     v21 1.121x (wins 38/54) · bw21 1.056x (30/54) · mb2rep 1.519x (54/54)
+                                  #   1 also beats 3 on all three (1.023 / 1.200 / 1.787); 4 does not
+                                  #   (0.897 / 1.019 / 0.973). 2 is chosen over 1 for winning the MAJORITY
+                                  #   of paired configs on every curation rather than the largest median.
+                                  #   The tier is still needed: 0 measures 0.834x, winning only 9 of 54.
+                                  #   BACKTEST-DRIVEN, so NOT promoted to .forward.md (non-negotiable #7):
+                                  #   .forward.md stays at 3 until the forward eval speaks.
 cull_fresh_scans: 2               # how new counts as new, in scans.
 drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
                                   #   Was 0 (never drop).
