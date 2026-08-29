@@ -1549,6 +1549,34 @@ def main(argv=None) -> int:
     # the v4 book). Anything the caption states about the data is now computed from the data.
     # `alloc` holds WEIGHTS (0..1), not dollars -- the JS multiplies by book value at render time.
     # Comparing the weight sum against the dollar value made every day read as uninvested.
+    # PER-CURATION RETURN STATS, computed here so the caption, the median line and any future
+    # reader of book["curstat"] cannot disagree. SE of the MEAN is the coherent error bar; the
+    # median is reported beside it as the robust twin, not with the mean's error attached to it.
+    # Same clamp as the chart: a scan date need not be a trading day.
+    _cur_r, _cd, _cv, _prev = [], book.get("dates") or [], book.get("value") or [], None
+    for _w in (book.get("rebal") or []):
+        _i = next((i for i in range(len(_cd) - 1, -1, -1) if _cd[i] <= _w), -1)
+        if _i < 0:
+            continue
+        if _prev is not None and _prev > 0:
+            _cur_r.append(100.0 * (_cv[_i] / _prev - 1.0))
+        _prev = _cv[_i]
+    _cur_n = len(_cur_r)
+    if _cur_n > 1:
+        _cur_med = statistics.median(_cur_r)
+        _cur_mean = statistics.fmean(_cur_r)
+        _cur_sd = statistics.stdev(_cur_r)
+        _cur_se = _cur_sd / (_cur_n ** 0.5)
+        book["curstat"] = {"n": _cur_n, "med": round(_cur_med, 4), "mean": round(_cur_mean, 4),
+                           "sd": round(_cur_sd, 4), "se": round(_cur_se, 4)}
+        _cur_note = (f" Across the {_cur_n} periods the median is {_cur_med:+.1f}% and the mean "
+                     f"{_cur_mean:+.1f}% &plusmn; {_cur_se:.1f}% (standard error); the dashed line "
+                     f"is the median.")
+    else:
+        book["curstat"] = None
+        _cur_note = (" Too few periods to summarise &mdash; a median and a standard error need "
+                     "more than two.")
+
     _bv = book.get("value") or []
     _bal = book.get("alloc") or {}
     _cash_days = sum(1 for i in range(len(_bv))
@@ -1590,6 +1618,12 @@ def main(argv=None) -> int:
               " Kept OUT of the headline on purpose: a backtest steered by returns on known history is "
               "how you overfit, which is why this page leads with breadth and precision.",
               "c-value", 380),
+        panel_rec("Fractional value change per curation",
+              "The book&rsquo;s percent change from one curation to the next. Markers are green "
+              "when the period made money, red when it lost. The panel above is cumulative and on "
+              "a log axis; this is the same book read one period at a time." + _cur_note +
+              " The first curation has no predecessor so it is not plotted.",
+              "c-curdelta", 380),
         panel_rec("Watchlist composition over time",
               "One row per ticker. The pale bar is the span the curator kept it WATCHLISTED — it held "
               "the thesis; the solid bar is the span the optimizer actually FUNDED it. The gap between "
@@ -2255,6 +2289,45 @@ function draw() {{
           // and only the last leg is legible. On a log scale equal vertical distances are equal
           // PERCENTAGE moves, which is what makes the curator line comparable to SPY anywhere on it.
           yaxis:{{type:'log', gridcolor:p.grid, tickprefix:'$', title:{{text:'portfolio value (log)', font:{{size:11}}}}}}}}), CFG);
+
+    // PER-CURATION RETURN. The curve above is cumulative and log-scaled, which is what makes it
+    // comparable to SPY -- but it also means a bad period late in the run looks like a wiggle. This
+    // is the same book differenced curation-to-curation, where every period is on the same footing.
+    // CLAMP to the last book day <= the scan date, never indexOf: a scan that falls on a non-trading
+    // day (or on today, before yfinance has posted a bar) misses exactly, and the period would be
+    // dropped in silence -- the same bug class the price-modal comment below documents.
+    {{
+      const _bi = t => {{ for (let i = BK.dates.length - 1; i >= 0; i--) if (BK.dates[i] <= t) return i;
+                         return -1; }};
+      const CS = BK.curstat || null;
+      const dx = [], dy = [];
+      let _prev = null;
+      (BK.rebal || []).forEach(w => {{
+        const i = _bi(w);
+        if (i < 0) return;
+        const v = BK.value[i];
+        if (_prev !== null && _prev > 0) {{ dx.push(w); dy.push(100 * (v / _prev - 1)); }}
+        _prev = v;
+      }});
+      if (dx.length) Plotly.react('c-curdelta', [{{
+        type:'scatter', mode:'lines+markers', name:'per-curation change', x:dx, y:dy,
+        line:{{color:'#d97706', width:2}},
+        marker:{{size:6, color:dy.map(v => v < 0 ? ST.critical : ST.good),
+                 line:{{width:1, color:p.surface}}}},
+        hovertemplate:'%{{x}}<br>%{{y:+.2f}}% since the previous curation<extra></extra>'
+      }}], base(p, {{margin:{{l:70,r:24,t:16,b:44}},
+          // The median as a dashed rule. Sourced from book["curstat"], which is what the caption
+          // quotes -- computing it a second time here is how the two would drift apart.
+          shapes:_hoff().concat(CS ? [{{type:'line', xref:'paper', x0:0, x1:1, yref:'y',
+            y0:CS.med, y1:CS.med, line:{{color:p.text2, width:1.2, dash:'dot'}}}}] : []),
+          annotations:_hoffAnn().concat(CS ? [{{xref:'paper', x:1, xanchor:'right', yref:'y',
+            y:CS.med, yanchor:'bottom', showarrow:false, font:{{size:10.5, color:p.text2}},
+            text:'median ' + (CS.med >= 0 ? '+' : '') + CS.med.toFixed(1) + '%'}}] : []),
+          xaxis:{{gridcolor:p.grid, type:'date'}},
+          yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:true, zerolinecolor:p.text2,
+                 zerolinewidth:1.5,
+                 title:{{text:'change since previous curation', font:{{size:11}}}}}}}}), CFG);
+    }}
 
     // 2. watchlist composition -- horizontal spans, pale = watchlisted, solid = funded. Ticker rows are
   //    ordered by first appearance so the page reads chronologically down the axis.
