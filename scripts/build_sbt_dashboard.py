@@ -155,8 +155,8 @@ def main(argv=None) -> int:
     # again" rule exists to prevent. The other two arms are non-canonical by construction and stay
     # explicit.
     _ARM_SWEEPS = (("monthly",  _canon.CANON_SWEEP, Path(_canon.CANON_RUN).name),
-                   ("biweekly", "data/sweep_bw22.json", "cbt_3yr_bw21"),
-                   ("weekly",   "data/sweep_wk22.json", "cbt_3yr_wk14"))
+                   ("biweekly", "data/sweep_bw23.json", "cbt_3yr_bw21"),
+                   ("weekly",   "data/sweep_wk23.json", "cbt_3yr_wk14"))
     arms = []
     for _nm, _sw, _run in _ARM_SWEEPS:
         _f = ROOT / _sw
@@ -167,9 +167,12 @@ def main(argv=None) -> int:
         # THE LIVE CONFIG'S CELL, not a summary of the grid. "The portfolio value this arm
         # generates" is the book it actually produces at the settings we run, and every arm's sweep
         # contains that exact cell -- the grid is the same six knobs in all three. Cross-check: the
-        # monthly arm's live cell equals CBT's published final value -- verified on every build by
-        # eye against the CBT page (the $272,233 quoted here until 2026-08-29 was three profile
-        # changes out of date, which is exactly why the figure is no longer written down).
+        # monthly arm's live cell equals CBT's book AT THE LAST REBALANCE -- NOT the CBT page's
+        # headline, which runs to the last priced day and is a few weeks further on (429,309.49 vs
+        # 440,697.17 on 2026-08-29, 13 trading days apart). The sweep stores `final`, which the
+        # rebalance loop stops computing at the final scan. Comparing against the headline is how
+        # this cross-check read as broken for months. No figure is written down here any more: the
+        # $272,233 that used to be was three profile changes out of date.
         _LIVE = _LIVE_KEYS
         _want = {k: _fm.get(k) for k in _LIVE}
         _hit = [x for x in _c

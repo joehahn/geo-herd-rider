@@ -70,8 +70,12 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
 CANON_RUN = "data/cbt_3yr_v21_evscans12"
-CANON_SWEEP = "data/sweep_v22.json"   # v21 -> v22 on 2026-08-29: same curation, re-swept
-                                      # after cull_fresh_slots 3 -> 2. A BOOK knob does not
+CANON_SWEEP = "data/sweep_v23.json"   # v22 -> v23 on 2026-08-29: re-swept AGAIN after the
+                                      # _daily_series fix -- metrics() reads b["daily"] for sharpe,
+                                      # max_drawdown, ann, l1/l2, churn, capital_hit, edge, safe_park
+                                      # and daily_r, so EVERY column but `final` was computed on the
+                                      # broken daily path, including a SCORED metric. v22 was itself
+                                      # the cull_fresh_slots 3 -> 2 re-sweep. A BOOK knob does not
                                       # invalidate the curation, but it DOES invalidate every
                                       # frozen replay in the sweep -- and the canon gate cannot
                                       # see that, because it fingerprints CURATION knobs only.
