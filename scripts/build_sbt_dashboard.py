@@ -698,16 +698,54 @@ def main(argv=None) -> int:
         _reg_stat[_t] = _st
 
     import bisect as _bis
-    _score = {}
+    # THE SCORE IS THE REGION'S WORST MEMBER (user's call, 2026-08-29). Previously each metric was
+    # MEDIANED over the region's members, percentile-ranked across regions, and the two ranks
+    # averaged. That orders the whole grid slightly better but its top slice still admits knife-edge
+    # peaks: a cell can hold a high median while one neighbour is terrible. Scoring a region by its
+    # WORST member is the criterion the panel actually wants -- a config only ranks high if every
+    # one-knob neighbour also works, which is the risk you take by running one config forward.
+    # MEASURED across all three re-swept arms, ranking on one curation and reading `final` on
+    # another (median test-final percentile of the selected configs, 50 = random):
+    #      top-K       4     8    16    32    64   128   256
+    #      median   52.0  53.0  54.3  56.9  55.5  58.0  59.3
+    #      worst    55.8  67.4  68.8  70.6  71.8  70.5  67.3
+    # The worst-member score wins at EVERY cut size, by 12-16 points. Two honest qualifications
+    # kept here so the next reader does not overstate it: it wins on the MEAN, not per pair (3-4 of
+    # 6), and over the WHOLE grid the old median score orders slightly better (+0.315 vs +0.273
+    # Spearman) -- `min` is a worse gradient and a better selector, which is exactly the trade
+    # wanted when only the top matters.
+    # The old score is kept and displayed beside it, so this change is auditable rather than silent.
+    # REGION SIZE: every region here has exactly 22 members (the grid is complete), so `min` is not
+    # biased toward small neighbourhoods. It WOULD be if the grid ever went ragged -- fewer draws,
+    # higher expected minimum -- so the count is asserted rather than assumed.
+    _cell_pct: dict = {}
+    for _m, _sgn in _MET.items():
+        _vals = sorted(c[_m] for c in cells if c.get(_m) is not None)
+        for _c in cells:
+            if _c.get(_m) is None:
+                continue
+            _p = 100 * _bis.bisect_left(_vals, _c[_m]) / max(len(_vals) - 1, 1)
+            _cell_pct.setdefault(id(_c), []).append(_p if _sgn > 0 else 100 - _p)
+    _cell_score = {k: statistics.mean(v) for k, v in _cell_pct.items() if len(v) == len(_MET)}
+    _score, _score_med, _nsz = {}, {}, set()
+    for _t, _mem in _reg_mem.items():
+        _sc = [_cell_score[id(c)] for c in _mem if id(c) in _cell_score]
+        if _sc:
+            _score[_t] = min(_sc)
+            _nsz.add(len(_mem))
+    # the OLD median-based score, retained as a displayed column
     for _m, _sgn in _MET.items():
         _sorted = sorted(r[_m][0] for r in _reg_stat.values() if _m in r)
         for _t, r in _reg_stat.items():
             if _m not in r:
                 continue
             _p = 100 * _bis.bisect_left(_sorted, r[_m][0]) / len(_sorted)
-            _score.setdefault(_t, []).append(_p if _sgn > 0 else 100 - _p)
-    _score = {t: statistics.mean(v) for t, v in _score.items()}
-    _rank = sorted(_reg_stat, key=lambda t: -_score[t])
+            _score_med.setdefault(_t, []).append(_p if _sgn > 0 else 100 - _p)
+    _score_med = {t: statistics.mean(v) for t, v in _score_med.items()}
+    _score = {t: v for t, v in _score.items() if t in _reg_stat}
+    print(f"  region score = WORST member; region sizes present: {sorted(_nsz)}"
+          + ("  <-- RAGGED GRID: min favours the small ones" if len(_nsz) > 1 else ""))
+    _rank = sorted(_score, key=lambda t: -_score[t])
     _best = _rank[0]
     _live = tuple(base[k] for k in keys)
 
@@ -720,6 +758,7 @@ def main(argv=None) -> int:
     def _rrow(t, tag):
         return [tag + " · ".join(str(x) for x in t),
                 f"{_score[t]:.1f}",
+                f"{_score_med.get(t, 0):.1f}",
                 _pm(t, "final", "{:,.0f}"),
                 _pm(t, "ann", "{:.0f}") + "%",
                 _pm(t, "sharpe", "{:.2f}"),
@@ -751,7 +790,7 @@ def main(argv=None) -> int:
 
     reg_tbl = _ctable(
         ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
-         "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
+         "&middot; trade", "score (worst member)", "old score (median)", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
          "pc-funded", "PCR"], _rows, _cls)
@@ -775,9 +814,15 @@ def main(argv=None) -> int:
     # that survives BOTH (best combined rank), which is not the in-sample peak. Highlighting the peak
     # while running something else would point every scatter at a config we looked at and declined.
     # All members are drawn. There is no trim any more -- see the note at _keep.
-    _markset = _live if _live in _reg_mem else _best
-    _bestset = {id(c) for c in _reg_mem[_markset]}
-    payload["topn"] = [i for i, c in enumerate(cells) if id(c) in _bestset]
+    # TWO MARKED NEIGHBOURHOODS, so the panels can be read as a comparison rather than a lookup:
+    # amber = the LIVE config's region, cyan = the BEST-scoring one's. Previously only one set was
+    # drawn (live if present, else best), which answered "where am I" but never "where is the thing
+    # I would move to, and do the two overlap".
+    _liveset = {id(c) for c in _reg_mem.get(_live, [])}
+    _bestset = {id(c) for c in _reg_mem.get(_best, [])}
+    payload["topn"] = [i for i, c in enumerate(cells) if id(c) in _liveset]
+    payload["bestn"] = [i for i, c in enumerate(cells) if id(c) in _bestset]
+    payload["bestcfg"] = [float(x) for x in _best]
     # THE TOP-100 REGIONS' CENTRES, for the scatters. The raw cloud shows real dispersion, which is
     # its job -- but it HIDES where the good neighbourhoods are, because they sit at the edge of the
     # cloud rather than in its dense middle and read as sparse outliers. Measured on this grid the
@@ -787,8 +832,9 @@ def main(argv=None) -> int:
     # medians shrink the visible spread to 63-83% of the truth, and adjacent regions share 21 of 22
     # members, so it would draw 6,300 points that are ~95% the same data as their neighbours.
     # Marking them keeps the honest dispersion AND shows the sweet spot.
-    _topidx = {id(by_t) for by_t in (_by[t] for t in _rank[:100]) }
-    payload["topreg"] = [i for i, c in enumerate(cells) if id(c) in _topidx]
+    # topreg (hollow rings on the top-100 region centres) DELETED 2026-08-29. With the live and
+    # best neighbourhoods both marked, a third overlay of 100 more points was noise on a 7,200-point
+    # cloud, and it encoded the same arbitrary-rank-cut idea that panel 20's green cluster did.
 
     # THE LLM BAKE-OFF (panels 14-18). Five full re-curations that differ ONLY in which model runs the
     # event-agent JUDGMENT stage, plus a Fable-5 audit of all 2,849 decisions they made. Optional: absent
@@ -827,7 +873,9 @@ def main(argv=None) -> int:
     _bestsh = max((c for c in cells if c.get("sharpe") is not None), key=lambda c: c["sharpe"])
     _neg = [c for c in cells if c.get("slope_2h") is not None and c["slope_2h"] < 0]
     _neghi = [c for c in _neg if (c.get("ann") or 0) >= 50]
-    _wsm = [c for c in _reg_mem[_markset] if c.get("slope_2h") is not None]
+    # the LIVE region (was `_markset`, which resolved to live-or-best; now that both are marked
+    # separately the caption below means the live one, and says so)
+    _wsm = [c for c in _reg_mem.get(_live, []) if c.get("slope_2h") is not None]
     _wspos = sum(1 for c in _wsm if c["slope_2h"] > 0)
     _wsmed = statistics.median([c["slope_2h"] for c in _wsm]) if _wsm else 0
     _regsz = payload["region"]["n_members"]
@@ -869,8 +917,11 @@ def main(argv=None) -> int:
               "across the grid, so it merely recoloured the y-axis. Hit-rate is +0.45, independent "
               "enough to add a third dimension: a dark point in the upper-left earned its return "
               "WITHOUT the money sitting in winners, which is luck rather than picking. The live "
-              "config is the magenta &#9733; star; amber squares are the recommended region\u2019s members, "
-              "and <b>hollow rings are the centres of the 100 best-scoring regions</b>.<br><br>"
+              "config is the magenta &#9733; star. <b>Amber squares are its 22-cell region</b>; "
+              "<b>cyan squares are the region of the best-scoring config</b> "
+              f"({' &middot; '.join(str(x) for x in _best)}), which is what table 10 now ranks by "
+              "worst member. The two sets are disjoint here &mdash; no cell belongs to both &mdash; "
+              "so reaching the top of the grid is more than a one-knob move.<br><br>"
               "<b>These are RAW per-config values.</b> Table 9 reports the median across each "
               "config\u2019s 22-cell neighbourhood, so a point here and its row there are not the "
               "same number. The raw cloud is kept on purpose: regional medians would shrink the "
@@ -933,7 +984,8 @@ def main(argv=None) -> int:
               "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
               "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
               "is unaffected, but do not read a ratio off this panel. Blue squares are table 10\'s "
-              f"marked region &mdash; {_wspos} of its {len(_wsm)} members have a positive slope, median "
+              f"LIVE config&rsquo;s region (amber) &mdash; {_wspos} of its {len(_wsm)} members have a "
+              f"positive slope, median "
               f"<b>${_wsmed:,.0f}</b>/yr.",
               "s-slope", 470),
         panel(6, "Return vs capital hit-rate",
@@ -1285,18 +1337,20 @@ function draw(){{
     const _xhi = (xmax !== undefined) ? xmax : _xv[_xv.length - 1];
     const _nclip = _xv.filter(x => x < _xlo || x > _xhi).length;
     const tr=[mk(c=>!isCur(c))];
-    // REGION MEMBERS as amber squares: smaller than the star and drawn UNDER it, so the live
-    // config still reads first. Layer order is the whole point -- cloud, then recommendations, then you.
-    // TOP-100 REGION CENTRES: hollow rings, no fill, drawn UNDER the region squares and the star.
-    // A ring reads as "highlighted" without spending a fourth hue on a page that already carries a
-    // blue cloud, amber squares and a magenta star. This is the layer that answers "is there a sweet
-    // spot the dispersion hides" -- and there is: these cluster in 25-43% of the axis on most panels.
-    const TREG = new Set(DATA.topreg || []);
-    const treg = C.filter((c,i) => TREG.has(i));
-    if (treg.length) tr.push({{
-      type:'scatter', mode:'markers', x:treg.map(xf), y:treg.map(c=>c.ann),
-      marker:{{size:9, symbol:'circle-open', color:p.text2, line:{{width:1.4}}}},
-      text:treg.map(c=>'<b>TOP-100 REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+    // REGION MEMBERS as squares: smaller than the star and drawn UNDER it, so the live config
+    // still reads first. Layer order is the point -- cloud, then the two neighbourhoods, then you.
+    // TWO NEIGHBOURHOODS: cyan = the BEST-scoring config's region, amber = the LIVE config's.
+    // The top-100 hollow rings that used to sit here are gone -- a third overlay of 100 points on a
+    // 7,200-point cloud was noise, and it encoded the same arbitrary rank cut panel 20 just shed.
+    // Cyan is drawn FIRST so an overlapping amber square stays visible on top; where the two regions
+    // share a cell that overlap is the answer to "how far would I actually be moving".
+    const BEST = new Set(DATA.bestn || []);
+    const bestm = C.filter((c,i) => BEST.has(i) && !isCur(c));
+    if (bestm.length) tr.push({{
+      type:'scatter', mode:'markers', x:bestm.map(xf), y:bestm.map(c=>c.ann),
+      marker:{{size:11, symbol:'square', color:'#22b8cf',
+               line:{{width:1.5, color:p.surface}}}},
+      text:bestm.map(c=>'<b>BEST REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     const TOP = new Set(DATA.topn || []);
     const top = C.filter((c,i) => TOP.has(i) && !isCur(c));
@@ -1304,7 +1358,7 @@ function draw(){{
       type:'scatter', mode:'markers', x:top.map(xf), y:top.map(c=>c.ann),
       marker:{{size:11, symbol:'square', color:REGSQ,
                line:{{width:1.5, color:p.surface}}}},
-      text:top.map(c=>'<b>IN THE REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
+      text:top.map(c=>'<b>LIVE REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
     if (curKey && C.some(isCur)) tr.push(mk(isCur));
     Plotly.react(div, tr, base(p, {{margin:{{l:64,r:20,t:16,b:48}},
