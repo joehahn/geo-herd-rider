@@ -210,8 +210,22 @@ cull_fresh_slots: 2               # of those slots, how many are held for brand-
                                   #   BACKTEST-DRIVEN, so NOT promoted to .forward.md (non-negotiable #7):
                                   #   .forward.md stays at 3 until the forward eval speaks.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
-                                  #   Was 0 (never drop).
+drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+                                  #   0 -> 4 on 2026-08-29, WITH risk_aversion 8 -> 12. They move as a
+                                  #   PAIR and must be read as one change: neither works alone.
+                                  #   Config 6 / 0.6 / 30 / 4 / 12.0 / 0.2 beats the previous live
+                                  #   config in ALL FOUR curations on hand -- median 1.45x, and 1.18x
+                                  #   even in its weakest arm, so it never loses. Only one other cell
+                                  #   in table 10 goes 4/4, and that one needs three knob changes and
+                                  #   ties (1.02x) in its worst arm.
+                                  #   THE CAVEAT, recorded rather than buried: on its OWN this knob has
+                                  #   no reproducible signal -- its best level differs in every curation
+                                  #   (marginal medians, lookback held at 30). And risk_aversion 12 ALONE
+                                  #   wins only 1 of 4 at the old cell. The gain lives in the pair, not
+                                  #   in either part, which is the interaction effect that main effects
+                                  #   (39-55% of variance here) cannot see. Re-read table 10 after any
+                                  #   further move: shifting two knobs moves the whole neighbourhood the
+                                  #   table is computed over.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
 concentration_cap: 0.6             # most of the book any one ticker may take.
                                   # 0.25 -> 0.6 on 2026-08-27, from SBT table 20. It is the single
@@ -232,7 +246,13 @@ min_trade_size: 0.2              # positions smaller than this are DROPPED, not 
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
                                   #   inert here.
-risk_aversion: 8.0                 # λ in mean-variance. Higher = spreads wider, chases returns less.
+risk_aversion: 12.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+                                  #   8.0 -> 12.0 on 2026-08-29, PAIRED with drop_unfunded_weeks 0 -> 4;
+                                  #   see that knob for the evidence. Every one of table 10's sixteen
+                                  #   configs carries risk_aversion >= 12 -- the old 8.0 was the sole
+                                  #   outlier -- but the knob does not stand alone: changing only this
+                                  #   one at the previous config wins 1 of 4 curations.
+                                  #   Prior note below is superseded but kept for the reasoning.
                                   #   16.0 -> 8.0 on 2026-08-24, promoting row 2 of SBT's region table.
                                   #   The only knob that changed: row 2 is 6 / 0.25 / 21 / 0 / 8.0 / 0.2
                                   #   against the previous 6 / 0.25 / 21 / 0 / 16.0 / 0.2. Row 2 ties row 1
