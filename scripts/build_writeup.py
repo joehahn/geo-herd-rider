@@ -18,6 +18,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
+import dash_nav  # noqa: E402
 from build_fbt_dashboard import CSS, DARK, LIGHT, PLOTLY_CDN  # noqa: E402
 
 # THE HYPHEN IS LOAD-BEARING. This was published as jmhdatasciences.com -- a domain that does not
@@ -380,7 +381,7 @@ matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""
     out = ROOT / "docs/writeups/llm-bakeoff.html"
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html)
+    out.write_text(dash_nav.stamp(html))
     print(f"  wrote {out}")
     md = out.with_suffix(".md")
     md.write_text(_markdown(body))

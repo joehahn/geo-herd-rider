@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import pandas as pd  # noqa: E402
 import firehose  # noqa: E402
 import score  # noqa: E402
+import dash_nav  # noqa: E402
 import build_dashboard  # noqa: E402
 import build_forward_dashboard as bfd  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
@@ -118,7 +119,7 @@ def main(argv=None):
 <table><tr><th>#</th>{''.join(f'<th>{k}</th>' for k in gkeys)}<th>final</th><th>ret</th></tr>{rows}</table>
 <script>{scr}</script></body></html>"""
     out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    (out / "index.html").write_text(html)
+    (out / "index.html").write_text(dash_nav.stamp(html))
     print(f"  wrote {out}/index.html")
 
 

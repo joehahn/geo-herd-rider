@@ -27,7 +27,9 @@ import pandas as pd
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "scripts"))
 
+import dash_nav  # noqa: E402
 import firehose  # noqa: E402
 import costs  # noqa: E402
 from optimizer import load_financial_model  # noqa: E402
@@ -209,7 +211,7 @@ def _write_page(path, html: str) -> None:
         html = html.replace("<body>", "<body>" + bar, 1)
     else:
         html = html.replace("</body>", bar + "</body>", 1)  # fallback
-    path.write_text(html)
+    path.write_text(dash_nav.stamp(html))
 
 
 def _gem_seeds(ticker: str) -> list:

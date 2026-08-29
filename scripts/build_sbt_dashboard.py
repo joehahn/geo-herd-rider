@@ -1667,7 +1667,7 @@ draw();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change', draw);
 </script></body></html>"""
     out = ROOT / a.out
-    out.write_text(html)
+    out.write_text(dash_nav.stamp(html))
     print(f"wrote {out}  ({len(html)//1024} KB, {len(cells)} cells)")
     return 0
 

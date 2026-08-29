@@ -1879,7 +1879,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', dra
 </body></html>"""
 
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(doc)
+    out.write_text(dash_nav.stamp(doc))
     print(f"wrote {out}  ({len(doc) / 1024:.0f} KB, {n:,} articles)")
 
 

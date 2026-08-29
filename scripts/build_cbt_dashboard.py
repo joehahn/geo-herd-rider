@@ -2846,7 +2846,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', dra
 </body></html>"""
     out = ROOT / a.out if not Path(a.out).is_absolute() else Path(a.out)
     out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(doc)
+    out.write_text(dash_nav.stamp(doc))
     print(f"wrote {out}  ({len(doc)/1024:.0f} KB, {len(M)} weeks, {J.get('nid',0)} events)")
     return 0
 

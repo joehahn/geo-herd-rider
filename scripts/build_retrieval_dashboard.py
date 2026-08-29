@@ -11,6 +11,7 @@ from __future__ import annotations
 import html
 import json
 from datetime import date, datetime, timedelta
+import sys
 from pathlib import Path
 
 README_URL = "https://github.com/joehahn/geo-herd-rider/blob/main/README.md"
@@ -18,6 +19,8 @@ README_URL = "https://github.com/joehahn/geo-herd-rider/blob/main/README.md"
 PLOTLY_CDN = "https://cdn.plot.ly/plotly-2.35.2.min.js"
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "scripts"))
+import dash_nav  # noqa: E402
 SRC = REPO / "data" / "retrieval_backtest.json"
 OUT = REPO / "docs_preview" / "retrieval_backtest.html"
 
@@ -404,7 +407,7 @@ document.querySelectorAll('.dot').forEach(c=>{{
 <script>{_diag(res)}</script>
 </body></html>"""
     OUT.parent.mkdir(parents=True, exist_ok=True)
-    OUT.write_text(html)
+    OUT.write_text(dash_nav.stamp(html))
     return OUT
 
 
