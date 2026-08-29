@@ -638,6 +638,17 @@ def main(argv=None) -> int:
         _cf_fresh = _med(_fresh_n)
         _cf_trend = max(0, _cf_kept - _cf_fresh)
         _cf_fund = _med(_held_per_week)
+        # HOW MUCH OF THE BOOK those funded names actually hold. Without this the funnel's last drop
+        # reads as idle capital, which is the opposite of the truth: the floor forbids dust and the
+        # cap allows 60% in one name, so a FULLY INVESTED book is two or three names.
+        _cf_dep = []
+        for _wk in weeks:
+            _i = next((i for i in range(len(_adates) - 1, -1, -1) if _adates[i] <= _wk), -1)
+            if _i < 0:
+                continue
+            _cf_dep.append(100.0 * sum(_sv[_i] for _t, _sv in _aal.items()
+                                       if _t not in _anch0 and _i < len(_sv) and _sv[_i] > 0.01))
+        _cf_dep_med = _med([round(x) for x in _cf_dep])
         # Span of the breadth panel's series, for its lead and to justify its log axis.
         _bser = ([r['events_live'] for r in M] + [r['vehicles_live'] for r in M]
                  + [r['distinct_catalysts'] for r in M])
@@ -1739,9 +1750,13 @@ def main(argv=None) -> int:
               "by trailing return over noise. "
               "<b>Bars are per-rebalance medians, not run totals</b>, so they do not add up down the "
               "page the way panel @@c-funnel@@&rsquo;s do. Log axis. "
-              "The drop that matters is the last one: the cull leaves six slots and the optimizer "
-              "typically fills two, so what bounds this book is <code>min_trade_size</code> &mdash; "
-              "which drops a position rather than shrinking it &mdash; not <code>max_watchlist</code>.",
+              f"The last drop is NOT idle capital. The cull leaves {_wcap} slots and the optimizer "
+              f"funds {_cf_fund}, but those hold a median <b>{_cf_dep_med}%</b> of the book: "
+              f"<code>min_trade_size {_lfm0.get('min_trade_size')}</code> forbids dust and "
+              f"<code>concentration_cap {_lfm0.get('concentration_cap')}</code> allows one name most "
+              f"of the book, so a fully-invested book IS two or three names. What bounds the COUNT is "
+              f"the floor, not <code>max_watchlist</code> &mdash; and the unfunded slots still matter, "
+              f"because they are the pool the optimizer chooses from.",
               "c-cullfunnel", 340),
         panel_rec("Cumulative $ gain per holding",
               "The 16 best and 8 worst funded names. Every other funded name is left OFF the "
