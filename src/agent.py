@@ -391,6 +391,23 @@ time-varying."""
 _TICKER_CACHE: dict[str, str | None] = {}   # per-run memo: company/foreign-ticker -> US symbol (skip re-searching)
 
 
+_RESOLVER_CLIENT: list = []          # one per process; [] = not tried, [None] = unavailable
+
+
+def _resolver_client(fallback):
+    """An Anthropic client for the ticker lookup, built once, or `fallback` if it cannot be."""
+    if not _RESOLVER_CLIENT:
+        try:
+            import llm as _llm
+            _RESOLVER_CLIENT.append(_llm.make_client("anthropic"))
+        except Exception as e:  # noqa: BLE001 -- no key, no package: say so once, then carry on
+            print(f"    !! ticker resolver: no Anthropic client ({type(e).__name__}: {e}); "
+                  f"falling back to the caller's model, which cannot search the web on the "
+                  f"OpenRouter path", file=sys.stderr, flush=True)
+            _RESOLVER_CLIENT.append(None)
+    return _RESOLVER_CLIENT[0] or fallback
+
+
 def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
     """Live web-search resolution of a NAMED company -> its US-listed symbol. Look-ahead-SAFE: a
     name<->ticker mapping is a static fact (RNMBY was RNMBY in 2025 and now); only the symbol is
@@ -402,6 +419,15 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
         return None
     if key in _TICKER_CACHE:
         return _TICKER_CACHE[key]
+    # RESOLVE ON ANTHROPIC, whoever the caller is. This lookup NEEDS a real web search, and the two
+    # providers reach one very differently: Anthropic searches server-side, while the OpenRouter
+    # path injects Tavily context -- metered, and the plan's monthly allowance was exhausted on
+    # 2026-08-24, so on a cheap scout this would either bill per name or return nothing and fall
+    # back to the model's memory, which is the exact failure this function was fixed for.
+    # Look-ahead-safe either way, by this function's own argument: a name<->ticker mapping is a
+    # static fact and only the symbol is kept. Falls back to the caller's client if Anthropic is
+    # unavailable, rather than failing the scan.
+    client = _resolver_client(client)
     q = (f"Company: {company or hint}\n" + (f"Foreign/known ticker: {hint}\n" if hint else "")
          + "What is its US-listed ticker symbol? Output the JSON.")
     us = None
