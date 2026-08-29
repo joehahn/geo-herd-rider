@@ -3,28 +3,28 @@
  "blocks": 16,
  "rankers": {
   "Sharpe (in-sample)": {
-   "pbo": 48.2,
-   "median_lambda": 0.081,
+   "pbo": 44.3,
+   "median_lambda": 0.375,
    "n_splits": 12870
   },
   "-cancellation": {
-   "pbo": 55.2,
-   "median_lambda": -0.234,
+   "pbo": 29.7,
+   "median_lambda": 1.221,
    "n_splits": 12870
   },
   "robust (canc+downside)": {
-   "pbo": 70.6,
-   "median_lambda": -0.745,
+   "pbo": 33.0,
+   "median_lambda": 0.955,
    "n_splits": 12870
   },
   "winners (whole-run)": {
-   "pbo": 0.0,
-   "median_lambda": 4.77,
+   "pbo": 23.2,
+   "median_lambda": 0.702,
    "n_splits": 12870
   },
   "capital_hit (whole-run)": {
-   "pbo": 13.3,
-   "median_lambda": 1.091,
+   "pbo": 40.1,
+   "median_lambda": 1.422,
    "n_splits": 12870
   }
  }
