@@ -242,10 +242,35 @@ risk_aversion: 8.0                 # λ in mean-variance. Higher = spreads wider
                                   #   interior, so it is the defensible half of a tie.
                                   #   BOOK knob (src/provenance.py): acts at replay time over the fixed
                                   #   journal, so this costs a rebuild, not a re-curation and not a re-sweep.
-optimizer_lookback_days: 21       # days of price history behind μ and Σ. Cut from 45 2026-08-15:
-                                  #   the sweep's top-Sharpe cluster is all 14. A 45-day window on a book
+optimizer_lookback_days: 30       # days of price history behind μ and Σ.
+                                  #   21 -> 30 on 2026-08-29. This is the ONLY knob in the grid with
+                                  #   real leverage: a one-way variance decomposition of log(final)
+                                  #   over all four sweeps on hand gives it 23-44% (mean 30%), against
+                                  #   4.9% for drop_unfunded_weeks, 4.2% risk_aversion, 3.3%
+                                  #   max_watchlist, 1.8% concentration_cap and 0.4% min_trade_size.
+                                  #   The other five are inside the noise BY CONSTRUCTION, which is why
+                                  #   every recommendation to move them failed a direct check.
+                                  #   PAIRED, same other-five knobs, 30 vs 21 over 1,800 pairs per
+                                  #   curation: 30 wins 79% (v24), 49% (v23), 55% (bw23), 68% (wk23) --
+                                  #   it wins or ties in all four and never loses.
+                                  #   AND IT IS STABLE. Across the two monthly REPLICATES (v21 and v22,
+                                  #   same config, same corpus, different LLM draw) the live config's
+                                  #   book at lookback 30 lands at $118,261 and $119,569 -- a 1.01x
+                                  #   swing. At 21 the same pair swings 3.94x ($108,905 / $429,309),
+                                  #   and at 14 it swings 4.19x. The cull ranks on mean/sd over this
+                                  #   window; at 21 days that statistic is too poorly conditioned to
+                                  #   survive a different candidate set, so one early difference
+                                  #   cascades through every later scan. 30 is wide enough that the
+                                  #   book converges regardless of draw.
+                                  #   NOT a single-cell result: the one-knob comparison at the live
+                                  #   config alone favours 21, but only because v23's cell there is the
+                                  #   $429K lucky draw already retired -- over 1,800 paired configs
+                                  #   that same curation is a coin flip.
+                                  #   Prior note (2026-08-15, cut 45 -> 21): a 45-day window on a book
                                   #   rebalanced monthly averages over two regimes of a fast-moving
-                                  #   catalyst name, which is the wrong estimate of its mu.
+                                  #   catalyst name. Still true; 30 does not reach that far.
+                                  #   A BOOK knob: rebuild only, no re-curation. BACKTEST-DRIVEN, so
+                                  #   .forward.md stays at 21 until the forward eval speaks (#7).
 rebalance_period: monthly         # weekly | biweekly | monthly | quarterly. The trading cadence.
 t_update_days: 1                  # trading days between the signal and the trade.
 risk_free_rate: 0.04              # Sharpe reporting only; not in the weighting.
