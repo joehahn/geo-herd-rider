@@ -288,6 +288,22 @@ def main(argv=None) -> int:
         _lv = next((r for r in CONS["rows"]
                     if all(abs(a - b) < 1e-9 for a, b in zip(r["cfg"], CONS["live"]))), None)
         CONS["live_floor"] = _lv["floor"] if _lv else 0.0
+        # THE NOISE SCALE, and the reason the green cut is gone (2026-08-29). The panel used to
+        # highlight the top 12 by worst-arm score and panel 21 told you to chase them. 12 was
+        # arbitrary: the cut landed mid-TIE (ranks 11, 12 and 13 all floored at 86.3, rank 14 at
+        # 86.2) on a distribution with no gap anywhere -- 89.9 at rank 1, 79.7 at rank 101. And
+        # `cut` was DEFINED as rows[11]["floor"], so panel 21 quoted as a threshold the very number
+        # its own slice produced.
+        # Measured instead: a region's three arm scores spread by a median of 16.2 points (stdev
+        # 8.7), and the LIVE config's own spread is 17.7 (monthly 99.2, biweekly 81.5, weekly 85.9).
+        # The best floor in the grid beats live by 8.4. So ZERO of 400 regions clear the live config
+        # by more than the arm-to-arm noise of a single config, and the whole "green cluster" was a
+        # ranking of differences smaller than the measurement error.
+        _per_sd = [_stats.stdev(r["per"]) for r in CONS["rows"]] or [0.0]
+        CONS["noise"] = round(_stats.median(_per_sd), 1)
+        CONS["n_clear"] = sum(1 for r in CONS["rows"]
+                              if r["floor"] > CONS["live_floor"] + CONS["noise"])
+        CONS["live_per"] = _lv["per"] if _lv else [0.0]
         CONS["cut"] = CONS["rows"][11]["floor"] if len(CONS["rows"]) > 11 else 0.0
         _mv = []
         for _r in CONS["rows"][:12]:
@@ -1075,25 +1091,36 @@ def main(argv=None) -> int:
           "s-arms", 400)] if len(arms) > 1 else [])
         + ([panel(20, "Which configs survive ALL THREE curations",
           "Each point is one config&rsquo;s neighbourhood, scored on "
-          f"{' + '.join(CONS.get('metrics', []))} across all three cadence curations. "
-          "A single curation can&rsquo;t separate a good config from a lucky one, so a config only "
-          "counts here if it scores well in every arm. The x axis is its average score across the "
-          "three, the y axis is its worst &mdash; read the y. Settings that rank high in all three "
-          "arms are probably real; a config that wins one arm and trails another is just fitted to "
-          "that journal.",
+          f"{' + '.join(CONS.get('metrics', []))} across all three cadence curations. Within an arm "
+          "a region is summarised by the MEDIAN over its ~22 one-knob members; the y axis is then "
+          "the WORST of the three arms, the x axis their mean. A single curation cannot separate a "
+          "good config from a lucky one, so ranking on the worst arm is the right instinct."
+          "<br><br><b>It does not resolve anything here.</b> The shaded band is the live "
+          f"config&rsquo;s floor plus the median spread of a region across the three arms "
+          f"(&plusmn;{CONS.get('noise', 0):.1f} percentile points). "
+          f"<b>{CONS.get('n_clear', 0)} of {len(CONS.get('rows', []))} regions clear it.</b> The "
+          f"live config&rsquo;s own three arms span "
+          f"{max(CONS.get('live_per', [0])) - min(CONS.get('live_per', [0])):.1f} points, and the "
+          "best floor in the grid beats it by less than that. This panel used to highlight the top "
+          "twelve in green; twelve was arbitrary, the cut fell inside a three-way tie, and the "
+          "distribution has no gap. The cloud is a continuum and the live config is inside it.",
           "s-cons", 430),
-          ('<section class="panel"><h2>21. How to move the live config into the green</h2>'
+          ('<section class="panel"><h2>21. What the highest-floor configs change, and why it is not a recommendation</h2>'
            '<p class="lead">'
-           "Every knob in the grid is a BOOK knob, so each of these is a rebuild &mdash; seconds, no "
-           "LLM, no re-curation. The live config floors at "
-           f"<b>{CONS['live_floor']:.1f}</b>; the twelve green points on the plot above start at "
-           f"<b>{CONS['cut']:.1f}</b>. These are the changes that close that gap, fewest knobs first. "
-           "<b>Two single-knob moves get there on their own.</b> "
-           "<code>concentration_cap</code> is the one to trust: it appears in eleven of the twelve "
-           "and lifts the worst arm most per knob changed. Treat <code>risk_aversion</code> "
-           "separately &mdash; panel 10 records that Sharpe alone selects 16&ndash;24 through a "
-           "timidity tilt that rewards a low-volatility book by construction, so some of its gain "
-           "here is the metric preferring a book that does less."
+           "Every knob here is a BOOK knob, so each row is a rebuild &mdash; seconds, no LLM, no "
+           "re-curation. This table used to be headed &ldquo;how to move the live config into the "
+           f"green&rdquo;. <b>That framing is withdrawn.</b> The live config floors at "
+           f"<b>{CONS['live_floor']:.1f}</b> and the best region in the grid at "
+           f"<b>{CONS['rows'][0]['floor']:.1f}</b> &mdash; a gap smaller than the "
+           f"&plusmn;{CONS.get('noise', 0):.1f} points a single region moves between arms, and far "
+           f"smaller than the live config&rsquo;s own "
+           f"{max(CONS.get('live_per', [0])) - min(CONS.get('live_per', [0])):.1f}-point spread. "
+           f"<b>{CONS.get('n_clear', 0)} of {len(CONS.get('rows', []))} regions</b> are "
+           "distinguishable from it. So read these rows as <i>what the top of the cloud looks "
+           "like</i>, not as changes worth making: every gain listed is inside the measurement "
+           "error. <code>risk_aversion</code> deserves extra suspicion &mdash; panel 10 records "
+           "that Sharpe alone selects 16&ndash;24 through a timidity tilt that rewards a "
+           "low-volatility book by construction."
            '</p><div class="scroll">'
            + table_html(["knobs", "changes from live", "worst arm", "mean", "monthly", "biweekly", "weekly"],
                         CONS["moves"]) + "</div></section>")] if CONS else []))
@@ -1636,17 +1663,16 @@ function draw(){{
     const lbl = c => K.map((k, i) => k.split('_')[0] + '=' + c[i]).join(' · ');
     const same = (a, b) => a.every((v, i) => Math.abs(v - b[i]) < 1e-9);
     const isLive = r => same(r.cfg, CONS.live);
-    const top = R.slice(0, 12).filter(r => !isLive(r));
-    const rest = R.filter(r => !isLive(r) && !top.includes(r));
+    // NO HIGHLIGHTED CLUSTER. This drew the top 12 by worst-arm score in green and panel 21 told
+    // you to chase them; 12 was arbitrary, the cut fell mid-tie, and the distribution has no gap.
+    // What replaces it is the measured noise band: nothing in the grid beats the live config by
+    // more than the arm-to-arm spread of a single config, so there is no cluster to move to.
+    const rest = R.filter(r => !isLive(r));
     const liveRow = R.find(isLive);
     const tr = [
       {{type:'scatter', mode:'markers', name:'all regions', x:rest.map(r => r.mean),
         y:rest.map(r => r.floor), text:rest.map(r => lbl(r.cfg)),
         marker:{{size:5, color:p.grid, opacity:0.55}},
-        hovertemplate:'%{{text}}<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}},
-      {{type:'scatter', mode:'markers', name:'top 12 by worst-arm', x:top.map(r => r.mean),
-        y:top.map(r => r.floor), text:top.map(r => lbl(r.cfg)),
-        marker:{{size:11, color:ST.good, line:{{width:1.5, color:p.bg}}}},
         hovertemplate:'%{{text}}<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}}
     ];
     if (liveRow) tr.push({{
@@ -1655,9 +1681,21 @@ function draw(){{
       textfont:{{size:11, color:ST.critical}},
       marker:{{size:15, color:ST.critical, symbol:'diamond', line:{{width:1.5, color:p.bg}}}},
       hovertemplate:lbl(liveRow.cfg) + '<br>mean %{{x:.1f}} · worst arm %{{y:.1f}}<extra></extra>'}});
+    // THE NOISE BAND. Shaded from the live config's floor to floor + the median per-region spread
+    // across arms. A point must sit ABOVE this band to be distinguishable from the live config;
+    // CONS.n_clear counts how many do.
+    const _lo = CONS.live_floor, _hi = CONS.live_floor + CONS.noise;
     Plotly.react('s-cons', tr, base(p, {{showlegend:true,
         legend:{{orientation:'h', y:1.12, x:0, font:{{size:11}}}},
         margin:{{l:70,r:24,t:40,b:56}},
+        shapes:[{{type:'rect', xref:'paper', x0:0, x1:1, yref:'y', y0:_lo, y1:_hi,
+                 fillcolor:ST.warning, opacity:0.13, line:{{width:0}}, layer:'below'}},
+                {{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:_hi, y1:_hi,
+                 line:{{color:p.text2, width:1.4, dash:'dash'}}}}],
+        annotations:[{{xref:'paper', x:0.01, xanchor:'left', yref:'y', y:_hi, yanchor:'bottom',
+                      showarrow:false, font:{{size:10.5, color:p.text2}},
+                      text:'live + inter-arm noise (' + CONS.noise.toFixed(1) + ') — '
+                           + CONS.n_clear + ' of ' + R.length + ' regions clear it'}}],
         xaxis:{{gridcolor:p.grid, title:{{text:'mean score across the 3 curations (percentile)', font:{{size:11}}}}}},
         yaxis:{{gridcolor:p.grid, title:{{text:'score in the WORST arm (percentile)', font:{{size:11}}}}}}}}), CFG);
   }}
