@@ -49,7 +49,7 @@ def run_week(anchor: pd.Timestamp, event_model: str, rebalance_days: int,
              news_cap: int = 0, gather_engine: str = "both",
              pool: list | None = None, scout_model: str | None = None,
              scout_provider: str = "anthropic", gather_model: str | None = None,
-             event_provider: str = "anthropic") -> list[dict]:
+             event_provider: str = "anthropic", fm: dict | None = None) -> list[dict]:
     """Run one live event-first week: gather -> scout -> match -> event agents -> save journal.
     Returns this week's picks (the live watchlist). `capture` (if given) is filled with the gather's
     raw queries+results for the Phase-B archive.
@@ -87,9 +87,34 @@ def run_week(anchor: pd.Timestamp, event_model: str, rebalance_days: int,
           flush=True)
 
     # ---- the SHARED event-first engine (the SAME code the backtest runs) — scout -> match -> agents ----
-    picks_full, nid = agent.process_week(eclient, anchor, arts, events, retired, nid, week_seq,
-                                         curator_memory_weeks=curator_memory_weeks, workers=workers,
-                                         scout_client=sclient)
+    # THE PROFILE'S CURATION KNOBS, PASSED AS ONE OBJECT rather than as N keyword arguments.
+    # Until 2026-08-30 this call site listed three arguments and nothing else, so FIVE knobs that
+    # investor_profile.forward.md sets did NOTHING on the live scan path -- the file said one thing
+    # and forward.py ran another:
+    #     max_event_scans     12 -> ran 0      (age cap OFF)
+    #     max_silent_scans     8 -> ran 0      (silence cap OFF)
+    #     discovery_filter  true -> ran false
+    #     max_new_events       0 -> ran 3
+    #     event_agent_effort low -> ran high
+    # discovery_filter was the consequential one: the backtest's scout reads the ~9% gem-tell slice
+    # while this path read the WHOLE pool, so the two were not the same curator and the backtest was
+    # a weaker proxy than the profile header claimed. The bootstrap (backtest_gdelt.py --bootstrap,
+    # which also reads .forward.md) never had this bug -- it passed the full set all along, which is
+    # exactly why the discrepancy went unnoticed: CBS rehearsed the settings the live scan ignored.
+    # `fm` IS PASSED WHOLE ON PURPOSE. A keyword-per-knob call site is what allowed five to be
+    # dropped silently; with the profile itself in hand, adding a knob means editing the mapping
+    # below and nothing else. fm=None keeps the old defaults for any caller that has no profile.
+    _fm = fm or {}
+    picks_full, nid = agent.process_week(
+        eclient, anchor, arts, events, retired, nid, week_seq,
+        curator_memory_weeks=curator_memory_weeks, workers=workers, scout_client=sclient,
+        discovery_filter=bool(_fm.get("discovery_filter")),
+        max_events=int(_fm.get("max_events") or 0),
+        max_event_scans=int(_fm.get("max_event_scans") or 0),
+        max_silent_scans=int(_fm.get("max_silent_scans") or 0),
+        event_news_cap=int(_fm.get("event_news_cap") or agent.EVENT_NEWS_CAP),
+        max_new_events=int(_fm.get("max_new_events") or 0),
+        event_agent_effort=str(_fm.get("event_agent_effort") or "high"))
     _save(events, retired, nid, week_seq + 1)
     # forward logs only the LIVE picks. milestones + exit_advice are carried so the weekly max_agents
     # PICKER (src/picker.py) has the catalyst-arc evidence it ranks on at --report time.

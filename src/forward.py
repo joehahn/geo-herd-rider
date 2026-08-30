@@ -137,7 +137,8 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                  anchor: pd.Timestamp | None = None, news_cap: int = 0,
                  gather_engine: str = "both", scout_model: str | None = None,
                  scout_provider: str = "anthropic", gather_model: str | None = None,
-                 event_provider: str = "anthropic", news_lookback_days: int = 0) -> pd.DataFrame:
+                 event_provider: str = "anthropic", news_lookback_days: int = 0,
+                 fm: dict | None = None) -> pd.DataFrame:
     """Live EVENT-FIRST scan for the current week; append its picks (deduped by week). The engine
     (forward_engine.run_week) gathers the week's firehose, discovers/tracks events, and persists the
     LOCAL journal; here we log the decision + archive the raw inputs.
@@ -184,7 +185,7 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
                                     curator_memory_weeks=curator_memory_weeks, capture=capture, news_cap=news_cap,
                                     gather_engine=gather_engine, pool=pool,
                                     scout_model=scout_model, scout_provider=scout_provider,
-                                    gather_model=gather_model, event_provider=event_provider)
+                                    gather_model=gather_model, event_provider=event_provider, fm=fm)
     # Freeze + archive the raw web-search inputs (LOCAL-ONLY) — regardless of whether any gem is live,
     # so a later variant-replay sees the FULL pool the scout saw this week, not just what it cited.
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
@@ -540,7 +541,8 @@ def main(argv: list[str] | None = None) -> int:
                      scout_model=scout_id, scout_provider=scout_prov,
                      gather_model=gather_id, event_provider=event_prov,
                      news_lookback_days=int(args.lookback_days if args.lookback_days is not None
-                                            else (fm.get("news_lookback_days") or 0)))
+                                            else (fm.get("news_lookback_days") or 0)),
+                     fm=fm)
 
     if args.pull:
         load_dotenv()

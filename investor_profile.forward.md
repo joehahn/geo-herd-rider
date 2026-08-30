@@ -66,20 +66,28 @@
 #               (sonnet5, the Anthropic-only live web-search stage; FORWARD_ONLY_KNOBS) and
 #               org_tagger_model (grok4; the backtest corpus is already tagged).
 #
-#   !! FIVE KNOBS IN THIS FILE ARE CURRENTLY INERT ON THE FORWARD PATH (found 2026-08-30, NOT yet
-#      fixed -- wiring deferred as a separate decision). forward_engine.run_week never receives `fm`;
-#      it takes explicit parameters and hands process_week only curator_memory_weeks, workers and
-#      scout_client. So what this file SAYS and what forward.py RUNS differ:
+#   !! FIVE KNOBS WERE INERT ON THE LIVE SCAN PATH -- FIXED 2026-08-30, same day, see below.
+#      forward_engine.run_week did not receive `fm`; it took explicit parameters and handed
+#      process_week only curator_memory_weeks, workers and scout_client, so this file said one thing
+#      and `forward.py --scan` ran another:
 #          max_event_scans      12   -> runs 0     (age cap OFF)
 #          max_silent_scans      8   -> runs 0     (silence cap OFF)
 #          discovery_filter   true   -> runs false
 #          max_new_events        0   -> runs 3
 #          event_agent_effort  low   -> runs high
-#      discovery_filter is the one that matters: the backtest's scout reads the ~9% gem-tell slice
-#      while the forward scout reads the WHOLE pool, so the two are not the same curator and the
-#      backtest is a weaker proxy than this header's sync claim implies. process_week's docstring
-#      says both paths "run byte-identical logic"; for these knobs that is not true today.
-#      Until the wiring lands, read the five values above as INTENT, not as the running config.
+#      discovery_filter was the one that mattered: the backtest's scout reads the ~9% gem-tell slice
+#      while the live forward scout read the WHOLE pool, so the two were not the same curator and
+#      process_week's "byte-identical logic" docstring was false for these knobs.
+#      THE BOOTSTRAP NEVER HAD THIS BUG. backtest_gdelt.py --bootstrap also reads THIS file and
+#      passed the full knob set all along -- which is precisely why the gap survived unnoticed: CBS
+#      rehearsed settings the live scan was ignoring.
+#      FIXED by passing `fm` itself into run_week -> process_week rather than a keyword per knob;
+#      a per-knob call site is what let five be dropped silently. Verified: discovery_filter true,
+#      max_event_scans 12, max_silent_scans 8, max_new_events 0, event_agent_effort low now all
+#      arrive. THIS IS A SECOND FORWARD DISCONTINUITY on the same day as the re-freeze above, and a
+#      real one: the live scout now reads ~90% less (the gem-tell slice), the two caps begin
+#      retiring live events, and effort low changes the live bill. Segment forward results
+#      accordingly -- the config did not change here, but what the code obeys did.
 #   2026-08-26  rebalance_period WEEKLY -> MONTHLY, and the x4 CADENCE PORT UNWOUND with it:
 #               max_event_scans 48->12, max_stale_scans 32->8, curator_memory_weeks 32->8,
 #               news_lookback_days 30->0. The x4 existed only to preserve elapsed behaviour across a
