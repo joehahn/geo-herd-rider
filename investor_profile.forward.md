@@ -49,6 +49,37 @@
 #               news_cap 500 -> 0 in the same breath: the cap truncated the 30d window (1,676 articles)
 #               back to the newest 500, a ~5-day window, cutting scout intake from 149 to 38 and undoing
 #               the widening. discovery_filter (~9% pass) is the read budget now, as in the backtest.
+#   2026-08-30  RE-FREEZE. Seven strategy knobs synced to .backtest, at the user's explicit
+#               instruction. Treat forward results before/after this date as DIFFERENT SEGMENTS.
+#                 max_watchlist 6->12 · cull_fresh_slots 3->2 · drop_unfunded_weeks 0->4
+#                 risk_aversion 8.0->12.0 · optimizer_lookback_days 21->30 · max_silent_scans 0->8
+#               PROVENANCE, recorded honestly: every one of these is BACKTEST-DRIVEN and NONE has
+#               survived a forward eval, which is the situation non-negotiable #7 exists to guard.
+#               The standing recommendation was to run max_watchlist 6 vs 12 as pre-registered
+#               forward ARMS rather than promote one; the user chose to sync instead. The knobs are
+#               real and measured -- max_silent_scans truncates a documented 9-scan silent hold that
+#               cost the book PCG; max_watchlist 6->12 rests on 6-of-9 curations at p=0.25, with
+#               three curations WORSE at every width and a ~0.5x worst case -- but "measured on
+#               backtests" is not "validated forward", and the next re-freeze should say which of
+#               these the forward actually paid for.
+#               Deliberately NOT synced (retrieval-operational, correct to differ): gather_model
+#               (sonnet5, the Anthropic-only live web-search stage; FORWARD_ONLY_KNOBS) and
+#               org_tagger_model (grok4; the backtest corpus is already tagged).
+#
+#   !! FIVE KNOBS IN THIS FILE ARE CURRENTLY INERT ON THE FORWARD PATH (found 2026-08-30, NOT yet
+#      fixed -- wiring deferred as a separate decision). forward_engine.run_week never receives `fm`;
+#      it takes explicit parameters and hands process_week only curator_memory_weeks, workers and
+#      scout_client. So what this file SAYS and what forward.py RUNS differ:
+#          max_event_scans      12   -> runs 0     (age cap OFF)
+#          max_silent_scans      8   -> runs 0     (silence cap OFF)
+#          discovery_filter   true   -> runs false
+#          max_new_events        0   -> runs 3
+#          event_agent_effort  low   -> runs high
+#      discovery_filter is the one that matters: the backtest's scout reads the ~9% gem-tell slice
+#      while the forward scout reads the WHOLE pool, so the two are not the same curator and the
+#      backtest is a weaker proxy than this header's sync claim implies. process_week's docstring
+#      says both paths "run byte-identical logic"; for these knobs that is not true today.
+#      Until the wiring lands, read the five values above as INTENT, not as the running config.
 #   2026-08-26  rebalance_period WEEKLY -> MONTHLY, and the x4 CADENCE PORT UNWOUND with it:
 #               max_event_scans 48->12, max_stale_scans 32->8, curator_memory_weeks 32->8,
 #               news_lookback_days 30->0. The x4 existed only to preserve elapsed behaviour across a
@@ -106,17 +137,30 @@ picker_model:                     # BLANK = use the arithmetic coverage-rank (sr
                                   #   83rd percentile, a cheap picker came in BELOW random. ~1 call/scan.
 exit_patience_scans: 2            # drops a TICKER after this many consecutive "thesis is dead" reads, avoids one bad week closing a good thesis.
 max_stale_scans: 8                # drops a TICKER after this many scans with NO coverage at all.
+max_silent_scans: 8               # retires an EVENT after this many consecutive scans whose agent entry
+                                  # cites NO sources -- the mechanical signature of "no confirming news".
+                                  # NEW 2026-08-30, SYNCED to .backtest. Sibling of max_event_scans below:
+                                  # that retires an event that ran too LONG, this one an event that ran too
+                                  # QUIET, and it fires first. It does NOT write `retired` -- silence is
+                                  # absence of evidence, not evidence the thesis died, so the ticker stays
+                                  # re-chaseable. Both files are rebalance_period: monthly, so 8 scans means
+                                  # ~8 months in BOTH -- the knob transfers literally, no cadence arithmetic.
 max_event_scans: 12               # retires the whole EVENT at this age, in scans (~1 year monthly).
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once.
-cull_fresh_slots: 3               # of those slots, how many are held for brand-new events, which have no price history yet 
+max_watchlist: 12                 # how many tickers may COMPETE for capital at once (not how many hold it).
+                                  # 6 -> 12, SYNCED to .backtest 2026-08-30. The book does NOT widen:
+                                  # it funds a median of 2 names and a max of 3 at 6, 12, 20 and 32 alike,
+                                  # because min_trade_size and concentration_cap fix concentration
+                                  # downstream. What widens is the SLATE the optimizer picks from.
+cull_fresh_slots: 2               # 3 -> 2, SYNCED to .backtest 2026-08-30.
+                                  # of those slots, how many are held for brand-new events, which have no price history yet 
 cull_fresh_scans: 2               # how new counts as new, in scans. NOT x4'd (2026-08-24): this one pairs
                                   # with cull_fresh_slots to hold slots for names too NEW to have price
                                   # history. 2 WEEKLY scans is already enough history to judge; x4 would
                                   # keep a name 'new' for two months.
-drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.  # SYNCED to .backtest 2026-08-24
+drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.  # 0 -> 4, SYNCED to .backtest 2026-08-30
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
 concentration_cap: 0.6             # most of the book any one ticker may take.
                                   # 0.25 -> 0.6 on 2026-08-27, from SBT table 20. It is the single
@@ -136,8 +180,8 @@ concentration_cap: 0.6             # most of the book any one ticker may take.
 min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
                                   #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
                                   #   it holds only the strongest 2-3 convictions.
-risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.  # SYNCED to .backtest 2026-08-24
-optimizer_lookback_days: 21       # days of price history behind μ and Σ.  # SYNCED to .backtest 2026-08-24
+risk_aversion: 12.0               # λ in mean-variance. Higher = spreads wider, chases returns less.  # 8.0 -> 12.0, SYNCED to .backtest 2026-08-30
+optimizer_lookback_days: 30       # days of price history behind μ and Σ.  # 21 -> 30, SYNCED to .backtest 2026-08-30
 rebalance_period: monthly        # weekly | biweekly | monthly | quarterly. The trading cadence.
                                   # WEEKLY 2026-08-25: monthly puts ZERO scan anchors after the handoff while the
                                   #   websearch era is only 27 days old, so the bootstrap could not see it at all.
