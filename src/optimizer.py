@@ -221,6 +221,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   resolved in 26 scans (~1yr biweekly) is a THEME by the design's own
                                        #   definition. max_stale_scans only fires on SILENCE, which a well-covered
                                        #   theme never triggers. The scout may re-propose on fresh evidence. 0 = OFF.
+    "max_silent_scans": 0,             # SILENCE CAP: retire an event after this many consecutive scans whose
+                                       #   agent entry cites NO sources -- the mechanical signature of "no
+                                       #   confirming news". Sibling of max_event_scans: that one retires an event
+                                       #   that ran too LONG, this one retires an event that ran too QUIET, and it
+                                       #   fires first. DEFAULT 0 = OFF so a profile that predates the knob (the
+                                       #   FROZEN investor_profile.forward.md) does not silently change behaviour.
     # MISNAMED: counts SCANS, not weeks -- so its elapsed meaning follows rebalance_period (8 =
     # 8 months at monthly, 8 weeks at weekly). Renaming rehashes every curation; see TODO.md.
     "curator_memory_weeks": 8,         # LIVE (scan): SCANS of RESOLVED catalysts the scout is reminded of

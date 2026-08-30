@@ -1595,7 +1595,8 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
 def process_week(client, anchor, pool, events, retired, nid, week_idx,
                  curator_memory_weeks=8, workers=8, src_fn=None, scout_client=None, gate_silent=True,
                  max_new_events=CANDIDATE_CAP, event_agent_effort="high",
-                 event_news_cap=EVENT_NEWS_CAP, max_event_scans=0, discovery_filter=False,
+                 event_news_cap=EVENT_NEWS_CAP, max_event_scans=0, max_silent_scans=0,
+                 discovery_filter=False,
                  max_events=0, picker=None, ev_metrics=None):
     """ONE event-first week on an article POOL: scout -> same-ticker guard + matcher -> event agents.
     Mutates `events` and `retired` IN PLACE; returns (picks, nid). This is the SHARED curator engine
@@ -1699,6 +1700,41 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                 for tk in ev["vehicles"]:
                     retired[tk] = (f"{ev['catalyst']} (aged out after {max_event_scans} scans)", week_idx)
                 print(f"  aged out after {event_age(ev)} scans: {ev['catalyst'][:60]}", file=sys.stderr)
+    # SILENCE CAP -- the age cap's sibling, and the one that fires first. `max_event_scans` retires an
+    # event that has run too LONG; this retires one that has run too QUIET. An entry citing NO sources is
+    # the mechanical signature of "no confirming news", and it catches both shapes: the gate_silent
+    # carry-forward (sources always []) and the agent that read its slice and found nothing advancing the
+    # thesis. Measured on cbt_3yr_v22_resolver: ev222 ("$1B loan for Three Mile Island restart") ran NINE
+    # consecutive zero-source entries -- "No news on the $1B TMI loan; catalyst remains pending", verbatim,
+    # nine times -- staying live and holding PCG in the book throughout. 33 events (v22) / 26 (v21) held on
+    # silence like that.
+    #
+    # THE THRESHOLD IS MEASURED, NOT ASSUMED. Across both curations the run-length distribution is bimodal:
+    # massed at 0-2 (events that actually get covered) with a tail at 9-12 that exists only because the age
+    # cap eventually kills it. 8 sits in the gap, retiring 13% (v22) / 11% (v21) of events.
+    #
+    # DELIBERATELY NOT the profile's `max_stale_scans`, which sounds like exactly this knob. It is a BOOK
+    # knob on purpose (provenance.py, 2026-08-22: "the test is not what a knob sounds like, it is WHERE IT
+    # IS CALLED"), and reading it here would drag it into the curation path and re-break that partition.
+    # So this is its own CURATION knob, filed beside `max_event_scans` -- which is the right home anyway:
+    # it acts upstream of the journal, so it belongs in the fingerprint, and check_canon can see it.
+    # 0 = OFF.
+    #
+    # AND IT DOES NOT WRITE `retired`. Silence is absence of evidence, not evidence the thesis died -- so
+    # the ticker stays re-chaseable and the scout can re-open the event the moment coverage returns. That
+    # is the age cap's "intended escape hatch" actually working, rather than being blocked by the memory.
+    if max_silent_scans:
+        for ev in list(events.values()):
+            if ev["status"] != "live":
+                continue
+            quiet = 0
+            for x in reversed(ev.get("entries") or []):
+                if x.get("sources"):
+                    break
+                quiet += 1
+            if quiet >= max_silent_scans:
+                ev["status"] = "exited"
+                print(f"  silent {quiet} scans: {ev['catalyst'][:60]}", file=sys.stderr)
     # CONCURRENCY CAP. `max_events` bounds how many events may be LIVE at once, and the picker decides
     # which survive. This is deliberately NOT `max_new_events`: an admission cap discards candidates
     # permanently and unexamined at the door (measured 2026-08-12: 1,412 of 1,556 proposals binned, and
@@ -1784,7 +1820,15 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             _tracked = {str(t).strip().upper() for t in (entry.get("vehicles") or []) if str(t).strip()}
             if _tracked:
                 ev["vehicles"] = _tracked
-            if entry.get("catalyst_resolved"):             # remember so the scout won't re-chase
+            # ...and remember a RESOLVED catalyst so the scout won't re-chase it -- but only if the
+            # event was ever actually followed. Half of all events (50% v22 / 47% v21) resolve on their
+            # FIRST agent read: the scout proposes a catalyst that the news already reports as done
+            # ("Catalyst occurred on entry date; thesis complete" -- ev215/PCG; "Catalyst resolved same
+            # week" -- ev280/CVX). Those vehicles were never held and never chased, yet retiring them
+            # banned them from re-entry on ANY later catalyst until curator_memory_weeks expired. It was
+            # the single largest source of scout rejections. `entry` is already appended above, so
+            # len(entries) > 1 means "this was not the opening read".
+            if entry.get("catalyst_resolved") and len(ev["entries"]) > 1:
                 for tk in ev["vehicles"]:
                     retired[tk] = (f"{ev['catalyst']} (resolved {anchor.date()})", week_idx)
             for tk in entry["vehicles"]:

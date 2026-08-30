@@ -150,6 +150,26 @@ max_stale_scans: 8                # SCANS a held name may go UNMENTIONED before 
                                  # (4.9x vs 14.7x) -- ms=2's higher MEAN is one lucky draw.
                                  # TRAP: 0 does NOT disable -- `int(fm.get(...) or MAX_STALE)`
                                  # falls back to 4. Negative drops everything. Use a big number.
+max_silent_scans: 8              # SILENCE CAP: retires an EVENT after this many consecutive scans
+                                 # whose agent entry cites NO sources -- the mechanical signature of
+                                 # "no confirming news". Sibling of max_event_scans below: that one
+                                 # retires an event that ran too LONG, this retires one that ran too
+                                 # QUIET, and it fires first. CURATION knob. 0 = off.
+                                 # WHY 8, MEASURED not assumed (2026-08-29): across cbt v21+v22 the
+                                 # run-length distribution is bimodal -- massed at 0-2 (events that
+                                 # actually get covered) with a tail at 9-12 that survives only until
+                                 # max_event_scans kills it. 8 sits in the gap: retires 37/284 (13%)
+                                 # of v22 events and 35/317 (11%) of v21, skipping 8% of the agent
+                                 # budget in both. The case that named it: ev222 ("$1B loan for Three
+                                 # Island restart") ran NINE consecutive zero-source entries --
+                                 # "No news on the $1B TMI loan; catalyst remains pending", verbatim,
+                                 # nine times -- staying live and holding PCG the whole way.
+                                 # It does NOT write `retired`: silence is absence of evidence, not
+                                 # evidence the thesis died, so the ticker stays re-chaseable and the
+                                 # scout can reopen the event when coverage returns.
+                                 # UNIT IS SCANS, so elapsed meaning follows rebalance_period -- 8 is
+                                 # ~8 months here (monthly) but ~2 months on a weekly forward cadence.
+                                 # Same hazard max_event_scans documents via age_offset.
 max_event_scans: 12               # retires an EVENT at this age, in scans. CURATION knob.
                                  # UNCHANGED. A 12 arm was tried and reverted 2026-08-22: the
                                  # mechanism finding is real (55.5% of events die pinned at
@@ -179,7 +199,36 @@ curator_memory_weeks: 8          # SCANS a RETIRED ticker stays on the scout's d
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 6                  # how many tickers may hold capital at once.
+max_watchlist: 12                 # how many tickers may COMPETE for capital at once (not how many hold it).
+                                  #   6 -> 12 on 2026-08-30. THE BOOK DOES NOT GET WIDER: it funds a
+                                  #   median of 2 names and a max of 3 at max_watchlist 6, 12, 20 AND 32
+                                  #   alike, because min_trade_size 0.2 and concentration_cap 0.6 fix the
+                                  #   concentration downstream. What widens is the SLATE the optimizer
+                                  #   chooses those 2-3 names from. That is the whole change.
+                                  #   WHY, three independent lines pointing the same way:
+                                  #     1. MECHANISM. 93.6% of live ticker-scans are culled BEFORE the
+                                  #        optimizer sees them (3,196 of 3,415 on v22); only 2.0% are
+                                  #        funded. MU was culled for ten consecutive scans while its DRAM
+                                  #        thesis was live and correct, and the stock ran +312% over
+                                  #        exactly that stretch. risk_aversion cannot touch this: the
+                                  #        culled share is 93.6% at ra=1 and at ra=40.
+                                  #     2. Both SBT sweeps put the optimum ABOVE 6 -- v24 (over v22) at 8,
+                                  #        v25 (over v23) at 16.
+                                  #     3. CROSS-CURATION, the method that has actually held up here: one
+                                  #        knob varied, `final` over 9 curations. Every wide value beats 6
+                                  #        in the SAME 6 of 9 books, median 1.53-1.70x.
+                                  #   WHY 12 AND NOT 20/26/32/uncapped: they are indistinguishable --
+                                  #   medians 1.53 / 1.70 / 1.60 / 1.68 / 1.68x, all 6/9, worst cases
+                                  #   0.50 / 0.55 / 0.52 / 0.51 / 0.44x. It is ONE binary effect (tight vs
+                                  #   wide), not a tunable curve, so take the smallest step. 12 is also
+                                  #   interior; 20+ is a flat plateau where any value is arbitrary, and
+                                  #   uncapped was already killed (0/54 replays).
+                                  #   KNOWINGLY ACCEPTED: one-sided binomial p = 0.25. Three curations
+                                  #   (v22, v21, bw21) are WORSE at every width, worst case ~0.5x. This is
+                                  #   a lead, not a proven win.
+                                  #   BACKTEST-DRIVEN, so NOT promoted to .forward.md (non-negotiable #7).
+                                  #   The recommendation on record is to run 6 and 12 as the two
+                                  #   pre-registered arms of the forward eval and let it decide.
                                   #   RATIONALE REWRITTEN 2026-08-29. The previous block argued this
                                   #   value as "the centre of the sweet spot" for the config
                                   #   4 · 0.6 · 21 · 4 · 4.0 · 0.05, chosen 2026-08-22. FOUR of those six

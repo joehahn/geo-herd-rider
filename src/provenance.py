@@ -69,15 +69,38 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v22_resolver"   # v21 -> v22 on 2026-08-29: the first curation run
-                                          # with a WORKING ticker resolver. Same corpus, same
-                                          # window, same models, same knobs -- the fingerprint
-                                          # is byte-identical (624c6c2e211c) because it tracks
-                                          # CONFIG, and only the code changed. 19 names were
-                                          # rescued in-run that the old code discarded.
-CANON_SWEEP = "data/sweep_v24.json"   # v23 -> v24 on 2026-08-29, swept over the promoted
-                                      # cbt_3yr_v22_resolver curation. v23 was the same grid
-                                      # over v21 and is kept on disk for the before/after.
+CANON_RUN = "data/cbt_3yr_v23_silence"    # v22 -> v23 on 2026-08-29: the first curation run
+                                          # under the SILENCE CAP (max_silent_scans=8) and the
+                                          # first-read retire guard. Unlike the v21->v22 promotion
+                                          # the fingerprint DOES move (624c6c2e211c -> a25e2c1839d1):
+                                          # max_silent_scans is a new CURATION knob, so v22 could
+                                          # not have been produced under this profile.
+                                          # BUT check_canon still reports v21/v22/v9 as "matching",
+                                          # because a knob absent from an OLD run's stamp is skipped
+                                          # rather than counted as a mismatch. Adding a curation knob
+                                          # therefore does NOT retroactively invalidate the runs that
+                                          # predate it -- they are grandfathered by omission, and only
+                                          # the published-page hash catches the drift.
+                                          # MECHANISM, the reason it was promoted (never the P&L,
+                                          # non-negotiable #6): the quiet-run tail is truncated
+                                          # dead at 8. v22 had 32 events running 9-12 consecutive
+                                          # ZERO-SOURCE scans -- ev222 held PCG through nine reads
+                                          # of "No news on the $1B TMI loan" -- and v23 has none
+                                          # past 8. The retire guard stopped 174 events that
+                                          # resolve on their OPENING read from banning vehicles
+                                          # they never chased.
+                                          # COST, measured and NOT a saving: 347 events / 1,372
+                                          # agent-scans against v22's 284 / 1,199. The cap alone
+                                          # skips ~8% of the budget, but the retire guard hands
+                                          # the scout back ~130 tickers it had been barred from
+                                          # re-proposing, and those open more events than the cap
+                                          # closes. Net +14% scans.
+CANON_SWEEP = "data/sweep_v25.json"   # v24 -> v25 on 2026-08-30, swept over the promoted
+                                      # cbt_3yr_v23_silence curation (the silence cap + first-read
+                                      # retire guard). Same 7,200-cell BOOK-knob grid as v24, which
+                                      # swept cbt_3yr_v22_resolver and is kept on disk for the
+                                      # before/after. The grid touches no CURATION knob, so SBT
+                                      # still describes the one canonical curation.
 
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
@@ -93,7 +116,7 @@ CURATION_KNOBS = frozenset({
     "scout_articles_per_call", "max_article_chars",
     "min_bundle_articles",
     "max_events", "max_new_events",
-    "curator_memory_weeks", "max_event_scans",
+    "curator_memory_weeks", "max_event_scans", "max_silent_scans",
     # exit_patience_scans / max_stale_scans WERE here until 2026-08-22 and were MISFILED. The test
     # is not what a knob sounds like, it is WHERE IT IS CALLED: both are read only by
     # firehose._watch_clocks, which is called only by firehose._stateful_watch, which is called only

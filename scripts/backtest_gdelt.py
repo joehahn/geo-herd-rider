@@ -31,7 +31,7 @@ from optimizer import load_financial_model, resolve_stage_models  # noqa: E402
 
 CFG = ("event_agent_model", "scout_model", "concentration_cap", "risk_aversion", "lookback_period_days",
        "max_agents", "max_watchlist", "always_include", "starter_watchlist",
-       "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days", "rebalance_period", "event_news_cap", "relevance_keep", "relevance_filter", "max_event_scans",
+       "spy_agent_conviction", "defensive_agent_conviction", "defensive_ticker", "rebalance_days", "rebalance_period", "event_news_cap", "relevance_keep", "relevance_filter", "max_event_scans", "max_silent_scans",
        "retrieval_engine")   # provenance: which discovery engine produced this week's pool
 
 
@@ -99,6 +99,10 @@ def main(argv=None):
                     help="override max_stale_scans (cadence arms; scale with rebalance_period)")
     ap.add_argument("--curator-memory-weeks", type=int, default=None, dest="curator_memory_weeks",
                     help="override curator_memory_weeks (cadence arms; scale with rebalance_period)")
+    ap.add_argument("--max-silent-scans", type=int, default=None, dest="max_silent_scans",
+                    help="retire an event after this many consecutive scans whose agent entry cites "
+                         "NO sources. A CURATION knob in the profile; exposed here so an arm can vary "
+                         "it without moving the canonical fingerprint. 0 = off.")
     ap.add_argument("--max-event-scans", type=int, default=None, dest="max_event_scans",
                     help="force-retire an event after this many scans. A CURATION knob that lives in "
                          "the profile; exposed here so an arm can vary it WITHOUT editing "
@@ -206,6 +210,10 @@ def main(argv=None):
     agent.SCOUT_ARTICLES_PER_CALL = int(fm.get('scout_articles_per_call') or agent.SCOUT_ARTICLES_PER_CALL)
     if a.min_bundle_articles is not None:            # sweep arm: override the profile
         fm = {**fm, "min_bundle_articles": a.min_bundle_articles}
+    if a.max_silent_scans is not None:              # sweep arm: override the profile
+        print(f"  max_silent_scans={a.max_silent_scans} (CLI override of profile "
+              f"{fm.get('max_silent_scans')})", flush=True)
+        fm = {**fm, "max_silent_scans": a.max_silent_scans}
     if a.max_event_scans is not None:               # sweep arm: override the profile
         print(f"  max_event_scans={a.max_event_scans} (CLI override of profile "
               f"{fm.get('max_event_scans')})", flush=True)
@@ -384,6 +392,7 @@ def main(argv=None):
     ev_cap = a.event_news_cap if a.event_news_cap is not None else int(fm.get("event_news_cap", 20))
     rel_keep = a.relevance_keep if a.relevance_keep is not None else int(fm.get("relevance_keep", 0))
     max_ev_scans = int(fm.get("max_event_scans", 0) or 0)
+    max_si_scans = int(fm.get("max_silent_scans", 0) or 0)
     # NEVER passed through until 2026-08-10: process_week fell back to CANDIDATE_CAP=3, so the
     # profile's max_new_events was decorative for the whole backtest.
     max_new = (a.max_new_events_cli if a.max_new_events_cli is not None
@@ -488,6 +497,7 @@ def main(argv=None):
                                         discovery_filter=bool(fm.get('discovery_filter')),
                                         max_events=int(fm.get('max_events') or 0), picker=_picker,
                                         event_news_cap=ev_cap, max_event_scans=max_ev_scans,
+                                        max_silent_scans=max_si_scans,
                                         max_new_events=max_new, workers=a.workers,
                                         event_agent_effort=ev_effort)
         live = [p for p in picks if p["thesis_live"]]
