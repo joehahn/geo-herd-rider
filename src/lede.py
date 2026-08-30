@@ -424,6 +424,36 @@ def scout_text(a: dict) -> str:
     return a.get("lede") or a.get("lede_live") or a.get("snippet") or ""
 
 
+# A PAID-WIRE DATELINE IS NOT A LEDE. A press release distributed by FinanceWire / Chainwire /
+# NewsDirect opens with a dateline -- "Austin, Texas, United States, 4th March 2026, FinanceWire" --
+# and when the extractor grabs that first line and stops, the article is recorded as having a CLEAN
+# WAYBACK LEDE. It is worse than headline-only: `snippet` (the one field carrying evidence past the
+# headline) ends up holding a city and a date, the coverage tally counts it as covered, and the
+# retrieval dashboards report health that is not there.
+#
+# THE CASE THAT FOUND IT (2026-08-30). GRDX/GridAI: three articles, all financial-news.co.uk, whose
+# ENTIRE content as pulled was three headlines and three datelines -- no sentence of reporting
+# anywhere. lede.apply reported coverage_pct 100.0, wayback 3, headline_only 0. The scout read
+# "Identifies Amp Z as Stealth Hyperscale AI Data Center Partner" plus a dateline and proposed the
+# thesis "GridAI wins major AI data center contract"; the book put 50% into GRDX and lost $38,719.
+#
+# THE MATCH IS DELIBERATELY NARROW -- the lede must be NOTHING BUT the dateline (anchored both ends,
+# length-capped). A real article whose lede merely BEGINS with a dateline and then says something
+# does not match, and keeps its lede. Measured on the 3-year corpus: 41 of 99,117 articles (0.04%),
+# across 3 domains (financial-news.co.uk 38, invezz.com 2, dailyhodl.com 1). So this discards
+# essentially no news -- it reclassifies articles that never carried any.
+_WIRE_DATELINE = re.compile(
+    r"^.{0,120}?,\s*\d{1,2}(?:st|nd|rd|th)\s+\w+\s+20\d\d,\s*"
+    r"(?:[A-Za-z]*Wire|NewsDirect|Newswire|PR\s?Newswire|GlobeNewswire|Business\s?Wire)\s*$",
+    re.IGNORECASE)
+
+
+def _wire_only(txt: str | None) -> bool:
+    """True when `txt` is a paid-wire dateline and nothing else -- i.e. not a lede at all."""
+    t = (txt or "").strip()
+    return bool(t) and len(t) <= 160 and bool(_WIRE_DATELINE.match(t))
+
+
 def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dict:
     # NOTE ON max_chars: 280 is the WAYBACK LEDE length and a sane default for GKG text, which is
     # stored at <=280 anyway (measured: median 161, max 280), so this cap never binds there.
@@ -462,6 +492,13 @@ def apply(articles: list[dict], arm: str = "clean", max_chars: int = 280) -> dic
              "headline_only": 0}
     for a in articles:
         clean, live = a.get("lede"), a.get("lede_live")
+        # A dateline-only lede is treated as NO lede, so the article falls through to the search
+        # snippet or the headline and is tallied honestly. The stored fields are left alone --
+        # this is a RENDER-time judgement, like the arm itself, so re-rendering can revisit it.
+        if _wire_only(clean):
+            clean = None
+        if _wire_only(live):
+            live = None
         if arm == "clean":
             pick, src = clean, "wayback"
         elif arm == "fuller":
@@ -496,10 +533,13 @@ def coverage(articles: list[dict]) -> dict:
     """Per-arm coverage of a pool, computed without fetching anything — the number that says whether
     tonight's Wayback pass is still worth running."""
     n = len(articles)
-    n_clean = sum(1 for a in articles if a.get("lede"))
-    n_live = sum(1 for a in articles if a.get("lede_live"))
-    n_either = sum(1 for a in articles if a.get("lede") or a.get("lede_live"))
-    n_both = sum(1 for a in articles if a.get("lede") and a.get("lede_live"))
+    # same dateline-only rule as apply(), so the coverage number and the rendered pool agree
+    _cl = lambda a: (None if _wire_only(a.get("lede")) else a.get("lede"))          # noqa: E731
+    _lv = lambda a: (None if _wire_only(a.get("lede_live")) else a.get("lede_live"))  # noqa: E731
+    n_clean = sum(1 for a in articles if _cl(a))
+    n_live = sum(1 for a in articles if _lv(a))
+    n_either = sum(1 for a in articles if _cl(a) or _lv(a))
+    n_both = sum(1 for a in articles if _cl(a) and _lv(a))
     pct = lambda k: round(100 * k / n, 1) if n else 0.0   # noqa: E731
     return {"articles": n,
             "clean_wayback": n_clean, "clean_pct": pct(n_clean),
