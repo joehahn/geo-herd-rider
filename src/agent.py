@@ -1763,6 +1763,27 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         for ev, entry in (ex.map(work, live_events) if live_events else []):
             ev["entries"].append(entry)
             ev["status"] = "live" if entry["thesis_live"] else "exited"
+            # RECONCILE THE VEHICLE LIST TO WHAT THE AGENT ACTUALLY TRACKS.
+            # `ev["vehicles"]` unions in every candidate the matcher ever routed here, plus their
+            # peers, and was never pruned -- so it drifts from what the event is about into a
+            # dragnet. Measured on cbt_3yr_v22_resolver: ev189 accumulated 244 tickers while its
+            # agent tracked 2 then 1; across the 35 events still live at the end the accumulated
+            # sets held 195 tickers against 85 actually tracked.
+            # THREE CONSUMERS were reading the inflated set, and all three misbehave on it:
+            #   1. `held_to_event` (below) excludes anything in a live event's list from opening a
+            #      NEW event -- so 110 tickers, 53% of every name the curator ever cited, were
+            #      locked out of event creation while no agent was tracking them. For a strategy
+            #      whose thesis is catching a name EARLY, that is the worst place to lose one.
+            #   2. `retired[tk]` on the next line marks every listed ticker as "do not re-chase"
+            #      when the catalyst resolves -- retiring names the event never followed.
+            #   3. _filter_event ranks an event's article slice by whether a VEHICLE appears in the
+            #      title, so a 244-name list pulls in articles about anything.
+            # The agent is the judgment stage and its per-entry `vehicles` is the authoritative
+            # answer to "what is this event about", so that is what the event carries forward. Only
+            # when the agent returns a non-empty list -- never let a parse failure empty an event.
+            _tracked = {str(t).strip().upper() for t in (entry.get("vehicles") or []) if str(t).strip()}
+            if _tracked:
+                ev["vehicles"] = _tracked
             if entry.get("catalyst_resolved"):             # remember so the scout won't re-chase
                 for tk in ev["vehicles"]:
                     retired[tk] = (f"{ev['catalyst']} (resolved {anchor.date()})", week_idx)
