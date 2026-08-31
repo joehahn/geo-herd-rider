@@ -620,6 +620,12 @@ SCOUT_ARTICLES_PER_CALL = 30     # batching budget ONLY -- never truncates a gro
 # Accumulated (ticker -> company) sightings, grown chronologically as curations run. Module-level
 # because the map must span curations while never seeing past the one being run.
 _TICKER_EVIDENCE: dict = {}
+# {TICKER -> company name}, accumulated from the scout's OWN candidate records across the run.
+# The gate below needs to know that "ALB" is written "Albemarle" in prose. orgs.ticker_map_from is
+# the obvious source and is far too thin for it -- measured on real windows it learns 0-6 symbols,
+# because its thresholds are deliberately strict (>=3 sightings, >=80% agreement). The scout already
+# reports a `company` for every ticker it proposes, which is a much richer and equally free source.
+_TICKER_NAMES: dict = {}
 
 GROUP_BY_TICKER = True           # False restores the flat beat-chunked scout input
 
@@ -1448,6 +1454,25 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
     return hits[:cap] if cap else hits
 
 
+def _named_in(tk: str, hay: str, tmap: dict | None) -> bool:
+    """Is `tk` actually NAMED in the text the agent just read? Symbol OR company name.
+
+    THE NAME HALF IS NOT OPTIONAL. Articles write "Albemarle", not "ALB"; a symbol-only test would
+    reject legitimate additions and be worse than the problem it fixes. `tmap` is {ticker -> canonical
+    org name} from orgs.ticker_map_from, already built in process_week."""
+    if re.search(rf"\b{re.escape(tk)}\b", hay):
+        return True
+    for nm in ((tmap or {}).get(tk), _TICKER_NAMES.get(tk)):
+        if nm and len(str(nm)) > 3 and str(nm).upper() in hay:
+            return True
+        # "GridAI Technologies" is written "GridAI" as often as in full -- match the distinctive
+        # head of the name too, never a generic suffix on its own.
+        head = str(nm or "").split()[0] if nm else ""
+        if len(head) > 4 and head.upper() in hay:
+            return True
+    return False
+
+
 def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     """Compact week-by-week journal so the agent sees the FULL arc of an event since entry — the
     catalyst it entered on, how the VEHICLE evolved, and every live/exit read — not just
@@ -1660,6 +1685,10 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # A blank thesis is unusable downstream -- it becomes an event with no catalyst, writes NaN to
     # firehose_scans.csv, and can never be judged resolved. Drop it at the door.
     cands = [c for c in cands if str(c.get("thesis") or "").strip()]
+    for _c in cands:                                   # feed the gate's symbol->name map (see _named_in)
+        _t, _n = str(_c.get("ticker") or "").strip().upper(), str(_c.get("company") or "").strip()
+        if _t and len(_n) > 3:
+            _TICKER_NAMES.setdefault(_t, _n)
     new_cands = [c for c in cands if c["ticker"] not in held_to_event]
     # TICKER GUARD: normalize + verify tradeability BEFORE an unusable symbol can open an event and
     # burn an event-agent call on it (see _validate_candidates).
@@ -1790,13 +1819,33 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
 
     def work(ev):
         news = _filter_event(pool, ev, cap=event_news_cap)
+        # THE TEXT THE VEHICLE GATE JUDGES AGAINST -- the UNCAPPED relevance match, not the capped
+        # slice the agent read. `cap` is a READING BUDGET ("decides only HOW MUCH evidence is seen,
+        # not WHICH" -- see _filter_event), so gating on it would refuse a ticker the press named
+        # merely because the recency tiebreak pushed that article past position 20.
+        # MEASURED, and the reason this is not the capped slice: ev174 "China shuts major lithium
+        # mine" added ALB, and Albemarle is named FOUR times in that window -- including "Albemarle,
+        # lithium stocks sink as big Chinese mine set to restart sooner than expected", which is
+        # about the catalyst itself. None of the four made the 20-article slice. Gating on the slice
+        # would have refused a correctly-named vehicle.
+        # It is not the whole pool either, which would be too loose: CAT would then pass ev177 on
+        # "Dow Jones AI Giant Caterpillar, Nvidia Chipmaker TSMC In Or Near Buy Zones" -- a momentum
+        # listicle unrelated to a natural-gas catalyst, and exactly the article this gate exists to
+        # ignore. The uncapped MATCH is the boundary that separates the two.
+        # TITLES ONLY, which is _filter_event's own test for "this article is ABOUT this name"
+        # (+3 for a vehicle in the title). A body mention is not the press naming a bet: Caterpillar
+        # appears in the LEDE of a Chevron/Microsoft power-deal story, and gating on title+body would
+        # admit CAT on that passing reference -- measured, it did. Albemarle, by contrast, carries its
+        # own headline ("Albemarle, lithium stocks sink as big Chinese mine set to restart"), which is
+        # the difference between a named bet and a name that happens to occur.
+        hay = " | ".join((a.get("title") or "") for a in _filter_event(pool, ev, cap=0)).upper()
         if gate_silent and not news:                       # silence week -> mechanical carry-forward, NO LLM call
-            return ev, _carry_forward(anchor, ev)
-        return ev, event_agent_v2(client, anchor, ev, ev["entries"], news, effort=event_agent_effort)
+            return ev, _carry_forward(anchor, ev), hay
+        return ev, event_agent_v2(client, anchor, ev, ev["entries"], news, effort=event_agent_effort), hay
 
     picks = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
-        for ev, entry in (ex.map(work, live_events) if live_events else []):
+        for ev, entry, _hay in (ex.map(work, live_events) if live_events else []):
             ev["entries"].append(entry)
             ev["status"] = "live" if entry["thesis_live"] else "exited"
             # RECONCILE THE VEHICLE LIST TO WHAT THE AGENT ACTUALLY TRACKS.
@@ -1819,7 +1868,36 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             # when the agent returns a non-empty list -- never let a parse failure empty an event.
             _tracked = {str(t).strip().upper() for t in (entry.get("vehicles") or []) if str(t).strip()}
             if _tracked:
-                ev["vehicles"] = _tracked
+                # A VEHICLE MAY ONLY BE ADDED IF THE NEWS THIS AGENT READ ACTUALLY NAMES IT.
+                # Non-negotiable #2 is that the bet is a ticker the PRESS HAS NAMED, and the causal
+                # ladder -- inferring who benefits -- was retired from the design. The agent was doing
+                # it anyway, inside the vehicle list.
+                # THE CASE THAT FOUND IT (2026-08-30). ev177 "Preparing for natural gas production
+                # surge" ran ELEVEN scans with its catalyst never confirming, then at scan 10 added CAT.
+                # Caterpillar appears NOWHERE in the 20 articles that agent read -- the only CAT-like
+                # token in the whole slice is CATL (Contemporary Amperex) in "Lithium Prices Tumble As
+                # Traders Brace For CATL Supply Surge". The book bought CAT four days later at
+                # $1,062.93, the exact maximum of the price panel, and lost $50,589 -- its largest
+                # single loss. Neither clock could catch it: the silence cap needs 8 consecutive
+                # zero-source scans and ev177's longest run was 2, because coverage of its OTHER
+                # vehicles kept arriving.
+                # ONLY ADDITIONS ARE GATED. Vehicles the event already tracks pass untouched, so an
+                # agent can still drop one and there is no churn.
+                # SYMBOL **OR** COMPANY NAME -- see _named_in. Symbol-only would reject "Albemarle".
+                # MEASURED, and the cost stated plainly: reconstructing the last 12 scans, 34 of 40
+                # additions (85%) have no textual basis in the slice -- among them GDX/GDXJ on a
+                # precious-metals event and ALB/SQM on "China shuts major lithium mine", which are
+                # plausible and were probably profitable. And never-named tickers do NOT underperform
+                # (median $2,655 vs $2,362 on v24; $2,975 vs $2,235 on v23). This is a CORRECTNESS
+                # fix, not a returns fix, and it is expected to be P&L-neutral or slightly negative.
+                _prev = set(ev["vehicles"])
+                _add = {t for t in (_tracked - _prev) if _named_in(t, _hay, _tmap)}
+                _drop = (_tracked - _prev) - _add
+                if _drop:
+                    print(f"    vehicle-gate {ev['id']}: refused {sorted(_drop)} "
+                          f"(not named in the news read)", file=sys.stderr)
+                # never let the gate empty an event -- same guard as the parse-failure case above
+                ev["vehicles"] = ((_tracked & _prev) | _add) or _prev or _tracked
             # ...and remember a RESOLVED catalyst so the scout won't re-chase it -- but only if the
             # event was ever actually followed. Half of all events (50% v22 / 47% v21) resolve on their
             # FIRST agent read: the scout proposes a catalyst that the news already reports as done
