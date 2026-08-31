@@ -3,6 +3,90 @@
 Actionable ideas parked here until promoted into a scoreboard-gated step. See
 [`CLAUDE.md`](CLAUDE.md) for the rules and [`README.md`](README.md) for the current design.
 
+## TESTED AND REJECTED 2026-08-30 — seven hypotheses about why the book loses money
+
+A day spent chasing "why did the solution buy X at the wrong time" produced ONE fix that
+survived and seven that did not. Recorded because the dead ones are expensive to re-derive and
+every one of them is plausible enough to be proposed again. **The filter that separated real
+from imaginary was always the same: does it reproduce on a SECOND curation?**
+
+| hypothesis | verdict | the measurement that killed it |
+|---|---|---|
+| **Late attachment** — a ticker joining an already-running catalyst enters after the move | rejected | v22 late joiners **+$4,153**, v21 **−$96,943**. Sign flip on n=3 and n=6. |
+| **Early funding wins** — funded at scan 0 beats funded late | rejected | corr(scans-to-funding, gain) = −0.21 (t=1.4) on v22, **−0.06 on v21**, and v21's medians INVERT (scan 3+ highest). Dropping just USO+SLV halves it — a third of the effect was the two names that suggested it. |
+| **The book drops winners while the thesis is live** | rejected | after-drop return v22 +7.1% vs +6.6% funded, but v21 **+1.0% vs +6.3%** — reverses. RKLB/MU/VRT are the tail, not the rule. |
+| **Origin-silence** — no news about the event's ORIGIN ticker for N scans means the thesis died | rejected | origin-silent 4–7 scans is the BEST bucket in both curations (median $8,084 / $2,235 vs $5,188 / $1,613 for 0–3). Would have retired ev71 (origin MYRG), whose vehicle VRT ran +179%. |
+| **Single-domain origins** — a ticker only one outlet covers is a promotion | unmeasurable | 3 such events in v23, **0 in v22**. Cannot establish anything on n=3. |
+| **Zero-source founding reads** — the agent citing nothing at entry means a fake catalyst | rejected | zero-source is the BEST bucket in both: median **$7,218 / $5,261**, winners 13/15 and 11/12. It means the scout found the catalyst in a headline the agent's filter didn't re-surface. |
+| **Listicle domains poison the book** — block benzinga/seekingalpha | **rejected, and would have been harmful** | They are **9.8% of the corpus**, and events founded on them do BETTER: v22 median **$2,978 vs −$1,045** for everything else. The non-listicle bucket has a NEGATIVE median. Do not block them. |
+
+### The one that survived, and why
+`max_silent_scans` (the silence cap). It was checked against v21 AND v22 *before* being built —
+33 vs 26 events holding on silence, a bimodal run-length distribution with the same gap in both.
+Everything above was proposed first and measured second. That ordering is the whole lesson.
+
+### A correction worth keeping — the CATL theory was wrong
+CAT cost the book **$50,589**, bought 2026-06-30 at $1,062.93, the **exact maximum of the price
+panel**. It entered via a vehicle added at scan 10 of 12 to ev177 "Preparing for natural gas
+production surge", an event whose catalyst never confirmed in eleven scans. Caterpillar appeared
+nowhere in the 20 articles that agent read, and the only CAT-like token in the slice was **CATL**
+(Contemporary Amperex) in "Lithium Prices Tumble As Traders Brace For CATL Supply Surge" — so the
+obvious conclusion was a truncation error, CATL -> CAT.
+
+**That was wrong.** The capped 20-article slice had dropped the relevant article. In the UNCAPPED
+match the press names it outright, in a headline, with its ticker:
+
+> "Chevron (NYSE: CVX) To Power Microsoft Data Center With Natural Gas, Boosting GE Vernova
+> (NYSE: GEV) **And Caterpillar (NYSE: CAT)**" — foreignpolicyjournal.com, 2026-06-22
+
+The curator did exactly what it is designed to do. Check the uncapped match before concluding a
+ticker was invented.
+
+## THE CAT LESSON — naming is an EARLY signal for a small name and a LATE one for a mega-cap (2026-08-30, NOT yet measured)
+
+The real CAT failure is timing, not naming. The press named a **$500B industrial that had already
+tripled** as a beneficiary of someone else's deal; the book bought eight days later at the all-time
+high and lost 17.8%. CAT's actual catalyst — a record $20.5B quarter — broke 2026-08-04, after the
+window closed.
+
+That cuts at the README's core claim ("the press names the ticker early while it's under the
+radar"). The BWET table that anchors that section is an obscure ETF. For a mega-cap, "named as a
+beneficiary" is what the herd reads, not what precedes it.
+
+**Testable for free, no curation needed:** corpus coverage volume per ticker vs its gain, across
+both curations. If heavily-covered names systematically underperform lightly-covered ones, the
+README section needs a qualification and the scout may need a coverage ceiling. Until measured this
+is one ticker and must not be written into the README — see the seven rejections above.
+
+## `_filter_event` OVER-COLLECTS — the strongest unclaimed lead (2026-08-30)
+
+It matches any catalyst word over four characters, so generic words drag in hundreds of unrelated
+articles. Measured: **319 articles** matched "RH pivots supply chain amid tariffs" ("supply",
+"tariffs"); **488** matched "Preparing for natural gas production surge" ("surge", "supply",
+"production"). The ev177 agent was handed Canberra housing shortages and Indian fertiliser ships
+alongside its gas thesis, and free-associated from the pile.
+
+This is upstream of several things that went wrong: the agent reads a grab-bag, and the
+vehicle-addition gate (`_named_in`) is only as tight as this haystack — against 488 headlines
+almost any large cap appears in one. Fixing the over-collection would strengthen the gate for free.
+
+## TWO GRDX DEFECTS, LOCATED AND NOT FIXED (2026-08-30)
+
+GRDX cost **−$38,719** on three FinanceWire press releases whose entire content was three headlines
+and three datelines. The lede fix (`lede._wire_only`) removes it at the scout — verified by a
+controlled A/B on the same window, same model: **GRDX proposed 1/1 under the old rule, 0/3 under
+the new one.** Two structural defects behind it remain:
+
+1. **The beat-bundle bypass.** `_scout_groups` seeds beat bundles from GATED orphans but FILLS them
+   from the full pool on the `not article_orgs(...)` condition — so the very property that should
+   disqualify a press release (the org tagger found no company in it) is what routes it to the
+   scout, past the discovery gate. HARD TO FIX: the orphan path is load-bearing, since the policy
+   beats are 51–57% orphaned because they are about governments, not firms.
+2. **A scout thesis is never checked against its source.** The scout read "Identifies Amp Z as
+   Stealth Hyperscale AI Data Center Partner" and proposed "GridAI **wins major AI data center
+   contract**". The event agent caught the overstatement on its first read — "recent partner ID is
+   pre-contract step with no resolution yet" — and had no lever to act on it.
+
 ## RENAME `curator_memory_weeks` -> `curator_memory_scans` (2026-08-26, deferred)
 
 **The name is wrong and the comment is right.** `agent.process_week` tests
