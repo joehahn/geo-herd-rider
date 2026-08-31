@@ -259,7 +259,20 @@ cull_fresh_slots: 2               # of those slots, how many are held for brand-
                                   #   BACKTEST-DRIVEN, so NOT promoted to .forward.md (non-negotiable #7):
                                   #   .forward.md stays at 3 until the forward eval speaks.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.
+drop_unfunded_weeks: 2            # scans a name can go unfunded before it is dropped from the watchlist.
+                                  #   4 -> 2 on 2026-08-30, WITH risk_aversion 12.0 -> 8.0: together these
+                                  #   are the TOP ROW of SBT table 10 on sweep_v26 (12 / 0.6 / 30 / 2 /
+                                  #   8.0 / 0.2, score 99.8), promoted at the user's instruction.
+                                  #   RECORDED AGAINST IT, measured the same day, one knob varied over
+                                  #   TEN curations at the live config: drop_unfunded_weeks=2 is the
+                                  #   WORST value on the grid -- median 0.51x vs 4, beating it in only
+                                  #   2 of 10 curations (0 -> 0.71x 3/10, 6 -> 1.00x 5/10). Inside
+                                  #   cbt_3yr_v24_wirelede ALONE, which is the curation sweep_v26 ranks,
+                                  #   2 looks like a 3x win ($581,995 vs $197,172). That gap between the
+                                  #   one-curation sweep and the ten-curation replay is the whole reason
+                                  #   non-negotiable #6 exists, and it is why the previous 4 was chosen.
+                                  #   PRIOR RATIONALE for 4, kept because it is the case that has to be
+                                  #   beaten if this is ever revisited:
                                   #   0 -> 4 on 2026-08-29, WITH risk_aversion 8 -> 12. They move as a
                                   #   PAIR and must be read as one change: neither works alone.
                                   #   Config 6 / 0.6 / 30 / 4 / 12.0 / 0.2 beats the previous live
@@ -295,7 +308,13 @@ min_trade_size: 0.2              # positions smaller than this are DROPPED, not 
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
                                   #   inert here.
-risk_aversion: 12.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+                                  #   12.0 -> 8.0 on 2026-08-30, PAIRED with drop_unfunded_weeks 4 -> 2 as
+                                  #   the top row of SBT table 10 on sweep_v26. See that knob.
+                                  #   RECORDED AGAINST IT, one knob varied over TEN curations at the live
+                                  #   config: 12.0 is the best value tested -- nothing beats it in more
+                                  #   than 4 of 10, and 8.0 specifically is median 0.88x, 4/10.
+                                  #   PRIOR RATIONALE for 12.0, superseded but kept for the reasoning:
                                   #   8.0 -> 12.0 on 2026-08-29, PAIRED with drop_unfunded_weeks 0 -> 4;
                                   #   see that knob for the evidence. Every one of table 10's sixteen
                                   #   configs carries risk_aversion >= 12 -- the old 8.0 was the sole

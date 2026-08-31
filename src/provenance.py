@@ -69,7 +69,27 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v23_silence"    # v22 -> v23 on 2026-08-29: the first curation run
+CANON_RUN = "data/cbt_3yr_v24_wirelede"   # v23 -> v24 on 2026-08-30: the first curation run under
+                                          # the WIRE-DATELINE lede rule (a paid-wire dateline is not a
+                                          # lede, so the article is headline-only). PROMOTED ON
+                                          # PROVENANCE, NOT ON RESULTS: v23 was produced by code that
+                                          # no longer exists, and the lede rule is a CURATION-path
+                                          # change -- it alters what the scout reads.
+                                          # WHAT IT IS EVIDENCE FOR, and what it is not. The
+                                          # attribution rests on a CONTROLLED paired A/B, not on this
+                                          # run: same window (2026-03-28), same scout, old vs new lede
+                                          # -- GRDX proposed 1/1 under the old rule (verbatim the
+                                          # historical thesis and peers) and 0/3 under the new one.
+                                          # This curation is only CONSISTENT with that: it has no
+                                          # GRDX and 1 wire-promoted vehicle against v23's 4, but it
+                                          # also has 265 events against 347 on a 41-article input
+                                          # delta, which is matcher variance, not the fix. The
+                                          # discovery gate is byte-identical across both runs (it
+                                          # matches on titles, which did not change) and the scout
+                                          # actually proposed MORE (1,280 vs 1,219) and admitted MORE
+                                          # (1,073 vs 1,050) -- so the event-count drop is clustering
+                                          # noise. Do NOT read any book-value difference as the fix.
+                                          # PRIOR ENTRY, v22 -> v23 on 2026-08-29: the first curation run
                                           # under the SILENCE CAP (max_silent_scans=8) and the
                                           # first-read retire guard. Unlike the v21->v22 promotion
                                           # the fingerprint DOES move (624c6c2e211c -> a25e2c1839d1):
@@ -95,7 +115,11 @@ CANON_RUN = "data/cbt_3yr_v23_silence"    # v22 -> v23 on 2026-08-29: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_SWEEP = "data/sweep_v25.json"   # v24 -> v25 on 2026-08-30, swept over the promoted
+CANON_SWEEP = "data/sweep_v26.json"   # v25 -> v26 on 2026-08-30, swept over the promoted
+                                      # cbt_3yr_v24_wirelede curation. Same 7,200-cell BOOK-knob
+                                      # grid; no CURATION knob varies, so SBT still describes the
+                                      # one canonical curation.
+                                      # PRIOR: v24 -> v25 on 2026-08-30, swept over
                                       # cbt_3yr_v23_silence curation (the silence cap + first-read
                                       # retire guard). Same 7,200-cell BOOK-knob grid as v24, which
                                       # swept cbt_3yr_v22_resolver and is kept on disk for the
