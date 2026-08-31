@@ -199,7 +199,33 @@ curator_memory_weeks: 8          # SCANS a RETIRED ticker stays on the scout's d
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 12                 # how many tickers may COMPETE for capital at once (not how many hold it).
+max_watchlist: 20                 # how many tickers may COMPETE for capital at once (not how many hold it).
+                                  #   12 -> 20 on 2026-08-31. Top 5 of the 8 best cross-curation
+                                  #   configs carry 20. The book does NOT get wider -- min_trade_size
+                                  #   and concentration_cap still fix it at 2-3 funded names; what
+                                  #   widens is the SLATE the optimizer picks from.
+                                  #   ==== SET 2026-08-31 BY CROSS-CURATION AGGREGATION ====
+                                  #   The whole six-knob cell [20, 0.4, 30, 0, 8.0, 0.2] was chosen by
+                                  #   the ONE method here that has ever validated OUT OF SAMPLE. Method:
+                                  #   13 curations, each swept over the same 7,200-cell grid; rank every
+                                  #   config WITHIN its own sweep (this cancels the curation-level luck
+                                  #   that lifts every cell at once -- non-negotiable #6's exact
+                                  #   objection); average those percentile ranks ACROSS curations.
+                                  #   IT IS MEASURED, not asserted. Mean pairwise rank rho between
+                                  #   curations is 0.292, so a single sweep is mostly noise; at K=13
+                                  #   Spearman-Brown reliability is 0.84. LEAVE-ONE-OUT: pick on 12
+                                  #   curations, score on the 13th never seen -> 79.7th percentile
+                                  #   (K=7 gave 72.4, random 50, the previous live config 67.0). The
+                                  #   same cell won 8 of 13 folds and near-variants took the rest.
+                                  #   IT CONTRADICTS the one-knob-at-the-live-cell tests run earlier the
+                                  #   same day (which liked drop_unfunded 4 and disliked max_watchlist
+                                  #   20). Those measure a LOCAL GRADIENT at one cell; this finds the
+                                  #   joint optimum and then validates it on curations it was not chosen
+                                  #   from. Out-of-sample wins.
+                                  #   WHAT IT IS NOT: the 13 curations are curator VARIANTS (cadence
+                                  #   arms, bundle arms, code generations) over ONE corpus and ONE
+                                  #   window, so their errors are correlated and this is still a
+                                  #   backtest upper bound. Forward remains the verdict (#7).
                                   #   6 -> 12 on 2026-08-30. THE BOOK DOES NOT GET WIDER: it funds a
                                   #   median of 2 names and a max of 3 at max_watchlist 6, 12, 20 AND 32
                                   #   alike, because min_trade_size 0.2 and concentration_cap 0.6 fix the
@@ -259,7 +285,12 @@ cull_fresh_slots: 2               # of those slots, how many are held for brand-
                                   #   BACKTEST-DRIVEN, so NOT promoted to .forward.md (non-negotiable #7):
                                   #   .forward.md stays at 3 until the forward eval speaks.
 cull_fresh_scans: 2               # how new counts as new, in scans.
-drop_unfunded_weeks: 2            # scans a name can go unfunded before it is dropped from the watchlist.
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.
+                                  #   2 -> 0 on 2026-08-31 (0 = never dropped for being unfunded).
+                                  #   Top 5 of 8 carry 0. This REVERSES the 10-curation one-knob test
+                                  #   from 2026-08-30, which measured 0 at 0.71x -- that test held
+                                  #   max_watchlist at 12 and risk_aversion at 12; at 20/8.0 the knob
+                                  #   behaves differently. Knob interaction, measured, not assumed.
                                   #   4 -> 2 on 2026-08-30, WITH risk_aversion 12.0 -> 8.0: together these
                                   #   are the TOP ROW of SBT table 10 on sweep_v26 (12 / 0.6 / 30 / 2 /
                                   #   8.0 / 0.2, score 99.8), promoted at the user's instruction.
@@ -289,7 +320,12 @@ drop_unfunded_weeks: 2            # scans a name can go unfunded before it is dr
                                   #   further move: shifting two knobs moves the whole neighbourhood the
                                   #   table is computed over.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.6             # most of the book any one ticker may take.
+concentration_cap: 0.4             # most of the book any one ticker may take.
+                                  #   0.6 -> 0.4 on 2026-08-31, and this knob is the LEAST load-bearing
+                                  #   of the six: at max_watchlist 20 every value from 0.25 to 1.0
+                                  #   scores 90-92 mean percentile across the 13 curations. 0.4 is the
+                                  #   top cell by a margin far inside its own SE (92.3 +/- 3.4 against
+                                  #   92.1 for 0.6/0.8/1.0). Do not read it as a finding.
                                   # 0.25 -> 0.6 on 2026-08-27, from SBT table 20. It is the single
                                   # change that moves the live config into panel 19's green cluster
                                   # on its own: worst-arm percentile 73.5 -> 81.9 across THREE
@@ -304,11 +340,84 @@ concentration_cap: 0.6             # most of the book any one ticker may take.
                                   #   -- at four names an equal book is 25% each, so a 0.25 cap would
                                   #   force exactly equal weights and give the optimizer nothing to do.
 
+exclude_young_reverse_split: [3, 0.1]   # [max years listed, worst reverse-split ratio]. Refuse to FUND a
+                                 # name listed under 3 years that has ALREADY executed a reverse split of
+                                 # 1-for-10 or worse. [] = off. BOOK knob -- replay only.
+                                 # ADDED 2026-08-31. This is a RISK GATE, NOT AN ALPHA FILTER, and it is
+                                 # NOT BACKTEST-VALIDATED -- stated plainly so it is not misread later.
+                                 # Across 843 FUNDED positions in 12 curations it flags exactly ONE: WOK,
+                                 # the case that generated the hypothesis. A rule cannot be validated on
+                                 # its own motivating example.
+                                 # BUT ITS REACH IS WIDER THAN THAT NUMBER, corrected after the first real
+                                 # run: on CANDIDATES it also refused SIDU (2024-09-06) and NAKA
+                                 # (2026-07-28). Neither was ever funded, so the funded-position scan could
+                                 # not see them. Read "1 of 843" as the effect on the BOOK, not the reach
+                                 # of the rule.
+                                 # IT FAILS OPEN AND IS THEREFORE INCOMPLETE. On that same run, corporate
+                                 # actions were unavailable for 1 of 229 tickers and it was NOT excluded.
+                                 # Fail-closed would empty the book on a yfinance outage, so this is the
+                                 # right default -- but the gate is silently partial, and on a live forward
+                                 # run that fraction may be larger. The log says how many each time. It rests on the MECHANISM, the way "do not
+                                 # fund a company under fraud indictment" would.
+                                 # THE MECHANISM (death-spiral / toxic financing): convertible notes or an
+                                 # ATM convert at a discount to market, dilution drives the price down, the
+                                 # company reverse-splits to hold Nasdaq's $1 minimum bid, repeat. WOK ran
+                                 # THREE 1-for-100s in eight months against a $200M ATM. The book funded it
+                                 # at ~50% six weeks after the first one and lost $267,765 -- its largest
+                                 # single loss by 5x -- in eight days.
+                                 # WHY NOT PRICE OR NEWS: none of this is visible there. Every price- and
+                                 # news-based filter tried the same day failed on WOK -- the liquidity floor
+                                 # ($537k/day, above it), evidence volume (zero-source positions earn +21.4%
+                                 # mean), coverage volume, and plain reverse-split rules (which are POSITIVE:
+                                 # median +11.6%, 70% winners over 82 positions). It is visible in corporate
+                                 # actions, which is where this looks.
+                                 # THRESHOLDS. Severity is INSENSITIVE: at <3 years, 1-for-2 / 1-for-5 /
+                                 # 1-for-10 / 1-for-20 all flag the same one position. 1-for-10 is chosen
+                                 # because it has no legitimate use, while 1-for-5 does -- beaten-down
+                                 # biotechs consolidate at that ratio and recover (TENX, VSTM, INBS are that
+                                 # shape and are WINNERS here). LISTING AGE is the real lever: <4y flags 2
+                                 # (both losses), <5y with 1-for-20 flags 6 (mean -33%) but clips a winner.
+                                 # Narrow was chosen deliberately, at the user's direction.
+                                 # APPLIED AT THE FUNDING GATE, not the watchlist: ~2-3 names get money each
+                                 # scan against ~20 on the watchlist, and the cost of a miss is 40% of the
+                                 # book rather than a wasted slot. Corporate actions are frozen per run
+                                 # (corpactions.json) so replays stay reproducible; FAIL-OPEN if yfinance is
+                                 # unreachable, and it says so.
+min_dollar_volume_usd: 100000    # UNIVERSE FLOOR. A name whose TRAILING 60-day median dollar volume
+                                 # (close x volume, measured strictly BEFORE the decision) is under this
+                                 # cannot be funded. 0 = off. BOOK knob -- replay only, no re-curation.
+                                 # ADDED 2026-08-31 at the user's request, after WOK cost the canonical
+                                 # book $267,765.
+                                 # MEASURED FIRST, over 860 funded positions across 12 curations,
+                                 # bucketed by trailing 60d median dollar volume AT the funding date:
+                                 #     <$100k/day   n= 27  median  -8.6%  mean  -9.5%  winners  7/27
+                                 #     $100k-1M     n= 62  median  +0.9%  mean +10.6%  winners 32/62
+                                 #     $1M-10M      n= 85  median  -3.4%  mean  +6.1%  winners 35/85
+                                 #     $10M-100M    n=227  median  +8.2%  mean +51.0%  winners 144/227
+                                 #     >$100M/day   n=459  median  +5.6%  mean +36.1%  winners 348/459
+                                 # The bottom bucket is the ONLY one with a negative mean, and it is 3%
+                                 # of positions. The floor sits at its top edge for that reason.
+                                 # WHY DOLLAR VOLUME AND NOT MARKET CAP: cap at the decision date needs
+                                 # HISTORICAL shares outstanding, which yfinance does not serve, and
+                                 # today's cap is look-ahead-contaminated -- a name that fell 99% has a
+                                 # small cap BECAUSE it fell, so bucketing by it manufactures a "big caps
+                                 # win" result out of nothing. Dollar volume is clean and is the better
+                                 # proxy for the actual worry: manipulability is liquidity, not size.
+                                 # WHAT IT DOES NOT DO, recorded so it is not oversold:
+                                 #   * it does NOT catch WOK. WOK traded $537,750/day at entry -- inside
+                                 #     the $100k-1M bucket, whose mean is +10.6%. Widening the floor to
+                                 #     $1M to catch it would sweep in 62 positions that make money.
+                                 #   * illiquidity does not explain the large losses: ETHA (-48.9%) and
+                                 #     NVO (-47.4%) both traded >$300M/day.
+                                 # It removes a small, genuinely bad tail. It is not a manipulation filter,
+                                 # and the WOK class is still unsolved.
 min_trade_size: 0.2              # positions smaller than this are DROPPED, not shrunk -- a concentration
                                   #   lever, not a dust filter. At four names an equal book is 25% each, so a
                                   #   0.05 floor is far below the smallest intended position and effectively
                                   #   inert here.
 risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
+                                  #   UNCHANGED 2026-08-31, and now independently confirmed: 8.0
+                                  #   carries most of the 8 best cross-curation configs.
                                   #   12.0 -> 8.0 on 2026-08-30, PAIRED with drop_unfunded_weeks 4 -> 2 as
                                   #   the top row of SBT table 10 on sweep_v26. See that knob.
                                   #   RECORDED AGAINST IT, one knob varied over TEN curations at the live

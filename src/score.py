@@ -151,7 +151,35 @@ def fetch_panel(tickers: list[str], start: str, end: str, use_cache: bool = True
     return prices
 
 
-# (fetch_volume_panel removed 2026-07-14 — it powered the RVOL breakout gate, now ripped.)
+# RESTORED 2026-08-31 (removed 2026-07-14 with the RVOL breakout gate). It now powers the UNIVERSE
+# FLOOR `min_dollar_volume_usd`, which is a different job: not a signal, a tradeability constraint.
+VOLUME_CACHE = PRICE_CACHE.parent / "volume.csv"
+
+
+def fetch_volume_panel(tickers, start, end, use_cache: bool = True):
+    """Daily VOLUME panel for `tickers` (DatetimeIndex, tz-naive), same shape as fetch_panel.
+
+    Paired with the close panel it gives dollar volume, the only look-ahead-safe liquidity measure
+    available here -- market cap would need HISTORICAL shares outstanding, which yfinance does not
+    serve, and today's cap is contaminated (a name that fell 99% has a small cap BECAUSE it fell)."""
+    tickers = sorted(set(tickers))
+    if use_cache and VOLUME_CACHE.exists():
+        cached = pd.read_csv(VOLUME_CACHE, index_col=0, parse_dates=True)
+        if set(tickers).issubset(cached.columns) and cached.index.min() <= pd.Timestamp(start) \
+                and cached.index.max() >= pd.Timestamp(end):
+            return cached[tickers]
+    raw = yf.download(tickers, start=start, end=end, interval="1d", auto_adjust=True, progress=False)
+    if raw is None or len(raw) == 0:
+        raise RuntimeError(f"yfinance returned no volume for {tickers}")
+    vol = raw["Volume"] if isinstance(raw.columns, pd.MultiIndex) else raw[["Volume"]]
+    if isinstance(vol, pd.Series):
+        vol = vol.to_frame(tickers[0])
+    elif list(vol.columns) == ["Volume"]:
+        vol = vol.rename(columns={"Volume": tickers[0]})
+    vol.index = pd.to_datetime(vol.index).tz_localize(None)
+    VOLUME_CACHE.parent.mkdir(parents=True, exist_ok=True)
+    vol.to_csv(VOLUME_CACHE)
+    return vol
 
 
 def entry_index(trading_days: pd.DatetimeIndex, telegraph_ts: str,

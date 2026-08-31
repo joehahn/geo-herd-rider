@@ -69,7 +69,29 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v24_wirelede"   # v23 -> v24 on 2026-08-30: the first curation run under
+CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first curation run with the
+                                          # VEHICLE GATE live (agent._named_in -- an event agent may
+                                          # only ADD a vehicle the press named in a headline among that
+                                          # event's matched articles).
+                                          # PROMOTED ON CODE-PROVENANCE. v24 was curated before the
+                                          # gate existed and is not reproducible from current code.
+                                          # This is the same test used at v22->v23 and v23->v24, and
+                                          # applying it here is NOT optional: the v25 book reads
+                                          # $271,588 against v24's $797,162, so holding canon at v24
+                                          # would be selecting the canonical curation BY ITS P&L --
+                                          # exactly the bias non-negotiable #6 exists to prevent.
+                                          # THE DROP IS A DIFFERENT DRAW, NOT A REGRESSION, and not the
+                                          # gate. The gate refused 4 of 88 vehicle additions and ALL
+                                          # FOUR tickers entered the book through another event, so it
+                                          # cannot move a book 3x. The two curations share no name in
+                                          # their top four (v25: SMCI/MP/NLST/INTC; v24:
+                                          # SLV/OUST/STM/RKLB). Same-settings variance of this size is
+                                          # already on the record here: $117,200 vs $62,997, and one
+                                          # sweep cell $588,538 -> $75,132.
+                                          # WHAT THE GATE ACTUALLY BOUGHT: journal integrity at the
+                                          # EVENT level, and about nothing at the book level. Measured,
+                                          # not asserted.
+                                          # PRIOR, v23 -> v24 on 2026-08-30: the first curation run under
                                           # the WIRE-DATELINE lede rule (a paid-wire dateline is not a
                                           # lede, so the article is headline-only). PROMOTED ON
                                           # PROVENANCE, NOT ON RESULTS: v23 was produced by code that
@@ -115,7 +137,17 @@ CANON_RUN = "data/cbt_3yr_v24_wirelede"   # v23 -> v24 on 2026-08-30: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_SWEEP = "data/sweep_v26.json"   # v25 -> v26 on 2026-08-30, swept over the promoted
+CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate.json"   # 2026-08-31, over the promoted v25 curation.
+                                      # NAMED AFTER THE RUN IT SWEPT, ending a numbering that had drifted
+                                      # into a trap: every sweep_vN on disk was swept over a DIFFERENT
+                                      # run than its number suggests (sweep_v24 -> v22, sweep_v25 -> v23,
+                                      # sweep_v26 -> v24), so `sweep_v25` and `cbt_3yr_v25_vehgate` look
+                                      # like a pair and are TWO curations apart. The historical files are
+                                      # left alone -- renaming them would break references already in
+                                      # commit messages and profile comments, and would not stop the next
+                                      # mistake. check_canon.py now VERIFIES the pairing from the sweep's
+                                      # own `run` field, which does. Same 7,200-cell BOOK-knob grid.
+                                      # PRIOR: v25 -> v26 on 2026-08-30, swept over
                                       # cbt_3yr_v24_wirelede curation. Same 7,200-cell BOOK-knob
                                       # grid; no CURATION knob varies, so SBT still describes the
                                       # one canonical curation.
@@ -159,7 +191,7 @@ BOOK_KNOBS = frozenset({
     "exit_patience_scans", "max_stale_scans",  # firehose._watch_clocks, reached only from backtest()
     "concentration_cap", "risk_aversion",
     "lookback_period_days", "optimizer_lookback_days",
-    "min_trade_size", "t_update_days", "risk_free_rate",
+    "min_trade_size", "t_update_days", "risk_free_rate", "min_dollar_volume_usd", "exclude_young_reverse_split",
     "initial_investment_usd",
     "always_include", "starter_watchlist", "defensive_ticker",
     "cull_rank", "cull_fresh_slots", "cull_fresh_scans",

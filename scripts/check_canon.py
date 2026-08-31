@@ -40,6 +40,29 @@ def main(argv=None) -> int:
     print(f"  sweep        {P.CANON_SWEEP}")
     print(f"  fingerprint  {key['hash']}   (profile's {len(P.CURATION_KNOBS)} curation knobs + corpus + arm)")
 
+    # DOES THE CANONICAL SWEEP ACTUALLY DESCRIBE THE CANONICAL CURATION?
+    # Nothing checked this until 2026-08-31 -- CANON_SWEEP was printed and never verified. The names
+    # invite the mistake rather than guard against it: every sweep on disk is swept over a DIFFERENT
+    # run than its number suggests (sweep_v24 -> v22, sweep_v25 -> v23, sweep_v26 -> v24), so
+    # `sweep_v25` and `cbt_3yr_v25_vehgate` look like a pair and are TWO curations apart. That is the
+    # silent-drift class this whole script exists for, and it was one `cp` away from publishing an
+    # SBT that ranked one book while CBT drew another. Every sweep already records the run it swept,
+    # so the check is one comparison; names cannot mislead once the build fails on a mismatch.
+    try:
+        _sw = json.loads((ROOT / P.CANON_SWEEP).read_text())
+        _swept = str(_sw.get("run") or "")
+        if Path(_swept).name != Path(P.CANON_RUN).name:
+            bad += 1
+            print(f"\n  {BAD} CANON_SWEEP WAS SWEPT OVER A DIFFERENT CURATION")
+            print(f"      {P.CANON_SWEEP} ran over {_swept}")
+            print(f"      but CANON_RUN is {P.CANON_RUN}")
+            print(f"      SBT would rank one book while CBT draws another. Re-sweep, or fix the pointer.")
+        else:
+            print(f"  sweep ran over {_swept}  {OK}")
+    except Exception as e:  # noqa: BLE001 -- a missing/garbled sweep is itself worth reporting
+        bad += 1
+        print(f"\n  {BAD} CANON_SWEEP unreadable ({type(e).__name__}: {e})")
+
     unclassified = P.check_partition_covers_profile()
     if unclassified:
         bad += 1

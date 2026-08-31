@@ -221,6 +221,12 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
                                        #   resolved in 26 scans (~1yr biweekly) is a THEME by the design's own
                                        #   definition. max_stale_scans only fires on SILENCE, which a well-covered
                                        #   theme never triggers. The scout may re-propose on fresh evidence. 0 = OFF.
+    "exclude_young_reverse_split": [],  # [max_years_listed, worst_split_ratio] -- refuse funding a name
+                                       #   listed less than N years that has ALREADY executed a reverse
+                                       #   split at or below the ratio. [] = OFF. Book knob, replay-time.
+    "min_dollar_volume_usd": 0,        # UNIVERSE FLOOR: a name whose TRAILING 60-day median dollar volume
+                                       #   (close x volume, measured strictly BEFORE the decision) is under
+                                       #   this cannot be funded. 0 = OFF. Book knob: replay-time only.
     "max_silent_scans": 0,             # SILENCE CAP: retire an event after this many consecutive scans whose
                                        #   agent entry cites NO sources -- the mechanical signature of "no
                                        #   confirming news". Sibling of max_event_scans: that one retires an event

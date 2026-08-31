@@ -640,6 +640,104 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     print(f"  panel: froze {panel.shape[1]} tickers -> {_fp}", flush=True)
             except Exception as _e:  # noqa: BLE001 -- freezing is an optimisation, never a blocker
                 print(f"  panel freeze skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
+    # THE VOLUME PANEL, frozen beside the price panel, for the `min_dollar_volume_usd` universe floor.
+    # Only fetched when the floor is ON, so a profile without it costs nothing.
+    _minadv = float(fm.get("min_dollar_volume_usd", 0) or 0)
+    vol_panel = None
+    if _minadv > 0:
+        _vf = Path(str(freeze_panel).replace("panel.csv", "volume.csv")) if freeze_panel else None
+        try:
+            if _vf is not None and _vf.exists():
+                vol_panel = pd.read_csv(_vf, index_col=0, parse_dates=True)
+            else:
+                vol_panel = score.fetch_volume_panel(list(panel.columns),
+                                                    panel.index.min(), panel.index.max())
+                if _vf is not None:
+                    _vf.parent.mkdir(parents=True, exist_ok=True)
+                    vol_panel.to_csv(_vf)
+                    print(f"  volume: froze {vol_panel.shape[1]} tickers -> {_vf}", flush=True)
+        except Exception as _e:  # noqa: BLE001 -- no volume => the floor cannot be applied, say so loudly
+            print(f"  min_dollar_volume_usd is set but the volume panel failed "
+                  f"({type(_e).__name__}: {_e}); the floor is NOT being applied", file=sys.stderr)
+            vol_panel = None
+
+    def _illiquid(t, day) -> bool:
+        """Trailing 60-day median dollar volume below the floor, using ONLY bars before `day`.
+
+        LOOK-AHEAD CLEAN BY CONSTRUCTION -- the slice is strictly `< day`. That matters here more than
+        usual: the obvious alternative, market cap, is contaminated (a name that fell 99% has a small
+        cap BECAUSE it fell), and bucketing by it would manufacture a "big caps win" result out of
+        nothing. The 60-day window is the conventional ADV window and is the one the adoption
+        measurement used; it is deliberately NOT a second knob -- one dial, not two.
+        """
+        if vol_panel is None or t not in vol_panel.columns or t not in panel.columns:
+            return False                       # unknown liquidity is not evidence of illiquidity
+        v = vol_panel[t]; c = panel[t]
+        m = (v * c).dropna()
+        m = m[m.index < day].tail(60)
+        return len(m) >= 20 and float(m.median()) < _minadv
+
+    # DEATH-SPIRAL EXCLUSION (`exclude_young_reverse_split`). A company listed only a short while that
+    # has ALREADY executed a severe reverse split is, with no legitimate counterpart, in toxic-financing
+    # dilution: convertible notes or an ATM convert at a discount, the price falls, the company
+    # reverse-splits to hold the exchange's $1 minimum bid, repeat.
+    #
+    # THE CASE. WOK (WORK Medical Technology) cost the canonical book $267,765 -- the largest single
+    # loss by 5x. Listed 1.3 years, a 1-for-100 reverse split six weeks BEFORE the book funded it at
+    # ~50%, then -97% in eight days. It later ran two more 1-for-100s (three in eight months) against a
+    # $200M ATM. NONE of that is visible in price or news, which is why every price- and news-based
+    # filter tried on 2026-08-31 failed to catch it; it is visible in corporate actions and filings.
+    #
+    # THIS IS A RISK GATE, NOT AN ALPHA FILTER, AND IT IS NOT BACKTEST-VALIDATED. Say so plainly:
+    # across 843 funded positions in 12 curations it flags exactly ONE -- WOK, the case that generated
+    # the hypothesis. A rule cannot be validated on its own motivating example, and this one is not.
+    # It rests on the documented mechanism, the way "do not fund a company under fraud indictment"
+    # would. Blast radius 1/843 (0.1%).
+    # THE SEVERITY THRESHOLD IS INSENSITIVE, measured: at <3 years, 1-for-2 / 1-for-5 / 1-for-10 /
+    # 1-for-20 all flag the same single position. 1-for-10 is chosen because it has no legitimate use
+    # (1-for-5 does -- beaten-down biotechs consolidate at that ratio and recover; TENX, VSTM and INBS
+    # are exactly that shape and are WINNERS here). LISTING AGE is the real lever: <4y flags 2, <5y
+    # with 1-for-20 flags 6 with mean -33% but clips a winner. Narrow was chosen deliberately.
+    _eyrs = _erat = None
+    _ex = fm.get("exclude_young_reverse_split") or []
+    if len(_ex) == 2:
+        _eyrs, _erat = float(_ex[0]), float(_ex[1])
+    _corp: dict = {}
+    if _eyrs:
+        _cf = Path(str(freeze_panel).replace("panel.csv", "corpactions.json")) if freeze_panel else None
+        if _cf is not None and _cf.exists():
+            _corp = json.loads(_cf.read_text())
+        else:
+            import yfinance as _yf
+            for _t in panel.columns:
+                try:
+                    _tk = _yf.Ticker(_t)
+                    _h = _tk.history(period="max", interval="1d")
+                    _corp[_t] = {"first": _h.index[0].date().isoformat() if len(_h) else None,
+                                 "rsplits": [[d.date().isoformat(), float(r)]
+                                             for d, r in _tk.splits.items() if float(r) < 1.0]}
+                except Exception:  # noqa: BLE001 -- FAIL OPEN and say so; fail-closed would empty the book
+                    _corp[_t] = {"first": None, "rsplits": [], "error": True}
+            if _cf is not None:
+                _cf.parent.mkdir(parents=True, exist_ok=True)
+                _cf.write_text(json.dumps(_corp))
+                print(f"  corp actions: froze {len(_corp)} tickers -> {_cf}", flush=True)
+        _nerr = sum(1 for v in _corp.values() if v.get("error"))
+        if _nerr:
+            print(f"  exclude_young_reverse_split: corporate actions unavailable for {_nerr} ticker(s); "
+                  f"they are NOT excluded (fail-open)", file=sys.stderr)
+
+    def _death_spiral(t, day) -> bool:
+        """Listed < N years AND already reverse-split at or below the ratio, both as of `day`."""
+        rec = _corp.get(t)
+        if not _eyrs or not rec or not rec.get("first"):
+            return False
+        _d = pd.Timestamp(day).date()
+        if (_d - pd.Timestamp(rec["first"]).date()).days / 365.25 >= _eyrs:
+            return False
+        return any(float(r) <= _erat and pd.Timestamp(sd).date() <= _d
+                   for sd, r in (rec.get("rsplits") or []))
+
     days = panel[score.BENCHMARK].dropna().index
 
     # ticker validation: drop names with no price data (hallucinated/delisted, e.g. the GDELT BBRD)
@@ -709,6 +807,20 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             for p in scans[a]:
                 wk_thesis.setdefault(p["ticker"], set()).add(p.get("thesis") or "")
             ev = [t for t in watch[a] if not _is_dropped(t, k, wk_thesis)]   # live events (unfunded-pruned ones excluded)
+            # UNIVERSE FLOOR, applied BEFORE the cull so an illiquid name never occupies a slot.
+            # Measured 2026-08-31 over 860 funded positions across 12 curations, bucketed by trailing
+            # 60d median dollar volume AT the funding date -- the <$100k/day bucket is the ONLY one
+            # with a negative mean (median -8.6%, mean -9.5%, 7 of 27 winners) against +36% mean and
+            # 76% winners above $100M/day. It is 3% of positions.
+            # HONEST LIMITS, recorded so this is not oversold: it does NOT catch WOK, the $267,765
+            # loss that prompted it -- WOK traded $537,750/day, inside the $100k-1M bucket whose mean
+            # is +10.6%. And illiquidity does not explain the big losses: ETHA (-48.9%) and NVO
+            # (-47.4%) both traded >$300M/day. This removes a small, genuinely bad tail; it is not a
+            # manipulation filter.
+            if _minadv > 0 and vol_panel is not None:
+                _thin = [t for t in ev if t not in always and _illiquid(t, days[i])]
+                if _thin:
+                    ev = [t for t in ev if t not in _thin]
             live_ev = list(ev)                                        # all live this week -> feeds the unfunded streak
             if max_watch and len(ev) > max_watch:
                 if picker is not None:
@@ -721,6 +833,12 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                 else:
                     ev = ev[:max_watch]         # legacy keep-first-N over sorted(holding) = ALPHABETICAL
             uni = list(dict.fromkeys(ev + [t for t in always if t in valid]))
+            if _eyrs:                       # death-spiral exclusion, applied AT THE FUNDING GATE
+                _ds = [t for t in uni if t not in always and _death_spiral(t, days[i])]
+                if _ds:
+                    print(f"  {days[i].date()}: refusing {_ds} -- listed <{_eyrs:g}y with a reverse "
+                          f"split <=1-for-{1/_erat:g} (death-spiral financing)", flush=True)
+                    uni = [t for t in uni if t not in _ds]
             watch[a] = ev
             if seed_holdings and k == 0:
                 # THE FIRST REBALANCE IS THE HANDOVER, not an optimisation. A continuation book opens
