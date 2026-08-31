@@ -87,16 +87,22 @@ GRID = {
 _W: dict = {}
 
 
-def _init(fm0, scans, anchors, panel, cap):
+def _init(fm0, scans, anchors, panel, cap, freeze_panel=None):
+    # freeze_panel is passed through to backtest() ONLY so it can find the frozen volume.csv /
+    # corpactions.json beside the price panel. Without it both book gates fell through to LIVE
+    # yfinance on every one of the 7,200 cells (measured 2026-08-31: 2,843 failed downloads in 18
+    # minutes, zero cells completed). Each worker also memoises in-process as a second guard.
     _W.update(fm0=fm0, scans=scans, anchors=anchors, panel=panel, cap=cap,
-              scan_dates=sorted(scans))
+              scan_dates=sorted(scans), freeze_panel=freeze_panel)
 
 
 def _cell(combo_keys):
     keys, combo = combo_keys
     fm = {**_W["fm0"], **dict(zip(keys, combo))}
     try:
-        b = fh.backtest(_W["scans"], fm, capital=_W["cap"], daily=True, panel=_W["panel"])
+        b = fh.backtest(_W["scans"], fm, capital=_W["cap"], daily=True, panel=_W["panel"],
+                        freeze_panel=_W.get("freeze_panel"))   # so the frozen volume/corp-action
+                                                               # files are REUSED, not re-fetched
         return {**dict(zip(keys, combo)),
                 **metrics(b, _W["anchors"], fm, _W["panel"], _W["scan_dates"])}
     except Exception as e:  # noqa: BLE001 - one bad cell must not lose the grid
@@ -528,7 +534,7 @@ def main(argv=None) -> int:
     cap = float(fm0.get("initial_investment_usd", 50_000))
     out, t0, bad = [], time.time(), 0
     with cf.ProcessPoolExecutor(max_workers=a.workers, initializer=_init,
-                                initargs=(fm0, scans, anchors, panel, cap)) as ex:
+                                initargs=(fm0, scans, anchors, panel, cap, _pf)) as ex:
         for i, r in enumerate(ex.map(_cell, [(keys, c) for c in cells], chunksize=8), 1):
             if "_error" in r:
                 bad += 1

@@ -570,6 +570,21 @@ def _agent_precision(scans: dict, panel, fm: dict | None = None) -> list:
 OVERLAY, OVERLAY_ANCHOR = "BWET", "2026-02-20"  # the motivating gem + carrier->W.Med transit
 
 
+# IN-PROCESS MEMOS for the two live lookups the book gates need. Keyed by the ticker set, so any
+# number of backtest() calls in one process fetch at most once.
+# WHY THIS EXISTS: sweep_optimizer calls backtest() 7,200 times and passes `panel` but NOT
+# `freeze_panel`, so the frozen volume.csv / corpactions.json could not be located and BOTH gates fell
+# through to live yfinance on every cell. Measured before it was killed: 2,843 failed downloads in 18
+# minutes with zero cells completed. A caller that cannot name the run dir must still be cheap.
+_VOL_MEMO: dict = {}
+_CORP_MEMO: dict = {}
+# ...and the DERIVED verdicts, not just the source data. NEITHER GATE DEPENDS ON A SWEPT KNOB: the
+# grid varies max_watchlist / concentration_cap / lookback / drop_unfunded_weeks / risk_aversion /
+# min_trade_size, and none of those change whether a ticker is illiquid or in a death spiral. The
+# verdict is identical across all 7,200 cells, so it is computed ONCE per (panel, floor) and reused.
+_DVMED_MEMO: dict = {}
+
+
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
              freeze_panel=None,
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
@@ -647,11 +662,15 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     if _minadv > 0:
         _vf = Path(str(freeze_panel).replace("panel.csv", "volume.csv")) if freeze_panel else None
         try:
+            _vkey = (len(panel.columns), hash(tuple(sorted(panel.columns))))
             if _vf is not None and _vf.exists():
                 vol_panel = pd.read_csv(_vf, index_col=0, parse_dates=True)
+            elif _vkey in _VOL_MEMO:
+                vol_panel = _VOL_MEMO[_vkey]
             else:
                 vol_panel = score.fetch_volume_panel(list(panel.columns),
                                                     panel.index.min(), panel.index.max())
+                _VOL_MEMO[_vkey] = vol_panel
                 if _vf is not None:
                     _vf.parent.mkdir(parents=True, exist_ok=True)
                     vol_panel.to_csv(_vf)
@@ -660,6 +679,19 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             print(f"  min_dollar_volume_usd is set but the volume panel failed "
                   f"({type(_e).__name__}: {_e}); the floor is NOT being applied", file=sys.stderr)
             vol_panel = None
+
+    # PRECOMPUTED ONCE, not per (ticker, week). The naive form recomputed a rolling median inside the
+    # rebalance loop, which is 37 weeks x ~20 candidates per backtest -- invisible for one build and
+    # brutal for a 7,200-cell sweep, where it took the grid from 13 minutes to 65 (measured). Same
+    # arithmetic: rolling(60).median() then shift(1) so the window ends STRICTLY before the day.
+    _dvmed = None
+    if _minadv > 0 and vol_panel is not None:
+        _dkey = (len(panel.columns), hash(tuple(sorted(panel.columns))), len(panel.index))
+        _dvmed = _DVMED_MEMO.get(_dkey)
+        if _dvmed is None:
+            _c, _v = panel.align(vol_panel, join="inner", axis=None)
+            _dvmed = (_c * _v).rolling(60, min_periods=20).median().shift(1)
+            _DVMED_MEMO[_dkey] = _dvmed
 
     def _illiquid(t, day) -> bool:
         """Trailing 60-day median dollar volume below the floor, using ONLY bars before `day`.
@@ -670,12 +702,13 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
         nothing. The 60-day window is the conventional ADV window and is the one the adoption
         measurement used; it is deliberately NOT a second knob -- one dial, not two.
         """
-        if vol_panel is None or t not in vol_panel.columns or t not in panel.columns:
+        if _dvmed is None or t not in _dvmed.columns:
             return False                       # unknown liquidity is not evidence of illiquidity
-        v = vol_panel[t]; c = panel[t]
-        m = (v * c).dropna()
-        m = m[m.index < day].tail(60)
-        return len(m) >= 20 and float(m.median()) < _minadv
+        try:
+            x = _dvmed[t].asof(day)
+        except Exception:  # noqa: BLE001
+            return False
+        return pd.notna(x) and float(x) < _minadv
 
     # DEATH-SPIRAL EXCLUSION (`exclude_young_reverse_split`). A company listed only a short while that
     # has ALREADY executed a severe reverse split is, with no legitimate counterpart, in toxic-financing
@@ -705,8 +738,11 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     _corp: dict = {}
     if _eyrs:
         _cf = Path(str(freeze_panel).replace("panel.csv", "corpactions.json")) if freeze_panel else None
+        _ckey = (len(panel.columns), hash(tuple(sorted(panel.columns))))
         if _cf is not None and _cf.exists():
             _corp = json.loads(_cf.read_text())
+        elif _ckey in _CORP_MEMO:
+            _corp = _CORP_MEMO[_ckey]
         else:
             import yfinance as _yf
             for _t in panel.columns:
@@ -718,6 +754,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                                              for d, r in _tk.splits.items() if float(r) < 1.0]}
                 except Exception:  # noqa: BLE001 -- FAIL OPEN and say so; fail-closed would empty the book
                     _corp[_t] = {"first": None, "rsplits": [], "error": True}
+            _CORP_MEMO[_ckey] = _corp
             if _cf is not None:
                 _cf.parent.mkdir(parents=True, exist_ok=True)
                 _cf.write_text(json.dumps(_corp))
