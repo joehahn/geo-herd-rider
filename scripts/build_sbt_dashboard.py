@@ -166,8 +166,10 @@ def main(argv=None) -> int:
     # 7,200-cell grid above, each arm is a whole separate curation with its own LLM bill. The three
     # sweeps are the SAME book-knob grid replayed over three different journals, which is what makes
     # them comparable cell-for-cell. Absent -> panel omitted, exactly like max_events and min_bundle.
+    # min_trade_size DROPPED 2026-09-01 with the sweep grid; cells no longer carry it, and these
+    # lookups are by key, so leaving it here would KeyError.
     _LIVE_KEYS = ("max_watchlist", "concentration_cap", "lookback_period_days",
-                  "drop_unfunded_weeks", "risk_aversion", "min_trade_size")
+                  "drop_unfunded_weeks", "risk_aversion")
     # THE MONTHLY ARM IS THE CANONICAL ONE, so it derives from provenance rather than naming a
     # path. Hard-coding it here (as this did until 2026-08-29) meant promoting CANON_SWEEP updated
     # panels 2-19 while THIS panel silently kept reading the old sweep -- one page describing two
@@ -381,7 +383,7 @@ def main(argv=None) -> int:
             str(_fm.get("min_bundle_articles", 1)),
             f"$20.23 — {len(_mbr)} re-curations"])
     # THE MODEL SWEEP (panels 14-18). Listed here because a reader looking for "what was varied"
-    # looks at this table, and the eight-arm bake-off is otherwise invisible until panel 14.
+    # looks at this table, and the eight-arm bake-off is otherwise invisible until panel 15.
     #
     # IT WAS event_agent_model THAT MOVED, NOT scout_model. The scout was held FIXED at llama4 in all
     # eight arms -- every arm read the same 1,248 scout chunks off the same corpus -- and that is
@@ -469,7 +471,7 @@ def main(argv=None) -> int:
     # 50% squeeze / 30% squeeze, by column name (position-independent, so a grid change cannot
     # silently point these at the wrong column).
     TIER_A = {"concentration_cap", "lookback_period_days", "drop_unfunded_weeks"}
-    TIER_B = {"max_watchlist", "risk_aversion", "min_trade_size"}
+    TIER_B = {"max_watchlist", "risk_aversion"}
 
     def _cls(i, headers):
         h = headers[i]
@@ -836,6 +838,16 @@ def main(argv=None) -> int:
     _rep_html = (
         '<section class="panel"><h2 style="font-size:15px">Which knobs to move next, and which to '
         'leave alone</h2><p class="lead">'
+        '<b style="color:#b45309">STALE AS OF 2026-09-01 &mdash; read the caveat before the ranking.</b> '
+        'Everything in this section was measured over four sweeps computed while '
+        '<code>min_trade_size</code> ran as a POST-FILTER that renormalized the surviving weights to '
+        'sum to 1, which silently undid <code>concentration_cap</code> on every rebalance. 690 of 774 '
+        'days sat above a 0.4 cap and 147 of them held a single name at 100%. So the two knobs this '
+        'ranking places LAST (0.4% and 1.8% of variance) are precisely the two that were disconnected '
+        '&mdash; they measured inert because they WERE inert. The floor is now off and the cap is a '
+        'box bound the solver enforces exactly. This ranking will be redone against the 13-curation '
+        're-sweep; until then treat items 1&ndash;5 as history, not advice.'
+        '<br><br>'
         '<code>optimizer_lookback_days</code> is now <b>30</b>, and it was the only knob with real '
         'leverage &mdash; a variance decomposition of log(final) over the four sweeps on hand gives '
         'it 23&ndash;44% against 0.4&ndash;4.9% for every other knob. The five below are what is '
@@ -854,10 +866,16 @@ def main(argv=None) -> int:
         'favoured 0.6, which is a plain demonstration that these knobs interact and that main '
         'effects explain only ~40% of the spread.'
         '<br><br>'
-        '<b>3. <code>min_trade_size</code> 0.2 &rarr; 0.05 &mdash; consistent direction, negligible '
-        'size.</b> The live 0.2 is LAST in three of four curations and the ordering is monotone in '
-        'two, so lower is genuinely better &mdash; but the knob explains 0.4% of the variance, so '
-        'the effect is real and tiny. Take it only alongside a rebuild you are doing anyway.'
+        '<b>3. <code>min_trade_size</code> &mdash; SUPERSEDED. Now 0.0 and removed from the grid.</b> '
+        'The old reading here (0.2 &rarr; 0.05, &ldquo;real and tiny&rdquo;) had the direction right '
+        'and the reason wrong. It looked negligible because changing its VALUE barely mattered: at any '
+        'setting the post-filter renormalized the book into the same few names. The knob was not a '
+        'small effect, it was the mechanism disabling a different knob. It is also malformed as stated '
+        '&mdash; a box LOWER bound applies to every asset, so it cannot express &ldquo;hold nothing OR '
+        'hold at least x&rdquo;; imposed literally it either goes infeasible (22 names &times; 0.2 = '
+        '4.4 &gt; 1) or forces names to be held at exactly the floor, MANUFACTURING the dust it claims '
+        'to remove. Enforcing the cap on the same journal moved the book $790k &rarr; $158k, so the '
+        'old headline was earned by breaking the risk control.'
         '<br><br>'
         '<b>4&ndash;5. <code>max_watchlist</code> and <code>drop_unfunded_weeks</code> &mdash; no '
         'signal, do not touch.</b> Their best level differs in every curation (max_watchlist wins '
@@ -892,7 +910,7 @@ def main(argv=None) -> int:
     # while running something else would point every scatter at a config we looked at and declined.
     # All members are drawn. There is no trim any more -- see the note at _keep.
     # TWO MARKED NEIGHBOURHOODS, so the panels can be read as a comparison rather than a lookup:
-    # amber = the LIVE config's region, cyan = the BEST-scoring one's. Previously only one set was
+    # amber = the LIVE config's region, violet = the BEST-scoring one's. Previously only one set was
     # drawn (live if present, else best), which answered "where am I" but never "where is the thing
     # I would move to, and do the two overlap".
     _liveset = {id(c) for c in _reg_mem.get(_live, [])}
@@ -936,6 +954,25 @@ def main(argv=None) -> int:
         # already carries a correct `disp`; preferring it means a new arm is named in one place.
         for r in bo:
             r["disp"] = _DISP.get(r["arm"]) or r.get("disp") or r["arm"]
+    # ---- SWEEP-WIDE PER-TICKER OUTCOMES (panel 20) ----------------------------------------
+    # The sweep tallies, for every ticker, how many of the 7,200 cells FUNDED it and in how many it
+    # LOST. That is the decomposition a single-config audit cannot make: a name that loses in ~100%
+    # of cells lost under every weighting, holding window and exit rule in the grid, so the PICK was
+    # wrong; a name near 50% is a timing/sizing accident the book knobs decide.
+    # Older sweeps have no `tickers` block; the panel is simply omitted then.
+    _tk = (S.get("tickers") or {}) if isinstance(S, dict) else {}
+    _tkrows = []
+    for _t, _v in _tk.items():
+        _n = int(_v.get("n") or 0)
+        if _n < 200:          # funded in <3% of the grid: too rare to characterise
+            continue
+        _tkrows.append({"t": _t, "n": _n, "loss": round(100.0 * _v["lost"] / _n, 1),
+                        "med": _v["med"], "total": _v["total"],
+                        "worst": _v["worst"], "best": _v["best"],
+                        "mean": round(_v["total"] / _n, 2),      # per-config average, not a sum
+                        "mon": _v.get("mon"), "runup": _v.get("runup")})
+    _tkrows.sort(key=lambda r: r["mean"])           # worst AVERAGE loss per config first
+    payload["tk"] = _tkrows
     payload["bo"] = bo
 
 
@@ -995,7 +1032,7 @@ def main(argv=None) -> int:
               "enough to add a third dimension: a dark point in the upper-left earned its return "
               "WITHOUT the money sitting in winners, which is luck rather than picking. The live "
               "config is the magenta &#9733; star. <b>Amber squares are its 22-cell region</b>; "
-              "<b>cyan squares are the region of the best-scoring config</b> "
+              "<b>violet squares are the region of the best-scoring config</b> "
               f"({' &middot; '.join(str(x) for x in _best)}), which is what table 10 now ranks by "
               "worst member. The two sets are disjoint here &mdash; no cell belongs to both &mdash; "
               "so reaching the top of the grid is more than a one-knob move.<br><br>"
@@ -1060,7 +1097,7 @@ def main(argv=None) -> int:
               "two axes are computed off <b>different equity curves</b> &mdash; annualized return "
               "compounds rebalance-window to rebalance-window while slope comes from the daily series, "
               "which for the live config end at $302,079 and $460,556 respectively. The rank ordering "
-              "is unaffected, but do not read a ratio off this panel. Blue squares are table 10\'s "
+              "is unaffected, but do not read a ratio off this panel. Violet squares are table 10\'s "
               f"LIVE config&rsquo;s region (amber) &mdash; {_wspos} of its {len(_wsm)} members have a "
               f"positive slope, median "
               f"<b>${_wsmed:,.0f}</b>/yr.",
@@ -1129,7 +1166,24 @@ def main(argv=None) -> int:
         # the gap report sits directly under table 10, which is what it is about
         _rep_html,
 
-    ] + ([panel(11, "Portfolio value vs max_events",
+    ] + ([panel(11, "Which tickers this solution fails on",
+          "The 30 tickers that lost the most on average, across every config in the sweep that funded "
+          "them. Bar length is that average, per book -- summing across cells would add up 7,200 "
+          "parallel books and mean nothing. Colour is how far the ticker had already run in the 30 days "
+          "before the book bought it, which is usually the real story: CADL loses in 100% of the "
+          "configs that fund it and was still a +227% winner over the window the curator held it, "
+          "because every one of them bought in the same month, right after a 315% jump.",
+          "s-tkfail", 720,
+          '<table class="params"><tr><th>ticker</th><th>funded in</th><th>lost in</th>'
+          "<th>median $</th><th>typically bought</th><th>run-up before entry</th>"
+          "<th>worst $</th><th>best $</th></tr>" +
+          "".join(f"<tr><td><b>{r['t']}</b></td><td>{r['n']:,} cells</td>"
+                  f"<td>{r['loss']:.0f}%</td><td>${r['med']:,.0f}</td>"
+                  f"<td>{r.get('mon') or '&mdash;'}</td>"
+                  f"<td>{('%+.0f%%' % r['runup']) if r.get('runup') is not None else '&mdash;'}</td>"
+                  f"<td>${r['worst']:,.0f}</td>"
+                  f"<td>${r['best']:,.0f}</td></tr>" for r in payload["tk"]) + "</table>")]
+        if payload.get("tk") else []) + ([panel(12, "Portfolio value vs max_events",
               "The one knob on this page that is <b>not free to sweep</b>. Everything above replays a "
               f"FIXED curation through different book math, so {len(cells):,} cells cost nothing; "
               "<code>max_events</code> decides which events stay live and so which tickers ever reach "
@@ -1144,29 +1198,29 @@ def main(argv=None) -> int:
               "a single stochastic sample (the scout is an LLM; two runs at the same cap would differ). "
               "A monotone trend across the six is worth something; a one-point spike in dollars is not.",
               "s-me", 460),
-        panel(12, "Risk-adjusted quality vs max_events",
+        panel(13, "Risk-adjusted quality vs max_events",
               "Sharpe per cap, against the <b>&gt; 0.8 floor</b> the current gate set uses. Read it "
-              "beside panel 11: a cap that wins on final value while dropping below the floor has not "
+              "beside panel 12: a cap that wins on final value while dropping below the floor has not "
               "won anything the shortlist would admit. <b>Sharpe is NOT what table 10 ranks by</b> "
               "&mdash; that is <code>robust</code>, cancellation rank + drawdown rank &mdash; and "
               "Sharpe measured at the <b>54th percentile</b> on the re-curation transfer test, i.e. a "
               "coin flip. It is kept here as a gate and a sanity column, not as a ranking.",
               "s-me-sharpe", 380),
     ] if me and me.get("rows") else []) + ([
-        panel(13, "Portfolio value vs min_bundle_articles",
+        panel(14, "Portfolio value vs min_bundle_articles",
               "<code>min_bundle_articles</code> is the fewest articles a company bundle needs before "
               "the scout is shown it as that company\u2019s news. Below the floor the bundle is not "
               "built and its article falls to the beat or unclustered path \u2014 nothing is dropped, "
               "only reframed.",
               "s-mb", 380),
     ] if mb and mb.get("rows") else []) + ([
-        panel(14, "Portfolio value vs LLM spend",
+        panel(15, "Portfolio value vs LLM spend",
               "Final portfolio value from eight complete 3-year curations that differ only in "
               "<b><code>event_agent_model</code></b>, ordered left to right by what that model "
               "cost, with wall-clock per curation on the right axis. The shaded band is the "
               "measured noise floor: the same settings curated twice finished 1.86&times; apart.",
               "s-bo-pnl", 430),
-        panel(15, "What the money actually buys: decision quality vs spend",
+        panel(16, "What the money actually buys: decision quality vs spend",
               "Each arm made ~565 keep-or-exit calls over its 3-year curation, graded on three "
               "tests: was the catalyst datable, did the write-up claim more than its cited sources "
               "establish, did the live/exit call contradict its own stated exit condition. The bar "
@@ -1174,7 +1228,7 @@ def main(argv=None) -> int:
               "stratified sample of each arm's calls. The judge saw no prices and no outcomes, and "
               "was blind to which model produced the decision.",
               "s-bo-quality", 430),
-        panel(16, "Decision quality, ranked by what the model costs",
+        panel(17, "Decision quality, ranked by what the model costs",
               "Panel 17's numbers, arranged to be read on their own: dearest model at the top, "
               "cheapest at the bottom, bar length is the share of calls judged clean, and the "
               "shade is price &mdash; dark is dear. Labels give each model's cost as a multiple "
@@ -1184,7 +1238,7 @@ def main(argv=None) -> int:
               "effort are kept in panels 14, 16 and 17 but dropped here, where they would cost a "
               "sentence of explanation without changing the picture.",
               "s-bo-rank", 560),
-        panel(17, "Where each model actually fails",
+        panel(18, "Where each model actually fails",
               "Panel 17's three tests, split out, same estimate. <b><code>dated</code></b> is "
               "Fable-5's verdict on the catalyst the model chose to open an event on: a specific "
               "resolvable event such as a contract award, a ruling or an FDA decision, rather than "
@@ -1192,11 +1246,11 @@ def main(argv=None) -> int:
               "is whether the write-up stayed within what its own cited sources establish. "
               "<b><code>consistent</code></b> is whether that period's live-or-exit call cohered "
               "with the model's own stated exit condition &mdash; it applies to every call, not "
-              "only the exits. A call counts as clean in panel 14 only if it passes all three, which "
+              "only the exits. A call counts as clean in panel 16 only if it passes all three, which "
               "is close to but not the product of these bars &mdash; the failures overlap, since a "
               "vague catalyst tends to come with thin sourcing.",
               "s-bo-perdollar", 430),
-        ('<section class="panel"><h2>18. The bake-off, in full</h2><p class="lead">'
+        ('<section class="panel"><h2>19. The bake-off, in full</h2><p class="lead">'
          "Every arm, every measure, ordered by LLM spend. <b>Cancellation, drawdown and Sharpe are "
          "book behaviour; dated / supported / clean are decision quality; final value is the number "
          "that cannot be trusted alone.</b> Read the last three columns against the first: the "
@@ -1212,7 +1266,7 @@ def main(argv=None) -> int:
                         f"{r['overturn']:.0f}%", f"{r['fn_rate']:.0f}%", f"{r['clean_2s']:.0f}%"]
                        for r in bo])
          + "</div></section>"),
-    ] if bo else []) + ([panel(19, "Portfolio value vs rebalance cadence",
+    ] if bo else []) + ([panel(20, "Portfolio value vs rebalance cadence",
           "<b>A reminder that <code>rebalance_period</code> is now swept, not a verdict.</b> One bar "
           "per cadence arm, and the two settings that DEFINE an arm are printed under it: "
           "<code>rebalance_period</code>, how often the curator looks, and "
@@ -1342,7 +1396,11 @@ function draw(){{
   // vision, and neither is a reserved status colour. Both carry the existing 1.5px surface ring, so
   // they stay legible where the cloud is dense.
   const PUR = dark ? '#f472b6' : '#db2777';   // star marking the LIVE config (magenta)
-  const REGSQ = dark ? '#fbbf24' : '#d97706'; // squares marking the recommended region (amber)
+  const REGSQ = dark ? '#fbbf24' : '#d97706'; // squares marking the LIVE config's region (amber)
+  // Squares for the BEST-scoring config's region. Was blue (#2563eb), which is inside the
+  // sequential colour family the scatter itself uses, so those squares read as ordinary dots.
+  // Violet sits outside that ramp and stays ~90 degrees off the magenta star and ~180 off amber.
+  const BESTSQ = dark ? '#c084fc' : '#7c3aed';
 
   // PWR panels 1-3: annualized return against risk, then against each churn norm. One builder,
   // three x-axes -- they differ only in what is on the horizontal.
@@ -1415,7 +1473,7 @@ function draw(){{
     const bestm = C.filter((c,i) => BEST.has(i) && !isCur(c));
     if (bestm.length) tr.push({{
       type:'scatter', mode:'markers', x:bestm.map(xf), y:bestm.map(c=>c.ann),
-      marker:{{size:12, symbol:'square', color:'#2563eb',
+      marker:{{size:12, symbol:'square', color:BESTSQ,
                line:{{width:2, color:p.surface}}}},
       text:bestm.map(c=>'<b>BEST REGION</b><br>'+K.map(k=>k+'='+c[k]).join('<br>')),
       hovertemplate:'%{{text}}<br>ann %{{y:.0f}}%<extra></extra>', showlegend:false}});
@@ -1573,7 +1631,7 @@ function draw(){{
   }}
   // PANEL 11 -- min_bundle_articles. Bars are the book; the SHADED BAND is the measured same-config
   // noise floor (5.8x between two curations of identical settings), drawn so the eye cannot read the
-  // monotone rise as a trend. Same reason panel 14 carries the bake-off's 1.86x band.
+  // monotone rise as a trend. Same reason panel 15 carries the bake-off's 1.86x band.
   const MB = DATA.mb;
   if (MB && MB.rows && MB.rows.length) {{
     const xs = MB.rows.map(r => String(r.min_bundle_articles));
@@ -1618,7 +1676,7 @@ function draw(){{
     const fin = BO.map(r => r.final);
     // THE NOISE FLOOR, measured not assumed: two curations at IDENTICAL settings finished 1.86x apart.
     // Drawn as a band around the arms' midpoint so a reader sees at a glance which differences are
-    // resolvable. Without it panel 14 invites exactly the over-reading it exists to prevent.
+    // resolvable. Without it panel 15 invites exactly the over-reading it exists to prevent.
     const mid = fin.reduce((a, b) => a + b, 0) / fin.length;
     const lo = mid / Math.sqrt(1.86), hi = mid * Math.sqrt(1.86);
     // BARS, not a line. Five discrete `event_agent_model` choices are not a continuum, and the line
@@ -1718,6 +1776,44 @@ function draw(){{
           xaxis:{{gridcolor:p.grid, ticksuffix:'%', range:[0, 78],
                  title:{{text:'decisions clean on all 3 tests', font:{{size:11}}}}}},
           yaxis:{{automargin:true, tickfont:{{size:12}}}}}}), CFG);
+    }}
+
+    // ---- panel 20: which tickers the solution fails on -----------------------------------
+    // Horizontal bars, one per funded ticker, x = share of funding configs in which it LOST.
+    // Coloured by MEDIAN outcome, because the share alone is misleading: a name that loses in
+    // every config by $200 is noise, one that loses by $60,000 is where the money went.
+    if (DATA.tk && DATA.tk.length) {{
+      const TK = DATA.tk.slice(0, 30);              // 30 biggest aggregate losers
+      // x = AVERAGE $ per config that funded the ticker, plotted as a positive magnitude.
+      // A per-book number on purpose: summing across cells adds up 7,200 parallel books and yields
+      // tens of millions that correspond to no money ever at risk.
+      const xs  = TK.map(r => -r.mean);
+      // colour = how far the name had ALREADY run in the 30 days before the book bought it. This is
+      // the diagnostic axis: a red bar means the optimizer bought a name that had just spiked, which
+      // is the CADL failure and is invisible in any outcome-only view.
+      const run = TK.map(r => (r.runup === null || r.runup === undefined) ? 0 : r.runup);
+      Plotly.react('s-tkfail', [{{
+        type:'bar', orientation:'h',
+        y: TK.map(r => r.t), x: xs,
+        marker:{{ color: run, cmid:0, showscale:false,
+                 colorscale:[[0,'#2563eb'],[0.5,'#e5e7eb'],[1,'#dc2626']] }},
+        customdata: TK.map(r => [r.n, r.loss, r.med, r.mon || 'n/a',
+                                 (r.runup === null || r.runup === undefined) ? 'n/a'
+                                   : (r.runup > 0 ? '+' : '') + r.runup.toFixed(0) + '%']),
+        hovertemplate:'<b>%{{y}}</b><br>average $%{{x:,.0f}} per config, over %{{customdata[0]:,}} configs'
+                      + '<br>lost in %{{customdata[1]:.0f}}% of them, median $%{{customdata[2]:,.0f}}'
+                      + '<br>typically bought %{{customdata[3]}}'
+                      + '<br>run-up in the 30d before entry: %{{customdata[4]}}'
+                      + '<extra></extra>'
+      }}], base(p, {{margin:{{l:66, r:24, t:16, b:56}}, showlegend:false,
+          xaxis:{{gridcolor:p.grid, tickprefix:'$', autorange:true,
+                 title:{{text:'average loss per config that funded it '
+                             + '\u00b7 bar colour = run-up in the 30d before entry',
+                        font:{{size:11}}}}}},
+          // dtick 1 forces EVERY ticker label; Plotly otherwise thins them to every other row
+          yaxis:{{automargin:true, autorange:'reversed', type:'category',
+                 tickmode:'linear', dtick:1, tickfont:{{size:9}}}},
+          }}), CFG);
     }}
 
     Plotly.react('s-bo-perdollar', [

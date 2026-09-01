@@ -8,6 +8,17 @@
 #     before/after as DIFFERENT SEGMENTS. Do NOT tune to backtest signal (CLAUDE.md #5/#6).
 #
 # Re-freeze log (dated discontinuities):
+#   2026-09-01  DEFECT RE-FREEZE + strategy sync. min_trade_size 0.20 -> 0.0 is a BUG FIX, not a
+#               preference: as a post-filter it renormalized survivors and silently undid
+#               concentration_cap, so this candidate has had NO EFFECTIVE CAP since it was frozen.
+#               Also synced: max_watchlist 12->20, risk_aversion 12.0->8.0, concentration_cap 0.6->0.4,
+#               drop_unfunded_weeks 4->0, and two risk gates ADDED (min_dollar_volume_usd 100000,
+#               exclude_young_reverse_split [3, 0.1]).
+#               CAVEAT, stated so it is not lost: the four TUNED knobs (max_watchlist, risk_aversion,
+#               concentration_cap, drop_unfunded_weeks) were all selected by sweeps run while the cap
+#               was disabled, so their justification does not survive the fix. The 13-curation
+#               re-sweep under corrected sizing may move them again -- expect a second re-freeze.
+#               Treat forward results before/after this date as DIFFERENT SEGMENTS.
 #   2026-07-07  seeded as a copy of the backtest candidate (cap 1.0 · risk 0.1 · 7/5/5 · sonnet5)
 #   2026-07-10  `model` split into event_agent_model (sonnet5) + scout_model (llama4); window_cap -> news_cap
 #   2026-07-12  3-knob split: gather_model broken out (the only Anthropic-only stage). NOT a
@@ -157,7 +168,8 @@ max_event_scans: 12               # retires the whole EVENT at this age, in scan
 initial_investment_usd: 50000     # day-0 dollars.
 starter_watchlist: [AAPL, GOOGL, AMZN]   # day-0 holdings, equal weight, until the curator's own picks replace them.
 always_include: [SPY, BIL]        # always available to the optimizer; idle cash parks here. Outside max_watchlist.
-max_watchlist: 12                 # how many tickers may COMPETE for capital at once (not how many hold it).
+max_watchlist: 20                 # 12 -> 20,# SYNCED to .backtest 2026-09-01
+                                  # how many tickers may COMPETE for capital at once (not how many hold it).
                                   # 6 -> 12, SYNCED to .backtest 2026-08-30. The book does NOT widen:
                                   # it funds a median of 2 names and a max of 3 at 6, 12, 20 and 32 alike,
                                   # because min_trade_size and concentration_cap fix concentration
@@ -168,9 +180,24 @@ cull_fresh_scans: 2               # how new counts as new, in scans. NOT x4'd (2
                                   # with cull_fresh_slots to hold slots for names too NEW to have price
                                   # history. 2 WEEKLY scans is already enough history to judge; x4 would
                                   # keep a name 'new' for two months.
-drop_unfunded_weeks: 4            # scans a name can go unfunded before it is dropped from the watchlist.  # 0 -> 4, SYNCED to .backtest 2026-08-30
+drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dropped from the watchlist.  # 4 -> 0, SYNCED to .backtest 2026-09-01
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.6             # most of the book any one ticker may take.
+min_dollar_volume_usd: 100000    # UNIVERSE FLOOR, ADDED 2026-09-01 (synced from .backtest). A name whose
+                                  # TRAILING 60-day median dollar volume is under this cannot be FUNDED.
+                                  # Keeps the book out of names too thin to exit. BOOK knob -- replay only.
+exclude_young_reverse_split: [3, 0.1]   # [max years listed, worst reverse-split ratio]. ADDED 2026-09-01
+                                  # (synced from .backtest). Refuse to FUND a name listed under 3 years that
+                                  # has ALREADY executed a 1-for-10-or-worse reverse split -- the death-spiral
+                                  # financing signature. [] = off. RISK GATE, NOT an alpha filter, and NOT
+                                  # backtest-validated: across 843 funded positions in 12 curations it flags
+                                  # exactly one (WOK, the case that generated it). It FAILS OPEN when corporate
+                                  # actions are unavailable, so it is incomplete by design.
+concentration_cap: 0.4             # most of the book any one ticker may take.
+                                  # 0.6 -> 0.4, SYNCED to .backtest 2026-09-01. NOTE: every prior
+                                  # justification for this knob below was measured while min_trade_size
+                                  # was renormalizing the cap away, i.e. while the cap did not bind.
+                                  # Treat the reasoning that follows as UNVERIFIED under the corrected
+                                  # sizing until the 13-curation re-sweep lands.
                                   # 0.25 -> 0.6 on 2026-08-27, from SBT table 20. It is the single
                                   # change that moves the live config into panel 19's green cluster
                                   # on its own: worst-arm percentile 73.5 -> 81.9 across THREE
@@ -185,10 +212,18 @@ concentration_cap: 0.6             # most of the book any one ticker may take.
                                   #   -- at four names an equal book is 25% each, so a 0.25 cap would
                                   #   force exactly equal weights and give the optimizer nothing to do.
 
-min_trade_size: 0.20              # positions smaller than this are dropped. At max_watchlist 6 an equal book
-                                  #   is 16.7% a name, so this is a CONCENTRATION lever, not a dust filter:
-                                  #   it holds only the strongest 2-3 convictions.
-risk_aversion: 12.0               # λ in mean-variance. Higher = spreads wider, chases returns less.  # 8.0 -> 12.0, SYNCED to .backtest 2026-08-30
+min_trade_size: 0.0               # OFF. 0.20 -> 0.0, SYNCED to .backtest 2026-09-01. NOT a tuning change --
+                                  #   a DEFECT FIX. It ran as a post-filter that dropped sub-floor names and
+                                  #   renormalized the survivors to sum to 1, which silently UNDID
+                                  #   concentration_cap. A lone survivor sitting at the cap became 100%. On the
+                                  #   canonical backtest journal that put 690 of 774 days over the cap and 147
+                                  #   days at 100% in one name. This candidate has been running WITHOUT AN
+                                  #   EFFECTIVE CONCENTRATION CAP since it was frozen.
+                                  #   As a box LOWER bound it is also the wrong shape: a lower bound applies to
+                                  #   every asset, so it cannot express "hold nothing OR hold >= x" -- it either
+                                  #   goes infeasible or forces names to be held at exactly the floor. At 0 the
+                                  #   cap is a plain box bound and one QP solves it exactly.
+risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.  # 12.0 -> 8.0, SYNCED to .backtest 2026-09-01
 optimizer_lookback_days: 30       # days of price history behind μ and Σ.  # 21 -> 30, SYNCED to .backtest 2026-08-30
 rebalance_period: monthly        # weekly | biweekly | monthly | quarterly. The trading cadence.
                                   # WEEKLY 2026-08-25: monthly puts ZERO scan anchors after the handoff while the

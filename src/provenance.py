@@ -137,7 +137,14 @@ CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate.json"   # 2026-08-31, over the promoted v25 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate_box.json"   # 2026-09-01, over the promoted v25 curation.
+                                      # _box: the FIRST sweep priced under box-bound sizing. The
+                                      # predecessor (sweep_cbt_3yr_v25_vehgate.json, 2026-08-31) is kept
+                                      # but is NOT comparable to this one -- it was computed while
+                                      # min_trade_size renormalized concentration_cap away, so its cap
+                                      # axis was inert. Its grid also differed: min_trade_size has been
+                                      # REMOVED (pinned at 0.0) and four axes extended past edges the
+                                      # old grid could not see over. 7,200 cells -> 5,040.
                                       # NAMED AFTER THE RUN IT SWEPT, ending a numbering that had drifted
                                       # into a trap: every sweep_vN on disk was swept over a DIFFERENT
                                       # run than its number suggests (sweep_v24 -> v22, sweep_v25 -> v23,

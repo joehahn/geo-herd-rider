@@ -62,23 +62,40 @@ GRID = {
     # NOT the reason the sweep is slow, in case that is the next instinct: profiled 2026-08-24, a
     # cell is ~750 ms of which fh.backtest is ~97% and the pc_* metrics are 28 ms. Cutting metrics
     # would buy nothing; only fewer cells or a faster backtest will.
-    "max_watchlist":        [4, 6, 8, 12, 16, 20],
+    # EXTENDED 2026-09-01 with 24, 30. The canonical config sits at 20, which WAS the top edge --
+    # the same "as far as the grid goes" pattern this file warns about two axes below. Under the old
+    # sizing a wider slate could not matter (min_trade_size pinned the book at 2-3 names whatever the
+    # slate); with the floor off the book funds 5-7, so this axis can finally do something.
+    "max_watchlist":        [4, 6, 8, 12, 16, 20, 24, 30],
     # 0.25 IS THE BOTTOM EDGE AND THE BEST VALUE (median Sharpe 0.81 vs 0.61 at 1.0), which is the
     # same "as far as the grid goes" pattern that has been misread as an optimum three times on this
     # file. This axis wants EXTENDING DOWNWARD (0.15, 0.20), not trimming. Left intact for now.
-    "concentration_cap":    [0.25, 0.40, 0.60, 0.80, 1.00],
+    # EXTENDED DOWNWARD 2026-09-01 with 0.15, 0.20, which is what the note above asked for and was
+    # never done. Independently corroborated: a floor-0 cap sweep on the canonical journal put 0.25
+    # top ($421,644 at risk_aversion 2) -- again at the bottom edge.
+    "concentration_cap":    [0.15, 0.20, 0.25, 0.40, 0.60, 0.80, 1.00],
     # DROPPED 7, 10 (dead: zero appearances in the top-100 regions, the top-1000 regions AND the
     # top-1000 cells -- the trend cull cannot rank on a window that short) and 60. 14 and 45 are kept
     # as the anchors either side of the 21/30 peak, so the optimum is still visibly INTERIOR.
-    "lookback_period_days": [14, 21, 30, 45],
+    # 60 RE-ADDED 2026-09-01. It was dropped as dead, but that was measured on a 2-3 name book under
+    # the disabled cap; a 5-7 name book plausibly wants a longer window to estimate Sigma. If it is
+    # still dead the cells cost ~2 min and the exclusion becomes trustworthy again.
+    "lookback_period_days": [14, 21, 30, 45, 60],
     "drop_unfunded_weeks":  [0, 2, 4],
     # DROPPED 0.5, 1.0, 2.0, 3.0 (all zero in the top-100 regions) and 6.0. 24 remains the top edge
     # and still has the best median Sharpe, so the caveat that predates this trim stands: the turn is
     # near 24 by a 1-D probe, but this grid cannot see past it.
-    "risk_aversion":        [4.0, 8.0, 12.0, 16.0, 24.0],
-    # DROPPED 0.3 (zero in the top-100). The remaining four are nearly indistinguishable on median
-    # Sharpe (0.69 / 0.70 / 0.71 / 0.69), which is itself the finding about this knob.
-    "min_trade_size":       [0.0, 0.05, 0.10, 0.20],
+    # 32 ADDED 2026-09-01 to see past the top edge, as the note above says this grid cannot.
+    "risk_aversion":        [4.0, 8.0, 12.0, 16.0, 24.0, 32.0],
+    # REMOVED FROM THE GRID 2026-09-01, pinned at the profile's 0.0. Not a trim for speed: as a box
+    # LOWER bound the knob is malformed. A lower bound applies to EVERY asset, so it cannot express
+    # "hold nothing OR hold >= x" -- that is a disjunction, hence a cardinality-constrained MIQP,
+    # which SLSQP cannot solve. Imposed as a plain box bound it either goes infeasible (22 names x
+    # 0.2 = 4.4 > 1) or forces names to be held at exactly the floor, MANUFACTURING the dust it is
+    # advertised to remove. Sweeping it would sweep a heuristic subset-selector, not a knob.
+    # Its old grid values are also why the earlier variance decomposition ranked it and
+    # concentration_cap LAST (0.4% / 1.8%): the post-filter was renormalizing the cap away, so both
+    # measured inert because both WERE inert. See investor_profile.backtest.md.
 }
 
 # Worker state. The frozen price panel is several MB and every cell needs it, so it is handed to each
@@ -103,8 +120,32 @@ def _cell(combo_keys):
         b = fh.backtest(_W["scans"], fm, capital=_W["cap"], daily=True, panel=_W["panel"],
                         freeze_panel=_W.get("freeze_panel"))   # so the frozen volume/corp-action
                                                                # files are REUSED, not re-fetched
+        # PER-TICKER GAINS, shipped back under a private key the collector strips before the cell is
+        # stored. backtest() already computes these and metrics() throws them away; carrying them out
+        # costs one dict per cell and is what makes the sweep-wide failing-ticker view possible at all.
+        _g = {t: float(v) for t, v in ((b.get("daily") or {}).get("gain") or {}).items()}
+        # ...AND WHEN each ticker was first funded, plus the RUN-UP it had already had.
+        # WHY: CADL loses in 100% of the configs that fund it while being a +227% winner over the
+        # window the curator held it -- because all of them buy in the SAME month, immediately after
+        # a 315% jump. The loss is the optimizer's entry timing, not the pick, and a panel that shows
+        # only outcome cannot tell those apart. Trailing 30 calendar days before the first funded day.
+        _d = b.get("daily") or {}
+        _al, _dts, _pan = _d.get("alloc") or {}, _d.get("dates") or [], _W["panel"]
+        _e = {}
+        for _t, _w in _al.items():
+            _fd = [dd for dd, x in zip(_dts, _w) if x > 1e-9]
+            if not _fd or _t not in _pan.columns:
+                continue
+            _ser = _pan[_t].dropna()
+            _ser.index = _ser.index.strftime("%Y-%m-%d")
+            _pre = _ser[_ser.index <= _fd[0]]
+            _lo = (pd.Timestamp(_fd[0]) - pd.Timedelta(days=30)).date().isoformat()
+            _base = _ser[_ser.index <= _lo]
+            if len(_pre) and len(_base) and float(_base.iloc[-1]):
+                _e[_t] = (_fd[0][:7], float(_pre.iloc[-1]) / float(_base.iloc[-1]) - 1.0)
         return {**dict(zip(keys, combo)),
-                **metrics(b, _W["anchors"], fm, _W["panel"], _W["scan_dates"])}
+                **metrics(b, _W["anchors"], fm, _W["panel"], _W["scan_dates"]),
+                "_gain": _g, "_entry": _e}
     except Exception as e:  # noqa: BLE001 - one bad cell must not lose the grid
         return {"_error": f"{type(e).__name__}: {e}", **dict(zip(keys, combo))}
 
@@ -533,12 +574,30 @@ def main(argv=None) -> int:
     print(f"  {len(cells)} cells over {keys}", flush=True)
     cap = float(fm0.get("initial_investment_usd", 50_000))
     out, t0, bad = [], time.time(), 0
+    # SWEEP-WIDE PER-TICKER TALLY. For every ticker: in how many cells did the book fund it, and in
+    # how many did it LOSE? The decomposition a single-config audit cannot make --
+    #   loses in ~100% of cells -> no weighting, holding window or exit rule in the entire grid was
+    #                              profitable, so the PICK was wrong (a curation error)
+    #   loses in ~50%           -> a timing/sizing accident; the book knobs decide it and the news
+    #                              says nothing
+    # Stored as an AGGREGATE, never per cell: per-cell gains would be ~410k floats and roughly double
+    # a 95 MB sweep file, for a view that only ever needs the totals.
+    tkstat: dict = {}
     with cf.ProcessPoolExecutor(max_workers=a.workers, initializer=_init,
                                 initargs=(fm0, scans, anchors, panel, cap, _pf)) as ex:
         for i, r in enumerate(ex.map(_cell, [(keys, c) for c in cells], chunksize=8), 1):
             if "_error" in r:
                 bad += 1
             else:
+                _ent = r.pop("_entry", None) or {}
+                for _t, _v in (r.pop("_gain", None) or {}).items():
+                    _a = tkstat.setdefault(_t, {"n": 0, "lost": 0, "pnl": [], "mon": [], "run": []})
+                    _a["n"] += 1
+                    _a["lost"] += (_v < 0)
+                    _a["pnl"].append(_v)
+                    if _t in _ent:
+                        _a["mon"].append(_ent[_t][0])
+                        _a["run"].append(_ent[_t][1])
                 out.append(r)
             if i % 250 == 0 or i == len(cells):
                 el = time.time() - t0
@@ -548,7 +607,14 @@ def main(argv=None) -> int:
         print(f"  {bad} cells failed and are omitted", file=sys.stderr)
     Path(ROOT / a.out).write_text(json.dumps(
         {"run": a.run, "grid": GRID, "base": {k: fm0.get(k) for k in keys},
-         "precull": precull, "cells": out}, indent=1))
+         "precull": precull, "cells": out,
+         "tickers": {t: {"n": v["n"], "lost": v["lost"],
+                         "med": round(statistics.median(v["pnl"]), 2),
+                         "total": round(sum(v["pnl"]), 2),
+                         "worst": round(min(v["pnl"]), 2), "best": round(max(v["pnl"]), 2),
+                         "mon": (collections.Counter(v["mon"]).most_common(1)[0][0] if v["mon"] else None),
+                         "runup": (round(100 * statistics.median(v["run"]), 1) if v["run"] else None)}
+                     for t, v in sorted(tkstat.items())}}, indent=1))
     ok = [c for c in out if c.get("cancelled") is not None]
     ok.sort(key=lambda c: c["cancelled"])
     print(f"\n  wrote {a.out}: {len(out)} cells")

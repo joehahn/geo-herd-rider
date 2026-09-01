@@ -829,6 +829,70 @@ def main(argv=None) -> int:
                     _run = None
             if _run is not None:
                 _fspans.append({"t": _tk, "s": _dts[_run], "e": _dts[-1], "ev": _t2e.get(_tk, ""), "b": _beat_of(_tk)})
+        # --- rebalance moves (see the "moves" note in the payload below) ---
+        _mv_px = None
+        if _panel is not None:
+            _mv_px = _panel.copy()
+            _mv_px.index = _mv_px.index.strftime("%Y-%m-%d")   # dates[] are strings
+        _mv_dates = _d.get("dates", [])
+        _mv_val = [float(x) for x in _d.get("value", [])]
+        _mv_T = sorted(_alloc)
+        def _vec(i):
+            return {t: _alloc[t][i] for t in _mv_T if i < len(_alloc[t]) and _alloc[t][i] > 1e-9}
+        def _vecd(i):                     # same, in DOLLARS
+            return {t: _alloc[t][i] * _mv_val[i] for t in _mv_T
+                    if i < len(_alloc[t]) and _alloc[t][i] > 1e-9}
+        # --- sankey flows (see the "flow" note in the payload) ---
+        _fl_nodes, _fl_links, _fl_idx = [], [], {}
+        def _node(_col, _tk, _usd, _date, _ret=None):
+            _k = (_col, _tk)
+            if _k not in _fl_idx:
+                _fl_idx[_k] = len(_fl_nodes)
+                _fl_nodes.append({"t": _tk, "c": _col, "d": _date, "usd": round(_usd),
+                                  # fractional return over the period this position was HELD --
+                                  # what colours the band. None for the final column, which has no
+                                  # following rebalance to measure against.
+                                  "r": (None if _ret is None else round(100 * _ret, 1))})
+            elif _ret is not None and _fl_nodes[_fl_idx[_k]].get("r") is None:
+                _fl_nodes[_fl_idx[_k]]["r"] = round(100 * _ret, 1)
+            return _fl_idx[_k]
+        _rbf = [0]
+        for _i in range(1, len(_mv_dates)):
+            _a, _c = _vecd(_i - 1), _vecd(_i)
+            if set(_a) != set(_c) or sum(abs(_c.get(t, 0) - _a.get(t, 0))
+                                         for t in set(_a) | set(_c)) / max(_mv_val[_i], 1) > 0.10:
+                _rbf.append(_i)
+        for _k in range(len(_rbf) - 1):
+            _i, _j = _rbf[_k], _rbf[_k + 1]
+            _held, _endv, _nxt = _vecd(_i), _vecd(_j - 1), _vecd(_j)
+            _pret = {t: (_endv[t] / _held[t] - 1.0) for t in _held
+                     if _held.get(t) and t in _endv}      # this period's return, per position
+            _src = {t: _endv.get(t, 0.0) for t in _held}
+            _dst = dict(_nxt)
+            if sum(_src.values()) <= 0 or sum(_dst.values()) <= 0:
+                continue
+            for t in list(_src):                       # 1. carry continuations straight through
+                if t in _dst:
+                    _m = min(_src[t], _dst[t])
+                    if _m > 0:
+                        _fl_links.append({"s": _node(_k, t, _held.get(t, 0), _mv_dates[_i], _pret.get(t)),
+                                          "t": _node(_k + 1, t, _nxt.get(t, 0), _mv_dates[_j]),
+                                          "v": round(_m)})
+                        _src[t] -= _m
+                        _dst[t] -= _m
+            _rd = sum(v for v in _dst.values() if v > 0)
+            for st, sv in _src.items():                # 2. split the residual proportionally
+                if sv <= 0 or _rd <= 0:
+                    continue
+                for dt, dv in _dst.items():
+                    if dv <= 0:
+                        continue
+                    _f = sv * (dv / _rd)
+                    if _f > 0.005 * _mv_val[_j]:
+                        _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
+                                          "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
+                                          "v": round(_f)})
+        _flow = {"nodes": _fl_nodes, "links": _fl_links, "cols": len(_rbf)}
         book.update({
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
             # BOOTSTRAP ONLY: the date the news source changes under the curator's feet. Absent on
@@ -866,6 +930,17 @@ def main(argv=None) -> int:
             "gain": {k: float(v or 0) for k, v in sorted(_gain.items(), key=lambda kv: kv[1])},
             "evgain": dict(sorted(_evgain.items(), key=lambda kv: kv[1])),
             "alloc": {k: [float(x) for x in v] for k, v in _alloc.items()},
+            # ---- SANKEY: dollars handed from ticker to ticker at every rebalance ----
+            # One column per rebalance, one node per position held, ribbon = dollars.
+            # A ribbon leaves a column FATTER than it entered when the ticker rose -- the width
+            # change IS the position's return, which is why no separate gain/loss node is drawn.
+            # CONTINUATIONS ARE MATCHED FIRST (min of held and wanted), then the residual is split
+            # proportionally. Without that, a position that simply persists renders as a self-link
+            # plus a web of crossings, and the diagram reads as churn that never happened.
+            # THE TICKER-TO-TICKER ATTRIBUTION IS A MODEL, NOT A TRACE: the book sells into a pool
+            # and buys out of it, and nothing records which dollar went where. Proportional split is
+            # the usual convention; the caption says so.
+            "flow": _flow,
             "evseries": {eid: [sum(float(_gs.get(v, [0])[i] if i < len(_gs.get(v, [])) else 0)
                                    for v in e.get("vehicles", []) if v in _gs)
                                for i in range(len(_d.get("dates", [])))]
@@ -1940,6 +2015,14 @@ def main(argv=None) -> int:
                 "where idle capital parks; a grey anchor stretch is the book in SPY/BIL, not a "
                 "decision to hold cash. " + _cash_note,
                 "c-alloc", 580),
+        panel_rec("Where the money goes at each rebalance",
+                "Every rebalance, left to right &mdash; oldest first. <b>Scrolls sideways.</b> Each band is a position, its thickness the dollars "
+                "it carries; ribbons show which ticker handed money to which. A band that leaves a "
+                "column fatter than it entered is a ticker that rose. <b>Colour is that position's "
+                "fractional gain or loss over the period it was held</b> &mdash; green up, red down, grey flat or unmeasured. The ticker-to-ticker attribution is a proportional model, not a trace: the "
+                "book sells into a pool and buys out of it, so nothing records which dollar went "
+                "where. Hover any band for the name, date and amount.",
+                "c-flow", 1120),
         panel_rec("Thesis concentration",
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
                 "day parked in SPY/BIL reads 0%; the dashed line is the per-ticker cap, for scale.",
@@ -2941,6 +3024,53 @@ function draw() {{
     // Drawn only when it is real (>0.5% of the book on some day) so a fully-invested run is unchanged.
     const _cash = BK.value.map((v,i) => Math.max(0, v - _allocSum[i]));
     const _cashReal = _cash.some((c,i) => BK.value[i] > 0 && c / BK.value[i] > 0.005);
+    // ---- sankey: dollars handed from ticker to ticker at every rebalance ----
+    try {{ if (BK.flow && BK.flow.nodes && BK.flow.nodes.length) {{
+      const F = BK.flow;
+      // one hue per TICKER (not per node), so a name keeps its colour as it recurs across columns
+      // COLOUR = the position's FRACTIONAL return over the period it was held; thickness is the
+      // dollars, which a sankey derives from the link values automatically. Diverging red -> grey ->
+      // green, clamped at +/-25% so one extreme move does not flatten every other band.
+      // NOT `dark`: that is declared INSIDE pal(), so referencing it here is a ReferenceError --
+      // which killed the whole script and blanked every panel after this one.
+      const hue = r => {{
+        if (r === null || r === undefined) return 'rgba(150,150,150,0.55)';
+        const x = Math.max(-1, Math.min(1, r / 25));
+        return x >= 0 ? 'rgba(' + Math.round(220 - 198*x) + ',' + Math.round(220 - 57*x) + ','
+                                + Math.round(220 - 208*x) + ',0.85)'
+                      : 'rgba(' + Math.round(220) + ',' + Math.round(220 + 182*x) + ','
+                                + Math.round(220 + 182*x) + ',0.85)';
+      }};
+      // ROTATED BACK TO HORIZONTAL, but kept LONG: the plot is drawn 5200px wide inside a panel
+      // that scrolls horizontally, so the 56 rebalances get ~90px each instead of being crushed
+      // into the page width. responsive:false is required -- with it on, Plotly re-fits the trace
+      // to the container on every resize and the explicit width is discarded.
+      const _fel = document.getElementById('c-flow');
+      if (_fel) {{
+        _fel.style.width = '5200px';
+        if (_fel.parentElement) {{
+          _fel.parentElement.style.overflowX = 'auto';
+          _fel.parentElement.style.overflowY = 'hidden';
+        }}
+      }}
+      Plotly.react('c-flow', [{{
+        type:'sankey', orientation:'h',
+        arrangement:'snap',
+        node:{{ pad:6, thickness:9, label:F.nodes.map(n => n.t),
+               color:F.nodes.map(n => hue(n.r)),
+               line:{{width:0}},
+               customdata:F.nodes.map(n => [n.d, n.usd, n.r === null || n.r === undefined ? 'n/a'
+                                            : (n.r > 0 ? '+' : '') + n.r + '%']),
+               hovertemplate:'<b>%{{label}}</b> %{{customdata[0]}}<br>$%{{customdata[1]:,.0f}} held'
+                             + '<br>return this period %{{customdata[2]}}<extra></extra>' }},
+        link:{{ source:F.links.map(l => l.s), target:F.links.map(l => l.t),
+               value:F.links.map(l => l.v),
+               color:F.links.map(l => 'rgba(150,150,150,0.22)'),
+               hovertemplate:'%{{source.label}} &rarr; %{{target.label}}<br>$%{{value:,.0f}}<extra></extra>' }}
+      }}], base(p, {{margin:{{l:8, r:8, t:24, b:26}}, width:5200, height:1080}}),
+         {{displayModeBar:false, responsive:false}});
+    }} }} catch (e) {{ console.error('c-flow panel failed:', e); }}
+
     Plotly.react('c-alloc', [
       ...(_cashReal ? [{{
         type:'scatter', mode:'lines', stackgroup:'one', name:'uninvested (cash)',

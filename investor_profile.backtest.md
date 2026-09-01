@@ -411,10 +411,26 @@ min_dollar_volume_usd: 100000    # UNIVERSE FLOOR. A name whose TRAILING 60-day 
                                  #     NVO (-47.4%) both traded >$300M/day.
                                  # It removes a small, genuinely bad tail. It is not a manipulation filter,
                                  # and the WOK class is still unsolved.
-min_trade_size: 0.2              # positions smaller than this are DROPPED, not shrunk -- a concentration
-                                  #   lever, not a dust filter. At four names an equal book is 25% each, so a
-                                  #   0.05 floor is far below the smallest intended position and effectively
-                                  #   inert here.
+min_trade_size: 0.0              # OFF as of 2026-09-01. Was 0.2, where it was not a dust filter but a
+                                  #   second concentration policy that OVERRODE concentration_cap. It ran as a
+                                  #   post-filter: drop sub-floor names, renormalize survivors to sum to 1 --
+                                  #   which undid the cap the solver had just honoured. 690 of 774 days sat
+                                  #   over the 0.4 cap, 147 of them at 100% in one name (2024-05-07: 22
+                                  #   candidates in, ZIM 40% out, ZIM 100% funded). Enforcing the cap on the
+                                  #   SAME journal took the book $790K -> $158K, so that headline was earned
+                                  #   by breaking the risk control, not by the curation.
+                                  #   At 0 the cap is a plain box bound and one QP solves it exactly; the
+                                  #   book widens from 2-3 funded names to 5-7. Measured on the canonical
+                                  #   journal, floor 0 beats 0.2 at every cap from 0.2 to 1.0 (e.g. at cap
+                                  #   0.4: $304K vs $210K) and beats 0.3 everywhere. Only 1.4x, INSIDE the
+                                  #   unmeasurable band -- the reason to move is MECHANISM (the knob's only
+                                  #   legitimate job, avoiding dust, is done at ~0.02; at 0.2 on $50K it was
+                                  #   a $10,000 minimum position), plus the effect being monotone in the
+                                  #   floor and repeating across an orthogonal knob. The 13-curation sweep
+                                  #   is the actual test.
+                                  #   Kept as a knob, not deleted: curator._cap_floor_weights now applies it
+                                  #   as a box LOWER bound alongside the cap, so turning it back on can no
+                                  #   longer resurrect the renormalisation bug.
 risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
                                   #   UNCHANGED 2026-08-31, and now independently confirmed: 8.0
                                   #   carries most of the 8 best cross-curation configs.
@@ -447,6 +463,12 @@ optimizer_lookback_days: 30       # days of price history behind μ and Σ.
                                   #   max_watchlist, 1.8% concentration_cap and 0.4% min_trade_size.
                                   #   The other five are inside the noise BY CONSTRUCTION, which is why
                                   #   every recommendation to move them failed a direct check.
+                                  #   VOID FOR TWO OF THE SIX as of 2026-09-01. That decomposition was
+                                  #   measured while the min_trade_size post-filter was renormalizing away
+                                  #   concentration_cap -- i.e. the two knobs it ranked LAST (0.4% and 1.8%)
+                                  #   are precisely the two the bug had disconnected. They measured inert
+                                  #   because they were inert. Redo this decomposition against the 13-
+                                  #   curation sweep once it is re-run under the box-bound sizing.
                                   #   PAIRED, same other-five knobs, 30 vs 21 over 1,800 pairs per
                                   #   curation: 30 wins 79% (v24), 49% (v23), 55% (bw23), 68% (wk23) --
                                   #   it wins or ties in all four and never loses.
