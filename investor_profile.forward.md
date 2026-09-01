@@ -8,6 +8,12 @@
 #     before/after as DIFFERENT SEGMENTS. Do NOT tune to backtest signal (CLAUDE.md #5/#6).
 #
 # Re-freeze log (dated discontinuities):
+#   2026-09-01b SECOND re-freeze today. risk_aversion 8.0 -> 12.0, synced with .backtest so the
+#               strategy knobs stay aligned (CLAUDE.md requires it, or the backtest stops being a
+#               valid proxy). Basis is the TEN-curation one-knob record favouring 12.0, NOT the new
+#               sweep, which splits: 12.0 wins marginal median final (+1.9%) and median sharpe
+#               (0.900 vs 0.860) but LOSES final at the live config ($259,707 vs $303,642). Every
+#               gap is inside the unmeasurable band. This buys sharpe and pays in final.
 #   2026-09-01  DEFECT RE-FREEZE + strategy sync. min_trade_size 0.20 -> 0.0 is a BUG FIX, not a
 #               preference: as a post-filter it renormalized survivors and silently undid
 #               concentration_cap, so this candidate has had NO EFFECTIVE CAP since it was frozen.
@@ -223,7 +229,7 @@ min_trade_size: 0.0               # OFF. 0.20 -> 0.0, SYNCED to .backtest 2026-0
                                   #   every asset, so it cannot express "hold nothing OR hold >= x" -- it either
                                   #   goes infeasible or forces names to be held at exactly the floor. At 0 the
                                   #   cap is a plain box bound and one QP solves it exactly.
-risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.  # 12.0 -> 8.0, SYNCED to .backtest 2026-09-01
+risk_aversion: 12.0               # λ in mean-variance. Higher = spreads wider, chases returns less.  # 8.0 -> 12.0, SYNCED to .backtest 2026-09-01 (SECOND re-freeze today)
 optimizer_lookback_days: 30       # days of price history behind μ and Σ.  # 21 -> 30, SYNCED to .backtest 2026-08-30
 rebalance_period: monthly        # weekly | biweekly | monthly | quarterly. The trading cadence.
                                   # WEEKLY 2026-08-25: monthly puts ZERO scan anchors after the handoff while the

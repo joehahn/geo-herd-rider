@@ -431,9 +431,23 @@ min_trade_size: 0.0              # OFF as of 2026-09-01. Was 0.2, where it was n
                                   #   Kept as a knob, not deleted: curator._cap_floor_weights now applies it
                                   #   as a box LOWER bound alongside the cap, so turning it back on can no
                                   #   longer resurrect the renormalisation bug.
-risk_aversion: 8.0                # λ in mean-variance. Higher = spreads wider, chases returns less.
-                                  #   UNCHANGED 2026-08-31, and now independently confirmed: 8.0
-                                  #   carries most of the 8 best cross-curation configs.
+risk_aversion: 12.0               # λ in mean-variance. Higher = spreads wider, chases returns less.
+                                  #   8.0 -> 12.0 on 2026-09-01, restoring the value the TEN-curation
+                                  #   record below already favoured. Measured on the first sweep priced
+                                  #   under box-bound sizing (5,040 cells), the case is SPLIT and every
+                                  #   gap is inside the unmeasurable band:
+                                  #     marginal median over 840 cells : 12.0 $120,313 vs 8.0 $118,090 (+1.9%)
+                                  #     marginal median sharpe         : 12.0 0.900   vs 8.0 0.860
+                                  #     AT the live config             : 12.0 $259,707 vs 8.0 $303,642 (-14%)
+                                  #     sharpe at the live config      : 12.0 1.420   vs 8.0 1.410 (a tie)
+                                  #   So this BUYS SHARPE AND PAYS IN FINAL, and the Sharpe gain is close to
+                                  #   tautological -- lambda IS the variance penalty, so median sharpe rises
+                                  #   monotonically to 24 across the whole grid. The honest reason to prefer
+                                  #   12.0 is the ten-curation record, not this sweep.
+                                  #   The 2026-08-30 move to 8.0 rested on SBT table 10 over sweep_v26, which
+                                  #   was computed while min_trade_size renormalized concentration_cap away.
+                                  #   PRIOR NOTE, now void: '8.0 carries most of the 8 best cross-curation
+                                  #   configs' -- same contaminated sweeps.
                                   #   12.0 -> 8.0 on 2026-08-30, PAIRED with drop_unfunded_weeks 4 -> 2 as
                                   #   the top row of SBT table 10 on sweep_v26. See that knob.
                                   #   RECORDED AGAINST IT, one knob varied over TEN curations at the live
