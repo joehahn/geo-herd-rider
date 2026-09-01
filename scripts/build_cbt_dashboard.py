@@ -881,6 +881,7 @@ def main(argv=None) -> int:
                         _src[t] -= _m
                         _dst[t] -= _m
             _rd = sum(v for v in _dst.values() if v > 0)
+            _fed = set()                               # destinations that received an inbound link
             for st, sv in _src.items():                # 2. split the residual proportionally
                 if sv <= 0 or _rd <= 0:
                     continue
@@ -892,6 +893,34 @@ def main(argv=None) -> int:
                         _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
                                           "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
                                           "v": round(_f)})
+                        _fed.add(dt)
+            # 3. ORPHAN REPAIR. The 0.5% threshold above exists to stop hairline links, but for a
+            # SMALL new position every inbound share falls under it and the node ends up with no
+            # incoming link at all. Plotly then places it in the LEFTMOST layer -- so MARA, MNPR and
+            # MU (all under $1.8k) were drawn beside the starter_watchlist with flows streaking
+            # across the whole diagram. Re-run the split for those destinations with no threshold:
+            # thin links, but the topology is right and the column is right.
+            for dt, dv in _dst.items():
+                if dv <= 0 or dt in _fed or _rd <= 0:
+                    continue
+                for st, sv in _src.items():
+                    _f = sv * (dv / _rd)
+                    if sv > 0 and _f > 0:
+                        _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
+                                          "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
+                                          "v": max(1, round(_f))})
+        # EXPLICIT y AS WELL AS x. Plotly treats node.x as a HINT under arrangement:'snap' and
+        # will override it, which is why pinning x alone did not stop mid-book entries being drawn
+        # beside the starter_watchlist. With both coordinates and arrangement:'fixed' a node can
+        # only ever render in its own rebalance column. y is the rank within the column, largest
+        # position at the top, evenly spaced -- legibility, not magnitude (thickness carries that).
+        _bycol = {}
+        for _n in _fl_nodes:
+            _bycol.setdefault(_n["c"], []).append(_n)
+        for _c, _ns in _bycol.items():
+            _ns.sort(key=lambda z: -z["usd"])
+            for _r, _n in enumerate(_ns):
+                _n["y"] = round((_r + 0.5) / len(_ns), 5)
         _flow = {"nodes": _fl_nodes, "links": _fl_links, "cols": len(_rbf)}
         book.update({
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
@@ -2022,7 +2051,7 @@ def main(argv=None) -> int:
                 "fractional gain or loss over the period it was held</b> &mdash; green up, red down, grey flat or unmeasured. The ticker-to-ticker attribution is a proportional model, not a trace: the "
                 "book sells into a pool and buys out of it, so nothing records which dollar went "
                 "where. Hover any band for the name, date and amount.",
-                "c-flow", 1120),
+                "c-flow", 560),
         panel_rec("Thesis concentration",
                 "How much of the whole portfolio is riding on one event. Anchors are not a bet, so a "
                 "day parked in SPY/BIL reads 0%; the dashed line is the per-ticker cap, for scale.",
@@ -3055,8 +3084,13 @@ function draw() {{
       }}
       Plotly.react('c-flow', [{{
         type:'sankey', orientation:'h',
-        arrangement:'snap',
+        arrangement:'fixed',
         node:{{ pad:6, thickness:9, label:F.nodes.map(n => n.t),
+               // PIN THE COLUMNS. Without explicit x Plotly lays the graph out itself and puts any
+               // node lacking an inbound link in the LEFTMOST layer, which is how mid-book entries
+               // ended up sitting beside the starter_watchlist. n.c is the rebalance index.
+               x:F.nodes.map(n => 0.001 + 0.998 * n.c / Math.max(1, F.cols - 1)),
+               y:F.nodes.map(n => 0.001 + 0.998 * n.y),
                color:F.nodes.map(n => hue(n.r)),
                line:{{width:0}},
                customdata:F.nodes.map(n => [n.d, n.usd, n.r === null || n.r === undefined ? 'n/a'
@@ -3067,7 +3101,7 @@ function draw() {{
                value:F.links.map(l => l.v),
                color:F.links.map(l => 'rgba(150,150,150,0.22)'),
                hovertemplate:'%{{source.label}} &rarr; %{{target.label}}<br>$%{{value:,.0f}}<extra></extra>' }}
-      }}], base(p, {{margin:{{l:8, r:8, t:24, b:26}}, width:5200, height:1080}}),
+      }}], base(p, {{margin:{{l:8, r:8, t:24, b:26}}, width:5200, height:540}}),
          {{displayModeBar:false, responsive:false}});
     }} }} catch (e) {{ console.error('c-flow panel failed:', e); }}
 

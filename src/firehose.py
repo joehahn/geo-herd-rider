@@ -486,7 +486,10 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
     for t in (seed or []):
         holding[t] = True; dead[t] = 0; stale[t] = 0
     for a in anchors:
-        # catalyst_resolved is DELIBERATELY IGNORED (2026-08-12). Replaying the 3-year v10 book with
+        # catalyst_resolved is DELIBERATELY IGNORED **AS AN EXIT TRIGGER** (2026-08-12). That is the
+        # only question the numbers below tested, and the qualifier was missing until 2026-09-01: as
+        # an ENTRY BLOCK the same flag is NOT inert -- see the funding gate in backtest(), where it
+        # is the only thing separating 6 bad entries from 40. Replaying the 3-year v10 book with
         # the flag honoured vs ignored gave $763,866 / 31.8% cancelled / Sharpe 1.67 against
         # $764,075 / 31.3% / 1.70 -- i.e. it changes nothing, or marginally hurts. It fired on 7% of
         # entries and three separate attempts to make it fire more never moved the book, because the
@@ -787,6 +790,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
 
     # rebalance trading day for each anchor (anchor close + T_UPDATE_DAYS), and that week's weights
     reb, week_w = [], {}
+    _prev_w: dict = {}   # last rebalance's weights; the resolved-entry gate blocks only NEW buys
     first_k, meta = {}, {}                      # PICKER context (built only when picker set): first-week seen + event metadata
     # UNFUNDED PRUNE. A name the optimizer refuses to fund for `drop_unfunded_weeks` CONSECUTIVE weeks
     # leaves the watchlist. Persistence is what makes this work: a single week's mean-variance weights
@@ -876,6 +880,42 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     print(f"  {days[i].date()}: refusing {_ds} -- listed <{_eyrs:g}y with a reverse "
                           f"split <=1-for-{1/_erat:g} (death-spiral financing)", flush=True)
                     uni = [t for t in uni if t not in _ds]
+            # RESOLVED CATALYSTS MAY KEEP A POSITION BUT MAY NOT OPEN ONE (2026-09-01).
+            # exit_patience_scans is a rule about not churning OUT of a name on a one-week flip.
+            # `holding` doubles as the BUY universe, so that patience window was silently also
+            # licensing BRAND-NEW positions on a thesis the curator had declared finished --
+            # which contradicts non-negotiable #2 outright.
+            # 6 such entries in 3 years on the canonical curation, EVERY one flagged
+            # catalyst_resolved, at 40.0% (CME), 37.5% (WMT), 17.5% (MMSI) and 14.7% (RKLB) of the
+            # book. Median 30d -2.9% against +3.2% across all 187 entries.
+            # NARROW ON PURPOSE. Gating on thesis_live instead -- the whole exit-patience window,
+            # a median of 15 names a scan -- LOSES: $230,414 vs $259,707 (0.887x), because names
+            # flip not-live and back and the wide gate locks out ordinary holdings (GLD, SLV, TSM).
+            # catalyst_resolved is the sharp signal; the dead counter is not.
+            # THE NUMBER IS NOT THE ARGUMENT: gating gives 1.141x here, 1.119x on mb1 and 0.972x
+            # on bw21 -- all inside the unmeasurable band (CLAUDE.md #6). The MECHANISM is.
+            # This also narrows the 2026-08-12 finding at _watchlist: catalyst_resolved is inert
+            # as an EXIT trigger, which is what was tested there. It is not inert as an ENTRY block.
+            # `_prev_w` is tracked EXPLICITLY rather than read as week_w[k-1]. Both give identical
+            # books here; this form just cannot be got wrong if the scan/rebalance indices ever
+            # diverge. VERIFIED AGAINST A CONTROL (gate inert vs live, same journal): of 12 held
+            # names that leave the universe on a resolved scan, ELEVEN also leave with the gate
+            # OFF -- they are the watchlist clock and the cull, not this. Exactly one is
+            # attributable here (HOOD 2025-03-05, held at 1.6%), where a held name was refused a
+            # top-up. Do not re-derive this from the raw counts; run the control.
+            # ALL of a ticker's catalysts must be finished, not ANY of them. A ticker can carry
+            # several events at one scan: RKLB on 2026-06-26 held "GCT expands 5G satellite
+            # connectivity" (live) alongside "NASA awards launch contract" (resolved). Blocking on
+            # ANY resolved row refuses a name that still has a live catalyst -- 24 of the 239
+            # resolved (scan, ticker) pairs on the canonical journal, 10%, where the OLD code was
+            # right and a naive gate is wrong.
+            _live_now = {p["ticker"] for p in scans[a] if _live(p)}
+            _res = {p["ticker"] for p in scans[a] if p.get("catalyst_resolved")} - _live_now
+            if _res:
+                _blk = [t for t in uni
+                        if t in _res and t not in always and _prev_w.get(t, 0.0) <= 1e-9]
+                if _blk:
+                    uni = [t for t in uni if t not in _blk]
             watch[a] = ev
             if seed_holdings and k == 0:
                 # THE FIRST REBALANCE IS THE HANDOVER, not an optimisation. A continuation book opens
@@ -904,6 +944,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     print(f"  {days[i].date()}: optimizer returned nothing -- parking in anchors "
                           f"{_anc}", file=sys.stderr)
             week_w[k] = w
+            _prev_w = dict(w)        # feeds the resolved-entry gate at the NEXT scan
             if drop_unfunded > 0:               # an event unfunded (optimizer weight ~0) for N straight weeks is culled
                 funded = {t for t in w if w.get(t, 0) > 0.01}
                 for t in live_ev:

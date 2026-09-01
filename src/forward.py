@@ -58,7 +58,12 @@ MODEL = "claude-opus-4-8"
 
 # `conviction` was dropped from this schema 2026-08-14 (measured ~random, read by nothing). Rows written
 # before that date still carry the column; _read tolerates it, so the historical log stays loadable.
-COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "evidence_urls"]
+# catalyst_resolved ADDED 2026-09-01. agent.py has always REQUIRED the field (see its schema),
+# and forward.py was discarding it every week -- so the entry gate in firehose.backtest() would
+# have been INERT live while working in the backtest. Forward weeks before this date have no
+# value recorded and cannot be re-evaluated with the gate.
+COLS = ["decision_ts", "week", "ticker", "thesis", "thesis_live", "catalyst_resolved",
+        "evidence_urls"]
 
 
 def _freeze_text(url: str, cutoff: str) -> tuple[str, str]:
@@ -96,7 +101,8 @@ def _write_archive(week: str, decision_ts: str, model: str, capture: dict,
            "queries": capture.get("queries", []),
            "pool": pool,                                   # the FROZEN articles the scout actually read (replay corpus)
            "raw_results": capture.get("results", []),      # every gather hit (metadata + in_window flag), no re-fetch
-           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "evidence_urls")} for p in picks]}
+           "picks": [{k: p.get(k) for k in ("ticker", "thesis", "thesis_live", "catalyst_resolved",
+                                            "evidence_urls")} for p in picks]}
     ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
     out = ARCHIVE_DIR / f"{week}.json"
     out.write_text(json.dumps(rec, indent=2, default=str))
@@ -191,9 +197,10 @@ def scan_and_log(model: str, rebalance_days: int, curator_memory_weeks: int = 8,
     _write_archive(wk_key, decision_ts, model, capture, picks, anchor.date().isoformat())
     if not picks:
         print(f"  week {wk_key}: no live gems this week (journal holds nothing).")
-        picks = [{"ticker": "", "thesis": "", "thesis_live": ""}]   # empty marker row
+        picks = [{"ticker": "", "thesis": "", "thesis_live": "", "catalyst_resolved": ""}]   # empty marker row
     rows = [{"decision_ts": decision_ts, "week": wk_key, "ticker": p.get("ticker", ""),
              "thesis": p.get("thesis", ""), "thesis_live": p.get("thesis_live", ""),
+             "catalyst_resolved": p.get("catalyst_resolved", ""),
              "milestones": p.get("milestones", ""), "exit_advice": p.get("exit_advice", ""),  # picker evidence
              "evidence_urls": ";".join(p.get("evidence_urls", []) or [])} for p in picks]
     out = pd.concat([log, pd.DataFrame(rows)], ignore_index=True)
@@ -218,7 +225,9 @@ def _scans_dict(log: pd.DataFrame) -> dict:
             picks.append({"ticker": str(r["ticker"]).strip().upper(),
                           "thesis": r.get("thesis", ""),
                           "milestones": _cell("milestones"), "exit_advice": _cell("exit_advice"),  # picker evidence
-                          "thesis_live": str(tl) in ("True", "true", "1", "1.0", "True ")})
+                          "thesis_live": str(tl) in ("True", "true", "1", "1.0", "True "),
+                          "catalyst_resolved": str(r.get("catalyst_resolved")).strip()
+                                               in ("True", "true", "1", "1.0")})
         out[anchor] = picks
     return dict(sorted(out.items()))
 

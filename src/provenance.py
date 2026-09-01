@@ -137,7 +137,17 @@ CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate_box.json"   # 2026-09-01, over the promoted v25 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate_gate2.json"   # 2026-09-01c, over the promoted v25 curation.
+                                      # _gate2: the resolved-entry gate NARROWED to fire only when ALL of
+                                      # a ticker's catalysts are resolved. _gate blocked on ANY resolved
+                                      # row, which refused names that still had a live catalyst -- 24 of
+                                      # 239 resolved (scan, ticker) pairs, 10%. _gate and _box are kept on
+                                      # disk: same 5,040-cell grid, so all three are comparable.
+                                      # _gate: adds the RESOLVED-ENTRY gate (firehose.backtest -- a name
+                                      # whose catalyst the curator flagged resolved may KEEP a position
+                                      # but may not OPEN one). Supersedes _box, kept on disk as the only
+                                      # record of the book WITHOUT the gate. Same 5,040-cell grid, so the
+                                      # two are directly comparable cell-for-cell.
                                       # _box: the FIRST sweep priced under box-bound sizing. The
                                       # predecessor (sweep_cbt_3yr_v25_vehgate.json, 2026-08-31) is kept
                                       # but is NOT comparable to this one -- it was computed while

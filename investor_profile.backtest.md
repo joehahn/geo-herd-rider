@@ -320,8 +320,28 @@ drop_unfunded_weeks: 0            # scans a name can go unfunded before it is dr
                                   #   further move: shifting two knobs moves the whole neighbourhood the
                                   #   table is computed over.
 unfunded_reentry_on_new_catalyst: true   # lets a dropped name back in, but ONLY when the press names it under a DIFFERENT thesis.
-concentration_cap: 0.4             # most of the book any one ticker may take.
-                                  #   0.6 -> 0.4 on 2026-08-31, and this knob is the LEAST load-bearing
+concentration_cap: 0.25            # most of the book any one ticker may take.
+                                  #   0.4 -> 0.25 on 2026-09-01, from the FIRST sweep priced under
+                                  #   box-bound sizing with the cap actually binding (5,040 cells).
+                                  #   It is the ONLY knob where all three signals agree in direction:
+                                  #     region median (live cell + 24 one-knob neighbours) 1.037x
+                                  #     marginal median over 720 cells   $107k -> $111k
+                                  #     region median sharpe             1.470 -> 1.480
+                                  #   NOT A RESULT, A DIRECTION: +3.7% is inside the unmeasurable band
+                                  #   (CLAUDE.md #6), and it is ONE curation. Hold it lightly until the
+                                  #   13-curation sweep confirms.
+                                  #   DELIBERATELY NOT 0.15, which is the best MARGINAL value ($124k)
+                                  #   and the new bottom edge -- the same "as far as the grid goes"
+                                  #   pattern this file has misread three times. The region disagrees
+                                  #   with the marginal there (0.15 scores BELOW the live config), so
+                                  #   the axis is not asking to be extended again.
+                                  #   NOT TAKEN, though it showed the largest region gain: max_watchlist
+                                  #   20 -> 24 at 1.309x. The marginal says the opposite (6 and 8 best at
+                                  #   $123k, 24 at $114k). Region and marginal contradicting that hard is
+                                  #   interaction, not a main effect -- main effects are only 39-55% of
+                                  #   the variance here -- and single-sweep fitting on this file has
+                                  #   failed before.
+                                  #   PRIOR NOTE, now superseded: 0.6 -> 0.4 on 2026-08-31, "the LEAST load-bearing
                                   #   of the six: at max_watchlist 20 every value from 0.25 to 1.0
                                   #   scores 90-92 mean percentile across the 13 curations. 0.4 is the
                                   #   top cell by a margin far inside its own SE (92.3 +/- 3.4 against

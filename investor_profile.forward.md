@@ -8,6 +8,13 @@
 #     before/after as DIFFERENT SEGMENTS. Do NOT tune to backtest signal (CLAUDE.md #5/#6).
 #
 # Re-freeze log (dated discontinuities):
+#   2026-09-01c THIRD re-freeze today. concentration_cap 0.4 -> 0.25, synced from .backtest.
+#               Basis: the first sweep priced with the cap actually binding (min_trade_size off,
+#               box-bound sizing, resolved-entry gate). Only knob where region median (1.037x),
+#               marginal median ($107k->$111k) and sharpe (1.470->1.480) all point the same way.
+#               +3.7% is INSIDE the unmeasurable band and comes from ONE curation. Taken because
+#               the direction is consistent, not because the number is significant. The
+#               13-curation sweep may reverse it.
 #   2026-09-01b SECOND re-freeze today. risk_aversion 8.0 -> 12.0, synced with .backtest so the
 #               strategy knobs stay aligned (CLAUDE.md requires it, or the backtest stops being a
 #               valid proxy). Basis is the TEN-curation one-knob record favouring 12.0, NOT the new
@@ -198,7 +205,13 @@ exclude_young_reverse_split: [3, 0.1]   # [max years listed, worst reverse-split
                                   # backtest-validated: across 843 funded positions in 12 curations it flags
                                   # exactly one (WOK, the case that generated it). It FAILS OPEN when corporate
                                   # actions are unavailable, so it is incomplete by design.
-concentration_cap: 0.4             # most of the book any one ticker may take.
+concentration_cap: 0.25            # most of the book any one ticker may take.
+                                  # 0.4 -> 0.25, SYNCED to .backtest 2026-09-01 (THIRD re-freeze today).
+                                  # The only knob where region median, marginal median and sharpe all
+                                  # agree in direction on the first sweep with the cap actually binding.
+                                  # +3.7%, INSIDE the noise band, from ONE curation -- a direction, not
+                                  # a result. See .backtest for why 0.15 and max_watchlist 24 were not
+                                  # taken.
                                   # 0.6 -> 0.4, SYNCED to .backtest 2026-09-01. NOTE: every prior
                                   # justification for this knob below was measured while min_trade_size
                                   # was renormalizing the cap away, i.e. while the cap did not bind.
