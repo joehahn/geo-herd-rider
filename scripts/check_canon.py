@@ -129,10 +129,8 @@ def main(argv=None) -> int:
     # CODE DRIFT. curator_code_id() has stamped the scan-path digest on every run for weeks and
     # nothing compared it, so this file printed ALL CONSISTENT while both live curations had drifted
     # underneath it. Knobs are only half of "could this curation have been produced today".
-    # data/cbs_v9 is named here because build_cbt_dashboard.py hard-codes it too; both should move
-    # to a CANON_BOOTSTRAP_RUN constant.
     print("\nCURATION CODE DRIFT")
-    for _run in (P.CANON_RUN, "data/cbs_v9"):
+    for _run in (P.CANON_RUN, P.CANON_BOOTSTRAP_RUN):
         if not (ROOT / _run).exists():
             continue
         _d = P.code_drift(_run)

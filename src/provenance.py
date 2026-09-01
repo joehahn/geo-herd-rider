@@ -137,6 +137,19 @@ CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
+CANON_BOOTSTRAP_RUN = "data/cbs_v10"   # the curation behind docs/cbs.html.
+                                      # ADDED 2026-09-01. It was hard-coded as "data/cbs_v9" in
+                                      # build_cbt_dashboard.py AND check_canon.py -- the second time
+                                      # this file's own rule ("do NOT hard-code a run or corpus path
+                                      # in a builder again") was broken, and it meant promoting a new
+                                      # bootstrap curation took edits in two unrelated scripts.
+                                      # v9 -> v10 on 2026-09-01: v9 was curated 2026-08-28 under
+                                      # agent.py 832e6b02bc72 / org_tagger.py 77114340e28b, both of
+                                      # which have since moved. org_tagger decides which companies an
+                                      # article is ABOUT, so that drift changes what the scout sees --
+                                      # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
+                                      # (cbt_3yr_v21_evscans12) so code is the only variable; that it
+                                      # is not CANON_RUN is a separate open question.
 CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate_gate2.json"   # 2026-09-01c, over the promoted v25 curation.
                                       # _gate2: the resolved-entry gate NARROWED to fire only when ALL of
                                       # a ticker's catalysts are resolved. _gate blocked on ANY resolved

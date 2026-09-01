@@ -132,7 +132,7 @@ def main(argv=None) -> int:
             #       min_bundle_articles reaching the live path, and concentration_cap 0.25 -> 0.6.
             #       Five reasons for any v5/v6 difference, so read the MECHANISM counts (panel 24's
             #       provenance bands, the seeded-event retirements), never the book value.
-            a.run = "data/cbs_v9"
+            a.run = _canon.CANON_BOOTSTRAP_RUN
         a.out = a.out or "docs/cbs.html"
     a.out = a.out or "docs/cbt.html"
     run, corpus = ROOT / a.run, ROOT / a.corpus
