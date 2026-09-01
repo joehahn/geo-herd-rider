@@ -844,11 +844,12 @@ def main(argv=None) -> int:
                     if i < len(_alloc[t]) and _alloc[t][i] > 1e-9}
         # --- sankey flows (see the "flow" note in the payload) ---
         _fl_nodes, _fl_links, _fl_idx = [], [], {}
-        def _node(_col, _tk, _usd, _date, _ret=None):
-            _k = (_col, _tk)
+        def _node(_col, _tk, _usd, _date, _ret=None, _pool=False):
+            _k = ("~pool", _col) if _pool else (_col, _tk)
             if _k not in _fl_idx:
                 _fl_idx[_k] = len(_fl_nodes)
                 _fl_nodes.append({"t": _tk, "c": _col, "d": _date, "usd": round(_usd),
+                                  "p": 1 if _pool else 0,
                                   # fractional return over the period this position was HELD --
                                   # what colours the band. None for the final column, which has no
                                   # following rebalance to measure against.
@@ -880,47 +881,28 @@ def main(argv=None) -> int:
                                           "v": round(_m)})
                         _src[t] -= _m
                         _dst[t] -= _m
-            _rd = sum(v for v in _dst.values() if v > 0)
-            _fed = set()                               # destinations that received an inbound link
-            for st, sv in _src.items():                # 2. split the residual proportionally
-                if sv <= 0 or _rd <= 0:
-                    continue
-                for dt, dv in _dst.items():
-                    if dv <= 0:
-                        continue
-                    _f = sv * (dv / _rd)
-                    if _f > 0.005 * _mv_val[_j]:
-                        _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
-                                          "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
-                                          "v": round(_f)})
-                        _fed.add(dt)
-            # 3. ORPHAN REPAIR. The 0.5% threshold above exists to stop hairline links, but for a
-            # SMALL new position every inbound share falls under it and the node ends up with no
-            # incoming link at all. Plotly then places it in the LEFTMOST layer -- so MARA, MNPR and
-            # MU (all under $1.8k) were drawn beside the starter_watchlist with flows streaking
-            # across the whole diagram. Re-run the split for those destinations with no threshold:
-            # thin links, but the topology is right and the column is right.
-            for dt, dv in _dst.items():
-                if dv <= 0 or dt in _fed or _rd <= 0:
-                    continue
-                for st, sv in _src.items():
-                    _f = sv * (dv / _rd)
-                    if sv > 0 and _f > 0:
-                        _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
-                                          "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
-                                          "v": max(1, round(_f))})
-        # EXPLICIT y AS WELL AS x. Plotly treats node.x as a HINT under arrangement:'snap' and
-        # will override it, which is why pinning x alone did not stop mid-book entries being drawn
-        # beside the starter_watchlist. With both coordinates and arrangement:'fixed' a node can
-        # only ever render in its own rebalance column. y is the rank within the column, largest
-        # position at the top, evenly spaced -- legibility, not magnitude (thickness carries that).
-        _bycol = {}
-        for _n in _fl_nodes:
-            _bycol.setdefault(_n["c"], []).append(_n)
-        for _c, _ns in _bycol.items():
-            _ns.sort(key=lambda z: -z["usd"])
-            for _r, _n in enumerate(_ns):
-                _n["y"] = round((_r + 0.5) / len(_ns), 5)
+            # 2. THE RESIDUAL GOES THROUGH A POOL, not straight from an exiting name to an
+            # entering one. NOTHING IN THE DATA SAYS WHOSE DOLLARS BECAME WHOSE: at a rebalance the
+            # book is liquidated into one pot and the optimizer allocates out of it. The proportional
+            # split this replaces INVENTED that pairing -- 1,163 of 1,228 links (95%) and 76% of the
+            # flow were an assumption drawn as fact, and at 6-8 names a side it fabricated up to 64
+            # lines per rebalance, which is the unreadable braid in the late columns.
+            # exits -> pool -> entries is ~16 lines and claims only what is known. CONTINUATIONS
+            # (step 1) bypass the pool entirely, because a name held through a rebalance really did
+            # continue -- that is the one attribution the data supports.
+            # It also retires the orphan-repair hack: every new position now has an inbound link by
+            # construction, so no node can be stranded with none and land in Plotly's layer 0.
+            _out = {t_: v for t_, v in _src.items() if v > 0}
+            _in = {t_: v for t_, v in _dst.items() if v > 0}
+            if _out and _in:
+                _pk = _node(_k, "", sum(_out.values()), _mv_dates[_j], None, _pool=True)
+                for st, sv in _out.items():
+                    _fl_links.append({"s": _node(_k, st, _held.get(st, 0), _mv_dates[_i], _pret.get(st)),
+                                      "t": _pk, "v": max(1, round(sv))})
+                for dt, dv in _in.items():
+                    _fl_links.append({"s": _pk,
+                                      "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
+                                      "v": max(1, round(dv))})
         _flow = {"nodes": _fl_nodes, "links": _fl_links, "cols": len(_rbf)}
         book.update({
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
@@ -3084,19 +3066,25 @@ function draw() {{
       }}
       Plotly.react('c-flow', [{{
         type:'sankey', orientation:'h',
-        arrangement:'fixed',
+        arrangement:'snap',
         node:{{ pad:6, thickness:9, label:F.nodes.map(n => n.t),
-               // PIN THE COLUMNS. Without explicit x Plotly lays the graph out itself and puts any
-               // node lacking an inbound link in the LEFTMOST layer, which is how mid-book entries
-               // ended up sitting beside the starter_watchlist. n.c is the rebalance index.
-               x:F.nodes.map(n => 0.001 + 0.998 * n.c / Math.max(1, F.cols - 1)),
-               y:F.nodes.map(n => 0.001 + 0.998 * n.y),
+               // NO PINNED x/y ON PURPOSE. Plotly derives the layer from the LINK TOPOLOGY, and
+               // every link here spans exactly one rebalance, so columns come out right on their
+               // own -- PROVIDED no node is orphaned (a node with no inbound link is assigned
+               // layer 0, which is what put mid-book entries beside the starter_watchlist; the
+               // orphan repair in the payload fixes that at the source).
+               // Letting Plotly size the vertical axis is the POINT: each column's stack is scaled
+               // by the value flowing through it, so the book starts short at the left and fills
+               // the height as it grows. Pinning y to evenly-spaced ranks destroyed that.
                color:F.nodes.map(n => hue(n.r)),
                line:{{width:0}},
-               customdata:F.nodes.map(n => [n.d, n.usd, n.r === null || n.r === undefined ? 'n/a'
-                                            : (n.r > 0 ? '+' : '') + n.r + '%']),
+               customdata:F.nodes.map(n => [n.d, n.usd, n.p ? 'redeployed at this rebalance'
+                                            : (n.r === null || n.r === undefined ? 'n/a'
+                                               : (n.r > 0 ? '+' : '') + n.r + '%')]),
                hovertemplate:'<b>%{{label}}</b> %{{customdata[0]}}<br>$%{{customdata[1]:,.0f}} held'
                              + '<br>return this period %{{customdata[2]}}<extra></extra>' }},
+        // pool nodes carry p:1, no label, and a hover saying what they represent
+        
         link:{{ source:F.links.map(l => l.s), target:F.links.map(l => l.t),
                value:F.links.map(l => l.v),
                color:F.links.map(l => 'rgba(150,150,150,0.22)'),
