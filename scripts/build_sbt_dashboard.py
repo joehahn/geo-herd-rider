@@ -199,6 +199,18 @@ def main(argv=None) -> int:
         _want = {k: _fm.get(k) for k in _LIVE}
         _hit = [x for x in _c
                 if all(abs(float(x[k]) - float(_want[k])) < 1e-9 for k in _LIVE if _want[k] is not None)]
+        # ARM SWEEPS PREDATING 2026-09-01 still carry min_trade_size in their cells. Dropping it
+        # from _LIVE_KEYS left FOUR cells matching the live config in those sweeps (one per old
+        # min_trade_size level) and _hit[0] silently took whichever came first. It happens to be
+        # 0.0 -- the live value, and the one setting where the old renormalizing post-filter
+        # provably reduces to today's single capped solve -- so the arms read correctly BY LUCK,
+        # not by construction: 0.0 sorts first only because min_trade_size was the LAST key in the
+        # old GRID. Pin it explicitly, so a stale arm shows nothing rather than a book sized under
+        # a rule this page no longer describes.
+        _mts = float(_fm.get("min_trade_size", 0.0))
+        if any("min_trade_size" in x for x in _hit):
+            _hit = [x for x in _hit
+                    if abs(float(x.get("min_trade_size", _mts)) - _mts) < 1e-9]
         if not _hit:
             continue
         _cell = _hit[0]
