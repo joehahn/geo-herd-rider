@@ -126,6 +126,40 @@ def main(argv=None) -> int:
         print(f"  {WARN} {len(v['unverifiable'])} knobs were never recorded by that run "
               f"and cannot be checked")
 
+    # CODE DRIFT. curator_code_id() has stamped the scan-path digest on every run for weeks and
+    # nothing compared it, so this file printed ALL CONSISTENT while both live curations had drifted
+    # underneath it. Knobs are only half of "could this curation have been produced today".
+    # data/cbs_v9 is named here because build_cbt_dashboard.py hard-codes it too; both should move
+    # to a CANON_BOOTSTRAP_RUN constant.
+    print("\nCURATION CODE DRIFT")
+    for _run in (P.CANON_RUN, "data/cbs_v9"):
+        if not (ROOT / _run).exists():
+            continue
+        _d = P.code_drift(_run)
+        if not _d:
+            print(f"  {WARN} {_run:26} no code digest stamped — cannot tell what produced it")
+            continue
+        _st = _d["files"]
+        if all(v[2] == "match" for v in _st.values()):
+            print(f"  {OK} {_run:26} scan-path code unchanged since curation")
+        else:
+            _crit = _d["critical"]
+            _mark = BAD if _crit else WARN
+            print(f"  {_mark} {_run:26} git {_d['git'][0]} -> {_d['git'][1]}")
+            for _f, (_was, _now, _state) in _st.items():
+                if _state == "match":
+                    continue
+                _tag = "accepted" if _state == "accepted" else "UNREVIEWED"
+                _why = _d["accepted"].get(_f, "")
+                print(f"      {_f:<20} {_was} -> {_now}  {_tag}")
+                if _why:
+                    print(f"          {_why[:96]}")
+            if _crit:
+                bad += 1
+                print(f"      {BAD} {', '.join(_crit)} is scan-path: this curation CANNOT be "
+                      f"reproduced by today's code. Re-curate, or record why it is still valid in "
+                      f"provenance.ACCEPTED_CODE_DRIFT.")
+
     print("\nPUBLISHED PAGES")
     for page, pat in (("docs/cbt.html", r"curation fingerprint</td><td>([0-9a-f]{12})"),
                       ("docs/fbt.html", r"<td>Corpus</td><td>([^<]*)"),

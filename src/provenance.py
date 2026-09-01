@@ -413,6 +413,65 @@ def curation_key(fm: dict, corpus: "str | Path | dict", arm: str = "fuller") -> 
     return key
 
 
+# --- CODE DRIFT: which scan-path files, and which drifts have been reviewed -------------------
+# curator_code_id() has stamped these hashes on every run since it was written, and NOTHING EVER
+# COMPARED THEM. On 2026-09-01 both live curations turned out to have drifted -- cbt_3yr_v25_vehgate
+# on agent.py + firehose.py, cbs_v9 on all three -- while check_canon printed ALL CONSISTENT,
+# because it only ever compared profile KNOBS. Caught by eye, late, which is the failure this whole
+# module exists to stop.
+#
+# CURATION_CRITICAL is the pure scan path: a change here alters what the scout and the agents SEE or
+# DECIDE, so the journal could not be reproduced. src/firehose.py is deliberately NOT in it -- that
+# file holds scan() AND backtest(), so its hash alone cannot say which half moved, and every gate
+# added recently (liquidity floor, death-spiral, resolved-entry) lives in the replay half.
+CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
+
+# Drift that has been LOOKED AT and accepted, per run, with the reason. Anything not listed here is
+# reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
+# entry has to say WHY the journal is still trustworthy under the new code.
+ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    "data/cbt_3yr_v25_vehgate": {
+        "src/agent.py":
+            "95a7a21 REVERTS the vehicle gate. This run curated at f9f0c47, where the gate was "
+            "present but fired 0 TIMES across 37 scans (the _prev baseline bug), so the journal is "
+            "what today's gate-free code would produce. Accepted 2026-09-01.",
+        "src/firehose.py":
+            "liquidity floor, death-spiral exclusion and the resolved-entry gate all act in "
+            "backtest() at the funding gate -- replay-side. scan() is untouched. Accepted 2026-09-01.",
+    },
+}
+
+
+def code_drift(run: str | Path) -> dict:
+    """Compare a run's stamped scan-path code digest against the working tree.
+
+    Returns {file: (stamped, now, state)} where state is one of match / accepted / DRIFTED, plus
+    `critical` listing unreviewed drift in CURATION_CRITICAL files. Missing stamp -> {}."""
+    run = str(run).rstrip("/")
+    pf = REPO_ROOT / run / "provenance.json"
+    if not pf.exists():
+        return {}
+    stamped = json.loads(pf.read_text()).get("code", {})
+    if not stamped:
+        return {}
+    now = curator_code_id()
+    ok = ACCEPTED_CODE_DRIFT.get(run, {})
+    out, critical = {}, []
+    for rel in sorted(k for k in stamped if k not in ("git", "dirty")):
+        was, isnow = stamped[rel], now.get(rel)
+        if was == isnow:
+            state = "match"
+        elif rel in ok:
+            state = "accepted"
+        else:
+            state = "DRIFTED"
+            if rel in CURATION_CRITICAL:
+                critical.append(rel)
+        out[rel] = (was, isnow, state)
+    return {"files": out, "critical": critical, "accepted": ok,
+            "git": (stamped.get("git"), now.get("git"))}
+
+
 def curator_code_id() -> dict:
     """A digest of the CURATOR CODE that produced a curation -- the prompts and the gates.
 
