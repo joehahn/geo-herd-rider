@@ -1056,7 +1056,9 @@ def main(argv=None) -> int:
                 # LOCATION wandered +6.0% -> +3.9% -> +2.6%, i.e. it was partly an artifact of where
                 # the edges fell, and at 9 bins (n=4) one month moved a bin by 11.3 points and the
                 # curve zigzagged. A sliding window has no edges, uses every point, and puts 25 points
-                # on the curve each resting on 11 periods -- MORE than the 7 a 5-bin split gives. Its
+                # on the curve each resting on 11 PERIODS of THIS run -- MORE than the 7 a 5-bin split
+                # gives. Every point on this panel comes from ONE curation; the cross-curation numbers
+                # quoted in the caption come from scripts/measure_watchmom_signal.py. Its
                 # peak sits at d = +3.9% to +4.1% for windows of 9, 11 and 13 alike.
                 #
                 # THE COST, stated on the page: adjacent points share 10 of 11 periods, so the curve
@@ -1078,7 +1080,7 @@ def main(argv=None) -> int:
                             "bins": _bins, "win": _win,
                             "xa": _mg_xa, "ya": _mg_ya, "e": _mg_e,
                             "lookback": int(_lfm0.get("optimizer_lookback_days") or 21)}
-                print(f"  slate-momentum scatter: {len(_mg_x)} curation periods", flush=True)
+                print(f"  slate-momentum scatter: {len(_mg_x)} rebalance periods", flush=True)
         except Exception as _e:  # noqa: BLE001
             print(f"  slate-momentum scatter skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
         book.update({
@@ -2163,13 +2165,14 @@ def main(argv=None) -> int:
               "for the days you want the spread rather than the centre.",
               "c-curdelta", 380),
         panel_rec("Future portfolio rewards versus watchlist\u2019s trailing returns",
-              "Each dot is one curation. <i>d</i> is the watchlist\u2019s mean fractional gain over the "
-              f"prior {int(_lfm0.get('optimizer_lookback_days') or 21)} days, with its standard error; "
+              "Each dot is one rebalance period. <i>d</i> is the watchlist\u2019s mean fractional gain over "
+              f"the {int(_lfm0.get('optimizer_lookback_days') or 21)} days before that rebalance, with its "
+              "standard error; "
               "the vertical axis is what the portfolio earned in the month that followed. The purple "
-              "line is the typical monthly gain in a sliding window of 11 curations, and it peaks "
+              "line is the typical monthly gain in a sliding window of 11 rebalance periods, and it peaks "
               "near <i>d</i> = +4%: cold watchlists lose money and very hot ones do no better. "
-              "Neighbouring points on that line share 10 of their 11 curations, so read it as a "
-              "trend, not as separate measurements.",
+              "Neighbouring points share 10 of their 11 periods, so read it as a trend; trading that "
+              "shape loses in 15 of 17 curations out of sample.",
               "c-momgain", 519, side=True, width=692),   # 692 wide, height 25% under that
         panel_rec("Watchlist composition over time",
               "One row per ticker. The pale bar is the span the curator kept it WATCHLISTED — it held "
@@ -2953,7 +2956,7 @@ function draw() {{
       const MG = BK.momgain;
       if (MG && MG.x.length >= 3 && document.getElementById('c-momgain')) {{
         const _mgTraces = [{{
-          type:'scatter', mode:'markers', name:'curation period', x:MG.x, y:MG.y,
+          type:'scatter', mode:'markers', name:'rebalance period', x:MG.x, y:MG.y,
           error_x:{{type:'data', array:MG.e, thickness:1.2, width:3, color:p.text2, opacity:0.55}},
           marker:{{size:9, color:MG.y.map(v => v < 0 ? ST.critical : ST.good),
                    line:{{width:1, color:p.surface}}, opacity:0.85}},
@@ -2968,7 +2971,7 @@ function draw() {{
         }}];
         if (MG.bins && MG.bins.length) {{
           _mgTraces.push({{
-            type:'scatter', mode:'lines', name:'typical month (sliding ' + MG.win + ' curations)',
+            type:'scatter', mode:'lines', name:'typical month (sliding ' + MG.win + ' periods)',
             x:MG.bins.map(b => b.x), y:MG.bins.map(b => b.g),
             line:{{color:'#7c3aed', width:2.5, shape:'spline', smoothing:0.6}},
             customdata:MG.bins.map(b => [b.lo, b.hi, b.n, b.w]),
@@ -2994,7 +2997,7 @@ function draw() {{
               font:{{size:10.5, color:p.text2}}, text:'book flat'}}],
           xaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:false,
                   title:{{text:'d — slate mean ' + MG.lookback
-                                + '-day fractional change ON the curation date', font:{{size:11}}}}}},
+                                + '-day fractional change at the rebalance', font:{{size:11}}}}}},
           yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:false,
                   title:{{text:'book fractional gain over the next month', font:{{size:11}}}}}}
         }}), CFG);
