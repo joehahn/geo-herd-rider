@@ -21,6 +21,7 @@ entry timing, T_UPDATE_DAYS), costs, and the investor_profile knobs. No causal l
 from __future__ import annotations
 
 import argparse
+import collections
 import json
 import os
 import sys
@@ -468,7 +469,8 @@ def watchlist_cap(fm: dict) -> int:
     return int((fm.get("max_agents", 0) if v is None else v) or 0)
 
 
-def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None = None) -> dict:
+def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None = None,
+                    drop_orphans: int = 0) -> dict:
     """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
@@ -483,6 +485,8 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
     exit_patience, max_stale = _watch_clocks(fm)
     anchors = list(scans)
     holding, dead, stale, out = {}, {}, {}, {}
+    admitted_under: dict = {}          # ticker -> the catalysts that have ever named it live
+    orphan_run: dict = {}              # ticker -> consecutive scans its events re-read without it
     for t in (seed or []):
         holding[t] = True; dead[t] = 0; stale[t] = 0
     for a in anchors:
@@ -498,10 +502,66 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
         resolved: set = set()
         live = {p["ticker"] for p in scans[a] if _live(p)} - resolved
         flagged_dead = {p["ticker"] for p in scans[a] if not _live(p)}
+        # ORPHANED VEHICLES -- a name the event that admitted it has STOPPED listing.
+        #
+        # The stale clock cannot tell two very different absences apart. "The catalyst went quiet
+        # this scan" is a coverage gap and is what stickiness exists to survive. "The catalyst was
+        # re-read this scan and this ticker is no longer one of its vehicles" is the agent dropping
+        # the name, and carrying it is carrying a thesis nobody holds any more.
+        #
+        # Measured on cbs_v11: 42 of 127 watchlist names (33%) at the final scan were in NO live
+        # event's current vehicle list. The type specimen is ev230, catalyst "Potential new
+        # treatments" -- a sector theme rather than a catalyst, whose vehicle list turns over almost
+        # completely each scan (Jaccard 0.27 across four entries) and which can never go quiet
+        # because some biotech always has news, so neither the silence cap nor the stale clock can
+        # ever fire. BDTX rode it: named in ONE entry (2026-05-27, admitted off a listicle about a
+        # DIFFERENT company), dropped from the vehicle list at the very next scan, never mentioned
+        # again -- and holding 31% of the book three months later.
+        #
+        # The distinction is computable from the scan rows alone: they reproduce each event's
+        # per-scan vehicle list exactly (verified against journal entries). So a ticker is orphaned
+        # when its own catalyst IS present this scan under some other ticker, and it is not.
+        # MEASURED AND REJECTED 2026-09-02. DEFAULT 0 = OFF, and it should stay off; the parameter
+        # survives only so scripts/measure_orphan_rule.py can re-test it on future curations.
+        # Paired replays over 17 curations -- same journal, same frozen panel, this one bit flipped:
+        #     K=1  median 0.93x, better in  4 of 17   (7.1% of watch-scans dropped)
+        #     K=2  median 0.95x, better in  2 of 17   (2.6%)
+        #     K=3  median 1.00x, better in  2 of 17   (1.5%)
+        # The premise was that a vehicle its own event stops listing is a REVOKED thesis. It is not:
+        # the vehicle list also churns with whichever names that week's articles happened to mention,
+        # so absence from one entry is coverage noise at the vehicle level -- the same thing
+        # exit_patience absorbs one level up, at the thesis level. Patience does not rescue it; K=3
+        # only reaches 1.00x by doing almost nothing, and still wins 2 of 17.
+        # The pathology that motivated it is REAL and still unfixed: BDTX held 31% of the 2026-08-25
+        # recommendation off ONE mention in ev230 ("Potential new treatments" -- a sector theme, not a
+        # catalyst, admitted from a listicle about a DIFFERENT company). But it is a catalyst-QUALITY
+        # problem at the scout, not a watchlist-membership problem here, and this rule pays 112 funded
+        # positions across 17 runs to catch it.
+        orphaned: set = set()
+        if drop_orphans:
+            here = collections.defaultdict(set)
+            for p in scans[a]:
+                here[str(p.get("thesis") or "").strip()].add(p["ticker"])
+            for t, cats in admitted_under.items():
+                if t in live or t in flagged_dead or t not in holding:
+                    continue
+                # every catalyst that ever named it was re-read this scan and dropped it
+                seen = [c for c in cats if c in here]
+                if seen and all(t not in here[c] for c in seen):
+                    orphan_run[t] = orphan_run.get(t, 0) + 1
+                    if orphan_run[t] >= drop_orphans:
+                        orphaned.add(t)
+                else:
+                    orphan_run.pop(t, None)
+        for p in scans[a]:
+            if _live(p):
+                admitted_under.setdefault(p["ticker"], set()).add(str(p.get("thesis") or "").strip())
         for t in resolved:                   # catalyst RESOLVED -> honor the agent's verdict, exit NOW
             holding.pop(t, None); dead.pop(t, None); stale.pop(t, None)
         for t in live:                       # (re)enter / refresh
             holding[t] = True; dead[t] = 0; stale[t] = 0
+        for t in orphaned:                   # the event was re-read and no longer names it
+            holding.pop(t, None); dead.pop(t, None); stale.pop(t, None)
         for t in list(holding):
             if t in live:
                 continue
