@@ -948,6 +948,139 @@ def main(argv=None) -> int:
                                       "t": _node(_k + 1, dt, _nxt.get(dt, 0), _mv_dates[_j]),
                                       "v": max(1, round(dv))})
         _flow = {"nodes": _fl_nodes, "links": _fl_links, "cols": len(_rbf)}
+        _watchmom = None
+        try:
+            import numpy as _np2
+            _lbk = int(_lfm0.get("optimizer_lookback_days") or 21)
+            _pidx = _panel.index
+            if getattr(_pidx, "tz", None) is not None:
+                _pidx = _pidx.tz_localize(None)
+            # for each bar, the row index of the last bar on/before (that day - lookback calendar days)
+            _prev = _pidx.searchsorted(_pidx - _pd.Timedelta(days=_lbk), side="right") - 1
+            _vals = _panel.to_numpy(dtype=float)
+            _ok = _prev >= 0
+            _dmat = _np2.full_like(_vals, _np2.nan)
+            _dmat[_ok] = _vals[_ok] / _vals[_prev[_ok]] - 1.0
+            _cols = list(_panel.columns)
+            _cix = {t: i for i, t in enumerate(_cols)}
+            _anch = sorted(_live_by_wk)
+            _md, _mm, _msd, _mse, _mn = [], [], [], [], []
+            for _i, _day in enumerate(_pidx):
+                _ds = str(_day.date())
+                _prior = [a for a in _anch if a <= _ds]
+                if not _prior:
+                    continue
+                _sel = [_cix[t] for t in _live_by_wk[_prior[-1]] if t in _cix]
+                if not _sel:
+                    continue
+                _row = _dmat[_i, _sel]
+                _row = _row[~_np2.isnan(_row)]
+                if len(_row) < 2:
+                    continue
+                _md.append(_ds); _mn.append(int(len(_row)))
+                _mm.append(round(100 * float(_row.mean()), 4))
+                _sd = float(_row.std(ddof=1))
+                _msd.append(round(100 * _sd, 4))
+                _mse.append(round(100 * _sd / (len(_row) ** 0.5), 4))
+            if _md:
+                _watchmom = {"d": _md, "mean": _mm, "sd": _msd, "se": _mse, "n": _mn,
+                             "lookback": _lbk}
+                print(f"  watchlist momentum: {len(_md)} days, lookback {_lbk}d, "
+                      f"median n={int(_np2.median(_mn))}", flush=True)
+        except Exception as _e:  # noqa: BLE001 -- a missing panel just drops the band
+            print(f"  watchlist momentum skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
+        _momgain = None
+        try:
+            _mg_x, _mg_y, _mg_a, _mg_n = [], [], [], []
+            _mg_xa, _mg_ya = [], []          # the same pair with the market taken out of BOTH
+            _mg_e = []                       # standard error of d
+            _dser = _d.get("dates") or []
+            _vser = [float(x) for x in (_d.get("value") or [])]
+            _sser = [float(x) for x in (_d.get("spy") or [])]
+
+            def _at(_seq, _day):                      # last value on/before `_day`
+                for _k in range(len(_dser) - 1, -1, -1):
+                    if _dser[_k] <= _day and _k < len(_seq):
+                        return _seq[_k]
+                return _seq[0] if _seq else None
+
+            _ancs = sorted(_live_by_wk)
+            for _k in range(len(_ancs) - 1):
+                _a0, _a1 = _ancs[_k], _ancs[_k + 1]
+                _i0 = _pidx.searchsorted(_pd.Timestamp(_a0), side="right") - 1
+                if _i0 < 0:
+                    continue
+                _sel = [_cix[t] for t in _live_by_wk[_a0] if t in _cix]
+                _row = _dmat[_i0, _sel] if _sel else _np2.array([])
+                _row = _row[~_np2.isnan(_row)]
+                _b0, _b1 = _at(_vser, _a0), _at(_vser, _a1)
+                _s0, _s1 = _at(_sser, _a0), _at(_sser, _a1)
+                if len(_row) < 5 or not (_b0 and _b1 and _s0 and _s1):
+                    continue
+                # BOTH AXES RAW, deliberately. A market move pushes the dots HORIZONTALLY too --
+                # the slate's trailing d contains the tape's own trailing move -- so subtracting SPY
+                # from y while leaving it in x compares two different things and tilts the cloud by
+                # construction. Raw-vs-raw is the internally consistent pair. The market-adjusted
+                # version (x - SPY's own d, y - SPY over the period) rides along in the hover and is
+                # what the caption quotes for the "is this just the tape" check.
+                _mg_x.append(round(100 * float(_row.mean()), 4))
+                # d is a MEAN over the slate, so it carries its own error -- sd/sqrt(n), the same
+                # quantity panel @@c-curdelta@@ bands. A dot without it reads as a point measurement
+                # and it is not one: n swings from 5 to 100+ names between curations.
+                _mg_e.append(round(100 * float(_row.std(ddof=1)) / (len(_row) ** 0.5), 4))
+                _mg_y.append(round(100 * (_b1 / _b0 - 1), 4))
+                _sd0 = _pidx.searchsorted(_pd.Timestamp(_a0) - _pd.Timedelta(days=_lbk),
+                                          side="right") - 1
+                _spy_d = ((float(_panel["SPY"].iloc[_i0]) / float(_panel["SPY"].iloc[_sd0]) - 1)
+                          if ("SPY" in _panel.columns and _sd0 >= 0
+                              and not _pd.isna(_panel["SPY"].iloc[_sd0])) else float("nan"))
+                _mg_xa.append(round(100 * (float(_row.mean()) - _spy_d), 4)
+                              if _spy_d == _spy_d else None)
+                _mg_ya.append(round(100 * ((_b1 / _b0 - 1) - (_s1 / _s0 - 1)), 4))
+                _mg_a.append(f"{_a0} \u2192 {_a1}")
+                _mg_n.append(int(len(_row)))
+            if len(_mg_x) >= 3:
+                # SLIDING WINDOW, not bins, and per-period GEOMETRIC MEAN, not cumulative.
+                #
+                # WHY NOT A LINE: the relationship is a HUMP. On this run d<0 gives -0.4%/period at a
+                # 36% win rate, the middle gives ~+10% at 71-100%, and d>=+7% falls back to +1.4% at
+                # 29% -- the worst win rate of the lot. A straight fit reads that as a mild upward
+                # tilt and throws the whole shape away. An interior peak recurs in 11 of 13 curations
+                # with >=12 periods, so it is not this book's accident.
+                #
+                # WHY NOT CUMULATIVE: cumulative gain falls as a slice narrows simply because fewer
+                # periods compound (35 periods 5.12x vs 10 periods 1.41x), which reads as "hot slates
+                # are bad" when it only means "fewer months". Per-period is comparable slice to slice.
+                #
+                # WHY NOT BINS: measured 2026-09-02 at 5/7/9 equal-count bins on 35 periods. The peak
+                # LOCATION wandered +6.0% -> +3.9% -> +2.6%, i.e. it was partly an artifact of where
+                # the edges fell, and at 9 bins (n=4) one month moved a bin by 11.3 points and the
+                # curve zigzagged. A sliding window has no edges, uses every point, and puts 25 points
+                # on the curve each resting on 11 periods -- MORE than the 7 a 5-bin split gives. Its
+                # peak sits at d = +3.9% to +4.1% for windows of 9, 11 and 13 alike.
+                #
+                # THE COST, stated on the page: adjacent points share 10 of 11 periods, so the curve
+                # is smoother than the evidence and is a trend line, not 25 measurements.
+                _win = 11 if len(_mg_x) >= 24 else (9 if len(_mg_x) >= 18 else 0)
+                _bins = []
+                if _win:
+                    _ord = sorted(range(len(_mg_x)), key=lambda i: _mg_x[i])
+                    for _k0 in range(len(_ord) - _win + 1):
+                        _ch = _ord[_k0:_k0 + _win]
+                        _bx = [_mg_x[i] for i in _ch]; _by = [_mg_y[i] / 100.0 for i in _ch]
+                        _pr = float(_np2.prod([1 + v for v in _by]))
+                        _bins.append({"x": round(float(_np2.median(_bx)), 3),
+                                      "lo": round(min(_bx), 2), "hi": round(max(_bx), 2),
+                                      "g": round(100 * (_pr ** (1.0 / len(_by)) - 1), 3),
+                                      "n": len(_by),
+                                      "w": round(100 * sum(1 for v in _by if v > 0) / len(_by))})
+                _momgain = {"x": _mg_x, "y": _mg_y, "p": _mg_a, "n": _mg_n,
+                            "bins": _bins, "win": _win,
+                            "xa": _mg_xa, "ya": _mg_ya, "e": _mg_e,
+                            "lookback": int(_lfm0.get("optimizer_lookback_days") or 21)}
+                print(f"  slate-momentum scatter: {len(_mg_x)} curation periods", flush=True)
+        except Exception as _e:  # noqa: BLE001
+            print(f"  slate-momentum scatter skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
         book.update({
             "wcomp": {"watch": _wspans, "funded": _fspans, "beats": _top + ["other", "no beat"]},
             # BOOTSTRAP ONLY: the date the news source changes under the curator's feet. Absent on
@@ -998,6 +1131,27 @@ def main(argv=None) -> int:
                     - {t for t, w in (_lat.get("weights") or {}).items() if w > 0.0005}
                     - set(_fh.anchor_tickers(_lfm0)))],
             })(_bt.get("latest") or {}),
+            # PANEL 2's DAILY MOMENTUM BAND. For every trading day, d = the ticker's fractional
+            # change over the trailing `optimizer_lookback_days` CALENDAR days -- the same window
+            # the optimizer estimates mu on, so this is literally the signal the sizing sees, one
+            # day at a time, averaged over the whole standing watchlist rather than the 2-3 names
+            # that got funded. Read against the book's own per-curation change it answers "was the
+            # book's period good because the curator's slate was moving, or in spite of it".
+            # CALENDAR days, not trading days, because curator._optimized_weights slices
+            # `entry - pd.Timedelta(days=lookback)`; using bars here would describe a window the
+            # optimizer never used.
+            # THE BAND IS THE STANDARD ERROR of that mean (sd/sqrt(n)), not the cross-sectional sd:
+            # the question is how well located the average is, and with n swinging between 3 and 100
+            # names an sd band would mostly be drawing the watchlist's width. The sd rides along in
+            # the hover for the days you want the spread instead.
+            "watchmom": _watchmom,
+            # PANEL 3's SCATTER. One point per curation PERIOD: x = the slate's mean trailing d on
+            # the curation date (the same number panel @@c-curdelta@@ plots daily), y = what the book
+            # then returned over that period NET OF SPY. Net, because the first objection to any
+            # version of this is "the slate is hot when the tape is hot" -- and it survives: measured
+            # across 17 curations, rho(d, book) +0.22 but rho(d, book net of SPY) +0.28, while
+            # rho(d, SPY) is only +0.04. See scripts/measure_watchmom_signal.py.
+            "momgain": _momgain,
             "rebal": [str(x.date()) for x in sorted(_scans)],
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
             "bh_tickers": _d.get("bh_tickers") or [],
@@ -1994,8 +2148,29 @@ def main(argv=None) -> int:
               "The book&rsquo;s percent change from one curation to the next. Markers are green "
               "when the period made money, red when it lost. The panel above is cumulative and on "
               "a log axis; this is the same book read one period at a time." + _cur_note +
-              " The first curation has no predecessor so it is not plotted.",
+              " The first curation has no predecessor so it is not plotted."
+              " <br><br>The blue line is the <b>whole watchlist's</b> mean fractional change over the "
+              f"trailing <b>{int(_lfm0.get('optimizer_lookback_days') or 21)} calendar days</b> "
+              "&mdash; computed daily, over every ticker the curator had live that day, not just the "
+              "two or three the optimizer funded. That window is the one "
+              "<code>optimizer_lookback_days</code> sets, so this is the signal the sizing actually "
+              "estimates &mu; from, drawn one day at a time. Read against the book's own markers it "
+              "separates two very different periods: one where the book made money while its slate "
+              "was rising anyway, and one where it made money the slate did not offer. "
+              "The shaded band is the <b>standard error</b> of that mean (sd/&radic;n) &mdash; how well "
+              "located the average is, which is the question worth asking when the watchlist swings "
+              "between 3 and 107 names. The cross-sectional <b>sd</b> and <b>n</b> are in the hover, "
+              "for the days you want the spread rather than the centre.",
               "c-curdelta", 380),
+        panel_rec("Future portfolio rewards versus watchlist\u2019s trailing returns",
+              "Each dot is one curation. <i>d</i> is the watchlist\u2019s mean fractional gain over the "
+              f"prior {int(_lfm0.get('optimizer_lookback_days') or 21)} days, with its standard error; "
+              "the vertical axis is what the portfolio earned in the month that followed. The purple "
+              "line is the typical monthly gain in a sliding window of 11 curations, and it peaks "
+              "near <i>d</i> = +4%: cold watchlists lose money and very hot ones do no better. "
+              "Neighbouring points on that line share 10 of their 11 curations, so read it as a "
+              "trend, not as separate measurements.",
+              "c-momgain", 519, side=True, width=692),   # 692 wide, height 25% under that
         panel_rec("Watchlist composition over time",
               "One row per ticker. The pale bar is the span the curator kept it WATCHLISTED — it held "
               "the thesis; the solid bar is the span the optimizer actually FUNDED it. The gap between "
@@ -2692,8 +2867,15 @@ function draw() {{
     // were WEEKENDS. Same bug class the price-modal comment below documents, and the same fix.
     // The square sits on the clamped day so it lands ON the curve; the hover names the real scan
     // date, which is the one the curation log and the journal use.
+    // CLAMP TO INCEPTION, never -1. A curation ANCHOR is a scan date; the daily series starts at the
+    // first TRADING day the frozen panel provides, which can be later (CBT anchors 2023-08-11 and
+    // starts 2023-08-15; CBS anchors 2026-04-27 and starts 2026-04-29). Returning -1 there made the
+    // caller drop that anchor entirely -- a missing rebalance square here, and in panel 2 a missing
+    // DOT, because the dropped anchor never seeded the previous value. CBS lost its first period
+    // outright: 2026-04-27 -> 05-27, +9.9%, the book's largest single-period gain. Index 0 is the
+    // right answer: the book's value at the series start IS its value at inception.
     const _bi = (t) => {{ for (let i = BK.dates.length - 1; i >= 0; i--) if (BK.dates[i] <= t) return i;
-                         return -1; }};
+                         return BK.dates.length ? 0 : -1; }};
     const _mk = (want) => {{
       const xs = [], ys = [], ds = [];
       (BK.rebal || []).forEach(w => {{
@@ -2746,13 +2928,17 @@ function draw() {{
     // dropped in silence -- the same bug class the price-modal comment below documents.
     {{
       const _bi = t => {{ for (let i = BK.dates.length - 1; i >= 0; i--) if (BK.dates[i] <= t) return i;
-                         return -1; }};
+                         return BK.dates.length ? 0 : -1; }};   // clamp, see panel 1's note
       const CS = BK.curstat || null;
       const dx = [], dy = [], sy = [];
       let _prev = null, _sprev = null;
+      let _pi = null;
       (BK.rebal || []).forEach(w => {{
         const i = _bi(w);
-        if (i < 0) return;
+        // TWO anchors clamping to the same bar are ONE point in time, and a "period" between them
+        // is zero days long -- that would draw a spurious 0% dot rather than nothing.
+        if (i < 0 || i === _pi) return;
+        _pi = i;
         const v = BK.value[i], s = (BK.spyser || [])[i];
         if (_prev !== null && _prev > 0) {{
           dx.push(w); dy.push(100 * (v / _prev - 1));
@@ -2760,7 +2946,85 @@ function draw() {{
         }}
         _prev = v; _sprev = s;
       }});
-      if (dx.length) Plotly.react('c-curdelta', [{{
+      // ---- PANEL @@c-momgain@@: slate momentum at the curation vs what the book then harvested.
+      // Points are periods, so they are FEW (37 anchors -> 36 here, 5 -> 4 on CBS). The quartile
+      // step is drawn only when there are enough of them to bin; under that the scatter alone is
+      // the honest picture and a median line over 1-2 points a week would be decoration.
+      const MG = BK.momgain;
+      if (MG && MG.x.length >= 3 && document.getElementById('c-momgain')) {{
+        const _mgTraces = [{{
+          type:'scatter', mode:'markers', name:'curation period', x:MG.x, y:MG.y,
+          error_x:{{type:'data', array:MG.e, thickness:1.2, width:3, color:p.text2, opacity:0.55}},
+          marker:{{size:9, color:MG.y.map(v => v < 0 ? ST.critical : ST.good),
+                   line:{{width:1, color:p.surface}}, opacity:0.85}},
+          customdata:MG.p.map((s, i) => [s, MG.n[i],
+                                        MG.xa[i] === null ? '--' : MG.xa[i].toFixed(2),
+                                        MG.ya[i].toFixed(2)]),
+          hovertemplate:'%{{customdata[0]}}<br>d = %{{x:+.2f}}%  (n=%{{customdata[1]}} tickers)'
+                       + '<br>book %{{y:+.2f}}% over the period'
+                       + ' ± %{{error_x.array:.2f}} s.e.'
+                       + '<br><i>market out of both: d %{{customdata[2]}}%, '
+                       + 'book %{{customdata[3]}}%</i><extra></extra>'
+        }}];
+        if (MG.bins && MG.bins.length) {{
+          _mgTraces.push({{
+            type:'scatter', mode:'lines', name:'typical month (sliding ' + MG.win + ' curations)',
+            x:MG.bins.map(b => b.x), y:MG.bins.map(b => b.g),
+            line:{{color:'#7c3aed', width:2.5, shape:'spline', smoothing:0.6}},
+            customdata:MG.bins.map(b => [b.lo, b.hi, b.n, b.w]),
+            hovertemplate:'d in [%{{customdata[0]:+.1f}}, %{{customdata[1]:+.1f}}]%'
+                         + '<br>typical month %{{y:+.2f}}%  (geometric mean)'
+                         + '<br>%{{customdata[2]}} curations in the window, %{{customdata[3]}}% up'
+                         + '<extra></extra>'
+          }});
+        }}
+        Plotly.react('c-momgain', _mgTraces, base(p, {{
+          margin:{{l:64, r:20, t:44, b:52}}, showlegend:true,
+          legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
+          shapes:[
+            // x=0 is the decision boundary the effect implies; y=0 is "beat SPY".
+            {{type:'line', xref:'x', x0:0, x1:0, yref:'paper', y0:0, y1:1,
+              line:{{color:p.text2, width:1.4, dash:'dot'}}}},
+            {{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:0, y1:0,
+              line:{{color:p.text2, width:1.4, dash:'dot'}}}}],
+          annotations:[
+            {{x:0, xref:'x', xanchor:'left', yref:'paper', y:1, yanchor:'top', showarrow:false,
+              font:{{size:10.5, color:p.text2}}, text:'  d = 0'}},
+            {{xref:'paper', x:1, xanchor:'right', yref:'y', y:0, yanchor:'bottom', showarrow:false,
+              font:{{size:10.5, color:p.text2}}, text:'book flat'}}],
+          xaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:false,
+                  title:{{text:'d — slate mean ' + MG.lookback
+                                + '-day fractional change ON the curation date', font:{{size:11}}}}}},
+          yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:false,
+                  title:{{text:'book fractional gain over the next month', font:{{size:11}}}}}}
+        }}), CFG);
+      }}
+
+      // THE WATCHLIST'S OWN MOMENTUM, daily, on the same axes -- both series are a percent change
+      // on a date axis, so no second scale is spent. Drawn FIRST and behind: it is context for the
+      // book's markers, not a competing series.
+      const WM = BK.watchmom;
+      const _wmBand = [];
+      if (WM && WM.d.length) {{
+        const hi = WM.mean.map((m, i) => m + WM.se[i]);
+        const lo = WM.mean.map((m, i) => m - WM.se[i]);
+        _wmBand.push({{
+          type:'scatter', mode:'lines', x:WM.d, y:hi, line:{{width:0}},
+          showlegend:false, hoverinfo:'skip'
+        }}, {{
+          type:'scatter', mode:'lines', x:WM.d, y:lo, line:{{width:0}},
+          fill:'tonexty', fillcolor:'rgba(96,165,250,0.20)',
+          name:'± standard error', showlegend:false, hoverinfo:'skip'
+        }}, {{
+          type:'scatter', mode:'lines', x:WM.d, y:WM.mean,
+          name:'d — watchlist mean ' + WM.lookback + 'd change (± s.e.)',
+          line:{{color:'#60a5fa', width:1.6}},
+          customdata:WM.d.map((_, i) => [WM.sd[i], WM.se[i], WM.n[i]]),
+          hovertemplate:'%{{x}}<br>mean %{{y:+.2f}}%  ± %{{customdata[1]:.2f}} s.e.'
+                       + '<br>sd %{{customdata[0]:.2f}}%  ·  n=%{{customdata[2]}}<extra></extra>'
+        }});
+      }}
+      if (dx.length) Plotly.react('c-curdelta', _wmBand.concat([{{
         // SPY FIRST so the book's markers sit on top of it. Same green dashed convention as panel 1,
         // so the two panels read as the same benchmark seen two ways -- cumulative there, per period
         // here.
@@ -2773,7 +3037,7 @@ function draw() {{
         marker:{{size:6, color:dy.map(v => v < 0 ? ST.critical : ST.good),
                  line:{{width:1, color:p.surface}}}},
         hovertemplate:'%{{x}}<br>%{{y:+.2f}}% since the previous curation<extra></extra>'
-      }}], base(p, {{margin:{{l:70,r:24,t:40,b:44}}, showlegend:true,
+      }}]), base(p, {{margin:{{l:70,r:24,t:40,b:44}}, showlegend:true,
           legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           // The median as a dashed rule. Sourced from book["curstat"], which is what the caption
           // quotes -- computing it a second time here is how the two would drift apart.

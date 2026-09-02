@@ -408,14 +408,16 @@ def panel(num: int, title: str, lead: str, div_id: str, height: int, table: str 
             f'<div id="{div_id}" class="plot" style="height:{height}px"></div>{t}</section>')
 
 
-def panel_rec(title: str, lead: str, div_id: str, height: int, table: str = "") -> dict:
+def panel_rec(title: str, lead: str, div_id: str, height: int, table: str = "",
+              side: bool = False, width: int = 0) -> dict:
     """One panel, NOT yet numbered. `render_panels` assigns the number from list position.
 
     Panels used to carry a hard-coded number, which meant dropping one silently renumbered every
     panel after it while the prose kept pointing at the OLD numbers ("see panel 10"). Numbering by
     position and writing cross-references as `@@div-id@@` makes both correct by construction --
     the FBS arm drops five panels the FBT arm keeps, so the two pages number differently."""
-    return {"title": title, "lead": lead, "id": div_id, "h": height, "t": table}
+    return {"title": title, "lead": lead, "id": div_id, "h": height, "t": table,
+            "side": side, "w": width or height}
 
 
 def render_panels(items: list[dict]) -> str:
@@ -424,6 +426,18 @@ def render_panels(items: list[dict]) -> str:
     for i, it in enumerate(items, 1):
         lead = re.sub(r"@@([a-z0-9-]+)@@", lambda m: str(idx.get(m.group(1), "?")), it["lead"])
         t = (f'<details class="tbl"><summary>data table</summary>{it["t"]}</details>') if it["t"] else ""
+        # SIDE LAYOUT: caption left, SQUARE plot right. For a panel whose shape carries the
+        # meaning -- a scatter is read as a cloud, and a 16:9 box stretches one axis against the
+        # other -- the plot wants to be square, which leaves the caption a column of its own.
+        # Wraps to stacked below ~880px, so the square survives on a phone.
+        if it.get("side"):
+            out.append(
+                f'<section class="panel"><h2>{i}. {esc(it["title"])}</h2>'
+                f'<div style="display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap">'
+                f'<p class="lead" style="flex:1 1 260px;max-width:340px;margin:0">{lead}</p>'
+                f'<div id="{it["id"]}" class="plot" style="flex:0 1 {it["w"]}px;'
+                f'width:min({it["w"]}px,100%);height:{it["h"]}px"></div></div>{t}</section>')
+            continue
         out.append(f'<section class="panel"><h2>{i}. {esc(it["title"])}</h2><p class="lead">{lead}</p>'
                    f'<div id="{it["id"]}" class="plot" style="height:{it["h"]}px"></div>{t}</section>')
     return "".join(out)
