@@ -284,7 +284,8 @@ def _drop_already_pulled(arts: list, daily_dir: Path, today_key: str, back: int 
     return out
 
 
-def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False) -> None:
+def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False,
+             day: "pd.Timestamp | None" = None) -> None:
     """DAILY past-24h news pull -> accumulate into <forward>/daily/<date>.json (dedup by date).
     The weekly --scan reads the week's accumulated daily pulls as its pool (no separate weekly gather).
 
@@ -294,7 +295,15 @@ def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False) -
     Fetches UNCAPPED: the daily pull must keep every day's news so the week accumulates in full; the
     single news_cap (a per-WEEK scout budget) is applied only when --scan reads that week's pool. (An
     earlier version passed the same cap here per-DAY *and* per-week — double-capping the pool.)"""
-    day = _current_anchor(1)                                # most recent daily 16:30-ET point on/before now
+    # `day` OVERRIDE = BACKFILL. The cron always pulls the most recent anchor; passing an explicit
+    # day re-fetches a PAST one, which is how 2026-08-15 was recovered after its run crashed on an
+    # Anthropic 400 ("container_id is required..."). It is NOT equivalent to a same-day pull and must
+    # not be read as one: the query window is date-bounded either way, but an article indexed after
+    # the fact is reachable now and was not then, so a backfilled day has a different retrieval
+    # vintage. The file records `backfilled` for exactly that reason -- non-negotiable #4 says no
+    # search tool gives true point-in-time retrieval, so the honest move is to stamp it, not hide it.
+    _backfill = day is not None
+    day = day if day is not None else _current_anchor(1)    # most recent daily 16:30-ET point on/before now
     dk = day.date().isoformat()
     daily_dir = SCANS_CSV.parent / "daily"
     daily_dir.mkdir(parents=True, exist_ok=True)
@@ -373,7 +382,9 @@ def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False) -
     _added = len(_merged) - len(_prior)
     cap["arts"] = _merged
     out.write_text(json.dumps({"date": dk, "model": model, "pool": _merged,
-                               "queries": cap.get("queries", [])}, indent=2, default=str))
+                               "queries": cap.get("queries", []),
+                               **({"backfilled": _dt.datetime.now().date().isoformat()}
+                                  if _backfill else {})}, indent=2, default=str))
     # PER-PULL MANIFEST, so a day's provenance is queryable rather than inferred. PWR keeps one row
     # per pull for exactly this reason ("GAPS are first-class ... a missed/empty pull is recorded,
     # not silent"), and this repo learned the same lesson the hard way: 2026-08-15 read all week as
@@ -560,8 +571,12 @@ def main(argv: list[str] | None = None) -> int:
             return 2
         fm = load_financial_model(str(PROFILE))
         gather_id, _gp = resolve_gather_model(fm)                   # daily pull is gather-ONLY (Anthropic web search)
+        # --anchor doubles as the BACKFILL date for --pull: same flag, same meaning (the day to
+        # treat as "now"), so a recovered day is one obvious command rather than a special mode.
         pull_day(args.model or gather_id, gather_engine=(args.gather or str(fm.get("gather_engine", "both"))),
-                 scheduled=args.scheduled)
+                 scheduled=args.scheduled,
+                 day=(pd.Timestamp(args.anchor + " 16:30", tz="America/New_York")
+                      if args.anchor else None))
 
     if args.report:
         report()

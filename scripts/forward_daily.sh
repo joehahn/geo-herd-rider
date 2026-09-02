@@ -35,6 +35,15 @@ mkdir -p data/forward
   # MIRROR IT IMMEDIATELY. The pull is unrepeatable -- Tavily re-serves a window it has already
   # served with a smaller and partly different set -- so a daily file lost to a bad experiment or a
   # stray rm cannot be rebuilt. Append-only; a changed file's previous copy is kept under superseded/.
+  # DID THE PULL ACTUALLY LAND? The step above is `|| tolerated`, which is right -- a missed day
+  # must not abort the backup or the page refresh -- but for eighteen days that tolerance is exactly
+  # what hid 2026-08-15: the run crashed on an Anthropic 400, the traceback went into this log, and
+  # nothing ever compared the files on disk to the calendar. This does, every morning, and prints
+  # the recovery command with it. Cheap (a directory listing) and it reads the whole sequence, so a
+  # gap opened months ago is still reported today rather than scrolling away.
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] pull-gap check"
+  .venv/bin/python scripts/check_pull_gaps.py \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] ^^ A DAY OF NEWS IS MISSING -- the pull is unrepeatable, recover it above"
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup start"
   .venv/bin/python scripts/backup_daily.py \
     || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup reported a problem (tolerated)"
