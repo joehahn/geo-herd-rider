@@ -976,6 +976,19 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     out = {"final": value, "spy_final": spyval, "rows": rows, "log": log, "weeks": len(anchors),
            "watch": {a: watch[a] for a in anchors},   # pruned sticky watch, so the dashboard matches
            "agent_precision": _agent_precision(scans, panel, fm)}   # unmasked curator-skill metric
+    # THE STANDING RECOMMENDATION -- the weights decided at the LAST anchor, which `rows` and `log`
+    # cannot carry. Both are built over anchor PAIRS (k -> k+1) because they report a realised
+    # return, so the final anchor's weights, having no forward period yet, fall off the end of both.
+    # That is exactly the allocation someone acting on this book would hold from the last curation
+    # until the next one, so it is the one number a "what do I buy" panel needs and the only one the
+    # backtest never published. Watchlist rides along so the page can show what was ELIGIBLE and left
+    # unfunded, not just what was funded.
+    if anchors:
+        out["latest"] = {"date": str(anchors[-1].date()),   # same form as rows[]/log[] above
+                         "weights": {t: round(float(w), 6)
+                                     for t, w in sorted((week_w.get(len(anchors) - 1) or {}).items(),
+                                                        key=lambda kv: -kv[1])},
+                         "watchlist": list(watch[anchors[-1]])}
     if daily:
         out["daily"] = _daily_series(panel, days, reb, week_w, capital, overlay, overlay_anchor,
                                      buyhold=[t for t in bh_basket if t in valid])

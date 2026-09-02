@@ -734,6 +734,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                  # the search class and its per-engine split; zero for a GKG-only month
                  "search": 0, "search_tavily": 0, "search_anthropic": 0,
                  "search_both": 0, "search_unknown": 0})
+    bycal: collections.Counter = collections.Counter()   # calendar months, for panel 2's top row
     # WEEKLY BINS ON THE BOOTSTRAP, MONTHLY ON THE 3-YEAR CORPUS. The handoff is 2026-07-28, which
     # falls MID-MONTH, so a calendar-month bar blends 27 days of GKG with 4 of websearch -- and the
     # provenance panel's whole claim is that the handoff is a CLEAN SUBSTITUTION. Monthly bars
@@ -753,6 +754,14 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         m = _bin(_ds)
         d = bymonth[m]
         d["n"] += 1
+        # THE TOP ROW OF PANEL 2 IS LABELLED "per month" AND MUST BE MONTHS. Everything else on this
+        # page bins through _bin(), which is WEEKLY on the bootstrap (see its comment) -- so on FBS
+        # `months` holds Monday keys and the "per month" row was drawing the "per ISO week" row again
+        # under the wrong label. It only LOOKED empty rather than duplicated because the stacked mix
+        # series it actually draws are keyed by calendar month and found nothing at a Monday key.
+        # Counted separately here so the three rows are genuinely month / week / day. Identical to
+        # `months` on FBT, where _bin already returns ds[:7].
+        bycal[_ds[:7]] += 1
         d["text"] += 1 if (a.get("lede_live") or a.get("lede")) else 0
         d["auth"] += 1 if a.get("author") else 0
         # PROVENANCE, not just presence. `clean` counts articles read from an AS-OF archived capture;
@@ -773,6 +782,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             if difflib.SequenceMatcher(None, a["lede"], a["lede_live"]).ratio() <= 0.80:
                 d["div"] += 1
     months = sorted(bymonth)
+    cal_keys = sorted(bycal)
 
     byday = collections.Counter(a.get("published_date", "")[:10] for a in arts if a.get("published_date"))
     day_keys = sorted(byday)
@@ -980,12 +990,12 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                    "auth": [bymonth[m]["auth"] for m in months]},
         "daily": {"d": day_keys, "n": [byday[d] for d in day_keys]},
         "weekly": {"d": week_keys, "n": [byweek[w] for w in week_keys]},
-        "monthly": {"m": months, "n": [bymonth[m]["n"] for m in months]},
+        "monthly": {"m": cal_keys, "n": [bycal[m] for m in cal_keys]},
         # bootstrap only -- per-bucket counts for each retrieval path, same keys/order as above
         "settle": settle,
         "mix": ({k: {"d": [mix[k]["d"][x] for x in day_keys],
                      "w": [mix[k]["w"][x] for x in week_keys],
-                     "m": [mix[k]["m"][x] for x in months]} for k in MIX} if bootstrap else None),
+                     "m": [mix[k]["m"][x] for x in cal_keys]} for k in MIX} if bootstrap else None),
         "dow": {"k": DOW, "n": [dow.get(k, 0) for k in DOW]},
         "beats": {"q": [r[0] for r in beat_rows], "n": [r[1] for r in beat_rows],
                   "gem": [r[2] for r in beat_rows]},

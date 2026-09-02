@@ -933,6 +933,27 @@ def main(argv=None) -> int:
                            "cap": _wcap, "slots": _fslots, "scans": _fscans,
                            "floor": _lfm0.get("min_trade_size")},
             "anchors": _fh.anchor_tickers(_lfm0),
+            # THE STANDING RECOMMENDATION (panels 28-29). Everything else on this page is history;
+            # this is the one forward-looking object -- the weights the optimizer set at the LAST
+            # curation, which is what someone acting on the book would hold until the next one.
+            # `unfunded` is the rest of that scan's watchlist: names the curator judged worth
+            # watching that the sizing math declined to fund. Showing them as zero bars is the
+            # point -- the gap between "the curator likes it" and "the book owns it" is the single
+            # most misread thing on this page, and panel 6 only shows it as a count.
+            # NOT a trade list and NOT a broker instruction: no holdings file is read here (a paper
+            # book assumes its own recommendation was followed), so there is nothing to diff against.
+            "rec": (lambda _lat: {
+                "date": _lat.get("date"),
+                "cadence_days": _cad0,
+                "next_due": (str(_dt.date.fromisoformat(_lat["date"]) +
+                                 _dt.timedelta(days=_cad0)) if _lat.get("date") else None),
+                "funded": [{"t": t, "w": w, "b": _beat_of(t)}
+                           for t, w in (_lat.get("weights") or {}).items() if w > 0.0005],
+                "unfunded": [{"t": t, "b": _beat_of(t)} for t in sorted(
+                    set(_lat.get("watchlist") or [])
+                    - {t for t, w in (_lat.get("weights") or {}).items() if w > 0.0005}
+                    - set(_fh.anchor_tickers(_lfm0)))],
+            })(_bt.get("latest") or {}),
             "rebal": [str(x.date()) for x in sorted(_scans)],
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
             "bh_tickers": _d.get("bh_tickers") or [],
@@ -1075,7 +1096,13 @@ def main(argv=None) -> int:
     # than dumping an undifferentiated 3-year line.
     px_hist: dict = {}
     try:
-        _pt = sorted(set(book.get("gain") or {}))
+        # PLUS the standing recommendation. `gain` is names that have HELD capital; a ticker
+        # first funded at the last curation has no realised P&L yet, so it was absent here and
+        # panel 28 would have drawn a bar with no price behind it and no row in the calculator.
+        _rec0 = (book.get("rec") or {})
+        _pt = sorted(set(book.get("gain") or {})
+                     | {r["t"] for r in (_rec0.get("funded") or [])}
+                     | {r["t"] for r in (_rec0.get("unfunded") or [])})
         if _pt and book.get("dates"):
             # TWO YEARS OF CONTEXT, not just the book's own window. On CBS the book is four months
             # long, so a ticker's popup showed four months of price and no way to see whether the
@@ -1890,6 +1917,22 @@ def main(argv=None) -> int:
     # NUMBERED BY POSITION, cross-referenced by DIV ID (@@c-breadth@@). Hard-coded numbers were
     # fine until a panel MOVED: the numbers renumber and every prose reference silently points
     # somewhere else. FBT hit this by dropping panels and solved it the same way.
+    # THE STANDING RECOMMENDATION, as a table beside the bars. Weights are the optimizer's, not a
+    # rounded display of them: someone sizing real money off this page should see what the book
+    # actually holds, and 0.4% vs "0%" is the difference between a position and none.
+    _rc = book.get("rec") or {}
+    _rc_rows = ([(r["t"], r["w"], r["b"], "funded") for r in (_rc.get("funded") or [])]
+                + [(r["t"], 0.0, r["b"], "unfunded") for r in (_rc.get("unfunded") or [])])
+    _rec_tbl = ""
+    if _rc_rows:
+        _rec_tbl = (
+            '<table><thead><tr><th>Ticker</th><th>Weight</th><th>Beat</th><th>Status</th></tr></thead>'
+            '<tbody>'
+            + "".join(f'<tr><td><b>{esc(t)}</b></td><td>{w:.2%}</td><td>{esc(b or "no beat")}</td>'
+                      f'<td>{st}</td></tr>' for t, w, b, st in _rc_rows)
+            + f'<tr><td><b>total</b></td><td><b>{sum(r[1] for r in _rc_rows):.2%}</b></td>'
+              f'<td colspan="2">the remainder, if any, is uninvested cash</td></tr>'
+            '</tbody></table>')
     _P = [
         panel_rec("Realized portfolio value",
               "Three books that all start at the same dollar: the curated one, a buy-and-hold of the "
@@ -2131,6 +2174,40 @@ def main(argv=None) -> int:
               "the chart was right, the pipeline was throwing the text away.",
               "c-text", 340),
     ]
+    # FORWARD-LOOKING, AND THEREFORE BOOTSTRAP-ONLY. CBT's last curation is the end of a historical
+    # window, so "what this strategy would hold right now" is simply false there -- the recommendation
+    # is months stale and the next-curation clock counts toward a date already past. CBS is the live
+    # paper book, where the last curation IS the standing one. Same reasoning PWR uses to show its
+    # curation clock only on the arms that have a next curation.
+    if a.bootstrap:
+        _P += [
+            # ---- the forward-looking pair. Everything above is history; these two answer "so what do I
+            # hold?", and they exist so the page is usable on the day real money follows it.
+            panel_rec("Latest recommended portfolio %",
+                  "The optimizer&#39;s target weights at the most recent curation "
+                  f"({esc(str(_rc.get('date') or '?'))}) &mdash; <b>what this strategy would hold right "
+                  "now</b>. Bars at zero are watchlisted tickers the optimizer declined to fund: the "
+                  "curator judged the thesis live, the sizing math did not buy it. Bar colour is the "
+                  "ticker&#39;s dominant beat, the same key panel @@c-wcomp@@ uses; the dotted line is "
+                  "<code>concentration_cap</code>. The always-include anchors appear here like any other "
+                  "holding &mdash; that is where idle capital parks, so a book that is mostly SPY/BIL is "
+                  "the optimizer declining to bet, not a bug. Click a bar for that ticker&#39;s price "
+                  "history."
+                  + (f" <b>Next curation due {esc(str(_rc.get('next_due')))}</b>, on the profile&#39;s "
+                     f"{_rc.get('cadence_days')}-day cadence; between curations the watchlist is fixed "
+                     "and only prices move." if _rc.get("next_due") else "")
+                  + " <b>This is a recommendation, not a trade instruction.</b> It is computed from a "
+                    "backtested book on a corpus that ends at the last curation, and non-negotiable #7 "
+                    "still applies: the forward scoreboard, not this page, is the verdict.",
+                  "c-rec", 400, _rec_tbl),
+            panel_rec("Position sizes",
+                  "Enter what you have to invest and the table gives the dollars and share count each "
+                  "funded weight implies. Prices are the last close in this page&#39;s frozen price "
+                  "panel &mdash; the same prices the book itself is valued at, so the arithmetic is "
+                  "consistent with every other number here, and NOT a live quote. Fractional shares "
+                  "assumed. Nothing here places a trade.",
+                  "c-possize", 0),
+        ]
     panels = ptable + render_panels(_P)
     # the two logs are reference tables, not headlines -- they read last, and their numbers continue
     # the panel sequence rather than being hard-coded.
@@ -2821,6 +2898,110 @@ function draw() {{
         margin:{{l:64,r:20,t:10,b:40}},
         yaxis:{{gridcolor:p.grid, tickprefix:'$'}}, xaxis:{{gridcolor:p.grid, type:'date'}}}}), CFG);
   }};
+  // ---- THE STANDING RECOMMENDATION (panels @@c-rec@@ / @@c-possize@@). The only forward-looking
+  // objects on the page: the weights the optimizer set at the LAST curation, and what they cost.
+  // WHY THE UNFUNDED BARS ARE HERE AND DRAWN AT ZERO rather than omitted: the gap between what the
+  // curator has live and what the optimizer funds is the single most misread thing on this page --
+  // panel @@c-breadth@@ shows it only as two counts. A zero bar with the ticker still on the axis
+  // says "the thesis is live and the math declined it", which is a different statement from absence.
+  const REC = BK.rec || {{}};
+  const _RF = (REC.funded || []), _RU = (REC.unfunded || []);
+  // last non-null close in the frozen panel, with the date it came from. NOT a live quote: the whole
+  // page is priced off the frozen panel, and a live fetch here would make the calculator disagree
+  // with every other dollar figure on the page (and stop the build being reproducible).
+  const _lastPx = tk => {{
+    const ser = (PX.p || {{}})[tk];
+    if (!ser) return null;
+    for (let i = ser.length - 1; i >= 0; i--) if (ser[i] != null) return {{px: ser[i], d: PX.d[i]}};
+    return null;
+  }};
+  // GUARDED ON THE DIV, not on the data: the payload is emitted for both arms but only
+  // CBS renders the panels, and Plotly.react() on a missing id throws and takes the rest
+  // of this script down with it.
+  if ((_RF.length || _RU.length) && document.getElementById('c-rec')) {{
+    const _xs = _RF.map(r => r.t).concat(_RU.map(r => r.t));
+    const _ys = _RF.map(r => r.w).concat(_RU.map(() => 0));
+    const _bs = _RF.map(r => r.b).concat(_RU.map(r => r.b));
+    const _cap = DATA.cap_pct;
+    Plotly.react('c-rec', [{{
+      type:'bar', x:_xs, y:_ys, customdata:_bs, marker:{{color:_bs.map(_bcol)}},
+      text:_ys.map(v => v > 0.0005 ? (100 * v).toFixed(0) + '%' : 'unfunded'),
+      textposition:'outside', textfont:{{size:11, color:p.text2}}, cliponaxis:false,
+      hovertemplate:'%{{x}} (%{{customdata}})<br>%{{y:.1%}} of the book<extra></extra>'
+    }}], base(p, {{
+      showlegend:false, margin:{{l:66, r:24, t:26, b:70}},
+      yaxis:{{gridcolor:p.grid, tickformat:'.0%', rangemode:'tozero',
+              title:{{text:'% of portfolio', font:{{size:11}}}}}},
+      xaxis:{{gridcolor:'rgba(0,0,0,0)', tickangle:-35, tickfont:{{size:11}}, automargin:true}},
+      shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:_cap, y1:_cap,
+                line:{{color:ST.critical, width:1.5, dash:'dot'}}}}],
+      annotations:[{{xref:'paper', x:1, xanchor:'right', yref:'y', y:_cap, yanchor:'bottom',
+        showarrow:false, font:{{size:10.5, color:ST.critical}},
+        text:'concentration_cap ' + (100 * _cap).toFixed(0) + '%'}}]
+    }}), CFG);
+
+    // ---- position sizes. Client-side arithmetic on values embedded at render, so the page stays a
+    // single static file. Funded rows only: a zero weight buys nothing and a row of zeros is noise.
+    const _PR = _RF.map(r => {{ const q = _lastPx(r.t); return q ? [r.t, r.w, q.px, q.d] : null; }})
+                   .filter(Boolean);
+    const _missing = _RF.length - _PR.length;
+    const _host = document.getElementById('c-possize');
+    if (_host && _PR.length) {{
+      _host.style.height = 'auto';
+      const _asof = _PR.map(r => r[3]).sort().slice(-1)[0];
+      const _dflt = Math.max(1000, Math.round((BK.final || 50000) / 1000) * 1000);
+      _host.innerHTML =
+        '<div style="padding:12px 14px;border:1px solid var(--line);border-radius:8px;'
+        + 'background:var(--card);max-width:860px;">'
+        + '<label style="font-size:14px;color:var(--text);">Portfolio to invest: $'
+        + '<input id="pfcalc" type="number" min="0" step="1000" value="' + _dflt + '" '
+        + 'style="width:140px;padding:3px 6px;margin-left:4px;font-size:14px;background:var(--card);'
+        + 'color:var(--text);border:1px solid var(--line);border-radius:4px;"></label>'
+        + '<span style="color:var(--text2);font-size:13px;margin-left:10px;">shares at the '
+        + _asof + ' close of the frozen panel; fractional shares assumed'
+        + (_missing ? ' &middot; ' + _missing + ' funded ticker(s) omitted: no price in the panel' : '')
+        + '</span>'
+        + '<table style="border-collapse:collapse;width:100%;font-size:14px;margin-top:10px;">'
+        + '<thead><tr style="border-bottom:2px solid var(--line);text-align:left;">'
+        + '<th style="padding:5px;">Ticker</th><th style="padding:5px;">Weight</th>'
+        + '<th style="padding:5px;">Price</th><th style="padding:5px;">Invest $</th>'
+        + '<th style="padding:5px;">Shares</th></tr></thead>'
+        + '<tbody id="pfcalcbody"></tbody></table></div>';
+      const _fmt = v => v.toLocaleString(undefined, {{maximumFractionDigits:0}});
+      const _draw = () => {{
+        const v = parseFloat(document.getElementById('pfcalc').value) || 0;
+        let h = '', tot = 0;
+        _PR.forEach(r => {{
+          const d = v * r[1]; tot += d;
+          h += '<tr style="border-bottom:1px solid var(--line);">'
+             + '<td style="padding:5px;"><b>' + r[0] + '</b></td>'
+             + '<td style="padding:5px;">' + (100 * r[1]).toFixed(1) + '%</td>'
+             + '<td style="padding:5px;">$' + r[2].toFixed(2) + '</td>'
+             + '<td style="padding:5px;">$' + _fmt(d) + '</td>'
+             + '<td style="padding:5px;">' + (d / r[2]).toFixed(4) + '</td></tr>';
+        }});
+        // The remainder is CASH, and it is named. Weights need not sum to 1 -- the optimizer can
+        // decline to deploy -- and a total row that quietly showed 62% with no fourth row would
+        // read as an arithmetic error rather than as the book's actual position.
+        const cash = Math.max(0, v - tot);
+        h += '<tr style="border-top:2px solid var(--line);"><td style="padding:5px;"><b>uninvested cash</b></td>'
+           + '<td style="padding:5px;">' + (100 * (v ? cash / v : 0)).toFixed(1) + '%</td>'
+           + '<td style="padding:5px;"></td><td style="padding:5px;">$' + _fmt(cash) + '</td>'
+           + '<td style="padding:5px;"></td></tr>'
+           + '<tr><td style="padding:5px;"><b>total</b></td><td style="padding:5px;">100.0%</td>'
+           + '<td style="padding:5px;"></td><td style="padding:5px;"><b>$' + _fmt(v) + '</b></td>'
+           + '<td style="padding:5px;"></td></tr>';
+        document.getElementById('pfcalcbody').innerHTML = h;
+      }};
+      document.getElementById('pfcalc').addEventListener('input', _draw);
+      _draw();
+    }} else if (_host) {{
+      _host.style.height = 'auto';
+      _host.innerHTML = '<p class="lead">No funded position at the last curation, so there is '
+        + 'nothing to size. The optimizer left the book in cash or in the anchors.</p>';
+    }}
+  }}
+
   // Bind the drill-down click ONCE PER GRAPH, and stop retrying once every graph is bound.
   // The retry exists because this runs before Plotly.react() has turned the div into a graph
   // (`g.on` does not exist yet), so the first pass always misses. But the terminating condition has
@@ -2829,7 +3010,7 @@ function draw() {{
   // plotly_click handler to c-gainh each pass. Within a minute one click fired _showTk hundreds of
   // times, each doing a full Plotly.react on the modal -- the tab froze instead of opening the popup,
   // which reads exactly like "the popup doesn't work" (found 2026-08-14 on plot 4).
-  const _CLICKABLE = ['c-gainh'];
+  const _CLICKABLE = ['c-gainh', 'c-rec'];
   (function bind(){{
     const left = _CLICKABLE.filter(id => {{
       const g = document.getElementById(id);
@@ -2992,7 +3173,12 @@ function draw() {{
           if (w > 0.001) byEv[id] = (byEv[id] || 0) + w / _owners[t];
         }}));
         conc.push(100 * Math.max(...Object.values(byEv), 0));
-        capline.push(100 * (DATA.cap_pct || 25));
+        // NO NUMERIC FALLBACK. This read `DATA.cap_pct || 25`, where cap_pct is a FRACTION --
+        // so the fallback would have drawn the cap at 2,500%, off the 0-105 axis and invisible,
+        // rather than failing loudly. It also duplicated a config value in JS, which is how a
+        // page ends up disagreeing with the profile it claims to describe. The builder always
+        // emits cap_pct (it defaults from the profile), so absence is a bug, not a case to cover.
+        capline.push(100 * DATA.cap_pct);
       }}
       const above = conc.filter(x => x >= 80).length;
       const live  = conc.filter(x => x > 0).length;
