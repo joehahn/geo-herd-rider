@@ -1,64 +1,74 @@
 # geo-herd-rider
 
-**An AI agent reads a continuous feed of unstructured news and makes a routine
-judgment call a person would otherwise make by hand, while deterministic code
-handles everything that has to be auditable.** The domain here is investing;
-the pattern is not.
+**This project:** An AI agent reads a continuous feed of unstructured news and makes a routine
+judgment call a person would otherwise make by hand, while deterministic code handles everything
+that has to be auditable. The domain here is investing; the pattern is not.
 
-Built end-to-end with [Claude Code](https://claude.com/claude-code) by
-**Joseph M. Hahn, Ph.D.**, an independent AI and machine learning consultant —
-[jmh-datasciences.com](https://jmh-datasciences.com) ·
-[LinkedIn](https://www.linkedin.com/in/hahnjoe/) · jmh.datasciences@gmail.com
+**Author:** Joseph M. Hahn, Ph.D., an independent AI and machine learning consultant. [jmh-datasciences.com](https://jmh-datasciences.com) · [LinkedIn](https://www.linkedin.com/in/hahnjoe/) · jmh.datasciences@gmail.com
+
+**License:** Writing & dashboards [CC BY 4.0](LICENSE-docs.md) · code [PolyForm Noncommercial](LICENSE.md), [details](#license)  
+**Project:** Started 2026-Jun-23 · branch `main`  
+Built end-to-end with [Claude Code](https://claude.com/claude-code).
 
 > **Not investment advice.** A research project and a demonstration of automated
 > decisioning. Every performance figure below is a hindsight upper bound, not
 > realized return.
 
-**License:** writing & dashboards [CC BY 4.0](LICENSE-docs.md) · code [PolyForm Noncommercial](LICENSE.md) — [details](#license)  
-**Started:** 2026-Jun-23 · **Branch:** `main`
+---
+
+## Introduction
 
 **Our model of the market.** Two groups move a price. The **smart money** (insiders and genuinely expert investors) have a real edge, they get to move first and they reap the greatest rewards. Then the **slow herd** arrives late to pile in and flatten the opportunity. We are neither. We have no inside information and no deep-investor edge, but we do have **data** (news, posts, reports, prediction markets) and **AI to manage and interpret that data**. Our play is to use that data's leading indicators to infer *where the smart money is already heading* and position us **between the smart money and the herd**. But because we must first discern where the smart money is headed, we inevitably arrive a bit late, but with the goal of arriving early enough to capture some of the move before the slow herd arrives and prices it away. And just as we ride in ahead of the herd, we also ride out as it shows up. Once the herd piles in and flattens the opportunity, that position has done its work and so we pivot off to the next event whose opportunity is still un-grazed.
 
-**The core idea.** We don't reason out a causal chain to *find* the next winner — the financial press already publishes the answer, by ticker, naming the winner **early** (while it's still under the radar) and then repeatedly, more loudly, as the move builds. For example, the niche tanker-freight ETF (BWET) was named in print as a standout trade — *"the best-performing ETF of 2026 … flown under the radar"* — weeks before it tripled again. Our edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis — a *thesis* being the specific catalyst driving the ticker (here, a war spiking tanker freight rates), *live* while that catalyst is unresolved — ride while the thesis holds, and exit when the catalyst resolves. AI is never used to predict *how big* a move will be — only which ticker or tickers to monitor, and whether its thesis still holds, while a non-AI mechanical optimizer sizes it.
+**The core idea.** We don't reason out a causal chain to *find* the next winner. The financial press already publishes the answer, by ticker, naming the winner **early** (while it's still under the radar) and then repeatedly, more loudly, as the move builds. For example, the niche tanker-freight ETF (BWET) was named in print as a standout trade, *"the best-performing ETF of 2026 … flown under the radar"*, weeks before it tripled again. Our edge is simply to be **reading**: enter when the press names a ticker on a *live* thesis (a *thesis* being the specific catalyst driving the ticker, here a war spiking tanker freight rates, and *live* while that catalyst is unresolved), ride while the thesis holds, and exit when the catalyst resolves. AI is never used to predict *how big* a move will be, only which ticker or tickers to monitor, and whether its thesis still holds, while a non-AI mechanical optimizer sizes it.
 
-**What this repo does.** Walking week by week, an LLM reads the news firehose, extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and curates a watchlist. A standard portfolio optimizer then decides **how much to hold of each name** — sizing them from their recent returns and volatility (using the same math that robo-advisors utilize). A position is **held while its driving catalyst is live** and **dropped when the driver behind the rise goes away** (ceasefire signed, chokepoint reopens). This whole solution is then backtested against a curated set of about a dozen historical thesis-driven events and the tickers (designated as **gems**) that they drove.
+**What this repo does.** Month by month across three years of business news, an AI curator reads the news firehose, extracts the US-listed tickers the press explicitly **names** as thesis-driven movers, and maintains a watchlist of the events driving them. A standard portfolio optimizer then decides **how much to hold of each name**, sizing them from their trailing returns and volatility, the same math a robo-advisor uses. A position is **held while its driving catalyst is live** and **dropped when that driver goes away** (a ceasefire is signed, a chokepoint reopens). The published backtest replays that loop over a frozen 99,117-article corpus running from August 2023 to August 2026.
 
 ## How it works, at a glance
 
-This solution is one short assembly line that loops weekly. It reads the news firehose to spot the **events** the press is flagging. Each event is driven by a **catalyst** — a discrete cause such as a war, an election, or a supply shock — and that catalyst causes specific tickers (which we designate as **gems**, named explicitly by the journalists covering the event) to rise. A gem's **thesis** is just *why* it's rising — the claim that this catalyst is driving this ticker. A **scout** discovers the events and writes each gem's thesis; a **matcher** groups each week's named tickers into the events already in flight; and then an **event-agent** **tracks each event over time** — an event can last weeks, months, or years, and the gem that best expresses it can *change* as it unfolds. We invest in a gem while its thesis is **live** (the catalyst still active/unresolved) and **exit** (drop the position) when the catalyst **resolves** (the war ends, the chokepoint reopens, the bill is signed) — and it is the **event-agent that writes this exit call**, arguing each week whether the catalyst has already happened and dropping the position the moment it has. A **plain optimizer** (never the AI) then sizes whatever is held.
+This solution is an assembly line that loops once per rebalance. It reads the news firehose to spot the **events** the press is flagging. Each event is driven by a **catalyst**, a discrete cause such as a war, an election, or a supply shock, and that catalyst drives specific tickers up. The ticker an event is expressed through is its **vehicle**, named explicitly by the journalists covering the event, and the term the code, the journal and the dashboards all use. A vehicle's **thesis** is just *why* it's rising: the claim that this catalyst is driving this ticker. A **scout** discovers the events and writes each thesis; a **matcher** groups each period's named tickers into the events already in flight; and then an **event-agent** **tracks each event over time**. An event can last weeks, months, or years, and the vehicle that best expresses it can *change* as it unfolds. We hold a vehicle while its thesis is **live** (the catalyst still active and unresolved) and **exit** when the catalyst **resolves** (the war ends, the chokepoint reopens, the bill is signed). It is the **event-agent that writes this exit call**, arguing each period whether the catalyst has already happened and dropping the position the moment it has. A **plain optimizer** (never the AI) then sizes whatever is held.
 
 ```mermaid
 flowchart TD
-    S["📰 Firehose<br/>gathers last week's pool of news articles<br/>via web search"]
-    S --> SC
+    N["📰 News<br/>GDELT GKG on BigQuery, plus a daily web-search pull"]
+    N --> FH
+    FH["🚰 Firehose<br/>discovers and date-stamps the period's articles<br/>reads retrieval_config.json · news_sources.md"]
+    FH --> POOL[("📚 Corpus<br/>pool.json")]
+    POOL --> SC
 
-    subgraph CUR["🧠 AI Curator"]
+    subgraph CUR["🧠 AI Curator: the only judgment in the line"]
       direction TB
-      SC["🔍 Scout<br/>scans news to discover rising gems named by the press & writes each gem's thesis — the catalyst statement driving it"]
-      MA["🧩 Matcher<br/>assigns each gem to an event, pre-existing or new"]
-      AG["🟢/⚪ Event-agent<br/>determines whether the catalyst is still alive or resolved/exited; scores its conviction; also picks which gem(s) best express the event"]
+      SC["🔍 Scout<br/>discovers the events the press is naming,<br/>and writes each one's catalyst"]
+      MA["🧩 Matcher<br/>folds each named ticker into an event<br/>already in flight, or opens a new one"]
+      AG["🟢/⚪ Event-agent<br/>one per live event: is this catalyst still live, or has it resolved?"]
       SC --> MA --> AG
     end
 
-    E["🎯 Watchlist<br/>gathers the surviving events' gems (top-N after the max_watchlist cull) for possible funding"]
-    W["⚖️ Optimizer<br/>derives optimal portfolio distribution across watchlist, and<br/>parks idle capital in SPY or a gold hedge when no gem qualifies"]
-    U["🧑 User<br/>adjusts portfolio at brokerage"]
+    PROF[/"⚙️ investor_profile.md"/]
+    PROF -->|"curation knobs<br/>act upstream of the journal"| SC
+    PROF -->|"book knobs<br/>act at replay, over a fixed journal"| OPT
 
-    AG --> E
-    AG -. "resolved catalysts are remembered so scout won't re-chase the hype" .-> SC
-    E --> W --> U
-    U -. "↻ back to Firehose, weekly" .-> X(( ))
-    style X fill:none,stroke:none
+    AG --> J[("📓 Curation<br/>journal.json and decisions.jsonl<br/>stamped into provenance.json")]
+    AG -. "a resolved catalyst is remembered" .-> SC
+    J --> WL
+    WL["🎯 Watchlist<br/>the surviving events' tickers,<br/>plus the always-on floors"]
+    WL --> OPT
+    PX[("💵 Prices<br/>panel.csv")] --> OPT
+    OPT["⚖️ Optimizer<br/>mean-variance weights from trailing returns and covariance, no AI"]
+    OPT --> D["📊 Dashboards<br/>cbt.html · sbt.html · fbt.html · cbs.html · fbs.html"]
+    D --> U["🧑 You<br/>place the trades"]
+    U -. "↻ next rebalance" .-> N
 
-    classDef bet fill:#fae3e0,stroke:#c0392b;
-    class E bet
+    style CUR fill:#fae3e0,stroke:#c0392b
 ```
 
-The whole assembly line **runs once per `rebalance_days` (default 7 = weekly)** and marches week by week across the era. Each pass re-reads the firehose, the event-agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the gem or gems that best express the event it is monitoring (and those gems can change over time), and then the optimizer rebalances the portfolio — **sizing is mechanical; the AI never sets the position sizes** (it only names tickers and the hold/exit call). An event isn't rediscovered from scratch each week: its agent remembers what it concluded last week (its prior-week note), and the position stays on (a "sticky hold") through quiet weeks — so each event is tracked continuously until its agent calls the exit. The exit is **resolution-driven, not crowd-driven** (we drop on the catalyst *resolving* — war ends, bill passes). Each week the agent argues the devil's-advocate case that the catalyst has *already happened* and then answers a forced binary — *has the catalyst resolved, yes or no?* — and a yes drops the position **immediately** (a resolved catalyst is definitive, so it exits at once rather than waiting out the sticky-hold), even if the coverage is still loud. Between these hard exits, each agent's **[conviction](#conviction-how-its-scored-and-how-it-decays) (1–10)** rides up on fresh milestones and **decays** on silence or a priced-in market — the soft signal behind those fades, alongside the always-on **[SPY/gold floors](#how-the-core-pieces-fit-together)** that hold idle capital (both explained in detail below). When more events are live than the `max_watchlist` cap, a separate **portfolio cull** (deterministic keep-first-N, or an opt-in LLM agent-picker — *not* conviction) trims to the cap. And once a catalyst resolves it is **remembered**: the scout is told which catalysts have already resolved (over the last `curator_memory_weeks`, default 8) so it won't **re-open the same ticker on lingering hype** after the catalyst is done (a ceasefire already signed isn't a fresh catalyst).
+The shaded box is where the advantage comes from, and it is the only place an LLM makes a judgment call: the press has already flagged a live catalyst and named the tickers that express it, so this solution never has to predict the winner itself. It reads the ticker the press named and rides it while the thesis holds. Everything outside that box is deterministic Python.
 
-The red highlighted box is where our advantage comes from: the press has already flagged a live catalyst (the **event**) and named the tickers that express it (its **gem(s)**), so we never have to predict the winner ourselves — this solution just reads the ticker named by the press and rides it while its thesis holds.
+The profile enters the line **twice**, and that split is load-bearing rather than cosmetic. **Curation knobs** act upstream of the journal, governing which articles are read, which the scout is shown, and which events open and when they retire. Changing one means the existing curation could never have been produced under it, and the news has to be re-read at LLM cost. **Book knobs** act at replay time over a fixed journal, covering sizing, culling and rebalancing. Changing one simply re-sizes the same curation and the page rebuilds in seconds. `src/provenance.py` classifies every knob into one of the two and fails the build while any knob is unclassified, so adding a knob forces a decision about its blast radius. There are two profile variants, one for the backtest and one frozen for the live forward run, kept in sync on the strategy knobs so the backtest stays a valid proxy for the thing that runs forward.
 
-The sections below explain the [Firehose](#the-news-firehose-why-reading-beats-reasoning) and the [AI Curator](#inside-the-curator-scout--event-agents) (its scout, matcher, event-agents) in greater detail.
+The whole assembly line **runs once per rebalance period** and marches period by period across the era. Each pass re-reads the firehose, the event-agents re-ask *"is this event's thesis still live, or has it resolved?"*, each agent then names the vehicle or vehicles that best express the event it is monitoring (and those can change over time), and then the optimizer rebalances the portfolio. **Sizing is mechanical; the AI never sets the position sizes**, it only names tickers and makes the hold-or-exit call. An event isn't rediscovered from scratch each period: its agent remembers what it concluded last time (its prior note), and the position stays on through quiet stretches, so each event is tracked continuously until its agent calls the exit. There are two ways out. The **hard exit** is resolution: each period the agent argues the devil's-advocate case that the catalyst has *already happened*, then answers a forced binary, *has the catalyst resolved, yes or no?*, and a yes drops the position **immediately**, however loud the coverage still is. The **second** is the window closing, which needs two things at once: the catalyst's arc is complete with no concrete scheduled step still ahead, *and* coverage has turned mainstream-saturated. Both are required, so crowding on its own never forces an exit while a concrete next step is still scheduled. Between exits the position simply stays on, and a period of **[silence](#what-silence-means-and-how-the-watchlist-is-trimmed)** neither weakens it nor costs an LLM call, while the always-on **[floors](#how-the-core-pieces-fit-together)** hold whatever capital the events don't. When more events are live than the watchlist cap allows, a separate **portfolio cull** trims to the cap. And once a catalyst resolves it is **remembered**: the scout is told which catalysts have already resolved so it won't **re-open the same ticker on lingering hype** after the catalyst is done, since a ceasefire already signed isn't a fresh catalyst.
+
+The sections below explain the [firehose](#the-news-firehose-why-reading-beats-reasoning) and the [curator](#inside-the-curator-scout--event-agents) in greater detail.
 
 ### How the core pieces fit together
 
@@ -66,22 +76,28 @@ The above pipeline shows how the inputs and outputs are managed, while the follo
 
 - An **event** is first flagged by the **scout**; it is the real-world thing that is unfolding, and it has a storyline that this solution is tracking (e.g. "Hormuz blockade").
 - A **catalyst** is the event's spine that is documented by the **scout**. It is the continuous driver that runs through the entire event, preferably one that will ultimately resolve, with that resolution known as the **exit**. For the "Hormuz blockade" event the spine is *Iran's push to close the Strait of Hormuz*, and that event resolves with a *ceasefire*. An event can have multiple tickers associated with it, and they all share the same catalyst.
-- **Milestones** are the vertebrae on the spine, they are the developments along the way (*protests in Iran → a US carrier group to the Med → strikes on Iran → the Hormuz closure itself*) that keep the catalyst *live* and feed the event's **conviction**. The **event-agent** tracks the milestones and its conviction week to week.
-- **Conviction** is the event-agent's weekly rating (1–10) of how live and still-under-owned the catalyst is. Conviction is driven by the news. A fresh milestone can lift the agent's conviction, while silence, or news that the market has priced the move in, will cause conviction to decay over time.
+- **Milestones** are the vertebrae on the spine, they are the developments along the way (*protests in Iran → a US carrier group to the Med → strikes on Iran → the Hormuz closure itself*) that keep the catalyst *live*. The **event-agent** tracks that arc period to period, and it is the arc, not any score, that its exit call is argued against.
 - An **exit** can be declared by the agent that is monitoring the event, and it is where the milestone spine ends since the catalyst is resolved (e.g. the war ends, the bill is signed, the chokepoint reopens). Example: a ceasefire triggering an exit from the "Hormuz blockade" event. When the agent calls its own exit, its basket of tickers is no longer communicated to the live watchlist, which means the optimizer will not consider those exited tickers at the next portfolio rebalance. However this solution still preserves a memory of the resolved catalyst to prevent the scout from re-chasing that event as its news winds down during subsequent weeks.
-- A **thesis** is the statement that connects the event to one or more tickers (e.g. this catalyst is causing that ticker to rise), and the thesis is authored by the **scout**. *Implementation note: the thesis and the catalyst are the **same stored string**, not two separate fields. The scout writes one datable catalyst per event (≤12 words); because a basket shares that single catalyst, that same string is each gem's thesis — so "catalyst" (event-level) and "thesis" (gem-level) are two names for one value. The dashboard journal shows it once, as **thesis**.*
-- A **gem** is an in-demand ticker that benefits from the event. The **scout** names the gem or gems, and the **matcher** merges every ticker that names the same catalyst into ONE event (so that upticks by RNMBY and RHMTY and LMT are regarded as a single defense event rather than three distinct events) and assigns those same-event gems to the event's **basket**, which can evolve as the event unfolds since the event is pinned to the catalyst and not to any particular tickers. Each **event-agent** proposes its basket. This solution manages at most `max_watchlist` (currently 7) concurrent event-agents, so when more events are live than slots, a **portfolio cull** keeps the top-`max_watchlist` and the rest fade away. The cull runs one of two ways: a **deterministic keep-first-N** (the default used by all dashboards, sweeps, and backtests — no LLM in the loop, byte-reproducible), or, opt-in (`forward --report`, `proto_select --picker`), an **LLM agent-picker** (`src/picker.py`) that reads each live event's catalyst arc — catalyst, milestones, exit condition, weeks-alive — and returns an ordered keep-list. The picker ranks on the *evidence arc*, **not** on conviction and never on a predicted return or size (non-negotiable #1). The surviving agents pour their tickers into the **watchlist**. A mathematical portfolio **optimizer** then assigns weights to those tickers in a way that tends to zero-out the weaker tickers.
-- This solution provides two kinds of agents: (i) the **event-agents** described above that have fluid baskets; and (ii) the **always-on floors**, namely an ever-present **SPY** ticker plus the **configurable defensive ticker** (default GLD). These two ride **post-cull** — appended to the optimizer's universe every week after the event-agents are trimmed — so idle capital always has a safe harbor to park in when the event-agents are weak or few. They don't compete in the cull; the mechanical optimizer simply sizes them alongside whatever the cull kept.
+- A **thesis** is the statement that connects the event to one or more tickers (e.g. this catalyst is causing that ticker to rise), and the thesis is authored by the **scout**. *Implementation note: the thesis and the catalyst are the **same stored string**, not two separate fields. The scout writes one datable catalyst per event (≤12 words); because a basket shares that single catalyst, that same string is each vehicle's thesis, so "catalyst" (event-level) and "thesis" (vehicle-level) are two names for one value. The dashboard journal shows it once, as **thesis**.*
+- A **vehicle** is the in-demand ticker an event is expressed through. The **scout** names the vehicle or vehicles, and the **matcher** merges every ticker that names the same catalyst into ONE event (so that upticks by RNMBY and RHMTY and LMT are regarded as a single defense event rather than three distinct events) and assigns those same-event vehicles to the event's **basket**, which can evolve as the event unfolds since the event is pinned to the catalyst and not to any particular tickers. Each **event-agent** proposes its basket. This solution manages a capped number of concurrent event-agents, so when more events are live than slots, a **portfolio cull** keeps the top-`max_watchlist` and the rest fade away. How that cull ranks is described [below](#what-silence-means-and-how-the-watchlist-is-trimmed). The surviving agents pour their tickers into the **watchlist**. A mathematical portfolio **optimizer** then assigns weights to those tickers in a way that tends to zero-out the weaker tickers.
+- This solution provides two kinds of agents: (i) the **event-agents** described above that have fluid baskets; and (ii) the **always-on floors**, the safe-harbour tickers named in `always_include` (a broad-market fund and a cash equivalent in the shipped template). These two ride **post-cull**, appended to the optimizer's universe every week after the event-agents are trimmed, so idle capital always has a safe harbor to park in when the event-agents are weak or few. They don't compete in the cull; the mechanical optimizer simply sizes them alongside whatever the cull kept.
 
-### Conviction: how it's scored, and how it decays
+### What silence means, and how the watchlist is trimmed
 
-Every week each agent rates its **conviction** about its event, 1–10. A high conviction score means that the event has a **fresh, concrete, still-under-owned** catalyst that is delivering new milestones (a signed contract, a funding round, an escalation) that are driving towards resolution, while a low score means the event's driver is spent. Conviction is **remembered**: each agent sees its *own prior-week score* (a one-step memory carried in its journal note) and nudges it from there, so that the event's conviction trajectory is continuous and is not re-computed from scratch each week. Three forces determine an agent's conviction:
+A period with **no fresh coverage** of an event is not an exit and does not weaken it. The agent's note is
+carried forward deterministically: same thesis, same vehicles, no LLM call at all, which is where most of
+the curation's cost would otherwise go. A resolution can only arrive *in* the news, and news means the agent
+runs, so nothing is missed by staying quiet. There is no confidence score anywhere in this: the agent owns
+the live/exit switch, its own standing exit condition, the milestone arc, and which vehicles express the
+event, and nothing else.
 
-- **Hard exit — the catalyst *resolves*.** The devil's-advocate binary (*has the catalyst already happened?*) — a *yes* drops the position **immediately** (war ends, bill signed, chokepoint reopens), regardless of conviction or how loud the coverage still is. This is the only *instant* exit.
-- **Priced-in decay — the market caught up.** When coverage flips from *"early / under-owned"* to *"fully valued / consensus"* while the catalyst is still structurally live, the agent steps conviction down toward 3–4 (`catalyst_resolved` stays *false* — it's a fade, not a resolution).
-- **Silence decay — the firehose goes quiet.** On **each weekly refresh** (every `rebalance_days`) with **no fresh coverage** of the event's trend, conviction steps **down by 1 from the prior score** — so sustained silence **compounds** week over week toward the cull floor, while a single fresh trend-story **resets it back up**. This rests on the firehose thesis: the press covers live trends *loudly*, so silence is itself evidence the thesis is fading.
-
-Conviction is the event-agent's own read on how live and under-owned its catalyst still is; it drives the **hard/soft exit** story above (a resolved catalyst exits at once; a priced-in or silent one fades). Note it no longer ranks the `max_watchlist` **portfolio cull** — that is the deterministic keep-first-N or the opt-in LLM agent-picker (see [above](#how-the-core-pieces-fit-together)), neither of which reads conviction. Conviction remains the per-event catalyst-quality signal the agent records week to week in its journal.
+When more events are live than `max_watchlist` allows, a **portfolio cull** decides which ones hold capital.
+It ranks on a **price trend** by default, holding a couple of slots open for brand-new events that have no
+price history for a trend to read yet. An **LLM agent-picker** (`src/picker.py`) can be configured in its
+place, ranking each live event on its evidence arc (catalyst, milestones, exit condition, periods alive) and never on a predicted return or size. Neither reads a confidence score, because there isn't one. Two risk
+gates bracket the cull: a **liquidity floor** that keeps an illiquid name from ever occupying a slot, and a
+**death-spiral exclusion** at the funding gate that refuses a recently-listed name carrying a punitive
+reverse split.
 
 ## The news firehose: why reading beats reasoning
 
@@ -94,223 +110,145 @@ This solution doesn't screen all tickers to discover gems. The financial press a
 | Apr 9 | Business Times | *"a 1,300% rally … an Iran war gauge"* | ~1.5× |
 | Apr 25 | CNBC | *"up over 600% … better than oil or energy stocks"* | mainstream |
 
-The progression in that last column, from "under the radar" to "everyone piling in", traces a gem moving from the smart money to the slow herd, and reading it early is the whole point. This solution enters the gems the press names on a live thesis and exits on thesis decay. The question "when to drop BWET?" answers itself: the position is dropped when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, not when the coverage merely gets crowded.
+The progression in that last column, from "under the radar" to "everyone piling in", traces a gem moving from the smart money to the slow herd, and reading it early is the whole point. This solution enters the vehicles the press names on a live thesis and exits on thesis decay. The question "when to drop BWET?" answers itself: the position is dropped when the catalyst resolves (the Strait of Hormuz reopens, a ceasefire is signed) and freight rates roll over, not when the coverage merely gets crowded.
 
-**Where the news comes from.** The firehose has two modes, and they must use different news sources, because reading historical news is a fundamentally different problem from reading this week's:
+**Where the news comes from.** The firehose has two modes, and they must draw on different sources, because reading historical news is a fundamentally different problem from reading this week's.
 
-- **Live use (running the solution going forward, week to week).** The firehose is Anthropic web search, not a bulk download of every article published that week. Instead the curator answers a single question, *which tickers is the press naming as thesis-driven movers this week?*, by running its own web searches for exactly that, reading the headline and snippet of each result, and returning the tickers the press flags. From that one question Claude spawns its own follow-up searches (no fixed list; it adapts to whatever's live that week), capping every search to news dated today or earlier.
+- **Backtest (replaying history to score this solution).** Here an ordinary web search is poison: searching old news today silently re-imports the future, since date filters leak post-cutoff articles, results are ranked by what later became famous, and what comes back is today's edited page rather than what was published at the time. So discovery runs on **GDELT's Global Knowledge Graph over BigQuery**, which is date-honest in the way that matters: the date bound is enforced server-side and results come back ordered by date, so a gem's early article is never boosted because it later mooned. The GKG is swept with a fixed, factored set of 43 beats, and they split in two. **Ten gem beats** carry the early framing this strategy hunts for (*little-known small cap catalyst*, *overlooked stock catalyst*, *niche ETF surging*, *war chokepoint beneficiary*, *export ban beneficiary*), while 33 sector-coverage beats sweep the market broadly, coarse enough that no gem's sub-niche is ever named. Querying by ticker is excluded on purpose, because that is reverse-engineering from known winners. That same early framing runs a second time as a headline filter, the **gem tell** (*under the radar, flying under, little-known, overlooked, still early, nobody is talking*), which admits **7.6%** of the corpus and is what the scout actually reads. Both halves are deterministic and live in `retrieval_config.json`; a gem beat also earns an article a rank bonus when an event-agent's evidence slice has to be truncated. **Wayback** then supplies each article's as-of-date lede, so the curator reads the text as published rather than as later edited. The corpus behind the published backtest is **99,117 articles from 793,826 GKG rows**, spanning August 2023 to August 2026.
 
-- **Backtest (replaying history to score this solution).** Here a normal web search is poison: searching old news today silently re-imports the future. Its date filters leak post-cutoff articles, its results are ranked by what later became famous, and it returns today's edited page rather than the original content. The goal is to assemble a representative news pool that is neither poisoned (no look-ahead) nor incomplete (it must include the early, under-the-radar phase, where the edge lives). That is why this solution uses GDELT, Wayback, and seeds. The backtest runs in **two modes**: a **seeded per-gem** replay (`src/firehose.py --gdelt --seed`, one dashboard per pre-selected gem) that injects the early niche articles GDELT misses, and a **seedless continuous** backtest (`scripts/backtest_gdelt.py`, GDELT + Wayback only, **no seeds**) that walks an arbitrary window week by week with no gem pre-selection — the more honest, harder test, since it gets no early-article hand-up. Both feed the same curator; the pieces they draw on:
-  - **GDELT** is the only date-honest discovery index: it has server-enforced date bounds, and results ordered by date rather than relevance, so a gem's early article isn't boosted because it later mooned. GDELT is queried with a fixed, **factored** set of **22 beats** (`GDELT_QUERIES` in `src/firehose.py`), never a ticker symbol. The beats are composed from shared synonym lists (so a beat is cheap to add/drop as the backtest evolves — edit a dict entry, not a hand-tuned string) into three groups:
-    ```
-    discovery (2):   (top/biggest/surging/breakout/… ) × (stock/ETF/shares/…)
-                     (under-the-radar/overlooked/niche/still-early/…) × (stock/ETF/…)
-    sectors/themes (15, each × the vehicle clause):
-                     technology  energy  financials  healthcare  industrials
-                     materials  consumer  utilities  real_estate  communication
-                     space  robotics  quantum  nuclear  crypto
-    catalysts (5, topic ONLY — no vehicle/superlative clause):
-                     geopolitics  shipping  trade  rates  supply_shock
-    ```
-    The discovery + sector/theme groups are gem-agnostic by construction: the 15-beat sweep is the 11 GICS sectors (consumer staples/discretionary merged) plus non-GICS asset classes and emerging-tech areas where gems appear but the sector sweep is too coarse (quantum) or doesn't reach at all (crypto). The 5 **catalyst** beats deliberately drop the vehicle/superlative clause — a 3rd Boolean-AND clause would filter out the raw causal articles ("Iran shuts Hormuz") that never say "stock" or "surging" yet are exactly the news the scout reasons from. Gem sub-niches ("uranium", "rare earth", "weight-loss drug") are excluded on purpose — those are reverse-engineered from known winners.
-  - **But GDELT catches a gem late, not early.** It monitors a mostly-mainstream source list and surfaces a story only once it has propagated across those outlets, so the niche, low-readership early write-ups (the "BWET … under the radar" pieces) are under-indexed or absent, and a gem usually enters GDELT only after it has gone mainstream. GDELT also returns headlines only, and a headline names the theme, rarely the ticker.
-  - So **Wayback** is used to patch the headline gap: for each URL GDELT did return, it fetches that page's as-of-date archived lede (which usually names the ticker). But it can't conjure URLs GDELT never returned, so GDELT plus Wayback is itself incomplete and largely misses the early trajectory.
-  - **Seeds** fill exactly that hole. Each is a short title + snippet summarizing a **real**, early under-the-radar write-up of a real event (China's rare-earth curbs, the Strait-of-Hormuz war risk, Germany's debt-brake vote), anchored to that article's genuine URL and injected at the event's true date. The events and their source articles are both real, while their title + snippet are hand-written summaries of the original published content. And they are written in the very "still-early / under-owned / smart-money-first" framing the scout is built to reward. Honest caveat: these seeds are hand-authored knowing which gems won and pre-framed to clear the gate, so any return inferred from a seeded backtest should be regarded as an upper bound. The **seedless continuous** backtest (`scripts/backtest_gdelt.py`) deliberately forgoes seeds entirely — it sees only what GDELT + Wayback surface on their own, so it carries no seed-authoring hindsight (it still inherits GDELT's late-catch and the trained-past-events ceiling, so it too is an upper bound, just a tighter one).
+- **Live (running the solution forward, week to week).** The firehose is Anthropic web search plus a Tavily pull, not a bulk download of every article published that day. The curator answers a single question, *which tickers is the press naming as thesis-driven movers?*, by running its own searches for exactly that, reading each result's headline and snippet, and returning the tickers the press flags; from that one question the model spawns its own follow-ups, adapting to whatever is live that week rather than working a fixed list, with every search capped to news dated today or earlier. It rides a general-purpose web index, so it is far broader than GDELT's news monitors, reaches the niche trade press, returns the content snippet rather than just a headline, and indexes fresh pages within days. That is why a just-published under-the-radar write-up is reachable as it appears.
 
-  **Why the forward-looking live use does not utilize GDELT + Wayback + seeds:** during live use, the firehose is Anthropic web search, which rides a general-purpose web index. It is far broader than GDELT's news monitors (it reaches the niche trade press), it returns the content snippet rather than just the headline, and it indexes fresh pages within days. So a just-published under-the-radar write-up is reachable as it appears, before it goes mainstream, with no seeding needed.
+The live pull runs **daily** rather than per-scan, because the pull is *unrepeatable*: search results are not re-queryable and articles get edited, paywalled or deleted, so a skipped day is a permanent hole in the record.
 
-The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran ~8× from its spark (Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf) to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8×, it's reading the article that names it early enough to ride the back half (still ~3× from the first "under-the-radar" write-up). The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
+The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran ~8× from its spark (Iran's late-December 2025 currency collapse and mass protests, which drew Trump's "armada" toward the Gulf) to its May peak, while SPY sat flat. The edge isn't knowing BWET will run 8×, it's reading the article that names it early enough to ride the back half, still ~3× from the first "under-the-radar" write-up. The May plateau is the three-tier model in one line: as the press turned toward peace, smart money rotated out while the slow herd kept backfilling.
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
-## Live dashboard
+## Dashboards
 
-The backtest is published as browsable pages at **[joehahn.github.io/geo-herd-rider](https://joehahn.github.io/geo-herd-rider/)** — one per gem, plus a parameter-sweep view. Every figure is a **hindsight upper bound** (see [Status](#status)); how each portfolio is produced (event-first agent over a realistic GDELT + Wayback + seeds firehose) is detailed in [`agent_design.md`](agent_design.md).
+Everything below is published as browsable pages at **[joehahn.github.io/geo-herd-rider](https://joehahn.github.io/geo-herd-rider/)**, and every figure on them is a hindsight upper bound rather than realized lift (see [Status](#status)).
 
-- [**What does a smarter model actually buy you?**](https://joehahn.github.io/geo-herd-rider/writeups/llm-bakeoff.html) — a **plain-English one-pager** (no repo vocabulary) on the LLM bake-off: eight models run the event-agent judgment stage over the same 100,000-article corpus, and a frontier model grades all ~4,500 of their decisions blind. Start here if you want the argument without the machinery. Source: [`scripts/build_writeup.py`](scripts/build_writeup.py).
-- [**Per-gem scans**](https://joehahn.github.io/geo-herd-rider/) — the **seeded per-gem** backtest run on **6 pre-selected gems**, one dashboard each: [BWET](https://joehahn.github.io/geo-herd-rider/bwet/), [MP](https://joehahn.github.io/geo-herd-rider/mp/), [GDX](https://joehahn.github.io/geo-herd-rider/gdx/), [SMR](https://joehahn.github.io/geo-herd-rider/smr/), [RNMBY](https://joehahn.github.io/geo-herd-rider/rnmby/), and the [GEO+MSTR](https://joehahn.github.io/geo-herd-rider/geo_mstr/) pair (7 tickers in all). Each shows value vs SPY, allocation over time, the event agent-journal arc, a firehose log, retrieval-health, the curator model, and an LLM-cost panel.
-- **Continuous curator backtests** — the **seedless continuous** engine (`scripts/backtest_gdelt.py`) walked over two whole windows with no gem pre-selection: [Q1 2025](https://joehahn.github.io/geo-herd-rider/q1_2025_book/) and [H1 2026](https://joehahn.github.io/geo-herd-rider/h1_2026_book/). These show what the curator picks and holds when it gets no seeded early articles — the harder, less-contaminated read.
-- [**Parameter-sweep dashboard**](https://joehahn.github.io/geo-herd-rider/sweeps/) — how the outcome varies as each of the **8 solution parameters in `investor_profile.backtest.md`** (the dev/backtest config; its frozen live twin is `investor_profile.forward.md`) is swept one at a time (vs the Sum-SPY benchmark): the curator **`model`** (a 7-model LLM bake-off), plus `lookback_period_days`, `concentration_cap`, `min_trade_size`, `risk_aversion`, `max_watchlist`, `spy_agent_conviction`, and `defensive_agent_conviction`.
+**Backtest.** Three years of business news, August 2023 to August 2026, replayed month by month:
 
-Rebuild all with `python scripts/build_dashboard.py --all`.
+- [**Firehose Backtest (FBT)**](https://joehahn.github.io/geo-herd-rider/fbt.html). The health of the news pool the curator reads: how the ingestion funnel filters 793,826 GKG rows down to 99,117 articles, coverage over time, how much of it arrives with enough text to reason over, and which beats and sources actually produce.
+- [**Curator Backtest (CBT)**](https://joehahn.github.io/geo-herd-rider/cbt.html). What the curator held and when: realized portfolio value against its controls, watchlist composition, the event timeline, the cull funnel, and gain attributed per holding and per beat.
+- [**Sweep Backtest (SBT)**](https://joehahn.github.io/geo-herd-rider/sbt.html). How the outcome moves as each parameter is swept across a grid, scored on return against drawdown, Sharpe, cancellation and hit-rate, and which knobs are worth moving next.
+
+**Bootstrap.** The same machinery on news captured *after* the backtest corpus ends, at a clean cut on 2026-07-28:
+
+- [**Firehose Bootstrap (FBS)**](https://joehahn.github.io/geo-herd-rider/fbs.html). How the bootstrap corpus is assembled, its specialty-desk reach, and how much of it is replication of the same story.
+- [**Curator Bootstrap (CBS)**](https://joehahn.github.io/geo-herd-rider/cbs.html). The bootstrap book, split by whether a ticker was inherited from the backtest or introduced by this curator itself.
+
+**Forward.** The live paper trade, and the only look-ahead-clean test this project has: [dated weekly scans](https://joehahn.github.io/geo-herd-rider/forward/).
+
+**Plain-English write-up.** [**What does a smarter model actually buy you?**](https://joehahn.github.io/geo-herd-rider/writeups/llm-bakeoff.html) is a one-pager with no repo vocabulary in it: eight models run the same judgment stage over the same 100,000-article corpus, and a frontier model grades all ~4,500 of their decisions blind. Start here if you want the argument without the machinery.
 
 ## Inside the curator: scout → event agents
 
-Each week the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** pulls its own event's news, reads its full journal arc (a Reflexion-style weekly self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
+Each period the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** pulls its own event's news, reads its full journal arc (a Reflexion-style self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
 
-The scout is kept selective by a **catalyst gate** — it names a ticker only on a *specific, datable, resolvable* catalyst (a war, a named bill, an export ban), rejecting pure theme/momentum, with a refinement that also admits **anticipation of a dated future event** (an election, an FDA date) whose date is the exit (this is how MicroStrategy was caught riding Bitcoin into the 2024 vote). The full mechanics — the two engines (`--agent` ticker-keyed vs `--event-first`), the same-catalyst **peer-basket**, the Reflexion-style weekly loop, and the catalyst-gate + anticipation details — are in [`agent_design.md`](agent_design.md).
+The scout is kept selective by a **catalyst gate**: it names a ticker only on a *specific, datable, resolvable* catalyst (a war, a named bill, an export ban), rejecting pure theme and momentum, with a refinement that also admits **anticipation of a dated future event** (an election, an FDA date) whose date is the exit; this is how MicroStrategy was caught riding Bitcoin into the 2024 vote. The design behind it (the same-catalyst **peer-basket**, the self-critique loop, and the gate's full admissibility rules) is in [`agent_design.md`](agent_design.md).
 
-**No-magnitude guardrail, machine-enforced.** Every LLM stage returns JSON matching a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like — **no field for a price target, weight, or size** — and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
+**No-magnitude guardrail, machine-enforced.** Every LLM stage returns JSON matching a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like, with **no field for a price target, weight, or size**, and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
 
 ## Optimizer
 
-Once the curator produces the live watchlist, a **standard portfolio optimizer** sizes it — weighting each name from its recent returns and volatility, the same way a robo-advisor would, tuned only by the knobs in `investor_profile.backtest.md` (and its frozen live twin `investor_profile.forward.md`). The LLM never touches these weights; it only suggests tickers to the optimizer. The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
+Once the curator produces the live watchlist, a **standard portfolio optimizer** sizes it, weighting each name from its recent returns and volatility, the same way a robo-advisor would, tuned only by the knobs in `investor_profile.backtest.md` (and its frozen live twin `investor_profile.forward.md`). The LLM never touches these weights; it only suggests tickers to the optimizer. The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
 
 ## Scope
 
-This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event — a war, an election — is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the portfolio unmapped. **Options and futures are excluded** since this solution cannot size them, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
+This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event, a war or an election, is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the portfolio unmapped. **Options and futures are excluded** since this solution cannot size them, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
+
 
 ## Status
 
-The firehose pipeline is built end-to-end and runs over historical news; below is what it scores so far and how those numbers should be read.
+The pipeline is built end-to-end and runs over three years of historical news. Below is what it scores, and how those numbers should be read.
 
 **Results so far.**
-- *The solution today (6 gems, event-first engine, live config):* the curator reads a real GDELT+Wayback+seeds firehose and — gated to **discrete, datable, resolvable catalysts** plus the dated-anticipation refinement — names the gem the press flags while it's still early; the mechanical optimizer sizes it against always-on SPY/gold floors; a **resolution-driven exit** drops it when the catalyst resolves. All six gems run on **news-derived seeds** (not synthetic). Five are **caught and ridden to a clean exit** — **SMR** (ADVANCE Act → signing exit, the textbook arc), **BWET** (Hormuz → ceasefire), **MP** (rare-earth curbs + DoD deal), **GEO+MSTR** (2024 election, MSTR entering early via the anticipation gate), **RNMBY** (rearmament) — while **GDX is the deliberate negative control**, a diffuse theme the gate correctly declines until a late blow-off top. Per-gem returns run roughly **+40% to +900%** at the current config — all **hindsight upper bounds**, settled on the [sweeps dashboard](https://joehahn.github.io/geo-herd-rider/sweeps/).
-- *Curator = Sonnet-5, confirmed by the 6-gem × 7-model bake-off:* DeepSeek tops the raw *sum* ($947k) but only by **sprawling** on the two dirtiest gems (RNMBY dial-up, GDX negative control); **Sonnet-5 wins the four cleanly-caught gems and catches all six**, so it stays the pick for selectivity + the early-anticipation catch. (The sum rewards sprawl — *precision* is the better test. Cost: ~$170 of the ~$180 run was the 3 Anthropic models — Sonnet-5 $75, Opus $66; the open-weights cost pennies.)
-- *Seedless continuous backtest (the harder read):* beyond the six seeded per-gem runs, the curator now also runs **seedless** over whole windows (`scripts/backtest_gdelt.py`, GDELT + Wayback only, no gem pre-selection) — see the [Q1 2025](https://joehahn.github.io/geo-herd-rider/q1_2025_book/) and [H1 2026](https://joehahn.github.io/geo-herd-rider/h1_2026_book/) dashboards. This drops the seed-authoring hindsight, so it is the less-contaminated of the two backtests — though it still inherits GDELT's late-catch and the trained-past-events ceiling, so it too is an upper bound, not lift.
-- *How we got here (the load-bearing findings):* a single-scan baseline caught the right *themes* but late and via the wrong *vehicle* (early-recall 0%, +42% vs SPY +98%); **seeding the early articles jumped recall 0% → 92%**, proving **retrieval, not reasoning, is the wall**; a per-event agent with a resolution-aware exit then rode BWET the full window (**+189–224%** vs +87%); and the **event-first engine** (one first-class event + a deterministic same-ticker guard) fixed the ticker-fragmentation the early 13-gem run exposed (RNMBY/RHMTY are one company; nuclear split across SMR/OKLO/CCJ).
 
-**Why every number here is an upper bound.** No search tool gives true point-in-time retrieval — Anthropic's `before:` and Tavily's `end_date` leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull (`src/search.py` enforces a hard client-side date bound, and even then they're missed). [**GDELT**](agent_design.md#retrieval-gdelt-and-seeds-current) (`src/gdelt.py`) *does* honor dates, but under-indexes niche trade press, so it picks a gem up only once mainstream piles in (late) — which is why the early pieces are seeded back at their true dates (a backtest shortcut, so seeded numbers are upper bounds). On top of that, the curator model was trained past these events. So every backtest figure above is a **ceiling**, reported as such — never read it as realized lift.
+- *Backtest (CBT), 2023-08-11 → 2026-07-26, 37 monthly curations over 99,117 articles.* The curated book ends at **$314,507** on a $50,000 start, against **$105,735** for an equal-dollar buy-and-hold of the starter basket and **$90,975** for SPY. This is the headline number and it is also the most contaminated one: the curator model was trained past these events, and a backtest steered by returns on known history is how you overfit.
+- *Bootstrap (CBS), news captured after the backtest corpus ends.* The same machinery on the least contaminated data available ends at **$43,776** against **$52,139** for the starter basket and **$53,600** for SPY. **It is losing.** Of the $6,224 given up, **+$8,025** came from 26 tickers inherited from the backtest and **−$14,853** from the 38 names this curator introduced itself, so the curation, not the inheritance, is what is costing money. Three curations is far too few to conclude anything in either direction, and it is reported here because it is the honest number, not the flattering one.
+- *Forward.* The daily news capture runs and accumulates the frozen corpus the forward test will read. The weekly curation on top of it is the next rung, and it is the only look-ahead-clean test this project will ever have.
+
+**Why every number here is an upper bound.** No search tool gives true point-in-time retrieval. Anthropic's `before:` and Tavily's `end_date` both leak post-cutoff articles, and the early "under-the-radar" pieces don't rank into a date-bounded pull anyway (`src/search.py` re-enforces a hard client-side date bound off each article's published date, and even then they're missed). GDELT's GKG *does* honor dates, and is used in the backtest for exactly that reason, but it under-indexes the niche trade press, so it picks a gem up only once the mainstream piles in. On top of both, the curator model was trained past these events. So a clean *retrospective* test is not achievable at all, every backtest figure above is a **ceiling** reported as such, and the forward paper trade is the verdict.
+
+## How I know the numbers aren't fooling me
+
+Most of the engineering in this repo is not the pipeline. It is the scaffolding that keeps the pipeline from flattering itself, which is the part that transfers to any other domain.
+
+- **A published page describes exactly one book, and that book has three inputs.** Corpus → curation → profile. Each of the three has silently drifted at least once, and the page said nothing. So `src/provenance.py` is the single source of truth for which corpus, curation and settings are canonical; every curation stamps its *effective* config at creation; and a gate hard-stops any write to a published page whose inputs don't match. `python scripts/check_canon.py` answers "is everything consistent?" in one command and exits non-zero when it isn't.
+- **A single run's profit and loss cannot adjudicate a change.** The same settings run twice, with nothing different but LLM sampling, produced median finals of **$117,200 and $62,997**. A sweep of thousands of cells over one curation is not thousands of samples. It is one curation viewed thousands of ways, so a lucky book lifts every percentile at once and is indistinguishable from a real improvement. Any difference under about 2× is therefore treated as unmeasurable.
+- **So changes are judged on mechanism, not on outcome.** Cull-at-birth rate, coverage, cancellation, orphan counts, the measured effect of a code change on what the scout actually reads. Those reproduce; a P&L delta does not.
+- **A hypothesis has to survive a second, independent curation before it is believed.** Applied honestly this is brutal: of eight plausible explanations for why the book loses money, one survived. Several flipped sign between curations, and one that looked like a clear improvement would have been actively harmful. The ordering is the whole lesson: the surviving hypothesis was checked against two curations *before* it was built; the rest were proposed first and measured second.
+- **A measurement that changes no decision gets deleted, however sensible it sounded.** Each agent used to rate its conviction in its event from 1 to 10, stepped up on fresh milestones and down on silence or a priced-in market. Replayed against its own null it ranked at **random**, and both decay rules had been written so that they moved only the score, never the live/exit switch, so roughly 600 characters of prompt per agent per period were buying a number that decided nothing. It is gone, along with the two decay rules, and the culls now rank on a price trend or on the evidence arc. A confidence score an LLM is happy to produce is not the same thing as information.
+- **Prices are frozen alongside the curation.** Live quote drift alone once made two replays of a single journal disagree on 919 of 6,300 cells, so the published pages price from a frozen panel and re-fetching is an explicit choice rather than the default.
 
 ## Requirements
 
 - **Python 3.12** with the `requirements.txt` packages.
-- **An Anthropic API key** (`ANTHROPIC_API_KEY`) is the only key the default pipeline needs. Running the curator bills your Anthropic account.
-- **Optional keys:** `OPENROUTER_API_KEY` (only for the cheap open-weight models: mimo, llama4, deepseek, grok4) and `TAVILY_API_KEY` (date-bounded news search in `src/search.py`).
-- **No key needed** for GDELT (the news pool), the Wayback Machine (as-of-date ledes), or yfinance (prices). The fixture/mechanics dashboard (`build_dashboard.py`) makes no LLM calls, so it needs no key at all.
+- **An Anthropic API key** (`ANTHROPIC_API_KEY`). Web search is Anthropic-only, so the live firehose requires it; running the curator bills your account.
+- **An OpenRouter API key** (`OPENROUTER_API_KEY`) if you point the scout or event-agent stages at the cheap open-weight models. The judgment stages read a gathered pool with no web search of their own, so any provider can serve them.
+- **A Google Cloud project** with BigQuery access, to build a corpus from GDELT's GKG. Replaying a curation you already have needs no cloud account.
+- **No key needed** for the Wayback Machine (as-of-date ledes) or yfinance (prices).
 
-You do **not** need Claude Code to run this. Claude Code is the tool the repo was developed with, not a runtime dependency; the solution calls the Anthropic API directly through the `anthropic` Python SDK (`src/llm.py`).
+You do **not** need Claude Code to run this. Claude Code is the tool the repo was developed with, not a runtime dependency; the solution calls the model APIs directly through the `anthropic` and OpenAI-compatible Python SDKs.
 
 ## Setup
 
 ```bash
-git clone <this repo>
+git clone https://github.com/joehahn/geo-herd-rider
 cd geo-herd-rider
 python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# The LLM curator calls the Anthropic API — bring your own key.
-cp .env.example .env        # then edit .env, or just export the var:
-export ANTHROPIC_API_KEY=sk-ant-...
-# optional: OPENROUTER_API_KEY (cheap models), TAVILY_API_KEY (date-bounded news search)
+cp examples/investor_profile.md investor_profile.backtest.md   # the shipped template
+cp .env.example .env                                           # then add your keys
 ```
 
 `.env` is gitignored, so your key is never committed.
 
 ## Run it
 
-**Mechanics test (fixture — look-ahead-clean, assumes perfect retrieval):**
+The published dashboards replay a saved curation and make no LLM calls, so rebuilding them is free and takes seconds:
 
 ```bash
-python src/firehose.py --fixture data/fixtures/firehose_bwet.json --start 2026-02-06 --end 2026-06-18
-python scripts/build_dashboard.py          # rebuild the $50K dashboard (no LLM cost)
+python scripts/check_canon.py            # are corpus, curation and profile consistent?
+python scripts/build_cbt_dashboard.py    # rebuild the curator-backtest page
 ```
 
-**Scored multi-event harness (the dev loop — recall / precision / tail vs the gem set):**
+Gathering a fresh corpus, curating it, sweeping the parameter grid and running the forward paper trade all run from this same codebase. Those recipes are not documented here; see [What isn't published](#what-isnt-published).
 
-```bash
-# Single-scan baseline (Opus) over the gems.json window:
-python scripts/run_harness.py
+## What isn't published
 
-# Event-first engine (the current engine), on the cheap dev model (MiMo via OpenRouter):
-python scripts/run_harness.py --event-first --provider openrouter --model xiaomi/mimo-v2.5-pro
+The code is here and it runs. What is deliberately held back is the part that took longest to get right and is the easiest to copy:
 
-# Add --seed data/fixtures/bwet_seeds.json for the retrieval-perfect overlay (decomposition).
-# GDELT pools cache after the first (throttled) fetch. All figures are hindsight upper bounds.
-```
+- **The tuned configuration.** `examples/investor_profile.md` ships the full structure and every knob name with neutral defaults, so you can see exactly what the solution is parameterized on. The settings it actually runs on stay local.
+- **The corpus and the curations.** The 99,117-article pool and the journals replayed on the published pages are local-only. A clone gathers its own.
+- **The research ledger.** The running record of what has been measured, tested and rejected, which is worth more than the code it describes.
 
-**Forward paper-trade (the only look-ahead-clean test — run weekly):**
-
-```bash
-# Live event-first scan for the current week (Anthropic web search on YOUR API key, ~$1.75).
-# Idempotent: dedups by week, safe to run any day. All forward data is LOCAL (gitignored).
-.venv/bin/python src/forward.py --scan
-
-.venv/bin/python src/forward.py --report    # mark the accumulated paper portfolio to market vs SPY
-.venv/bin/python src/forward.py --explain   # audit why the scout kept few/no gems this week (no web search)
-```
-
-**Full transcript logging (`--trace`)** — to audit exactly what the curator saw and said (a playtest, or debugging), add `--trace` to `src/forward.py` or `scripts/backtest_gdelt.py`. It appends **every LLM call** (full system + user prompt, the response, and the web-searches the model issued) and **every search query** (GDELT / Tavily / model-issued, with result counts) as one JSON record per line to a JSONL transcript. Off by default (zero overhead when the flag is absent).
-
-**How the transcript path is managed:**
-
-- `--trace` (bare) → **`<out>/transcript.jsonl`** — for `backtest_gdelt.py` that's the `--out` dir; for `forward.py` it's `data/forward/transcript.jsonl`.
-- `--trace path/to/file.jsonl` → that **explicit path** (created if needed).
-- Absent → **no logging.**
-- Transcripts are **gitignored** (`transcript.jsonl`) — they hold full prompts and can reach a few MB per multi-week run, and stay local.
-
-```bash
-# seedless continuous backtest, tracing to data/backtest_bwet/transcript.jsonl:
-python scripts/backtest_gdelt.py --start 2026-03-01 --end 2026-04-30 --out data/backtest_bwet --trace
-# forward scan, tracing to data/forward/transcript.jsonl:
-.venv/bin/python src/forward.py --scan --trace
-# or an explicit path:
-.venv/bin/python src/forward.py --scan --trace /tmp/audit.jsonl
-```
-
-Read it back one record per line (`json.loads`), or filter with `jq` (e.g. `jq 'select(.kind=="llm") | .system' transcript.jsonl`).
-
-**Automate the daily pull with cron** — accumulates the frozen news over time (the forward
-scoreboard, and the corpus a settled solution replays / re-backtests against). Run `crontab -e` and
-paste this block, changing **only** the `GHR_path` line to your own repo path:
-
-```
-# geo-herd-rider: set the repo path once; both jobs below reuse it
-GHR_path=/path/to/geo-herd-rider
-# GHR: Daily forward — 1-day Anthropic+Tavily news pull + append-only backup + FBS/CBS refresh. 6:30am local
-30 6 * * *  $GHR_path/scripts/forward_daily.sh >> $GHR_path/data/forward/cron.log 2>&1
-# GHR: Weekly forward — scout + rebalance + dashboard + push. DISABLED during the rewrite (see TODO.md phase 5)
-#0 13 * * 0  $GHR_path/scripts/forward_cron.sh >> $GHR_path/data/forward/cron.log 2>&1
-```
-
-`GHR_path` is a cron variable, so the path is written once instead of four times. It must appear
-**above** the jobs that use it — cron applies a variable only to lines that follow it. Confirm with
-`crontab -l`.
-
-**Daily** (`forward_daily.sh`, 6:30am) does four things, and is the ONLY job currently enabled:
-
-1. **Pulls the past ~24 hours** from both engines into `data/forward/daily/<date>.json`. Daily rather
-   than per-scan because the pull is *unrepeatable*: search results are not re-queryable and articles
-   get edited, paywalled or deleted, so a skipped day is a permanent hole. Tavily is same-day 99.8% of
-   the time; Anthropic looks back a week and lands a median 1 day late (p90 six days), so a recent
-   publication date has not finished collecting its Anthropic share.
-2. **Mirrors the new file** (`backup_daily.py`), append-only, keeping any superseded copy.
-3. **Rebuilds FBS**, which describes the corpus that just grew.
-4. **Rebuilds CBS**, whose book is priced daily from live quotes.
-
-Steps 3-4 are render-only — no LLM, ~15s combined — and each step is tolerated on failure so one bad
-step never skips the next. Everything is timestamped into `data/forward/cron.log`.
-
-Billable: Anthropic web search is **$10 per 1,000 searches** and the sweep runs ~69 of them, plus
-Tavily credits and tokens — roughly **$1/day**. Dedups by date, so a re-run is a no-op.
-
-**Re-curating the bootstrap is NOT in cron.** It costs money (~$1.30) and rewrites the published book,
-so it stays a deliberate hand-run:
-
-```
-python scripts/backtest_gdelt.py --bootstrap --decisions --seed-journal <CANON_RUN> --out data/cbs_vN
-python scripts/build_cbt_dashboard.py --bootstrap        # after pointing the builder at the new run
-```
-
-The curation cadence (`rebalance_period`, currently **monthly**) is independent of the daily pull:
-news is captured daily whatever the curator's rhythm, and both dashboards move every day regardless
-of when the curator last ran.
-
-**Weekly** (`forward_cron.sh`, Sunday 1pm) is **commented out** — it is phase-5 work (`TODO.md`). It
-runs the scout + optimizer on the accumulated pulls, builds a dated dashboard under `docs/forward/`
-and pushes. All news under `data/forward/` stays local; only `docs/` is committed, and the push needs
-non-interactive git auth.
+The full policy, including how it applies to anything added to the repo later, is in [`HOLDBACK.md`](HOLDBACK.md). The architecture, the guardrails, and the method for telling a real improvement from a lucky one are all above, in full. If you want the rest, [get in touch](https://jmh-datasciences.com).
 
 ## Notes
 
-Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`agent_design.md`](agent_design.md) for the event-agent design, [`TODO.md`](TODO.md) for backlog, [`scripts/`](scripts/README.md) for how to run each script, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
+Developed with [Claude Code](https://claude.com/claude-code). See [`CLAUDE.md`](CLAUDE.md) for the rules Claude follows in this repo, [`STYLE.md`](STYLE.md) for how these docs are written, [`HOLDBACK.md`](HOLDBACK.md) for what is and isn't distributed, [`agent_design.md`](agent_design.md) for the event-agent design, and [`prior-work/`](prior-work/) for the earlier experiments this design builds on.
 
 ## About the author
 
 I am Joseph M. Hahn, Ph.D., an independent AI and machine learning consultant. Through **JMH DataSciences** I build production AI and machine learning systems for clients who need a real decision automated, not a demo. Before going independent I spent eight years inside Oracle's AI Center of Excellence delivering AI systems for enterprise clients in manufacturing, oil and gas, public sector, and retail, and before that four years building machine learning systems on large data platforms.
 
-This repo is one of several demonstrations of the same underlying pattern: **an AI reads a stream of unstructured input and automates a routine decision, while deterministic code handles whatever has to be auditable.** The hard part is rarely the model. It is drawing the line between the judgment worth delegating and the arithmetic that has to stay reproducible — and then building the scaffolding that proves the system isn't fooling itself, which is most of what the [Status](#status) section above is about. If that shape matches a problem in your business, the work I do and what it costs are at [jmh-datasciences.com](https://jmh-datasciences.com).
+This repo is one of several demonstrations of the same underlying pattern: **an AI reads a stream of unstructured input and automates a routine decision, while deterministic code handles whatever has to be auditable.** The hard part is rarely the model. It is drawing the line between the judgment worth delegating and the arithmetic that has to stay reproducible, and then building the scaffolding that proves the system isn't fooling itself, which is most of what the [Status](#status) section above is about. If that shape matches a problem in your business, the work I do and what it costs are at [jmh-datasciences.com](https://jmh-datasciences.com).
 
 **Related work:**
 
-- [**diplomacy-A2A**](https://github.com/joehahn/diplomacy-A2A) — seven Claude-powered agents play *Diplomacy*, the classic seven-player negotiation board game, against each other: forming alliances, bargaining, and betraying each other over the A2A protocol.
-- [**portfolio-wave-rider**](https://github.com/joehahn/portfolio-wave-rider) — this project's predecessor. A mechanical retriever gathers the articles, an LLM judges which of them matter, and a mean-variance optimizer sizes the result: judgment is confined to the middle stage, the division of labor this repo inherits.
-- [**chicago_crime_forecast**](https://github.com/joehahn/chicago_crime_forecast) — monthly Chicago crime counts by type and ward, via an skforecast recursive multi-series forecaster over the city's public dataset.
+- [**diplomacy-A2A**](https://github.com/joehahn/diplomacy-A2A). Seven Claude-powered agents play *Diplomacy*, the classic seven-player negotiation board game, against each other: forming alliances, bargaining, and betraying each other over the A2A protocol.
+- [**portfolio-wave-rider**](https://github.com/joehahn/portfolio-wave-rider). This project's predecessor. A mechanical retriever gathers the articles, an LLM judges which of them matter, and a mean-variance optimizer sizes the result: judgment is confined to the middle stage, the division of labor this repo inherits.
+- [**chicago_crime_forecast**](https://github.com/joehahn/chicago_crime_forecast). Monthly Chicago crime counts by type and ward, via an skforecast recursive multi-series forecaster over the city's public dataset.
 
 ## Disclaimer
 
 Technical demo. Not financial advice. Historical performance is not predictive. Do not trade real money on this output.
+
 
 ## License
 
@@ -318,20 +256,22 @@ This repository is **dual-licensed**, split by file type.
 
 | What | License | Commercial use |
 |---|---|---|
-| **Documentation and published pages** — every `*.md` file at any path, and everything under [`docs/`](https://joehahn.github.io/geo-herd-rider/) | [CC BY 4.0](LICENSE-docs.md) | **Yes**, with attribution |
-| **Everything else** — `src/`, `scripts/`, `data/`, notebooks, config | [PolyForm Noncommercial 1.0.0](LICENSE.md) | No |
+| **Documentation and published pages**: every `*.md` file at any path, and everything under [`docs/`](https://joehahn.github.io/geo-herd-rider/) | [CC BY 4.0](LICENSE-docs.md) | **Yes**, with attribution |
+| **Everything else**: `src/`, `scripts/`, `data/`, notebooks, config | [PolyForm Noncommercial 1.0.0](LICENSE.md) | No |
 
 The writing and the dashboards are meant to travel: quote them, adapt them,
 screenshot a chart into your slide deck, commercially or not, as long as you
 credit the source. The requested form is *Joseph M. Hahn,
-Ph.D., JMH DataSciences — https://jmh-datasciences.com — from the
-`geo-herd-rider` project*. The code is free to use, modify, and share for any
-noncommercial purpose — research, experimentation, education, personal projects,
+Ph.D., JMH DataSciences, https://jmh-datasciences.com, from the `geo-herd-rider` project*. The code is free to use, modify, and share for any noncommercial purpose: research, experimentation, education, personal projects,
 and use by nonprofit or government organizations. Commercial rights to the code
 are reserved; [get in touch](https://jmh-datasciences.com) if you want them.
 
 Code samples embedded in documentation files stay under the code license, so a
 snippet lifted from this README carries the same terms as the file it came from.
+
+**Not distributed.** The tuned investor profiles, the news corpus, the curation journals and the
+research ledger are held back and are not part of either licence grant; see [`HOLDBACK.md`](HOLDBACK.md). `examples/investor_profile.md` ships the full knob structure with
+neutral values in their place.
 
 **Third-party content.** `data/` and parts of the documentation and dashboards contain
 headlines, snippets, and URLs from published news articles. That material

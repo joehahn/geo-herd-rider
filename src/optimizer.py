@@ -345,7 +345,15 @@ def load_financial_model(profile_path: str = "investor_profile.backtest.md") -> 
 
     p = Path(profile_path)
     if not p.exists():
-        return dict(_FINANCIAL_MODEL_DEFAULTS)
+        # FAIL LOUD. Silently falling back to defaults here would run a whole curation on settings
+        # nobody chose and publish a book describing them -- the same class of silent drift that
+        # provenance.py exists to kill. The profiles are gitignored (see HOLDBACK.md), so a fresh
+        # clone lands here and needs to be told what to do rather than handed a plausible number.
+        example = Path(__file__).resolve().parent.parent / "examples" / "investor_profile.md"
+        hint = f"\n  cp {example} {p}" if example.exists() else ""
+        raise FileNotFoundError(
+            f"no investor profile at {p}. Copy the shipped template and edit it:{hint}"
+        )
     text = p.read_text()
     m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
     if not m:
