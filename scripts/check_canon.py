@@ -158,6 +158,36 @@ def main(argv=None) -> int:
                       f"reproduced by today's code. Re-curate, or record why it is still valid in "
                       f"provenance.ACCEPTED_CODE_DRIFT.")
 
+    # THE BOOTSTRAP'S SEED JOURNAL. `--seed-journal RUN` pre-loads the live theses RUN held at the
+    # handover, so the bootstrap INHERITS a curation's judgment as well as its book. Nothing checked
+    # which run that was, and it went stale in silence: every cbs_v3..v10 was seeded from
+    # cbt_3yr_v21_evscans12 while CANON_RUN advanced v22 -> v23 -> v24 -> v25. cbs_v10 therefore
+    # carried 29 events that predate its own first scan, 27 of them with no matching catalyst in the
+    # canonical journal, admitted under v21's gate -- "Potential 479% upside in biotech sector" among
+    # them -- and 60 tickers reached the live watchlist only through those. One of them (IXHL, an
+    # event that ran TWELVE consecutive zero-source entries because v21 predates the silence cap)
+    # took 40% of the published recommendation on 2026-08-25.
+    # The seed is recorded in the stamp's argv, so this costs nothing but the comparison nobody made.
+    print("\nBOOTSTRAP SEED JOURNAL")
+    _bs = ROOT / P.CANON_BOOTSTRAP_RUN / "provenance.json"
+    if not _bs.exists():
+        print(f"  {WARN} {P.CANON_BOOTSTRAP_RUN} has no provenance stamp — seed unknown")
+    else:
+        _argv = (json.loads(_bs.read_text()).get("argv") or [])
+        _seed = _argv[_argv.index("--seed-journal") + 1] if "--seed-journal" in _argv else None
+        if _seed is None:
+            print(f"  {WARN} {P.CANON_BOOTSTRAP_RUN:26} seeded from NOTHING — the bootstrap starts "
+                  f"from cash and inherits no theses")
+        elif _seed.rstrip("/") == P.CANON_RUN.rstrip("/"):
+            print(f"  {OK} {P.CANON_BOOTSTRAP_RUN:26} seeded from {_seed}, which is CANON_RUN")
+        else:
+            bad += 1
+            print(f"  {BAD} {P.CANON_BOOTSTRAP_RUN:26} seeded from {_seed}")
+            print(f"      CANON_RUN is {P.CANON_RUN}. The live book inherited its theses from a "
+                  f"SUPERSEDED curation, so it is running gates and fixes that were later replaced.")
+            print(f"      Re-curate: scripts/backtest_gdelt.py --bootstrap --decisions "
+                  f"--seed-journal {P.CANON_RUN} --out data/<next>")
+
     print("\nPUBLISHED PAGES")
     for page, pat in (("docs/cbt.html", r"curation fingerprint</td><td>([0-9a-f]{12})"),
                       ("docs/fbt.html", r"<td>Corpus</td><td>([^<]*)"),

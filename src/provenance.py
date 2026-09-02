@@ -137,7 +137,26 @@ CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first 
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_BOOTSTRAP_RUN = "data/cbs_v10"   # the curation behind docs/cbs.html.
+CANON_BOOTSTRAP_RUN = "data/cbs_v11"   # the curation behind docs/cbs.html.
+                                      # v10 -> v11 on 2026-09-02: THE SEED JOURNAL, not the corpus.
+                                      # Every bootstrap since cbs_v3 was seeded from
+                                      # cbt_3yr_v21_evscans12 while CANON_RUN advanced v22 -> v23 ->
+                                      # v24 -> v25, so the live book inherited its live theses from a
+                                      # curation that predates the ticker-resolver fix, the SILENCE
+                                      # CAP, the first-read retire guard and the vehicle gate.
+                                      # WHAT THAT COST, measured on cbs_v10: 29 events predating its
+                                      # own first scan, 27 with no matching catalyst in the canonical
+                                      # journal ("Potential 479% upside in biotech sector" among
+                                      # them), and 60 tickers reaching the live watchlist only
+                                      # through those. ev202 (IXHL, "FDA approves sleep apnea drug")
+                                      # ran TWELVE consecutive zero-source entries -- the exact shape
+                                      # max_silent_scans exists to kill, which v21 did not have --
+                                      # then aged out at scan 1 here, and STILL took 40% of the
+                                      # 2026-08-25 published recommendation, because retiring an
+                                      # event writes no thesis_live=False decision row and
+                                      # max_stale_scans (8) outlives a 5-scan bootstrap.
+                                      # check_canon now compares this run's stamped --seed-journal to
+                                      # CANON_RUN, which is the check that would have caught it.
                                       # ADDED 2026-09-01. It was hard-coded as "data/cbs_v9" in
                                       # build_cbt_dashboard.py AND check_canon.py -- the second time
                                       # this file's own rule ("do NOT hard-code a run or corpus path
