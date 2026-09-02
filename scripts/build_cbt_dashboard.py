@@ -549,25 +549,69 @@ def main(argv=None) -> int:
         # arrived from starter_watchlist, which a continuation book should not have at all. Handing
         # the opening ALLOCATION over makes "the bootstrap portfolio matches the backtest's on day
         # zero" true rather than approximate.
+        # RECOMPUTED FROM THE RUN, NEVER PARSED OUT OF docs/cbt.html (changed 2026-09-02).
+        # This used to read the opening weights out of the RENDERED CBT PAGE, which made the
+        # bootstrap's opening book a function of WHEN CBT was last built. Build CBS before rebuilding
+        # CBT after a sizing change and it silently opens on the old config's allocation, with nothing
+        # anywhere saying so -- the same "a page describing inputs it was not built from" failure this
+        # file's provenance module exists to kill, and unreachable by any fingerprint we could add,
+        # because the number would be internally consistent and simply wrong.
+        #
+        # NOT FROZEN AT CURATION TIME EITHER, which is the other obvious fix and is worse: the opening
+        # allocation is CBT's weights on the seed date, so it is a function of max_watchlist,
+        # concentration_cap, optimizer_lookback_days and risk_aversion -- BOOK knobs. Stamping it into
+        # the run would make every sizing tweak demand a re-curation of the bootstrap, which is
+        # precisely the misfiling provenance.py warns against.
+        #
+        # So: replay CANON_RUN under the BACKTEST profile (the one CBT's own page is built under) and
+        # read the allocation at the seed date. Measured 0.7s off the frozen panel, and it reproduces
+        # the page's numbers exactly. No ordering, no artifact, nothing to go stale.
         _seed_w = None
         if a.bootstrap and _bs_start:
             try:
-                _cbt_page = ROOT / "docs" / "cbt.html"
-                _cd = json.loads(re.search(r'const DATA = (\{.*?\});\n',
-                                           _cbt_page.read_text(), re.S).group(1))
-                _cb = _cd["book"]; _cdates = _cb["dates"]
                 import bisect as _bis
-                _ix = min(_bis.bisect_left(_cdates, _bs_start), len(_cdates) - 1)
-                _seed_w = {t: float(wv[_ix]) for t, wv in _cb["alloc"].items()
-                           if _ix < len(wv) and wv[_ix] > 1e-6}
+                _cbt_fm = _lfm(str(ROOT / "investor_profile.backtest.md"))
+                _cbt_scans: dict = collections.defaultdict(list)
+                for _r in _cbt_rows:
+                    _tk = (_r.get("ticker") or "").strip().upper()
+                    if not _tk:
+                        continue
+                    _ts = _pd.Timestamp(str(_r["week"]) + " 16:30", tz="America/New_York")
+                    _cbt_scans[_ts].append({"ticker": _tk, "thesis": (_r.get("thesis") or ""),
+                                            "thesis_live": str(_r.get("thesis_live")).lower() == "true",
+                                            "catalyst_resolved":
+                                                str(_r.get("catalyst_resolved")).lower() == "true",
+                                            "evidence_urls": []})
+                _cbt_pf = ROOT / _canon.CANON_RUN / "panel.csv"
+                _cbt_bt = _fh.backtest(dict(sorted(_cbt_scans.items())), _cbt_fm,
+                                       capital=float(_cbt_fm.get("initial_investment_usd", 50_000)),
+                                       daily=True,
+                                       panel=(_pd.read_csv(_cbt_pf, index_col=0, parse_dates=True)
+                                              if _cbt_pf.exists() else None),
+                                       freeze_panel=str(_cbt_pf))
+                _cdates = (_cbt_bt.get("daily") or {}).get("dates") or []
+                _calloc = (_cbt_bt.get("daily") or {}).get("alloc") or {}
+                if _cdates:
+                    _ix = min(_bis.bisect_left(_cdates, _bs_start), len(_cdates) - 1)
+                    _seed_w = {t: float(wv[_ix]) for t, wv in _calloc.items()
+                               if _ix < len(wv) and wv[_ix] > 1e-6}
                 if _seed_w:
-                    print(f"  CBS opens with CBT's allocation at {_cdates[_ix]}: "
+                    print(f"  CBS opens with CBT's allocation at {_cdates[_ix]} "
+                          f"(replayed from {_canon.CANON_RUN}): "
                           + ", ".join(f"{t} {100*v:.1f}%" for t, v in sorted(_seed_w.items(),
                                                                             key=lambda kv: -kv[1])),
                           flush=True)
-            except Exception as _e:  # noqa: BLE001 -- no CBT page -> fall back to ticker-only seeding
+            except Exception as _e:  # noqa: BLE001 -- no replay -> fall back to ticker-only seeding
                 print(f"  CBS weight seed unavailable ({type(_e).__name__}: {_e})", file=sys.stderr)
                 _seed_w = None
+        # SAY WHAT IT OPENED ON, on the page. The seed used to be implicit -- the curve simply started
+        # somewhere and the reader had to trust it. Recording the run, the date and the weights makes
+        # the page self-describing, which is the part of "fingerprint it" worth keeping once the
+        # staleness itself is designed out.
+        if book_seed is not None:
+            book_seed["run"] = _canon.CANON_RUN
+            book_seed["weights"] = {t: round(float(v), 6) for t, v in
+                                    sorted((_seed_w or {}).items(), key=lambda kv: -kv[1])}
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
                            seed_holdings=_seed_w, freeze_panel=_pf)
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
