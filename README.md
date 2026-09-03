@@ -96,7 +96,7 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 ## Inside the curator
 
-Each period the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** pulls its own event's news, reads its full journal arc (a Reflexion-style self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
+Each period the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** takes the slice of the period's news that names its own vehicles or catalyst, re-reads its full journal arc (a Reflexion-style self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
 
 The scout is kept selective by a **catalyst gate**: it names a ticker only on a *specific, datable, resolvable* catalyst (a war, a named bill, an export ban), rejecting pure theme and momentum, with a refinement that also admits **anticipation of a dated future event** (an election, an FDA date) whose date is the exit; this is how MicroStrategy was caught riding Bitcoin into the 2024 vote. The design behind it (the same-catalyst **peer-basket**, the self-critique loop, and the gate's full admissibility rules) is in [`agent_design.md`](agent_design.md).
 
