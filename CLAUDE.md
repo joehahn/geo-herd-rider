@@ -115,6 +115,21 @@ caught by eye, late.
 - **`python scripts/check_canon.py`** answers "is everything consistent?" in one command; exit 1 if
   not. Run it before trusting a page or committing dashboards.
 
+## Unpublished working docs: `local/`
+
+`local/` is gitignored and holds the docs that are for whoever develops this repo, not for a reader
+of it. Put a new working doc there rather than at the repo root, and do not link to one from any
+published file (README, `agent_design.md`, `examples/`), because the link 404s for everyone else.
+
+- `local/HOLDBACK.md` is the policy for what this repo publishes and what it withholds. Read it
+  before adding a file or writing a doc: it decides which of three tiers the thing belongs to.
+- `local/STYLE.md` is the voice these docs are written in, extracted from the existing corpus.
+  Check a draft against it before showing the user.
+- `local/pwr-shared-bugs.md` is the cross-repo note on defects shared with `portfolio-wave-rider`.
+
+Also local by the same rule: `TODO.md` (the research ledger) and the two tuned investor profiles,
+whose published stand-in is `examples/investor_profile.md`.
+
 ## Conventions
 
 - Python 3.12, std `venv`, deps in `requirements.txt`. Match the terse,

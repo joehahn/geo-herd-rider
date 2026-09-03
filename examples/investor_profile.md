@@ -4,8 +4,7 @@
 #
 # Every knob this solution is parameterized on is listed below, with a one-line description of
 # what it governs. The VALUES here are neutral placeholders chosen to be plausible and runnable.
-# They are NOT the settings behind the published dashboards, which are not distributed;
-# see HOLDBACK.md.
+# They are NOT the settings behind the published dashboards, which are not distributed.
 #
 # Order: AI models -> curator -> optimizer.
 #

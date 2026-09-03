@@ -299,6 +299,23 @@ tier is downstream of the forward scoreboard proving the plain news firehose pay
 so single-run before/after comparisons are noisy. Treat per-draw deltas as suggestive, not proof;
 the forward eval (or multi-seed averaging) is the real test.
 
+## Profile knobs are partitioned by where they act **[CURRENT]**
+
+`src/provenance.py` classifies every knob in the investor profile as either a CURATION knob or a
+BOOK knob, and fails the build while any knob is unclassified, so adding a knob forces a decision
+about its blast radius before it can ship.
+
+- **CURATION knobs** act upstream of the journal: which articles are read, which the scout is shown,
+  which events open and when they retire. Change one and the existing journal could never have been
+  produced under it, so the run is invalid and the news must be re-read at LLM cost.
+- **BOOK knobs** act at replay time over a fixed journal: sizing, culling, rebalancing. Change one
+  and the same curation simply produces a different book, so the page just needs a rebuild.
+
+`max_watchlist` is the type specimen: `watchlist_cap()` is called only in `firehose.backtest`, never
+in the scan path. Getting the boundary wrong is expensive in both directions. Treat a book knob as
+curation and every sizing tweak demands a re-curation; treat a curation knob as book and you publish
+a page whose settings table describes something the journal never ran under.
+
 ## Storage & format
 - **JSON, not a database** **[CURRENT]** — at ~5-year scale this is small data (see below); JSON is
   human-readable, git-diffable, and native to the LLM output.

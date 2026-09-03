@@ -129,9 +129,11 @@ data/org_tags/
 # bundle spot-check output: regenerable from the script, and large
 data/bundle_spotcheck.txt
 
-# ---- holdback (HOLDBACK.md) ----
+# ---- holdback (local/HOLDBACK.md) ----
 # The tuned profiles stay local; examples/investor_profile.md is the published template.
 /investor_profile.backtest.md
 /investor_profile.forward.md
 # The research ledger: the running record of what has been measured, tested and rejected.
 /TODO.md
+# Working docs that are for whoever develops this repo, not for a reader of it.
+/local/
