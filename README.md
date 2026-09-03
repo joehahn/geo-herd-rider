@@ -37,7 +37,7 @@ flowchart TD
     N --> FH
     FH["🚰 Firehose<br/>pulls and date-stamps each day's articles,<br/>and tags each with the companies it names"]
     FH --> POOL[("📚 Corpus<br/>pool.json")]
-    POOL -->|"gem tell: early-framing headline filter"| SC
+    POOL --> SC
 
     subgraph CUR["🧠 AI Curator"]
       direction TB
@@ -53,8 +53,8 @@ flowchart TD
 
     AG --> J[("📓 Curation<br/>journal.json")]
     J -. "retired-catalyst memory" .-> SC
-    J -->|"cull + silence clock"| WL
-    WL["🎯 Watchlist<br/>the surviving events' recommended tickers<br/>+ always-on anchors"]
+    J --> WL
+    WL["🎯 Watchlist<br/>the event tickers that survive the cull<br/>and the silence clock, + always-on anchors"]
     WL --> OPT
     PX[("💵 Prices<br/>panel.csv")] --> OPT
     OPT["⚖️ Optimizer<br/>conventional portfolio math"]
