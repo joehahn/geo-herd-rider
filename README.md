@@ -162,8 +162,14 @@ Once the curator produces the live watchlist, a **standard portfolio optimizer**
 
 ## Scope
 
-This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (e.g. BWET is an ETN), so a foreign event, a war or an election, is captured through its US-listed proxy (e.g. YPF / ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. A **live ticker resolver** maps a foreign company the scout names to its US ADR (*Rheinmetall → RNMBY*), and a code guard drops any unresolved foreign-exchange suffix (`CSL.AX`, `7203.T`) so nothing slips into the portfolio unmapped. **Options and futures are excluded** since this solution cannot size them, and the commodity and rate exposure comes via ETFs/ETNs instead. Full admissibility rules are in [`agent_design.md`](agent_design.md).
+This solution trades only **US-listed stocks, ADRs, ETFs and ETNs** (BWET is an ETN), so a foreign event, a war or an election, is captured through its US-listed proxy (YPF or ARGT for Argentina), which is both how the US press names it and what a retail brokerage can trade. Options and futures never enter, and commodity and rate exposure arrives through ETFs and ETNs instead. Four rules hold that boundary, none of them the LLM's judgment:
 
+- **A ticker has to look like one.** Every symbol the curator emits is normalized (`$RGTI`, `NASDAQ:RGTI` and `(RGTI)` all collapse to `RGTI`) and then shape-checked, which catches company names, prose, and foreign-exchange suffixes like `CSL.AX` or `7203.T`. A rejection is loud, because a silent drop would let a position the curator actually picked vanish from the book with nothing saying so.
+- **A name gets a second chance before it is dropped.** A reject that looks like a company name rather than a broken symbol goes to a **ticker resolver**, a web lookup mapping it to its US listing (*Rheinmetall to RNMBY*, *Rigetti Computing to RGTI*). Only if that fails is it discarded. The lookup is look-ahead-safe: a name-to-symbol mapping is a static fact, and nothing time-varying is read from it.
+- **A symbol has to have been listed at the time.** A second gate checks the symbol actually traded on or before the decision date, so a backtest cannot buy a company that had not listed yet.
+- **Leveraged and inverse ETFs are refused outright**, 2x and 3x and the rest. They reset leverage daily and bleed from volatility decay, which makes them day-trade instruments rather than something to hold while a catalyst plays out.
+
+Two further gates decide funding rather than admissibility: a **liquidity floor** keeps a thinly-traded name from taking a watchlist slot, and a **death-spiral exclusion** refuses to fund a recently-listed company carrying a punitive reverse split. Full rules are in [`agent_design.md`](agent_design.md).
 
 ## Status
 
