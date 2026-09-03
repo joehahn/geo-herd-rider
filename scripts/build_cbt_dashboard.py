@@ -1688,11 +1688,7 @@ def main(argv=None) -> int:
     # A knob's note, appended after its value. Reserved for a knob whose value alone would mislead
     # about WHERE IT APPLIES -- gather_model names a real model, but nothing on this page was
     # produced by it, since the live web-search stage does not run in a backtest.
-    NOTE = {"gather_model": "forward only",
-            # anchor_tickers() reads it ONLY when `always_include` is absent, and both profiles
-            # declare that, so it steers nothing here. Kept in the optimizer defaults for the
-            # pre-GKG gem dashboards, which build their own universes and still special-case GLD.
-            "defensive_ticker": "superseded by always_include"}
+    NOTE = {"gather_model": "forward only"}
 
     run_rows = [
         ("— window (this run) —", ""),
@@ -1753,7 +1749,7 @@ def main(argv=None) -> int:
         "curator_memory_weeks", "max_event_scans", "max_silent_scans",
     ]
     BOOK_ORDER = [
-        "initial_investment_usd", "starter_watchlist", "always_include", "defensive_ticker",
+        "initial_investment_usd", "starter_watchlist", "always_include",
         "max_watchlist", "cull_rank", "cull_fresh_slots", "cull_fresh_scans",
         "exit_patience_scans", "max_stale_scans",
         "concentration_cap", "risk_aversion", "min_trade_size",
@@ -1765,6 +1761,14 @@ def main(argv=None) -> int:
     # retrieval_config.json owns, which are rendered as counts under their own sub-heading.
     _alias = {"lookback_period_days", "max_agents"}
     _ingest = {"specialty_allow", "mill_block"}
+    # CLASSIFIED, BUT DEAD ON THIS PAGE. firehose.anchor_tickers() reads defensive_ticker only when
+    # `always_include` is absent, and both profiles set it, so the branch never runs; optimizer.py
+    # marks the knob DEPRECATED, superseded by always_include. Rendered next to
+    # `always_include: SPY, BIL` it reads as a third anchor, which is worse than leaving it out. It
+    # stays in the optimizer defaults for scripts/build_dashboard.py, the pre-GKG gem dashboards,
+    # which build their own universes and still special-case GLD. Excluded EXPLICITLY because the
+    # column is derived from BOOK_KNOBS: dropping it from the order alone would append it back.
+    _retired = {"defensive_ticker"}
     # What the profile actually SETS. load_financial_model merges defaults in, so fmp cannot tell a
     # knob the profile declares from one it merely inherits, and on the backtest profile 10 of the
     # 45 knobs below are not in that file at all. Unmarked, a deprecated GLD reads as a live anchor
@@ -1773,7 +1777,7 @@ def main(argv=None) -> int:
 
     def _ordered(order, want):
         """`order` for reading, then anything in `want` it forgot, so a new knob cannot vanish."""
-        seen = set(order) | _alias | _ingest
+        seen = set(order) | _alias | _ingest | _retired
         return list(order) + [k for k in sorted(want) if k not in seen]
 
     cur_rows = ([("— curator knobs · as curated —", "")]
