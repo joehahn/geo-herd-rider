@@ -189,6 +189,7 @@ The pipeline is built end-to-end and runs over three years of historical news; t
 - **Python 3.12** with the `requirements.txt` packages.
 - **An Anthropic API key** (`ANTHROPIC_API_KEY`). Web search is Anthropic-only, so the live firehose requires it; running the curator bills your account.
 - **An OpenRouter API key** (`OPENROUTER_API_KEY`) if you point the scout or event-agent stages at the cheap open-weight models. The judgment stages read a gathered pool with no web search of their own, so any provider can serve them.
+- **A Tavily API key** (`TAVILY_API_KEY`) for the forward pull, which by default unions Anthropic web search with Tavily because the two engines have complementary blind spots. `--gather anthropic` runs without it. The free tier is ~1,000 credits a month and a daily pull will exhaust it.
 - **A Google Cloud project** with BigQuery access, if you want to assemble a historical corpus. Running the solution forward, or replaying a curation you already have, needs no cloud account.
 - **No key needed** for the Wayback Machine (archived article text) or yfinance (prices).
 
