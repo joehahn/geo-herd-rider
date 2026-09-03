@@ -160,7 +160,7 @@ Everything below is published as browsable pages at **[joehahn.github.io/geo-her
 - [**Firehose Bootstrap (FBS)**](https://joehahn.github.io/geo-herd-rider/fbs.html). How the bootstrap corpus is assembled, its specialty-desk reach, and how much of it is replication of the same story.
 - [**Curator Bootstrap (CBS)**](https://joehahn.github.io/geo-herd-rider/cbs.html). The bootstrap book, split by whether a ticker was inherited from the backtest or introduced by this curator itself.
 
-**Forward.** The live paper trade, and the only look-ahead-clean test this project has: [dated weekly scans](https://joehahn.github.io/geo-herd-rider/forward/).
+**Forward.** The live paper trade, and the only look-ahead-clean test this project has. The daily news pull runs every morning under cron; the weekly scan and its dashboard are still being built out, so the [dated scans](https://joehahn.github.io/geo-herd-rider/forward/) published so far are a partial record.
 
 **Plain-English write-up.** [**What does a smarter model actually buy you?**](https://joehahn.github.io/geo-herd-rider/writeups/llm-bakeoff.html) is a one-pager with no repo vocabulary in it: eight models run the same judgment stage over the same 100,000-article corpus, and a frontier model grades all ~4,500 of their decisions blind. Start here if you want the argument without the machinery.
 ## Optimizer
