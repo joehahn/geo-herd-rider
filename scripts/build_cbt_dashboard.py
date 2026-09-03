@@ -50,7 +50,8 @@ import orgs as _orgs  # noqa: E402  SIZE_BUCKETS -- one bucket definition, share
 import provenance as _canon  # noqa: E402  canonical-inputs gate
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
-from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,  # noqa: E402
+from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,
+                                 PROVENANCE_URL,  # noqa: E402
                                  STATUS, _LINK, esc, panel_rec, render_panels,
                                  table_html, tile)
 
@@ -1644,23 +1645,29 @@ def main(argv=None) -> int:
         "max_article_chars":        {0: "0 = untruncated"},
     }
 
-    def _pv(key, note=""):
+    def _pv(key):
         v = fmp.get(key)
         if key in SENTINEL and isinstance(v, int) and not isinstance(v, bool) and v in SENTINEL[key]:
-            return (key, SENTINEL[key][v])
-        if isinstance(v, list):
+            v = SENTINEL[key][v]
+        elif isinstance(v, list):
             v = ", ".join(str(x) for x in v) or "[]"
         elif isinstance(v, bool):
             v = "true" if v else "false"
         elif v is None or v == "":
             v = "(unset)"
-        return (key, f"{v}")
+        return (key, f"{v}" + (f" \u00b7 {NOTE[key]}" if key in NOTE else ""))
 
-    params = [
+    # A knob's note, appended after its value. Reserved for a knob whose value alone would mislead
+    # about WHERE IT APPLIES -- gather_model names a real model, but nothing on this page was
+    # produced by it, since the live web-search stage does not run in a backtest.
+    NOTE = {"gather_model": "forward only"}
+
+    run_rows = [
         ("— window (this run) —", ""),
         ("backtest window", f"{weeks[0]} → {weeks[-1]}" if weeks else "?"),
-        # "every N days as run" dropped 2026-08-19: rebalance_period states the cadence two rows
-        # down. The MISMATCH note stays -- surfacing that is the only reason the clause existed.
+        # "every N days as run" dropped 2026-08-19: rebalance_period states the cadence, in the
+        # curator column where the partition puts it. The MISMATCH note stays -- surfacing that is
+        # the only reason the clause existed.
         ("curator calls", f"{len(M)} curations"
          + ("" if _cad == _cad_profile else f" — run at {_cad}d; profile now says {_cad_profile}d")),
         # BOTH INPUT PATHS ARE NAMED HERE ON PURPOSE. The page has been built off the wrong
@@ -1681,92 +1688,111 @@ def main(argv=None) -> int:
         # skipped for this arm (see the gate). Reporting "(unstamped)" for a run that IS stamped was
         # the visible cost of that skip.
         ("curation fingerprint",
-         ((_bs_stamp.get("hash") or "(unstamped)") + " \u00b7 bootstrap (not the canonical book)")
+         ((_bs_stamp.get("hash") or "(unstamped)") + " · bootstrap (not the canonical book)")
          if a.bootstrap else
          ((_vfy.get("hash_run") or "(unstamped)")
-          + (" \u2713 canonical" if not _problems else
-             f" \u2717 NOT canonical \u2014 profile+corpus imply {_vfy.get('hash_want')}")
+          + (" ✓ canonical" if not _problems else
+             f" ✗ NOT canonical — profile+corpus imply {_vfy.get('hash_want')}")
           + (f" ({len(_vfy['unverifiable'])} knobs unrecorded)" if _vfy.get("unverifiable") else ""))),
         ("corpus (local path)",
-         (f"{(_bs_stamp.get('corpus') or {}).get('path', 'bootstrap')} \u00b7 "
+         (f"{(_bs_stamp.get('corpus') or {}).get('path', 'bootstrap')} · "
           f"{(_bs_stamp.get('corpus') or {}).get('span', '')}") if a.bootstrap else f"{a.corpus}"),
         ("lede arm", arm_used),
-        (f"— {PROFILE_FILE} · cadence —", ""),
-        _pv("rebalance_period"),
-        (f"— {PROFILE_FILE} · curator —", ""),
-        _pv("model"),
-        _pv("scout_model"),
-        _pv("event_agent_model"),
-        _pv("picker_model"),
-        _pv("retrieval_engine"),
-        _pv("discovery_filter"),
-        _pv("news_cap"),
-        _pv("news_lookback_days"),
-        _pv("event_news_cap"),
-        _pv("relevance_filter"),
-        # The three knobs that define the GROUPED scout (added 2026-08-15). Their absence made a
-        # grouped run indistinguishable from a flat one on this page, which is the single biggest
-        # design change the curation has had.
-        _pv("scout_articles_per_call"),
-        _pv("max_article_chars"),
-        _pv("max_events"),
-        _pv("max_new_events"),
-        _pv("curator_memory_weeks"),
-        _pv("exit_patience_scans"),
-        _pv("max_stale_scans"),
-        _pv("max_event_scans"),
-        (f"— {PROFILE_FILE} · optimizer —", ""),
-        _pv("initial_investment_usd"),
-        _pv("starter_watchlist"),
-        _pv("always_include"),
-        _pv("max_watchlist"),
-        _pv("cull_fresh_slots"),
-        _pv("cull_fresh_scans"),
-        _pv("concentration_cap"),
-        _pv("risk_aversion"),
-        _pv("min_trade_size"),
-        # CANONICAL NAME. lookback_period_days is a LEGACY ALIAS that load_financial_model keeps in
-        # sync; showing the alias meant the table named a knob the profile no longer uses.
-        _pv("optimizer_lookback_days"),
-        _pv("t_update_days"),
-        _pv("risk_free_rate"),
-        _pv("drop_unfunded_weeks"),
-        _pv("unfunded_reentry_on_new_catalyst"),
-        _pv("unfunded_cooldown_weeks"),
-        # INGEST PARAMS, from retrieval_config.json rather than the profile (moved 2026-08-25). The
-        # self-audit below scans the PROFILE TEXT, so once these left that file they stopped being
-        # "declared" and silently dropped off this table -- the audit working correctly, but the page
-        # losing a real setting. Shown explicitly, and attributed to the file that now owns them.
-        ("— retrieval_config.json · ingest —", ""),
-        ("specialty_allow", f"{len(_gkg._specialty())} entries"),
-        ("mill_block", f"{len(_gkg._mill_block())} entries"),
     ]
-    # SELF-AUDIT. This table is hand-maintained, so every knob added to the profile has to be added
-    # here too -- and on 2026-08-15 eleven were not, including max_events and the two knobs that
-    # define the grouped scout. A run's own settings silently going missing from the page that exists
-    # to record them is the worst kind of drift, because the page still looks complete.
-    # Anything declared in the profile and not placed above is appended rather than dropped.
-    _shown = {k for k, _ in params}
+
+    # COLUMN MEMBERSHIP IS DERIVED, NOT RETYPED. These two lists carry the reading ORDER and nothing
+    # else: src/provenance.py's partition decides which column a knob belongs in, on the criterion
+    # that already governs whether a change costs a re-curation or a rebuild (CURATION_KNOBS act
+    # upstream of the journal, BOOK_KNOBS at replay time over a fixed one). The audit below appends
+    # anything an order forgot to its OWN column, so a knob can be misordered but never misfiled and
+    # never dropped. The hand-kept version of this table drifted twice: eleven knobs went missing on
+    # 2026-08-15, and a shared "declared but not placed" bin had grown to ten knobs, three of which
+    # (cull_rank, min_dollar_volume_usd, exclude_young_reverse_split) are BOOK knobs that a reader
+    # would have read under a curator heading. exit_patience_scans and max_stale_scans sat under
+    # that heading too, five days after provenance.py proved them replay-time levers.
+    CURATOR_ORDER = [
+        "model", "scout_model", "event_agent_model", "event_agent_effort",
+        "picker_model", "picker_effort", "org_tagger_model", "gather_model",
+        "retrieval_engine", "discovery_filter", "rebalance_period",
+        "news_cap", "news_lookback_days", "event_news_cap",
+        "relevance_filter", "relevance_keep",
+        "scout_articles_per_call", "max_article_chars", "min_bundle_articles",
+        "max_events", "max_new_events",
+        "curator_memory_weeks", "max_event_scans", "max_silent_scans",
+    ]
+    BOOK_ORDER = [
+        "initial_investment_usd", "starter_watchlist", "always_include", "defensive_ticker",
+        "max_watchlist", "cull_rank", "cull_fresh_slots", "cull_fresh_scans",
+        "exit_patience_scans", "max_stale_scans",
+        "concentration_cap", "risk_aversion", "min_trade_size",
+        "optimizer_lookback_days", "t_update_days", "risk_free_rate",
+        "min_dollar_volume_usd", "exclude_young_reverse_split",
+        "drop_unfunded_weeks", "unfunded_reentry_on_new_catalyst", "unfunded_cooldown_weeks",
+    ]
+    # Legacy aliases, deliberately shown under the name the profile now uses, and the two knobs
+    # retrieval_config.json owns, which are rendered as counts under their own sub-heading.
+    _alias = {"lookback_period_days", "max_agents"}
+    _ingest = {"specialty_allow", "mill_block"}
+
+    def _ordered(order, want):
+        """`order` for reading, then anything in `want` it forgot, so a new knob cannot vanish."""
+        seen = set(order) | _alias | _ingest
+        return list(order) + [k for k in sorted(want) if k not in seen]
+
+    cur_rows = ([(f"— {PROFILE_FILE} · curator —", "")]
+                + [_pv(k) for k in _ordered(CURATOR_ORDER,
+                                            _canon.CURATION_KNOBS | _canon.FORWARD_ONLY_KNOBS)]
+                # INGEST PARAMS, from retrieval_config.json rather than the profile (moved
+                # 2026-08-25). The self-audit scans the PROFILE TEXT, so once these left that file
+                # they stopped being "declared" and silently dropped off this table -- the audit
+                # working correctly, but the page losing a real setting. Shown explicitly, and
+                # attributed to the file that now owns them. Curation knobs, hence this column.
+                + [("— retrieval_config.json · ingest —", ""),
+                   ("specialty_allow", f"{len(_gkg._specialty())} entries"),
+                   ("mill_block", f"{len(_gkg._mill_block())} entries")])
+    book_rows = ([(f"— {PROFILE_FILE} · optimizer —", "")]
+                 + [_pv(k) for k in _ordered(BOOK_ORDER, _canon.BOOK_KNOBS)])
+
+    # LAST NET. The partition is gated by check_partition_covers_profile(), so a profile knob that
+    # reaches here classified nowhere means the gate itself was bypassed. Appended rather than
+    # dropped, because a run's own settings silently going missing from the page that exists to
+    # record them is the worst kind of drift: the page still looks complete.
+    _shown = {k for k, _ in run_rows + cur_rows + book_rows}
     _declared = [m.group(1) for m in re.finditer(r"^([a-z_][a-z0-9_]*):", PROFILE_TEXT, re.M)]
-    _alias = {"lookback_period_days"}          # legacy aliases, deliberately shown under the new name
     _missing = [k for k in dict.fromkeys(_declared) if k not in _shown and k not in _alias]
     if _missing:
-        params.append(("— declared in the profile, not placed above —", ""))
+        cur_rows.append(("— declared in the profile, classified nowhere —", ""))
         for k in _missing:
             v = fmp.get(k)
             # the source lists are long; a count is the readable form and the profile is one click away
-            params.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
-    prows = "".join(
-        (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
-         f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">{esc(k.strip("— "))}</td></tr>'
-         if not v else f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>")
-        for k, v in params)
+            cur_rows.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
+
+    def _ptable(rows):
+        body = "".join(
+            (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
+             f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">{esc(k.strip("— "))}</td></tr>'
+             if not v else f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>")
+            for k, v in rows)
+        return f'<div class="scroll"><table class="params">{body}</table></div>'
+
+    # RUN BLOCK FIRST, FULL WIDTH. Its values are paths and verdicts rather than scalars, so it is
+    # the one block that needs the full lane: at 1140px nothing in it wraps, with room to spare for
+    # a longer corpus path. It leads because the fingerprint row is the only place on this page that
+    # says whether this is the canonical book, and nobody scrolls to the foot of a panel to check.
     ptable = (f'<section class="panel"><h2>Parameter settings</h2>'
               f'<p class="lead">The exact knobs behind every number on this page, read from '
               f'{_LINK(PROFILE_URL, PROFILE_FILE)} and '
-              f'{_LINK(CONFIG_URL, "retrieval_config.json")}. The two <b>CAP</b> rows bound the breadth '
-              f'this dashboard measures, so read them alongside <i>Breadth over time</i> and <i>Watchlist composition</i>.</p>'
-              f'<div class="scroll"><table class="params">{prows}</table></div></section>')
+              f'{_LINK(CONFIG_URL, "retrieval_config.json")}. The two columns are the partition '
+              f'{_LINK(PROVENANCE_URL, "src/provenance.py")} enforces, so a knob sits in the column '
+              f'where it acts: a <b>curator</b> knob acts upstream of the journal, and changing one '
+              f'means the curation has to be bought again, while an <b>optimizer</b> knob acts at '
+              f'replay time over a journal that never moves, and changing one costs a rebuild. The '
+              f'caps bound what this page can show: <code>max_events</code> and '
+              f'<code>max_new_events</code> limit how many events a scan may open, and '
+              f'<code>max_watchlist</code> limits how many the optimizer may fund, so read them '
+              f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>.</p>'
+              f'{_ptable(run_rows)}'
+              f'<div class="pcols">{_ptable(cur_rows)}{_ptable(book_rows)}</div></section>')
 
     # ---- curation log: every week that CHANGED something ------------------------------------------
     # PWR's CBT leads with this and it is the right instinct: the charts say how much, the log says
@@ -2492,6 +2518,12 @@ table {{ border-collapse:collapse; margin-top:9px; width:100%; font-size:12.5px;
 th,td {{ text-align:left; padding:5px 9px; border-bottom:1px solid var(--line); }}
 th {{ color:var(--text2); font-weight:600; }}
 .params {{ width:auto; }} .params td:first-child {{ color:var(--text2); }}
+/* The two knob columns. auto-fit at min(400px,100%) resolves to 2 inside the 1180px
+   wrap and to 1 on a phone, so the layout needs no media query. align-items:start
+   keeps the shorter column from stretching its last row. */
+.pcols {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),max-content));
+  gap:0 34px; align-items:start; justify-content:start; }}
+.pcols .params td:last-child {{ overflow-wrap:anywhere; }}
 .scroll {{ overflow-x:auto; }}
 #tkmodal {{position:fixed; inset:0; display:none; z-index:900;
            background:rgba(0,0,0,.45); backdrop-filter:blur(2px);}}

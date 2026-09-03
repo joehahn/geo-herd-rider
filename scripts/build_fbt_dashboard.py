@@ -54,6 +54,7 @@ _REPO = "https://github.com/joehahn/geo-herd-rider/blob/main"
 CONFIG_URL = f"{_REPO}/retrieval_config.json"
 PROFILE_URL = f"{_REPO}/investor_profile.backtest.md"
 GKG_URL = f"{_REPO}/src/gkg.py"
+PROVENANCE_URL = f"{_REPO}/src/provenance.py"
 SOURCES_URL = f"{_REPO}/news_sources.md"
 
 
