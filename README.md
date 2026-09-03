@@ -155,7 +155,7 @@ Everything below is published as browsable pages at **[joehahn.github.io/geo-her
 - [**Curator Backtest (CBT)**](https://joehahn.github.io/geo-herd-rider/cbt.html). What the curator held and when: realized portfolio value against its controls, watchlist composition, the event timeline, the cull funnel, and gain attributed per holding and per beat.
 - [**Sweep Backtest (SBT)**](https://joehahn.github.io/geo-herd-rider/sbt.html). How the outcome moves as each parameter is swept across a grid, scored on return against drawdown, Sharpe, cancellation and hit-rate, and which knobs are worth moving next.
 
-**Bootstrap.** The same machinery on news captured *after* the backtest corpus ends, at a clean cut on 2026-07-28:
+**Bootstrap.** The same machinery on a transition corpus: about three months of the backtest's own retrospective news running up to a clean cut on **2026-07-28**, and from there the daily live pull only, extended every morning by cron. The two are never blended, because the forward test this leads to runs on the live pull alone:
 
 - [**Firehose Bootstrap (FBS)**](https://joehahn.github.io/geo-herd-rider/fbs.html). How the bootstrap corpus is assembled, its specialty-desk reach, and how much of it is replication of the same story.
 - [**Curator Bootstrap (CBS)**](https://joehahn.github.io/geo-herd-rider/cbs.html). The bootstrap book, split by whether a ticker was inherited from the backtest or introduced by this curator itself.
