@@ -37,7 +37,7 @@ flowchart TD
     N --> FH
     FH["🚰 Firehose<br/>pulls and date-stamps each day's articles,<br/>and tags each with the companies it names"]
     FH --> POOL[("📚 Corpus<br/>pool.json")]
-    POOL --> SC
+    POOL -->|"gem tell: early-framing headline filter"| SC
 
     subgraph CUR["🧠 AI Curator"]
       direction TB
