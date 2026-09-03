@@ -138,9 +138,7 @@ culled here is retired, and joins the roster the scout is shown.
 **The portfolio cull** then decides which of the surviving events' tickers hold capital, when they name more
 than `max_watchlist` allows. It ranks on a **price trend**, holding a couple of slots open for brand-new
 events that have no price history for a trend to read yet. Neither cull reads a confidence score, because
-there isn't one. Two risk gates bracket this one: a **liquidity floor** that keeps an illiquid name from ever
-occupying a slot, and a **death-spiral exclusion** at the funding gate that refuses a recently-listed name
-carrying a punitive reverse split.
+there isn't one.
 
 The two sit on opposite sides of the line drawn above: `max_events` is a curation knob, since changing it
 changes the journal, while `max_watchlist` is a book knob that only re-sizes a curation already made.
