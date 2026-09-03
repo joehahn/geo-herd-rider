@@ -143,7 +143,7 @@ there isn't one.
 The two sit on opposite sides of the line drawn above: `max_events` is a curation knob, since changing it
 changes the journal, while `max_watchlist` is a book knob that only re-sizes a curation already made.
 
-**No-magnitude guardrail, machine-enforced.** Every LLM stage returns JSON matching a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like, with **no field for a price target, weight, or size**, and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
+**No-magnitude guardrail, machine-enforced.** The two stages that can name a ticker or call an exit return JSON parsed into a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like, with **no field for a price target, weight, or size**, and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). The remaining stages return a grouping, an ordering or a symbol, and nothing downstream reads a number from any of them. So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
 
 ## Dashboards
 
