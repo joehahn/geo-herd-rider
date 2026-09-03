@@ -36,7 +36,8 @@ flowchart TD
     CFG --> FH
     N --> FH
     FH["🚰 Firehose<br/>pulls and date-stamps each day's articles"]
-    FH --> POOL[("📚 Corpus<br/>pool.json")]
+    FH --> TAG["🏷️ Org tagger<br/>tags each article with the companies it names"]
+    TAG --> POOL[("📚 Corpus<br/>pool.json")]
     POOL --> SC
 
     subgraph CUR["🧠 AI Curator"]
@@ -46,6 +47,9 @@ flowchart TD
       AG["🟢/⚪ Event-agent<br/>assesses whether the catalyst<br/>is alive or resolved"]
       SC --> MA --> AG
     end
+
+    RES["🔤 Ticker resolver<br/>a company the press names<br/>&rarr; its US-listed symbol"]
+    SC -.-> RES
 
     PROF[/"⚙️ investor_profile.md"/]
     PROF --> SC
@@ -63,9 +67,11 @@ flowchart TD
     U -. "↻ next rebalance" .-> FH
 
     style CUR fill:#fae3e0,stroke:#c0392b
+    style TAG stroke:#c0392b,stroke-dasharray:4 3
+    style RES stroke:#c0392b,stroke-dasharray:4 3
 ```
 
-The shaded **AI Curator** box is where the advantage comes from, and it holds every judgment call in the pipeline: the press has already flagged a live catalyst and named the tickers that express it, so this solution never has to predict the winner itself. It reads the ticker the press named and rides it while the thesis holds. Everything outside that box is deterministic Python, apart from two narrow lookups that decide nothing about the portfolio: one model tags each article with the organizations it names as the article is ingested, and another resolves a company the press names to its US-listed symbol.
+The shaded **AI Curator** box is where the advantage comes from, and it holds every judgment call in the pipeline: the press has already flagged a live catalyst and named the tickers that express it, so this solution never has to predict the winner itself. It reads the ticker the press named and rides it while the thesis holds. Everything outside that box is deterministic Python, apart from the two **dashed boxes**, narrow lookups that decide nothing about the portfolio: one model tags each article with the organizations it names as the article is ingested, and another resolves a company the press names to its US-listed symbol.
 
 The `investor_profile` enters the solution **twice**. **Curation knobs** are the settings in `investor_profile` that act upstream of the journal, governing which articles are read, which the scout is shown, and which events open and when they retire. Changing one means the existing curation could never have been produced under it, and the news has to be re-read at LLM cost. **Book knobs** are the ones that act at replay time over a fixed journal, covering sizing, culling and rebalancing. Changing one simply re-sizes the same curation and the page rebuilds in seconds. The classification is enforced in code, and [`agent_design.md`](agent_design.md) has the mechanics. There are two profile variants, one for the backtest and one frozen for the live forward run, kept in sync on the strategy knobs so the backtest stays a valid proxy for the thing that runs forward.
 
