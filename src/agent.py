@@ -277,7 +277,7 @@ class JournalEntry(BaseModel):
     model_config = ConfigDict(extra="ignore")
     thesis_live: bool = True
     exit_case: str = ""              # devil's-advocate: strongest reason the thesis is already over
-    catalyst_resolved: bool = False  # binary: has the entry catalyst already happened? -> forces exit
+    catalyst_resolved: bool = False  # has the entry catalyst happened? BLOCKS A NEW POSITION, never an exit
     exit_advice: str = ""
     milestones: list[str] = []   # ordered catalyst-progress events (the arc); qualitative, NEVER magnitude
     assessment: str = ""
