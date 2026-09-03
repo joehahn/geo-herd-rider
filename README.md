@@ -71,7 +71,7 @@ The `investor_profile` enters the solution **twice**. **Curation knobs** are the
 
 The assembly line marches period by period across the era. Each pass re-reads the firehose, each event-agent re-asks whether its event's thesis is still live and names the vehicle or vehicles that best express it, and the optimizer rebalances. **Sizing is mechanical**: the AI names tickers and makes the hold-or-exit call, and never sets a position size.
 
-## The news firehose: why reading beats reasoning
+## The news firehose
 
 This solution doesn't screen all tickers to discover gems. The financial press already does that work and names the ticker, repeatedly, early while it's under the radar and then louder as the move builds. Here is BWET's news-history during the runup to the 2026 Iran war:
 
@@ -94,7 +94,7 @@ The ticker that motivates this project is **BWET**. In the 2026 Iran war it ran 
 
 ![BWET vs SPY across the 2026 Iran war](assets/bwet_vs_spy.png)
 
-## Inside the curator: scout → event agents
+## Inside the curator
 
 Each period the curator **discovers, then fans out**: a broad **scout** call asks the firehose *which tickers is the press naming as thesis-driven movers?* and writes each one's catalyst and thesis; a **matcher** folds them into the events already in flight; and then **one event-agent per live event** pulls its own event's news, reads its full journal arc (a Reflexion-style self-critique before deciding), and makes the hold-or-exit call. The live events' tickers become the watchlist the optimizer sizes.
 
