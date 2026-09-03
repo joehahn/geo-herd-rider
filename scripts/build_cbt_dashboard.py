@@ -1629,6 +1629,13 @@ def main(argv=None) -> int:
     # explanation, and repeating it here just makes the table unreadable. The ONE exception is a
     # SENTINEL -- a number whose plain reading is wrong (news_cap 0 does not mean "reads nothing", it
     # means uncapped) -- where the row states what the sentinel means INSTEAD of the bare value.
+    # The run's own stamp. Loaded for both arms: the bootstrap gate above reads it too, but CBT had
+    # no reason to until the curator column started sourcing from it.
+    try:
+        _stamp = _bs_stamp or json.loads((ROOT / a.run / "provenance.json").read_text())
+    except Exception:  # noqa: BLE001 -- an unstamped run still renders, it just badges every row
+        _stamp = {}
+
     SENTINEL = {
         "news_cap":                 {0: "0 = uncapped"},
         "event_news_cap":           {0: "0 = uncapped"},
@@ -1645,8 +1652,7 @@ def main(argv=None) -> int:
         "max_article_chars":        {0: "0 = untruncated"},
     }
 
-    def _pv(key):
-        v = fmp.get(key)
+    def _fmt(key, v):
         if key in SENTINEL and isinstance(v, int) and not isinstance(v, bool) and v in SENTINEL[key]:
             v = SENTINEL[key][v]
         elif isinstance(v, list):
@@ -1656,6 +1662,28 @@ def main(argv=None) -> int:
         elif v is None or v == "":
             v = "(unset)"
         return (key, f"{v}" + (f" \u00b7 {NOTE[key]}" if key in NOTE else ""))
+
+    # THE TWO COLUMNS READ DIFFERENT SOURCES, and the partition is the reason. A CURATION knob
+    # PRODUCED the journal, so its truthful value is the one stamped when the curation ran:
+    # investor_profile is a live file that moves afterwards, and reading it here describes a curation
+    # that could not have made this journal. rebalance_period went weekly -> monthly on 2026-08-26,
+    # and a rebuild printed "monthly" over 17 WEEKLY scans with only a stderr warning objecting (see
+    # the bootstrap knob-drift guard above, which diagnosed this and could only warn). A BOOK knob is
+    # the opposite: firehose.backtest() applies it fresh during THIS build, so the live profile is
+    # the truthful source and the stamp is history. The gap is not hypothetical: 7 of the 21 book
+    # knobs stamped by cbt_3yr_v25_vehgate disagree with the profile that just replayed it
+    # (max_watchlist 12 vs 6, risk_aversion 8.0 vs 12.0, concentration_cap 0.6 vs 0.4).
+    CURATED = _stamp.get("knobs") or {}
+
+    def _pv(key):
+        """A BOOK knob, as this build replayed it."""
+        return _fmt(key, fmp.get(key))
+
+    def _cv(key):
+        """A CURATION knob, as the curation ran it. Falls back to the live profile, badged
+        `unrecorded`, when the stamp omits it: scripts/stamp_legacy_run.py reconstructs a PARTIAL
+        stamp for pre-stamping runs and omits rather than invents."""
+        return _fmt(key, CURATED[key] if key in CURATED else fmp.get(key))
 
     # A knob's note, appended after its value. Reserved for a knob whose value alone would mislead
     # about WHERE IT APPLIES -- gather_model names a real model, but nothing on this page was
@@ -1748,18 +1776,22 @@ def main(argv=None) -> int:
         seen = set(order) | _alias | _ingest
         return list(order) + [k for k in sorted(want) if k not in seen]
 
-    cur_rows = ([(f"— {PROFILE_FILE} · curator —", "")]
-                + [_pv(k) for k in _ordered(CURATOR_ORDER,
+    cur_rows = ([("— curator knobs · as curated —", "")]
+                + [_cv(k) for k in _ordered(CURATOR_ORDER,
                                             _canon.CURATION_KNOBS | _canon.FORWARD_ONLY_KNOBS)]
                 # INGEST PARAMS, from retrieval_config.json rather than the profile (moved
                 # 2026-08-25). The self-audit scans the PROFILE TEXT, so once these left that file
                 # they stopped being "declared" and silently dropped off this table -- the audit
                 # working correctly, but the page losing a real setting. Shown explicitly, and
                 # attributed to the file that now owns them. Curation knobs, hence this column.
-                + [("— retrieval_config.json · ingest —", ""),
-                   ("specialty_allow", f"{len(_gkg._specialty())} entries"),
-                   ("mill_block", f"{len(_gkg._mill_block())} entries")])
-    book_rows = ([(f"— {PROFILE_FILE} · optimizer —", "")]
+                # These two are CURATION knobs that retrieval_config.json now owns, so they follow
+                # the same rule as the rest of the column: the stamp recorded the lists the curation
+                # actually read, and the live file may have moved since.
+                + [("— retrieval_config.json · ingest —", "")]
+                + [(k, f"{len(CURATED[k] if k in CURATED else live)} entries")
+                   for k, live in (("specialty_allow", _gkg._specialty()),
+                                   ("mill_block", _gkg._mill_block()))])
+    book_rows = ([("— optimizer knobs · as replayed —", "")]
                  + [_pv(k) for k in _ordered(BOOK_ORDER, _canon.BOOK_KNOBS)])
 
     # LAST NET. The partition is gated by check_partition_covers_profile(), so a profile knob that
@@ -1775,16 +1807,18 @@ def main(argv=None) -> int:
             # the source lists are long; a count is the readable form and the profile is one click away
             cur_rows.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
 
-    def _ptable(rows, mark=True):
-        """`mark` tags any row the profile does not declare. Off for the run block, whose rows are
-        facts about this build (paths, the window, the fingerprint) rather than profile knobs."""
+    def _ptable(rows, badge=None):
+        """`badge(key)` returns a caveat to tag a row with, or None. Each column passes its own,
+        because the caveat differs by SOURCE: a curator row is suspect when the stamp did not record
+        it, a book row when the profile does not set it, and a run row is neither."""
         def _row(k, v):
             if not v:
                 return (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
                         f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">'
                         f'{esc(k.strip("— "))}</td></tr>')
-            cls = "" if (not mark or k in _declared or k in _ingest) else ' class="dflt"'
-            return f"<tr{cls}><td>{esc(k)}</td><td>{esc(v)}</td></tr>"
+            b = badge(k) if badge else None
+            td = f'<td data-badge="{esc(b)}">' if b else "<td>"
+            return f"<tr><td>{esc(k)}</td>{td}{esc(v)}</td></tr>"
         body = "".join(_row(k, v) for k, v in rows)
         return f'<div class="scroll"><table class="params">{body}</table></div>'
 
@@ -1793,21 +1827,28 @@ def main(argv=None) -> int:
     # a longer corpus path. It leads because the fingerprint row is the only place on this page that
     # says whether this is the canonical book, and nobody scrolls to the foot of a panel to check.
     ptable = (f'<section class="panel"><h2>Parameter settings</h2>'
-              f'<p class="lead">The exact knobs behind every number on this page, read from '
-              f'{_LINK(PROFILE_URL, PROFILE_FILE)} and '
-              f'{_LINK(CONFIG_URL, "retrieval_config.json")}. The two columns are the partition '
-              f'{_LINK(PROVENANCE_URL, "src/provenance.py")} enforces, so a knob sits in the column '
-              f'where it acts: a <b>curator</b> knob acts upstream of the journal, and changing one '
-              f'means the curation has to be bought again, while an <b>optimizer</b> knob acts at '
-              f'replay time over a journal that never moves, and changing one costs a rebuild. The '
-              f'caps bound what this page can show: <code>max_events</code> and '
+              f'<p class="lead">The knobs behind every number on this page, in the two groups '
+              f'{_LINK(PROVENANCE_URL, "src/provenance.py")} partitions them into, which is also why '
+              f'they are read from different places. A <b>curator</b> knob acts upstream of the '
+              f'journal, so the honest value is the one stamped in '
+              f'<code>{esc(a.run)}/provenance.json</code> when the curation ran: '
+              f'{_LINK(PROFILE_URL, PROFILE_FILE)} is a live file, and a knob edited there since '
+              f'would describe a curation that could not have produced this journal. An '
+              f'<b>optimizer</b> knob acts at replay time, and this build just replayed the journal '
+              f'under the profile as it stands now, so that is where those come from. Changing a '
+              f'curator knob means buying the curation again, while changing an optimizer knob costs '
+              f'a rebuild. The caps bound what this page can show: <code>max_events</code> and '
               f'<code>max_new_events</code> limit how many events a scan may open, and '
               f'<code>max_watchlist</code> limits how many the optimizer may fund, so read them '
               f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>. A row tagged '
-              f'<span class="dfltkey">default</span> is not set in the profile at all, and shows the '
-              f'fallback in <code>optimizer.py</code>.</p>'
-              f'{_ptable(run_rows, mark=False)}'
-              f'<div class="pcols">{_ptable(cur_rows)}{_ptable(book_rows)}</div></section>')
+              f'<span class="dfltkey">unrecorded</span> was not stamped by the curation, and one '
+              f'tagged <span class="dfltkey">default</span> is not set in the profile; both show '
+              f'the fallback in <code>optimizer.py</code>.</p>'
+              f'{_ptable(run_rows)}'
+              f'<div class="pcols">'
+              f'{_ptable(cur_rows, badge=lambda k: None if k in CURATED else "unrecorded")}'
+              f'{_ptable(book_rows, badge=lambda k: None if k in _declared else "default")}'
+              f'</div></section>')
 
     # ---- curation log: every week that CHANGED something ------------------------------------------
     # PWR's CBT leads with this and it is the right instinct: the charts say how much, the log says
@@ -2542,12 +2583,12 @@ th {{ color:var(--text2); font-weight:600; }}
 /* A value the profile never sets, showing optimizer._FINANCIAL_MODEL_DEFAULTS through
    load_financial_model's merge. Rendered with ::after rather than appended to the value,
    because every cell goes through esc() and markup inside one would print literally. */
-.params tr.dflt td:last-child::after, .dfltkey {{ font-size:10px; text-transform:uppercase;
+.params td[data-badge]::after, .dfltkey {{ font-size:10px; text-transform:uppercase;
   letter-spacing:.04em; color:var(--text2); border:1px solid var(--line); border-radius:20px;
   padding:1px 5px; white-space:nowrap; }}
-/* The table badge is generated; the one in the lead is a real span, and `content` does not
-   apply to those, so it carries the word as text. */
-.params tr.dflt td:last-child::after {{ content:"default"; margin-left:7px; }}
+/* The table badge is generated from the attribute, so one rule serves every caveat. The sample in
+   the lead is a real span, and `content` does not apply to those, so it carries the word as text. */
+.params td[data-badge]::after {{ content:attr(data-badge); margin-left:7px; }}
 .scroll {{ overflow-x:auto; }}
 #tkmodal {{position:fixed; inset:0; display:none; z-index:900;
            background:rgba(0,0,0,.45); backdrop-filter:blur(2px);}}
