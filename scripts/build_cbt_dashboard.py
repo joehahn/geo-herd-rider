@@ -1748,12 +1748,17 @@ def main(argv=None) -> int:
         "max_events", "max_new_events",
         "curator_memory_weeks", "max_event_scans", "max_silent_scans",
     ]
+    # Ordered by how much of the book a knob decides, heaviest first: the capital and the fixed
+    # universe, then how many positions and how concentrated, then the estimation window and the
+    # trading mechanics. The lifecycle knobs (which position gets culled, how long a dead thesis is
+    # given) follow, then the eligibility gates, then unfunded handling. The five sizing levers at
+    # the top are also the ones SBT sweeps, which is the closest thing to an objective ranking.
     BOOK_ORDER = [
         "initial_investment_usd", "starter_watchlist", "always_include",
-        "max_watchlist", "cull_rank", "cull_fresh_slots", "cull_fresh_scans",
-        "exit_patience_scans", "max_stale_scans",
-        "concentration_cap", "risk_aversion", "min_trade_size",
+        "max_watchlist", "concentration_cap", "risk_aversion", "min_trade_size",
         "optimizer_lookback_days", "t_update_days", "risk_free_rate",
+        "cull_rank", "cull_fresh_slots", "cull_fresh_scans",
+        "exit_patience_scans", "max_stale_scans",
         "min_dollar_volume_usd", "exclude_young_reverse_split",
         "drop_unfunded_weeks", "unfunded_reentry_on_new_catalyst", "unfunded_cooldown_weeks",
     ]
