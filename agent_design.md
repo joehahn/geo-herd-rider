@@ -152,6 +152,10 @@ built).
 - **vehicle** = a ticker an event *currently holds*. A vehicle and a gem are the same kind of thing
   (a ticker); "gem" is the evaluation/ground-truth word, "vehicle" is the in-flight word. An event
   owns an evolving *set* of vehicles.
+- **catalyst / thesis** = the **same stored string**, not two fields. The scout writes one datable
+  catalyst per event (<=12 words); a basket shares that single catalyst, so the same string is each
+  vehicle's thesis. "catalyst" is the event-level name and "thesis" the vehicle-level name for one
+  value. The dashboard journal shows it once, as **thesis**.
 
 ## Vehicle admissibility (what can be a vehicle)
 A ticker qualifies as a vehicle iff: (a) the **press names it**; (b) it's **retail-tradable and
