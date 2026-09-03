@@ -267,10 +267,6 @@ are reserved; [get in touch](https://jmh-datasciences.com) if you want them.
 Code samples embedded in documentation files stay under the code license, so a
 snippet lifted from this README carries the same terms as the file it came from.
 
-**Not distributed.** The tuned investor profiles, the news corpus, the curation journals and the
-research ledger are held back and are not part of either licence grant. `examples/investor_profile.md` ships the full knob structure with
-neutral values in their place.
-
 **Third-party content.** `data/` and parts of the documentation and dashboards contain
 headlines, snippets, and URLs from published news articles. That material
 belongs to its publishers, is included here for research and commentary, and is
