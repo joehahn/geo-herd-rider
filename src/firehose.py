@@ -475,9 +475,13 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
     one-off noise. It EXITS on a CONFIRMED catalyst death (thesis_live=False on >=EXIT_PATIENCE
-    consecutive *reads*), prolonged silence (unmentioned >=MAX_STALE weeks), or — the moment the
-    agent flags catalyst_resolved=True — a HARD exit that honors that verdict without hysteresis
-    (the catalyst is definitively done). Single-week flip-flops no longer churn the position.
+    consecutive *reads*) or on prolonged silence (unmentioned >=MAX_STALE weeks). Single-week
+    flip-flops no longer churn the position.
+
+    catalyst_resolved is NOT an exit here. This docstring claimed the opposite until 2026-09-02,
+    fourteen lines above the comment in the loop below that had said otherwise since 2026-08-12,
+    and the stale half is what a reader found first. The flag is still live as an ENTRY BLOCK in
+    backtest() -- a resolved catalyst may keep a position but may never open one. See the loop.
 
     `seed` = the `starter_watchlist` INCEPTION holdings. They enter at week 0 with no thesis behind
     them, so they age out on the normal MAX_STALE clock (no agent ever mentions them) -- day-0 capital
