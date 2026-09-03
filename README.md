@@ -52,8 +52,8 @@ flowchart TD
     PROF --> OPT
 
     AG --> J[("📓 Curation<br/>journal.json")]
-    J -. "retired catalysts" .-> SC
-    J --> WL
+    J -. "retired-catalyst memory" .-> SC
+    J -->|"cull + silence clock"| WL
     WL["🎯 Watchlist<br/>the surviving events' recommended tickers<br/>+ always-on anchors"]
     WL --> OPT
     PX[("💵 Prices<br/>panel.csv")] --> OPT
