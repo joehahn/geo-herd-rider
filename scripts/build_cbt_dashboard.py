@@ -1660,7 +1660,11 @@ def main(argv=None) -> int:
     # A knob's note, appended after its value. Reserved for a knob whose value alone would mislead
     # about WHERE IT APPLIES -- gather_model names a real model, but nothing on this page was
     # produced by it, since the live web-search stage does not run in a backtest.
-    NOTE = {"gather_model": "forward only"}
+    NOTE = {"gather_model": "forward only",
+            # anchor_tickers() reads it ONLY when `always_include` is absent, and both profiles
+            # declare that, so it steers nothing here. Kept in the optimizer defaults for the
+            # pre-GKG gem dashboards, which build their own universes and still special-case GLD.
+            "defensive_ticker": "superseded by always_include"}
 
     run_rows = [
         ("— window (this run) —", ""),
@@ -1733,6 +1737,11 @@ def main(argv=None) -> int:
     # retrieval_config.json owns, which are rendered as counts under their own sub-heading.
     _alias = {"lookback_period_days", "max_agents"}
     _ingest = {"specialty_allow", "mill_block"}
+    # What the profile actually SETS. load_financial_model merges defaults in, so fmp cannot tell a
+    # knob the profile declares from one it merely inherits, and on the backtest profile 10 of the
+    # 45 knobs below are not in that file at all. Unmarked, a deprecated GLD reads as a live anchor
+    # sitting four rows under always_include.
+    _declared = {m.group(1) for m in re.finditer(r"^([a-z_][a-z0-9_]*):", PROFILE_TEXT, re.M)}
 
     def _ordered(order, want):
         """`order` for reading, then anything in `want` it forgot, so a new knob cannot vanish."""
@@ -1758,8 +1767,7 @@ def main(argv=None) -> int:
     # dropped, because a run's own settings silently going missing from the page that exists to
     # record them is the worst kind of drift: the page still looks complete.
     _shown = {k for k, _ in run_rows + cur_rows + book_rows}
-    _declared = [m.group(1) for m in re.finditer(r"^([a-z_][a-z0-9_]*):", PROFILE_TEXT, re.M)]
-    _missing = [k for k in dict.fromkeys(_declared) if k not in _shown and k not in _alias]
+    _missing = [k for k in sorted(_declared) if k not in _shown and k not in _alias]
     if _missing:
         cur_rows.append(("— declared in the profile, classified nowhere —", ""))
         for k in _missing:
@@ -1767,12 +1775,17 @@ def main(argv=None) -> int:
             # the source lists are long; a count is the readable form and the profile is one click away
             cur_rows.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
 
-    def _ptable(rows):
-        body = "".join(
-            (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
-             f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">{esc(k.strip("— "))}</td></tr>'
-             if not v else f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>")
-            for k, v in rows)
+    def _ptable(rows, mark=True):
+        """`mark` tags any row the profile does not declare. Off for the run block, whose rows are
+        facts about this build (paths, the window, the fingerprint) rather than profile knobs."""
+        def _row(k, v):
+            if not v:
+                return (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
+                        f'text-transform:uppercase;letter-spacing:.05em;border-bottom:none;">'
+                        f'{esc(k.strip("— "))}</td></tr>')
+            cls = "" if (not mark or k in _declared or k in _ingest) else ' class="dflt"'
+            return f"<tr{cls}><td>{esc(k)}</td><td>{esc(v)}</td></tr>"
+        body = "".join(_row(k, v) for k, v in rows)
         return f'<div class="scroll"><table class="params">{body}</table></div>'
 
     # RUN BLOCK FIRST, FULL WIDTH. Its values are paths and verdicts rather than scalars, so it is
@@ -1790,8 +1803,10 @@ def main(argv=None) -> int:
               f'caps bound what this page can show: <code>max_events</code> and '
               f'<code>max_new_events</code> limit how many events a scan may open, and '
               f'<code>max_watchlist</code> limits how many the optimizer may fund, so read them '
-              f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>.</p>'
-              f'{_ptable(run_rows)}'
+              f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>. A row tagged '
+              f'<span class="dfltkey">default</span> is not set in the profile at all, and shows the '
+              f'fallback in <code>optimizer.py</code>.</p>'
+              f'{_ptable(run_rows, mark=False)}'
               f'<div class="pcols">{_ptable(cur_rows)}{_ptable(book_rows)}</div></section>')
 
     # ---- curation log: every week that CHANGED something ------------------------------------------
@@ -2524,6 +2539,15 @@ th {{ color:var(--text2); font-weight:600; }}
 .pcols {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),max-content));
   gap:0 34px; align-items:start; justify-content:start; }}
 .pcols .params td:last-child {{ overflow-wrap:anywhere; }}
+/* A value the profile never sets, showing optimizer._FINANCIAL_MODEL_DEFAULTS through
+   load_financial_model's merge. Rendered with ::after rather than appended to the value,
+   because every cell goes through esc() and markup inside one would print literally. */
+.params tr.dflt td:last-child::after, .dfltkey {{ font-size:10px; text-transform:uppercase;
+  letter-spacing:.04em; color:var(--text2); border:1px solid var(--line); border-radius:20px;
+  padding:1px 5px; white-space:nowrap; }}
+/* The table badge is generated; the one in the lead is a real span, and `content` does not
+   apply to those, so it carries the word as text. */
+.params tr.dflt td:last-child::after {{ content:"default"; margin-left:7px; }}
 .scroll {{ overflow-x:auto; }}
 #tkmodal {{position:fixed; inset:0; display:none; z-index:900;
            background:rgba(0,0,0,.45); backdrop-filter:blur(2px);}}
