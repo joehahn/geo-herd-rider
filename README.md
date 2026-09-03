@@ -219,7 +219,7 @@ python scripts/check_canon.py            # are corpus, curation and profile cons
 python scripts/build_cbt_dashboard.py    # rebuild the curator-backtest page
 ```
 
-Gathering a fresh corpus, curating it, sweeping the parameter grid and running the forward paper trade all run from this same codebase.
+Gathering a fresh corpus, curating it, sweeping the parameter grid and running the forward paper trade all run from this same codebase; `scripts/forward_daily.sh` is the daily pull the forward test accumulates.
 
 ## What isn't published
 
