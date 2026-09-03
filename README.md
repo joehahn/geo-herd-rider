@@ -109,7 +109,7 @@ The one thing the [pipeline diagram](#how-it-works-at-a-glance) cannot show: one
 - **Milestones** are the vertebrae on the spine, they are the developments along the way (*protests in Iran → a US carrier group to the Med → strikes on Iran → the Hormuz closure itself*) that keep the catalyst *live*. The **event-agent** tracks that arc period to period, and it is the arc, not any score, that its exit call is argued against.
 - An **exit** is the agent writing its event off as no longer worth holding. It is where the milestone spine ends: the basket stops reaching the watchlist, so the optimizer will not fund those tickers at the next rebalance. What counts as no-longer-worth-holding, why a resolved catalyst does not by itself sell, and how the event is remembered afterwards are [below](#an-events-life-silence-exit-and-memory).
 - A **thesis** is what ties a vehicle to its event: the event's catalyst, read at the vehicle level. The **scout** writes one catalyst per event and every vehicle in the basket carries it, so an event's vehicles share one thesis rather than each having its own.
-- A **vehicle** is an in-demand ticker an event is expressed through, and an event can have several. The **scout** names the vehicle or vehicles, and the **matcher** merges every ticker that names the same catalyst into ONE event (so that upticks by RNMBY and RHMTY and LMT are regarded as a single defense event rather than three distinct events) and assigns those same-event vehicles to the event's **basket**, which can evolve as the event unfolds since the event is pinned to the catalyst and not to any particular tickers. The matcher is an AI stage and it under-merges under load, so a deterministic pass behind it folds together any live events left holding an identical catalyst. Each **event-agent** proposes its basket, and the live baskets pool into the **watchlist**, which caps how many *tickers* compete for capital rather than how many events may run. How the cull picks them is [below](#how-the-watchlist-is-trimmed).
+- A **vehicle** is an in-demand ticker an event is expressed through, and an event can have several. The **scout** names the vehicle or vehicles, and the **matcher** merges every ticker that names the same catalyst into ONE event (so that upticks by RNMBY and RHMTY and LMT are regarded as a single defense event rather than three distinct events) and assigns those same-event vehicles to the event's **basket**, which can evolve as the event unfolds since the event is pinned to the catalyst and not to any particular tickers. The matcher is an AI stage and it under-merges under load, so a deterministic pass behind it folds together any live events left holding an identical catalyst. Each **event-agent** proposes its basket, and the live baskets pool into the **watchlist**, which caps how many *tickers* compete for capital rather than how many events may run. How the cull picks them is [below](#how-events-and-tickers-are-trimmed).
 - The **anchors** are the safe-harbour tickers named in `always_include`, a broad-market fund and a cash equivalent in the shipped template. They are not events and no agent stands behind them. They ride **post-cull**, appended to the optimizer's universe after the event-agents have been trimmed, so they never take a watchlist slot from an event and idle capital always has somewhere to sit when the events are weak or few. The optimizer simply sizes them alongside whatever the cull kept.
 
 ### An event's life: silence, exit, and memory
@@ -125,15 +125,25 @@ An event is not rediscovered from scratch each period. Its agent reads its own p
 
 Resolution never sells by itself. When a catalyst resolves it is the agent that calls the thesis dead, and the position then exits the normal way. What resolution does on its own is stop new money: a resolved catalyst keeps the position it has, but cannot be bought into. And once an event ends, its ticker is **remembered**: the journal carries a roster of retired catalysts — those that resolved, that aged out of the scan cap, or that lost their slot when more events were live than may run at once — and the scout is shown that roster each period so it won't re-open the same ticker on lingering hype. An event that merely went quiet is deliberately **not** on it, because silence is absence of evidence rather than evidence the thesis died, so returning coverage can revive it. A ceasefire already signed isn't a fresh catalyst, though a genuinely new event can let that ticker back in.
 
-### How the watchlist is trimmed
+### How events and tickers are trimmed
 
-When the live events name more tickers than `max_watchlist` allows, a **portfolio cull** decides which of them hold capital.
-It ranks on a **price trend** by default, holding a couple of slots open for brand-new events that have no
-price history for a trend to read yet. An **LLM agent-picker** (`src/picker.py`) can be configured in its
-place, ranking each live event on its evidence arc (catalyst, milestones, exit condition, periods alive) and never on a predicted return or size. Neither reads a confidence score, because there isn't one. Two risk
-gates bracket the cull: a **liquidity floor** that keeps an illiquid name from ever occupying a slot, and a
-**death-spiral exclusion** at the funding gate that refuses a recently-listed name carrying a punitive
-reverse split.
+Two culls run, on different things at different stages. **The events cull** bounds how many events may be
+live at once (`max_events`), and when more are live than that, a ranking decides which keep their slot: an
+arithmetic coverage-rank (`src/evscore.py`) by default, or an **LLM agent-picker** (`src/picker.py`) that
+ranks each live event on its evidence arc (catalyst, milestones, exit condition, periods alive) and never on
+a predicted return or size. It is deliberately a *concurrency* cap and not an admission cap, so a strong
+thesis arriving in a busy week competes again next period instead of being binned at the door. An event
+culled here is retired, and joins the roster the scout is shown.
+
+**The portfolio cull** then decides which of the surviving events' tickers hold capital, when they name more
+than `max_watchlist` allows. It ranks on a **price trend**, holding a couple of slots open for brand-new
+events that have no price history for a trend to read yet. Neither cull reads a confidence score, because
+there isn't one. Two risk gates bracket this one: a **liquidity floor** that keeps an illiquid name from ever
+occupying a slot, and a **death-spiral exclusion** at the funding gate that refuses a recently-listed name
+carrying a punitive reverse split.
+
+The two sit on opposite sides of the line drawn above: `max_events` is a curation knob, since changing it
+changes the journal, while `max_watchlist` is a book knob that only re-sizes a curation already made.
 
 **No-magnitude guardrail, machine-enforced.** Every LLM stage returns JSON matching a fixed Pydantic schema whose fields are only `ticker`, `thesis`, `thesis_live`, `catalyst_resolved` and the like, with **no field for a price target, weight, or size**, and `extra='ignore'` silently drops any number the model volunteers ("buy 8% of BWET"). So the LLM picks composition and the *when-to-exit* call only; the mechanical optimizer sets every weight.
 
