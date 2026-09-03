@@ -163,6 +163,7 @@ Everything below is published as browsable pages at **[joehahn.github.io/geo-her
 **Forward.** The live paper trade, and the only look-ahead-clean test this project has. The daily news pull runs every morning under cron; the weekly scan and its dashboard are still being built out, so the [dated scans](https://joehahn.github.io/geo-herd-rider/forward/) published so far are a partial record.
 
 **Research write-ups.** Plain-English posts on one of this project's research questions at a time, with none of this repo's vocabulary in them. The first is [**What does a smarter model actually buy you?**](https://joehahn.github.io/geo-herd-rider/writeups/llm-bakeoff.html): eight models run the same judgment stage over the same 100,000-article corpus, and a frontier model grades all ~4,500 of their decisions blind.
+
 ## Optimizer
 
 Once the curator produces the live watchlist, a **standard portfolio optimizer** sizes it, weighting each name from its recent returns and volatility, the same way a robo-advisor would, tuned only by the knobs in the investor profile ([`examples/investor_profile.md`](examples/investor_profile.md) ships the full set). The LLM never touches these weights; it only suggests tickers to the optimizer. The optimizer is **reused verbatim from [`portfolio-wave-rider`](https://github.com/joehahn/portfolio-wave-rider)** (`src/optimizer.py`), where the mean-variance math is documented in full; this project only feeds it the watchlist and reads back the weights.
