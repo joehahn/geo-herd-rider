@@ -223,9 +223,7 @@ Gathering a fresh corpus, curating it, sweeping the parameter grid and running t
 
 ## What isn't published
 
-The code is here and it runs, and the architecture, the guardrails and the method for telling a real improvement from a lucky one are all above in full. What stays local is the tuned configuration, the article corpus and the curation journals, and the research ledger of what has been measured and rejected. `examples/investor_profile.md` ships every knob name with neutral defaults, so you can see exactly what the solution is parameterized on without being handed the settings it runs on, and a clone gathers its own corpus.
-
-There is also no runbook. Gathering a corpus, curating it, sweeping the parameter grid and standing up the daily pull are each their own exercise in operational detail, and writing that down is a second project about the size of this one.
+The code is here and it runs, and the architecture, the guardrails and the method for telling a real improvement from a lucky one are all above in full. What stays local is the tuned configuration, the article corpus and the curation journals, and the research ledger of what has been measured and rejected. There is also no runbook. Gathering a corpus, curating it, sweeping the parameter grid and standing up the daily pull are each their own exercise in operational detail, and writing that down is a second project about the size of this one.
 
 **If you want the rest.** Playtesting this solution, rebuilding the backtest against a corpus of your own, or pointing the same machinery at a different stream of unstructured input are all work I take on through [JMH DataSciences](https://jmh-datasciences.com). What that pattern is, and where else it applies, is under [About the author](#about-the-author).
 
