@@ -1741,12 +1741,11 @@ def main(argv=None) -> int:
     CURATOR_ORDER = [
         "model", "scout_model", "event_agent_model", "event_agent_effort",
         "picker_model", "picker_effort", "org_tagger_model", "gather_model",
-        "retrieval_engine", "discovery_filter", "rebalance_period",
-        "news_cap", "news_lookback_days", "event_news_cap",
+        "retrieval_engine", "discovery_filter",
+        "news_cap", "event_news_cap",
         "relevance_filter", "relevance_keep",
         "scout_articles_per_call", "max_article_chars", "min_bundle_articles",
         "max_events", "max_new_events",
-        "curator_memory_weeks", "max_event_scans", "max_silent_scans",
     ]
     # Ordered by how much of the book a knob decides, heaviest first: the capital and the fixed
     # universe, then how many positions and how concentrated, then the estimation window and the
@@ -1757,11 +1756,47 @@ def main(argv=None) -> int:
         "initial_investment_usd", "starter_watchlist", "always_include",
         "max_watchlist", "concentration_cap", "risk_aversion", "min_trade_size",
         "optimizer_lookback_days", "t_update_days", "risk_free_rate",
-        "cull_rank", "cull_fresh_slots", "cull_fresh_scans",
-        "exit_patience_scans", "max_stale_scans",
+        "cull_rank", "cull_fresh_slots",
         "min_dollar_volume_usd", "exclude_young_reverse_split",
-        "drop_unfunded_weeks", "unfunded_reentry_on_new_catalyst", "unfunded_cooldown_weeks",
+        "unfunded_reentry_on_new_catalyst",
     ]
+    # THE THIRD BLOCK: the knobs that have to move TOGETHER (2026-09-04). Their unit is a SCAN, so
+    # none of them has a fixed real-time meaning -- `max_event_scans: 12` is a year at monthly and a
+    # quarter at weekly. Changing `rebalance_period` alone therefore silently re-times all of them,
+    # which is a config change nobody typed: the 2026-08-26 weekly -> monthly move had to re-scale
+    # four knobs by 4x, and two more had to be exempted BY HAND after being read as scalable.
+    # Scattered down two columns ordered by other criteria, that coupling was invisible unless the
+    # reader already knew to look for it.
+    #
+    # THEY ARE NOT RE-PARTITIONED. The columns answer "does changing this cost a re-curation or a
+    # rebuild", which is the more load-bearing question, and max_stale_scans was misfiled as a
+    # curation knob once already -- provenance.py holds the proof ($95,170 to $345,968 over a FIXED
+    # journal). So each row here still names its own blast radius and still reads from the source
+    # its partition dictates: a curation knob from the run's stamp, a book knob from the live
+    # profile. The block groups by a DIFFERENT axis than the columns; it does not overrule them.
+    #
+    # The second sub-heading is the part that is easy to get wrong, so it is stated rather than
+    # implied: exit_patience_scans and cull_fresh_scans count READS and SLOTS, not elapsed time
+    # (2 is the minimum that IS hysteresis at any cadence), so they were deliberately left alone
+    # when everything above them was multiplied by 4.
+    CADENCE_ORDER = [
+        "rebalance_period",                        # the unit the rest are counted in
+        "— re-scale when the cadence changes —",
+        # news_lookback_days is in DAYS, not scans -- but 0 means "track rebalance_period", so it
+        # moves with the cadence unless it is set, which is exactly what this block should surface.
+        "news_lookback_days",
+        "curator_memory_weeks", "max_event_scans", "max_silent_scans",
+        "max_stale_scans", "drop_unfunded_weeks", "unfunded_cooldown_weeks",
+        "— counted in scans, deliberately not re-scaled —",
+        "exit_patience_scans", "cull_fresh_scans",
+    ]
+    _cadence_keys = {k for k in CADENCE_ORDER if not k.startswith("—")}
+    # A cadence knob that belongs to NEITHER partition would be pulled out of both columns and
+    # rendered with a blast radius nobody can source. The partition gate cannot catch it, because
+    # this list is the one place a knob is named outside the partition.
+    _unfiled = sorted(_cadence_keys - (_canon.CURATION_KNOBS | _canon.BOOK_KNOBS))
+    if _unfiled:
+        raise SystemExit(f"CADENCE_ORDER names knobs in no partition: {_unfiled}")
     # Legacy aliases, deliberately shown under the name the profile now uses, and the two knobs
     # retrieval_config.json owns, which are rendered as counts under their own sub-heading.
     _alias = {"lookback_period_days", "max_agents"}
@@ -1782,32 +1817,88 @@ def main(argv=None) -> int:
 
     def _ordered(order, want):
         """`order` for reading, then anything in `want` it forgot, so a new knob cannot vanish."""
-        seen = set(order) | _alias | _ingest | _retired
+        seen = set(order) | _alias | _ingest | _retired | _cadence_keys
         return list(order) + [k for k in sorted(want) if k not in seen]
 
     cur_rows = ([("— curator knobs · as curated —", "")]
                 + [_cv(k) for k in _ordered(CURATOR_ORDER,
-                                            _canon.CURATION_KNOBS | _canon.FORWARD_ONLY_KNOBS)]
-                # INGEST PARAMS, from retrieval_config.json rather than the profile (moved
-                # 2026-08-25). The self-audit scans the PROFILE TEXT, so once these left that file
-                # they stopped being "declared" and silently dropped off this table -- the audit
-                # working correctly, but the page losing a real setting. Shown explicitly, and
-                # attributed to the file that now owns them. Curation knobs, hence this column.
-                # These two are CURATION knobs that retrieval_config.json now owns, so they follow
-                # the same rule as the rest of the column: the stamp recorded the lists the curation
-                # actually read, and the live file may have moved since.
-                + [("— retrieval_config.json · ingest —", "")]
+                                            _canon.CURATION_KNOBS | _canon.FORWARD_ONLY_KNOBS)])
+    # INGEST PARAMS, from retrieval_config.json rather than the profile (moved 2026-08-25). The
+    # self-audit scans the PROFILE TEXT, so once these left that file they stopped being "declared"
+    # and silently dropped off this table -- the audit working correctly, but the page losing a real
+    # setting. Shown explicitly, and attributed to the file that now owns them. They are CURATION
+    # knobs, so they follow the same rule as the curator column: the stamp recorded the lists the
+    # curation actually read, and the live file may have moved since -- and the same shading, which
+    # is what "shaded = buying a new curation" has to mean if it means anything.
+    #
+    # They ride at the FOOT OF THE THIRD COLUMN as a table of their own rather than under the
+    # curator heading: nothing about them is cadence-coupled, so they keep their own sub-heading and
+    # their own table, and the third column is simply where the page has room. The two tables are
+    # wrapped in one div so the grid treats them as ONE column -- .pcols flows by column, so a
+    # fourth child would open a fourth column instead of stacking here.
+    ing_rows = ([("— retrieval_config.json · ingest —", "")]
                 + [(k, f"{len(CURATED[k] if k in CURATED else live)} entries")
                    for k, live in (("specialty_allow", _gkg._specialty()),
                                    ("mill_block", _gkg._mill_block()))])
     book_rows = ([("— optimizer knobs · as replayed —", "")]
                  + [_pv(k) for k in _ordered(BOOK_ORDER, _canon.BOOK_KNOBS)])
 
+    # THE CADENCE BLOCK reads each row from the source its OWN partition dictates -- a curation knob
+    # from the stamp, a book knob from the live profile -- and then says which, because here the two
+    # are interleaved and column position no longer tells the reader what a row costs to change.
+    def _dv(key):
+        """A cadence row, read from the source its OWN partition dictates.
+
+        The blast radius used to be spelled out per row ("12 · re-curate"), which repeated one of
+        two words eleven times down a narrow column and made every value read as a compound. It is
+        a property of the ROW, so it is carried by the row: `_drecur` shades the curator ones. The
+        word survives in the paragraph under the grid -- shading is the grouping, never the sole
+        statement, the same rule the status colours are held to."""
+        return _cv(key) if key in _canon.CURATION_KNOBS else _pv(key)
+
+    def _drecur(key):
+        return "recur" if key in _canon.CURATION_KNOBS else None
+
+    def _dbadge(key):
+        """The caveat that key's own column would have tagged it with, dispatched by partition."""
+        if key in _canon.CURATION_KNOBS:
+            return None if key in CURATED else "unrecorded"
+        return None if key in _declared else "default"
+
+    cad_rows = ([("— cadence · change these together —", "")]
+                + [(k, "") if k.startswith("—") else _dv(k) for k in CADENCE_ORDER])
+
+    def _cbadge(key):
+        """`unrecorded` means the curation did not record a knob it acted under. gather_model is
+        not that: FORWARD_ONLY_KNOBS is excluded from the fingerprint ON PURPOSE, so that a live
+        retrieval change cannot invalidate a backtest curation, and no stamp has ever carried it.
+        Badging it read as a hole in the record where there is none -- and being the widest cell in
+        the column, it set the column's width and the gap beside it. The row already says
+        `forward only`, which is the true caveat."""
+        if key in _canon.FORWARD_ONLY_KNOBS:
+            return None
+        return None if key in CURATED else "unrecorded"
+
+    # THE LEGEND EXPLAINS ONLY THE BADGES THIS PAGE ACTUALLY RENDERS. Once gather_model's false
+    # `unrecorded` went, a fully-stamped run's legend described a tag appearing nowhere in the
+    # tables, which sends a reader hunting for it. Headings are skipped exactly as _ptable skips
+    # them: a badge is only drawn on a row that has a value.
+    _badged = ({_cbadge(k) for k, v in cur_rows + ing_rows if v}
+               | {None if k in _declared else "default" for k, v in book_rows if v}
+               | {_dbadge(k) for k, v in cad_rows if v}) - {None}
+    _lg = [t for k, t in (("unrecorded", 'tagged <span class="dfltkey">unrecorded</span> was not '
+                                         'stamped by the curation'),
+                          ("default", 'tagged <span class="dfltkey">default</span> is not set in '
+                                      'the profile')) if k in _badged]
+    _legend = ("" if not _lg else " A row " + ", and one ".join(_lg)
+               + ("; both show" if len(_lg) == 2 else "; it shows")
+               + " the fallback in <code>optimizer.py</code>.")
+
     # LAST NET. The partition is gated by check_partition_covers_profile(), so a profile knob that
     # reaches here classified nowhere means the gate itself was bypassed. Appended rather than
     # dropped, because a run's own settings silently going missing from the page that exists to
     # record them is the worst kind of drift: the page still looks complete.
-    _shown = {k for k, _ in run_rows + cur_rows + book_rows}
+    _shown = {k for k, _ in run_rows + cur_rows + book_rows + cad_rows + ing_rows}
     _missing = [k for k in sorted(_declared) if k not in _shown and k not in _alias]
     if _missing:
         cur_rows.append(("— declared in the profile, classified nowhere —", ""))
@@ -1816,10 +1907,11 @@ def main(argv=None) -> int:
             # the source lists are long; a count is the readable form and the profile is one click away
             cur_rows.append((k, f"{len(v)} entries" if isinstance(v, list) and len(v) > 6 else _pv(k)[1]))
 
-    def _ptable(rows, badge=None):
+    def _ptable(rows, badge=None, rowcls=None):
         """`badge(key)` returns a caveat to tag a row with, or None. Each column passes its own,
         because the caveat differs by SOURCE: a curator row is suspect when the stamp did not record
-        it, a book row when the profile does not set it, and a run row is neither."""
+        it, a book row when the profile does not set it, and a run row is neither.
+        `rowcls(key)` returns a class for the whole row, or None -- the cadence column's shading."""
         def _row(k, v):
             if not v:
                 return (f'<tr><td colspan="2" style="color:var(--text2);padding-top:10px;font-size:11.5px;'
@@ -1827,7 +1919,9 @@ def main(argv=None) -> int:
                         f'{esc(k.strip("— "))}</td></tr>')
             b = badge(k) if badge else None
             td = f'<td data-badge="{esc(b)}">' if b else "<td>"
-            return f"<tr><td>{esc(k)}</td>{td}{esc(v)}</td></tr>"
+            c = (rowcls(k) if rowcls else None)
+            tr = f'<tr class="{esc(c)}">' if c else "<tr>"
+            return f"{tr}<td>{esc(k)}</td>{td}{esc(v)}</td></tr>"
         body = "".join(_row(k, v) for k, v in rows)
         return f'<div class="scroll"><table class="params">{body}</table></div>'
 
@@ -1838,7 +1932,8 @@ def main(argv=None) -> int:
     ptable = (f'<section class="panel"><h2>Parameter settings</h2>'
               f'<p class="lead">The knobs behind every number on this page, in the two groups '
               f'{_LINK(PROVENANCE_URL, "src/provenance.py")} partitions them into, which is also why '
-              f'they are read from different places. A <b>curator</b> knob acts upstream of the '
+              f'they are read from different places (a third column regroups the '
+              f'cadence-coupled ones, which are pulled out of these two rather than repeated). A <b>curator</b> knob acts upstream of the '
               f'journal, so the honest value is the one stamped in '
               f'<code>{esc(a.run)}/provenance.json</code> when the curation ran: '
               f'{_LINK(PROFILE_URL, PROFILE_FILE)} is a live file, and a knob edited there since '
@@ -1849,15 +1944,28 @@ def main(argv=None) -> int:
               f'a rebuild. The caps bound what this page can show: <code>max_events</code> and '
               f'<code>max_new_events</code> limit how many events a scan may open, and '
               f'<code>max_watchlist</code> limits how many the optimizer may fund, so read them '
-              f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>. A row tagged '
-              f'<span class="dfltkey">unrecorded</span> was not stamped by the curation, and one '
-              f'tagged <span class="dfltkey">default</span> is not set in the profile; both show '
-              f'the fallback in <code>optimizer.py</code>.</p>'
+              f'alongside <i>Breadth over time</i> and <i>Watchlist composition</i>.{_legend}</p>'
               f'{_ptable(run_rows)}'
               f'<div class="pcols">'
-              f'{_ptable(cur_rows, badge=lambda k: None if k in CURATED else "unrecorded")}'
+              f'{_ptable(cur_rows, badge=_cbadge)}'
               f'{_ptable(book_rows, badge=lambda k: None if k in _declared else "default")}'
-              f'</div></section>')
+              # THE CADENCE BLOCK, a THIRD COLUMN beside the other two rather than a band beneath
+              # them: the coupling it exists to show is only obvious when rebalance_period sits at
+              # eye level with the knobs it re-times. It groups by a different axis than its
+              # neighbours -- what must move together, rather than what a change costs -- so its
+              # rows are pulled OUT of the two columns rather than repeated (every knob still
+              # appears exactly once), and each one carries the blast radius its own column would
+              # have given it. The explanation lands BELOW the grid, where it has the full lane: a
+              # paragraph inside a max-content grid column would set that column's width.
+              f'<div>{_ptable(cad_rows, badge=_dbadge, rowcls=_drecur)}'
+              f'{_ptable(ing_rows, badge=_cbadge, rowcls=_drecur)}</div>'
+              f'</div>'
+              f'<p class="lead">These knobs count scans, not days, so changing '
+              f'<code>rebalance_period</code> re-times all of them at once. '
+              f'<code>max_event_scans: 12</code> is about a year at monthly and a quarter at '
+              f'weekly. Shaded rows are curator knobs and cost a re-curation; the rest are a '
+              f'rebuild.</p>'
+              f'</section>')
 
     # ---- curation log: every week that CHANGED something ------------------------------------------
     # PWR's CBT leads with this and it is the right instinct: the charts say how much, the log says
@@ -2583,11 +2691,16 @@ table {{ border-collapse:collapse; margin-top:9px; width:100%; font-size:12.5px;
 th,td {{ text-align:left; padding:5px 9px; border-bottom:1px solid var(--line); }}
 th {{ color:var(--text2); font-weight:600; }}
 .params {{ width:auto; }} .params td:first-child {{ color:var(--text2); }}
-/* The two knob columns. auto-fit at min(400px,100%) resolves to 2 inside the 1180px
-   wrap and to 1 on a phone, so the layout needs no media query. align-items:start
-   keeps the shorter column from stretching its last row. */
-.pcols {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(min(400px,100%),max-content));
-  gap:0 34px; align-items:start; justify-content:start; }}
+/* The THREE knob columns, on ONE row. auto-fit used to wrap them, which put the cadence
+   column under the other two and undid the point of it: the coupling is only obvious when
+   rebalance_period sits beside the knobs it re-times. grid-auto-flow:column forces the single
+   row, and overflow-x:auto means a narrow window scrolls to the third column rather than
+   losing it. align-items:start keeps a shorter column from stretching its last row. */
+.pcols {{ display:grid; grid-auto-flow:column; grid-auto-columns:max-content;
+  gap:0 34px; align-items:start; justify-content:start; overflow-x:auto; }}
+/* The one media query the panel needs, and the cost of the row above: on a phone three
+   max-content columns are a scroll bar rather than a layout, so they stack again. */
+@media (max-width:820px) {{ .pcols {{ grid-auto-flow:row; grid-auto-columns:auto; }} }}
 .pcols .params td:last-child {{ overflow-wrap:anywhere; }}
 /* A value the profile never sets, showing optimizer._FINANCIAL_MODEL_DEFAULTS through
    load_financial_model's merge. Rendered with ::after rather than appended to the value,
@@ -2598,6 +2711,10 @@ th {{ color:var(--text2); font-weight:600; }}
 /* The table badge is generated from the attribute, so one rule serves every caveat. The sample in
    the lead is a real span, and `content` does not apply to those, so it carries the word as text. */
 .params td[data-badge]::after {{ content:attr(data-badge); margin-left:7px; }}
+/* The cadence column's CURATION rows. A neutral card tint against the page surface, not a status
+   colour: it groups the rows that cost a re-curation so the two bands are visible at a glance, and
+   the paragraph under the grid still says it in words, so the shading is never the sole carrier. */
+.params tr.recur td {{ background:var(--card); }}
 .scroll {{ overflow-x:auto; }}
 #tkmodal {{position:fixed; inset:0; display:none; z-index:900;
            background:rgba(0,0,0,.45); backdrop-filter:blur(2px);}}
