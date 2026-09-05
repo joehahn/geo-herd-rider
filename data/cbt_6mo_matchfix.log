@@ -1,0 +1,78 @@
+  DECISION LOG ON -> data/cbt_6mo_matchfix/decisions.jsonl
+  profile: investor_profile.backtest.md
+  min_bundle_articles=1 · max_article_chars=800 · scout_articles_per_call=30 · group_by_ticker=True
+  6 scans every 30d, reading 30d of news  2026-02-26 .. 2026-07-26
+  CORPUS data/backtest_3yr_v5: 99,117 articles (74,455 archived · 14,760 live · 9,902 headline-only); enrichment skipped
+  scout=meta-llama/llama-4-maverick (openrouter) · event_agent=x-ai/grok-4.3 (openrouter) · news_cap=uncapped · event_news_cap=20
+  ARM: event_agent=x-ai/grok-4.3 @ effort=low
+    ledes[fuller]: 98.0% covered (2517 clean, 113 live, 0 search, 54 headline-only)
+  discovery gate: 113 of 2684 articles carry the gem tell
+  scout: ticker map learned 11 symbol(s) from the pool
+  scout: 99 ticker-groups from 113 gated articles -> 32 call(s)
+  scout: 35 raw -> 32 unique
+  scout: dropped 2 already-resolved candidate(s) (NEM, CRCL) (2026-02-26)
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: EVNCF"}}}
+$EVNCF: possibly delisted; no timezone found
+    ticker guard (2026-02-26) resolved 7: 'C1Z' -> CYDVF; 'CRITICAL METALS' -> CRML; 'LOCKHEED MARTIN (LMT' -> LMT; 'MP MATERIALS' -> MP; 'NORTHROP GRUMMAN (NOC' -> NOC; 'STMICROELECTRONICS' -> STM; 'OTHER BIOTECH FIRMS WITH SIMILAR APPROVALS PENDING' -> VRTX
+    !! ticker guard (2026-02-26) rejected 7: 'EVNCF' -> no price history on yfinance (EVNCF); 'HINDZINC' -> not a US-symbol shape ('HINDZINC'); 'LCE' -> no price history on yfinance (LCE); 'ORISMIN' -> not a US-symbol shape ('ORISMIN'); 'SPACEX' -> not a US-symbol shape ('SPACEX'); 'WLFI' -> no price history on yfinance (WLFI) (+1 more)
+  2026-02-26 (1/6): 2684 arts -> ['BTC', 'COIN', 'MSTR', 'MSFT', 'AVGO', 'MRVL', 'SOXQ', 'SONM', 'BTGO', 'COIN', 'CRCL', 'MCX', 'UNG', 'USO', 'BLK', 'FBTC', 'LHX', 'LMT', 'NOC', 'KRYS', 'NTLA', 'RGNX', 'HIMS', 'LLY', 'NVO', 'NVDA', 'SOXL', 'TSEM', 'EQT', 'KMI', 'ABTC', 'AVGO', 'NVDA', 'TSM', 'OIL', 'SCO', 'UCO', 'USO', 'STM', 'VWAV', 'AMD', 'NVDA', 'STX', 'WDC', 'LQDA']
+    ledes[fuller]: 96.7% covered (2670 clean, 173 live, 0 search, 97 headline-only)
+  discovery gate: 163 of 2940 articles carry the gem tell
+  scout: ticker map learned 24 symbol(s) from the pool
+  scout: 153 ticker-groups from 163 gated articles -> 41 call(s)
+  scout: 61 raw -> 50 unique
+  scout: dropped 2 already-resolved candidate(s) (MRVL, GLXY) (2026-03-28)
+$CRTX: possibly delisted; no timezone found
+    ticker guard (2026-03-28) resolved 11: 'CELCUITY' -> CELC; 'GDXJ ETF' -> GDXJ; 'LUMENTUM HOLDINGS' -> LITE; 'ON SEMICONDUCTOR' -> ON; 'OTHER COAL EXPORTERS' -> ALB; 'OTHER NATURAL GAS INFRASTRUCTURE COMPANIES' -> ET; 'OTHER NATURAL GAS PRODUCERS OR UTILITIES' -> AR; 'RED CAT HOLDINGS' -> RCAT; 'SANTOS' -> STOSF; 'TOWER SEMICONDUCTOR' -> TSEM; 'WOODSIDE ENERGY' -> WDS
+    !! ticker guard (2026-03-28) rejected 2: 'CRTX' -> no price history on yfinance (CRTX); 'HNSA' -> no price history on yfinance (HNSA)
+  2026-03-28 (2/6): 2940 arts -> ['BTC', 'COIN', 'MSTR', 'MSFT', 'AVGO', 'MRVL', 'SOXQ', 'SONM', 'BTGO', 'COIN', 'CRCL', 'USO', 'CF', 'MOS', 'NTR', 'UNG', 'LHX', 'LMT', 'NOC', 'AVAV', 'KTOS', 'KRYS', 'NTLA', 'RGNX', 'HIMS', 'LLY', 'NVO', 'NVDA', 'TSEM', 'SOXL', 'EQT', 'ET', 'KMI', 'SEI', 'AVGO', 'NVDA', 'TSM', 'STM', 'VWAV', 'AMD', 'LQDA', 'MU', 'NLST', 'NXPI', 'TSM', 'EPOW', 'AGMRF', 'AG', 'GLD', 'SLV', 'WMT', 'MP', 'CELC', 'OLMA']
+    ledes[fuller]: 92.5% covered (1744 clean, 812 live, 0 search, 208 headline-only)
+  discovery gate: 145 of 2764 articles carry the gem tell
+  scout: ticker map learned 35 symbol(s) from the pool
+  scout: 134 ticker-groups from 145 gated articles -> 41 call(s)
+  scout: 39 raw -> 35 unique
+  scout: dropped 1 already-resolved candidate(s) (CDE) (2026-04-27)
+$DHL: possibly delisted; no price data found  (1d 1927-09-30 -> 2026-09-05)
+$RMAC: possibly delisted; no timezone found
+    !! ticker resolve failed for 'ENERGY STOCKS': JSONDecodeError: Extra data: line 3 column 1 (char 20)
+    ticker guard (2026-04-27) resolved 9: 'AGEAGLE AERIAL SYSTEMS' -> UAVS; 'GLOBALSTAR (GSAT' -> GSAT; 'KAILERA' -> KLRA; 'MARATHON PETROLEUM CORPORATION' -> MPC; 'PHILLIPS 66' -> PSX; 'CANNABIS-RELATED STOCKS' -> TRLV; 'OTHER SEMICONDUCTOR STOCKS' -> NXPI; 'SEMICONDUCTOR TESTING AND EQUIPMENT STOCKS' -> TER; 'TANKER SHIPPING STOCKS' -> NAT
+    !! ticker guard (2026-04-27) rejected 6: 'DHL' -> no price history on yfinance (DHL); 'RMAC' -> no price history on yfinance (RMAC); 'Real Asset Acquisition Corp' -> looks like a company name, not a ticker ('REAL ASSET ACQUISITION CORP'); 'SPACEX (private)' -> looks like a company name, not a ticker ('SPACEX (PRIVATE'); 'UNITED STATES NAVY' -> looks like a company name, not a ticker ('UNITED STATES NAVY'); 'energy stocks' -> looks like a company name, not a ticker ('ENERGY STOCKS')
+  2026-04-27 (3/6): 2764 arts -> ['BTC', 'COIN', 'MSTR', 'MSFT', 'AVGO', 'MRVL', 'SOXQ', 'SONM', 'BTGO', 'COIN', 'CRCL', 'GBTC', 'IBIT', 'MSBT', 'USO', 'UNG', 'NAT', 'AVAV', 'KTOS', 'LHX', 'LMT', 'NOC', 'KRYS', 'NTLA', 'RGNX', 'HIMS', 'LLY', 'NVO', 'NVDA', 'ORCL', 'LSCC', 'EQIX', 'NVT', 'TSEM', 'SOXL', 'EQT', 'ET', 'KMI', 'SEI', 'AVGO', 'NVDA', 'TSM', 'STM', 'VWAV', 'AMD', 'LQDA', 'MU', 'NLST', 'NXPI', 'TSM', 'EPOW', 'AGMRF', 'AG', 'GLD', 'SLV', 'WMT', 'MP', 'CELC', 'OLMA', 'RKLB', 'AMZN', 'GSAT', 'CHRW', 'FDX', 'UPS', 'SMH', 'SOXX', 'XSD', 'ONDS', 'BMNR', 'COCP', 'BE', 'ON', 'ARWR', 'TLX', 'AKAN', 'AEHR', 'TER']
+    ledes[fuller]: 94.1% covered (1979 clean, 872 live, 0 search, 179 headline-only)
+  discovery gate: 223 of 3030 articles carry the gem tell
+  scout: ticker map learned 48 symbol(s) from the pool
+  scout: 167 ticker-groups from 223 gated articles -> 47 call(s)
+  scout: 50 raw -> 45 unique
+  resolver: 'Samsung Electronics' -> SKHY (2026-05-27)
+  resolver: 'SkyWater Technology' -> SKYT (2026-05-27)
+  scout: dropped 5 already-resolved candidate(s) (MSTR, EXE, VIAV, MNR, UEC) (2026-05-27)
+$RLAB: possibly delisted; no timezone found
+$ROZE: possibly delisted; no timezone found
+$SMND: possibly delisted; no timezone found
+    ticker guard (2026-05-27) resolved 5: 'COREWEAVE' -> CRWV; 'KIOXIA' -> KXIAY; 'MICRON TECHNOLOGY' -> MU; 'NEBIUS' -> NBIS; 'OTHER US CLEAN ENERGY PROVIDERS' -> RUN
+    !! ticker guard (2026-05-27) rejected 17: 'ASP' -> no price history on yfinance (ASP); 'CXMT' -> no price history on yfinance (CXMT); 'DQC' -> no price history on yfinance (DQC); 'GC=F' -> not a US-symbol shape ('GC=F'); 'HEMA' -> no price history on yfinance (HEMA); 'IRBT' -> no price history on yfinance (IRBT) (+11 more)
+  2026-05-27 (4/6): 3030 arts -> ['BTC', 'COIN', 'MSTR', 'AVGO', 'MRVL', 'MSFT', 'SOXQ', 'SONM', 'COIN', 'CRCL', 'IBIT', 'MSBT', 'USO', 'UNG', 'NAT', 'AVAV', 'KTOS', 'LHX', 'LMT', 'NOC', 'KRYS', 'NTLA', 'RGNX', 'HIMS', 'LLY', 'NVO', 'NVDA', 'TSEM', 'ORCL', 'LSCC', 'SOXL', 'EQT', 'ET', 'KMI', 'SEI', 'AVGO', 'NVDA', 'TSM', 'STM', 'VWAV', 'AMD', 'LQDA', 'MU', 'NLST', 'NXPI', 'TSM', 'EPOW', 'AGMRF', 'AG', 'GLD', 'SLV', 'WMT', 'MP', 'USAR', 'UUUU', 'CELC', 'OLMA', 'RKLB', 'AMZN', 'GSAT', 'CHRW', 'FDX', 'UPS', 'SMH', 'SOXX', 'XSD', 'MU', 'NVTS', 'ONDS', 'BMNR', 'COCP', 'BE', 'ON', 'ARWR', 'TLX', 'AKAN', 'AEHR', 'TER', 'INTC', 'AMD', 'TSM', 'SIVEF', 'SMH', 'NXE', 'UEC', 'UUUU', 'SFTBY']
+    ledes[fuller]: 94.8% covered (1939 clean, 1208 live, 0 search, 172 headline-only)
+  discovery gate: 173 of 3319 articles carry the gem tell
+  scout: ticker map learned 59 symbol(s) from the pool
+  scout: 138 ticker-groups from 173 gated articles -> 47 call(s)
+  scout: 62 raw -> 57 unique
+  resolver: 'Sivers Semiconductors AB' -> SIVEF (2026-06-26)
+  scout: dropped 9 already-resolved candidate(s) (RKLB, ASTS, SPCE, MSTR, GCTS, VSH) (2026-06-26)
+    ticker guard (2026-06-26) resolved 7: 'AST SPACEMOBILE' -> ASTS; 'ALBEMARLE CORPORATION (ALB' -> ALB; 'GRAHAM' -> GHM; 'LITHIUM AMERICAS CORP (LAC' -> LAC; 'ROCKET LAB' -> RKLB; 'TMC THE METALS COMPANY' -> TMC; 'THE METALS ROYALTY COMPANY' -> TMCR
+    !! ticker guard (2026-06-26) rejected 5: 'AMKOR' -> no price history on yfinance (AMKOR); 'CERE' -> no price history on yfinance (CERE); 'GSCALE ENERGY' -> looks like a company name, not a ticker ('GSCALE ENERGY'); 'Lithium X' -> looks like a company name, not a ticker ('LITHIUM X'); 'SK Hynix' -> looks like a company name, not a ticker ('SK HYNIX')
+  2026-06-26 (5/6): 3319 arts -> ['BTC', 'COIN', 'MSTR', 'AVGO', 'MRVL', 'MSFT', 'SOXQ', 'SONM', 'COIN', 'CRCL', 'IBIT', 'MSBT', 'KRYS', 'NTLA', 'RGNX', 'QURE', 'HIMS', 'LLY', 'NVO', 'NVDA', 'SOXL', 'TSEM', 'ORCL', 'LSCC', 'EQT', 'ET', 'KMI', 'SEI', 'STM', 'VWAV', 'AMD', 'LQDA', 'MU', 'NLST', 'NXPI', 'TSM', 'EPOW', 'AGMRF', 'AG', 'GDX', 'GLD', 'SLV', 'SSRM', 'WMT', 'MP', 'USAR', 'UUUU', 'ALOY', 'CELC', 'OLMA', 'AMZN', 'GSAT', 'ALOY', 'CHRW', 'FDX', 'UPS', 'USAR', 'SMH', 'SOXX', 'XSD', 'MU', 'NVTS', 'NVDA', 'ONDS', 'BMNR', 'COCP', 'BE', 'ON', 'ARWR', 'TLX', 'AKAN', 'AEHR', 'TER', 'INTC', 'AMD', 'TSM', 'SIVEF', 'SMH', 'CCJ', 'LEU', 'NXE', 'UEC', 'URA', 'SFTBY', 'AMZN', 'APLD', 'NVDA', 'VIVK', 'SPIR', 'SMR', 'OKLO', 'SLN', 'ALB', 'LAC', 'NILIF', 'TMC', 'TMCR']
+    ledes[fuller]: 97.2% covered (2150 clean, 425 live, 0 search, 74 headline-only)
+  discovery gate: 167 of 2649 articles carry the gem tell
+  scout: ticker map learned 61 symbol(s) from the pool
+  scout: 136 ticker-groups from 167 gated articles -> 39 call(s)
+  scout: 59 raw -> 54 unique
+  resolver: 'Foremost Clean Energy Ltd.' -> FMST (2026-07-26)
+  resolver: 'Vivakor' -> VIVK (2026-07-26)
+  scout: dropped 9 already-resolved candidate(s) (SMR, CDNA, VIVK, AEHR, RRX, Natera) (2026-07-26)
+$RKTU.Y: possibly delisted; no timezone found
+$SKS: possibly delisted; no price data found  (1d 1927-09-30 -> 2026-09-05)
+    ticker guard (2026-07-26) resolved 4: 'AST SPACEMOBILE INC.' -> ASTS; 'ROCKET LAB USA, INC.' -> RKLB; 'SKHYNX' -> SKHY; 'VIRGIN GALACTIC HOLDINGS, INC.' -> SPCE
+    !! ticker guard (2026-07-26) rejected 3: 'RKTU.Y' -> no price history on yfinance (RKTU.Y); 'SKS' -> no price history on yfinance (SKS); 'TECK.A' -> no price history on yfinance (TECK.A)
+  2026-07-26 (6/6): 2649 arts -> ['BTC', 'COIN', 'MSTR', 'AVGO', 'MRVL', 'MSFT', 'SOXQ', 'SONM', 'COIN', 'CRCL', 'IBIT', 'MSBT', 'KRYS', 'NTLA', 'RGNX', 'QURE', 'NVDA', 'TSEM', 'LSCC', 'ORCL', 'SOXL', 'EQT', 'ET', 'KMI', 'SEI', 'STM', 'VWAV', 'AMD', 'LQDA', 'MU', 'NLST', 'NXPI', 'TSM', 'EPOW', 'AGMRF', 'AG', 'GDX', 'GLD', 'SLV', 'SSRM', 'WMT', 'MP', 'USAR', 'UUUU', 'ALOY', 'CELC', 'OLMA', 'AMZN', 'GSAT', 'ALOY', 'CHRW', 'FDX', 'UPS', 'USAR', 'SMH', 'SOXX', 'XSD', 'MU', 'NVDA', 'NVTS', 'ONDS', 'BMNR', 'COCP', 'BE', 'ON', 'ARWR', 'TLX', 'AKAN', 'AEHR', 'TER', 'INTC', 'AMD', 'TSM', 'SIVEF', 'SMH', 'CCJ', 'LEU', 'NXE', 'UEC', 'URA', 'SFTBY', 'AMZN', 'APLD', 'HUT', 'NVDA', 'VIVK', 'SPIR', 'SMR', 'OKLO', 'SLN', 'ALB', 'LAC', 'NILIF', 'TMC', 'TMCR', 'SPCX', 'RKLB', 'ASTS', 'CCL', 'NAT', 'MPLT', 'JANX', 'TYRA', 'JANX', 'MPLT', 'TYRA', 'NAT', 'UNG', 'VG', 'SPCE', 'AXSM', 'EXEL', 'AXSM', 'EXEL', 'AYI', 'FMST', 'SLBT', 'TRVI', 'VERA', 'PMN']
+  DONE. events: [('ev1', 'exited', ['AMD', 'NVDA', 'TSM']), ('ev2', 'exited', ['RKLB']), ('ev3', 'live', ['BTC', 'COIN', 'MSTR']), ('ev4', 'live', ['AVGO', 'MRVL', 'MSFT', 'SOXQ']), ('ev5', 'exited', ['SMH', 'SOXX', 'TSM']), ('ev6', 'live', ['SONM']), ('ev7', 'exited', ['CRML', 'MP', 'REMX', 'USAR']), ('ev8', 'live', ['COIN', 'CRCL', 'IBIT', 'MSBT']), ('ev9', 'exited', ['NAT', 'UNG', 'USO']), ('ev10', 'exited', ['BLK']), ('ev11', 'exited', ['AVAV', 'KTOS', 'LHX', 'LMT', 'NOC']), ('ev12', 'live', ['KRYS']), ('ev13', 'exited', ['REMX', 'USAR']), ('ev14', 'live', ['NTLA', 'QURE', 'RGNX']), ('ev15', 'exited', ['HIMS', 'LLY', 'NVO']), ('ev16', 'live', ['LSCC', 'NVDA', 'ORCL', 'SOXL', 'TSEM']), ('ev17', 'exited', ['MBOT']), ('ev18', 'exited', ['AMD']), ('ev19', 'live', ['EQT', 'ET', 'KMI', 'SEI']), ('ev20', 'exited', ['ABTC']), ('ev21', 'exited', ['AVGO', 'NVDA', 'TSM']), ('ev22', 'exited', ['STM']), ('ev23', 'exited', ['VNDA']), ('ev24', 'exited', ['MPC', 'OIL', 'SCO', 'UCO', 'USO', 'XOM']), ('ev25', 'exited', ['AMD', 'META']), ('ev26', 'live', ['STM', 'VWAV']), ('ev27', 'live', ['AMD']), ('ev28', 'exited', ['MU', 'STX', 'WDC']), ('ev29', 'live', ['LQDA']), ('ev30', 'live', ['MU', 'NLST', 'NXPI', 'TSM']), ('ev31', 'live', ['EPOW']), ('ev32', 'live', ['AGMRF']), ('ev33', 'live', ['AG', 'GDX', 'GLD', 'SLV', 'SSRM']), ('ev34', 'exited', ['CANF']), ('ev35', 'live', ['WMT']), ('ev36', 'exited', ['CCJ']), ('ev37', 'exited', ['NNE']), ('ev38', 'exited', ['SMR']), ('ev39', 'exited', ['LEU', 'OKLO']), ('ev40', 'exited', ['NEE']), ('ev41', 'live', ['ALOY', 'MP', 'USAR', 'UUUU']), ('ev42', 'exited', ['VRTX']), ('ev43', 'exited', ['MDT']), ('ev44', 'live', ['CELC', 'OLMA']), ('ev45', 'exited', ['RKLB']), ('ev46', 'live', ['AMZN', 'GSAT']), ('ev47', 'live', ['ALOY', 'CHRW', 'FDX', 'UPS', 'USAR']), ('ev48', 'live', ['MU', 'NVDA', 'NVTS', 'SMH', 'SOXX', 'XSD']), ('ev49', 'live', ['ONDS']), ('ev50', 'exited', ['CMPS']), ('ev51', 'live', ['BMNR']), ('ev52', 'live', ['COCP']), ('ev53', 'live', ['BE', 'ON']), ('ev54', 'live', ['ARWR']), ('ev55', 'live', ['TLX']), ('ev56', 'exited', ['MXL']), ('ev57', 'live', ['AKAN']), ('ev58', 'live', ['AEHR', 'TER']), ('ev59', 'live', ['AMD', 'INTC', 'TSM']), ('ev60', 'exited', ['CUE']), ('ev61', 'exited', ['DARE']), ('ev62', 'exited', ['URG']), ('ev63', 'exited', ['OIL']), ('ev64', 'exited', ['QBTS', 'QUBT']), ('ev65', 'live', ['SIVEF', 'SMH']), ('ev66', 'live', ['CCJ', 'LEU', 'NXE', 'UEC', 'URA']), ('ev67', 'exited', ['KXIAY']), ('ev68', 'exited', ['AOSL']), ('ev69', 'live', ['SFTBY']), ('ev70', 'exited', ['HIVE']), ('ev71', 'exited', ['BITA', 'BLK']), ('ev72', 'exited', ['SMTUF']), ('ev73', 'live', ['AMZN', 'APLD', 'HUT', 'NVDA']), ('ev74', 'live', ['VIVK']), ('ev75', 'exited', ['SOFI']), ('ev76', 'live', ['SPIR']), ('ev77', 'live', ['OKLO', 'SMR']), ('ev78', 'exited', ['CAT', 'CVX', 'GEV']), ('ev79', 'exited', ['LEGN']), ('ev80', 'exited', ['IBM', 'QBTS', 'RGTI']), ('ev81', 'live', ['SLN']), ('ev82', 'exited', ['BFLY']), ('ev83', 'live', ['ALB', 'LAC']), ('ev84', 'live', ['NILIF', 'TMC', 'TMCR']), ('ev85', 'exited', ['RKLB']), ('ev86', 'live', ['ASTS', 'RKLB', 'SPCX']), ('ev87', 'live', ['CCL', 'NAT']), ('ev88', 'exited', ['TVRD']), ('ev89', 'exited', ['CUE']), ('ev90', 'exited', ['JANX', 'TYRA']), ('ev91', 'live', ['JANX', 'MPLT', 'TYRA']), ('ev92', 'live', ['JANX', 'MPLT', 'TYRA']), ('ev93', 'live', ['NAT', 'UNG', 'VG']), ('ev94', 'live', ['SPCE']), ('ev95', 'live', ['AXSM', 'EXEL']), ('ev96', 'live', ['AXSM', 'EXEL']), ('ev97', 'live', ['AYI']), ('ev98', 'exited', ['NXXT']), ('ev99', 'exited', ['TECK']), ('ev100', 'exited', ['ELVA']), ('ev101', 'live', ['FMST']), ('ev102', 'live', ['SLBT']), ('ev103', 'exited', ['ASTS']), ('ev104', 'exited', ['TRVI']), ('ev105', 'exited', ['TRAX', 'VRAX']), ('ev106', 'live', ['TRVI', 'VERA']), ('ev107', 'live', ['PMN'])]

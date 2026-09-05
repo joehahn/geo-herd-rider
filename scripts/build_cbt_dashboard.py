@@ -203,6 +203,18 @@ def main(argv=None) -> int:
             print("     These are CURATION knobs: the page's parameter table will describe a curation "
                   "that could not have produced this journal. RE-CURATE to make them agree.",
                   file=sys.stderr)
+    # WHICH CURATION, not just which settings. The knob fingerprint cannot tell two curations apart
+    # when only the CODE changed between them: on 2026-09-05 the matcher-fix candidate
+    # (data/cbt_3yr_v26_matchfix) stamped hash a25e2c1839d1, byte-identical to CANON_RUN's, because
+    # curation_key hashes profile knobs + corpus + arm and none of those moved. Publishing it over
+    # docs/cbt.html would have passed every check, leaving a directory name and somebody's memory as
+    # the only thing separating the canonical book from a candidate -- verbatim the failure
+    # curator_code_id's docstring was written about. The published page describes CANON_RUN by
+    # definition, so the gate says so.
+    _want_run = _canon.CANON_BOOTSTRAP_RUN if a.bootstrap else _canon.CANON_RUN
+    if str(a.run).strip("/") != str(_want_run).strip("/"):
+        _problems.append(f"curation is {a.run}, canonical is {_want_run} "
+                         f"-- a candidate is not the published book until provenance.py says it is")
     if not a.bootstrap:
         _unclassified = _canon.check_partition_covers_profile()
         if _unclassified:
@@ -2685,6 +2697,9 @@ def main(argv=None) -> int:
         f'disagree, and no LLM runs to produce one. They are pages beside this one '
         f'(<code>reports/&lt;date&gt;-{_arm}-curation.html</code>), so the links work here, on the '
         f'published site, and on a copy opened straight off disk.</p>'
+        # COLLAPSED, like the two logs above it. A dated index of every scan is a reference table,
+        # not a headline: it reads last, and at 37 rows it pushed the page footer off the screen.
+        + f'<details class="tbl"><summary>show the {len(_rep_rows)} curation reports</summary>'
         + '<table><thead><tr>'
         + "".join(f"<th>{esc(h)}</th>"
                   for h in ("scan", "live events", "funded", "opened / exited", "book"))
@@ -2692,7 +2707,7 @@ def main(argv=None) -> int:
         # table_html() escapes every cell, which is right everywhere else on this page and wrong for
         # the one cell that IS a link, so the row is built here instead of widening that helper.
         + "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in _rep_rows)
-        + '</tbody></table></section>')
+        + '</tbody></table></details></section>')
     panels += rep_panel.replace("@@N3@@", str(len(_P) + 3))
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
