@@ -200,6 +200,21 @@ write "the CHIPS Act is signed" NOT "chipmakers gain on AI demand"; write "the F
 first-in-class drug" NOT "biotech demand". If your thesis can't be marked RESOLVED on a date it is
 a theme — rewrite it as the event or drop the name.
 
+THE THESIS MUST STAND ALONE. A reader who did not see the article must be able to tell, from that
+one line, WHAT specific thing happens, WHO it happens to, WHEN, and WHETHER IT HAS ALREADY HAPPENED.
+So write all four:
+  WHO/WHAT   name the subject — the company, agency or place the event happens to. "Chikungunya
+             vaccine approval" does not say whose; "Valneva's chikungunya vaccine" does.
+  WHEN       a date or window if one is announced. If none is, say so: "no date announced". Never
+             leave it out, because an undated milestone cannot be tested when it comes due.
+  STATUS     say plainly whether it is PENDING, SCHEDULED, or ALREADY DECIDED. "US DOE loans $1B to
+             restart Three Mile Island" reads as money already lent; if the decision is still ahead,
+             write "Constellation awaits a DOE decision on a $1B Three Mile Island loan, no date
+             announced". A thesis that asserts as done a thing that has not happened misleads every
+             later scan, which then re-reads it and reports the catalyst "still pending".
+This is a COMPLETENESS test, not a judgement about the stock: you are not asked whether the name is
+worth owning, only whether your sentence says enough for someone to check it later.
+
 DON'T CHASE A RESOLVED CATALYST. If a ticker's driving catalyst has ALREADY RESOLVED (the ceasefire
 was signed, the ban was lifted, the ruling came down), the edge is GONE — even if the press KEEPS
 hyping the name for weeks afterward ("prices still elevated", "tensions linger"). Lingering hype
@@ -208,7 +223,7 @@ catalyst as ALREADY-RESOLVED, do NOT re-propose that ticker unless a genuinely N
 has since emerged (a SECOND, different datable event — not a restatement of the resolved one).
 
 Output ONLY JSON: {"candidates":[{"ticker":"XYZ",
-"thesis":"<=12 words: the catalyst EVENT","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
+"thesis":"<=16 words: the catalyst EVENT, with subject, timing and status","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
 prior weekly note (your memory), and THIS week's news for this event. Write the new weekly note.
@@ -1377,8 +1392,16 @@ a name from a DIFFERENT catalyst. The event is the durable unit; its basket of t
 You never forecast HOW HIGH (no price target / size — sizing is mechanical); you only judge
 composition, the exit, and which vehicle.
 
-`exit_advice` (<=20 words) is the STANDING EXIT CONDITION: the concrete, observable trigger that would
-END this thesis — phrase it as "exit if/when <observable event>" (e.g. "exit if a Hormuz reopening or
+`exit_advice` (<=24 words) is the STANDING EXIT CONDITION: the concrete, observable trigger that would
+END this thesis — phrase it as "exit if/when <observable event>"
+
+NAME BOTH DIRECTIONS. A pending thing ends this thesis whichever way it goes: it HAPPENS (and is then
+public and priced, so the edge is spent) or it FAILS. Write both. "exit if/when the DOE loan for the
+TMI restart is withdrawn or cancelled" names only the failure, so the week the loan is actually
+granted — the catalyst resolving — this condition stays false and the position is held past the
+event it was entered on. Write "exit if/when the DOE grants or refuses the loan" instead. A structural
+driver with no single resolving act is the one exception: there, a reversal genuinely is the only
+exit, and saying so is correct (e.g. "exit if a Hormuz reopening or
 ceasefire looks imminent"). It is a forward CONDITION, not a hold/sell verdict — `thesis_live` already
 carries hold-vs-exit, so NEVER write "Hold" / "Sell" / "none" here while the thesis is live. RESTATE THE
 SAME standing condition every week (carry it forward from your journal); REVISE it when the catalyst's
