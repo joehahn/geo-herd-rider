@@ -238,7 +238,9 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # THE CATALYST IS THE EVENT'S IDENTITY. There is no title field in the journal, so the catalyst
     # is the closest thing to a name and heads the block; the line below repeats it with its entry
     # date, because that pairing is the one a reader checks first.
-    L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"
+    # THE SCAN'S DATE IN THE HEADING. A block is a snapshot of one event at one anchor, and the
+    # reports are linked individually, so one opened on its own gave no date until the Catalyst line.
+    L = [f"### {eid} · {date} · {_trim(e.get('catalyst'), 110)}"
          + (f" · *{note}*" if note else "")]
     L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
 
@@ -333,9 +335,9 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             for _d, _ms in _grp.items():
                 _u = _srcs.get(_ms[0]) or []
                 L.append(f"- **{_d}**"
-                         + (" · sources cited that scan: "
+                         + (" · sources cited: "
                             + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_u)) if _u
-                            else " · no sources cited that scan"))
+                            else " · no sources cited"))
                 for _m in _ms:
                     L.append(f"    - {_trim(_m, 240)}"
                              + ("" if _m in _last else
@@ -345,14 +347,15 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
         # would not appear anywhere.
         _now = [u for u in (entry.get("sources") or []) if u][:SOURCES_PER_EVENT]
         if _now and not any(d == date for d in _first.values()):
-            L.append("**Sources cited this scan:** "
+            L.append("**Sources cited:** "
                      + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_now)))
 
     # INPUT 3: the journal digest, in the form agent._journal_digest builds it. This is the memory
     # the prompt tells the agent to re-read and test its exit condition against.
     if history:
-        L.append(f"**Its journal going in** ({len(history)} earlier "
-                 + ("scan" if len(history) == 1 else "scans") + ", as the agent re-read it)")
+        L.append("**What the event-agent re-reads on re-entry** \u2014 its own journal, "
+                 + f"{len(history)} earlier "
+                 + ("scan" if len(history) == 1 else "scans"))
         if len(history) > HISTORY_LINES:
             L.append(f"- …{len(history) - HISTORY_LINES} earlier scans, in the journal")
         for h in history[-HISTORY_LINES:]:
@@ -827,11 +830,15 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 # Only anchors up to this one: a report describes the book as it stood here, and
                 # a later funding would be information the scan did not have.
                 _fd = [d for d in (fund_dates.get(k) or []) if d <= d0]
+                # COUNTED SINCE THE EVENT STARTED, which is the span the fraction is over; a
+                # last-held date is added only when it says something the start date does not.
+                _st = str((ev[k].get("entries") or [{}])[0].get("date", ""))[:10]
+                _note = (f"funded at {len(_fd)} of {n} scans since {_st}"
+                         + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
                                   exact=_ok, rets=rets_prev,
-                                  note=(f"funded at {len(_fd)} of {n} scans, last held {_fd[-1]}"
-                                        if _fd[-1] != d0 else "held going in"))
+                                  note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
                                ("Ran their course unfunded", _ran)):
                 if not _grp:
