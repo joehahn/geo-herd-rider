@@ -205,7 +205,7 @@ def _money(x: float) -> str:
 
 def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | None,
                  cum: float | None, date: str, note: str = "", rets: dict | None = None,
-                 history: list | None = None, read: list | None = None,
+                 history: list | None = None, read: list | None = None, proposals: dict | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -367,6 +367,32 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             L.append("**Sources cited:** "
                      + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_now)))
 
+    # WHY EACH VEHICLE IS ATTACHED. An event is ONE catalyst with MANY vehicles, so they share the
+    # event's thesis by design -- but each was PROPOSED by the scout with a thesis of its own, and
+    # that wording is the only record of why this ticker was thought to belong here. It survives in
+    # decisions.jsonl and nowhere else: once a candidate is matched, firehose_scans.csv records it
+    # under the EVENT's catalyst, which is what kept ev192's drift invisible.
+    #
+    # Collapsed, because on a well-behaved event it says the same thing six times; expanded, it is
+    # the fastest way to see a vehicle that was never about this catalyst at all.
+    if proposals:
+        _rows = []
+        for _v in vs_now:
+            _hit = None
+            for _x in (e.get("entries") or []):
+                _d = str(_x.get("date", ""))[:10]
+                if _d > date:
+                    break
+                if _v in {str(z).upper() for z in (_x.get("vehicles") or [])}:
+                    _hit = (_d, proposals.get((_d, _v)))
+                    break
+            if _hit and _hit[1]:
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · proposed as \u201c{_trim(_hit[1], 110)}\u201d")
+            elif _hit:
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · no scout record for that scan")
+        if _rows:
+            L += ["", f"<details><summary>Why these {len(vs_now)} vehicles are attached — the "
+                      f"scout's own thesis for each</summary>", ""] + _rows + ["", "</details>"]
     # INPUT 3: the journal digest, in the form agent._journal_digest builds it. This is the memory
     # the prompt tells the agent to re-read and test its exit condition against.
     if history:
@@ -601,6 +627,17 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 fund_dates[_k].append(_d)
     lookback = int(fm.get("lookback_period_days") or 30)
     ev_cap = int(fm.get("event_news_cap") or 0)
+    # (date, ticker) -> the scout's own thesis, from the run's decision log when it kept one.
+    proposals: dict = {}
+    try:
+        for _ln in (Path(run) / "decisions.jsonl").read_text().splitlines():
+            _r = json.loads(_ln)
+            if _r.get("kind") == "scout":
+                for _p in _r.get("proposed", []):
+                    proposals[(_r.get("context"), str(_p.get("ticker", "")).strip().upper())] = \
+                        str(_p.get("thesis") or "")
+    except Exception:  # noqa: BLE001 -- a run curated without --decisions simply has none
+        proposals = {}
     archive_dir = Path(archive_dir) if archive_dir else None
 
     def _pool(date: str) -> list:
@@ -782,7 +819,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         if held:
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets,
+                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals,
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
                                   note=(f"vehicle also claimed by {', '.join(_co[k])}"
@@ -853,7 +890,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                          + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
-                                  exact=_ok, rets=rets_prev,
+                                  exact=_ok, rets=rets_prev, proposals=proposals,
                                   note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
                                ("Ran their course unfunded", _ran)):
@@ -884,7 +921,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                           else "")
             _h, _rd, _m, _ok = _inputs(k)
             L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None,
-                              date=d0, note=note, rets=rets,
+                              date=d0, note=note, rets=rets, proposals=proposals,
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
         if not missed:
             L += ["*Every live event was funded.*", ""]
