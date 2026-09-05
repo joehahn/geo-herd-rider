@@ -1720,8 +1720,15 @@ def main(argv=None) -> int:
          ((_bs_stamp.get("hash") or "(unstamped)") + " · bootstrap (not the canonical book)")
          if a.bootstrap else
          ((_vfy.get("hash_run") or "(unstamped)")
+          # NAME THE ACTUAL PROBLEM. This printed "NOT canonical -- profile+corpus imply <hash>"
+          # with the SAME hash on both sides once the gate started checking run IDENTITY: the
+          # candidate curation has identical knobs and so an identical fingerprint, and the thing
+          # that makes it non-canonical is WHICH RUN it is, not what it was configured with.
           + (" ✓ canonical" if not _problems else
-             f" ✗ NOT canonical — profile+corpus imply {_vfy.get('hash_want')}")
+             (f" ✗ NOT canonical — profile+corpus imply {_vfy.get('hash_want')}"
+              if _vfy.get("hash_want") and _vfy.get("hash_want") != _vfy.get("hash_run")
+              else f" ✗ NOT canonical — same knobs as the canonical book, but this is "
+                   f"{a.run}, not {_canon.CANON_RUN}"))
           + (f" ({len(_vfy['unverifiable'])} knobs unrecorded)" if _vfy.get("unverifiable") else ""))),
         ("corpus (local path)",
          (f"{(_bs_stamp.get('corpus') or {}).get('path', 'bootstrap')} · "
