@@ -24,6 +24,12 @@ from __future__ import annotations
 import collections
 import json
 import re as _re
+
+
+def _norm_cat(t: str) -> str:
+    """agent._norm_catalyst's rule, kept local so the report has no import-time dependency on it."""
+    return _re.sub(r"[^a-z0-9]+", " ", (t or "").lower()).strip()
+
 from pathlib import Path
 
 # How much of the curator's own prose a report quotes per event. Long enough to carry the reasoning,
@@ -205,7 +211,7 @@ def _money(x: float) -> str:
 
 def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | None,
                  cum: float | None, date: str, note: str = "", rets: dict | None = None,
-                 history: list | None = None, read: list | None = None, proposals: dict | None = None,
+                 history: list | None = None, read: list | None = None, proposals: dict | None = None, assigned: dict | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -386,10 +392,35 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                 if _v in {str(z).upper() for z in (_x.get("vehicles") or [])}:
                     _hit = (_d, proposals.get((_d, _v)))
                     break
-            if _hit and _hit[1]:
-                _rows.append(f"- **{_v}** · joined {_hit[0]} · proposed as \u201c{_trim(_hit[1], 110)}\u201d")
+            # ATTRIBUTE ONLY WHAT THE MATCHER CONFIRMS. A ticker proposed at the same scan under a
+            # DIFFERENT thesis is not the reason it is here: ev339 carries NVDA, and NVDA was
+            # proposed that week on "Trump admin weighs allowing Nvidia to sell H200 chips to
+            # China", but the matcher assigned nothing into ev339 at all -- so NVDA arrived as a
+            # PEER of MSFT's proposal, and crediting it to the China thesis invents a link the
+            # journal never made.
+            # ATTRIBUTE ONLY WHAT THE RECORD SUPPORTS, and the record has two shapes. The matcher
+            # logs "new" for a candidate that FOUNDS an event -- never the id it becomes, since the
+            # id is assigned afterwards -- so a founder is identified by its thesis BEING this
+            # event's catalyst, which is where the catalyst comes from. A candidate that MERGED in
+            # is identified by the logged event id. Anything else is a vehicle that arrived on
+            # someone else's proposal, and crediting it to a same-ticker proposal about something
+            # else invents a link the journal never made: ev339 carries NVDA, proposed that week on
+            # "Trump admin weighs allowing Nvidia to sell H200 chips to China", which is not why it
+            # is in a Three Mile Island event.
+            _asg = (assigned or {}).get((_hit[0], _v)) if _hit else None
+            _th = _hit[1][1] if (_hit and _hit[1]) else ""
+            _founder = bool(_th) and _norm_cat(_th) == _norm_cat(e.get("catalyst") or "")
+            if _hit and _th and (_founder or _asg == eid):
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · "
+                             f"{'opened this event as' if _founder else 'merged in, proposed as'} "
+                             f"\u201c{_trim(_th, 104)}\u201d")
+            elif _hit and _th:
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · arrived on another proposal (a peer); "
+                             f"its own thesis that scan was \u201c{_trim(_th, 74)}\u201d, "
+                             f"a different event")
             elif _hit:
-                _rows.append(f"- **{_v}** · joined {_hit[0]} · no scout record for that scan")
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · no scout record for that scan "
+                             f"(a run curated before peers were logged cannot say how it arrived)")
         if _rows:
             L += ["", f"<details><summary>Why these {len(vs_now)} vehicles are attached — the "
                       f"scout's own thesis for each</summary>", ""] + _rows + ["", "</details>"]
@@ -629,15 +660,28 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
     ev_cap = int(fm.get("event_news_cap") or 0)
     # (date, ticker) -> the scout's own thesis, from the run's decision log when it kept one.
     proposals: dict = {}
+    assigned: dict = {}          # (date, ticker) -> the event the MATCHER put it in
     try:
         for _ln in (Path(run) / "decisions.jsonl").read_text().splitlines():
             _r = json.loads(_ln)
+            if _r.get("kind") == "match":
+                for _a in _r.get("assigned", []):
+                    assigned[(_r.get("context"), str(_a.get("ticker", "")).strip().upper())] = \
+                        str(_a.get("event") or "")
             if _r.get("kind") == "scout":
                 for _p in _r.get("proposed", []):
-                    proposals[(_r.get("context"), str(_p.get("ticker", "")).strip().upper())] = \
-                        str(_p.get("thesis") or "")
+                    _tk = str(_p.get("ticker", "")).strip().upper()
+                    _th = str(_p.get("thesis") or "")
+                    proposals[(_r.get("context"), _tk)] = ("proposed as", _th)
+                    # A PEER carries no thesis of its own; it rides in on someone else's proposal
+                    # and can end up the funded name. Recorded so the report can say so instead of
+                    # attributing it to whatever unrelated proposal happens to share its ticker.
+                    for _pe in (_p.get("peers") or []):
+                        _k = (_r.get("context"), str(_pe).strip().upper())
+                        proposals.setdefault(_k, ("rode in as a peer of " + _tk + ", whose thesis was",
+                                                  _th))
     except Exception:  # noqa: BLE001 -- a run curated without --decisions simply has none
-        proposals = {}
+        proposals, assigned = {}, {}
     archive_dir = Path(archive_dir) if archive_dir else None
 
     def _pool(date: str) -> list:
@@ -819,7 +863,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         if held:
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals,
+                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned,
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
                                   note=(f"vehicle also claimed by {', '.join(_co[k])}"
@@ -890,7 +934,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                          + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
-                                  exact=_ok, rets=rets_prev, proposals=proposals,
+                                  exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned,
                                   note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
                                ("Ran their course unfunded", _ran)):
@@ -921,7 +965,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                           else "")
             _h, _rd, _m, _ok = _inputs(k)
             L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None,
-                              date=d0, note=note, rets=rets, proposals=proposals,
+                              date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned,
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
         if not missed:
             L += ["*Every live event was funded.*", ""]

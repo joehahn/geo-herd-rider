@@ -1029,8 +1029,17 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                              "chunks": len(chunks), "dropped_resolved": _dropped_resolved,
                              "restated_resolved": _restated,
                              "retired_roster": sorted((retired_map or {}).keys()),
+                             # PEERS ARE HOW MOST VEHICLES ACTUALLY ARRIVE, and this log dropped
+                             # them. process_week adds {ticker, *peers} to an event's vehicles, so a
+                             # peer becomes a fundable name carrying no thesis of its own: ev339 in
+                             # the matcher-fix run funded AMZN at 40% on a Three Mile Island loan
+                             # thesis that AMZN was never proposed under -- it rode in as a peer of
+                             # MSFT's proposal, and nothing recorded that. Without this field a
+                             # report cannot say where a funded vehicle came from, and guessing by
+                             # ticker attributes it to whatever unrelated proposal shares the name.
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
-                                           "thesis": c.get("thesis", "")} for c in cands],
+                                           "thesis": c.get("thesis", ""),
+                                           "peers": list(c.get("peers") or [])} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
     return out
 
