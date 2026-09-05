@@ -234,3 +234,13 @@ $HLXHF: possibly delisted; no timezone found
 HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: BSGM"}}}
 $BSGM: possibly delisted; no timezone found
 $TIGER: possibly delisted; no timezone found
+    !! ticker resolve failed for 'OTHER KRAS G12D DRUG DEVELOPERS': JSONDecodeError: Extra data: line 1 column 19 (char 18)
+    ticker guard (2025-05-02) resolved 2: 'ASA GOLD AND PRECIOUS METALS LIMITED' -> ASA; 'NEWMONT CORPORATION' -> NEM
+    !! ticker guard (2025-05-02) rejected 10: 'Akeso' -> no price history on yfinance (AKESO); 'BSGM' -> no price history on yfinance (BSGM); 'CEP' -> no price history on yfinance (CEP); 'EAC' -> no price history on yfinance (EAC); 'GC=F' -> not a US-symbol shape ('GC=F'); 'JNVR' -> no price history on yfinance (JNVR) (+4 more)
+  aged out after 12 scans: AI drives natural gas demand growth
+  aged out after 12 scans: Oracle invests $8B in Japan cloud and AI
+  2025-05-02 (22/37): 4663 arts -> ['CAPR', 'EDIT', 'ALLO', 'QURE', 'GRFS', 'INTC', 'AMD', 'TSM', 'ASTS', 'AMAT', 'ASML', 'NVDA', 'AMD', 'NXPI', 'ACM', 'IMVT', 'VRDN', 'COST', 'HD', 'TGT', 'WMT', 'AG', 'BTG', 'GLD', 'CCJ', 'NXE', 'SMR', 'UEC', 'URA', 'UUUU', 'NVCR', 'CRSP', 'NTLA', 'CEG', 'VST', 'CCJ', 'LEU', 'URA', 'UUUU', 'SRRK', 'KULR', 'VSTM', 'JAGX', 'GNS', 'LTRN', 'VIR', 'BKSY', 'RKLB', 'CLSK', 'COIN', 'MARA', 'MSTR', 'RIOT', 'SFTBY', 'BLK', 'COYA', 'AVBP', 'SERV', 'IVVD', 'KURA', 'INSM', 'ALZN', 'GSK', 'HLX', 'LLY', 'NVO', 'PLTR', 'ALGM', 'ON', 'AMD', 'MX', 'NVDA', 'SMH', 'F', 'GM', 'HMC', 'TSLA', 'MIRA', 'ALT', 'ALZN', 'MIRA', 'ZBIO', 'FCX', 'ACOG', 'LIT', 'NIKL', 'SQM', 'QCOM', 'BITO', 'GS', 'ALDX', 'RNAC', 'CUE', 'RKT', 'SMMT', 'ETHA', 'ETHE', 'ETHV']
+    ledes[fuller]: 85.0% covered (2067 clean, 552 live, 0 search, 461 headline-only)
+  discovery gate: 168 of 3080 articles carry the gem tell
+  scout: ticker map learned 142 symbol(s) from the pool
+  scout: 141 ticker-groups from 168 gated articles -> 42 call(s)

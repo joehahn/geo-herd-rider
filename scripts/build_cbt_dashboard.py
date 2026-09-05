@@ -2683,7 +2683,14 @@ def main(argv=None) -> int:
         filter_version=int((_stamp.get("code") or {}).get("filter_version", 1) or 1),
         corpus=((_bs_stamp.get("corpus") or {}).get("path", "bootstrap") if a.bootstrap
                 else str(a.corpus)))
-    print(f"  reports: {len(_reps)} written to {_rep_dir.relative_to(ROOT)}", flush=True)
+    # relative_to() RAISES for a path outside the repo, and a build to /tmp is a normal thing to do
+    # (it is how you check the gate without touching docs/). A progress line must never be the thing
+    # that ends a build.
+    try:
+        _rel = _rep_dir.relative_to(ROOT)
+    except ValueError:
+        _rel = _rep_dir
+    print(f"  reports: {len(_reps)} written to {_rel}", flush=True)
     _rep_rows = [[f'<a href="reports/{esc(r["file"])}">{esc(r["date"])}</a>',
                   str(r["live"]), str(r["funded"]),
                   f'{r["opened"]}&nbsp;/&nbsp;{r["exited"]}',
