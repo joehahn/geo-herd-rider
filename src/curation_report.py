@@ -732,29 +732,30 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         _spy = _pct(panel, ["SPY"], d0, d1) if d1 else None
         _same = sorted(set(opened) & set(exited))     # opened and closed inside one scan
 
-        def _ids(x):
-            return ", ".join(sorted(x)) if len(x) <= 6 else f"{len(x)}"
 
+        # PROVENANCE ON ONE LINE. Three facts only ever read together, and only when someone is
+        # checking which book this describes. The "no LLM ran" note that sat under them is on the
+        # dashboard panel that links here, which is where a first-time reader meets it.
         L = [f"# {page_title} curation — {d0}", "",
-             f"- **Run.** `{run}` · fingerprint `{fingerprint}`",
-             f"- **Corpus.** `{corpus}`",
-             f"- **Replayed under.** `{profile}`",
-             "- **Where every line below comes from.** The curation journal and this build's frozen "
-             "price panel. No LLM ran to write this report.",
+             f"- **Run.** `{run}` · fingerprint `{fingerprint}` · corpus `{corpus}` · "
+             f"replayed under `{profile}`",
              "",
-             f"- **Period.** {d0} → {d1 or 'open (no forward period yet)'}"
-             + (f" · book {ret * 100:+.1f}%" if isinstance(ret, (int, float)) else "")
-             + (f" · SPY {_spy * 100:+.1f}%" if _spy is not None else ""),
-             f"- **Events.** {len(live)} live this scan · {len(held)} funded"
-             + (f", {len(_stale)} of them not re-read this scan" if _stale else "")
-             + f" · {len(missed)} unfunded"]
-        if orphans:
-            L.append(f"- **Held with no live thesis.** {len(orphans)}")
+             f"- **Period.** {d0} → {d1 or 'open (no forward period yet)'}"]
+        _mkt = ((f"book {ret * 100:+.1f}%" if isinstance(ret, (int, float)) else "")
+                + (f" · SPY {_spy * 100:+.1f}%" if _spy is not None else "")).strip(" ·")
+        if _mkt:
+            L.append(f"- {_mkt}")
+        L.append(f"- **Events.** {len(live)} live this scan · {len(held)} funded"
+                 + (f", {len(_stale)} of them not re-read this scan" if _stale else "")
+                 + f" · {len(missed)} unfunded"
+                 + (f" · {len(orphans)} held with no live thesis" if orphans else ""))
+        # NAMED, NOT COUNTED. An id is five characters and is the handle for finding that event
+        # further down the page; "exited 13" cannot be looked up.
         if opened:
-            L.append(f"- **Opened.** {_ids(opened)}")
+            L.append(f"- **Opened.** {', '.join(sorted(opened))}")
         if exited:
-            L.append(f"- **Exited.** {_ids(exited)}"
-                     + (f", of which {len(_same)} opened and exited in this same scan"
+            L.append(f"- **Exited.** {', '.join(sorted(exited))}"
+                     + (f", of which opened and exited in this same scan: {', '.join(_same)}"
                         if _same else ""))
         _anchors_held = sorted(t for t in funded_tk
                                if t in {str(x).upper() for x in (fm.get("always_include") or [])})
