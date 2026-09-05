@@ -15,8 +15,10 @@ for a candidate exists only in `decisions.jsonl`, which is why this script needs
 WHAT IT MEASURES. For every ticker that becomes a NEW vehicle of an existing event, the similarity
 between the scout's proposed thesis and that event's catalyst. On cbt_3yr_v25_vehgate, 62 of 64
 recoverable merges join a candidate whose thesis DIFFERS from the catalyst it is merged into -- so
-merging across theses is the norm, not the exception, which is MATCH_SYSTEM working exactly as
-written ("DEFAULT TO MERGING ... When unsure, MERGE").
+merging across theses was the norm rather than the exception, which is the PRE-2026-09-05
+MATCH_SYSTEM working exactly as written ("DEFAULT TO MERGING ... When unsure, MERGE"). That prompt
+has been rewritten around one occurrence per event, with the tie-break flipped to "new"; re-run this
+against the next curation to see what it did.
 
 WHY THERE IS NO THRESHOLD HERE, and why the script prints the list rather than a verdict: similarity
 does NOT separate the good merges from the bad. "SEC approves a Bitcoin ETF" <- MARA "Bitcoin ETF

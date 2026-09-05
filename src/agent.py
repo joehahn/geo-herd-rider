@@ -1201,20 +1201,61 @@ EVENT_MATCH_SCHEMA = {"type": "object", "additionalProperties": False, "required
         "type": "object", "additionalProperties": False, "required": ["ticker", "event"],
         "properties": {"ticker": {"type": "string"}, "event": {"type": "string"}}}}}}
 
-MATCH_SYSTEM = """You group market candidates into EVENTS. An event is ONE underlying catalyst (a
-war, an election, a supply shock, a tech wave); MANY tickers can express the same event — e.g. a
-company's two ADRs are one; several oil refiners riding one OPEC cut are one event; several
-homebuilders riding one rate-cut are one event. Given the OPEN events (id + catalyst) and this
-week's CANDIDATES (ticker + thesis), assign each candidate to the open event it belongs to (by id)
-or "new" if it is a genuinely different catalyst.
+# REWRITTEN 2026-09-05. The previous version defined an event as "ONE underlying catalyst (a war, an
+# election, a supply shock, A TECH WAVE)" and told the matcher to DEFAULT TO MERGING on a shared
+# "driver -- same commodity, same sector/policy shock", closing with "When unsure, MERGE --
+# fragmenting one catalyst across several events is the single biggest error to avoid here."
+#
+# It did what it was told. Measured over cbt_3yr_v25_vehgate (scripts/measure_merge_drift.py), 62 of
+# the 64 merges whose scout wording is recoverable join a candidate whose thesis DIFFERS from the
+# catalyst it lands in. ev78, "Clinical pipeline progress drives stock", absorbed 23 vehicles across
+# unrelated biotech theses and is one "event" holding a sector. ev192 entered as a named company's
+# GPU-lease announcement with the microcap that spiked on it, absorbed three separate AI-chip theses
+# at the next scan, dropped that microcap, and then ran seven scans reporting no news about its own
+# catalyst while the position rode an unrelated rally.
+#
+# TWO DETERMINISTIC GATES WERE TESTED FIRST AND BOTH FAILED (see TODO): requiring a shared name token
+# blocks the obviously-correct merges while passing ev192's, and no similarity threshold separates
+# them either -- a legitimate re-wording scores 0.37 and ev192's wrong merge 0.32. The judgement is
+# semantic, so the instruction is the lever.
+#
+# THE TIE-BREAK IS DELIBERATELY FLIPPED. "When unsure, merge" is now "when in doubt, new", because
+# the two errors are not symmetric in this design: a wrongly merged candidate inherits a catalyst its
+# own news can never resolve, so the event outlives its thesis, while a wrongly split one is two
+# events running side by side, each resolving on its own evidence. Fragmentation is the error to
+# watch for after this change -- events per scan and the absorption rate in the matcher log are what
+# say whether it went too far.
+MATCH_SYSTEM = """You group market candidates into EVENTS. An event is ONE SPECIFIC OCCURRENCE — a
+single datable thing that has happened or is scheduled to happen: a named deal signed, a ruling handed
+down, a filing accepted, a strait closed, an election held. MANY tickers can express one occurrence —
+a company's two ADRs are one; several refiners riding ONE OPEC cut are one; several homebuilders
+riding ONE rate decision are one. A sector, a theme or a wave is NOT an event: "AI demand lifts
+chipmakers" or "clinical pipeline progress" names a CATEGORY of news, not something that happens on a
+date and is then over.
 
-DEFAULT TO MERGING. Assign a candidate to an existing open event whenever they share the SAME
-underlying driver — same commodity, same sector/policy shock (a chip export control, a central-bank
-rate decision, an OPEC supply cut), same war / election / supply event — EVEN IF the tickers differ or
-the thesis is worded differently. A chip designer, a foundry, and an equipment maker riding one
-export-control are ONE event; do NOT open three. Use "new" ONLY when a candidate's catalyst is CLEARLY unrelated to
-every open event. When unsure, MERGE — fragmenting one catalyst across several events is the single
-biggest error to avoid here. Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
+Given the OPEN events (id + catalyst) and this week's CANDIDATES (ticker + thesis), assign each
+candidate to the open event it belongs to (by id), or "new".
+
+THE TEST, applied to one candidate against one open event: WOULD ONE AND THE SAME OCCURRENCE END
+BOTH? If that event's catalyst resolved tomorrow — the deal signed, the ruling issued, the strait
+reopened — would this candidate's thesis be finished too? Yes: same event, merge. No: "new", even
+when they share a sector, a commodity, a policy area, or a ticker.
+
+MERGE a RE-WORDING of one occurrence: "SEC approves a spot Bitcoin ETF" and "Bitcoin ETF approval
+anticipation" are one event. MERGE a SECOND VEHICLE for one occurrence: a refiner and a tanker
+operator both riding one supply shock are one event.
+
+DO NOT MERGE two different occurrences that happen to sit in one sector. A named company's GPU-lease
+announcement and a rival's chip-demand story are TWO events, even though both are "AI chips" and both
+may name the same megacap. One drug's trial readout and another company's licensing deal are TWO
+events, even though both are "clinical progress". A national subsidy programme and a foreign budget
+vote are TWO events, even though both touch semiconductors.
+
+WHEN IN DOUBT, ANSWER "new". A candidate wrongly merged inherits a catalyst that its own news can
+never resolve, so the event outlives its thesis. A candidate wrongly split costs little: the two
+events run side by side and each resolves on its own evidence.
+
+Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
     "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "sources"],
