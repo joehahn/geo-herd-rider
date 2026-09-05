@@ -614,8 +614,12 @@ def main(argv=None) -> int:
             book_seed["run"] = _canon.CANON_RUN
             book_seed["weights"] = {t: round(float(v), 6) for t, v in
                                     sorted((_seed_w or {}).items(), key=lambda kv: -kv[1])}
+        # DROP A NAME WHOSE THESIS HAS RETIRED. The journal is the only place a retirement is
+        # recorded -- a retired event stops emitting scan rows, so from the rows alone its vehicles
+        # look merely quiet -- so the replay is handed the live-vehicle map explicitly.
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
-                           seed_holdings=_seed_w, freeze_panel=_pf)
+                           seed_holdings=_seed_w, freeze_panel=_pf,
+                           live_vehicles=_fh.live_vehicles_from_journal(J))
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather

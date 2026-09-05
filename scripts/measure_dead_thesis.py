@@ -44,33 +44,8 @@ ARMS = ("clock only", "drop when the thesis retires")
 
 
 def live_vehicles(run: Path) -> dict:
-    """{anchor_date: {tickers whose thesis is LIVE as of that date}}, from the journal.
-
-    The same rule the curation reports use: an event is live at an anchor when its last entry on or
-    before it says thesis_live AND it has not been retired by then. A ticker is on a live thesis if
-    any such event lists it. Everything else the book funds is resting on a thesis that is over.
-    """
-    j = json.loads((run / "journal.json").read_text())
-    ev = j.get("events") or {}
-    out: dict = {}
-    dates = sorted({str(x.get("date", ""))[:10]
-                    for e in ev.values() for x in (e.get("entries") or [])})
-    for d in dates:
-        alive: set = set()
-        for e in ev.values():
-            ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= d]
-            if not ents or not ents[-1].get("thesis_live", True):
-                continue
-            # retired on or before this anchor? the last entry is the retirement date
-            if e.get("status") != "live" and str(ents[-1].get("date", ""))[:10] < d \
-                    and len(ents) < len(e.get("entries") or []):
-                continue
-            if e.get("status") != "live" and len(ents) == len(e.get("entries") or []) \
-                    and str(ents[-1].get("date", ""))[:10] < d:
-                continue
-            alive |= {str(v).upper() for v in (e.get("vehicles") or [])}
-        out[d] = alive
-    return out
+    """{anchor: live tickers}. ONE implementation, in firehose, shared with the book itself."""
+    return fh.live_vehicles_from_journal(json.loads((run / "journal.json").read_text()))
 
 
 def main() -> int:
@@ -102,6 +77,10 @@ def main() -> int:
             # that means something anyway.
             import bisect
             _ad = sorted(alive)
+            # always_include and starter names hold capital with no event behind them by design,
+            # so counting them as dead-thesis positions overstates the defect on both arms.
+            _bydesign = {str(t).upper() for t in (fm0.get("always_include") or [])} | \
+                        {str(t).upper() for t in (fm0.get("starter_watchlist") or [])}
             tot = dead = 0
             for d, w in f.items():
                 i = bisect.bisect_right(_ad, str(d)[:10]) - 1
@@ -109,7 +88,7 @@ def main() -> int:
                     continue
                 a = alive[_ad[i]]
                 for t, v in w.items():
-                    if v <= 0.01:
+                    if v <= 0.01 or t in _bydesign:
                         continue
                     tot += 1
                     dead += 0 if t in a else 1

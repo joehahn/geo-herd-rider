@@ -579,19 +579,23 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
         # design and age out on the stale clock, which is how day-0 capital gets a home without the
         # curator's own picks being displaced by fiat.
         #
-        # MEASURED AND REJECTED 2026-09-05. DEFAULT None = OFF, and it should stay off; the
-        # parameter survives only so scripts/measure_dead_thesis.py can re-test it on future
-        # curations. Paired replays over 17 curations, same journals, same frozen panels, this one
-        # input added: median 0.88x, better in 4 of 17, range 0.44-1.46x. On CANON_RUN itself
-        # $266,357 -> $159,376. It does what it claims -- dead-thesis exposure falls 35.7% -> 23.3%
-        # -- and the book pays for it.
+        # ADOPTED 2026-09-05 on CORRECTNESS, not on the book. Measured over 17 curations, paired
+        # replays on the same journals and frozen panels: funded position-scans resting on a retired
+        # thesis fall from 24.6% to 9.7% (always_include and starter names excluded -- those have no
+        # thesis by design and were inflating both sides of an earlier reading of this).
         #
-        # THE UNCOMFORTABLE READING, and the third lever to land here after drop_orphans and the
-        # stale clock: holding a position past the end of its catalyst is not a leak, it is where a
-        # large share of the return comes from. ev192 is the type specimen -- +$27,339 booked under
-        # a Corvex GPU-lease thesis that never once confirmed, earned by MRVL riding the AI tape
-        # months after the catalyst was over. That is wave-riding, which is the thing the design
-        # says it is not doing, and it is load-bearing. See TODO.
+        # THE BOOK PAYS FOR IT, and that is not the test. Median 0.88x across the 17, $266,357 ->
+        # $159,376 on CANON_RUN. Two rules say to adopt anyway: #6, judge a change on MECHANISM,
+        # and #7, a backtest return is an upper bound and must never be the thing tuned toward.
+        # Holding a position whose catalyst is over is not the strategy this repo describes -- it is
+        # wave-riding, and CLAUDE.md #2 says the bet is the window between smart money and the herd,
+        # which closes when the thesis decays. A book that scores better by staying in after the
+        # window shuts is telling us where its backtest returns actually came from, and the forward
+        # eval is the only thing that can say whether that survives contact with the future.
+        #
+        # ev192 is the type specimen: +$27,339 booked under a Corvex GPU-lease thesis that never
+        # confirmed once in seven scans, earned by MRVL riding the AI tape months after the catalyst
+        # was over. Correct behaviour is to have been out of it.
         if live_vehicles is not None:
             _alive = live_vehicles.get(str(pd.Timestamp(a).date()))
             if _alive is not None:
@@ -610,6 +614,31 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
                 if stale[t] >= max_stale:
                     del holding[t]
         out[a] = sorted(holding)
+    return out
+
+
+def live_vehicles_from_journal(journal: dict) -> dict:
+    """{anchor: {tickers whose thesis is LIVE at that anchor}}, for backtest(live_vehicles=...).
+
+    ONE implementation, imported by the dashboards and by scripts/measure_dead_thesis.py, because a
+    second copy of this rule would let the measurement and the book disagree about what "live" is.
+    An event counts at an anchor when its last entry on or before it says thesis_live and it has not
+    been retired by then; a retirement is recorded ONLY here, never in the scan rows."""
+    ev = (journal or {}).get("events") or {}
+    dates = sorted({str(x.get("date", ""))[:10]
+                    for e in ev.values() for x in (e.get("entries") or [])})
+    out: dict = {}
+    for d in dates:
+        alive: set = set()
+        for e in ev.values():
+            ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= d]
+            if not ents or not ents[-1].get("thesis_live", True):
+                continue
+            if e.get("status") != "live" and str(ents[-1].get("date", ""))[:10] < d \
+                    and len(ents) == len(e.get("entries") or []):
+                continue                     # retired at its last entry, which is behind us
+            alive |= {str(v).upper() for v in (e.get("vehicles") or [])}
+        out[d] = alive
     return out
 
 
