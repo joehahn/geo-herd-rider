@@ -102,10 +102,10 @@ data/cbt_*/
 # bootstrap curations, same rule as cbt_*: the built docs/cbs.html embeds what it renders
 data/cbs_*/
 
-# PREVIEW curation reports. data/reports/ IS committed -- the dashboards link those on GitHub and a
-# link to an unpushed file is a 404 -- but a preview build writes here instead, and preview output
-# is never the published record.
-data/reports_preview/
+# PREVIEW curation reports. docs/reports/ IS committed -- the dashboards link them as pages beside
+# themselves -- but a preview build writes beside its own preview page, and preview output is never
+# the published record.
+docs_preview/reports/
 # every corpus/run dir: regenerable, and hundreds of MB each. Broad patterns on purpose --
 # backtest_3yr_v2, cdx_etf and corpus_etf.bak each slipped past the narrower list once.
 data/backtest_*/

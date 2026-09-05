@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Curator Backtest (CBT) curation — 2023-08-11</title>
+<style>
+:root { --surface:#fcfcfb; --card:#ffffff; --text:#0b0b0b; --text2:#52514e; --line:#e6e5e1; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7; --line:#33322f; } }
+:root[data-theme="dark"] { --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7; --line:#33322f; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--surface); color:var(--text); font:15px/1.6
+  -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; }
+.wrap { max-width:900px; margin:0 auto; padding:26px 20px 60px; }
+h1 { font-size:21px; margin:0 0 6px; font-weight:600; }
+h2 { font-size:16px; margin:26px 0 6px; font-weight:600; border-bottom:1px solid var(--line);
+  padding-bottom:5px; }
+h3 { font-size:15px; margin:20px 0 4px; font-weight:600; }
+p { margin:3px 0; }
+ul { margin:3px 0 3px 0; padding-left:22px; }
+ul ul { margin:2px 0; }
+li { margin:1px 0; }
+code { background:var(--card); border:1px solid var(--line); border-radius:4px; padding:0 4px;
+  font-size:12.5px; }
+a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+em { color:var(--text2); font-style:italic; }
+hr { border:0; border-top:1px solid var(--line); margin:22px 0 10px; }
+details { margin:6px 0; background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:7px 11px; }
+summary { cursor:pointer; color:var(--text2); font-size:13.5px; }
+details ul { font-size:13px; }
+.nav { font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
+  padding-bottom:11px; margin-bottom:20px; }
+</style></head><body><div class="wrap">
+<div class="nav"><a href="cbt.html">&larr; back to the dashboard</a></div>
+<h1>Curator Backtest (CBT) curation — 2023-08-11</h1>
+<ul>
+<li><strong>Run.</strong> <code>data/cbt_3yr_v25_vehgate</code> · fingerprint <code>a25e2c1839d1</code></li>
+<li><strong>Corpus.</strong> <code>data/backtest_3yr_v5</code></li>
+<li><strong>Replayed under.</strong> <code>investor_profile.backtest.md</code></li>
+<li><strong>Where every line below comes from.</strong> The curation journal and this build's frozen price panel. No LLM ran to write this report.</li>
+<li><strong>Period.</strong> 2023-08-11 → 2023-09-10 · book +2.6% · SPY -0.0%</li>
+<li><strong>Events.</strong> 0 live this scan · 0 funded · 0 unfunded</li>
+<li><strong>Held with no live thesis.</strong> 2</li>
+<li><strong>Opened.</strong> ev1</li>
+<li><strong>Exited.</strong> ev1, of which 1 opened and exited in this same scan</li>
+<li><strong>Anchors.</strong> BIL 31.0% (always_include, outside the watchlist and not an event)</li>
+</ul>
+<h2>Funded</h2>
+<p><em>No funded position rests on a thesis that was live at this anchor. What the book holds is listed below.</em></p>
+<h2>Exited at this scan</h2>
+<ul>
+<li><strong>ev1</strong> · LLY, NVO · 1 scan · catalyst RESOLVED: Novo Nordisk Select study results already released and priced · never funded</li>
+</ul>
+<h2>Held with no live thesis</h2>
+<ul>
+<li><strong>AMZN 29.0%</strong> · (no event) last said live on (never). The watchlist is sticky, so the position outlived the thesis.</li>
+<li><strong>GOOGL 40.0%</strong> · (no event) last said live on (never). The watchlist is sticky, so the position outlived the thesis.</li>
+</ul>
+<h2>Not funded, the three that came closest</h2>
+<p><em>Every live event was funded.</em></p>
+<h2>Funded against passed over</h2>
+<ul>
+<li>funded vehicles, equal weight: <strong>+2.6%</strong></li>
+<li>unfunded live events: unpriced</li>
+</ul>
+<hr>
+<p><em>How to read one event.</em> <strong>Catalyst</strong> is the specific, datable thing the curator is WAITING FOR, written in the present tense and usually not yet true; the header says whether it is still pending or has resolved, and the event lives or dies by it. <strong>Milestones</strong> are dated waypoints already observed on the way to it, which is what lets an agent notice that a due date has passed; the URLs beside one are the sources the agent cited AT THAT SCAN, which is an association by scan and not a claim that a given article is the citation for a given milestone. <strong>Scan N</strong> counts how many times an agent has re-read that thesis, so a high N against an unchanged assessment is a thesis nothing is confirming. The money is this event's share of realised P&amp;L: a ticker claimed by several live events splits its gain equally between them. <strong>Exits when</strong> is the condition the curator committed to at the outset, so an event whose exit cannot be dated is a theme wearing an event's clothes, and only the <code>max_event_scans</code> age cap will ever end it.</p>
+</div></body></html>

@@ -55,7 +55,6 @@ from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_UR
                                  PROVENANCE_URL,  # noqa: E402
                                  STATUS, _LINK, esc, panel_rec, render_panels,
                                  table_html, tile)
-from build_fbt_dashboard import _REPO as _REPO_BLOB  # noqa: E402  GitHub blob root, for report links
 
 
 def load(run: Path, corpus: Path, bootstrap: bool = False):
@@ -2642,8 +2641,9 @@ def main(argv=None) -> int:
     # CBS is not that and does not claim to be.
     _fp_run = (((_bs_stamp or {}).get("hash") if a.bootstrap else (_vfy or {}).get("hash_run"))
                or "unstamped")
-    _pub = Path(a.out).resolve().parent == (ROOT / "docs").resolve()
-    _rep_dir = ROOT / ("data/reports" if _pub else "data/reports_preview")
+    # Beside the page they are linked from, so the link is RELATIVE and resolves both on the Pages
+    # site and on a dashboard opened straight off disk.
+    _rep_dir = Path(a.out).resolve().parent / "reports"
     _arm = "cbs" if a.bootstrap else "cbt"
     # THE LAST ANCHOR HAS NO forward period, so it falls off `log`, which is built over anchor PAIRS.
     # That anchor is the standing recommendation and the most recent thing the curator did, i.e. the
@@ -2657,6 +2657,7 @@ def main(argv=None) -> int:
         _rep_dir, arm=_arm, ev=ev, log=_rlog, fm=_lfm0, panel=_panel,
         gain=_gain, gain_series=_gs, dates=(_daily0.get("dates") or []), capital=_cap,
         run=str(a.run), fingerprint=str(_fp_run), profile=PROFILE_FILE, page_title=_name,
+        palette=(LIGHT, DARK), back=_page,   # one theme definition for the pages and the reports
         # The archived weekly pools, so a report can reconstruct the exact article slice each
         # event-agent read. Absent for a run curated before archiving: the reports still build, they
         # just cannot show the inputs.
@@ -2664,7 +2665,7 @@ def main(argv=None) -> int:
         corpus=((_bs_stamp.get("corpus") or {}).get("path", "bootstrap") if a.bootstrap
                 else str(a.corpus)))
     print(f"  reports: {len(_reps)} written to {_rep_dir.relative_to(ROOT)}", flush=True)
-    _rep_rows = [[f'<a href="{_REPO_BLOB}/data/reports/{esc(r["file"])}">{esc(r["date"])}</a>',
+    _rep_rows = [[f'<a href="reports/{esc(r["file"])}">{esc(r["date"])}</a>',
                   str(r["live"]), str(r["funded"]),
                   f'{r["opened"]}&nbsp;/&nbsp;{r["exited"]}',
                   ("—" if r["ret"] is None else f'{r["ret"] * 100:+.1f}%')]
@@ -2674,9 +2675,9 @@ def main(argv=None) -> int:
         f'<p class="lead">One report per scan: the events that held capital, the three that came '
         f'closest, and what the curator said about each in its own words. Assembled from the '
         f'journal and this page&#39;s frozen price panel, so a report and this page cannot '
-        f'disagree, and no LLM runs to produce one. GitHub renders the markdown, so a link works '
-        f'once the report has been pushed; locally they are '
-        f'<code>data/reports/&lt;date&gt;-{_arm}-curation.md</code>.</p>'
+        f'disagree, and no LLM runs to produce one. They are pages beside this one '
+        f'(<code>reports/&lt;date&gt;-{_arm}-curation.html</code>), so the links work here, on the '
+        f'published site, and on a copy opened straight off disk.</p>'
         + '<table><thead><tr>'
         + "".join(f"<th>{esc(h)}</th>"
                   for h in ("scan", "live events", "funded", "opened / exited", "book"))

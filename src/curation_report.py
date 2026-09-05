@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import collections
 import json
+import re as _re
 from pathlib import Path
 
 # How much of the curator's own prose a report quotes per event. Long enough to carry the reasoning,
@@ -198,141 +199,153 @@ def _money(x: float) -> str:
 
 
 def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | None,
-                 cum: float | None, date: str, note: str = "",
+                 cum: float | None, date: str, note: str = "", rets: dict | None = None,
                  history: list | None = None, read: list | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
-    The block is built to show EVERYTHING THE EVENT AGENT SAW, because a spot-check of a judgement
-    that hides the judgement's inputs can only ever check it against itself. agent.event_agent_v2
-    hands the model exactly four things, and all four are here: the FIXED catalyst it entered on,
-    the KNOWN vehicles, its own journal digest since entry (`history`), and this scan's article
-    slice (`read`). The fifth input, EVENT_AGENT_SYSTEM, is the same for every event and lives in
-    src/agent.py, so it is named in the footer rather than reprinted 300 times."""
-    # THE EVENT'S vehicle list is the UNION over its life; the ENTRY's is what the agent was
-    # tracking at this scan, and the two differ on 229 of 993 CBT entries. Weights are matched
-    # against the union (a funded ticker must never lose its percentage), but the breadth shown is
-    # the scan's, because "11 vehicles" is a statement about what the curator was holding in mind
-    # here, not about everything the event ever touched.
+    The block shows EVERYTHING THE EVENT AGENT SAW, because a spot-check of a judgement that hides
+    the judgement's inputs can only ever check it against itself. agent.event_agent_v2 hands the
+    model exactly four things and all four are here: the FIXED catalyst it entered on, the KNOWN
+    vehicles, its own journal digest since entry (`history`), and this scan's article slice
+    (`read`). The fifth input, EVENT_AGENT_SYSTEM, is identical for every event and lives in
+    src/agent.py, so the footer names it rather than reprinting it 300 times.
+
+    ORDER IS THE STORY: what the event is, when it was entered and whether it is over, what would
+    end it, what the book put behind it and what that earned, then the evidence trail oldest first.
+    """
     vs = sorted(e.get("vehicles") or [])
+    # The EVENT's vehicle list is the union over its life; the ENTRY's is what the agent was
+    # tracking at this scan, and they differ on 229 of 993 CBT entries. Weights match against the
+    # union so a funded ticker never loses its percentage; breadth shown is the scan's.
     vs_now = sorted((entry or {}).get("vehicles") or vs)
     held = {t: weights.get(t, 0.0) for t in vs if weights.get(t, 0.0) > FUNDED_EPS}
-    head = ", ".join(f"{t} {w * 100:.1f}%" for t, w in sorted(held.items(), key=lambda kv: -kv[1]))
-    _rest = len(vs_now) - len(held)
-    # THE HEADING NAMES THE EVENT, not its tickers: "ev204 · USO 40.0%, VLO 23.0% · 3 vehicles, 2
-    # funded" ran four facts of three different kinds into one line, and the one thing it did not
-    # say was what the event IS. The catalyst is the event's identity, so it goes here and the
-    # holdings get lines of their own, funded first because that is where the money is.
+    rets = rets or {}
+    _ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= date]
+    _since = str(_ents[0].get("date", ""))[:10] if _ents else date
+    # SCANS SO FAR, not the event's lifetime total: len(entries) counts entries this anchor has not
+    # reached yet, so a fresh event read as "scan 6" in the report for its first week.
+    n_scans = len(_ents)
+    _fresh = bool(entry) and str(entry.get("date", ""))[:10] == date
+    _ec = str((entry or {}).get("exit_case") or "none")
+
+    # THE CATALYST IS THE EVENT'S IDENTITY. There is no title field in the journal, so the catalyst
+    # is the closest thing to a name and heads the block; the line below repeats it with its entry
+    # date, because that pairing is the one a reader checks first.
     L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"]
     if note:
         L.append(f"*{note}*")
-    money = []
-    if per is not None:
-        money.append(f"{_money(per)} this period")
-    if cum is not None:
-        money.append(f"{_money(cum)} since it opened")
-    # SCANS SO FAR, not the event's lifetime total: len(entries) counts entries this anchor has not
-    # reached yet, so a fresh event read as "scan 6" in the report for its first week.
-    n_scans = sum(1 for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= date)
-    _ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= date]
-    _since = str(_ents[0].get("date", ""))[:10] if _ents else date
+    L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
+    # RESOLUTION ON ITS OWN LINE. A catalyst is written as a bare present-tense phrase ("FDA
+    # approves Gedatolisib") naming the thing being WAITED FOR, which on ev157 never happened at
+    # all, so whether it has landed is the single most load-bearing fact in the block.
     if (entry or {}).get("catalyst_resolved"):
-        _state = f"RESOLVED {str(entry.get('date', ''))[:10]}"
+        L.append(f"**{str(entry.get('date', ''))[:10]} · catalyst RESOLVED**"
+                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
     elif entry and not entry.get("thesis_live", True):
-        _state = f"thesis dead {str(entry.get('date', ''))[:10]}"
+        L.append(f"**{str(entry.get('date', ''))[:10]} · thesis dead**, catalyst never resolved"
+                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
     else:
-        _state = "still pending"
-    # THE CATALYST LINE READ AS A COMPLETED FACT. It is written as a bare present-tense phrase
-    # ("FDA approves Gedatolisib") and names the thing the curator is WAITING FOR, which on ev157
-    # never happened at all. Nothing in the block said so, and a reader had to infer the tense from
-    # exit_advice. catalyst_resolved and thesis_live already carry the answer, so state it.
-    L.append(f"**Catalyst** entered {_since}, {_state} · scan {{SCAN}} of this event"
-             + (f" · {' · '.join(money)}" if money else ""))
+        L.append(f"**Still pending** at scan {n_scans} of this event")
+    if (entry or {}).get("exit_advice"):
+        L.append(f"**Exits when.** {_trim(entry['exit_advice'], 200)}")
+
+    # WHAT THE BOOK PUT BEHIND IT, and what that earned. The weight says how much conviction the
+    # optimizer expressed; the per-ticker return says whether it was repaid; the event's dollars are
+    # its share of realised P&L (a ticker claimed by several live events splits equally).
+    def _tk(t):
+        r = rets.get(t)
+        return f"{t} {held[t] * 100:.1f}%" + (f" \u2192 {r * 100:+.1f}%" if r is not None else "")
+
     _unfunded = [t for t in vs_now if t not in held]
     if held:
-        L.append("**Funded.** " + " · ".join(f"{t} {w * 100:.1f}%"
-                                             for t, w in sorted(held.items(),
-                                                                key=lambda kv: -kv[1])))
+        L.append("**Funded.** " + " · ".join(_tk(t) for t in sorted(held, key=lambda t: -held[t])))
         L.append("**Not funded.** " + (", ".join(_unfunded) if _unfunded
-                                       else "— every vehicle of this event holds capital"))
+                                       else "\u2014 every vehicle of this event holds capital"))
     else:
-        L.append("**Vehicles.** " + (", ".join(vs_now) or "(none)")
+        L.append("**Vehicles, none funded.** " + (", ".join(vs_now) or "(none)")
                  + (f" · {len(vs)} over the event's life" if len(vs) != len(vs_now) else ""))
-    L = [x.replace("{SCAN}", str(n_scans)) for x in L]
-    # A carried-forward verdict must not be labelled "this scan" -- that would put words in the
-    # curator's mouth for a scan where it said nothing.
-    _fresh = bool(entry) and str(entry.get("date", ""))[:10] == date
+    money = ([f"{_money(per)} this period"] if per is not None else []) + \
+            ([f"{_money(cum)} since it opened"] if cum is not None else [])
+    if money:
+        L.append("**Event P&L.** " + " · ".join(money))
+
     if entry:
+        # A carried-forward verdict must not be labelled "this scan": that would put words in the
+        # curator's mouth for a scan where it said nothing.
         if entry.get("assessment"):
             L.append(f"**{'This scan' if _fresh else 'Last read'}.** {_trim(entry['assessment'])}")
-        ms = [str(m).strip() for m in (entry.get("milestones") or []) if str(m).strip()]
-        if ms:
-            # WHEN EACH MILESTONE ARRIVED. The journal has no date FIELD for a milestone: the agent
-            # embeds one in the text when it feels like it (57% of 1,507 milestone strings contain
-            # any digit at all), so a date cannot be read off the string. It CAN be recovered from
-            # the journal's shape -- milestones accumulate, so the scan in which a string first
-            # appears is the scan that recorded it. On ev204 that splits five milestones into the
-            # three seen at entry and the two that ended the thesis, which is the arc.
-            # ITERATE THE LIST, NOT A SET: the agent writes its milestones in a deliberate order
-            # (the arc, oldest first), and building this from a set shuffled everything recorded at
-            # the same scan. dict preserves insertion order, so reading the list in order and
-            # sorting by first-seen date afterwards keeps both the dates and the agent's sequence.
-            _first, _last = {}, set()
-            for _x in (e.get("entries") or []):
-                _d = str(_x.get("date", ""))[:10]
-                if _d > date:
-                    break
-                _ml = [str(_m).strip() for _m in (_x.get("milestones") or []) if str(_m).strip()]
-                _last = set(_ml)
-                for _m in _ml:
-                    _first.setdefault(_m, _d)
-            # EVERY MILESTONE THE EVENT EVER RECORDED, not just the ones the latest entry still
-            # lists. Carrying them forward is the MODEL's habit, not the code's guarantee: nothing
-            # merges the lists, so an agent that stops re-emitting one deletes it from the record.
-            # Measured across both journals, 8 of 267 events with milestones (3%) dropped 31 strings
-            # this way. Rendering the union recovers them, and a dropped one is worth SEEING, since
-            # a waypoint the agent quietly stopped carrying is a waypoint it stopped testing
-            # against.
-            L.append("**Milestones observed so far** (dated waypoints already seen, carried "
-                     "forward each scan; not the catalyst, and dated by the scan that first "
-                     "recorded each)**.**")
-            # ALL of them. The cap was a length guess made before the distribution was measured:
-            # agent.event_agent_v2 truncates to six, 88% of entries carry two or fewer, and hiding
-            # the last one of five to save a line is the wrong trade in a report whose job is to
-            # show the storyline.
-            L += [f"- {d} · {_trim(m, 240)}"
-                  + ("" if m in _last else "  *(the agent stopped carrying this one)*")
-                  for m, d in sorted(_first.items(), key=lambda kv: kv[1])]
         if str(entry.get("news_claims") or "").strip():
             L.append(f"**News claims.** {_trim(entry['news_claims'])}")
-        if entry.get("exit_advice"):
-            _ec = str(entry.get("exit_case") or "none")
-            L.append(f"**Exits when.** {_trim(entry['exit_advice'], 200)} "
-                     + (f"`exit_case: {_ec}`" if _ec != "none" else ""))
-        if entry.get("catalyst_resolved"):
-            L.append(f"**Catalyst resolved{' this scan' if _fresh else ''}.**")
-        _all_src = [u for u in (entry.get("sources") or []) if u]
-        srcs = _all_src[:SOURCES_PER_EVENT]
-        if srcs:
-            L.append("Sources cited this scan:"
-                     + (f" ({len(_all_src)} cited, first {len(srcs)} shown)"
-                                   if len(_all_src) > len(srcs) else ""))
-            L += [f"- {u}" for u in srcs]
-    # INPUT 3: the journal digest, in the form agent._journal_digest builds it -- one line per scan,
-    # oldest first, live flag and vehicles included. This is the "memory" the prompt tells the agent
-    # to re-read and test its exit condition against, so a reader checking whether it did needs the
-    # same lines in front of them. A long-running event's early scans fold away rather than pushing
-    # the current one off the screen.
+
+        # MILESTONES, dated by the scan that first recorded each, with that scan's citations beside
+        # them. The journal has no date field for a milestone (the agent embeds one in the text when
+        # it feels like it: 57% of 1,507 strings contain any digit at all) and no per-milestone
+        # source either -- `sources` is a per-ENTRY list. Both are recovered from the journal's
+        # shape: milestones accumulate, so a string's first appearance dates it, and the entry it
+        # first appeared in is the scan whose citations were in front of the agent when it wrote it.
+        # That is an association by scan, not a claim that a given URL is the citation FOR a given
+        # milestone, and the footer says so.
+        #
+        # ITERATE THE LIST, NOT A SET: the agent writes milestones in a deliberate order (the arc,
+        # oldest first), and a set shuffled everything recorded at the same scan.
+        _first, _srcs, _last = {}, {}, set()
+        for _x in (e.get("entries") or []):
+            _d = str(_x.get("date", ""))[:10]
+            if _d > date:
+                break
+            _ml = [str(_m).strip() for _m in (_x.get("milestones") or []) if str(_m).strip()]
+            _last = set(_ml)
+            for _m in _ml:
+                if _m not in _first:
+                    _first[_m] = _d
+                    _srcs[_m] = [u for u in (_x.get("sources") or []) if u][:SOURCES_PER_EVENT]
+        if _first:
+            L.append("**Milestones**")
+            # EVERY milestone the event ever recorded, not just the ones the latest entry still
+            # lists: carrying them forward is the MODEL's habit, not the code's guarantee, and 8 of
+            # 267 events with milestones (3%) dropped 31 strings that way.
+            #
+            # GROUPED BY SCAN, with that scan's citations printed ONCE underneath. `sources` is a
+            # per-entry list, so hanging it off each milestone repeated the same four URLs three
+            # times on ev204 and implied a per-milestone citation that the journal does not record.
+            # THE SCAN IS THE UNIT, so the scan heads the group and its citations hang off IT.
+            # Repeating four URLs on each of three milestones was noise; printing them once after
+            # the last line of a group was worse, because it read as though only that milestone had
+            # sources. `sources` is a per-ENTRY list -- the articles in front of the agent when it
+            # wrote every milestone at that scan -- and nesting says exactly that with no repetition.
+            _grp = collections.OrderedDict()
+            for _m, _d in sorted(_first.items(), key=lambda kv: kv[1]):
+                _grp.setdefault(_d, []).append(_m)
+            for _d, _ms in _grp.items():
+                _u = _srcs.get(_ms[0]) or []
+                L.append(f"- **{_d}**"
+                         + (" · sources cited that scan: "
+                            + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_u)) if _u
+                            else " · no sources cited that scan"))
+                for _m in _ms:
+                    L.append(f"    - {_trim(_m, 240)}"
+                             + ("" if _m in _last else
+                                "  *(the agent stopped carrying this one)*"))
+        # THIS SCAN'S CITATIONS, when no milestone was recorded here to carry them. Without this a
+        # quiet scan's evidence -- the only evidence there is behind a "nothing changed" verdict --
+        # would not appear anywhere.
+        _now = [u for u in (entry.get("sources") or []) if u][:SOURCES_PER_EVENT]
+        if _now and not any(d == date for d in _first.values()):
+            L.append("**Sources cited this scan:** "
+                     + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_now)))
+
+    # INPUT 3: the journal digest, in the form agent._journal_digest builds it. This is the memory
+    # the prompt tells the agent to re-read and test its exit condition against.
     if history:
         L.append(f"**Its journal going in** ({len(history)} earlier "
-                 + ("scan" if len(history) == 1 else "scans") + ", as the agent re-read it).")
-        _shown = history[-HISTORY_LINES:]
+                 + ("scan" if len(history) == 1 else "scans") + ", as the agent re-read it)")
         if len(history) > HISTORY_LINES:
             L.append(f"- …{len(history) - HISTORY_LINES} earlier scans, in the journal")
-        for h in _shown:
-            _fl = "live" if h.get("thesis_live", True) else "DEAD"
-            L.append(f"- {str(h.get('date', ''))[:10]} · {_fl} · "
-                     f"veh {','.join(h.get('vehicles') or []) or '-'} · "
+        for h in history[-HISTORY_LINES:]:
+            L.append(f"- {str(h.get('date', ''))[:10]} · "
+                     f"{'live' if h.get('thesis_live', True) else 'DEAD'} · "
+                     f"{','.join(h.get('vehicles') or []) or '-'} · "
                      f"{_trim(h.get('assessment'), 150)}")
     # INPUT 4: the articles it was handed. Collapsed, because 20 lines per event over eight events
     # is the "many pages" this report exists not to be, and expanded on demand because the whole
@@ -344,10 +357,10 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                   + (" (slice reconstructed; some cited URLs are missing from it, so treat it as "
                      "approximate)" if not exact else "") + "</summary>", ""]
         for a in read:
-            _tick = "✓ " if a.get("url") in _cited else ""
             _t = _trim(a.get("title") or "(untitled)", 110).replace("[", "(").replace("]", ")")
-            L.append(f"- {_tick}{str(a.get('published_date', ''))[:10]} · "
-                     f"{a.get('source', '')} · [{_t}]({a.get('url', '')})")
+            L.append(f"- {'✓ ' if a.get('url') in _cited else ''}"
+                     f"{str(a.get('published_date', ''))[:10]} · {a.get('source', '')} · "
+                     f"[{_t}]({a.get('url', '')})")
         L += ["", "</details>"]
     if entry and not _fresh:
         L.append(f"*Not re-judged this scan; the verdict above is from "
@@ -358,10 +371,143 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     return L
 
 
+# --------------------------------------------------------------------------- markdown -> HTML
+# THE BLOCKS ARE BUILT AS MARKDOWN AND RENDERED HERE. Markdown stays the intermediate form because
+# it is what the section builders above are readable in, and because every construct they emit is
+# listed in this converter: headings, bold, italic, code, links, one level of nested list, <details>
+# passthrough, and a rule. Nothing else is supported, and _assert_rendered() below fails the build
+# if an unrendered construct reaches the output, so "the converter is incomplete" cannot pass
+# silently.
+_INLINE = [
+    (_re.compile(r"\*\*(.+?)\*\*"), r"<strong>\1</strong>"),
+    (_re.compile(r"(?<!\w)\*(?!\s)(.+?)(?<!\s)\*(?!\w)"), r"<em>\1</em>"),
+    (_re.compile(r"`([^`]+)`"), r"<code>\1</code>"),
+]
+
+
+def _esc(t: str) -> str:
+    return (str(t).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"))
+
+
+def _inline(t: str) -> str:
+    """Escape, then apply inline markdown. Links first, so a URL's characters cannot be eaten."""
+    out, last = [], 0
+    for m in _re.finditer(r"\[([^\]]+)\]\(([^)]+)\)", t):
+        out.append(_esc(t[last:m.start()]))
+        out.append(f'<a href="{_esc(m.group(2))}" title="{_esc(m.group(2))}" '
+                   f'target="_blank" rel="noopener">{_esc(m.group(1))}</a>')
+        last = m.end()
+    out.append(_esc(t[last:]))
+    h = "".join(out)
+    for rx, rep in _INLINE:
+        h = rx.sub(rep, h)
+    # a bare URL on its own (the fallback source list) becomes its own link
+    h = _re.compile(r"(?<!\")(?<!>)(https?://[^\s<]+)(?![^<]*</a>)").sub(
+        r'<a href="\1" target="_blank" rel="noopener">\1</a>', h)
+    return h
+
+
+def _md_to_html(lines: list) -> str:
+    html, depth = [], 0
+
+    def _close(to):
+        # A nested list lives INSIDE its parent <li>, so closing one closes that <li> too. Emitting
+        # <ul> as a SIBLING of <li> renders the same in every browser and is still invalid, which
+        # is the kind of thing that works until something parses it.
+        nonlocal depth
+        while depth > to:
+            html.append("</ul>" if depth == 1 else "</ul></li>")
+            depth -= 1
+
+    for ln in lines:
+        raw = ln.rstrip()
+        if raw.startswith("<details") or raw.startswith("</details") or raw.startswith("<summary"):
+            _close(0)
+            html.append(raw if not raw.startswith("<summary") else raw)
+            continue
+        st = raw.lstrip()
+        if not st:
+            continue
+        if st == "---":
+            _close(0); html.append("<hr>"); continue
+        if st.startswith("### "):
+            _close(0); html.append(f"<h3>{_inline(st[4:])}</h3>"); continue
+        if st.startswith("## "):
+            _close(0); html.append(f"<h2>{_inline(st[3:])}</h2>"); continue
+        if st.startswith("# "):
+            _close(0); html.append(f"<h1>{_inline(st[2:])}</h1>"); continue
+        if st.startswith("- "):
+            want = 2 if (len(raw) - len(st)) >= 2 else 1
+            while depth < want:
+                if depth and html and html[-1].endswith("</li>"):
+                    html[-1] = html[-1][:-5]          # re-open the parent item to nest inside it
+                html.append("<ul>")
+                depth += 1
+            _close(want)
+            html.append(f"<li>{_inline(st[2:])}</li>")
+            continue
+        _close(0)
+        html.append(f"<p>{_inline(st)}</p>")
+    _close(0)
+    return "\n".join(html)
+
+
+def _assert_rendered(html: str, where: str) -> None:
+    """A construct the converter does not know would otherwise ship as literal `**text**`."""
+    for bad in ("**", "](", "\n- "):
+        if bad in html:
+            raise SystemExit(f"curation_report: unrendered markdown {bad!r} in {where}")
+
+
+# Card and line match build_cbt_dashboard's own values; the rest of the palette is passed in from
+# there so one theme definition serves the dashboards and the reports they link.
+def _page(title: str, body: str, back: str, light: dict, dark: dict) -> str:
+    def _vars(pal, card, line):
+        return (f"--surface:{pal['surface']}; --card:{card}; --text:{pal['text']}; "
+                f"--text2:{pal['text2']}; --line:{line};")
+    return f"""<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{_esc(title)}</title>
+<style>
+:root {{ {_vars(light, '#ffffff', '#e6e5e1')} }}
+@media (prefers-color-scheme: dark) {{ :root:not([data-theme="light"]) {{ {_vars(dark, '#222220', '#33322f')} }} }}
+:root[data-theme="dark"] {{ {_vars(dark, '#222220', '#33322f')} }}
+* {{ box-sizing:border-box; }}
+body {{ margin:0; background:var(--surface); color:var(--text); font:15px/1.6
+  -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; }}
+.wrap {{ max-width:900px; margin:0 auto; padding:26px 20px 60px; }}
+h1 {{ font-size:21px; margin:0 0 6px; font-weight:600; }}
+h2 {{ font-size:16px; margin:26px 0 6px; font-weight:600; border-bottom:1px solid var(--line);
+  padding-bottom:5px; }}
+h3 {{ font-size:15px; margin:20px 0 4px; font-weight:600; }}
+p {{ margin:3px 0; }}
+ul {{ margin:3px 0 3px 0; padding-left:22px; }}
+ul ul {{ margin:2px 0; }}
+li {{ margin:1px 0; }}
+code {{ background:var(--card); border:1px solid var(--line); border-radius:4px; padding:0 4px;
+  font-size:12.5px; }}
+a {{ color:inherit; text-decoration:underline; text-underline-offset:2px; }}
+em {{ color:var(--text2); font-style:italic; }}
+hr {{ border:0; border-top:1px solid var(--line); margin:22px 0 10px; }}
+details {{ margin:6px 0; background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:7px 11px; }}
+summary {{ cursor:pointer; color:var(--text2); font-size:13.5px; }}
+details ul {{ font-size:13px; }}
+.nav {{ font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
+  padding-bottom:11px; margin-bottom:20px; }}
+</style></head><body><div class="wrap">
+<div class="nav"><a href="{_esc(back)}">&larr; back to the dashboard</a></div>
+{body}
+</div></body></html>
+"""
+
+
 def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                   gain: dict, gain_series: dict, dates: list, capital: float,
                   run: str, fingerprint: str, corpus: str, profile: str,
-                  page_title: str, archive_dir=None) -> list[dict]:
+                  page_title: str, archive_dir=None, palette=None, back: str = "cbt.html"
+                  ) -> list[dict]:
     """Write one report per anchor into `out_dir`; return a row per report for the page's link table.
 
     THE DIRECTORY IS CLEARED FIRST, for this arm only. A cadence change moves every anchor date, so
@@ -370,7 +516,8 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
     the page links."""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
-    for old in out_dir.glob(f"*-{arm}-curation.md"):
+    for old in list(out_dir.glob(f"*-{arm}-curation.html")) + list(
+            out_dir.glob(f"*-{arm}-curation.md")):
         old.unlink()
 
     # Event lifespans and ticker claims, in the form event_gain wants.
@@ -443,6 +590,15 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                    and x.get("thesis_live", True)
                    and (elife[k][1] is None or elife[k][1] > d0)
                    and (set(e.get("vehicles") or []) & funded_tk)}
+        # PER-TICKER RETURN over the period this anchor opens. The weight says what the optimizer
+        # was willing to risk; this says whether the market agreed, and the two side by side are
+        # what makes a funded line worth reading.
+        rets = {t: _pct(panel, [t], d0, d1) for t in funded_tk} if d1 else {}
+        # AN EXITED POSITION IS SCORED OVER THE PERIOD THE BOOK ACTUALLY HELD IT, which ended here.
+        # Using the forward period instead reported what the ticker did AFTER the book sold, and
+        # printed it beside the weight as though it were the trade's result.
+        rets_prev = ({t: _pct(panel, [t], anchors[i - 1], d0) for t in held_before}
+                     if i else {})
         per = (event_gain(gain, gain_series, dates, claim, elife, lo=d0, hi=d1)
                if d1 else collections.Counter())
         cum = event_gain(gain, gain_series, dates, claim, elife, hi=(d1 or d0))
@@ -558,7 +714,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         if held:
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0,
+                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets,
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
                                   note=(f"vehicle also claimed by {', '.join(_co[k])}"
@@ -597,7 +753,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 _h, _rd, _m, _ok = _inputs(k)
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
-                                  exact=_ok, note=f"held going in · {_how_it_ended(ev[k], x, _ec)}")
+                                  exact=_ok, rets=rets_prev, note="held going in")
             for k, x in _rest[:EXITS_LISTED]:
                 _n = len([y for y in (ev[k].get("entries") or [])
                           if str(y.get("date", ""))[:10] <= d0])
@@ -627,7 +783,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                           else "")
             _h, _rd, _m, _ok = _inputs(k)
             L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None,
-                              date=d0, note=note,
+                              date=d0, note=note, rets=rets,
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
         if not missed:
             L += ["*Every live event was funded.*", ""]
@@ -653,15 +809,24 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
               "is WAITING FOR, written in the present tense and usually not yet true; the header "
               "says whether it is still pending or has resolved, and the event lives or dies by "
               "it. **Milestones** are dated waypoints already observed on the way to it, which is "
-              "what lets an agent notice that a due date has passed. **Scan N** counts how "
+              "what lets an agent notice that a due date has passed; the URLs beside one are the "
+              "sources the agent cited AT THAT SCAN, which is an association by scan and not a "
+              "claim that a given article is the citation for a given milestone. **Scan N** counts how "
               "many times an agent has re-read that thesis, so a high N against an unchanged "
               "assessment is a thesis nothing is confirming. The money is this event's share of "
               "realised P&L: a ticker claimed by several live events splits its gain equally "
               "between them. **Exits when** is the condition the curator committed to at the "
               "outset, so an event whose exit cannot be dated is a theme wearing an event's "
               "clothes, and only the `max_event_scans` age cap will ever end it.", ""]
-        f = out_dir / f"{d0}-{arm}-curation.md"
-        f.write_text("\n".join(L) + "\n")
+        # HTML, NOT MARKDOWN, and served from the same GitHub Pages site as the dashboards. A
+        # markdown blob link threw the reader out of the site into the code host's file browser,
+        # with its own chrome and theme above the report; a relative .html link also works when the
+        # dashboard is opened straight off disk, which the blob URL never did.
+        _light, _dark = palette or ({}, {})
+        _body = _md_to_html(L)
+        _assert_rendered(_body, f"{d0}-{arm}")
+        f = out_dir / f"{d0}-{arm}-curation.html"
+        f.write_text(_page(f"{page_title} curation — {d0}", _body, back, _light, _dark))
         rows.append({"date": d0, "file": f.name, "live": len(live), "funded": len(held),
                      "ret": ret if isinstance(ret, (int, float)) else None,
                      "opened": len(opened), "exited": len(exited)})

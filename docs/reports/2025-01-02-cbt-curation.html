@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Curator Backtest (CBT) curation — 2025-01-02</title>
+<style>
+:root { --surface:#fcfcfb; --card:#ffffff; --text:#0b0b0b; --text2:#52514e; --line:#e6e5e1; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7; --line:#33322f; } }
+:root[data-theme="dark"] { --surface:#1a1a19; --card:#222220; --text:#ffffff; --text2:#c3c2b7; --line:#33322f; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--surface); color:var(--text); font:15px/1.6
+  -apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif; }
+.wrap { max-width:900px; margin:0 auto; padding:26px 20px 60px; }
+h1 { font-size:21px; margin:0 0 6px; font-weight:600; }
+h2 { font-size:16px; margin:26px 0 6px; font-weight:600; border-bottom:1px solid var(--line);
+  padding-bottom:5px; }
+h3 { font-size:15px; margin:20px 0 4px; font-weight:600; }
+p { margin:3px 0; }
+ul { margin:3px 0 3px 0; padding-left:22px; }
+ul ul { margin:2px 0; }
+li { margin:1px 0; }
+code { background:var(--card); border:1px solid var(--line); border-radius:4px; padding:0 4px;
+  font-size:12.5px; }
+a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+em { color:var(--text2); font-style:italic; }
+hr { border:0; border-top:1px solid var(--line); margin:22px 0 10px; }
+details { margin:6px 0; background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:7px 11px; }
+summary { cursor:pointer; color:var(--text2); font-size:13.5px; }
+details ul { font-size:13px; }
+.nav { font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
+  padding-bottom:11px; margin-bottom:20px; }
+</style></head><body><div class="wrap">
+<div class="nav"><a href="cbt.html">&larr; back to the dashboard</a></div>
+<h1>Curator Backtest (CBT) curation — 2025-01-02</h1>
+<ul>
+<li><strong>Run.</strong> <code>data/cbt_3yr_v25_vehgate</code> · fingerprint <code>a25e2c1839d1</code></li>
+<li><strong>Corpus.</strong> <code>data/backtest_3yr_v5</code></li>
+<li><strong>Replayed under.</strong> <code>investor_profile.backtest.md</code></li>
+<li><strong>Where every line below comes from.</strong> The curation journal and this build's frozen price panel. No LLM ran to write this report.</li>
+<li><strong>Period.</strong> 2025-01-02 → 2025-02-01 · book -3.1% · SPY +2.9%</li>
+<li><strong>Events.</strong> 22 live this scan · 0 funded · 22 unfunded</li>
+<li><strong>Held with no live thesis.</strong> 3</li>
+<li><strong>Opened.</strong> ev103, ev104, ev105, ev106, ev107</li>
+<li><strong>Exited.</strong> 8, of which 3 opened and exited in this same scan</li>
+</ul>
+<h2>Funded</h2>
+<p><em>No funded position rests on a thesis that was live at this anchor. What the book holds is listed below.</em></p>
+<h2>Exited at this scan</h2>
+<ul>
+<li><strong>ev43</strong> · COIN, MARA, MSTR · 12 scans · aged out at the 12-scan cap, catalyst never resolved · -$1,403 lifetime</li>
+<li><strong>ev44</strong> · ARVN, JNJ · 12 scans · aged out at the 12-scan cap, catalyst never resolved · -$1,583 lifetime</li>
+<li><strong>ev46</strong> · FTXL, GPUS, INTC, SMHX · 12 scans · aged out at the 12-scan cap, catalyst never resolved · +$653 lifetime</li>
+<li><strong>ev47</strong> · FCX, IE · 12 scans · aged out at the 12-scan cap, catalyst never resolved · -$26 lifetime</li>
+<li><strong>ev70</strong> · LXEO · 9 scans · no stated reason · -$3,734 lifetime</li>
+<li><strong>ev104</strong> · PFE · 1 scan · catalyst RESOLVED: 2025 outlook revealed Dec 17 with $61-64B revenue guidance · never funded</li>
+<li><strong>ev105</strong> · QUBT · 1 scan · catalyst RESOLVED: NASA contract awarded to QUBT and announced · never funded</li>
+<li><strong>ev106</strong> · IONQ, QTUM, RGTI · 1 scan · catalyst RESOLVED: Google breakthrough already announced, priced in, sector rallying · never funded</li>
+</ul>
+<h2>Held with no live thesis</h2>
+<ul>
+<li><strong>GANX 21.0%</strong> · (no event) last said live on (never). The watchlist is sticky, so the position outlived the thesis.</li>
+<li><strong>TARS 40.0%</strong> · ev64 last said live on 2024-11-03. The watchlist is sticky, so the position outlived the thesis.</li>
+<li><strong>USO 39.0%</strong> · ev36 last said live on 2024-07-06, exit_case <code>OPEC begins unwinding cuts; June output rises, phase-out starts</code>. The watchlist is sticky, so the position outlived the thesis.</li>
+</ul>
+<h2>Not funded, the three that came closest</h2>
+<h3>ev78 · Clinical pipeline progress drives stock</h3>
+<p><em>survived the cull, then the optimizer gave it no weight · its vehicles ran -1.7% over the period</em></p>
+<p><strong>Catalyst</strong> 2024-05-07 · Clinical pipeline progress drives stock</p>
+<p><strong>Still pending</strong> at scan 9 of this event</p>
+<p><strong>Exits when.</strong> exit if/when clinical pipeline progress stalls or key milestones missed</p>
+<p><strong>Vehicles, none funded.</strong> GSK, INSM, LTRN, SMMT, VSTM, WVE · 11 over the event's life</p>
+<p><strong>This scan.</strong> Ongoing positive pipeline updates across vehicles (VSTM FDA filing path, LTRN Phase 2/Fast Track) confirm catalyst remains live; no stalls observed.</p>
+<p><strong>News claims.</strong> VSTM seeks FDA approval decision by June 2025; LTRN Phase 2 launch and second Fast Track designation; INSM/SMMT noted as top 2024 biotech performers.</p>
+<p><strong>Milestones</strong></p>
+<ul>
+<li><strong>2024-05-07</strong> · sources cited that scan: <a href="https://www.investorideas.com/news/2024/biotech/04081StockBites-LGVN.asp" title="https://www.investorideas.com/news/2024/biotech/04081StockBites-LGVN.asp" target="_blank" rel="noopener">1</a>
+<ul>
+<li>Stock soars on clinical pipeline and 2024 priorities (Apr 2024)</li>
+</ul></li>
+<li><strong>2024-07-06</strong> · sources cited that scan: <a href="https://www.benzinga.com/general/biotech/24/06/39357588/why-is-penny-stock-mustang-bio-trading-over-190-on-monday" title="https://www.benzinga.com/general/biotech/24/06/39357588/why-is-penny-stock-mustang-bio-trading-over-190-on-monday" target="_blank" rel="noopener">1</a>, <a href="https://seekingalpha.com/news/4116753-mustang-bio-stock-rockets-on-blood-cancer-drug-study" title="https://seekingalpha.com/news/4116753-mustang-bio-stock-rockets-on-blood-cancer-drug-study" target="_blank" rel="noopener">2</a>
+<ul>
+<li>Mustang Bio positive Phase 1/2 data drives stock (Jun 2024)</li>
+</ul></li>
+<li><strong>2024-08-05</strong> · sources cited that scan: <a href="https://www.benzinga.com/general/biotech/24/07/40009864/why-is-alzheimers-focused-longeveron-stock-trading-higher-on-monday" title="https://www.benzinga.com/general/biotech/24/07/40009864/why-is-alzheimers-focused-longeveron-stock-trading-higher-on-monday" target="_blank" rel="noopener">1</a>
+<ul>
+<li>Longeveron presents promising Phase 2a data for Alzheimer's (Jul 2024)</li>
+</ul></li>
+<li><strong>2024-09-04</strong> · sources cited that scan: <a href="https://www.benzinga.com/general/biotech/24/08/40629671/small-cap-gain-therapeutics-stock-falls-on-phase-1-data-from-its-lead-asset-for-parkinsons-diseas" title="https://www.benzinga.com/general/biotech/24/08/40629671/small-cap-gain-therapeutics-stock-falls-on-phase-1-data-from-its-lead-asset-for-parkinsons-diseas" target="_blank" rel="noopener">1</a>, <a href="https://www.benzinga.com/general/biotech/24/09/40704367/exclusive-vivani-medical-reveals-positive-preclinical-liver-fat-results-from-miniature-glp-1-impl" title="https://www.benzinga.com/general/biotech/24/09/40704367/exclusive-vivani-medical-reveals-positive-preclinical-liver-fat-results-from-miniature-glp-1-impl" target="_blank" rel="noopener">2</a>, <a href="https://www.benzinga.com/general/biotech/24/08/40575482/johnson-johnson-partner-addex-therapeutics-selects-investigational-compound-for-substance-use-dis" title="https://www.benzinga.com/general/biotech/24/08/40575482/johnson-johnson-partner-addex-therapeutics-selects-investigational-compound-for-substance-use-dis" target="_blank" rel="noopener">3</a>
+<ul>
+<li>GANX reports positive Phase 1 data (Aug 2024)</li>
+<li>ADXN selects clinical candidate with INDV (Aug 2024)</li>
+<li>VANI positive preclinical liver fat results (Sep 2024)</li>
+</ul></li>
+</ul>
+<p><strong>Sources cited this scan:</strong> <a href="https://www.benzinga.com/general/biotech/24/12/42743560/why-is-cancer-focused-verastem-oncology-stock-trading-higher-on-tuesday" title="https://www.benzinga.com/general/biotech/24/12/42743560/why-is-cancer-focused-verastem-oncology-stock-trading-higher-on-tuesday" target="_blank" rel="noopener">1</a>, <a href="https://www.insidermonkey.com/blog/ai-powered-cancer-solutions-lantern-pharma-ltrn-launches-phase-2-trial-in-taiwan-1404940" title="https://www.insidermonkey.com/blog/ai-powered-cancer-solutions-lantern-pharma-ltrn-launches-phase-2-trial-in-taiwan-1404940" target="_blank" rel="noopener">2</a>, <a href="https://www.insidermonkey.com/blog/lantern-pharma-inc-ltrn-receives-second-fda-fast-track-designation-for-lp-184-in-triple-negative-breast-cancer-1403793" title="https://www.insidermonkey.com/blog/lantern-pharma-inc-ltrn-receives-second-fda-fast-track-designation-for-lp-184-in-triple-negative-breast-cancer-1403793" target="_blank" rel="noopener">3</a>, <a href="https://www.insidermonkey.com/blog/is-insmed-incorporated-insm-the-best-performing-biotech-stock-in-2024-1412433" title="https://www.insidermonkey.com/blog/is-insmed-incorporated-insm-the-best-performing-biotech-stock-in-2024-1412433" target="_blank" rel="noopener">4</a>, <a href="https://www.insidermonkey.com/blog/is-summit-therapeutics-inc-smmt-the-best-performing-biotech-stock-in-2024-1412437" title="https://www.insidermonkey.com/blog/is-summit-therapeutics-inc-smmt-the-best-performing-biotech-stock-in-2024-1412437" target="_blank" rel="noopener">5</a></p>
+<p><strong>Its journal going in</strong> (8 earlier scans, as the agent re-read it)</p>
+<ul>
+<li>…2 earlier scans, in the journal</li>
+<li>2024-07-06 · live · LGVN,MBIO · MBIO trial success confirms ongoing pipeline catalyst; no stall or missed milestone.</li>
+<li>2024-08-05 · live · LGVN · LGVN reports positive Phase 2a Alzheimer's trial data confirming ongoing pipeline catalyst; no stall or missed milestone.</li>
+<li>2024-09-04 · live · GANX,VANI,ADXN,INDV,LEGN · Multiple vehicles report fresh positive pipeline data this week; no stall or missed milestone.</li>
+<li>2024-10-04 · live · BMEA,VANI,WVE,SNY,LLY,LEGN,GANX,ADXN · Ongoing positive pipeline updates across multiple vehicles confirm catalyst remains live with no stalls.</li>
+<li>2024-11-03 · live · MNPR,MRNA,WVE,GSK · Multiple fresh positive pipeline milestones across vehicles confirm ongoing catalyst with no stalls.</li>
+<li>2024-12-03 · live · GSK,MNPR,MRNA,WVE · No stalls or missed milestones; ongoing pipeline catalyst across vehicles despite macro noise on MRNA/GSK.</li>
+</ul>
+<details><summary>What it read this scan: 20 of 679 matching articles, capped at 20 (slice reconstructed; some cited URLs are missing from it, so treat it as approximate)</summary>
+<ul>
+<li>2024-12-22 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/why-is-polestar-automotive-psny-the-best-small-cap-ev-stock-to-invest-in-1411822/" title="https://www.insidermonkey.com/blog/why-is-polestar-automotive-psny-the-best-small-cap-ev-stock-to-invest-in-1411822/" target="_blank" rel="noopener">Why Is Polestar Automotive (PSNY) the Best Small Cap EV Stock to Invest In?</a></li>
+<li>2024-12-12 · cnbc.com · <a href="https://www.cnbc.com/2024/12/12/why-a-santa-claus-rally-for-small-cap-stocks-is-looking-shaky.html" title="https://www.cnbc.com/2024/12/12/why-a-santa-claus-rally-for-small-cap-stocks-is-looking-shaky.html" target="_blank" rel="noopener">Why a Santa Claus rally for small-cap stocks is looking shaky</a></li>
+<li>2024-12-11 · lelezard.com · <a href="https://www.lelezard.com/en/news-21637913.html" title="https://www.lelezard.com/en/news-21637913.html" target="_blank" rel="noopener">LYNPARZA&amp;#xAE; (olaparib) Demonstrated Clinically Meaningful Prolonged Survival Benefit in Early Breast…</a></li>
+<li>✓ 2024-12-31 · benzinga.com · <a href="https://www.benzinga.com/general/biotech/24/12/42743560/why-is-cancer-focused-verastem-oncology-stock-trading-higher-on-tuesday" title="https://www.benzinga.com/general/biotech/24/12/42743560/why-is-cancer-focused-verastem-oncology-stock-trading-higher-on-tuesday" target="_blank" rel="noopener">Why Is Cancer-Focused Verastem Oncology Stock Trading Higher On Tuesday? - Verastem (NASDAQ:VSTM)</a></li>
+<li>2024-12-27 · benzinga.com · <a href="https://www.benzinga.com/24/12/42708116/stocks-tumble-as-traders-rethink-santa-rally-crude-tops-70-bitcoin-slips-to-94000-whats-driving-markets-friday" title="https://www.benzinga.com/24/12/42708116/stocks-tumble-as-traders-rethink-santa-rally-crude-tops-70-bitcoin-slips-to-94000-whats-driving-markets-friday" target="_blank" rel="noopener">Stocks Tumble As Traders Rethink Santa Rally, Crude Tops $70, Bitcoin Slips To $94,000: What's Driving…</a></li>
+<li>2024-12-27 · benzinga.com · <a href="https://www.benzinga.com/markets/futures/24/12/42699993/us-stocks-to-open-lower-as-index-future-decline-analysts-remain-upbeat-about-santa-rally" title="https://www.benzinga.com/markets/futures/24/12/42699993/us-stocks-to-open-lower-as-index-future-decline-analysts-remain-upbeat-about-santa-rally" target="_blank" rel="noopener">US Stocks To Open Lower As Index Future Decline: Analysts Remain Upbeat About Santa Rally - Apple…</a></li>
+<li>2024-12-24 · benzinga.com · <a href="https://www.benzinga.com/news/treasuries/24/12/42674886/santa-rally-kicks-off-on-wall-street-stocks-gain-tesla-soars-bitcoin-hits-98000" title="https://www.benzinga.com/news/treasuries/24/12/42674886/santa-rally-kicks-off-on-wall-street-stocks-gain-tesla-soars-bitcoin-hits-98000" target="_blank" rel="noopener">Santa Rally Kicks Off On Wall Street: Stocks Gain, Tesla Soars, Bitcoin Hits $98,000 - Coinbase Glb…</a></li>
+<li>2024-12-23 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/is-insmed-incorporated-insm-the-best-performing-biotech-stock-in-2024-1412433/" title="https://www.insidermonkey.com/blog/is-insmed-incorporated-insm-the-best-performing-biotech-stock-in-2024-1412433/" target="_blank" rel="noopener">Is Insmed Incorporated (INSM) the Best Performing Biotech Stock in 2024?</a></li>
+<li>2024-12-23 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/is-summit-therapeutics-inc-smmt-the-best-performing-biotech-stock-in-2024-1412437/" title="https://www.insidermonkey.com/blog/is-summit-therapeutics-inc-smmt-the-best-performing-biotech-stock-in-2024-1412437/" target="_blank" rel="noopener">Is Summit Therapeutics Inc. (SMMT) the Best Performing Biotech Stock in 2024?</a></li>
+<li>2024-12-19 · tmcnet.com · <a href="https://www.tmcnet.com/usubmit/2024/12/19/10123454.htm" title="https://www.tmcnet.com/usubmit/2024/12/19/10123454.htm" target="_blank" rel="noopener">Immix Biopharma Announces Positive U.S. Clinical Data From First Four Patients in NEXICART-2 U.S. Trial of…</a></li>
+<li>2024-12-19 · benzinga.com · <a href="https://www.benzinga.com/general/biotech/24/12/42576062/exclusive-vivani-medical-initiates-first-human-clinical-trial-with-glp-1-implant-for-weight-loss-in-australia" title="https://www.benzinga.com/general/biotech/24/12/42576062/exclusive-vivani-medical-initiates-first-human-clinical-trial-with-glp-1-implant-for-weight-loss-in-australia" target="_blank" rel="noopener">EXCLUSIVE: Vivani Medical Initiates First Human Clinical Trial With GLP-1 Implant For Weight Loss In…</a></li>
+<li>2024-12-19 · investors.com · <a href="https://www.investors.com/news/technology/hims-stock-eli-lilly-tirzepatide-shortage-list/" title="https://www.investors.com/news/technology/hims-stock-eli-lilly-tirzepatide-shortage-list/" target="_blank" rel="noopener">Hims Stock Tumbles After FDA Pulls Lilly's Obesity Drug From Shortage List</a></li>
+<li>2024-12-19 · morningstar.com · <a href="https://www.morningstar.com/news/marketwatch/20241219220/ibms-stock-has-missed-the-quantum-computing-rally-but-could-still-be-your-ticket-to-ride-that-hot-trend" title="https://www.morningstar.com/news/marketwatch/20241219220/ibms-stock-has-missed-the-quantum-computing-rally-but-could-still-be-your-ticket-to-ride-that-hot-trend" target="_blank" rel="noopener">IBM's stock has missed the quantum-computing rally but could still be your ticket to ride that hot trend</a></li>
+<li>2024-12-18 · investors.com · <a href="https://www.investors.com/news/technology/oracle-stock-salesforce-microsoft-generative-ai-enterprise-software-trends-2025/" title="https://www.investors.com/news/technology/oracle-stock-salesforce-microsoft-generative-ai-enterprise-software-trends-2025/" target="_blank" rel="noopener">Oracle Stock, Microsoft, Salesforce: Why Analyst Expects Enterprise Tech Stocks To Build Off Recent Rally.</a></li>
+<li>2024-12-16 · benzinga.com · <a href="https://www.benzinga.com/economics/macro-economic-events/24/12/42515044/broadcom-tesla-propel-nasdaq-100-gains-bitcoin-hits-107000-fueling-crypto-stocks-rally-whats-driving-markets-monday" title="https://www.benzinga.com/economics/macro-economic-events/24/12/42515044/broadcom-tesla-propel-nasdaq-100-gains-bitcoin-hits-107000-fueling-crypto-stocks-rally-whats-driving-markets-monday" target="_blank" rel="noopener">Broadcom, Tesla Propel Nasdaq 100 Gains, Bitcoin Hits $107,000, Fuels Crypto Stocks Rally: What's Driving…</a></li>
+<li>2024-12-15 · biztoc.com · <a href="https://biztoc.com/x/dc127e9d458e65dc" title="https://biztoc.com/x/dc127e9d458e65dc" target="_blank" rel="noopener">Veteran analyst who forecast Rocket Lab's stock rally updates price target</a></li>
+<li>2024-12-11 · investors.com · <a href="https://www.investors.com:443/research/ibd-stock-of-the-day/manhattan-associates-stock-manh-stock/" title="https://www.investors.com:443/research/ibd-stock-of-the-day/manhattan-associates-stock-manh-stock/" target="_blank" rel="noopener">Manhattan Associates Stock Eyes New Entry Amid Enterprise Software Rally</a></li>
+<li>2024-12-10 · invezz.com · <a href="https://invezz.com/news/2024/12/10/rocket-lab-stock-price-analysis-is-the-rklb-rally-over/" title="https://invezz.com/news/2024/12/10/rocket-lab-stock-price-analysis-is-the-rklb-rally-over/" target="_blank" rel="noopener">Rocket Lab stock price analysis: is the RKLB rally over?</a></li>
+<li>2024-12-10 · benzinga.com · <a href="https://www.benzinga.com/insights/analyst-ratings/24/12/42411042/deep-dive-into-legend-biotech-stock-analyst-perspectives-10-ratings" title="https://www.benzinga.com/insights/analyst-ratings/24/12/42411042/deep-dive-into-legend-biotech-stock-analyst-perspectives-10-ratings" target="_blank" rel="noopener">Deep Dive Into Legend Biotech Stock: Analyst Perspectives (10 Ratings) - Legend Biotech (NASDAQ:LEGN)</a></li>
+<li>2024-12-10 · benzinga.com · <a href="https://www.benzinga.com/general/biotech/24/12/42418886/whats-going-on-with-eli-lilly-stock-on-tuesday-2" title="https://www.benzinga.com/general/biotech/24/12/42418886/whats-going-on-with-eli-lilly-stock-on-tuesday-2" target="_blank" rel="noopener">What's Going On With Eli Lilly Stock On Tuesday? - Eli Lilly (NYSE:LLY)</a></li>
+</ul>
+</details>
+<h3>ev90 · Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025</h3>
+<p><em>survived the cull, then the optimizer gave it no weight · its vehicles ran -3.4% over the period</em></p>
+<p><strong>Catalyst</strong> 2024-12-03 · Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025</p>
+<p><strong>Still pending</strong> at scan 2 of this event</p>
+<p><strong>Exits when.</strong> exit if/when RTX 5090 unveiled at CES 2025 or event canceled</p>
+<p><strong>Vehicles, none funded.</strong> AMD, AVGO, NVDA, SOXX, TSM</p>
+<p><strong>This scan.</strong> Catalyst remains pending; pre-CES shipping activity noted but unveiling not occurred.</p>
+<p><strong>Milestones</strong></p>
+<ul>
+<li><strong>2024-12-03</strong> · sources cited that scan: <a href="https://www.insidermonkey.com/blog/nvidia-corporation-nvda-set-to-unveil-rtx-5090-ai-powered-gpus-at-ces-2025-targeting-professionals-with-enhanced-performance-and-higher-price-1400454/" title="https://www.insidermonkey.com/blog/nvidia-corporation-nvda-set-to-unveil-rtx-5090-ai-powered-gpus-at-ces-2025-targeting-professionals-with-enhanced-performance-and-higher-price-1400454/" target="_blank" rel="noopener">1</a>
+<ul>
+<li>Nvidia set to unveil RTX 5090 AI GPUs at CES 2025</li>
+</ul></li>
+</ul>
+<p><strong>Sources cited this scan:</strong> <a href="https://wccftech.com/nvidia-amd-rushes-ship-out-next-gen-gpus-to-avoid-trump-tariffs/" title="https://wccftech.com/nvidia-amd-rushes-ship-out-next-gen-gpus-to-avoid-trump-tariffs/" target="_blank" rel="noopener">1</a></p>
+<p><strong>Its journal going in</strong> (1 earlier scan, as the agent re-read it)</p>
+<ul>
+<li>2024-12-03 · live · NVDA,AMD,TSM · Catalyst remains pending; news confirms planned unveiling with no resolution yet.</li>
+</ul>
+<details><summary>What it read this scan: 20 of 178 matching articles, capped at 20</summary>
+<ul>
+<li>2024-12-31 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/how-nvidias-nvda-700m-runai-acquisition-could-reshape-ai-and-gpu-markets-1416449/" title="https://www.insidermonkey.com/blog/how-nvidias-nvda-700m-runai-acquisition-could-reshape-ai-and-gpu-markets-1416449/" target="_blank" rel="noopener">How NVIDIA's (NVDA) $700M Run:ai Acquisition Could Reshape AI and GPU Markets</a></li>
+<li>2024-12-31 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/jim-cramers-take-on-nvidia-nvda-the-king-of-ai-gpus-under-pressure-1416517/" title="https://www.insidermonkey.com/blog/jim-cramers-take-on-nvidia-nvda-the-king-of-ai-gpus-under-pressure-1416517/" target="_blank" rel="noopener">Jim Cramer's Take on NVIDIA (NVDA): The King of AI GPUs Under Pressure</a></li>
+<li>2024-12-28 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/analyst-says-nvidia-nvda-likely-to-falter-a-little-bit-in-2025-amid-focus-in-customer-ai-chips-1414603/" title="https://www.insidermonkey.com/blog/analyst-says-nvidia-nvda-likely-to-falter-a-little-bit-in-2025-amid-focus-in-customer-ai-chips-1414603/" target="_blank" rel="noopener">Analyst Says NVIDIA (NVDA) Likely To 'Falter a Little Bit' in 2025 Amid Focus in Customer AI Chips</a></li>
+<li>2024-12-27 · benzinga.com · <a href="https://www.benzinga.com/insights/news/24/12/42702539/competitor-analysis-evaluating-nvidia-and-competitors-in-semiconductors-amp-semiconductor-equipment" title="https://www.benzinga.com/insights/news/24/12/42702539/competitor-analysis-evaluating-nvidia-and-competitors-in-semiconductors-amp-semiconductor-equipment" target="_blank" rel="noopener">Competitor Analysis: Evaluating NVIDIA And Competitors In Semiconductors &amp; Semiconductor Equipment Industry…</a></li>
+<li>✓ 2024-12-26 · wccftech.com · <a href="https://wccftech.com/nvidia-amd-rushes-ship-out-next-gen-gpus-to-avoid-trump-tariffs/" title="https://wccftech.com/nvidia-amd-rushes-ship-out-next-gen-gpus-to-avoid-trump-tariffs/" target="_blank" rel="noopener">NVIDIA &amp; AMD Rush To Ship Out Next-Gen GPUs To Avoid Trump Tariffs; GeForce RTX 5090 Estimated To Cost $2,500+</a></li>
+<li>2024-12-24 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/three-ways-nvidia-nvda-benefits-from-the-quantum-computing-revolution-1412979/" title="https://www.insidermonkey.com/blog/three-ways-nvidia-nvda-benefits-from-the-quantum-computing-revolution-1412979/" target="_blank" rel="noopener">Three Ways Nvidia (NVDA) Benefits From The Quantum Computing Revolution</a></li>
+<li>2024-12-24 · benzinga.com · <a href="https://www.benzinga.com/markets/cryptocurrency/24/12/42672262/hive-digital-boosts-ai-ambitions-with-30-million-nvidia-gpu-deployment" title="https://www.benzinga.com/markets/cryptocurrency/24/12/42672262/hive-digital-boosts-ai-ambitions-with-30-million-nvidia-gpu-deployment" target="_blank" rel="noopener">HIVE Digital Boosts AI Ambitions With $30 Million Nvidia GPU Deployment - HIVE Digital Technologies…</a></li>
+<li>2024-12-24 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/hive-digital-hive-strengthens-ai-capabilities-with-30m-nvidia-nvda-gpu-purchase-1412924/" title="https://www.insidermonkey.com/blog/hive-digital-hive-strengthens-ai-capabilities-with-30m-nvidia-nvda-gpu-purchase-1412924/" target="_blank" rel="noopener">HIVE Digital (HIVE) Strengthens AI Capabilities With $30M Nvidia (NVDA) GPU Purchase</a></li>
+<li>2024-12-24 · investors.com · <a href="https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-nvidia-stock-nvda-tsmc-2/" title="https://www.investors.com/market-trend/stock-market-today/dow-jones-sp500-nasdaq-nvidia-stock-nvda-tsmc-2/" target="_blank" rel="noopener">Dow Jones Falls As Nvidia Hits Key Level; AI Chip Leader TSMC Breaks Out</a></li>
+<li>2024-12-19 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/nvidias-nvda-blackwell-gpus-set-for-mid-2025-ramp-up-but-dont-expect-perfect-execution-1410225/" title="https://www.insidermonkey.com/blog/nvidias-nvda-blackwell-gpus-set-for-mid-2025-ramp-up-but-dont-expect-perfect-execution-1410225/" target="_blank" rel="noopener">Nvidia's (NVDA) Blackwell GPUs Set For Mid-2025 Ramp-Up, But Don't Expect Perfect Execution</a></li>
+<li>2024-12-16 · benzinga.com · <a href="https://www.benzinga.com/media/24/12/42514266/taiwan-semiconductor-unveils-20-billion-arizona-chip-fab-apple-named-key-customer" title="https://www.benzinga.com/media/24/12/42514266/taiwan-semiconductor-unveils-20-billion-arizona-chip-fab-apple-named-key-customer" target="_blank" rel="noopener">Taiwan Semiconductor Unveils $20 Billion Arizona Chip Fab, Apple Named Key Customer - Taiwan Semiconductor…</a></li>
+<li>2024-12-16 · benzinga.com · <a href="https://www.benzinga.com/24/12/42507816/taiwan-semiconductor-ceo-highlights-ai-powered-drones-next-gen-robots-as-growth-drivers" title="https://www.benzinga.com/24/12/42507816/taiwan-semiconductor-ceo-highlights-ai-powered-drones-next-gen-robots-as-growth-drivers" target="_blank" rel="noopener">Taiwan Semiconductor CEO Highlights AI-Powered Drones, Next-Gen Robots As Growth Drivers - Taiwan…</a></li>
+<li>2024-12-13 · benzinga.com · <a href="https://www.benzinga.com/analyst-ratings/analyst-color/24/12/42489281/broadcoms-ai-chip-leadership-puts-pressure-on-nvidia-and-marvell-analysts-say" title="https://www.benzinga.com/analyst-ratings/analyst-color/24/12/42489281/broadcoms-ai-chip-leadership-puts-pressure-on-nvidia-and-marvell-analysts-say" target="_blank" rel="noopener">Broadcom's AI Chip Leadership Puts Pressure on Nvidia and Marvell, Analysts Say - Broadcom (NASDAQ:AVGO)</a></li>
+<li>2024-12-13 · benzinga.com · <a href="https://www.benzinga.com/24/12/42484676/nvidia-amd-taiwan-semi-and-other-chip-stocks-gain-as-broadcoms-q4-sparks-sector-wide-surge" title="https://www.benzinga.com/24/12/42484676/nvidia-amd-taiwan-semi-and-other-chip-stocks-gain-as-broadcoms-q4-sparks-sector-wide-surge" target="_blank" rel="noopener">Nvidia, AMD, Taiwan Semi Gain As Broadcom's Q4 Performance Sparks Sector-Wide Surge - NVIDIA (NASDAQ:NVDA),…</a></li>
+<li>2024-12-11 · benzinga.com · <a href="https://www.benzinga.com/news/legal/24/12/42444266/nvidia-loses-supreme-court-appeal-faces-continued-legal-battle-over-cryptocurrency-disclosure" title="https://www.benzinga.com/news/legal/24/12/42444266/nvidia-loses-supreme-court-appeal-faces-continued-legal-battle-over-cryptocurrency-disclosure" target="_blank" rel="noopener">Nvidia Loses Supreme Court Appeal, Faces Continued Legal Battle Over Cryptocurrency Disclosure - NVIDIA…</a></li>
+<li>2024-12-11 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/is-nvidia-corporation-nvda-the-best-quantum-computing-stock-to-buy-according-to-hedge-funds-1405465/" title="https://www.insidermonkey.com/blog/is-nvidia-corporation-nvda-the-best-quantum-computing-stock-to-buy-according-to-hedge-funds-1405465/" target="_blank" rel="noopener">Is NVIDIA Corporation (NVDA) the Best Quantum Computing Stock to Buy According to Hedge Funds?</a></li>
+<li>2024-12-11 · biztoc.com · <a href="https://biztoc.com/x/e6ee18cf0ab9e068" title="https://biztoc.com/x/e6ee18cf0ab9e068" target="_blank" rel="noopener">Better Semiconductor Stock: TSMC vs. Nvidia</a></li>
+<li>2024-12-08 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/advanced-micro-devices-amd-challenges-nvidia-with-faster-cheaper-ai-chip-alternatives-1403137/" title="https://www.insidermonkey.com/blog/advanced-micro-devices-amd-challenges-nvidia-with-faster-cheaper-ai-chip-alternatives-1403137/" target="_blank" rel="noopener">Advanced Micro Devices (AMD) Challenges NVIDIA with Faster, Cheaper AI Chip Alternatives</a></li>
+<li>2024-12-07 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/taiwan-semiconductor-manufacturing-company-limited-tsm-in-talks-to-produce-nvidia-blackwell-ai-chips-at-arizona-plant-expanding-u-s-operations-1403771/" title="https://www.insidermonkey.com/blog/taiwan-semiconductor-manufacturing-company-limited-tsm-in-talks-to-produce-nvidia-blackwell-ai-chips-at-arizona-plant-expanding-u-s-operations-1403771/" target="_blank" rel="noopener">Taiwan Semiconductor Manufacturing Company Limited (TSM) in Talks to Produce Nvidia Blackwell AI Chips at…</a></li>
+<li>2024-12-06 · benzinga.com · <a href="https://www.benzinga.com/markets/eurozone/24/12/42360856/ai-startup-igenius-taps-nvidia-for-ai-data-center-in-italy-leveraging-blackwell-chips" title="https://www.benzinga.com/markets/eurozone/24/12/42360856/ai-startup-igenius-taps-nvidia-for-ai-data-center-in-italy-leveraging-blackwell-chips" target="_blank" rel="noopener">AI Startup iGenius Taps Nvidia For AI Data Center In Italy Leveraging Blackwell Chips - NVIDIA (NASDAQ:NVDA)</a></li>
+</ul>
+</details>
+<h3>ev60 · Sidus Space launches LizzieSat satellites</h3>
+<p><em>culled by max_watchlist 6 · its vehicles ran -18.7% over the period</em></p>
+<p><strong>Catalyst</strong> 2024-03-08 · Sidus Space launches LizzieSat satellites</p>
+<p><strong>Still pending</strong> at scan 11 of this event</p>
+<p><strong>Exits when.</strong> exit if/when LS-2/LS-3 launches complete or are cancelled</p>
+<p><strong>Vehicles, none funded.</strong> SIDU</p>
+<p><strong>This scan.</strong> No LS-2/LS-3 launch activity in 2024 or this week; catalyst remains pending.</p>
+<p><strong>Milestones</strong></p>
+<ul>
+<li><strong>2024-03-08</strong> · sources cited that scan: <a href="https://www.spacedaily.com/reports/Sidus_Space_Advances_with_LizzieSat_Satellites_LS_2_and_LS_3_Production_on_Track_999.html" title="https://www.spacedaily.com/reports/Sidus_Space_Advances_with_LizzieSat_Satellites_LS_2_and_LS_3_Production_on_Track_999.html" target="_blank" rel="noopener">1</a>, <a href="https://news.satnews.com/2024/02/14/sidus-space-on-schedule-to-launch-their-next-wwo-lizziesat-satellites/" title="https://news.satnews.com/2024/02/14/sidus-space-on-schedule-to-launch-their-next-wwo-lizziesat-satellites/" target="_blank" rel="noopener">2</a>, <a href="https://www.streetinsider.com/Corporate+News/Sidus_Space+(SIDU" title="https://www.streetinsider.com/Corporate+News/Sidus_Space+(SIDU" target="_blank" rel="noopener">3</a>+Scheduled+to+Launch+Next+Two+LizzieSat+Satellites/22761773.html), <a href="https://www.proactiveinvestors.com/companies/news/1040858/sidus-space-on-track-to-launch-satellites-later-this-year-1040858.html" title="https://www.proactiveinvestors.com/companies/news/1040858/sidus-space-on-track-to-launch-satellites-later-this-year-1040858.html" target="_blank" rel="noopener">4</a>
+<ul>
+<li>LS-2 and LS-3 production confirmed on track for 2024 launch</li>
+</ul></li>
+</ul>
+<p><strong>Its journal going in</strong> (10 earlier scans, as the agent re-read it)</p>
+<ul>
+<li>…4 earlier scans, in the journal</li>
+<li>2024-07-06 · live · SIDU · No LS-2/LS-3 launch news; ASTRA mission unrelated to pending launches.</li>
+<li>2024-08-05 · live · SIDU · No LS-2/LS-3 launch news this week; all items unrelated to pending catalyst.</li>
+<li>2024-09-04 · live · SIDU · No LS-2/LS-3 launch news; Sidus conference attendance unrelated to pending catalyst.</li>
+<li>2024-10-04 · live · SIDU · No Sidus or LizzieSat launch developments; all news unrelated to pending catalyst.</li>
+<li>2024-11-03 · live · SIDU · No LS-2/LS-3 launch news; all items unrelated to pending catalyst.</li>
+<li>2024-12-03 · live · SIDU · No LS-2/LS-3 launch news; Lonestar contract unrelated to pending catalyst.</li>
+</ul>
+<details><summary>What it read this scan: 20 of 60 matching articles, capped at 20</summary>
+<ul>
+<li>2024-12-31 · indiatimes.com · <a href="https://economictimes.indiatimes.com/mf/mf-news/nfo-alert-mirae-asset-mutual-fund-launches-small-cap-fund/articleshow/116830942.cms" title="https://economictimes.indiatimes.com/mf/mf-news/nfo-alert-mirae-asset-mutual-fund-launches-small-cap-fund/articleshow/116830942.cms" target="_blank" rel="noopener">NFO Alert: Mirae Asset Mutual Fund launches small cap fund</a></li>
+<li>2024-12-26 · tmcnet.com · <a href="https://www.tmcnet.com/usubmit/2024/12/26/10124677.htm" title="https://www.tmcnet.com/usubmit/2024/12/26/10124677.htm" target="_blank" rel="noopener">Nano Labs Launches FPU3.0 ASIC Design Architecture with 3D DRAM Stacking for AI and Blockchain Innovation</a></li>
+<li>2024-12-10 · insidermonkey.com · <a href="https://www.insidermonkey.com/blog/ai-powered-cancer-solutions-lantern-pharma-ltrn-launches-phase-2-trial-in-taiwan-1404940/" title="https://www.insidermonkey.com/blog/ai-powered-cancer-solutions-lantern-pharma-ltrn-launches-phase-2-trial-in-taiwan-1404940/" target="_blank" rel="noopener">AI-Powered Cancer Solutions: Lantern Pharma (LTRN) Launches Phase 2 Trial in Taiwan</a></li>
+<li>2024-12-10 · marketscreener.com · <a href="https://www.marketscreener.com/quote/stock/LEGEND-BIOTECH-CORPORATIO-107863240/news/CARVYKTI-Significantly-Improved-Minimal-Residual-Disease-Negativity-Compared-to-Standard-of-Care-f-48555444/" title="https://www.marketscreener.com/quote/stock/LEGEND-BIOTECH-CORPORATIO-107863240/news/CARVYKTI-Significantly-Improved-Minimal-Residual-Disease-Negativity-Compared-to-Standard-of-Care-f-48555444/" target="_blank" rel="noopener">CARVYKTI&amp;#xAE; Significantly Improved Minimal Residual Disease Negativity Compared to Standard of Care for…</a></li>
+<li>2024-12-06 · thecorner.eu · <a href="https://thecorner.eu/news-the-world/us-launches-third-package-of-microchip-restrictions-china-bans-export-of-certain-rare-earths-and-key-minerals/117944/" title="https://thecorner.eu/news-the-world/us-launches-third-package-of-microchip-restrictions-china-bans-export-of-certain-rare-earths-and-key-minerals/117944/" target="_blank" rel="noopener">US launches third package of microchip restrictions, China bans export of certain rare earths and key minerals</a></li>
+<li>2025-01-02 · benzinga.com · <a href="https://www.benzinga.com/quote/war" title="https://www.benzinga.com/quote/war" target="_blank" rel="noopener">ETF Series Solutions U.S. Global Technology and Aerospace &amp; Defense ETF (ARCA:WAR) Quotes, Forecast and News…</a></li>
+<li>2025-01-02 · benzinga.com · <a href="https://www.benzinga.com/news/global/25/01/42772220/us-global-launches-technology-and-aerospace-defense-etf-why-its-allocation-makes-sense" title="https://www.benzinga.com/news/global/25/01/42772220/us-global-launches-technology-and-aerospace-defense-etf-why-its-allocation-makes-sense" target="_blank" rel="noopener">U.S. Global Launches Technology And Aerospace &amp; Defense ETF: Why Its Allocation Makes Sense - Applied Mat…</a></li>
+<li>2024-12-31 · wccftech.com · <a href="https://wccftech.com/jeff-bezos-rocket-company-blue-origin-can-fly-rocket-rivaling-spacexs-falcon-9-next-week/" title="https://wccftech.com/jeff-bezos-rocket-company-blue-origin-can-fly-rocket-rivaling-spacexs-falcon-9-next-week/" target="_blank" rel="noopener">Jeff Bezos' Rocket Company Blue Origin Can Fly Rocket Rivaling SpaceX's Falcon 9 Next Week!</a></li>
+<li>2024-12-30 · itnewsonline.com · <a href="https://www.itnewsonline.com/GlobeNewswire/WISeKeys-Subsidiary-SEALCOIN-2025-Roadmap-Leading-Machine-to-Machine-Transactions-Through-Blockchain-and-Space-Innovation/90231" title="https://www.itnewsonline.com/GlobeNewswire/WISeKeys-Subsidiary-SEALCOIN-2025-Roadmap-Leading-Machine-to-Machine-Transactions-Through-Blockchain-and-Space-Innovation/90231" target="_blank" rel="noopener">WISeKey's Subsidiary SEALCOIN 2025 Roadmap: Leading Machine-to-Machine Transactions Through Blockchain and…</a></li>
+<li>2024-12-30 · finanznachrichten.de · <a href="https://www.finanznachrichten.de/nachrichten-2024-12/64178460-wisekey-international-holding-ltd-wisekey-s-subsidiary-sealcoin-2025-roadmap-leading-machine-to-machine-transactions-through-blockchain-and-space-i-015.htm" title="https://www.finanznachrichten.de/nachrichten-2024-12/64178460-wisekey-international-holding-ltd-wisekey-s-subsidiary-sealcoin-2025-roadmap-leading-machine-to-machine-transactions-through-blockchain-and-space-i-015.htm" target="_blank" rel="noopener">WISeKey International Holding Ltd.: WISeKey's Subsidiary SEALCOIN 2025 Roadmap: Leading Machine-to-Machine…</a></li>
+<li>2024-12-30 · taiwannews.com.tw · <a href="https://www.taiwannews.com.tw/news/6003533" title="https://www.taiwannews.com.tw/news/6003533" target="_blank" rel="noopener">WISeKey's Subsidiary SEALCOIN 2025 Roadmap: Leading Machine-to-Machine Transactions Through Blockchain and…</a></li>
+<li>2024-12-30 · dailymail.co.uk · <a href="https://www.dailymail.co.uk/news/article-14235119/Home-Office-agrees-deal-space-firm-spend-15million-spy-satellites-monitoring-migrant-small-boats-crossing-Channel.html" title="https://www.dailymail.co.uk/news/article-14235119/Home-Office-agrees-deal-space-firm-spend-15million-spy-satellites-monitoring-migrant-small-boats-crossing-Channel.html" target="_blank" rel="noopener">Home Office 'agrees deal with space firm to spend &amp;#xA3;15million on spy satellites monitoring migrant small…</a></li>
+<li>2024-12-26 · cointelegraph.com · <a href="https://cointelegraph.com/news/kulr-technology-bitcoin-treasury-21-million-purchase" title="https://cointelegraph.com/news/kulr-technology-bitcoin-treasury-21-million-purchase" target="_blank" rel="noopener">KULR Technology launches Bitcoin treasury with $21M purchase</a></li>
+<li>2024-12-26 · investorideas.com · <a href="https://www.investorideas.com/news/2024/12261KULR-Launches-Bitcoin-Treasury.asp" title="https://www.investorideas.com/news/2024/12261KULR-Launches-Bitcoin-Treasury.asp" target="_blank" rel="noopener">Breaking Sustainable Aerospace News: KULR (NYSE: KULR) Launches Bitcoin Treasury with Purchase of 217.18…</a></li>
+<li>2024-12-26 · medianama.com · <a href="https://www.medianama.com/2024/12/223-government-launches-apps-curb-dark-patterns-ecommerce-apps/" title="https://www.medianama.com/2024/12/223-government-launches-apps-curb-dark-patterns-ecommerce-apps/" target="_blank" rel="noopener">Govt launches apps to curb dark patterns on e-commerce platforms</a></li>
+<li>2024-12-21 · todayheadline.co · <a href="https://todayheadline.co/rocket-lab-launches-sixth-synspective-radar-imaging-satellite/" title="https://todayheadline.co/rocket-lab-launches-sixth-synspective-radar-imaging-satellite/" target="_blank" rel="noopener">Rocket Lab Launches Sixth Synspective Radar Imaging Satellite</a></li>
+<li>2024-12-20 · tmcnet.com · <a href="https://www.tmcnet.com/usubmit/2024/12/20/10123901.htm" title="https://www.tmcnet.com/usubmit/2024/12/20/10123901.htm" target="_blank" rel="noopener">SEALSQ Post-Quantum Cryptographic Chips Deployed on WISeSat Satellites</a></li>
+<li>2024-12-19 · marketscreener.com · <a href="https://www.marketscreener.com/quote/stock/NORTHROP-GRUMMAN-CORPORAT-13763/news/Northrop-Grumman-Launches-Black-Dagger-Target-to-Test-New-Patriot-Missile-System-Sensor-Low-cost-ta-48628230/" title="https://www.marketscreener.com/quote/stock/NORTHROP-GRUMMAN-CORPORAT-13763/news/Northrop-Grumman-Launches-Black-Dagger-Target-to-Test-New-Patriot-Missile-System-Sensor-Low-cost-ta-48628230/" target="_blank" rel="noopener">Northrop Grumman Launches Black Dagger Target to Test New Patriot Missile System Sensor; Low-cost target…</a></li>
+<li>2024-12-18 · webwire.com · <a href="https://www.webwire.com/ViewPressRel.asp?aId=331368" title="https://www.webwire.com/ViewPressRel.asp?aId=331368" target="_blank" rel="noopener">Eutelsat selects Airbus Defence and Space to build OneWeb low Earth orbit constellation extension</a></li>
+<li>2024-12-18 · militaryembedded.com · <a href="https://militaryembedded.com/comms/satellites/gps-satellite-launches-as-part-of-modernization-of-constellation" title="https://militaryembedded.com/comms/satellites/gps-satellite-launches-as-part-of-modernization-of-constellation" target="_blank" rel="noopener">GPS satellite launches as part of modernization of constellation - Military Embedded Systems</a></li>
+</ul>
+</details>
+<h2>Funded against passed over</h2>
+<ul>
+<li>funded vehicles, equal weight: <strong>-3.1%</strong></li>
+<li>unfunded live events, equal weight: <strong>+0.3%</strong> (22 events)</li>
+</ul>
+<hr>
+<p><em>How to read one event.</em> <strong>Catalyst</strong> is the specific, datable thing the curator is WAITING FOR, written in the present tense and usually not yet true; the header says whether it is still pending or has resolved, and the event lives or dies by it. <strong>Milestones</strong> are dated waypoints already observed on the way to it, which is what lets an agent notice that a due date has passed; the URLs beside one are the sources the agent cited AT THAT SCAN, which is an association by scan and not a claim that a given article is the citation for a given milestone. <strong>Scan N</strong> counts how many times an agent has re-read that thesis, so a high N against an unchanged assessment is a thesis nothing is confirming. The money is this event's share of realised P&amp;L: a ticker claimed by several live events splits its gain equally between them. <strong>Exits when</strong> is the condition the curator committed to at the outset, so an event whose exit cannot be dated is a theme wearing an event's clothes, and only the <code>max_event_scans</code> age cap will ever end it.</p>
+</div></body></html>
