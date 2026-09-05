@@ -1620,10 +1620,24 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
     live = e.thesis_live and not e.catalyst_resolved
     veh = [v.strip().upper() for v in e.vehicles if v.strip()]
     veh = [v for v in veh if v in event["vehicles"]] or sorted(event["vehicles"])[:1]   # known only; fallback
+    # THE ARC ACCUMULATES IN CODE, not by the model's good manners. The prompt says "CARRY FORWARD
+    # the list from your journal and APPEND", and this used to take whatever came back, so a scan
+    # that re-emitted fewer items silently DELETED the earlier ones: measured across both journals,
+    # 8 of 267 events with milestones (3%) lost 31 strings that way, and the clearest case had
+    # rewritten two milestones into one joined by "->", which reads as a drop because accumulation
+    # works by string identity. A milestone is evidence the agent tests its own due dates against;
+    # losing one silently removes a waypoint it can no longer notice has passed. Merging here makes
+    # the append-only promise true, and keeps the model's order for the new items.
+    _prior = [str(m).strip() for m in ((entries[-1].get("milestones") if entries else []) or [])
+              if str(m).strip()]
+    _fresh = [str(m).strip() for m in (e.milestones or []) if str(m).strip()]
+    _ms = _prior + [m for m in _fresh if m not in _prior]
     return {"date": anchor.date().isoformat(), "thesis_live": live,
             "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
             "exit_advice": e.exit_advice,
-            "milestones": [str(m).strip() for m in (e.milestones or []) if str(m).strip()][:6],
+            # KEEP THE OLDEST when the cap bites: the arc's early waypoints are what date a due
+            # milestone, and 51 of 1,270 entries already sit pinned at this cap.
+            "milestones": _ms[:8],
             "assessment": e.assessment,
             "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
 
