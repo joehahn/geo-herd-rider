@@ -48,12 +48,14 @@ import score as _score  # noqa: E402
 import lede as _lede
 import orgs as _orgs  # noqa: E402  SIZE_BUCKETS -- one bucket definition, shared with FBS
 import provenance as _canon  # noqa: E402  canonical-inputs gate
+import curation_report as _crep  # noqa: E402  per-scan markdown reports + event attribution
 import optimizer as _opt_gate  # noqa: E402  profile read by the gate, before the body
 import gkg as _gkg  # noqa: E402  canon_beat: reconcile corpus tags with renamed beats
 from build_fbt_dashboard import (CONFIG_URL, DARK, LIGHT, PLOTLY_CDN, PROFILE_URL,
                                  PROVENANCE_URL,  # noqa: E402
                                  STATUS, _LINK, esc, panel_rec, render_panels,
                                  table_html, tile)
+from build_fbt_dashboard import _REPO as _REPO_BLOB  # noqa: E402  GitHub blob root, for report links
 
 
 def load(run: Path, corpus: Path, bootstrap: bool = False):
@@ -760,6 +762,11 @@ def main(argv=None) -> int:
         bundle_buckets["ngain"] = [t[1] for t in _bn]
         bundle_buckets["nticks"] = [", ".join(t[2]) for t in _bn]
         _d = _bt.get("daily") or {}
+        # SNAPSHOT IT UNDER A NAME NOTHING ELSE USES, exactly as _live_by_wk does for _w a few
+        # hundred lines up. `_d` is rebound twice in this 2,900-line function (line ~310 as a loop
+        # variable, ~1427 as a list of dates), so the curation reports, which read it near the end,
+        # got a list and crashed on the CBS path.
+        _daily0 = _d
         # PWR's CBT plots 2-7, as GHR equivalents. PWR groups by WAVE BUCKET (its thesis unit);
         # GHR's unit is the EVENT, so the two "by wave" panels become "by event" -- same question,
         # different taxonomy. Kept OUT of the headline deliberately: these are attribution, and the
@@ -791,32 +798,11 @@ def main(argv=None) -> int:
             for _v in _e.get("vehicles", []):
                 _claim[_v].append(_k)
         _dates_l = _d.get("dates") or []
-        _evgain = collections.Counter()
-        for _tk, _g in _gain.items():
-            _ser = _gs.get(_tk)
-            _cands = _claim.get(_tk, [])
-            if not _ser or not _cands or not _dates_l:
-                _evgain["(unassigned)"] += float(_g or 0)      # no series/claim -> cannot place it
-                continue
-            _prev = 0.0
-            for _i, _day in enumerate(_dates_l):
-                _cum = float(_ser[_i] or 0) if _i < len(_ser) else _prev
-                _inc, _prev = _cum - _prev, _cum
-                if not _inc:
-                    continue
-                # A start of None means the event has NO journal entries -- it was culled at birth and
-                # never ran an agent, so it never tracked anything and cannot have owned a position.
-                # Treating None as "live forever" (the first cut of this fix) let those events collect
-                # a share of every ticker they listed, across the whole backtest: ev70 and ev79 were
-                # silently splitting MU's and GEV's P&L with the events that actually held them.
-                _live = [_k for _k in _cands
-                         if _elife[_k][0] is not None and _elife[_k][0] <= _day
-                         and (_elife[_k][1] is None or _day <= _elife[_k][1])]
-                if not _live:
-                    _evgain["(unassigned)"] += _inc
-                else:
-                    for _k in _live:
-                        _evgain[_k] += _inc / len(_live)
+        # THE SPLIT ITSELF LIVES IN src/curation_report.py, because the per-scan reports need the
+        # same attribution over a WINDOW and two copies of a rule this subtle would drift. Same
+        # numbers as when the loop was inline: full span, no bounds.
+        _evgain = _crep.event_gain(_gain, _gs, _dates_l, _claim, _elife)
+
         # BUY-AND-HOLD baseline, PWR's blue curve: the profile's `starter_watchlist`, equal-DOLLAR at
         # inception and never touched again. THE SAME BASKET ON BOTH ARMS: it is the control, not
         # the inception holding, so it does not follow seed_holdings -- CBT and CBS are only
@@ -2641,6 +2627,65 @@ def main(argv=None) -> int:
     # link while you were already looking at CBS.
     _name = "Curator Bootstrap (CBS)" if a.bootstrap else "Curator Backtest (CBT)"
     _page = "cbs.html" if a.bootstrap else "cbt.html"
+
+    # ---- per-scan curation reports (src/curation_report.py) --------------------------------------
+    # The charts say how much the book made; a report says what the curator was thinking at one
+    # anchor. Built HERE rather than by the curation because funded-ness is a replay-time fact: see
+    # the module docstring. No LLM runs, so a report costs a rebuild and nothing else.
+    #
+    # A PUBLISHED BUILD WRITES data/reports/, anything else writes data/reports_preview/. The links
+    # resolve on GitHub, which can only serve a file that has been pushed, so a preview build
+    # writing into the published directory would leave the canonical page linking reports for a book
+    # it does not describe -- the same failure require_publishable guards for pages.
+    # ONE fingerprint expression, the same one the run block prints: CBS reads its own bootstrap
+    # stamp, CBT the verifier's, because verify() compares against the CANONICAL profile+corpus and
+    # CBS is not that and does not claim to be.
+    _fp_run = (((_bs_stamp or {}).get("hash") if a.bootstrap else (_vfy or {}).get("hash_run"))
+               or "unstamped")
+    _pub = Path(a.out).resolve().parent == (ROOT / "docs").resolve()
+    _rep_dir = ROOT / ("data/reports" if _pub else "data/reports_preview")
+    _arm = "cbs" if a.bootstrap else "cbt"
+    # THE LAST ANCHOR HAS NO forward period, so it falls off `log`, which is built over anchor PAIRS.
+    # That anchor is the standing recommendation and the most recent thing the curator did, i.e. the
+    # one report most worth reading, so it is appended from `latest` with an open period.
+    _rlog = list(_bt.get("log") or [])
+    _lat = _bt.get("latest") or {}
+    if _lat.get("date") and _lat["date"] not in {str(r.get("week"))[:10] for r in _rlog}:
+        _rlog.append({"week": _lat["date"], "watchlist": ";".join(_lat.get("watchlist") or []),
+                      "weights": _lat.get("weights") or {}, "week_return": None})
+    _reps = _crep.write_reports(
+        _rep_dir, arm=_arm, ev=ev, log=_rlog, fm=_lfm0, panel=_panel,
+        gain=_gain, gain_series=_gs, dates=(_daily0.get("dates") or []), capital=_cap,
+        run=str(a.run), fingerprint=str(_fp_run), profile=PROFILE_FILE, page_title=_name,
+        # The archived weekly pools, so a report can reconstruct the exact article slice each
+        # event-agent read. Absent for a run curated before archiving: the reports still build, they
+        # just cannot show the inputs.
+        archive_dir=(ROOT / a.run / "archive"),
+        corpus=((_bs_stamp.get("corpus") or {}).get("path", "bootstrap") if a.bootstrap
+                else str(a.corpus)))
+    print(f"  reports: {len(_reps)} written to {_rep_dir.relative_to(ROOT)}", flush=True)
+    _rep_rows = [[f'<a href="{_REPO_BLOB}/data/reports/{esc(r["file"])}">{esc(r["date"])}</a>',
+                  str(r["live"]), str(r["funded"]),
+                  f'{r["opened"]}&nbsp;/&nbsp;{r["exited"]}',
+                  ("—" if r["ret"] is None else f'{r["ret"] * 100:+.1f}%')]
+                 for r in reversed(_reps)]
+    rep_panel = (
+        f'<section class="panel"><h2>@@N3@@. Curation reports</h2>'
+        f'<p class="lead">One report per scan: the events that held capital, the three that came '
+        f'closest, and what the curator said about each in its own words. Assembled from the '
+        f'journal and this page&#39;s frozen price panel, so a report and this page cannot '
+        f'disagree, and no LLM runs to produce one. GitHub renders the markdown, so a link works '
+        f'once the report has been pushed; locally they are '
+        f'<code>data/reports/&lt;date&gt;-{_arm}-curation.md</code>.</p>'
+        + '<table><thead><tr>'
+        + "".join(f"<th>{esc(h)}</th>"
+                  for h in ("scan", "live events", "funded", "opened / exited", "book"))
+        + '</tr></thead><tbody>'
+        # table_html() escapes every cell, which is right everywhere else on this page and wrong for
+        # the one cell that IS a link, so the row is built here instead of widening that helper.
+        + "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in _rep_rows)
+        + '</tbody></table></section>')
+    panels += rep_panel.replace("@@N3@@", str(len(_P) + 3))
     doc = f"""<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
