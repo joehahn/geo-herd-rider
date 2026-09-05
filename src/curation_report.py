@@ -737,14 +737,13 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         # checking which book this describes. The "no LLM ran" note that sat under them is on the
         # dashboard panel that links here, which is where a first-time reader meets it.
         L = [f"# {page_title} curation — {d0}", "",
-             f"- **Run.** `{run}` · fingerprint `{fingerprint}` · corpus `{corpus}` · "
-             f"replayed under `{profile}`",
-             "",
-             f"- **Period.** {d0} → {d1 or 'open (no forward period yet)'}"]
+             f"- **Run.** `{run}` · fingerprint `{fingerprint}`",
+             f"- **Corpus.** `{corpus}` · replayed under `{profile}`",
+             ""]
         _mkt = ((f"book {ret * 100:+.1f}%" if isinstance(ret, (int, float)) else "")
                 + (f" · SPY {_spy * 100:+.1f}%" if _spy is not None else "")).strip(" ·")
-        if _mkt:
-            L.append(f"- {_mkt}")
+        L.append(f"- **Period.** {d0} → {d1 or 'open (no forward period yet)'}"
+                 + (f" · {_mkt}" if _mkt else ""))
         L.append(f"- **Events.** {len(live)} live this scan · {len(held)} funded"
                  + (f", {len(_stale)} of them not re-read this scan" if _stale else "")
                  + f" · {len(missed)} unfunded"
@@ -755,8 +754,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             L.append(f"- **Opened.** {', '.join(sorted(opened))}")
         if exited:
             L.append(f"- **Exited.** {', '.join(sorted(exited))}"
-                     + (f", of which opened and exited in this same scan: {', '.join(_same)}"
-                        if _same else ""))
+                     + (f", with {', '.join(_same)} opening/closing same scan" if _same else ""))
         _anchors_held = sorted(t for t in funded_tk
                                if t in {str(x).upper() for x in (fm.get("always_include") or [])})
         if _anchors_held:
