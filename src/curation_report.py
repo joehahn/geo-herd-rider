@@ -273,7 +273,9 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
         if _unfunded:
             _pos.append("**not funded** " + ", ".join(_unfunded))
     else:
-        _pos = ["**No capital.** vehicles " + (", ".join(vs_now) or "(none)")
+        # "No capital" alone read oddly beside "+$10,832 since it opened" on an exit the book HAD
+        # funded, just not at this anchor. The scan is what the clause is about, so it says so.
+        _pos = ["**No capital at this scan.** vehicles " + (", ".join(vs_now) or "(none)")
                 + (f", {len(vs)} tracked over its life" if len(vs) > len(vs_now) else "")]
     if money:
         _pos.append("**P&L** " + ", ".join(money))
@@ -539,6 +541,37 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         for v in e.get("vehicles") or []:
             claim[v].append(k)
     anchors = [str(r.get("week"))[:10] for r in log]
+    # WAS THIS EVENT EVER FUNDED, at any anchor up to now? "Held going in" was the wrong test for
+    # which exits deserve a full block: ev157 made +$10,832 over ten scans and then exited from a
+    # period it happened not to be held in, so the most profitable exit in the run got a one-line
+    # summary while a never-funded one-scan event beside it got the same treatment. What makes an
+    # exit worth reading is whether the book ever had money in it.
+    _cum_veh = {}
+    for k, e in ev.items():
+        acc, seq = set(), []
+        for x in e.get("entries") or []:
+            acc |= {str(v).upper() for v in (x.get("vehicles") or [])}
+            seq.append((str(x.get("date", ""))[:10], set(acc)))
+        _cum_veh[k] = seq
+
+    def _veh_at(k, d):
+        out = {str(v).upper() for v in (ev[k].get("vehicles") or [])}
+        for dt, st in _cum_veh.get(k, []):
+            if dt <= d:
+                out = st
+            else:
+                break
+        return out
+
+    fund_dates = collections.defaultdict(list)
+    for _r in log:
+        _d = str(_r.get("week"))[:10]
+        _w = {t for t, v in _weights(_r).items() if v > FUNDED_EPS}
+        if not _w:
+            continue
+        for _k in ev:
+            if _veh_at(_k, _d) & _w:
+                fund_dates[_k].append(_d)
     lookback = int(fm.get("lookback_period_days") or 30)
     ev_cap = int(fm.get("event_news_cap") or 0)
     archive_dir = Path(archive_dir) if archive_dir else None
@@ -753,26 +786,53 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 continue          # still live here; it ends at some later anchor
             exited_now.append((k, _en[-1]))
         _ec = int(fm.get("max_event_scans") or 0)
-        _paid = [(k, x) for k, x in exited_now
-                 if set(ev[k].get("vehicles") or []) & set(held_before)]
-        _rest = [(k, x) for k, x in exited_now if (k, x) not in _paid]
+        # THREE KINDS OF EXIT, and lumping them cost the most informative one its detail.
+        #   paid    the book had money in this at some point, so the exit is a decision that
+        #           settled a position. Full block.
+        #   quick   resolved within two scans and never funded: the scout proposed a thesis that
+        #           was already over, or that ended before capital could reach it. 129 of 224
+        #           finished CBT events (58%) are this shape, so they are their own group rather
+        #           than the bulk of an undifferentiated list.
+        #   ran     everything else unfunded: aged out at the cap, exit condition met, or ended
+        #           with nothing stated.
+        _paid, _quick, _ran = [], [], []
+        for k, x in exited_now:
+            _n = len([y for y in (ev[k].get("entries") or []) if str(y.get("date", ""))[:10] <= d0])
+            if fund_dates.get(k):
+                _paid.append((k, x, _n))
+            elif _n <= 2 and x.get("catalyst_resolved"):
+                _quick.append((k, x, _n))
+            else:
+                _ran.append((k, x, _n))
+
+        def _one(k, x, n):
+            """A compact exit. The final assessment is the point: "no stated reason" on its own
+            says nothing, and the agent's last words usually say why it let go."""
+            return (f"- **{k}** · {', '.join(sorted(_veh_at(k, d0))[:4])} · "
+                    f"{n} scan{'s' if n != 1 else ''} · {_how_it_ended(ev[k], x, _ec)}"
+                    + (f"  \n  {_trim(x.get('assessment'), 150)}"
+                       if x.get("assessment") else ""))
+
         if exited_now:
             L += ["## Exited at this scan", ""]
-            for k, x in _paid:
+            for k, x, n in _paid:
                 _h, _rd, _m, _ok = _inputs(k)
+                _fd = fund_dates.get(k) or []
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
-                                  exact=_ok, rets=rets_prev, note="held going in")
-            for k, x in _rest[:EXITS_LISTED]:
-                _n = len([y for y in (ev[k].get("entries") or [])
-                          if str(y.get("date", ""))[:10] <= d0])
-                _g = cum.get(k)
-                L.append(f"- **{k}** · {', '.join(sorted(ev[k].get('vehicles') or [])[:4])} · "
-                         f"{_n} scan{'s' if _n != 1 else ''} · {_how_it_ended(ev[k], x, _ec)}"
-                         + (f" · {_money(_g)} lifetime" if _g else " · never funded"))
-            if len(_rest) > EXITS_LISTED:
-                L.append(f"- …and {len(_rest) - EXITS_LISTED} more, none of them funded")
-            L.append("")
+                                  exact=_ok, rets=rets_prev,
+                                  note=(f"funded at {len(_fd)} of {n} scans, last held {_fd[-1]}"
+                                        if _fd[-1] != d0 else "held going in"))
+            for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
+                               ("Ran their course unfunded", _ran)):
+                if not _grp:
+                    continue
+                L += [f"**{_lbl}.**", ""]
+                for k, x, n in _grp[:EXITS_LISTED]:
+                    L.append(_one(k, x, n))
+                if len(_grp) > EXITS_LISTED:
+                    L.append(f"- …and {len(_grp) - EXITS_LISTED} more")
+                L.append("")
 
         if orphans:
             L += ["## Held with no live thesis", ""]
