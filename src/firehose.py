@@ -470,7 +470,7 @@ def watchlist_cap(fm: dict) -> int:
 
 
 def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None = None,
-                    drop_orphans: int = 0) -> dict:
+                    drop_orphans: int = 0, live_vehicles: dict | None = None) -> dict:
     """Turn the stateless per-week scans into a STICKY position portfolio (fixes choppy holds).
 
     A name ENTERS when first read thesis_live=True, and stays held through coverage gaps and
@@ -566,6 +566,38 @@ def _stateful_watch(scans: dict, seed: list[str] | None = None, fm: dict | None 
             holding[t] = True; dead[t] = 0; stale[t] = 0
         for t in orphaned:                   # the event was re-read and no longer names it
             holding.pop(t, None); dead.pop(t, None); stale.pop(t, None)
+        # THE THESIS IS OVER, not merely quiet. `live_vehicles` maps an anchor to the tickers some
+        # event still holds live AT THAT ANCHOR, read from the journal, which is the only place a
+        # retirement is recorded: an event retired by the age or silence cap stops emitting scan
+        # rows altogether, so from the rows alone its vehicles are indistinguishable from a
+        # coverage gap -- and a coverage gap is exactly what stickiness exists to survive. Measured
+        # across 17 curations, 35.7% of funded position-scans rest on a retired thesis at the
+        # profile's max_stale_scans of 8, and driving that clock to 1 removes only a third of it
+        # while costing the book monotonically (scripts/measure_dead_thesis.py).
+        #
+        # Applies ONLY to names an event admitted: `seed` tickers have no thesis behind them by
+        # design and age out on the stale clock, which is how day-0 capital gets a home without the
+        # curator's own picks being displaced by fiat.
+        #
+        # MEASURED AND REJECTED 2026-09-05. DEFAULT None = OFF, and it should stay off; the
+        # parameter survives only so scripts/measure_dead_thesis.py can re-test it on future
+        # curations. Paired replays over 17 curations, same journals, same frozen panels, this one
+        # input added: median 0.88x, better in 4 of 17, range 0.44-1.46x. On CANON_RUN itself
+        # $266,357 -> $159,376. It does what it claims -- dead-thesis exposure falls 35.7% -> 23.3%
+        # -- and the book pays for it.
+        #
+        # THE UNCOMFORTABLE READING, and the third lever to land here after drop_orphans and the
+        # stale clock: holding a position past the end of its catalyst is not a leak, it is where a
+        # large share of the return comes from. ev192 is the type specimen -- +$27,339 booked under
+        # a Corvex GPU-lease thesis that never once confirmed, earned by MRVL riding the AI tape
+        # months after the catalyst was over. That is wave-riding, which is the thing the design
+        # says it is not doing, and it is load-bearing. See TODO.
+        if live_vehicles is not None:
+            _alive = live_vehicles.get(str(pd.Timestamp(a).date()))
+            if _alive is not None:
+                for t in list(holding):
+                    if t in admitted_under and t not in live and t not in _alive:
+                        holding.pop(t, None); dead.pop(t, None); stale.pop(t, None)
         for t in list(holding):
             if t in live:
                 continue
@@ -656,7 +688,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
              freeze_panel=None,
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
              overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None,
-             seed_holdings: dict | None = None) -> dict:
+             seed_holdings: dict | None = None, live_vehicles: dict | None = None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
@@ -697,7 +729,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
     bh_basket = [str(t).strip().upper() for t in (fm.get("starter_watchlist") or []) if str(t).strip()]
     starter = bh_basket if not seed_holdings else sorted(seed_holdings)
     anchors = list(scans)
-    watch = _stateful_watch(scans, seed=starter, fm=fm)  # inception holdings + sticky hold + hard-exit on catalyst_resolved
+    watch = _stateful_watch(scans, seed=starter, fm=fm,  # inception holdings + sticky hold
+                            live_vehicles=live_vehicles)  # + drop a name whose thesis is retired
     tickers = ({score.BENCHMARK, overlay} | set(always) | set(starter) | set(bh_basket)
                | {t for w in watch.values() for t in w})
     start = (anchors[0] - pd.Timedelta(days=lookback + 14)).strftime("%Y-%m-%d")

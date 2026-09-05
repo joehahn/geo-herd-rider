@@ -40,6 +40,7 @@ import optimizer                                         # noqa: E402
 from measure_orphan_rule import funded, load_scans       # noqa: E402  one loader, not two
 
 CLOCKS = (8, 4, 2, 1)          # max_stale_scans: the profile's value first, then shorter
+ARMS = ("clock only", "drop when the thesis retires")
 
 
 def live_vehicles(run: Path) -> dict:
@@ -73,6 +74,9 @@ def live_vehicles(run: Path) -> dict:
 
 
 def main() -> int:
+    global DROP
+    DROP = "--drop" in sys.argv          # ON: also drop a held name once its thesis is retired
+    print(f"  arm: {ARMS[1] if DROP else ARMS[0]}\n")
     prof = {"cbs": "investor_profile.forward.md"}
     per_clock: dict = {c: [] for c in CLOCKS}
     for rd in sorted(glob.glob(str(ROOT / "data" / "cb*"))):
@@ -89,7 +93,8 @@ def main() -> int:
         for c in CLOCKS:
             fm = {**fm0, "max_stale_scans": c}
             bt = fh.backtest(scans, fm, capital=50000, panel=panel,
-                             freeze_panel=str(run / "panel.csv"))
+                             freeze_panel=str(run / "panel.csv"),
+                             live_vehicles=(alive if DROP else None))
             f = funded(bt)
             # THE BOOK IS PRICED DAILY, the journal is written at ANCHORS, so an exact date join
             # matches nothing (it returned 0/0 on the first run of this script). A position held on
