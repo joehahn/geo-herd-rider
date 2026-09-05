@@ -320,6 +320,18 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                 if _m not in _first:
                     _first[_m] = _d
                     _srcs[_m] = [u for u in (_x.get("sources") or []) if u][:SOURCES_PER_EVENT]
+        # SILENCE HAS TO BE VISIBLE. An event with no milestones rendered as a missing section, so a
+        # thesis nothing has confirmed for nine scans looked the same as a tidy one: ev339 held AMZN
+        # at 40% for nine scans on "US DOE loans $1B to restart Three Mile Island", recorded not one
+        # waypoint, and cited sources at two scans out of nine. That is the loudest signal an event
+        # can give and the report was rendering it as blank space.
+        if not _first:
+            _n_src = sum(1 for x in (e.get("entries") or [])
+                         if str(x.get("date", ""))[:10] <= date and (x.get("sources") or []))
+            L.append(f"**Milestones.** none recorded in {n_scans} scan"
+                     + ("" if n_scans == 1 else "s")
+                     + (f", and sources cited at only {_n_src} of them" if _n_src < n_scans
+                        else "") + " — nothing has confirmed this catalyst since it opened.")
         if _first:
             L.append("**Milestones**")
             # EVERY milestone the event ever recorded, not just the ones the latest entry still
