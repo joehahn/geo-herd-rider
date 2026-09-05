@@ -214,11 +214,17 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     ORDER IS THE STORY: what the event is, when it was entered and whether it is over, what would
     end it, what the book put behind it and what that earned, then the evidence trail oldest first.
     """
-    vs = sorted(e.get("vehicles") or [])
-    # The EVENT's vehicle list is the union over its life; the ENTRY's is what the agent was
-    # tracking at this scan, and they differ on 229 of 993 CBT entries. Weights match against the
-    # union so a funded ticker never loses its percentage; breadth shown is the scan's.
-    vs_now = sorted((entry or {}).get("vehicles") or vs)
+    # THE EVENT'S `vehicles` FIELD IS ITS CURRENT SET, NOT A UNION -- event_agent_v2 rewrites it
+    # from each scan's output, so an event can NARROW: ev239 opened tracking ASST, CLSK and MSTR and
+    # its record now holds ASST alone. 15 of 252 CBT events have an entry listing more vehicles than
+    # the event does. Reading the field as a lifetime union got both jobs wrong: it printed
+    # "1 over the event's life" beneath three tickers, and it would have dropped the percentage off
+    # a funded ticker the event had since stopped tracking. The union is computed here instead.
+    vs_now = sorted((entry or {}).get("vehicles") or e.get("vehicles") or [])
+    vs = sorted({str(v).upper() for x in (e.get("entries") or [])
+                 if str(x.get("date", ""))[:10] <= date
+                 for v in (x.get("vehicles") or [])}
+                | {str(v).upper() for v in (e.get("vehicles") or [])})
     held = {t: weights.get(t, 0.0) for t in vs if weights.get(t, 0.0) > FUNDED_EPS}
     rets = rets or {}
     _ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] <= date]
@@ -232,9 +238,8 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # THE CATALYST IS THE EVENT'S IDENTITY. There is no title field in the journal, so the catalyst
     # is the closest thing to a name and heads the block; the line below repeats it with its entry
     # date, because that pairing is the one a reader checks first.
-    L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"]
-    if note:
-        L.append(f"*{note}*")
+    L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"
+         + (f" · *{note}*" if note else "")]
     L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
     # RESOLUTION ON ITS OWN LINE. A catalyst is written as a bare present-tense phrase ("FDA
     # approves Gedatolisib") naming the thing being WAITED FOR, which on ev157 never happened at
@@ -258,17 +263,21 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
         return f"{t} {held[t] * 100:.1f}%" + (f" \u2192 {r * 100:+.1f}%" if r is not None else "")
 
     _unfunded = [t for t in vs_now if t not in held]
-    if held:
-        L.append("**Funded.** " + " · ".join(_tk(t) for t in sorted(held, key=lambda t: -held[t])))
-        L.append("**Not funded.** " + (", ".join(_unfunded) if _unfunded
-                                       else "\u2014 every vehicle of this event holds capital"))
-    else:
-        L.append("**Vehicles, none funded.** " + (", ".join(vs_now) or "(none)")
-                 + (f" · {len(vs)} over the event's life" if len(vs) != len(vs_now) else ""))
     money = ([f"{_money(per)} this period"] if per is not None else []) + \
             ([f"{_money(cum)} since it opened"] if cum is not None else [])
+    # ONE LINE FOR THE POSITION. What holds capital, what does not, and what it earned are three
+    # clauses of a single fact, and three separate lines made a two-ticker event look like a
+    # three-paragraph section.
+    if held:
+        _pos = ["**Funded.** " + ", ".join(_tk(t) for t in sorted(held, key=lambda t: -held[t]))]
+        if _unfunded:
+            _pos.append("**not funded** " + ", ".join(_unfunded))
+    else:
+        _pos = ["**No capital.** vehicles " + (", ".join(vs_now) or "(none)")
+                + (f", {len(vs)} tracked over its life" if len(vs) > len(vs_now) else "")]
     if money:
-        L.append("**Event P&L.** " + " · ".join(money))
+        _pos.append("**P&L** " + ", ".join(money))
+    L.append(" · ".join(_pos))
 
     if entry:
         # A carried-forward verdict must not be labelled "this scan": that would put words in the
