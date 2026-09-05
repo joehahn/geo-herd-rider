@@ -1449,8 +1449,58 @@ def _consolidate_events(events: dict, anchor=None) -> int:
 
 EVENT_NEWS_CAP = 20   # default; overridden by the profile's `event_news_cap` (see process_week)
 
+# WHICH ADMISSION RULE _filter_event USES. VERSIONED, not replaced, because a curation report
+# reconstructs the exact slice an agent read (src/curation_report.agent_inputs) and a silent change
+# here would make every existing report describe a slice that never happened. The version is stamped
+# with the curation, and a run curated before the stamp existed is version 1 by definition.
+#   1  ticker as a SUBSTRING anywhere, every catalyst word over 4 chars   (through 2026-09-05)
+#   2  ticker on WORD BOUNDARIES; catalyst keywords unchanged. Measured over 990 CBT event-weeks
+#      against the archived pools: slice precision -- the share of the 20 articles handed to an
+#      agent that mention one of its vehicles BY NAME -- rises 15.1% -> 23.1%.
+FILTER_VERSION = 2
+_NAME_CACHE: dict = {}
 
-def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
+
+def _name_tokens(arts: list) -> tuple[set, set]:
+    """(names, seen): which lowercase tokens this pool writes as NAMES, judged by its own body text.
+
+    THE PROBLEM. Catalyst keywords were every word over four characters, so "the Iran war disrupts
+    oil supplies" admitted on `supplies` and "FDA approves Gedatolisib" on `approves` -- 13 of the 14
+    articles that reached ev157's agent came in on that one word. The fix has to separate a NAME
+    (Hormuz, Medicare, Gedatolisib) from a press verb (approves, announces, supplies).
+
+    DOCUMENT FREQUENCY DOES NOT DO IT, measured on the 2026-04-27 pool and in the opposite direction
+    to the obvious guess: `supplies` appears in 0.6% of articles and `hormuz` in 14%. Rarity would
+    keep the junk word and drop the topical one.
+
+    CAPITALISATION DOES, read off the SNIPPET rather than the title -- headlines are Title Case, so
+    "Announces" looks like a name there (82 capitalised against 28 lowercase), while in body text it
+    is 11 against 15. On the same pool: hormuz 275:1, iran 336:2, medicare 12:0, gpu 7:0 -> names;
+    supplies 0:12, approves 0:1, potential 3:47, announces 11:15, ceasefire 14:100 -> generic.
+    Majority rule, so there is no threshold to tune and nothing fitted to this backtest.
+
+    A token the pool never writes at all is returned as unseen and treated as a name by the caller:
+    it can match nothing anyway, and a genuinely rare proper noun (Gedatolisib) must keep working.
+    """
+    key = (len(arts), str(arts[0].get("url", "")) if arts else "",
+           str(arts[-1].get("url", "")) if arts else "")
+    hit = _NAME_CACHE.get(key)
+    if hit is not None:
+        return hit
+    import collections as _c
+    cap, low = _c.Counter(), _c.Counter()
+    for a in arts:
+        for m in re.finditer(r"(?<![.!?]\s)(?<!^)\b([A-Za-z]{3,})\b", a.get("snippet") or ""):
+            tok = m.group(1)
+            (cap if tok[0].isupper() else low)[tok.lower()] += 1
+    out = ({w for w, c in cap.items() if c >= low.get(w, 0)}, set(cap) | set(low))
+    if len(_NAME_CACHE) > 8:
+        _NAME_CACHE.clear()
+    _NAME_CACHE[key] = out
+    return out
+
+
+def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = None):
     """The articles ONE event-agent re-reads this scan, BEST FIRST.
 
     Ranked, not merely truncated. This used to return `hits[:cap]` in pool order -- which the
@@ -1465,16 +1515,52 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP):
       +1  a GEM beat surfaced it                            -> the strategy's own early-gem vocabulary
       recency breaks ties.
     With the slice ranked, `cap` decides only HOW MUCH evidence is seen, not WHICH."""
+    version = FILTER_VERSION if version is None else int(version)
     veh = {v.lower() for v in event["vehicles"]}
     kws = [w for w in event["catalyst"].lower().replace(",", " ").split() if len(w) > 4]
+    if version >= 2:
+        # A TICKER IS A TOKEN, not a substring. Unanchored matching made `ung` match Samsung,
+        # plunge, hung, young and Hungary: on ev204 at 2026-04-27, 18 of the 20 articles handed to
+        # the agent were admitted and top-ranked this way, and only 2 of the 66 matched articles
+        # mentioned a vehicle as a word at all. The +3 "vehicle in the TITLE" bonus is the highest
+        # in this ranker, so the impostors outranked the real coverage.
+        _vrx = re.compile(r"\b(" + "|".join(re.escape(v) for v in sorted(veh)) + r")\b") if veh else None
+        _names, _seen = _name_tokens(arts)
+        # KEYWORDS ARE LEFT ALONE, and both ways of changing them were measured and rejected.
+        #
+        # RESTRICTING them to corpus-NAMES lifted slice precision to 31% and dropped 220 articles
+        # the agents had actually CITED; a hand audit of those found evidence, not junk -- a Red Sea
+        # freight-rate analysis for a Red Sea shipping event, "Trump, Japan's Takaichi sign deal to
+        # secure rare earths supply" for a rare-earth tariff event, "PIMCO Joins Chorus Warning of
+        # Regional Bank Failures" for a regional-bank event. Those reach the agent through the
+        # generic catalyst word and nothing else, because they name the COMPANY, never the ticker
+        # ("Ocugen", not OCGN). Dropping news to raise a precision number is the trade CLAUDE.md's
+        # knob rule exists to refuse.
+        #
+        # ADDING the name tokens to them looked free in aggregate (precision 21.6%, admitted pool
+        # unchanged) and is not. On ev157, "FDA approves Gedatolisib", it admits `fda`, which pulls
+        # in every FDA-approval headline in the corpus; each scores +2 for the keyword in its title,
+        # ties the one genuinely relevant article (Celcuity, +3 for the ticker) once the gem bonus
+        # lands, and beats it on the recency tie-break. The single on-topic article fell out of the
+        # top three. A term can be a proper name and still be generic inside its own beat.
+        #
+        # So version 2 changes the TICKER test and nothing else: it removes impostor matches without
+        # adding or removing an evidence class. What to do about generic catalyst words is still
+        # open, and is in TODO.
+
+        def _vhit(t):
+            return bool(_vrx and _vrx.search(t))
+    else:
+        def _vhit(t):
+            return any(v in t for v in veh)
     gem = _gem_beats()
     scored = []
     for a in arts:
         title = (a.get("title") or "").lower()
         hay = title + " " + (a.get("snippet") or "").lower()
-        if not (any(v in hay for v in veh) or any(k in hay for k in kws)):
+        if not (_vhit(hay) or any(k in hay for k in kws)):
             continue
-        s = (3 if any(v in title for v in veh) else 0)
+        s = (3 if _vhit(title) else 0)
         s += (2 if any(k in title for k in kws) else 0)
         # canonicalise the tag before intersecting: `gem` holds the CONFIGURED names, the article
         # holds whatever it was tagged with when retrieved. Renaming three beats on 2026-08-24

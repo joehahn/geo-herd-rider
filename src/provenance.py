@@ -462,8 +462,14 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
 # entry has to say WHY the journal is still trustworthy under the new code.
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    # src/agent.py's acceptance for cbt_3yr_v25_vehgate was REMOVED on 2026-09-05. It read "the
+    # journal is what today's gate-free code would produce", and _filter_event's ticker test moved
+    # to word boundaries that day, which changes the article slice every event-agent reads. That is
+    # a real behaviour change: this curation genuinely CANNOT be reproduced by today's code, and
+    # check_canon should say so until it is re-curated. The stamp records which filter version each
+    # run used (`code.filter_version`), so a report still reconstructs the slice its agents saw.
     "data/cbt_3yr_v25_vehgate": {
-        "src/agent.py":
+        "_src/agent.py_retired_2026-09-05":
             "95a7a21 REVERTS the vehicle gate. This run curated at f9f0c47, where the gate was "
             "present but fired 0 TIMES across 37 scans (the _prev baseline bug), so the journal is "
             "what today's gate-free code would produce. Accepted 2026-09-01. ALSO carries the "
@@ -539,6 +545,14 @@ def curator_code_id() -> dict:
         f = REPO_ROOT / rel
         if f.exists():
             out[rel] = hashlib.md5(f.read_bytes()).hexdigest()[:12]
+    # WHICH ADMISSION RULE THE EVENT-AGENTS' NEWS SLICE WAS BUILT WITH. A file hash says the code
+    # changed; this says WHICH BEHAVIOUR ran, and src/curation_report.py needs that to reconstruct
+    # the slice an agent actually read. A curation stamped before this key existed is version 1.
+    try:
+        import agent as _a
+        out["filter_version"] = int(getattr(_a, "FILTER_VERSION", 1))
+    except Exception:  # noqa: BLE001 -- provenance must import without the curator's dependencies
+        pass
     try:
         out["git"] = subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=REPO_ROOT,
                                     capture_output=True, text=True, timeout=10).stdout.strip() or "?"

@@ -2662,6 +2662,9 @@ def main(argv=None) -> int:
         # event-agent read. Absent for a run curated before archiving: the reports still build, they
         # just cannot show the inputs.
         archive_dir=(ROOT / a.run / "archive"),
+        # The news-filter behaviour this curation ACTUALLY ran under. Absent from a stamp written
+        # before the key existed, which is version 1 by definition.
+        filter_version=int((_stamp.get("code") or {}).get("filter_version", 1) or 1),
         corpus=((_bs_stamp.get("corpus") or {}).get("path", "bootstrap") if a.bootstrap
                 else str(a.corpus)))
     print(f"  reports: {len(_reps)} written to {_rep_dir.relative_to(ROOT)}", flush=True)

@@ -101,7 +101,8 @@ def _pct(panel, tickers, lo: str, hi: str) -> float | None:
     return (sum(rets) / len(rets)) if rets else None
 
 
-def agent_inputs(pool: list, e: dict, entry: dict, entries_before: list, cap: int):
+def agent_inputs(pool: list, e: dict, entry: dict, entries_before: list, cap: int,
+                 version: int = 1):
     """The article slice ONE event-agent read at this scan, reconstructed from the archived pool.
 
     THIS IS THE AGENT'S INPUT, and it was the one thing the report could not show. `sources` is what
@@ -125,8 +126,12 @@ def agent_inputs(pool: list, e: dict, entry: dict, entries_before: list, cap: in
     key = {"id": "x", "catalyst": e.get("catalyst") or "", "vehicles": veh}
     try:
         import agent as _agent
-        matched = _agent._filter_event(pool, key, cap=0)
-        got = _agent._filter_event(pool, key, cap=cap or 0)
+        # THE VERSION THE CURATION RAN, not today's. agent._filter_event was fixed on 2026-09-05
+        # (ticker matching moved to word boundaries) and reconstructing an older curation with the
+        # new rule would show a slice its agents never saw -- the report would be describing this
+        # week's code rather than that week's decision.
+        matched = _agent._filter_event(pool, key, cap=0, version=version)
+        got = _agent._filter_event(pool, key, cap=cap or 0, version=version)
     except Exception:  # noqa: BLE001 -- no archive, or a pool this code cannot read
         return [], 0, True
     cited = {u for u in (entry.get("sources") or []) if u}
@@ -522,8 +527,8 @@ details ul {{ font-size:13px; }}
 def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                   gain: dict, gain_series: dict, dates: list, capital: float,
                   run: str, fingerprint: str, corpus: str, profile: str,
-                  page_title: str, archive_dir=None, palette=None, back: str = "cbt.html"
-                  ) -> list[dict]:
+                  page_title: str, archive_dir=None, palette=None, back: str = "cbt.html",
+                  filter_version: int = 1) -> list[dict]:
     """Write one report per anchor into `out_dir`; return a row per report for the page's link table.
 
     THE DIRECTORY IS CLEARED FIRST, for this arm only. A cadence change moves every anchor date, so
@@ -610,7 +615,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             _hist = _ents[:-1]
             if not pool or not _cur:
                 return _hist, [], 0, True
-            _rd, _m, _ok = agent_inputs(pool, _e, _cur, _hist, ev_cap)
+            _rd, _m, _ok = agent_inputs(pool, _e, _cur, _hist, ev_cap, version=filter_version)
             return _hist, _rd, _m, _ok
         d1 = anchors[i + 1] if i + 1 < len(anchors) else None
         weights = _weights(r)
