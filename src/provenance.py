@@ -466,7 +466,11 @@ ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
         "src/agent.py":
             "95a7a21 REVERTS the vehicle gate. This run curated at f9f0c47, where the gate was "
             "present but fired 0 TIMES across 37 scans (the _prev baseline bug), so the journal is "
-            "what today's gate-free code would produce. Accepted 2026-09-01.",
+            "what today's gate-free code would produce. Accepted 2026-09-01. ALSO carries the "
+            "matcher/consolidation decision logging added 2026-09-05: both new call sites only READ "
+            "state and hand it to picker_log, which is a no-op unless --decisions is passed, so no "
+            "prompt, input or branch the curator takes is altered and this journal is still what "
+            "today's code produces. Accepted 2026-09-05.",
         "src/firehose.py":
             "liquidity floor, death-spiral exclusion and the resolved-entry gate all act in "
             "backtest() at the funding gate -- replay-side. scan() is untouched. Accepted 2026-09-01.",

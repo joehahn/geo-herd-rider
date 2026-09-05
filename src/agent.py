@@ -1346,6 +1346,34 @@ Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":tru
 "vehicles":["TICKER"],"sources":["url"]}."""
 
 
+def _log_match(anchor, candidates, live, assigned, fallback):
+    """Record one matcher decision. OFF unless --decisions is passed, exactly like the scout's log.
+
+    WHY THIS EXISTS. `decisions.jsonl` carried only `kind: "scout"` records, so a MERGE left no trace
+    anywhere: reconstructing one meant inferring it from the journal's vehicle sets after the fact.
+    That is how ev192 was found -- a Corvex GPU-lease event that absorbed three unrelated AI-chip
+    theses on 2026-02-26, dropped the one ticker connected to its catalyst, and then ran seven scans
+    reporting no news while booking +$27,339 from an unrelated rally. It took a hand trace to see it,
+    and nothing would have measured a fix.
+
+    The OPEN EVENTS are logged as well as the assignment, because the question an auditor asks is not
+    only "was this merge right" but "what else was on offer" -- a merge into the least-wrong of forty
+    open events reads differently from a merge into an obvious twin.
+    """
+    if not picker_log.enabled():
+        return
+    cat = {eid: ev.get("catalyst", "") for eid, ev in live.items()}
+    picker_log.log("match", {
+        "context": str(anchor.date()),
+        "fallback": bool(fallback),
+        "open": [{"id": eid, "catalyst": c} for eid, c in cat.items()],
+        "candidates": [{"ticker": c.get("ticker"), "thesis": c.get("thesis")} for c in candidates],
+        # the matched event's own catalyst rides along, so a record is judgeable on its own
+        "assigned": [{"ticker": tk, "event": ev, "matched_catalyst": cat.get(ev, "")}
+                     for tk, ev in assigned.items()],
+    })
+
+
 def match_to_events(client, anchor, candidates, events):
     """Map this week's candidates to existing open events (by id) or 'new'. One batched call."""
     if not candidates:
@@ -1369,12 +1397,15 @@ def match_to_events(client, anchor, candidates, events):
     except Exception as e:  # noqa: BLE001 -- any parse failure, not just JSONDecodeError
         print(f"  !! matcher returned unparseable JSON ({type(e).__name__}) at {anchor.date()}; "
               f"treating all {len(candidates)} candidate(s) as new", file=sys.stderr, flush=True)
-        return {c["ticker"]: "new" for c in candidates}
+        _fb = {c["ticker"]: "new" for c in candidates}
+        _log_match(anchor, candidates, live, _fb, fallback=True)
+        return _fb
     out = {}
     for m in matches:
         tk = str(m.get("ticker", "")).strip().upper()
         if tk:
             out[tk] = str(m.get("event", "new")).strip()
+    _log_match(anchor, candidates, live, out, fallback=False)
     return out
 
 
@@ -1384,7 +1415,7 @@ def _norm_catalyst(s: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", (s or "").lower()).strip()
 
 
-def _consolidate_events(events: dict) -> int:
+def _consolidate_events(events: dict, anchor=None) -> int:
     """Consolidation-of-agents pass (deterministic safety net for the per-candidate matcher's
     under-merges under load): merge LIVE events that share the SAME catalyst (normalized-identical)
     into the earliest one — fold the duplicates' vehicles in and retire them (status='merged', so they
@@ -1404,6 +1435,13 @@ def _consolidate_events(events: dict) -> int:
             events[keep_by_cat[key]]["vehicles"] |= ev["vehicles"]
             ev["status"] = "merged"
             merged += 1
+            # THE SECOND MERGE PATH, and it was as invisible as the matcher's. This one is
+            # deterministic and narrow (normalized-identical catalysts), so it is the safer of the
+            # two, but a reader auditing why two events became one needs to know WHICH path did it.
+            picker_log.log("consolidate", {
+                "context": str(anchor.date()) if anchor is not None else "",
+                "kept": keep_by_cat[key], "retired": eid, "catalyst": ev.get("catalyst", ""),
+                "vehicles_folded": sorted(ev["vehicles"])})
         else:
             keep_by_cat[key] = eid
     return merged
@@ -1783,7 +1821,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                   f"{len(_live)} live -> kept {len(keep & {e['id'] for e in _live})} (cap {max_events})",
                   file=sys.stderr, flush=True)
 
-    merged = _consolidate_events(events)                   # weekly dup-catalyst merge
+    merged = _consolidate_events(events, anchor)           # weekly dup-catalyst merge
     if merged:
         print(f"  consolidated {merged} duplicate-catalyst event(s) ({anchor.date()})", file=sys.stderr)
     live_events = [ev for ev in events.values() if ev["status"] == "live"]
