@@ -13,18 +13,20 @@
 
 ## Funded
 
-### ev111 · LRCX 40.0%, MU 18.0% · 3 vehicles, 2 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 9 of this event · +$16,545 this period · +$20,580 since it opened*
+### ev111 · aerospace demand lifts sales
+**Catalyst** entered 2025-02-01, still pending · scan 9 of this event · +$16,545 this period · +$20,580 since it opened
+**Funded.** LRCX 40.0% · MU 18.0%
+**Not funded.** BA, HWM, RKLB
 **This scan.** No demand slowdown or reversal; positive defense/space developments support thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban
-- RKLB Q1 sales top estimates
-- Defense ETFs rise on NATO drone clash
-- Roth lifts RKLB PT to $60
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban
+- 2025-06-01 · RKLB Q1 sales top estimates
+- 2025-07-01 · China lifts Boeing delivery ban -> RKLB Q1 sales top estimates  *(the agent stopped carrying this one)*
+- 2025-09-29 · Defense ETFs rise on NATO drone clash
+- 2025-09-29 · Roth lifts RKLB PT to $60
 **News claims.** Defense ETFs up on NATO alert; RTX Collins delivers NavHub units; Roth raises RKLB PT.
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/etfs/sector-etfs/25/09/47724736/why-3-defense-etfs-are-beating-wall-street-expectations-with-nato-on-high-alert
 - https://insidegnss.com/rtxs-collins-aerospace-delivers-first-navhub-200m-units-to-europe/
 - https://finance.yahoo.com/news/roth-capital-lifts-pt-rocket-142935477.html
@@ -62,12 +64,13 @@ Sources:
 
 </details>
 
-### ev154 · SMH 2.0% · 4 vehicles, 1 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 3 of this event · +$328 this period · +$328 since it opened*
+### ev154 · Samsung signs $16.5B deal for AI chips
+**Catalyst** entered 2025-07-31, still pending · scan 3 of this event · +$328 this period · +$328 since it opened
+**Funded.** SMH 2.0%
+**Not funded.** ARM, NVDA, SOXX
 **This scan.** No confirmation of the $16.5B Samsung AI chip deal; Nvidia greenlight for Samsung HBM3E is related but not the named catalyst.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/tech/25/09/47781962/nvidia-greenlights-samsungs-ai-chip-technology-sets-stage-for-hbm4-battle-report
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2025-07-31 · live · veh ARM,NVDA,SMH,SOXX · Catalyst pending; no confirmation or related developments in this week's news.
@@ -115,13 +118,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev115 · MYRUF
+### ev115 · acquires Red Basin Uranium Project
 *culled by max_watchlist 6 · its vehicles ran -1.1% over the period*
-**Catalyst** (still pending, entered 2025-03-03)**.** acquires Red Basin Uranium Project  
-*Scan 8 of this event*
+**Catalyst** entered 2025-03-03, still pending · scan 8 of this event
+**Vehicles.** MYRUF
 **This scan.** No news on MYRUF or Red Basin acquisition; sector uranium price surge and unrelated discoveries do not resolve catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Entered on acquisition of Red Basin Uranium Project
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-03-03 · Entered on acquisition of Red Basin Uranium Project
 **Exits when.** exit if/when Red Basin acquisition completes or is abandoned 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal
@@ -157,14 +160,14 @@ Sources:
 
 </details>
 
-### ev101 · AMZN, TLN · 4 over its life
+### ev101 · FERC finalizes Amazon nuclear deal
 *culled by max_watchlist 6 · its vehicles ran +4.4% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** FERC finalizes Amazon nuclear deal  
-*Scan 11 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 11 of this event
+**Vehicles.** AMZN, TLN · 4 over the event's life
 **This scan.** No FERC action on Amazon-Talen deal; catalyst remains pending amid broad nuclear/AI coverage.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Amazon remains committed to nuclear energy deal with Talen
-- Talen expands PPA with Amazon to 1,920 MW, explores SMR
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Amazon remains committed to nuclear energy deal with Talen
+- 2025-07-01 · Talen expands PPA with Amazon to 1,920 MW, explores SMR
 **Exits when.** exit if/when FERC finalizes or rejects Amazon-Talen nuclear deal 
 **Its journal going in** (10 earlier scans, as the agent re-read it).
 - …4 earlier scans, in the journal
@@ -200,13 +203,13 @@ Sources:
 
 </details>
 
-### ev132 · OLMA · 4 over its life
+### ev132 · Olema Pharmaceuticals advances Phase 3 trials
 *culled by max_watchlist 6 · its vehicles ran +10.5% over the period*
-**Catalyst** (still pending, entered 2025-06-01)**.** Olema Pharmaceuticals advances Phase 3 trials  
-*Scan 5 of this event*
+**Catalyst** entered 2025-06-01, still pending · scan 5 of this event
+**Vehicles.** OLMA · 4 over the event's life
 **This scan.** No OLMA-specific updates; Phase 3 catalyst remains pending with no resolution.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- H.C. Wainwright backs OLMA as Phase 3 trials advance
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · H.C. Wainwright backs OLMA as Phase 3 trials advance
 **Exits when.** exit if/when Phase 3 trial completes, fails or is halted 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2025-06-01 · live · veh OLMA · Catalyst live on analyst support for ongoing Phase 3 progress; no resolution yet.

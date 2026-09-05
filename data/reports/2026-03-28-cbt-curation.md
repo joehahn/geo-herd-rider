@@ -12,16 +12,17 @@
 
 ## Funded
 
-### ev204 · USO 40.0%, VLO 23.0% · 3 vehicles, 2 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** the Iran war disrupts oil supplies  
-*Scan 1 of this event · +$3,458 this period · +$3,458 since it opened*
+### ev204 · the Iran war disrupts oil supplies
+**Catalyst** entered 2026-03-28, still pending · scan 1 of this event · +$3,458 this period · +$3,458 since it opened
+**Funded.** USO 40.0% · VLO 23.0%
+**Not funded.** UNG
 **This scan.** Iran war and Hormuz blockade actively disrupting oil supplies; prices spiked, markets reacting.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Strait of Hormuz disrupted
-- Crude crosses $100
-- Iran war escalates supply fears
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-03-28 · Strait of Hormuz disrupted
+- 2026-03-28 · Crude crosses $100
+- 2026-03-28 · Iran war escalates supply fears
 **Exits when.** exit if/when Hormuz reopens or Iran supply disruption ends 
-Sources:
+Sources cited this scan:
 - https://www.econotimes.com/Asian-Equities-Plunge-as-Energy-Supply-Shock-Triggers-15B-Capital-Flight-1736293
 - https://www.newkerala.com/news/a/domestic-oil-companies-stocks-tumble-up-pc-as-681.htm
 - https://www.benzinga.com/markets/commodities/26/03/50982507/oil-prices-strike-of-hormuz-closure-goldman-sachs-analysis
@@ -52,9 +53,10 @@ Sources:
 
 </details>
 
-### ev207 · TSEM 37.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** expands 300mm capacity in Japan  
-*Scan 1 of this event · +$13,316 this period · +$13,316 since it opened*
+### ev207 · expands 300mm capacity in Japan
+**Catalyst** entered 2026-03-28, still pending · scan 1 of this event · +$13,316 this period · +$13,316 since it opened
+**Funded.** TSEM 37.0%
+**Not funded.** LSCC
 **This scan.** No news on the fixed catalyst; TSEM AI coverage unrelated.
 **Exits when.** exit if/when Japan 300mm capacity expansion is announced or completed 
 
@@ -93,10 +95,10 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev209 · AMAT, EPOW
+### ev209 · E-Power expands Vietnam anode production
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -2.0% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** E-Power expands Vietnam anode production  
-*Scan 1 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 1 of this event
+**Vehicles.** AMAT, EPOW
 **This scan.** No news on E-Power Vietnam anode expansion; catalyst pending.
 **Exits when.** exit if/when Vietnam anode expansion completes or is canceled 
 
@@ -125,18 +127,18 @@ Sources:
 
 </details>
 
-### ev214 · LEU, OKLO
+### ev214 · Centrus expands uranium enrichment capacity
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +36.3% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** Centrus expands uranium enrichment capacity  
-*Scan 1 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 1 of this event
+**Vehicles.** LEU, OKLO
 **This scan.** Catalyst live on announced capacity expansion and JV; no resolution yet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Centrus plans $560M Oak Ridge expansion
-- Centrus-Oklo JV announced for HALEU nuclear fuel
-- Centrus-Palantir partnership for enrichment expansion
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-03-28 · Centrus plans $560M Oak Ridge expansion
+- 2026-03-28 · Centrus-Oklo JV announced for HALEU nuclear fuel
+- 2026-03-28 · Centrus-Palantir partnership for enrichment expansion
 **News claims.** Announcements of expansion plans, Palantir partnership, and Oklo JV confirm active catalyst.
 **Exits when.** exit if/when Centrus Oak Ridge expansion completes or HALEU JV operational 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/centrus-energy-leu-announces-partnership-with-palantir-to-support-uranium-enrichment-expansion-1723694/
 - https://finance.yahoo.com/news/oklo-oklo-centrus-energy-leu-155406071.html
 - https://www.benzinga.com/trading-ideas/movers/26/03/51132622/oklo-centrus-eye-nuclear-fuel-powerhouse-in-ohio
@@ -167,10 +169,10 @@ Sources:
 
 </details>
 
-### ev208 · AMD, LRCX, MU, NLST, NXPI
+### ev208 · USTR probes South Korea semiconductor IP abuse
 *culled by max_watchlist 6 · its vehicles ran +36.7% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** USTR probes South Korea semiconductor IP abuse  
-*Scan 1 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 1 of this event
+**Vehicles.** AMD, LRCX, MU, NLST, NXPI
 **This scan.** No news on USTR South Korea IP probe; catalyst remains pending with zero developments this week.
 **Exits when.** exit if/when USTR probe concludes, is dropped, or IP ruling issued 
 

@@ -13,14 +13,15 @@
 
 ## Funded
 
-### ev6 · CME 33.0%
-**Catalyst** (still pending, entered 2023-09-10)**.** CME to launch APAC crypto reference rates  
-*Scan 1 of this event · +$817 this period · +$817 since it opened*
+### ev6 · CME to launch APAC crypto reference rates
+**Catalyst** entered 2023-09-10, still pending · scan 1 of this event · +$817 this period · +$817 since it opened
+**Funded.** CME 33.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Launch set for tomorrow; catalyst still pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CME and CF Benchmarks announce APAC Bitcoin and Ether reference rates for Sept 11 launch
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · CME and CF Benchmarks announce APAC Bitcoin and Ether reference rates for Sept 11 launch
 **Exits when.** exit if/when APAC crypto reference rates launch 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/pressreleases/23/08/n33886798/cme-group-and-cf-benchmarks-to-launch-apac-reference-rates-for-bitcoin-and-ether-on-september-11
 
 <details><summary>What it read this scan: 20 of 290 matching articles, capped at 20</summary>
@@ -48,15 +49,16 @@ Sources:
 
 </details>
 
-### ev4 · BLK 29.0% · 3 vehicles, 1 funded · 5 over its life
-**Catalyst** (still pending, entered 2023-09-10)**.** SEC approves a Bitcoin ETF  
-*Scan 1 of this event · -$1,177 this period · -$1,177 since it opened*
+### ev4 · SEC approves a Bitcoin ETF
+**Catalyst** entered 2023-09-10, still pending · scan 1 of this event · -$1,177 this period · -$1,177 since it opened
+**Funded.** BLK 29.0%
+**Not funded.** BTBT, GBTC
 **This scan.** Court win raises odds of eventual ETF approval but SEC decision itself remains pending; catalyst unresolved.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Grayscale wins court ruling vs SEC (Aug 29)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Grayscale wins court ruling vs SEC (Aug 29)
 **News claims.** Grayscale legal victory increases probability of spot Bitcoin ETF but does not constitute approval.
 **Exits when.** exit if/when SEC approves or rejects Bitcoin ETF 
-Sources:
+Sources cited this scan:
 - https://insidebitcoins.com/news/grayscales-landmark-legal-win-a-slaughterfest-of-sec-arguments-as-bitcoin-gbtc-surge-on-massive-day-for-crypto
 - https://www.coindesk.com/markets/2023/08/29/bitcoin-jumps-5-on-grayscale-ruling-crypto-related-stocks-soar-more-than-10/
 
@@ -96,15 +98,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev5 · SMH, TSM · 5 over its life
+### ev5 · US ramps up chip subsidy
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -0.8% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** US ramps up chip subsidy  
-*Scan 1 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 1 of this event
+**Vehicles.** SMH, TSM · 5 over the event's life
 **This scan.** Entry week on US chip subsidy ramp-up; policy shift noted but no resolution or reversal in news.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US shifts from trade war to subsidy war (Aug 2023)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · US shifts from trade war to subsidy war (Aug 2023)
 **Exits when.** exit if/when US chip subsidies are rolled back or significantly reduced 
-Sources:
+Sources cited this scan:
 - https://mg.co.za/thoughtleader/2023-08-28-us-shifts-from-a-trade-war-to-a-subsidy-war/
 
 <details><summary>What it read this scan: 20 of 47 matching articles, capped at 20</summary>
@@ -132,13 +134,13 @@ Sources:
 
 </details>
 
-### ev10 · NVDA, NVTS, TSM · 9 over its life
+### ev10 · AI demand lifts chipmakers
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -0.9% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** AI demand lifts chipmakers  
-*Scan 1 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 1 of this event
+**Vehicles.** NVDA, NVTS, TSM · 9 over the event's life
 **This scan.** Entry week; AI demand narrative active for NVDA/TSM with mixed macro signals.
 **Exits when.** exit if/when AI chip demand growth stalls or reverses 
-Sources:
+Sources cited this scan:
 - https://asia.nikkei.com/Business/Tech/Semiconductors/Nvidia-s-boom-gives-TSMC-a-lift-but-does-less-for-other-chipmakers
 - https://www.benzinga.com/news/small-cap/23/08/34007819/nvidia-king-of-ai-becomes-king-of-stock-market
 
@@ -167,10 +169,10 @@ Sources:
 
 </details>
 
-### ev13 · BA, LMT, RKLB · 5 over its life
+### ev13 · NASA awards double launch deal
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -5.4% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** NASA awards double launch deal  
-*Scan 1 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 1 of this event
+**Vehicles.** BA, LMT, RKLB · 5 over the event's life
 **This scan.** No relevant news on NASA award; thesis remains live on entry.
 **Exits when.** exit if/when NASA double launch deal is awarded or cancelled 
 

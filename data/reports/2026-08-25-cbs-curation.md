@@ -14,16 +14,17 @@
 
 ## Funded
 
-### ev245 · CRCL 40.0% · 5 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-08-25)**.** the US Treasury bond buyback plan boosts crypto  
-*Scan 1 of this event*
+### ev245 · the US Treasury bond buyback plan boosts crypto
+**Catalyst** entered 2026-08-25, still pending · scan 1 of this event
+**Funded.** CRCL 40.0%
+**Not funded.** COIN, MARA, MSTR, RIOT
 **This scan.** Fresh Treasury bond-buyback plan to cap yields is explicitly cited as driver of crypto rally and Bitcoin's move above $80k; catalyst remains live and under-the-radar in mainstream coverage.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US Treasury announces $1T General Account bond buyback plan
-- Bitcoin surges past $80,000 on debasement trade
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-08-25 · US Treasury announces $1T General Account bond buyback plan
+- 2026-08-25 · Bitcoin surges past $80,000 on debasement trade
 **News claims.** Bitcoin rally tied directly to Treasury Secretary Bessent's $1T bond-purchase plan; inflows and debasement trade cited as supporting factors.
 **Exits when.** exit if/when Treasury scales back bond buybacks or yields stabilize without crypto boost 
-Sources:
+Sources cited this scan:
 - https://www.forbes.com/sites/digital-assets/2026/08/25/youre-not-bullish-enough-bitcoin-is-suddenly-braced-for-a-1-trillion-price-game-changer/
 - https://www.forbes.com/sites/siladityaray/2026/08/25/bitcoin-crosses-80000-for-the-first-time-since-may-amid-crypto-bounce-back/
 
@@ -52,13 +53,14 @@ Sources:
 
 </details>
 
-### ev179 · MP 22.1% · 4 vehicles, 1 funded
-**Catalyst** (still pending, entered 2025-12-28)**.** US rare earth supply chain legislation passes  
-*Scan 10 of this event*
+### ev179 · US rare earth supply chain legislation passes
+**Catalyst** entered 2025-12-28, still pending · scan 10 of this event
+**Funded.** MP 22.1%
+**Not funded.** REMX, USAR, UUUU
 **This scan.** Legislation remains pending after eight months; executive funding and company activity continue without bill passage or rejection.
 **News claims.** Trump $1.55B rare earth push, $500M critical minerals funding, Lockheed supply chain efforts, MP/USAR/UUUU stock moves on deals and drones; no legislation enacted.
 **Exits when.** exit if/when US rare earth supply chain legislation passes or is rejected 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/trading-ideas/long-ideas/26/08/61392000/trump-rare-earth-lockheed-martin-rtx-northrop-grumman-stocks
 - https://www.defensenews.com/industry/2026/08/04/lockheed-seeks-us-mineral-supplies-after-trump-supply-chain-push-sources-say
 - https://www.tipranks.com/news/catalyst/energy-fuels-jumps-as-rare-earth-deal-momentum-builds
@@ -112,15 +114,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev253 · SIL, SILJ
+### ev253 · silver price surges in August
 *survived the cull, then the optimizer gave it no weight*
-**Catalyst** (still pending, entered 2026-08-25)**.** silver price surges in August  
-*Scan 1 of this event*
+**Catalyst** entered 2026-08-25, still pending · scan 1 of this event
+**Vehicles.** SIL, SILJ
 **This scan.** Silver price surge ongoing with miners and ETFs rallying sharply; catalyst remains live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Silver surges ~20% in August 2026
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-08-25 · Silver surges ~20% in August 2026
 **Exits when.** exit if/when silver price surge stalls or reverses 
-Sources:
+Sources cited this scan:
 - https://www.mining.com/silver-price-20-august-surge-sends-miners-soaring
 - https://tradingeconomics.com/commodity/silver
 
@@ -149,15 +151,15 @@ Sources:
 
 </details>
 
-### ev248 · AG, PAAS, SLV, VZLA
+### ev248 · Citi predicts silver surges to $90
 *survived the cull, then the optimizer gave it no weight*
-**Catalyst** (still pending, entered 2026-08-25)**.** Citi predicts silver surges to $90  
-*Scan 1 of this event*
+**Catalyst** entered 2026-08-25, still pending · scan 1 of this event
+**Vehicles.** AG, PAAS, SLV, VZLA
 **This scan.** Entry week on Citi silver forecast; silver names covered but no resolution of prediction.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Citi predicts silver surges to $90
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-08-25 · Citi predicts silver surges to $90
 **Exits when.** exit if/when Citi $90 silver forecast achieved or withdrawn 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/symbol/PAAS/comments
 - https://finance.yahoo.com/quote/AG
 - https://seekingalpha.com/article/4939140-pan-american-silver-deep-value-gold-and-silver-as-a-hedge-against-a-weak-us-dollar
@@ -188,13 +190,13 @@ Sources:
 
 </details>
 
-### ev259 · AVAV, KTOS, RCAT
+### ev259 · Trump announces drone tariffs
 *survived the cull, then the optimizer gave it no weight*
-**Catalyst** (still pending, entered 2026-08-25)**.** Trump announces drone tariffs  
-*Scan 1 of this event*
+**Catalyst** entered 2026-08-25, still pending · scan 1 of this event
+**Vehicles.** AVAV, KTOS, RCAT
 **This scan.** Entry week; drone policy/tariff wall article signals catalyst still pending.
 **Exits when.** exit if/when drone tariffs announced or signed 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/article/4938306-from-ban-to-tariff-wall-us-drone-policy-reshaping-global-supply-chain
 
 <details><summary>What it read this scan: 20 of 259 matching articles, capped at 20</summary>

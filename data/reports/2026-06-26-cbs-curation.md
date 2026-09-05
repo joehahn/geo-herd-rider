@@ -13,18 +13,20 @@
 
 ## Funded
 
-### ev230 · SLN 33.0% · 4 vehicles, 1 funded · 11 over its life
-**Catalyst** (still pending, entered 2026-05-27)**.** Potential new treatments  
-*Scan 2 of this event · +$69 this period · +$69 since it opened*
+### ev230 · Potential new treatments
+**Catalyst** entered 2026-05-27, still pending · scan 2 of this event · +$69 this period · +$69 since it opened
+**Funded.** SLN 33.0%
+**Not funded.** BFLY, ICCM, QURE
 **This scan.** Positive FDA signals, analyst upgrades, and commercial traction across multiple vehicles keep the potential new treatments catalyst live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- SNDX Stifel PT lift (May 4)
-- DARE Ovaprene Phase 3 interim positive (May 12)
-- BDTX stock climb (May 26)
-- IMUX new CEO for Phase 3 acceleration (May 27)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-05-27 · SNDX Stifel PT lift (May 4)
+- 2026-05-27 · DARE Ovaprene Phase 3 interim positive (May 12)
+- 2026-05-27 · BDTX stock climb (May 26)
+- 2026-05-27 · IMUX new CEO for Phase 3 acceleration (May 27)
+- 2026-06-26 · QURE FDA clears AMT-130 path (Jun 17)
+- 2026-06-26 · SLN Phase 2 data catalyst predicted (Jun 24)
 **Exits when.** exit if/when key trial data fails or approvals denied 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4604528-uniqure-stock-upgraded-cantor-fda-decision
 - https://www.benzinga.com/news/health-care/26/06/53251736/fda-signals-uniqure-huntington-gene-therapy-data-could-back-accelerated-approval
 - https://www.benzinga.com/analyst-stock-ratings/initiation/26/06/60080853/this-300-million-biotech-may-be-deeply-mispriced-analyst
@@ -58,9 +60,10 @@ Sources:
 
 </details>
 
-### ev209 · AMAT 14.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** E-Power expands Vietnam anode production  
-*Scan 5 of this event · -$2,123 this period · -$2,123 since it opened*
+### ev209 · E-Power expands Vietnam anode production
+**Catalyst** entered 2026-03-28, still pending · scan 5 of this event · -$2,123 this period · -$2,123 since it opened
+**Funded.** AMAT 14.0%
+**Not funded.** EPOW
 **This scan.** No news on E-Power Vietnam anode expansion; catalyst pending.
 **Exits when.** exit if/when Vietnam anode expansion completes or is canceled 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -113,15 +116,17 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev199 · HIMS, LLY, NVO
+### ev199 · Medicare covers obesity drugs
 *culled by max_watchlist 6 · its vehicles ran -5.6% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** Medicare covers obesity drugs  
-*Scan 6 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 6 of this event
+**Vehicles.** HIMS, LLY, NVO
 **This scan.** Catalyst remains pending; week's news covers global expansion and competition but no Medicare coverage decision.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31) -> Novo CEO: 15M new patients from Medicare coverage (Feb 12)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)  *(the agent stopped carrying this one)*
+- 2026-02-26 · Novo CEO: 15M new patients from Medicare coverage (Feb 12)  *(the agent stopped carrying this one)*
+- 2026-06-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31) -> Novo CEO: 15M new patients from Medicare coverage (Feb 12)
 **Exits when.** exit if/when Medicare coverage of obesity drugs is implemented or rejected 
-Sources:
+Sources cited this scan:
 - https://www.bostonglobe.com/2026/06/25/business/eli-lilly-obesity-drug-access-79-patient/
 - https://www.insidermonkey.com/blog/novo-nordisk-a-s-nvo-primary-owner-to-open-obesity-drug-incubators-across-europe-1787767/
 - https://finance.yahoo.com/healthcare/articles/eli-lilly-vs-novo-nordisk-172000769.html
@@ -158,10 +163,10 @@ Sources:
 
 </details>
 
-### ev195 · SONM
+### ev195 · NEXA asset sale closes
 *culled by max_watchlist 6 · its vehicles ran -44.7% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** NEXA asset sale closes  
-*Scan 6 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 6 of this event
+**Vehicles.** SONM
 **This scan.** No news on NEXA asset sale in any week; catalyst remains pending.
 **Exits when.** exit if/when NEXA asset sale closes or is abandoned 
 **Its journal going in** (5 earlier scans, as the agent re-read it).
@@ -196,16 +201,16 @@ Sources:
 
 </details>
 
-### ev190 · APLD, CVX, GEV, MSFT
+### ev190 · US power grid struggles with AI data center expansion
 *culled by max_watchlist 6 · its vehicles ran -10.1% over the period*
-**Catalyst** (still pending, entered 2026-01-27)**.** US power grid struggles with AI data center expansion  
-*Scan 7 of this event*
+**Catalyst** entered 2026-01-27, still pending · scan 7 of this event
+**Vehicles.** APLD, CVX, GEV, MSFT
 **This scan.** Structural grid bottleneck persists; new PPAs and turbine demand confirm ongoing constraints without relief or reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Google exec warns grid delays are top AI data center obstacle
-- Chevron-Microsoft sign 20-year gas plant PPA for AI data center
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-01-27 · Google exec warns grid delays are top AI data center obstacle
+- 2026-06-26 · Chevron-Microsoft sign 20-year gas plant PPA for AI data center
 **Exits when.** exit if/when grid constraints ease or major new capacity comes online 
-Sources:
+Sources cited this scan:
 - https://www.foreignpolicyjournal.com/2026/06/23/chevron-nyse-cvx-and-microsoft-nasdaq-msft-sign-20-year-power-deal-to-build-natural-gas-plant-for-ai-data-center/
 - https://www.foreignpolicyjournal.com/2026/06/22/chevron-nyse-cvx-to-power-microsoft-data-center-with-natural-gas-boosting-ge-vernova-nyse-gev-and-caterpillar-nyse-cat/
 - https://www.insidermonkey.com/blog/applied-digital-apld-completes-1-59b-private-offering-to-fund-ai-data-center-expansion-1787940/

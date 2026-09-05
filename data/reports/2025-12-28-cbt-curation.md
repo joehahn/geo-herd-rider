@@ -13,16 +13,19 @@
 
 ## Funded
 
-### ev111 · LMT 27.0%, RKLB 12.0% · 3 vehicles, 2 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 12 of this event · +$23,081 since it opened*
+### ev111 · aerospace demand lifts sales
+**Catalyst** entered 2025-02-01, still pending · scan 12 of this event · +$23,081 since it opened
+**Funded.** LMT 27.0% · RKLB 12.0%
+**Not funded.** BA, HWM
 **This scan.** No aerospace demand news or reversal this week; unrelated AI/semiconductor coverage.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban
-- RKLB Q1 sales top estimates
-- Defense ETFs rise on NATO drone clash
-- Roth lifts RKLB PT to $60
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban
+- 2025-06-01 · RKLB Q1 sales top estimates
+- 2025-07-01 · China lifts Boeing delivery ban -> RKLB Q1 sales top estimates  *(the agent stopped carrying this one)*
+- 2025-09-29 · Defense ETFs rise on NATO drone clash
+- 2025-09-29 · Roth lifts RKLB PT to $60
+- 2025-10-29 · Keybanc lifts RKLB PT on space systems growth
+- 2025-11-28 · RKLB Q3 sales beat estimates
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
 **Its journal going in** (11 earlier scans, as the agent re-read it).
 - …5 earlier scans, in the journal
@@ -74,10 +77,10 @@
 
 ## Not funded, the three that came closest
 
-### ev175 · BOIL, UNG · 3 over its life
+### ev175 · Record LNG export demand lifts US natural gas prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +75.5% over the period*
-**Catalyst** (still pending, entered 2025-11-28)**.** Record LNG export demand lifts US natural gas prices  
-*Scan 2 of this event*
+**Catalyst** entered 2025-11-28, still pending · scan 2 of this event
+**Vehicles.** BOIL, UNG · 3 over the event's life
 **This scan.** No relevant news on LNG exports or US natural gas prices this week; thesis remains live on pending demand catalyst.
 **Exits when.** exit if/when LNG export demand surge reverses or US natgas prices decline sharply 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -108,15 +111,15 @@
 
 </details>
 
-### ev182 · FMST
+### ev182 · receives exploration permit and announces gravity survey
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -0.4% over the period*
-**Catalyst** (still pending, entered 2025-12-28)**.** receives exploration permit and announces gravity survey  
-*Scan 1 of this event*
+**Catalyst** entered 2025-12-28, still pending · scan 1 of this event
+**Vehicles.** FMST
 **This scan.** Catalyst matches this week's announcement of the gravity survey by FMST; thesis remains live as survey execution and results are pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Announces upcoming ground gravity survey at Hatchet Lake
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-12-28 · Announces upcoming ground gravity survey at Hatchet Lake
 **Exits when.** exit if/when gravity survey results released or permit revoked 
-Sources:
+Sources cited this scan:
 - https://www.manilatimes.net/2025/12/04/tmt-newswire/globenewswire/foremost-clean-energy-announces-upcoming-ground-based-gravity-survey-at-its-hatchet-lake-uranium-project-athabasca-basin-saskatchewan/2237139
 
 <details><summary>What it read this scan: 20 of 147 matching articles, capped at 20</summary>
@@ -144,13 +147,13 @@ Sources:
 
 </details>
 
-### ev158 · WVE · 3 over its life
+### ev158 · FDA approval decision pending
 *culled by max_watchlist 6 · its vehicles ran -24.8% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** FDA approval decision pending  
-*Scan 6 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 6 of this event
+**Vehicles.** WVE · 3 over the event's life
 **This scan.** No WVE FDA decision announced; catalyst remains pending despite trial data move.
 **Exits when.** exit if/when FDA decision on WVE is announced 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/wave-life-wve-shares-nearly-194059773.html
 - https://www.rttnews.com/story.aspx?Id=3601911
 **Its journal going in** (5 earlier scans, as the agent re-read it).

@@ -13,13 +13,14 @@
 
 ## Funded
 
-### ev5 · TSM 34.0% · 5 vehicles, 1 funded
+### ev5 · US ramps up chip subsidy
 *vehicle also claimed by ev10, ev46*
-**Catalyst** (still pending, entered 2023-09-10)**.** US ramps up chip subsidy  
-*Scan 6 of this event · +$1,616 this period · +$4,629 since it opened*
+**Catalyst** entered 2023-09-10, still pending · scan 6 of this event · +$1,616 this period · +$4,629 since it opened
+**Funded.** TSM 34.0%
+**Not funded.** INTC, MU, NVDA, SMH
 **This scan.** No US chip subsidy policy news or reversal this week; structural driver intact.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US shifts from trade war to subsidy war (Aug 2023)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · US shifts from trade war to subsidy war (Aug 2023)
 **Exits when.** exit if/when US chip subsidies are rolled back or significantly reduced 
 **Its journal going in** (5 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh SMH,TSM · Entry week on US chip subsidy ramp-up; policy shift noted but no resolution or reversal in news.
@@ -53,12 +54,13 @@
 
 </details>
 
-### ev44 · ARVN 26.0% · 2 over its life
-**Catalyst** (still pending, entered 2024-02-07)**.** FDA approves Arvinas' breast cancer drug  
-*Scan 1 of this event · -$1,023 this period · -$1,023 since it opened*
+### ev44 · FDA approves Arvinas' breast cancer drug
+**Catalyst** entered 2024-02-07, still pending · scan 1 of this event · -$1,023 this period · -$1,023 since it opened
+**Funded.** ARVN 26.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst pending; no approval news this week. Arvinas remains in late-stage development per analyst coverage.
 **Exits when.** exit if/when FDA approves or rejects Arvinas breast cancer drug 
-Sources:
+Sources cited this scan:
 - https://www.cnbc.com/2024/02/01/goldman-gives-this-innovative-cancer-fighting-biotech-nearly-70percent-upside.html
 
 <details><summary>What it read this scan: 20 of 44 matching articles, capped at 20</summary>
@@ -88,16 +90,17 @@ Sources:
 
 ## Exited at this scan
 
-### ev48 · NVO 40.0% · 2 vehicles, 1 funded
+### ev48 · Mounjaro data shows liver disease efficacy
 *held going in · catalyst RESOLVED: Mounjaro MASH efficacy data released*
-**Catalyst** (RESOLVED 2024-02-07, entered 2024-02-07)**.** Mounjaro data shows liver disease efficacy  
-*Scan 1 of this event · +$228 since it opened*
+**Catalyst** entered 2024-02-07, RESOLVED 2024-02-07 · scan 1 of this event · +$228 since it opened
+**Funded.** NVO 40.0%
+**Not funded.** LLY
 **This scan.** Data release this week resolves the catalyst; LLY positioned as beneficiary.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Mounjaro data shows liver disease efficacy released
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Mounjaro data shows liver disease efficacy released
 **Exits when.** exit if/when Mounjaro liver disease data released `exit_case: Mounjaro MASH efficacy data released`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://www.marketwatch.com/articles/eli-lilly-stock-mounjaro-liver-disease-mash-63d06fc1
 
 <details><summary>What it read this scan: 20 of 291 matching articles, capped at 20</summary>
@@ -138,13 +141,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev49 · COST, DG, WMT
+### ev49 · Walmart expands store count
 *culled by max_watchlist 6 · its vehicles ran +7.9% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 1 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 1 of this event
+**Vehicles.** COST, DG, WMT
 **This scan.** No store-count news; catalyst pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/article/4667019-walmart-i-totally-underestimated-this-high-quality-omnichannel-retailer
 - https://www.marketwatch.com/story/costcos-january-sales-rise-4-5-with-big-boost-from-e-commerce-210322cb
 
@@ -173,17 +176,17 @@ Sources:
 
 </details>
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *culled by max_watchlist 6 · its vehicles ran +2.0% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 6 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 6 of this event
+**Vehicles.** CBU, MCO
 **This scan.** Ongoing CRE loss concerns persist with fresh NYCB downgrade and reserve hikes; exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
-- Report warns of up to $160B CRE losses for US banks
-- NYCB downgraded to junk by Moody's, boosts reserves 790%
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
+- 2024-01-08 · Report warns of up to $160B CRE losses for US banks
+- 2024-02-07 · NYCB downgraded to junk by Moody's, boosts reserves 790%
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
-Sources:
+Sources cited this scan:
 - https://news.yahoo.com/york-community-bancorp-downgrade-stokes-181057534.html
 - https://www.nytimes.com/2024/02/07/business/dealbook/banks-commercial-real-estate.html
 **Its journal going in** (5 earlier scans, as the agent re-read it).
@@ -218,19 +221,20 @@ Sources:
 
 </details>
 
-### ev26 · CCJ, UEC, UUUU · 11 over its life
+### ev26 · uranium demand lifts prices
 *culled by max_watchlist 6 · its vehicles ran +10.2% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 4 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 4 of this event
+**Vehicles.** CCJ, UEC, UUUU · 11 over the event's life
 **This scan.** Demand-driven price lift intact; supply warnings and restarts confirm no reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs
+- 2024-02-07 · UEC restarts Wyoming production
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://menafn.com/1107728605/Investornewsbreaks-Uranium-Energy-Corp-NYSE-American-UEC-Announces-Wyoming-Production-Restart
 - https://seekingalpha.com/news/4054788-worlds-top-uranium-producer-warns-of-supply-shortages-over-next-two-years
 - https://www.miningweekly.com/article/uranium-stocks-extend-surge-after-kazakh-miner-cuts-output-2024-02-02

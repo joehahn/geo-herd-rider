@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev84 · IDR 40.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-08-05)**.** Idaho Strategic presents at MicroCap Leadership Summit  
-*Scan 9 of this event · +$9,388 since it opened*
+### ev84 · Idaho Strategic presents at MicroCap Leadership Summit
+**Catalyst** entered 2024-08-05, still pending · scan 9 of this event · +$9,388 since it opened
+**Funded.** IDR 40.0%
+**Not funded.** PCSV
 **This scan.** No reports of the specific presentation occurring; unrelated microcap events noted.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-08-05 · Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
 **Exits when.** exit if/when Idaho Strategic presentation at MicroCap Leadership Summit concludes 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal
@@ -73,15 +74,15 @@
 
 ## Not funded, the three that came closest
 
-### ev118 · CTRE
+### ev118 · CareTrust REIT acquires $55M California facilities
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -0.0% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** CareTrust REIT acquires $55M California facilities  
-*Scan 1 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 1 of this event
+**Vehicles.** CTRE
 **This scan.** Acquisition announced; CTRE remains primary vehicle with positive passive-income coverage. No resolution or reversal observed.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CareTrust REIT acquires $55M California facilities
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · CareTrust REIT acquires $55M California facilities
 **Exits when.** exit if/when acquisition impact fully priced or deal terms revised 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/personal-finance/25/03/44549106/why-caretrust-genuine-parts-and-hess-midstream-are-winners-for-passive-income
 
 <details><summary>What it read this scan: 20 of 49 matching articles, capped at 20</summary>
@@ -109,13 +110,13 @@ Sources:
 
 </details>
 
-### ev119 · ASTS
+### ev119 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +17.9% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark  
-*Scan 1 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 1 of this event
+**Vehicles.** ASTS
 **This scan.** No news on catalyst; all coverage unrelated to ASTS deals.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 **Exits when.** exit if/when deals with 2degrees and Spark confirmed or fall through 
 
 <details><summary>What it read this scan: 20 of 78 matching articles, capped at 20</summary>
@@ -143,15 +144,15 @@ Sources:
 
 </details>
 
-### ev117 · CRWV, NVDA · 1 over its life
+### ev117 · CoreWeave files for Nasdaq IPO
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -16.0% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** CoreWeave files for Nasdaq IPO  
-*Scan 1 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 1 of this event
+**Vehicles.** CRWV, NVDA · 1 over the event's life
 **This scan.** CoreWeave IPO filing launches the event; NVDA exposure via GPU cloud demand remains live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CoreWeave files for Nasdaq IPO under CRWV
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · CoreWeave files for Nasdaq IPO under CRWV
 **Exits when.** exit if/when IPO completes or is withdrawn 
-Sources:
+Sources cited this scan:
 - https://biztoc.com/x/33ebfd976edc6149
 
 <details><summary>What it read this scan: 20 of 340 matching articles, capped at 20</summary>

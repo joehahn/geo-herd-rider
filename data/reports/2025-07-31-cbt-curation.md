@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev144 · ETHA 18.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** SEC decides on Ethereum ETF in-kind redemption  
-*Scan 1 of this event · +$3,857 this period · +$3,857 since it opened*
+### ev144 · SEC decides on Ethereum ETF in-kind redemption
+**Catalyst** entered 2025-07-31, still pending · scan 1 of this event · +$3,857 this period · +$3,857 since it opened
+**Funded.** ETHA 18.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst pending; no SEC decision reported.
 **Exits when.** exit if/when SEC rules on Ethereum ETF in-kind redemptions 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/etha-gains-325m-ethereum-etf-220000753.html
 - https://www.newsbtc.com/news/ethereum/blackrock-staking-for-its-spot-ethereum-etf-has-been-acknowledged/
 
@@ -47,14 +48,15 @@ Sources:
 
 </details>
 
-### ev157 · CELC 6.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** FDA approves Gedatolisib  
-*Scan 1 of this event · +$1,365 this period · +$1,365 since it opened*
+### ev157 · FDA approves Gedatolisib
+**Catalyst** entered 2025-07-31, still pending · scan 1 of this event · +$1,365 this period · +$1,365 since it opened
+**Funded.** CELC 6.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Trial success sets up pending FDA filing; catalyst unresolved.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-31 · Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
 **Exits when.** exit if/when FDA decision on Gedatolisib approval is announced 
-Sources:
+Sources cited this scan:
 - https://www.rttnews.com/story.aspx?Id=3558059
 
 <details><summary>What it read this scan: 3 of 3 matching articles</summary>
@@ -85,10 +87,10 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev154 · ARM, NVDA, SMH, SOXX · 10 over its life
+### ev154 · Samsung signs $16.5B deal for AI chips
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -2.3% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 1 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 1 of this event
+**Vehicles.** ARM, NVDA, SMH, SOXX · 10 over the event's life
 **This scan.** Catalyst pending; no confirmation or related developments in this week's news.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 
@@ -117,14 +119,14 @@ Sources:
 
 </details>
 
-### ev142 · LRCX, MU, NXPI, SMH, SOXX, TSM · 4 over its life
+### ev142 · Trump tariff changes affect chip exports
 *culled by max_watchlist 6 · its vehicles ran +2.2% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Trump tariff changes affect chip exports  
-*Scan 1 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 1 of this event
+**Vehicles.** LRCX, MU, NXPI, SMH, SOXX, TSM · 4 over the event's life
 **This scan.** Catalyst pending; no concrete tariff action on chips this week. News shows general tariff commentary and positive US manufacturing remarks from Nvidia/TSM.
 **News claims.** Tariff policy uncertainty noted by retailers and senators; no chip-specific export changes announced.
 **Exits when.** exit if/when specific Trump tariff changes on chip exports are announced or implemented 
-Sources:
+Sources cited this scan:
 - https://www.king5.com/article/news/politics/warning-us-canada-trade-war-deadline-looms/281-bff487db-2eda-4886-9f58-3020c6394d46
 - https://www.benzinga.com/markets/tech/25/07/46385856/nvidia-chief-jensen-huang-says-trumps-move-to-manufacture-in-the-us-is-exactly-the-right-thing-ameri
 - https://www.insidermonkey.com/blog/taiwan-semiconductor-manufacturing-company-limited-tsm-has-the-right-approach-in-dealing-with-president-trump-says-jim-cramer-1567415/
@@ -154,14 +156,14 @@ Sources:
 
 </details>
 
-### ev101 · AMZN, TLN · 4 over its life
+### ev101 · FERC finalizes Amazon nuclear deal
 *culled by max_watchlist 6 · its vehicles ran -2.2% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** FERC finalizes Amazon nuclear deal  
-*Scan 9 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 9 of this event
+**Vehicles.** AMZN, TLN · 4 over the event's life
 **This scan.** No FERC action on Amazon-Talen deal; catalyst remains pending amid unrelated nuclear and AI coverage.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Amazon remains committed to nuclear energy deal with Talen
-- Talen expands PPA with Amazon to 1,920 MW, explores SMR
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Amazon remains committed to nuclear energy deal with Talen
+- 2025-07-01 · Talen expands PPA with Amazon to 1,920 MW, explores SMR
 **Exits when.** exit if/when FERC finalizes or rejects Amazon-Talen nuclear deal 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal

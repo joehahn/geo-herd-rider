@@ -14,9 +14,10 @@
 
 ## Funded
 
-### ev137 · CRCL 12.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2025-07-01)**.** SEC approves Gemini's IPO  
-*Scan 1 of this event · -$394 this period · -$394 since it opened*
+### ev137 · SEC approves Gemini's IPO
+**Catalyst** entered 2025-07-01, still pending · scan 1 of this event · -$394 this period · -$394 since it opened
+**Funded.** CRCL 12.0%
+**Not funded.** COIN, HODL
 **This scan.** No developments on Gemini IPO; unrelated crypto headlines dominate week.
 **Exits when.** exit if/when SEC approves or denies Gemini IPO 
 
@@ -45,13 +46,14 @@
 
 </details>
 
-### ev93 · MSFT 3.0% · 2 vehicles, 1 funded
+### ev93 · Microsoft invests in Bitcoin
 *vehicle also claimed by ev101*
-**Catalyst** (still pending, entered 2024-12-03)**.** Microsoft invests in Bitcoin  
-*Scan 8 of this event · +$109 this period · +$109 since it opened*
+**Catalyst** entered 2024-12-03, still pending · scan 8 of this event · +$109 this period · +$109 since it opened
+**Funded.** MSFT 3.0%
+**Not funded.** MSTR
 **This scan.** No Microsoft board decision or Bitcoin investment news; catalyst remains pending after seven months.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Michael Saylor to advocate Bitcoin at Microsoft board meeting
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Michael Saylor to advocate Bitcoin at Microsoft board meeting
 **Exits when.** exit if/when Microsoft board decides on or rejects Bitcoin investment 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal
@@ -89,13 +91,14 @@
 
 ## Exited at this scan
 
-### ev102 · CALX 3.0% · 2 vehicles, 1 funded
+### ev102 · Tera Software wins BharatNet project
 *held going in · no stated reason*
-**Catalyst** (still pending, entered 2024-12-03)**.** Tera Software wins BharatNet project  
-*Scan 8 of this event · +$967 since it opened*
+**Catalyst** entered 2024-12-03, still pending · scan 8 of this event · +$967 since it opened
+**Funded.** CALX 3.0%
+**Not funded.** TERA
 **This scan.** No relevant news; catalyst remains unconfirmed and pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Tera Software wins BharatNet project
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Tera Software wins BharatNet project
 **Exits when.** exit if/when BharatNet award reversed or cancelled 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal
@@ -144,13 +147,15 @@
 
 ## Not funded, the three that came closest
 
-### ev111 · BA, HWM, RKLB · 10 over its life
+### ev111 · aerospace demand lifts sales
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +5.0% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 6 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 6 of this event
+**Vehicles.** BA, HWM, RKLB · 10 over the event's life
 **This scan.** No aerospace demand news or reversal this week; trade-war coverage unrelated to thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban -> RKLB Q1 sales top estimates
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban  *(the agent stopped carrying this one)*
+- 2025-06-01 · RKLB Q1 sales top estimates  *(the agent stopped carrying this one)*
+- 2025-07-01 · China lifts Boeing delivery ban -> RKLB Q1 sales top estimates
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
 **Its journal going in** (5 earlier scans, as the agent re-read it).
 - 2025-02-01 · live · veh HWM · Entry week on aerospace demand thesis; CNBC highlights under-the-radar aerospace compounder with wide moat. No reversal or resolution in news flow.
@@ -184,13 +189,13 @@
 
 </details>
 
-### ev119 · ASTS
+### ev119 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 *culled by max_watchlist 6 · its vehicles ran +17.9% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark  
-*Scan 4 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 4 of this event
+**Vehicles.** ASTS
 **This scan.** No news on the specific 2degrees/Spark deals this week or prior; unrelated ASTS coverage and spectrum settlement do not address catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 **Exits when.** exit if/when deals with 2degrees and Spark confirmed or fall through 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2025-04-02 · live · veh ASTS · No news on catalyst; all coverage unrelated to ASTS deals.
@@ -222,15 +227,15 @@
 
 </details>
 
-### ev136 · GM, TM
+### ev136 · Trump's tariffs on rare earth metals
 *culled by max_watchlist 6 · its vehicles ran +58.7% over the period*
-**Catalyst** (still pending, entered 2025-07-01)**.** Trump's tariffs on rare earth metals  
-*Scan 1 of this event*
+**Catalyst** entered 2025-07-01, still pending · scan 1 of this event
+**Vehicles.** GM, TM
 **This scan.** Catalyst entry week; ongoing US-China rare earth tensions support thesis with GM/TM exposure.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US-China trade talks amid rare earths dispute (Jun 2025)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-01 · US-China trade talks amid rare earths dispute (Jun 2025)
 **Exits when.** exit if/when US-China deal resolves rare earth tariffs or curbs lifted 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/news/politics/25/06/45857954/us-china-trade-talks-in-london-enter-second-day-amid-rare-earths-dispute-and-export-control-tensions
 - https://www.benzinga.com/markets/tech/25/06/45763345/amid-us-china-trade-war-global-automakers-warn-beijings-curbs-on-rare-earth-metals-could-significantly-impact-production
 

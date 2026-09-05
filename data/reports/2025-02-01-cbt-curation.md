@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev108 · BKSY 15.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2025-02-01)**.** Trump's Mars vision lifts space stocks  
-*Scan 1 of this event · -$4,165 this period · -$4,165 since it opened*
+### ev108 · Trump's Mars vision lifts space stocks
+**Catalyst** entered 2025-02-01, still pending · scan 1 of this event · -$4,165 this period · -$4,165 since it opened
+**Funded.** BKSY 15.0%
+**Not funded.** RKLB
 **This scan.** No Mars-related news; RKLB/BKSY coverage is operational only.
 **Exits when.** exit if/when Trump's Mars vision announcement fails to materialize or is delayed indefinitely 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/is-rocket-lab-usa-rklb-among-the-unstoppable-growth-stocks-to-buy-according-to-reddit-1434958/
 - https://www.insidermonkey.com/blog/blacksky-technology-inc-bksy-prepares-for-february-launch-of-first-gen-3-satellite-advancing-high-resolution-space-based-intelligence-1432156/
 - https://seekingalpha.com/news/4397828-rocket-lab-provides-support-for-firefly-aerospaces-moon-mission
@@ -51,16 +52,16 @@ Sources:
 
 ## Exited at this scan
 
-### ev90 · AMD, AVGO, NVDA, SOXX, TSM
+### ev90 · Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025
 *held going in · catalyst RESOLVED: CES 2025 passed; RTX 5090 unveiling due date elapsed*
-**Catalyst** (RESOLVED 2025-02-01, entered 2024-12-03)**.** Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025  
-*Scan 3 of this event*
+**Catalyst** entered 2024-12-03, RESOLVED 2025-02-01 · scan 3 of this event
+**Vehicles.** AMD, AVGO, NVDA, SOXX, TSM
 **This scan.** Catalyst resolved by passage of CES 2025; no unveiling news or cancellation reported
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nvidia set to unveil RTX 5090 AI GPUs at CES 2025
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Nvidia set to unveil RTX 5090 AI GPUs at CES 2025
 **Exits when.** exit if/when RTX 5090 unveiled at CES 2025 or event canceled `exit_case: CES 2025 passed; RTX 5090 unveiling due date elapsed`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/equities/25/01/42967114/what-does-joe-bidens-last-minute-chip-export-restrictions-mean-for-nvidia-that-has-jensen-huang-led-ai-giant-up-in-arms
 - https://www.benzinga.com/25/01/42924519/nvidia-amd-broadcom-lead-semiconductor-stock-decline-amid-us-china-ai-chip-export-ban-concerns-amd-downgraded-by-goldman-sachs-and-more
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -106,17 +107,17 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev92 · COIN, HOOD, MSTR
+### ev92 · US election results affect crypto policies
 *culled by max_watchlist 6 · its vehicles ran -21.4% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** US election results affect crypto policies  
-*Scan 3 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 3 of this event
+**Vehicles.** COIN, HOOD, MSTR
 **This scan.** Election-driven policy catalyst remains pending; executive order issued but no legislation passed or blocked.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Election results pro-crypto but no concrete policy action yet
-- Trump considers strategic Bitcoin reserve
-- Trump signs executive order creating Presidential Working Group on digital assets
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-01-02 · Election results pro-crypto but no concrete policy action yet
+- 2025-01-02 · Trump considers strategic Bitcoin reserve
+- 2025-02-01 · Trump signs executive order creating Presidential Working Group on digital assets
 **Exits when.** exit if/when major crypto policy legislation is passed or blocked 
-Sources:
+Sources cited this scan:
 - https://www.fxstreet.com/cryptocurrencies/news/bitcoin-could-resume-rally-as-trump-signs-executive-order-calls-us-a-crypto-and-ai-hub-202501232240
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2024-12-03 · live · veh COIN,HOOD · Election results pro-crypto but no concrete policy action yet; news this week unrelated to catalyst.
@@ -147,13 +148,13 @@ Sources:
 
 </details>
 
-### ev111 · HWM · 10 over its life
+### ev111 · aerospace demand lifts sales
 *culled by max_watchlist 6 · its vehicles ran -6.7% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 1 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 1 of this event
+**Vehicles.** HWM · 10 over the event's life
 **This scan.** Entry week on aerospace demand thesis; CNBC highlights under-the-radar aerospace compounder with wide moat. No reversal or resolution in news flow.
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
-Sources:
+Sources cited this scan:
 - https://www.cnbc.com/2025/01/15/stockstory-this-under-the-radar-aerospace-stock-is-a-quality-compounder-with-a-wide-moat.html
 
 <details><summary>What it read this scan: 20 of 143 matching articles, capped at 20</summary>
@@ -181,13 +182,13 @@ Sources:
 
 </details>
 
-### ev84 · IDR, PCSV
+### ev84 · Idaho Strategic presents at MicroCap Leadership Summit
 *culled by max_watchlist 6 · its vehicles ran -16.2% over the period*
-**Catalyst** (still pending, entered 2024-08-05)**.** Idaho Strategic presents at MicroCap Leadership Summit  
-*Scan 7 of this event*
+**Catalyst** entered 2024-08-05, still pending · scan 7 of this event
+**Vehicles.** IDR, PCSV
 **This scan.** No reports of Idaho Strategic presentation occurring or concluding; this week's microcap conference announcements are unrelated events.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-08-05 · Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
 **Exits when.** exit if/when Idaho Strategic presentation at MicroCap Leadership Summit concludes 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2024-08-05 · live · veh IDR,PCSV · Catalyst pending; presentation not yet occurred.

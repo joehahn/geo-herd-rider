@@ -18,13 +18,13 @@
 
 ## Exited at this scan
 
-### ev239 · ASST
+### ev239 · Strive raises $4.2B for Bitcoin accumulation
 *held going in · exit condition met: Strive $4.2B raise shows zero progress or coverage after 4 weeks*
-**Catalyst** (thesis dead 2026-07-26, entered 2026-06-26)**.** Strive raises $4.2B for Bitcoin accumulation  
-*Scan 2 of this event*
+**Catalyst** entered 2026-06-26, thesis dead 2026-07-26 · scan 2 of this event
+**Vehicles.** ASST
 **This scan.** Catalyst entered with no supporting news; four weeks of MSTR-focused coverage contain zero mentions of Strive or the raise, leaving the thesis without observable momentum or confirmation.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Strive raises $4.2B for Bitcoin accumulation (entry)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-06-26 · Strive raises $4.2B for Bitcoin accumulation (entry)
 **Exits when.** exit if/when Strive $4.2B raise completes or is abandoned `exit_case: Strive $4.2B raise shows zero progress or coverage after 4 weeks`
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2026-06-26 · live · veh ASST,CLSK,MSTR · Catalyst entered this week with no supporting news or resolution.
@@ -67,15 +67,15 @@
 
 ## Not funded, the three that came closest
 
-### ev251 · MELI
+### ev251 · MercadoLibre's fintech expansion drives growth
 *survived the cull, then the optimizer gave it no weight*
-**Catalyst** (still pending, entered 2026-07-26)**.** MercadoLibre's fintech expansion drives growth  
-*Scan 1 of this event*
+**Catalyst** entered 2026-07-26, still pending · scan 1 of this event
+**Vehicles.** MELI
 **This scan.** Entry week; positive analyst coverage on MELI fintech/credit card growth supports ongoing catalyst with no resolution.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- BofA highlights MELI credit card growth and fintech expansion
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-07-26 · BofA highlights MELI credit card growth and fintech expansion
 **Exits when.** exit if/when fintech expansion shows reversal or slowdown in growth metrics 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/bofa-highlights-mercadolibre-inc-meli-credit-card-growth-and-fintech-expansion-1795228/
 - https://www.insidermonkey.com/blog/is-mercadolibre-meli-one-of-the-most-promising-fintech-stocks-to-buy-1800789/
 - https://finance.yahoo.com/markets/stocks/articles/wall-street-missed-plot-meli-184515220.html
@@ -105,13 +105,13 @@ Sources:
 
 </details>
 
-### ev249 · NAKA
+### ev249 · Nakamoto completes pivot to Bitcoin
 *culled by max_watchlist 6*
-**Catalyst** (still pending, entered 2026-06-26)**.** Nakamoto completes pivot to Bitcoin  
-*Scan 2 of this event*
+**Catalyst** entered 2026-06-26, still pending · scan 2 of this event
+**Vehicles.** NAKA
 **This scan.** No news on Nakamoto or NAKA; pivot status unchanged and pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nakamoto sells $48M BTC to cut debt and authorize buyback
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-06-26 · Nakamoto sells $48M BTC to cut debt and authorize buyback
 **Exits when.** exit if/when Nakamoto pivot to Bitcoin completes or reverses 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2026-06-26 · live · veh NAKA · Entry week on Nakamoto pivot catalyst; NAKA actions align with treasury shift while MSTR continues parallel accumulation.
@@ -141,10 +141,10 @@ Sources:
 
 </details>
 
-### ev175 · BATL, BOIL, UNG
+### ev175 · Record LNG export demand lifts US natural gas prices
 *culled by max_watchlist 6*
-**Catalyst** (still pending, entered 2025-11-28)**.** Record LNG export demand lifts US natural gas prices  
-*Scan 9 of this event*
+**Catalyst** entered 2025-11-28, still pending · scan 9 of this event
+**Vehicles.** BATL, BOIL, UNG
 **This scan.** No LNG export demand news; catalyst still pending after quiet stretch.
 **Exits when.** exit if/when LNG export demand surge reverses or US natgas prices decline sharply 
 **Its journal going in** (8 earlier scans, as the agent re-read it).

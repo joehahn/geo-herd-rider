@@ -12,18 +12,22 @@
 
 ## Funded
 
-### ev26 · CCJ 40.0%, URA 11.0% · 3 vehicles, 2 funded · 11 over its life
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 12 of this event*
+### ev26 · uranium demand lifts prices
+**Catalyst** entered 2023-11-09, still pending · scan 12 of this event
+**Funded.** CCJ 40.0% · URA 11.0%
+**Not funded.** UEC, UUUU
 **This scan.** Structural demand driver intact; Microsoft deal and UEC asset purchase add fresh milestones with no reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs  *(the agent stopped carrying this one)*
+- 2024-02-07 · UEC restarts Wyoming production  *(the agent stopped carrying this one)*
+- 2024-03-08 · Ur-Energy announces two new uranium sales agreements
+- 2024-03-08 · enCore Energy first shipment from Rosita plant
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://www.miningweekly.com/article/uec-buys-rio-tintos-wyoming-uranium-assets-for-175m-2024-09-23
 - https://www.benzinga.com/news/large-cap/24/10/41162882/2-uranium-stocks-fueling-growth-from-the-nuclear-power-surge
 **Its journal going in** (11 earlier scans, as the agent re-read it).
@@ -60,9 +64,10 @@ Sources:
 
 </details>
 
-### ev59 · VRT 30.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** infrastructure spending lifts electric utility contractors  
-*Scan 8 of this event*
+### ev59 · infrastructure spending lifts electric utility contractors
+**Catalyst** entered 2024-03-08, still pending · scan 8 of this event
+**Funded.** VRT 30.0%
+**Not funded.** MYRG
 **This scan.** No bill action in news; catalyst remains pending.
 **Exits when.** exit if/when infrastructure spending bill passes or is rejected 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
@@ -101,10 +106,11 @@ Sources:
 
 ## Exited at this scan
 
-### ev49 · WMT 20.0% · 3 vehicles, 1 funded
+### ev49 · Walmart expands store count
 *held going in · no stated reason*
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 9 of this event · +$3,645 since it opened*
+**Catalyst** entered 2024-02-07, still pending · scan 9 of this event · +$3,645 since it opened
+**Funded.** WMT 20.0%
+**Not funded.** COST, DG
 **This scan.** No store-count developments; catalyst remains pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
@@ -151,18 +157,18 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev72 · KMI
+### ev72 · AI lifts natural gas demand
 *culled by max_watchlist 6 · its vehicles ran +3.6% over the period*
-**Catalyst** (still pending, entered 2024-05-07)**.** AI lifts natural gas demand  
-*Scan 6 of this event*
+**Catalyst** entered 2024-05-07, still pending · scan 6 of this event
+**Vehicles.** KMI
 **This scan.** Nvidia CEO cites insane Blackwell demand; no reversal in AI gas demand growth.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- KMI Q1 earnings highlight AI gas demand boost (Apr 2024)
-- Goldman Sachs highlights pipeline profits from data centers (May 2024)
-- TRP reports record deliveries tied to power demand (May 2024)
-- Power sector drives US natural gas demand growth (Jul 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · KMI Q1 earnings highlight AI gas demand boost (Apr 2024)
+- 2024-05-07 · Goldman Sachs highlights pipeline profits from data centers (May 2024)
+- 2024-05-07 · TRP reports record deliveries tied to power demand (May 2024)
+- 2024-08-05 · Power sector drives US natural gas demand growth (Jul 2024)
 **Exits when.** exit if/when AI-driven gas demand growth reverses or stalls 
-Sources:
+Sources cited this scan:
 - https://www.investopedia.com/watch-these-nvidia-stock-price-levels-after-ceo-cites-insane-demand-for-ai-chips-8722487/
 - https://qz.com/nvidia-stock-jensen-huang-demand-ai-chip-blackwell-1851664485
 - https://www.marketscreener.com/quote/stock/JABIL-INC-13153/news/Jabil-Acquires-Mikros-Technologies-to-Support-Demand-for-Liquid-Cooling-in-AI-Data-Centers-47992555/
@@ -198,14 +204,14 @@ Sources:
 
 </details>
 
-### ev43 · COIN, MARA, MSTR
+### ev43 · US passes stablecoin legislation
 *culled by max_watchlist 6 · its vehicles ran +12.0% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** US passes stablecoin legislation  
-*Scan 9 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 9 of this event
+**Vehicles.** COIN, MARA, MSTR
 **This scan.** Legislation remains pending with no passage or vote; this week's news covers unrelated stablecoin activity only.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
-- US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
+- 2024-03-08 · US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
 **Exits when.** exit if/when stablecoin legislation passes or is voted down 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal
@@ -241,13 +247,13 @@ Sources:
 
 </details>
 
-### ev47 · FCX, IE
+### ev47 · copper miner sees 120% upside
 *culled by max_watchlist 6 · its vehicles ran +4.4% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** copper miner sees 120% upside  
-*Scan 9 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 9 of this event
+**Vehicles.** FCX, IE
 **This scan.** No news on IE 120% upside realization or reversal; unrelated copper mentions do not impact thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Copper analyst sees 120% upside on small-cap play
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Copper analyst sees 120% upside on small-cap play
 **Exits when.** exit if/when small-cap copper miner's 120% upside is realized or outlook reverses 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal

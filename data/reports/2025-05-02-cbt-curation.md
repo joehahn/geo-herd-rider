@@ -13,9 +13,10 @@
 
 ## Funded
 
-### ev111 · HWM 40.0% · 2 vehicles, 1 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 4 of this event · +$3,386 this period · +$3,386 since it opened*
+### ev111 · aerospace demand lifts sales
+**Catalyst** entered 2025-02-01, still pending · scan 4 of this event · +$3,386 this period · +$3,386 since it opened
+**Funded.** HWM 40.0%
+**Not funded.** BA
 **This scan.** No aerospace demand news or reversal this week; trade-war oil/energy demand weakness unrelated to thesis.
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -60,13 +61,13 @@
 
 ## Not funded, the three that came closest
 
-### ev109 · CEG
+### ev109 · $16B Calpine acquisition closes
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +24.0% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** $16B Calpine acquisition closes  
-*Scan 4 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 4 of this event
+**Vehicles.** CEG
 **This scan.** No closing news; acquisition remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Constellation announces $16B Calpine acquisition
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-02-01 · Constellation announces $16B Calpine acquisition
 **Exits when.** exit if/when Calpine acquisition closes or is terminated 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2025-02-01 · live · veh CEG · Deal announced but closing remains pending; CEG is the direct vehicle.
@@ -98,13 +99,13 @@
 
 </details>
 
-### ev119 · ASTS
+### ev119 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -12.7% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark  
-*Scan 2 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 2 of this event
+**Vehicles.** ASTS
 **This scan.** No news on catalyst; all coverage unrelated to ASTS deals.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 **Exits when.** exit if/when deals with 2degrees and Spark confirmed or fall through 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2025-04-02 · live · veh ASTS · No news on catalyst; all coverage unrelated to ASTS deals.
@@ -134,15 +135,15 @@
 
 </details>
 
-### ev117 · CRWV, NVDA · 1 over its life
+### ev117 · CoreWeave files for Nasdaq IPO
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +115.8% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** CoreWeave files for Nasdaq IPO  
-*Scan 2 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 2 of this event
+**Vehicles.** CRWV, NVDA · 1 over the event's life
 **This scan.** IPO filing remains pending with no completion or withdrawal; CRWV draws fresh analyst coverage and Cramer commentary tied to AI/GPU demand.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CoreWeave files for Nasdaq IPO under CRWV
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · CoreWeave files for Nasdaq IPO under CRWV
 **Exits when.** exit if/when IPO completes or is withdrawn 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/25/04/44932684/coreweaves-first-mover-advantage-and-gpu-expertise-drive-strong-growth-analysts-say
 - https://finance.yahoo.com/news/coreweave-inc-crwv-jim-cramer-200332850.html
 **Its journal going in** (1 earlier scan, as the agent re-read it).

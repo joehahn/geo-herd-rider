@@ -13,15 +13,16 @@
 
 ## Funded
 
-### ev5 · NVDA 40.0% · 5 vehicles, 1 funded
+### ev5 · US ramps up chip subsidy
 *vehicle also claimed by ev10*
-**Catalyst** (still pending, entered 2023-09-10)**.** US ramps up chip subsidy  
-*Scan 5 of this event · +$3,421 this period · +$3,421 since it opened*
+**Catalyst** entered 2023-09-10, still pending · scan 5 of this event · +$3,421 this period · +$3,421 since it opened
+**Funded.** NVDA 40.0%
+**Not funded.** INTC, MU, SMH, TSM
 **This scan.** No subsidy policy news or reversal this week; structural driver intact with no concrete milestone passed.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US shifts from trade war to subsidy war (Aug 2023)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · US shifts from trade war to subsidy war (Aug 2023)
 **Exits when.** exit if/when US chip subsidies are rolled back or significantly reduced 
-Sources:
+Sources cited this scan:
 - https://www.moneycontrol.com/news/technology/tn-gim-2024-govts-should-be-wary-of-spending-too-much-in-wooing-semiconductor-fabs-says-chip-war-author-12011381.html
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh SMH,TSM · Entry week on US chip subsidy ramp-up; policy shift noted but no resolution or reversal in news.
@@ -54,17 +55,18 @@ Sources:
 
 </details>
 
-### ev38 · ZIM 16.0%, AMKBY 4.0%
-**Catalyst** (still pending, entered 2024-01-08)**.** Houthi attacks disrupt Red Sea shipping  
-*Scan 1 of this event · +$220 this period · +$220 since it opened*
+### ev38 · Houthi attacks disrupt Red Sea shipping
+**Catalyst** entered 2024-01-08, still pending · scan 1 of this event · +$220 this period · +$220 since it opened
+**Funded.** ZIM 16.0% · AMKBY 4.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst live; attacks driving reroutes and rate spikes despite partial resumption attempts.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Houthi attacks escalate on Red Sea vessels
-- Ships reroute around Africa
-- Freight rates surge sharply
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · Houthi attacks escalate on Red Sea vessels
+- 2024-01-08 · Ships reroute around Africa
+- 2024-01-08 · Freight rates surge sharply
 **News claims.** Red Sea attacks force reroutes and spike rates; Maersk tests Suez resumption.
 **Exits when.** exit if/when Red Sea shipping routes normalize or attacks cease `exit_case: Maersk resuming Suez transits signals attacks may not sustain disruption`
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4052177-red-sea-ship-attacks-send-ocean-freight-rates-soaring
 - https://www.scmp.com/economy/global-economy/article/3245638/china-europe-container-shipping-rates-soar-red-sea-attacks-push-firms-skip-suez-canal
 - https://www.hellenicshippingnews.com/container-shipping-rates-spike-as-red-sea-crisis-draws-first-blood/
@@ -96,18 +98,19 @@ Sources:
 
 ## Exited at this scan
 
-### ev4 · COIN 34.0% · 5 vehicles, 1 funded
+### ev4 · SEC approves a Bitcoin ETF
 *held going in · catalyst RESOLVED: SEC approves eleven Bitcoin spot ETFs*
-**Catalyst** (RESOLVED 2024-01-08, entered 2023-09-10)**.** SEC approves a Bitcoin ETF  
-*Scan 5 of this event · +$1,350 since it opened*
+**Catalyst** entered 2023-09-10, RESOLVED 2024-01-08 · scan 5 of this event · +$1,350 since it opened
+**Funded.** COIN 34.0%
+**Not funded.** BLK, GBTC, MARA, MSTR
 **This scan.** Catalyst resolved this week by SEC approval; edge exhausted.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Grayscale wins court ruling vs SEC (Aug 29)
-- SEC approves eleven Bitcoin spot ETFs (Jan 8)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Grayscale wins court ruling vs SEC (Aug 29)
+- 2024-01-08 · SEC approves eleven Bitcoin spot ETFs (Jan 8)
 **News claims.** SEC approves 11 spot Bitcoin ETFs; trading begins tomorrow
 **Exits when.** exit if/when SEC approves or rejects Bitcoin ETF `exit_case: SEC approves eleven Bitcoin spot ETFs`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://bravenewcoin.com/insights/the-bitcoin-spot-etf-countdown-to-approval
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh BLK,BTBT,GBTC · Court win raises odds of eventual ETF approval but SEC decision itself remains pending; catalyst unresolved.
@@ -140,19 +143,20 @@ Sources:
 
 </details>
 
-### ev8 · COIN 34.0% · 3 vehicles, 1 funded
+### ev8 · SEC decides on Bitcoin ETF
 *held going in · catalyst RESOLVED: SEC approved 11 spot Bitcoin ETFs Jan 8*
-**Catalyst** (RESOLVED 2024-01-08, entered 2023-09-10)**.** SEC decides on Bitcoin ETF  
-*Scan 5 of this event · +$2,649 since it opened*
+**Catalyst** entered 2023-09-10, RESOLVED 2024-01-08 · scan 5 of this event · +$2,649 since it opened
+**Funded.** COIN 34.0%
+**Not funded.** GBTC, MSTR
 **This scan.** Catalyst resolved by SEC approval; edge gone.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Grayscale court win and meeting request
-- SEC in talks with Grayscale
-- Fidelity spot Bitcoin ETF listed on DTCC
-- SEC approves 11 spot Bitcoin ETFs
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Grayscale court win and meeting request
+- 2023-11-09 · SEC in talks with Grayscale
+- 2023-12-09 · Fidelity spot Bitcoin ETF listed on DTCC
+- 2024-01-08 · SEC approves 11 spot Bitcoin ETFs
 **Exits when.** exit if/when SEC approves or rejects spot Bitcoin ETF `exit_case: SEC approved 11 spot Bitcoin ETFs Jan 8`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://bravenewcoin.com/insights/the-bitcoin-spot-etf-countdown-to-approval
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh GBTC,COIN,MSTR · Catalyst pending; no SEC decision rendered. Grayscale court win and meeting request keep process active but unresolved.
@@ -200,15 +204,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev36 · USO · 2 over its life
+### ev36 · OPEC output cuts affect oil prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +1.7% over the period*
-**Catalyst** (still pending, entered 2024-01-08)**.** OPEC output cuts affect oil prices  
-*Scan 1 of this event*
+**Catalyst** entered 2024-01-08, still pending · scan 1 of this event
+**Vehicles.** USO · 2 over the event's life
 **This scan.** Catalyst entry week; Angola departure signals potential enforcement weakness while inventories also pressure prices
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Angola leaves OPEC over output dispute
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · Angola leaves OPEC over output dispute
 **Exits when.** exit if/when OPEC cuts are reversed or non-OPEC supply fully offsets `exit_case: Angola exits OPEC over output dispute, eroding cut cohesion`
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4049133-oil-falls-as-angola-leaves-opec-over-output-dispute
 
 <details><summary>What it read this scan: 20 of 126 matching articles, capped at 20</summary>
@@ -236,17 +240,19 @@ Sources:
 
 </details>
 
-### ev28 · KRYS
+### ev28 · Vyjuvek reaches launch milestones
 *culled by max_watchlist 6 · its vehicles ran -12.1% over the period*
-**Catalyst** (still pending, entered 2023-12-09)**.** Vyjuvek reaches launch milestones  
-*Scan 2 of this event*
+**Catalyst** entered 2023-12-09, still pending · scan 2 of this event
+**Vehicles.** KRYS
 **This scan.** Permanent J-code advances commercialization but does not fully meet launch milestones; no sales data yet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Goldman initiates KRYS buy citing Vyjuvek launch -> TimesSquare adds KRYS position
-- Receives Permanent J-code (J3401) for VYJUVEK
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Goldman initiates KRYS buy citing Vyjuvek launch  *(the agent stopped carrying this one)*
+- 2023-12-09 · TimesSquare adds KRYS position  *(the agent stopped carrying this one)*
+- 2024-01-08 · Goldman initiates KRYS buy citing Vyjuvek launch -> TimesSquare adds KRYS position
+- 2024-01-08 · Receives Permanent J-code (J3401) for VYJUVEK
 **News claims.** KRYS receives permanent J-code for Vyjuvek
 **Exits when.** exit if/when Vyjuvek launch milestones fully met or sales disappoint 
-Sources:
+Sources cited this scan:
 - https://www.streetinsider.com/Corporate+News/Krystal+Biotech+(KRYS)+Receives+Permanent+J-code+(J3401)+for+VYJUVEK/22592653.html
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2023-12-09 · live · veh KRYS · Launch coverage and institutional buying confirm catalyst in progress; no resolution yet.
@@ -276,19 +282,19 @@ Sources:
 
 </details>
 
-### ev26 · CCJ, UEC, UUUU · 11 over its life
+### ev26 · uranium demand lifts prices
 *culled by max_watchlist 6 · its vehicles ran +9.6% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 3 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 3 of this event
+**Vehicles.** CCJ, UEC, UUUU · 11 over the event's life
 **This scan.** Demand-driven price lift intact; production ramps and spot highs confirm no reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 1 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/commodities/24/01/36491015/as-spot-uranium-climbs-to-new-highs-cameco-struggles-to-regain-its-footing
 - https://menafn.com/1107644773/Miningnewsbreaks-Energy-Fuels-Inc-NYSE-American-UUUU-TSX-EFR-Commences-Production-At-Three-US-Uranium-Mines
 **Its journal going in** (2 earlier scans, as the agent re-read it).

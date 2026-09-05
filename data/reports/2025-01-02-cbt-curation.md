@@ -34,20 +34,21 @@
 
 ## Not funded, the three that came closest
 
-### ev78 · GSK, INSM, LTRN, SMMT, VSTM, WVE · 11 over its life
+### ev78 · Clinical pipeline progress drives stock
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -1.7% over the period*
-**Catalyst** (still pending, entered 2024-05-07)**.** Clinical pipeline progress drives stock  
-*Scan 9 of this event*
+**Catalyst** entered 2024-05-07, still pending · scan 9 of this event
+**Vehicles.** GSK, INSM, LTRN, SMMT, VSTM, WVE · 11 over the event's life
 **This scan.** Ongoing positive pipeline updates across vehicles (VSTM FDA filing path, LTRN Phase 2/Fast Track) confirm catalyst remains live; no stalls observed.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Stock soars on clinical pipeline and 2024 priorities (Apr 2024)
-- Mustang Bio positive Phase 1/2 data drives stock (Jun 2024)
-- Longeveron presents promising Phase 2a data for Alzheimer's (Jul 2024)
-- GANX reports positive Phase 1 data (Aug 2024)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · Stock soars on clinical pipeline and 2024 priorities (Apr 2024)
+- 2024-07-06 · Mustang Bio positive Phase 1/2 data drives stock (Jun 2024)
+- 2024-08-05 · Longeveron presents promising Phase 2a data for Alzheimer's (Jul 2024)
+- 2024-09-04 · GANX reports positive Phase 1 data (Aug 2024)
+- 2024-09-04 · ADXN selects clinical candidate with INDV (Aug 2024)
+- 2024-09-04 · VANI positive preclinical liver fat results (Sep 2024)
 **News claims.** VSTM seeks FDA approval decision by June 2025; LTRN Phase 2 launch and second Fast Track designation; INSM/SMMT noted as top 2024 biotech performers.
 **Exits when.** exit if/when clinical pipeline progress stalls or key milestones missed 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/general/biotech/24/12/42743560/why-is-cancer-focused-verastem-oncology-stock-trading-higher-on-tuesday
 - https://www.insidermonkey.com/blog/ai-powered-cancer-solutions-lantern-pharma-ltrn-launches-phase-2-trial-in-taiwan-1404940
 - https://www.insidermonkey.com/blog/lantern-pharma-inc-ltrn-receives-second-fda-fast-track-designation-for-lp-184-in-triple-negative-breast-cancer-1403793
@@ -87,15 +88,15 @@ Sources:
 
 </details>
 
-### ev90 · AMD, AVGO, NVDA, SOXX, TSM
+### ev90 · Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -3.4% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** Nvidia unveils RTX 5090 AI-Powered GPUs at CES 2025  
-*Scan 2 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 2 of this event
+**Vehicles.** AMD, AVGO, NVDA, SOXX, TSM
 **This scan.** Catalyst remains pending; pre-CES shipping activity noted but unveiling not occurred.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nvidia set to unveil RTX 5090 AI GPUs at CES 2025
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Nvidia set to unveil RTX 5090 AI GPUs at CES 2025
 **Exits when.** exit if/when RTX 5090 unveiled at CES 2025 or event canceled 
-Sources:
+Sources cited this scan:
 - https://wccftech.com/nvidia-amd-rushes-ship-out-next-gen-gpus-to-avoid-trump-tariffs/
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-12-03 · live · veh NVDA,AMD,TSM · Catalyst remains pending; news confirms planned unveiling with no resolution yet.
@@ -125,13 +126,13 @@ Sources:
 
 </details>
 
-### ev60 · SIDU
+### ev60 · Sidus Space launches LizzieSat satellites
 *culled by max_watchlist 6 · its vehicles ran -18.7% over the period*
-**Catalyst** (still pending, entered 2024-03-08)**.** Sidus Space launches LizzieSat satellites  
-*Scan 11 of this event*
+**Catalyst** entered 2024-03-08, still pending · scan 11 of this event
+**Vehicles.** SIDU
 **This scan.** No LS-2/LS-3 launch activity in 2024 or this week; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- LS-2 and LS-3 production confirmed on track for 2024 launch
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · LS-2 and LS-3 production confirmed on track for 2024 launch
 **Exits when.** exit if/when LS-2/LS-3 launches complete or are cancelled 
 **Its journal going in** (10 earlier scans, as the agent re-read it).
 - …4 earlier scans, in the journal

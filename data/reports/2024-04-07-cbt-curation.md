@@ -12,12 +12,13 @@
 
 ## Funded
 
-### ev66 · PAAS 40.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** Silver price relief rally expected  
-*Scan 2 of this event · -$630 this period · -$630 since it opened*
+### ev66 · Silver price relief rally expected
+**Catalyst** entered 2024-03-08, still pending · scan 2 of this event · -$630 this period · -$630 since it opened
+**Funded.** PAAS 40.0%
+**Not funded.** SLV
 **This scan.** No silver-specific developments; relief rally thesis remains pending with no reversal or completion observed.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Silver price under pressure since Dec, relief rally expected per charts (2024-02-26)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · Silver price under pressure since Dec, relief rally expected per charts (2024-02-26)
 **Exits when.** exit if/when silver relief rally completes or reverses 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-03-08 · live · veh PAAS,SLV · Thesis entered on under-the-radar silver relief rally signal; no resolution yet.
@@ -47,14 +48,15 @@
 
 </details>
 
-### ev47 · FCX 26.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-02-07)**.** copper miner sees 120% upside  
-*Scan 3 of this event · +$92 this period · +$92 since it opened*
+### ev47 · copper miner sees 120% upside
+**Catalyst** entered 2024-02-07, still pending · scan 3 of this event · +$92 this period · +$92 since it opened
+**Funded.** FCX 26.0%
+**Not funded.** IE
 **This scan.** IE project stake adds support; no realization or reversal of 120% upside yet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Copper analyst sees 120% upside on small-cap play
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Copper analyst sees 120% upside on small-cap play
 **Exits when.** exit if/when small-cap copper miner's 120% upside is realized or outlook reverses 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4083434-ivanhoe-electric-clinches-60-stake-in-ivory-coast-nickel-copper-project
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2024-02-07 · live · veh FCX,IE · Initial entry on analyst note highlighting 120% upside for small-cap copper miner IE alongside FCX.
@@ -85,12 +87,13 @@ Sources:
 
 </details>
 
-### ev57 · ARGX 20.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** Phase 2 trial for atopic dermatitis treatment  
-*Scan 2 of this event · +$396 this period · -$5,163 since it opened*
+### ev57 · Phase 2 trial for atopic dermatitis treatment
+**Catalyst** entered 2024-03-08, still pending · scan 2 of this event · +$396 this period · -$5,163 since it opened
+**Funded.** ARGX 20.0%
+**Not funded.** APGE
 **This scan.** No developments on APGE/ARGX atopic dermatitis Phase 2; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
 **Exits when.** exit if/when Phase 2 trial for atopic dermatitis completes or results released 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-03-08 · live · veh APGE,ARGX · Catalyst pending; APGE Phase 1 positive with Phase 2 set for 2024 in atopic dermatitis.
@@ -120,12 +123,13 @@ Sources:
 
 </details>
 
-### ev29 · XOM 14.0%
-**Catalyst** (still pending, entered 2023-12-09)**.** $1B diesel expansion at Fawley oil refinery  
-*Scan 5 of this event · -$442 this period · -$442 since it opened*
+### ev29 · $1B diesel expansion at Fawley oil refinery
+**Catalyst** entered 2023-12-09, still pending · scan 5 of this event · -$442 this period · -$442 since it opened
+**Funded.** XOM 14.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No Fawley developments; exit condition unmet. Quiet stretch continues.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Exxon launches $1B diesel expansion at Fawley
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Exxon launches $1B diesel expansion at Fawley
 **Exits when.** exit if/when Fawley diesel expansion completes or is abandoned 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2023-12-09 · live · veh XOM · Catalyst announced this week; thesis now live on project execution and diesel margins.
@@ -170,17 +174,17 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev36 · OXY, USO
+### ev36 · OPEC output cuts affect oil prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -7.2% over the period*
-**Catalyst** (still pending, entered 2024-01-08)**.** OPEC output cuts affect oil prices  
-*Scan 4 of this event*
+**Catalyst** entered 2024-01-08, still pending · scan 4 of this event
+**Vehicles.** OXY, USO
 **This scan.** Cuts regime intact; Russia compliance reinforces enforcement. No reversal or full non-OPEC offset observed.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Angola leaves OPEC over output dispute
-- OPEC+ extends output cuts to Q2
-- Russia orders output cuts to meet OPEC+ targets
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · Angola leaves OPEC over output dispute
+- 2024-03-08 · OPEC+ extends output cuts to Q2
+- 2024-04-07 · Russia orders output cuts to meet OPEC+ targets
 **Exits when.** exit if/when OPEC cuts are reversed or non-OPEC supply fully offsets 
-Sources:
+Sources cited this scan:
 - https://www.offshore-technology.com/news/russia-plans-oil-output-cut/
 - https://seekingalpha.com/news/4083503-oil-prices-push-higher-as-russia-orders-output-cuts-goldman-issues-bullish-view
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -213,19 +217,22 @@ Sources:
 
 </details>
 
-### ev26 · CCJ, UEC, UUUU · 11 over its life
+### ev26 · uranium demand lifts prices
 *culled by max_watchlist 6 · its vehicles ran +1.4% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 6 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 6 of this event
+**Vehicles.** CCJ, UEC, UUUU · 11 over the event's life
 **This scan.** Demand-driven price lift intact; bullish coverage and supply issues confirm no reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs  *(the agent stopped carrying this one)*
+- 2024-02-07 · UEC restarts Wyoming production  *(the agent stopped carrying this one)*
+- 2024-03-08 · Ur-Energy announces two new uranium sales agreements
+- 2024-03-08 · enCore Energy first shipment from Rosita plant
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://www.bnnbloomberg.ca/uranium-stocks-soar-on-bullish-goldman-sachs-call-kazakhstan-flooding-1.2055817
 - https://www.streetinsider.com/Globe+Newswire/Global+Uranium+Production+to+Increase+as+Prices+Are+Expected+to+Hit+a+15+Year+High/23012237.html
 - https://markets.businessinsider.com/news/stocks/buy-rating-justified-for-cameco-corporation-amid-favorable-uranium-market-projections-and-geopolitical-advantages-1033210729
@@ -261,10 +268,10 @@ Sources:
 
 </details>
 
-### ev13 · BA, LMT, RKLB · 5 over its life
+### ev13 · NASA awards double launch deal
 *culled by max_watchlist 6 · its vehicles ran +1.7% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** NASA awards double launch deal  
-*Scan 8 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 8 of this event
+**Vehicles.** BA, LMT, RKLB · 5 over the event's life
 **This scan.** No relevant news on NASA double launch award; catalyst remains pending.
 **Exits when.** exit if/when NASA double launch deal is awarded or cancelled 
 **Its journal going in** (7 earlier scans, as the agent re-read it).

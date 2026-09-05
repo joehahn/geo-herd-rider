@@ -13,17 +13,18 @@
 
 ## Funded
 
-### ev223 · RGNX 40.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-05-27)**.** 4D Molecular Therapeutics advances gene therapy  
-*Scan 2 of this event · -$21,381 this period · -$21,381 since it opened*
+### ev223 · 4D Molecular Therapeutics advances gene therapy
+**Catalyst** entered 2026-05-27, still pending · scan 2 of this event · -$21,381 this period · -$21,381 since it opened
+**Funded.** RGNX 40.0%
+**Not funded.** FDMT, QURE
 **This scan.** Positive FDA signals for RGNX and QURE extend gene therapy momentum in basket; no completion or reversal of 4DMT catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDMT highlighted as top gene therapy stock with triple analyst target
-- RGNX reports positive Phase 3 Duchenne data toward accelerated approval
-- FDA reconsiders RGNX Navsunli application
-- FDA signals QURE AMT-130 data for accelerated approval
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-05-27 · FDMT highlighted as top gene therapy stock with triple analyst target
+- 2026-05-27 · RGNX reports positive Phase 3 Duchenne data toward accelerated approval
+- 2026-06-26 · FDA reconsiders RGNX Navsunli application
+- 2026-06-26 · FDA signals QURE AMT-130 data for accelerated approval
 **Exits when.** exit if/when 4D Molecular gene therapy advancement completes or reverses 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/news/fda/26/06/60013411/regenxbio-gains-fresh-chance-as-fda-reconsiders-gene-therapy
 - https://www.benzinga.com/news/health-care/26/06/53251736/fda-signals-uniqure-huntington-gene-therapy-data-could-back-accelerated-approval
 - https://seekingalpha.com/news/4604528-uniqure-stock-upgraded-cantor-fda-decision
@@ -55,14 +56,15 @@ Sources:
 
 </details>
 
-### ev246 · SLN 39.0%
-**Catalyst** (still pending, entered 2026-06-26)**.** Cantor predicts key August Phase 2 data  
-*Scan 1 of this event · +$401 this period · +$401 since it opened*
+### ev246 · Cantor predicts key August Phase 2 data
+**Catalyst** entered 2026-06-26, still pending · scan 1 of this event · +$401 this period · +$401 since it opened
+**Funded.** SLN 39.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Cantor flags August Phase 2 readout as major catalyst; SLN surges on the call.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Cantor predicts key August Phase 2 data for SLN
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-06-26 · Cantor predicts key August Phase 2 data for SLN
 **Exits when.** exit if/when August Phase 2 data released 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/analyst-stock-ratings/initiation/26/06/60080853/this-300-million-biotech-may-be-deeply-mispriced-analyst
 
 <details><summary>What it read this scan: 20 of 52 matching articles, capped at 20</summary>
@@ -90,9 +92,10 @@ Sources:
 
 </details>
 
-### ev241 · EXOD 10.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-06-26)**.** SEC finalizes blockchain-based stock trading policy  
-*Scan 1 of this event · $0 this period · $0 since it opened*
+### ev241 · SEC finalizes blockchain-based stock trading policy
+**Catalyst** entered 2026-06-26, still pending · scan 1 of this event · $0 this period · $0 since it opened
+**Funded.** EXOD 10.0%
+**Not funded.** COIN
 **This scan.** No developments on the SEC blockchain trading policy catalyst; all news concerns unrelated Bitcoin price volatility and crypto stocks.
 **Exits when.** exit if/when SEC finalizes or rejects blockchain-based stock trading policy 
 
@@ -121,9 +124,10 @@ Sources:
 
 </details>
 
-### ev209 · AMAT 3.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** E-Power expands Vietnam anode production  
-*Scan 4 of this event · -$1,952 this period · -$1,952 since it opened*
+### ev209 · E-Power expands Vietnam anode production
+**Catalyst** entered 2026-03-28, still pending · scan 4 of this event · -$1,952 this period · -$1,952 since it opened
+**Funded.** AMAT 3.0%
+**Not funded.** EPOW
 **This scan.** No news on E-Power Vietnam anode expansion; catalyst pending.
 **Exits when.** exit if/when Vietnam anode expansion completes or is canceled 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -170,13 +174,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev239 · ASST, CLSK, MSTR · 1 over its life
+### ev239 · Strive raises $4.2B for Bitcoin accumulation
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +1.3% over the period*
-**Catalyst** (still pending, entered 2026-06-26)**.** Strive raises $4.2B for Bitcoin accumulation  
-*Scan 1 of this event*
+**Catalyst** entered 2026-06-26, still pending · scan 1 of this event
+**Vehicles.** ASST, CLSK, MSTR · 1 over the event's life
 **This scan.** Catalyst entered this week with no supporting news or resolution.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Strive raises $4.2B for Bitcoin accumulation (entry)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-06-26 · Strive raises $4.2B for Bitcoin accumulation (entry)
 **Exits when.** exit if/when Strive $4.2B raise completes or is abandoned 
 
 <details><summary>What it read this scan: 20 of 316 matching articles, capped at 20</summary>
@@ -204,14 +208,14 @@ Sources:
 
 </details>
 
-### ev199 · HIMS, LLY, NVO
+### ev199 · Medicare covers obesity drugs
 *culled by max_watchlist 6 · its vehicles ran -5.6% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** Medicare covers obesity drugs  
-*Scan 5 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 5 of this event
+**Vehicles.** HIMS, LLY, NVO
 **This scan.** Catalyst still pending; no Medicare decision in week's news.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
-- Novo CEO: 15M new patients from Medicare coverage (Feb 12)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
+- 2026-02-26 · Novo CEO: 15M new patients from Medicare coverage (Feb 12)
 **Exits when.** exit if/when Medicare coverage of obesity drugs is implemented or rejected 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2026-02-26 · live · veh HIMS,LLY,NVO · Catalyst pending; Medicare expansion still ahead and cited as major tailwind by both LLY and NVO CEOs. HIMS faces separate patent suit but remains…
@@ -244,15 +248,15 @@ Sources:
 
 </details>
 
-### ev250 · GHM
+### ev250 · Graham benefits from SpaceX IPO
 *culled by max_watchlist 6 · its vehicles ran -14.6% over the period*
-**Catalyst** (still pending, entered 2026-06-26)**.** Graham benefits from SpaceX IPO  
-*Scan 1 of this event*
+**Catalyst** entered 2026-06-26, still pending · scan 1 of this event
+**Vehicles.** GHM
 **This scan.** Graham (GHM) positioned as under-the-radar SpaceX supplier beneficiary ahead of IPO; coverage remains early and catalyst-pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Russell 1000 set to add SpaceX (pre-IPO indexing signal)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-06-26 · Russell 1000 set to add SpaceX (pre-IPO indexing signal)
 **Exits when.** exit if/when SpaceX IPO completes, is canceled or delayed indefinitely 
-Sources:
+Sources cited this scan:
 - https://www.cnbc.com/2026/06/24/this-small-cap-is-flying-under-the-radar-as-a-supplier-to-spacex-and-the-new-space-economy.html
 - https://www.theglobeandmail.com/investing/article-wall-street-trading-to-surge-as-russell-1000-index-set-to-add-spacex/
 

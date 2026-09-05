@@ -13,14 +13,15 @@
 
 ## Funded
 
-### ev15 · LLY 40.0%, NVO 9.0%
-**Catalyst** (still pending, entered 2023-10-10)**.** FDA decides on weight-loss drug  
-*Scan 1 of this event · -$656 this period · -$656 since it opened*
+### ev15 · FDA decides on weight-loss drug
+**Catalyst** entered 2023-10-10, still pending · scan 1 of this event · -$656 this period · -$656 since it opened
+**Funded.** LLY 40.0% · NVO 9.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst remains pending; FDA decision on weight-loss drug not yet occurred.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- LLY names new weight-loss drug unit head ahead of FDA decision
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-10-10 · LLY names new weight-loss drug unit head ahead of FDA decision
 **Exits when.** exit if/when FDA announces decision on weight-loss drug 
-Sources:
+Sources cited this scan:
 - http://baystreet.ca/articles/stockstowatch/91320/Eli-Lilly-Names-New-Weight-Loss-Drug-Head-Ahead-Of-FDA-Decision
 - https://www.benzinga.com/general/biotech/23/10/35100939/walmart-reports-slight-pullback-in-food-demand-as-miracle-weight-loss-drug-ozempic-gains-populari
 
@@ -51,13 +52,14 @@ Sources:
 
 ## Exited at this scan
 
-### ev6 · CME 33.0%
+### ev6 · CME to launch APAC crypto reference rates
 *held going in · catalyst RESOLVED: APAC crypto reference rates launched Sept 11*
-**Catalyst** (RESOLVED 2023-10-10, entered 2023-09-10)**.** CME to launch APAC crypto reference rates  
-*Scan 2 of this event · +$817 since it opened*
+**Catalyst** entered 2023-09-10, RESOLVED 2023-10-10 · scan 2 of this event · +$817 since it opened
+**Funded.** CME 33.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Launch occurred; catalyst resolved and edge gone.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CME and CF Benchmarks announce APAC Bitcoin and Ether reference rates for Sept 11 launch
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · CME and CF Benchmarks announce APAC Bitcoin and Ether reference rates for Sept 11 launch
 **Exits when.** exit if/when APAC crypto reference rates launch `exit_case: APAC crypto reference rates launched Sept 11`
 **Catalyst resolved this scan.**
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -98,10 +100,10 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev19 · AN, CVNA, KMX
+### ev19 · UAW strike boosts used car prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -13.6% over the period*
-**Catalyst** (still pending, entered 2023-10-10)**.** UAW strike boosts used car prices  
-*Scan 1 of this event*
+**Catalyst** entered 2023-10-10, still pending · scan 1 of this event
+**Vehicles.** AN, CVNA, KMX
 **This scan.** No relevant news on UAW strike or used car prices this week; catalyst remains pending.
 **Exits when.** exit if/when UAW strike ends or used car prices stabilize 
 
@@ -130,10 +132,10 @@ Sources:
 
 </details>
 
-### ev22 · CRNX
+### ev22 · Crinetics wins in growth hormone disorder
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -1.0% over the period*
-**Catalyst** (still pending, entered 2023-10-10)**.** Crinetics wins in growth hormone disorder  
-*Scan 1 of this event*
+**Catalyst** entered 2023-10-10, still pending · scan 1 of this event
+**Vehicles.** CRNX
 **This scan.** No news touching the catalyst this entry week.
 **Exits when.** exit if/when Crinetics growth hormone disorder approval granted or denied 
 
@@ -162,14 +164,14 @@ Sources:
 
 </details>
 
-### ev3 · GBTC
+### ev3 · SEC approves Grayscale Bitcoin ETF conversion
 *culled by max_watchlist 6 · its vehicles ran +41.4% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** SEC approves Grayscale Bitcoin ETF conversion  
-*Scan 2 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 2 of this event
+**Vehicles.** GBTC
 **This scan.** No developments on Grayscale ETF conversion; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Court orders SEC to review Grayscale application
-- Grayscale requests SEC meeting post-ruling
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Court orders SEC to review Grayscale application
+- 2023-09-10 · Grayscale requests SEC meeting post-ruling
 **Exits when.** exit if/when SEC approves or rejects Grayscale Bitcoin ETF conversion 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2023-09-10 · live · veh GBTC · Catalyst pending; approval process active after court win but no decision yet

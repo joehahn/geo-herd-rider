@@ -14,14 +14,15 @@
 
 ## Funded
 
-### ev57 · APGE 36.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** Phase 2 trial for atopic dermatitis treatment  
-*Scan 1 of this event · -$5,560 this period · -$5,560 since it opened*
+### ev57 · Phase 2 trial for atopic dermatitis treatment
+**Catalyst** entered 2024-03-08, still pending · scan 1 of this event · -$5,560 this period · -$5,560 since it opened
+**Funded.** APGE 36.0%
+**Not funded.** ARGX
 **This scan.** Catalyst pending; APGE Phase 1 positive with Phase 2 set for 2024 in atopic dermatitis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
 **Exits when.** exit if/when Phase 2 trial for atopic dermatitis completes or results released 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/general/biotech/24/03/37488187/why-is-atopic-dermatitis-focused-apogee-therapeutics-stock-trading-higher-on-tuesday
 
 <details><summary>What it read this scan: 20 of 118 matching articles, capped at 20</summary>
@@ -49,15 +50,16 @@ Sources:
 
 </details>
 
-### ev43 · MSTR 17.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-02-07)**.** US passes stablecoin legislation  
-*Scan 2 of this event · -$1,422 this period · -$1,422 since it opened*
+### ev43 · US passes stablecoin legislation
+**Catalyst** entered 2024-02-07, still pending · scan 2 of this event · -$1,422 this period · -$1,422 since it opened
+**Funded.** MSTR 17.0%
+**Not funded.** COIN, MARA
 **This scan.** Legislation still pending; no passage or vote. News focuses on South Africa, Circle/Tron, Bitcoin ETFs.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
-- US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
+- 2024-03-08 · US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
 **Exits when.** exit if/when stablecoin legislation passes or is voted down 
-Sources:
+Sources cited this scan:
 - https://www.coinspeaker.com/us-lawmakers-stablecoin-deal-waters/
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-02-07 · live · veh COIN,MARA,MSTR · Legislation remains pending; no passage or rejection yet.
@@ -100,19 +102,22 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev26 · CCJ, UEC, UUUU · 11 over its life
+### ev26 · uranium demand lifts prices
 *culled by max_watchlist 6 · its vehicles ran +14.8% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 5 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 5 of this event
+**Vehicles.** CCJ, UEC, UUUU · 11 over the event's life
 **This scan.** Demand-driven price lift intact; new contracts and shipments confirm no reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs  *(the agent stopped carrying this one)*
+- 2024-02-07 · UEC restarts Wyoming production  *(the agent stopped carrying this one)*
+- 2024-03-08 · Ur-Energy announces two new uranium sales agreements
+- 2024-03-08 · enCore Energy first shipment from Rosita plant
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4075975-encore-energy-announces-first-uranium-shipment-from-rosita-plant
 - https://www.wallstreet-online.de/nachricht/17861798-ur-energy-releases-2023-year-end-results-and-announces-two-new-uranium-sales-agreements-200.htm
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -146,13 +151,13 @@ Sources:
 
 </details>
 
-### ev52 · BMY
+### ev52 · FDA advisory committee meeting for Abecma
 *culled by max_watchlist 6 · its vehicles ran -3.5% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** FDA advisory committee meeting for Abecma  
-*Scan 2 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 2 of this event
+**Vehicles.** BMY
 **This scan.** No news on Abecma ODAC; exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDA publishes Federal Register notice convening ODAC meeting for Abecma (KarMMa-3)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · FDA publishes Federal Register notice convening ODAC meeting for Abecma (KarMMa-3)
 **Exits when.** exit if/when FDA ODAC meeting for Abecma concludes or issues recommendation 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-02-07 · live · veh BMY · Catalyst is the upcoming FDA advisory committee meeting itself; announcement confirms it is scheduled and pending.
@@ -182,10 +187,10 @@ Sources:
 
 </details>
 
-### ev49 · COST, DG, WMT
+### ev49 · Walmart expands store count
 *culled by max_watchlist 6 · its vehicles ran -0.1% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 2 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 2 of this event
+**Vehicles.** COST, DG, WMT
 **This scan.** No store-count news; catalyst still pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
 **Its journal going in** (1 earlier scan, as the agent re-read it).

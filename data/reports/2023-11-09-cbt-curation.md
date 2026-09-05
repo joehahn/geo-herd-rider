@@ -12,12 +12,13 @@
 
 ## Funded
 
-### ev9 · DHI 40.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2023-09-10)**.** US housing demand rises  
-*Scan 3 of this event · +$2,779 this period · +$2,779 since it opened*
+### ev9 · US housing demand rises
+**Catalyst** entered 2023-09-10, still pending · scan 3 of this event · +$2,779 this period · +$2,779 since it opened
+**Funded.** DHI 40.0%
+**Not funded.** LEN, NVR
 **This scan.** No housing-related news; demand thesis unchanged.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Berkshire Hathaway takes stakes in DHI, LEN, NVR
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Berkshire Hathaway takes stakes in DHI, LEN, NVR
 **Exits when.** exit if/when US housing demand indicators reverse or peak 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh DHI,LEN,NVR · Berkshire 13F confirms housing demand thesis via homebuilder buys
@@ -48,15 +49,16 @@
 
 </details>
 
-### ev4 · MSTR 40.0%, GBTC 6.0% · 6 vehicles, 2 funded · 5 over its life
+### ev4 · SEC approves a Bitcoin ETF
 *vehicle also claimed by ev8*
-**Catalyst** (still pending, entered 2023-09-10)**.** SEC approves a Bitcoin ETF  
-*Scan 3 of this event · +$2,145 this period · +$845 since it opened*
+**Catalyst** entered 2023-09-10, still pending · scan 3 of this event · +$2,145 this period · +$845 since it opened
+**Funded.** MSTR 40.0% · GBTC 6.0%
+**Not funded.** BLK, BTBT, COIN, MARA
 **This scan.** Catalyst remains pending; ongoing SEC talks and anticipation keep thesis live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Grayscale wins court ruling vs SEC (Aug 29)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Grayscale wins court ruling vs SEC (Aug 29)
 **Exits when.** exit if/when SEC approves or rejects Bitcoin ETF 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/cryptocurrency/23/11/35691038/bitcoin-ethereum-dogecoin-surge-as-dozen-btc-etfs-have-brief-window-for-sec-approval-analy
 - https://www.cnbc.com/2023/11/09/a-bitcoin-etf-seems-to-be-just-around-the-corner-how-will-financial-advisors-react.html
 - https://www.coinspeaker.com/sec-grayscale-bitcoin-etf/
@@ -89,12 +91,13 @@ Sources:
 
 </details>
 
-### ev23 · ATLX 14.0% · 3 vehicles, 1 funded · 1 over its life
-**Catalyst** (still pending, entered 2023-11-09)**.** High-grade lithium mineralization discovery  
-*Scan 1 of this event · +$1,333 this period · +$1,333 since it opened*
+### ev23 · High-grade lithium mineralization discovery
+**Catalyst** entered 2023-11-09, still pending · scan 1 of this event · +$1,333 this period · +$1,333 since it opened
+**Funded.** ATLX 14.0%
+**Not funded.** LAC, LI
 **This scan.** First-week entry on high-grade lithium mineralization discovery catalyst; news shows sector financing and JV activity but no discovery resolution or reversal.
 **Exits when.** exit if/when high-grade lithium mineralization discovery is confirmed or project halted 
-Sources:
+Sources cited this scan:
 - https://whatech.com/asia-pacific-news/759154-atlas-lithium-secures-us-20-000-000-investment-from-lithium-investors-including-lead-advisor-martin-rowley
 - https://www.globenewswire.com/news-release/2023/11/09/2777931/0/en/Lithium-Americas-Provides-Thacker-Pass-Update-with-Q3-2023-Carve-Out-Financials-and-MD-A.html
 
@@ -123,18 +126,19 @@ Sources:
 
 </details>
 
-### ev3 · GBTC 6.0%
+### ev3 · SEC approves Grayscale Bitcoin ETF conversion
 *vehicle also claimed by ev4, ev8*
-**Catalyst** (still pending, entered 2023-09-10)**.** SEC approves Grayscale Bitcoin ETF conversion  
-*Scan 3 of this event · +$212 this period · +$212 since it opened*
+**Catalyst** entered 2023-09-10, still pending · scan 3 of this event · +$212 this period · +$212 since it opened
+**Funded.** GBTC 6.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst still pending; no approval or rejection yet despite ongoing talks and steps.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Court orders SEC to review Grayscale application
-- Grayscale requests SEC meeting post-ruling
-- Grayscale takes key step toward ETF conversion
-- SEC in talks with Grayscale over Bitcoin ETF
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Court orders SEC to review Grayscale application
+- 2023-09-10 · Grayscale requests SEC meeting post-ruling
+- 2023-11-09 · Grayscale takes key step toward ETF conversion
+- 2023-11-09 · SEC in talks with Grayscale over Bitcoin ETF
 **Exits when.** exit if/when SEC approves or rejects Grayscale Bitcoin ETF conversion 
-Sources:
+Sources cited this scan:
 - https://www.ibtimes.com/grayscale-takes-key-step-toward-converting-gbtc-bitcoin-etf-3715818
 - https://www.coinspeaker.com/sec-grayscale-bitcoin-etf/
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -168,17 +172,18 @@ Sources:
 
 ## Exited at this scan
 
-### ev15 · LLY 40.0%, NVO 9.0%
+### ev15 · FDA decides on weight-loss drug
 *held going in · catalyst RESOLVED: FDA approves Lilly Zepbound weight-loss drug*
-**Catalyst** (RESOLVED 2023-11-09, entered 2023-10-10)**.** FDA decides on weight-loss drug  
-*Scan 2 of this event · -$656 since it opened*
+**Catalyst** entered 2023-10-10, RESOLVED 2023-11-09 · scan 2 of this event · -$656 since it opened
+**Funded.** LLY 40.0% · NVO 9.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** FDA decision occurred; thesis over.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- LLY names new weight-loss drug unit head ahead of FDA decision
-- FDA approves Lilly Zepbound weight-loss drug
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-10-10 · LLY names new weight-loss drug unit head ahead of FDA decision
+- 2023-11-09 · FDA approves Lilly Zepbound weight-loss drug
 **Exits when.** exit if/when FDA announces decision on weight-loss drug `exit_case: FDA approves Lilly Zepbound weight-loss drug`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://biztoc.com/x/966e8d2b183c0678
 - https://www.investors.com/news/technology/eli-lilly-stock-lilly-wins-fda-approval-for-highly-anticipated-weight-loss-drug/
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -214,15 +219,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev26 · CCJ, MNTR, UEC · 11 over its life
+### ev26 · uranium demand lifts prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +9.8% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 1 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 1 of this event
+**Vehicles.** CCJ, MNTR, UEC · 11 over the event's life
 **This scan.** Catalyst live; demand-driven price lift intact with ongoing sector activity and no reversal signals.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://biztoc.com/x/868b7b9caee4d9f3
 
 <details><summary>What it read this scan: 20 of 233 matching articles, capped at 20</summary>
@@ -250,10 +255,10 @@ Sources:
 
 </details>
 
-### ev13 · BA, LMT, RKLB · 5 over its life
+### ev13 · NASA awards double launch deal
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +12.4% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** NASA awards double launch deal  
-*Scan 3 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 3 of this event
+**Vehicles.** BA, LMT, RKLB · 5 over the event's life
 **This scan.** No relevant news; catalyst still pending.
 **Exits when.** exit if/when NASA double launch deal is awarded or cancelled 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -285,13 +290,13 @@ Sources:
 
 </details>
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *culled by max_watchlist 6 · its vehicles ran +14.2% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 3 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 3 of this event
+**Vehicles.** CBU, MCO
 **This scan.** No evidence losses have peaked or been fully provisioned; concerns remain live despite bullish rate commentary.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh CBU,MCO · Catalyst active per Moody's CRE study and ongoing regional bank weakness coverage; no resolution yet.

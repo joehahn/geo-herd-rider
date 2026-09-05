@@ -29,7 +29,6 @@ from pathlib import Path
 # short enough that eight events stay inside a page and a half. The journal holds the full text.
 ASSESS_CHARS = 320
 SOURCES_PER_EVENT = 6   # the journal itself stores at most 6, so this never truncates now
-MILESTONES_PER_EVENT = 4
 EXITS_LISTED = 8         # unfunded exits listed one line each; the rest fold into a count
 HISTORY_LINES = 6        # journal lines shown inline; the rest fold into a count
 NEAR_MISSES = 3          # unfunded live events shown, ranked by the cull's own trend score
@@ -220,10 +219,11 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     held = {t: weights.get(t, 0.0) for t in vs if weights.get(t, 0.0) > FUNDED_EPS}
     head = ", ".join(f"{t} {w * 100:.1f}%" for t, w in sorted(held.items(), key=lambda kv: -kv[1]))
     _rest = len(vs_now) - len(held)
-    L = [f"### {eid} · {head or ', '.join(vs_now[:6]) or '(no vehicle)'}"
-         + (f" · {len(vs_now)} vehicles, {len(held)} funded" if held and _rest > 0 else
-            (f" · {len(vs_now)} vehicles" if len(vs_now) > 6 else ""))
-         + (f" · {len(vs)} over its life" if len(vs) != len(vs_now) else "")]
+    # THE HEADING NAMES THE EVENT, not its tickers: "ev204 · USO 40.0%, VLO 23.0% · 3 vehicles, 2
+    # funded" ran four facts of three different kinds into one line, and the one thing it did not
+    # say was what the event IS. The catalyst is the event's identity, so it goes here and the
+    # holdings get lines of their own, funded first because that is where the money is.
+    L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"]
     if note:
         L.append(f"*{note}*")
     money = []
@@ -246,22 +246,63 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # ("FDA approves Gedatolisib") and names the thing the curator is WAITING FOR, which on ev157
     # never happened at all. Nothing in the block said so, and a reader had to infer the tense from
     # exit_advice. catalyst_resolved and thesis_live already carry the answer, so state it.
-    L.append(f"**Catalyst** ({_state}, entered {_since})**.** {_trim(e.get('catalyst'), 200)}  ")
-    L.append(f"*Scan {n_scans} of this event"
-             + (f" · {' · '.join(money)}" if money else "") + "*")
+    L.append(f"**Catalyst** entered {_since}, {_state} · scan {{SCAN}} of this event"
+             + (f" · {' · '.join(money)}" if money else ""))
+    _unfunded = [t for t in vs_now if t not in held]
+    if held:
+        L.append("**Funded.** " + " · ".join(f"{t} {w * 100:.1f}%"
+                                             for t, w in sorted(held.items(),
+                                                                key=lambda kv: -kv[1])))
+        L.append("**Not funded.** " + (", ".join(_unfunded) if _unfunded
+                                       else "— every vehicle of this event holds capital"))
+    else:
+        L.append("**Vehicles.** " + (", ".join(vs_now) or "(none)")
+                 + (f" · {len(vs)} over the event's life" if len(vs) != len(vs_now) else ""))
+    L = [x.replace("{SCAN}", str(n_scans)) for x in L]
     # A carried-forward verdict must not be labelled "this scan" -- that would put words in the
     # curator's mouth for a scan where it said nothing.
     _fresh = bool(entry) and str(entry.get("date", ""))[:10] == date
     if entry:
         if entry.get("assessment"):
             L.append(f"**{'This scan' if _fresh else 'Last read'}.** {_trim(entry['assessment'])}")
-        ms = [m for m in (entry.get("milestones") or []) if str(m).strip()]
+        ms = [str(m).strip() for m in (entry.get("milestones") or []) if str(m).strip()]
         if ms:
+            # WHEN EACH MILESTONE ARRIVED. The journal has no date FIELD for a milestone: the agent
+            # embeds one in the text when it feels like it (57% of 1,507 milestone strings contain
+            # any digit at all), so a date cannot be read off the string. It CAN be recovered from
+            # the journal's shape -- milestones accumulate, so the scan in which a string first
+            # appears is the scan that recorded it. On ev204 that splits five milestones into the
+            # three seen at entry and the two that ended the thesis, which is the arc.
+            # ITERATE THE LIST, NOT A SET: the agent writes its milestones in a deliberate order
+            # (the arc, oldest first), and building this from a set shuffled everything recorded at
+            # the same scan. dict preserves insertion order, so reading the list in order and
+            # sorting by first-seen date afterwards keeps both the dates and the agent's sequence.
+            _first, _last = {}, set()
+            for _x in (e.get("entries") or []):
+                _d = str(_x.get("date", ""))[:10]
+                if _d > date:
+                    break
+                _ml = [str(_m).strip() for _m in (_x.get("milestones") or []) if str(_m).strip()]
+                _last = set(_ml)
+                for _m in _ml:
+                    _first.setdefault(_m, _d)
+            # EVERY MILESTONE THE EVENT EVER RECORDED, not just the ones the latest entry still
+            # lists. Carrying them forward is the MODEL's habit, not the code's guarantee: nothing
+            # merges the lists, so an agent that stops re-emitting one deletes it from the record.
+            # Measured across both journals, 8 of 267 events with milestones (3%) dropped 31 strings
+            # this way. Rendering the union recovers them, and a dropped one is worth SEEING, since
+            # a waypoint the agent quietly stopped carrying is a waypoint it stopped testing
+            # against.
             L.append("**Milestones observed so far** (dated waypoints already seen, carried "
-                     "forward each scan; not the catalyst)**.**")
-            L += [f"- {_trim(m, 160)}" for m in ms[:MILESTONES_PER_EVENT]]
-            if len(ms) > MILESTONES_PER_EVENT:
-                L.append(f"- …and {len(ms) - MILESTONES_PER_EVENT} more in the journal")
+                     "forward each scan; not the catalyst, and dated by the scan that first "
+                     "recorded each)**.**")
+            # ALL of them. The cap was a length guess made before the distribution was measured:
+            # agent.event_agent_v2 truncates to six, 88% of entries carry two or fewer, and hiding
+            # the last one of five to save a line is the wrong trade in a report whose job is to
+            # show the storyline.
+            L += [f"- {d} · {_trim(m, 240)}"
+                  + ("" if m in _last else "  *(the agent stopped carrying this one)*")
+                  for m, d in sorted(_first.items(), key=lambda kv: kv[1])]
         if str(entry.get("news_claims") or "").strip():
             L.append(f"**News claims.** {_trim(entry['news_claims'])}")
         if entry.get("exit_advice"):
@@ -273,7 +314,8 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
         _all_src = [u for u in (entry.get("sources") or []) if u]
         srcs = _all_src[:SOURCES_PER_EVENT]
         if srcs:
-            L.append("Sources:" + (f" ({len(_all_src)} cited this scan, first {len(srcs)} shown)"
+            L.append("Sources cited this scan:"
+                     + (f" ({len(_all_src)} cited, first {len(srcs)} shown)"
                                    if len(_all_src) > len(srcs) else ""))
             L += [f"- {u}" for u in srcs]
     # INPUT 3: the journal digest, in the form agent._journal_digest builds it -- one line per scan,

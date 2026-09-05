@@ -17,20 +17,21 @@
 
 ## Exited at this scan
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *held going in · aged out at the 12-scan cap, catalyst never resolved*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 12 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 12 of this event
+**Vehicles.** CBU, MCO
 **This scan.** Catalyst remains live; ongoing regional bank loss realization cited but exit condition unmet with no peak or full provisioning evident.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
-- Report warns of up to $160B CRE losses for US banks
-- NYCB downgraded to junk by Moody's, boosts reserves 790%
-- NYCB announces $1B capital raise after further downgrade
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
+- 2024-01-08 · Report warns of up to $160B CRE losses for US banks
+- 2024-02-07 · NYCB downgraded to junk by Moody's, boosts reserves 790%
+- 2024-03-08 · NYCB announces $1B capital raise after further downgrade
+- 2024-03-08 · Powell warns of more regional bank failures over CRE loans
+- 2024-07-06 · PIMCO warns real wave of distress just starting for regional banks
 **News claims.** Regional banks now willing to sell underwater bonds at losses
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/why-regional-banks-are-now-willing-to-take-billions-in-losses-123009272.html
 **Its journal going in** (11 earlier scans, as the agent re-read it).
 - …5 earlier scans, in the journal
@@ -79,20 +80,21 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +7.5% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 12 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 12 of this event
+**Vehicles.** CBU, MCO
 **This scan.** Catalyst remains live; ongoing regional bank loss realization cited but exit condition unmet with no peak or full provisioning evident.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
-- Report warns of up to $160B CRE losses for US banks
-- NYCB downgraded to junk by Moody's, boosts reserves 790%
-- NYCB announces $1B capital raise after further downgrade
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
+- 2024-01-08 · Report warns of up to $160B CRE losses for US banks
+- 2024-02-07 · NYCB downgraded to junk by Moody's, boosts reserves 790%
+- 2024-03-08 · NYCB announces $1B capital raise after further downgrade
+- 2024-03-08 · Powell warns of more regional bank failures over CRE loans
+- 2024-07-06 · PIMCO warns real wave of distress just starting for regional banks
 **News claims.** Regional banks now willing to sell underwater bonds at losses
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/why-regional-banks-are-now-willing-to-take-billions-in-losses-123009272.html
 **Its journal going in** (11 earlier scans, as the agent re-read it).
 - …5 earlier scans, in the journal
@@ -128,15 +130,15 @@ Sources:
 
 </details>
 
-### ev84 · IDR, PCSV
+### ev84 · Idaho Strategic presents at MicroCap Leadership Summit
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +12.5% over the period*
-**Catalyst** (still pending, entered 2024-08-05)**.** Idaho Strategic presents at MicroCap Leadership Summit  
-*Scan 1 of this event*
+**Catalyst** entered 2024-08-05, still pending · scan 1 of this event
+**Vehicles.** IDR, PCSV
 **This scan.** Catalyst pending; presentation not yet occurred.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-08-05 · Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
 **Exits when.** exit if/when Idaho Strategic presentation at MicroCap Leadership Summit concludes 
-Sources:
+Sources cited this scan:
 - https://www.pr-inside.com/idaho-strategic-to-present-at-the-microcap-leadership-summit-and-provide-r5029287.htm
 - https://www.tmcnet.com/usubmit/2024/07/30/10049980.htm
 
@@ -165,10 +167,10 @@ Sources:
 
 </details>
 
-### ev56 · CLSK, CORZ, HUT, IREN, MARA, RIOT
+### ev56 · Acquisition of three bitcoin mining data centers
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -13.2% over the period*
-**Catalyst** (still pending, entered 2024-03-08)**.** Acquisition of three bitcoin mining data centers  
-*Scan 6 of this event*
+**Catalyst** entered 2024-03-08, still pending · scan 6 of this event
+**Vehicles.** CLSK, CORZ, HUT, IREN, MARA, RIOT
 **This scan.** No news on the named acquisition; catalyst remains pending.
 **Exits when.** exit if/when acquisition of three bitcoin mining data centers completes or is abandoned 
 **Its journal going in** (5 earlier scans, as the agent re-read it).

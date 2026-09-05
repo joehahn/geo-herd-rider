@@ -12,9 +12,10 @@
 
 ## Funded
 
-### ev13 · BA 40.0% · 3 vehicles, 1 funded · 5 over its life
-**Catalyst** (still pending, entered 2023-09-10)**.** NASA awards double launch deal  
-*Scan 4 of this event · -$1,835 this period · -$1,835 since it opened*
+### ev13 · NASA awards double launch deal
+**Catalyst** entered 2023-09-10, still pending · scan 4 of this event · -$1,835 this period · -$1,835 since it opened
+**Funded.** BA 40.0%
+**Not funded.** LMT, RKLB
 **This scan.** No relevant news on NASA award; thesis remains live.
 **Exits when.** exit if/when NASA double launch deal is awarded or cancelled 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -47,15 +48,16 @@
 
 </details>
 
-### ev4 · COIN 34.0% · 6 vehicles, 1 funded · 5 over its life
+### ev4 · SEC approves a Bitcoin ETF
 *vehicle also claimed by ev8*
-**Catalyst** (still pending, entered 2023-09-10)**.** SEC approves a Bitcoin ETF  
-*Scan 4 of this event · +$505 this period · +$1,350 since it opened*
+**Catalyst** entered 2023-09-10, still pending · scan 4 of this event · +$505 this period · +$1,350 since it opened
+**Funded.** COIN 34.0%
+**Not funded.** BLK, BTBT, GBTC, MARA, MSTR
 **This scan.** Catalyst remains pending; SEC decision not yet occurred despite ongoing filings and optimism.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Grayscale wins court ruling vs SEC (Aug 29)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Grayscale wins court ruling vs SEC (Aug 29)
 **Exits when.** exit if/when SEC approves or rejects Bitcoin ETF 
-Sources:
+Sources cited this scan:
 - https://www.marketwatch.com/articles/bitcoin-etf-grayscale-trust-sec-8b195c49
 - https://www.benzinga.com/markets/cryptocurrency/23/12/36132570/grayscale-ceo-optimistic-for-bitcoin-etf-approval-despite-sec-delay
 - https://www.streetinsider.com/SEC+Filings/Form+S-1A+Pando+Asset+Spot+Bitcoin/22503263.html
@@ -89,17 +91,18 @@ Sources:
 
 </details>
 
-### ev10 · AMD 26.0% · 3 vehicles, 1 funded · 9 over its life
-**Catalyst** (still pending, entered 2023-09-10)**.** AI demand lifts chipmakers  
-*Scan 4 of this event · +$930 this period · +$930 since it opened*
+### ev10 · AI demand lifts chipmakers
+**Catalyst** entered 2023-09-10, still pending · scan 4 of this event · +$930 this period · +$930 since it opened
+**Funded.** AMD 26.0%
+**Not funded.** NVDA, TSM
 **This scan.** Demand narrative intact; AMD launch and Nvidia signals reinforce ongoing AI lift.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- TSMC demand uncertainty, equipment delay reports
-- Chipmakers see smartphone/PC recovery but below AI peak
-- AMD MI300X launch; Nvidia strong demand/shortage confirmed
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-10-10 · TSMC demand uncertainty, equipment delay reports
+- 2023-11-09 · Chipmakers see smartphone/PC recovery but below AI peak
+- 2023-12-09 · AMD MI300X launch; Nvidia strong demand/shortage confirmed
 **News claims.** AMD launches MI300X with stock surge; analysts cite Nvidia supply shortage and $45B market.
 **Exits when.** exit if/when AI chip demand growth stalls or reverses 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/analyst-ratings/analyst-color/23/11/35852624/analyst-stays-bullish-on-nvidia-citing-strong-demand-and-supply-shortage
 - https://readwrite.com/amd-stock-price-jumps-as-company-releases-ai-chip/
 - https://www.benzinga.com/analyst-ratings/analyst-color/23/12/36142456/advanced-micro-devices-projects-45b-ai-chip-market-in-2023-analysts-take-a-look-at-
@@ -140,15 +143,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +3.2% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 4 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 4 of this event
+**Vehicles.** CBU, MCO
 **This scan.** Exit condition unmet; losses neither peaked nor fully provisioned per journal. No reversal of credit-loss driver. Sentiment improving but catalyst pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
-Sources:
+Sources cited this scan:
 - https://www.bloomberg.com/news/articles/2023-12-01/invesco-and-loop-capital-are-betting-on-us-regional-bank-debt
 - https://seekingalpha.com/article/4655627-bond-king-bill-gross-buy-regional-banks-top-income-picks
 - https://seekingalpha.com/news/4043526-ares-commercial-real-estate-cut-to-market-perform-at-jmp
@@ -182,16 +185,16 @@ Sources:
 
 </details>
 
-### ev30 · AMZN, LHX · 4 over its life
+### ev30 · Amazon launches Kuiper satellites
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -0.6% over the period*
-**Catalyst** (still pending, entered 2023-12-09)**.** Amazon launches Kuiper satellites  
-*Scan 1 of this event*
+**Catalyst** entered 2023-12-09, still pending · scan 1 of this event
+**Vehicles.** AMZN, LHX · 4 over the event's life
 **This scan.** Amazon advancing Kuiper with test success and SpaceX launch contract; catalyst pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Kuiper prototype test achieves 100% success
-- Amazon contracts SpaceX for three Kuiper launches
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Kuiper prototype test achieves 100% success
+- 2023-12-09 · Amazon contracts SpaceX for three Kuiper launches
 **Exits when.** exit if/when Kuiper satellites reach full operational capability 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4042401-amazon-contracts-rival-spacex-for-project-kuiper-satellite-deployment
 - https://seekingalpha.com/news/4037798-amazons-project-kuiper-satellite-test-mission-achieves-100-success-rate
 - https://fortune.com/2023/12/02/amazon-spacex-project-kuiper-satellites-starlink-musk-bezos-space-business-rivalry/
@@ -221,13 +224,13 @@ Sources:
 
 </details>
 
-### ev9 · DHI, LEN, NVR
+### ev9 · US housing demand rises
 *culled by max_watchlist 6 · its vehicles ran +8.4% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** US housing demand rises  
-*Scan 4 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 4 of this event
+**Vehicles.** DHI, LEN, NVR
 **This scan.** No housing-related news this week; demand thesis unchanged.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Berkshire Hathaway takes stakes in DHI, LEN, NVR
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Berkshire Hathaway takes stakes in DHI, LEN, NVR
 **Exits when.** exit if/when US housing demand indicators reverse or peak 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2023-09-10 · live · veh DHI,LEN,NVR · Berkshire 13F confirms housing demand thesis via homebuilder buys

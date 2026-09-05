@@ -32,19 +32,20 @@
 
 ## Not funded, the three that came closest
 
-### ev230 · CUE, FDMT, JANX, MLYS, MPLT, SEPN · 8 vehicles · 11 over its life
+### ev230 · Potential new treatments
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -1.8% over the period*
-**Catalyst** (still pending, entered 2026-05-27)**.** Potential new treatments  
-*Scan 3 of this event*
+**Catalyst** entered 2026-05-27, still pending · scan 3 of this event
+**Vehicles.** CUE, FDMT, JANX, MLYS, MPLT, SEPN, SLN, TVRD · 11 over the event's life
 **This scan.** Ongoing positive data, financings and analyst coverage across multiple vehicles keep catalyst live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- SNDX Stifel PT lift (May 4)
-- DARE Ovaprene Phase 3 interim positive (May 12)
-- BDTX stock climb (May 26)
-- IMUX new CEO for Phase 3 acceleration (May 27)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-05-27 · SNDX Stifel PT lift (May 4)
+- 2026-05-27 · DARE Ovaprene Phase 3 interim positive (May 12)
+- 2026-05-27 · BDTX stock climb (May 26)
+- 2026-05-27 · IMUX new CEO for Phase 3 acceleration (May 27)
+- 2026-06-26 · QURE FDA clears AMT-130 path (Jun 17)
+- 2026-06-26 · SLN Phase 2 data catalyst predicted (Jun 24)
 **Exits when.** exit if/when key trial data fails or approvals denied 
-Sources:
+Sources cited this scan:
 - https://www.foreignpolicyjournal.com/2026/07/19/4d-molecular-therapeutics-nasdaq-fdmt-reports-two-year-gene-therapy-data-showing-87-treatment-burden-reduction-in-wet-amd-patients/
 - https://www.manilatimes.net/2026/07/10/tmt-newswire/globenewswire/cue-biopharma-announces-500-million-private-placement/2382113
 - https://www.investorideas.com/news/2026/biotech/07071-tvardi-tvrd-phase-1-stat3-inhibitor.asp
@@ -77,13 +78,13 @@ Sources:
 
 </details>
 
-### ev203 · DPRO, ONDS, RKLB, UAVS, XAR · 8 over its life
+### ev203 · Rising NATO defense spending fuels multi-year upcycle
 *culled by max_watchlist 6 · its vehicles ran +7.3% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** Rising NATO defense spending fuels multi-year upcycle  
-*Scan 7 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 7 of this event
+**Vehicles.** DPRO, ONDS, RKLB, UAVS, XAR · 8 over the event's life
 **This scan.** No NATO reversal or budget cuts in news; structural upcycle remains live.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- 2026-02-12: BofA notes rising NATO spending could fuel multi-year upcycle
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · 2026-02-12: BofA notes rising NATO spending could fuel multi-year upcycle
 **Exits when.** exit if/when NATO defense spending commitments reverse or budgets are cut 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2026-02-26 · live · veh XAR · Catalyst entered this week on BofA commentary; structural multi-year NATO spending upcycle remains pending with no resolution.
@@ -118,14 +119,14 @@ Sources:
 
 </details>
 
-### ev175 · BATL, BOIL, UNG, VG · 3 over its life
+### ev175 · Record LNG export demand lifts US natural gas prices
 *culled by max_watchlist 6 · its vehicles ran -11.8% over the period*
-**Catalyst** (still pending, entered 2025-11-28)**.** Record LNG export demand lifts US natural gas prices  
-*Scan 10 of this event*
+**Catalyst** entered 2025-11-28, still pending · scan 10 of this event
+**Vehicles.** BATL, BOIL, UNG, VG · 3 over the event's life
 **This scan.** No LNG export demand news; catalyst pending despite isolated natgas rally mention
 **News claims.** VG soars on geopolitical tensions fueling natural gas rally
 **Exits when.** exit if/when LNG export demand surge reverses or US natgas prices decline sharply `exit_case: LNG export demand surge never materialized; rally tied to geopolitics`
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/venture-global-vg-soars-as-geopolitical-tensions-fuel-natural-gas-rally-1802835/
 **Its journal going in** (9 earlier scans, as the agent re-read it).
 - …3 earlier scans, in the journal

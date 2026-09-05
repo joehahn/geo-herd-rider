@@ -12,12 +12,13 @@
 
 ## Funded
 
-### ev70 · LXEO 40.0%
-**Catalyst** (still pending, entered 2024-05-07)**.** LX2006 gene therapy FDA decision  
-*Scan 2 of this event · -$6,110 this period · -$6,110 since it opened*
+### ev70 · LX2006 gene therapy FDA decision
+**Catalyst** entered 2024-05-07, still pending · scan 2 of this event · -$6,110 this period · -$6,110 since it opened
+**Funded.** LXEO 40.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No developments on LX2006 FDA decision; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- LX2006 receives FDA Fast Track designation (Apr 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · LX2006 receives FDA Fast Track designation (Apr 2024)
 **Exits when.** exit if/when FDA decision on LX2006 is announced or denied 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-05-07 · live · veh LXEO · Catalyst pending; Fast Track granted but no decision yet.
@@ -47,18 +48,23 @@
 
 </details>
 
-### ev10 · NVDA 40.0% · 5 vehicles, 1 funded · 9 over its life
-**Catalyst** (still pending, entered 2023-09-10)**.** AI demand lifts chipmakers  
-*Scan 10 of this event · +$1,175 this period · +$6,877 since it opened*
+### ev10 · AI demand lifts chipmakers
+**Catalyst** entered 2023-09-10, still pending · scan 10 of this event · +$1,175 this period · +$6,877 since it opened
+**Funded.** NVDA 40.0%
+**Not funded.** AMD, SMH, SOXX, TSM
 **This scan.** Demand narrative intact; TSMC records, Nvidia production ramps and xAI plans confirm ongoing lift with no stall.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- TSMC demand uncertainty, equipment delay reports
-- Chipmakers see smartphone/PC recovery but below AI peak
-- AMD MI300X launch; Nvidia strong demand/shortage confirmed
-- Nvidia/AMD drive record semiconductor profits since 2009
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-10-10 · TSMC demand uncertainty, equipment delay reports
+- 2023-11-09 · Chipmakers see smartphone/PC recovery but below AI peak
+- 2023-12-09 · AMD MI300X launch; Nvidia strong demand/shortage confirmed
+- 2024-01-08 · Nvidia/AMD drive record semiconductor profits since 2009
+- 2024-02-07 · TSMC demand uncertainty, equipment delay reports -> Chipmakers see smartphone/PC recovery but below AI peak -> AMD MI300X launch; Nvidia strong demand/shortage confirmed -> Nvidia/AMD drive record semiconductor profits since 2009  *(the agent stopped carrying this one)*
+- 2024-02-07 · AI chip demand forces Huawei to slow smartphone production
+- 2024-03-08 · AMD AI chip demand forecast raise  *(the agent stopped carrying this one)*
+- 2024-05-07 · Samsung 930% profit surge; Qualcomm AI China rally; TSMC AI earnings lift  *(the agent stopped carrying this one)*
+- 2024-06-06 · TSMC hits record high on surging AI demand
 **Exits when.** exit if/when AI chip demand growth stalls or reverses 
-Sources:
+Sources cited this scan:
 - https://www.marketscreener.com/quote/stock/TSMC-TAIWAN-SEMICONDUCTOR-6492349/news/TSMC-Shares-Hit-Record-High-as-AI-Demand-Boosts-Chip-Industry-46915277/
 - https://www.benzinga.com/news/24/05/39060364/nvidia-accelerates-ai-chip-production-with-new-packaging-tech-to-meet-soaring-demand
 - https://www.benzinga.com/news/24/06/39202508/whats-going-on-with-taiwan-semiconductor-stock-on-thursday
@@ -96,9 +102,10 @@ Sources:
 
 </details>
 
-### ev49 · COST 12.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 5 of this event · +$937 this period · +$2,726 since it opened*
+### ev49 · Walmart expands store count
+**Catalyst** entered 2024-02-07, still pending · scan 5 of this event · +$937 this period · +$2,726 since it opened
+**Funded.** COST 12.0%
+**Not funded.** DG, WMT
 **This scan.** No store-count news this week; catalyst still pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -132,14 +139,15 @@ Sources:
 
 </details>
 
-### ev63 · LLY 8.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** FDA considers donanemab for Alzheimer's  
-*Scan 4 of this event · +$384 this period · +$384 since it opened*
+### ev63 · FDA considers donanemab for Alzheimer's
+**Catalyst** entered 2024-03-08, still pending · scan 4 of this event · +$384 this period · +$384 since it opened
+**Funded.** LLY 8.0%
+**Not funded.** VKTX
 **This scan.** No FDA approval or rejection decision on donanemab; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDA delays donanemab decision beyond Q1 2024
-- FDA sets advisory committee meeting on TRAILBLAZER-ALZ 2
-- Lilly issues statement on FDA advisory committee meeting for donanemab
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · FDA delays donanemab decision beyond Q1 2024
+- 2024-03-08 · FDA sets advisory committee meeting on TRAILBLAZER-ALZ 2
+- 2024-05-07 · Lilly issues statement on FDA advisory committee meeting for donanemab
 **Exits when.** exit if/when FDA approves or rejects donanemab 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2024-03-08 · live · veh LLY,VKTX · Catalyst pending; advisory committee meeting scheduled after initial delay.
@@ -180,13 +188,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev79 · AMC, GME
+### ev79 · Roaring Kitty schedules a livestream
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -30.4% over the period*
-**Catalyst** (still pending, entered 2024-06-06)**.** Roaring Kitty schedules a livestream  
-*Scan 1 of this event*
+**Catalyst** entered 2024-06-06, still pending · scan 1 of this event
+**Vehicles.** AMC, GME
 **This scan.** Catalyst pending; recent Roaring Kitty activity centers on position reveals and social posts rather than a scheduled livestream.
 **Exits when.** exit if/when the livestream occurs or is canceled 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/gamestop-stock-price-soars-after-reddit-user-roaring-kitty-makes-175-million-bet-155344035.html
 - https://finance.yahoo.com/news/gamestop-youtuber-roaring-kitty-just-143207668.html
 
@@ -215,10 +223,10 @@ Sources:
 
 </details>
 
-### ev56 · CLSK, HUT, MARA, RIOT · 6 over its life
+### ev56 · Acquisition of three bitcoin mining data centers
 *culled by max_watchlist 6 · its vehicles ran +20.8% over the period*
-**Catalyst** (still pending, entered 2024-03-08)**.** Acquisition of three bitcoin mining data centers  
-*Scan 4 of this event*
+**Catalyst** entered 2024-03-08, still pending · scan 4 of this event
+**Vehicles.** CLSK, HUT, MARA, RIOT · 6 over the event's life
 **This scan.** No news on the named acquisition of three data centers; catalyst remains pending. Sector M&A activity is unrelated.
 **Exits when.** exit if/when acquisition of three bitcoin mining data centers completes or is abandoned 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -251,15 +259,15 @@ Sources:
 
 </details>
 
-### ev30 · AMZN, LHX · 4 over its life
+### ev30 · Amazon launches Kuiper satellites
 *culled by max_watchlist 6 · its vehicles ran -2.0% over the period*
-**Catalyst** (still pending, entered 2023-12-09)**.** Amazon launches Kuiper satellites  
-*Scan 7 of this event*
+**Catalyst** entered 2023-12-09, still pending · scan 7 of this event
+**Vehicles.** AMZN, LHX · 4 over the event's life
 **This scan.** No Kuiper developments this week; exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Kuiper prototype test achieves 100% success
-- Amazon contracts SpaceX for three Kuiper launches
-- Amazon successfully tests laser links for Project Kuiper
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Kuiper prototype test achieves 100% success
+- 2023-12-09 · Amazon contracts SpaceX for three Kuiper launches
+- 2024-01-08 · Amazon successfully tests laser links for Project Kuiper
 **Exits when.** exit if/when Kuiper satellites reach full operational capability 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2023-12-09 · live · veh AMZN,LHX · Amazon advancing Kuiper with test success and SpaceX launch contract; catalyst pending.

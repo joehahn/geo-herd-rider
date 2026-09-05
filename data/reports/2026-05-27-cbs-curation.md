@@ -13,13 +13,14 @@
 
 ## Funded
 
-### ev199 · LLY 40.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-02-26)**.** Medicare covers obesity drugs  
-*Scan 5 of this event · +$1,964 this period · +$1,964 since it opened*
+### ev199 · Medicare covers obesity drugs
+**Catalyst** entered 2026-02-26, still pending · scan 5 of this event · +$1,964 this period · +$1,964 since it opened
+**Funded.** LLY 40.0%
+**Not funded.** HIMS, NVO
 **This scan.** Catalyst remains pending; no Medicare obesity coverage decision in week's news.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
-- Novo CEO: 15M new patients from Medicare coverage (Feb 12)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
+- 2026-02-26 · Novo CEO: 15M new patients from Medicare coverage (Feb 12)
 **Exits when.** exit if/when Medicare coverage of obesity drugs is implemented or rejected 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2026-02-26 · live · veh HIMS,LLY,NVO · Catalyst pending; Medicare expansion still ahead and cited as major tailwind by both LLY and NVO CEOs. HIMS faces separate patent suit but remains…
@@ -52,9 +53,10 @@
 
 </details>
 
-### ev208 · MU 11.0% · 5 vehicles, 1 funded · 7 over its life
-**Catalyst** (still pending, entered 2026-03-28)**.** USTR probes South Korea semiconductor IP abuse  
-*Scan 4 of this event · +$935 this period · +$935 since it opened*
+### ev208 · USTR probes South Korea semiconductor IP abuse
+**Catalyst** entered 2026-03-28, still pending · scan 4 of this event · +$935 this period · +$935 since it opened
+**Funded.** MU 11.0%
+**Not funded.** AMD, LRCX, NLST, NXPI
 **This scan.** Probe remains entirely unmentioned and pending after 8 weeks; no resolution or reversal observed.
 **Exits when.** exit if/when USTR probe concludes, is dropped, or IP ruling issued 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -103,15 +105,15 @@
 
 ## Not funded, the three that came closest
 
-### ev203 · DPRO, ONDS, UAVS, XAR · 8 over its life
+### ev203 · Rising NATO defense spending fuels multi-year upcycle
 *culled by max_watchlist 6 · its vehicles ran -15.2% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** Rising NATO defense spending fuels multi-year upcycle  
-*Scan 5 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 5 of this event
+**Vehicles.** DPRO, ONDS, UAVS, XAR · 8 over the event's life
 **This scan.** Structural NATO spending upcycle remains live; no reversal or budget cuts in journal or this week's news. Defense items (RKLB, American Lithium) tangential but consistent with broader theme.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- 2026-02-12: BofA notes rising NATO spending could fuel multi-year upcycle
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · 2026-02-12: BofA notes rising NATO spending could fuel multi-year upcycle
 **Exits when.** exit if/when NATO defense spending commitments reverse or budgets are cut 
-Sources:
+Sources cited this scan:
 - https://www.foreignpolicyjournal.com/2026/05/27/rocket-lab-rklb-secures-816m-sda-contract-after-missile-defense-solution-clears-review/
 - https://www.manilatimes.net/2026/05/26/tmt-newswire/globenewswire/american-lithium-accepted-into-us-defense-industrial-base-consortium/2351588
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -145,18 +147,18 @@ Sources:
 
 </details>
 
-### ev230 · BDTX, DARE, IMUX, SNDX · 11 over its life
+### ev230 · Potential new treatments
 *culled by max_watchlist 6 · its vehicles ran +5.9% over the period*
-**Catalyst** (still pending, entered 2026-05-27)**.** Potential new treatments  
-*Scan 1 of this event*
+**Catalyst** entered 2026-05-27, still pending · scan 1 of this event
+**Vehicles.** BDTX, DARE, IMUX, SNDX · 11 over the event's life
 **This scan.** Initial entry on potential new treatments; all four vehicles show fresh positive clinical or corporate progress this week.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- SNDX Stifel PT lift (May 4)
-- DARE Ovaprene Phase 3 interim positive (May 12)
-- BDTX stock climb (May 26)
-- IMUX new CEO for Phase 3 acceleration (May 27)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-05-27 · SNDX Stifel PT lift (May 4)
+- 2026-05-27 · DARE Ovaprene Phase 3 interim positive (May 12)
+- 2026-05-27 · BDTX stock climb (May 26)
+- 2026-05-27 · IMUX new CEO for Phase 3 acceleration (May 27)
 **Exits when.** exit if/when key trial data fails or approvals denied 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/why-syndax-pharmaceuticals-sndx-is-one-of-the-best-small-cap-stocks-to-buy-for-10x-potential-1761490/
 - https://www.benzinga.com/markets/small-cap/26/05/52800899/exclusive-immunic-appoints-former-genentech-exec-erik-lundgren-as-ceo
 - https://www.benzinga.com/markets/small-cap/26/05/52783360/whats-going-on-with-black-diamond-therapeutics-stock-tuesday
@@ -187,10 +189,10 @@ Sources:
 
 </details>
 
-### ev207 · LSCC, TSEM
+### ev207 · expands 300mm capacity in Japan
 *culled by max_watchlist 6 · its vehicles ran -8.1% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** expands 300mm capacity in Japan  
-*Scan 4 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 4 of this event
+**Vehicles.** LSCC, TSEM
 **This scan.** No news on Japan 300mm capacity expansion across entire journal; all coverage is unrelated AI/earnings for TSEM and LSCC.
 **Exits when.** exit if/when Japan 300mm capacity expansion is announced or completed 
 **Its journal going in** (3 earlier scans, as the agent re-read it).

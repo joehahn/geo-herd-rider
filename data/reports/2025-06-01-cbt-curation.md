@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev117 · CRWV 21.0% · 2 vehicles, 1 funded · 1 over its life
-**Catalyst** (still pending, entered 2025-04-02)**.** CoreWeave files for Nasdaq IPO  
-*Scan 3 of this event · +$816 this period · +$816 since it opened*
+### ev117 · CoreWeave files for Nasdaq IPO
+**Catalyst** entered 2025-04-02, still pending · scan 3 of this event · +$816 this period · +$816 since it opened
+**Funded.** CRWV 21.0%
+**Not funded.** NVDA
 **This scan.** IPO filing remains pending; no completion or withdrawal reported. NVDA news unrelated to CoreWeave catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- CoreWeave files for Nasdaq IPO under CRWV
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · CoreWeave files for Nasdaq IPO under CRWV
 **Exits when.** exit if/when IPO completes or is withdrawn 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2025-04-02 · live · veh CRWV,NVDA · CoreWeave IPO filing launches the event; NVDA exposure via GPU cloud demand remains live.
@@ -49,14 +50,15 @@
 
 </details>
 
-### ev132 · OLMA 4.0% · 4 over its life
-**Catalyst** (still pending, entered 2025-06-01)**.** Olema Pharmaceuticals advances Phase 3 trials  
-*Scan 1 of this event · +$380 this period · +$380 since it opened*
+### ev132 · Olema Pharmaceuticals advances Phase 3 trials
+**Catalyst** entered 2025-06-01, still pending · scan 1 of this event · +$380 this period · +$380 since it opened
+**Funded.** OLMA 4.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** Catalyst live on analyst support for ongoing Phase 3 progress; no resolution yet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- H.C. Wainwright backs OLMA as Phase 3 trials advance
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · H.C. Wainwright backs OLMA as Phase 3 trials advance
 **Exits when.** exit if/when Phase 3 trial completes, fails or is halted 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/h-c-wainwright-backs-olema-pharmaceuticals-olma-as-phase-3-trials-advance-1544336/
 
 <details><summary>What it read this scan: 20 of 91 matching articles, capped at 20</summary>
@@ -84,12 +86,13 @@ Sources:
 
 </details>
 
-### ev102 · CALX 3.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-12-03)**.** Tera Software wins BharatNet project  
-*Scan 7 of this event · +$298 this period · +$967 since it opened*
+### ev102 · Tera Software wins BharatNet project
+**Catalyst** entered 2024-12-03, still pending · scan 7 of this event · +$298 this period · +$967 since it opened
+**Funded.** CALX 3.0%
+**Not funded.** TERA
 **This scan.** No relevant news; catalyst remains unconfirmed and pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Tera Software wins BharatNet project
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Tera Software wins BharatNet project
 **Exits when.** exit if/when BharatNet award reversed or cancelled 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2024-12-03 · live · veh TERA,CALX · No relevant news; catalyst entry stands unconfirmed by this week's coverage.
@@ -143,16 +146,16 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev111 · BA, HWM, RKLB · 10 over its life
+### ev111 · aerospace demand lifts sales
 *culled by max_watchlist 6 · its vehicles ran +11.8% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 5 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 5 of this event
+**Vehicles.** BA, HWM, RKLB · 10 over the event's life
 **This scan.** No demand slowdown; positive Boeing and Rocket Lab developments keep thesis intact.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban
-- RKLB Q1 sales top estimates
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban
+- 2025-06-01 · RKLB Q1 sales top estimates
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
-Sources:
+Sources cited this scan:
 - https://www.proactiveinvestors.com/companies/news/1071097/china-reportedly-lifts-boeing-ban-after-trade-war-talks-1071097.html
 - https://markets.financialcontent.com/stocks/article/stockstory-2025-5-8-rocket-labs-nasdaqrklb-q1-sales-top-estimates
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -186,13 +189,13 @@ Sources:
 
 </details>
 
-### ev109 · CEG
+### ev109 · $16B Calpine acquisition closes
 *culled by max_watchlist 6 · its vehicles ran +0.6% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** $16B Calpine acquisition closes  
-*Scan 5 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 5 of this event
+**Vehicles.** CEG
 **This scan.** No developments on Calpine close; thesis remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Constellation announces $16B Calpine acquisition
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-02-01 · Constellation announces $16B Calpine acquisition
 **Exits when.** exit if/when Calpine acquisition closes or is terminated 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2025-02-01 · live · veh CEG · Deal announced but closing remains pending; CEG is the direct vehicle.
@@ -225,13 +228,13 @@ Sources:
 
 </details>
 
-### ev101 · AMZN, TLN · 4 over its life
+### ev101 · FERC finalizes Amazon nuclear deal
 *culled by max_watchlist 6 · its vehicles ran +10.7% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** FERC finalizes Amazon nuclear deal  
-*Scan 7 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 7 of this event
+**Vehicles.** AMZN, TLN · 4 over the event's life
 **This scan.** No FERC action on Amazon-Talen deal reported; catalyst remains pending despite broad nuclear policy news.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Amazon remains committed to nuclear energy deal with Talen
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Amazon remains committed to nuclear energy deal with Talen
 **Exits when.** exit if/when FERC finalizes or rejects Amazon-Talen nuclear deal 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2024-12-03 · live · veh AMZN,TLN · Catalyst pending; news shows ongoing commitment but no FERC action or closure this week.

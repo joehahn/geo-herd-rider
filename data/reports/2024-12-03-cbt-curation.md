@@ -13,9 +13,10 @@
 
 ## Funded
 
-### ev92 · HOOD 40.0% · 2 vehicles, 1 funded · 3 over its life
-**Catalyst** (still pending, entered 2024-12-03)**.** US election results affect crypto policies  
-*Scan 1 of this event · +$576 this period · +$576 since it opened*
+### ev92 · US election results affect crypto policies
+**Catalyst** entered 2024-12-03, still pending · scan 1 of this event · +$576 this period · +$576 since it opened
+**Funded.** HOOD 40.0%
+**Not funded.** COIN
 **This scan.** Election results pro-crypto but no concrete policy action yet; news this week unrelated to catalyst.
 **Exits when.** exit if/when major crypto policy legislation is passed or blocked 
 
@@ -44,12 +45,13 @@
 
 </details>
 
-### ev102 · CALX 5.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-12-03)**.** Tera Software wins BharatNet project  
-*Scan 1 of this event · +$196 this period · +$196 since it opened*
+### ev102 · Tera Software wins BharatNet project
+**Catalyst** entered 2024-12-03, still pending · scan 1 of this event · +$196 this period · +$196 since it opened
+**Funded.** CALX 5.0%
+**Not funded.** TERA
 **This scan.** No relevant news; catalyst entry stands unconfirmed by this week's coverage.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Tera Software wins BharatNet project
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Tera Software wins BharatNet project
 **Exits when.** exit if/when BharatNet award reversed or cancelled 
 
 <details><summary>What it read this scan: 20 of 126 matching articles, capped at 20</summary>
@@ -96,15 +98,15 @@
 
 ## Not funded, the three that came closest
 
-### ev98 · CPNG, SE
+### ev98 · US-listed e-commerce plays lift on Trump's tariff plans
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -8.0% over the period*
-**Catalyst** (still pending, entered 2024-12-03)**.** US-listed e-commerce plays lift on Trump's tariff plans  
-*Scan 1 of this event*
+**Catalyst** entered 2024-12-03, still pending · scan 1 of this event
+**Vehicles.** CPNG, SE
 **This scan.** Tariff threats announced but no e-commerce lift observed yet; catalyst pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Trump threatens new tariffs on China/Mexico/Canada
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-12-03 · Trump threatens new tariffs on China/Mexico/Canada
 **Exits when.** exit if/when tariff plans enacted or withdrawn 
-Sources:
+Sources cited this scan:
 - https://www.americanpress.com/2024/11/26/trump-threatens-to-impose-sweeping-new-tariffs-on-mexico-canada-china/
 - https://fortune.com/asia/2024/11/26/trump-fires-first-salvo-trade-war-china-new-tariff-fentanyl/
 
@@ -133,10 +135,10 @@ Sources:
 
 </details>
 
-### ev56 · CLSK, CORZ, HUT, IREN, MARA, RIOT
+### ev56 · Acquisition of three bitcoin mining data centers
 *culled by max_watchlist 6 · its vehicles ran -20.2% over the period*
-**Catalyst** (still pending, entered 2024-03-08)**.** Acquisition of three bitcoin mining data centers  
-*Scan 10 of this event*
+**Catalyst** entered 2024-03-08, still pending · scan 10 of this event
+**Vehicles.** CLSK, CORZ, HUT, IREN, MARA, RIOT
 **This scan.** No news on the named acquisition of three data centers; catalyst remains pending. Sector Bitcoin and miner funding updates unrelated.
 **Exits when.** exit if/when acquisition of three bitcoin mining data centers completes or is abandoned 
 **Its journal going in** (9 earlier scans, as the agent re-read it).
@@ -173,14 +175,14 @@ Sources:
 
 </details>
 
-### ev43 · COIN, MARA, MSTR
+### ev43 · US passes stablecoin legislation
 *culled by max_watchlist 6 · its vehicles ran -22.7% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** US passes stablecoin legislation  
-*Scan 11 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 11 of this event
+**Vehicles.** COIN, MARA, MSTR
 **This scan.** Legislation remains pending with no passage or vote; this week's news covers unrelated Bitcoin activity and foreign stablecoins only.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
-- US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Yellen urges Congress to grant federal stablecoin regulatory authority (2024-02-06)
+- 2024-03-08 · US Lawmakers 'Very, Very Close' to Finalizing Stablecoin Deal (2024-02-08)
 **Exits when.** exit if/when stablecoin legislation passes or is voted down 
 **Its journal going in** (10 earlier scans, as the agent re-read it).
 - …4 earlier scans, in the journal

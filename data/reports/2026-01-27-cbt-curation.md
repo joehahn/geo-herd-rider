@@ -13,9 +13,10 @@
 
 ## Funded
 
-### ev191 · BE 32.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-01-27)**.** Wyoming approves massive 1.8 GW AI data center  
-*Scan 1 of this event · +$6,450 this period · +$6,450 since it opened*
+### ev191 · Wyoming approves massive 1.8 GW AI data center
+**Catalyst** entered 2026-01-27, still pending · scan 1 of this event · +$6,450 this period · +$6,450 since it opened
+**Funded.** BE 32.0%
+**Not funded.** NVTS
 **This scan.** Catalyst is the specific Wyoming approval; no news confirms occurrence, reversal or completion this week. General AI data-center coverage is thematically related but does not resolve the named trigger.
 **Exits when.** exit if/when Wyoming 1.8 GW project faces delays, reversal or cancellation 
 
@@ -44,13 +45,14 @@
 
 </details>
 
-### ev175 · BATL 4.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2025-11-28)**.** Record LNG export demand lifts US natural gas prices  
-*Scan 3 of this event · -$1,551 this period · -$1,551 since it opened*
+### ev175 · Record LNG export demand lifts US natural gas prices
+**Catalyst** entered 2025-11-28, still pending · scan 3 of this event · -$1,551 this period · -$1,551 since it opened
+**Funded.** BATL 4.0%
+**Not funded.** BOIL, UNG
 **This scan.** No LNG export demand news; price spike weather-driven only.
 **News claims.** Winter Storm Fern lifted natgas prices and BOIL/BATL; no LNG catalyst update.
 **Exits when.** exit if/when LNG export demand surge reverses or US natgas prices decline sharply 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/trading-ideas/movers/26/01/50141520/why-battalion-oil-batl-stock-is-exploding-higher-as-natural-gas-prices-surge
 - https://www.benzinga.com/trading-ideas/movers/26/01/50141096/proshares-ultra-bloomberg-natural-gas-boil-etf-surges-as-natural-gas-spikes-on-winter-storm-fern
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -102,13 +104,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev179 · MP, REMX · 3 over its life
+### ev179 · US rare earth supply chain legislation passes
 *culled by max_watchlist 6 · its vehicles ran -11.2% over the period*
-**Catalyst** (still pending, entered 2025-12-28)**.** US rare earth supply chain legislation passes  
-*Scan 2 of this event*
+**Catalyst** entered 2025-12-28, still pending · scan 2 of this event
+**Vehicles.** MP, REMX · 3 over the event's life
 **This scan.** Government funding and investments in rare earth miners continue without any legislation enacted or rejected.
 **Exits when.** exit if/when US rare earth supply chain legislation passes or is rejected 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/trumps-rare-earth-mega-deal-193107724.html
 - https://www.military.com/daily-news/2026/01/26/trump-administration-invests-another-us-rare-earth-miner-loosen-chinas-grip-supply.html
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -139,14 +141,16 @@ Sources:
 
 </details>
 
-### ev114 · HLX, HLX.AX
+### ev114 · helium demand lifts prices
 *culled by max_watchlist 6 · its vehicles ran -7.7% over the period*
-**Catalyst** (still pending, entered 2025-03-03)**.** helium demand lifts prices  
-*Scan 12 of this event*
+**Catalyst** entered 2025-03-03, still pending · scan 12 of this event
+**Vehicles.** HLX, HLX.AX
 **This scan.** No helium news or reversal signals; quiet stretch continues with exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Helium demand balloons
-- Helix reaches cash generation
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-03-03 · Helium demand balloons, Helix reaches cash generation  *(the agent stopped carrying this one)*
+- 2025-07-31 · Helium demand balloons
+- 2025-07-31 · Helix reaches cash generation
+- 2025-08-30 · Helium demand balloons -> Helix reaches cash generation  *(the agent stopped carrying this one)*
 **Exits when.** exit if/when helium demand growth stalls or supply surges 
 **Its journal going in** (11 earlier scans, as the agent re-read it).
 - …5 earlier scans, in the journal
@@ -182,10 +186,10 @@ Sources:
 
 </details>
 
-### ev154 · ARM, NVDA, SMH, SOXX · 10 over its life
+### ev154 · Samsung signs $16.5B deal for AI chips
 *culled by max_watchlist 6 · its vehicles ran +0.2% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 7 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 7 of this event
+**Vehicles.** ARM, NVDA, SMH, SOXX · 10 over the event's life
 **This scan.** Catalyst remains pending with no confirmation of the specific Samsung $16.5B AI chip deal in this week's news.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 **Its journal going in** (6 earlier scans, as the agent re-read it).

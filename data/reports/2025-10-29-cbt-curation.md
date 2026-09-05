@@ -13,18 +13,20 @@
 
 ## Funded
 
-### ev111 · MU 36.0% · 3 vehicles, 1 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 10 of this event · +$4,923 this period · +$22,206 since it opened*
+### ev111 · aerospace demand lifts sales
+**Catalyst** entered 2025-02-01, still pending · scan 10 of this event · +$4,923 this period · +$22,206 since it opened
+**Funded.** MU 36.0%
+**Not funded.** BA, HWM, RKLB
 **This scan.** Demand thesis intact; RKLB growth cited, no slowdown evident.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban
-- RKLB Q1 sales top estimates
-- Defense ETFs rise on NATO drone clash
-- Roth lifts RKLB PT to $60
-- …and 1 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban
+- 2025-06-01 · RKLB Q1 sales top estimates
+- 2025-07-01 · China lifts Boeing delivery ban -> RKLB Q1 sales top estimates  *(the agent stopped carrying this one)*
+- 2025-09-29 · Defense ETFs rise on NATO drone clash
+- 2025-09-29 · Roth lifts RKLB PT to $60
+- 2025-10-29 · Keybanc lifts RKLB PT on space systems growth
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/keybanc-lifts-rocket-labs-rklb-target-amid-robust-growth-in-space-systems-segment-and-archimedes-production-1633714/
 - https://www.benzinga.com/news/politics/25/10/48143998/us-finland-strike-deal-for-11-new-icebreaker-ships-to-counter-russia-china-in-arctic-we-need-these-ships-very-badly
 **Its journal going in** (9 earlier scans, as the agent re-read it).
@@ -61,12 +63,13 @@ Sources:
 
 </details>
 
-### ev157 · CELC 15.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** FDA approves Gedatolisib  
-*Scan 4 of this event · +$8,496 this period · +$10,362 since it opened*
+### ev157 · FDA approves Gedatolisib
+**Catalyst** entered 2025-07-31, still pending · scan 4 of this event · +$8,496 this period · +$10,362 since it opened
+**Funded.** CELC 15.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No developments on Gedatolisib; catalyst remains pending Q4 filing. Unrelated news does not impact thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-31 · Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
 **Exits when.** exit if/when FDA decision on Gedatolisib approval is announced 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2025-07-31 · live · veh CELC · Trial success sets up pending FDA filing; catalyst unresolved.
@@ -96,10 +99,10 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev168 · TKMSF, TKR
+### ev168 · Europe expands submarine fleet
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -4.0% over the period*
-**Catalyst** (still pending, entered 2025-10-29)**.** Europe expands submarine fleet  
-*Scan 1 of this event*
+**Catalyst** entered 2025-10-29, still pending · scan 1 of this event
+**Vehicles.** TKMSF, TKR
 **This scan.** No Europe-specific submarine news this week; catalyst remains pending.
 **Exits when.** exit if/when Europe submarine fleet expansion plans finalized or reversed 
 
@@ -128,10 +131,10 @@ Sources:
 
 </details>
 
-### ev154 · ARM, NVDA, SMH, SOXX · 10 over its life
+### ev154 · Samsung signs $16.5B deal for AI chips
 *culled by max_watchlist 6 · its vehicles ran -14.1% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 4 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 4 of this event
+**Vehicles.** ARM, NVDA, SMH, SOXX · 10 over the event's life
 **This scan.** No confirmation or news on the specific $16.5B Samsung AI chip deal; catalyst remains pending.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -164,13 +167,13 @@ Sources:
 
 </details>
 
-### ev119 · ASTS
+### ev119 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 *culled by max_watchlist 6 · its vehicles ran -29.8% over the period*
-**Catalyst** (still pending, entered 2025-04-02)**.** AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark  
-*Scan 8 of this event*
+**Catalyst** entered 2025-04-02, still pending · scan 8 of this event
+**Vehicles.** ASTS
 **This scan.** No news on 2degrees/Spark deals; catalyst remains pending. ASTS coverage this week concerns satellite launches only.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-04-02 · AST SpaceMobile wins satellite-to-mobile deals with 2degrees and Spark
 **Exits when.** exit if/when deals with 2degrees and Spark confirmed or fall through 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal

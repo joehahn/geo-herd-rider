@@ -14,9 +14,10 @@
 
 ## Funded
 
-### ev56 · HUT 40.0% · 4 vehicles, 1 funded · 6 over its life
-**Catalyst** (still pending, entered 2024-03-08)**.** Acquisition of three bitcoin mining data centers  
-*Scan 5 of this event · -$9,791 this period · -$9,791 since it opened*
+### ev56 · Acquisition of three bitcoin mining data centers
+**Catalyst** entered 2024-03-08, still pending · scan 5 of this event · -$9,791 this period · -$9,791 since it opened
+**Funded.** HUT 40.0%
+**Not funded.** CLSK, MARA, RIOT
 **This scan.** No news on the named acquisition; catalyst remains pending. Sector M&A and funding activity unrelated.
 **Exits when.** exit if/when acquisition of three bitcoin mining data centers completes or is abandoned 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -52,20 +53,21 @@
 
 ## Exited at this scan
 
-### ev63 · LLY 8.0% · 2 vehicles, 1 funded
+### ev63 · FDA considers donanemab for Alzheimer's
 *held going in · catalyst RESOLVED: FDA approves donanemab July 2*
-**Catalyst** (RESOLVED 2024-07-06, entered 2024-03-08)**.** FDA considers donanemab for Alzheimer's  
-*Scan 5 of this event · +$384 since it opened*
+**Catalyst** entered 2024-03-08, RESOLVED 2024-07-06 · scan 5 of this event · +$384 since it opened
+**Funded.** LLY 8.0%
+**Not funded.** VKTX
 **This scan.** FDA approval received; catalyst resolved.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDA delays donanemab decision beyond Q1 2024
-- FDA sets advisory committee meeting on TRAILBLAZER-ALZ 2
-- Lilly issues statement on FDA advisory committee meeting for donanemab
-- FDA approves donanemab (Kisunla)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · FDA delays donanemab decision beyond Q1 2024
+- 2024-03-08 · FDA sets advisory committee meeting on TRAILBLAZER-ALZ 2
+- 2024-05-07 · Lilly issues statement on FDA advisory committee meeting for donanemab
+- 2024-07-06 · FDA approves donanemab (Kisunla)
 **News claims.** FDA approves Lilly donanemab for Alzheimer's
 **Exits when.** exit if/when FDA approves or rejects donanemab `exit_case: FDA approves donanemab July 2`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://fortune.com/well/2024/07/02/lilly-alzheimers-drug-win-fda-approval/
 - https://www.bnnbloomberg.ca/lilly-wins-fda-approval-for-new-drug-to-slow-alzheimer-s-disease-1.2092183
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -99,16 +101,16 @@ Sources:
 
 </details>
 
-### ev79 · AMC, GME
+### ev79 · Roaring Kitty schedules a livestream
 *held going in · catalyst RESOLVED: Livestream occurred June 7, 2024*
-**Catalyst** (RESOLVED 2024-07-06, entered 2024-06-06)**.** Roaring Kitty schedules a livestream  
-*Scan 2 of this event · $0 since it opened*
+**Catalyst** entered 2024-06-06, RESOLVED 2024-07-06 · scan 2 of this event · $0 since it opened
+**Vehicles.** AMC, GME
 **This scan.** Catalyst resolved by occurrence of the livestream.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Livestream occurred June 2024
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-07-06 · Livestream occurred June 2024
 **Exits when.** exit if/when the livestream occurs or is canceled `exit_case: Livestream occurred June 7, 2024`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://biztoc.com/x/d6c38d0e651538a3
 - https://biztoc.com/x/5cf95d33101c3d73
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -150,19 +152,22 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev26 · CCJ, UEC, UUUU · 11 over its life
+### ev26 · uranium demand lifts prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -24.5% over the period*
-**Catalyst** (still pending, entered 2023-11-09)**.** uranium demand lifts prices  
-*Scan 9 of this event*
+**Catalyst** entered 2023-11-09, still pending · scan 9 of this event
+**Vehicles.** CCJ, UEC, UUUU · 11 over the event's life
 **This scan.** Demand thesis intact; sector activity continues with asset deals and exploration, no reversal signals.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Nuclear-energy boom sends uranium prices soaring
-- UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
-- enCore Energy starts uranium production at Texas plant
-- Energy Fuels commences production at three US uranium mines
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-11-09 · Nuclear-energy boom sends uranium prices soaring
+- 2023-12-09 · UEC CEO speaks at COP28 endorsing net-zero nuclear pledge
+- 2023-12-09 · enCore Energy starts uranium production at Texas plant
+- 2024-01-08 · Energy Fuels commences production at three US uranium mines
+- 2024-01-08 · Spot uranium climbs to new highs  *(the agent stopped carrying this one)*
+- 2024-02-07 · UEC restarts Wyoming production  *(the agent stopped carrying this one)*
+- 2024-03-08 · Ur-Energy announces two new uranium sales agreements
+- 2024-03-08 · enCore Energy first shipment from Rosita plant
 **Exits when.** exit if/when uranium demand growth reverses or prices fall sharply 
-Sources:
+Sources cited this scan:
 - https://www.finanznachrichten.de/nachrichten-2024-07/62664602-myriad-uranium-corp-myriad-enters-into-consulting-services-agreement-296.htm
 - https://www.marketscreener.com/quote/stock/DARK-STAR-MINERALS-INC-151680373/news/Dark-Star-Announces-Letter-of-Intent-to-Purchase-Uranium-Assets-in-the-Central-Mineral-Belt-of-Newfo-47299428/
 - https://www.hedgeweek.com/melbourne-based-l1-capital-eyes-uranium-ma/
@@ -201,19 +206,20 @@ Sources:
 
 </details>
 
-### ev11 · CBU, MCO
+### ev11 · regional banks face credit losses
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +13.4% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** regional banks face credit losses  
-*Scan 11 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 11 of this event
+**Vehicles.** CBU, MCO
 **This scan.** Catalyst remains live; ongoing warnings of further distress and downgrades confirm credit-loss driver active with no peak or reversal.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Moody's study flags CRE credit losses for 55 regional banks
-- Report warns of up to $160B CRE losses for US banks
-- NYCB downgraded to junk by Moody's, boosts reserves 790%
-- NYCB announces $1B capital raise after further downgrade
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-09-10 · Moody's study flags CRE credit losses for 55 regional banks
+- 2024-01-08 · Report warns of up to $160B CRE losses for US banks
+- 2024-02-07 · NYCB downgraded to junk by Moody's, boosts reserves 790%
+- 2024-03-08 · NYCB announces $1B capital raise after further downgrade
+- 2024-03-08 · Powell warns of more regional bank failures over CRE loans
+- 2024-07-06 · PIMCO warns real wave of distress just starting for regional banks
 **Exits when.** exit if/when credit losses peak or are fully provisioned 
-Sources:
+Sources cited this scan:
 - https://www.ocregister.com/2024/06/11/pimco-warns-of-more-regional-bank-failures-on-property-pain/
 - https://therealdeal.com/national/2024/06/11/pimco-joins-chorus-warning-of-regional-bank-failures/
 - https://www.benzinga.com/news/financing/24/07/39622458/first-foundation-stock-plunges-after-228m-fundraise-regional-bank-has-heavy-commercial-real-estate
@@ -251,19 +257,23 @@ Sources:
 
 </details>
 
-### ev10 · AMD, MU, NVDA, SMH, SOXX, TSM · 9 over its life
+### ev10 · AI demand lifts chipmakers
 *culled by max_watchlist 6 · its vehicles ran -25.0% over the period*
-**Catalyst** (still pending, entered 2023-09-10)**.** AI demand lifts chipmakers  
-*Scan 11 of this event*
+**Catalyst** entered 2023-09-10, still pending · scan 11 of this event
+**Vehicles.** AMD, MU, NVDA, SMH, SOXX, TSM · 9 over the event's life
 **This scan.** AI demand narrative remains intact with no stall observed; Micron preview and TSMC bookings confirm ongoing lift.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- TSMC demand uncertainty, equipment delay reports
-- Chipmakers see smartphone/PC recovery but below AI peak
-- AMD MI300X launch; Nvidia strong demand/shortage confirmed
-- Nvidia/AMD drive record semiconductor profits since 2009
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-10-10 · TSMC demand uncertainty, equipment delay reports
+- 2023-11-09 · Chipmakers see smartphone/PC recovery but below AI peak
+- 2023-12-09 · AMD MI300X launch; Nvidia strong demand/shortage confirmed
+- 2024-01-08 · Nvidia/AMD drive record semiconductor profits since 2009
+- 2024-02-07 · TSMC demand uncertainty, equipment delay reports -> Chipmakers see smartphone/PC recovery but below AI peak -> AMD MI300X launch; Nvidia strong demand/shortage confirmed -> Nvidia/AMD drive record semiconductor profits since 2009  *(the agent stopped carrying this one)*
+- 2024-02-07 · AI chip demand forces Huawei to slow smartphone production
+- 2024-03-08 · AMD AI chip demand forecast raise  *(the agent stopped carrying this one)*
+- 2024-05-07 · Samsung 930% profit surge; Qualcomm AI China rally; TSMC AI earnings lift  *(the agent stopped carrying this one)*
+- 2024-06-06 · TSMC hits record high on surging AI demand
 **Exits when.** exit if/when AI chip demand growth stalls or reverses 
-Sources:
+Sources cited this scan:
 - https://seekingalpha.com/news/4119115-micron-q3-preview-artificial-intelligence-sensation
 - https://www.bloomberg.com/news/articles/2024-06-27/micron-s-selloff-shows-risk-of-sky-high-ai-expectations
 - https://www.benzinga.com/news/24/06/39310821/apple-nvidia-secure-future-with-taiwan-semis-advanced-chips-as-ai-demand-soars

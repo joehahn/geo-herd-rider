@@ -13,14 +13,15 @@
 
 ## Funded
 
-### ev157 · CELC 40.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** FDA approves Gedatolisib  
-*Scan 5 of this event · +$2,443 this period · +$12,525 since it opened*
+### ev157 · FDA approves Gedatolisib
+**Catalyst** entered 2025-07-31, still pending · scan 5 of this event · +$2,443 this period · +$12,525 since it opened
+**Funded.** CELC 40.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No developments on Gedatolisib; catalyst remains pending Q4 filing. Unrelated news does not impact thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-31 · Celcuity announces positive Phase 3 VIKTORIA-1 results, plans Q4 FDA filing
 **Exits when.** exit if/when FDA decision on Gedatolisib approval is announced 
-Sources:
+Sources cited this scan:
 - https://www.directorstalkinterviews.com/celcuity-inc-celc-stock-analysis-is-a-11-19-upside-within-reach-for-biotech-investors/4121225018
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2025-07-31 · live · veh CELC · Trial success sets up pending FDA filing; catalyst unresolved.
@@ -62,13 +63,13 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev161 · WOK
+### ev161 · WORK Medical partners with Hong Kong Web3.0 Standardization Association on blockchain innovations
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -99.5% over the period*
-**Catalyst** (still pending, entered 2025-09-29)**.** WORK Medical partners with Hong Kong Web3.0 Standardization Association on blockchain innovations  
-*Scan 3 of this event*
+**Catalyst** entered 2025-09-29, still pending · scan 3 of this event
+**Vehicles.** WOK
 **This scan.** Partnership announced but remains pending details with zero follow-up coverage or developments across eight weeks.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- WORK Medical partners with Hong Kong Web3.0 Standardization Association on blockchain innovations
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-09-29 · WORK Medical partners with Hong Kong Web3.0 Standardization Association on blockchain innovations
 **Exits when.** exit if/when partnership details released or terminated `exit_case: No partnership details or updates since Sept announcement`
 **Its journal going in** (2 earlier scans, as the agent re-read it).
 - 2025-09-29 · live · veh WOK · Catalyst entered this week on announced partnership; no further developments in news.
@@ -99,13 +100,13 @@ Sources:
 
 </details>
 
-### ev171 · FSLR, NEE, RUN
+### ev171 · the US election lifts solar demand
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -2.3% over the period*
-**Catalyst** (still pending, entered 2025-11-28)**.** the US election lifts solar demand  
-*Scan 1 of this event*
+**Catalyst** entered 2025-11-28, still pending · scan 1 of this event
+**Vehicles.** FSLR, NEE, RUN
 **This scan.** No election-related solar demand news this week; FSLR move tied to earnings only.
 **Exits when.** exit if/when post-election solar demand fails to lift 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/first-solar-fslr-rockets-fresh-185112572.html
 
 <details><summary>What it read this scan: 20 of 209 matching articles, capped at 20</summary>
@@ -133,10 +134,10 @@ Sources:
 
 </details>
 
-### ev175 · BOIL, UNG · 3 over its life
+### ev175 · Record LNG export demand lifts US natural gas prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -12.6% over the period*
-**Catalyst** (still pending, entered 2025-11-28)**.** Record LNG export demand lifts US natural gas prices  
-*Scan 1 of this event*
+**Catalyst** entered 2025-11-28, still pending · scan 1 of this event
+**Vehicles.** BOIL, UNG · 3 over the event's life
 **This scan.** No relevant news on LNG exports or US natural gas prices this week; thesis remains live on pending demand catalyst.
 **Exits when.** exit if/when LNG export demand surge reverses or US natgas prices decline sharply 
 

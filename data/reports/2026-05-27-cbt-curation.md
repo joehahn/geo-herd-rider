@@ -14,15 +14,16 @@
 
 ## Funded
 
-### ev199 · LLY 40.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-02-26)**.** Medicare covers obesity drugs  
-*Scan 4 of this event · +$11,184 this period · +$11,184 since it opened*
+### ev199 · Medicare covers obesity drugs
+**Catalyst** entered 2026-02-26, still pending · scan 4 of this event · +$11,184 this period · +$11,184 since it opened
+**Funded.** LLY 40.0%
+**Not funded.** HIMS, NVO
 **This scan.** Catalyst remains pending; no Medicare obesity coverage decision in week's news.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
-- Novo CEO: 15M new patients from Medicare coverage (Feb 12)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
+- 2026-02-26 · Novo CEO: 15M new patients from Medicare coverage (Feb 12)
 **Exits when.** exit if/when Medicare coverage of obesity drugs is implemented or rejected 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/trading-ideas/movers/26/05/52728813/eli-lillys-triple-hormone-obesity-drug-shows-significant-weight-loss
 **Its journal going in** (3 earlier scans, as the agent re-read it).
 - 2026-02-26 · live · veh HIMS,LLY,NVO · Catalyst pending; Medicare expansion still ahead and cited as major tailwind by both LLY and NVO CEOs. HIMS faces separate patent suit but remains…
@@ -54,9 +55,10 @@ Sources:
 
 </details>
 
-### ev208 · MU 5.0% · 5 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** USTR probes South Korea semiconductor IP abuse  
-*Scan 3 of this event · +$2,411 this period · +$2,411 since it opened*
+### ev208 · USTR probes South Korea semiconductor IP abuse
+**Catalyst** entered 2026-03-28, still pending · scan 3 of this event · +$2,411 this period · +$2,411 since it opened
+**Funded.** MU 5.0%
+**Not funded.** AMD, LRCX, NLST, NXPI
 **This scan.** No probe developments; news is unrelated AI/semiconductor hype.
 **Exits when.** exit if/when USTR probe concludes, is dropped, or IP ruling issued 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -106,16 +108,16 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev223 · FDMT, RGNX · 3 over its life
+### ev223 · 4D Molecular Therapeutics advances gene therapy
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +58.8% over the period*
-**Catalyst** (still pending, entered 2026-05-27)**.** 4D Molecular Therapeutics advances gene therapy  
-*Scan 1 of this event*
+**Catalyst** entered 2026-05-27, still pending · scan 1 of this event
+**Vehicles.** FDMT, RGNX · 3 over the event's life
 **This scan.** Catalyst live on entry week; FDMT coverage and RGNX data confirm ongoing gene therapy progress in basket.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDMT highlighted as top gene therapy stock with triple analyst target
-- RGNX reports positive Phase 3 Duchenne data toward accelerated approval
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-05-27 · FDMT highlighted as top gene therapy stock with triple analyst target
+- 2026-05-27 · RGNX reports positive Phase 3 Duchenne data toward accelerated approval
 **Exits when.** exit if/when 4D Molecular gene therapy advancement completes or reverses 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/sectors/healthcare/articles/4d-molecular-therapeutics-inc-fdmt-123607661.html
 - https://www.benzinga.com/news/health-care/26/05/52569385/regenxbio-advances-duchenne-gene-therapy-toward-accelerated-approval
 
@@ -144,10 +146,10 @@ Sources:
 
 </details>
 
-### ev228 · EQX, KGC
+### ev228 · Equinox Gold merges with Orla Mining
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -17.8% over the period*
-**Catalyst** (still pending, entered 2026-05-27)**.** Equinox Gold merges with Orla Mining  
-*Scan 1 of this event*
+**Catalyst** entered 2026-05-27, still pending · scan 1 of this event
+**Vehicles.** EQX, KGC
 **This scan.** Merger catalyst entered this week; no resolution or reversal in news.
 **Exits when.** exit if/when merger completes or is terminated 
 
@@ -176,13 +178,13 @@ Sources:
 
 </details>
 
-### ev230 · MRAM, TSM, WOLF
+### ev230 · FHQ3 2026 revenue beats guidance
 *culled by max_watchlist 6 · its vehicles ran -17.4% over the period*
-**Catalyst** (still pending, entered 2026-05-27)**.** FHQ3 2026 revenue beats guidance  
-*Scan 1 of this event*
+**Catalyst** entered 2026-05-27, still pending · scan 1 of this event
+**Vehicles.** MRAM, TSM, WOLF
 **This scan.** Catalyst pending; WOLF hit midpoint (no beat) on May 5 while TSM/MRAM show AI-driven revenue strength but no FQ3 beat yet.
 **Exits when.** exit if/when FQ3 2026 results reported without beat 
-Sources:
+Sources cited this scan:
 - https://www.insidermonkey.com/blog/taiwan-semiconductor-manufacturing-company-limited-tsm-top-ai-stock-to-buy-according-to-billionaire-david-tepper-on-robust-revenue-growth-1760707/
 - https://www.semiconductor-today.com/news_items/2026/may/wolfspeed-110526.shtml
 

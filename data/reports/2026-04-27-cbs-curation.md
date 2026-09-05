@@ -13,9 +13,10 @@
 
 ## Funded
 
-### ev207 · TSEM 40.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2026-03-28)**.** expands 300mm capacity in Japan  
-*Scan 3 of this event · +$7,927 this period · +$7,927 since it opened*
+### ev207 · expands 300mm capacity in Japan
+**Catalyst** entered 2026-03-28, still pending · scan 3 of this event · +$7,927 this period · +$7,927 since it opened
+**Funded.** TSEM 40.0%
+**Not funded.** LSCC
 **This scan.** No news on Japan 300mm capacity expansion; unrelated LSCC sector moves and Hormuz headlines do not touch catalyst.
 **Exits when.** exit if/when Japan 300mm capacity expansion is announced or completed 
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -47,14 +48,15 @@
 
 </details>
 
-### ev222 · USO 39.0% · 3 vehicles, 1 funded · 7 over its life
-**Catalyst** (still pending, entered 2026-04-27)**.** Trump blockades Strait of Hormuz  
-*Scan 1 of this event · -$2,564 this period · -$2,564 since it opened*
+### ev222 · Trump blockades Strait of Hormuz
+**Catalyst** entered 2026-04-27, still pending · scan 1 of this event · -$2,564 this period · -$2,564 since it opened
+**Funded.** USO 39.0%
+**Not funded.** DBO, USL
 **This scan.** Blockade active with ongoing supply shock; no resolution yet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Trump enforces naval blockade on Strait of Hormuz
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-04-27 · Trump enforces naval blockade on Strait of Hormuz
 **Exits when.** exit if/when blockade lifted or Hormuz reopened 
-Sources:
+Sources cited this scan:
 - https://www.rediff.com/news/column/why-trump-enforced-a-naval-blockade-in-strait-of-hormuz/20260425.htm
 - https://finance.yahoo.com/sectors/energy/articles/strait-hormuz-may-stay-shut-104608232.html
 
@@ -101,10 +103,10 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev154 · ARM, NVDA, SMH, SOXX · 6 over its life
+### ev154 · Samsung signs $16.5B deal for AI chips
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +31.4% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 11 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 11 of this event
+**Vehicles.** ARM, NVDA, SMH, SOXX · 6 over the event's life
 **This scan.** Specific $16.5B Samsung AI chip deal remains unconfirmed after 9 months; AMD-Samsung memory partnership expansion is unrelated to the named catalyst.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 **Its journal going in** (10 earlier scans, as the agent re-read it).
@@ -141,15 +143,15 @@ Sources:
 
 </details>
 
-### ev192 · AVGO, MRVL, NVDA
+### ev192 · Corvex announces long-term GPU lease for AI development
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +8.2% over the period*
-**Catalyst** (still pending, entered 2026-01-27)**.** Corvex announces long-term GPU lease for AI development  
-*Scan 5 of this event*
+**Catalyst** entered 2026-01-27, still pending · scan 5 of this event
+**Vehicles.** AVGO, MRVL, NVDA
 **This scan.** No Corvex lease news; unrelated AI chip coverage does not resolve catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Corvex announces long-term GPU lease for AI development
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-01-27 · Corvex announces long-term GPU lease for AI development
 **Exits when.** exit if/when Corvex GPU lease announcement confirmed or cancelled 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/tech/26/04/51944520/marvell-new-custom-ai-chips-google-chip-race-heats-up
 - https://finance.yahoo.com/markets/stocks/articles/broadcom-avgo-best-ai-chip-131740989.html
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -183,10 +185,10 @@ Sources:
 
 </details>
 
-### ev208 · AMD, LRCX, MU, NLST, NXPI · 7 over its life
+### ev208 · USTR probes South Korea semiconductor IP abuse
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +43.8% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** USTR probes South Korea semiconductor IP abuse  
-*Scan 3 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 3 of this event
+**Vehicles.** AMD, LRCX, MU, NLST, NXPI · 7 over the event's life
 **This scan.** No news on USTR South Korea IP probe; catalyst remains pending with zero developments this week.
 **Exits when.** exit if/when USTR probe concludes, is dropped, or IP ruling issued 
 **Its journal going in** (2 earlier scans, as the agent re-read it).

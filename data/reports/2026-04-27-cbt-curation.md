@@ -13,14 +13,15 @@
 
 ## Funded
 
-### ev192 · MRVL 40.0% · 3 vehicles, 1 funded · 4 over its life
-**Catalyst** (still pending, entered 2026-01-27)**.** Corvex announces long-term GPU lease for AI development  
-*Scan 4 of this event · +$27,339 this period · +$27,339 since it opened*
+### ev192 · Corvex announces long-term GPU lease for AI development
+**Catalyst** entered 2026-01-27, still pending · scan 4 of this event · +$27,339 this period · +$27,339 since it opened
+**Funded.** MRVL 40.0%
+**Not funded.** AVGO, NVDA
 **This scan.** No Corvex lease news; unrelated AI chip coverage does not resolve catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Corvex announces long-term GPU lease for AI development
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-01-27 · Corvex announces long-term GPU lease for AI development
 **Exits when.** exit if/when Corvex GPU lease announcement confirmed or cancelled 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/markets/tech/26/04/51944520/marvell-new-custom-ai-chips-google-chip-race-heats-up
 - https://finance.yahoo.com/markets/stocks/articles/broadcom-avgo-best-ai-chip-131740989.html
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -53,9 +54,10 @@ Sources:
 
 </details>
 
-### ev154 · SMH 23.0% · 4 vehicles, 1 funded · 10 over its life
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 10 of this event · +$11,029 this period · +$11,304 since it opened*
+### ev154 · Samsung signs $16.5B deal for AI chips
+**Catalyst** entered 2025-07-31, still pending · scan 10 of this event · +$11,029 this period · +$11,304 since it opened
+**Funded.** SMH 23.0%
+**Not funded.** ARM, NVDA, SOXX
 **This scan.** Specific $16.5B Samsung AI chip deal remains unconfirmed after 9 months; AMD-Samsung memory partnership expansion is unrelated to the named catalyst.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 **Its journal going in** (9 earlier scans, as the agent re-read it).
@@ -94,20 +96,21 @@ Sources:
 
 ## Exited at this scan
 
-### ev204 · USO 40.0%, VLO 23.0% · 3 vehicles, 2 funded
+### ev204 · the Iran war disrupts oil supplies
 *held going in · catalyst RESOLVED: Hormuz reopened, oil prices plunged, ceasefire holds*
-**Catalyst** (RESOLVED 2026-04-27, entered 2026-03-28)**.** the Iran war disrupts oil supplies  
-*Scan 2 of this event · +$3,458 since it opened*
+**Catalyst** entered 2026-03-28, RESOLVED 2026-04-27 · scan 2 of this event · +$3,458 since it opened
+**Funded.** USO 40.0% · VLO 23.0%
+**Not funded.** UNG
 **This scan.** Exit condition met: Hormuz reopened and supply fears resolved.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Strait of Hormuz disrupted
-- Crude crosses $100
-- Iran war escalates supply fears
-- Hormuz reopened during ceasefire
-- …and 1 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-03-28 · Strait of Hormuz disrupted
+- 2026-03-28 · Crude crosses $100
+- 2026-03-28 · Iran war escalates supply fears
+- 2026-04-27 · Hormuz reopened during ceasefire
+- 2026-04-27 · Oil prices plunge 10-14%
 **Exits when.** exit if/when Hormuz reopens or Iran supply disruption ends `exit_case: Hormuz reopened, oil prices plunged, ceasefire holds`
 **Catalyst resolved this scan.**
-Sources:
+Sources cited this scan:
 - https://voiceofvienna.org/oil-prices-plunge-as-iran-reopens-strait-of-hormuz/
 - https://www.ibtimes.com.au/oil-prices-plunge-below-85-iran-reopens-strait-hormuz-major-market-relief-1866958
 - https://www.nbcnews.com/business/markets/oil-prices-plunge-stocks-jump-hormuz-open-iran-war-rcna332321
@@ -152,16 +155,16 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev217 · DPRO
+### ev217 · Trump fast-tracks psychedelic treatments
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +17.4% over the period*
-**Catalyst** (still pending, entered 2026-04-27)**.** Trump fast-tracks psychedelic treatments  
-*Scan 1 of this event*
+**Catalyst** entered 2026-04-27, still pending · scan 1 of this event
+**Vehicles.** DPRO
 **This scan.** New catalyst entry on Trump easing psychedelic approvals; drone vehicles unrelated so excluded.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Trump fast-tracks psychedelic treatments (2026-04-20)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-04-27 · Trump fast-tracks psychedelic treatments (2026-04-20)
 **News claims.** Trump is easing approval for psychedelic treatments for mental disorders.
 **Exits when.** exit if/when Trump reverses psychedelic fast-track policy 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/sectors/healthcare/articles/trump-just-fast-tracked-psychedelic-152747011.html
 
 <details><summary>What it read this scan: 20 of 201 matching articles, capped at 20</summary>
@@ -189,10 +192,10 @@ Sources:
 
 </details>
 
-### ev208 · AMD, LRCX, MU, NLST, NXPI
+### ev208 · USTR probes South Korea semiconductor IP abuse
 *culled by max_watchlist 6 · its vehicles ran +43.8% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** USTR probes South Korea semiconductor IP abuse  
-*Scan 2 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 2 of this event
+**Vehicles.** AMD, LRCX, MU, NLST, NXPI
 **This scan.** No news on USTR South Korea IP probe; catalyst remains pending with zero developments this week.
 **Exits when.** exit if/when USTR probe concludes, is dropped, or IP ruling issued 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -223,10 +226,10 @@ Sources:
 
 </details>
 
-### ev210 · INTC
+### ev210 · CHIPS Act funding lifts Intel
 *culled by max_watchlist 6 · its vehicles ran +43.3% over the period*
-**Catalyst** (still pending, entered 2026-03-28)**.** CHIPS Act funding lifts Intel  
-*Scan 2 of this event*
+**Catalyst** entered 2026-03-28, still pending · scan 2 of this event
+**Vehicles.** INTC
 **This scan.** No CHIPS Act movement; coverage remains on AI demand and unrelated topics.
 **Exits when.** exit if/when CHIPS Act funding for Intel denied or delayed 
 **Its journal going in** (1 earlier scan, as the agent re-read it).

@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev149 · FCFS 20.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** Strong gold prices boost pawn business  
-*Scan 8 of this event · -$1,548 this period · -$1,465 since it opened*
+### ev149 · Strong gold prices boost pawn business
+**Catalyst** entered 2025-07-31, still pending · scan 8 of this event · -$1,548 this period · -$1,465 since it opened
+**Funded.** FCFS 20.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No relevant news; gold prices and pawn metrics unchanged, exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Seeking Alpha highlights gold prices as strong tailwind for FCFS pawn business
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-31 · Seeking Alpha highlights gold prices as strong tailwind for FCFS pawn business
 **Exits when.** exit if/when gold prices weaken materially or FCFS pawn metrics slow 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal
@@ -56,10 +57,11 @@
 
 ## Exited at this scan
 
-### ev191 · BE 32.0% · 2 vehicles, 1 funded
+### ev191 · Wyoming approves massive 1.8 GW AI data center
 *held going in · catalyst RESOLVED*
-**Catalyst** (RESOLVED 2026-02-26, entered 2026-01-27)**.** Wyoming approves massive 1.8 GW AI data center  
-*Scan 2 of this event · +$6,450 since it opened*
+**Catalyst** entered 2026-01-27, RESOLVED 2026-02-26 · scan 2 of this event · +$6,450 since it opened
+**Funded.** BE 32.0%
+**Not funded.** NVTS
 **This scan.** Approval catalyst occurred at entry; no project-specific updates or reversals in news.
 **Exits when.** exit if/when Wyoming 1.8 GW project faces delays, reversal or cancellation 
 **Catalyst resolved this scan.**
@@ -104,10 +106,10 @@
 
 ## Not funded, the three that came closest
 
-### ev168 · TKMSF, TKR
+### ev168 · Europe expands submarine fleet
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -18.3% over the period*
-**Catalyst** (still pending, entered 2025-10-29)**.** Europe expands submarine fleet  
-*Scan 5 of this event*
+**Catalyst** entered 2025-10-29, still pending · scan 5 of this event
+**Vehicles.** TKMSF, TKR
 **This scan.** No submarine or fleet expansion news; catalyst remains pending.
 **Exits when.** exit if/when Europe submarine fleet expansion plans finalized or reversed 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -141,17 +143,17 @@
 
 </details>
 
-### ev199 · HIMS, LLY, NVO
+### ev199 · Medicare covers obesity drugs
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +2.0% over the period*
-**Catalyst** (still pending, entered 2026-02-26)**.** Medicare covers obesity drugs  
-*Scan 1 of this event*
+**Catalyst** entered 2026-02-26, still pending · scan 1 of this event
+**Vehicles.** HIMS, LLY, NVO
 **This scan.** Catalyst pending; Medicare expansion still ahead and cited as major tailwind by both LLY and NVO CEOs. HIMS faces separate patent suit but remains exposed to compounded GLP-1 demand.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
-- Novo CEO: 15M new patients from Medicare coverage (Feb 12)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-02-26 · Lilly CEO: Medicare coverage game-changer for orforglipron (Jan 31)
+- 2026-02-26 · Novo CEO: 15M new patients from Medicare coverage (Feb 12)
 **News claims.** Medicare coverage expected later this year; LLY and NVO both position it as access expander for millions.
 **Exits when.** exit if/when Medicare coverage of obesity drugs is implemented or rejected 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/news/health-care/26/02/50567757/novo-nordisk-ceo-sees-opportunity-for-15-million-new-patients-as-medicare-covers-obesity-drugs
 - https://finance.yahoo.com/news/eli-lilly-ceo-says-medicare-114608087.html
 
@@ -180,15 +182,15 @@ Sources:
 
 </details>
 
-### ev192 · AVGO, MRVL, NVDA · 4 over its life
+### ev192 · Corvex announces long-term GPU lease for AI development
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -2.4% over the period*
-**Catalyst** (still pending, entered 2026-01-27)**.** Corvex announces long-term GPU lease for AI development  
-*Scan 2 of this event*
+**Catalyst** entered 2026-01-27, still pending · scan 2 of this event
+**Vehicles.** AVGO, MRVL, NVDA · 4 over the event's life
 **This scan.** No Corvex lease news; unrelated AI chip coverage does not resolve catalyst.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Corvex announces long-term GPU lease for AI development
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2026-01-27 · Corvex announces long-term GPU lease for AI development
 **Exits when.** exit if/when Corvex GPU lease announcement confirmed or cancelled 
-Sources:
+Sources cited this scan:
 - https://finance.yahoo.com/news/2-stocks-buy-microsoft-announces-153613312.html
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2026-01-27 · live · veh MOVE,NVDA · Catalyst newly entered; no resolution or reversal in first-week news.

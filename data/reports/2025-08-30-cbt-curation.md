@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev149 · FCFS 4.0%
-**Catalyst** (still pending, entered 2025-07-31)**.** Strong gold prices boost pawn business  
-*Scan 2 of this event · +$193 this period · +$193 since it opened*
+### ev149 · Strong gold prices boost pawn business
+**Catalyst** entered 2025-07-31, still pending · scan 2 of this event · +$193 this period · +$193 since it opened
+**Funded.** FCFS 4.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No relevant news on gold prices or FCFS pawn metrics; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Seeking Alpha highlights gold prices as strong tailwind for FCFS pawn business
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-31 · Seeking Alpha highlights gold prices as strong tailwind for FCFS pawn business
 **Exits when.** exit if/when gold prices weaken materially or FCFS pawn metrics slow 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2025-07-31 · live · veh FCFS · Catalyst confirmed by direct coverage; gold prices supporting FCFS pawn segment remains live.
@@ -64,10 +65,10 @@
 
 ## Not funded, the three that came closest
 
-### ev154 · ARM, NVDA, SMH, SOXX · 10 over its life
+### ev154 · Samsung signs $16.5B deal for AI chips
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +11.3% over the period*
-**Catalyst** (still pending, entered 2025-07-31)**.** Samsung signs $16.5B deal for AI chips  
-*Scan 2 of this event*
+**Catalyst** entered 2025-07-31, still pending · scan 2 of this event
+**Vehicles.** ARM, NVDA, SMH, SOXX · 10 over the event's life
 **This scan.** No Samsung deal news; catalyst remains pending.
 **Exits when.** exit if/when Samsung signs $16.5B deal for AI chips or deal falls through 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
@@ -98,17 +99,17 @@
 
 </details>
 
-### ev136 · GM, LMT, LYSDY, TM · 2 over its life
+### ev136 · Trump's tariffs on rare earth metals
 *culled by max_watchlist 6 · its vehicles ran -0.1% over the period*
-**Catalyst** (still pending, entered 2025-07-01)**.** Trump's tariffs on rare earth metals  
-*Scan 3 of this event*
+**Catalyst** entered 2025-07-01, still pending · scan 3 of this event
+**Vehicles.** GM, LMT, LYSDY, TM · 2 over the event's life
 **This scan.** Structural driver ongoing; tariffs and curbs unresolved, US domestic push continues.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- US-China trade talks amid rare earths dispute (Jun 2025)
-- Trump admin invests in US rare earths to break China grip (Aug 2025)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-07-01 · US-China trade talks amid rare earths dispute (Jun 2025)
+- 2025-08-30 · Trump admin invests in US rare earths to break China grip (Aug 2025)
 **News claims.** Trump threatens further tariffs; US funding rare earth production; China restrictions persist.
 **Exits when.** exit if/when US-China deal resolves rare earth tariffs or curbs lifted 
-Sources:
+Sources cited this scan:
 - https://www.butlereagle.com/20250827/trump-administration-is-investing-in-u-s-rare-earths-in-a-push-to-break-chinas-grip/
 - https://indianexpress.com/article/world/us-china-200-tariff-rare-earth-magnets-export-10211798/
 **Its journal going in** (2 earlier scans, as the agent re-read it).
@@ -140,16 +141,17 @@ Sources:
 
 </details>
 
-### ev111 · BA, HWM, RKLB · 10 over its life
+### ev111 · aerospace demand lifts sales
 *culled by max_watchlist 6 · its vehicles ran +11.2% over the period*
-**Catalyst** (still pending, entered 2025-02-01)**.** aerospace demand lifts sales  
-*Scan 8 of this event*
+**Catalyst** entered 2025-02-01, still pending · scan 8 of this event
+**Vehicles.** BA, HWM, RKLB · 10 over the event's life
 **This scan.** No aerospace demand reversal or slowdown; Starship-related space coverage keeps thesis intact.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- China lifts Boeing delivery ban
-- RKLB Q1 sales top estimates
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-06-01 · China lifts Boeing delivery ban
+- 2025-06-01 · RKLB Q1 sales top estimates
+- 2025-07-01 · China lifts Boeing delivery ban -> RKLB Q1 sales top estimates  *(the agent stopped carrying this one)*
 **Exits when.** exit if/when aerospace demand growth slows or reverses 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/etfs/sector-etfs/25/08/47370648/elon-musks-starship-win-sends-space-etfs-into-orbit
 **Its journal going in** (7 earlier scans, as the agent re-read it).
 - …1 earlier scans, in the journal

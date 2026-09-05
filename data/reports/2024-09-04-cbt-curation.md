@@ -12,16 +12,17 @@
 
 ## Funded
 
-### ev77 · GOLD 40.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-05-07)**.** Geopolitical tensions lift gold prices  
-*Scan 5 of this event · +$118 this period · +$118 since it opened*
+### ev77 · Geopolitical tensions lift gold prices
+**Catalyst** entered 2024-05-07, still pending · scan 5 of this event · +$118 this period · +$118 since it opened
+**Funded.** GOLD 40.0%
+**Not funded.** GLD, SGOL
 **This scan.** Geopolitical support persists amid macro dominance; no de-escalation.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Middle East tensions escalate
-- Gold prices surge to records amid Israel strikes
-- China gold buying intensifies
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · Middle East tensions escalate
+- 2024-05-07 · Gold prices surge to records amid Israel strikes
+- 2024-05-07 · China gold buying intensifies
 **Exits when.** exit if/when Middle East tensions de-escalate or gold safe-haven demand reverses `exit_case: Gold moves now driven by Fed cuts and CB buying, not geopolitics`
-Sources:
+Sources cited this scan:
 - https://www.livemint.com/market/commodities/us-elections-and-more-6-geopolitical-events-that-will-impact-gold-prices-in-2024-11724308604534.html
 - https://www.investing.com/news/commodities-news/what-will-the-us-elections-bring-for-the-us-dollar-and-gold-prices-3596937
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -55,12 +56,13 @@ Sources:
 
 </details>
 
-### ev84 · IDR 40.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-08-05)**.** Idaho Strategic presents at MicroCap Leadership Summit  
-*Scan 2 of this event · +$10,064 this period · +$10,064 since it opened*
+### ev84 · Idaho Strategic presents at MicroCap Leadership Summit
+**Catalyst** entered 2024-08-05, still pending · scan 2 of this event · +$10,064 this period · +$10,064 since it opened
+**Funded.** IDR 40.0%
+**Not funded.** PCSV
 **This scan.** No news on Idaho Strategic or the summit; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-08-05 · Idaho Strategic selected to present at MicroCap Leadership Summit (July 23, 2024)
 **Exits when.** exit if/when Idaho Strategic presentation at MicroCap Leadership Summit concludes 
 **Its journal going in** (1 earlier scan, as the agent re-read it).
 - 2024-08-05 · live · veh IDR,PCSV · Catalyst pending; presentation not yet occurred.
@@ -90,9 +92,10 @@ Sources:
 
 </details>
 
-### ev49 · WMT 20.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 8 of this event · +$904 this period · +$3,645 since it opened*
+### ev49 · Walmart expands store count
+**Catalyst** entered 2024-02-07, still pending · scan 8 of this event · +$904 this period · +$3,645 since it opened
+**Funded.** WMT 20.0%
+**Not funded.** COST, DG
 **This scan.** No store-count news; catalyst still pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
 **Its journal going in** (7 earlier scans, as the agent re-read it).
@@ -137,15 +140,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev30 · AMZN, LHX · 4 over its life
+### ev30 · Amazon launches Kuiper satellites
 *culled by max_watchlist 6 · its vehicles ran -3.2% over the period*
-**Catalyst** (still pending, entered 2023-12-09)**.** Amazon launches Kuiper satellites  
-*Scan 10 of this event*
+**Catalyst** entered 2023-12-09, still pending · scan 10 of this event
+**Vehicles.** AMZN, LHX · 4 over the event's life
 **This scan.** No Kuiper developments; exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Kuiper prototype test achieves 100% success
-- Amazon contracts SpaceX for three Kuiper launches
-- Amazon successfully tests laser links for Project Kuiper
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Kuiper prototype test achieves 100% success
+- 2023-12-09 · Amazon contracts SpaceX for three Kuiper launches
+- 2024-01-08 · Amazon successfully tests laser links for Project Kuiper
 **Exits when.** exit if/when Kuiper satellites reach full operational capability 
 **Its journal going in** (9 earlier scans, as the agent re-read it).
 - …3 earlier scans, in the journal
@@ -181,20 +184,21 @@ Sources:
 
 </details>
 
-### ev78 · ADXN, GANX, INDV, LEGN, VANI · 11 over its life
+### ev78 · Clinical pipeline progress drives stock
 *culled by max_watchlist 6 · its vehicles ran +13.4% over the period*
-**Catalyst** (still pending, entered 2024-05-07)**.** Clinical pipeline progress drives stock  
-*Scan 5 of this event*
+**Catalyst** entered 2024-05-07, still pending · scan 5 of this event
+**Vehicles.** ADXN, GANX, INDV, LEGN, VANI · 11 over the event's life
 **This scan.** Multiple vehicles report fresh positive pipeline data this week; no stall or missed milestone.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Stock soars on clinical pipeline and 2024 priorities (Apr 2024)
-- Mustang Bio positive Phase 1/2 data drives stock (Jun 2024)
-- Longeveron presents promising Phase 2a data for Alzheimer's (Jul 2024)
-- GANX reports positive Phase 1 data (Aug 2024)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · Stock soars on clinical pipeline and 2024 priorities (Apr 2024)
+- 2024-07-06 · Mustang Bio positive Phase 1/2 data drives stock (Jun 2024)
+- 2024-08-05 · Longeveron presents promising Phase 2a data for Alzheimer's (Jul 2024)
+- 2024-09-04 · GANX reports positive Phase 1 data (Aug 2024)
+- 2024-09-04 · ADXN selects clinical candidate with INDV (Aug 2024)
+- 2024-09-04 · VANI positive preclinical liver fat results (Sep 2024)
 **News claims.** GANX Phase 1 positive; VANI preclinical positive; ADXN/INDV candidate selection
 **Exits when.** exit if/when clinical pipeline progress stalls or key milestones missed 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/general/biotech/24/08/40629671/small-cap-gain-therapeutics-stock-falls-on-phase-1-data-from-its-lead-asset-for-parkinsons-diseas
 - https://www.benzinga.com/general/biotech/24/09/40704367/exclusive-vivani-medical-reveals-positive-preclinical-liver-fat-results-from-miniature-glp-1-impl
 - https://www.benzinga.com/general/biotech/24/08/40575482/johnson-johnson-partner-addex-therapeutics-selects-investigational-compound-for-substance-use-dis
@@ -229,13 +233,13 @@ Sources:
 
 </details>
 
-### ev64 · TARS
+### ev64 · Tarsus discusses new indications with FDA
 *culled by max_watchlist 6 · its vehicles ran +16.7% over the period*
-**Catalyst** (still pending, entered 2024-03-08)**.** Tarsus discusses new indications with FDA  
-*Scan 7 of this event*
+**Catalyst** entered 2024-03-08, still pending · scan 7 of this event
+**Vehicles.** TARS
 **This scan.** No developments; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Plans FDA discussions for new lotilaner indications (2024-03-08)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · Plans FDA discussions for new lotilaner indications (2024-03-08)
 **Exits when.** exit if/when FDA discussions on new indications conclude or are rejected 
 **Its journal going in** (6 earlier scans, as the agent re-read it).
 - 2024-03-08 · live · veh TARS · Entry week on TARS catalyst; positive trials reported with planned FDA talks for new indications still pending.

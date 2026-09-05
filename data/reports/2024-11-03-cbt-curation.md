@@ -13,12 +13,13 @@
 
 ## Funded
 
-### ev64 · TARS 40.0%
-**Catalyst** (still pending, entered 2024-03-08)**.** Tarsus discusses new indications with FDA  
-*Scan 9 of this event*
+### ev64 · Tarsus discusses new indications with FDA
+**Catalyst** entered 2024-03-08, still pending · scan 9 of this event
+**Funded.** TARS 40.0%
+**Not funded.** — every vehicle of this event holds capital
 **This scan.** No relevant developments; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Plans FDA discussions for new lotilaner indications (2024-03-08)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · Plans FDA discussions for new lotilaner indications (2024-03-08)
 **Exits when.** exit if/when FDA discussions on new indications conclude or are rejected 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal
@@ -54,9 +55,10 @@
 
 </details>
 
-### ev56 · HUT 20.0% · 6 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** Acquisition of three bitcoin mining data centers  
-*Scan 9 of this event · +$8,477 this period · -$2,328 since it opened*
+### ev56 · Acquisition of three bitcoin mining data centers
+**Catalyst** entered 2024-03-08, still pending · scan 9 of this event · +$8,477 this period · -$2,328 since it opened
+**Funded.** HUT 20.0%
+**Not funded.** CLSK, CORZ, IREN, MARA, RIOT
 **This scan.** No news on the named acquisition; catalyst remains pending. Sector updates unrelated.
 **Exits when.** exit if/when acquisition of three bitcoin mining data centers completes or is abandoned 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
@@ -93,12 +95,13 @@
 
 </details>
 
-### ev57 · ARGX 5.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-03-08)**.** Phase 2 trial for atopic dermatitis treatment  
-*Scan 9 of this event · -$5,819 since it opened*
+### ev57 · Phase 2 trial for atopic dermatitis treatment
+**Catalyst** entered 2024-03-08, still pending · scan 9 of this event · -$5,819 since it opened
+**Funded.** ARGX 5.0%
+**Not funded.** APGE
 **This scan.** No updates on APGE/ARGX Phase 2 atopic dermatitis trial; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-03-08 · APGE reports Phase 1 data for APG777, Phase 2 scheduled for 2024
 **Exits when.** exit if/when Phase 2 trial for atopic dermatitis completes or results released 
 **Its journal going in** (8 earlier scans, as the agent re-read it).
 - …2 earlier scans, in the journal
@@ -149,16 +152,16 @@
 
 ## Not funded, the three that came closest
 
-### ev86 · ALB, LAC, SQM
+### ev86 · Lithium price rebound lifts SQM
 *culled by max_watchlist 6 · its vehicles ran +0.6% over the period*
-**Catalyst** (still pending, entered 2024-09-04)**.** Lithium price rebound lifts SQM  
-*Scan 3 of this event*
+**Catalyst** entered 2024-09-04, still pending · scan 3 of this event
+**Vehicles.** ALB, LAC, SQM
 **This scan.** CATL-driven rebound catalyst remains live; this week's LAC-specific funding news does not reverse or resolve price thesis.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Chile Supreme Court rejects Tianqi appeal, clears SQM-Codelco partnership path
-- CATL halts key lithium mine, supply squeeze drives prices higher
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-09-04 · Chile Supreme Court rejects Tianqi appeal, clears SQM-Codelco partnership path
+- 2024-10-04 · CATL halts key lithium mine, supply squeeze drives prices higher
 **Exits when.** exit if/when lithium prices show no rebound signs or SQM-Codelco deal collapses `exit_case: No lithium price rebound confirmation; LAC funding dominates coverage`
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/news/24/10/41609268/lithium-americas-stock-is-on-the-rise-tuesday-whats-going-on
 - https://seekingalpha.com/news/4216004-lithium-americas-closes-226b-doe-loan-for-thacker-pass-construction
 - https://www.investors.com/news/rio-tinto-buys-arcadium-lithium-battery-metal-price-bottoms-albemarle/
@@ -191,17 +194,18 @@ Sources:
 
 </details>
 
-### ev38 · AMKBY, ZIM
+### ev38 · Houthi attacks disrupt Red Sea shipping
 *culled by max_watchlist 6 · its vehicles ran +2.8% over the period*
-**Catalyst** (still pending, entered 2024-01-08)**.** Houthi attacks disrupt Red Sea shipping  
-*Scan 11 of this event*
+**Catalyst** entered 2024-01-08, still pending · scan 11 of this event
+**Vehicles.** AMKBY, ZIM
 **This scan.** No Red Sea or Houthi developments in news; exit condition unmet; thesis unchanged.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Houthi attacks escalate on Red Sea vessels
-- Ships reroute around Africa
-- Freight rates surge sharply
-- Suez trade volume drops 42% (UNCTAD)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · Houthi attacks escalate on Red Sea vessels
+- 2024-01-08 · Ships reroute around Africa
+- 2024-01-08 · Freight rates surge sharply
+- 2024-02-07 · Suez trade volume drops 42% (UNCTAD)
+- 2024-02-07 · US signals further strikes on Houthis
+- 2024-03-08 · Star Bulk halts Suez transits after attacks
 **Exits when.** exit if/when Red Sea shipping routes normalize or attacks cease 
 **Its journal going in** (10 earlier scans, as the agent re-read it).
 - …4 earlier scans, in the journal
@@ -237,13 +241,13 @@ Sources:
 
 </details>
 
-### ev47 · FCX, IE
+### ev47 · copper miner sees 120% upside
 *culled by max_watchlist 6 · its vehicles ran -8.2% over the period*
-**Catalyst** (still pending, entered 2024-02-07)**.** copper miner sees 120% upside  
-*Scan 10 of this event*
+**Catalyst** entered 2024-02-07, still pending · scan 10 of this event
+**Vehicles.** FCX, IE
 **This scan.** No relevant news on IE or 120% upside realization; thesis unchanged.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Copper analyst sees 120% upside on small-cap play
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-02-07 · Copper analyst sees 120% upside on small-cap play
 **Exits when.** exit if/when small-cap copper miner's 120% upside is realized or outlook reverses 
 **Its journal going in** (9 earlier scans, as the agent re-read it).
 - …3 earlier scans, in the journal

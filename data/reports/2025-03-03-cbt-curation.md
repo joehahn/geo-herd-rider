@@ -28,15 +28,15 @@
 
 ## Not funded, the three that came closest
 
-### ev114 · HLX, HLX.AX
+### ev114 · helium demand lifts prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -5.0% over the period*
-**Catalyst** (still pending, entered 2025-03-03)**.** helium demand lifts prices  
-*Scan 1 of this event*
+**Catalyst** entered 2025-03-03, still pending · scan 1 of this event
+**Vehicles.** HLX, HLX.AX
 **This scan.** Entry-week coverage confirms demand-driven price lift for helium; no reversal signals.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Helium demand balloons, Helix reaches cash generation
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-03-03 · Helium demand balloons, Helix reaches cash generation
 **Exits when.** exit if/when helium demand growth stalls or supply surges 
-Sources:
+Sources cited this scan:
 - https://www.dailymail.co.uk/money/markets/article-14405365/SMALL-CAP-IDEA-Helium-firm-lifted-cash-generation-demand-balloons.html
 
 <details><summary>What it read this scan: 20 of 194 matching articles, capped at 20</summary>
@@ -64,15 +64,15 @@ Sources:
 
 </details>
 
-### ev112 · GDX, GLD, GS · 2 over its life
+### ev112 · Trump tariffs lift gold prices
 *culled by max_watchlist 6 · its vehicles ran +11.6% over the period*
-**Catalyst** (still pending, entered 2025-03-03)**.** Trump tariffs lift gold prices  
-*Scan 1 of this event*
+**Catalyst** entered 2025-03-03, still pending · scan 1 of this event
+**Vehicles.** GDX, GLD, GS · 2 over the event's life
 **This scan.** Tariffs threats active, driving safe-haven flows into gold; catalyst pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Trump threatens/imposes tariffs on Canada/Mexico/China
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2025-03-03 · Trump threatens/imposes tariffs on Canada/Mexico/China
 **Exits when.** exit if/when tariffs rolled back or major trade deals signed 
-Sources:
+Sources cited this scan:
 - https://www.marketscreener.com/quote/index/TSX-COMPOSITE-7454/news/Toronto-Stocks-Edge-Down-Barrick-Gold-Jumps-as-High-Gold-Prices-Drive-4Q-Earnings-49038505/
 - https://www.benzinga.com/25/02/43429258/tariff-effects-on-global-markets-drag-asia-and-europe-lower-crude-oil-rises-and-dollar-surges-to-three-week-high-
 
@@ -101,13 +101,13 @@ Sources:
 
 </details>
 
-### ev87 · NVO
+### ev87 · FTC decides on Novo Nordisk-Catalent merger
 *culled by max_watchlist 6 · its vehicles ran -22.4% over the period*
-**Catalyst** (still pending, entered 2024-11-03)**.** FTC decides on Novo Nordisk-Catalent merger  
-*Scan 5 of this event*
+**Catalyst** entered 2024-11-03, still pending · scan 5 of this event
+**Vehicles.** NVO
 **This scan.** No FTC decision reported; catalyst remains pending.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FTC faces pressure to block merger (Oct 2024)
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-11-03 · FTC faces pressure to block merger (Oct 2024)
 **Exits when.** exit if/when FTC decides on Novo Nordisk-Catalent merger 
 **Its journal going in** (4 earlier scans, as the agent re-read it).
 - 2024-11-03 · live · veh NVO · Catalyst pending; initial antitrust scrutiny reported but no decision yet.

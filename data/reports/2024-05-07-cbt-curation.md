@@ -12,18 +12,20 @@
 
 ## Funded
 
-### ev38 · ZIM 40.0% · 2 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-01-08)**.** Houthi attacks disrupt Red Sea shipping  
-*Scan 5 of this event · +$6,342 this period · +$5,214 since it opened*
+### ev38 · Houthi attacks disrupt Red Sea shipping
+**Catalyst** entered 2024-01-08, still pending · scan 5 of this event · +$6,342 this period · +$5,214 since it opened
+**Funded.** ZIM 40.0%
+**Not funded.** AMKBY
 **This scan.** Disruptions persist; 66% Suez traffic drop and reroutes continue with no normalization.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Houthi attacks escalate on Red Sea vessels
-- Ships reroute around Africa
-- Freight rates surge sharply
-- Suez trade volume drops 42% (UNCTAD)
-- …and 2 more in the journal
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · Houthi attacks escalate on Red Sea vessels
+- 2024-01-08 · Ships reroute around Africa
+- 2024-01-08 · Freight rates surge sharply
+- 2024-02-07 · Suez trade volume drops 42% (UNCTAD)
+- 2024-02-07 · US signals further strikes on Houthis
+- 2024-03-08 · Star Bulk halts Suez transits after attacks
 **Exits when.** exit if/when Red Sea shipping routes normalize or attacks cease 
-Sources:
+Sources cited this scan:
 - https://www.forexlive.com/news/suez-canal-shipping-chaos-iran-linked-houthi-terrorist-attacks-spark-inflation-concerns-20240424/
 - https://www.hellenicshippingnews.com/shipping-analyst-red-sea-crisis-is-preventing-a-freight-rate-and-liner-profit-collapse/
 **Its journal going in** (4 earlier scans, as the agent re-read it).
@@ -57,9 +59,10 @@ Sources:
 
 </details>
 
-### ev49 · COST 32.0% · 3 vehicles, 1 funded
-**Catalyst** (still pending, entered 2024-02-07)**.** Walmart expands store count  
-*Scan 4 of this event · +$2,060 this period · +$2,060 since it opened*
+### ev49 · Walmart expands store count
+**Catalyst** entered 2024-02-07, still pending · scan 4 of this event · +$2,060 this period · +$2,060 since it opened
+**Funded.** COST 32.0%
+**Not funded.** DG, WMT
 **This scan.** No store-count news this week; catalyst still pending.
 **Exits when.** exit if/when Walmart store expansion plans halted or reversed 
 **Its journal going in** (3 earlier scans, as the agent re-read it).
@@ -92,14 +95,15 @@ Sources:
 
 </details>
 
-### ev75 · AMGN 28.0% · 3 vehicles, 1 funded · 1 over its life
-**Catalyst** (still pending, entered 2024-05-07)**.** Amgen obesity drug advances  
-*Scan 1 of this event · -$343 this period · -$343 since it opened*
+### ev75 · Amgen obesity drug advances
+**Catalyst** entered 2024-05-07, still pending · scan 1 of this event · -$343 this period · -$343 since it opened
+**Funded.** AMGN 28.0%
+**Not funded.** LLY, NVO
 **This scan.** Amgen advances obesity candidate with positive CEO update; peers LLY/NVO also benefit from sector momentum.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- 2024-05-03 Amgen CEO updates on MariTide rivaling Ozempic
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · 2024-05-03 Amgen CEO updates on MariTide rivaling Ozempic
 **Exits when.** exit if/when MariTide development halted or fails key trials 
-Sources:
+Sources cited this scan:
 - https://www.benzinga.com/general/biotech/24/05/38607066/amgen-stock-adds-good-weight-after-ceos-update-on-experimental-drug-rivaling-ozempic-nixing-oral-
 - https://www.bloomberg.com/news/articles/2024-05-03/here-are-the-obesity-drug-hopefuls-vying-to-unseat-lilly-novo
 
@@ -138,15 +142,15 @@ Sources:
 
 ## Not funded, the three that came closest
 
-### ev30 · AMZN, LHX · 4 over its life
+### ev30 · Amazon launches Kuiper satellites
 *survived the cull, then the optimizer gave it no weight · its vehicles ran +71.3% over the period*
-**Catalyst** (still pending, entered 2023-12-09)**.** Amazon launches Kuiper satellites  
-*Scan 6 of this event*
+**Catalyst** entered 2023-12-09, still pending · scan 6 of this event
+**Vehicles.** AMZN, LHX · 4 over the event's life
 **This scan.** No Kuiper developments; exit condition unmet.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Kuiper prototype test achieves 100% success
-- Amazon contracts SpaceX for three Kuiper launches
-- Amazon successfully tests laser links for Project Kuiper
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2023-12-09 · Kuiper prototype test achieves 100% success
+- 2023-12-09 · Amazon contracts SpaceX for three Kuiper launches
+- 2024-01-08 · Amazon successfully tests laser links for Project Kuiper
 **Exits when.** exit if/when Kuiper satellites reach full operational capability 
 **Its journal going in** (5 earlier scans, as the agent re-read it).
 - 2023-12-09 · live · veh AMZN,LHX · Amazon advancing Kuiper with test success and SpaceX launch contract; catalyst pending.
@@ -180,17 +184,17 @@ Sources:
 
 </details>
 
-### ev77 · GLD, GOLD, SGOL
+### ev77 · Geopolitical tensions lift gold prices
 *survived the cull, then the optimizer gave it no weight · its vehicles ran -1.9% over the period*
-**Catalyst** (still pending, entered 2024-05-07)**.** Geopolitical tensions lift gold prices  
-*Scan 1 of this event*
+**Catalyst** entered 2024-05-07, still pending · scan 1 of this event
+**Vehicles.** GLD, GOLD, SGOL
 **This scan.** Ongoing Middle East geopolitical risks continue driving gold safe-haven demand with no resolution.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- Middle East tensions escalate
-- Gold prices surge to records amid Israel strikes
-- China gold buying intensifies
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-05-07 · Middle East tensions escalate
+- 2024-05-07 · Gold prices surge to records amid Israel strikes
+- 2024-05-07 · China gold buying intensifies
 **Exits when.** exit if/when Middle East tensions de-escalate or gold safe-haven demand reverses 
-Sources:
+Sources cited this scan:
 - https://www.investing.com/news/commodities-news/goldman-sees-potential-for-gold-prices-surging-above-3000-amid-geopolitical-risks-3417302
 - https://economictimes.indiatimes.com/news/international/world-news/china-is-buying-gold-like-theres-no-tomorrow/articleshow/109864624.cms
 - https://menafn.com/1108109963/Gold-prices-rise-amid-Middle-East-tensions-despite-US-interest-rate-prospects
@@ -221,16 +225,16 @@ Sources:
 
 </details>
 
-### ev33 · CADL
+### ev33 · FDA approves CAN-2409 for pancreatic cancer
 *culled by max_watchlist 6 · its vehicles ran -25.8% over the period*
-**Catalyst** (still pending, entered 2024-01-08)**.** FDA approves CAN-2409 for pancreatic cancer  
-*Scan 5 of this event*
+**Catalyst** entered 2024-01-08, still pending · scan 5 of this event
+**Vehicles.** CADL
 **This scan.** Orphan Drug Designation received; approval catalyst still pending with no resolution or rejection.
-**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst)**.**
-- FDA grants Fast Track Designation for CAN-2409 in pancreatic cancer
-- FDA grants Orphan Drug Designation for CAN-2409 in pancreatic cancer
+**Milestones observed so far** (dated waypoints already seen, carried forward each scan; not the catalyst, and dated by the scan that first recorded each)**.**
+- 2024-01-08 · FDA grants Fast Track Designation for CAN-2409 in pancreatic cancer
+- 2024-05-07 · FDA grants Orphan Drug Designation for CAN-2409 in pancreatic cancer
 **Exits when.** exit if/when FDA approves or rejects CAN-2409 for pancreatic cancer 
-Sources:
+Sources cited this scan:
 - https://www.rttnews.com/3438430/candel-therapeutics-can-2409-for-pancreatic-cancer-gets-fda-orphan-drug-designation-stock-up.aspx
 - https://www.streetinsider.com/Globe+Newswire/Candel+Therapeutics+Receives+FDA+Orphan+Drug+Designation+for+CAN-2409+for+the+Treatment+of+Pancreatic+Cancer/23054899.html
 **Its journal going in** (4 earlier scans, as the agent re-read it).
