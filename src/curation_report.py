@@ -241,19 +241,6 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     L = [f"### {eid} · {_trim(e.get('catalyst'), 110)}"
          + (f" · *{note}*" if note else "")]
     L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
-    # RESOLUTION ON ITS OWN LINE. A catalyst is written as a bare present-tense phrase ("FDA
-    # approves Gedatolisib") naming the thing being WAITED FOR, which on ev157 never happened at
-    # all, so whether it has landed is the single most load-bearing fact in the block.
-    if (entry or {}).get("catalyst_resolved"):
-        L.append(f"**{str(entry.get('date', ''))[:10]} · catalyst RESOLVED**"
-                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
-    elif entry and not entry.get("thesis_live", True):
-        L.append(f"**{str(entry.get('date', ''))[:10]} · thesis dead**, catalyst never resolved"
-                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
-    else:
-        L.append(f"**Still pending** at scan {n_scans} of this event")
-    if (entry or {}).get("exit_advice"):
-        L.append(f"**Exits when.** {_trim(entry['exit_advice'], 200)}")
 
     # WHAT THE BOOK PUT BEHIND IT, and what that earned. The weight says how much conviction the
     # optimizer expressed; the per-ticker return says whether it was repaid; the event's dollars are
@@ -280,6 +267,21 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     if money:
         _pos.append("**P&L** " + ", ".join(money))
     L.append(" · ".join(_pos))
+    # THE EXIT TEST, THEN WHETHER IT FIRED. The condition the curator committed to comes first and
+    # the verdict against it follows, so the two read as the question and its answer rather than as
+    # two unrelated facts. A catalyst is written as a bare present-tense phrase ("FDA approves
+    # Gedatolisib") naming the thing being WAITED FOR -- on ev157 it never happened at all -- so
+    # whether it has landed is the most load-bearing line in the block.
+    if (entry or {}).get("exit_advice"):
+        L.append(f"**Exit condition.** {_trim(entry['exit_advice'], 200)}")
+    if (entry or {}).get("catalyst_resolved"):
+        L.append(f"**{str(entry.get('date', ''))[:10]} · catalyst RESOLVED**"
+                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
+    elif entry and not entry.get("thesis_live", True):
+        L.append(f"**{str(entry.get('date', ''))[:10]} · thesis dead**, catalyst never resolved"
+                 + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
+    else:
+        L.append(f"**Still pending** at scan {n_scans} of this event")
 
     if entry:
         # A carried-forward verdict must not be labelled "this scan": that would put words in the
@@ -555,7 +557,12 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         _cum_veh[k] = seq
 
     def _veh_at(k, d):
-        out = {str(v).upper() for v in (ev[k].get("vehicles") or [])}
+        """The event's vehicles as at `d`, and EMPTY before it existed.
+
+        Falling back to the event's current set for a date before its first entry made ev204 --
+        entered 2026-03-28 -- claim credit for every earlier anchor at which USO happened to be
+        funded for some other event, and print "funded at 3 of 2 scans"."""
+        out = set()
         for dt, st in _cum_veh.get(k, []):
             if dt <= d:
                 out = st
@@ -798,7 +805,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         _paid, _quick, _ran = [], [], []
         for k, x in exited_now:
             _n = len([y for y in (ev[k].get("entries") or []) if str(y.get("date", ""))[:10] <= d0])
-            if fund_dates.get(k):
+            if [d for d in (fund_dates.get(k) or []) if d <= d0]:
                 _paid.append((k, x, _n))
             elif _n <= 2 and x.get("catalyst_resolved"):
                 _quick.append((k, x, _n))
@@ -817,7 +824,9 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             L += ["## Exited at this scan", ""]
             for k, x, n in _paid:
                 _h, _rd, _m, _ok = _inputs(k)
-                _fd = fund_dates.get(k) or []
+                # Only anchors up to this one: a report describes the book as it stood here, and
+                # a later funding would be information the scan did not have.
+                _fd = [d for d in (fund_dates.get(k) or []) if d <= d0]
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
                                   exact=_ok, rets=rets_prev,
