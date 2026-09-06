@@ -69,7 +69,30 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v27_catalyst"   # v25 -> v27 on 2026-09-06, promoted on MECHANISM. It is the
+CANON_RUN = "data/cbt_3yr_v28_exposure"   # v27 -> v28 on 2026-09-06. Adds the two fields that make an
+                                          # event explain itself, at no cost to v27's numbers:
+                                          #   EXPOSURE -- every vehicle, peers included, states how it
+                                          #     is connected. 1,438 clauses over 1,064 vehicle slots;
+                                          #     the weak-clause gate leaves 45. Peers were 33% of
+                                          #     funded position-days with nothing said for them.
+                                          #   MILESTONES {what, kind, when} -- 2,679 recorded, 90%
+                                          #     `happened` / 10% `expected`, 96% carrying a real date.
+                                          #     A bare string could not tell a development from a
+                                          #     forecast, and `when` gives the due-date exit rule
+                                          #     something to test for the first time.
+                                          # v27's numbers held: pending 57%, dated 20%, contradictory
+                                          # 10%, two-sided exits 94%, absorption 0.08, resolved 59%.
+                                          #
+                                          # PROMOTED KNOWING IT IS NOT FINISHED. 22 of 562 catalysts
+                                          # (4%) are an analyst call rather than an occurrence
+                                          # ("Goldman Sachs projects gold to reach $5,000 if..."), and
+                                          # such an event's exit passes the two-sided test while being
+                                          # unfalsifiable ("if/when Fed independence is compromised or
+                                          # preserved"). That is the next rule, and the metric limit
+                                          # is worth remembering: "offers two alternatives" is not
+                                          # "is checkable".
+#
+# PREVIOUS: data/cbt_3yr_v27_catalyst      # v25 -> v27 on 2026-09-06, promoted on MECHANISM. It is the
                                           # first curation whose catalysts state what has to happen,
                                           # to whom, and whether it already has, and whose exits name
                                           # both outcomes rather than only failure. Measured over the
@@ -499,6 +522,12 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
 # entry has to say WHY the journal is still trustworthy under the new code.
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    "data/cbt_3yr_v28_exposure": {
+        "src/agent.py":
+            "No drift expected: v28 was curated at the commit that promoted it. This slot is kept so "
+            "the NEXT serialisation-only edit has a home, and so nobody accepts a behavioural change "
+            "here by habit -- read the diff before adding a note.",
+    },
     "data/cbt_3yr_v27_catalyst": {
         "src/agent.py":
             "SERIALISATION ONLY, accepted 2026-09-06 (the day it was curated). The edits after this "
