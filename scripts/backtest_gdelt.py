@@ -289,7 +289,8 @@ def main(argv=None):
                 except ValueError:
                     pass
             (OUT / "journal.json").write_text(json.dumps(
-                {"events": _keep, "nid": _nid, "retired": {}, "week_seq": []}, default=str))
+                {"events": agent.jsonable_events(_keep), "nid": _nid,
+                 "retired": {}, "week_seq": []}, default=str))
             print(f"  SEEDED JOURNAL from {a.seed_journal}: {len(_keep)} events live at {_seedd} "
                   f"carried in (nid={_nid})", flush=True)
         except Exception as _e:  # noqa: BLE001 -- an unseeded run is valid, just not a continuation
@@ -443,7 +444,7 @@ def main(argv=None):
     def flush():                                             # incremental -> partial dashboards buildable anytime
         pd.DataFrame(rows).to_csv(sf, index=False)
         (OUT / "journal.json").write_text(json.dumps(
-            {"events": {k: {**v, "vehicles": sorted(v["vehicles"])} for k, v in events.items()},
+            {"events": agent.jsonable_events(events),
              "retired": retired, "nid": nid, "week_seq": len(anchors)}, indent=2, default=str))
 
     for i, anch in enumerate(anchors):

@@ -168,7 +168,13 @@ CANON_RUN = "data/cbt_3yr_v27_catalyst"   # v25 -> v27 on 2026-09-06, promoted o
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_BOOTSTRAP_RUN = "data/cbs_v11"   # the curation behind docs/cbs.html.
+CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 -> v12 on 2026-09-06,
+                                      # re-seeded from the promoted CANON_RUN (cbt_3yr_v27_catalyst):
+                                      # v11 inherited its live theses from v25, so the live book was
+                                      # running gates and prompts that had since been replaced. Also
+                                      # the first bootstrap curated at today's scan-path code, which
+                                      # clears the drift v11 carried.
+                                      # PREVIOUS: data/cbs_v11
                                       # v10 -> v11 on 2026-09-02: THE SEED JOURNAL, not the corpus.
                                       # Every bootstrap since cbs_v3 was seeded from
                                       # cbt_3yr_v21_evscans12 while CANON_RUN advanced v22 -> v23 ->
@@ -493,6 +499,17 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
 # entry has to say WHY the journal is still trustworthy under the new code.
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
+    "data/cbt_3yr_v27_catalyst": {
+        "src/agent.py":
+            "SERIALISATION ONLY, accepted 2026-09-06 (the day it was curated). The edits after this "
+            "curation are jsonable_events() -- one place that knows `vehicles` and `names` are sets, "
+            "replacing three writers of which two let a set fall through to json.dumps(default=str) "
+            "and wrote its repr -- and as_set(), which recovers a set from whatever a round-trip "
+            "left behind. as_set is reached from _filter_event only at FILTER_VERSION 3, which is "
+            "OFF, and jsonable_events changes what is WRITTEN, never what is decided. On a run that "
+            "starts from an empty journal, as this one did, the new `names` assignment is identical "
+            "to the old setdefault().add(). So this journal IS what today's code produces.",
+    },
     # src/agent.py's acceptance for cbt_3yr_v25_vehgate was REMOVED on 2026-09-05. It read "the
     # journal is what today's gate-free code would produce", and _filter_event's ticker test moved
     # to word boundaries that day, which changes the article slice every event-agent reads. That is

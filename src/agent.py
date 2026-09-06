@@ -1491,6 +1491,41 @@ def match_to_events(client, anchor, candidates, events):
     return out
 
 
+def jsonable_events(events: dict) -> dict:
+    """Events as JSON-safe data. THE ONE PLACE that knows which fields are sets.
+
+    `vehicles` and `names` are sets in memory and there are three writers of a journal. Two of them
+    handled `vehicles` and none knew about `names`, so the set fell through to `json.dumps(...,
+    default=str)` -- which does not fail, it writes the set's REPR: "{'NVIDIA Corporation'}". The
+    seed path then read that string back and called .add() on it. `default=str` turning an
+    unserialisable value into plausible-looking garbage is why this reached a canonical journal
+    before anything noticed."""
+    return {k: {**v,
+                "vehicles": sorted(v.get("vehicles") or []),
+                "names": sorted(as_set(v.get("names")))}
+            for k, v in events.items()}
+
+
+def as_set(v) -> set:
+    """A set from whatever a journal round-trip left behind: a set, a list, None, or the repr of a
+    set written by `default=str` before jsonable_events existed."""
+    if isinstance(v, set):
+        return v
+    if isinstance(v, (list, tuple)):
+        return set(v)
+    if isinstance(v, str) and v.strip():
+        t = v.strip()
+        if t.startswith("{") and t.endswith("}"):
+            try:
+                import ast
+                out = ast.literal_eval(t)
+                return set(out) if isinstance(out, (set, list, tuple)) else {t}
+            except Exception:  # noqa: BLE001
+                return {t}
+        return {t}
+    return set()
+
+
 def _norm_catalyst(s: str) -> str:
     """Normalize a catalyst string for duplicate detection: lowercase, alphanumerics only."""
     import re
@@ -1636,7 +1671,7 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
         # precision halved. A company is identified by its NAME, so match the name: the first two
         # words of the issuer (or the whole thing if shorter), which is what an article prints.
         _nm = set()
-        for n in ((event.get("names") or []) if version >= 3 else ()):
+        for n in (as_set(event.get("names")) if version >= 3 else ()):
             _w = [w for w in re.findall(r"[A-Za-z][A-Za-z&'-]*", str(n)) if w.lower() not in _STOP]
             if _w:
                 _nm.add(" ".join(_w[:2]).lower() if len(_w) > 1 else _w[0].lower())
@@ -1938,7 +1973,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         if eid in events and events[eid]["status"] == "live":
             events[eid]["vehicles"] |= {tk, *peers}
             if _nm:
-                events[eid].setdefault("names", set()).add(_nm)
+                events[eid]["names"] = as_set(events[eid].get("names")) | {_nm}
         else:
             nid += 1
             # `pending_next` IS THE EXIT CONDITION, and it was being thrown away. The scout must
@@ -2216,9 +2251,7 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         tmp = f"{resume_f}.tmp"
         with open(tmp, "w") as fh:
             # `names` is a set like `vehicles`, so it needs the same treatment or json.dump raises.
-            json.dump({"events": {k: {**v, "vehicles": sorted(v["vehicles"]),
-                                      "names": sorted(v.get("names") or [])}
-                                  for k, v in events.items()},
+            json.dump({"events": jsonable_events(events),
                        "done": sorted(done), "nid": nid[0],
                        "out": {k.isoformat(): v for k, v in out.items()}}, fh, default=str)
         os.replace(tmp, resume_f)
@@ -2226,5 +2259,5 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         Path(prov_tmp).write_text(json.dumps(provenance, default=str))
         os.replace(prov_tmp, prov_f)
     (REPO_ROOT / "data" / "windows" / "agent_events.json").write_text(
-        json.dumps([{**v, "vehicles": sorted(v["vehicles"])} for v in events.values()], indent=2, default=str))
+        json.dumps(list(jsonable_events(events).values()), indent=2, default=str))
     return out
