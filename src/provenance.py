@@ -69,7 +69,38 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v25_vehgate"    # v24 -> v25 on 2026-08-31: the first curation run with the
+CANON_RUN = "data/cbt_3yr_v27_catalyst"   # v25 -> v27 on 2026-09-06, promoted on MECHANISM. It is the
+                                          # first curation whose catalysts state what has to happen,
+                                          # to whom, and whether it already has, and whose exits name
+                                          # both outcomes rather than only failure. Measured over the
+                                          # same corpus, profile and 37 anchors, cold start, code the
+                                          # only difference:
+                                          #   catalyst says pending/scheduled      3% -> 59%
+                                          #   catalyst carries a date              5% -> 21%
+                                          #   self-contradictory on its first scan 25% -> 11%
+                                          #   exit offers two alternatives        62% -> 96%
+                                          #   exit derived from `pending_next`        -> 88%
+                                          #   absorption of unrelated vehicles  0.21 -> 0.05 per event
+                                          #   slice precision                  20.5% -> 22.3%
+                                          #   cited articles kept in the slice    97% -> 98%
+                                          # It also carries the word-boundary ticker fix, the rewritten
+                                          # MATCH_SYSTEM, milestones merged in code, and matcher/peer
+                                          # decision logging.
+                                          #
+                                          # THE TWO OBJECTIONS, both checked and both non-issues. 530
+                                          # events against 252 is the matcher keeping distinct
+                                          # occurrences apart, not splitting one: one-scan events FELL
+                                          # to 41% and same-vehicle near-identical catalyst pairs
+                                          # stayed at 5. And resolved/finished 72% -> 69% is
+                                          # composition (14% still live at run end vs 11%) plus noise
+                                          # at n=453; the number that would have mattered, events dying
+                                          # on the age cap, is flat at 11%.
+                                          #
+                                          # NOT a P&L promotion. Per non-negotiable #7 the backtest is
+                                          # an upper bound and the forward eval is the verdict; every
+                                          # figure above is a mechanism, and none of them is the book.
+#
+# PREVIOUS: data/cbt_3yr_v25_vehgate      # v24 -> v25 on 2026-08-31: the first curation run with the
                                           # VEHICLE GATE live (agent._named_in -- an event agent may
                                           # only ADD a vehicle the press named in a headline among that
                                           # event's matched articles).

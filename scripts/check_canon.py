@@ -189,7 +189,11 @@ def main(argv=None) -> int:
                   f"--seed-journal {P.CANON_RUN} --out data/<next>")
 
     print("\nPUBLISHED PAGES")
-    for page, pat in (("docs/cbt.html", r"curation fingerprint</td><td>([0-9a-f]{12})"),
+    # CBT IS CHECKED BY THE CURATION IT NAMES, not by its fingerprint. The fingerprint hashes profile
+    # knobs + corpus + arm, so every curation of one config shares it -- ten of them do right now --
+    # and this check reported OK for a page built from a SUPERSEDED run on the day canon moved. The
+    # page prints the run it was built from; compare that. (The knobs are verified separately, above.)
+    for page, pat in (("docs/cbt.html", r"curation \(local path\)</td><td>([^<]*)"),
                       ("docs/fbt.html", r"<td>Corpus</td><td>([^<]*)"),
                       ("docs/sbt.html", r"FIXED curation \(([^)]*)\)")):
         f = ROOT / page
@@ -197,7 +201,7 @@ def main(argv=None) -> int:
             print(f"  {WARN} {page:16} not built"); continue
         m = re.search(pat, f.read_text())
         got = m.group(1) if m else "(not stated on the page)"
-        want = {"docs/cbt.html": key["hash"], "docs/fbt.html": P.CANON_CORPUS,
+        want = {"docs/cbt.html": P.CANON_RUN, "docs/fbt.html": P.CANON_CORPUS,
                 "docs/sbt.html": P.CANON_RUN}[page]
         good = got == want
         bad += (not good)
