@@ -1527,6 +1527,17 @@ EVENT_NEWS_CAP = 20   # default; overridden by the profile's `event_news_cap` (s
 # here would make every existing report describe a slice that never happened. The version is stamped
 # with the curation, and a run curated before the stamp existed is version 1 by definition.
 #   1  ticker as a SUBSTRING anywhere, every catalyst word over 4 chars   (through 2026-09-05)
+#   3  ticker on word boundaries OR the ISSUER NAME. MEASURED AND REJECTED 2026-09-06, twice: the
+#      code stays so it can be re-tested, DEFAULT is 2. Over 37 archived pools and ~470 events, both
+#      ways of matching a name lose to matching the ticker alone:
+#          v2 ticker only     precision 20.5%   cited retained 97%   median 123 matched
+#          v3 name WORDS      precision 11.1%   cited retained 71%   median 156
+#          v3 name PHRASE     precision 16.8%   cited retained 87%   median 131
+#      The premise was sound -- articles about a small name print "Ocugen", never OCGN -- but a name
+#      also appears in coverage that is not about the event, and those articles take the +3 title
+#      bonus and the cap slots that the real coverage needed. Word matching failed the same way the
+#      ticker substring did ("Riot" Platforms, "Marathon" Digital, "Applied" Digital are ordinary
+#      English); the phrase form fixes that and still loses.
 #   2  ticker on WORD BOUNDARIES; catalyst keywords unchanged. Measured over 990 CBT event-weeks
 #      against the archived pools: slice precision -- the share of the 20 articles handed to an
 #      agent that mention one of its vehicles BY NAME -- rises 15.1% -> 23.1%.
@@ -1598,6 +1609,31 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
         # mentioned a vehicle as a word at all. The +3 "vehicle in the TITLE" bonus is the highest
         # in this ranker, so the impostors outranked the real coverage.
         _vrx = re.compile(r"\b(" + "|".join(re.escape(v) for v in sorted(veh)) + r")\b") if veh else None
+        # AND THE ISSUER NAMES. An article about a small name usually spells it out and never prints
+        # the symbol: "Ocugen Announces CSO to Present...", "Celcuity Inc. (CELC) Stock Analysis".
+        # The ticker test cannot see the first of those. Matched on a word boundary like the ticker,
+        # and only on the DISTINCTIVE part of the name -- "Inc", "Corp", "Ltd", "Holdings" and the
+        # like would match most of the corpus, which is the same generic-word failure one level up.
+        _STOP = {"inc", "corp", "corporation", "ltd", "limited", "plc", "holdings", "holding",
+                 "group", "company", "co", "the", "and", "sa", "nv", "ag", "spa", "asa", "ab",
+                 "technologies", "technology", "pharmaceuticals", "pharma", "therapeutics",
+                 "energy", "resources", "international", "systems", "solutions", "partners"}
+        # VERSION 3 ONLY. Building this inside the `>= 2` branch made v2 and v3 byte-identical and
+        # silently redefined the v2 baseline the ticker fix was measured against.
+        # THE NAME AS A PHRASE, not word by word. Matching distinctive WORDS was measured and it
+        # failed the same way the ticker substring did: "Riot" Platforms, "Marathon" Digital and
+        # "Applied" Digital are ordinary English, they earn the +3 title bonus, and they displace the
+        # coverage that is actually about the company -- cited-article retention fell 97% -> 71% and
+        # precision halved. A company is identified by its NAME, so match the name: the first two
+        # words of the issuer (or the whole thing if shorter), which is what an article prints.
+        _nm = set()
+        for n in ((event.get("names") or []) if version >= 3 else ()):
+            _w = [w for w in re.findall(r"[A-Za-z][A-Za-z&'-]*", str(n)) if w.lower() not in _STOP]
+            if _w:
+                _nm.add(" ".join(_w[:2]).lower() if len(_w) > 1 else _w[0].lower())
+        _nm = {x for x in _nm if len(x) >= 5}
+        _nrx = (re.compile(r"\b(" + "|".join(re.escape(w.lower()) for w in sorted(_nm)) + r")\b")
+                if _nm else None)
         _names, _seen = _name_tokens(arts)
         # KEYWORDS ARE LEFT ALONE, and both ways of changing them were measured and rejected.
         #
@@ -1622,7 +1658,7 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
         # open, and is in TODO.
 
         def _vhit(t):
-            return bool(_vrx and _vrx.search(t))
+            return bool(_vrx and _vrx.search(t)) or bool(_nrx and _nrx.search(t))
     else:
         def _vhit(t):
             return any(v in t for v in veh)
@@ -1879,12 +1915,22 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     for c in new_cands:
         tk, eid = c["ticker"], match.get(c["ticker"], "new")
         peers = {q for q in c.get("peers", []) if q != tk}   # already normalized + validated above
+        # THE ISSUER NAME, carried onto the event. The scout already fills `company` with the full
+        # issuer name and nothing has ever read it after admission -- while _filter_event has been
+        # matching TICKERS only, so an article that says "Ocugen" or "Celcuity" and never prints the
+        # symbol reaches the agent solely through a generic catalyst word. That is why pruning those
+        # words cost 220 cited articles when it was measured: they were carrying the recall that a
+        # name match should carry.
+        _nm = str(c.get("company") or "").strip()
         if eid in events and events[eid]["status"] == "live":
             events[eid]["vehicles"] |= {tk, *peers}
+            if _nm:
+                events[eid].setdefault("names", set()).add(_nm)
         else:
             nid += 1
-            events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"],
-                                  "status": "live", "vehicles": {tk, *peers}, "entries": []}
+            events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"], "status": "live",
+                                  "vehicles": {tk, *peers}, "names": {_nm} if _nm else set(),
+                                  "entries": []}
     # AGE CAP -- the mechanical backstop for a catalyst that never resolves. The design contract is
     # that a catalyst is "specific, datable, resolvable"; an event still live after `max_event_scans`
     # has, by that definition, turned out to be a THEME. Getting the LLM to call catalyst_resolved
@@ -2147,7 +2193,10 @@ def run_event_agent_scans(start, end, rebalance_days, model, workers, queries=No
         done.add(a.isoformat())
         tmp = f"{resume_f}.tmp"
         with open(tmp, "w") as fh:
-            json.dump({"events": {k: {**v, "vehicles": sorted(v["vehicles"])} for k, v in events.items()},
+            # `names` is a set like `vehicles`, so it needs the same treatment or json.dump raises.
+            json.dump({"events": {k: {**v, "vehicles": sorted(v["vehicles"]),
+                                      "names": sorted(v.get("names") or [])}
+                                  for k, v in events.items()},
                        "done": sorted(done), "nid": nid[0],
                        "out": {k.isoformat(): v for k, v in out.items()}}, fh, default=str)
         os.replace(tmp, resume_f)
