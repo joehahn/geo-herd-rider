@@ -222,8 +222,12 @@ about a catalyst that already happened is NOT a fresh catalyst. If the user mess
 catalyst as ALREADY-RESOLVED, do NOT re-propose that ticker unless a genuinely NEW, distinct catalyst
 has since emerged (a SECOND, different datable event — not a restatement of the resolved one).
 
-Output ONLY JSON: {"candidates":[{"ticker":"XYZ",
-"thesis":"<=16 words: the catalyst EVENT, with subject, timing and status","why_now":"<=12 words"}]}. Empty is the common, correct answer."""
+Output ONLY JSON, and every field below is REQUIRED — the three the old example omitted
+(`company`, `pending_next`, `peers`) are the ones the rest of the pipeline depends on:
+{"candidates":[{"ticker":"XYZ","company":"Full Issuer Name Inc","thesis":"<=16 words: the catalyst
+EVENT, with subject, timing and status","why_now":"<=12 words","pending_next":"the concrete thing
+still to happen, whose happening ends this thesis","peers":["OTHER","TICKERS"]}]}.
+Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
 prior weekly note (your memory), and THIS week's news for this event. Write the new weekly note.
@@ -1054,6 +1058,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                              # ticker attributes it to whatever unrelated proposal shares the name.
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
                                            "thesis": c.get("thesis", ""),
+                                           "pending_next": c.get("pending_next", ""),
                                            "peers": list(c.get("peers") or [])} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
     return out
@@ -1395,6 +1400,10 @@ composition, the exit, and which vehicle.
 `exit_advice` (<=24 words) is the STANDING EXIT CONDITION: the concrete, observable trigger that would
 END this thesis — phrase it as "exit if/when <observable event>"
 
+START FROM WHAT WAS PENDING. If the user message gives you "Pending when entered", that is the
+scout's own answer to what would end this thesis, written the week the event opened. Your exit
+condition should be that thing landing or failing, restated in your words — not a fresh guess.
+
 NAME BOTH DIRECTIONS. A pending thing ends this thesis whichever way it goes: it HAPPENS (and is then
 public and priced, so the edge is spent) or it FAILS. Write both. "exit if/when the DOE loan for the
 TMI restart is withdrawn or cancelled" names only the failure, so the week the loan is actually
@@ -1713,8 +1722,12 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
     digest = _journal_digest(entries)
     entry_wk = entries[0]["date"] if entries else anchor.date().isoformat()
     nb = _block(news) if news else "(no fresh coverage for this event this week)"
+    _pn = str(event.get("pending_next") or "").strip()
     user = (f"Event catalyst (FIXED — what you entered on): {event['catalyst']}\nEntered: {entry_wk}\n"
-            f"Known vehicles: {', '.join(sorted(event['vehicles']))}\nWeek ending {anchor.date()}.\n\n"
+            # WHAT WAS PENDING WHEN THIS EVENT OPENED, in the scout's words. It is the answer to
+            # "what would end this thesis", written before any of your journal existed.
+            + (f"Pending when entered (the scout's own words): {_pn}\n" if _pn else "")
+            + f"Known vehicles: {', '.join(sorted(event['vehicles']))}\nWeek ending {anchor.date()}.\n\n"
             f"Your journal so far (oldest -> newest):\n{digest}\n\nThis week's news:\n{nb}\n\n"
             "Re-check the EXIT condition against your WHOLE journal, then write this week's note and "
             "pick the current vehicle(s) (JSON).")
@@ -1928,8 +1941,17 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                 events[eid].setdefault("names", set()).add(_nm)
         else:
             nid += 1
+            # `pending_next` IS THE EXIT CONDITION, and it was being thrown away. The scout must
+            # write "the concrete thing that has NOT happened yet and whose happening would END this
+            # thesis" -- a decision date, a vote, a ruling -- and a candidate that cannot name one is
+            # dropped at admission. Then the event kept only the catalyst, so the event-agent
+            # invented `exit_advice` from scratch every week with no record of what was pending.
+            # That is how ev339 ended up with "exit if/when the DOE loan is withdrawn or cancelled":
+            # nothing told it the pending thing was a DOE DECISION, so it guessed at the failure
+            # branch and never named the loan being granted.
             events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"], "status": "live",
                                   "vehicles": {tk, *peers}, "names": {_nm} if _nm else set(),
+                                  "pending_next": str(c.get("pending_next") or "").strip(),
                                   "entries": []}
     # AGE CAP -- the mechanical backstop for a catalyst that never resolves. The design contract is
     # that a catalyst is "specific, datable, resolvable"; an event still live after `max_event_scans`
