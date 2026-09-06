@@ -320,7 +320,7 @@ class JournalEntry(BaseModel):
     exit_case: str = ""              # devil's-advocate: strongest reason the thesis is already over
     catalyst_resolved: bool = False  # has the entry catalyst happened? BLOCKS A NEW POSITION, never an exit
     exit_advice: str = ""
-    milestones: list[str] = []   # ordered catalyst-progress events (the arc); qualitative, NEVER magnitude
+    milestones: list = []        # [{what, kind, when}] -- the arc; qualitative, NEVER magnitude
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
     sources: list[str] = []
@@ -1318,7 +1318,17 @@ EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"},
-        "milestones": {"type": "array", "items": {"type": "string"}},   # ordered catalyst-progress events (the arc)
+        # THE ARC, and whether each step has HAPPENED. Strings could not distinguish "Crude crosses
+        # $100" from "Cantor flags an August readout" -- one is a development, the other a forecast,
+        # and reading them as one list makes an event look like it is progressing when nothing has.
+        # `when` also gives the due-date rule above something to test: an EXPECTED milestone with a
+        # date is exactly the thing whose passing ends the thesis.
+        "milestones": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False,
+            "required": ["what", "kind", "when"],
+            "properties": {"what": {"type": "string"},
+                           "kind": {"type": "string", "enum": ["happened", "expected"]},
+                           "when": {"type": "string"}}}},
         "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
@@ -1444,14 +1454,21 @@ SAME standing condition every week (carry it forward from your journal); REVISE 
 arc genuinely moves the trigger — e.g. an acute shock matures into a structural driver, or a new
 near-term milestone becomes the thing to watch — but do NOT churn the wording week to week for no reason.
 
-`milestones` (ordered list, <=6 short items, oldest -> newest) — the catalyst's ARC as concrete progress
+`milestones` — each one says WHAT, whether it has HAPPENED or is EXPECTED, and WHEN (a date or
+window if there is one, else "none"). A development and a forecast are not the same evidence: "Crude
+crosses $100" is the arc moving, "an analyst flags an August readout" is somebody's expectation, and
+a thesis whose milestones are all `expected` has not progressed at all. Mark an item `happened` only
+if it OCCURRED; anything scheduled, guided, forecast or hoped for is `expected`. An `expected` item
+whose `when` has passed is the due date the exit rule above tells you to test.
+(ordered list, <=6 short items, oldest -> newest) — the catalyst's ARC as concrete progress
 events (e.g. ["Israel-Iran strikes","Hormuz transit threatened","tankers reroute","US sets Iran deadline"]).
 CARRY FORWARD the list from your journal and APPEND a new item ONLY when a concrete development actually
 lands this week; never pad with speculation. This is the evidence trail behind your live/exit call — a LIVE
 driver keeps throwing off fresh milestones; a stalled/resolved one stops (feed that into the exit logic above).
 
 Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
-"exit_advice":"...","milestones":["...","..."],"assessment":"...","news_claims":"",
+"exit_advice":"...","milestones":[{"what":"...","kind":"happened|expected","when":"a date, or none"}],
+"assessment":"...","news_claims":"",
 "vehicles":["TICKER"],"sources":["url"]}."""
 
 
@@ -1584,6 +1601,19 @@ def weak_exposure(why: str) -> bool:
     if any(r in t for r in _REAL_LINK):
         return False
     return any(v in t for v in _VAGUE_LINK)
+
+
+def as_milestone(m) -> dict:
+    """One milestone as {what, kind, when}, from either form.
+
+    Milestones were plain strings until 2026-09-06 and every journal on disk holds them that way, so
+    every reader has to accept both. An old string is `kind: "unknown"` rather than a guess -- the
+    distinction it could not express should not be invented for it retrospectively."""
+    if isinstance(m, dict):
+        return {"what": str(m.get("what", "")).strip(),
+                "kind": str(m.get("kind", "unknown")).strip().lower() or "unknown",
+                "when": str(m.get("when", "")).strip()}
+    return {"what": str(m or "").strip(), "kind": "unknown", "when": ""}
 
 
 def _merge_exposure(a, b) -> list:
@@ -1797,6 +1827,14 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
     return hits[:cap] if cap else hits
 
 
+def _ms_line(m) -> str:
+    """A milestone for the agent's own journal digest: what it is, whether it happened, and when."""
+    d = as_milestone(m)
+    tag = "" if d["kind"] == "unknown" else f" [{d['kind']}]"
+    when = f" ({d['when']})" if d["when"] and d["when"].lower() != "none" else ""
+    return f"{d['what']}{tag}{when}"
+
+
 def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     """Compact week-by-week journal so the agent sees the FULL arc of an event since entry — the
     catalyst it entered on, how the VEHICLE evolved, and every live/exit read — not just
@@ -1819,7 +1857,7 @@ def _journal_digest(entries: list[dict], keep: int = 20) -> str:
     else:
         head = [line(entries[0]), f"... ({len(entries) - keep - 1} earlier weeks omitted) ..."]
         body = "\n".join(head + [line(e) for e in entries[-keep:]])
-    ms = [str(m).strip() for m in (entries[-1].get("milestones") or []) if str(m).strip()]
+    ms = [_ms_line(m) for m in (entries[-1].get("milestones") or []) if as_milestone(m)["what"]]
     if ms:
         body += "\n\nMilestones logged so far (carry forward; append only genuinely new ones): " + " -> ".join(ms)
     return body
@@ -1857,10 +1895,20 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
     # works by string identity. A milestone is evidence the agent tests its own due dates against;
     # losing one silently removes a waypoint it can no longer notice has passed. Merging here makes
     # the append-only promise true, and keeps the model's order for the new items.
-    _prior = [str(m).strip() for m in ((entries[-1].get("milestones") if entries else []) or [])
-              if str(m).strip()]
-    _fresh = [str(m).strip() for m in (e.milestones or []) if str(m).strip()]
-    _ms = _prior + [m for m in _fresh if m not in _prior]
+    _prior = [as_milestone(m) for m in ((entries[-1].get("milestones") if entries else []) or [])]
+    _prior = [m for m in _prior if m["what"]]
+    _fresh = [as_milestone(m) for m in (e.milestones or [])]
+    _fresh = [m for m in _fresh if m["what"]]
+    # dedupe on WHAT, so an item promoted from expected to happened UPDATES rather than duplicating
+    _seen = {m["what"].lower(): i for i, m in enumerate(_prior)}
+    _ms = list(_prior)
+    for m in _fresh:
+        i = _seen.get(m["what"].lower())
+        if i is None:
+            _seen[m["what"].lower()] = len(_ms)
+            _ms.append(m)
+        elif _ms[i]["kind"] != "happened" and m["kind"] == "happened":
+            _ms[i] = m
     return {"date": anchor.date().isoformat(), "thesis_live": live,
             "exit_case": e.exit_case, "catalyst_resolved": e.catalyst_resolved,
             "exit_advice": e.exit_advice,

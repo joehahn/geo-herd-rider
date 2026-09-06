@@ -172,6 +172,16 @@ def _how_it_ended(e: dict, entry: dict, cap: int) -> str:
     return "no stated reason"
 
 
+def _ms_of(m) -> dict:
+    """One milestone as {what, kind, when}. Mirrors agent.as_milestone, so a report can read a
+    journal written before milestones carried the happened/expected distinction."""
+    if isinstance(m, dict):
+        return {"what": str(m.get("what", "")).strip(),
+                "kind": str(m.get("kind", "unknown")).strip().lower() or "unknown",
+                "when": str(m.get("when", "")).strip()}
+    return {"what": str(m or "").strip(), "kind": "unknown", "when": ""}
+
+
 def _entry_at(e: dict, date: str) -> dict | None:
     """The event's journal entry for this scan, or None if the agent did not re-judge it here."""
     for x in e.get("entries") or []:
@@ -316,17 +326,20 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
         #
         # ITERATE THE LIST, NOT A SET: the agent writes milestones in a deliberate order (the arc,
         # oldest first), and a set shuffled everything recorded at the same scan.
-        _first, _srcs, _last = {}, {}, set()
+        _first, _srcs, _kind, _last = {}, {}, {}, set()
         for _x in (e.get("entries") or []):
             _d = str(_x.get("date", ""))[:10]
             if _d > date:
                 break
-            _ml = [str(_m).strip() for _m in (_x.get("milestones") or []) if str(_m).strip()]
-            _last = set(_ml)
-            for _m in _ml:
-                if _m not in _first:
-                    _first[_m] = _d
-                    _srcs[_m] = [u for u in (_x.get("sources") or []) if u][:SOURCES_PER_EVENT]
+            _ml = [m for m in (_ms_of(_m) for _m in (_x.get("milestones") or [])) if m["what"]]
+            _last = {m["what"] for m in _ml}
+            for m in _ml:
+                if m["what"] not in _first:
+                    _first[m["what"]] = _d
+                    _kind[m["what"]] = m
+                    _srcs[m["what"]] = [u for u in (_x.get("sources") or []) if u][:SOURCES_PER_EVENT]
+                elif m["kind"] == "happened":
+                    _kind[m["what"]] = m      # promoted from expected: show the later state
         # SILENCE HAS TO BE VISIBLE. An event with no milestones rendered as a missing section, so a
         # thesis nothing has confirmed for nine scans looked the same as a tidy one: ev339 held AMZN
         # at 40% for nine scans on "US DOE loans $1B to restart Three Mile Island", recorded not one
@@ -363,7 +376,15 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                             + ", ".join(f"[{i + 1}]({u})" for i, u in enumerate(_u)) if _u
                             else " · no sources cited"))
                 for _m in _ms:
-                    L.append(f"    - {_trim(_m, 240)}"
+                    # HAPPENED vs EXPECTED is the point of the field: a thesis whose milestones are
+                    # all forecasts has not moved. "unknown" is an item from a journal written
+                    # before the distinction existed, and says nothing rather than guessing.
+                    _dd = _kind.get(_m, {})
+                    _tag = {"happened": "**happened** — ", "expected": "*expected* — "}.get(
+                        str(_dd.get("kind") or "unknown"), "")
+                    _wh = str(_dd.get("when") or "")
+                    _wh = f" · due {_wh}" if _wh and _wh.lower() != "none" else ""
+                    L.append(f"    - {_tag}{_trim(_m, 240)}{_wh}"
                              + ("" if _m in _last else
                                 "  *(the agent stopped carrying this one)*"))
         # THIS SCAN'S CITATIONS, when no milestone was recorded here to carry them. Without this a
