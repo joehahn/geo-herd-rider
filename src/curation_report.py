@@ -211,7 +211,8 @@ def _money(x: float) -> str:
 
 def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | None,
                  cum: float | None, date: str, note: str = "", rets: dict | None = None,
-                 history: list | None = None, read: list | None = None, proposals: dict | None = None, assigned: dict | None = None,
+                 history: list | None = None, read: list | None = None, proposals: dict | None = None,
+                 assigned: dict | None = None, exposure: dict | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -410,17 +411,29 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             _asg = (assigned or {}).get((_hit[0], _v)) if _hit else None
             _th = _hit[1][1] if (_hit and _hit[1]) else ""
             _founder = bool(_th) and _norm_cat(_th) == _norm_cat(e.get("catalyst") or "")
+            # THE EXPOSURE CLAUSE FIRST, when the curation recorded one: it answers "why is this
+            # ticker here" directly, where the proposal thesis only answers it for the name that was
+            # proposed. A peer has no thesis of its own and this is the only thing that can speak
+            # for it -- 33% of funded position-days rest on one.
+            # A vehicle with no clause is not the same as one nobody asked about. From 2026-09-06
+            # every curation is asked, and a peer whose answer named no relationship has its clause
+            # blanked at admission -- so on those runs the absence is itself the finding.
+            _ex = (exposure or {}).get(_v)
+            _pre = (f" · **exposed:** {_trim(_ex, 90)}" if _ex
+                    else (" · **no link stated**" if exposure else ""))
             if _hit and _th and (_founder or _asg == eid):
                 _rows.append(f"- **{_v}** · joined {_hit[0]} · "
                              f"{'opened this event as' if _founder else 'merged in, proposed as'} "
-                             f"\u201c{_trim(_th, 104)}\u201d")
+                             f"\u201c{_trim(_th, 104)}\u201d{_pre}")
             elif _hit and _th:
                 _rows.append(f"- **{_v}** · joined {_hit[0]} · arrived on another proposal (a peer); "
                              f"its own thesis that scan was \u201c{_trim(_th, 74)}\u201d, "
-                             f"a different event")
+                             f"a different event{_pre}")
             elif _hit:
-                _rows.append(f"- **{_v}** · joined {_hit[0]} · no scout record for that scan "
-                             f"(a run curated before peers were logged cannot say how it arrived)")
+                _rows.append(f"- **{_v}** · joined {_hit[0]} · "
+                             + (f"**exposed:** {_trim(_ex, 96)}" if _ex else
+                                "no scout record for that scan (a run curated before peers were "
+                                "logged cannot say how it arrived)"))
         if _rows:
             L += ["", f"<details><summary>Why these {len(vs_now)} vehicles are attached — the "
                       f"scout's own thesis for each</summary>", ""] + _rows + ["", "</details>"]
@@ -684,6 +697,11 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         proposals, assigned = {}, {}
     archive_dir = Path(archive_dir) if archive_dir else None
 
+    def _expo(k: str) -> dict:
+        """{ticker: how it is exposed}, from the event itself. Recorded by curations from 2026-09-06."""
+        return {str(x.get("ticker", "")).upper(): str(x.get("why", "")).strip()
+                for x in ((ev.get(k) or {}).get("exposure") or []) if str(x.get("why", "")).strip()}
+
     def _pool(date: str) -> list:
         """The whole week's article pool, as archived when the curation ran. ~3 MB per anchor, read
         once per report and dropped, rather than holding 37 of them at once."""
@@ -864,6 +882,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
                 L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned,
+                                  exposure=_expo(k),
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
                                   note=(f"vehicle also claimed by {', '.join(_co[k])}"
@@ -935,6 +954,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
                                   exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned,
+                                  exposure=_expo(k),
                                   note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
                                ("Ran their course unfunded", _ran)):
@@ -966,6 +986,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             _h, _rd, _m, _ok = _inputs(k)
             L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None,
                               date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned,
+                                  exposure=_expo(k),
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
         if not missed:
             L += ["*Every live event was funded.*", ""]

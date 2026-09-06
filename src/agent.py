@@ -47,11 +47,21 @@ from util import scan_anchors  # noqa: E402
 SCOUT_SCHEMA = {"type": "object", "additionalProperties": False, "required": ["candidates"],
                "properties": {"candidates": {"type": "array", "items": {
                    "type": "object", "additionalProperties": False,
-                   "required": ["ticker", "company", "thesis", "why_now", "pending_next", "peers"],
+                   "required": ["ticker", "company", "thesis", "why_now", "pending_next", "peers",
+                                "exposure"],
                    "properties": {"ticker": {"type": "string"}, "company": {"type": "string"},
                                   "thesis": {"type": "string"}, "why_now": {"type": "string"},
                                   "pending_next": {"type": "string"},
-                                  "peers": {"type": "array", "items": {"type": "string"}}}}}}}
+                                  "peers": {"type": "array", "items": {"type": "string"}},
+                                  # WHY EACH VEHICLE IS EXPOSED. A parallel array rather than a
+                                  # richer `peers`, because peers are plain strings in six places
+                                  # (the two chunk-merges, the ticker guard, the decision log, event
+                                  # creation) and this needs to cover the PRIMARY ticker too.
+                                  "exposure": {"type": "array", "items": {
+                                      "type": "object", "additionalProperties": False,
+                                      "required": ["ticker", "why"],
+                                      "properties": {"ticker": {"type": "string"},
+                                                     "why": {"type": "string"}}}}}}}}}
 AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
                "required": ["thesis_live", "exit_advice", "assessment", "news_claims", "sources"],
                "properties": {"thesis_live": {"type": "boolean"},
@@ -117,6 +127,15 @@ ride as extra vehicles on that ONE event and the mechanical optimizer sizes them
 so you no longer throw the peers away. RULES: `peers` are SAME-catalyst ONLY (0-4); NEVER list a name
 driven by a DIFFERENT catalyst — that is a separate candidate or nothing (this is what keeps the basket
 from drifting into unrelated gems); US-listed only (name the US ADR, no foreign suffix).
+
+SAY HOW EACH VEHICLE IS EXPOSED, in `exposure` — one entry for the PRIMARY ticker and one for EVERY
+peer, <=12 words each, naming the actual link to the catalyst: "buys the plant's output under a
+20-year PPA", "licenses the drug in Japan", "the borrower". A peer inherits the event's catalyst but
+NOT its reason for existing, and a vehicle nobody can explain is a name attached by association: if
+you cannot write the clause, LEAVE THE TICKER OUT rather than guess. This is a completeness test, not
+a judgement about the stock -- you are not asked whether it is worth owning, only how it is
+connected. It is read by a human deciding whether to trust the basket, so "AI beneficiary" or
+"exposed to the theme" is not an answer.
 
 CATALYST GATE (the hard filter — this is the bet). THE HIGHEST-VALUE CATALYST IS A NATIONAL OR
 INTERNATIONAL SUPPLY-DEMAND SHIFT: a concrete, NAMED change in the real supply or demand for a
@@ -226,7 +245,9 @@ Output ONLY JSON, and every field below is REQUIRED — the three the old exampl
 (`company`, `pending_next`, `peers`) are the ones the rest of the pipeline depends on:
 {"candidates":[{"ticker":"XYZ","company":"Full Issuer Name Inc","thesis":"<=16 words: the catalyst
 EVENT, with subject, timing and status","why_now":"<=12 words","pending_next":"the concrete thing
-still to happen, whose happening ends this thesis","peers":["OTHER","TICKERS"]}]}.
+still to happen, whose happening ends this thesis","peers":["OTHER","TICKERS"],
+"exposure":[{"ticker":"XYZ","why":"<=12 words: how THIS name is connected to the catalyst"},
+{"ticker":"OTHER","why":"..."}]}]}.
 Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
@@ -281,6 +302,7 @@ class ScoutCandidate(BaseModel):
     why_now: str = ""
     pending_next: str = ""         # the concrete thing that has NOT happened yet; empty/none -> rejected
     peers: list[str] = []          # same-catalyst peer vehicles: extra US tickers for THIS event's basket
+    exposure: list = []            # [{ticker, why}] -- how each vehicle above is exposed to the catalyst
 
     @field_validator("ticker")
     @classmethod
@@ -918,6 +940,8 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                 if k in merged:
                     merged[k]["peers"] = list(dict.fromkeys(
                         list(merged[k].get("peers") or []) + list(c.get("peers") or [])))
+                    merged[k]["exposure"] = _merge_exposure(merged[k].get("exposure"),
+                                                            c.get("exposure"))
                 else:
                     merged[k] = dict(c)
                     merged[k]["_gem"] = False
@@ -990,6 +1014,8 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                     if k in merged:
                         merged[k]["peers"] = list(dict.fromkeys(
                             list(merged[k].get("peers") or []) + list(c.get("peers") or [])))
+                        merged[k]["exposure"] = _merge_exposure(merged[k].get("exposure"),
+                                                                c.get("exposure"))
                     else:
                         merged[k] = dict(c)
                         merged[k]["_gem"] = bool(gem & chunk_beats[gi]) if gi < len(chunk_beats) else False
@@ -1059,7 +1085,8 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
                              "proposed": [{"ticker": c.get("ticker", ""), "company": c.get("company", ""),
                                            "thesis": c.get("thesis", ""),
                                            "pending_next": c.get("pending_next", ""),
-                                           "peers": list(c.get("peers") or [])} for c in cands],
+                                           "peers": list(c.get("peers") or []),
+                                           "exposure": list(c.get("exposure") or [])} for c in cands],
                              "admitted": [p["ticker"] for p in out]})
     return out
 
@@ -1526,6 +1553,51 @@ def as_set(v) -> set:
     return set()
 
 
+# A clause that names no relationship. The prompt forbids these outright and 15% of clauses were
+# still one, which is the lesson pending_next already taught: ENFORCED, not merely instructed.
+_VAGUE_LINK = ("exposed to", "benefits from", "benefit from", "gains from", "gain from",
+               "part of", "player in", "beneficiary", "sentiment", "peer of", "related to",
+               "linked to", "tied to", "correlated", "rides on", "riding")
+# ...unless the clause also names an actual mechanism. An ETF legitimately IS thematic exposure, and
+# "supplies", "licenses", "owns", "the borrower" are relationships however they are phrased.
+_REAL_LINK = ("suppl", "manufactur", "licens", "own", "operat", "buys", "sells", "purchas",
+              "contract", "borrower", "issuer", "partner", "subsidiar", "receives", "award",
+              "files", "produc", "mines", "refin", "distribut", "holds", "stake", "customer",
+              "landlord", "tenant", "etf", "index", "fund", "tracks", "basket", "developer",
+              "builder", "lender", "insurer", "acquir", "merge", "spin", "plaintiff", "defendant")
+
+
+def weak_exposure(why: str) -> bool:
+    """True when a clause asserts association without naming a relationship.
+
+    Judged on the 317 clauses the 2026-09-06 six-scan run produced, BEFORE any curation was bought
+    with it: "exposed to US rare earth demand" and "benefits from SpaceX growth" are rejected,
+    "manufactures Nvidia's AI chips" and "semiconductor ETF tracking AI infrastructure" are kept.
+    A LENGTH RULE WAS TRIED AND REMOVED. "under four words says nothing" rejected "leading
+    cryptocurrency" (the subject of its own event), "leveraged bitcoin proxy", "US fertilizer maker"
+    and "leading crypto exchange" -- all of which name what the company IS, which is a complete
+    answer when the company is the subject or an obvious pure-play. Terse is not vague. Only an
+    empty clause is rejected on length."""
+    t = (why or "").strip().lower()
+    if not t:
+        return True
+    if any(r in t for r in _REAL_LINK):
+        return False
+    return any(v in t for v in _VAGUE_LINK)
+
+
+def _merge_exposure(a, b) -> list:
+    """Union two [{ticker, why}] lists, first clause per ticker wins. Peers are merged across scout
+    chunks so no vehicle is lost at a chunk boundary; their reasons have to travel with them."""
+    out, seen = [], set()
+    for e in list(a or []) + list(b or []):
+        t = str(e.get("ticker", "")).strip().upper()
+        if t and t not in seen and str(e.get("why", "")).strip():
+            seen.add(t)
+            out.append({"ticker": t, "why": str(e["why"]).strip()})
+    return out
+
+
 def _norm_catalyst(s: str) -> str:
     """Normalize a catalyst string for duplicate detection: lowercase, alphanumerics only."""
     import re
@@ -1868,15 +1940,52 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
         n = score.normalize_ticker(q)
         return rescued.get(n, n)
 
-    kept = []
+    kept, _weak = [], []
     for c in cands:
         tk = _fix(c["ticker"])
         if tk not in okset:
             continue                       # primary symbol unusable -> the whole candidate goes
-        c = dict(c, ticker=tk,
-                 peers=[p for p in (_fix(q) for q in (c.get("peers") or []))
-                        if p in okset and p != tk])
+        _pk = [p for p in (_fix(q) for q in (c.get("peers") or [])) if p in okset and p != tk]
+        # ENFORCE THE EXPOSURE RULE ON PEERS. A peer inherits the event's catalyst but not a reason
+        # to exist, and 33% of funded position-days rest on one, so "if you cannot write the clause,
+        # leave the ticker out" has to bind rather than be asked for. Judged by weak_exposure(),
+        # which was dry-run over the 317 clauses of the six-scan test before any curation was bought.
+        #
+        # PEERS ONLY, deliberately. The PRIMARY keeps its place whatever it wrote: its justification
+        # is the thesis, the exposure clause is close to redundant for it, and dropping a whole
+        # candidate over a lazily-worded self-description would discard real events (AMAT with
+        # "benefits from AI chip demand" is a weak clause on a possibly-fine catalyst).
+        _why = {str(e.get("ticker", "")).strip().upper(): str(e.get("why", ""))
+                for e in (c.get("exposure") or [])}
+        # MARK, DO NOT DROP -- decided on measurement, 2026-09-06. Dry-run over the six-scan test,
+        # the drop form would remove 160 of 454 peers (35%). That is a large discard driven by how a
+        # clause is WORDED, and peers are not measurably harmful: 33% of funded position-days rest
+        # on one and their returns are indistinguishable from proposed names (n=44 vs 89, one
+        # curation, so no claim either way -- but no evidence of harm to act on). Discarding a
+        # vehicle the scout thought belonged, on a heuristic, is the trade CLAUDE.md's knob rule
+        # exists to refuse.
+        #
+        # So the clause is BLANKED instead: the vehicle stays fundable and the report says "no link
+        # stated" rather than repeating an association as if it were a reason. That is the
+        # at-a-glance answer either way, and it keeps the drop decision available for the day there
+        # is evidence for it -- weak_exposure() is unchanged and the count is printed every scan.
+        _weak.extend(q for q in _pk if weak_exposure(_why.get(_fix(q), "")))
+        # exposure follows the same normalisation as the vehicles it describes, or a rescued
+        # "RIGETTI COMPUTING" -> RGTI keeps its clause under the old key and the report loses it.
+        _keepv = {tk, *_pk}
+        _ex, _seen = [], set()
+        for e in (c.get("exposure") or []):
+            q = _fix(str(e.get("ticker", "")))
+            if q in _keepv and q not in _seen and str(e.get("why", "")).strip():
+                _seen.add(q)
+                if q != tk and weak_exposure(str(e["why"])):
+                    continue          # an association is not a link; the report will say so
+                _ex.append({"ticker": q, "why": str(e["why"]).strip()})
+        c = dict(c, ticker=tk, peers=_pk, exposure=_ex)
         kept.append(c)
+    if _weak:
+        print(f"    exposure gate ({as_of}) {len(_weak)} peer(s) gave no real link, clause blanked: "
+              + ", ".join(sorted(set(_weak))[:8]), file=sys.stderr, flush=True)
     if rescued:
         print(f"    ticker guard ({as_of}) resolved {len(rescued)}: "
               + "; ".join(f"{k!r} -> {v}" for k, v in rescued.items()), file=sys.stderr, flush=True)
@@ -1972,6 +2081,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         _nm = str(c.get("company") or "").strip()
         if eid in events and events[eid]["status"] == "live":
             events[eid]["vehicles"] |= {tk, *peers}
+            events[eid]["exposure"] = _merge_exposure(events[eid].get("exposure"), c.get("exposure"))
             if _nm:
                 events[eid]["names"] = as_set(events[eid].get("names")) | {_nm}
         else:
@@ -1987,6 +2097,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"], "status": "live",
                                   "vehicles": {tk, *peers}, "names": {_nm} if _nm else set(),
                                   "pending_next": str(c.get("pending_next") or "").strip(),
+                                  "exposure": _merge_exposure(c.get("exposure"), None),
                                   "entries": []}
     # AGE CAP -- the mechanical backstop for a catalyst that never resolves. The design contract is
     # that a catalyst is "specific, datable, resolvable"; an event still live after `max_event_scans`
