@@ -69,7 +69,45 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v28_exposure"   # v27 -> v28 on 2026-09-06. Adds the two fields that make an
+CANON_RUN = "data/cbt_3yr_v29_silence"    # v28 -> v29 on 2026-09-07. Two changes, both measured
+                                          # BEFORE the run, on v27 and v28 independently:
+                                          #   OCCURRENCE GATE on `pending_next` -- a candidate whose
+                                          #     pending thing is a price move, a trend or another
+                                          #     analyst's opinion ("the realization of the 120%
+                                          #     upside", "Canaccord revises IREN rating again") is not
+                                          #     an event: nothing can resolve it, so its exit can
+                                          #     never fire on the merits. Events whose pending_next
+                                          #     names a real occurrence: 91% -> 100%.
+                                          #   max_silent_scans 8 -> 5. Events that exit on the MERITS
+                                          #     go quiet for a median of ONE scan; events retired by a
+                                          #     timer go quiet for EIGHT, piling up at exactly the old
+                                          #     cap (96 of v28's 132). Cutting at 5 catches 85% of
+                                          #     those for 12% collateral.
+                                          # WHAT IT BOUGHT: no event now holds through more than 5
+                                          # consecutive silent scans; the blunt 12-scan wall almost
+                                          # stopped firing (45 -> 12 events); median event lifetime
+                                          # 8 -> 6 scans; silent scans per live event 4.80 -> 3.61.
+                                          # WHAT IT DID NOT: the judgment-vs-counter balance is flat
+                                          # -- of events that ENDED, 47.0% (v28) vs 47.9% (v29) ended
+                                          # on the agent's judgment rather than a timer. v29 makes the
+                                          # timer fire sooner; it does not make the agent the thing
+                                          # that retires events. "Agent said the thesis is dead" is
+                                          # 5% in BOTH. That is the next target and it is a prompt
+                                          # change, not a knob.
+                                          # COST: 452 events vs 562, nominations 110 -> 64/scan. The
+                                          # candidate pool the cull ranks only fell 168 -> 126, so it
+                                          # still sees ~21 candidates per watchlist slot.
+                                          # ALSO NEW, inert by design: every entry now carries
+                                          # `coverage` (evscore over the scan's own pool -- score,
+                                          # mentions, source_breadth, author_breadth, superlatives,
+                                          # velocity; 1,641 entries, velocity non-zero on 72%).
+                                          # NOTHING consumes it yet -- max_events is still 0 and
+                                          # _ranked_cull still allocates all 6 slots on recency and
+                                          # price momentum. It is stamped so that testing a
+                                          # coverage-weighted cull_rank becomes a BOOK-knob replay
+                                          # over a fixed journal instead of another curation.
+                                          #
+                                          # Previous note, v27 -> v28 on 2026-09-06. Adds the two fields that make an
                                           # event explain itself, at no cost to v27's numbers:
                                           #   EXPOSURE -- every vehicle, peers included, states how it
                                           #     is connected. 1,438 clauses over 1,064 vehicle slots;

@@ -476,6 +476,63 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
 
 _NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happened",
                     "nothing pending", "no pending catalyst", "resolved", "unknown"}
+
+# ---- THE OCCURRENCE GATE ---------------------------------------------------------------------
+# `pending_next` must name a DISCRETE OCCURRENCE -- something that can be said to have HAPPENED on
+# a date. A candidate whose pending thing is a price move, a trend, or another analyst's opinion
+# ("the realization of the 120% upside", "sustained homebuilder demand", "Canaccord revises IREN
+# rating or price target again") is not an event: nothing can resolve it, so its exit condition can
+# never fire on the merits. Measured on cbt v28 it is 8.7% of events (v27 6.4%, cbs_v12 10.5%);
+# see scripts/measure_occurrence_gate.py, which imports these and reports the reject list.
+#
+# FAILS OPEN, like _restates_resolved: reject ONLY when a non-occurrence head noun is present and no
+# occurrence noun is. max_group_articles and max_article_orgs are the standing warning -- both were
+# subtractive filters added to fix something else, and both deleted real news.
+#
+# Markers are hand-written PREFIXES matched against raw tokens. Deliberately NOT run through _stem:
+# that exists for _restates_resolved's set arithmetic and is too lossy here -- it collapses BOTH
+# `rating` and `rate` to `rat`, which made an early cut reject "actual rate cuts by US Fed", a dated
+# FOMC occurrence. Prefixes absorb inflection on their own (`approv` covers approve/approval/approved).
+_OCCURRENCE = """
+decis decid approv reject ruling verdict vot ratif veto hearing trial lawsuit settlement
+injunct sanction tariff authoriz permit licens clearanc greenlight waiver exempt
+determin restrict
+earning filing filed disclos guidanc prospectus 10-k 10-q 8-k readout result pdufa topline releas
+deal contract award purchas acquisit acquir merger buyout ipo listing divest sale sell
+stake offering financ loan grant subsid clos sign execut fulfil deliver shipment
+launch restart commission complet construct groundbreak product output mileston
+rollout deploy certif qualif implement achiev
+meeting summit conferenc election referendum deadlin expir maturit renew report announc
+statement resolut agreement accord treaty ceasefir truce negoti escalat outbreak
+showcas expo cut
+""".split()
+
+# HEAD NOUNS ONLY. An earlier cut also listed the modifiers ("further", "sustained", "continued"),
+# and they attach to real occurrences as readily as to themes -- it killed "release of further
+# clinical data" and "the Iran war ends or escalates further". The modifier is not the defect; the
+# head noun is. "further demand growth" is still rejected, on demand+growth.
+_NOT_OCCURRENCE = """
+upsid downsid momentum sentiment rally surg soar slump plung realiz materializ
+outperform underperform rerat re-rat multipl pricetarget target rating downgrad reiterat valuat
+appreci gain growth demand adopt uptak strength pric
+""".split()
+
+_DATED_PENDING = re.compile(r"\b(19|20)\d\d\b|\$\s?\d|\bq[1-4]\b|"
+                            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)")
+
+
+def names_occurrence(pending: str) -> bool:
+    """Does `pending_next` name a discrete occurrence -- a thing datable as having happened?"""
+    w = set(re.findall(r"[a-z0-9$%.-]{3,}", str(pending or "").lower()))
+    if not w:
+        return False
+    if any(x.startswith(m) for x in w for m in _OCCURRENCE):
+        return True
+    # A DATE OR A FIGURE IS ITSELF AN OCCURRENCE MARKER -- the same signal _restates_resolved already
+    # trusts. "$15M ... in 2026" names something checkable on a calendar.
+    if _DATED_PENDING.search(str(pending or "").lower()):
+        return True
+    return not any(x.startswith(m) for x in w for m in _NOT_OCCURRENCE)
 # Content words shared by almost any catalyst sentence; they carry no identifying signal, so leaving
 # them in would make every re-proposal look like a restatement of the old one.
 _CATALYST_STOP = {"the", "and", "for", "with", "from", "that", "this", "will", "into", "over", "its",
@@ -1029,7 +1086,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
             print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
                   f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
                   file=sys.stderr)
-    out, _dropped_resolved, _restated = [], [], []
+    out, _dropped_resolved, _restated, _not_occurrence = [], [], [], []
     for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
         # ENFORCED, not merely instructed. Measured 2026-08-11: 8 of 9 one-scan events were past-tense
         # catalysts ("contract awarded", "merger announced", "earnings reported") that the event agent
@@ -1039,6 +1096,12 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
         _pn = str(c.get("pending_next") or "").strip().lower()
         if (not _pn) or _pn in _NOTHING_PENDING or len(_pn) < 8:
             _dropped_resolved.append(str(c.get("ticker", "")))
+            continue
+        # ...and it must be an OCCURRENCE, not a price move, a trend, or another analyst's opinion.
+        # Same enforced-not-instructed shape as the rule above: the prompt asks for a concrete
+        # pending thing, and this is the half that binds.
+        if not names_occurrence(_pn):
+            _not_occurrence.append(str(c.get("ticker", "")))
             continue
         # RETIRED-TICKER GATE. The prompt above now invites a retired ticker back on a NEW catalyst;
         # this is the enforced half, because "ENFORCED, not merely instructed" is what made the
@@ -1070,8 +1133,13 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
     if _dropped_resolved:
         print(f"  scout: dropped {len(_dropped_resolved)} already-resolved candidate(s) "
               f"({', '.join(_dropped_resolved[:6])}) ({anchor.date()})", file=sys.stderr)
+    if _not_occurrence:
+        print(f"  scout: dropped {len(_not_occurrence)} candidate(s) whose pending_next is a trend, "
+              f"a price move or an opinion ({', '.join(_not_occurrence[:6])}) ({anchor.date()})",
+              file=sys.stderr)
     picker_log.log("scout", {"context": str(anchor.date()), "max_new_events": max_new_events,   # OFF unless enabled
                              "chunks": len(chunks), "dropped_resolved": _dropped_resolved,
+                             "dropped_not_occurrence": _not_occurrence,
                              "restated_resolved": _restated,
                              "retired_roster": sorted((retired_map or {}).keys()),
                              # PEERS ARE HOW MOST VEHICLES ACTUALLY ARRIVE, and this log dropped
@@ -2221,6 +2289,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # picker=None is the MECHANICAL CONTROL, not a disabled feature: it keeps the OLDEST max_events
     # (insertion order), which is the null any LLM ranker must beat. Without a control, "the picker
     # helped" cannot be distinguished from "capping concurrency helped".
+    _cov = {}                 # per-event COVERAGE metrics for this scan; stamped onto the entry below
     if max_events:
         _ev_metrics = ev_metrics if ev_metrics is not None else {}
         _live = [ev for ev in events.values() if ev["status"] == "live"]
@@ -2244,6 +2313,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                 keep = {eid for eid, _, _ in ranked[:max_events]}
                 for eid, sc, m in ranked:
                     _ev_metrics[eid] = m
+                    _cov[eid] = {"score": round(float(sc), 3), **m}
                 _how = "coverage-rank"
                 print("    " + " · ".join(f"{eid}:{sc:.0f}(s{m['source_breadth']}/x{m['superlatives']})"
                                           for eid, sc, m in ranked[:6]), file=sys.stderr)
@@ -2261,6 +2331,39 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         print(f"  consolidated {merged} duplicate-catalyst event(s) ({anchor.date()})", file=sys.stderr)
     live_events = [ev for ev in events.values() if ev["status"] == "live"]
 
+    # COVERAGE METRICS FOR EVERY LIVE EVENT, STAMPED ONTO ITS ENTRY (2026-09-06).
+    # evscore already computes these, but ONLY inside the `if max_events:` cull above -- and that is
+    # off in every current curation (max_events: 0), so they have never been written down. The
+    # consequence is that the watchlist cull has nothing the curator OBSERVED about an event to work
+    # with: `_ranked_cull` allocates all of max_watchlist on recency and trailing return.
+    # Stamping them is arithmetic over this scan's pool -- no LLM, no forecast, so it stays inside
+    # non-negotiable #1 -- and it costs nothing. What it buys is that `cull_rank` experiments become
+    # a BOOK-knob replay over a fixed journal instead of a re-curation.
+    # Guarded on `_cov` so velocity is never computed twice against the same `prev`: when the cull
+    # above ran, it already scored these events and a second pass would compare this scan to itself.
+    if not _cov and live_events:
+        try:
+            import evscore  # noqa: PLC0415
+            _prev = ev_metrics if ev_metrics is not None else {}
+            # VELOCITY NEEDS LAST SCAN'S COUNTS. `ev_metrics` only carries them when the CALLER
+            # threads one dict through every scan, and backtest_gdelt.py does not -- so the first
+            # playtest stamped velocity 0.0 on 100% of 142 entries, silently zeroing the term that
+            # holds weight 4.0 of the ~8 available. Recover it from the journal instead: the
+            # previous scan's stamp is already on the event's last entry. Self-contained, so it
+            # also survives a resumed run and a seeded journal.
+            for _e in live_events:
+                if _e["id"] in _prev:
+                    continue
+                for _x in reversed(_e.get("entries") or []):
+                    if _x.get("coverage"):
+                        _prev[_e["id"]] = _x["coverage"]
+                        break
+            for _eid, _sc, _m in evscore.rank(live_events, pool, prev=_prev):
+                _cov[_eid] = {"score": round(float(_sc), 3), **_m}
+                _prev[_eid] = _m
+        except Exception as exc:  # noqa: BLE001 -- coverage bookkeeping must never sink a scan
+            print(f"  evscore stamping skipped ({exc})", file=sys.stderr)
+
     def work(ev):
         news = _filter_event(pool, ev, cap=event_news_cap)
         if gate_silent and not news:                       # silence week -> mechanical carry-forward, NO LLM call
@@ -2270,6 +2373,8 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     picks = []
     with ThreadPoolExecutor(max_workers=workers) as ex:
         for ev, entry in (ex.map(work, live_events) if live_events else []):
+            if _cov.get(ev["id"]):
+                entry["coverage"] = _cov[ev["id"]]
             ev["entries"].append(entry)
             ev["status"] = "live" if entry["thesis_live"] else "exited"
             # RECONCILE THE VEHICLE LIST TO WHAT THE AGENT ACTUALLY TRACKS.

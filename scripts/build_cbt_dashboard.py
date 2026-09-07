@@ -632,6 +632,19 @@ def main(argv=None) -> int:
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
                            seed_holdings=_seed_w, freeze_panel=_pf,
                            live_vehicles=_fh.live_vehicles_from_journal(J))
+        # PICK UP THE PANEL THE REPLAY JUST FROZE. `_panel` is read from data/<run>/panel.csv above,
+        # but on the FIRST build of a run that file does not exist yet -- backtest() creates it via
+        # `freeze_panel`. So `_panel` stayed None, and both price-derived panels died silently on
+        # every first build: "watchlist momentum skipped (AttributeError: 'NoneType' has no
+        # attribute 'index')" and then panel 3, "Future portfolio rewards versus watchlist's
+        # trailing returns", skipped on an UnboundLocalError for `_pidx` that the first failure
+        # caused. The page rendered with two panels missing and only a stderr line to say so --
+        # which is how the published docs/cbt.html came to be missing panel 3. A REBUILD always
+        # fixed it, which is why this survived: nobody rebuilds a run twice on purpose.
+        if _panel is None and _pf.exists():
+            import pandas as _pdp2
+            _panel = _pdp2.read_csv(_pf, index_col=0, parse_dates=True)
+            print(f"  panel: loaded the freshly frozen {_pf} ({_panel.shape[1]} tickers)")
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
