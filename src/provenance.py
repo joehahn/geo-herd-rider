@@ -69,7 +69,41 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v29_silence"    # v28 -> v29 on 2026-09-07. Two changes, both measured
+CANON_RUN = "data/cbt_3yr_v30_evrank"     # v29 -> v30 on 2026-09-07. Seven knob changes aimed at
+                                          # ESCALATOR HARVESTING -- getting names that run >=1.5x in a
+                                          # month in front of the optimizer. Four act at replay
+                                          # (max_watchlist 12->16, concentration_cap 0.4->0.25,
+                                          # min_trade_size 0->0.05, max_stale_scans 8->5) and three at
+                                          # curation (max_events 0->24, news_lookback_days 0->31,
+                                          # max_silent_scans already 5), which is why this run exists.
+                                          #
+                                          # THE EVENT-CULL IS BACK ON (max_events 24) so events are
+                                          # ranked and compete, and so that ranking path is executable
+                                          # and debuggable -- at 0 it never ran.
+                                          #
+                                          # MEASURED AGAINST v29, book knobs held identical:
+                                          #   live POOL                     105 -> 79 names
+                                          #   months w/ escalator available  25 -> 19 (close basis)
+                                          #   FUNDED escalators            8 in 7 -> 5 in 5 months
+                                          #   cull-at-birth                 45% -> 28%
+                                          # So the cull did NOT repeat the historic blow-up, but it
+                                          # culls at RANDOM with respect to escalator capture. That is
+                                          # expected: evscore ties a momentum sort (88th vs 92nd pctile
+                                          # against a 24-seed null) and scores velocity 0.0 for any
+                                          # event with no prior scan, with no freshness reserve --
+                                          # unlike _ranked_cull, which has one for exactly this reason.
+                                          # PROMOTED ANYWAY, deliberately: this is the configuration to
+                                          # iterate the event ranker against, and the ranker cannot be
+                                          # improved while it is switched off.
+                                          #
+                                          # THE STANDING FINDING, unchanged by any knob tried so far:
+                                          # escalators sit in the pool in most months and NEITHER
+                                          # selection stage can find them. Trailing price ranks them at
+                                          # chance (median rank 56 of 126; top-20 hit rate 17% vs 15.9%
+                                          # expected), and capture is flat whether the optimizer is
+                                          # handed 12 names, 16, 40 or the whole pool uncapped.
+                                          #
+                                          # Previous note, v28 -> v29 on 2026-09-07. Two changes, both measured
                                           # BEFORE the run, on v27 and v28 independently:
                                           #   OCCURRENCE GATE on `pending_next` -- a candidate whose
                                           #     pending thing is a price move, a trend or another
@@ -267,7 +301,21 @@ CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 
                                       # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
                                       # (cbt_3yr_v21_evscans12) so code is the only variable; that it
                                       # is not CANON_RUN is a separate open question.
-CANON_SWEEP = "data/sweep_cbt_3yr_v25_vehgate_gate2.json"   # 2026-09-01c, over the promoted v25 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v30_evrank.json"   # 2026-09-07, over the promoted v30 curation.
+                                      # 5,040 cells, ZERO LLM cost -- the curation is fixed and only
+                                      # BOOK_KNOBS vary, so this is a replay grid, not a re-curation.
+                                      # FIVE CURATIONS STALE before this: CANON_SWEEP still pointed at
+                                      # the v25 sweep while CANON_RUN advanced v26 -> v30, which is the
+                                      # drift check_canon exists to catch and did.
+                                      # READ IT FOR THE SIZING KNOBS. The grid ranks on cancellation and
+                                      # Sharpe and CANNOT see escalator capture -- the metric the current
+                                      # work is actually optimising -- and on that metric our own replays
+                                      # point the other way on max_watchlist (capture rises monotonically
+                                      # with width; Sharpe-ranked grids prefer narrow). Do not read a
+                                      # max_watchlist recommendation off this file without checking it
+                                      # against escalator capture first.
+                                      #
+                                      # Previous note, 2026-09-01c, over the promoted v25 curation.
                                       # _gate2: the resolved-entry gate NARROWED to fire only when ALL of
                                       # a ticker's catalysts are resolved. _gate blocked on ANY resolved
                                       # row, which refused names that still had a live catalyst -- 24 of

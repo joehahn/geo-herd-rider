@@ -645,6 +645,25 @@ def main(argv=None) -> int:
             import pandas as _pdp2
             _panel = _pdp2.read_csv(_pf, index_col=0, parse_dates=True)
             print(f"  panel: loaded the freshly frozen {_pf} ({_panel.shape[1]} tickers)")
+
+        # ---- THE UNCAPPED ARM, for panel @@c-value@@ -------------------------------------------
+        # The same journal, the same optimizer, the same cap/floor/panel -- ONLY max_watchlist
+        # differs, set to 0 (uncapped), so every ticker held by a live event goes to the optimizer
+        # and `_ranked_cull` never runs. That isolates ONE question: what does ranking the pool by
+        # trailing 21d Sharpe and keeping the top max_watchlist actually buy?
+        # It is drawn because the two arms disagree on which metric matters, and the disagreement is
+        # the point: measured on v30, uncapped funds 12 escalators (names that go >=1.5x in the next
+        # month) across 10 of 37 months against 5 in 5 at max_watchlist 16, at flat turnover -- while
+        # finishing LOWER in dollars. Under CLAUDE.md #6 that dollar gap (1.6x) is inside the 3.7x
+        # spread a random cull produces, so it cannot adjudicate; the curve is here to be looked at,
+        # not to settle anything.
+        _bt_unc = None
+        try:
+            _bt_unc = _fh.backtest(_scans, {**_lfm0, "max_watchlist": 0}, capital=_cap, daily=True,
+                                   picker=_pick, panel=_panel, seed_holdings=_seed_w, freeze_panel=_pf,
+                                   live_vehicles=_fh.live_vehicles_from_journal(J))
+        except Exception as _e:  # noqa: BLE001 -- a diagnostic overlay must never sink the page
+            print(f"  uncapped arm skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
         # Keep only PRICED theses. A ticker with no price history scores ret=None, and comparing
         # that to 0 raised TypeError once max_watchlist widened the book enough to admit one
         # (2026-08-12). Precision over unpriced theses is meaningless, so they are excluded rather
@@ -739,6 +758,62 @@ def main(argv=None) -> int:
         _bser = ([r['events_live'] for r in M] + [r['vehicles_live'] for r in M]
                  + [r['distinct_catalysts'] for r in M])
         _bmin, _bmax = (min(_bser), max(_bser)) if _bser else (0, 0)
+
+        # ---- HOW EVENTS LEAVE, per curation, for panel @@c-evcount@@ ------------------------------
+        # The stack above is a STOCK (theses live at once) and never says how they end. That hid the
+        # thing the event work turns on: "exited" lumps the agent DECIDING a thesis is over together
+        # with a COUNTER running out -- opposite verdicts on the same machinery, drawn as one number.
+        # POPULATION: EVERY terminated event, which is not the same denominator as the event-handling
+        # tables in TODO.md. Those restrict to events that went live and lived more than one scan
+        # (v30: 33% resolved / 6% decayed / 53% counter); this counts all 270 terminations including
+        # the ~126 that resolve on their FIRST agent read, so it reads 61% merits / 39% counter. Both
+        # are right about different questions and the numbers must not be quoted interchangeably.
+        # PRECEDENCE MATCHES agent.py, which checks max_event_scans (2237), then max_silent_scans
+        # (2267), then the max_events cull (2293). Classifying in a different order would relabel every
+        # event that satisfies two conditions at once.
+        # THE CULL BUCKET IS DERIVED BY ELIMINATION, not read: nothing marks a picker-culled event in
+        # the journal, so it is "ended while still live and neither aged nor silenced". Stamping the
+        # retirement reason at curation time would make it a reading instead of an inference, but that
+        # needs a re-curation to populate.
+        _ms = int((_lfm0.get("max_silent_scans") or 0))
+        _me = int((_lfm0.get("max_event_scans") or 0))
+        _last_scan = max((x.get("date") or "") for v in ev.values() for x in (v.get("entries") or [])) \
+                     if ev else ""
+        _xf = {}
+        for _v in ev.values():
+            _en = _v.get("entries") or []
+            if not _en:
+                continue
+            _t = _en[-1]
+            _dte = _t.get("date") or ""
+            if _dte == _last_scan and _t.get("thesis_live"):
+                continue                                    # still open at the end: not an exit
+            _row = _xf.setdefault(_dte, dict(resolved=0, decayed=0, silence=0, age=0, cull=0))
+            if not _t.get("thesis_live"):
+                _row["resolved" if _t.get("catalyst_resolved") else "decayed"] += 1
+                continue
+            _run = 0
+            for _x in _en:
+                _run = _run + 1 if not (_x.get("sources") or []) else 0
+            if _me and len(_en) >= _me:
+                _row["age"] += 1
+            elif _ms and _run >= _ms:
+                _row["silence"] += 1
+            else:
+                _row["cull"] += 1
+        _xd = sorted(_xf)
+        _exitflow = {
+            "d": _xd,
+            "merits":  [_xf[d]["resolved"] + _xf[d]["decayed"] for d in _xd],
+            "counter": [_xf[d]["silence"] + _xf[d]["age"] + _xf[d]["cull"] for d in _xd],
+            "resolved": [_xf[d]["resolved"] for d in _xd], "decayed": [_xf[d]["decayed"] for d in _xd],
+            "silence": [_xf[d]["silence"] for d in _xd], "age": [_xf[d]["age"] for d in _xd],
+            "cull": [_xf[d]["cull"] for d in _xd],
+        }
+        _n_merits, _n_counter = sum(_exitflow["merits"]), sum(_exitflow["counter"])
+        _exit_note = (f" Across the run <b>{_n_merits}</b> events ended because the agent said so "
+                      f"(catalyst resolved or thesis dead) and <b>{_n_counter}</b> because a counter ran "
+                      f"out." if (_n_merits + _n_counter) else "")
         book = {"final": _bt.get("final"), "spy": _bt.get("spy_final"), "weeks": _bt.get("weeks")}
         _pg: dict = collections.Counter()
         for _tk, _mix in tick_lede.items():
@@ -1162,6 +1237,11 @@ def main(argv=None) -> int:
             # names an sd band would mostly be drawing the watchlist's width. The sd rides along in
             # the hover for the days you want the spread instead.
             "watchmom": _watchmom,
+            # HOW EVENTS LEAVE, per curation -- see the construction above. Two visible series
+            # (merits vs counter) with the counter's composition carried in the hover, so the panel
+            # answers "is the agent retiring these, or is a clock?" at a glance without spending
+            # five legend entries on it.
+            "exitflow": _exitflow,
             # PANEL 3's SCATTER. One point per curation PERIOD: x = the slate's mean trailing d on
             # the curation date (the same number panel @@c-curdelta@@ plots daily), y = what the book
             # then returned over that period NET OF SPY. Net, because the first objection to any
@@ -1173,6 +1253,9 @@ def main(argv=None) -> int:
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
             "bh_tickers": _d.get("bh_tickers") or [],
             "dates": _d.get("dates", []), "value": [float(x) for x in _d.get("value", [])],
+            # the uncapped arm's daily value, on the SAME dates as `value` (same replay, same panel)
+            "value_unc": ([float(x) for x in ((_bt_unc.get("daily") or {}).get("value") or [])]
+                          if _bt_unc else []),
             "spyser": [float(x) for x in _d.get("spy", [])],
             "gain": {k: float(v or 0) for k, v in sorted(_gain.items(), key=lambda kv: kv[1])},
             "evgain": dict(sorted(_evgain.items(), key=lambda kv: kv[1])),
@@ -2367,10 +2450,13 @@ def main(argv=None) -> int:
               "how you overfit, which is why this page leads with breadth and precision.",
               "c-value", 380),
         panel_rec("Fractional value change per curation",
-              "The book&rsquo;s percent change from one curation to the next. Markers are green "
-              "when the period made money, red when it lost. The panel above is cumulative and on "
+              "What the book earned in the month FOLLOWING each curation. Markers are green "
+              "when that period made money, red when it lost. The panel above is cumulative and on "
               "a log axis; this is the same book read one period at a time." + _cur_note +
-              " The first curation has no predecessor so it is not plotted."
+              " Each period is plotted at the curation that STARTS it, which is the same "
+              "measurement panel @@c-momgain@@ puts on its vertical axis &mdash; so a marker here and "
+              "a dot there are the same number, seen as a time series and as a scatter. "
+              "The last curation has no successor so it is not plotted."
               " <br><br>The blue line is the <b>whole watchlist's</b> mean fractional change over the "
               f"trailing <b>{int(_lfm0.get('optimizer_lookback_days') or 21)} calendar days</b> "
               "&mdash; computed daily, over every ticker the curator had live that day, not just the "
@@ -2425,6 +2511,12 @@ def main(argv=None) -> int:
               f"<b>{_n_unfunded_ever} of {_n_lived + _n_zero}</b> events with an agent read died never "
               "funded. The dotted line is a flow, not part of the stack &mdash; events opened and "
               "closed in a single curation, dropped from panel @@c-gantt@@ as hairlines. "
+              "<b>The two lower lines are how theses LEAVE</b>, also flows rather than bands: green when the "
+              "agent ended it (its catalyst resolved, or it called the thesis dead) and red-dashed when a "
+              "COUNTER did (<code>max_silent_scans</code>, <code>max_event_scans</code>, or the "
+              "<code>max_events</code> cull). That split is the one worth watching: an event the agent "
+              "retires is the design working, an event a clock retires is the design running out of "
+              "patience." + _exit_note + " The counter line’s composition is in its hover. "
               "Ticker counts live in the panel directly below &mdash; this panel counts THESES.",
               "c-evcount", 380),
         panel_rec("Breadth over time",
@@ -2925,6 +3017,27 @@ function draw() {{
       type:'scatter', mode:'lines+markers', name:'opened & closed same curation',
       x:B.w, y:B.zerospan, line:{{width:2, color:ST.critical, dash:'dot'}}, marker:{{size:5}},
       hovertemplate:'%{{x}}<br>%{{y}} opened and terminated the same curation<extra></extra>'}});
+    // HOW EVENTS LEAVE. Also flows, so also lines rather than bands. Two series, not five: the
+    // question the panel has to answer at a glance is whether the AGENT ended these or a COUNTER
+    // did, and the counter's composition (silence / age / cull) rides in the hover for when that
+    // is the question instead.
+    const XF = (DATA.book || {{}}).exitflow;   // NB: on DATA.book, not DATA.breadth (B)
+    if (XF && XF.d && XF.d.length) {{
+      tr.push({{
+        type:'scatter', mode:'lines+markers', name:'exited on the merits',
+        x:XF.d, y:XF.merits, line:{{width:2, color:ST.good}}, marker:{{size:5}},
+        customdata:XF.d.map((_, i) => [XF.resolved[i], XF.decayed[i]]),
+        hovertemplate:'%{{x}}<br>%{{y}} ended by the AGENT'
+                     + '<br>catalyst resolved %{{customdata[0]}} · thesis dead %{{customdata[1]}}'
+                     + '<extra></extra>'}});
+      tr.push({{
+        type:'scatter', mode:'lines+markers', name:'retired by a counter',
+        x:XF.d, y:XF.counter, line:{{width:2, color:'#a855f7', dash:'dash'}}, marker:{{size:5}},
+        customdata:XF.d.map((_, i) => [XF.silence[i], XF.age[i], XF.cull[i]]),
+        hovertemplate:'%{{x}}<br>%{{y}} ended by a COUNTER'
+                     + '<br>silence %{{customdata[0]}} · age %{{customdata[1]}}'
+                     + ' · event-cull %{{customdata[2]}}<extra></extra>'}});
+    }}
     Plotly.react('c-evcount', tr, base(p, {{showlegend:true,
       legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
       margin:{{l:60,r:24,t:16,b:52}},
@@ -3218,6 +3331,13 @@ function draw() {{
         line:{{color:'#3b82f6', width:2}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>buy &amp; hold</extra>'}},
       {{type:'scatter', mode:'lines', name:'SPY benchmark', x:BK.dates, y:BK.spyser,
         line:{{color:'#10b981', width:2, dash:'dash'}}, hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>SPY</extra>'}},
+      // SAME JOURNAL, SAME OPTIMIZER, NO WATCHLIST CULL -- max_watchlist 0. Thin and muted: it is a
+      // diagnostic against the book, not a competing strategy.
+      ...((BK.value_unc && BK.value_unc.length === BK.dates.length)
+          ? [{{type:'scatter', mode:'lines', name:'Uncapped watchlist (no cull)',
+              x:BK.dates, y:BK.value_unc,
+              line:{{color:'#a855f7', width:1.6, dash:'dot'}},
+              hovertemplate:'%{{x}}<br>%{{y:$,.0f}}<extra>no cull</extra>'}}] : []),
       {{type:'scatter', mode:'markers', name:'Rebalanced (no change)', x:nx, y:ny,
         marker:{{symbol:'square', size:7, color:'#ea580c', line:{{width:1.5, color:p.surface}}}},
         text:_lab(nd, nx, 'rebalanced, watchlist unchanged'), hoverinfo:'text'}},
@@ -3252,7 +3372,7 @@ function draw() {{
                          return BK.dates.length ? 0 : -1; }};   // clamp, see panel 1's note
       const CS = BK.curstat || null;
       const dx = [], dy = [], sy = [];
-      let _prev = null, _sprev = null;
+      let _prev = null, _sprev = null, _prevw = null;
       let _pi = null;
       (BK.rebal || []).forEach(w => {{
         const i = _bi(w);
@@ -3262,10 +3382,17 @@ function draw() {{
         _pi = i;
         const v = BK.value[i], s = (BK.spyser || [])[i];
         if (_prev !== null && _prev > 0) {{
-          dx.push(w); dy.push(100 * (v / _prev - 1));
+          // FORWARD-LOOKING, as panel @@c-momgain@@ is: a period's return is plotted at the anchor
+          // that STARTS it, not the one that ends it. The numbers are unchanged -- this is purely
+          // the date each one is filed under -- but it makes the two panels the same measurement.
+          // Read against the blue trailing-d line, the question becomes the one worth asking: did a
+          // rising slate at this curation pay off in the month that followed? Filed at the closing
+          // anchor instead, the marker sat one period to the right of the d that preceded it and the
+          // panels could not be compared.
+          dx.push(_prevw); dy.push(100 * (v / _prev - 1));
           sy.push(_sprev ? 100 * (s / _sprev - 1) : null);
         }}
-        _prev = v; _sprev = s;
+        _prev = v; _sprev = s; _prevw = w;
       }});
       // ---- PANEL @@c-momgain@@: slate momentum at the curation vs what the book then harvested.
       // Points are periods, so they are FEW (37 anchors -> 36 here, 5 -> 4 on CBS). The quartile
@@ -3351,13 +3478,13 @@ function draw() {{
         // here.
         type:'scatter', mode:'lines', name:'SPY, same periods', x:dx, y:sy,
         line:{{color:'#10b981', width:2, dash:'dash'}},
-        hovertemplate:'%{{x}}<br>SPY %{{y:+.2f}}%<extra></extra>'
+        hovertemplate:'%{{x}}<br>SPY %{{y:+.2f}}% over the same month<extra></extra>'
       }}, {{
         type:'scatter', mode:'lines+markers', name:'the book', x:dx, y:dy,
         line:{{color:'#d97706', width:2}},
         marker:{{size:6, color:dy.map(v => v < 0 ? ST.critical : ST.good),
                  line:{{width:1, color:p.surface}}}},
-        hovertemplate:'%{{x}}<br>%{{y:+.2f}}% since the previous curation<extra></extra>'
+        hovertemplate:'%{{x}}<br>%{{y:+.2f}}% over the month that followed<extra></extra>'
       }}]), base(p, {{margin:{{l:70,r:24,t:40,b:44}}, showlegend:true,
           legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           // The median as a dashed rule. Sourced from book["curstat"], which is what the caption
@@ -3370,7 +3497,7 @@ function draw() {{
           xaxis:{{gridcolor:p.grid, type:'date'}},
           yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:true, zerolinecolor:p.text2,
                  zerolinewidth:1.5,
-                 title:{{text:'change since previous curation', font:{{size:11}}}}}}}}), CFG);
+                 title:{{text:'book gain over the next month', font:{{size:11}}}}}}}}), CFG);
     }}
 
     // 2. watchlist composition -- horizontal spans, pale = watchlisted, solid = funded. Ticker rows are
