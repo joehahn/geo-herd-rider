@@ -156,17 +156,55 @@ def _weights(r: dict) -> dict:
             for p in str(w).split(";") if ":" in p}
 
 
-def _how_it_ended(e: dict, entry: dict, cap: int) -> str:
+def _quiet_run(e: dict) -> int:
+    """Consecutive trailing scans with NO sources or NO new milestone — agent.py's widened quiet
+    rule, mirrored so a report can name the silence cap as a cause of death instead of shrugging.
+    `seen` is built FORWARDS over the whole history (a milestone is new relative to what came
+    before it) and the run is then counted BACKWARDS, exactly as the curator does it."""
+    ents = e.get("entries") or []
+    seen, new_at = set(), []
+    for x in ents:
+        fresh = False
+        for m in (x.get("milestones") or []):
+            w = (_ms_of(m).get("what") or "").strip().lower()
+            if w and w not in seen:
+                seen.add(w); fresh = True
+        new_at.append(fresh)
+    quiet = 0
+    for x, fresh in zip(reversed(ents), reversed(new_at)):
+        if x.get("sources") and fresh:
+            break
+        quiet += 1
+    return quiet
+
+
+def _how_it_ended(e: dict, entry: dict, cap: int, *, evicted_at: str | None = None,
+                  silent_cap: int = 0) -> str:
     """Why this event is over, in the journal's own terms.
 
+    THE COUNTERS ARE NAMED, NOT LUMPED. Until 2026-09-08 anything the agent had not ended fell
+    through to "no stated reason" — 48% of all deaths on v33, which made the exit half of the
+    debugging loop unauditable: silence, age and ranker eviction are three different defects and
+    read identically. Each now says which counter fired.
+
     The order matters: catalyst_resolved is the design's clean exit and takes precedence over an
-    exit_case that merely names the trigger, and the age cap is only credited when nothing else
-    fired, since an event can hit its final scan and resolve in the same breath."""
+    exit_case that merely names the trigger; the caps are credited only when nothing the agent said
+    fired, since an event can hit its final scan and resolve in the same breath. Eviction is tested
+    before the caps because the ranker acts first and removes the event outright."""
     if entry.get("catalyst_resolved"):
         return "catalyst RESOLVED" + (f": {entry['exit_case']}"
                                       if str(entry.get("exit_case") or "none") != "none" else "")
     if str(entry.get("exit_case") or "none") != "none":
         return f"exit condition met: {entry['exit_case']}"
+    if not entry.get("thesis_live", True):
+        return "the agent judged the thesis DEAD"
+    if evicted_at:
+        return (f"EVICTED by the event ranker at {evicted_at} — it placed outside max_events, "
+                f"the agent never called it over")
+    _q = _quiet_run(e)
+    if silent_cap and _q >= silent_cap:
+        return (f"retired by the SILENCE cap: {_q} scans with no sources or no new milestone "
+                f"(max_silent_scans {silent_cap})")
     if cap and len(e.get("entries") or []) >= cap:
         return f"aged out at the {cap}-scan cap, catalyst never resolved"
     return "no stated reason"
@@ -744,6 +782,20 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             _qual = json.loads(_qf.read_text())
     except Exception:  # noqa: BLE001 -- an unreadable audit must not stop the reports
         _qual = {}
+    # WHICH EVENTS THE RANKER EVICTED, and when. Written only under --decisions, so this is optional
+    # exactly like the audit above: without it an evicted event falls back to whichever counter the
+    # journal alone can prove, never to a guess.
+    _evicted = {}
+    try:
+        _df = Path(run) / "decisions.jsonl"
+        if _df.exists():
+            for _line in _df.open():
+                _r = json.loads(_line)
+                if _r.get("kind") == "evrank":
+                    for _e in (_r.get("culled") or []):
+                        _evicted[_e] = str(_r.get("context") or "")[:10]
+    except Exception:  # noqa: BLE001 -- an unreadable decision log must not stop the reports
+        _evicted = {}
     for old in list(out_dir.glob(f"*-{arm}-curation.html")) + list(
             out_dir.glob(f"*-{arm}-curation.md")):
         old.unlink()
@@ -1143,6 +1195,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 continue          # still live here; it ends at some later anchor
             exited_now.append((k, _en[-1]))
         _ec = int(fm.get("max_event_scans") or 0)
+        _sc = int(fm.get("max_silent_scans") or 0)
         # THREE KINDS OF EXIT, and lumping them cost the most informative one its detail.
         #   paid    the book had money in this at some point, so the exit is a decision that
         #           settled a position. Full block.
@@ -1166,7 +1219,8 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             """A compact exit. The final assessment is the point: "no stated reason" on its own
             says nothing, and the agent's last words usually say why it let go."""
             return (f"- **{k}** · {', '.join(sorted(_veh_at(k, d0))[:4])} · "
-                    f"{n} scan{'s' if n != 1 else ''} · {_how_it_ended(ev[k], x, _ec)}"
+                    f"{n} scan{'s' if n != 1 else ''} · "
+                    f"{_how_it_ended(ev[k], x, _ec, evicted_at=_evicted.get(k), silent_cap=_sc)}"
                     + (f"  \n  {_trim(x.get('assessment'), 150)}"
                        if x.get("assessment") else ""))
 
