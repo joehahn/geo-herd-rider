@@ -386,9 +386,14 @@ def main(argv=None):
     # the picker's name.
     _picker = None
     if int(fm.get("max_events") or 0) and fm.get("picker_model") and not os.environ.get("GHR_NO_PICKER"):
-        import picker as _pk
-        _picker, _pstats = _pk.make_picker(fm)
-        print(f"  event-picker ON: cap {fm.get('max_events')} via {_pstats()[1]}", flush=True)
+        # evrank, NOT picker, since 2026-09-08. Same (pick_fn, stats_fn) contract, so nothing
+        # downstream changes -- but it ranks on the event's WRITTEN RECORD and whether its arc has
+        # moved, where picker ranked on "catalyst arc" alone and is one of the three LLM rankers
+        # measured at or below its own null here. Leaving `picker_model` BLANK still selects the
+        # arithmetic evscore, which is the mechanical control this has to beat.
+        import evrank as _pk
+        _picker, _pstats = _pk.make_ranker(fm)
+        print(f"  event-ranker ON: cap {fm.get('max_events')} via {_pstats()[1]}", flush=True)
     news_cap = a.news_cap if a.news_cap is not None else int(fm.get("news_cap", 0))
     ev_cap = a.event_news_cap if a.event_news_cap is not None else int(fm.get("event_news_cap", 20))
     rel_keep = a.relevance_keep if a.relevance_keep is not None else int(fm.get("relevance_keep", 0))

@@ -129,8 +129,31 @@ driven by a DIFFERENT catalyst — that is a separate candidate or nothing (this
 from drifting into unrelated gems); US-listed only (name the US ADR, no foreign suffix).
 
 SAY HOW EACH VEHICLE IS EXPOSED, in `exposure` — one entry for the PRIMARY ticker and one for EVERY
-peer, <=12 words each, naming the actual link to the catalyst: "buys the plant's output under a
-20-year PPA", "licenses the drug in Japan", "the borrower". A peer inherits the event's catalyst but
+peer, <=12 words each, naming the actual link to the catalyst AND WHICH WAY IT CUTS.
+
+STATE THE DIRECTION FIRST, THEN THE MECHANISM: "gains -- buys the plant's output under a 20-year
+PPA", "gains -- licenses the drug in Japan", "loses -- pays the tariff". THIS BOOK ONLY EVER BUYS,
+so a name whose honest clause begins "loses" does not belong in the basket: leave it out rather
+than attach it.
+
+NAME THE MECHANISM, NOT THE CATEGORY. The clause has to say something the CATALYST does not already
+say. "Cuts lift crude prices" -> "gains -- benefits from higher oil prices" is the catalyst read
+backwards and carries no information: measured on cbt_3yr_v31_exposure, 30% of all clauses restated
+their own catalyst that way. Say what THIS company does that connects it: "non-operated working
+interest, pure price exposure", "integrated -- refining margin offsets the upstream gain",
+"covered-call ETN, upside capped".
+
+ONE CLAUSE PER NAME, AND NO TWO ALIKE. If two vehicles would get the same sentence, you have
+explained a CATEGORY and not either name -- 15% of v31's clauses were word-for-word duplicates of a
+sibling in the same event (ev13 gave EPM, NOG and XOM one identical sentence, and over that event
+they returned -36.6%, -5.5% and +2.5%). Either say what distinguishes them or drop the ones you
+cannot distinguish.
+Measured on cbt_3yr_v30_evrank, 57% of clauses stated no direction at all, and the best-justified
+event in that journal had it BACKWARDS -- ev432 attached four airlines to a Strait of Hormuz closure
+as "sensitive to fuel price increases", then rose ~50% because the threat RECEDED and oil fell 19%.
+The trade worked and the recorded reason would have predicted a loss, which is worse than no reason:
+nobody can learn from it. You are not forecasting how FAR anything moves, only which way this
+catalyst pushes this name -- which is what attaching it already assumes. A peer inherits the event's catalyst but
 NOT its reason for existing, and a vehicle nobody can explain is a name attached by association: if
 you cannot write the clause, LEAVE THE TICKER OUT rather than guess. This is a completeness test, not
 a judgement about the stock -- you are not asked whether it is worth owning, only how it is
@@ -246,7 +269,7 @@ Output ONLY JSON, and every field below is REQUIRED — the three the old exampl
 {"candidates":[{"ticker":"XYZ","company":"Full Issuer Name Inc","thesis":"<=16 words: the catalyst
 EVENT, with subject, timing and status","why_now":"<=12 words","pending_next":"the concrete thing
 still to happen, whose happening ends this thesis","peers":["OTHER","TICKERS"],
-"exposure":[{"ticker":"XYZ","why":"<=12 words: how THIS name is connected to the catalyst"},
+"exposure":[{"ticker":"XYZ","why":"gains|loses -- <=12 words: how THIS name is connected"},
 {"ticker":"OTHER","why":"..."}]}]}.
 Empty is the common, correct answer."""
 
@@ -321,6 +344,7 @@ class JournalEntry(BaseModel):
     catalyst_resolved: bool = False  # has the entry catalyst happened? BLOCKS A NEW POSITION, never an exit
     exit_advice: str = ""
     milestones: list = []        # [{what, kind, when}] -- the arc; qualitative, NEVER magnitude
+    exposure: list = []          # [{ticker, why}] -- why each vehicle is STILL here, direction first
     assessment: str = ""
     news_claims: str = ""        # attribution only ("press cites ~600% YTD"), never our forecast
     sources: list[str] = []
@@ -472,6 +496,28 @@ def resolve_us_ticker(client, company: str, hint: str = "") -> str | None:
     if us:
         _TICKER_CACHE[key] = us   # cache SUCCESSES only: a transient failure must not become a
     return us                     # permanent verdict for the rest of the run
+
+
+# ---- THE LONG-ONLY DIRECTION GATE ------------------------------------------------------------
+# This book only ever BUYS, so a vehicle whose own exposure clause says the catalyst HURTS it is a
+# short dressed as a long. Both prompts now require the clause to LEAD with the direction, and that
+# is the only reason this is checkable: an earlier attempt to infer direction semantically misfired
+# badly, reading "JNJ acquires Ambrx for $2b" and "us-made semiconductors exempt from tariffs" as
+# negative. ENFORCED rather than instructed, for the same reason `pending_next` had to be -- the
+# 5-scan probe on 2026-09-07 had the model state "loses" honestly and keep the ticker anyway (2 of
+# 83 clauses: NVDA "loses -- faces lost China revenue from tightened curbs", CVX "loses -- Cyprus
+# rejects its Aphrodite gas field development"). Both clauses are CORRECT; both are names a
+# long-only basket should not hold on that catalyst.
+# NARROW ON PURPOSE: it reads only the LEADING word the format now guarantees, never prose elsewhere
+# in the clause, so "gains -- supplies the loser of the tariff fight" is untouched. max_group_articles
+# and max_article_orgs are the standing warning about filters that read more than they should.
+_LOSES = ("loses", "lose ", "losing", "hurt", "harmed", "falls", "pressured", "damaged", "suffers")
+
+
+def says_loses(why: str) -> bool:
+    """Does this exposure clause OPEN by saying the catalyst works against the name?"""
+    w = str(why or "").strip().lower().lstrip("-\u2014 ")
+    return any(w.startswith(x) for x in _LOSES)
 
 
 _NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happened",
@@ -1382,7 +1428,7 @@ events run side by side and each resolves on its own evidence.
 Output ONLY JSON: {"matches":[{"ticker":"XYZ","event":"<id>|new"}]}."""
 
 EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
-    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "sources"],
+    "required": ["exit_case", "catalyst_resolved", "thesis_live", "exit_advice", "milestones", "assessment", "news_claims", "vehicles", "exposure", "sources"],
     "properties": {"exit_case": {"type": "string"}, "catalyst_resolved": {"type": "boolean"},
         "thesis_live": {"type": "boolean"},
         "exit_advice": {"type": "string"},
@@ -1400,6 +1446,17 @@ EVENT_AGENT_SCHEMA = {"type": "object", "additionalProperties": False,
         "assessment": {"type": "string"},
         "news_claims": {"type": "string"},
         "vehicles": {"type": "array", "items": {"type": "string"}},
+        # WHY EACH VEHICLE IS STILL HERE, RESTATED BY THE JUDGE. The scout writes `exposure` once at
+        # proposal time on the CHEAP model and nothing ever revisited it -- so the one field a reader
+        # uses to decide whether to trust the basket was the only field the judgment model never saw.
+        # On v30 that produced ev432: four airlines attached to a Strait of Hormuz closure as
+        # "sensitive to fuel price increases", which then rose ~50% BECAUSE the threat receded and
+        # oil fell 19%. This stage already re-reads the catalyst, the week's slice and its own prior
+        # notes, so it is the one that can tell whether the clause is still true.
+        "exposure": {"type": "array", "items": {
+            "type": "object", "additionalProperties": False,
+            "required": ["ticker", "why"],
+            "properties": {"ticker": {"type": "string"}, "why": {"type": "string"}}}},
         "sources": {"type": "array", "items": {"type": "string"}}}}
 
 # CONVICTION RETIRED 2026-08-14. The agent used to rate `conviction` 1-10 here, plus a PRICED-IN DECAY
@@ -1534,10 +1591,27 @@ CARRY FORWARD the list from your journal and APPEND a new item ONLY when a concr
 lands this week; never pad with speculation. This is the evidence trail behind your live/exit call — a LIVE
 driver keeps throwing off fresh milestones; a stalled/resolved one stops (feed that into the exit logic above).
 
+SAY WHY EACH VEHICLE IS STILL HERE, in `exposure` -- one entry per ticker you list in `vehicles`,
+<=12 words, STARTING WITH THE DIRECTION: "gains -- buys the plant's output under a 20-year PPA",
+"loses -- pays the tariff". The scout wrote these once at proposal time and nothing has re-read them
+since; you have the catalyst, this week's coverage and your own prior notes, so you are the one who
+can say whether the clause is still true. Correct it when it is wrong, carry it when it is right.
+THE CLAUSE MUST SAY SOMETHING THE CATALYST DOES NOT. Restating the catalyst back ("cuts lift crude"
+-> "benefits from higher oil prices") is not a thesis, and no two vehicles may share one sentence:
+if they would, you have described the CATEGORY and neither name. Say what THIS company does that
+connects it to this catalyst.
+THIS BOOK ONLY EVER BUYS, so a vehicle whose honest clause begins "loses" should be dropped from
+`vehicles`, not merely described. On ev432 four airlines were attached to a Strait of Hormuz closure
+as "sensitive to fuel price increases" and then rose ~50% because the threat RECEDED and oil fell
+19% -- the position made money and the stated reason predicted the opposite, which is a record nobody
+can learn from. You are not forecasting how far anything moves, only which way this catalyst pushes
+this name.
+
 Output ONLY JSON: {"exit_case":"...","catalyst_resolved":false,"thesis_live":true,
 "exit_advice":"...","milestones":[{"what":"...","kind":"happened|expected","when":"a date, or none"}],
 "assessment":"...","news_claims":"",
-"vehicles":["TICKER"],"sources":["url"]}."""
+"vehicles":["TICKER"],"exposure":[{"ticker":"TICKER","why":"gains|loses -- <=12 words"}],
+"sources":["url"]}."""
 
 
 def _log_match(anchor, candidates, live, assigned, fallback):
@@ -1984,7 +2058,11 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
             # milestone, and 51 of 1,270 entries already sit pinned at this cap.
             "milestones": _ms[:8],
             "assessment": e.assessment,
-            "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh}
+            "news_claims": e.news_claims, "sources": [u for u in e.sources if u][:6], "vehicles": veh,
+            # kept to the vehicles it actually tracks this week: an exposure list is only useful if
+            # it describes the basket, not everything ever proposed into the event.
+            "exposure": [x for x in (e.exposure or [])
+                         if isinstance(x, dict) and str(x.get("ticker", "")).strip().upper() in set(veh)]}
 
 
 def _carry_forward(anchor, ev) -> dict:
@@ -2003,6 +2081,9 @@ def _carry_forward(anchor, ev) -> dict:
             "catalyst_resolved": False, "exit_advice": prev.get("exit_advice", ""),
             "milestones": prev.get("milestones", []),
             "assessment": "No fresh coverage this week — held mechanically (no LLM call).",
+            # CARRIED, not blanked: no news is no reason to think the clause changed, and a blank
+            # would make the report say "no link stated" for a week nobody doubted it.
+            "exposure": prev.get("exposure") or [],
             "news_claims": "", "sources": [], "vehicles": veh}
 
 
@@ -2030,6 +2111,7 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
     resolver here and re-validated; only if that fails is the symbol dropped. Otherwise this guard
     would discard a real position (RIGETTI COMPUTING -> RGTI) that the codebase already knows how to
     recover. Pass `client=None` to skip resolution (offline replays)."""
+    _shorted = []                # peers whose own clause says the catalyst works against them
     if not cands:
         return cands
     as_of = anchor.date().isoformat()
@@ -2096,6 +2178,13 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
                 _seen.add(q)
                 if q != tk and weak_exposure(str(e["why"])):
                     continue          # an association is not a link; the report will say so
+                # LONG-ONLY GATE at the scout stage: a PEER the clause says the catalyst hurts never
+                # joins the basket. The PRIMARY is left alone -- if a proposal's own subject loses,
+                # that is a judgement about the whole candidate, and the event agent makes it on the
+                # first read with the news in front of it.
+                if q != tk and says_loses(str(e["why"])):
+                    _shorted.append(q)
+                    continue
                 _ex.append({"ticker": q, "why": str(e["why"]).strip()})
         c = dict(c, ticker=tk, peers=_pk, exposure=_ex)
         kept.append(c)
@@ -2109,6 +2198,10 @@ def _validate_candidates(cands: list[dict], anchor, client=None) -> list[dict]:
         print(f"    !! ticker guard ({as_of}) rejected {len(bad)}: "
               + "; ".join(f"{k!r} -> {v}" for k, v in list(bad.items())[:6])
               + (f" (+{len(bad) - 6} more)" if len(bad) > 6 else ""), file=sys.stderr, flush=True)
+    if _shorted:
+        print(f"  scout: dropped {len(_shorted)} peer(s) whose own clause says the catalyst "
+              f"works AGAINST them ({', '.join(sorted(set(_shorted))[:6])}) ({anchor.date()})",
+              file=sys.stderr)
     return kept
 
 
@@ -2173,14 +2266,51 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             print(f"  scout: grouping unavailable ({type(e).__name__}: {e})", file=sys.stderr)
     cands = scout(scout_client, anchor, spool, retired=rmem, max_new_events=max_new_events,
                   full_pool=(pool if _canon else None), canon=_canon, tmap=_tmap, retired_map=rmap)
-    # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event belongs to that event —
-    # never open a duplicate. Only genuinely NEW tickers go to the (fallible) LLM matcher.
+    # DETERMINISTIC same-ticker guard: a ticker already held by a LIVE event usually belongs to that
+    # event, so it does not go to the (fallible) LLM matcher and cannot open a duplicate.
+    #
+    # RELAXED 2026-09-08, because it was using TICKER IDENTITY as a proxy for EVENT IDENTITY -- the
+    # judgement MATCH_SYSTEM exists to make ("would one and the same occurrence end both?"). Measured
+    # on cbt_3yr_v32_evrank it dropped 385 of 1,250 scout candidates (31%), never logging them, and
+    # comparing each dropped thesis against the catalyst of the event already holding that ticker:
+    #   60% were plausibly the same occurrence   -> the guard was right, and still blocks them
+    #   21% shared almost NO words with it       -> a real second event, destroyed
+    #   19% ambiguous                            -> still blocked, deliberately
+    # The 21% are not close calls: "MicroStrategy awaits Q2 earnings after the bell on August 1"
+    # was dropped because MSTR was held by "SEC approval pending for Ethereum ETF"; NVDA's export
+    # exemption was dropped because it was held by a Supermicro AI-server event. ~80 events over
+    # three years, concentrated on the best-covered issuers (MSTR 17, RKLB 15, NVDA 15, TSM 14).
+    #
+    # ONLY THE CLEAR CASES ARE LET THROUGH, and only to the MATCHER -- which may still merge them.
+    # The test is `_restates_resolved`'s, already trusted by the retired-ticker gate: a candidate
+    # whose distinctive words are almost entirely the holder's catalyst is a restatement. Keeping
+    # the 60% blocked deterministically means this adds no new merge-error exposure on the crowded
+    # names, which is where merges have gone wrong before (ev192 absorbed three unrelated AI-chip
+    # theses on one scan, then ran seven scans reporting no news).
     held_to_event = {v: eid for eid, ev in events.items() if ev["status"] == "live"
                      for v in ev["vehicles"]}
+    _holder_cat = {v: (events[eid].get("catalyst") or "")
+                   for v, eid in held_to_event.items() if eid in events}
     # A blank thesis is unusable downstream -- it becomes an event with no catalyst, writes NaN to
     # firehose_scans.csv, and can never be judged resolved. Drop it at the door.
     cands = [c for c in cands if str(c.get("thesis") or "").strip()]
-    new_cands = [c for c in cands if c["ticker"] not in held_to_event]
+    _freed = []
+    def _distinct_from_holder(c) -> bool:
+        """Does this proposal describe a DIFFERENT occurrence from the event already holding it?"""
+        held_cat = _holder_cat.get(c["ticker"])
+        if not held_cat:
+            return True
+        return not _restates_resolved(str(c.get("thesis") or ""), held_cat)
+    new_cands = []
+    for c in cands:
+        if c["ticker"] not in held_to_event:
+            new_cands.append(c)
+        elif _distinct_from_holder(c):
+            new_cands.append(c)
+            _freed.append(f"{c['ticker']}->{held_to_event[c['ticker']]}")
+    if _freed:
+        print(f"  scout: {len(_freed)} held-ticker candidate(s) sent to the matcher as a possible "
+              f"SECOND event ({', '.join(_freed[:6])}) ({anchor.date()})", file=sys.stderr)
     # TICKER GUARD: normalize + verify tradeability BEFORE an unusable symbol can open an event and
     # burn an event-agent call on it (see _validate_candidates).
     new_cands = _validate_candidates(new_cands, anchor, client=scout_client)
@@ -2264,18 +2394,47 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # AND IT DOES NOT WRITE `retired`. Silence is absence of evidence, not evidence the thesis died -- so
     # the ticker stays re-chaseable and the scout can re-open the event the moment coverage returns. That
     # is the age cap's "intended escape hatch" actually working, rather than being blocked by the memory.
+    # QUIET IS NOT ONLY "NO SOURCES" (widened 2026-09-07). A scan counts as quiet when it cites no
+    # sources OR records no NEW milestone -- an event can be re-covered every month by press that
+    # says nothing it has not already said, and the source count alone cannot see that. ev43 ran 12
+    # scans and ev207 another 7 on the same catalyst ("US export curbs ... remain unresolved") with
+    # coverage most weeks and the arc barely moving.
+    # MEASURED on v31 and v30, and it separates the same way silence does: events that end on the
+    # MERITS go a median of ONE scan without a new milestone, events a COUNTER retires go FIVE.
+    # At the existing cap of 5 the widened rule catches 58% of timer-retirements on BOTH journals
+    # for 11% collateral -- identical on each, where a separate `max_stale_milestone_scans` knob
+    # swung 11% -> 21% between them.
+    # NO NEW KNOB, deliberately. A dedicated knob would have been 46-71% redundant with this one,
+    # which is the accumulation CLAUDE.md's knob rule exists to refuse; widening what an existing
+    # knob MEANS costs nothing and is measured at the value already in the profile.
     if max_silent_scans:
         for ev in list(events.values()):
             if ev["status"] != "live":
                 continue
+            # walk BACKWARDS, so `seen` must be built from the whole history first -- a milestone is
+            # "new" relative to everything before it, not to what follows.
+            _ents = ev.get("entries") or []
+            _new_at = []
+            _seen = set()
+            for x in _ents:
+                _fresh = False
+                for m in (x.get("milestones") or []):
+                    _w = (as_milestone(m).get("what") or "").strip().lower()
+                    if not _w:
+                        continue
+                    if _w not in _seen:
+                        _seen.add(_w)
+                        _fresh = True
+                _new_at.append(_fresh)
             quiet = 0
-            for x in reversed(ev.get("entries") or []):
-                if x.get("sources"):
+            for x, _fresh in zip(reversed(_ents), reversed(_new_at)):
+                if x.get("sources") and _fresh:
                     break
                 quiet += 1
             if quiet >= max_silent_scans:
                 ev["status"] = "exited"
-                print(f"  silent {quiet} scans: {ev['catalyst'][:60]}", file=sys.stderr)
+                print(f"  quiet {quiet} scans (no sources or no new milestone): "
+                      f"{ev['catalyst'][:56]}", file=sys.stderr)
     # CONCURRENCY CAP. `max_events` bounds how many events may be LIVE at once, and the picker decides
     # which survive. This is deliberately NOT `max_new_events`: an admission cap discards candidates
     # permanently and unexamined at the door (measured 2026-08-12: 1,412 of 1,556 proposals binned, and
@@ -2294,16 +2453,32 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
         _ev_metrics = ev_metrics if ev_metrics is not None else {}
         _live = [ev for ev in events.values() if ev["status"] == "live"]
         if len(_live) > max_events:
+            # WHAT THE RANKER READS. Widened 2026-09-08 for evrank: it scores the event's WRITTEN
+            # RECORD -- the catalyst, what is still pending, the exit it committed to, why each
+            # vehicle is attached, and whether the arc has MOVED -- so `pending_next`, `exposure`
+            # and the recent assessments have to be here. Everything is the event's own history UP
+            # TO THIS SCAN; nothing later is visible, so the ranking carries no look-ahead.
             meta = [{"ticker": ev["id"], "vehicles": sorted(ev["vehicles"]),
                      "catalyst": ev["catalyst"],
+                     "pending_next": ev.get("pending_next", ""),
+                     "exposure": ev.get("exposure") or [],
                      "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
                      "exit_condition": (ev.get("entries") or [{}])[-1].get("exit_advice", ""),
-                     # the SAME age the cull uses -- the picker must not think a seeded event is
+                     # the arc, in the agent's own words -- a trail that repeats "no decision yet"
+                     # is what arc_progress is asked to score 0-1, and it is only visible here.
+                     "recent_assessments": [str(x.get("assessment") or "")
+                                            for x in (ev.get("entries") or [])[-3:]],
+                     # the SAME age the cull uses -- the ranker must not think a seeded event is
                      # younger than the mechanism that retires it does.
                      "weeks_alive": event_age(ev)} for ev in _live]
             if picker is not None:
                 keep = set(picker(meta, max_events, context=str(anchor.date())))
-                _how = "picker"
+                _how = "evrank"          # the LLM ranker; "picker" was its retired predecessor
+                # STAMP THE RANKER'S OWN SCORES, alongside evscore's. This is what the cull acted
+                # on, so it belongs in the journal for the same reason `coverage` does -- and it
+                # makes re-ranking experiments a replay over a fixed journal rather than a curation.
+                for _eid, _sv in (getattr(picker, "last_scores", None) or {}).items():
+                    _cov.setdefault(_eid, {})["evrank"] = _sv
             else:
                 # DEFAULT: arithmetic ranking on this scan's PRESS COVERAGE (src/evscore.py) -- source
                 # breadth, superlative count, coverage velocity, author breadth. Not a forecast, and
@@ -2341,7 +2516,12 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # a BOOK-knob replay over a fixed journal instead of a re-curation.
     # Guarded on `_cov` so velocity is never computed twice against the same `prev`: when the cull
     # above ran, it already scored these events and a second pass would compare this scan to itself.
-    if not _cov and live_events:
+    # ALWAYS, even when the LLM ranker already filled `_cov`. The guard used to be `if not _cov`,
+    # which meant that turning evrank on silently stopped stamping evscore -- on v32, 790 entries
+    # carried an evrank score, 59 carried evscore, and ZERO carried both. That destroyed the very
+    # thing evscore was kept for: the mechanical control the LLM ranker has to beat. It is
+    # arithmetic over a pool already in memory, so computing it costs nothing.
+    if live_events:
         try:
             import evscore  # noqa: PLC0415
             _prev = ev_metrics if ev_metrics is not None else {}
@@ -2359,7 +2539,7 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                         _prev[_e["id"]] = _x["coverage"]
                         break
             for _eid, _sc, _m in evscore.rank(live_events, pool, prev=_prev):
-                _cov[_eid] = {"score": round(float(_sc), 3), **_m}
+                _cov.setdefault(_eid, {}).update({"score": round(float(_sc), 3), **_m})
                 _prev[_eid] = _m
         except Exception as exc:  # noqa: BLE001 -- coverage bookkeeping must never sink a scan
             print(f"  evscore stamping skipped ({exc})", file=sys.stderr)
@@ -2398,6 +2578,41 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             _tracked = {str(t).strip().upper() for t in (entry.get("vehicles") or []) if str(t).strip()}
             if _tracked:
                 ev["vehicles"] = _tracked
+            # AND THE EXPOSURE CLAUSES WITH THEM. `ev["exposure"]` was written once by the scout and
+            # only ever UNIONED across scans, so it drifted exactly as `vehicles` used to: on v30
+            # ev164 carried 18 clauses for 5 vehicles and ev209 carried 12 for 1, including quantum
+            # names with no connection to an Intel subsidy. The agent's list is authoritative for the
+            # same reason its vehicle list is -- it is the stage that re-read the catalyst this week.
+            # Merge OVER the prior clauses so a vehicle it did not re-describe keeps its last good
+            # one, then keep only what is still tracked.
+            _newx = {str(x.get("ticker", "")).strip().upper(): str(x.get("why", "")).strip()
+                     for x in (entry.get("exposure") or [])
+                     if isinstance(x, dict) and str(x.get("ticker", "")).strip()
+                     and str(x.get("why", "")).strip()}
+            # LONG-ONLY GATE: a vehicle the agent ITSELF says the catalyst works against is dropped
+            # from the basket, not merely described. The probe showed it states "loses" honestly and
+            # keeps the ticker, which is why this is enforced here rather than asked for above.
+            _shorts = sorted(k for k, w in _newx.items() if says_loses(w))
+            if _shorts:
+                _tracked = {x for x in _tracked if x not in set(_shorts)}
+                if _tracked:
+                    ev["vehicles"] = _tracked
+                for _s in _shorts:
+                    _newx.pop(_s, None)
+                print(f"  {ev['id']}: dropped {_shorts} -- its own clause says the catalyst works "
+                      f"AGAINST them ({anchor.date()})", file=sys.stderr)
+            # PRUNE UNCONDITIONALLY, not only when the agent restated something. An entry can carry
+            # no exposure at all -- a first-scan silence week returns none -- and the old code then
+            # left the scout's list untouched, so it kept describing tickers the agent had already
+            # dropped from `vehicles`. ev1 in the 2026-09-07 probe: NVDA "loses -- faces US export
+            # curbs on AI chips" survived as a clause after NVDA itself was gone and only AMD was
+            # tracked. An exposure list that names a non-vehicle is answering a question nobody asked.
+            _oldx = {str(x.get("ticker", "")).strip().upper(): str(x.get("why", "")).strip()
+                     for x in (ev.get("exposure") or []) if isinstance(x, dict)}
+            _keep = _tracked or (set(_oldx) | set(_newx))
+            _keep = {k for k in _keep if not says_loses(_newx.get(k) or _oldx.get(k, ""))}
+            ev["exposure"] = [{"ticker": k, "why": _newx.get(k) or _oldx.get(k, "")}
+                              for k in sorted(_keep) if (_newx.get(k) or _oldx.get(k))]
             # ...and remember a RESOLVED catalyst so the scout won't re-chase it -- but only if the
             # event was ever actually followed. Half of all events (50% v22 / 47% v21) resolve on their
             # FIRST agent read: the scout proposes a catalyst that the news already reports as done

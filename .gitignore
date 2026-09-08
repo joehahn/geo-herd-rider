@@ -142,3 +142,6 @@ data/bundle_spotcheck.txt
 /TODO.md
 # Working docs that are for whoever develops this repo, not for a reader of it.
 /local/
+
+# evrank: per-event LLM score cache (regenerable, keyed on model+prompt+brief)
+data/windows/evrank_cache.json

@@ -3468,23 +3468,35 @@ function draw() {{
           name:'d — watchlist mean ' + WM.lookback + 'd change (± s.e.)',
           line:{{color:'#60a5fa', width:1.6}},
           customdata:WM.d.map((_, i) => [WM.sd[i], WM.se[i], WM.n[i]]),
-          hovertemplate:'%{{x}}<br>mean %{{y:+.2f}}%  ± %{{customdata[1]:.2f}} s.e.'
-                       + '<br>sd %{{customdata[0]:.2f}}%  ·  n=%{{customdata[2]}}<extra></extra>'
+          hovertemplate:'%{{x}}<br>mean %{{y:+.1f}}%  ± %{{customdata[1]:.1f}} s.e.'
+                       + '<br>sd %{{customdata[0]:.0f}}%  ·  n=%{{customdata[2]}}<extra></extra>'
         }});
       }}
+      // SCALE TO THE DATA, NOT TO THE ERROR BAND. Both series share this axis, and the band is
+      // sd/sqrt(n) on a cross-section that one name can blow up: on 2023-11-09 TPST was +879% over
+      // the trailing window, which alone moved the watchlist mean from -1.9% to +21.9% and the s.e.
+      // from +-3.7 to +-24.1. Left to autoscale, that single band reached +61% while the BOOK -- the
+      // panel's actual subject -- never leaves -20..+23, so the markers were squeezed into the middle
+      // third of the plot by an error bar. The range is taken from the book, SPY and the watchlist
+      // MEAN; the band clips where it exceeds them, which is the honest trade (a band is a statement
+      // about precision, not a datum).
+      const _fin = a => a.filter(v => v !== null && isFinite(v));
+      const _sc = _fin(dy).concat(_fin(sy), WM && WM.mean ? _fin(WM.mean) : []);
+      const _pad = _sc.length ? 0.08 * (Math.max(..._sc) - Math.min(..._sc)) : 1;
+      const _yr = _sc.length ? [Math.min(..._sc) - _pad, Math.max(..._sc) + _pad] : null;
       if (dx.length) Plotly.react('c-curdelta', _wmBand.concat([{{
         // SPY FIRST so the book's markers sit on top of it. Same green dashed convention as panel 1,
         // so the two panels read as the same benchmark seen two ways -- cumulative there, per period
         // here.
         type:'scatter', mode:'lines', name:'SPY, same periods', x:dx, y:sy,
         line:{{color:'#10b981', width:2, dash:'dash'}},
-        hovertemplate:'%{{x}}<br>SPY %{{y:+.2f}}% over the same month<extra></extra>'
+        hovertemplate:'%{{x}}<br>SPY %{{y:+.1f}}% over the same month<extra></extra>'
       }}, {{
         type:'scatter', mode:'lines+markers', name:'the book', x:dx, y:dy,
         line:{{color:'#d97706', width:2}},
         marker:{{size:6, color:dy.map(v => v < 0 ? ST.critical : ST.good),
                  line:{{width:1, color:p.surface}}}},
-        hovertemplate:'%{{x}}<br>%{{y:+.2f}}% over the month that followed<extra></extra>'
+        hovertemplate:'%{{x}}<br>%{{y:+.1f}}% over the month that followed<extra></extra>'
       }}]), base(p, {{margin:{{l:70,r:24,t:40,b:44}}, showlegend:true,
           legend:{{orientation:'h', y:1.16, x:0, font:{{size:11}}}},
           // The median as a dashed rule. Sourced from book["curstat"], which is what the caption
@@ -3496,7 +3508,7 @@ function draw() {{
             text:'median ' + (CS.med >= 0 ? '+' : '') + CS.med.toFixed(1) + '%'}}] : []),
           xaxis:{{gridcolor:p.grid, type:'date'}},
           yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:true, zerolinecolor:p.text2,
-                 zerolinewidth:1.5,
+                 zerolinewidth:1.5, range:_yr, autorange:_yr ? false : true,
                  title:{{text:'book gain over the next month', font:{{size:11}}}}}}}}), CFG);
     }}
 
@@ -3644,10 +3656,40 @@ function draw() {{
       type:'scatter', mode:'markers', name:'unfunded', showlegend:false, x:_offX, y:_offY,
       marker:{{symbol:'triangle-down', size:11, color:ST.critical, line:{{width:1.5, color:p.surface}}}},
       hovertemplate:'UNFUNDED at %{{x}}<br>$%{{y:.2f}}<extra></extra>'}});
+    // RESIZES, not just the edges. The two triangles alone say a position opened at one price and
+    // closed at another, and a reader reasonably reads the gain as (exit - entry) x size -- which is
+    // wrong whenever the weight moved in between. SLV is the specimen: opened 2025-12-30 at $68.98
+    // and closed 2026-03-31 at $68.14, a FLAT round trip, and booked +$11,901 -- because it rode
+    // $69 -> $105 at 25-31% of the book and rode back down at 14%, then 5%. With only the edges
+    // drawn there is nothing on the chart that can explain that number.
+    const _rz = [];
+    const _alloc = (BK.alloc || {{}})[tk];
+    if (_alloc && BK.dates) {{
+      const _wAt = d => {{ for (let i = BK.dates.length - 1; i >= 0; i--)
+                            if (BK.dates[i] <= d) return _alloc[i] || 0; return 0; }};
+      let _pw = null;
+      (BK.rebal || []).forEach(w => {{
+        const cw = _wAt(w);
+        // both sides funded, and the weight actually moved: an open or a close is already a triangle
+        if (_pw !== null && _pw > 0.01 && cw > 0.01 && Math.abs(cw - _pw) > 0.02) {{
+          const i = _lst(w);
+          if (i >= 0) _rz.push([PX.d[i], ser[i], _pw, cw]);
+        }}
+        _pw = cw;
+      }});
+    }}
+    if (_rz.length) traces.push({{
+      type:'scatter', mode:'markers', name:'resized', showlegend:false,
+      x:_rz.map(r => r[0]), y:_rz.map(r => r[1]),
+      marker:{{symbol:'diamond', size:9, color:p.text2, line:{{width:1.5, color:p.surface}}}},
+      customdata:_rz.map(r => [100 * r[2], 100 * r[3]]),
+      hovertemplate:'RESIZED %{{x}}<br>$%{{y:.2f}}'
+                   + '<br>%{{customdata[0]:.0f}}% &rarr; %{{customdata[1]:.0f}}% of the book'
+                   + '<extra></extra>'}});
     const g = BK.gain[tk];
     document.getElementById('tktitle').textContent = tk;
     document.getElementById('tksub').innerHTML =
-      `shaded = watchlisted &middot; solid = funded &middot; &#9650; funded &#9660; unfunded &middot; realised `
+      `shaded = watchlisted &middot; solid = funded &middot; &#9650; funded &#9670; resized &#9660; unfunded &middot; realised `
       + `${{g>=0?'+':'&minus;'}}$${{Math.abs(g).toLocaleString(undefined,{{maximumFractionDigits:0}})}}`;
     document.getElementById('tkmodal').style.display='block';
     Plotly.react('tkplot', traces, base(p, {{showlegend:false, shapes:shapes,

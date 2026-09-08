@@ -223,6 +223,7 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                  cum: float | None, date: str, note: str = "", rets: dict | None = None,
                  history: list | None = None, read: list | None = None, proposals: dict | None = None,
                  assigned: dict | None = None, exposure: dict | None = None,
+                 rank: tuple | None = None, quality: dict | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -298,6 +299,53 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # whether it has landed is the most load-bearing line in the block.
     if (entry or {}).get("exit_advice"):
         L.append(f"**Exit condition.** {_trim(entry['exit_advice'], 200)}")
+    # WHAT THE EVENT-CULL SCORED IT ON, in the cull's own terms. Not a forecast and not a quality
+    # judgement -- four counts over the articles that matched this event THIS scan, plus how that
+    # count moved since last scan. Shown because the reader cannot otherwise tell whether an event
+    # survived on merit or on noise: velocity carries weight 4.0 of ~8 and is the scan-over-scan
+    # change in the MATCH COUNT, which a generic catalyst word inflates.
+    _cv = (entry or {}).get("coverage") or {}
+    # THE RANKER THAT ACTUALLY CULLED THIS SCAN, when one ran. evrank replaced evscore's
+    # velocity+breadth cull on 2026-09-08; its five judgements and the key they combine into are
+    # printed in full, INCLUDING the two that are scored but deliberately left OUT of the key, so a
+    # reader can see what was weighed and what was only observed.
+    _er = (_cv.get("evrank") or {}) if isinstance(_cv, dict) else {}
+    if _er:
+        _r2 = f" · rank {rank[0]} of {rank[1]} live" if rank else ""
+        _span = _er.get("spans_a_month")
+        L.append(
+            f"**Event rank.** total **{float(_er.get('key', 0)):.1f}**{_r2}  \u2014  "
+            f"*catalyst* {_er.get('catalyst_strength', '?')}/5 + "
+            f"*market reach* {_er.get('market_impact', '?')}/5 + "
+            f"*arc progress* {_er.get('arc_progress', '?')}/5 + "
+            f"\u00bd\u00d7*thesis alignment* {_er.get('thesis_alignment', '?')}/5 + "
+            f"*lasts a month* {'yes +1' if _span else 'no +0'}  ·  "
+            f"**not counted:** *exit* {_er.get('exit_quality', '?')}/5 "
+            f"*(measured backwards \u2014 a clean two-sided exit on an occurrence that never "
+            f"arrives is the ev214 shape)*. "
+            + (f"*{_trim(str(_er.get('why') or ''), 120)}*" if _er.get("why") else ""))
+    # COVERAGE RANK (evscore) IS NOT PRINTED. It was retired as the cull's ranker on 2026-09-08,
+    # and rendering it from a journal that no longer stamps it INVENTED numbers -- ev585 showed
+    # "score 0.0 · 0 independent desks · 0 matching articles" purely from .get(..., 0) defaults on a
+    # missing block. It is still computed and stamped (it is the mechanical control the LLM ranker
+    # is measured against) and still the live ranker when `picker_model` is blank; it just has no
+    # place in a report about how one event was handled.
+    # THE PROCESS AUDIT of how this event was WRITTEN -- judged after the fact, with no prices in
+    # front of the judge, and NOT used by any cull. Measured on 303 v31 events: the TOTAL does not
+    # separate events that end on the agent's judgement from ones a counter retires (11.0 vs 11.0),
+    # and `exit_quality` runs BACKWARDS (+5 for timer-retired vs +4 for merits) -- a clean two-sided
+    # exit on an occurrence that never arrives is exactly the ev214 shape. Only catalyst_strength
+    # carries signal (4.0 vs 3.0). Printed per event because it is informative about THIS event even
+    # though it predicts nothing in aggregate; do not rank on the total.
+    if quality:
+        L.append(
+            f"**Process audit** (post-hoc, no prices seen; not used by any cull). "
+            f"catalyst {quality.get('catalyst_strength', '?')}/5 · "
+            f"thesis alignment {quality.get('thesis_alignment', '?')}/5 · "
+            f"exit {quality.get('exit_quality', '?')}/5 · "
+            f"market reach {quality.get('market_impact', '?')}/5 · "
+            f"expected span {quality.get('expected_span_months', '?')} months. "
+            f"*{_trim(str(quality.get('why') or ''), 130)}*")
     if (entry or {}).get("catalyst_resolved"):
         L.append(f"**{str(entry.get('date', ''))[:10]} · catalyst RESOLVED**"
                  + (f": {_trim(entry.get('exit_case'), 200)}" if _ec != "none" else ""))
@@ -405,6 +453,8 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # the fastest way to see a vehicle that was never about this catalyst at all.
     if proposals:
         _rows = []
+        # WHICH CLAUSES ARE NOT ACTUALLY A THESIS -- computed once for the event, not per row.
+        _cflags = _clause_flags(exposure or {}, e.get('catalyst') or '')
         for _v in vs_now:
             _hit = None
             for _x in (e.get("entries") or []):
@@ -440,7 +490,8 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             # every curation is asked, and a peer whose answer named no relationship has its clause
             # blanked at admission -- so on those runs the absence is itself the finding.
             _ex = (exposure or {}).get(_v)
-            _pre = (f" · **exposed:** {_trim(_ex, 90)}" if _ex
+            _fl = _cflags.get(_v)
+            _pre = (f" · **why:** {_trim(_ex, 90)}" + (f" *({_fl})*" if _fl else "") if _ex
                     else (" · **no link stated**" if exposure else ""))
             if _hit and _th and (_founder or _asg == eid):
                 _rows.append(f"- **{_v}** · joined {_hit[0]} · "
@@ -452,12 +503,15 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                              f"a different event{_pre}")
             elif _hit:
                 _rows.append(f"- **{_v}** · joined {_hit[0]} · "
-                             + (f"**exposed:** {_trim(_ex, 96)}" if _ex else
+                             + (f"**why:** {_trim(_ex, 96)}" if _ex else
                                 "no scout record for that scan (a run curated before peers were "
                                 "logged cannot say how it arrived)"))
         if _rows:
-            L += ["", f"<details><summary>Why these {len(vs_now)} vehicles are attached — the "
-                      f"scout's own thesis for each</summary>", ""] + _rows + ["", "</details>"]
+            # "the scout's own thesis" stopped being true in v31: the EVENT AGENT restates the
+            # clause every scan now, so attributing it to the scout would misname who to hold
+            # responsible when one is wrong.
+            L += ["", f"<details><summary>Each vehicle's thesis — why the ticker is attached to "
+                      f"this event</summary>", ""] + _rows + ["", "</details>"]
     # INPUT 3: the journal digest, in the form agent._journal_digest builds it. This is the memory
     # the prompt tells the agent to re-read and test its exit condition against.
     if history:
@@ -529,6 +583,44 @@ def _inline(t: str) -> str:
     h = _re.compile(r"(?<!\")(?<!>)(https?://[^\s<]+)(?![^<]*</a>)").sub(
         r'<a href="\1" target="_blank" rel="noopener">\1</a>', h)
     return h
+
+
+def _clause_flags(exposure: dict, catalyst: str) -> dict:
+    """{ticker: note} for the two ways a vehicle clause fails to be a thesis.
+
+    NOT A GATE. Measured on cbt_3yr_v31_exposure, 30% of clauses restate their own catalyst and 15%
+    are word-for-word duplicates of a sibling in the same event -- dropping a third of the basket's
+    explanations is the `max_group_articles` failure mode, so the report SAYS SO instead and the
+    prompts ask for better. The reader can then see at a glance which vehicles are actually explained.
+
+    RESTATEMENT reuses the `_restates_resolved` test the pending_next gate already trusts: a clause
+    whose distinctive words are almost entirely the catalyst's carries no information the catalyst
+    did not. DUPLICATE is exact after stripping the direction prefix -- two names, one sentence,
+    means at most one of them is explained.
+    """
+    import re as _re
+    try:
+        from agent import _CATALYST_STOP, _stem
+    except Exception:  # noqa: BLE001 -- the report must render without the scan path
+        return {}
+
+    def _w(s):
+        return {y for y in (_stem(x) for x in _re.findall(r"[a-z0-9$%.]{3,}", str(s or "").lower()))
+                if y not in _CATALYST_STOP}
+
+    cw, out, seen = _w(catalyst), {}, {}
+    for tk, why in (exposure or {}).items():
+        body = _re.sub(r"^\s*(gains|loses)\s*--\s*", "", str(why or "").strip().lower())
+        if not body:
+            continue
+        if body in seen:
+            out[tk] = f"same clause as {seen[body]}"
+            continue
+        seen[body] = tk
+        bw = _w(body)
+        if bw and len(bw - cw) / len(bw) < 0.34:
+            out[tk] = "restates the catalyst"
+    return out
 
 
 def _md_to_html(lines: list) -> str:
@@ -640,6 +732,18 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
     the page links."""
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
+    # THE PROCESS AUDIT, if scripts/score_event_quality.py has been run over this journal. Optional
+    # by design: it costs an LLM pass, it is NOT what the event-cull ranks on, and a run without it
+    # simply omits the line. Shown BESIDE the coverage rank rather than instead of it, because
+    # coverage is what `max_events` actually acts on and swapping the display would misreport why
+    # an event was kept or evicted.
+    _qual = {}
+    try:
+        _qf = Path(run) / "event_quality.json"
+        if _qf.exists():
+            _qual = json.loads(_qf.read_text())
+    except Exception:  # noqa: BLE001 -- an unreadable audit must not stop the reports
+        _qual = {}
     for old in list(out_dir.glob(f"*-{arm}-curation.html")) + list(
             out_dir.glob(f"*-{arm}-curation.md")):
         old.unlink()
@@ -801,6 +905,33 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         # Its money line is its OWN attributed share (event_gain splits a shared ticker equally), not
         # the ticker's total.
         _all_f = {**live, **carried}
+        # THE RANK THE EVENT-CULL USES, made visible. `max_events` retires the lowest coverage-ranked
+        # events, and until now nothing on the page said what that rank was -- so an event could be
+        # evicted, or protected, for reasons no reader could see. ev214 is why it matters: twelve
+        # scans of "no uranium tariff decision" and it sat in the TOP FIFTH of all events, because
+        # evscore rewards being written about (general trade-war coverage) rather than the catalyst
+        # advancing. Printing the components is the only way that is checkable from the report.
+        # INCLUDE THE EVENTS EXITING AT THIS SCAN. `_all_f` is live + carried, and an event rendered
+        # in the Exited section is in neither -- so the rank was blank on exactly the blocks where it
+        # matters most, since a bottom-ranked event is what `max_events` evicts. Rank against the
+        # whole field that was live going INTO this scan, which is what the cull actually ranked.
+        _cov_src = dict(_all_f)
+        for _k, _e in ev.items():
+            _en = _e.get("entries") or []
+            if _en and str(_en[-1].get("date"))[:10] == d0 and _k not in _cov_src:
+                _cov_src[_k] = (_e, _en[-1])
+        _cov_now = {k: (v[1].get("coverage") or {}) for k, v in _cov_src.items() if (v[1].get("coverage") or {})}
+        # RANK BY WHAT THE CULL ACTUALLY SORTED ON. This sorted by evscore's `score` while the line
+        # beside it printed evrank's key -- and with evscore no longer stamped, `or 0` collapsed
+        # every event to zero, so "rank 14 of 24" was insertion order wearing a rank's name.
+        # Falls back to evscore only when no evrank score exists (a pre-2026-09-08 journal, or
+        # `picker_model` blank, where evscore IS the ranker).
+        def _rank_key(k):
+            c = _cov_now[k]
+            er = c.get("evrank") or {}
+            return -float(er["key"]) if "key" in er else -float(c.get("score") or 0)
+        _cov_ord = sorted(_cov_now, key=_rank_key)
+        _cov_rank = {k: (i + 1, len(_cov_ord)) for i, k in enumerate(_cov_ord)}
         _by_tk, _co = {}, collections.defaultdict(list)
         for tk in sorted(funded_tk):
             cl = sorted((k for k in _all_f if tk in (ev[k].get("vehicles") or [])),
@@ -809,6 +940,18 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 _by_tk[tk] = cl[0]
                 _co[cl[0]] = [c for c in cl[1:]]
         held = list(dict.fromkeys(_by_tk.values()))
+        # CO-CLAIMANTS FELL THROUGH BOTH SECTIONS. The line above keeps ONE claimant per funded
+        # ticker so a name held at 40% is not printed three times as three positions -- but an event
+        # that shares a funded vehicle and loses that contest was dropped from `held` and was never
+        # in `missed` (its vehicle IS funded), so it was rendered NOWHERE while still being cited in
+        # another block's "vehicle also claimed by" note. ev574 on 2026-07-26 is the specimen: live,
+        # opened that scan, and present in the report only as an id inside someone else's note.
+        # They are put back, and the note on each says the position is shown under the lead claimant,
+        # so no ticker is double-counted as capital while every live event still gets scored on the
+        # page. 63 of 145 tickers are claimed by more than one event, so this is not a rare case.
+        _shared = {k for k in live if k not in set(held)
+                   and (set(ev[k].get("vehicles") or []) & funded_tk)}
+        held += sorted(_shared)
         missed = [k for k in missed if k not in held]
         # THE NEAR MISSES, ranked by the cull's OWN score so the report shows the events that came
         # closest rather than an arbitrary three. firehose._trend_rank is what _ranked_cull calls.
@@ -892,17 +1035,84 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         if exited:
             L.append(f"- **Exited.** {', '.join(sorted(exited))}"
                      + (f", with {', '.join(_same)} opening/closing same scan" if _same else ""))
-        _anchors_held = sorted(t for t in funded_tk
-                               if t in {str(x).upper() for x in (fm.get("always_include") or [])})
-        if _anchors_held:
-            L.append("- **Anchors.** "
-                     + ", ".join(f"{t} {weights[t] * 100:.1f}%" for t in _anchors_held)
-                     + " (always_include, outside the watchlist and not an event)")
-        L += ["", "## Funded", ""]
+        # ANCHORS (always_include) ARE NOT REPORTED HERE. SPY and BIL are not events, hold no
+        # thesis and are never curated -- this file exists to debug how the EVENT machinery behaved,
+        # and book-level composition belongs in the monthly newsletter instead.
+        # ORDERED BY THE RANK THE CULL USED, throughout. A report meant to confirm that every event
+        # was scored and ranked properly has to present them in that order, or the reader cannot
+        # check the ordering at all.
+        def _byrank(ks):
+            return sorted(ks, key=lambda k: (_cov_rank.get(k, (10**6, 0))[0], k))
+        # NEW THIS SCAN vs CONTINUING. An event on its first read is a different object from one on
+        # its eighth -- arc_progress is pinned at 3 for the first, the freshness reserve protects it
+        # from the cull, and nothing about its handling can be judged yet. Mixing them hid that.
+        def _is_new(k):
+            en = ev[k].get("entries") or []
+            return bool(en) and str(en[0].get("date"))[:10] == d0
+        _new_funded = _byrank([k for k in held if _is_new(k)])
+        held = _byrank([k for k in held if not _is_new(k)])
+        missed = _byrank(missed)
+        _new_unfunded = [k for k in missed if _is_new(k)]
+        missed = [k for k in missed if not _is_new(k)]
+
+        # HOW TO READ THE SCORE, once, before the first event. The components repeat on every block
+        # and mean nothing without the weights; a reader checking that events were ranked properly
+        # needs to be able to redo the arithmetic.
+        if any((v[1].get("coverage") or {}).get("evrank") for v in _all_f.values()):
+            # BRIEF ON PURPOSE -- this file is a debugging doc, not a user-facing one. The RANGE is
+            # derived from the weights rather than written down, so it cannot drift from them the way
+            # a hand-typed "0-17.5" already did (the real ceiling is 18.5).
+            import evrank as _evr
+            _mx = 5 * sum(_evr.WEIGHTS.values()) + _evr.SPAN_BONUS
+            # ONE VOCABULARY. The formula used to print the internal field names
+            # (catalyst_strength, market_impact) while the bullets and the per-event lines used the
+            # display names -- the same quantities under two names on one page.
+            _disp = {"catalyst_strength": "catalyst", "market_impact": "market reach",
+                     "arc_progress": "arc progress", "thesis_alignment": "thesis alignment"}
+            _wt = " + ".join(
+                (f"*{_disp.get(k, k)}*" if w == 1.0 else
+                 f"{'\u00bd' if w == 0.5 else w}\u00d7*{_disp.get(k, k)}*")
+                for k, w in _evr.WEIGHTS.items())
+            L += ["", "## How the event score works", "",
+                  f"**total = {_wt} + (1 if *lasts a month*)** \u2014 range 0\u2013{_mx:g}.",
+                  "",
+                  "- ***catalyst*** \u2014 one specific occurrence, with subject, status, ideally a "
+                  "date. Standing condition that can end: 3\u20134. Theme or a company's *hope*: 0\u20131.",
+                  "- ***market reach*** \u2014 how much of the market it could move. Reach only, never "
+                  "direction or size.",
+                  "- ***arc progress*** \u2014 has it MOVED since opening? New dated milestones: 4\u20135. "
+                  "Same standing state repeated: 0\u20131. First scan: 3.",
+                  "- ***thesis alignment*** \u2014 does every vehicle have its own reason from THIS "
+                  "catalyst? Several tickers sharing one sentence: 1.",
+                  "- ***lasts a month*** \u2014 +1 if it looks likely to run a month or more from opening.",
+                  "",
+                  "***exit*** is scored and printed but left OUT of the total. Across 303 events a "
+                  "HIGHER exit score went with a WORSE outcome \u2014 events that a counter eventually "
+                  "retired scored better on their exit than events the agent itself ended \u2014 so "
+                  "counting it would push the ranking the wrong way. A well-formed two-sided exit on "
+                  "an occurrence that simply never arrives is the reason.",
+                  "",
+                  "Within each section below, events are listed highest total first.", ""]
+
+        if _new_funded or _new_unfunded:
+            L += ["", "## Opened this scan", ""]
+            for k in _new_funded + _new_unfunded:
+                _h, _rd, _m, _ok = _inputs(k)
+                L += _event_block(k, ev[k], _all_f[k][1] if k in _all_f else live[k][1],
+                                  weights=weights if k in _new_funded else {}, date=d0, rets=rets,
+                                  proposals=proposals, assigned=assigned, rank=_cov_rank.get(k),
+                                  quality=_qual.get(k), exposure=_expo(k),
+                                  per=(per.get(k) if (d1 and k in _new_funded) else None),
+                                  cum=(cum.get(k) if k in _new_funded else None),
+                                  note=("funded at birth" if k in _new_funded else "opened unfunded"),
+                                  history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
+
+        L += ["", "## Funded (continuing)", ""]
         if held:
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
                 L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned,
+                                  rank=_cov_rank.get(k), quality=_qual.get(k),
                                   exposure=_expo(k),
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
@@ -972,7 +1182,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 _st = str((ev[k].get("entries") or [{}])[0].get("date", ""))[:10]
                 _note = (f"funded at {len(_fd)} of {n} scans since {_st}"
                          + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
-                L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None,
+                L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None, rank=_cov_rank.get(k), quality=_qual.get(k),
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
                                   exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned,
                                   exposure=_expo(k),
@@ -996,8 +1206,12 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                          + ". The watchlist is sticky, so the position outlived the thesis.")
             L.append("")
 
-        L += ["## Not funded, the three that came closest", ""]
-        for k in missed[:NEAR_MISSES]:
+        # EVERY live-but-unfunded event, not a sample. This file is for confirming that all events
+        # were scored and ranked; a three-event excerpt cannot show that. If these grow unwieldy the
+        # right lever is a cap by RANK (say, the bottom N are summarised in one line each) rather
+        # than an arbitrary head-slice, so the reader still sees the whole ordering.
+        L += ["## Live but unfunded (continuing)", ""]
+        for k in missed:
             vs = sorted(ev[k].get("vehicles") or [])
             why = ("survived the cull, then the optimizer gave it no weight" if _on_wl(k)
                    else f"culled by max_watchlist {int(fm.get('max_watchlist') or 0)}")
@@ -1005,7 +1219,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             note = why + (f" · its vehicles ran {rp * 100:+.1f}% over the period" if rp is not None
                           else "")
             _h, _rd, _m, _ok = _inputs(k)
-            L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None,
+            L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None, rank=_cov_rank.get(k), quality=_qual.get(k),
                               date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned,
                                   exposure=_expo(k),
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)

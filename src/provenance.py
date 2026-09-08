@@ -69,7 +69,73 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v30_evrank"     # v29 -> v30 on 2026-09-07. Seven knob changes aimed at
+CANON_RUN = "data/cbt_3yr_v33_guard"   # v31 -> v33 on 2026-09-08. THE SAME-TICKER GUARD, RELAXED.
+                                      # A candidate whose ticker was already held could never open a
+                                      # second event, however unrelated its thesis. Measured on 385
+                                      # dropped candidates: 21% were CLEARLY DISTINCT (<20% word
+                                      # overlap with the holder's catalyst), 60% were restatements the
+                                      # guard was right to kill. The relaxation routes only the
+                                      # distinct ones to the matcher, reusing `_restates_resolved`.
+                                      # 138 routed over 35 scans: 60 opened a real second event, 54
+                                      # were folded back by the matcher, 24 joined a third event --
+                                      # INTC's spin-off AND its export-control event, LLY's Wegovy
+                                      # label AND orforglipron, KRYS's Vyjuvek AND KB707 PDUFAs.
+                                      # ALSO FIXED: evscore stopped being stamped whenever the LLM
+                                      # ranker ran, so the two scorers were never on the same events
+                                      # (790 / 59 / 0 both). Now 840 entries carry both -- which is
+                                      # how we learned evrank ranks forward escalators AT CHANCE
+                                      # (|d| < 0.07 across 16 escalator definitions, both runs). The
+                                      # d = +1.03 measured on v32 was an artifact of that 59-entry
+                                      # sample and does NOT replicate.
+                                      # NOT improved, and recorded so it is not re-litigated: the
+                                      # no-restatement prompt rule is a null (29% both runs), and the
+                                      # span rubric fix made `spans_a_month` MORE constant (95% -> 97%
+                                      # TRUE), so its +1 is close to a fixed offset.
+                                      # P&L is NOT the reason: median final fell $109K -> $93K (inside
+                                      # the band #6 calls unmeasurable) and median cancellation rose
+                                      # 53.5% -> 61.6%. Promoted on MECHANISM.
+                                      #
+                                      # Previous note, v30 -> v31 on 2026-09-07. THE EXPOSURE CLAUSE -- the one
+                                          # field a reader uses to decide whether to trust the basket
+                                          # -- was written once by the SCOUT (the cheap model) and
+                                          # never revisited by the judge. Three changes, no knobs:
+                                          #   DIRECTION REQUIRED. Every clause now leads with "gains"
+                                          #     or "loses". 0% -> 100% of 952 clauses.
+                                          #   THE EVENT AGENT RESTATES IT each scan, so the stage that
+                                          #     re-reads the catalyst owns the justification. Clauses
+                                          #     describing a NON-vehicle: 341 -> 0 (v30 had ev164 at 18
+                                          #     clauses for 5 vehicles, ev209 at 12 for 1).
+                                          #   LONG-ONLY GATE, enforced at both stages: a vehicle whose
+                                          #     own clause says the catalyst works AGAINST it is
+                                          #     dropped, not merely described. Fired 40 times.
+                                          #
+                                          # WHY: ev432 was the best-justified event in v30 -- dated
+                                          # milestones, falsifiable two-sided exit, sources every scan,
+                                          # clean resolution -- and its four airlines were attached to
+                                          # a Strait of Hormuz closure as "sensitive to fuel price
+                                          # increases". They then rose ~50% BECAUSE the threat receded
+                                          # and oil fell 19%. The trade won and the recorded reason
+                                          # predicted a loss. No gate we had checked anything but FORM.
+                                          #
+                                          # PROMOTED ON RECORD QUALITY, NOT ON CAPTURE, and the
+                                          # difference is stated because the numbers invite the wrong
+                                          # read. Escalators AVAILABLE in the pool rose 19 -> 23 of 37
+                                          # months, but escalators FUNDED fell 11-in-9 -> 5-in-4 and
+                                          # the final $266,604 -> $193,179. That is NOT attributable:
+                                          # v30 and v31 are different CURATIONS, not a paired replay,
+                                          # and #6 records the same config drawn twice at $117,200 and
+                                          # $62,997. The gates removed 40 vehicles of 1,143 slots --
+                                          # too small a perturbation to own a 2x swing -- and the loss
+                                          # sits at the FUNDING stage, which measured all day as
+                                          # ranking escalators at chance. Resolving it needs a re-run
+                                          # of v31, not an argument.
+                                          #
+                                          # STILL OPEN: 17% of vehicles carry no clause at all (was
+                                          # 21%), and 3 clauses still say "loses" -- all on events
+                                          # culled at birth, which never get an agent read, so the
+                                          # reconciliation never touches them.
+                                          #
+                                          # Previous note, v29 -> v30 on 2026-09-07. Seven knob changes aimed at
                                           # ESCALATOR HARVESTING -- getting names that run >=1.5x in a
                                           # month in front of the optimizer. Four act at replay
                                           # (max_watchlist 12->16, concentration_cap 0.4->0.25,
@@ -301,7 +367,19 @@ CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 
                                       # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
                                       # (cbt_3yr_v21_evscans12) so code is the only variable; that it
                                       # is not CANON_RUN is a separate open question.
-CANON_SWEEP = "data/sweep_cbt_3yr_v30_evrank.json"   # 2026-09-07, over the promoted v30 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v33_guard.json"   # 2026-09-08, over the promoted v33 curation.
+                                      # 5,040 cells, BOOK knobs only, replay over the frozen journal.
+                                      # NO CONFIG CHANGE came out of it: the best-region view and the
+                                      # marginals DISAGREE on concentration_cap and drop_unfunded_weeks,
+                                      # which marks those as interaction artifacts of one journal. Only
+                                      # lookback_period_days shows a clean peak (30d, 48.5% cancelled
+                                      # vs 58-73% either side) and the profile is already there.
+                                      #
+                                      # Previous note, 2026-09-07b, over the promoted v31 curation.
+                                      # Re-swept because CANON_RUN advanced v30 -> v31; a sweep over a
+                                      # superseded journal is the drift check_canon exists to catch.
+                                      #
+                                      # Previous note, 2026-09-07, over the promoted v30 curation.
                                       # 5,040 cells, ZERO LLM cost -- the curation is fixed and only
                                       # BOOK_KNOBS vary, so this is a replay grid, not a re-curation.
                                       # FIVE CURATIONS STALE before this: CANON_SWEEP still pointed at
