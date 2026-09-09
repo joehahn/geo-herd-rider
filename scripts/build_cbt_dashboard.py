@@ -910,6 +910,91 @@ def main(argv=None) -> int:
         # numbers as when the loop was inline: full span, no bounds.
         _evgain = _crep.event_gain(_gain, _gs, _dates_l, _claim, _elife)
 
+        # ---- DOES A HIGHER-SCORING EVENT ACTUALLY EARN MORE? -----------------------------------
+        # One point per EVENT, not per event-period: its P&L over the periods where the optimizer
+        # actually funded it, divided by how many those were. Per-event first and a MEDIAN across
+        # events in a score bin, so one long-funded name counts once instead of dominating its bin,
+        # and the median rather than the mean because a single event's P&L is heavy-tailed enough to
+        # drag any average it lands in. Error bars are sd/sqrt(n) over the events in the bin -- the
+        # standard deviation of the mean.
+        #
+        # An event's score is the MEDIAN of its own evrank keys: it is re-scored every scan it is
+        # live and the ranking acts on all of them, so no single scan is the event's score.
+        #
+        # Scores do NOT drift over the run (mean key by scan stays within 10.9-11.9 from the first
+        # six scans to the last six), so dollar gains are not being confounded by the book growing.
+        _scoregain = None
+        try:
+            import numpy as _npS
+            _lg2 = list(_bt.get("log") or [])
+            _anc2 = [str(_r2.get("week"))[:10] for _r2 in _lg2]
+            _pe: dict = collections.defaultdict(lambda: [0.0, 0])   # eid -> [gain, funded periods]
+            for _i2, _r2 in enumerate(_lg2):
+                _d0 = _anc2[_i2]
+                _d1 = _anc2[_i2 + 1] if _i2 + 1 < len(_anc2) else (_dates_l[-1] if _dates_l else _d0)
+                # the log stores weights as "TICK:0.25;TICK2:0.10", not a dict (firehose.backtest
+                # joins them for the CSV), so a `.items()` here silently cost the whole panel once
+                _fund = set()
+                for _kv in str(_r2.get("weights") or "").split(";"):
+                    if ":" in _kv:
+                        _t2, _, _w2 = _kv.partition(":")
+                        try:
+                            if float(_w2) > 0.0005:
+                                _fund.add(_t2.strip().upper())
+                        except ValueError:
+                            pass
+                if not _fund:
+                    continue
+                _gw = _crep.event_gain(_gain, _gs, _dates_l, _claim, _elife, lo=_d0, hi=_d1)
+                for _eid2, _e2 in ev.items():
+                    _lo2, _hi2 = _elife.get(_eid2, (None, None))
+                    if _lo2 is None or _d0 < _lo2 or (_hi2 and _d0 > _hi2):
+                        continue                      # not live at this anchor
+                    if not (set(_e2.get("vehicles") or []) & _fund):
+                        continue                      # live but the optimizer funded none of it
+                    _pe[_eid2][0] += float(_gw.get(_eid2, 0.0))
+                    _pe[_eid2][1] += 1
+            _pts = []
+            for _eid2, (_g2, _n2) in _pe.items():
+                if _n2 <= 0:
+                    continue
+                _keys = [float(((_x.get("coverage") or {}).get("evrank") or {}).get("key"))
+                         for _x in (ev[_eid2].get("entries") or [])
+                         if ((_x.get("coverage") or {}).get("evrank") or {}).get("key") is not None]
+                if not _keys:
+                    continue
+                _pts.append({"e": _eid2, "s": round(float(_npS.median(_keys)), 2),
+                             "g": round(_g2 / _n2, 2), "n": _n2,
+                             "c": (ev[_eid2].get("catalyst") or "")[:70]})
+            print(f"  score-vs-gain: {len(_pts)} funded events with a score", flush=True)
+            if len(_pts) >= 12:
+                _pts.sort(key=lambda z: z["s"])
+                _nb2 = 5 if len(_pts) >= 60 else 4
+                _sz2 = max(4, len(_pts) // _nb2)
+                _bins2 = []
+                for _k2 in range(0, len(_pts), _sz2):
+                    _ch2 = _pts[_k2:_k2 + _sz2]
+                    if len(_ch2) < 4:
+                        if _bins2:
+                            _ch2 = _pts[_k2 - _sz2:]           # fold a short tail into the last bin
+                            _bins2.pop()
+                        else:
+                            continue
+                    _gv = [z["g"] for z in _ch2]
+                    _sd2 = float(_npS.std(_gv, ddof=1)) if len(_gv) > 1 else 0.0
+                    _bins2.append({"x": round(float(_npS.median([z["s"] for z in _ch2])), 2),
+                                   "lo": round(min(z["s"] for z in _ch2), 2),
+                                   "hi": round(max(z["s"] for z in _ch2), 2),
+                                   "med": round(float(_npS.median(_gv)), 1),
+                                   # sd/sqrt(n): the standard deviation of the MEAN. The median's own
+                                   # asymptotic error is ~1.253x this, so the bars are the tighter of
+                                   # the two and the caption says so rather than overstating them.
+                                   "sem": round(_sd2 / (len(_gv) ** 0.5), 1),
+                                   "n": len(_gv)})
+                _scoregain = {"pts": _pts, "bins": _bins2}
+        except Exception as _e:  # noqa: BLE001 -- one panel must never cost the page
+            print(f"  score-vs-gain panel skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
+
         # BUY-AND-HOLD baseline, PWR's blue curve: the profile's `starter_watchlist`, equal-DOLLAR at
         # inception and never touched again. THE SAME BASKET ON BOTH ARMS: it is the control, not
         # the inception holding, so it does not follow seed_holdings -- CBT and CBS are only
@@ -1253,6 +1338,7 @@ def main(argv=None) -> int:
             # across 17 curations, rho(d, book) +0.22 but rho(d, book net of SPY) +0.28, while
             # rho(d, SPY) is only +0.04. See scripts/measure_watchmom_signal.py.
             "momgain": _momgain,
+            "scoregain": _scoregain,
             "rebal": [str(x.date()) for x in sorted(_scans)],
             "bh": [None if x is None else float(x) for x in (_d.get("bh") or [])],
             "bh_tickers": _d.get("bh_tickers") or [],
@@ -2484,6 +2570,24 @@ def main(argv=None) -> int:
               "Neighbouring points share 10 of their 11 periods, so read it as a trend; trading that "
               "shape loses in 15 of 17 curations out of sample.",
               "c-momgain", 519, side=True, width=692),   # 692 wide, height 25% under that
+        panel_rec("Event score vs what the event earned",
+              "<b>Does a higher-scoring event actually make more money?</b> One dot per EVENT: "
+              "horizontally its score &mdash; the median of its own <code>evrank</code> totals over "
+              "the scans it was ranked, since it is re-scored every scan and the cull acts on all of "
+              "them &mdash; and vertically its realized P&amp;L divided by the number of rebalance "
+              "periods the optimizer actually funded it. Per event and not per event-period, so one "
+              "long-held name counts once instead of dominating; and a median rather than a mean, "
+              "because a single event&#39;s P&amp;L is heavy-tailed enough to drag any average it "
+              "lands in. The purple line is that median within a score bin and the bars are "
+              "<b>sd/&radic;n</b> over the events in the bin &mdash; the standard deviation of the "
+              "mean. (The median&#39;s own asymptotic error is about 1.25&times; that, so these bars "
+              "are the tighter of the two, not the looser.) "
+              "P&amp;L is split between events that share a ticker, by the same rule the reports "
+              "use. Most funded events are funded for a SINGLE period and a quarter of them earn "
+              "exactly nothing, so a bin median sitting on zero is the measurement, not a gap. "
+              "Read it against non-negotiable #6: this is one curation, and the bars say how little "
+              "one curation can settle.",
+              "c-scoregain", 430),
         panel_rec("Watchlist composition over time",
               "One row per ticker. The pale bar is the span the curator kept it WATCHLISTED — it held "
               "the thesis; the solid bar is the span the optimizer actually FUNDED it. The gap between "
@@ -3453,6 +3557,54 @@ function draw() {{
                                 + '-day fractional change at the rebalance', font:{{size:11}}}}}},
           yaxis:{{gridcolor:p.grid, ticksuffix:'%', zeroline:false,
                   title:{{text:'book fractional gain over the next month', font:{{size:11}}}}}}
+        }}), CFG);
+      }}
+
+      // ---- PANEL @@c-scoregain@@: does a higher-scoring event actually earn more?
+      // One dot per EVENT: x is the median of its own evrank keys over the scans it was scored,
+      // y is its P&L divided by the number of rebalance periods the optimizer actually funded it.
+      // The heavy line is the median of those dots within a score bin, and the bars are
+      // sd/sqrt(n) over the events in the bin -- the standard deviation of the mean.
+      const SG = BK.scoregain;
+      if (SG && SG.pts.length >= 12 && document.getElementById('c-scoregain')) {{
+        const _sgT = [{{
+          type:'scatter', mode:'markers', name:'one event',
+          x:SG.pts.map(z => z.s), y:SG.pts.map(z => z.g),
+          marker:{{size:6.5, opacity:0.5, line:{{width:0}},
+                   color:SG.pts.map(z => z.g < 0 ? ST.critical : (z.g > 0 ? ST.good : p.text2))}},
+          customdata:SG.pts.map(z => [z.e, z.c, z.n]),
+          hovertemplate:'%{{customdata[0]}} — %{{customdata[1]}}'
+                       + '<br>score %{{x:.2f}} · $%{{y:,.0f}} per funded period'
+                       + '<br>funded %{{customdata[2]}} period(s)<extra></extra>'
+        }}];
+        if (SG.bins && SG.bins.length) {{
+          _sgT.push({{
+            type:'scatter', mode:'lines+markers', name:'median, ±1 s.d. of the mean',
+            x:SG.bins.map(b => b.x), y:SG.bins.map(b => b.med),
+            error_y:{{type:'data', array:SG.bins.map(b => b.sem), thickness:1.6, width:6,
+                      color:'#7c3aed', opacity:0.9}},
+            line:{{color:'#7c3aed', width:2.5}},
+            marker:{{size:10, color:'#7c3aed', line:{{width:1.5, color:p.surface}}}},
+            customdata:SG.bins.map(b => [b.lo, b.hi, b.n, b.sem]),
+            hovertemplate:'score in [%{{customdata[0]:.2f}}, %{{customdata[1]:.2f}}]'
+                         + '<br>median $%{{y:,.0f}} per funded period'
+                         + '<br>± $%{{customdata[3]:,.0f}} (s.d. of the mean, n=%{{customdata[2]}})'
+                         + '<extra></extra>'
+          }});
+        }}
+        Plotly.react('c-scoregain', _sgT, base(p, {{
+          margin:{{l:70, r:20, t:44, b:52}}, showlegend:true,
+          legend:{{orientation:'h', y:1.13, x:0, font:{{size:11}}}},
+          shapes:[{{type:'line', xref:'paper', x0:0, x1:1, yref:'y', y0:0, y1:0,
+                    line:{{color:p.text2, width:1.4, dash:'dot'}}}}],
+          annotations:[{{xref:'paper', x:1, xanchor:'right', yref:'y', y:0, yanchor:'bottom',
+                         showarrow:false, font:{{size:10.5, color:p.text2}},
+                         text:'earned nothing'}}],
+          xaxis:{{gridcolor:p.grid, zeroline:false,
+                  title:{{text:'event score — median evrank total over the scans it was ranked',
+                          font:{{size:11}}}}}},
+          yaxis:{{gridcolor:p.grid, zeroline:false, tickprefix:'$',
+                  title:{{text:'realized $ per funded rebalance period', font:{{size:11}}}}}}
         }}), CFG);
       }}
 
