@@ -93,6 +93,23 @@ def exit_flags(exit_txt: str) -> list[str]:
     return f
 
 
+# A COMPANY NAME, NOT AN ASSET OR A PRIVATE FIRM. The map is learned from the scout's own
+# `company` field and it picks up junk: one proposal carried company "Bitcoin" with ticker "BTC",
+# after which EVERY catalyst mentioning bitcoin reported a missing vehicle, and "SpaceX" arrived as
+# its own ticker though it is private and cannot be held at all. Two cheap conditions kill both:
+# the ticker must be TICKER-SHAPED (1-5 letters -- SPACEX is six), and the name must look like a
+# company, i.e. carry a corporate suffix or be more than one word. "Bitcoin" is neither.
+_CORP_WORDS = ('inc', 'corp', 'ltd', 'plc', 'llc', 'sa', 'ag', 'nv', 'co', 'company', 'holdings', 'group', 'partners', 'technologies', 'therapeutics', 'pharmaceuticals', 'pharma', 'energy', 'resources', 'systems', 'industries', 'international', 'laboratories', 'motors', 'bank', 'financial', 'capital')
+
+
+def _is_company(name: str, ticker: str) -> bool:
+    t = (ticker or "").strip()
+    if not (t.isalpha() and 1 <= len(t) <= 5):
+        return False
+    w = [x for x in re.split(r"[^a-z0-9]+", (name or "").lower()) if x]
+    return len(w) > 1 or bool(set(w) & set(_CORP_WORDS))
+
+
 def load(run: Path):
     J = json.loads((run / "journal.json").read_text())
     dec = [json.loads(l) for l in (run / "decisions.jsonl").open()]
@@ -119,7 +136,8 @@ def build(run: Path):
     name2tk = {}
     for r in scout.values():
         for c in r.get("proposed") or []:
-            if isinstance(c, dict) and c.get("company") and c.get("ticker"):
+            if isinstance(c, dict) and c.get("company") and c.get("ticker") \
+                    and _is_company(str(c["company"]), str(c["ticker"])):
                 name2tk[str(c["company"]).lower()] = c["ticker"]
 
     # which proposal did each ticker arrive on, per scan

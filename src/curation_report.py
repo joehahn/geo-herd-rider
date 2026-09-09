@@ -888,8 +888,23 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                     _tk = str(_p.get("ticker", "")).strip().upper()
                     _th = str(_p.get("thesis") or "")
                     proposals[(_r.get("context"), _tk)] = ("proposed as", _th)
-                    if _p.get("company") and _tk:
-                        namemap[str(_p["company"]).strip().lower()] = _tk
+                    # A COMPANY NAME, NOT AN ASSET OR A PRIVATE FIRM. The map is learned from the
+                    # scout's own `company` field and it collects junk: one proposal carried
+                    # company "Bitcoin" with ticker "BTC", after which every catalyst mentioning
+                    # bitcoin would have reported a missing vehicle, and "SpaceX" arrived as its own
+                    # ticker though it is private and cannot be held at all. Two cheap conditions
+                    # kill both -- the ticker must be TICKER-SHAPED (1-5 letters; SPACEX is six) and
+                    # the name must look like a company, carrying a corporate suffix or more than
+                    # one word. "Bitcoin" is neither. On v34 this took the flag from 58 to 4.
+                    _cw = {"inc", "corp", "ltd", "plc", "llc", "co", "company", "holdings", "group",
+                           "partners", "technologies", "therapeutics", "pharmaceuticals", "pharma",
+                           "energy", "resources", "systems", "industries", "international",
+                           "laboratories", "motors", "bank", "financial", "capital"}
+                    _cn = str(_p.get("company") or "").strip()
+                    _words = [w for w in _re.split(r"[^a-z0-9]+", _cn.lower()) if w]
+                    if (_cn and _tk and _tk.isalpha() and 1 <= len(_tk) <= 5
+                            and (len(_words) > 1 or (set(_words) & _cw))):
+                        namemap[_cn.lower()] = _tk
                     # A PEER carries no thesis of its own; it rides in on someone else's proposal
                     # and can end up the funded name. Recorded so the report can say so instead of
                     # attributing it to whatever unrelated proposal happens to share its ticker.
