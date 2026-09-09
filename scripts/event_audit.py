@@ -32,7 +32,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from agent import _restates_resolved as _agent_restates   # the gate the scout already trusts
+from agent import _restates_resolved as _agent_restates, _stem   # gates the scout already trusts
 
 STOP = set("the a an of to in on for and or by at with its it is are was were be been as from that "
            "this new after over into up down us his her their has have will would could than then "
@@ -40,7 +40,24 @@ STOP = set("the a an of to in on for and or by at with its it is are was were be
 
 
 def words(s: str) -> set[str]:
-    return {w for w in re.findall(r"[a-z]{4,}", (s or "").lower()) if w not in STOP}
+    """Distinctive tokens of a phrase, STEMMED and INCLUDING alphanumerics.
+
+    Both details are load-bearing, and both were wrong first time round. `[a-z]{4,}` dropped KB408
+    and NXC-201 -- precisely the tokens that prove an exit is still on its catalyst's subject -- and
+    without stemming "the investigation concludes" looked unrelated to "investigates NVIDIA". Each
+    bug manufactured EXIT-DRIFT reports out of exits that were perfectly on topic."""
+    toks = re.findall(r"[a-z0-9][a-z0-9-]{2,}", (s or "").lower())
+    out = set()
+    for w in toks:
+        if w in STOP or w.isdigit():
+            continue
+        # agent._stem knows nothing of nominalisations, so "investigation" never met "investigates"
+        for suf in ("ations", "ation", "ions", "ion"):
+            if len(w) > len(suf) + 3 and w.endswith(suf):
+                w = w[: -len(suf)]
+                break
+        out.add(_stem(w))
+    return out - {""}
 
 
 def overlap(a: str, b: str) -> float:
@@ -139,6 +156,16 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
     L.append(f"  CATALYST  {e.get('catalyst','')}")
     L.append(f"  PENDING   {e.get('pending_next','')}")
 
+    # EXIT-DRIFT: the exit names a DIFFERENT occurrence than the catalyst that opened the event
+    # (ev9: opened on an FDA label clearance, left waiting on reimbursement policy). Such an exit
+    # cannot fire on its own catalyst, so the event can only ever die on a counter.
+    if ents:
+        _body = re.sub(r"^exit\s*(if\s*/?\s*when)?\s*", "",
+                       (ents[-1].get("exit_advice") or "").strip(), flags=re.I)
+        # ZERO shared tokens, not a ratio: a short on-topic exit ("clinical outcomes for KB408")
+        # scores a low ratio on merit, while a genuinely drifted one shares nothing at all.
+        if words(_body) and not (words(_body) & words(e.get("catalyst") or "")):
+            flags.append("EXIT-DRIFT")
     if not ents:
         # opened and retired before any event agent ever judged it -- there is no record to audit
         flags.append("NEVER-JUDGED")

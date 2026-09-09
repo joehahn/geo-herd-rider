@@ -271,6 +271,23 @@ EVENT, with subject, timing and status","why_now":"<=12 words","pending_next":"t
 still to happen, whose happening ends this thesis","peers":["OTHER","TICKERS"],
 "exposure":[{"ticker":"XYZ","why":"gains|loses -- <=12 words: how THIS name is connected"},
 {"ticker":"OTHER","why":"..."}]}]}.
+
+`pending_next` MUST BE AN ACT THE CATALYST'S OWN PROCEDURE REQUIRES -- not a consequence you hope
+follows. The press reports things that have ALREADY happened; this book needs the thing that has NOT
+happened yet, and the two are only connected when the reported act sits inside a procedure that
+obliges a next step. Ask: if the world simply carries on, does this next act HAVE to occur?
+  an investigation is opened      -> it concludes or is dropped          REQUIRED
+  an application is filed         -> the agency decides                  REQUIRED
+  an acquisition is announced     -> it closes or is terminated          REQUIRED
+  a trial reads out               -> the regulator rules on the filing   REQUIRED
+  an MOU is signed                -> "the partnership becomes a deal"    NOT required, a hope
+  a research partnership begins   -> "a commercial product launches"     NOT required, years off
+  munitions shipments begin       -> "the conflict escalates"            not an act at all
+  a label is cleared              -> "reimbursement policy changes"      a DIFFERENT procedure
+If the reported act obliges nothing, you have a theme, not an event: leave it out. A missing date is
+fine -- "the EC investigation concludes, no date announced" is a proper pending act -- what is not
+fine is a next step that nothing compels.
+
 Empty is the common, correct answer."""
 
 AGENT_SYSTEM = """You manage ONE event for an event-driven book. You are given the event, YOUR
@@ -541,11 +558,12 @@ _NOTHING_PENDING = {"none", "n/a", "na", "nothing", "null", "-", "already happen
 # FOMC occurrence. Prefixes absorb inflection on their own (`approv` covers approve/approval/approved).
 _OCCURRENCE = """
 decis decid approv reject ruling verdict vot ratif veto hearing trial lawsuit settlement
+finaliz readout resum
 injunct sanction tariff authoriz permit licens clearanc greenlight waiver exempt
 determin restrict
 earning filing filed disclos guidanc prospectus 10-k 10-q 8-k readout result pdufa topline releas
 deal contract award purchas acquisit acquir merger buyout ipo listing divest sale sell
-stake offering financ loan grant subsid clos sign execut fulfil deliver shipment
+stake offering financing refinanc loan grant subsid clos sign execut fulfil deliver shipment
 launch restart commission complet construct groundbreak product output mileston
 rollout deploy certif qualif implement achiev
 meeting summit conferenc election referendum deadlin expir maturit renew report announc
@@ -561,10 +579,31 @@ _NOT_OCCURRENCE = """
 upsid downsid momentum sentiment rally surg soar slump plung realiz materializ
 outperform underperform rerat re-rat multipl pricetarget target rating downgrad reiterat valuat
 appreci gain growth demand adopt uptak strength pric
+continu sustain ongoing improv further remain progress
 """.split()
+# THE LAST LINE IS THE CONTINUATION FAMILY, added 2026-09-08. An ACT IS PUNCTUAL: it can be said to
+# have happened on a date. "insurer financials continue to improve", "refining rebound sustains",
+# "US policy support for nuclear energy continues" name a direction of travel, so no wire story can
+# ever report them as done and the event can only die on a counter. `_CATALYST_STOP` had already
+# identified this exact family as HYPE MODIFIERS for the restatement gate -- continu / further /
+# addit / ongo -- so this closes the same hole in the occurrence gate.
+#   SHOWN BEFORE SHIPPING, because a subtractive filter is what the knob rule warns about: it
+#   rejects 24 of 590 v33 events, and reading all 24 they are trends without exception. An earlier
+#   draft also carried `expand`/`increas` and those DID delete real news -- "US DOE finalizes
+#   funding for TSM's Arizona expansion" -- so they were dropped and `finaliz` (missing all along)
+#   was added to _OCCURRENCE instead. A dated pending still escapes via _DATED_PENDING, so
+#   "topline data in Q2 2025" survives while a bare "further clinical data" does not.
 
+# MONTHS MUST BE WHOLE TOKENS. The alternation used to have a leading \b and NO trailing one, so
+# `mar` matched inside "market" and `dec` inside "decision"/"decline" -- and since a date short-
+# circuits the gate to True, any pending_next containing the word "market" was admitted unread.
+# Measured over 746 pending_next strings: 12 were admitted on nothing but this, and all 12 are the
+# very shape the gate exists to reject -- "US housing market demand sustains", "market uptake of
+# SoFiUSD", "memory prices stabilize or decline". Real dates are unaffected.
 _DATED_PENDING = re.compile(r"\b(19|20)\d\d\b|\$\s?\d|\bq[1-4]\b|"
-                            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)")
+                            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec|"
+                            r"january|february|march|april|june|july|august|september|"
+                            r"october|november|december)\b")
 
 
 def names_occurrence(pending: str) -> bool:
@@ -1571,13 +1610,36 @@ public and priced, so the edge is spent) or it FAILS. Write both. "exit if/when 
 TMI restart is withdrawn or cancelled" names only the failure, so the week the loan is actually
 granted — the catalyst resolving — this condition stays false and the position is held past the
 event it was entered on. Write "exit if/when the DOE grants or refuses the loan" instead. A structural
-driver with no single resolving act is the one exception: there, a reversal genuinely is the only
-exit, and saying so is correct (e.g. "exit if a Hormuz reopening or
-ceasefire looks imminent"). It is a forward CONDITION, not a hold/sell verdict — `thesis_live` already
+THERE IS NO STRUCTURAL-DRIVER EXCEPTION. This prompt used to grant one -- "a reversal genuinely is
+the only exit, e.g. exit if a Hormuz reopening or ceasefire looks imminent" -- while the scout prompt
+forbade that exact sentence, and the loophole is where unfalsifiable exits came from ("exit if/when
+the conflict escalates or subsides"). If the driver is a standing condition with no act that
+resolves it, this is a THEME, not an event: say so with thesis_live=false rather than writing an
+exit that can never be checked off.
+
+BOTH BRANCHES MUST BE DISCRETE OCCURRENCES, NOT THE TWO ENDS OF A DIAL. Naming two directions is not
+enough if neither is a thing that can be reported as having happened on a date. "exit if/when the
+conflict escalates or subsides" is satisfied by every possible future, so it never fires and the
+event can only die on a counter -- and it passes the two-direction rule above, which is why this
+paragraph exists. So do "future earnings disappoint or market trends weaken" and "housing demand
+fails to sustain or reverses". Ask of each branch: could a wire story tomorrow say THIS happened?
+If not, replace it with the reportable act underneath -- a ruling, a vote, a filing, a signed deal,
+a published result, a withdrawal. Where a reversal really is the only way out, it must still be an
+act someone could report ("a ceasefire is signed"), never a drift in a trend. It is a forward CONDITION, not a hold/sell verdict — `thesis_live` already
 carries hold-vs-exit, so NEVER write "Hold" / "Sell" / "none" here while the thesis is live. RESTATE THE
 SAME standing condition every week (carry it forward from your journal); REVISE it when the catalyst's
 arc genuinely moves the trigger — e.g. an acute shock matures into a structural driver, or a new
 near-term milestone becomes the thing to watch — but do NOT churn the wording week to week for no reason.
+
+`vehicles` — YOU MAY PRUNE PEERS, BUT NOT THE SUBJECT. An event is a claim about a named company:
+dropping a peer whose link has gone weak is right and expected, but dropping the company the
+catalyst is ABOUT while peers carry on leaves the book holding one thing and the text describing
+another. Measured on v33: 25 of 196 multi-scan events shed a founding vehicle, and ev17 ended up
+saying "shutdown risk boosts MARATHON DIGITAL's mining" while holding only ARBK, a peer. If the
+subject's own link to the catalyst is dead, then so is the event — say thesis_live=false. If the
+catalyst has genuinely MOVED to a different company (ev34: "Google considers dropping Broadcom",
+where Broadcom loses and Marvell gains, so the book rightly held MRVL), keep the surviving vehicle
+AND restate the catalyst around it, so the text and the holding make the same claim.
 
 `milestones` — each one says WHAT, whether it has HAPPENED or is EXPECTED, and WHEN (a date or
 window if there is one, else "none"). A development and a forecast are not the same evidence: "Crude
