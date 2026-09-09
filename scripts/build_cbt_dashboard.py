@@ -993,9 +993,20 @@ def main(argv=None) -> int:
             for _eid2, (_g2, _n2) in _pe.items():
                 if _n2 <= 0:
                     continue
-                _keys = [float(((_x.get("coverage") or {}).get("evrank") or {}).get("key"))
-                         for _x in (ev[_eid2].get("entries") or [])
-                         if ((_x.get("coverage") or {}).get("evrank") or {}).get("key") is not None]
+                # POSITION WITHIN ITS SCAN, not a score. The ranker returns an order; `pct` is
+                # that order normalised so scans of different size are comparable (1.00 = best of
+                # its scan). A pre-2026-09-09 journal carries the retired rubric's `key` instead,
+                # and the two are NOT the same quantity -- so an old run plots its own and the axis
+                # label follows, rather than silently mixing them on one axis.
+                _ent = (ev[_eid2].get("entries") or [])
+                _keys = [float(((_x.get("coverage") or {}).get("evrank") or {}).get("pct"))
+                         for _x in _ent
+                         if ((_x.get("coverage") or {}).get("evrank") or {}).get("pct") is not None]
+                _isrank = bool(_keys)
+                if not _keys:
+                    _keys = [float(((_x.get("coverage") or {}).get("evrank") or {}).get("key"))
+                             for _x in _ent
+                             if ((_x.get("coverage") or {}).get("evrank") or {}).get("key") is not None]
                 if not _keys:
                     continue
                 _pts.append({"e": _eid2, "s": round(float(_npS.median(_keys)), 2),
@@ -1026,7 +1037,9 @@ def main(argv=None) -> int:
                                    # the two and the caption says so rather than overstating them.
                                    "sem": round(_sd2 / (len(_gv) ** 0.5), 1),
                                    "n": len(_gv)})
-                _scoregain = {"pts": _pts, "bins": _bins2}
+                _scoregain = {"pts": _pts, "bins": _bins2,
+                              "unit": ("rank percentile within scan (1.00 = best)" if _isrank
+                                       else "retired five-metric rubric total")}
         except Exception as _e:  # noqa: BLE001 -- one panel must never cost the page
             print(f"  score-vs-gain panel skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
 
@@ -3657,8 +3670,8 @@ function draw() {{
                          showarrow:false, font:{{size:10.5, color:p.text2}},
                          text:'earned nothing'}}],
           xaxis:{{gridcolor:p.grid, zeroline:false,
-                  title:{{text:'event score — median evrank total over the scans it was ranked',
-                          font:{{size:11}}}}}},
+                  title:{{text:'event rank — median ' + (SG.unit || 'evrank total')
+                                + ' over the scans it was ranked', font:{{size:11}}}}}},
           yaxis:{{gridcolor:p.grid, zeroline:false, tickprefix:'$',
                   title:{{text:'realized $ per funded rebalance period', font:{{size:11}}}}}}
         }}), CFG);

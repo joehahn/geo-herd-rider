@@ -59,63 +59,36 @@ from optimizer import resolve_curator_model
 
 _CACHE_PATH = Path(__file__).resolve().parent.parent / "data" / "windows" / "evrank_cache.json"
 
-SCHEMA = {"type": "object", "additionalProperties": False,
-          "required": ["catalyst_strength", "thesis_alignment", "exit_quality",
-                       "market_impact", "arc_progress", "spans_a_month", "why"],
-          "properties": {"catalyst_strength": {"type": "integer"},
-                         "thesis_alignment": {"type": "integer"},
-                         "exit_quality": {"type": "integer"},
-                         "market_impact": {"type": "integer"},
-                         "arc_progress": {"type": "integer"},
-                         "spans_a_month": {"type": "boolean"},
-                         "why": {"type": "string"}}}
+SCHEMA = {"type": "object", "additionalProperties": False, "required": ["ranked"],
+          "properties": {"ranked": {"type": "array", "items": {"type": "string"}},
+                         "why": {"type": "object",
+                                 "additionalProperties": {"type": "string"}}}}
 
-SYSTEM = """You rank market events a curator is tracking, so the weakest can be dropped when more are
-live than can be followed. You never see prices, returns or position sizes and must never guess at
-them: you judge the EVENT AS WRITTEN and how far it has got, not whether it made money.
+SYSTEM = """You rank the market events a news-reading curator is tracking, best first, so the ones
+below the line can be ignored this scan.
 
-Score each 0-5 unless stated.
+WHAT THIS BOOK IS BETTING ON. It buys a ticker the financial press has ALREADY NAMED while the story
+is still early and under-noticed, and holds until the awaited thing actually happens. The edge is
+TIMING -- being on a named opportunity slightly before the crowd -- not size. Two shapes are exactly
+what it wants:
+  - a specific new development that plainly lifts a named company (a contract, an approval, a deal)
+  - a little-known vehicle already moving on a story the wider market has not priced
 
-catalyst_strength — is the catalyst ONE SPECIFIC OCCURRENCE, with a subject, a status and ideally a
-  date? "US DOE loans $1B to restart Three Mile Island, November 19 2025" is 5. "Cameco hopes to
-  repeat its 2018 success in fending off tariffs, no date announced" is 1: a company's hope is not an
-  occurrence and nothing was initiated. A standing condition that can plausibly END (a chokepoint
-  closed, output cuts in force) is legitimate at 3-4; a permanent condition or a theme is 0-1.
+YOU NEVER SEE PRICES, RETURNS OR POSITION SIZES and must never guess at them. Do NOT rank by how
+much money an event might make: that is a forecast, and non-negotiable #1 of this book is that you
+never make one. Rank by how EARLY, how UNDER-NOTICED and how SPECIFIC each opportunity is, read off
+the event as written.
 
-thesis_alignment — does EVERY vehicle have its own reason to be attached, following from THIS
-  catalyst? Five tickers sharing one sentence is 1, however true the sentence. A clause restating the
-  catalyst backwards ("cuts lift crude" -> "benefits from higher oil prices") is 1-2. Distinct
-  specific mechanisms are 4-5.
+A NEW EVENT HAS ALMOST NO HISTORY AND THAT IS NOT A MARK AGAINST IT. An event on its first scan may
+be a far better opportunity than one grinding on for months with nothing new. Judge the opportunity,
+not the paperwork.
 
-exit_quality — A NEW EVENT HAS NOT WRITTEN ITS EXIT YET, and its brief says so, quoting the pending
-  act instead. Score that pending act as the exit it implies; do NOT score the absence as 0. Only a
-  brief that offers neither an exit nor a pending act is a 0.
-  Otherwise: is the exit condition OBSERVABLE, and do its two branches point in OPPOSITE
-  directions? "exit if/when the DOE decision is granted or refused" is 5: granted and refused are
-  opposites and either is datable. CHECK THE BRANCHES, do not just count them -- "exit if/when
-  US-Iran tensions ease or resolution is reached" reads two-sided and is NOT: easing and resolution
-  are the same direction, so nothing settles it if tensions instead escalate, and it scores 1-2.
-  "exit if/when the 120% upside is realized or fails to materialize" is 0: neither branch is
-  observable. An exit that merely restates the catalyst is 2.
+BE RUTHLESS. Only a handful of these can be funded at once, and everything below the line is
+invisible to the book. A well-formed event that the whole market can already see is worth less here
+than a specific early one it cannot.
 
-market_impact — how much of the market this occurrence could reach: a chokepoint carrying a fifth of
-  seaborne oil is 5; one small company's product launch is 1. REACH only — never direction or size
-  of any price move.
-
-arc_progress — has this event MOVED since it opened? Read the milestone trail and the assessments.
-  New dated milestones and assessments that report something changing are 4-5. A trail that repeats
-  the same standing state ("no decision yet", "curbs remain unresolved") scan after scan is 0-1,
-  however much coverage it attracts. An event on its first scan is 3: unproven, not stalled.
-
-spans_a_month — TRUE if this event, measured FROM WHEN IT OPENED, looks likely to run A MONTH OR
-  MORE before its exit condition settles. Not "how much is left from here" -- an event already eight
-  scans old that settles next week still ran for months, and that is what this asks. The boundary
-  resolves TRUE: about a month counts as a month or more. FALSE only for an event that should open
-  and settle inside a single scan -- a decision landing this week, a deal already closing. Decide
-  from whether the exit names something SCHEDULED (a dated decision, a vote, an expiry) and how far
-  out it sits.
-
-why — one sentence under 25 words naming the weakest of the six."""
+Return EVERY event id exactly once, best first, and a short reason for the strongest and weakest few.
+Output ONLY JSON: {"ranked":["evN","evM",...],"why":{"evN":"<=15 words"}}"""
 
 # Equal weight on the three evidenced terms, half on alignment. Not fitted -- see the module docstring.
 WEIGHTS = {"catalyst_strength": 1.0, "market_impact": 1.0, "arc_progress": 1.0,
@@ -178,76 +151,74 @@ def make_ranker(fm: dict, cache_path: Path | None = None):
     cache = json.loads(path.read_text()) if path.exists() else {}
     calls = [0]
 
-    def _cache_key(a: dict) -> str:
-        # KEYED ON THE EVENT'S STATE, not its id: an event whose record has not changed since last
-        # scan gets the same score for free, which is most of them on a long run.
-        return hashlib.sha256((short + "|" + SYSTEM + "|" + _brief(a)).encode()).hexdigest()[:20]
-
-    def _score_one(a: dict) -> dict:
-        brief = _brief(a)
-        calls[0] += 1
-        try:
-            txt = client.complete(SYSTEM, brief, use_web_search=False, label=f"evrank-{a.get('ticker')}",
-                                  stage="evrank", json_schema=SCHEMA, effort=effort)
-            m = re.search(r"\{.*\}", txt, re.S)
-            v = json.loads(m.group(0) if m else txt)
-            return v
-        except Exception as e:  # noqa: BLE001 -- a ranking failure must never sink a scan
-            print(f"  evrank error on {a.get('ticker')} ({type(e).__name__}: {e})", file=sys.stderr)
-            return {}
+    def _cache_key(ids, briefs) -> str:
+        # KEYED ON THE WHOLE SCAN, because the judgement is now one comparison across all live
+        # events rather than a score per event. A scan whose events are unchanged is free.
+        return hashlib.sha256((short + "|" + SYSTEM + "|" + "\n".join(briefs)).encode()).hexdigest()[:20]
 
     def pick(cand_meta: list[dict], max_keep: int, context: str = "") -> list[str]:
-        # SCORED IN PARALLEL. Sequentially this was ~24 round trips per scan at ~5s each and it
-        # DOUBLED curation time -- the 6-month probe ran 24 min for 7 scans, projecting ~124 min for
-        # the full run against v31's 67. The model was not the problem: the bake-off puts grok-low
-        # at the FASTEST of eight arms (45 min) and second on clean rate, so the latency was all in
-        # waiting on one call before starting the next. The curation already runs a 24-worker pool
-        # for the event agents; this borrows the same width.
-        # CACHE HITS COST NOTHING and stay on this thread -- only genuine calls are dispatched.
-        _todo = [a for a in cand_meta if _cache_key(a) not in cache]
-        if _todo:
-            with cf.ThreadPoolExecutor(max_workers=min(len(_todo), workers)) as _ex:
-                for a, v in zip(_todo, _ex.map(_score_one, _todo)):
-                    if v:
-                        cache[_cache_key(a)] = v
-            path.write_text(json.dumps(cache))
-        scored = []
-        for a in cand_meta:
-            v = cache.get(_cache_key(a)) or {}
-            # A FAILED SCORE SORTS LAST BUT DOES NOT CRASH, and is visibly distinguishable from a
-            # genuine 0 in the log below.
-            scored.append((score_of(v) if v else float("-inf"), a["ticker"], v, int(a.get("weeks_alive") or 0)))
-        scored.sort(key=lambda x: (-x[0], x[1]))
-        # FRESHNESS RESERVE, the same two tiers `_ranked_cull` uses on the watchlist -- and the thing
-        # evscore never had. Its velocity term is 0.0 for any event with no prior scan, so it ranked
-        # newborns LAST, which is the opposite of non-negotiable #2 and the likely mechanism behind
-        # the 52-61% cull-at-birth that got max_events uncapped in the first place.
-        # THIS RANKER IS ALREADY FAIRER without it -- catalyst_strength, market_impact and
-        # thesis_alignment all read text that exists at admission, and the arc_progress rubric scores
-        # a first-scan event 3 ("unproven, not stalled") rather than 0. The reserve is belt as well as
-        # braces: a GUARANTEE of slots rather than an instruction the model may not follow.
-        # THE VALUES ARE BORROWED from cull_fresh_slots/cull_fresh_scans, which were measured for a
-        # SIX-slot watchlist, not a 24-event cap. Proportionally 2-of-6 is a third and 2-of-24 is a
-        # twelfth, so this reserve is much weaker here than there. Whether the event cull wants its
-        # own pair of knobs is an open question and deliberately not answered by inventing one.
-        _fs = int(fm.get("cull_fresh_slots", 2) or 0)
-        _fn = int(fm.get("cull_fresh_scans", 2) or 0)
-        keep = []
-        if _fs > 0 and _fn > 0:
-            fresh = [x for x in scored if x[3] < _fn][:_fs]
-            keep = [t for _, t, _, _ in fresh]
-        keep += [t for _, t, _, _ in scored if t not in set(keep)]
-        keep = keep[:max_keep]
+        # ONE CALL, ALL EVENTS, RANKED. This replaced five sub-scores summed with unfitted weights.
+        # WHY: measured over both full curations, the composite separated forward up-escalators at
+        # -0.19 to -0.47 on v34 and about -0.06 on v33 -- anti-predictive or chance, never useful --
+        # while four of its five terms did not discriminate at all once event lifetime was
+        # controlled, and the evidence recorded for arc_progress WAS that confound. One holistic
+        # judgement scored +0.17 on v34 and +0.02 on v33: never worse, sometimes better.
+        # THE HONEST CLAIM IS COST AND SIMPLICITY, NOT EDGE. The v34 advantage did NOT replicate on
+        # v33, so it is not established. What is: $0.05 a run against $0.90 (one call per scan, not
+        # one per event), and five metrics, WEIGHTS and SPAN_BONUS deleted -- and complexity is where
+        # every bug of the 2026-09-09 debugging session actually lived.
+        ids = [str(a["ticker"]) for a in cand_meta]
+        briefs = [f"{a['ticker']} | " + _brief(a) for a in cand_meta]
+        ck = _cache_key(ids, briefs)
+        order = cache.get(ck)
+        why = {}
+        if not order:
+            calls[0] += 1
+            try:
+                txt = client.complete(SYSTEM, "EVENTS:\n\n" + "\n\n".join(briefs),
+                                      use_web_search=False, label=f"evrank-{context}",
+                                      stage="evrank", json_schema=SCHEMA, effort=effort)
+                m = re.search(r"\{.*\}", txt, re.S)
+                v = json.loads(m.group(0) if m else txt)
+                order = [x for x in (v.get("ranked") or []) if x in set(ids)]
+                why = {k: str(w) for k, w in (v.get("why") or {}).items() if k in set(ids)}
+                # A TRUNCATED ORDER IS NOT A RANKING. Anything the model left out is appended in
+                # its existing order rather than silently dropped -- an omitted event must not be
+                # culled just because the model stopped typing.
+                if len(order) < len(ids) * 0.8:
+                    print(f"  evrank: model returned {len(order)}/{len(ids)} at {context}; "
+                          f"the remainder keep their incoming order", file=sys.stderr)
+                order += [t for t in ids if t not in set(order)]
+                cache[ck] = order
+                path.write_text(json.dumps(cache))
+            except Exception as e:  # noqa: BLE001 -- a ranking failure must never sink a scan
+                print(f"  evrank error at {context} ({type(e).__name__}: {e}); "
+                      f"keeping incoming order", file=sys.stderr)
+                order = list(ids)
+        rank = {t: i for i, t in enumerate(order)}
+        # NO FRESHNESS RESERVE. The prompt tells the judge outright that a new event's thin
+        # history is not a demerit, and a second mechanism guaranteeing the same thing is how the
+        # five-metric rubric accreted in the first place. It was also never load-bearing: measured
+        # over the canonical run, newborn events were culled at 32% against 36% for older ones, so
+        # they were not the ones being squeezed. Two profile knobs go with it.
+        keep = order[:max_keep]
+        # AN ORDER, NOT A SCORE. The ranker produces a ranking; `pct` is that rank expressed as a
+        # position within ITS OWN scan, because scans hold different numbers of events and a bare
+        # rank of 7 means different things among 12 events and among 40. It is NOT a quality score
+        # and must never be read as one -- inventing a number so downstream code keeps working is
+        # how a ranking gets mistaken for a measurement.
+        n = max(1, len(order))
+        _kept = set(keep)
+        scores = {t: {"pct": round((n - rank[t]) / n, 3), "rank": rank[t] + 1, "of": n,
+                      # WHETHER THIS RANKING ACTUALLY RETIRED IT. The cull is the only use this
+                      # order is put to, so the outcome belongs with the decision rather than being
+                      # re-derived downstream from a cap the report would have to be handed.
+                      "kept": t in _kept,
+                      **({"why": why[t]} if t in why else {})} for t in order}
         picker_log.log("evrank", {"context": context, "model": short, "max_keep": max_keep,
-                                  "scores": {t: {"key": s, **v} for s, t, v, _ in scored},
-                                  "fresh_reserved": _fs, "fresh_within": _fn,
-                                  "kept": keep,
-                                  "culled": [t for _, t, _, _ in scored if t not in set(keep)]})
-        # HAND THE SCORES BACK so process_week can stamp them onto this scan's entries. Without this
-        # they exist only in decisions.jsonl (off unless --decisions) and the reports -- the thing a
-        # reader actually opens -- could not say why an event was kept or dropped. Attached to the
-        # function rather than returned, so the (pick_fn, stats_fn) contract is unchanged.
-        pick.last_scores = {t: {"key": round(s, 2), **v} for s, t, v, _ in scored}
+                                  "scores": scores, "kept": keep,
+                                  "culled": [t for t in order if t not in set(keep)]})
+        pick.last_scores = scores
         return keep
 
     pick.last_scores = {}

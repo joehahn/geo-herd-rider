@@ -343,25 +343,40 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # survived on merit or on noise: velocity carries weight 4.0 of ~8 and is the scan-over-scan
     # change in the MATCH COUNT, which a generic catalyst word inflates.
     _cv = (entry or {}).get("coverage") or {}
-    # THE RANKER THAT ACTUALLY CULLED THIS SCAN, when one ran. evrank replaced evscore's
-    # velocity+breadth cull on 2026-09-08; its five judgements and the key they combine into are
-    # printed in full, INCLUDING the two that are scored but deliberately left OUT of the key, so a
-    # reader can see what was weighed and what was only observed.
+    # THE RANKER THAT ACTUALLY CULLED THIS SCAN, when one ran. There is no formula to reprint any
+    # more: one LLM call per scan puts the live events in order and the cull takes the top
+    # max_events. So this prints the POSITION, and the model's own reason where it gave one.
+    # `pct` is the rank as a position within its own scan (1.00 = best of that scan), which is what
+    # makes ranks comparable when one scan holds 12 events and the next holds 40. It is NOT a
+    # quality score and is deliberately not shown as one.
     _er = (_cv.get("evrank") or {}) if isinstance(_cv, dict) else {}
     if _er:
-        _r2 = f" · rank {rank[0]} of {rank[1]} live" if rank else ""
-        _span = _er.get("spans_a_month")
-        L.append(
-            f"**Event rank.** total **{float(_er.get('key', 0)):.1f}**{_r2}  \u2014  "
-            f"*catalyst* {_er.get('catalyst_strength', '?')}/5 + "
-            f"*market reach* {_er.get('market_impact', '?')}/5 + "
-            f"*arc progress* {_er.get('arc_progress', '?')}/5 + "
-            f"\u00bd\u00d7*thesis alignment* {_er.get('thesis_alignment', '?')}/5 + "
-            f"*lasts a month* {'yes +1' if _span else 'no +0'}  ·  "
-            f"**not counted:** *exit* {_er.get('exit_quality', '?')}/5 "
-            f"*(measured backwards \u2014 a clean two-sided exit on an occurrence that never "
-            f"arrives is the ev214 shape)*. "
-            + (f"*{_trim(str(_er.get('why') or ''), 120)}*" if _er.get("why") else ""))
+        if "rank" in _er:
+            # RANK, OUT OF WHAT, AND WHETHER IT SURVIVED. An earlier draft printed the percentile as
+            # "top 11% cut by max_events", which reads as though the top 11% is what gets cut -- the
+            # opposite of the truth for a rank-4 event that was kept. The cap is the only thing this
+            # ranking is used for, so say plainly which side of it the event fell.
+            _of = int(_er.get("of") or (rank[1] if rank else 0))
+            _kept = _er.get("kept")
+            L.append(f"**Event rank.** **{_er['rank']} of {_of}** live at this scan"
+                     + ("" if _kept is None else
+                        (" \u2014 kept." if _kept else " \u2014 **RETIRED** by the cap."))
+                     + (f"  *{_trim(str(_er.get('why') or ''), 130)}*" if _er.get("why") else ""))
+        else:
+            # A PRE-2026-09-09 JOURNAL, scored by the five-metric rubric. Rendered in its own terms
+            # rather than forced into the new shape, so an old report still describes what old code
+            # actually did.
+            _r2 = f" · rank {rank[0]} of {rank[1]} live" if rank else ""
+            L.append(
+                f"**Event rank** (five-metric rubric, retired 2026-09-09)**.** "
+                f"total **{float(_er.get('key', 0)):.1f}**{_r2}  \u2014  "
+                f"*catalyst* {_er.get('catalyst_strength', '?')}/5 + "
+                f"*market reach* {_er.get('market_impact', '?')}/5 + "
+                f"*arc progress* {_er.get('arc_progress', '?')}/5 + "
+                f"\u00bd\u00d7*thesis alignment* {_er.get('thesis_alignment', '?')}/5 + "
+                f"*lasts a month* {'yes +1' if _er.get('spans_a_month') else 'no +0'}  ·  "
+                f"**not counted:** *exit* {_er.get('exit_quality', '?')}/5. "
+                + (f"*{_trim(str(_er.get('why') or ''), 120)}*" if _er.get("why") else ""))
     # COVERAGE RANK (evscore) IS NOT PRINTED. It was retired as the cull's ranker on 2026-09-08,
     # and rendering it from a journal that no longer stamps it INVENTED numbers -- ev585 showed
     # "score 0.0 · 0 independent desks · 0 matching articles" purely from .get(..., 0) defaults on a
@@ -1025,7 +1040,11 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         def _rank_key(k):
             c = _cov_now[k]
             er = c.get("evrank") or {}
-            return -float(er["key"]) if "key" in er else -float(c.get("score") or 0)
+            if "rank" in er:
+                return float(er["rank"])                  # the ranker's own order, 1 = best
+            if "key" in er:
+                return -float(er["key"])                  # retired rubric, higher was better
+            return -float(c.get("score") or 0)            # evscore, when it is the live ranker
         _cov_ord = sorted(_cov_now, key=_rank_key)
         _cov_rank = {k: (i + 1, len(_cov_ord)) for i, k in enumerate(_cov_ord)}
         _by_tk, _co = {}, collections.defaultdict(list)
@@ -1158,37 +1177,36 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             # BRIEF ON PURPOSE -- this file is a debugging doc, not a user-facing one. The RANGE is
             # derived from the weights rather than written down, so it cannot drift from them the way
             # a hand-typed "0-17.5" already did (the real ceiling is 18.5).
-            import evrank as _evr
-            _mx = 5 * sum(_evr.WEIGHTS.values()) + _evr.SPAN_BONUS
-            # ONE VOCABULARY. The formula used to print the internal field names
-            # (catalyst_strength, market_impact) while the bullets and the per-event lines used the
-            # display names -- the same quantities under two names on one page.
-            _disp = {"catalyst_strength": "catalyst", "market_impact": "market reach",
-                     "arc_progress": "arc progress", "thesis_alignment": "thesis alignment"}
-            _wt = " + ".join(
-                (f"*{_disp.get(k, k)}*" if w == 1.0 else
-                 f"{'\u00bd' if w == 0.5 else w}\u00d7*{_disp.get(k, k)}*")
-                for k, w in _evr.WEIGHTS.items())
-            L += ["", "## How the event score works", "",
-                  f"**total = {_wt} + (1 if *lasts a month*)** \u2014 range 0\u2013{_mx:g}.",
+            L += ["", "## How events are ranked", "",
+                  "One LLM call per scan puts every live event in order, best first &mdash; there is "
+                  "no formula and no sub-scores to re-add. It is told what this book bets on: a "
+                  "ticker the press has already NAMED while the story is still early and "
+                  "under-noticed, held until the awaited thing happens. It ranks on how **early**, "
+                  "how **under-noticed** and how **specific** each opportunity is, and it is shown "
+                  "no prices, returns or position sizes &mdash; ranking by likely payoff is a "
+                  "forecast, which non-negotiable #1 forbids it to make.",
                   "",
-                  "- ***catalyst*** \u2014 one specific occurrence, with subject, status, ideally a "
-                  "date. Standing condition that can end: 3\u20134. Theme or a company's *hope*: 0\u20131.",
-                  "- ***market reach*** \u2014 how much of the market it could move. Reach only, never "
-                  "direction or size.",
-                  "- ***arc progress*** \u2014 has it MOVED since opening? New dated milestones: 4\u20135. "
-                  "Same standing state repeated: 0\u20131. First scan: 3.",
-                  "- ***thesis alignment*** \u2014 does every vehicle have its own reason from THIS "
-                  "catalyst? Several tickers sharing one sentence: 1.",
-                  "- ***lasts a month*** \u2014 +1 if it looks likely to run a month or more from opening.",
+                  "It is told explicitly that a new event&#39;s thin history is **not** a mark "
+                  "against it. There is no separate reserved slot for new events any more: the "
+                  "event cull used to keep one as well, and two mechanisms doing one job is how the "
+                  "retired rubric accreted. It was also not load-bearing &mdash; measured over the "
+                  "canonical run, newborn events were culled at 32% against 36% for older ones, so "
+                  "they were never the ones being squeezed. (`cull_fresh_slots` still applies to the "
+                  "WATCHLIST cull, which is a different stage.)",
                   "",
-                  "***exit*** is scored and printed but left OUT of the total. Across 303 events a "
-                  "HIGHER exit score went with a WORSE outcome \u2014 events that a counter eventually "
-                  "retired scored better on their exit than events the agent itself ended \u2014 so "
-                  "counting it would push the ranking the wrong way. A well-formed two-sided exit on "
-                  "an occurrence that simply never arrives is the reason.",
+                  "*rank* below is that order and *score* is simply the rank reversed and "
+                  "normalised, so 1.00 is the best event of its scan. **Lowest is what "
+                  f"`max_events` ({int(fm.get('max_events') or 0)}) retires.** Where the model gave "
+                  "a reason for an event, it is printed with it.",
                   "",
-                  "Within each section below, events are listed highest total first.", ""]
+                  "This replaced a five-metric rubric (catalyst strength, market reach, arc "
+                  "progress, thesis alignment, exit quality) summed with hand-set weights. Measured "
+                  "over two full curations that composite ranked forward winners at chance or worse, "
+                  "four of its five terms did not discriminate at all once event lifetime was "
+                  "controlled, and one holistic judgement was never worse &mdash; at a "
+                  "eighteenth of the cost, since it is one call per scan rather than one per event.",
+                  "",
+                  "Within each section below, events are listed best-ranked first.", ""]
 
         if _new_funded or _new_unfunded:
             L += ["", "## Opened this scan", ""]
