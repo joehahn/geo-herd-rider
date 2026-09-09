@@ -33,6 +33,7 @@ import datetime as _dt
 import json
 import re
 import statistics
+import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -2952,6 +2953,30 @@ def main(argv=None) -> int:
     except ValueError:
         _rel = _rep_dir
     print(f"  reports: {len(_reps)} written to {_rel}", flush=True)
+
+    # ---- THE EVENT AUDIT, beside the reports -----------------------------------------------------
+    # A report describes ONE scan and carries the replay-time facts no audit can reconstruct -- what
+    # was funded, at what weight, what came closest. The audit is the other half: EVERY event in the
+    # run as one compact block, joining the journal, the decision log and the run log, with the
+    # birth provenance and the death cause spelled out. Whole-run debugging reads this; the reports
+    # are for reading a scan. Dumped here so the artifact exists for a reader rather than only
+    # inside a tool call, and so `--reports N` can stay small without losing the deep history.
+    # Render-only, no LLM and no network, so it costs a second and cannot fail the page.
+    try:
+        _aud = ROOT / "scripts" / "event_audit.py"
+        if _aud.exists():
+            _apath = Path(a.out).resolve().parent / f"{_arm}-event-audit.txt"
+            _ares = subprocess.run([sys.executable, str(_aud), "--run", str(a.run), "--all-scans"],
+                                   capture_output=True, text=True, timeout=300)
+            if _ares.returncode == 0 and _ares.stdout.strip():
+                _apath.write_text(_ares.stdout)
+                _nf = _ares.stdout.count("\n=== ") or _ares.stdout.count("\n\n")
+                print(f"  event audit: {_apath.name} ({len(_ares.stdout) // 1024} KB)", flush=True)
+            else:
+                print(f"  event audit skipped (exit {_ares.returncode}): "
+                      f"{(_ares.stderr or '').strip()[:160]}", file=sys.stderr)
+    except Exception as _e:  # noqa: BLE001 -- the audit is an extra, never a reason to lose the page
+        print(f"  event audit skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
     _rep_rows = [[f'<a href="reports/{esc(r["file"])}">{esc(r["date"])}</a>',
                   str(r["live"]), str(r["funded"]),
                   f'{r["opened"]}&nbsp;/&nbsp;{r["exited"]}',

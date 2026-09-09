@@ -18,6 +18,7 @@ regressions rather than impressions:
   RESTATES      a vehicle clause restates the catalyst instead of a mechanism
   ONE-SIDED     the exit's branches do not point in different directions    (ev585)
   WHY-MISMATCH  the ranker's `why` names a field that is not its lowest score
+  SUBJECT-DROPPED  the event no longer holds the ticker its catalyst is about
   NEVER-JUDGED  opened and retired before any event agent judged it -- 31% of v33
   NO-SCORE      an event that was live at a scan carries no evrank record
 
@@ -193,6 +194,19 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
         scored_c = [(sc, c) for sc, c in scored_c if sc >= 0.5]
         if scored_c:
             own = max(scored_c, key=lambda x: x[0])[1]
+    # THE SUBJECT, when the run recorded one. Curations from 2026-09-09 stamp `opened_on` -- the
+    # ticker whose thesis became the catalyst -- so the audit can say outright when an event has
+    # shed the very name it is about and is being carried by a peer. Dropping it is sometimes RIGHT
+    # (a probe into NVIDIA helps AMD), so this is a flag to read, never a verdict.
+    _subj = e.get("opened_on")
+    if _subj:
+        _held_now = set((ents[-1].get("vehicles") if ents else None) or e.get("vehicles") or [])
+        if _held_now and _subj not in _held_now:
+            flags.append("SUBJECT-DROPPED")
+            L.append(f"  SUBJECT   {_subj} — the catalyst is about it, and it is NO LONGER held "
+                     f"(now {', '.join(sorted(_held_now))})   [SUBJECT-DROPPED]")
+        else:
+            L.append(f"  SUBJECT   {_subj} (the others are peers)")
     if own:
         asg = {a["ticker"]: a["event"] for a in (mr or {}).get("assigned", [])}
         L.append(f"  BIRTH     scout proposed {own.get('ticker')}"
