@@ -2571,14 +2571,14 @@ def main(argv=None) -> int:
               "shape loses in 15 of 17 curations out of sample.",
               "c-momgain", 519, side=True, width=692),   # 692 wide, height 25% under that
         panel_rec("Event score vs what the event earned",
-              "<b>Does a higher-scoring event actually make more money?</b> One dot per EVENT: "
-              "horizontally its score &mdash; the median of its own <code>evrank</code> totals over "
-              "the scans it was ranked, since it is re-scored every scan and the cull acts on all of "
-              "them &mdash; and vertically its realized P&amp;L divided by the number of rebalance "
-              "periods the optimizer actually funded it. Per event and not per event-period, so one "
-              "long-held name counts once instead of dominating; and a median rather than a mean, "
-              "because a single event&#39;s P&amp;L is heavy-tailed enough to drag any average it "
-              "lands in. The purple line is that median within a score bin and the bars are "
+              "<b>Does a higher-scoring event actually make more money?</b> Every funded event goes "
+              "into a score BUCKET &mdash; its score is the median of its own <code>evrank</code> "
+              "totals over the scans it was ranked, since it is re-scored every scan and the cull "
+              "acts on all of them &mdash; and each bucket is drawn at the median of its events&#39; "
+              "realized P&amp;L divided by the number of rebalance periods the optimizer actually "
+              "funded them. Per event and not per event-period, so one long-held name counts once "
+              "instead of dominating its bucket; and a median rather than a mean, because a single "
+              "event&#39;s P&amp;L is heavy-tailed enough to drag any average it lands in. The bars are "
               "<b>sd/&radic;n</b> over the events in the bin &mdash; the standard deviation of the "
               "mean. (The median&#39;s own asymptotic error is about 1.25&times; that, so these bars "
               "are the tighter of the two, not the looser.) "
@@ -3566,17 +3566,11 @@ function draw() {{
       // The heavy line is the median of those dots within a score bin, and the bars are
       // sd/sqrt(n) over the events in the bin -- the standard deviation of the mean.
       const SG = BK.scoregain;
-      if (SG && SG.pts.length >= 12 && document.getElementById('c-scoregain')) {{
-        const _sgT = [{{
-          type:'scatter', mode:'markers', name:'one event',
-          x:SG.pts.map(z => z.s), y:SG.pts.map(z => z.g),
-          marker:{{size:6.5, opacity:0.5, line:{{width:0}},
-                   color:SG.pts.map(z => z.g < 0 ? ST.critical : (z.g > 0 ? ST.good : p.text2))}},
-          customdata:SG.pts.map(z => [z.e, z.c, z.n]),
-          hovertemplate:'%{{customdata[0]}} — %{{customdata[1]}}'
-                       + '<br>score %{{x:.2f}} · $%{{y:,.0f}} per funded period'
-                       + '<br>funded %{{customdata[2]}} period(s)<extra></extra>'
-        }}];
+      if (SG && SG.bins && SG.bins.length && document.getElementById('c-scoregain')) {{
+        // BUCKETS ONLY, no per-event cloud. 128 dots of heavy-tailed P&L drown the very question
+        // the panel asks -- whether the buckets differ -- and invite reading one outlier as a
+        // finding. Each bucket's span and n ride in its hover instead.
+        const _sgT = [];
         if (SG.bins && SG.bins.length) {{
           _sgT.push({{
             type:'scatter', mode:'lines+markers', name:'median, ±1 s.d. of the mean',
