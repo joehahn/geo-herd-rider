@@ -929,6 +929,28 @@ def main(argv=None) -> int:
             _lg2 = list(_bt.get("log") or [])
             _anc2 = [str(_r2.get("week"))[:10] for _r2 in _lg2]
             _pe: dict = collections.defaultdict(lambda: [0.0, 0])   # eid -> [gain, funded periods]
+            # VEHICLES AS AT THE ANCHOR, not the event's lifetime union. src/curation_report.py
+            # already learned this the hard way -- falling back to the whole-life set let ev204,
+            # entered 2026-03-28, claim credit for every earlier anchor at which USO happened to be
+            # funded for some OTHER event, and print "funded at 3 of 2 scans". Same trap here: the
+            # union counts a period as funded because a ticker the event picked up later was held
+            # then. Cumulative, because a vehicle stays claimed once the event has named it.
+            _cveh: dict = {}
+            for _k4, _e4 in ev.items():
+                _acc, _seq = set(), []
+                for _x4 in (_e4.get("entries") or []):
+                    _acc |= {str(_v4).upper() for _v4 in (_x4.get("vehicles") or [])}
+                    _seq.append((str(_x4.get("date", ""))[:10], set(_acc)))
+                _cveh[_k4] = _seq
+
+            def _veh_asof(_k4, _d4):
+                _out = set()
+                for _dt4, _st4 in _cveh.get(_k4, []):
+                    if _dt4 <= _d4:
+                        _out = _st4
+                    else:
+                        break
+                return _out
             for _i2, _r2 in enumerate(_lg2):
                 _d0 = _anc2[_i2]
                 _d1 = _anc2[_i2 + 1] if _i2 + 1 < len(_anc2) else (_dates_l[-1] if _dates_l else _d0)
@@ -948,11 +970,23 @@ def main(argv=None) -> int:
                 _gw = _crep.event_gain(_gain, _gs, _dates_l, _claim, _elife, lo=_d0, hi=_d1)
                 for _eid2, _e2 in ev.items():
                     _lo2, _hi2 = _elife.get(_eid2, (None, None))
-                    if _lo2 is None or _d0 < _lo2 or (_hi2 and _d0 > _hi2):
-                        continue                      # not live at this anchor
-                    if not (set(_e2.get("vehicles") or []) & _fund):
+                    # THE EVENT MUST LIVE THROUGH THE PERIOD, not merely be alive on its first day.
+                    # A weight set at this anchor is held across the month that FOLLOWS it, so an
+                    # event that ends ON the anchor holds nothing during the period being measured
+                    # -- event_gain rightly credits it nothing, and counting the period as "funded"
+                    # then divided a real zero into the median. ev117 was the specimen: its only
+                    # funded period was 2024-07-06 -> 2024-08-05 and it died on 2024-07-06.
+                    if _lo2 is None or _d0 < _lo2 or (_hi2 and _d0 >= _hi2):
+                        continue
+                    if not (_veh_asof(_eid2, _d0) & _fund):
                         continue                      # live but the optimizer funded none of it
-                    _pe[_eid2][0] += float(_gw.get(_eid2, 0.0))
+                    # ABSENT IS NOT ZERO. `.get(eid, 0.0)` turned "no attribution exists for this
+                    # event in this window" into "this event earned exactly nothing", which is a
+                    # different claim and it was the one filling the medians.
+                    _gv2 = _gw.get(_eid2)
+                    if _gv2 is None:
+                        continue
+                    _pe[_eid2][0] += float(_gv2)
                     _pe[_eid2][1] += 1
             _pts = []
             for _eid2, (_g2, _n2) in _pe.items():
@@ -2583,8 +2617,11 @@ def main(argv=None) -> int:
               "mean. (The median&#39;s own asymptotic error is about 1.25&times; that, so these bars "
               "are the tighter of the two, not the looser.) "
               "P&amp;L is split between events that share a ticker, by the same rule the reports "
-              "use. Most funded events are funded for a SINGLE period and a quarter of them earn "
-              "exactly nothing, so a bin median sitting on zero is the measurement, not a gap. "
+              "use. Buckets hold EQUAL NUMBERS of events, not equal score widths, so the low bucket "
+              "spans a wider score range than the tight middle ones &mdash; with 93 events that is "
+              "18-21 apiece. An event counts as funded for a period only if it is still live "
+              "THROUGH it: a weight set at an anchor is held across the month that follows, so an "
+              "event ending ON that anchor holds nothing during the period being measured. "
               "Read it against non-negotiable #6: this is one curation, and the bars say how little "
               "one curation can settle.",
               "c-scoregain", 430),
