@@ -2103,7 +2103,18 @@ def event_agent_v2(client, anchor, event, entries, news, effort="high"):
             # WHAT WAS PENDING WHEN THIS EVENT OPENED, in the scout's words. It is the answer to
             # "what would end this thesis", written before any of your journal existed.
             + (f"Pending when entered (the scout's own words): {_pn}\n" if _pn else "")
-            + f"Known vehicles: {', '.join(sorted(event['vehicles']))}\nWeek ending {anchor.date()}.\n\n"
+            # WHICH VEHICLE IS THE SUBJECT. The list below is flat, so nothing told the agent which
+            # name the catalyst is actually ABOUT and which are its peers -- and the rule under
+            # `vehicles` ("prune peers, not the subject") had nothing concrete to bind to. ev183
+            # opened on "SANOFI's Sarclisa secures FDA approval" holding {SNY, REGN} and returned
+            # from its FIRST scan holding REGN alone, carrying REGN's clause about a different drug.
+            # Naming the subject rather than vetoing its removal is deliberate: ev34 ("Google
+            # considers dropping BROADCOM") was RIGHT to shed AVGO and hold MRVL, because there the
+            # catalyst hurts the subject and helps the peer. Only the agent can tell those apart.
+            + f"Known vehicles: {', '.join(sorted(event['vehicles']))}\n"
+            + (f"The catalyst is ABOUT {event['opened_on']} — the others are peers.\n"
+               if event.get("opened_on") and event["opened_on"] in event["vehicles"] else "")
+            + f"Week ending {anchor.date()}.\n\n"
             f"Your journal so far (oldest -> newest):\n{digest}\n\nThis week's news:\n{nb}\n\n"
             "Re-check the EXIT condition against your WHOLE journal, then write this week's note and "
             "pick the current vehicle(s) (JSON).")
@@ -2429,8 +2440,19 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
             # That is how ev339 ended up with "exit if/when the DOE loan is withdrawn or cancelled":
             # nothing told it the pending thing was a DOE DECISION, so it guessed at the failure
             # branch and never named the loan being granted.
+            # WHICH TICKER THE CATALYST IS ABOUT. Nothing recorded this, so the event agent saw a
+            # flat vehicle list with no way to tell the subject from its peers -- and dropped the
+            # subject. ev183 opened on "SANOFI's Sarclisa secures FDA approval" holding {SNY, REGN}
+            # and came back from its very first scan holding REGN alone, carrying REGN's clause
+            # about a different drug (Dupixent) on a catalyst about Sarclisa. The prompt rule
+            # forbidding this did not bind, which is what "ENFORCED, not merely instructed" is for
+            # here -- except the enforcement cannot be "always keep it": ev34 ("Google considers
+            # dropping BROADCOM") was RIGHT to shed AVGO and hold MRVL, because the catalyst hurts
+            # the subject and helps the peer. Only the agent can tell those apart, so what it needs
+            # is not a veto but the fact: this is the name the catalyst is about.
             events[f"ev{nid}"] = {"id": f"ev{nid}", "catalyst": c["thesis"], "status": "live",
                                   "vehicles": {tk, *peers}, "names": {_nm} if _nm else set(),
+                                  "opened_on": tk,
                                   "pending_next": str(c.get("pending_next") or "").strip(),
                                   "exposure": _merge_exposure(c.get("exposure"), None),
                                   "entries": []}
