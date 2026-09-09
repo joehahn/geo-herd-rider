@@ -2552,7 +2552,18 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
                      "pending_next": ev.get("pending_next", ""),
                      "exposure": ev.get("exposure") or [],
                      "milestones": (ev.get("entries") or [{}])[-1].get("milestones", []),
-                     "exit_condition": (ev.get("entries") or [{}])[-1].get("exit_advice", ""),
+                     # AT BIRTH THERE IS NO EXIT YET. The cull runs BEFORE the event agents write
+                     # this scan's entries, so a newborn's exit_advice is empty and the judge was
+                     # scoring exit_quality on a blank field -- arbitrarily, since it sometimes read
+                     # the blank as 0-1 ("exit condition is blank") and sometimes inferred 4-5 from
+                     # pending_next. Measured: mean 2.10 on first-scan entries against 4.44 later,
+                     # which is not newborn exits being worse but half the population having none.
+                     # The scout's pending act IS the exit at birth -- the agent prompt already says
+                     # "START FROM WHAT WAS PENDING" -- so say that instead of showing nothing.
+                     "exit_condition": ((ev.get("entries") or [{}])[-1].get("exit_advice", "")
+                                        or (f"(not written yet -- this event is new; the pending act "
+                                            f"it would exit on is: {ev.get('pending_next','')})"
+                                            if ev.get("pending_next") else "")),
                      # the arc, in the agent's own words -- a trail that repeats "no decision yet"
                      # is what arc_progress is asked to score 0-1, and it is only visible here.
                      "recent_assessments": [str(x.get("assessment") or "")

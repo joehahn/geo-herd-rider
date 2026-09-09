@@ -261,7 +261,7 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                  cum: float | None, date: str, note: str = "", rets: dict | None = None,
                  history: list | None = None, read: list | None = None, proposals: dict | None = None,
                  assigned: dict | None = None, exposure: dict | None = None,
-                 rank: tuple | None = None, quality: dict | None = None,
+                 rank: tuple | None = None, quality: dict | None = None, namemap: dict | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -548,6 +548,21 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
             # "the scout's own thesis" stopped being true in v31: the EVENT AGENT restates the
             # clause every scan now, so attributing it to the scout would misname who to hold
             # responsible when one is wrong.
+            # THE COMPANY THE CATALYST NAMES BUT THE BOOK DOES NOT HOLD. ev582 is the specimen:
+            # "Microsoft signs $500M deal with CONSTELLATION ENERGY" held MSFT, NEE and VST -- two
+            # thematic neighbours and not the counterparty. The scout never proposed CEG at all, so
+            # no gate could have caught it; it is a peer-expansion defect, and the only way a reader
+            # sees it is if the report says which named company is missing. Names come from the
+            # scout's own company field, so this asserts nothing the run did not already record.
+            _missing = []
+            for _nm, _tk in (namemap or {}).items():
+                if len(_nm) > 4 and _nm in (e.get("catalyst") or "").lower() \
+                        and _tk not in e.get("vehicles", []):
+                    _missing.append(_tk)
+            if _missing:
+                _rows.append(f"- **not held** — the catalyst names "
+                             f"{', '.join(sorted(set(_missing))[:3])}, which is not a vehicle on "
+                             f"this event")
             L += ["", f"<details><summary>Each vehicle's thesis — why the ticker is attached to "
                       f"this event</summary>", ""] + _rows + ["", "</details>"]
     # INPUT 3: the journal digest, in the form agent._journal_digest builds it. This is the memory
@@ -761,7 +776,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                   gain: dict, gain_series: dict, dates: list, capital: float,
                   run: str, fingerprint: str, corpus: str, profile: str,
                   page_title: str, archive_dir=None, palette=None, back: str = "cbt.html",
-                  filter_version: int = 1) -> list[dict]:
+                  filter_version: int = 1, last_n: int = 0) -> list[dict]:
     """Write one report per anchor into `out_dir`; return a row per report for the page's link table.
 
     THE DIRECTORY IS CLEARED FIRST, for this arm only. A cadence change moves every anchor date, so
@@ -810,6 +825,14 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         for v in e.get("vehicles") or []:
             claim[v].append(k)
     anchors = [str(r.get("week"))[:10] for r in log]
+    # ONLY THE LAST N SCANS, when asked. A 37-scan run rewrites 37 files on every rebuild -- diffs
+    # of ~15,000 lines in which a real change is invisible -- and deep history is now read through
+    # scripts/event_audit.py, which covers every event in the run rather than one scan's slice. What
+    # a report still holds that the audit cannot is REPLAY-TIME fact: what was funded, at what
+    # weight, and what came closest. That is worth keeping for recent scans and not for all of them.
+    # The page's link table is built from what this returns, so fewer reports means fewer links,
+    # never a dead one. 0 = every scan.
+    _skip = set(anchors[:-last_n]) if last_n and last_n < len(anchors) else set()
     # WAS THIS EVENT EVER FUNDED, at any anchor up to now? "Held going in" was the wrong test for
     # which exits deserve a full block: ev157 made +$10,832 over ten scans and then exited from a
     # period it happened not to be held in, so the most profitable exit in the run got a one-line
@@ -851,6 +874,8 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
     # (date, ticker) -> the scout's own thesis, from the run's decision log when it kept one.
     proposals: dict = {}
     assigned: dict = {}          # (date, ticker) -> the event the MATCHER put it in
+    namemap: dict = {}           # company name -> ticker, learned from the scout's OWN proposals,
+                                 # so "the catalyst names X and does not hold it" quotes the run
     try:
         for _ln in (Path(run) / "decisions.jsonl").read_text().splitlines():
             _r = json.loads(_ln)
@@ -863,6 +888,8 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                     _tk = str(_p.get("ticker", "")).strip().upper()
                     _th = str(_p.get("thesis") or "")
                     proposals[(_r.get("context"), _tk)] = ("proposed as", _th)
+                    if _p.get("company") and _tk:
+                        namemap[str(_p["company"]).strip().lower()] = _tk
                     # A PEER carries no thesis of its own; it rides in on someone else's proposal
                     # and can end up the funded name. Recorded so the report can say so instead of
                     # attributing it to whatever unrelated proposal happens to share its ticker.
@@ -871,7 +898,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                         proposals.setdefault(_k, ("rode in as a peer of " + _tk + ", whose thesis was",
                                                   _th))
     except Exception:  # noqa: BLE001 -- a run curated without --decisions simply has none
-        proposals, assigned = {}, {}
+        proposals, assigned, namemap = {}, {}, {}
     archive_dir = Path(archive_dir) if archive_dir else None
 
     def _expo(k: str) -> dict:
@@ -893,6 +920,8 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
 
     for i, r in enumerate(log):
         d0 = str(r.get("week"))[:10]
+        if d0 in _skip:
+            continue
         pool = _pool(d0)
 
         def _inputs(k):
@@ -1152,7 +1181,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                 _h, _rd, _m, _ok = _inputs(k)
                 L += _event_block(k, ev[k], _all_f[k][1] if k in _all_f else live[k][1],
                                   weights=weights if k in _new_funded else {}, date=d0, rets=rets,
-                                  proposals=proposals, assigned=assigned, rank=_cov_rank.get(k),
+                                  proposals=proposals, assigned=assigned, namemap=namemap, rank=_cov_rank.get(k),
                                   quality=_qual.get(k), exposure=_expo(k),
                                   per=(per.get(k) if (d1 and k in _new_funded) else None),
                                   cum=(cum.get(k) if k in _new_funded else None),
@@ -1163,7 +1192,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         if held:
             for k in held:
                 _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned,
+                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned, namemap=namemap,
                                   rank=_cov_rank.get(k), quality=_qual.get(k),
                                   exposure=_expo(k),
                                   per=per.get(k) if d1 else None, cum=cum.get(k),
@@ -1238,7 +1267,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                          + (f", last held {_fd[-1]}" if _fd[-1] not in (_st, d0) else ""))
                 L += _event_block(k, ev[k], x, weights=held_before, date=d0, per=None, rank=_cov_rank.get(k), quality=_qual.get(k),
                                   cum=cum.get(k), history=_h, read=_rd, matched=_m, cap=ev_cap,
-                                  exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned,
+                                  exact=_ok, rets=rets_prev, proposals=proposals, assigned=assigned, namemap=namemap,
                                   exposure=_expo(k),
                                   note=("held going in" if _fd[-1] == d0 else _note))
             for _lbl, _grp in (("Resolved before the book acted, never funded", _quick),
@@ -1274,7 +1303,7 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                           else "")
             _h, _rd, _m, _ok = _inputs(k)
             L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None, rank=_cov_rank.get(k), quality=_qual.get(k),
-                              date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned,
+                              date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned, namemap=namemap,
                                   exposure=_expo(k),
                               history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
         if not missed:

@@ -98,6 +98,10 @@ def main(argv=None) -> int:
     # never saw. The row below now names the path explicitly so the mismatch is visible.
     ap.add_argument("--corpus", default=_canon.CANON_CORPUS)
     ap.add_argument("--out", default=None)
+    ap.add_argument("--reports", type=int, default=0, metavar="N",
+                    help="write a curation report for only the last N scans (0 = every scan). A "
+                         "3-year run rewrites 37 report files per build otherwise; whole-run "
+                         "debugging goes through scripts/event_audit.py instead.")
     ap.add_argument("--bootstrap", action="store_true",
                     help="render CBS (docs/cbs.html) -- the curation of the BOOTSTRAP corpus "
                          "(src/bootstrap_corpus) under investor_profile.forward.md. Reads the "
@@ -2781,11 +2785,15 @@ def main(argv=None) -> int:
     if _lat.get("date") and _lat["date"] not in {str(r.get("week"))[:10] for r in _rlog}:
         _rlog.append({"week": _lat["date"], "watchlist": ";".join(_lat.get("watchlist") or []),
                       "weights": _lat.get("weights") or {}, "week_return": None})
+    # HOW MANY SCANS GET A REPORT. Default every scan; --reports N keeps only the last N, which is
+    # what a 3-year run wants -- 37 rebuilt files per build is a diff nobody can read, and whole-run
+    # debugging is scripts/event_audit.py's job now.
     _reps = _crep.write_reports(
         _rep_dir, arm=_arm, ev=ev, log=_rlog, fm=_lfm0, panel=_panel,
         gain=_gain, gain_series=_gs, dates=(_daily0.get("dates") or []), capital=_cap,
         run=str(a.run), fingerprint=str(_fp_run), profile=PROFILE_FILE, page_title=_name,
         palette=(LIGHT, DARK), back=_page,   # one theme definition for the pages and the reports
+        last_n=int(getattr(a, "reports", 0) or 0),
         # The archived weekly pools, so a report can reconstruct the exact article slice each
         # event-agent read. Absent for a run curated before archiving: the reports still build, they
         # just cannot show the inputs.

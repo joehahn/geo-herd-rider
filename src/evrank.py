@@ -87,7 +87,10 @@ thesis_alignment — does EVERY vehicle have its own reason to be attached, foll
   catalyst backwards ("cuts lift crude" -> "benefits from higher oil prices") is 1-2. Distinct
   specific mechanisms are 4-5.
 
-exit_quality — is the exit condition OBSERVABLE, and do its two branches point in OPPOSITE
+exit_quality — A NEW EVENT HAS NOT WRITTEN ITS EXIT YET, and its brief says so, quoting the pending
+  act instead. Score that pending act as the exit it implies; do NOT score the absence as 0. Only a
+  brief that offers neither an exit nor a pending act is a 0.
+  Otherwise: is the exit condition OBSERVABLE, and do its two branches point in OPPOSITE
   directions? "exit if/when the DOE decision is granted or refused" is 5: granted and refused are
   opposites and either is datable. CHECK THE BRANCHES, do not just count them -- "exit if/when
   US-Iran tensions ease or resolution is reached" reads two-sided and is NOT: easing and resolution
