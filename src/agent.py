@@ -577,7 +577,7 @@ showcas expo cut
 # head noun is. "further demand growth" is still rejected, on demand+growth.
 _NOT_OCCURRENCE = """
 upsid downsid momentum sentiment rally surg soar slump plung realiz materializ
-outperform underperform rerat re-rat multipl pricetarget target rating downgrad reiterat valuat
+outperform underperform rerat re-rat multipl pricetarget target rating downgrad upgrad reiterat valuat
 appreci gain growth demand adopt uptak strength pric
 continu sustain ongoing improv further remain progress
 """.split()
@@ -1616,6 +1616,13 @@ forbade that exact sentence, and the loophole is where unfalsifiable exits came 
 the conflict escalates or subsides"). If the driver is a standing condition with no act that
 resolves it, this is a THEME, not an event: say so with thesis_live=false rather than writing an
 exit that can never be checked off.
+
+THE EXIT POINTS FORWARD, NEVER BACK AT THE CATALYST'S OWN ACT. The catalyst reports something that
+has ALREADY happened; an exit that names that same act can never fire on anything new. "Standard
+Power SELECTS NuScale's SMR technology" with "exit if/when Standard Power selects or rejects
+NuScale's SMR technology" is the shape -- the selection is done, so the condition is either already
+true or forever false. Name the act that comes NEXT in the same procedure (the contract is signed or
+abandoned; the first module is ordered or the project shelved).
 
 BOTH BRANCHES MUST BE DISCRETE OCCURRENCES, NOT THE TWO ENDS OF A DIAL. Naming two directions is not
 enough if neither is a thing that can be reported as having happened on a date. "exit if/when the
