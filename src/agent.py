@@ -1171,7 +1171,7 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
             print(f"  scout: {len(chunks)} chunks -> {sum(len(g) for g in per)} raw -> {len(cands)} unique "
                   f"({sum(1 for c in cands if c.get('_gem'))} gem-beat)",
                   file=sys.stderr)
-    out, _dropped_resolved, _restated, _not_occurrence = [], [], [], []
+    out, _dropped_resolved, _restated, _not_occurrence, _restated_peers = [], [], [], [], []
     for c in (cands if not max_new_events else cands[:max_new_events]):   # max_new_events=0 -> uncapped inflow
         # ENFORCED, not merely instructed. Measured 2026-08-11: 8 of 9 one-scan events were past-tense
         # catalysts ("contract awarded", "merger announced", "earnings reported") that the event agent
@@ -1200,6 +1200,23 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
             m = ScoutCandidate(**{k: v for k, v in c.items() if not k.startswith("_")})
         except Exception:  # noqa: BLE001
             continue
+        # ...AND THE SAME TEST ON THE PEERS. The gate above reads `c["ticker"]` only, while
+        # process_week adds {ticker, *peers} to the event's vehicles -- so a retired ticker walked
+        # straight back in as somebody else's peer. AMD was retired off "US probes NVIDIA's
+        # dominance in AI chips" and returned twice on that identical thesis, as MBLY's peer and
+        # then SMCI's; MRK, IMMX, ALLR and SNTI all came back as peers on the same Tarsus lotilaner
+        # catalyst they had already been retired from. Measured by reconstructing the roster scan by
+        # scan: 162 of 2,782 peer slots on v33 (6%), 23 of 621 on the slice, and reading them they
+        # are re-chases without exception. This drops the PEER only, never the candidate -- the
+        # primary's own thesis has already passed the gate and is not in question.
+        if m.peers:
+            _keep_p, _drop_p = [], []
+            for _p in m.peers:
+                _prt = (retired_map or {}).get(str(_p).strip().upper())
+                (_drop_p if (_prt and _restates_resolved(_pn, _prt)) else _keep_p).append(_p)
+            if _drop_p:
+                m.peers = _keep_p
+                _restated_peers.extend(_drop_p)
         tk = m.ticker.strip()
         us_like = bool(tk) and "." not in tk and tk.isalpha() and len(tk) <= 6
         if not us_like and (m.company or tk):   # foreign / dotted / company-as-ticker -> RESOLVE the US symbol live
@@ -1215,6 +1232,9 @@ def scout(client, anchor: pd.Timestamp, arts: list[dict], retired: str = "",
     if _restated:
         print(f"  scout: dropped {len(_restated)} retired ticker(s) restating a resolved catalyst "
               f"({', '.join(_restated[:6])}) ({anchor.date()})", file=sys.stderr)
+    if _restated_peers:
+        print(f"  scout: dropped {len(_restated_peers)} retired PEER(s) re-chasing their own dead "
+              f"catalyst ({', '.join(_restated_peers[:6])}) ({anchor.date()})", file=sys.stderr)
     if _dropped_resolved:
         print(f"  scout: dropped {len(_dropped_resolved)} already-resolved candidate(s) "
               f"({', '.join(_dropped_resolved[:6])}) ({anchor.date()})", file=sys.stderr)

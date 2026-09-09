@@ -16,7 +16,6 @@ regressions rather than impressions:
   NOT-A-PARTY   the catalyst names a company that is not a vehicle          (ev582: Constellation)
   PEER-ARRIVAL  a vehicle arrived on someone else's proposal                (ev582: NEE off GEV)
   RESTATES      a vehicle clause restates the catalyst instead of a mechanism
-  UNDATED-EXIT  the exit names no date/docket, so it can only fire by luck  (the ev214 shape)
   ONE-SIDED     the exit's branches do not point in different directions    (ev585)
   WHY-MISMATCH  the ranker's `why` names a field that is not its lowest score
   NEVER-JUDGED  opened and retired before any event agent judged it -- 31% of v33
@@ -72,12 +71,18 @@ _UNDATED = re.compile(r"no date announced|date (?:not|un)|pending\s*$", re.I)
 
 
 def exit_flags(exit_txt: str) -> list[str]:
+    """Flags on the exit condition. A MISSING DATE IS NOT ONE OF THEM.
+
+    UNDATED-EXIT was here and has been removed: it fired on 103 of 113 judged events while the
+    reading that motivated it turned out to be wrong. "the EC investigation concludes, no date
+    announced" is a perfectly sound exit -- an opened investigation MUST conclude, and the date
+    simply is not public yet. What separates a firable exit from a dead one is whether the
+    catalyst's own procedure REQUIRES the act, not whether a calendar entry exists for it. A flag
+    that fires on nearly everything teaches the reader to ignore it, which is worse than absent."""
     f = []
     t = (exit_txt or "").strip()
     if not t or t.lower() in {"none", "n/a"}:
         return ["NO-EXIT-TEXT"]
-    if not _DATED.search(t):
-        f.append("UNDATED-EXIT")
     # branches: split on or/unless/either, then ask whether they differ
     parts = [p.strip() for p in re.split(r"\bor\b|\bunless\b|/", t) if len(p.strip()) > 3]
     if len(parts) < 2:
@@ -175,7 +180,8 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
         exit_txt = ents[-1].get("exit_advice") or ""
         ef = exit_flags(exit_txt)
         flags += ef
-        L.append(f"  EXIT      {exit_txt}" + (f"   [{', '.join(ef)}]" if ef else "   [ok]"))
+        _note = list(ef) + ([] if _DATED.search(exit_txt or "") else ["no date (not a defect)"])
+        L.append(f"  EXIT      {exit_txt}" + (f"   [{', '.join(_note)}]" if _note else "   [ok]"))
 
     # BIRTH: what the scout proposed, and what the matcher did with it
     sr = scout.get(born); mr = match.get(born)
