@@ -69,7 +69,46 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v33_guard"   # v31 -> v33 on 2026-09-08. THE SAME-TICKER GUARD, RELAXED.
+CANON_RUN = "data/cbt_3yr_v34_procedural"   # v33 -> v34 on 2026-09-09. AN EVENT MUST SIT INSIDE A
+                                      # PROCEDURE. Six debugging iterations, each read out of the
+                                      # events themselves rather than off a scoreboard. The press
+                                      # reports acts that have ALREADY happened; this book needs the
+                                      # act that has NOT, and the two only connect when the reported
+                                      # act sits in a procedure obliging a next step -- an opened
+                                      # investigation must conclude, a filed application must be
+                                      # decided. Where none exists the scout reached for a theme and
+                                      # everything downstream failed.
+                                      #   PROMPTS: pending_next must be an act the catalyst's own
+                                      #     procedure REQUIRES; both exit branches must be discrete
+                                      #     occurrences, not two ends of a dial; the exit points
+                                      #     FORWARD, never back at the act the catalyst reports; the
+                                      #     structural-driver exception is deleted; the agent may
+                                      #     prune peers but not the SUBJECT, and is now TOLD which
+                                      #     vehicle that is (`opened_on`).
+                                      #   GATE BUGS, all found by reading what the gates ADMITTED:
+                                      #     _DATED_PENDING matched `mar` inside "market" and `dec`
+                                      #     inside "decision" (a date short-circuits the gate, so
+                                      #     any pending_next containing "market" was admitted
+                                      #     unread); `financ` matched "financials" as well as
+                                      #     "financing"; `upgrad` was missing while `downgrad` was
+                                      #     present; and the retired roster checked only the primary
+                                      #     ticker, so a retired name walked back in as somebody
+                                      #     else's peer -- AMD returned twice on the identical
+                                      #     NVIDIA antitrust thesis it had been retired from.
+                                      #   SCORING: exit_quality was being scored on a field that does
+                                      #     not exist yet -- the cull runs BEFORE the agents write
+                                      #     the scan's entries, so a newborn's exit was blank and the
+                                      #     judge read the blank arbitrarily. First-scan zeros: 23 in
+                                      #     v33, ZERO here.
+                                      # THE SWEEP: cancellation median 61.6% -> 38.8%, best 30.3% ->
+                                      # 12.7%, median Sharpe 0.71 -> 1.33. Median final rose 1.76x,
+                                      # which #6 puts INSIDE the unmeasurable band, and dispersion
+                                      # got worse (CV 0.389 -> 0.583) -- so the P&L is not the claim.
+                                      # NO CONFIG CHANGE: the profile already sits on the marginal
+                                      # optimum for lookback (30) and drop_unfunded (4), and the two
+                                      # knobs that differ are a plateau and a noise-width apart.
+                                      #
+                                      # Previous note, v31 -> v33 on 2026-09-08. THE SAME-TICKER GUARD, RELAXED.
                                       # A candidate whose ticker was already held could never open a
                                       # second event, however unrelated its thesis. Measured on 385
                                       # dropped candidates: 21% were CLEARLY DISTINCT (<20% word
@@ -367,7 +406,18 @@ CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 
                                       # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
                                       # (cbt_3yr_v21_evscans12) so code is the only variable; that it
                                       # is not CANON_RUN is a separate open question.
-CANON_SWEEP = "data/sweep_cbt_3yr_v33_guard.json"   # 2026-09-08, over the promoted v33 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v34_procedural.json"   # 2026-09-09, over the promoted v34 curation.
+                                      # 5,040 cells, BOOK knobs only, replay over the frozen journal.
+                                      # AGAIN NO CONFIG CHANGE, and this time the marginals AGREE
+                                      # with the profile rather than contradicting themselves as
+                                      # v33's did: lookback_period_days peaks cleanly at 30 (the
+                                      # profile's value) and drop_unfunded_weeks is monotone to 4
+                                      # (also the profile's). max_watchlist 12-30 is a plateau and
+                                      # concentration_cap 0.25 vs 0.4 is a noise width. The profile's
+                                      # own cell is $293,265 at 31.4% cancelled, Sharpe 1.83 --
+                                      # comfortably better than the grid median on all three.
+                                      #
+                                      # Previous note, 2026-09-08, over the promoted v33 curation.
                                       # 5,040 cells, BOOK knobs only, replay over the frozen journal.
                                       # NO CONFIG CHANGE came out of it: the best-region view and the
                                       # marginals DISAGREE on concentration_cap and drop_unfunded_weeks,
