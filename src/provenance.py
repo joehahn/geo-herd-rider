@@ -69,7 +69,24 @@ CANON_CORPUS = "data/backtest_3yr_v5"
 # `verify` only because unrecorded knobs cannot be checked. mb1 stamped all 25 at creation.
 # NOTE the gap this exposes: corpus_id is path + article count, and enrichment changes NEITHER,
 # so nothing here could have told you v9 was stale. That wants a text-state digest.
-CANON_RUN = "data/cbt_3yr_v34_procedural"   # v33 -> v34 on 2026-09-09. AN EVENT MUST SIT INSIDE A
+CANON_RUN = "data/cbt_3yr_v37_nocull"       # v34 -> v37 on 2026-09-10. NO EVENT CULL:
+                                      # max_events 0. THIS TURNS THE RANKER OFF ENTIRELY, not just the cull --
+                                      # backtest_gdelt.py:388 gates the ranker on `max_events AND picker_model`,
+                                      # so a zero cap never constructs it. v37's log carries no 'event-ranker
+                                      # ON' line and 0 of its 601 events carry a rank or pct. Said wrongly here
+                                      # when v37 was promoted ('still ORDERS every event') and corrected the
+                                      # same day off the journal. CONSEQUENCE: CBT plot 4 (score-vs-gain) is
+                                      # EMPTY on this curation -- '0 funded events with a rank' -- which is
+                                      # correct behaviour for a run with no ranker, not a plotting bug.
+                                      # The only surviving cut is max_watchlist. This is the CONTROL that six
+                                      # successive LLM rankers had failed against: removing the ranking layer
+                                      # entirely gave identical escalator capture (10 vs 10), BETTER
+                                      # cancellation (40% vs 47%), events living 44% longer (2.86 vs 1.99
+                                      # scans) and 61.8% vs 50.8% resolving on their own terms. Keeping the
+                                      # order while dropping the cull keeps the useful half and pays for the
+                                      # cheap half -- BUT SEE ABOVE: no ranker ran, so there was no useful half
+                                      # to keep. v37 is the pure null. 37 scans, 2023-08 .. 2026-07.
+                                      # PRIOR: v33 -> v34 on 2026-09-09. AN EVENT MUST SIT INSIDE A
                                       # PROCEDURE. Six debugging iterations, each read out of the
                                       # events themselves rather than off a scoreboard. The press
                                       # reports acts that have ALREADY happened; this book needs the
@@ -406,7 +423,18 @@ CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 
                                       # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
                                       # (cbt_3yr_v21_evscans12) so code is the only variable; that it
                                       # is not CANON_RUN is a separate open question.
-CANON_SWEEP = "data/sweep_cbt_3yr_v34_procedural.json"   # 2026-09-09, over the promoted v34 curation.
+CANON_SWEEP = "data/sweep_cbt_3yr_v37_nocull.json"       # 2026-09-10, over the promoted v37.
+                                      # 5,880 cells, BOOK knobs only, replay over the frozen journal.
+                                      # THE risk_aversion AXIS WAS RESTORED for this sweep -- [0.0, 0.5, 1.0,
+                                      # 2.0, 5.0, 10.0, 16.0]. An earlier trim had cut 0.5/1.0/2.0/3.0 as
+                                      # 'known bad', which hid the fact that the axis is monotone and that the
+                                      # profile was sitting at its WORST end. Do not trim a swept axis to the
+                                      # values a previous sweep liked.
+                                      # IT MOVED FOUR KNOBS: max_watchlist 8 -> 16, concentration_cap
+                                      # 0.25 -> 0.6, drop_unfunded_weeks 2 -> 4, risk_aversion 1.0 -> 10.0.
+                                      # All four are BOOK knobs, so this promotion is a REBUILD, not a
+                                      # re-curation. Per-knob evidence is in investor_profile.backtest.md.
+                                      # PRIOR: 2026-09-09, over the promoted v34 curation.
                                       # 5,040 cells, BOOK knobs only, replay over the frozen journal.
                                       # AGAIN NO CONFIG CHANGE, and this time the marginals AGREE
                                       # with the profile rather than contradicting themselves as

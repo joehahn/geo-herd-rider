@@ -411,7 +411,8 @@ def _trend_rank(tickers: list[str], panel, asof, lookback: int) -> dict:
 
 
 def _ranked_cull(ev: list[str], keep: int, panel, asof, lookback: int,
-                 first_k: dict, k: int, fresh_slots: int, fresh_scans: int) -> list[str]:
+                 first_k: dict, k: int, fresh_slots: int, fresh_scans: int,
+                 ev_rank: dict | None = None) -> list[str]:
     """Choose which `keep` live events hold capital, mechanically.
 
     Replaces `ev[:keep]` over an ALPHABETICAL list -- which, once live events outnumbered the cap,
@@ -433,6 +434,18 @@ def _ranked_cull(ev: list[str], keep: int, panel, asof, lookback: int,
     # sole caller guards with `if max_watch and ...`; a second caller would not know to.
     if not keep or len(ev) <= keep:
         return ev
+    # THE EVENT RANKING, WHEN IT IS OFFERED. Without this the curator's judgement stops at the event
+    # cull and a SECOND, unrelated cull decides the watchlist on trailing price momentum -- measured
+    # on the canonical run, 24 surviving events nominate 39 tickers into 8 slots, so 79% of what the
+    # ranking chose is discarded by a rule that never reads it. A ticker claimed by several events
+    # takes its BEST rank, since one weak event does not make a name worse. Trend still breaks ties,
+    # so the two signals compose rather than one replacing the other, and the freshness reserve below
+    # is skipped: the ranker is already told a new event's thin history is not a demerit, and running
+    # both would be two mechanisms doing one job.
+    if ev_rank:
+        _r = {t: float(ev_rank.get(t, 10 ** 6)) for t in ev}
+        _tr = _trend_rank(ev, panel, asof, lookback)
+        return sorted(ev, key=lambda t: (_r[t], -_tr.get(t, float("-inf")), t))[:keep]
     # `t in first_k` GUARDS THE SEED. first_k is populated only from scan rows, but the live set
     # also carries `starter_watchlist` names no agent ever named. Under the old `.get(t, k)` those
     # scored k - k == 0 -- permanently "brand new" -- AND sorted first, because the sort is on
@@ -717,7 +730,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
              freeze_panel=None,
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
              overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None,
-             seed_holdings: dict | None = None, live_vehicles: dict | None = None) -> dict:
+             seed_holdings: dict | None = None, live_vehicles: dict | None = None,
+             event_rank: dict | None = None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
 
@@ -996,7 +1010,8 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                     ev = [t for t in keep if t in ev][:max_watch] or ev[:max_watch]
                 elif cull_rank == "trend":
                     ev = _ranked_cull(ev, max_watch, panel, days[i], lookback,
-                                      first_k, k, fresh_slots, fresh_scans)
+                                      first_k, k, fresh_slots, fresh_scans,
+                                      ev_rank=(event_rank or {}).get(str(a.date())))
                 else:
                     ev = ev[:max_watch]         # legacy keep-first-N over sorted(holding) = ALPHABETICAL
             uni = list(dict.fromkeys(ev + [t for t in always if t in valid]))

@@ -83,6 +83,16 @@ A NEW EVENT HAS ALMOST NO HISTORY AND THAT IS NOT A MARK AGAINST IT. An event on
 be a far better opportunity than one grinding on for months with nothing new. Judge the opportunity,
 not the paperwork.
 
+BUT AGE ALONE IS NOT A DEMERIT EITHER, and this is the harder half. "Early" is about where the
+STORY is, not how long this book has been carrying the event. An event admitted four scans ago whose
+awaited act is still ahead of it is exactly as good an opportunity as it was on day one -- often
+better, because the wait is nearly over. What demotes a live event is that its pending act has
+ARRIVED (the edge is spent), RECEDED (the date slipped, the deal is stalling) or gone QUIET (scans
+passing with nothing said about it). Rank on that, never on the passage of time.
+
+The cost of getting this wrong is a book that keeps discarding theses it picked correctly, one scan
+before they would have paid.
+
 BE RUTHLESS. Only a handful of these can be funded at once, and everything below the line is
 invisible to the book. A well-formed event that the whole market can already see is worth less here
 than a specific early one it cannot.

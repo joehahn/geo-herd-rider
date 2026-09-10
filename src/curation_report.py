@@ -262,6 +262,7 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
                  history: list | None = None, read: list | None = None, proposals: dict | None = None,
                  assigned: dict | None = None, exposure: dict | None = None,
                  rank: tuple | None = None, quality: dict | None = None, namemap: dict | None = None,
+                 badge: str | None = None,
                  matched: int = 0, cap: int = 0, exact: bool = True) -> list[str]:
     """One event, funded or not. Same shape either way, so the two sections read alike.
 
@@ -301,7 +302,10 @@ def _event_block(eid: str, e: dict, entry: dict, *, weights: dict, per: float | 
     # date, because that pairing is the one a reader checks first.
     # THE SCAN'S DATE IN THE HEADING. A block is a snapshot of one event at one anchor, and the
     # reports are linked individually, so one opened on its own gave no date until the Catalyst line.
-    L = [f"### {eid} · {date} · {_trim(e.get('catalyst'), 110)}"
+    # THE BADGE RIDES IN THE HEADING as a sentinel, because _inline escapes every < it sees, so raw
+    # HTML here would render as literal text. _md_to_html's h3 branch turns it back into a span.
+    L = [(f"@@B:{badge}@@" if badge else "")
+         + f"### {eid} · {date} · {_trim(e.get('catalyst'), 110)}"
          + (f" · *{note}*" if note else "")]
     L.append(f"**Catalyst** {_since} · {_trim(e.get('catalyst'), 200)}")
 
@@ -714,6 +718,13 @@ def _md_to_html(lines: list) -> str:
             continue
         if st == "---":
             _close(0); html.append("<hr>"); continue
+        if st.startswith("@@B:") and "@@### " in st:
+            _b, _, _rest = st[4:].partition("@@")
+            _lbl = {"new": "NEW", "cont": "CONTINUING", "unfunded": "UNFUNDED"}.get(_b, _b.upper())
+            _close(0)
+            html.append(f'<h3><span class="badge b-{_esc(_b)}">{_esc(_lbl)}</span>'
+                        f'{_inline(_rest[4:])}</h3>')
+            continue
         if st.startswith("### "):
             _close(0); html.append(f"<h3>{_inline(st[4:])}</h3>"); continue
         if st.startswith("## "):
@@ -778,6 +789,11 @@ details {{ margin:6px 0; background:var(--card); border:1px solid var(--line); b
   padding:7px 11px; }}
 summary {{ cursor:pointer; color:var(--text2); font-size:13.5px; }}
 details ul {{ font-size:13px; }}
+.badge {{ display:inline-block; font-size:11px; font-weight:700; letter-spacing:.06em;
+  padding:2px 7px; border-radius:5px; margin-right:9px; vertical-align:2px; color:#fff; }}
+.b-new {{ background:#16a34a; }}
+.b-cont {{ background:#2563eb; }}
+.b-unfunded {{ background:#b45309; }}
 .nav {{ font-size:13px; color:var(--text2); border-bottom:1px solid var(--line);
   padding-bottom:11px; margin-bottom:20px; }}
 </style></head><body><div class="wrap">
@@ -1178,63 +1194,60 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
             # derived from the weights rather than written down, so it cannot drift from them the way
             # a hand-typed "0-17.5" already did (the real ceiling is 18.5).
             L += ["", "## How events are ranked", "",
-                  "One LLM call per scan puts every live event in order, best first &mdash; there is "
-                  "no formula and no sub-scores to re-add. It is told what this book bets on: a "
-                  "ticker the press has already NAMED while the story is still early and "
-                  "under-noticed, held until the awaited thing happens. It ranks on how **early**, "
-                  "how **under-noticed** and how **specific** each opportunity is, and it is shown "
-                  "no prices, returns or position sizes &mdash; ranking by likely payoff is a "
-                  "forecast, which non-negotiable #1 forbids it to make.",
+                  "One AI call ranks every live event at each scan, best first, and there is no "
+                  "formula behind it. This solution bets on a ticker the press has already NAMED "
+                  "while the story is still early and under-noticed, so that is what the ranking "
+                  "looks for \u2014 how early, how under-noticed, how specific. The ranker is shown "
+                  "no prices, returns or position sizes, because ranking by likely payoff is a "
+                  "forecast and this solution does not forecast.",
                   "",
-                  "It is told explicitly that a new event&#39;s thin history is **not** a mark "
-                  "against it. There is no separate reserved slot for new events any more: the "
-                  "event cull used to keep one as well, and two mechanisms doing one job is how the "
-                  "retired rubric accreted. It was also not load-bearing &mdash; measured over the "
-                  "canonical run, newborn events were culled at 32% against 36% for older ones, so "
-                  "they were never the ones being squeezed. (`cull_fresh_slots` still applies to the "
-                  "WATCHLIST cull, which is a different stage.)",
+                  f"*rank* below is that order. The lowest-ranked are what `max_events` "
+                  f"({int(fm.get('max_events') or 0)}) retires, and where the model gave a reason it "
+                  "is printed with the event.",
                   "",
-                  "*rank* below is that order and *score* is simply the rank reversed and "
-                  "normalised, so 1.00 is the best event of its scan. **Lowest is what "
-                  f"`max_events` ({int(fm.get('max_events') or 0)}) retires.** Where the model gave "
-                  "a reason for an event, it is printed with it.",
-                  "",
-                  "This replaced a five-metric rubric (catalyst strength, market reach, arc "
-                  "progress, thesis alignment, exit quality) summed with hand-set weights. Measured "
-                  "over two full curations that composite ranked forward winners at chance or worse, "
-                  "four of its five terms did not discriminate at all once event lifetime was "
-                  "controlled, and one holistic judgement was never worse &mdash; at a "
-                  "eighteenth of the cost, since it is one call per scan rather than one per event.",
-                  "",
-                  "Within each section below, events are listed best-ranked first.", ""]
+                  "Every live event is listed below in that order, best first, with a coloured label for "
+                  "whether it is NEW this scan, CONTINUING, or live but UNFUNDED. Events that "
+                  "exited at this scan follow after.", ""]
 
-        if _new_funded or _new_unfunded:
-            L += ["", "## Opened this scan", ""]
-            for k in _new_funded + _new_unfunded:
+        # ONE LIST, RANK ORDER, CATEGORY AS A BADGE. These were three sections -- opened this scan,
+        # funded continuing, live but unfunded -- which meant the page could not be read down the
+        # ranking: a rank-3 unfunded event sat forty blocks below a rank-19 funded one, and the
+        # ranking is the thing this report exists to check. So rank decides the order and the
+        # category rides along as a coloured label. EXITS STAY SEPARATE, below: those events are
+        # over, and not mixing what the book holds with what it just closed is what the original
+        # split was actually protecting.
+        _cat = {}
+        for k in _new_funded:
+            _cat[k] = ("new", weights, True, "funded at birth")
+        for k in _new_unfunded:
+            _cat[k] = ("new", {}, False, "opened unfunded")
+        for k in held:
+            _cat[k] = ("cont", weights, True,
+                       (f"vehicle also claimed by {', '.join(_co[k])}" if _co.get(k) else None))
+        for k in missed:
+            _vs = sorted(ev[k].get("vehicles") or [])
+            _why = ("survived the cull, then the optimizer gave it no weight" if _on_wl(k)
+                    else f"culled by max_watchlist {int(fm.get('max_watchlist') or 0)}")
+            _rp = _pct(panel, _vs, d0, d1) if d1 else None
+            _cat[k] = ("unfunded", {}, False,
+                       _why + (f" · its vehicles ran {_rp * 100:+.1f}% over the period"
+                               if _rp is not None else ""))
+        _ordered = sorted(_cat, key=lambda k: (_cov_rank.get(k, (10**6, 0))[0], k))
+        if _ordered:
+            L += ["", "## Every live event this scan, best-ranked first", ""]
+            for k in _ordered:
+                _bd, _w, _fund, _note = _cat[k]
                 _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1] if k in _all_f else live[k][1],
-                                  weights=weights if k in _new_funded else {}, date=d0, rets=rets,
-                                  proposals=proposals, assigned=assigned, namemap=namemap, rank=_cov_rank.get(k),
-                                  quality=_qual.get(k), exposure=_expo(k),
-                                  per=(per.get(k) if (d1 and k in _new_funded) else None),
-                                  cum=(cum.get(k) if k in _new_funded else None),
-                                  note=("funded at birth" if k in _new_funded else "opened unfunded"),
+                _entry = (_all_f[k][1] if k in _all_f else live[k][1])
+                L += _event_block(k, ev[k], _entry, weights=_w, date=d0, rets=rets,
+                                  proposals=proposals, assigned=assigned, namemap=namemap,
+                                  rank=_cov_rank.get(k), quality=_qual.get(k), exposure=_expo(k),
+                                  badge=_bd, note=_note,
+                                  per=(per.get(k) if (_fund and d1) else None),
+                                  cum=(cum.get(k) if _fund else None),
                                   history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
-
-        L += ["", "## Funded (continuing)", ""]
-        if held:
-            for k in held:
-                _h, _rd, _m, _ok = _inputs(k)
-                L += _event_block(k, ev[k], _all_f[k][1], weights=weights, date=d0, rets=rets, proposals=proposals, assigned=assigned, namemap=namemap,
-                                  rank=_cov_rank.get(k), quality=_qual.get(k),
-                                  exposure=_expo(k),
-                                  per=per.get(k) if d1 else None, cum=cum.get(k),
-                                  history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok,
-                                  note=(f"vehicle also claimed by {', '.join(_co[k])}"
-                                        if _co.get(k) else ""))
         else:
-            L += ["*No funded position rests on a thesis that was live at this anchor. What the "
-                  "book holds is listed below.*", ""]
+            L += ["*No live events at this anchor.*", ""]
 
         # THE EXIT IS THE MOST INFORMATIVE MOMENT AN EVENT HAS, and until now it was invisible: an
         # event that resolves sets thesis_live false in the same entry, so it drops out of `live`,
@@ -1268,7 +1281,9 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
         #   ran     everything else unfunded: aged out at the cap, exit condition met, or ended
         #           with nothing stated.
         _paid, _quick, _ran = [], [], []
-        for k, x in exited_now:
+        # EXITS IN RANK ORDER TOO. Every other section is listed best-ranked first and the explainer
+        # says so, so an exit list left in journal order quietly contradicted the page.
+        for k, x in sorted(exited_now, key=lambda kx: (_cov_rank.get(kx[0], (10**6, 0))[0], kx[0])):
             _n = len([y for y in (ev[k].get("entries") or []) if str(y.get("date", ""))[:10] <= d0])
             if [d for d in (fund_dates.get(k) or []) if d <= d0]:
                 _paid.append((k, x, _n))
@@ -1321,26 +1336,6 @@ def write_reports(out_dir, *, arm: str, ev: dict, log: list, fm: dict, panel,
                          + (f", exit_case `{ec}`" if ec and ec != "none" else "")
                          + ". The watchlist is sticky, so the position outlived the thesis.")
             L.append("")
-
-        # EVERY live-but-unfunded event, not a sample. This file is for confirming that all events
-        # were scored and ranked; a three-event excerpt cannot show that. If these grow unwieldy the
-        # right lever is a cap by RANK (say, the bottom N are summarised in one line each) rather
-        # than an arbitrary head-slice, so the reader still sees the whole ordering.
-        L += ["## Live but unfunded (continuing)", ""]
-        for k in missed:
-            vs = sorted(ev[k].get("vehicles") or [])
-            why = ("survived the cull, then the optimizer gave it no weight" if _on_wl(k)
-                   else f"culled by max_watchlist {int(fm.get('max_watchlist') or 0)}")
-            rp = _pct(panel, vs, d0, d1) if d1 else None
-            note = why + (f" · its vehicles ran {rp * 100:+.1f}% over the period" if rp is not None
-                          else "")
-            _h, _rd, _m, _ok = _inputs(k)
-            L += _event_block(k, ev[k], live[k][1], weights={}, per=None, cum=None, rank=_cov_rank.get(k), quality=_qual.get(k),
-                              date=d0, note=note, rets=rets, proposals=proposals, assigned=assigned, namemap=namemap,
-                                  exposure=_expo(k),
-                              history=_h, read=_rd, matched=_m, cap=ev_cap, exact=_ok)
-        if not missed:
-            L += ["*Every live event was funded.*", ""]
 
         # THE VERDICT LINE, and the reason the report exists. If the events the book declined to hold
         # keep beating the ones it held, the cull is the thing to fix, and no amount of reading

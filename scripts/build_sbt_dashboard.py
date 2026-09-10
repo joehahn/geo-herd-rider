@@ -818,8 +818,11 @@ def main(argv=None) -> int:
         return f'<table class="cfg"><thead><tr>{h}</tr></thead><tbody>{b}</tbody></table>'
 
     reg_tbl = _ctable(
-        ["config &mdash; watch &middot; cap &middot; lookback &middot; drop &middot; risk "
-         "&middot; trade", "score", "final (median &plusmn; SE)", "annualized", "sharpe",
+        ["config &mdash; watch &middot; cap &middot; lookback &middot; drop "
+         "&middot; risk",                     # NO "&middot; trade": min_trade_size was pinned
+                                              # out of the grid and the label outlived it, so the
+                                              # header read six names over five values.
+         "score", "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
          "pc-funded", "PCR", "PCR vs SPY"], _rows, _cls)

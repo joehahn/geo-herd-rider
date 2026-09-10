@@ -82,11 +82,21 @@ GRID = {
     # still dead the cells cost ~2 min and the exclusion becomes trustworthy again.
     "lookback_period_days": [14, 21, 30, 45, 60],
     "drop_unfunded_weeks":  [0, 2, 4],
-    # DROPPED 0.5, 1.0, 2.0, 3.0 (all zero in the top-100 regions) and 6.0. 24 remains the top edge
-    # and still has the best median Sharpe, so the caveat that predates this trim stands: the turn is
-    # near 24 by a 1-D probe, but this grid cannot see past it.
-    # 32 ADDED 2026-09-01 to see past the top edge, as the note above says this grid cannot.
-    "risk_aversion":        [4.0, 8.0, 12.0, 16.0, 24.0, 32.0],
+    # RE-EXTENDED DOWNWARD 2026-09-10, reversing the trim below. 0.5/1.0/2.0/3.0 were dropped for
+    # "zero appearances in the top-100 regions" -- measured on a 2-3 name book under a disabled
+    # concentration cap, and wrong for the book this became. A 1-D probe on the v37 journal put the
+    # WHOLE of 0.5-2.0 above everything the grid contained: risk_aversion 2 finished $616K against
+    # $212K at 10, with cancellation 19-24% against 45%, and the shape is a genuine interior hump --
+    # ra=0 collapses to $63K because with no aversion the optimizer goes all-in on the best trailing
+    # mean. So the old grid sat entirely on the wrong side of the peak and could not see it.
+    #   0.0 IS KEPT AS THE EDGE, not as a candidate: it is the degenerate case, and having it in the
+    #   grid is what makes the interior peak visible rather than another "best value is the bottom
+    #   edge" reading -- the pattern this file records being misread three times already.
+    #   CAVEAT ON THE MAGNITUDE: those 1-D numbers came at concentration_cap 0.8, where the top cell
+    #   held 90% of the book in ONE position. At cap 0.25 the same region gives ~$218K, so most of
+    #   the gain was concentration, not aversion. The axis still belongs here; the headline does not.
+    #   DROPPED 12, 24, 32 to pay for the new values -- all three sit past the turn.
+    "risk_aversion":        [0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 16.0],
     # REMOVED FROM THE GRID 2026-09-01, pinned at the profile's 0.0. Not a trim for speed: as a box
     # LOWER bound the knob is malformed. A lower bound applies to EVERY asset, so it cannot express
     # "hold nothing OR hold >= x" -- that is a disjunction, hence a cardinality-constrained MIQP,

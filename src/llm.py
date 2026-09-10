@@ -240,7 +240,20 @@ class OpenRouterClient(LLMClient):
                       file=_sys.stderr, flush=True)
                 _t.sleep(_w)
         r = _r
-        text = r.choices[0].message.content or ""
+        # A RESPONSE WITH NO CHOICES IS AN ERROR PAYLOAD, NOT A COMPLETION. The SDK returns 200 with
+        # `choices=None` when the upstream provider errors mid-stream, and indexing [0] then raises
+        # TypeError OUTSIDE the retry block above -- which killed a 37-scan curation at scan 25 after
+        # 8.4 hours and $19.73 on 2026-09-10. Treated as an empty completion: every caller here
+        # already handles "" (the scout drops the chunk, the event agent carries the week forward),
+        # so one bad call costs one call rather than the whole run.
+        _ch = getattr(r, "choices", None)
+        if not _ch:
+            _err = getattr(r, "error", None) or getattr(r, "message", None)
+            print(f"  llm returned no choices for {label}"
+                  + (f" ({str(_err)[:120]})" if _err else "") + "; treating as empty",
+                  file=_sys.stderr, flush=True)
+            return ""
+        text = _ch[0].message.content or ""
         u = r.usage
         # Record only the token cost (accurate). OpenRouter's :online web plugin is billed
         # separately (~$4/1k results) and isn't in `usage`; it's small relative to tokens, so
