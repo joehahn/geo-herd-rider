@@ -636,7 +636,11 @@ def main(argv=None) -> int:
         # look merely quiet -- so the replay is handed the live-vehicle map explicitly.
         _bt = _fh.backtest(_scans, _lfm0, capital=_cap, daily=True, picker=_pick, panel=_panel,
                            seed_holdings=_seed_w, freeze_panel=_pf,
-                           live_vehicles=_fh.live_vehicles_from_journal(J))
+                           live_vehicles=_fh.live_vehicles_from_journal(J),
+                           # CONTRACT GUARD, measured INERT on v37 (identical book with it on and
+                           # off), so wiring it in is provably safe here and enforces "every funded
+                           # vehicle carries a why" on whatever is curated next.
+                           unexplained=_fh.unexplained_from_journal(J))
         # PICK UP THE PANEL THE REPLAY JUST FROZE. `_panel` is read from data/<run>/panel.csv above,
         # but on the FIRST build of a run that file does not exist yet -- backtest() creates it via
         # `freeze_panel`. So `_panel` stayed None, and both price-derived panels died silently on

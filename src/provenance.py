@@ -543,6 +543,7 @@ BOOK_KNOBS = frozenset({
     "concentration_cap", "risk_aversion",
     "lookback_period_days", "optimizer_lookback_days",
     "min_trade_size", "t_update_days", "risk_free_rate", "min_dollar_volume_usd", "exclude_young_reverse_split",
+    "min_vol_pctile",                          # quiet floor, applied in backtest() beside the liquidity gate
     "initial_investment_usd",
     "always_include", "starter_watchlist", "defensive_ticker",
     "cull_rank", "cull_fresh_slots", "cull_fresh_scans",

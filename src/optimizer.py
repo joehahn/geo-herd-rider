@@ -227,6 +227,14 @@ _FINANCIAL_MODEL_DEFAULTS: dict[str, Any] = {
     "min_dollar_volume_usd": 0,        # UNIVERSE FLOOR: a name whose TRAILING 60-day median dollar volume
                                        #   (close x volume, measured strictly BEFORE the decision) is under
                                        #   this cannot be funded. 0 = OFF. Book knob: replay-time only.
+    "min_vol_pctile": 0.0,             # QUIET FLOOR: drop the least-volatile share of EACH SCAN's
+                                       #   candidate pool before the max_watchlist cull, ranked on
+                                       #   trailing 60-day sd of daily returns measured strictly
+                                       #   BEFORE the decision. 0.4 = drop the quietest 40%. 0 = OFF.
+                                       #   A PERCENTILE, not an absolute floor, because the pool's
+                                       #   median volatility drifts 0.028-0.048 (1.70x) across the
+                                       #   3-year window -- a fixed floor would cut 53% of the pool
+                                       #   in one month and 17% in another. Book knob: replay-time.
     "max_silent_scans": 0,             # SILENCE CAP: retire an event after this many consecutive scans whose
                                        #   agent entry cites NO sources -- the mechanical signature of "no
                                        #   confirming news". Sibling of max_event_scans: that one retires an event

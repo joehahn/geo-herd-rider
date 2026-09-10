@@ -66,14 +66,32 @@ GRID = {
     # the same "as far as the grid goes" pattern this file warns about two axes below. Under the old
     # sizing a wider slate could not matter (min_trade_size pinned the book at 2-3 names whatever the
     # slate); with the floor off the book funds 5-7, so this axis can finally do something.
-    "max_watchlist":        [4, 6, 8, 12, 16, 20, 24, 30],
+    "max_watchlist":        [4, 6, 8, 12, 16, 20, 30],
+    # DROPPED 24 on 2026-09-10 to pay for the min_dollar_volume_usd axis. NOT a performance trim
+    # -- it is the most REDUNDANT value in the whole grid. Matched-cell comparison over the v37
+    # sweep (every other knob held equal): 20-vs-24 median ratio 1.070, differing >1.25x in 14%
+    # of pairs, and 24-vs-30 1.064 / 15%. Both are the flattest adjacent gaps on any axis here,
+    # so 20 and 30 bracket what 24 was telling us. Cut on REDUNDANCY, never on performance: the
+    # risk_aversion note below records what happened the one time this file trimmed an axis to
+    # the values a previous sweep liked.
     # 0.25 IS THE BOTTOM EDGE AND THE BEST VALUE (median Sharpe 0.81 vs 0.61 at 1.0), which is the
     # same "as far as the grid goes" pattern that has been misread as an optimum three times on this
     # file. This axis wants EXTENDING DOWNWARD (0.15, 0.20), not trimming. Left intact for now.
     # EXTENDED DOWNWARD 2026-09-01 with 0.15, 0.20, which is what the note above asked for and was
     # never done. Independently corroborated: a floor-0 cap sweep on the canonical journal put 0.25
     # top ($421,644 at risk_aversion 2) -- again at the bottom edge.
-    "concentration_cap":    [0.15, 0.20, 0.25, 0.40, 0.60, 0.80, 1.00],
+    "concentration_cap":    [0.10, 0.20, 0.40, 0.60, 0.80, 1.00],
+    # RESPACED 2026-09-10 (user): even 0.2 steps, dropping 0.15 and 0.25. 0.10 ADDED, and it is
+    # the load-bearing value now that min_vol_pctile is in the grid: the quiet floor only
+    # converts pool density into capture when the book is FLAT enough to hold names. Measured on
+    # v37 -- cap 0.10 / watch 30: 19 -> 25 escalators with dollars flat ($233K -> $212K); cap
+    # 0.60 / watch 16: 9 -> 13 escalators but $426K -> $242K. At 0.6 the book holds a median of
+    # FOUR names and the floor cannot help it. Without 0.10 the grid would report the new knob as
+    # useless while the regime it works in sat just off the bottom edge.
+    # THE TOP END STAYS. It looked redundant -- 0.6/0.8/1.0 all give a median largest position of
+    # ~54% and 4 names held -- but the matched-cell test says otherwise: 0.6-vs-0.8 median ratio
+    # 1.145 differing >1.25x in 39% of pairs, 0.8-vs-1.0 1.112 / 35%. Same book SHAPE at one
+    # config is not the same book across the grid.
     # DROPPED 7, 10 (dead: zero appearances in the top-100 regions, the top-1000 regions AND the
     # top-1000 cells -- the trend cull cannot rank on a window that short) and 60. 14 and 45 are kept
     # as the anchors either side of the 21/30 peak, so the optimum is still visibly INTERIOR.
@@ -96,7 +114,32 @@ GRID = {
     #   held 90% of the book in ONE position. At cap 0.25 the same region gives ~$218K, so most of
     #   the gain was concentration, not aversion. The axis still belongs here; the headline does not.
     #   DROPPED 12, 24, 32 to pay for the new values -- all three sit past the turn.
-    "risk_aversion":        [0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 16.0],
+    "risk_aversion":        [0.5, 1.0, 2.0, 4.0, 8.0, 12.0, 16.0],
+    # RESPACED 2026-09-10 (user): roughly geometric, adding 4/8/12 to resolve the TURN. The
+    # previous grid had only 10 and 16 above 5, and their medians were $105,047 vs $103,684 --
+    # a turn too small to locate with two points. 0.0 dropped: it was kept as the degenerate
+    # control back when this axis was unmapped, and it is mapped now (monotone up to ~10, then
+    # flat), so 0.5 is an adequate bottom edge. 16.0 stays as the top edge.
+    # DROPPED 0.5 on 2026-09-10, same redundancy basis: an interior point between 0.0 and 1.0
+    # (0.0-vs-0.5 ratio 1.134). 0.0 STAYS as the degenerate control -- it is what makes an
+    # interior peak legible instead of another "best value is the bottom edge" reading -- and
+    # 16.0 stays as the top edge for the same reason. Neither edge is ever a trim candidate.
+    # THE QUIET FLOOR, added 2026-09-10 with the knob. Drops the least-volatile share of each scan's
+    # pool before the watchlist cull. SWEPT TO FIND THE PLATEAU, NOT THE PEAK: this is a sixth axis
+    # over ONE curation, and CLAUDE.md #6 is explicit that these cells are not independent samples.
+    # 0.0 IS THE OFF CASE and is kept as the control, so the column reads as an effect rather than a
+    # ranking of three arbitrary settings. Read it against `esc`/`esc_months`, NOT against table 10's
+    # score -- the score is Sharpe + PCR-vs-SPY and is blind to escalator capture, which is the only
+    # thing this knob was adopted to buy.
+    "min_vol_pctile":       [0.0, 0.2, 0.4, 0.6],
+    # ADDED 2026-09-10, the first time this knob has ever been swept -- it was pinned at $100k on
+    # 2026-08-31 and every sweep since has held it there. It is in the grid NOW because it is the
+    # knob min_vol_pctile most plausibly fights: the quiet floor pulls the pool TOWARD small,
+    # jumpy names (price Q1, under $11, escalates at 1.93x the base rate) and this one pushes
+    # AWAY from them. Adopting a value for one while the other sits at a number chosen before it
+    # existed is how an interaction gets attributed to the wrong knob.
+    # 0 IS THE OFF CASE, kept as the control for the same reason risk_aversion keeps 0.0.
+    "min_dollar_volume_usd": [0, 100000, 1000000],
     # REMOVED FROM THE GRID 2026-09-01, pinned at the profile's 0.0. Not a trim for speed: as a box
     # LOWER bound the knob is malformed. A lower bound applies to EVERY asset, so it cannot express
     # "hold nothing OR hold >= x" -- that is a disjunction, hence a cardinality-constrained MIQP,
@@ -119,8 +162,10 @@ def _init(fm0, scans, anchors, panel, cap, freeze_panel=None):
     # corpactions.json beside the price panel. Without it both book gates fell through to LIVE
     # yfinance on every one of the 7,200 cells (measured 2026-08-31: 2,843 failed downloads in 18
     # minutes, zero cells completed). Each worker also memoises in-process as a second guard.
+    _idx = panel.index
     _W.update(fm0=fm0, scans=scans, anchors=anchors, panel=panel, cap=cap,
-              scan_dates=sorted(scans), freeze_panel=freeze_panel)
+              scan_dates=sorted(scans), freeze_panel=freeze_panel,
+              pidx=(_idx.tz_localize(None) if getattr(_idx, "tz", None) is not None else _idx))
 
 
 def _cell(combo_keys):
@@ -153,9 +198,44 @@ def _cell(combo_keys):
             _base = _ser[_ser.index <= _lo]
             if len(_pre) and len(_base) and float(_base.iloc[-1]):
                 _e[_t] = (_fd[0][:7], float(_pre.iloc[-1]) / float(_base.iloc[-1]) - 1.0)
+        # ESCALATOR CAPTURE -- names that ran >=1.5x in the 21 bars AFTER the anchor that funded
+        # them. SHOWN, NOT SCORED (see build_sbt_dashboard._MET): it is the funnel this project is
+        # steered by, and it is exactly what a Sharpe-and-PCR score cannot see, so a knob that trades
+        # dollars for escalators is invisible to table 10's ranking without this column.
+        # Read off `log`, which is keyed by the ANCHOR -- `rows` is keyed by the END of each hold
+        # period, and measuring the forward window from there scores the 21 bars AFTER the book had
+        # already sold.
+        _esc, _escm = 0, 0
+        _pi = _W["pidx"]
+        for _row in (b.get("log") or []):
+            try:
+                _i0 = int(_pi.searchsorted(pd.Timestamp(_row["week"]), side="right")) - 1
+            except Exception:  # noqa: BLE001
+                continue
+            if _i0 < 0:
+                continue
+            _hit = 0
+            for _p in str(_row.get("weights") or "").split(";"):
+                if ":" not in _p:
+                    continue
+                _t, _v = _p.rsplit(":", 1)
+                if float(_v) <= 0.01 or _t not in _W["panel"].columns:
+                    continue
+                _s = _W["panel"][_t].to_numpy()
+                if _i0 >= len(_s) - 1:
+                    continue
+                _p0 = _s[_i0]
+                if not (_p0 == _p0) or _p0 <= 0:
+                    continue
+                _seg = _s[_i0 + 1:_i0 + 22]
+                _seg = _seg[_seg == _seg]
+                if len(_seg) and _seg.max() / _p0 >= 1.5:
+                    _hit += 1
+            _esc += _hit
+            _escm += bool(_hit)
         return {**dict(zip(keys, combo)),
                 **metrics(b, _W["anchors"], fm, _W["panel"], _W["scan_dates"]),
-                "_gain": _g, "_entry": _e}
+                "esc": _esc, "esc_months": _escm, "_gain": _g, "_entry": _e}
     except Exception as e:  # noqa: BLE001 - one bad cell must not lose the grid
         return {"_error": f"{type(e).__name__}: {e}", **dict(zip(keys, combo))}
 

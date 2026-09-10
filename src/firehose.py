@@ -655,6 +655,38 @@ def live_vehicles_from_journal(journal: dict) -> dict:
     return out
 
 
+def unexplained_from_journal(journal: dict) -> dict:
+    """{anchor: {tickers no LIVE event explains at that anchor}}, for backtest(unexplained=...).
+
+    A vehicle is EXPLAINED when some event holding it that week wrote an `exposure.why` for it --
+    the one-line mechanism ("gains -- supplies components for NIO's 900V platforms"). That clause is
+    the only judgement non-negotiable #1 actually licenses the LLM to make, so a position without
+    one has skipped the whole point of the curator.
+    ANY live event suffices. A ticker can be unexplained on one event and fully explained on another
+    at the same anchor -- AMD is clause-less on three export-control events and explained on its own
+    -- and the second is a real thesis, so this returns only the names NOTHING explains.
+    Built here, off the journal, because firehose_scans.csv does not carry the clause; same
+    arrangement as live_vehicles_from_journal above, and for the same reason -- one implementation,
+    so the book and the measurement cannot disagree about what "explained" means."""
+    ev = (journal or {}).get("events") or {}
+    dates = sorted({str(x.get("date", ""))[:10]
+                    for e in ev.values() for x in (e.get("entries") or [])})
+    out: dict = {}
+    for d in dates:
+        held, ok = set(), set()
+        for e in ev.values():
+            ents = [x for x in (e.get("entries") or []) if str(x.get("date", ""))[:10] == d]
+            if not ents:
+                continue
+            en = ents[-1]
+            held |= {str(v).upper() for v in (en.get("vehicles") or e.get("vehicles") or [])}
+            for x in (en.get("exposure") or e.get("exposure") or []):
+                if isinstance(x, dict) and str(x.get("why") or "").strip():
+                    ok.add(str(x.get("ticker") or "").upper())
+        out[d] = held - ok
+    return out
+
+
 def _agent_precision(scans: dict, panel, fm: dict | None = None) -> list:
     """CURATOR-QUALITY metric, UNMASKED by the optimizer: for EVERY agent the curator created
     (one per distinct thesis/catalyst), the standalone return of its ticker over the span it was
@@ -724,6 +756,7 @@ _CORP_MEMO: dict = {}
 # min_trade_size, and none of those change whether a ticker is illiquid or in a death spiral. The
 # verdict is identical across all 7,200 cells, so it is computed ONCE per (panel, floor) and reused.
 _DVMED_MEMO: dict = {}
+_VOLSD_MEMO: dict = {}
 
 
 def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = False,
@@ -731,6 +764,7 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
              panel: pd.DataFrame | None = None, vol_panel: pd.DataFrame | None = None,
              overlay: str = OVERLAY, overlay_anchor: str = OVERLAY_ANCHOR, picker=None,
              seed_holdings: dict | None = None, live_vehicles: dict | None = None,
+             unexplained: dict | None = None,
              event_rank: dict | None = None) -> dict:
     """Weekly-rebalanced portfolio from the firehose watchlist vs SPY. With daily=True, also
     returns a daily value/allocation series (weekly weights held across days) for the dashboard.
@@ -822,6 +856,27 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
             print(f"  min_dollar_volume_usd is set but the volume panel failed "
                   f"({type(_e).__name__}: {_e}); the floor is NOT being applied", file=sys.stderr)
             vol_panel = None
+
+    # THE QUIET FLOOR (`min_vol_pctile`). Trailing 60-day sd of daily returns, PRECOMPUTED ONCE for
+    # the same reason _dvmed is (see below): a rolling stat rebuilt inside the rebalance loop took the
+    # 7,200-cell sweep from 13 minutes to 65. `.shift(1)` so the window ends STRICTLY before the day,
+    # matching the liquidity gate's look-ahead discipline.
+    # WHY IT EXISTS: measured on the canonical run, roughly half the max_watchlist slots go to names in
+    # the bottom volatility quintiles, which escalate (>=1.5x in 21 bars) at 0.2-0.7% against a 4.8%
+    # pool base rate. They are not there by accident -- _trend_rank ranks on mean/sd, so a small
+    # denominator IS a high score and the cull is structurally rewarded for keeping quiet names. Over
+    # 560 slots the kept set escalates 3.6% and the set it discards 5.4%: the cull ranks on the
+    # reciprocal of what the book is hunting. This deletes the ballast BEFORE that ranking runs.
+    # It is a CONSTRAINT, NOT A FORECAST -- a name that moves 1%/day cannot print 1.5x in 21 bars --
+    # which is why it is expected to hold where six LLM rankers landed at their null.
+    _minvolq = float(fm.get("min_vol_pctile", 0) or 0)
+    _volsd = None
+    if _minvolq > 0:
+        _skey = (len(panel.columns), hash(tuple(sorted(panel.columns))), len(panel.index))
+        _volsd = _VOLSD_MEMO.get(_skey)
+        if _volsd is None:
+            _volsd = panel.pct_change().rolling(60, min_periods=20).std().shift(1)
+            _VOLSD_MEMO[_skey] = _volsd
 
     # PRECOMPUTED ONCE, not per (ticker, week). The naive form recomputed a rolling median inside the
     # rebalance loop, which is 37 weeks x ~20 candidates per backtest -- invisible for one build and
@@ -1002,6 +1057,26 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                 _thin = [t for t in ev if t not in always and _illiquid(t, days[i])]
                 if _thin:
                     ev = [t for t in ev if t not in _thin]
+            # QUIET FLOOR, applied AFTER the liquidity gate and BEFORE the watchlist cull, so the
+            # cull ranks a pool that has already had its ballast removed. FAIL-OPEN on unknown
+            # volatility, the same convention _illiquid uses: no history is not evidence of quiet.
+            # The threshold is a quantile of THIS scan's pool, so it self-scales with the regime.
+            if _minvolq > 0 and _volsd is not None and len(ev) >= 5:
+                _sd = {}
+                for _t in ev:
+                    if _t in always or _t not in _volsd.columns:
+                        continue
+                    try:
+                        _x = _volsd[_t].asof(days[i])
+                    except Exception:  # noqa: BLE001
+                        continue
+                    if pd.notna(_x):
+                        _sd[_t] = float(_x)
+                if len(_sd) >= 5:
+                    _cut = float(pd.Series(_sd).quantile(_minvolq))
+                    _quiet = [t for t in ev if _sd.get(t, float("inf")) < _cut]
+                    if _quiet:
+                        ev = [t for t in ev if t not in _quiet]
             live_ev = list(ev)                                        # all live this week -> feeds the unfunded streak
             if max_watch and len(ev) > max_watch:
                 if picker is not None:
@@ -1057,6 +1132,46 @@ def backtest(scans: dict, fm: dict, capital: float = 50_000.0, daily: bool = Fal
                         if t in _res and t not in always and _prev_w.get(t, 0.0) <= 1e-9]
                 if _blk:
                     uni = [t for t in uni if t not in _blk]
+            # AN UNEXPLAINED VEHICLE MAY KEEP A POSITION BUT MAY NOT OPEN ONE (2026-09-10).
+            # Same shape as the resolved-entry gate above, and adopted for the same kind of reason:
+            # a name reaches the book carrying no `exposure.why`, so nothing anywhere says WHY it is
+            # connected to the catalyst funding it. Non-negotiable #1 licenses the LLM to judge the
+            # mechanism and nothing else, so a clause-less position has skipped the only judgement
+            # the design allows it to make.
+            # MEASURED ON v37 BEFORE BUILDING IT: 42 of 601 events drop the ticker their catalyst is
+            # about; in 26 the surviving peer is ALSO clause-less; 8 of those were funded. Three
+            # separate export-control events (ev2 about NVDA, ev39 about INTC, ev149 about MSFT) all
+            # collapsed onto AMD with no clause, funding it in 7 rebalances each. ev511's catalyst
+            # says "Nvidia WINS China sales" and the book held AVGO. ev597 put capital into BOIL, a
+            # 2x leveraged natural-gas ETF, on "the US-Iran conflict escalates" with nothing written
+            # down at all. 53 (event, ticker) pairs carry no clause.
+            # ANY live event suffices to explain a name -- see unexplained_from_journal -- so this
+            # blocks only what NOTHING explains, never a ticker that is clause-less on one event and
+            # argued on another.
+            # KEEP-BUT-NOT-OPEN, not a hard exclusion, because the clause can go missing on a single
+            # scan's entry while the thesis is intact, and churning out of a live position on one
+            # missing field would be the wide-gate mistake the resolved-entry note above records
+            # measuring at 0.887x.
+            # UNCONDITIONAL, not a profile knob: "every vehicle carries a why" is the design
+            # contract, not a preference, and a dial on it would only ever be set one way.
+            # IT IS INERT ON v37 AND THAT IS THE RESULT, not a disappointment. 22 unexplained
+            # (anchor, ticker) pairs exist -- ACHR/ev5, AMD/ev2, BITC/ev3, GS/ev12 and 18 more --
+            # and ZERO were funded at the anchor where nothing explained them. The book, final
+            # value, Sharpe and escalator count are byte-identical with the gate on and off.
+            # THE MEASUREMENT THAT MOTIVATED IT WAS WRONG, and the correction is the point. Counting
+            # PER EVENT said 8 funded positions had no mechanism; counting per (anchor, ticker) --
+            # which is what the book actually holds -- says none did. AMD is clause-less on three
+            # export-control events and argued on its own, and a position is explained if ANYTHING
+            # live explains it. The contract was being honoured; the audit's NO-CLAUSE flag is
+            # per-event and reads worse than the book is.
+            # KEPT ANYWAY, as a contract guard rather than a fix: it costs nothing while the
+            # invariant holds and it fires the first time a curation breaks it.
+            if unexplained:
+                _unex = unexplained.get(str(a.date())) or set()
+                _ublk = [t for t in uni
+                         if t in _unex and t not in always and _prev_w.get(t, 0.0) <= 1e-9]
+                if _ublk:
+                    uni = [t for t in uni if t not in _ublk]
             watch[a] = ev
             if seed_holdings and k == 0:
                 # THE FIRST REBALANCE IS THE HANDOVER, not an optimisation. A continuation book opens

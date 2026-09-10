@@ -180,6 +180,40 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
     L.append(f"  CATALYST  {e.get('catalyst','')}")
     L.append(f"  PENDING   {e.get('pending_next','')}")
 
+    # PENDING-DRIFT: `pending_next` names an act the CATALYST'S OWN PROCEDURE does not require.
+    # ADDED 2026-09-10, after auditing the 2026-07-26 scan showed EXIT-DRIFT was watching the wrong
+    # pair. The exit clause is written FROM pending_next and tracks it faithfully -- ev539's
+    # "exit if/when the SEC grants or refuses the Ethereum ETF filing" is a correct exit for its
+    # pending_next. The break is one step upstream, between the catalyst and pending_next, and
+    # that is where the prompt's own rule lives: "if the world simply carries on, does this next
+    # act HAVE to occur?" Examples this catches, all from v37:
+    #   ev48  Goldman starts Krystal Biotech at buy  ->  regulatory approvals for new indications
+    #   ev58  BlueFire reports 3,363% revenue increase  ->  NASDAQ uplisting
+    #   ev62  France encourages crypto; Circle registers  ->  the SEC decision on a Bitcoin ETF
+    # An analyst initiation obliges no approval, revenue growth obliges no uplisting, and a French
+    # registration obliges no US ETF ruling. 77 of 595 events (13%) share no stemmed token at all.
+    # IT IS NOISY, MEASURED: hand-judging all 6 hits on the 2026-09-10 playtest, FIVE were false
+    # positives and one was real. A good pending_next uses ANAPHORA -- "the deal closes", "the
+    # partnership leads to contracts" -- and so shares no content word with its catalyst by
+    # construction; two more were stemming splits (partner/partnerSHIP, expansion/expandS) and one
+    # named the drug ("retatrutide") where the catalyst gave the description ("triple-hormone
+    # obesity drug"). Read this flag as A PLACE TO LOOK, never as a defect count: 55 of 601 on v37
+    # is an upper bound and the true rate is plausibly nearer a tenth of that.
+    # THE ONE REAL HIT was worth the noise -- ev82, "NuScale Power wins engineering contract to
+    # advance SMR commercialization" -> "the EC investigation concludes" -- the scout copying the
+    # PROMPT'S WORKED EXAMPLE onto an unrelated catalyst. That case is now REJECTED AT THE DOOR by
+    # agent._copied_and_unrelated, which pairs this same unrelatedness test with "is it verbatim
+    # prompt prose", so it should stop appearing here in curations made after 2026-09-10.
+    # IT DOES NOT CATCH ev539, and that limit is the point of writing it down. Its catalyst
+    # ("Goldman's BITCOIN ETF filing") and its pending_next ("the SEC's decision on ETHEREUM ETF
+    # filing") share `filing` and `etf`, so any overlap test passes them. The defect there is a
+    # CONTRADICTED ENTITY -- two different assets of the same class -- not a missing overlap, and
+    # nothing here detects it. That was the only funded event of its scan, 23.8% of the book.
+    if e.get("pending_next") and e.get("catalyst"):
+        _cw, _pw = words(e.get("catalyst")), words(e.get("pending_next"))
+        if _pw and _cw and not (_pw & _cw):
+            flags.append("PENDING-DRIFT")
+
     # EXIT-DRIFT: the exit names a DIFFERENT occurrence than the catalyst that opened the event
     # (ev9: opened on an FDA label clearance, left waiting on reimbursement policy). Such an exit
     # cannot fire on its own catalyst, so the event can only ever die on a counter.

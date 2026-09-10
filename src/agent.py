@@ -20,6 +20,7 @@ targeted live search is clean only forward. All backtest numbers are upper bound
 """
 from __future__ import annotations
 
+import collections
 import json
 import re
 import sys
@@ -1961,7 +1962,28 @@ def _name_tokens(arts: list) -> tuple[set, set]:
     return out
 
 
-def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = None):
+def _cat_words(t) -> set:
+    """Stemmed content tokens of a catalyst or pending_next, for the copied-and-unrelated test.
+
+    Stems the nominalisations that a crude suffix strip misses and that produced false positives
+    when this was first measured: partner/partnerSHIP, expansion/expandS, investigates/investigATION.
+    Kept deliberately generous -- this set is used to EXCUSE a candidate, so over-stemming errs
+    toward admitting news, which is the direction this repo's knob rule prefers."""
+    out = set()
+    for w in re.findall(r"[a-z][a-z0-9'-]{2,}", str(t or "").lower()):
+        if w in _CATALYST_STOP or len(w) < 4:
+            continue
+        for suf in ("ationally", "ationals", "ational", "ations", "ation", "ships", "ship",
+                    "ances", "ance", "ing", "ies", "ed", "es", "s"):
+            if len(w) > len(suf) + 2 and w.endswith(suf):
+                w = w[: -len(suf)]
+                break
+        out.add(w[:5])
+    return out
+
+
+def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = None,
+                  min_score: int = 0, want_scores: bool = False):
     """The articles ONE event-agent re-reads this scan, BEST FIRST.
 
     Ranked, not merely truncated. This used to return `hits[:cap]` in pool order -- which the
@@ -2047,6 +2069,39 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
         if not (_vhit(hay) or any(k in hay for k in kws)):
             continue
         s = (3 if _vhit(title) else 0)
+        # THE FLAT +2 STAYS, and 2026-09-10 is the record of TRYING to fix it and failing.
+        # THE CASE AGAINST IT IS REAL. ev539 was the only funded event of the 2026-07-26 scan --
+        # BMNR at 23.8% of the book -- on "Citi custody and Goldman's Bitcoin ETF filing push crypto
+        # prices". `prices` and `filing` are catalyst keywords, so every "Oil Prices Jump..." headline
+        # scored +2: TWELVE of its 20 articles were Strait of Hormuz oil stories. Corpus-wide the
+        # commonest catalyst words are `announced` (188 of 601 events), `pending` (117), `decision`
+        # (53) -- connective tissue worth as much as "Retatrutide".
+        # THE FIX WAS BUILT AND MEASURED AND IT LOSES. Tiering the bonus by the word's DOCUMENT
+        # FREQUENCY over the pool's titles (+2 rare, +1 common) -- not a stoplist, not fitted to
+        # outcomes -- over 824 cited entries and 1,700 slices:
+        #   v2 (production)      cited retained 89.2%   slice precision 24.8%
+        #   v3 name matching     cited retained 86.0%   slice precision 30.1%
+        #   v4 DF-tiered         cited retained 82.2%   slice precision 31.8%
+        #   v3 + min_score 3     cited retained 82.9%   slice precision 34.7%
+        # v4 gives up 3.8 points of the evidence agents ACTUALLY CITED to buy 1.7 of a proxy. That is
+        # the same trade, landing on the same ~31% precision, that the v2 note above already refused
+        # once ("Dropping news to raise a precision number is the trade CLAUDE.md's knob rule exists
+        # to refuse"). Refused again. Reverted the day it was written.
+        # WHY IT CANNOT BE FIXED HERE, which is the useful part. Score distribution inside the
+        # top-20, with the citation yield of each tier:
+        #     score 6   5.6% of slots   11.5% of them cited     vehicle + keyword + gem
+        #     score 5  25.6%             7.6%                   vehicle + keyword
+        #     score 4   1.9%             4.9%
+        #     score 3  53.2%             1.0%                   vehicle in title, NO keyword
+        #     score 2  13.7%             0.9%                   keyword in title, NO vehicle
+        # The keyword is doing real work WHERE IT CO-OCCURS with a vehicle: score 5 yields 7.6x
+        # score 3. Generic words only hurt at score 2, which is 13.7% of slots and 3.6% of citations.
+        # So the RANKING is not the defect -- ev539's one genuinely on-topic article ranked top and
+        # was cited. The defect is that `cap` FILLS 20 slots whether or not 20 relevant articles
+        # exist, and pads with score-2/3 filler when they do not. That is an argument about the CAP,
+        # not the ranker, and `min_score` below is the lever for it -- left at 0, because every
+        # setting that shortens the slice also drops cited articles and only a re-curation can say
+        # whether the agent reasons better with less filler.
         s += (2 if any(k in title for k in kws) else 0)
         # canonicalise the tag before intersecting: `gem` holds the CONFIGURED names, the article
         # holds whatever it was tagged with when retrieved. Renaming three beats on 2026-08-24
@@ -2054,6 +2109,10 @@ def _filter_event(arts, event, cap: int = EVENT_NEWS_CAP, version: int | None = 
         s += (1 if gem & {_gkg_canon(q) for q in (a.get("queries") or [])} else 0)
         scored.append((-s, a.get("published_date", "") or "", a))
     scored.sort(key=lambda x: (x[0], [-ord(c) for c in x[1]]))   # score desc, then newest first
+    if min_score:
+        scored = [x for x in scored if -x[0] >= min_score]
+    if want_scores:
+        return [(-sc, a) for sc, _, a in (scored[:cap] if cap else scored)]
     hits = [a for _, _, a in scored]
     return hits[:cap] if cap else hits
 
@@ -2394,6 +2453,65 @@ def process_week(client, anchor, pool, events, retired, nid, week_idx,
     # A blank thesis is unusable downstream -- it becomes an event with no catalyst, writes NaN to
     # firehose_scans.csv, and can never be judged resolved. Drop it at the door.
     cands = [c for c in cands if str(c.get("thesis") or "").strip()]
+    # ...AND SO IS THE SCHEMA ECHOED BACK. The scout is shown a JSON template, and it sometimes
+    # returns the template's own placeholder text as the answer. Measured over the v37 journal:
+    #   `thesis`       2 of 601 events (ev299, ev540) -- "<=16 words: the catalyst EVENT, ..."
+    #   `pending_next` 5 of 601 (ev16, ev155, ev299, ev540, ev599) -- "the concrete thing still
+    #                  to happen, whose happening ends this thesis"
+    # Nothing checked, so all of them became live events. ev540 carried HP, OII and SLB for four
+    # scans on a catalyst that is a prompt instruction; its body was coherent (real Hormuz
+    # reasoning, a real exit clause, a milestone with two sources), so this is a field-population
+    # failure, not a reasoning one. It still poisons everything keyed off the STRING: _filter_event
+    # derives its keywords from the catalyst, so ev540's agent re-read articles matched on
+    # "catalyst", "subject" and "timing" and saw almost nothing about the Strait of Hormuz.
+    # names_occurrence CANNOT CATCH THIS and never will: the placeholder passes it True because the
+    # placeholder DESCRIBES an occurrence ("whose HAPPENING ends this thesis"). Any semantic gate
+    # has the same problem -- the template is a well-formed description of what it is asking for.
+    # So the test is IDENTITY, not meaning: an echoed placeholder is by construction a substring of
+    # SCOUT_SYSTEM. That cannot go stale when the schema is reworded, and it cannot false-positive
+    # on a real thesis unless a scout writes something already in the prompt verbatim.
+    # Normalised on whitespace and case; only fragments long enough to be distinctive are tested,
+    # since a short real phrase could coincidentally appear in the prompt's prose.
+    # THE HAYSTACK IS THE JSON TEMPLATE, NOT THE WHOLE PROMPT. Testing against all of
+    # SCOUT_SYSTEM also flags its WORKED EXAMPLES, which are prose and are meant to be imitated:
+    # ev16 copied '"the EC investigation concludes, no date announced" is a proper pending act'
+    # verbatim, and since its catalyst really was an EC investigation of NVIDIA, the copied text
+    # was CORRECT. Rejecting that would throw away a good event. Placeholders live inside the
+    # `{"candidates": ...}` block and examples live outside it, so the block is the right haystack
+    # -- still derived from the prompt (so it cannot go stale), just narrowed to the part no scout
+    # should ever be repeating.
+    _tpl = SCOUT_SYSTEM[SCOUT_SYSTEM.find('{"candidates"'):]
+    _tpl = " ".join(_tpl[:_tpl.find("}]}") + 3].split()).lower()
+    def _is_schema_echo(v) -> bool:
+        t = " ".join(str(v or "").split()).lower()
+        return len(t) >= 25 and bool(_tpl) and t in _tpl
+    # AND THE PROMPT'S WORKED EXAMPLES, but ONLY when they land on an unrelated catalyst.
+    # The prose carries illustrations meant to be imitated -- '"the EC investigation concludes, no
+    # date announced" is a proper pending act' -- and scouts copy them verbatim. Sometimes that is
+    # RIGHT: v37's ev16 copied that exact line onto "European Commission investigates NVIDIA's
+    # dominance in AI chips", where it is the correct pending act. Sometimes it is nonsense: the
+    # 2026-09-10 playtest produced ev82, "NuScale Power wins new engineering contract to advance
+    # small modular reactor commercialization" -> "the EC investigation concludes". Same copied
+    # string, opposite verdict, so neither test alone can separate them:
+    #   - copied-from-prose alone rejects ev16, throwing away a good event
+    #   - shares-no-word-with-its-catalyst alone is 83% false positives (measured by hand over the
+    #     playtest's 6 hits), because a good pending_next uses ANAPHORA -- "the deal closes", "the
+    #     partnership leads to contracts" -- and shares no content word by construction
+    # TOGETHER they are exact: copied text that is ALSO unrelated to the catalyst it was attached
+    # to. ev16 shares `investigat` with its catalyst and passes; ev82 shares nothing and is caught.
+    _prose = " ".join(SCOUT_SYSTEM.split()).lower()
+    def _copied_and_unrelated(c) -> bool:
+        pn = " ".join(str(c.get("pending_next") or "").split()).lower()
+        if len(pn) < 25 or pn not in _prose:
+            return False
+        return not (_cat_words(c.get("thesis")) & _cat_words(c.get("pending_next")))
+    _echo = [c for c in cands
+             if any(_is_schema_echo(c.get(f)) for f in ("thesis", "pending_next", "why_now"))
+             or _copied_and_unrelated(c)]
+    if _echo:
+        print(f"  scout: dropped {len(_echo)} candidate(s) echoing the prompt schema back as an "
+              f"answer: " + ", ".join(str(c.get("ticker")) for c in _echo), flush=True)
+        cands = [c for c in cands if c not in _echo]
     _freed = []
     def _distinct_from_holder(c) -> bool:
         """Does this proposal describe a DIFFERENT occurrence from the event already holding it?"""
