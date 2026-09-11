@@ -537,6 +537,29 @@ CANON_SWEEP = "data/sweep_cbt_3yr_v37_volq.json"         # 2026-09-10b, over the
                                       # before/after. The grid touches no CURATION knob, so SBT
                                       # still describes the one canonical curation.
 
+# --------------------------------------------------------------------------- the canonical config
+# THE THIRD INPUT. CLAUDE.md says a published dashboard describes ONE book and that book is a
+# function of corpus -> curation -> PROFILE. The first two are pinned above. The third was not
+# pinned anywhere, because investor_profile.backtest.md is gitignored (.gitignore:139) -- so the
+# settings that actually decide the book existed nowhere under version control except rendered
+# inside docs/*.html. "Declare this config canonical" had no home, and a profile edit could drift
+# away from the published pages with nothing to catch it. Recorded here 2026-09-11.
+# ONLY THE BOOK KNOBS. Curation knobs are already verified against the run's own stamp by verify();
+# these are the replay-time settings, which no stamp covers because they act after the journal.
+# check_canon compares the live profile against this and reports any difference. It WARNS rather
+# than fails: editing a knob and rebuilding is the normal loop, and the warning is there to make
+# sure the edit reaches the pages, not to forbid it. Update this line in the same commit that
+# publishes the pages it describes.
+CANON_BOOK = {
+    "max_watchlist": 20,             # 2026-09-11. Chosen on the REAL BOOK, not table 10's score:
+    "concentration_cap": 0.2,        #   $314,113 / 3.62x SPY / sharpe 1.48, 15 escalators across
+    "optimizer_lookback_days": 30,   #   12 months, 6 names held, largest position 20%. The config
+    "drop_unfunded_weeks": 4,        #   it replaced gave $282,063 / 3.25x / 1.51 with 11
+    "risk_aversion": 4.0,            #   escalators, 4 names and a 40% top position.
+    "min_vol_pctile": 0.2,           # SBT table 10 row 15, score 99.3, star lands exactly.
+    "min_dollar_volume_usd": 1_000_000,
+}
+
 # --------------------------------------------------------------------------- the knob partition
 # UPSTREAM of the journal. Changing any of these invalidates an existing curation.
 CURATION_KNOBS = frozenset({

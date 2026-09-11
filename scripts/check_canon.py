@@ -126,6 +126,30 @@ def main(argv=None) -> int:
         print(f"  {WARN} {len(v['unverifiable'])} knobs were never recorded by that run "
               f"and cannot be checked")
 
+    # THE THIRD INPUT. verify() above checks the CURATION knobs against the run's own stamp; nothing
+    # checked the BOOK knobs, because no stamp covers them -- they act at replay time, after the
+    # journal exists. And investor_profile.backtest.md is gitignored, so until 2026-09-11 the
+    # settings that decide the published book lived nowhere under version control. A profile edit
+    # could drift away from the pages it is supposed to describe with nothing to catch it.
+    # WARNS, DOES NOT FAIL. Editing a knob and rebuilding is the normal loop; this exists to make
+    # sure the edit reaches the pages and provenance.CANON_BOOK in the same commit, not to forbid
+    # the edit. It does not touch `bad`.
+    print("\nCANONICAL BOOK CONFIG")
+    _cb = getattr(P, "CANON_BOOK", None)
+    if not _cb:
+        print(f"  {WARN} provenance.CANON_BOOK is not defined -- the book config is unpinned")
+    else:
+        _drift = [(k, fm.get(k), w) for k, w in _cb.items() if fm.get(k) != w]
+        if not _drift:
+            print(f"  {OK} the live profile matches provenance.CANON_BOOK on all "
+                  f"{len(_cb)} book knobs")
+        else:
+            print(f"  {WARN} the live profile has drifted from provenance.CANON_BOOK "
+                  f"on {len(_drift)} knob(s) -- the published pages describe CANON_BOOK, "
+                  f"so either rebuild them or update that line:")
+            for k, got, want in _drift:
+                print(f"      {k}: profile {got!r}, CANON_BOOK {want!r}")
+
     # CODE DRIFT. curator_code_id() has stamped the scan-path digest on every run for weeks and
     # nothing compared it, so this file printed ALL CONSISTENT while both live curations had drifted
     # underneath it. Knobs are only half of "could this curation have been produced today".
