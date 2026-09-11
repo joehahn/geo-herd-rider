@@ -3603,5 +3603,6 @@ ev567  live  born 2026-08-25  1 scan(s)
     162  NO-CLAUSE
     162  NO-SCORE
      23  PEER-ARRIVAL
+     17  PENDING-DRIFT
      15  EXIT-DRIFT
       3  NOT-A-PARTY
