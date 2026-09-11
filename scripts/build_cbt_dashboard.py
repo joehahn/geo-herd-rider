@@ -537,8 +537,26 @@ def main(argv=None) -> int:
         # alphabetical. That was harmless while the prune kept live events under the cap, but live
         # events now run ~40 against 8 slots, so the cull fires every scan and was choosing by first
         # letter. src/picker.py ranks on the catalyst ARC (never conviction, never predicted return).
+        # GATED THE SAME WAY THE CURATION GATES IT (backtest_gdelt.py:388): `max_events AND
+        # picker_model`. It used to fire on picker_model ALONE, and that was three defects at once.
+        # 1. THE PAGE STOPPED REPLAYING ITS OWN CURATION. v37 ran with max_events 0, so no ranker
+        #    was ever constructed and its watchlist cull was pure trailing-Sharpe. The CBT then
+        #    applied an LLM picker at that same cull, so the published book was one the curator
+        #    never chose: $135,258 on the page against $282,063 for v37's actual configuration.
+        # 2. THE PAGE WAS NON-DETERMINISTIC. 53 picker calls per build means the same curation, the
+        #    same config and the same FROZEN panel can render different books on two consecutive
+        #    builds. That is exactly the failure panel.csv was frozen to eliminate ($272,336 on
+        #    2026-08-19 vs $112,435 on 2026-08-21, see the panel note below) -- reintroduced one
+        #    layer up, where freezing prices cannot reach it.
+        # 3. THE MODULE DOCSTRING SAID "Render-only: no LLM, no network" AND WAS FALSE. A page that
+        #    quietly spends API calls while claiming not to is worse than one that charges for them
+        #    openly: the 34-minute build on 2026-09-11 was blamed first on yfinance and then on
+        #    Dropbox before llm_costs.csv showed 53 picker calls.
+        # Note there is still no GHR_NO_PICKER escape hatch here, unlike the curation path. With the
+        # gate matching, a profile that ran the curation without a picker replays without one, so
+        # the hatch has nothing left to switch off.
         _pick = None
-        if _lfm0.get("picker_model"):
+        if int(_lfm0.get("max_events") or 0) and _lfm0.get("picker_model"):
             try:
                 import picker as _pk
                 _pick, _ = _pk.make_picker(_lfm0)
