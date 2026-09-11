@@ -148,6 +148,42 @@ def main(argv=None) -> int:
     import optimizer as _opt
     _fm = _opt.load_financial_model(str(ROOT / "investor_profile.backtest.md"))
     base = {k: (_fm.get(k) if _fm.get(k) is not None else S["base"].get(k)) for k in keys}
+    # SNAP A LIVE VALUE THAT IS NOT ON ITS AXIS TO THE NEAREST ONE THAT IS, and say so on the page.
+    # WHY THIS EXISTS: `_live` is a TUPLE of the profile's values, and every star and every amber
+    # live-region box on this page is looked up by that tuple. If ONE knob is off-grid the tuple
+    # matches no cell, and the star vanishes from table 10 AND from panels 2-9 AND the amber boxes
+    # disappear -- silently, with the page otherwise building fine. That happened on 2026-09-10:
+    # the grid was respaced to risk_aversion [0.5,1,2,4,8,12,16] while the profile sat at 10.0, and
+    # the published SBT had no star anywhere. Nothing warned; it was caught by eye.
+    # SNAP, DO NOT REFUSE. An off-grid live value is normal and often deliberate -- a knob moves
+    # between sweeps, and re-sweeping to re-draw a marker costs hours. Showing the nearest cell with
+    # a visible caveat is more useful than showing nothing, and far more useful than a page that
+    # looks complete and is quietly missing its most important mark.
+    # NUMERIC NEAREST, and ties go to the LOWER value so the choice is deterministic.
+    _snapped = []
+    for _k in keys:
+        _ax = S["grid"].get(_k) or []
+        if not _ax or base.get(_k) in _ax:
+            continue
+        try:
+            _near = min(_ax, key=lambda x: (abs(float(x) - float(base[_k])), float(x)))
+        except (TypeError, ValueError):
+            continue                      # non-numeric axis: leave it, the star just will not draw
+        _snapped.append((_k, base[_k], _near))
+        base[_k] = _near
+    if _snapped:
+        print("  LIVE CONFIG IS OFF-GRID -- the star is drawn at the nearest swept cell:", flush=True)
+        for _k, _was, _now in _snapped:
+            print(f"    {_k}: profile {_was} -> nearest swept {_now}", flush=True)
+    # The same sentence the build log prints, for the PAGE. A caveat only the operator sees is not
+    # a caveat -- whoever reads this page later is the one who needs to know the star is approximate.
+    _snap_note = ("" if not _snapped else
+                  "<br><br><b>Note: the live config is not entirely on this grid.</b> "
+                  + "; ".join(f"the profile has <code>{k}</code> = {w} and the nearest swept value "
+                              f"is {n}" for k, w, n in _snapped)
+                  + ". The star and its amber region are drawn at the nearest swept cell, so read "
+                    "them as approximate. Re-sweep with the profile's value on the axis before "
+                    "making a decision that turns on it.")
 
     def is_base(c):
         return all(c[k] == base[k] for k in keys)
@@ -1051,6 +1087,8 @@ def main(argv=None) -> int:
               f"({' &middot; '.join(str(x) for x in _best)}), which is what table 10 now ranks by "
               "worst member. The two sets are disjoint here &mdash; no cell belongs to both &mdash; "
               "so reaching the top of the grid is more than a one-knob move.<br><br>"
+              + _snap_note +
+              ""
               "<b>These are RAW per-config values.</b> Table 9 reports the median across each "
               "config\u2019s 22-cell neighbourhood, so a point here and its row there are not the "
               "same number. The raw cloud is kept on purpose: regional medians would shrink the "
