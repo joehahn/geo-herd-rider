@@ -425,7 +425,13 @@ def report() -> None:
     cap = float(fm.get("initial_investment_usd", 50_000))
     scans = _scans_dict(log)
     pk = None
-    if fm.get("picker_model"):                        # the weekly max_agents cull = the LLM agent-picker
+    # GATED ON `max_events AND picker_model`, matching backtest_gdelt.py:388 and the CBT. It used to
+    # fire on picker_model alone -- the same defect found in build_cbt_dashboard.py on 2026-09-11,
+    # where it made the published page apply an LLM picker its own curation never used, cost 53 API
+    # calls a build, and made a page that claimed "no LLM" non-deterministic. The forward path had
+    # the identical gate. With max_events 0 the curation constructs no ranker, so replaying with one
+    # would size the live book on a cull the curator never ran.
+    if int(fm.get("max_events") or 0) and fm.get("picker_model"):
         import picker                                  # noqa: PLC0415
         pk, pstats = picker.make_picker(fm)
     bt = firehose.backtest(scans, fm, cap, picker=pk)
