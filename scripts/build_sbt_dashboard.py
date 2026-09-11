@@ -759,6 +759,13 @@ def main(argv=None) -> int:
     # payload have them, but excluded from the percentile mean -- see the note above.
     _SHOW = ("final", "ann", "safe_park", "gain_pain", "slope_2h", "capital_hit",
              "edge", "cancelled", "max_drawdown",
+             # ESCALATOR CAPTURE, added 2026-09-10 at the user's request. SHOWN, NOT SCORED, and the
+             # distinction is the point: _MET is Sharpe + PCR-vs-SPY, so the ranking that orders
+             # these rows is BLIND to escalator capture -- the funnel this project is actually
+             # steered by. Putting the column here lets a reader see what the score cannot, and lets
+             # a knob that trades dollars for escalators (min_vol_pctile) be judged on the thing it
+             # was adopted for. Scoring on it would need the train/test bar set above for pcr_excess.
+             "esc", "esc_months",
              "pc_fund_med",  # scored until 2026-08-29; redundant once pcr_excess is in, see above
              "pcr",          # per-curation return -- see the PCR note above for why it does not vote
              )
@@ -823,6 +830,7 @@ def main(argv=None) -> int:
     def _rrow(t, tag):
         return [tag + " · ".join(str(x) for x in t),
                 f"{_score[t]:.1f}",
+                _pm(t, "esc", "{:.0f}"),
                 _pm(t, "final", "{:,.0f}"),
                 _pm(t, "ann", "{:.0f}") + "%",
                 _pm(t, "sharpe", "{:.2f}"),
@@ -853,12 +861,28 @@ def main(argv=None) -> int:
                     for r, c in zip(rows, cls))
         return f'<table class="cfg"><thead><tr>{h}</tr></thead><tbody>{b}</tbody></table>'
 
+    # Short label per swept knob, for the config column header. Anything not listed falls back to
+    # the grid key itself, so a NEW axis shows up with an ugly-but-correct name rather than silently
+    # shifting every other label one place to the left.
+    _SHORT = {"max_watchlist": "watch", "concentration_cap": "cap",
+              "lookback_period_days": "lookback", "optimizer_lookback_days": "lookback",
+              "drop_unfunded_weeks": "drop", "risk_aversion": "risk",
+              "min_vol_pctile": "quiet floor", "min_dollar_volume_usd": "min $vol",
+              "min_trade_size": "trade", "cull_rank": "cull"}
+    _cfg_hdr = "config &mdash; " + " &middot; ".join(_SHORT.get(k, k) for k in keys)
+
     reg_tbl = _ctable(
-        ["config &mdash; watch &middot; cap &middot; lookback &middot; drop "
-         "&middot; risk",                     # NO "&middot; trade": min_trade_size was pinned
-                                              # out of the grid and the label outlived it, so the
-                                              # header read six names over five values.
-         "score", "final (median &plusmn; SE)", "annualized", "sharpe",
+        [_cfg_hdr,                           # DERIVED FROM `keys`, never hand-written -- this
+                                              # label has gone stale TWICE. It read "... risk .
+                                              # trade" after min_trade_size was pinned out of the
+                                              # grid (six names over five values), and it was five
+                                              # names over SEVEN values the moment min_vol_pctile
+                                              # and min_dollar_volume_usd were added. A header that
+                                              # mislabels which number is which knob is worse than
+                                              # no header, and it cannot be kept in sync by hand.
+         "score",
+         "escalators funded",                 # NOT scored -- see the _SHOW note
+         "final (median &plusmn; SE)", "annualized", "sharpe",
          "2nd-half slope $/yr", "cancelled", "max DD",
          "gain/pain", "capital hit-rate", "edge $/exposure", "safe-park %",
          "pc-funded", "PCR", "PCR vs SPY"], _rows, _cls)
