@@ -39,6 +39,7 @@ import forward_engine
 import gkg                       # for _spam_title only: the forward pull filters to the BACKTEST's standard
 import forward_gather
 import forward_gather_tavily
+import search
 import llm
 import score
 import trace
@@ -378,6 +379,36 @@ def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False,
     _kept = [a for a in _pool if not gkg._spam_title(a.get("title") or "")]
     if len(_kept) != len(_pool):
         print(f"    spam-title filter: dropped {len(_pool) - len(_kept)} of {len(_pool)}")
+    # BACKFILL THE TEXT WE COULD NOT FETCH OURSELVES. The Anthropic half returns URLs and we fetch
+    # the body; that fetch is blocked by the very desks worth reading, so ~36% of Anthropic-only
+    # articles reached the curator as a bare headline (measured 2026-09-11: 281 of 770 since the
+    # ingest cap came off, led by benzinga 73, seekingalpha 57, yahoo 21 -- two of those three are in
+    # `specialty_allow`). Tavily's extract endpoint reads them; our fetch and Wayback both do not.
+    # See search.extract for the full measurement and the cost.
+    # AFTER the spam filter, so no credit is spent extracting an article about to be dropped.
+    # ONLY URLS PULLED IN THIS RUN, never `_prior` -- re-extracting an old URL would stamp today's
+    # version of a page onto a decision window that has already passed (#4). The 281 already on disk
+    # stay headline-only for that reason; they are not recoverable after the fact.
+    # SKIPPED ON A BACKFILL for the same reason: `--anchor` re-fetches a PAST day, so its URLs are
+    # not fresh and the live-fetch-is-point-in-time argument does not hold for them.
+    _thin = [a for a in _kept if not (a.get("snippet") or "").strip()]
+    if _thin and not _backfill:
+        try:
+            _got = search.extract([a.get("url") or "" for a in _thin])
+            _n = 0
+            for a in _thin:
+                _t = _got.get(a.get("url") or "")
+                if _t:
+                    a["snippet"] = _t
+                    a["text_source"] = "tavily-extract"   # provenance, so the page can say so
+                    _n += 1
+            if _n:
+                print(f"    text backfill: recovered {_n} of {len(_thin)} headline-only articles "
+                      f"via tavily extract")
+            else:
+                print(f"    text backfill: 0 of {len(_thin)} recovered")
+        except Exception as _e:  # noqa: BLE001 -- never a gate; headline-only is where they already were
+            print(f"    text backfill skipped ({type(_e).__name__}: {_e})", file=sys.stderr)
     _merged = forward_gather.merge_pools(_prior, _kept) if _prior else _kept
     _added = len(_merged) - len(_prior)
     cap["arts"] = _merged

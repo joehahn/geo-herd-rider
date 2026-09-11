@@ -119,6 +119,59 @@ def search(query: str, before_date: str | None = None, max_results: int = 5,
     return res[:max_results]
 
 
+EXTRACT_URL = "https://api.tavily.com/extract"
+_EXTRACT_BATCH = 20        # Tavily takes a list; batching keeps the credit count down
+
+
+def extract(urls: list[str], max_chars: int = 4000) -> dict[str, str]:
+    """{url: article text} for pages our own fetch cannot read. Returns {} without a key.
+
+    WHY THIS EXISTS. The Anthropic half of the daily pull returns URLs, and the TEXT behind them is
+    fetched by us (forward_gather._freeze) -- which is blocked by exactly the desks worth reading.
+    Measured 2026-09-11 over 1,599 articles since the ingest cap came off: 770 were Anthropic-only
+    and 281 of those (36%) reached the curator as a HEADLINE with no text, concentrated in
+    benzinga (73), seekingalpha (57), yahoo (21), investing (13), coindesk (12), bloomberg (12) --
+    and benzinga and seekingalpha are in `specialty_allow`, i.e. desks we deliberately steer TOWARD.
+    So the pull was finding the right articles and failing to read them.
+    EVERY CHEAPER PATH WAS TRIED FIRST AND FAILED, on the same 8 blocked URLs:
+      forward_gather._freeze (live fetch)  0 chars on 6 of 8
+      forward._freeze_text (live -> Wayback) recovered 1 of 8, and that one only 163 chars --
+        these articles are days old (Wayback lags) and the sites block its crawler too
+      Tavily /extract                      5 of 5, 819 to 69,471 chars, incl. benzinga and seekingalpha
+    COST is why this is affordable: extract is billed separately from search (extract_usage was 0
+    at adoption) and per BATCH of URLs, not per URL. ~17 empty articles/day is ~4 credits/day at
+    $0.008 -- under a dollar a month, against the $10.75 the search calls had already run up.
+    LOOK-AHEAD (#4): SAFE ONLY FOR A URL PULLED IN THE SAME RUN. Extracting now for an article
+    fetched now is point-in-time-correct -- the same argument forward._freeze_text already makes for
+    its live fetch. Re-extracting an OLD url is NOT: it returns today's version of a page that may
+    have been updated since the decision it would inform. Callers must pass only just-pulled URLs.
+    `max_chars` caps what we STORE, not what is fetched: coindesk returned 69,471 characters and
+    max_article_chars (what the curator reads of one article) is 800, so keeping the whole thing
+    would bloat every daily file for text nothing will ever read. 4,000 leaves generous headroom
+    over the read cap without storing a book -- and unlike the [:300] ingest cap this file's history
+    records, it sits well ABOVE the read cap rather than below it."""
+    key = os.environ.get("TAVILY_API_KEY")
+    if not key or not urls:
+        return {}
+    out: dict[str, str] = {}
+    for i in range(0, len(urls), _EXTRACT_BATCH):
+        chunk = [u for u in urls[i:i + _EXTRACT_BATCH] if u]
+        if not chunk:
+            continue
+        _pace()
+        try:
+            r = requests.post(EXTRACT_URL, json={"urls": chunk},
+                              headers={"Authorization": f"Bearer {key}"}, timeout=TIMEOUT * 3)
+            r.raise_for_status()
+            for res in (r.json().get("results") or []):
+                txt = (res.get("raw_content") or "").strip()
+                if txt:
+                    out[res.get("url", "")] = txt[:max_chars]
+        except Exception:  # noqa: BLE001 -- a failed extract leaves the article headline-only,
+            continue       # which is exactly where it already was. Never a gate on the pull.
+    return out
+
+
 def context(query: str, before_date: str | None = None, max_results: int = 5) -> str:
     """A prompt-ready background block from look-ahead-safe search, or "" if nothing found."""
     res = search(query, before_date, max_results)
