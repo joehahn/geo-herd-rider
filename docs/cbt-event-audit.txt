@@ -10742,6 +10742,7 @@ ev601  exited  born 2026-07-26  1 scan(s)
 601 event(s) shown of 601   flags:
     601  NO-SCORE
      97  PEER-ARRIVAL
+     55  PENDING-DRIFT
      51  EXIT-DRIFT
      41  SUBJECT-DROPPED
      39  NO-CLAUSE

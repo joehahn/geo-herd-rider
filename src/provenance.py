@@ -423,7 +423,35 @@ CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 
                                       # a re-scan, not a rebuild. Seed journal deliberately UNCHANGED
                                       # (cbt_3yr_v21_evscans12) so code is the only variable; that it
                                       # is not CANON_RUN is a separate open question.
-CANON_SWEEP = "data/sweep_cbt_3yr_v37_nocull.json"       # 2026-09-10, over the promoted v37.
+CANON_SWEEP = "data/sweep_cbt_3yr_v37_volq.json"         # 2026-09-10b, over the promoted v37.
+                                      # 52,920 cells, BOOK knobs only, replay over the frozen journal. 7.5 hours.
+                                      # TWO NEW AXES. min_vol_pctile, the quiet floor, added with the knob; and
+                                      # min_dollar_volume_usd, swept for the FIRST time -- it was pinned at $100k
+                                      # on 2026-08-31 and every sweep since held it there. It is in the grid
+                                      # because it is the knob min_vol_pctile most plausibly fights, and it does:
+                                      # the $1M floor costs ~2 escalators at every volatility setting, because it
+                                      # excludes the small caps escalators live in.
+                                      # AND A NEW PER-CELL COLUMN: `esc` / `esc_months`, escalator capture. SHOWN,
+                                      # NOT SCORED. Table 10 ranks on Sharpe + PCR-vs-SPY and structurally cannot
+                                      # see the funnel this project is steered by, so a knob that trades dollars
+                                      # for escalators was invisible to it. Adding it to the SCORE needs the
+                                      # train/test bar build_sbt_dashboard sets; that is a separate decision.
+                                      # READ ITS MARGINALS INSIDE A GOOD REGION. Across all 52,920 cells
+                                      # min_dollar_volume_usd $1M looks best ($103,301 vs $85,775); inside
+                                      # lookback 30 / drop 4 it is the worst option on escalators, money AND
+                                      # Sharpe. The whole-grid figure is carried by bad configs where liquidity
+                                      # compensates for other damage.
+                                      # GRID RESPACED (user, 2026-09-10): concentration_cap to even 0.2 steps with
+                                      # 0.10 ADDED -- the quiet floor only converts density into capture when the
+                                      # book is flat enough to hold names; risk_aversion to [0.5..16] with 4/8/12
+                                      # added to resolve the turn; max_watchlist 24 and risk_aversion 0.5 cut on a
+                                      # REDUNDANCY measurement (matched-cell median ratios 1.070 and 1.134), never
+                                      # on performance.
+                                      # NOTE THE GAP THIS OPENED: risk_aversion 10.0 is the PROFILE's value and is
+                                      # NOT in this grid -- the respacing dropped 5 and 10 for 4, 8 and 12. The
+                                      # canonical cell therefore has no row of its own here; its neighbours are 8
+                                      # and 12. Put 10 back, or move the profile, before the next promotion.
+                                      # PRIOR: sweep_cbt_3yr_v37_nocull.json, 5,880 cells, same journal.
                                       # 5,880 cells, BOOK knobs only, replay over the frozen journal.
                                       # THE risk_aversion AXIS WAS RESTORED for this sweep -- [0.0, 0.5, 1.0,
                                       # 2.0, 5.0, 10.0, 16.0]. An earlier trim had cut 0.5/1.0/2.0/3.0 as
