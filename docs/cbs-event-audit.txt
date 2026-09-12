@@ -4,7 +4,7 @@ ev435  exited  born 2025-11-28  6 scan(s)
   EXIT      exit if/when plant expansion completes or is abandoned   [no date (not a defect)]
   SUBJECT   KNTNF (the others are peers)
   VEHICLES
-    KNTNF   gains -- plant expansion lifts production capacity   [RESTATES]
+    KNTNF   gains -- plant expansion lifts production capacity
   SCORES    none   [NO-SCORE]
   ARC
     2025-11-28  live=True resolved=False  milestones 1  sources 1
@@ -27,7 +27,7 @@ ev436  live  born 2025-11-28  11 scan(s)
   EXIT      exit if/when FDA grants or refuses AMT-130 approval   [no date (not a defect)]
   SUBJECT   QURE (the others are peers)
   VEHICLES
-    QURE    gains -- awaits FDA decision on AMT-130 approval   [RESTATES]
+    QURE    gains -- awaits FDA decision on AMT-130 approval
   SCORES    none   [NO-SCORE]
   ARC
     2025-11-28  live=True resolved=False  milestones 1  sources 2
@@ -147,7 +147,7 @@ ev457  exited  born 2025-12-28  5 scan(s)
   EXIT      exit if/when the SambaNova acquisition closes or is abandoned   [no date (not a defect)]
   SUBJECT   INTC (the others are peers)
   VEHICLES
-    INTC    gains -- pending $1.6B SambaNova AI chip acquisition   [RESTATES; also in ev474,ev516]
+    INTC    gains -- pending $1.6B SambaNova AI chip acquisition   [also in ev474,ev516]
   SCORES    none   [NO-SCORE]
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 0
@@ -168,7 +168,7 @@ ev460  exited  born 2025-12-28  6 scan(s)
   EXIT      exit if/when regulatory approval for the merger is granted or denied   [no date (not a defect)]
   SUBJECT   DJT (the others are peers)
   VEHICLES
-    DJT     gains -- merger with TAE Technologies pending regulatory approval   [RESTATES]
+    DJT     gains -- merger with TAE Technologies pending regulatory approval
   SCORES    none   [NO-SCORE]
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 2
@@ -222,7 +222,7 @@ ev465  exited  born 2025-12-28  5 scan(s)
   EXIT      exit if/when gravity survey outcome at Turkey Lake is announced (positive or negative)   [no date (not a defect)]
   SUBJECT   FMST (the others are peers)
   VEHICLES
-    FMST    gains -- awaits gravity survey results at Turkey Lake project   [RESTATES]
+    FMST    gains -- awaits gravity survey results at Turkey Lake project
   SCORES    none   [NO-SCORE]
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 0
@@ -243,7 +243,7 @@ ev466  exited  born 2025-12-28  5 scan(s)
   EXIT      exit if/when FDA grants or refuses approval for Capricor's cell therapy   [no date (not a defect)]
   SUBJECT   CAPR (the others are peers)
   VEHICLES
-    CAPR    gains -- cell therapy awaiting FDA approval for DMD   [RESTATES]
+    CAPR    gains -- cell therapy awaiting FDA approval for DMD
   SCORES    none   [NO-SCORE]
   ARC
     2025-12-28  live=True resolved=False  milestones 1  sources 0
@@ -264,7 +264,7 @@ ev467  exited  born 2025-12-28  5 scan(s)
   EXIT      exit if/when SRx Health completes or abandons the EMJX acquisition   [no date (not a defect)]
   SUBJECT   SRXH (the others are peers)
   VEHICLES
-    SRXH    gains -- acquires EMJX for digital asset treasury system   [RESTATES]
+    SRXH    gains -- acquires EMJX for digital asset treasury system
   SCORES    none   [NO-SCORE]
   ARC
     2025-12-28  live=True resolved=False  milestones 0  sources 0
@@ -480,7 +480,7 @@ ev487  exited  born 2026-01-27  6 scan(s)
   EXIT      exit if/when the drone system becomes fully operational or deployment is cancelled   [no date (not a defect)]
   SUBJECT   CRML (the others are peers)
   VEHICLES
-    CRML    gains -- deploys autonomous drone system at Tanbreez project   [RESTATES; also in ev497]
+    CRML    gains -- deploys autonomous drone system at Tanbreez project   [also in ev497]
   SCORES    none   [NO-SCORE]
   ARC
     2026-01-27  live=True resolved=False  milestones 1  sources 1
@@ -667,7 +667,7 @@ ev501  exited  born 2026-02-26  5 scan(s)
   EXIT      exit if/when SEC approves or rejects Walmart's Q4 earnings guidance   [ok]
   SUBJECT   WMT (the others are peers)
   VEHICLES
-    WMT     gains -- awaits SEC clarity on fiscal Q4 earnings guidance   [RESTATES; also in ev499,ev525]
+    WMT     gains -- awaits SEC clarity on fiscal Q4 earnings guidance   [also in ev499,ev525]
   SCORES    none   [NO-SCORE]
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 0
@@ -711,7 +711,7 @@ ev504  exited  born 2026-02-26  5 scan(s)
   EXIT      exit if/when FDA grants or refuses approval for PAPZIMEOS   [no date (not a defect)]
   SUBJECT   PGEN (the others are peers)
   VEHICLES
-    PGEN    gains -- awaits FDA approval decision on PAPZIMEOS   [RESTATES]
+    PGEN    gains -- awaits FDA approval decision on PAPZIMEOS
   SCORES    none   [NO-SCORE]
   ARC
     2026-02-26  live=True resolved=False  milestones 0  sources 1
@@ -755,7 +755,7 @@ ev512  exited  born 2026-03-28  5 scan(s)
   EXIT      exit if/when the 20 HASTE launches are completed or cancelled   [no date (not a defect)]
   SUBJECT   RKLB (the others are peers)
   VEHICLES
-    RKLB    gains -- executes the $190M DoD HASTE contract launches   [RESTATES; also in ev479,ev534,ev553]
+    RKLB    gains -- executes the $190M DoD HASTE contract launches   [also in ev479,ev534,ev553]
   SCORES    none   [NO-SCORE]
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 0
@@ -863,7 +863,7 @@ ev520  exited  born 2026-03-28  6 scan(s)
   EXIT      exit if/when the tokenized stock/ETF offering launches or is cancelled   [no date (not a defect)]
   SUBJECT   NDAQ (the others are peers)
   VEHICLES
-    NDAQ    gains -- plans to offer tokenized stocks/ETFs via Kraken in 2027   [RESTATES]
+    NDAQ    gains -- plans to offer tokenized stocks/ETFs via Kraken in 2027
   SCORES    none   [NO-SCORE]
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 1
@@ -930,7 +930,7 @@ ev528  exited  born 2026-03-28  6 scan(s)
   EXIT      exit if/when orforglipron launches in Q2 2026 or launch is delayed/cancelled   [ok]
   SUBJECT   LLY (the others are peers)
   VEHICLES
-    LLY     gains -- oral obesity drug launch drives revenue   [RESTATES; also in ev597]
+    LLY     gains -- oral obesity drug launch drives revenue   [also in ev597]
   SCORES    none   [NO-SCORE]
   ARC
     2026-03-28  live=True resolved=False  milestones 1  sources 1
@@ -2493,11 +2493,11 @@ ev629  exited  born 2026-08-25  1 scan(s)
 ======================================================================
 136 event(s) shown of 136   flags:
     136  NO-SCORE
-     16  RESTATES
      13  PEER-ARRIVAL
      12  PENDING-DRIFT
      10  EXIT-DRIFT
       7  NO-CLAUSE
+      3  RESTATES
       3  NEVER-JUDGED
       2  SUBJECT-DROPPED
       1  NOT-A-PARTY

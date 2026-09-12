@@ -283,7 +283,21 @@ def render(eid, e, ctx, show_all_scans=False) -> tuple[str, list[str]]:
         if owner and owner[0] != tk and own and owner[0] != own.get("ticker"):
             marks.append(f"PEER-ARRIVAL off {owner[0]}")
             flags.append("PEER-ARRIVAL")
-        opener = own.get("ticker") if own else None
+        # THE OPENER, FROM THE JOURNAL WHEN THIS RUN DID NOT WITNESS THE BIRTH. `own` is recovered
+        # from THIS run's decisions.jsonl at the event's birth date -- which a SEEDED event does not
+        # have, because it was born in the run it was carried from. Without a fallback every
+        # single-name seeded event trips RESTATES for the unavoidable crime of its vehicle BEING its
+        # subject: if the catalyst is "X does Y" and the vehicle is X, the clause can only restate
+        # it, which is why the exemption exists at all.
+        # MEASURED ON cbs_v13, the first bootstrap seeded from a DIFFERENT run than the one audited:
+        # 43 of its 46 carried events have no birth record here, and RESTATES fired on 30% of them
+        # against 3% of the events this run did witness. Read off the summary that is 11.8% against
+        # v37's 1.5% -- an alarming 7.9x regression that is entirely an artefact of the audit.
+        # `opened_on` is the same fact from the journal (stamped since 2026-09-09) and survives the
+        # carry, so use it when the decisions row is missing.
+        # AN INFLATED FLAG IS WORSE THAN A MISSING ONE: it trains the reader to discount the flag
+        # entirely, which is the "cried wolf permanently" failure the NO-CLAUSE note already records.
+        opener = (own.get("ticker") if own else None) or e.get("opened_on")
         if body and tk != opener and _agent_restates(body, e.get("catalyst") or ""):
             marks.append("RESTATES"); flags.append("RESTATES")
         if not body:
