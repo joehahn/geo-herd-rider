@@ -391,7 +391,20 @@ def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False,
     # stay headline-only for that reason; they are not recoverable after the fact.
     # SKIPPED ON A BACKFILL for the same reason: `--anchor` re-fetches a PAST day, so its URLs are
     # not fresh and the live-fetch-is-point-in-time argument does not hold for them.
-    _thin = [a for a in _kept if not (a.get("snippet") or "").strip()]
+    # THIN, NOT JUST EMPTY. The first version of this backfill fired only on an EMPTY snippet, and
+    # that missed most of the loss. forward_gather._freeze does not fail loudly on a readable page --
+    # it extracts a LEDE, roughly 150 characters, and reports success. Measured over 799 Anthropic
+    # articles since the ingest cap came off: p25 124, median 150, p75 197. `max_article_chars` is
+    # 800, so a "successful" fetch was handing the curator under a fifth of the text it is willing
+    # to read, and never qualified for the backfill because the field was not blank.
+    # THE THRESHOLD IS THE READ CAP, halved. Below _THIN_CHARS an article cannot fill even half of
+    # what the curator would read, so extract is worth a credit; above it the marginal text is
+    # mostly unread anyway. Tied to max_article_chars rather than hard-coded, so the two cannot
+    # drift apart -- the [:300] ingest cap sitting BELOW the 800 read cap is exactly that bug, and
+    # this file's history records it twice.
+    _read_cap = int(load_financial_model(str(PROFILE)).get("max_article_chars") or 800)
+    _THIN_CHARS = max(200, _read_cap // 2)
+    _thin = [a for a in _kept if len((a.get("snippet") or "").strip()) < _THIN_CHARS]
     if _thin and not _backfill:
         try:
             _got = search.extract([a.get("url") or "" for a in _thin])
@@ -403,8 +416,8 @@ def pull_day(model: str, gather_engine: str = "both", scheduled: bool = False,
                     a["text_source"] = "tavily-extract"   # provenance, so the page can say so
                     _n += 1
             if _n:
-                print(f"    text backfill: recovered {_n} of {len(_thin)} headline-only articles "
-                      f"via tavily extract")
+                print(f"    text backfill: deepened {_n} of {len(_thin)} articles under "
+                      f"{_THIN_CHARS} chars via tavily extract")
             else:
                 print(f"    text backfill: 0 of {len(_thin)} recovered")
         except Exception as _e:  # noqa: BLE001 -- never a gate; headline-only is where they already were
