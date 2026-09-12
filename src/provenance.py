@@ -385,7 +385,31 @@ CANON_RUN = "data/cbt_3yr_v37_nocull"       # v34 -> v37 on 2026-09-10. NO EVENT
                                           # the scout back ~130 tickers it had been barred from
                                           # re-proposing, and those open more events than the cap
                                           # closes. Net +14% scans.
-CANON_BOOTSTRAP_RUN = "data/cbs_v12"   # the curation behind docs/cbs.html. v11 -> v12 on 2026-09-06,
+CANON_BOOTSTRAP_RUN = "data/cbs_v13"   # the curation behind docs/cbs.html.
+                                      # v12 -> v13 on 2026-09-12, RE-SEEDED from the promoted CANON_RUN
+                                      # (cbt_3yr_v37_nocull). v12 inherited its live theses from
+                                      # cbt_3yr_v27_catalyst, four promotions back, so the live book was again
+                                      # running gates that had since been replaced -- the same drift v11 and v10
+                                      # carried, recorded below. check_canon had been reporting it for days.
+                                      # SEED VERIFIED ON BOTH HALVES rather than assumed, because they are seeded
+                                      # at different times by different code and only one of them is in the log:
+                                      #   EVENTS, at curation time via --seed-journal: 47 events live at
+                                      #     2026-04-27 carried in, all 47 present in v37 with IDENTICAL catalyst
+                                      #     text, their 50 distinct vehicles matching v37's live-vehicle map at
+                                      #     that date exactly. nid=540, so new events cannot collide.
+                                      #   PORTFOLIO, at CBS BUILD time via _seed_w: v37's allocation at day zero,
+                                      #     replayed under investor_profile.backtest.md -- 6 positions, fully
+                                      #     invested: UCO 22.7 · USO 21.5 · AR 18.2 · OXY 17.9 · DINO 9.9 · CF 9.8.
+                                      #   Note those are different sets: 50 vehicles were LIVE, 6 held capital.
+                                      # THREE THINGS CHANGED AT ONCE and a comparison against v12 cannot separate
+                                      # them: the seed (v27 -> v37), the scan-path code (schema-echo guard,
+                                      # prompt-copy guard, peer-level retired check, opened_on, the agent gate
+                                      # fixes), and the CORPUS DEPTH -- v13 is the first bootstrap to read the
+                                      # text backfilled through tavily extract, which took headline-only from 18%
+                                      # to ~2%. If v13 looks better or worse, the mechanism has to say why; the
+                                      # counts cannot.
+                                      # 5 scans 2026-04-27 .. 2026-08-25, 15,962 articles, $12.91.
+                                      # PREVIOUS: data/cbs_v12. v11 -> v12 on 2026-09-06,
                                       # re-seeded from the promoted CANON_RUN (cbt_3yr_v27_catalyst):
                                       # v11 inherited its live theses from v25, so the live book was
                                       # running gates and prompts that had since been replaced. Also
