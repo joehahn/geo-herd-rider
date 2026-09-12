@@ -44,6 +44,14 @@ mkdir -p data/forward
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] pull-gap check"
   .venv/bin/python scripts/check_pull_gaps.py \
     || echo "[$(date '+%Y-%m-%d %H:%M:%S')] ^^ A DAY OF NEWS IS MISSING -- the pull is unrepeatable, recover it above"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] pull-depth check"
+  # THE SIBLING OF THE GAP CHECK. check_pull_gaps asks whether a day is MISSING; this asks whether it
+  # arrived EMPTY-ISH, which is the failure it cannot see. On 2026-09-08 Tavily's median article fell
+  # 1,083 -> 316 chars, the gap check reported the sequence complete and exited 0, and the thin window
+  # went unnoticed for three days. Per engine, never blended -- the two differ ~7.8x and their mix
+  # moves daily, so a blended threshold fires on Tuesdays and misses real outages.
+  .venv/bin/python scripts/check_pull_depth.py \
+    || echo "[$(date '+%Y-%m-%d %H:%M:%S')] ^^ THE PULL IS THIN -- present but short on text. Do not trust a curation run on this window until it recovers."
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup start"
   .venv/bin/python scripts/backup_daily.py \
     || echo "[$(date '+%Y-%m-%d %H:%M:%S')] daily backup reported a problem (tolerated)"
