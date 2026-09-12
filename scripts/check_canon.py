@@ -181,9 +181,23 @@ def main(argv=None) -> int:
         print(f"  {WARN} investor_profile.forward.md not readable -- the pair cannot be checked")
     else:
         _keys = sorted((set(fm) | set(_fwd)) - _RETRIEVAL_ONLY)
-        _out = [(k, fm.get(k), _fwd.get(k)) for k in _keys if fm.get(k) != _fwd.get(k)]
+        _all = [(k, fm.get(k), _fwd.get(k)) for k in _keys if fm.get(k) != _fwd.get(k)]
+        _acc = getattr(P, "ACCEPTED_PROFILE_DIVERGENCE", {}) or {}
+        _out = [d for d in _all if d[0] not in _acc]
+        _declared = [d for d in _all if d[0] in _acc]
+        for k, bv, fv in _declared:
+            print(f"  {OK} {k}: backtest {bv!r}, forward {fv!r} -- DECLARED: {_acc[k]}")
+        # A DECLARATION FOR A KNOB THAT NO LONGER DIVERGES has outlived its reason and is silencing
+        # a check for nothing. That is how a finished experiment swallows the NEXT real drift on the
+        # same knob: revert the value, forget the line, and the pair check stays quiet forever.
+        _stale = [k for k in _acc if k not in {d[0] for d in _all}]
+        for k in _stale:
+            print(f"  {WARN} {k} is declared in ACCEPTED_PROFILE_DIVERGENCE but the two profiles "
+                  f"AGREE on it. The declaration has outlived its reason -- delete it, or the next "
+                  f"real divergence on this knob will be accepted silently.")
         if not _out:
-            print(f"  {OK} the two profiles agree on all {len(_keys)} strategy knobs")
+            print(f"  {OK} the two profiles agree on all {len(_keys)} strategy knobs"
+                  + (f" ({len(_declared)} declared divergence(s) above)" if _declared else ""))
         else:
             print(f"  {WARN} {len(_out)} strategy knob(s) differ between .backtest and .forward. "
                   f"CLAUDE.md requires these synced so the backtest proxies the live book; "

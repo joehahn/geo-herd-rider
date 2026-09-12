@@ -815,6 +815,25 @@ CURATION_CRITICAL = ("src/agent.py", "src/org_tagger.py")
 # Drift that has been LOOKED AT and accepted, per run, with the reason. Anything not listed here is
 # reported as unreviewed. This is an explicit decision with a paper trail, not a suppression: the
 # entry has to say WHY the journal is still trustworthy under the new code.
+# --------------------------------------------------------------- deliberate profile divergence
+# CLAUDE.md requires the STRATEGY knobs synced across investor_profile.backtest.md and
+# investor_profile.forward.md, so the backtest stays a valid proxy for the live book. Sometimes they
+# are deliberately apart for a while -- setting rebalance_period weekly in .forward to test a
+# cadence, then putting it back. Without somewhere to say so, that legitimate state is
+# INDISTINGUISHABLE from the failure the pair check exists for: on 2026-09-11 min_vol_pctile had no
+# line at all in .forward, fell through to its default, and ran silently OFF in the live book. Both
+# render as one warning line.
+# SAME SHAPE AS ACCEPTED_CODE_DRIFT BELOW, deliberately: declare it, say WHY and WHEN, and the check
+# goes quiet until the declaration is removed. The value is a sentence, not a flag, because the
+# sentence is the point -- a reason nobody could write is a divergence nobody should have.
+# A STALE ACCEPTANCE IS ITSELF REPORTED. If a knob is declared here and the two profiles AGREE on
+# it, the declaration has outlived its reason and is suppressing a check for nothing -- which is
+# exactly how a finished experiment silently swallows the next real drift on that knob.
+ACCEPTED_PROFILE_DIVERGENCE: dict[str, str] = {
+    # "rebalance_period": "WEEKLY in .forward from 2026-09-14 to test cadence against the monthly "
+    #                     "backtest. Revert to monthly when done, and delete this line.",
+}
+
 ACCEPTED_CODE_DRIFT: dict[str, dict[str, str]] = {
     "data/cbt_3yr_v28_exposure": {
         "src/agent.py":
