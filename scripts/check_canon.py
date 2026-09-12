@@ -150,6 +150,55 @@ def main(argv=None) -> int:
             for k, got, want in _drift:
                 print(f"      {k}: profile {got!r}, CANON_BOOK {want!r}")
 
+    # THE TWO PROFILES AGAINST EACH OTHER. CANON_BOOK above pins the backtest profile; nothing
+    # compared it to the FORWARD one, and CLAUDE.md requires the STRATEGY knobs synced so the
+    # backtest stays a valid proxy for the live book. On 2026-09-11 that gap bit: min_vol_pctile had
+    # been added to .backtest at 0.2 and had NO LINE AT ALL in .forward, so it fell through to its
+    # default of 0.0 and the quiet floor was silently OFF live. A missing knob is invisible -- it
+    # reads as "not set" rather than "out of sync" -- which is exactly why this compares the loaded
+    # values rather than the file text.
+    # RETRIEVAL-OPERATIONAL KNOBS ARE EXEMPT, per CLAUDE.md, and each for a reason worth keeping:
+    #   gather_model        forward-only by design; inert in the backtest
+    #   org_tagger_model    GKG articles arrive pre-tagged, websearch articles do not
+    #   news_lookback_days  the backtest reads a window, the forward accumulates daily pulls
+    # WARNS, DOES NOT FAIL: promoting a candidate is a dated re-freeze the operator performs, and a
+    # profile mid-edit is a normal state. This exists so the edit is not FORGOTTEN.
+    print("\nPROFILE PAIR (backtest vs forward)")
+    _RETRIEVAL_ONLY = {"gather_model", "org_tagger_model", "news_lookback_days", "news_cap",
+                       "retrieval_engine", "event_news_cap", "scout_articles_per_call",
+                       "max_article_chars", "min_bundle_articles", "relevance_filter",
+                       "relevance_keep", "discovery_filter", "group_by_ticker"}
+    try:
+        _fwd = P.optimizer.load_financial_model(str(ROOT / "investor_profile.forward.md")) \
+            if hasattr(P, "optimizer") else None
+    except Exception:  # noqa: BLE001
+        _fwd = None
+    if _fwd is None:
+        import optimizer as _opt_pair
+        _fp = ROOT / "investor_profile.forward.md"
+        _fwd = _opt_pair.load_financial_model(str(_fp)) if _fp.exists() else {}
+    if not _fwd:
+        print(f"  {WARN} investor_profile.forward.md not readable -- the pair cannot be checked")
+    else:
+        _keys = sorted((set(fm) | set(_fwd)) - _RETRIEVAL_ONLY)
+        _out = [(k, fm.get(k), _fwd.get(k)) for k in _keys if fm.get(k) != _fwd.get(k)]
+        if not _out:
+            print(f"  {OK} the two profiles agree on all {len(_keys)} strategy knobs")
+        else:
+            print(f"  {WARN} {len(_out)} strategy knob(s) differ between .backtest and .forward. "
+                  f"CLAUDE.md requires these synced so the backtest proxies the live book; "
+                  f"promoting is a dated re-freeze:")
+            # ABSENT vs EXPLICITLY-DEFAULTED, read off the FILE not the loaded dict.
+            # load_financial_model fills defaults, so a knob with no line reads identically to one
+            # deliberately set to its default value -- and "no line" is the exact signature of the
+            # min_vol_pctile failure this check exists for. Only the raw text can tell them apart.
+            _ftxt = (ROOT / "investor_profile.forward.md").read_text()
+            for k, bv, fv in _out:
+                _has_line = bool(re.search(rf"^{re.escape(k)}\s*:", _ftxt, re.M))
+                _miss = "" if _has_line else (" <- NO LINE in .forward: it is running the DEFAULT, "
+                                              "which reads as 'not set' rather than 'out of sync'")
+                print(f"      {k}: backtest {bv!r}, forward {fv!r}{_miss}")
+
     # CODE DRIFT. curator_code_id() has stamped the scan-path digest on every run for weeks and
     # nothing compared it, so this file printed ALL CONSISTENT while both live curations had drifted
     # underneath it. Knobs are only half of "could this curation have been produced today".
