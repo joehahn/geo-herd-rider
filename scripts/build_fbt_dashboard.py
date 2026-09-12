@@ -500,6 +500,29 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
         _pre_days, _post_days = collections.Counter(), collections.Counter()
         _chars = {"pre": [], "post": []}
         _clen = collections.defaultdict(list)      # per-day scout-visible text lengths
+        # PER-ENGINE TOO, because the blended median is not a property of the news. The two
+        # post-handoff engines differ 7.8x in how much text they deliver -- Anthropic 150 chars
+        # median, Tavily 1,168, measured 2026-09-11 over 1,599 articles -- so a day's blended
+        # median moves with the MIX, not with article length. That is not hypothetical: read as one
+        # line, this panel says weekends carry shorter articles. They do not. Per engine, length is
+        # FLAT across every weekday (Anthropic 147-158, Tavily 1,135-1,246); what changes is that
+        # `_ANTHROPIC_LOOKBACK = 7` spreads Anthropic's articles over the following week, so less of
+        # its short-text backlog lands on Sat/Sun. Weekend articles are LONGER on average (952 vs
+        # 383), the opposite of what the single line implies.
+        # THE ENGINE IS READ, NOT INFERRED. bootstrap_corpus.load() already stamps `engine` --
+        # anthropic / tavily / both, with None for the GKG era -- alongside `era` and `pull_date`.
+        # A first version of this panel inferred it from a `before:` marker in the query, on the
+        # grounds that only Anthropic's gather is told to add one (forward_gather.py:192). That was
+        # wrong twice: load() NORMALISES queries (the raw form is kept separately in
+        # `queries_raw`), so the marker is gone by the time this code sees an article -- and the
+        # result was silent, not an error. Every article fell into one bucket and the page drew a
+        # line labelled "tavily only" that was actually the blend. A mislabelled series is worse
+        # than no series, so read the field.
+        _clen_eng = collections.defaultdict(list)
+
+        def _engine_of(a: dict) -> str:
+            return str(a.get("engine") or "gkg")
+
         for _a in arts:
             _d = (_a.get("published_date") or "")[:10]
             if not _d:
@@ -520,6 +543,7 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             _n = len(_lede.scout_text(_a))
             if _n:
                 _clen[_d].append(_n)
+                _clen_eng[(_d, _engine_of(_a))].append(_n)
                 _chars["pre" if _d < _H else "post"].append(_n)
         _days = sorted(_by_day)
         # calendar-complete axis: a MISSING day must draw as a hole, not be skipped. Two days were
@@ -579,6 +603,14 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
                     "n": len(v), "cap": round(sum(1 for x in v if x == _mode) / len(v), 3),
                     "mode": _mode}
         _cd = [(d, _dstat(_clen.get(d) or [])) for d in _cal]
+        # `both` (a URL found by BOTH engines) is folded into tavily: merge_pools keeps whichever
+        # copy actually has text and Tavily is the one that reliably does, so a `both` article
+        # carries Tavily's body. 42 of 4,024 post-handoff articles.
+        for (_d, _e), _v in list(_clen_eng.items()):
+            if _e == "both":
+                _clen_eng[(_d, "tavily")].extend(_v)
+        _cd_eng = {e: [(d, _dstat(_clen_eng.get((d, e)) or [])) for d in _cal]
+                   for e in ("anthropic", "tavily")}
         _chars_day = {
             "cal":  [d for d, r in _cd if r],
             "med":  [r["med"] for _d, r in _cd if r],
@@ -587,6 +619,11 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
             "n":    [r["n"] for _d, r in _cd if r],
             "cap":  [r["cap"] for _d, r in _cd if r],
             "mode": [r["mode"] for _d, r in _cd if r],
+            # the two post-handoff engines, drawn as their own lines so the blend cannot be
+            # misread as a property of the news
+            "eng": {e: {"cal": [d for d, r in v if r], "med": [r["med"] for _d, r in v if r],
+                        "n": [r["n"] for _d, r in v if r]}
+                    for e, v in _cd_eng.items()},
         }
         # ---- ORG TAGGER: three questions, one payload -----------------------------------------
         # Websearch articles arrive with no `orgs`, so the tagger fills them and company bundling
@@ -1231,7 +1268,15 @@ def build(run: Path, out: Path, bootstrap: bool = False) -> None:
               "day is one where the band collapses onto the line. The GKG era runs at a median of "
               f"<b>{era['chars_pre'].get('med','?')}</b> characters, and after we removed that cap on "
               "2026-08-24 the websearch era runs at <b>900</b>. Headline-only articles are left out, "
-              "since counting their zero would describe neither population.",
+              "since counting their zero would describe neither population. "
+              "<b>Read the two dotted engine lines, not the solid blend.</b> After the handoff this "
+              "corpus is fed by two engines that differ ~7.8&times; in how much text they deliver &mdash; "
+              "Anthropic returns URLs and we fetch the body ourselves, which the best desks block; "
+              "Tavily returns the body. Neither varies by weekday, so the solid line&rsquo;s weekly "
+              "sawtooth is engine MIX, not shorter weekend news: the Anthropic pass looks back seven "
+              "days, so less of its short-text backlog lands on a Saturday. Weekend articles are "
+              "actually longer on average (952 vs 383). A real depth problem shows up as ONE engine "
+              "line falling.",
               "p-chars", 400),
         panel_rec("Org tagging, per day",
               "Websearch articles arrive with no company tags, so we add them each morning after the "
@@ -1751,6 +1796,21 @@ function draw() {{
               + '(middle half %{{customdata[3]}}\u2013%{{customdata[4]}})<br>'
               + '%{{customdata[0]}} articles<br>'
               + '%{{customdata[1]}}% sit exactly on %{{customdata[2]}} chars<extra></extra>'}},
+          // THE TWO ENGINES, drawn separately. The blended median above moves with the MIX of these
+          // two, not with article length -- they differ ~7.8x and neither varies by weekday -- so
+          // without these lines the blend reads as a property of the news and is not one.
+          ...(C.eng && C.eng.tavily && C.eng.tavily.cal.length ? [{{
+            type:'scatter', name:'tavily only', x:C.eng.tavily.cal, y:C.eng.tavily.med,
+            mode:'lines', line:{{color:ST.good, width:1.3, dash:'dot'}},
+            customdata:C.eng.tavily.n,
+            hovertemplate:'%{{x}}<br>tavily median <b>%{{y}}</b> chars'
+              + '<br>%{{customdata}} articles<extra></extra>'}}] : []),
+          ...(C.eng && C.eng.anthropic && C.eng.anthropic.cal.length ? [{{
+            type:'scatter', name:'anthropic only', x:C.eng.anthropic.cal, y:C.eng.anthropic.med,
+            mode:'lines', line:{{color:ST.warning, width:1.3, dash:'dot'}},
+            customdata:C.eng.anthropic.n,
+            hovertemplate:'%{{x}}<br>anthropic median <b>%{{y}}</b> chars'
+              + '<br>%{{customdata}} articles<extra></extra>'}}] : []),
           // the ceiling strip: only days where a single length dominates are worth ink
           {{type:'scatter', name:'share pinned to one length', x:C.cal, y:C.cal.map(() => 0),
             mode:'markers', yaxis:'y2',
